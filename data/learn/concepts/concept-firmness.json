@@ -12,7 +12,7 @@
   "how_evaluated": "There is no single industry-standard firmness test. Common methods include penetrometers or compression-index instruments reporting force in grams per millimeter of deflection, proprietary instrument readings such as FirmTech, and ordinal (soft/medium/firm) descriptors used in plant variety examination reports. Sensory panels also rate firmness by feel and bite, separate from any instrument reading.",
   "what_affects_it": "Genetics set the ceiling, but firmness at retail is also shaped by harvest maturity, time and temperature between harvest and cold storage, handling during packing, and how long the fruit sits in the supply chain before it is evaluated or sold.",
   "how_to_interpret": "Firmness claims may describe sensory texture, an instrument's physical-resistance reading, handling/shipping performance, or postharvest condition at a particular point in the supply chain -- and different measurement methods are not directly comparable to one another. Before treating two firmness observations as comparable, check whether they came from the same kind of source (an owner's marketing claim vs. an independent trial vs. a plant-variety examination report) and, where stated, the same measurement method.",
-  "related_concept_ids": ["concept-shelf-life", "concept-texture"],
+  "related_concept_ids": ["concept-shelf-life", "concept-texture", "concept-harvest-methods"],
   "sources": [
     {
       "publisher": "Berry Intelligence OS internal trait vocabulary",

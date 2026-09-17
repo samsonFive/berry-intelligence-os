@@ -12,10 +12,13 @@ from app.main import app
 client = TestClient(app)
 
 
-def test_home_renders_sample_evidence() -> None:
+def test_home_opens_news_without_fictional_seed_reporting() -> None:
     response = client.get("/")
     assert response.status_code == 200
-    assert "Example breeder announces" in response.text
+    assert response.url.path == "/today"
+    assert "Daily Intelligence Briefing" in response.text
+    assert "Publication date drives recency" in response.text
+    assert "Example breeder announces" not in response.text
 
 
 def test_feed_api_returns_published_records() -> None:
@@ -59,6 +62,8 @@ def test_public_intelligence_pages_use_compact_bluf_tables() -> None:
     assert "Bottom line" in signal_page
     assert "Decision test" in signal_page
     assert 'class="brief-table evidence-link-table"' in signal_page
+    assert "Published / captured" in signal_page
+    assert "Published / captured" in entity_page
 
 
 def test_evidence_detail_404_for_unknown_id() -> None:
@@ -71,7 +76,7 @@ def test_company_entity_page_renders() -> None:
     assert response.status_code == 200
     assert "Example Genetics" in response.text
     assert "Example breeder announces" in response.text
-    assert "Recent intelligence" in response.text
+    assert "Latest captured reporting" in response.text
     assert 'href="/intelligence/ev-sample-variety-launch"' in response.text
     assert 'href="/review/ev-sample-variety-launch"' not in response.text
 
@@ -155,7 +160,7 @@ def test_feed_filters_by_geography() -> None:
 
 
 def test_feed_page_renders_competitor_and_geography_filter_options() -> None:
-    response = client.get("/")
+    response = client.get("/?view=archive")
     assert response.status_code == 200
     assert "Competitor" in response.text
     assert "Geography" in response.text
@@ -998,6 +1003,9 @@ def test_evidence_validate_and_purge_honor_redirect_to_review(monkeypatch, tmp_p
     assert validated.status_code == 303
     assert validated.headers["location"] == "/review"
 
+    # A distinct second source item makes this redirect test independent of
+    # the clock resolution used by generated evidence IDs.
+    monkeypatch.setattr(main.httpx, "get", lambda *a, **k: _FakeResponse(FAKE_RSS.replace(b"fictional-headline", b"another-headline")))
     main.check_source(source, set())
     other_id = [r["id"] for r in client.get("/api/feed").json() if r["id"] != record_id][0]
     purged = client.post(
@@ -1701,7 +1709,7 @@ def test_feed_shows_linked_geography_tags_and_suppresses_redundant_summary(monke
         }
     )
 
-    response = client.get("/")
+    response = client.get("/?view=archive")
 
     assert "Peru" in response.text
     assert "auto-tagged, unverified" in response.text

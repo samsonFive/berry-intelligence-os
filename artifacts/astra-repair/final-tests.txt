@@ -1,0 +1,90 @@
+....F................................................................... [  2%]
+........................................................................ [  5%]
+........................................................................ [  8%]
+........................................................................ [ 10%]
+...................F.................................................... [ 13%]
+........................................................................ [ 16%]
+........................................................................ [ 19%]
+........................................................................ [ 21%]
+........................................................................ [ 24%]
+........................................................................ [ 27%]
+........................................................................ [ 30%]
+........................................................................ [ 32%]
+........................................................................ [ 35%]
+........................................................................ [ 38%]
+........................................................................ [ 40%]
+........................................................................ [ 43%]
+........................................................................ [ 46%]
+........................................................................ [ 49%]
+........................................................................ [ 51%]
+........................................................................ [ 54%]
+........................................................................ [ 57%]
+........................................................................ [ 60%]
+........................................................................ [ 62%]
+........................................................................ [ 65%]
+............F........................................................... [ 68%]
+........................................................................ [ 70%]
+........................................................................ [ 73%]
+........................................................................ [ 76%]
+........................................................................ [ 79%]
+........................................................................ [ 81%]
+..................F..................................................... [ 84%]
+........................................................................ [ 87%]
+.............................................................F.......... [ 90%]
+........................................................................ [ 92%]
+........................................................................ [ 95%]
+........................................................................ [ 98%]
+...............................................                          [100%]
+================================== FAILURES ===================================
+__ test_export_round_trips_all_supported_content_through_fresh_repositories ___
+tests\exports\test_intelligence_package.py:83: in test_export_round_trips_all_supported_content_through_fresh_repositories
+    assert imported == canonical_records(expected)
+E   AssertionError: assert {'entities': ....}, ...], ...} == {'entities': ....}, ...], ...}
+E     
+E     Omitting 8 identical items, use -vv to show
+E     Differing items:
+E     {'entities': [{'aliases': ['Rubus fruticosus aggregate', 'Rubus subgenus Rubus', 'mora', 'mora nera', 'm�re'], 'attrib... 'description': 'Agrovision consumer blueberry brand used in the Chinese market, also rendered Mei Yi Li.', ...}, ...]} != {'entities': [{'id': 'berry-blackberry', 'record_type': 'entity', 'entity_type': 'berry', 'name': 'Blackberry', ...}, ...rands', ...}, {'id': 'brand-big-skye', 'record_type': 'entity', 'entity_type': 'brand', 'name': 'Big Skye', ...}, ...]}
+E     Use -v to get more diff
+______________________ test_company_entity_page_renders _______________________
+tests\test_app.py:76: in test_company_entity_page_renders
+    assert "Recent intelligence" in response.text
+E   assert 'Recent intelligence' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' = <Response [200 OK]>.text
+________ test_live_entity_page_opens_recent_intelligence_in_the_reader ________
+tests\test_recent_intelligence.py:166: in test_live_entity_page_opens_recent_intelligence_in_the_reader
+    assert "Recent intelligence" in page.text
+E   assert 'Recent intelligence' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' = <Response [200 OK]>.text
+_________________ test_reports_empty_has_primary_build_action _________________
+tests\test_stakeholder_frontend_v1.py:111: in test_reports_empty_has_primary_build_action
+    assert "Blueberry genetics in Europe" in page.text
+E   assert 'Blueberry genetics in Europe' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' = <Response [200 OK]>.text
+_________________ test_company_profile_is_v2_and_multi_berry __________________
+tests\test_ui_v2_shell.py:219: in test_company_profile_is_v2_and_multi_berry
+    assert "Recent intelligence" in html
+E   assert 'Recent intelligence' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>'
+============================== warnings summary ===============================
+..\berry-intelligence-os\.venv\Lib\site-packages\reportlab\lib\rl_safe_eval.py:12
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\reportlab\lib\rl_safe_eval.py:12: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    haveNameConstant = hasattr(ast,'NameConstant')
+
+tests/test_app.py: 144 warnings
+tests/test_archive_source_discovery_onboarding.py: 20 warnings
+tests/test_article_ingestion_pipeline.py: 26 warnings
+tests/test_article_refresh.py: 52 warnings
+tests/test_industry_pulse_discovery_v1.py: 3196 warnings
+tests/test_media_discovery.py: 268 warnings
+tests/test_media_discovery_source_expansion.py: 74 warnings
+tests/test_youtube_source_portability.py: 16 warnings
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\feedparser\html.py:152: DeprecationWarning: 'count' is passed as positional argument
+    data = re.sub(r'<!((?!DOCTYPE|--|\[))', r'&lt;!\1', data, re.IGNORECASE)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/exports/test_intelligence_package.py::test_export_round_trips_all_supported_content_through_fresh_repositories
+FAILED tests/test_app.py::test_company_entity_page_renders - assert 'Recent i...
+FAILED tests/test_recent_intelligence.py::test_live_entity_page_opens_recent_intelligence_in_the_reader
+FAILED tests/test_stakeholder_frontend_v1.py::test_reports_empty_has_primary_build_action
+FAILED tests/test_ui_v2_shell.py::test_company_profile_is_v2_and_multi_berry
+5 failed, 2634 passed, 3797 warnings in 714.89s (0:11:54)

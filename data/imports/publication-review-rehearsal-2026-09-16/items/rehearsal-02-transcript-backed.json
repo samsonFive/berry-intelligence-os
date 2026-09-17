@@ -1,0 +1,96 @@
+{
+  "rehearsal_slot": 2,
+  "decision_type": "transcript_backed_item",
+  "rehearsal_metadata": {
+    "synthetic": true,
+    "no_scraped_body_or_transcript": true,
+    "no_raw_html_cookies_credentials_or_headers": true,
+    "grounded_in": "Modeled on the real, already-trusted ev-lucentlands-scaling-blueberry-industry-2025 record (data/evidence/ev-lucentlands-scaling-blueberry-industry-2025.json) and the real TRANSCRIPT_PUBLISHER / MediaTranscriptionAdapter mechanism in app/services/media_discovery.py and app/services/media_orchestration.py -- the transcript segment shape here mirrors that schema exactly; the transcript text itself is invented, not a real recording's excerpt.",
+    "real_run_reference": null
+  },
+  "record": {
+    "id": "rehearsal-02-transcript-backed",
+    "record_type": "evidence",
+    "status": "draft",
+    "review_state": "in_review",
+    "source_type": "discovered_media",
+    "title": "[REHEARSAL FIXTURE] Podcast Episode: Blueberry Genetics Trends in Southern Africa",
+    "captured_date": "2026-09-16",
+    "summary": "A podcast episode discussing blueberry genetics licensing trends and grower adoption patterns in Southern Africa, with a publisher-provided transcript.",
+    "submitted_by": "media-orchestration",
+    "priority": {
+      "reading": {
+        "level": "none",
+        "rationale": ""
+      },
+      "testing": {
+        "level": "none",
+        "rationale": ""
+      },
+      "commercial_position": {
+        "level": "none",
+        "rationale": ""
+      },
+      "monitoring": {
+        "level": "none",
+        "rationale": ""
+      }
+    },
+    "berry_ids": [
+      "berry-blueberry"
+    ],
+    "geography_ids": [
+      "geography-south-africa"
+    ],
+    "entity_ids": [],
+    "fact_ids": [],
+    "relationship_ids": [],
+    "strategic_question_ids": [],
+    "tags": [],
+    "attachments": [],
+    "auto_captured": false,
+    "source_id": "source-rehearsal-fixture-v1",
+    "source_name": "[REHEARSAL FIXTURE] Podcast Network",
+    "source_url": "https://example.invalid/rehearsal/blueberry-genetics-southern-africa-episode",
+    "published_date": "2026-09-05",
+    "media_format": "podcast",
+    "transcript": {
+      "status": "available",
+      "source": "publisher_transcript",
+      "language": "en",
+      "segments": [
+        {
+          "start": 0.0,
+          "end": 6.0,
+          "text": "Welcome back to the show -- today we're talking about blueberry genetics licensing in Southern Africa."
+        },
+        {
+          "start": 6.0,
+          "end": 14.0,
+          "text": "Grower adoption of newer proprietary varieties has accelerated over the last two seasons."
+        }
+      ]
+    },
+    "discovery_provenance": {
+      "dedupe_key": "example.invalid/rehearsal/blueberry-genetics-southern-africa-episode",
+      "external_id": null,
+      "first_seen_at": "2026-09-16T00:00:00+00:00",
+      "last_seen_at": "2026-09-16T00:00:00+00:00"
+    }
+  },
+  "analysis": {
+    "source": "source-rehearsal-fixture-v1 (synthetic; modeled on the real source-lucentlands-podcast pattern)",
+    "discovery_acquisition_path": "podcast_rss discovery -> publisher-declared transcript detected (TRANSCRIPT_PUBLISHER) -> acquire_raw_transcript_artifact -> transcript.status=available (synthetic fixture reproduces this shape)",
+    "content_state": "transcript_available (publisher transcript, 2 segments)",
+    "provenance_completeness": "medium -- transcript source/language present; no duration or full segment set (deliberately short excerpt)",
+    "publication_date_confidence": "medium -- feed-declared date only, no independent body/transcript-date corroboration",
+    "body_transcript_availability": "transcript available; no separate written article body (podcast)",
+    "entity_association": "berry-blueberry and geography-south-africa only; no company entity linked",
+    "duplicate_risk": "low in this fixture, but real lucentlands episodes have repeatedly matched already-trusted Evidence by title+date (see rehearsal item 7) -- an operator should always check for that before approving a transcript-backed podcast item",
+    "warnings": [
+      "Synthetic fixture -- transcript text is invented, not a real recording."
+    ],
+    "recommended_operator_action": "Move to publication review; treat the transcript excerpt as a normal candidate for Approve/Save pending a duplicate check against existing podcast-sourced Evidence.",
+    "why_not_automatic": "A transcript, like a readable article body, is acquired content, not editorial trust -- the same mandatory human review gate applies, and duplicate risk against existing trusted podcast coverage must be checked by a person."
+  }
+}

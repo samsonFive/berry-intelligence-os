@@ -1,0 +1,451 @@
+{
+  "id": "competitor-source-strategy-v1-candidate-proposals",
+  "NONCANONICAL": true,
+  "note": "Every entry here is a research proposal keyed to an existing canonical_entity_id. None has been written to data/configuration/sources.json. A human must review and explicitly onboard through existing governance before any of these becomes a real Source.",
+  "verification_date": "2026-09-15",
+  "count": 21,
+  "proposals": [
+    {
+      "proposed_id": "PROPOSAL-agroberries-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "AgroBerries (official_website_sitemap)",
+      "linked_competitor_ids": [
+        "company-agroberries"
+      ],
+      "proposed_discovery": {
+        "adapter": "sitemap_xml",
+        "feed_url": "https://www.agroberries.com/sitemaps-1-sitemap.xml",
+        "note_if_no_adapter_guess": null
+      },
+      "maturity": "candidate_identified",
+      "confidence": "medium",
+      "evidence_urls": [
+        "https://www.agroberries.com/about",
+        "https://www.freshfruitportal.com/news/2026/06/24/agroberries-expansion/"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-australasian-plant-genetics-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Australasian Plant Genetics (official_website_sitemap)",
+      "linked_competitor_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "proposed_discovery": {
+        "adapter": "sitemap_xml",
+        "feed_url": "https://ausplantgenetics.com.au/sitemap.xml",
+        "note_if_no_adapter_guess": null
+      },
+      "maturity": "discovery_mechanism_understood",
+      "confidence": "medium",
+      "evidence_urls": [
+        "https://ausplantgenetics.com.au/",
+        "https://ausplantgenetics.com.au/about/"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-black-venture-farm-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Black Venture Farm (official_website)",
+      "linked_competitor_ids": [
+        "company-black-venture-farm"
+      ],
+      "proposed_discovery": {
+        "adapter": null,
+        "feed_url": null,
+        "note_if_no_adapter_guess": "source_type='official_website' is not a direct feed/sitemap -- see candidate_sources.discovery_mechanism"
+      },
+      "maturity": "candidate_identified",
+      "confidence": "low",
+      "evidence_urls": [
+        "https://blackventurefarm.com/",
+        "https://www.facebook.com/BlackVentureFarmOficial"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-expoberries-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Expoberries (trade_association_page)",
+      "linked_competitor_ids": [
+        "company-expoberries"
+      ],
+      "proposed_discovery": {
+        "adapter": null,
+        "feed_url": null,
+        "note_if_no_adapter_guess": "source_type='trade_association_page' is not a direct feed/sitemap -- see candidate_sources.discovery_mechanism"
+      },
+      "maturity": "identity_search_strategy_pending",
+      "confidence": "low",
+      "evidence_urls": [
+        "https://aneberries.mx/en/expoberries/",
+        "https://mx.linkedin.com/company/expoberries",
+        "https://panjiva.com/Expoberries-S-A-De-C-V/31221334"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-fresh-forward-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Fresh Forward (official_website)",
+      "linked_competitor_ids": [
+        "company-fresh-forward"
+      ],
+      "proposed_discovery": {
+        "adapter": null,
+        "feed_url": null,
+        "note_if_no_adapter_guess": "source_type='official_website' is not a direct feed/sitemap -- see candidate_sources.discovery_mechanism"
+      },
+      "maturity": "candidate_identified",
+      "confidence": "medium",
+      "evidence_urls": [
+        "https://www.fresh-forward.nl/en",
+        "https://www.fresh-forward.nl/en/breeding"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-agrovision-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Agrovision Corp. (Fruitist) (official_website_sitemap)",
+      "linked_competitor_ids": [
+        "company-agrovision"
+      ],
+      "proposed_discovery": {
+        "adapter": "sitemap_xml",
+        "feed_url": "https://www.fruitist.com/sitemap.xml",
+        "note_if_no_adapter_guess": null
+      },
+      "maturity": "discovery_mechanism_understood",
+      "confidence": "medium",
+      "evidence_urls": [
+        "https://www.fruitist.com/",
+        "https://www.freshfruitportal.com/news/2025/04/22/agrovision-rebrands-say-hello-to-fruitist/",
+        "https://www.thepacker.com/news/industry/look-agrovisions-transition-fruitist"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-gem-pack-berries-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Gem-Pack Berries (official_website_feed)",
+      "linked_competitor_ids": [
+        "company-gem-pack-berries"
+      ],
+      "proposed_discovery": {
+        "adapter": "article_rss",
+        "feed_url": "https://www.gem-packberries.com/en/feed",
+        "note_if_no_adapter_guess": null
+      },
+      "maturity": "discovery_mechanism_understood",
+      "confidence": "high",
+      "evidence_urls": [
+        "https://www.gem-packberries.com/en",
+        "https://theproducenews.com/berries/gem-pack-berries-unveils-new-website"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-iq-berries-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "IQ Berries (licensing_partner_page)",
+      "linked_competitor_ids": [
+        "company-iq-berries"
+      ],
+      "proposed_discovery": {
+        "adapter": null,
+        "feed_url": null,
+        "note_if_no_adapter_guess": "source_type='licensing_partner_page' is not a direct feed/sitemap -- see candidate_sources.discovery_mechanism"
+      },
+      "maturity": "identity_search_strategy_pending",
+      "confidence": "low",
+      "evidence_urls": [
+        "https://www.osirisplant.com/en/iq-berries/",
+        "https://www.fruitnet.com/iqb-teams-up-with-osiris-to-develop-new-blues-varieties/246169.article"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-mountain-blue-orchards-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Mountain Blue Orchards Pty Ltd (official_website_sitemap)",
+      "linked_competitor_ids": [
+        "company-mountain-blue-orchards"
+      ],
+      "proposed_discovery": {
+        "adapter": "sitemap_xml",
+        "feed_url": "https://mountainblue.com.au/sitemap.xml",
+        "note_if_no_adapter_guess": null
+      },
+      "maturity": "discovery_mechanism_understood",
+      "confidence": "medium",
+      "evidence_urls": [
+        "https://www.mountainblue.com.au/media",
+        "https://www.mountainblue.com.au/mountain-blue-genetics"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-oishii-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Oishii (official_website_feed)",
+      "linked_competitor_ids": [
+        "company-oishii"
+      ],
+      "proposed_discovery": {
+        "adapter": "article_rss",
+        "feed_url": "https://oishii.com/blogs/press.atom",
+        "note_if_no_adapter_guess": null
+      },
+      "maturity": "discovery_mechanism_understood",
+      "confidence": "high",
+      "evidence_urls": [
+        "https://oishii.com/pages/press",
+        "https://www.prnewswire.com/news/oishii/"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-ozblu-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "OZblu (official_website_feed)",
+      "linked_competitor_ids": [
+        "brand-ozblu"
+      ],
+      "proposed_discovery": {
+        "adapter": "article_rss",
+        "feed_url": "https://www.ozblu.com/news/feed/",
+        "note_if_no_adapter_guess": null
+      },
+      "maturity": "discovery_mechanism_understood",
+      "confidence": "high",
+      "evidence_urls": [
+        "https://www.ozblu.com/",
+        "https://www.ozblu.com/news/world-development-finance-institutions-invest-in-a-united-exports-ozblu-blueberry-expansion/"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-pairwise-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Pairwise (official_website_page)",
+      "linked_competitor_ids": [
+        "company-pairwise"
+      ],
+      "proposed_discovery": {
+        "adapter": null,
+        "feed_url": null,
+        "note_if_no_adapter_guess": "source_type='official_website_page' is not a direct feed/sitemap -- see candidate_sources.discovery_mechanism"
+      },
+      "maturity": "candidate_identified",
+      "confidence": "low",
+      "evidence_urls": [
+        "https://www.pairwise.com/insights",
+        "https://www.corteva.com/resources/media-center/corteva-pairwise-join-forces-to-accelerate-gene-editing-advance-climate-resilience-in-agriculture.html"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-perfection-fresh-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Perfection Fresh (official_website_feed)",
+      "linked_competitor_ids": [
+        "company-perfection-fresh"
+      ],
+      "proposed_discovery": {
+        "adapter": "article_rss",
+        "feed_url": "https://www.perfection.com.au/blog/rss.xml",
+        "note_if_no_adapter_guess": null
+      },
+      "maturity": "discovery_mechanism_understood",
+      "confidence": "high",
+      "evidence_urls": [
+        "https://www.perfection.com.au/perfection-berries",
+        "https://berries.net.au/wp-content/uploads/2024/01/AUT-21-PROFILE-PERFECTION.pdf"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-plant-sciences-genetics-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Plant Sciences, Inc. (official_website_sitemap)",
+      "linked_competitor_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "proposed_discovery": {
+        "adapter": "sitemap_xml",
+        "feed_url": "https://www.plantsciencesgenetics.com/sitemap.xml",
+        "note_if_no_adapter_guess": null
+      },
+      "maturity": "discovery_mechanism_understood",
+      "confidence": "medium",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/plant-sciences-inc-unveils-restructuring-140000641.html"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-royakkers-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Royakkers (official_website)",
+      "linked_competitor_ids": [
+        "company-royakkers"
+      ],
+      "proposed_discovery": {
+        "adapter": null,
+        "feed_url": null,
+        "note_if_no_adapter_guess": "source_type='official_website' is not a direct feed/sitemap -- see candidate_sources.discovery_mechanism"
+      },
+      "maturity": "candidate_identified",
+      "confidence": "medium",
+      "evidence_urls": [
+        "https://www.softfruit.be/over-ons/",
+        "https://zakenblad.nl/2021/04/21/jan-en-gijs-royakkers-vader-en-zoon-in-een-gezond-familiebedrijf/"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-smart-berries-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Smart Berries (official_website_feed)",
+      "linked_competitor_ids": [
+        "company-smart-berries"
+      ],
+      "proposed_discovery": {
+        "adapter": "article_rss",
+        "feed_url": "https://www.smartberries.com.au/feed/",
+        "note_if_no_adapter_guess": null
+      },
+      "maturity": "discovery_mechanism_understood",
+      "confidence": "high",
+      "evidence_urls": [
+        "https://www.smartberries.com.au/about-us/",
+        "https://www.fruitnet.com/asiafruit/smart-berries-building-up/170931.article"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-sunbelle-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "SunBelle (official_website_feed)",
+      "linked_competitor_ids": [
+        "company-sunbelle"
+      ],
+      "proposed_discovery": {
+        "adapter": "article_rss",
+        "feed_url": "https://www.sun-belle.com/feed/",
+        "note_if_no_adapter_guess": null
+      },
+      "maturity": "discovery_mechanism_understood",
+      "confidence": "high",
+      "evidence_urls": [
+        "https://www.sun-belle.com/",
+        "https://www.thepacker.com/news/produce-crops/sun-belle-expands-berry-grower-relationships"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-the-berry-collective-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "The Berry Collective (official_website_feed)",
+      "linked_competitor_ids": [
+        "company-the-berry-collective"
+      ],
+      "proposed_discovery": {
+        "adapter": "article_rss",
+        "feed_url": "https://theberrycollective.com.au/feed/",
+        "note_if_no_adapter_guess": null
+      },
+      "maturity": "identity_search_strategy_pending",
+      "confidence": "low",
+      "evidence_urls": [
+        "https://theberrycollective.com.au/",
+        "https://theberrycollective.com.au/about/"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-uc-davis-strawberry-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "UC Davis Strawberry Breeding Program (official_website_page)",
+      "linked_competitor_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "proposed_discovery": {
+        "adapter": null,
+        "feed_url": null,
+        "note_if_no_adapter_guess": "source_type='official_website_page' is not a direct feed/sitemap -- see candidate_sources.discovery_mechanism"
+      },
+      "maturity": "known_blocked",
+      "confidence": "medium",
+      "evidence_urls": [
+        "https://strawberry.ucdavis.edu/news-and-events-0",
+        "https://www.ucdavis.edu/news/strawberry-breeding-program-backgrounder-frequently-asked-questions"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-well-pict-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Well-Pict (official_website)",
+      "linked_competitor_ids": [
+        "company-well-pict"
+      ],
+      "proposed_discovery": {
+        "adapter": null,
+        "feed_url": null,
+        "note_if_no_adapter_guess": "source_type='official_website' is not a direct feed/sitemap -- see candidate_sources.discovery_mechanism"
+      },
+      "maturity": "candidate_identified",
+      "confidence": "low",
+      "evidence_urls": [
+        "https://www.supermarketnews.com/fresh-produce/well-pict-berries-launches-new-website",
+        "https://www.thepacker.com/news/industry/gem-pack-and-well-pict-berries-combine-companies"
+      ],
+      "verification_date": "2026-09-15"
+    },
+    {
+      "proposed_id": "PROPOSAL-wish-farms-0",
+      "NONCANONICAL": true,
+      "note": "This is a research proposal, not a live Source record. Do not import into data/configuration/sources.json without human review.",
+      "label": "Wish Farms (official_website_feed)",
+      "linked_competitor_ids": [
+        "company-wish-farms"
+      ],
+      "proposed_discovery": {
+        "adapter": "article_rss",
+        "feed_url": "https://wishfarms.com/newsroom/feed/",
+        "note_if_no_adapter_guess": null
+      },
+      "maturity": "discovery_mechanism_understood",
+      "confidence": "high",
+      "evidence_urls": [
+        "https://wishfarms.com/newsroom/",
+        "https://wishfarms.com/newsroom-item/wish-farms-refreshes-its-brand-reveals-app-and-website/"
+      ],
+      "verification_date": "2026-09-15"
+    }
+  ]
+}

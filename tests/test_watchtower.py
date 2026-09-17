@@ -502,7 +502,7 @@ def test_today_page_omits_needs_attention_section_when_no_open_alerts(monkeypatc
     assert "needs-your-attention" not in page.text
 
 
-def test_today_page_shows_needs_attention_when_watchtower_has_open_alerts(monkeypatch) -> None:
+def test_news_keeps_watchtower_access_without_loading_alert_panel(monkeypatch) -> None:
     dev = _development()
     alerts = [a.as_dict() for a in _generate(developments=[dev], watches=[{"watch_type": "company", "object_id": "company-planasa"}])]
     for a in alerts:
@@ -514,8 +514,8 @@ def test_today_page_shows_needs_attention_when_watchtower_has_open_alerts(monkey
     })
     page = TestClient(app).get("/today")
     assert page.status_code == 200
-    assert "needs-your-attention" in page.text
-    assert "Open Watchtower" in page.text
+    assert 'href="/watchtower"' in page.text
+    assert "needs-your-attention" not in page.text
 
 
 def test_watchtower_nav_entry_present() -> None:

@@ -1,0 +1,86 @@
+{
+  "id": "competitor-identity-duplicate-structural-review-2026-09-15",
+  "verification_date": "2026-09-15",
+  "automated_audit_result_summary": {
+    "companies_count": 69,
+    "confirmed_duplicates": [
+      {
+        "state": "confirmed_duplicate",
+        "label": "CONFIRMED DUPLICATE",
+        "entity_type": "company",
+        "entity_ids": [
+          "company-planasa",
+          "company-planasa-2"
+        ],
+        "reason": "explicit_redirect",
+        "matched_value": "company-planasa-2"
+      }
+    ],
+    "exact_duplicates": [],
+    "alias_collisions": [],
+    "unresolved_probable_duplicates": []
+  },
+  "cases_reviewed": [
+    {
+      "pair": "Planasa vs. Planasa-2 vs. Plantas de Navarra",
+      "determination": "exact_duplicate_already_resolved",
+      "detail": "company-planasa-2 is a CONFIRMED DUPLICATE of company-planasa via the existing data/configuration/entity-identity-redirects.json mechanism, decided 2026-09-01 (predates this mission). Plantas de Navarra, S.A. is not a third entity -- it is company-planasa's own registered legal name. Re-ran the existing audit_entity_identity() auditor against the full 69-company graph: this is the ONLY confirmed_duplicate found, with zero other exact_duplicates, alias_collisions, or unresolved_probable_duplicates. No action needed; the stale ambiguity note in reconciliation-matrix.json was corrected.",
+      "action_taken": "Corrected a stale ambiguity note; no entity file changed."
+    },
+    {
+      "pair": "Mountain Blue vs. Mountain Blue Orchards vs. MBO",
+      "determination": "alias",
+      "detail": "All three are already aliases of the single entity company-mountain-blue-orchards (aliases: 'Mountain Blue', 'MBO', 'Mountain Blue Farms'), established before this mission. No duplicate, no action needed.",
+      "action_taken": "None -- already correctly modeled."
+    },
+    {
+      "pair": "Hortifrut vs. Hortifrut Genetica",
+      "determination": "alias_with_documented_uncertainty",
+      "detail": "'Hortifrut Genetica' is an alias on company-hortifrut (added by the prior Company + Genetics Relationships V1 mission), with an existing documented note that no separately-modeled genetics division/subsidiary was confirmed to exist. This mission found no new evidence either confirming or ruling out a distinct genetics division -- the existing alias-only treatment remains the correct, non-speculative choice.",
+      "action_taken": "None -- already correctly modeled; no new evidence changes this."
+    },
+    {
+      "pair": "California Giant vs. Giant",
+      "determination": "alias",
+      "detail": "'California Giant' is the roster label and an alias on company-california-giant-berry-farms; 'Giant' alone (as it appears in the handwritten notes, 'Giant/California Giant - Fall Creek, Public') is an informal truncation resolved via context, not a separate entity.",
+      "action_taken": "None -- already correctly modeled."
+    },
+    {
+      "pair": "Ozblu vs. OZblu, and its relationship to Mountain Blue",
+      "determination": "brand_with_multiple_real_company_relationships_unrelated_to_mountain_blue",
+      "detail": "Ozblu/OZblu is a single entity, brand-ozblu (entity_type 'brand'), with 'Ozblu' and 'OZblu(R)' as case-variant aliases -- not a duplicate. It already carries real, pre-existing relationships to three DIFFERENT companies (United Exports owns the brand, Nature Select develops the genetics, Oz Varieties licenses it). No relationship to Mountain Blue Orchards was found or exists in this graph -- these are two separate, unrelated blueberry-genetics programs (Mountain Blue Orchards in NSW, Australia; the Ozblu network spanning United Exports/Nature Select/Oz Varieties). Confirming no relationship exists is itself a real, useful finding, not an oversight.",
+      "action_taken": "None -- already correctly modeled; confirmed no false relationship should be added."
+    },
+    {
+      "pair": "Plant Sciences vs. Plant Sciences, Inc.",
+      "determination": "alias",
+      "detail": "Single entity, company-plant-sciences-genetics, name 'Plant Sciences, Inc.', with 'Plant Sciences Genetics'/'PSG' and (added by the prior mission) 'Plant Sciences' as aliases. This mission's research corroborates the entity's own recorded 2026 restructuring (Plant Sciences, Inc. -> Plant Sciences Genetics, Inc.) via an independent financial-press article.",
+      "action_taken": "None -- already correctly modeled; new corroborating evidence recorded in the identity-verification attributes block."
+    },
+    {
+      "pair": "Fruitist vs. Agrovision",
+      "determination": "renamed_entity_with_separate_brand",
+      "detail": "company-agrovision (name 'Agrovision Corp. (Fruitist)') already carried 'Fruitist' as an alias before this mission, and this mission's research independently confirms the company rebranded from Agrovision to Fruitist in April 2025 with extensive trade-press coverage (FreshFruitPortal, The Packer, CNBC). A separate, distinct entity brand-fruitist (entity_type 'brand') also exists for the product brand itself -- a legitimate company/brand distinction, not a duplicate, exactly analogous to the Ozblu case above.",
+      "action_taken": "None -- already correctly modeled; corroborating evidence recorded."
+    },
+    {
+      "pair": "UC Davis as an institution vs. a breeding program",
+      "determination": "institution_program_deliberate_choice",
+      "detail": "This roster row resolves to breeding_program-uc-davis-strawberry (entity_type 'breeding_program'), not a generic 'University of California, Davis' institution entity, which does not exist in this graph. This mission's research (strawberry.ucdavis.edu, a real, dedicated program site with its own news section) confirms the breeding program is the correct, specific, berry-relevant identity for this roster row -- a generic institution entity would be less precise, not more correct.",
+      "action_taken": "None -- already correctly modeled."
+    },
+    {
+      "pair": "University/public entities generally (University of Arkansas, University of Florida)",
+      "determination": "related_but_distinct_organizations",
+      "detail": "Both are separate, independently-canonical entity_type 'company' records (a pre-existing convention this mission did not change) with their own aliases (UADA; UF/IFAS, UF). Not duplicates of each other or of UC Davis's breeding-program entity.",
+      "action_taken": "None -- already correctly modeled."
+    },
+    {
+      "pair": "Brands or divisions represented as independent spreadsheet rows",
+      "determination": "company_brand_pattern_confirmed_twice",
+      "detail": "Only one roster row (Ozblu) resolves to a brand entity rather than a company; Fruitist resolves to the operating company (company-agrovision), with brand-fruitist existing separately and correctly for the product brand. No roster row was found to incorrectly represent a brand or division as if it were an independent company.",
+      "action_taken": "None."
+    }
+  ],
+  "planasa_result": "exact_duplicate_already_resolved_no_action_needed"
+}

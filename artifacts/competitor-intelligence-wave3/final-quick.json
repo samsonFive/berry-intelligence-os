@@ -1,0 +1,75 @@
+{
+  "mode": "quick",
+  "root": "C:\\Users\\Johnny\\Downloads\\sscanar\\berry-intelligence-os-competitor-intelligence-wave3",
+  "python": "C:\\Python314\\python.exe",
+  "results": [
+    {
+      "label": "Roster and identity",
+      "command": "C:\\Python314\\python.exe -m pytest -q -p no:cacheprovider tests/test_competitor_registry_v1.py tests/test_competitor_profile_v1.py tests/test_competitor_intelligence_integration_v1.py tests/test_entity_identity_integrity.py tests/test_entity_alias_recall.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 108,
+      "duration_seconds": 22.138,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": "........................................................................ [ 66%]\n....................................                                     [100%]\n============================== warnings summary ===============================\n..\\..\\..\\AppData\\Roaming\\Python\\Python314\\site-packages\\starlette\\testclient.py:53\n  C:\\Users\\Johnny\\AppData\\Roaming\\Python\\Python314\\site-packages\\starlette\\testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n108 passed, 1 warning in 20.32s"
+    },
+    {
+      "label": "Landscape",
+      "command": "C:\\Python314\\python.exe -m pytest -q -p no:cacheprovider tests/test_competitor_landscape_v1.py tests/test_landscape_v2.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 38,
+      "duration_seconds": 35.841,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": "......................................                                   [100%]\n============================== warnings summary ===============================\n..\\..\\..\\AppData\\Roaming\\Python\\Python314\\site-packages\\starlette\\testclient.py:53\n  C:\\Users\\Johnny\\AppData\\Roaming\\Python\\Python314\\site-packages\\starlette\\testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n38 passed, 1 warning in 33.98s"
+    },
+    {
+      "label": "Daily Briefing",
+      "command": "C:\\Python314\\python.exe -m pytest -q -p no:cacheprovider tests/test_daily_intelligence_briefing_slice1.py tests/test_morning_brief.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 23,
+      "duration_seconds": 11.923,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": ".......................                                                  [100%]\n============================== warnings summary ===============================\n..\\..\\..\\AppData\\Roaming\\Python\\Python314\\site-packages\\starlette\\testclient.py:53\n  C:\\Users\\Johnny\\AppData\\Roaming\\Python\\Python314\\site-packages\\starlette\\testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n23 passed, 1 warning in 10.00s"
+    },
+    {
+      "label": "Reader",
+      "command": "C:\\Python314\\python.exe -m pytest -q -p no:cacheprovider tests/test_astra_news_reader.py tests/test_intelligence_feed.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 20,
+      "duration_seconds": 8.727,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": "....................                                                     [100%]\n============================== warnings summary ===============================\n..\\..\\..\\AppData\\Roaming\\Python\\Python314\\site-packages\\starlette\\testclient.py:53\n  C:\\Users\\Johnny\\AppData\\Roaming\\Python\\Python314\\site-packages\\starlette\\testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.\n    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n20 passed, 1 warning in 6.63s"
+    },
+    {
+      "label": "Trust",
+      "command": "C:\\Python314\\python.exe -m pytest -q -p no:cacheprovider tests/test_trust_feedback.py tests/test_sync_trusted_data.py tests/repositories/test_repository_backends.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 55,
+      "duration_seconds": 39.754,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": ".......................................................                  [100%]\n55 passed in 38.41s"
+    },
+    {
+      "label": "Record validation",
+      "command": "C:\\Python314\\python.exe scripts/validate_records.py",
+      "passed": true,
+      "returncode": 0,
+      "test_count": 0,
+      "duration_seconds": 1.63,
+      "record_mutations": [],
+      "pagefind_missing": false,
+      "output_tail": "All validated records passed."
+    }
+  ],
+  "canonical_or_runtime_mutation": false,
+  "passed": true
+}

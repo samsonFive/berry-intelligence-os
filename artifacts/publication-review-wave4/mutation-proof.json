@@ -1,0 +1,71 @@
+{
+  "after": {
+    "data/assessments": {
+      "count": 5,
+      "sha256": "7e2c198f460a09e3d24d17675b2497d26558211027692d332cf23cf897d6d9f3"
+    },
+    "data/configuration": {
+      "count": 11,
+      "sha256": "8cf081ad80865baea532a52c4558d5ce0e0c6ed39d3b782e280eff33a6c68e5a"
+    },
+    "data/entities": {
+      "count": 239,
+      "sha256": "5a6973960a604973f510aaadd4a708d67cbba12dff68b4605afd7dbbfbe25881"
+    },
+    "data/evidence": {
+      "count": 1272,
+      "sha256": "12dee3f0d213e6082a36f1d70c94627f39d4867615d660c5498ad713fce221c8"
+    },
+    "data/facts": {
+      "count": 186,
+      "sha256": "07f91d96daced4fda67407bde04bf978f451d0fb7094a01ba0bc8c97e6d03f0c"
+    },
+    "data/recommendations": {
+      "count": 4,
+      "sha256": "beca9f09b11b57e2ad68c88453d7786990752bee29a67c2620aa1d4bea4c8896"
+    },
+    "data/relationships": {
+      "count": 255,
+      "sha256": "e0cd7a66ca06c13c75a5585124fbc3754f59517bbc986fe3dbe8614ff39cdc76"
+    },
+    "data/signals": {
+      "count": 6,
+      "sha256": "fc28eb594f9e6e0ad42028eaa369f2121b84e3026e85f4f83a4e516cd0419082"
+    }
+  },
+  "before": {
+    "data/assessments": {
+      "count": 5,
+      "sha256": "7e2c198f460a09e3d24d17675b2497d26558211027692d332cf23cf897d6d9f3"
+    },
+    "data/configuration": {
+      "count": 11,
+      "sha256": "8cf081ad80865baea532a52c4558d5ce0e0c6ed39d3b782e280eff33a6c68e5a"
+    },
+    "data/entities": {
+      "count": 239,
+      "sha256": "5a6973960a604973f510aaadd4a708d67cbba12dff68b4605afd7dbbfbe25881"
+    },
+    "data/evidence": {
+      "count": 1272,
+      "sha256": "12dee3f0d213e6082a36f1d70c94627f39d4867615d660c5498ad713fce221c8"
+    },
+    "data/facts": {
+      "count": 186,
+      "sha256": "07f91d96daced4fda67407bde04bf978f451d0fb7094a01ba0bc8c97e6d03f0c"
+    },
+    "data/recommendations": {
+      "count": 4,
+      "sha256": "beca9f09b11b57e2ad68c88453d7786990752bee29a67c2620aa1d4bea4c8896"
+    },
+    "data/relationships": {
+      "count": 255,
+      "sha256": "e0cd7a66ca06c13c75a5585124fbc3754f59517bbc986fe3dbe8614ff39cdc76"
+    },
+    "data/signals": {
+      "count": 6,
+      "sha256": "fc28eb594f9e6e0ad42028eaa369f2121b84e3026e85f4f83a4e516cd0419082"
+    }
+  },
+  "changes": {}
+}

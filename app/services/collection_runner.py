@@ -383,6 +383,7 @@ class ItemResult:
     relevance_tier: str | None = None
     historical_backlog: bool = False
     body_acquisition_attempted: bool = False
+    acquisition_outcome: dict[str, Any] | None = None
     duplicate_rejected_late: bool = False
 
 
@@ -733,6 +734,7 @@ class CollectionRunner:
             relevance_tier=getattr(result, "relevance_tier", None),
             historical_backlog=bool(item.get("historical_backlog")),
             body_acquisition_attempted=bool(getattr(result, "body_acquisition_attempted", False)),
+            acquisition_outcome=getattr(result, "acquisition_outcome", None),
             duplicate_rejected_late=bool(getattr(result, "duplicate_rejected_late", False)),
         )
 
@@ -843,6 +845,18 @@ class CollectionRunner:
             "duplicates_rejected_early": sum(result.duplicates_rejected_early for result in summary.sources),
             "duplicates_rejected_late": sum(item.duplicate_rejected_late for item in summary.items),
             "body_acquisitions_attempted": sum(item.body_acquisition_attempted for item in summary.items),
+            "readable_article_bodies": sum(
+                (item.acquisition_outcome or {}).get("outcome_category") == "readable_article_body"
+                for item in summary.items
+            ),
+            "blocked_or_unusable_article_bodies": sum(
+                bool((item.acquisition_outcome or {}).get("manual_acquisition_required"))
+                for item in summary.items
+            ),
+            "retryable_article_acquisition_failures": sum(
+                bool((item.acquisition_outcome or {}).get("retryable"))
+                for item in summary.items
+            ),
             "article_updates_detected": states.count("article_update_detected"),
             "article_updates_unverified": states.count("article_update_unverified"),
             # Of items_new, how many a spoken-media source's first-ever

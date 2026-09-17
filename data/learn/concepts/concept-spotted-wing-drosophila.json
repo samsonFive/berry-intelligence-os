@@ -1,0 +1,48 @@
+{
+  "id": "concept-spotted-wing-drosophila",
+  "slug": "spotted-wing-drosophila",
+  "name": "Spotted-wing drosophila",
+  "aliases": ["SWD", "Drosophila suzukii", "spotted wing drosophila"],
+  "pillar": "pest_disease_process",
+  "knowledge_class": "current_technical_guidance",
+  "trait_ids": [],
+  "reviewed_at": "2026-09-16",
+  "review_by": "2027-03-16",
+  "summary": "A vinegar fly that lays eggs in ripening berries — a monitoring-and-threshold pest, not proof a named farm has an outbreak.",
+  "what_is_it": "Spotted-wing drosophila (Drosophila suzukii, SWD) is a vinegar fly that can oviposit in ripening, still-firm fruit. Soft berries (raspberry, blackberry, blueberry, strawberry) are all hosts. Identification and trap counts matter because not every small fly in a planting is SWD, and calendar spraying is not the same as IPM.",
+  "why_it_matters": "News about 'SWD pressure,' export holds, or a region 'losing fruit to vinegar fly' is often this pest. It changes harvest timing, sanitation, and whether a protected-culture or open-field program can keep packable fruit. A press mention is not a field diagnosis.",
+  "how_evaluated": "Adult traps, salt or drowning tests for larvae in fruit, and damage counts versus a regional threshold. Extension guides update labels and resistance; those dates matter. There is no single SWD score for a company.",
+  "what_affects_it": "Crop, canopy humidity, harvest interval, nearby wild hosts, and whether fruit is left in the field. Protected culture changes the pest complex; it does not make SWD impossible.",
+  "how_to_interpret": "Treat SWD in intelligence as a named-pest framework. Do not read this page as a spray schedule or as evidence that a competitor's fruit is infested. Pair with IPM. Specific products and thresholds belong in the current regional guide, not here.",
+  "related_concept_ids": ["concept-ipm", "concept-harvest-methods", "concept-protected-culture"],
+  "berry_notes": [
+    {
+      "berry_id": "berry-raspberry",
+      "note": "Caneberries are highly attractive hosts; thin fruit skin and frequent picks are why SWD shows up in raspberry and blackberry harvest talk."
+    },
+    {
+      "berry_id": "berry-blueberry",
+      "note": "Blueberry SWD risk rises as fruit colors and as harvest intervals stretch; process vs fresh packs have different tolerance for larvae, not different biology."
+    },
+    {
+      "berry_id": "berry-strawberry",
+      "note": "Strawberry can be a host, especially where ripe fruit sits; plasticulture sanitation and pick interval are the usual commercial levers, not a variety 'immunity' claim."
+    },
+    {
+      "berry_id": "berry-blackberry",
+      "note": "Same caneberry host story as raspberry; trailing types with dense canopies can be harder to monitor and pick clean."
+    }
+  ],
+  "sources": [
+    {
+      "publisher": "University of California Statewide Integrated Pest Management Program",
+      "title": "Spotted Wing Drosophila",
+      "url": "https://ipm.ucanr.edu/agriculture/berry/spotted-wing-drosophila/"
+    },
+    {
+      "publisher": "Michigan State University Extension",
+      "title": "Spotted wing Drosophila",
+      "url": "https://www.canr.msu.edu/ipm/invasive_species/spotted_wing_drosophila/"
+    }
+  ]
+}

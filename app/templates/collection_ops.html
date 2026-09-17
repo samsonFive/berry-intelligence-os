@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Collection Operations — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/pvs_tokens.css">
+<link rel="stylesheet" href="/static/ops_pvs.css">
+{% endblock %}
 {% block content %}
-<div class="v2-page">
+<div class="v2-page pvs-slice-3" id="collection-ops" data-pvs-slice="3">
+<a class="skip-link" href="#collection-recurring">Skip to collection status</a>
 <section class="page-heading v2-page-header">
   <div>
     <p class="eyebrow">COLLECTION OPERATIONS</p>
@@ -14,15 +22,25 @@
   {% include "_workspace_help.html" %}
 {% endwith %}
 
+<nav class="ops-band-nav" aria-label="Collection operations sections">
+  <a href="#collection-recurring">Recurring</a>
+  <a href="#collection-lock">Lock</a>
+  <a href="#collection-last-run">Last run</a>
+  <a href="#collection-history">History</a>
+  <a href="#collection-extraction">Extraction</a>
+  <a href="#collection-sources">Degraded Sources</a>
+  {% if not static_build %}<a href="#collection-run-now">Run now</a>{% endif %}
+</nav>
+
 {% if just_ran == 'completed' %}
-  <p class="banner banner-success">Run completed. See "Last run" and history below.</p>
+  <p class="banner banner-success pvs-system-state is-ok" role="status">Run completed. See "Last run" and history below.</p>
 {% elif just_ran == 'refused' %}
-  <p class="banner banner-warning">{{ just_ran_reason or 'A collection run is already active.' }}</p>
+  <p class="banner banner-warning pvs-system-state is-warn" role="status">{{ just_ran_reason or 'A collection run is already active.' }}</p>
 {% elif just_ran == 'error' %}
-  <p class="banner banner-warning">Run did not complete cleanly: {{ just_ran_reason or 'unknown error.' }}</p>
+  <p class="banner banner-warning pvs-system-state is-warn" role="alert">Run did not complete cleanly: {{ just_ran_reason or 'unknown error.' }}</p>
 {% endif %}
 
-<section class="v2-company-section" id="collection-recurring">
+<section class="v2-company-section ops-section" id="collection-recurring">
   <h2>Recurring collection</h2>
   <p class="context-limit">
     The recurring collector runs as a separate scheduled process (a systemd timer), not inside this web application -- this app has no runtime visibility into whether that timer is currently enabled on the host, so this page never guesses. Enabling or disabling it is a deployment action, not a UI toggle.
@@ -35,21 +53,29 @@
   <p class="v2-card-line"><span class="v2-meta">Recommended next action</span> {{ report.recommended_next_action or "None" }}</p>
 </section>
 
-<section class="v2-company-section" id="collection-lock">
+<section class="v2-company-section ops-section" id="collection-lock">
   <h2>Lock state</h2>
   {% set lock = report.lock or {} %}
   {% if lock.state == 'none' %}
-    <p class="v2-card-line"><span class="badge badge-muted">NO LOCK</span> No collection run is currently in progress.</p>
+    <div class="ops-lock-panel" data-lock="none">
+      <p class="v2-card-line"><span class="badge badge-muted">NO LOCK</span> No collection run is currently in progress.</p>
+    </div>
   {% elif lock.state == 'active' %}
-    <p class="v2-card-line"><span class="badge badge-fact">ACTIVE</span> Run <code>{{ lock.run_id }}</code> started {{ lock.started_at|us_date if lock.started_at else '—' }}. A new run will be refused until it finishes.</p>
+    <div class="ops-lock-panel" data-lock="active">
+      <p class="v2-card-line"><span class="badge badge-fact">ACTIVE</span> Run <code>{{ lock.run_id }}</code> started {{ lock.started_at|us_date if lock.started_at else '—' }}. A new run will be refused until it finishes.</p>
+    </div>
   {% elif lock.state == 'stale' %}
-    <p class="v2-card-line"><span class="badge badge-counterevidence">STALE</span> Run <code>{{ lock.run_id }}</code> started {{ lock.started_at|us_date if lock.started_at else '—' }} and appears abandoned. The next run automatically recovers a stale lock -- no manual unlock action exists in this version.</p>
+    <div class="ops-lock-panel" data-lock="stale">
+      <p class="v2-card-line"><span class="badge badge-counterevidence">STALE</span> Run <code>{{ lock.run_id }}</code> started {{ lock.started_at|us_date if lock.started_at else '—' }} and appears abandoned. The next run automatically recovers a stale lock -- no manual unlock action exists in this version.</p>
+    </div>
   {% else %}
-    <p class="empty-state">Lock file present but could not be read cleanly.</p>
+    <div class="ops-lock-panel" data-lock="unreadable">
+      <p class="empty-state" role="status">Lock file present but could not be read cleanly.</p>
+    </div>
   {% endif %}
 </section>
 
-<section class="v2-company-section" id="collection-last-run">
+<section class="v2-company-section ops-section" id="collection-last-run">
   <h2>Last run</h2>
   {% if report.last_run %}
     {% set lr = report.last_run %}
@@ -60,20 +86,20 @@
       <dt>Mode</dt><dd>{{ 'Dry run (planning only, nothing written)' if lr.dry_run else 'Live' }}</dd>
     </dl>
     {% set c = lr.counts or {} %}
-    <div class="balanced-card-grid">
-      <article class="card"><p class="card-kicker">SEEN</p><h2>{{ c.items_discovered or 0 }}</h2></article>
-      <article class="card"><p class="card-kicker">NEW</p><h2>{{ c.items_new or 0 }}</h2></article>
-      <article class="card"><p class="card-kicker">ALREADY KNOWN</p><h2>{{ c.items_known or 0 }}</h2></article>
-      <article class="card"><p class="card-kicker">STAGED FOR REVIEW</p><h2>{{ c.awaiting_publication_review or 0 }}</h2></article>
-      <article class="card"><p class="card-kicker">RETRYABLE</p><h2>{{ c.retryable_failures or 0 }}</h2></article>
-      <article class="card"><p class="card-kicker">OPERATOR ACTION</p><h2>{{ c.operator_action_items or 0 }}</h2></article>
+    <div class="balanced-card-grid ops-metric-grid">
+      <article class="card ops-metric"><p class="card-kicker ops-metric-label">SEEN</p><h2 class="ops-metric-value">{{ c.items_discovered or 0 }}</h2></article>
+      <article class="card ops-metric"><p class="card-kicker ops-metric-label">NEW</p><h2 class="ops-metric-value">{{ c.items_new or 0 }}</h2></article>
+      <article class="card ops-metric"><p class="card-kicker ops-metric-label">ALREADY KNOWN</p><h2 class="ops-metric-value">{{ c.items_known or 0 }}</h2></article>
+      <article class="card ops-metric"><p class="card-kicker ops-metric-label">STAGED FOR REVIEW</p><h2 class="ops-metric-value">{{ c.awaiting_publication_review or 0 }}</h2></article>
+      <article class="card ops-metric"><p class="card-kicker ops-metric-label">RETRYABLE</p><h2 class="ops-metric-value">{{ c.retryable_failures or 0 }}</h2></article>
+      <article class="card ops-metric"><p class="card-kicker ops-metric-label">OPERATOR ACTION</p><h2 class="ops-metric-value">{{ c.operator_action_items or 0 }}</h2></article>
     </div>
   {% else %}
-    <p class="empty-state">No collection run has been recorded yet.</p>
+    <p class="empty-state pvs-system-state" role="status">No collection run has been recorded yet.</p>
   {% endif %}
 </section>
 
-<section class="v2-company-section" id="collection-history">
+<section class="v2-company-section ops-section" id="collection-history">
   <h2>Recent run history</h2>
   <p class="context-limit">The most recent {{ recent_runs|length }} run{{ 's' if recent_runs|length != 1 else '' }} (bounded). Only counts already persisted by the collection runner are shown -- nothing here is estimated.</p>
   {% if recent_runs %}
@@ -98,11 +124,11 @@
       </table>
     </div>
   {% else %}
-    <p class="empty-state">No collection runs recorded yet.</p>
+    <p class="empty-state pvs-system-state" role="status">No collection runs recorded yet.</p>
   {% endif %}
 </section>
 
-<section class="v2-company-section" id="collection-extraction">
+<section class="v2-company-section ops-section" id="collection-extraction">
   <h2>Extraction</h2>
   {% set gate = report.extraction or {} %}
   <p class="v2-card-line">
@@ -112,7 +138,7 @@
   <p class="context-limit">A collection run never enables extraction on its own, regardless of scope chosen below -- this is a separate, independently-gated opt-in this page cannot turn on.</p>
 </section>
 
-<section class="v2-company-section" id="collection-sources">
+<section class="v2-company-section ops-section" id="collection-sources">
   <h2>Degraded / failing Sources</h2>
   {% if degraded_sources %}
     <ul class="entity-links">
@@ -121,13 +147,13 @@
       {% endfor %}
     </ul>
   {% else %}
-    <p class="empty-state">No Source is currently failing or blocked.</p>
+    <p class="empty-state pvs-system-state" role="status">No Source is currently failing or blocked.</p>
   {% endif %}
   <p class="v2-card-line"><a href="/sources">Open full Source Health</a></p>
 </section>
 
 {% if not static_build %}
-<section class="v2-company-section" id="collection-run-now">
+<section class="v2-company-section ops-section" id="collection-run-now">
   <h2>Run now</h2>
   <p class="context-limit">A bounded, live collection pass across eligible Sources -- staged review drafts only, never a publish/approve action, never extraction. Refused automatically if a run is already active.</p>
   <form method="post" action="/collection-ops/run" class="filters">

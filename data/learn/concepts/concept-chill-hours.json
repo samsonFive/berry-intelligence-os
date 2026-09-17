@@ -1,0 +1,43 @@
+{
+  "id": "concept-chill-hours",
+  "slug": "chill-hours",
+  "name": "Chill hours",
+  "aliases": ["chilling requirement", "chill units", "dormancy", "low-chill", "winter chill"],
+  "pillar": "plant_biology_agronomy",
+  "knowledge_class": "foundational_knowledge",
+  "trait_ids": ["trait-chilling-requirement"],
+  "summary": "The amount of cool-season cold a variety needs to break dormancy and fruit reliably — a regional-suitability trait, not a flavor score.",
+  "what_is_it": "Chill hours (or chill units) estimate how much winter cold a perennial berry variety needs while dormant so that buds break and fruiting is regular the following season. Northern highbush blueberry types generally need more chill than southern highbush or rabbiteye types. Many biennial-cane raspberries are described around 800 or more hours below about 45°F (7°C). Low-chill breeding exists specifically so fruiting is possible in warmer winters.",
+  "why_it_matters": "Planting a high-chill variety in a warm winter climate, or a low-chill variety where winters are long and late frosts are common, is a regional mismatch. Competitive talk about 'low-chill blueberry' or expanding production into a new geography is often a chill-and-dormancy story, not a sweetness story.",
+  "how_evaluated": "Breeders and extension guides publish an approximate hour or unit range for a variety or class. Models differ (hours below a threshold vs weighted chill-unit models), so published numbers are not always interchangeable. Field evaluation is whether bud break, bloom, and cropping are regular in that climate over seasons.",
+  "what_affects_it": "Genetics, winter temperature pattern, elevation, and for some systems protected culture that changes the temperature the plant actually experiences. Insufficient chill can mean delayed or uneven bud break; a late frost after early bud break is a different risk.",
+  "how_to_interpret": "A chill-hour figure in a catalog is a suitability range, not a measured Fact about a specific farm's last winter. Do not infer fruit quality, yield, or that a company 'owns' a climate from a chill number alone. Compare the variety class and the geography named in the source.",
+  "related_concept_ids": ["concept-winter-production", "concept-precocity", "concept-protected-culture"],
+  "berry_notes": [
+    {
+      "berry_id": "berry-blueberry",
+      "note": "Northern highbush types generally need more winter chill than southern highbush or rabbiteye. A 'low-chill blueberry' claim is a class/suitability statement, not a flavor score."
+    },
+    {
+      "berry_id": "berry-raspberry",
+      "note": "Many biennial-cane raspberries are described around 800 or more hours below about 45°F (7°C). Protected culture can change the temperature the cane actually sees."
+    }
+  ],
+  "sources": [
+    {
+      "publisher": "University of Arkansas Cooperative Extension",
+      "title": "Blueberry Site Preparation and Establishment",
+      "url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/Blueberry%20Site%20Preparation%20and%20Establishment.pdf"
+    },
+    {
+      "publisher": "New Mexico State University Extension",
+      "title": "Commercial Everbearing Red Raspberry Production for New Mexico (H-318)",
+      "url": "https://pubs.nmsu.edu/_h/H318/"
+    },
+    {
+      "publisher": "British Columbia Ministry of Agriculture",
+      "title": "Berry Production Guides — Blueberries",
+      "url": "https://www2.gov.bc.ca/gov/content/industry/agriservice-bc/production-guides/berries/blueberries"
+    }
+  ]
+}

@@ -383,8 +383,12 @@ def present_source_health_rows(
     region_labels: dict[str, str],
     cadence_labels: dict[str, str],
     retry_hints: dict[str, dict[str, Any]] | None = None,
+    execution_by_source: dict[str, dict[str, Any]] | None = None,
+    acquisition_by_source: dict[str, dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     retry_hints = retry_hints or {}
+    execution_by_source = execution_by_source or {}
+    acquisition_by_source = acquisition_by_source or {}
     rows: list[dict[str, Any]] = []
     for source in sources:
         source_id = str(source.get("id") or "")
@@ -418,6 +422,8 @@ def present_source_health_rows(
                 "discoverable": is_discoverable(source),
                 "adapter": adapter,
                 "retry": retry_hints.get(source_id) or {},
+                "execution": execution_by_source.get(source_id) or {},
+                "acquisition": acquisition_by_source.get(source_id) or {},
             }
         )
     return rows

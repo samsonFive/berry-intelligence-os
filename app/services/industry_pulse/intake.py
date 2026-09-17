@@ -46,6 +46,7 @@ from typing import Any
 
 from app.services.article_acquisition import ArticleAcquisitionError, ArticleBody, fetch_article
 from app.services.article_dedup import find_duplicate_article, normalize_canonical_url
+from app.services.industry_pulse.canonical_urls import is_wrapper, preferred_url
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.publication_enrichment import apply_deterministic_tags, enrich_publication_draft
 from app.services.recall_audit.classify import WRAPPER_HOSTS, hostname
@@ -98,9 +99,15 @@ class IntakeSummary:
 
 
 def _real_publisher_url(hit: DiscoveryHit) -> str:
-    """The actual article URL, never a Google News wrapper."""
-    candidate = hit.origin_publisher_url or hit.url
-    return candidate or ""
+    """Publisher article URL for fetch and draft identity.
+
+    Google News `<source href>` is usually the publisher homepage. Fetching
+    that homepage (or keying draft ids on it) is wrong. Prefer a real
+    article path, then a locally decoded wrapper token, then the wrapper
+    itself so fetch_article can fail honestly. Never treat a homepage as
+    the article when a wrapper exists.
+    """
+    return preferred_url(hit)
 
 
 def pulse_draft_id(hit: DiscoveryHit) -> str:
@@ -131,7 +138,8 @@ def resolve_attribution(
     and URL on the draft itself."""
 
     url = _real_publisher_url(hit)
-    host = hostname(url)
+    origin = hit.origin_publisher_url or ""
+    host = hostname(origin) if origin and not is_wrapper(origin) else hostname(url)
     index = source_index if source_index is not None else _source_by_hostname(sources)
     matched = index.get(host) if host else None
     if matched:

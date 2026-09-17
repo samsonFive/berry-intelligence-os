@@ -1,0 +1,12 @@
+.......................................                                  [100%]
+=============================== warnings summary ===============================
+../../../../tmp/bios-venv/lib/python3.12/site-packages/starlette/testclient.py:51
+  /tmp/bios-venv/lib/python3.12/site-packages/starlette/testclient.py:51: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+../../../../tmp/bios-venv/lib/python3.12/site-packages/reportlab/lib/rl_safe_eval.py:12
+  /tmp/bios-venv/lib/python3.12/site-packages/reportlab/lib/rl_safe_eval.py:12: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    haveNameConstant = hasattr(ast,'NameConstant')
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+39 passed, 2 warnings in 3.89s

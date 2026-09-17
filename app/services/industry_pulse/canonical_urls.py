@@ -1,14 +1,15 @@
 """Prefer first-party publisher article URLs over wrappers and homepages.
 
-Does not fetch Google redirect targets (that would depend on wrapper
-behavior and can violate publisher terms). Uses only URLs already present
-on the DiscoveryHit.
+Does not call an undocumented Google endpoint and does not fetch wrapper
+HTML as an article. Local token decode (google_news_url) may recover a
+publisher article path already encoded in a Google News RSS link.
 """
 
 from __future__ import annotations
 
 from urllib.parse import urlparse
 
+from app.services.google_news_url import is_google_news_wrapper, resolve_google_news_url
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.recall_audit.classify import WRAPPER_HOSTS, hostname
 
@@ -28,14 +29,28 @@ def is_article_url(url: str | None) -> bool:
     return bool(url) and not is_wrapper(url) and not is_homepage(url)
 
 
+def _decoded_article_url(url: str | None) -> str | None:
+    if not url:
+        return None
+    resolved = resolve_google_news_url(url) if (is_wrapper(url) or is_google_news_wrapper(url)) else url
+    return resolved if is_article_url(resolved) else None
+
+
 def preferred_url(hit: DiscoveryHit) -> str:
-    """First-party article path, else wrapper (clickable), else any URL."""
+    """Publisher article path, else decoded wrapper, else wrapper.
+
+    Never returns a homepage when a wrapper exists. A homepage Google
+    `<source>` tag is publisher identity, not the article.
+    """
     origin = hit.origin_publisher_url or ""
     page = hit.url or ""
     wrapper = hit.wrapper_url or ""
-    for candidate in (origin, page):
+    decoded = _decoded_article_url(wrapper) or _decoded_article_url(page) or _decoded_article_url(origin)
+    for candidate in (origin, page, decoded or ""):
         if is_article_url(candidate):
             return candidate
+    if decoded:
+        return decoded
     if wrapper:
         return wrapper
     return origin or page or wrapper

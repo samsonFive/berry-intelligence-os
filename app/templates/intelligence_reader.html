@@ -1,13 +1,14 @@
-{% extends "base.html" %}
+{% extends "base_stakeholder.html" %}
 {% block title %}{{ item.title }} — Berry Intelligence OS{% endblock %}
 {% block content %}
+<div class="sh-page">
 <section class="page-heading">
   <div>
     <p class="eyebrow">INTELLIGENCE READER</p>
     <h1>{{ item.title }}</h1>
     <p class="also-known-as">{{ item.source_name }}{% if item.date %} · {{ item.date|us_date }}{% endif %} · {{ item.kind_label }}</p>
   </div>
-  <a class="button-link" href="/work-queue">Back to feed</a>
+  <a class="button-link" href="/today">Back to news</a>
 </section>
 
 {% if promoted %}
@@ -22,11 +23,16 @@
 
 <div class="intel-reader">
   <article class="intel-reader-main">
+    {% if reader_content.notice %}<p class="sh-note" role="status">{{ reader_content.notice }}</p>{% endif %}
     <div class="intel-card-meta">
       <span class="badge intel-trust-{{ item.trust }}">{{ item.trust_label }}</span>
       <span class="badge badge-muted">{{ item.kind_label }}</span>
       {% if item.ai_untrusted %}<span class="badge badge-muted">AI-assisted · pending analyst review</span>{% endif %}
     </div>
+
+    {% set hits = learn_glossary_hits(item.title, item.why or '', item.summary or record.summary or '') %}
+    {% set compact = false %}
+    {% include "_learn_glossary_hits.html" %}
 
     {% if kind == 'article' %}
       {% if paragraphs %}
@@ -35,8 +41,8 @@
             <p id="{{ paragraph.locator }}"><small class="locator">{{ paragraph.locator }}</small> {{ paragraph.text }}</p>
           {% endfor %}
         </div>
-      {% elif record.summary %}
-        <div class="intel-body"><p>{{ record.summary }}</p></div>
+      {% elif reader_content.summary %}
+        <div class="intel-body"><p>{{ reader_content.summary }}</p></div>
       {% elif publisher_description %}
         <div class="intel-body"><p>{{ publisher_description }}</p></div>
       {% endif %}
@@ -67,7 +73,7 @@
         <dt>Cultivar</dt><dd>{{ patent.cultivar_name or '—' }}</dd>
         {% if source_authority %}<dt>Source authority</dt><dd>{{ source_authority }}</dd>{% endif %}
       </dl>
-      {% if record.summary %}<p>{{ record.summary }}</p>{% endif %}
+      {% if reader_content.summary %}<p>{{ reader_content.summary }}</p>{% endif %}
       {% if does_not_prove %}
         <div class="banner banner-warning">
           <strong>Does not prove</strong>
@@ -83,7 +89,7 @@
         </ul>
       {% endif %}
     {% else %}
-      {% if record.summary %}<div class="intel-body"><p>{{ record.summary }}</p></div>{% endif %}
+      {% if reader_content.summary %}<div class="intel-body"><p>{{ reader_content.summary }}</p></div>{% endif %}
       {% if publisher_description and publisher_description != record.summary %}<details><summary>Publisher description</summary><p>{{ publisher_description }}</p></details>{% endif %}
     {% endif %}
 
@@ -128,14 +134,14 @@
         {% endfor %}
       </section>
     {% elif not pending %}
-      <section class="intel-claims">
-        <h2>Claims</h2>
+      <details class="intel-claims sh-evidence-metadata">
+        <summary>No reviewed claims available · extraction details</summary>
         {% if extract_claims.runnable %}
           <p>A qualified extraction model is configured. Run extraction through the collection runner; this reader will not call an unqualified model.</p>
         {% else %}
           <p>{{ extract_claims.detail }}</p>
         {% endif %}
-      </section>
+      </details>
     {% else %}
       <section class="intel-claims">
         <h2>Claims</h2>
@@ -172,7 +178,7 @@
             {% endif %}
             <span class="badge badge-muted">{{ attribution.primary.method|replace('_',' ') }} · {{ attribution.primary.strength }}</span>
           </p>
-          <p class="context-limit">Deterministic suggestion for pending content. Trusted entity links are not rewritten until you promote.</p>
+          <p class="context-limit">Suggested subject from the source metadata. A company mention does not establish a business relationship.</p>
         {% else %}
           <p class="empty-state">No primary subject from title, newsroom identity, or alias match.</p>
         {% endif %}
@@ -309,4 +315,5 @@
   });
 </script>
 {% endif %}
+</div>
 {% endblock %}

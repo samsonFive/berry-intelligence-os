@@ -1,0 +1,2211 @@
+{
+  "snapshot_date": "2026-09-15",
+  "coverage_window_days": 90,
+  "scope": "Read-only current-base audit. Entity representation is not called tracked coverage.",
+  "maturity_levels": {
+    "1": "Entity represented",
+    "2": "Discovery configured",
+    "3": "Discovery operational",
+    "4": "Readable content acquired",
+    "5": "Current coverage available"
+  },
+  "roster_count": 33,
+  "resolved_count": 33,
+  "rows": [
+    {
+      "roster_name": "Advanced Berry Breeding",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-advanced-berry-breeding",
+        "name": "Advanced Berry Breeding B.V.",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Advanced Berry Breeding B.V.",
+        "ABB",
+        "Advanced Berry Breeding"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260825-advanced-berry-breeding-news",
+          "label": "Advanced Berry Breeding News",
+          "discovery": {
+            "state": "SUCCESSFULLY_RUN",
+            "label": "Successfully run",
+            "runnable": true,
+            "reason": "At least one discovery run completed successfully."
+          },
+          "article_body_acquisition": {
+            "attempts": 4,
+            "readable": 4,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": {
+              "version": "article-acquisition-outcome-v1",
+              "source_id": "source-20260825-advanced-berry-breeding-news",
+              "item_id": "discovered-source-20260825-advanced-berry-breeding-news-ab29fd210a44ab58",
+              "publication_or_draft_id": "ev-media-963ee6b1e24d9efc8b87",
+              "attempted_url": "https://www.abbreeding.nl/2026/03/13/abb-scout-pick-raspberry-field-tour/?utm_source=rss&utm_medium=rss&utm_campaign=abb-scout-pick-raspberry-field-tour",
+              "attempted_at": "2026-09-15T16:11:39+00:00",
+              "article_published_date": "2026-03-13",
+              "acquisition_stage": "article_body",
+              "outcome_category": "readable_article_body",
+              "http_status": null,
+              "retryable": false,
+              "manual_acquisition_required": false,
+              "content_quality": "READABLE",
+              "extractor": "trafilatura",
+              "extractor_version": "2.2.0",
+              "acquisition_version": "article-acquisition-v1",
+              "diagnostic": "Readable article body acquired (826 words).",
+              "attempt_count": 1,
+              "recorded_at": "2026-09-15T16:11:47.567817+00:00"
+            },
+            "latest_readable_acquired_at": "2026-09-15T16:11:39+00:00",
+            "most_recent_readable_article": "2026-03-13",
+            "state": "readable_article_body",
+            "label": "Readable Article Body"
+          },
+          "most_recent_successful_discovery": "2026-09-15T16:10:55+00:00"
+        }
+      ],
+      "runnable_sources": 1,
+      "successful_discovery_runs": 1,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": "2026-09-15T16:10:55+00:00",
+      "most_recent_readable_article": "2026-03-13",
+      "current_usable_published_articles": 0,
+      "maturity_level": 4,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": true,
+        "discovery_operational": true,
+        "readable_content_acquired": true,
+        "current_coverage_available": false,
+        "maturity_level": 4,
+        "linked_sources": [
+          {
+            "source_id": "source-20260825-advanced-berry-breeding-news",
+            "label": "Advanced Berry Breeding News",
+            "discovery": {
+              "state": "SUCCESSFULLY_RUN",
+              "label": "Successfully run",
+              "runnable": true,
+              "reason": "At least one discovery run completed successfully."
+            },
+            "article_body_acquisition": {
+              "attempts": 4,
+              "readable": 4,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": {
+                "version": "article-acquisition-outcome-v1",
+                "source_id": "source-20260825-advanced-berry-breeding-news",
+                "item_id": "discovered-source-20260825-advanced-berry-breeding-news-ab29fd210a44ab58",
+                "publication_or_draft_id": "ev-media-963ee6b1e24d9efc8b87",
+                "attempted_url": "https://www.abbreeding.nl/2026/03/13/abb-scout-pick-raspberry-field-tour/?utm_source=rss&utm_medium=rss&utm_campaign=abb-scout-pick-raspberry-field-tour",
+                "attempted_at": "2026-09-15T16:11:39+00:00",
+                "article_published_date": "2026-03-13",
+                "acquisition_stage": "article_body",
+                "outcome_category": "readable_article_body",
+                "http_status": null,
+                "retryable": false,
+                "manual_acquisition_required": false,
+                "content_quality": "READABLE",
+                "extractor": "trafilatura",
+                "extractor_version": "2.2.0",
+                "acquisition_version": "article-acquisition-v1",
+                "diagnostic": "Readable article body acquired (826 words).",
+                "attempt_count": 1,
+                "recorded_at": "2026-09-15T16:11:47.567817+00:00"
+              },
+              "latest_readable_acquired_at": "2026-09-15T16:11:39+00:00",
+              "most_recent_readable_article": "2026-03-13",
+              "state": "readable_article_body",
+              "label": "Readable Article Body"
+            }
+          }
+        ],
+        "linked_source_count": 1,
+        "runnable_source_count": 1,
+        "successful_discovery_source_count": 1,
+        "readable_source_count": 1,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "AgroBerries",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-agroberries",
+        "name": "AgroBerries",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "AgroBerries"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Australasian Plant Genetics",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-australasian-plant-genetics",
+        "name": "Australasian Plant Genetics",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Australasian Plant Genetics"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "BerryWorld",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-berryworld",
+        "name": "BerryWorld Group",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "BerryWorld Group",
+        "BerryWorld"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260824-berryworld-newsroom",
+          "label": "BerryWorld Newsroom",
+          "discovery": {
+            "state": "SUCCESSFULLY_RUN",
+            "label": "Successfully run",
+            "runnable": true,
+            "reason": "At least one discovery run completed successfully."
+          },
+          "article_body_acquisition": {
+            "attempts": 2,
+            "readable": 2,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": {
+              "version": "article-acquisition-outcome-v1",
+              "source_id": "source-20260824-berryworld-newsroom",
+              "item_id": "discovered-source-20260824-berryworld-newsroom-d5e359ba469c3dbe",
+              "publication_or_draft_id": "ev-media-e1e2cc698a1ea399a25c",
+              "attempted_url": "https://www.berryworld.com/news/berryworld-expands-blueberry-portfolio-through-mountain-blue-deal",
+              "attempted_at": "2026-09-15T16:12:23+00:00",
+              "article_published_date": "2026-06-24",
+              "acquisition_stage": "article_body",
+              "outcome_category": "readable_article_body",
+              "http_status": null,
+              "retryable": false,
+              "manual_acquisition_required": false,
+              "content_quality": "READABLE",
+              "extractor": "trafilatura",
+              "extractor_version": "2.2.0",
+              "acquisition_version": "article-acquisition-v1",
+              "diagnostic": "Readable article body acquired (448 words).",
+              "attempt_count": 1,
+              "recorded_at": "2026-09-15T16:12:31.295252+00:00"
+            },
+            "latest_readable_acquired_at": "2026-09-15T16:12:23+00:00",
+            "most_recent_readable_article": "2026-06-24",
+            "state": "readable_article_body",
+            "label": "Readable Article Body"
+          },
+          "most_recent_successful_discovery": "2026-09-15T16:12:05+00:00"
+        }
+      ],
+      "runnable_sources": 1,
+      "successful_discovery_runs": 1,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": "2026-09-15T16:12:05+00:00",
+      "most_recent_readable_article": "2026-06-24",
+      "current_usable_published_articles": 0,
+      "maturity_level": 4,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": true,
+        "discovery_operational": true,
+        "readable_content_acquired": true,
+        "current_coverage_available": false,
+        "maturity_level": 4,
+        "linked_sources": [
+          {
+            "source_id": "source-20260824-berryworld-newsroom",
+            "label": "BerryWorld Newsroom",
+            "discovery": {
+              "state": "SUCCESSFULLY_RUN",
+              "label": "Successfully run",
+              "runnable": true,
+              "reason": "At least one discovery run completed successfully."
+            },
+            "article_body_acquisition": {
+              "attempts": 2,
+              "readable": 2,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": {
+                "version": "article-acquisition-outcome-v1",
+                "source_id": "source-20260824-berryworld-newsroom",
+                "item_id": "discovered-source-20260824-berryworld-newsroom-d5e359ba469c3dbe",
+                "publication_or_draft_id": "ev-media-e1e2cc698a1ea399a25c",
+                "attempted_url": "https://www.berryworld.com/news/berryworld-expands-blueberry-portfolio-through-mountain-blue-deal",
+                "attempted_at": "2026-09-15T16:12:23+00:00",
+                "article_published_date": "2026-06-24",
+                "acquisition_stage": "article_body",
+                "outcome_category": "readable_article_body",
+                "http_status": null,
+                "retryable": false,
+                "manual_acquisition_required": false,
+                "content_quality": "READABLE",
+                "extractor": "trafilatura",
+                "extractor_version": "2.2.0",
+                "acquisition_version": "article-acquisition-v1",
+                "diagnostic": "Readable article body acquired (448 words).",
+                "attempt_count": 1,
+                "recorded_at": "2026-09-15T16:12:31.295252+00:00"
+              },
+              "latest_readable_acquired_at": "2026-09-15T16:12:23+00:00",
+              "most_recent_readable_article": "2026-06-24",
+              "state": "readable_article_body",
+              "label": "Readable Article Body"
+            }
+          }
+        ],
+        "linked_source_count": 1,
+        "runnable_source_count": 1,
+        "successful_discovery_source_count": 1,
+        "readable_source_count": 1,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Black Venture Farm",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-black-venture-farm",
+        "name": "Black Venture Farm",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Black Venture Farm"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "California Giant",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-california-giant-berry-farms",
+        "name": "California Giant Berry Farms",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "California Giant Berry Farms",
+        "California Giant",
+        "Cal Giant",
+        "California Giant, Inc."
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": true,
+        "official_source_block_detail": "Two Cal Giant Source entries exist as type 'reference' with no discovery adapter; direct calgiant.com acquisition is TLS/HTTP-client-fingerprint blocked (Cloudflare bot management), confirmed on fix/astra-news-reader (commit 721a20a). Cited, not re-diagnosed here.",
+        "manual_or_alternative_source_required": true
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days; official source is blocked by publisher access controls; manual acquisition or a compliant alternative source is required"
+    },
+    {
+      "roster_name": "Costa",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-costa-group-holdings",
+        "name": "Costa Group Holdings Pty Ltd",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Costa Group Holdings Pty Ltd",
+        "Costa Group",
+        "Costa Group Holdings Limited",
+        "ABN 68 151 363 129",
+        "Costa"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-news-search-costa-group",
+          "label": "Mainstream news search -- Costa Group",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        },
+        {
+          "source_id": "source-20260824-costa-group-newsroom",
+          "label": "Costa Group Newsroom",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        }
+      ],
+      "runnable_sources": 2,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 2,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 2,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": true,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 2,
+        "linked_sources": [
+          {
+            "source_id": "source-news-search-costa-group",
+            "label": "Mainstream news search -- Costa Group",
+            "discovery": {
+              "state": "NEVER_RUN",
+              "label": "Never run",
+              "runnable": true,
+              "reason": "Configuration is runnable, but no discovery attempt is recorded."
+            },
+            "article_body_acquisition": {
+              "attempts": 0,
+              "readable": 0,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": null,
+              "latest_readable_acquired_at": null,
+              "most_recent_readable_article": null,
+              "state": "never_attempted",
+              "label": "Never Attempted"
+            }
+          },
+          {
+            "source_id": "source-20260824-costa-group-newsroom",
+            "label": "Costa Group Newsroom",
+            "discovery": {
+              "state": "NEVER_RUN",
+              "label": "Never run",
+              "runnable": true,
+              "reason": "Configuration is runnable, but no discovery attempt is recorded."
+            },
+            "article_body_acquisition": {
+              "attempts": 0,
+              "readable": 0,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": null,
+              "latest_readable_acquired_at": null,
+              "most_recent_readable_article": null,
+              "state": "never_attempted",
+              "label": "Never Attempted"
+            }
+          }
+        ],
+        "linked_source_count": 2,
+        "runnable_source_count": 2,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Denning Blueberries",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-denning-blueberries",
+        "name": "Denning Blueberries",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Denning Blueberries"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Expoberries",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-expoberries",
+        "name": "Expoberries",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Expoberries"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Fall Creek",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-fall-creek-farm-and-nursery",
+        "name": "Fall Creek Farm & Nursery, Inc.",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Fall Creek Farm & Nursery, Inc.",
+        "Fall Creek",
+        "Fall Creek Farm and Nursery",
+        "Fall Creek Nursery"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260824-fall-creek-newsroom",
+          "label": "Fall Creek Newsroom",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        },
+        {
+          "source_id": "source-20260824-sekoya-news",
+          "label": "SEKOYA News",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        }
+      ],
+      "runnable_sources": 2,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 2,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 2,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": true,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 2,
+        "linked_sources": [
+          {
+            "source_id": "source-20260824-fall-creek-newsroom",
+            "label": "Fall Creek Newsroom",
+            "discovery": {
+              "state": "NEVER_RUN",
+              "label": "Never run",
+              "runnable": true,
+              "reason": "Configuration is runnable, but no discovery attempt is recorded."
+            },
+            "article_body_acquisition": {
+              "attempts": 0,
+              "readable": 0,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": null,
+              "latest_readable_acquired_at": null,
+              "most_recent_readable_article": null,
+              "state": "never_attempted",
+              "label": "Never Attempted"
+            }
+          },
+          {
+            "source_id": "source-20260824-sekoya-news",
+            "label": "SEKOYA News",
+            "discovery": {
+              "state": "NEVER_RUN",
+              "label": "Never run",
+              "runnable": true,
+              "reason": "Configuration is runnable, but no discovery attempt is recorded."
+            },
+            "article_body_acquisition": {
+              "attempts": 0,
+              "readable": 0,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": null,
+              "latest_readable_acquired_at": null,
+              "most_recent_readable_article": null,
+              "state": "never_attempted",
+              "label": "Never Attempted"
+            }
+          }
+        ],
+        "linked_source_count": 2,
+        "runnable_source_count": 2,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Fresh Forward",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-fresh-forward",
+        "name": "Fresh Forward",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Fresh Forward"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Fruitist",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-agrovision",
+        "name": "Agrovision Corp. (Fruitist)",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Agrovision Corp. (Fruitist)",
+        "Fruitist",
+        "Agrovision",
+        "Agro Vision Corp."
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260915-fruitist-newsroom",
+          "label": "Fruitist Newsroom",
+          "discovery": {
+            "state": "SUCCESSFULLY_RUN",
+            "label": "Successfully run",
+            "runnable": true,
+            "reason": "At least one discovery run completed successfully."
+          },
+          "article_body_acquisition": {
+            "attempts": 1,
+            "readable": 1,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": {
+              "version": "article-acquisition-outcome-v1",
+              "source_id": "source-20260915-fruitist-newsroom",
+              "item_id": "discovered-source-20260915-fruitist-newsroom-774b38821a4fcb3b",
+              "publication_or_draft_id": "ev-media-50fa7fcac4a547ffb33a",
+              "attempted_url": "https://www.fruitist.com/news/fruitist-launches-at-whole-foods-market-uk-with-bold-kensington-high-street-flagship-display",
+              "attempted_at": "2026-09-15T16:13:26+00:00",
+              "article_published_date": "2026-02-19",
+              "acquisition_stage": "article_body",
+              "outcome_category": "readable_article_body",
+              "http_status": null,
+              "retryable": false,
+              "manual_acquisition_required": false,
+              "content_quality": "READABLE",
+              "extractor": "trafilatura",
+              "extractor_version": "2.2.0",
+              "acquisition_version": "article-acquisition-v1",
+              "diagnostic": "Readable article body acquired (412 words).",
+              "attempt_count": 1,
+              "recorded_at": "2026-09-15T16:13:34.447904+00:00"
+            },
+            "latest_readable_acquired_at": "2026-09-15T16:13:26+00:00",
+            "most_recent_readable_article": "2026-02-19",
+            "state": "readable_article_body",
+            "label": "Readable Article Body"
+          },
+          "most_recent_successful_discovery": "2026-09-15T16:13:20+00:00"
+        }
+      ],
+      "runnable_sources": 1,
+      "successful_discovery_runs": 1,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": "2026-09-15T16:13:20+00:00",
+      "most_recent_readable_article": "2026-02-19",
+      "current_usable_published_articles": 0,
+      "maturity_level": 4,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": true,
+        "discovery_operational": true,
+        "readable_content_acquired": true,
+        "current_coverage_available": false,
+        "maturity_level": 4,
+        "linked_sources": [
+          {
+            "source_id": "source-20260915-fruitist-newsroom",
+            "label": "Fruitist Newsroom",
+            "discovery": {
+              "state": "SUCCESSFULLY_RUN",
+              "label": "Successfully run",
+              "runnable": true,
+              "reason": "At least one discovery run completed successfully."
+            },
+            "article_body_acquisition": {
+              "attempts": 1,
+              "readable": 1,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": {
+                "version": "article-acquisition-outcome-v1",
+                "source_id": "source-20260915-fruitist-newsroom",
+                "item_id": "discovered-source-20260915-fruitist-newsroom-774b38821a4fcb3b",
+                "publication_or_draft_id": "ev-media-50fa7fcac4a547ffb33a",
+                "attempted_url": "https://www.fruitist.com/news/fruitist-launches-at-whole-foods-market-uk-with-bold-kensington-high-street-flagship-display",
+                "attempted_at": "2026-09-15T16:13:26+00:00",
+                "article_published_date": "2026-02-19",
+                "acquisition_stage": "article_body",
+                "outcome_category": "readable_article_body",
+                "http_status": null,
+                "retryable": false,
+                "manual_acquisition_required": false,
+                "content_quality": "READABLE",
+                "extractor": "trafilatura",
+                "extractor_version": "2.2.0",
+                "acquisition_version": "article-acquisition-v1",
+                "diagnostic": "Readable article body acquired (412 words).",
+                "attempt_count": 1,
+                "recorded_at": "2026-09-15T16:13:34.447904+00:00"
+              },
+              "latest_readable_acquired_at": "2026-09-15T16:13:26+00:00",
+              "most_recent_readable_article": "2026-02-19",
+              "state": "readable_article_body",
+              "label": "Readable Article Body"
+            }
+          }
+        ],
+        "linked_source_count": 1,
+        "runnable_source_count": 1,
+        "successful_discovery_source_count": 1,
+        "readable_source_count": 1,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Gem-Pack Berries",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-gem-pack-berries",
+        "name": "Gem-Pack Berries",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Gem-Pack Berries"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Hortifrut Genetica",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-hortifrut",
+        "name": "Hortifrut S.A.",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Hortifrut S.A.",
+        "Hortifrut",
+        "RUT 96.896.990-0",
+        "Hortifrut Genetica"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260819-hortifrut-newsroom",
+          "label": "Hortifrut Newsroom",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        }
+      ],
+      "runnable_sources": 1,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 1,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 2,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": true,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 2,
+        "linked_sources": [
+          {
+            "source_id": "source-20260819-hortifrut-newsroom",
+            "label": "Hortifrut Newsroom",
+            "discovery": {
+              "state": "NEVER_RUN",
+              "label": "Never run",
+              "runnable": true,
+              "reason": "Configuration is runnable, but no discovery attempt is recorded."
+            },
+            "article_body_acquisition": {
+              "attempts": 0,
+              "readable": 0,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": null,
+              "latest_readable_acquired_at": null,
+              "most_recent_readable_article": null,
+              "state": "never_attempted",
+              "label": "Never Attempted"
+            }
+          }
+        ],
+        "linked_source_count": 1,
+        "runnable_source_count": 1,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "IQ Berries",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-iq-berries",
+        "name": "IQ Berries",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "IQ Berries"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Marionnet",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-marionnet",
+        "name": "Marionnet",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Marionnet"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Mountain Blue",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-mountain-blue-orchards",
+        "name": "Mountain Blue Orchards Pty Ltd",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Mountain Blue Orchards Pty Ltd",
+        "Mountain Blue",
+        "MBO",
+        "Mountain Blue Farms"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Oishii",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-oishii",
+        "name": "Oishii",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Oishii"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260915-oishii-press",
+          "label": "Oishii Press Feed",
+          "discovery": {
+            "state": "SUCCESSFULLY_RUN",
+            "label": "Successfully run",
+            "runnable": true,
+            "reason": "At least one discovery run completed successfully."
+          },
+          "article_body_acquisition": {
+            "attempts": 3,
+            "readable": 0,
+            "blocked_or_unusable": 3,
+            "retryable": 0,
+            "latest": {
+              "version": "article-acquisition-outcome-v1",
+              "source_id": "source-20260915-oishii-press",
+              "item_id": "discovered-source-20260915-oishii-press-ca1c4cd182dfd292",
+              "publication_or_draft_id": "ev-media-e614f75535673266c405",
+              "attempted_url": "https://oishii.com/blogs/press/farm-of-the-future-from-oishii-solar-powered-indoor-vertical-strawberry-farm",
+              "attempted_at": "2026-09-15T16:13:07.589797+00:00",
+              "article_published_date": null,
+              "acquisition_stage": "article_body",
+              "outcome_category": "navigation_only_shell",
+              "http_status": null,
+              "retryable": false,
+              "manual_acquisition_required": true,
+              "content_quality": "UNUSABLE_EMPTY",
+              "extractor": "trafilatura",
+              "extractor_version": null,
+              "acquisition_version": "article-acquisition-v1",
+              "diagnostic": "extracted body too short (118 chars) at https://oishii.com/blogs/press/farm-of-the-future-from-oishii-solar-powered-indoor-vertical-strawberry-farm -- likely not a real article page",
+              "attempt_count": 1,
+              "recorded_at": "2026-09-15T16:13:07.590738+00:00"
+            },
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "navigation_only_shell",
+            "label": "Navigation Only Shell"
+          },
+          "most_recent_successful_discovery": "2026-09-15T16:12:58+00:00"
+        }
+      ],
+      "runnable_sources": 1,
+      "successful_discovery_runs": 1,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": "2026-09-15T16:12:58+00:00",
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 3,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": true,
+        "discovery_operational": true,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 3,
+        "linked_sources": [
+          {
+            "source_id": "source-20260915-oishii-press",
+            "label": "Oishii Press Feed",
+            "discovery": {
+              "state": "SUCCESSFULLY_RUN",
+              "label": "Successfully run",
+              "runnable": true,
+              "reason": "At least one discovery run completed successfully."
+            },
+            "article_body_acquisition": {
+              "attempts": 3,
+              "readable": 0,
+              "blocked_or_unusable": 3,
+              "retryable": 0,
+              "latest": {
+                "version": "article-acquisition-outcome-v1",
+                "source_id": "source-20260915-oishii-press",
+                "item_id": "discovered-source-20260915-oishii-press-ca1c4cd182dfd292",
+                "publication_or_draft_id": "ev-media-e614f75535673266c405",
+                "attempted_url": "https://oishii.com/blogs/press/farm-of-the-future-from-oishii-solar-powered-indoor-vertical-strawberry-farm",
+                "attempted_at": "2026-09-15T16:13:07.589797+00:00",
+                "article_published_date": null,
+                "acquisition_stage": "article_body",
+                "outcome_category": "navigation_only_shell",
+                "http_status": null,
+                "retryable": false,
+                "manual_acquisition_required": true,
+                "content_quality": "UNUSABLE_EMPTY",
+                "extractor": "trafilatura",
+                "extractor_version": null,
+                "acquisition_version": "article-acquisition-v1",
+                "diagnostic": "extracted body too short (118 chars) at https://oishii.com/blogs/press/farm-of-the-future-from-oishii-solar-powered-indoor-vertical-strawberry-farm -- likely not a real article page",
+                "attempt_count": 1,
+                "recorded_at": "2026-09-15T16:13:07.590738+00:00"
+              },
+              "latest_readable_acquired_at": null,
+              "most_recent_readable_article": null,
+              "state": "navigation_only_shell",
+              "label": "Navigation Only Shell"
+            }
+          }
+        ],
+        "linked_source_count": 1,
+        "runnable_source_count": 1,
+        "successful_discovery_source_count": 1,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Ozblu",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "brand-ozblu",
+        "name": "OZblu",
+        "entity_type": "brand"
+      },
+      "aliases_search_terms": [
+        "OZblu",
+        "OZblu®",
+        "Ozblu"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260915-ozblu-news",
+          "label": "OZblu News Feed",
+          "discovery": {
+            "state": "BLOCKED",
+            "label": "Blocked",
+            "runnable": false,
+            "reason": "ROBOTS_OR_ACCESS_BLOCKED: live Wave 1 verification returned HTTP 403 for robots.txt and the official news feed to the project client; do not retry automatically or bypass publisher controls."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        }
+      ],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 1,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [
+          {
+            "source_id": "source-20260915-ozblu-news",
+            "label": "OZblu News Feed",
+            "discovery": {
+              "state": "BLOCKED",
+              "label": "Blocked",
+              "runnable": false,
+              "reason": "ROBOTS_OR_ACCESS_BLOCKED: live Wave 1 verification returned HTTP 403 for robots.txt and the official news feed to the project client; do not retry automatically or bypass publisher controls."
+            },
+            "article_body_acquisition": {
+              "attempts": 0,
+              "readable": 0,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": null,
+              "latest_readable_acquired_at": null,
+              "most_recent_readable_article": null,
+              "state": "never_attempted",
+              "label": "Never Attempted"
+            }
+          }
+        ],
+        "linked_source_count": 1,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no runnable linked Source; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Pairwise",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-pairwise",
+        "name": "Pairwise",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Pairwise"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Perfection Fresh",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-perfection-fresh",
+        "name": "Perfection Fresh",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Perfection Fresh"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Planasa",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-planasa",
+        "name": "Plantas de Navarra, S.A.",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Plantas de Navarra, S.A.",
+        "Planasa"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260819-planasa-newsroom",
+          "label": "Planasa Newsroom",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        }
+      ],
+      "runnable_sources": 1,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 1,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 2,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": true,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 2,
+        "linked_sources": [
+          {
+            "source_id": "source-20260819-planasa-newsroom",
+            "label": "Planasa Newsroom",
+            "discovery": {
+              "state": "NEVER_RUN",
+              "label": "Never run",
+              "runnable": true,
+              "reason": "Configuration is runnable, but no discovery attempt is recorded."
+            },
+            "article_body_acquisition": {
+              "attempts": 0,
+              "readable": 0,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": null,
+              "latest_readable_acquired_at": null,
+              "most_recent_readable_article": null,
+              "state": "never_attempted",
+              "label": "Never Attempted"
+            }
+          }
+        ],
+        "linked_source_count": 1,
+        "runnable_source_count": 1,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Plant Sciences",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-plant-sciences-genetics",
+        "name": "Plant Sciences, Inc.",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Plant Sciences, Inc.",
+        "Plant Sciences Genetics",
+        "PSG",
+        "Plant Sciences Europe",
+        "Plant Sciences"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Royakkers",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-royakkers",
+        "name": "Royakkers",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Royakkers"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Smart Berries",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-smart-berries",
+        "name": "Smart Berries",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Smart Berries"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Splendor Produce",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-splendor-produce",
+        "name": "Splendor Produce",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Splendor Produce"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "SunBelle",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-sunbelle",
+        "name": "SunBelle",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "SunBelle"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "The Berry Collective",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-the-berry-collective",
+        "name": "The Berry Collective",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "The Berry Collective"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "UC Davis",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "breeding_program-uc-davis-strawberry",
+        "name": "UC Davis Strawberry Breeding Program",
+        "entity_type": "breeding_program"
+      },
+      "aliases_search_terms": [
+        "UC Davis Strawberry Breeding Program",
+        "University of California, Davis Strawberry Breeding Program",
+        "UC Davis strawberry breeding",
+        "The Regents Of The University Of California",
+        "Regents of the University of California",
+        "UC Davis"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": true,
+        "official_source_block_detail": "The official UC Davis Strawberry Breeding Program news candidate returned repeatable HTTP 403 during Competitor Source Strategy V1 verification. It remains unconfigured rather than being treated as an automated source or routed around.",
+        "manual_or_alternative_source_required": true
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days; official source is blocked by publisher access controls; manual acquisition or a compliant alternative source is required"
+    },
+    {
+      "roster_name": "University of Arkansas",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-university-of-arkansas",
+        "name": "University of Arkansas Division of Agriculture",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "University of Arkansas Division of Agriculture",
+        "University of Arkansas",
+        "UADA"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260824-arkansas-aaes-news",
+          "label": "Arkansas Agricultural Experiment Station News",
+          "discovery": {
+            "state": "SUCCESSFULLY_RUN",
+            "label": "Successfully run",
+            "runnable": true,
+            "reason": "At least one discovery run completed successfully."
+          },
+          "article_body_acquisition": {
+            "attempts": 1,
+            "readable": 1,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": {
+              "version": "article-acquisition-outcome-v1",
+              "source_id": "source-20260824-arkansas-aaes-news",
+              "item_id": "discovered-source-20260824-arkansas-aaes-news-c6bb0a8a5421299f",
+              "publication_or_draft_id": null,
+              "attempted_url": "https://aaes.uada.edu/news/vibha-srivastava-news-obit/",
+              "attempted_at": "2026-09-15T16:12:48+00:00",
+              "article_published_date": "2023-03-05",
+              "acquisition_stage": "article_body",
+              "outcome_category": "readable_article_body",
+              "http_status": null,
+              "retryable": false,
+              "manual_acquisition_required": false,
+              "content_quality": "READABLE_IRRELEVANT",
+              "extractor": "trafilatura",
+              "extractor_version": "2.2.0",
+              "acquisition_version": "article-acquisition-v1",
+              "diagnostic": "Readable article body acquired (1073 words).",
+              "attempt_count": 1,
+              "recorded_at": "2026-09-15T16:12:49.187407+00:00"
+            },
+            "latest_readable_acquired_at": "2026-09-15T16:12:48+00:00",
+            "most_recent_readable_article": "2023-03-05",
+            "state": "readable_article_body",
+            "label": "Readable Article Body"
+          },
+          "most_recent_successful_discovery": "2026-09-15T16:12:40+00:00"
+        }
+      ],
+      "runnable_sources": 1,
+      "successful_discovery_runs": 1,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": "2026-09-15T16:12:40+00:00",
+      "most_recent_readable_article": "2023-03-05",
+      "current_usable_published_articles": 0,
+      "maturity_level": 4,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": true,
+        "discovery_operational": true,
+        "readable_content_acquired": true,
+        "current_coverage_available": false,
+        "maturity_level": 4,
+        "linked_sources": [
+          {
+            "source_id": "source-20260824-arkansas-aaes-news",
+            "label": "Arkansas Agricultural Experiment Station News",
+            "discovery": {
+              "state": "SUCCESSFULLY_RUN",
+              "label": "Successfully run",
+              "runnable": true,
+              "reason": "At least one discovery run completed successfully."
+            },
+            "article_body_acquisition": {
+              "attempts": 1,
+              "readable": 1,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": {
+                "version": "article-acquisition-outcome-v1",
+                "source_id": "source-20260824-arkansas-aaes-news",
+                "item_id": "discovered-source-20260824-arkansas-aaes-news-c6bb0a8a5421299f",
+                "publication_or_draft_id": null,
+                "attempted_url": "https://aaes.uada.edu/news/vibha-srivastava-news-obit/",
+                "attempted_at": "2026-09-15T16:12:48+00:00",
+                "article_published_date": "2023-03-05",
+                "acquisition_stage": "article_body",
+                "outcome_category": "readable_article_body",
+                "http_status": null,
+                "retryable": false,
+                "manual_acquisition_required": false,
+                "content_quality": "READABLE_IRRELEVANT",
+                "extractor": "trafilatura",
+                "extractor_version": "2.2.0",
+                "acquisition_version": "article-acquisition-v1",
+                "diagnostic": "Readable article body acquired (1073 words).",
+                "attempt_count": 1,
+                "recorded_at": "2026-09-15T16:12:49.187407+00:00"
+              },
+              "latest_readable_acquired_at": "2026-09-15T16:12:48+00:00",
+              "most_recent_readable_article": "2023-03-05",
+              "state": "readable_article_body",
+              "label": "Readable Article Body"
+            }
+          }
+        ],
+        "linked_source_count": 1,
+        "runnable_source_count": 1,
+        "successful_discovery_source_count": 1,
+        "readable_source_count": 1,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "University of Florida",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-university-of-florida",
+        "name": "University of Florida",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "University of Florida",
+        "University of Florida IFAS",
+        "UF/IFAS",
+        "UF"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260824-uf-ifas-news",
+          "label": "University of Florida IFAS News",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        },
+        {
+          "source_id": "source-20260901-blueberrybreeding-newsroom",
+          "label": "BlueberryBreeding.com (University of Florida) Blog",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        }
+      ],
+      "runnable_sources": 2,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 2,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 2,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": true,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 2,
+        "linked_sources": [
+          {
+            "source_id": "source-20260824-uf-ifas-news",
+            "label": "University of Florida IFAS News",
+            "discovery": {
+              "state": "NEVER_RUN",
+              "label": "Never run",
+              "runnable": true,
+              "reason": "Configuration is runnable, but no discovery attempt is recorded."
+            },
+            "article_body_acquisition": {
+              "attempts": 0,
+              "readable": 0,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": null,
+              "latest_readable_acquired_at": null,
+              "most_recent_readable_article": null,
+              "state": "never_attempted",
+              "label": "Never Attempted"
+            }
+          },
+          {
+            "source_id": "source-20260901-blueberrybreeding-newsroom",
+            "label": "BlueberryBreeding.com (University of Florida) Blog",
+            "discovery": {
+              "state": "NEVER_RUN",
+              "label": "Never run",
+              "runnable": true,
+              "reason": "Configuration is runnable, but no discovery attempt is recorded."
+            },
+            "article_body_acquisition": {
+              "attempts": 0,
+              "readable": 0,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": null,
+              "latest_readable_acquired_at": null,
+              "most_recent_readable_article": null,
+              "state": "never_attempted",
+              "label": "Never Attempted"
+            }
+          }
+        ],
+        "linked_source_count": 2,
+        "runnable_source_count": 2,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Well-Pict",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-well-pict",
+        "name": "Well-Pict",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Well-Pict"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [],
+        "linked_source_count": 0,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Wish Farms",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-wish-farms",
+        "name": "Wish Farms",
+        "entity_type": "company"
+      },
+      "aliases_search_terms": [
+        "Wish Farms"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260915-wish-farms-newsroom",
+          "label": "Wish Farms Newsroom Feed",
+          "discovery": {
+            "state": "BLOCKED",
+            "label": "Blocked",
+            "runnable": false,
+            "reason": "ROBOTS_OR_ACCESS_BLOCKED: live Wave 1 verification returned HTTP 403 for robots.txt and the official newsroom feed to the project client; do not retry automatically or bypass publisher controls."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        }
+      ],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 1,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "maturity": {
+        "entity_represented": true,
+        "discovery_configured": false,
+        "discovery_operational": false,
+        "readable_content_acquired": false,
+        "current_coverage_available": false,
+        "maturity_level": 1,
+        "linked_sources": [
+          {
+            "source_id": "source-20260915-wish-farms-newsroom",
+            "label": "Wish Farms Newsroom Feed",
+            "discovery": {
+              "state": "BLOCKED",
+              "label": "Blocked",
+              "runnable": false,
+              "reason": "ROBOTS_OR_ACCESS_BLOCKED: live Wave 1 verification returned HTTP 403 for robots.txt and the official newsroom feed to the project client; do not retry automatically or bypass publisher controls."
+            },
+            "article_body_acquisition": {
+              "attempts": 0,
+              "readable": 0,
+              "blocked_or_unusable": 0,
+              "retryable": 0,
+              "latest": null,
+              "latest_readable_acquired_at": null,
+              "most_recent_readable_article": null,
+              "state": "never_attempted",
+              "label": "Never Attempted"
+            }
+          }
+        ],
+        "linked_source_count": 1,
+        "runnable_source_count": 0,
+        "successful_discovery_source_count": 0,
+        "readable_source_count": 0,
+        "current_usable_coverage_count": 0,
+        "official_source_blocked": false,
+        "official_source_block_detail": "",
+        "manual_or_alternative_source_required": false
+      },
+      "coverage_gap": "no runnable linked Source; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    }
+  ]
+}

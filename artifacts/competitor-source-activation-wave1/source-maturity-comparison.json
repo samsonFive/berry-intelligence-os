@@ -1,0 +1,24 @@
+{
+  "before": {
+    "represented": 33,
+    "configured": 8,
+    "operational": 0,
+    "readable": 0,
+    "current": 0,
+    "blocked": 1,
+    "manual": 5,
+    "pending_strategy": 19
+  },
+  "after": {
+    "represented": 33,
+    "configured": 10,
+    "operational": 5,
+    "readable": 4,
+    "current": 0,
+    "blocked": 4,
+    "manual": 5,
+    "pending_strategy": 14
+  },
+  "scope": "33-entry canonical roster; runtime-specific, 90-day window ending 2026-09-15",
+  "interpretation": "Operational and readable are measured from this worktree canary. Current remains published, usable coverage only. Manual/pending counts reconcile the research strategy with the app state: UC Davis was research-confirmed blocked but unexpressed in the pre-Wave-1 service; Wave 1 makes it explicit, moves Fruitist/Oishii to configured, and moves OZblu/Wish Farms to blocked."
+}

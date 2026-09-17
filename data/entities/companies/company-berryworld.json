@@ -11,7 +11,8 @@
   "roles": [
     "marketer",
     "licensee",
-    "variety_manager"
+    "variety_manager",
+    "competitor"
   ],
   "berry_ids": [
     "berry-blueberry"
@@ -35,6 +36,11 @@
     "rel-berryworld-owns-varietal-brands"
   ],
   "attributes": {
-    "country": "United Kingdom"
+    "country": "United Kingdom",
+    "competitor_registry_2026_09_15": {
+      "row_number": 5,
+      "spreadsheet_label": "BerryWorld",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
   }
 }

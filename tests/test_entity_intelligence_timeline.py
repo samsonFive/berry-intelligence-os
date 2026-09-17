@@ -1,6 +1,7 @@
 """Source / Entity Intelligence Timeline V1 -- shared query layer tests."""
 
 from __future__ import annotations
+from copy import deepcopy
 
 from fastapi.testclient import TestClient
 
@@ -43,6 +44,20 @@ def _evidence(**overrides):
     }
     row.update(overrides)
     return row
+
+
+def test_timeline_masks_access_screen_without_modifying_evidence():
+    record = _evidence(published_date="2026-08-01", summary="Before you continue to Google. We use cookies and data to deliver services.")
+    original = deepcopy(record)
+    result = entity_intelligence_timeline(
+        entity_id="company-x", entities=_entities(), linked_evidence=[record],
+        entity_facts=[], entity_relationships=[], entity_signals=[], entity_assessments=[],
+        evidence_idx={record["id"]: record},
+    )
+    row = result["dated"][0]
+    assert not row["excerpt"]
+    assert "access-screen" in row["content_notice"]
+    assert record == original
 
 
 def test_evidence_row_uses_published_date_only_no_captured_fallback():

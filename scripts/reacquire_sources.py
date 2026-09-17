@@ -17,6 +17,7 @@ from app.composition import get_repositories
 from app.repositories.paths import SCHEMAS_DIR
 from app.runtime_config import resolve_data_dir, resolve_inbox_dir
 from app.services.article_acquisition import ArticleAcquisitionError, fetch_article
+from app.services.article_acquisition_outcomes import build_outcome, persist_outcome
 from app.services.extraction_backlog import inventory as readiness_inventory
 from app.services.pipeline_lock import pipeline_lock
 from app.services.source_fidelity_recovery import trusted_identity_sha256
@@ -208,6 +209,22 @@ def main(argv: list[str] | None = None) -> int:
             try:
                 body = fetch_article(row["source_url"])
             except ArticleAcquisitionError as exc:
+                outcome_item = {
+                    "id": f"reacquisition-{evidence_id}",
+                    "source_id": trusted_by_id[evidence_id].get("source_id") or "historical-reacquisition",
+                    "canonical_url": row["source_url"],
+                }
+                persist_outcome(
+                    inbox_dir,
+                    outcome_item,
+                    build_outcome(
+                        outcome_item,
+                        error=exc,
+                        publication_id=evidence_id,
+                        acquisition_stage="historical_reacquisition",
+                    ),
+                    update_staged_item=False,
+                )
                 outcomes.append({
                     "evidence_id": evidence_id,
                     "requested_url": row["source_url"],
@@ -217,6 +234,23 @@ def main(argv: list[str] | None = None) -> int:
                     "error": str(exc),
                 })
                 continue
+            outcome_item = {
+                "id": f"reacquisition-{evidence_id}",
+                "source_id": trusted_by_id[evidence_id].get("source_id") or "historical-reacquisition",
+                "canonical_url": row["source_url"],
+            }
+            persist_outcome(
+                inbox_dir,
+                outcome_item,
+                build_outcome(
+                    outcome_item,
+                    body=body,
+                    publication_id=evidence_id,
+                    content_quality="READABLE_HISTORICAL_REACQUISITION",
+                    acquisition_stage="historical_reacquisition",
+                ),
+                update_staged_item=False,
+            )
             artifact = build_reacquired_artifact(trusted_by_id[evidence_id], body)
             try:
                 staging = stage_reacquired_artifact(artifact_path, artifact)

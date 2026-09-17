@@ -1,0 +1,39 @@
+{
+  "id": "company-well-pict",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Well-Pict",
+  "aliases": [
+    "Well Pict Berries"
+  ],
+  "status": "unverified",
+  "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 33) as a tracked competitor of type 'Commercial'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
+  "roles": [
+    "grower_marketer",
+    "competitor"
+  ],
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-competitor-registry-2026-09-15-import"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "competitor_registry_2026_09_15": {
+      "row_number": 33,
+      "spreadsheet_label": "Well-Pict",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "identity_confirmed_relationship_ambiguity_unrelated",
+      "reason": "Well-Pict's own identity is not remotely in doubt: decades of trade coverage (Supermarket News, The Packer, Produce News), a long-established Watsonville, CA strawberry/berry grower-shipper. Held provisional for the same reason as Gem-Pack Berries above (symmetric treatment of the same unresolved affiliation question): trade press reports Gem-Pack and Well-Pict Berries 'combining companies,' and this mission does not have enough information to say whether that means a full merger, a marketing partnership, or something else -- promoting one side without the other would misrepresent the current, uncertain state of that relationship.",
+      "evidence_urls": [
+        "https://www.supermarketnews.com/fresh-produce/well-pict-berries-launches-new-website",
+        "https://www.thepacker.com/news/industry/gem-pack-and-well-pict-berries-combine-companies"
+      ],
+      "confidence": "medium",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
+    }
+  }
+}

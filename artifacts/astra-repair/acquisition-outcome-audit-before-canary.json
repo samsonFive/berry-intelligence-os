@@ -1,0 +1,3433 @@
+{
+  "scope": "Configured Sources plus local per-source discovery state; no network calls or writes.",
+  "counts": {
+    "successfully_run": 0,
+    "never_run": 76,
+    "blocked": 1,
+    "retryable_failure": 0,
+    "invalid_incomplete": 0,
+    "manual": 123,
+    "disabled": 1,
+    "configured_runnable": 76,
+    "total": 201
+  },
+  "sources": [
+    {
+      "source_id": "source-20260806173428-01c8-china-strawberry-market-112",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-030a-u-s-highbush-blueberry-council-ushbc-39",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-041b-vidafresh-t-g-global-37",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-0432-euromonitor-mordor-intelligence-berry-ma-85",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-04d0-berry-blue-llc-1",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-05d4-european-commission-dg-agri-eu-cmo-fruit-56",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-071f-hortifrut-genetica-pmg-2",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-099e-spanish-strawberry-breeding-programs-pla-21",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-0a6b-mrl-berry-regulation-103",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-1098-senasa-peru-58",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-10d3-andnowuknow-78",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-1112-berryworld-group-33",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-1732-usda-gain-report-berry-104",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-1bab-asociacion-de-productores-de-arandanos-p-47",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-1ee4-california-strawberry-commission-41",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-1f0b-produce-report-79",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-20ae-sunnyridge-farm-29",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-21d3-pacific-berry-breeding-pbb-10",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-2616-global-plant-genetics-gpg-5",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-266d-dandong-region-strawberry-cooperatives-c-36",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-2c4f-sag-chile-59",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-2c73-north-american-raspberry-blackberry-asso-43",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-2cf5-berry-export-volume-99",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-2e40-berry-health-research-118",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-2f6a-raspberry-variety-license-88",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-3059-university-of-florida-strawberry-breedin-16",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-316e-berry-world-news-industry-newsletter-agg-77",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-33f6-berry-acreage-expansion-101",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-3785-blueberry-breeding-program-87",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-386e-university-of-georgia-blueberry-breeding-6",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-3eee-berry-category-growth-119",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-3f00-plant-food-research-new-zealand-67",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-4022-fruit-growers-news-70",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-42ce-munger-farms-30",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-43e9-upov-62",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-4728-university-of-arkansas-fruit-research-st-64",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-47f6-the-packer-72",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-4da7-berry-royalty-license-agreement-93",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-4f5a-china-fruit-marketing-association-berry--48",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-50e8-mintec-expana-berry-price-benchmarking-84",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-5266-hortifrut-s-a-27",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-5498-fall-creek-farm-nursery-3",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-5688-family-tree-farms-35",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-5767-james-hutton-institute-12",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-5a0b-morocco-berry-exports-111",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-5c57-total-berry-14",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-5f03-california-giant-berry-farms-breeding-pa-19",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-6270-prochile-proarandanos-46",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-669a-plant-food-research-new-zealand-blueberr-8",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-68b7-bc-berry-genetics-9",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-6938-international-blueberry-organization-ibo-38",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-69a5-berry-industry-investment-98",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-6b1b-usda-agricultural-research-service-ars-69",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-6b33-california-giant-berry-farms-28",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-6dab-international-society-for-horticultural--68",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-7559-usda-nass-51",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-7893-chile-blueberry-season-109",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-7efc-european-fruit-growers-associations-rasp-44",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-80e7-tridge-83",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-80ee-berry-genetics-company-91",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-82d9-usda-ams-52",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-8498-company-acquisition-berry-95",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-868c-senasica-mexico-60",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-876d-niab-emr-east-malling-research-11",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-8d5e-university-of-florida-ifas-65",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-9280-u-s-plant-variety-protection-office-uspt-61",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-9300-hortidaily-75",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-9388-berry-nursery-partnership-97",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-93aa-university-of-florida-blueberry-breeding-7",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-9593-emco-cal-23",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-95db-agrovision-camposol-31",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-996e-south-africa-blueberry-ibo-summit-115",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-9e68-driscoll-s-proprietary-strawberry-breedi-18",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-a004-fresh-plaza-74",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-a053-mexico-berry-production-110",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-a09b-plant-variety-protection-berry-92",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-a200-berry-harvest-forecast-100",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-a2a9-china-national-bureau-of-statistics-moa-57",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-a6a6-phytosanitary-berry-import-restriction-102",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-a8b4-michigan-state-university-blueberry-bree-0",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-abbb-exclusive-variety-license-berry-94",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-acce-comite-de-arandanos-de-chile-chilean-blu-45",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-ad21-north-american-blueberry-council-nabc-40",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-ae24-university-of-arkansas-fruit-breeding-pr-22",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-b58c-usda-fas-gain-reports-54",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-b9d1-growing-produce-76",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-ba77-michigan-state-university-extension-blue-66",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-bc96-driscoll-s-proprietary-blackberry-breedi-24",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-c14d-produce-for-better-health-foundation-50",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-c710-fresh-fruit-portal-73",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-c725-eastfruit-80",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-c804-fresa-fortaleza-20",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-c823-berry-joint-venture-genetics-96",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-cc68-costa-group-34",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-cccb-plant-sciences-inc-17",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-cf78-strawberry-cultivar-patent-89",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-d178-freshfel-europe-49",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-d63a-blackberry-primocane-variety-90",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-db81-nielsen-circana-retail-scan-data-86",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-dc9d-spain-huelva-strawberry-113",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-dcaa-upov-berry-variety-registration-107",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-dd29-naturipe-farms-berries-26",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-dee2-berry-retail-sales-data-117",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-e254-driscoll-s-25",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-e298-meiosis-ltd-13",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-e364-uc-davis-strawberry-breeding-research-pr-15",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-e395-peru-blueberry-export-108",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-e7bb-produce-blue-book-blue-book-services-71",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-eba3-usda-rma-53",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-ece4-spanish-royal-berry-program-4",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-ee41-ibo-global-state-of-the-blueberry-indust-81",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-f0ea-superfrost-frusan-32",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-f8a7-berry-tariff-105",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-f95e-florida-strawberry-growers-association-42",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-fa7f-uc-davis-department-of-plant-sciences-fo-63",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-fb47-usda-aphis-55",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-fba2-berry-plant-patent-granted-106",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-fde5-netherlands-berry-greenhouse-114",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-ff19-rabobank-fresh-produce-berry-sector-repo-82",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260806173428-ff93-berry-consumption-trend-116",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260819-blue-book-services",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260819-growing-produce-berries",
+      "label": "Blocked",
+      "state": "BLOCKED",
+      "runnable": false,
+      "reason": "ROBOTS_OR_ACCESS_BLOCKED: the direct berry category and RSS feed still exist and are allowed by robots.txt, but production receives HTTP 403 with no redirect. The publisher-wide feed remains reachable but is intentionally not substituted because it is not berry-scoped.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260819-hortidaily",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260819-hortifrut-newsroom",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260819-international-blueberry-organization",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260819-planasa-newsroom",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260819-sanlucar-newsroom",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-aneberries-mexico",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-arkansas-aaes-news",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-berries-australia",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-berryworld-newsroom",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-blueberries-consulting-articles",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-british-berry-growers-news",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-costa-group-newsroom",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-fall-creek-newsroom",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-global-plant-genetics-newsroom",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-james-hutton-news",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-naturipe-newsroom",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-nc-state-cals-news",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-perishable-news-produce",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-portalfruticola",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-produce-business",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-redagricola-articles",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-sekoya-news",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-specialty-crop-grower",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-uf-ifas-news",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260824-ushbc-blueberry-org",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260825-advanced-berry-breeding-news",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260825-summer-berry-company-news",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-20260901-blueberrybreeding-newsroom",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-blueberries-tv-youtube",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-business-of-blueberries-podcast",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-comite-de-arandanos-de-chile-youtube",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-cpvo-public-register",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-fda-openfda-berry-recalls",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-federal-register-berries-trade-regulatory",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-federal-register-strawberry-antidumping",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-fresh-cred-podcast",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-fresh-takes-on-tech-podcast",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-freshplaza-global",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-freshuelva-news",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-fruitnet-produce-plus",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-global-fresh-series-podcast",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-industry-pulse-catchnet",
+      "label": "Disabled",
+      "state": "DISABLED",
+      "runnable": false,
+      "reason": "Source lifecycle is disabled; collection is not eligible.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-lubera-edibles-podcast",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-lucentlands-podcast",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-nasa-power-daily-point",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-berry-investment-global",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-berry-investment-latam",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-berry-labor-legal",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-berry-trade-remedy",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-caneberry-global",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-chile-blueberry-es",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-chile-frambuesa",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-chile-morocco-trade",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-costa-group",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-driscolls",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-italian-berry",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-mexico-berry-es",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-mexico-zarzamora",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-morocco-berry-fr",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-peru-blueberry-es",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-peru-organic-investment",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-south-africa-blueberry",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-south-africa-trade",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-spain-berry-es",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-uk-berry-growers",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-uk-grower-season",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-uk-retail-berry",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-news-search-usda-gain-berry",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-nova-siri-genetics-news",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-produce-buzzers-podcast",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-redagricola-on-the-road",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-sec-edgar-mission-produce-8k",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-the-packer-podcast",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-uk-fsa-food-alerts",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-uk-pvro-seeds-gazette",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-un-comtrade-public-preview",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-university-of-arkansas-division-of-agriculture",
+      "label": "Never run",
+      "state": "NEVER_RUN",
+      "runnable": true,
+      "reason": "Configuration is runnable, but no discovery attempt is recorded.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-uspto-plant-patents",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    },
+    {
+      "source_id": "source-za-pbr-dalrrd",
+      "label": "Manual source",
+      "state": "MANUAL",
+      "runnable": false,
+      "reason": "No automated discovery configuration is present.",
+      "article_body_acquisition": {
+        "attempts": 0,
+        "readable": 0,
+        "blocked_or_unusable": 0,
+        "retryable": 0,
+        "latest": null,
+        "latest_readable_at": null,
+        "state": "never_attempted",
+        "label": "Never Attempted"
+      }
+    }
+  ]
+}

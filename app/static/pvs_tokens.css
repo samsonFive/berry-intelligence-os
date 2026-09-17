@@ -1,0 +1,83 @@
+/* Product Visual System — shared production tokens (Slice 1 minimum).
+   Adopted from prototypes/product-visual-system-v1 without wholesale merge.
+   Alias --brief-* for Daily Briefing continuity. Do not redefine a fourth language. */
+
+:root {
+  --pvs-font-sans: "Source Sans 3", "Segoe UI", sans-serif;
+  --pvs-font-display: "Fraunces", Georgia, serif;
+  --pvs-font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --pvs-size-display: 2rem;
+  --pvs-size-page: 1.75rem;
+  --pvs-size-section: 1.25rem;
+  --pvs-size-card: 1.02rem;
+  --pvs-size-body: 0.95rem;
+  --pvs-size-meta: 0.84rem;
+  --pvs-size-label: 0.72rem;
+
+  --pvs-space-1: 4px;
+  --pvs-space-2: 8px;
+  --pvs-space-3: 12px;
+  --pvs-space-4: 16px;
+  --pvs-space-5: 24px;
+  --pvs-space-6: 32px;
+
+  --pvs-radius-sm: 6px;
+  --pvs-radius: 10px;
+  --pvs-radius-lg: 14px;
+  --pvs-radius-xl: 16px;
+
+  --pvs-navy: #08234d;
+  --pvs-navy-mid: #0c2d5d;
+  --pvs-ink: #1c1812;
+  --pvs-muted: #6d6458;
+  --pvs-faint: #8a8278;
+  --pvs-canvas: #f4f1ea;
+  --pvs-surface: #fffcf7;
+  --pvs-raised: #f7f5f1;
+  --pvs-border: #ddd4c6;
+  --pvs-border-strong: #c9b79a;
+  --pvs-accent: #8a6a3b;
+  --pvs-link: #0c2d5d;
+
+  --pvs-ok: #1c6b42;
+  --pvs-ok-bg: #e2f6e9;
+  --pvs-ok-border: #b7dfc5;
+  --pvs-pending: #5e4b8a;
+  --pvs-pending-bg: #eee8ff;
+  --pvs-pending-border: #d5cbf3;
+  --pvs-warn: #8a5a10;
+  --pvs-warn-bg: #fff8e5;
+  --pvs-warn-border: #efd9a2;
+  --pvs-danger: #8f2f28;
+  --pvs-danger-bg: #fdeaea;
+  --pvs-danger-border: #efc4c1;
+  --pvs-info: #2f5d7a;
+  --pvs-info-bg: #e7f1f6;
+  --pvs-info-border: #b9d5e4;
+
+  --pvs-shadow-soft: 0 8px 24px rgba(40, 28, 14, 0.06);
+  --pvs-shadow-raised: 0 10px 28px rgba(40, 28, 14, 0.08);
+  --pvs-shadow-drawer: -12px 0 40px rgba(0, 0, 0, 0.18);
+
+  --pvs-touch: 44px;
+  --pvs-motion: 180ms;
+  --pvs-ease: ease;
+  --pvs-focus: 2px solid var(--pvs-accent);
+  --pvs-focus-offset: 2px;
+
+  /* Briefing aliases — preserve existing class contracts */
+  --brief-ink: var(--pvs-ink);
+  --brief-muted: var(--pvs-muted);
+  --brief-canvas: var(--pvs-canvas);
+  --brief-surface: var(--pvs-surface);
+  --brief-border: var(--pvs-border);
+  --brief-accent: var(--pvs-accent);
+  --brief-navy: var(--pvs-navy);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --pvs-motion: 0.01ms;
+  }
+}

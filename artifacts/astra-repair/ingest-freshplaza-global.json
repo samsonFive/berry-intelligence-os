@@ -1,0 +1,1629 @@
+{
+  "state": "ok",
+  "source_id": "source-freshplaza-global",
+  "counts": {
+    "discovered": 71,
+    "selected": 40,
+    "relevant": 3,
+    "skipped_irrelevant": 37,
+    "borderline_checked": 28,
+    "borderline_confirmed_relevant": 0,
+    "borderline_confirmed_irrelevant": 28,
+    "acquired": 31,
+    "acquisition_failed": 0,
+    "duplicate": 0,
+    "enriched": 0,
+    "enrichment_unavailable": 3,
+    "review_ready": 3
+  },
+  "items": [
+    {
+      "item_id": "discovered-source-freshplaza-global-0044fed0dd5c53f1",
+      "title": "Croatian mandarin harvest faces smaller fruit and pest pressure",
+      "relevance_screen_stage_a": {
+        "score": 3,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, disease_technology, score 3) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "disease_technology"
+        ],
+        "matched_terms": [
+          "season",
+          "harvest",
+          "growers",
+          "pest"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 6,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, disease_technology, crop_genetics, score 6). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing",
+          "disease_technology",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "yield",
+          "season",
+          "harvest",
+          "growers",
+          "supply",
+          "pest",
+          "packing",
+          "varieties"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-034a98260e0d164d",
+      "title": "Substrate consistency and crop-specific mixes shape grower decisions",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "grower",
+          "growers",
+          "production"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 5,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, disease_technology, score 5). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing",
+          "disease_technology"
+        ],
+        "matched_terms": [
+          "season",
+          "harvest",
+          "grower",
+          "growers",
+          "production",
+          "supply",
+          "technology"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-085ab62a766b5a5d",
+      "title": "The Anker methodology is becoming the standard for assessing a living wage in Ecuador's banana sector",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-08d987295a8f66ff",
+      "title": "The cocktail has evolved. So has the garnish.",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-0b4fb54d5217b099",
+      "title": "Grupo Agroponiente’s turnover exceeds 500 million euros",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-0cc8e55457c34975",
+      "title": "Kenyan avocado growers face cultivation and export-grade challenges",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "export",
+          "growers",
+          "production"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 3,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, crop_genetics, score 3). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "hectares",
+          "export",
+          "growers",
+          "production",
+          "variety"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-10dc4909e352222a",
+      "title": "\"Morocco's avocado recovery rests on early-season discipline\"",
+      "relevance_screen_stage_a": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, market_pricing, score 4) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "season",
+          "export",
+          "supply"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 6,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, disease_technology, crop_genetics, score 6). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing",
+          "disease_technology",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "season",
+          "export",
+          "production",
+          "pricing",
+          "supply",
+          "packing",
+          "varieties"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-16c6dae00b0af0b6",
+      "title": "Port of Fortaleza plans 1,226-plug reefer terminal",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-175a9077338a2dcc",
+      "title": "Florida citrus harvest set to start by early October",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "season",
+          "harvest",
+          "growers"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, score 4). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "season",
+          "harvest",
+          "growers",
+          "supply"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-176d7d51994ce295",
+      "title": "Cherry supply concentration in China drives Chilean exporter to diversify into India",
+      "relevance_screen_stage_a": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, market_pricing, score 4) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "season",
+          "supply"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 9,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Berry species named exactly once in the article body, with no recurrence and no adjacent-topic signal -- read as an incidental mention (e.g. a comparison to another crop), not the article's subject.",
+        "likely_topics": [
+          "berry_identity",
+          "commercial_volume_geography",
+          "market_pricing",
+          "disease_technology",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "blueberries",
+          "season",
+          "export",
+          "pricing",
+          "price",
+          "prices",
+          "supply",
+          "packaging",
+          "packing",
+          "variety",
+          "varieties"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-1b5bcb5f3b440aab",
+      "title": "Infinite Acres declared bankrupt in the Netherlands",
+      "relevance_screen_stage_a": {
+        "score": 1,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (disease_technology, score 1) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "disease_technology"
+        ],
+        "matched_terms": [
+          "technology"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: market_pricing, disease_technology, crop_genetics, score 4). Not relevant.",
+        "likely_topics": [
+          "market_pricing",
+          "disease_technology",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "retail",
+          "technology",
+          "genetics"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-1c14c998f0b456e1",
+      "title": "Macadamia grower looks for sustainable demand",
+      "relevance_screen_stage_a": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, market_pricing, score 4) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "season",
+          "grower",
+          "demand",
+          "supply"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, score 4). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "season",
+          "grower",
+          "production",
+          "pricing",
+          "price",
+          "prices",
+          "demand",
+          "supply"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-1ec460fbab9a67da",
+      "title": "Indonesia's complementary supply window creates opportunities for new golden dragon fruit",
+      "relevance_screen_stage_a": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, market_pricing, score 4) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "export",
+          "growers",
+          "production",
+          "supply"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 5,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, crop_genetics, score 5). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "season",
+          "harvest",
+          "export",
+          "growers",
+          "production",
+          "price",
+          "prices",
+          "demand",
+          "supply",
+          "retailers",
+          "packaging",
+          "variety",
+          "varieties"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-24060899514d6714",
+      "title": "Non-standard apple subsidies end in Georgia",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (market_pricing, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "prices"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, score 4). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "hectares",
+          "harvest",
+          "prices"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-2a3641de2f7d1c1d",
+      "title": "Med Green Import to relocate to new premises in Houten",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "import"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, score 2). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "import"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-2d9c15da19105e31",
+      "title": "Maersk adds US$3,800 emergency charge for Gulf reefers",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-2dc787883efe3dfe",
+      "title": "Export packhouse to source produce from 20 growers in Barbados",
+      "relevance_screen_stage_a": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, market_pricing, score 4) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "export",
+          "growers",
+          "supply"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 5,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, crop_genetics, score 5). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "export",
+          "growers",
+          "supply",
+          "varieties"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-2f369136397cc428",
+      "title": "Delayed new crop could push Indian onion prices to yearly high in October",
+      "relevance_screen_stage_a": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, market_pricing, score 4) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "export",
+          "price",
+          "prices",
+          "supply"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, score 4). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "season",
+          "export",
+          "production",
+          "price",
+          "prices",
+          "demand",
+          "supply"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-34f6b132553e3b15",
+      "title": "Bulgaria steps up grape import price and origin checks",
+      "relevance_screen_stage_a": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, market_pricing, score 4) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "import",
+          "price",
+          "prices"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, score 4). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "season",
+          "harvest",
+          "import",
+          "growers",
+          "price",
+          "prices"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-3c50c1c55dc556fb",
+      "title": "SEPC study identifies forces reshaping the future of produce",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (market_pricing, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "consumer"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 3,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: market_pricing, crop_genetics, score 3). Not relevant.",
+        "likely_topics": [
+          "market_pricing",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "price",
+          "consumer",
+          "varieties"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-3e48dfab114a670c",
+      "title": "Zhejiang exports fresh grapes to Belgium for first time",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "export"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, score 4). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "export",
+          "shelf life"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-446c308d464b28de",
+      "title": "\"The increases in volume in these varieties are close to double the previous year\"",
+      "relevance_screen_stage_a": {
+        "score": 3,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, crop_genetics, score 3) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "season",
+          "varieties"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 5,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, crop_genetics, score 5). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "season",
+          "grower",
+          "demand",
+          "supply",
+          "retailers",
+          "varieties"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-45330351a40aecff",
+      "title": "Uzbekistan expands export markets for Namangan persimmons",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "hectares",
+          "export"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, score 4). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "hectares",
+          "export",
+          "growers",
+          "supply"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-46fb5ba756fc5dda",
+      "title": "Uzbekistan looks to Serbia for fruit nursery expertise",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-485775289c0f402a",
+      "title": "India investigates US$13,500 strawberry plant supply case",
+      "relevance_screen_stage_a": {
+        "score": 5,
+        "threshold": 4,
+        "relevant": true,
+        "confidence": "confident",
+        "berry_identity_hit": true,
+        "reason": "Berry/cultivar named directly in title or description (score 5).",
+        "likely_topics": [
+          "berry_identity",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "strawberry",
+          "supply"
+        ],
+        "tier": "direct",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_tier": "direct",
+      "draft_id": "ev-media-6f7cd6a6dc738c8b2e5a",
+      "enrichment_error": "PERPLEXITY_API_KEY not configured",
+      "outcome": "review_ready"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-4be0a5fc9bc39525",
+      "title": "UC Davis strawberry varieties presented in Peru",
+      "relevance_screen_stage_a": {
+        "score": 6,
+        "threshold": 4,
+        "relevant": true,
+        "confidence": "confident",
+        "berry_identity_hit": true,
+        "reason": "Berry/cultivar named directly in title or description (score 6).",
+        "likely_topics": [
+          "berry_identity",
+          "commercial_volume_geography",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "strawberry",
+          "growers",
+          "varieties",
+          "genetics"
+        ],
+        "tier": "direct",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_tier": "direct",
+      "draft_id": "ev-media-50bce762f87e36fd5434",
+      "enrichment_error": "PERPLEXITY_API_KEY not configured",
+      "outcome": "review_ready"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-50de042659821602",
+      "title": "U.S. lawmakers push for spotted lanternfly invasive species status",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-56dcd95491c8cdcf",
+      "title": "Potato forum brings together 140 participants from 35 countries",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "growers"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 5,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, disease_technology, score 5). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing",
+          "disease_technology"
+        ],
+        "matched_terms": [
+          "yield",
+          "grower",
+          "growers",
+          "supply",
+          "pest",
+          "technology"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-5863d4571cf71f63",
+      "title": "Lower supply could lift Moroccan produce prices",
+      "relevance_screen_stage_a": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, market_pricing, score 4) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "production",
+          "prices",
+          "supply"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, score 4). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "season",
+          "production",
+          "prices",
+          "supply"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-58b1768d5bdbe196",
+      "title": "Overview of retailers attending the Global Show",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (market_pricing, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "retailers"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, score 4). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "export",
+          "import",
+          "price",
+          "retailers"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-5d17470c2bedeed6",
+      "title": "'Italian pears dominate the market, Turkish Santa Maria also play an important role'",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-606eb22dc146228c",
+      "title": "Spain's lemon harvest forecast to rise 19% in 2026/27",
+      "relevance_screen_stage_a": {
+        "score": 3,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, crop_genetics, score 3) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "season",
+          "harvest",
+          "production",
+          "variety"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 3,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, crop_genetics, score 3). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "season",
+          "harvest",
+          "growers",
+          "production",
+          "variety"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-62e2f19e4e9106e9",
+      "title": "Iceland to become first UK high street retailer in the Falkland Islands",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (market_pricing, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "retailer"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, score 4). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "production",
+          "retail",
+          "retailer"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-636fbe3e76a37e1c",
+      "title": "Wet conditions complicate potato harvest in Latvia",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "harvest",
+          "growers"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, score 4). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "harvest",
+          "growers",
+          "production",
+          "price",
+          "prices"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-63d43c035b1898a7",
+      "title": "Iranian greenhouse firms linked to US$187 million in gold imports",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-6701abd473adc41d",
+      "title": "Exp. Group consolidates Texas operations at new Pharr facility",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (market_pricing, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "packaging"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: market_pricing, score 2). Not relevant.",
+        "likely_topics": [
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "packaging"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-674db985d8fe44ac",
+      "title": "Bejo invests in the future of lettuce",
+      "relevance_screen_stage_a": {
+        "score": 1,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (crop_genetics, score 1) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "breeding"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 3,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, crop_genetics, score 3). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "growers",
+          "varieties",
+          "breeding"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-675cac407aefe174",
+      "title": "New thrips pest causes berry crop losses in Australia",
+      "relevance_screen_stage_a": {
+        "score": 7,
+        "threshold": 4,
+        "relevant": true,
+        "confidence": "confident",
+        "berry_identity_hit": true,
+        "reason": "Berry/cultivar named directly in title or description (score 7).",
+        "likely_topics": [
+          "berry_identity",
+          "generic_berry_mention",
+          "commercial_volume_geography",
+          "disease_technology"
+        ],
+        "matched_terms": [
+          "strawberry",
+          "raspberry",
+          "blackberry",
+          "berry",
+          "growers",
+          "pest"
+        ],
+        "tier": "direct",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_tier": "direct",
+      "draft_id": "ev-media-f65822a83e7957e23723",
+      "enrichment_error": "PERPLEXITY_API_KEY not configured",
+      "outcome": "review_ready"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-691f4762a6f8acf9",
+      "title": "Assam seeks 70,000 tons of local potatoes for processing plant",
+      "relevance_screen_stage_a": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, market_pricing, score 4) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "growers",
+          "supply"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, score 4). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "growers",
+          "supply"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-freshplaza-global-6a2c1f23be895f4c",
+      "title": "Quality reduces Western Cape mandarin export crop",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "harvest",
+          "export",
+          "production"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 5,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, disease_technology, score 5). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing",
+          "disease_technology"
+        ],
+        "matched_terms": [
+          "season",
+          "harvest",
+          "export",
+          "growers",
+          "production",
+          "price",
+          "packing"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    }
+  ]
+}

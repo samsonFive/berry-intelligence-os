@@ -1,0 +1,33 @@
+{
+  "id": "concept-protected-culture",
+  "slug": "protected-culture",
+  "name": "Protected culture",
+  "aliases": ["tunnels", "high tunnels", "greenhouse berries", "soilless substrate", "table-top strawberry"],
+  "pillar": "harvest_technology_agtech",
+  "knowledge_class": "regional_production_practice",
+  "trait_ids": [],
+  "summary": "Growing berries under plastic or glass, often in substrate — a production-system choice that changes season, disease pressure, and capital, not a variety name.",
+  "what_is_it": "Protected culture covers high tunnels, greenhouses, and related structures that modify rain, temperature, and sometimes daylength. Many commercial strawberry programs now use table-top or trough substrate rather than in-ground plasticulture; blueberry and raspberry are also grown in pots or substrate under cover in some regions. The plant still has the same biology (chill, fruiting habit, flavor chemistry); the structure changes what weather the plant sees and how water, fertilizer, and pests are managed.",
+  "why_it_matters": "Winter production, rain-free picking, and 'glasshouse berry' competitive claims are usually protected-culture stories. Capital cost, energy, and labor differ from open field. A variety that works in a tunnel may still fail in open-field chill or rain.",
+  "how_evaluated": "Described by structure type, substrate vs soil, heating, and harvest calendar — not by a single instrument reading. Yield-per-square-meter figures from one greenhouse cannot be copied onto a field acreage claim.",
+  "what_affects_it": "Climate, energy cost, nursery plant type, pollination (often bumblebees in closed houses), and whether the crop is strawberry, raspberry, or blueberry. IPM still applies; some pests increase under cover.",
+  "how_to_interpret": "Do not treat 'greenhouse' or 'tunnel' as proof of premium flavor or of a company's market share. Geography still matters. Pair with winter production, chill hours (the plant may still need a dormancy strategy), and harvest methods. Absence of a tunnel in a source is not proof the farm is open-field.",
+  "related_concept_ids": ["concept-winter-production", "concept-chill-hours", "concept-harvest-methods", "concept-plasticulture"],
+  "sources": [
+    {
+      "publisher": "NC State Extension",
+      "title": "High Tunnel Production of Strawberries",
+      "url": "https://content.ces.ncsu.edu/high-tunnel-production-of-strawberries"
+    },
+    {
+      "publisher": "University of Minnesota Extension",
+      "title": "High tunnel berry production",
+      "url": "https://extension.umn.edu/growing-high-tunnels/high-tunnel-berry-production"
+    },
+    {
+      "publisher": "Penn State Extension",
+      "title": "High Tunnel Production",
+      "url": "https://extension.psu.edu/high-tunnel-production"
+    }
+  ]
+}

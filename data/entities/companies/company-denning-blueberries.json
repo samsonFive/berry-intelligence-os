@@ -1,0 +1,38 @@
+{
+  "id": "company-denning-blueberries",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Denning Blueberries",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 9) as a tracked competitor of type 'Commercial'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
+  "roles": [
+    "grower_marketer",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-competitor-registry-2026-09-15-import"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "competitor_registry_2026_09_15": {
+      "row_number": 9,
+      "spreadsheet_label": "Denning Blueberries",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "not_found",
+      "reason": "No official website, social presence, corporate registry entry, or trade-press mention was found for an entity matching this exact name across two independent search passes (this mission and the prior Competitor Source Strategy V1 mission). Existence itself is unconfirmed, not merely under-documented.",
+      "evidence_urls": [],
+      "confidence": "low",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
+    }
+  }
+}

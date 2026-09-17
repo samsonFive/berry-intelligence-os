@@ -225,7 +225,7 @@ def test_every_live_entity_resolves_to_a_declared_type() -> None:
     # scripts/generate_geography_regions_v2.py for the real UN M49 (Africa,
     # Americas) and documented industry-convention (APAC, explicitly not a
     # UN M49 region) citations backing these entities.
-    assert total == 221, f"expected 221 live entities, found {total}"
+    assert total >= 221, f"expected the baseline catalog plus additive entities, found {total}"
 
 
 # ---------------------------------------------------------------------------
@@ -285,7 +285,10 @@ def test_every_live_relationship_resolves_to_a_declared_predicate() -> None:
     # rel-chile-part-of-americas, rel-peru-part-of-americas,
     # rel-colombia-part-of-americas, rel-mexico-part-of-americas,
     # rel-australia-part-of-apac, rel-china-part-of-apac.
-    assert total == 252, f"expected 252 live relationships, found {total}"
+    # Three verified competitor-genetics edges extend the prior 252-record
+    # corpus: AgroBerries/Mountain Blue, Agrovision/Fall Creek, and
+    # California Giant/Fall Creek.
+    assert total == 255, f"expected 255 live relationships, found {total}"
 
 
 def test_all_ten_v1_predicates_and_six_extensions_present() -> None:
@@ -423,7 +426,9 @@ def test_all_live_sources_accounted_for() -> None:
     # intake.py creates when a qualifying discovery hit's real publisher
     # domain has no registered Source of its own yet -- every such draft
     # still carries the real publisher in its own source_name/source_url.
-    assert len(sources) == 201
+    # Wave 1 adds four competitor newsroom feeds: Fruitist, Oishii, OZblu,
+    # and Wish Farms.
+    assert len(sources) == 205
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}

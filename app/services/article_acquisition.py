@@ -20,12 +20,15 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime, timezone
 import hashlib
+from html.parser import HTMLParser
 import re
 from typing import Any
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urljoin
 
 import httpx
 import trafilatura
+
+from app.services.google_news_url import resolve_google_news_url
 
 ARTICLE_ACQUISITION_VERSION = "article-acquisition-v1"
 ARTICLE_FETCH_TIMEOUT_SECONDS = 20
@@ -73,9 +76,10 @@ class ArticleAcquisitionError(Exception):
     observed failure conditions.
     """
 
-    def __init__(self, message: str, *, category: str) -> None:
+    def __init__(self, message: str, *, category: str, http_status: int | None = None) -> None:
         super().__init__(message)
         self.category = category
+        self.http_status = http_status
 
 
 @dataclass(frozen=True)
@@ -106,6 +110,7 @@ class ArticleBody:
     title: str | None = None
     published_date: str | None = None
     language: str | None = None
+    image_url: str | None = None
 
     @property
     def full_text(self) -> str:
@@ -122,6 +127,9 @@ class ArticleBody:
             "title": self.title,
             "published_date": self.published_date,
             "language": self.language,
+            "image_url": self.image_url,
+            "image_source_url": (self.final_url or self.source_url) if self.image_url else None,
+            "published_date_basis": "publisher_metadata" if self.published_date else "unknown",
             "acquisition": {
                 "method": "readable_text_extraction",
                 "extractor": self.extractor,
@@ -134,6 +142,35 @@ class ArticleBody:
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def publisher_image(html: str, page_url: str) -> str | None:
+    """Only explicit publisher social metadata; never substitute stock imagery."""
+    class Metadata(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.images = {}
+
+        def handle_starttag(self, tag, attrs):
+            fields = dict(attrs)
+            key = (fields.get("property") or fields.get("name") or "").lower()
+            if tag == "meta" and key in {"og:image", "twitter:image"}:
+                self.images.setdefault(key, fields.get("content") or "")
+
+    parser = Metadata()
+    parser.feed(html)
+    for key in ("og:image", "twitter:image"):
+        value = parser.images.get(key, "").strip()
+        if not value:
+            continue
+        try:
+            resolved = urljoin(page_url, value)
+            parts = urlparse(resolved)
+            if parts.scheme in {"https", "http"} and parts.hostname and not parts.username and not parts.password:
+                return resolved
+        except ValueError:
+            continue
+    return None
 
 
 _SCRIPT_STYLE_RE = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.IGNORECASE | re.DOTALL)
@@ -212,9 +249,12 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
     if not url or not url.strip():
         raise ArticleAcquisitionError("empty article URL", category="malformed_html")
 
+    requested = url.strip()
+    target = resolve_google_news_url(requested)
+
     try:
         response = httpx.get(
-            url,
+            target,
             timeout=timeout,
             headers={"User-Agent": ARTICLE_FETCH_USER_AGENT},
             follow_redirects=True,
@@ -227,22 +267,23 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
         raise ArticleAcquisitionError(f"transport error fetching {url}: {exc}", category="transport_error") from exc
 
     if response.status_code == 403:
-        raise ArticleAcquisitionError(f"403 fetching {url} -- likely bot-blocked", category="blocked")
+        raise ArticleAcquisitionError(f"403 fetching {url} -- likely bot-blocked", category="blocked", http_status=403)
     if response.status_code == 401:
-        raise ArticleAcquisitionError(f"401 fetching {url} -- authentication required", category="paywall")
+        raise ArticleAcquisitionError(f"401 fetching {url} -- authentication required", category="paywall", http_status=401)
     if response.status_code >= 400:
         raise ArticleAcquisitionError(
-            f"HTTP {response.status_code} fetching {url}", category="http_error"
+            f"HTTP {response.status_code} fetching {url}", category="http_error", http_status=response.status_code
         )
 
     # Google News RSS article links are JavaScript wrappers, not article
-    # pages and not HTTP redirects. Treating their shared wrapper/chrome as
-    # readable source text caused the historic repeated-body incident. A
-    # publisher URL must be resolved by discovery before article extraction;
-    # the wrapper itself can never be a FULL_ARTICLE artifact.
-    requested_host = (urlparse(url).hostname or "").casefold()
+    # pages and not HTTP redirects. Local token decode (google_news_url)
+    # may already have replaced `target` with a publisher URL. If we are
+    # still on news.google.com / consent.google.com after follow_redirects,
+    # treat the wrapper as unreadable — never extract shared chrome as a
+    # FULL_ARTICLE artifact (historic repeated-body incident).
+    fetched_host = (urlparse(target).hostname or "").casefold()
     final_host = (urlparse(str(response.url)).hostname or "").casefold()
-    if requested_host == "news.google.com" and final_host in {"news.google.com", "consent.google.com"}:
+    if fetched_host == "news.google.com" and final_host in {"news.google.com", "consent.google.com"}:
         raise ArticleAcquisitionError(
             "Google News wrapper did not resolve to a publisher article",
             category="interstitial" if final_host == "consent.google.com" else "script_rendered",
@@ -277,6 +318,9 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
         raise ArticleAcquisitionError(f"extractor returned malformed output for {url}: {exc}", category="malformed_html") from exc
 
     body_text = (extracted.get("text") or "").strip()
+    from app.services.source_body import looks_like_interstitial
+    if looks_like_interstitial(body_text):
+        raise ArticleAcquisitionError("Extracted content is a consent or access screen", category="interstitial")
     if len(body_text) < MIN_BODY_CHARS:
         raise ArticleAcquisitionError(
             f"extracted body too short ({len(body_text)} chars) at {url} -- likely not a real article page",
@@ -287,9 +331,10 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
     word_count = len(body_text.split())
     content_sha256 = hashlib.sha256(body_text.encode("utf-8")).hexdigest()
 
+    final = str(response.url)
     return ArticleBody(
-        source_url=url,
-        final_url=str(response.url) if str(response.url) != url else None,
+        source_url=requested,
+        final_url=final if final != requested else None,
         paragraphs=paragraphs,
         word_count=word_count,
         content_sha256=content_sha256,
@@ -300,6 +345,7 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
         title=extracted.get("title") or None,
         published_date=extracted.get("date") or None,
         language=extracted.get("language") or None,
+        image_url=publisher_image(html, str(response.url)),
     )
 
 

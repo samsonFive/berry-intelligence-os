@@ -1,7 +1,25 @@
 {% extends "base.html" %}
 {% block title %}{{ label }} — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+{% if dimension in ('monitoring', 'reading') %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/pvs_tokens.css">
+{% if dimension == 'monitoring' %}
+<link rel="stylesheet" href="/static/monitor_pvs.css">
+{% elif dimension == 'reading' %}
+<link rel="stylesheet" href="/static/reading_pvs.css">
+{% endif %}
+{% endif %}
+{% endblock %}
 {% block content %}
-<div class="{% if dimension in ('reading', 'monitoring', 'testing', 'commercial_position') %}v2-page{% endif %}">
+<div class="{% if dimension == 'monitoring' %}v2-page pvs-slice-4{% elif dimension == 'reading' %}v2-page pvs-slice-5{% elif dimension in ('testing', 'commercial_position') %}v2-page{% endif %}"{% if dimension == 'monitoring' %} id="monitor-workspace" data-pvs-slice="4"{% elif dimension == 'reading' %} id="reading-queue" data-pvs-slice="5"{% endif %}>
+{% if dimension == 'monitoring' %}
+<a class="skip-link" href="#alerts">Skip to alerts</a>
+{% elif dimension == 'reading' %}
+<a class="skip-link" href="#reading-buckets">Skip to reading buckets</a>
+{% endif %}
 <section class="page-heading{% if dimension in ('reading', 'monitoring', 'testing', 'commercial_position') %} v2-page-header{% endif %}">
   <div>
     <p class="eyebrow">{{ eyebrow }}</p>
@@ -79,6 +97,16 @@
 {% elif dimension == 'commercial_position' %}
   {% include "_commercial_workspace.html" %}
 {% elif dimension == 'reading' and reading_buckets and not show_completed %}
+  <ul class="reading-band-nav" id="reading-buckets" aria-label="Reading queue buckets">
+    {% for bucket in reading_buckets %}
+      <li>
+        <a href="#bucket-{{ bucket.key }}" data-band="{{ bucket.key }}">
+          <span>{{ bucket.label }}</span>
+          <strong>{{ bucket.count }}</strong>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
   {% if authoring_mode and not static_build %}
     <form class="queue-bulk" action="/queues/reading/bulk-read" method="post">
       <input type="hidden" name="reviewer" value="{{ reviewer }}">
@@ -95,7 +123,7 @@
     </form>
   {% endif %}
   {% for bucket in reading_buckets %}
-    <section class="queue-section" id="bucket-{{ bucket.key }}">
+    <section class="queue-section" id="bucket-{{ bucket.key }}" data-band="{{ bucket.key }}">
       <h2>{{ bucket.label }} ({{ bucket.count }})</h2>
       {% if bucket.key == 'top_priority' %}
         <p class="context-limit">Deserve time this morning. Ranked from stored signals, not an opaque score.</p>
@@ -115,6 +143,8 @@
           {% include "_intelligence_card.html" %}
         {% endfor %}
       </ul>
+    {% else %}
+      <p class="empty-state pvs-system-state" role="status">Nothing in this reading bucket.</p>
     {% endif %}
   {% endfor %}
 {% elif items %}
@@ -273,7 +303,7 @@
     </table>
   </div>
 {% else %}
-  <p class="empty-state">{% if show_completed %}Nothing recorded in this view.{% elif dimension == 'commercial_position' %}No evidence is tagged for commercial-position thinking.{% else %}Nothing needs attention in this view.{% endif %}</p>
+  <p class="empty-state pvs-system-state" role="status">{% if show_completed %}Nothing recorded in this view.{% elif dimension == 'commercial_position' %}No evidence is tagged for commercial-position thinking.{% else %}Nothing needs attention in this view.{% endif %}</p>
 {% endif %}
 </div>
 {% endblock %}

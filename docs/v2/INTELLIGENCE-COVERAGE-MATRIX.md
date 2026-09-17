@@ -545,6 +545,18 @@ Authoritative Data + NewsCatcher CatchAll Expansion Bake-Off V1 (same day): USDA
 
 ---
 
+## Cal Giant current-company acceptance check — 2026-09-11
+
+The local checked-in published snapshot contains 20 Cal Giant mentions, nine with access-screen text, and no articles published in the inclusive 90-day window June 14–September 11. Reproduce with `scripts/audit_company_coverage.py company-california-giant-berry-farms --as-of 2026-09-11`. This audit excludes private inbox and production runtime; the user's production inventory is a different corpus.
+
+The canonical company and aliases now support discovery in the app. The two existing source references point to the official newsroom but remain manual reference sources. Direct automated feed/article requests returned HTTP 403. Public newsroom coverage from June–August remains a collection gap. UI quality checks and a source registry URL are not evidence of successful acquisition or recall. No evidence-class maturity cell is promoted by this repair. See TD-113 and `artifacts/astra-repair/REPAIR-CHECKPOINT.md`.
+
+**2026-09-12 execution audit:** Source Health now separates discovery execution from freshness and recall. In the local snapshot, 76 of 201 Sources are configured and runnable, but only 3 have a recorded successful discovery run and 73 have never run; 1 automated Source is blocked. No maturity cell is promoted: discovery success still does not prove readable article bodies, and downstream acquisition outcomes are not yet durably summarized per Source (TD-114).
+
+**2026-09-15 acquisition-outcome repair:** article-body attempts now persist a compact operational outcome independently of publication drafts, and Source Health reports acquisition separately from discovery. A private five-source canary recorded five body attempts: four readable and one Blue Book bot-wall outcome. This closes TD-114's local observability gap but does not promote coverage maturity. The 33-company roster audit resolves 11 entities in this base; California Giant remains level 1 (entity represented), with no explicitly linked runnable Source and no current usable coverage.
+
+**2026-09-15 Competitor Source Activation Wave 1:** reconciled all 12 recommended entries against the integrated 33-entry canonical roster. Four Source records were added without duplicate IDs or normalized feed URLs: Fruitist and Oishii are active and discovery-configured; OZblu and Wish Farms retain their verified candidate configurations but are `OPERATOR_ACTION_REQUIRED` after live HTTP 403 responses to the project's declared client. One existing University of Florida sitemap gained its canonical public-institution linkage. A private five-source canary was capped before persistence at five discoveries per source: 25 discoveries, 11 body attempts, 8 readable outcomes, 3 Oishii navigation-only shells, and 10 unapproved drafts. Runtime maturity changed from 8 to 10 roster entities configured, 0 to 5 operational, and 0 to 4 with readable acquisition. Current usable coverage remains 0 because no draft was approved or published. All canary records remain gitignored and worktree-local.
+
 ## How to refresh the evidence-class counts
 
 Re-count committed `data/evidence/*.json` by stored `source_type` /

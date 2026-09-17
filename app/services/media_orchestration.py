@@ -192,6 +192,7 @@ class OrchestrationResult:
     # Deterministic collection-efficiency instrumentation. These fields do
     # not alter publication or extraction semantics.
     body_acquisition_attempted: bool = False
+    acquisition_outcome: dict[str, Any] | None = None
     duplicate_rejected_late: bool = False
 
     def as_dict(self) -> dict[str, Any]:
@@ -207,6 +208,7 @@ class OrchestrationResult:
             "extraction": self.extraction,
             "relevance_tier": self.relevance_tier,
             "body_acquisition_attempted": self.body_acquisition_attempted,
+            "acquisition_outcome": self.acquisition_outcome,
             "duplicate_rejected_late": self.duplicate_rejected_late,
             "next_action": self.next_action,
             "errors": self.errors,
@@ -803,49 +805,6 @@ class MediaOrchestrationService:
             entities=entities,
             complete_json=self._complete_json if enrich else None,
         )
-        captured_date = self._date_part(item.get("first_seen_at")) or self._today().isoformat()
-        published_date = self._date_part(item.get("published_date"))
-        source_name = source.get("label") or source.get("name") or source.get("value") or item["source_id"]
-        description = item.get("description")
-        summary = description.strip() if isinstance(description, str) and description.strip() else (
-            f"Discovered {item.get('media_format') or 'media'} item from {source_name}."
-        )
-        return {
-            "id": publication_draft_id(item),
-            "record_type": "evidence",
-            "status": "draft",
-            "review_state": "in_review",
-            "intake_type": "discovered_media_publication",
-            "source_type": "discovered_media",
-            "title": item["title"].strip(),
-            "source_name": source_name,
-            "source_url": item.get("canonical_url") or "",
-            "published_date": published_date,
-            "captured_date": captured_date,
-            "summary": summary,
-            "why_it_matters": "",
-            "submitted_by": "media-orchestration",
-            "berry_ids": [],
-            "geography_ids": [],
-            "entity_ids": [],
-            "fact_ids": [],
-            "relationship_ids": [],
-            "strategic_question_ids": [],
-            "tags": [],
-            "attachments": [],
-            "auto_captured": False,
-            "priority": deepcopy(PRIORITY_NONE),
-            "source_id": item["source_id"],
-            "media_format": item["media_format"],
-            "evidence_role": "publication_artifact",
-            "discovered_item_id": item["id"],
-            "discovery_provenance": {
-                "dedupe_key": item["dedupe_key"],
-                "external_id": item.get("external_id"),
-                "first_seen_at": item.get("first_seen_at"),
-                "last_seen_at": item.get("last_seen_at"),
-            },
-        }
 
     @staticmethod
     def _date_part(value: Any) -> str | None:

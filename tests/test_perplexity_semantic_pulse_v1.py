@@ -12,7 +12,7 @@ static leak.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import date
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -27,6 +27,7 @@ from app.services.industry_pulse.matrix import catch_net_queries, generate_pulse
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.industry_pulse.providers import MemoryProvider
 from app.services.industry_pulse.run import run_pulse
+from tests.clock_helpers import freeze_utc_now
 
 TODAY = date(2026, 9, 1)
 
@@ -210,9 +211,10 @@ def test_combined_run_never_writes_evidence_or_sources(tmp_path: Path) -> None:
 # 13. Front Page fresh-item compatibility -- a discovery-derived draft with a
 # provider field on its underlying record still classifies the same way
 # through the existing, provider-agnostic front-page projection.
-def test_front_page_publication_classification_is_provider_agnostic() -> None:
+def test_front_page_publication_classification_is_provider_agnostic(monkeypatch) -> None:
     from app.services.front_page import build_front_page
 
+    freeze_utc_now(monkeypatch, TODAY)
     draft = {
         "id": "ev-pulse-draft",
         "record_type": "evidence",
@@ -235,7 +237,7 @@ def test_front_page_publication_classification_is_provider_agnostic() -> None:
         relationships=[],
         inbox_dir=Path("."),
         data_dir=Path("."),
-        now=None,
+        now=datetime(2026, 9, 1, 12, 0, tzinfo=UTC),
     )
     matches = [i for i in page["top_stories"] if i["id"] == "ev-pulse-draft"]
     assert matches and matches[0]["trust_label"] == "FRESH / UNREVIEWED"

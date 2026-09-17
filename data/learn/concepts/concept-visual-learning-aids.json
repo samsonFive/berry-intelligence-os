@@ -1,0 +1,50 @@
+{
+  "id": "concept-visual-learning-aids",
+  "slug": "visual-learning-aids",
+  "name": "Visual learning aids",
+  "aliases": ["diagrams", "extension photos", "teaching visuals", "schematic", "field identification images"],
+  "pillar": "visual_content_sourcing",
+  "knowledge_class": "foundational_knowledge",
+  "trait_ids": [],
+  "summary": "Where diagrams and field photos come from, what they are allowed to teach, and why they are not Evidence — Learner Mode's visual pillar, not a media CMS.",
+  "what_is_it": "Berry agronomy is easier to learn with a labeled diagram (cane years, bed cross-section, trellis) or a rights-clear extension photograph (symptom, fruit stage, structure). Those assets live at the publisher: land-grant PDFs, USDA galleries, or other named public pages. Learner Mode may *link* to them. It does not scrape, host, or treat an image as a Fact, Signal, or Assessment. A picture of a disease is not a diagnosis of a competitor's field.",
+  "why_it_matters": "Without a sourcing rule, it is tempting to paste unlabeled web images into teaching pages or to imply that a photo proves a company's practice. The visual pillar exists so diagrams have provenance and so teaching never masquerades as captured intelligence.",
+  "how_evaluated": "A teaching visual is usable when the publisher is named, the URL is the public page or document, and the license or public-education reuse is clear enough to link. It is not evaluated by aesthetic quality or by whether it would look good on a Landscape slide.",
+  "what_affects_it": "Copyright, publisher takedowns, and whether the image actually depicts the crop and structure named. Stock photos of 'berries' and unmarked social posts are not teaching aids here.",
+  "how_to_interpret": "Links on this page and `media` entries on other concepts are educational citations, never Evidence. Do not promote a diagram into trusted data. If a source photo is later used in a publication draft, it still goes through Publication Review like any other item — Learner Mode is not a shortcut.",
+  "related_concept_ids": ["concept-ipm", "concept-primocane-floricane", "concept-plasticulture", "concept-trellis-training"],
+  "media": [
+    {
+      "kind": "photo",
+      "title": "Blueberries — Wikimedia Commons",
+      "publisher": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/File:Blueberries.jpg",
+      "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Blueberries.jpg",
+      "license": "See file page; typically CC or public-domain as labeled on Commons",
+      "attribution_required": true
+    },
+    {
+      "kind": "diagram",
+      "title": "Pruning and Training Caneberries (Blackberries and Raspberries)",
+      "publisher": "University of Tennessee Extension",
+      "url": "https://uthort.tennessee.edu/wp-content/uploads/sites/228/2023/11/SP284-G.pdf"
+    }
+  ],
+  "sources": [
+    {
+      "publisher": "Wikimedia Commons",
+      "title": "Category: Berries",
+      "url": "https://commons.wikimedia.org/wiki/Category:Berries"
+    },
+    {
+      "publisher": "University of Tennessee Extension",
+      "title": "Pruning and Training Caneberries (Blackberries and Raspberries) — labeled diagrams",
+      "url": "https://uthort.tennessee.edu/wp-content/uploads/sites/228/2023/11/SP284-G.pdf"
+    },
+    {
+      "publisher": "UConn Extension",
+      "title": "Pruning Brambles",
+      "url": "https://extension.uconn.edu/publication/pruning-brambles/"
+    }
+  ]
+}

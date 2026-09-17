@@ -36,6 +36,7 @@ from app.services.industry_pulse.newsroom_cycle import (
     run_newsroom_cycle,
 )
 from app.services.industry_pulse.providers import MemoryProvider
+from tests.test_google_news_url import PUBLISHER, google_news_article_url
 
 TODAY = datetime(2026, 9, 1, 12, 0, tzinfo=UTC)
 
@@ -396,3 +397,48 @@ def test_no_proprietary_provider_leakage_in_draft_text() -> None:
     for field in ("source_name", "title", "summary"):
         assert "perplexity" not in str(draft.get(field, "")).casefold()
     assert draft["pulse_provenance"]["providers"] == ["perplexity"]  # provenance, not attribution
+
+
+def test_intake_fetches_decoded_article_not_publisher_homepage(tmp_path: Path) -> None:
+    wrapper = google_news_article_url(PUBLISHER)
+    hit = _hit(
+        wrapper,
+        provider="google_news_rss",
+        source_domain="freshplaza.test",
+        origin_publisher_url="https://www.freshplaza.test/",
+    )
+    hit.wrapper_url = wrapper
+    calls: list[str] = []
+
+    def spy_fetch(url: str):
+        calls.append(url)
+        return _fetch_ok(url)
+
+    summary = intake_qualified_hits(
+        [hit], sources=[], published_evidence=[], drafts=[], entities=[],
+        inbox_dir=tmp_path / "inbox", fetch=spy_fetch,
+    )
+    assert calls == [PUBLISHER]
+    assert summary.drafts_created == 1
+    homepage_hit = _hit(
+        "https://www.freshplaza.test/",
+        provider="google_news_rss",
+        origin_publisher_url="https://www.freshplaza.test/",
+    )
+    assert pulse_draft_id(hit) != pulse_draft_id(homepage_hit)
+
+
+def test_homepage_origin_still_attributes_registered_source() -> None:
+    wrapper = google_news_article_url("https://knownpublisher.example/story")
+    hit = _hit(
+        wrapper,
+        provider="google_news_rss",
+        source_domain="knownpublisher.example",
+        origin_publisher_url="https://knownpublisher.example/",
+    )
+    hit.wrapper_url = wrapper
+    sources = [{"id": "source-known-publisher", "label": "Known Publisher", "url": "https://knownpublisher.example/"}]
+    source_id, source_name, source_url = resolve_attribution(hit, sources=sources)
+    assert source_id == "source-known-publisher"
+    assert source_name == "Known Publisher"
+    assert source_url == "https://knownpublisher.example/story"

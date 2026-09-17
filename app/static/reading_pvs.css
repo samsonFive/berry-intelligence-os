@@ -1,0 +1,369 @@
+/* Product Visual System — Production Slice 5
+   Reading Queue (/queues/reading).
+   Scoped under .pvs-slice-5. Does not redefine a fourth design language.
+   Does not alter Today/reader (1), Landscape (2), Ops (3), or Monitor Alerts/Watches (4). */
+
+.pvs-slice-5 {
+  font-family: var(--pvs-font-sans);
+  font-size: var(--pvs-size-body);
+  color: var(--pvs-ink);
+  background:
+    radial-gradient(900px 320px at 6% -10%, rgba(138, 106, 59, 0.1), transparent 55%),
+    radial-gradient(700px 280px at 100% 0%, rgba(8, 35, 77, 0.06), transparent 50%),
+    transparent;
+}
+
+.pvs-slice-5 :focus-visible {
+  outline: var(--pvs-focus);
+  outline-offset: var(--pvs-focus-offset);
+}
+
+.pvs-slice-5 .skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: #fff;
+  padding: 0.5rem 0.75rem;
+  z-index: 1000;
+  min-height: var(--pvs-touch);
+}
+
+.pvs-slice-5 .skip-link:focus {
+  left: 0.75rem;
+  top: 0.75rem;
+}
+
+.pvs-slice-5 .page-heading h1,
+.pvs-slice-5 .v2-page-header h1 {
+  font-family: var(--pvs-font-display);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--pvs-navy);
+}
+
+.pvs-slice-5 .eyebrow {
+  font-size: var(--pvs-size-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pvs-muted);
+}
+
+.pvs-slice-5 .also-known-as,
+.pvs-slice-5 .context-limit {
+  color: var(--pvs-muted);
+  max-width: 52rem;
+}
+
+.pvs-slice-5 .queue-metric {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 8px;
+  border: 1px solid var(--pvs-border);
+  background: var(--pvs-surface);
+  font-size: var(--pvs-size-meta);
+  color: var(--pvs-muted);
+  margin: 0 0.35rem 0.35rem 0;
+}
+
+.pvs-slice-5 .queue-metric-action {
+  color: var(--pvs-danger);
+  background: var(--pvs-danger-bg);
+  border-color: var(--pvs-danger-border);
+}
+
+.pvs-slice-5 .queue-metric-inventory {
+  color: var(--pvs-info);
+  background: var(--pvs-info-bg);
+  border-color: var(--pvs-info-border);
+}
+
+.pvs-slice-5 .reading-band-nav {
+  position: sticky;
+  top: 0.5rem;
+  z-index: 15;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0.55rem 0.65rem;
+  background: rgba(255, 252, 247, 0.94);
+  border: 1px solid var(--pvs-border);
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+}
+
+.pvs-slice-5 .reading-band-nav a {
+  min-height: var(--pvs-touch);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  color: var(--pvs-navy);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.pvs-slice-5 .reading-band-nav a:hover,
+.pvs-slice-5 .reading-band-nav a:focus-visible {
+  border-color: var(--pvs-border-strong);
+  background: #fff;
+}
+
+.pvs-slice-5 .reading-band-nav strong {
+  font-family: var(--pvs-font-display);
+  font-weight: 650;
+  color: var(--pvs-navy);
+}
+
+.pvs-slice-5 .reading-band-nav a[data-band="top_priority"] {
+  color: var(--pvs-danger);
+}
+
+.pvs-slice-5 .reading-band-nav a[data-band="saved"] {
+  color: var(--pvs-pending);
+}
+
+.pvs-slice-5 .reading-band-nav a[data-band="adjacent"] {
+  color: var(--pvs-info);
+}
+
+.pvs-slice-5 .reading-band-nav a[data-band="backlog"],
+.pvs-slice-5 .reading-band-nav a[data-band="needs_review"] {
+  color: var(--pvs-muted);
+}
+
+.pvs-slice-5 .filters {
+  background: rgba(255, 252, 247, 0.96);
+  border: 1px solid var(--pvs-border);
+  border-radius: var(--pvs-radius-xl);
+  box-shadow: var(--pvs-shadow-soft);
+  padding: 1rem;
+  margin: 0 0 1rem;
+}
+
+.pvs-slice-5 .filters select,
+.pvs-slice-5 .filters button,
+.pvs-slice-5 .action-button,
+.pvs-slice-5 .v2-btn,
+.pvs-slice-5 .queue-bulk button {
+  min-height: var(--pvs-touch);
+}
+
+.pvs-slice-5 .queue-bulk {
+  margin: 0 0 1rem;
+  padding: 0.85rem 1rem;
+  background: var(--pvs-surface);
+  border: 1px solid var(--pvs-border);
+  border-radius: var(--pvs-radius-lg);
+  box-shadow: var(--pvs-shadow-soft);
+}
+
+.pvs-slice-5 .queue-bulk .action-button {
+  background: var(--pvs-navy);
+  color: #fff;
+  border: 1px solid var(--pvs-navy);
+  border-radius: 8px;
+  padding: 0.45rem 0.85rem;
+}
+
+.pvs-slice-5 .queue-section {
+  scroll-margin-top: 4.5rem;
+  border-left: 3px solid var(--pvs-border-strong);
+  padding-left: 0.85rem;
+  margin: 0 0 0.75rem;
+}
+
+.pvs-slice-5 .queue-section[data-band="top_priority"] {
+  border-left-color: var(--pvs-danger);
+}
+
+.pvs-slice-5 .queue-section[data-band="saved"] {
+  border-left-color: var(--pvs-pending);
+}
+
+.pvs-slice-5 .queue-section[data-band="adjacent"] {
+  border-left-color: var(--pvs-info);
+}
+
+.pvs-slice-5 .queue-section[data-band="backlog"],
+.pvs-slice-5 .queue-section[data-band="needs_review"] {
+  border-left-color: var(--pvs-faint);
+}
+
+.pvs-slice-5 .queue-section h2 {
+  font-family: var(--pvs-font-display);
+  font-weight: 650;
+  color: var(--pvs-navy);
+  font-size: var(--pvs-size-section);
+  margin: 0 0 0.35rem;
+}
+
+.pvs-slice-5 .v2-reading-list {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.pvs-slice-5 .v2-reading-list .v2-card,
+.pvs-slice-5 .v2-reading-list .intel-card {
+  background: var(--pvs-surface);
+  border: 1px solid var(--pvs-border);
+  border-radius: var(--pvs-radius-lg);
+  box-shadow: var(--pvs-shadow-soft);
+  padding: 0.9rem 1rem;
+}
+
+.pvs-slice-5 .v2-reading-list .v2-card-title {
+  font-family: var(--pvs-font-display);
+  font-weight: 650;
+  color: var(--pvs-navy);
+  font-size: var(--pvs-size-card);
+}
+
+.pvs-slice-5 .v2-reading-list .v2-card-actions,
+.pvs-slice-5 .queue-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pvs-slice-5 .v2-btn-primary,
+.pvs-slice-5 .action-approve {
+  background: var(--pvs-navy);
+  color: #fff;
+  border: 1px solid var(--pvs-navy);
+}
+
+.pvs-slice-5 .v2-btn-danger,
+.pvs-slice-5 .action-reject {
+  color: var(--pvs-danger);
+  background: var(--pvs-danger-bg);
+  border: 1px solid var(--pvs-danger-border);
+}
+
+.pvs-slice-5 .v2-btn-quiet,
+.pvs-slice-5 .action-button {
+  border: 1px solid var(--pvs-border);
+  background: var(--pvs-raised);
+  color: var(--pvs-navy);
+  border-radius: 8px;
+  padding: 0.35rem 0.7rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pvs-slice-5 .v2-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--pvs-border);
+  background: var(--pvs-raised);
+  color: var(--pvs-ink);
+  font-size: var(--pvs-size-meta);
+}
+
+.pvs-slice-5 .v2-mark-pending {
+  color: var(--pvs-pending);
+  background: var(--pvs-pending-bg);
+  border-color: var(--pvs-pending-border);
+}
+
+.pvs-slice-5 .v2-mark-trusted {
+  color: var(--pvs-ok);
+  background: var(--pvs-ok-bg);
+  border-color: var(--pvs-ok-border);
+}
+
+.pvs-slice-5 .v2-mark,
+.pvs-slice-5 .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: var(--pvs-size-label);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--pvs-border);
+  background: var(--pvs-raised);
+}
+
+.pvs-slice-5 .empty-state,
+.pvs-slice-5 .pvs-system-state {
+  padding: 1.25rem 1rem;
+  border-radius: 12px;
+  border: 1px dashed var(--pvs-border);
+  background: var(--pvs-raised);
+  color: var(--pvs-muted);
+  margin: 0 0 1.25rem;
+}
+
+.pvs-slice-5 .queue-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--pvs-border);
+  border-radius: var(--pvs-radius-lg);
+  background: var(--pvs-surface);
+}
+
+.pvs-slice-5 .queue-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--pvs-size-meta);
+}
+
+.pvs-slice-5 .queue-table th,
+.pvs-slice-5 .queue-table td {
+  padding: 0.55rem 0.65rem;
+  border-bottom: 1px solid var(--pvs-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.pvs-slice-5 .queue-table th {
+  color: var(--pvs-muted);
+  font-size: var(--pvs-size-label);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--pvs-raised);
+}
+
+@media (max-width: 980px) {
+  .pvs-slice-5 .reading-band-nav {
+    top: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .pvs-slice-5 .v2-reading-list .v2-card-actions,
+  .pvs-slice-5 .queue-actions {
+    width: 100%;
+  }
+
+  .pvs-slice-5 .v2-reading-list .v2-btn,
+  .pvs-slice-5 .queue-actions .action-button,
+  .pvs-slice-5 .queue-actions button {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pvs-slice-5 * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

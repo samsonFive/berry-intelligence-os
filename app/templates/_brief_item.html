@@ -16,6 +16,9 @@
   {% if item.why_decision and item.triage_bucket == 'review_now' %}<p class="brief-why">{{ item.why_decision }}</p>{% endif %}
   {% if item.why_ranked %}<p class="brief-why">{{ item.why_ranked }}</p>{% endif %}
   {% if item.why %}<p>{{ item.why|truncate(180) }}</p>{% endif %}
+  {% set hits = learn_glossary_hits(item.title, item.why or item.summary or '') %}
+  {% set compact = true %}
+  {% include "_learn_glossary_hits.html" %}
   {% if item.entities %}
     <div class="intel-chips">
       {% for entity in item.entities[:5] %}

@@ -1,6 +1,9 @@
-{% extends "base.html" %}
+{% extends "base_stakeholder.html" %}
+{% set record = safe_source_record(record) %}
 {% block title %}{{ record.title }}{% endblock %}
 {% block content %}
+<div class="sh-page">
+{% if record.content_notice %}<p class="sh-note" role="status">{{ record.content_notice }}</p>{% endif %}
 <section class="page-heading" data-pagefind-filter="type:evidence" data-pagefind-sort="date:{{ record.published_date or record.captured_date }}"><div><p class="eyebrow">EVIDENCE — {{ record.source_type|replace('_',' ')|upper }}</p><h1>{{ record.title }}</h1></div></section>
 {% if record.auto_captured and not record.validated %}
   <div class="banner banner-warning auto-captured-banner" role="status">
@@ -56,7 +59,7 @@
     <dt>Geography</dt><dd>{% set geographies = linked_entities|selectattr('entity_type', 'equalto', 'geography')|list %}{% if geographies %}{% for g in geographies %}<a href="{{ entity_path(g.entity_type, g.id) }}">{{ g.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% else %}—{% endif %}</dd>
   </dl>
 
-  <h2>Bottom line</h2>
+  <h2>Source summary</h2>
   {% set summary_lines = record.summary|as_bullets %}
   {% if summary_lines|length > 1 %}
     <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
@@ -69,7 +72,7 @@
     <p>{{ record.transcript_excerpt }}</p>
   {% endif %}
 
-  <h2>Why it matters</h2>
+  {% if record.why_it_matters %}<h2>Recorded interpretation</h2>
   {% set why_lines = record.why_it_matters|as_bullets %}
   {% if why_lines|length > 1 %}
     <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
@@ -77,6 +80,8 @@
     <p>{{ record.why_it_matters }}</p>
   {% endif %}
 
+  {% endif %}
+  <details class="sh-evidence-metadata"><summary>Evidence links and analyst metadata</summary>
   <h2>Priorities</h2>
   <div class="priorities">
     {% for name, value in record.priority.items() %}
@@ -183,5 +188,7 @@
     <p class="empty-state">No attachments.</p>
   {% endif %}
 
+  </details>
 </article>
+</div>
 {% endblock %}

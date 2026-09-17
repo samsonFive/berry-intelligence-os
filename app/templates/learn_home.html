@@ -15,7 +15,7 @@
   <form class="filters" action="/learn" method="get" role="search" aria-label="Search Learner Mode concepts">
     <div class="filter-field">
       <label for="learn-q">Search concepts</label>
-      <input id="learn-q" type="search" name="q" value="{{ search_query }}" placeholder="e.g. firmness, double cropping, bloom…" autofocus>
+      <input id="learn-q" type="search" name="q" value="{{ search_query }}" placeholder="e.g. firmness, primocane, IPM…" autofocus>
     </div>
     <div class="filter-actions">
       <button type="submit">Search</button>
@@ -41,6 +41,24 @@
     <p class="empty-state">No Learner Mode concepts match &ldquo;{{ search_query }}&rdquo; yet. More concepts are being added.</p>
   {% endif %}
 </section>
+{% elif stale_view %}
+<section class="v2-company-section" id="learn-freshness">
+  <h2>Review cadence</h2>
+  <p class="context-limit">Only current technical guidance and consumer/sensory pages carry a review-by date. Foundational biology is not “stale” for lack of a date. This list is not a trust queue.</p>
+  {% if freshness.stale %}
+    <ul class="entity-links">
+      {% for concept in freshness.stale %}
+        <li>
+          <a href="/learn/{{ concept.slug }}">{{ concept.name }}</a>
+          <span class="v2-meta"> · review by {{ concept.review_by }} · {{ concept.knowledge_class_label }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No Learner Mode pages are past their review date as of {{ freshness.as_of }}.</p>
+  {% endif %}
+  <p class="v2-card-line"><a href="/learn">&larr; Back to Learn</a></p>
+</section>
 {% else %}
   {% for group in pillars %}
     <section class="v2-company-section" id="pillar-{{ group.pillar }}">
@@ -55,7 +73,7 @@
       </div>
     </section>
   {% endfor %}
-  <p class="context-limit">{{ concept_count }} starter concept{{ 's' if concept_count != 1 else '' }} today, spanning taste/consumer science and plant biology/agronomy. More pillars and concepts are being added.</p>
+  <p class="context-limit">{{ concept_count }} concept{{ 's' if concept_count != 1 else '' }} today across all five educational pillars. {{ freshness.cadence_count }} page{{ 's' if freshness.cadence_count != 1 else '' }} carry a review-by date; {{ freshness.stale_count }} {{ 'are' if freshness.stale_count != 1 else 'is' }} past it. {% if freshness.cadence_count %}{% if static_build %}<a href="/learn/stale">Review cadence</a>{% else %}<a href="/learn?view=stale">Review cadence</a>{% endif %}.{% endif %} Educational knowledge never becomes a Fact, Signal, or Assessment.</p>
 {% endif %}
 </div>
 {% endblock %}

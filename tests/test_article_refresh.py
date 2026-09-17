@@ -20,6 +20,7 @@ from app.services.article_refresh import process_discovered_article
 from app.services.media_discovery import discover_source, list_discovered_items
 from app.services.media_orchestration import JsonStagedTranscriptAdapter, MediaOrchestrationService
 from app.services.relevance_screen import TIER_UNCERTAIN
+from tests.test_google_news_url import PUBLISHER, google_news_article_url
 
 SOURCE_ID = "source-article-refresh-test"
 FEED_URL = "https://feeds.example.invalid/article-refresh-test/rss"
@@ -139,6 +140,89 @@ def test_relevant_article_produces_a_review_ready_draft_with_real_body(tmp_path,
     draft = json.loads((tmp_path / "inbox" / "evidence" / f"{result.publication_draft_id}.json").read_text(encoding="utf-8"))
     assert draft["article"]["word_count"] > 0
     assert len(draft["article"]["paragraphs"]) > 0
+    # _RELEVANT_HTML carries no extractable publish date, so the discovery
+    # feed's own pubDate (2026-08-18, from _feed_item's hardcoded <pubDate>)
+    # is kept as-is and honestly labeled as its basis.
+    assert draft["published_date"] == "2026-08-18"
+    assert draft["published_date_basis"] == "discovery_feed"
+
+
+def test_readable_article_never_reaches_trusted_evidence_or_publication_review_approval(
+    tmp_path, repos, source, monkeypatch,
+):
+    """A readable, review-ready draft must land only in the untrusted
+    `inbox/evidence/` staging area -- never in the canonical, trusted
+    `<data_dir>/evidence/` store `repositories.evidence.list()`/
+    `published_evidence()` read from. `process_discovered_article()` (and
+    everything upstream of it: discovery, acquisition, screening) performs
+    no publication-review action of its own; promotion from draft to
+    trusted Evidence is a separate, human-gated action this pipeline never
+    calls itself. This is the mission-level guarantee that a successful
+    readable acquisition, however good the extracted body, is never
+    self-publishing."""
+    item = _discover_one(
+        tmp_path, source, monkeypatch,
+        title="Blueberry acreage grows in Peru", link="https://example.invalid/peru-blueberry-trust-check",
+        description="Blueberry acreage update from Peru.",
+    )
+    monkeypatch.setattr(article_acquisition.httpx, "get", lambda *a, **k: _FakeArticleResponse(_RELEVANT_HTML))
+
+    orchestrator = _orchestrator(repos, tmp_path)
+    result, extra = process_discovered_article(item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox")
+
+    assert result.state == "awaiting_publication_review"
+    assert extra["acquired"] is True
+
+    draft_path = tmp_path / "inbox" / "evidence" / f"{result.publication_draft_id}.json"
+    draft = json.loads(draft_path.read_text(encoding="utf-8"))
+    assert draft.get("article", {}).get("word_count", 0) > 0
+    assert draft.get("review_state") in (None, "pending", "in_review") or draft.get("status") != "published"
+
+    trusted_evidence_dir = tmp_path / "evidence"
+    trusted_evidence_files = list(trusted_evidence_dir.glob("*.json")) if trusted_evidence_dir.exists() else []
+    assert trusted_evidence_files == [], (
+        "a readable draft must never create a file under the canonical, trusted evidence store: "
+        f"found {trusted_evidence_files}"
+    )
+    assert repos.evidence.list() == []
+
+
+_STALE_LASTMOD_HTML = """
+<html><head>
+<title>Strong forecast for winter strawberries</title>
+<meta property="article:published_time" content="2021-12-14T08:00:00-08:00">
+</head>
+<body><article>
+<p>California Giant Berry Farms today announced its forecast for a strong winter strawberry crop,
+led by its Florida and Mexico growing regions, according to district manager James Tipton.</p>
+<p>Weather always plays a critical role in the winter strawberry season, Tipton said.</p>
+</article></body></html>
+"""
+
+
+def test_stale_feed_date_is_overridden_by_the_articles_own_published_date(tmp_path, repos, source, monkeypatch):
+    """Reproduces the real defect this fix targets: a discovery feed (a
+    sitemap `lastmod`, or here the test feed's own hardcoded 2026-08-18
+    <pubDate>) can report a recent touch/republish time for an article
+    that was actually written years earlier. The page's own
+    article:published_time meta tag is the truth; it must win."""
+    item = _discover_one(
+        tmp_path, source, monkeypatch,
+        title="Strong forecast for winter strawberries", link="https://example.invalid/winter-strawberries",
+        description="Winter strawberry crop forecast.",
+    )
+    assert item["published_date"] == "2026-08-18"  # the (wrong) discovery-stage signal
+    monkeypatch.setattr(article_acquisition.httpx, "get", lambda *a, **k: _FakeArticleResponse(_STALE_LASTMOD_HTML))
+
+    orchestrator = _orchestrator(repos, tmp_path)
+    result, extra = process_discovered_article(item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox")
+
+    assert result.publication_draft_id is not None
+    draft = json.loads((tmp_path / "inbox" / "evidence" / f"{result.publication_draft_id}.json").read_text(encoding="utf-8"))
+    assert draft["published_date"] == "2021-12-14"
+    assert draft["published_date_basis"] == "article_body"
+    assert draft["discovery_provenance"]["discovery_published_date"] == "2026-08-18"
+    assert extra["published_date_basis"] == "article_body"
 
 
 def test_confidently_irrelevant_article_is_skipped_before_any_acquisition(tmp_path, repos, source, monkeypatch):
@@ -199,6 +283,9 @@ def test_acquisition_failure_is_reported_as_retryable_not_operator(tmp_path, rep
     assert result.transcript_status == "acquisition_failed"
     assert result.publication_draft_id is None
     assert extra["acquisition_failure_category"]
+    assert extra["acquisition_outcome"]["outcome_category"] == "network_failure"
+    assert extra["acquisition_outcome"]["retryable"] is True
+    assert len(list((tmp_path / "inbox" / "operations" / "article_acquisition_outcomes").glob("*/*/*.json"))) == 1
 
 
 def test_dry_run_never_acquires_the_article_body(tmp_path, repos, source, monkeypatch):
@@ -462,3 +549,38 @@ def test_always_body_check_without_access_limitation_still_lets_stage_b_decide(
 
     assert result.state == "skipped_irrelevant"
     assert result.publication_draft_id is None
+
+
+def test_google_news_encoded_wrapper_acquires_publisher_body_for_borderline_item(
+    tmp_path, repos, source, monkeypatch
+):
+    """TD-014: a news_search_rss-shaped wrapper whose token encodes the
+    publisher article must fetch that article, not sit retry_deferred
+    because the wrapper SPA has no extractable body."""
+    wrapper = google_news_article_url(PUBLISHER)
+    item = _discover_one(
+        tmp_path, source, monkeypatch,
+        title="Blueberry acreage grows in Peru",
+        link=wrapper,
+        description="Acreage update from Peru.",
+    )
+    fetched: list[str] = []
+
+    def _get(url, **kwargs):
+        fetched.append(url)
+        return _FakeArticleResponse(_RELEVANT_HTML, url=url)
+
+    monkeypatch.setattr(article_acquisition.httpx, "get", _get)
+    orchestrator = _orchestrator(repos, tmp_path)
+    result, extra = process_discovered_article(
+        item, orchestrator=orchestrator, inbox_dir=tmp_path / "inbox",
+    )
+
+    assert fetched == [PUBLISHER]
+    assert extra.get("acquired") is True
+    assert result.state == "awaiting_publication_review"
+    draft = json.loads(
+        (tmp_path / "inbox" / "evidence" / f"{result.publication_draft_id}.json").read_text(encoding="utf-8")
+    )
+    assert draft["article"]["final_url"] == PUBLISHER
+    assert draft["article"]["word_count"] > 0

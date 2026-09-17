@@ -1,0 +1,328 @@
+{
+  "state": "ok",
+  "source_id": "source-20260824-perishable-news-produce",
+  "counts": {
+    "discovered": 10,
+    "selected": 10,
+    "relevant": 0,
+    "skipped_irrelevant": 10,
+    "borderline_checked": 4,
+    "borderline_confirmed_relevant": 0,
+    "borderline_confirmed_irrelevant": 4,
+    "acquired": 4,
+    "acquisition_failed": 0,
+    "duplicate": 0,
+    "enriched": 0,
+    "enrichment_unavailable": 0,
+    "review_ready": 0
+  },
+  "items": [
+    {
+      "item_id": "discovered-source-20260824-perishable-news-produce-0d0f1ef18a50797d",
+      "title": "Sun World Celebrates 50 Years of Fruit Innovation and Honors David Marguleas’ Enduring Legacy",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-20260824-perishable-news-produce-20a47ffd9b36f4c6",
+      "title": "Fresh Produce Industry Marks Close of Cyclosporiasis Outbreak, Points to Next Steps in Detection and Traceability",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-20260824-perishable-news-produce-6151fd5c57c7e19c",
+      "title": "Divert Food-Derived Fertilizers Achieve Organic Designations, Advancing Food System Circularity and Unsold Food Use",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-20260824-perishable-news-produce-cf13bbf3e6b23d23",
+      "title": "Melon 1 Celebrates America’s 250th Anniversary with Retail Activation Program",
+      "relevance_screen_stage_a": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, market_pricing, score 4) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "season",
+          "retail",
+          "retailers"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, score 4). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "season",
+          "growers",
+          "production",
+          "demand",
+          "supply",
+          "retail",
+          "retailers"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-20260824-perishable-news-produce-58f8fd37887c90cb",
+      "title": "SEPC Study Identifies Forces Reshaping the Future of Retail Produce, Shoppers",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (market_pricing, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "retail",
+          "retailers"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 5,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, crop_genetics, score 5). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "grower",
+          "shippers",
+          "pricing",
+          "price",
+          "retail",
+          "consumer",
+          "retailers",
+          "varieties"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-20260824-perishable-news-produce-622ba703b718247a",
+      "title": "Zespri Kiwifruit Helps Retailers Meet Growing Demand for Back-to-School Solutions",
+      "relevance_screen_stage_a": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (market_pricing, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "demand",
+          "retailers"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 5,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, crop_genetics, score 5). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "season",
+          "growers",
+          "demand",
+          "retailers",
+          "variety"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-20260824-perishable-news-produce-7025fb73acd5d076",
+      "title": "Cinco de Mayo Avocado Unit Sales Surge Nationwide",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-20260824-perishable-news-produce-a46daeeba46d434a",
+      "title": "Del Fresco Pure Brings Year-Round Freshness and Organic Lineup to Southern Innovations 2026",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-20260824-perishable-news-produce-a64d5b39d7756078",
+      "title": "Healthy Family Project Launches First Campaign with Albertsons’ ACME Markets and Safeway Stores",
+      "relevance_screen_stage_a": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    },
+    {
+      "item_id": "discovered-source-20260824-perishable-news-produce-deea5060287c9112",
+      "title": "Fresh California Figs Carry Summer Flavor into Fall",
+      "relevance_screen_stage_a": {
+        "score": 4,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, market_pricing, score 4) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing"
+        ],
+        "matched_terms": [
+          "season",
+          "retailers"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "body_acquisition_attempted": true,
+      "acquired": true,
+      "relevance_screen_stage_b": {
+        "score": 5,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "Article body reviewed; no berry/cultivar mention found (generic signal only: commercial_volume_geography, market_pricing, crop_genetics, score 5). Not relevant.",
+        "likely_topics": [
+          "commercial_volume_geography",
+          "market_pricing",
+          "crop_genetics"
+        ],
+        "matched_terms": [
+          "season",
+          "retail",
+          "retailers",
+          "variety",
+          "varieties"
+        ],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "outcome": "skipped_irrelevant"
+    }
+  ]
+}

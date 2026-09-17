@@ -54,6 +54,11 @@
     "founding_year": null,
     "founding_year_note": "Company communications give 2013; trade press gives 2012. Recorded as a disputed fact rather than resolved.",
     "breeds_own_genetics": false,
-    "rebrand": "Agrovision Corp. renamed Fruitist in 2025"
+    "rebrand": "Agrovision Corp. renamed Fruitist in 2025",
+    "competitor_registry_2026_09_15": {
+      "row_number": 13,
+      "spreadsheet_label": "Fruitist",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
   }
 }

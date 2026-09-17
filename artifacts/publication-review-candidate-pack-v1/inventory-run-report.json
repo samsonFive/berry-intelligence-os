@@ -1,0 +1,398 @@
+{
+  "generated_at": "2026-09-16T05:35:35Z",
+  "sources": {
+    "source-20260901-blueberrybreeding-newsroom": {
+      "discovered": 99,
+      "new": 10,
+      "error": null,
+      "items": [
+        "discovered-source-20260901-blueberrybreeding-newsroom-084c1aac0b7cce68",
+        "discovered-source-20260901-blueberrybreeding-newsroom-2382fa05a8ba83c4"
+      ]
+    },
+    "source-20260915-fruitist-newsroom": {
+      "discovered": 42,
+      "new": 10,
+      "error": null,
+      "items": [
+        "discovered-source-20260915-fruitist-newsroom-34dd32a10d77fa9b",
+        "discovered-source-20260915-fruitist-newsroom-3faf8871e26454fd"
+      ]
+    },
+    "source-20260915-oishii-press": {
+      "discovered": 30,
+      "new": 10,
+      "error": null,
+      "items": [
+        "discovered-source-20260915-oishii-press-75ba28760439c408",
+        "discovered-source-20260915-oishii-press-be1fdfaabadadb03"
+      ]
+    },
+    "source-business-of-blueberries-podcast": {
+      "discovered": 200,
+      "new": 200,
+      "error": null,
+      "items": [
+        "discovered-source-business-of-blueberries-podcast-860b80aef7ec4641",
+        "discovered-source-business-of-blueberries-podcast-78eaf24b2941fdcb"
+      ]
+    },
+    "source-redagricola-on-the-road": {
+      "discovered": 0,
+      "new": 0,
+      "error": "https://www.youtube.com/feeds/videos.xml?playlist_id=PLXO4NRjRC8gIkNoqKBw05iiCEQSCuRmXE: Client error '404 Not Found' for url 'https://www.youtube.com/feeds/videos.xml?playlist_id=PLXO4NRjRC8gIkNoqKBw05iiCEQSCuRmXE'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404; https://www.youtube.com/feeds/videos.xml?playlist_id=PLXO4NRjRC8gI3fUD1zOQrRgacegEs7Hc6: Client error '404 Not Found' for url 'https://www.youtube.com/feeds/videos.xml?playlist_id=PLXO4NRjRC8gI3fUD1zOQrRgacegEs7Hc6'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+      "items": []
+    },
+    "source-blueberries-tv-youtube": {
+      "discovered": 0,
+      "new": 0,
+      "error": "https://www.youtube.com/feeds/videos.xml?channel_id=UCwypVNJp_DjjoLtqVCwIF4w: Client error '404 Not Found' for url 'https://www.youtube.com/feeds/videos.xml?channel_id=UCwypVNJp_DjjoLtqVCwIF4w'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
+      "items": []
+    },
+    "source-lucentlands-podcast": {
+      "discovered": 165,
+      "new": 165,
+      "error": null,
+      "items": [
+        "discovered-source-lucentlands-podcast-100dcef376fc2bd7",
+        "discovered-source-lucentlands-podcast-0c85b7065446522f"
+      ]
+    }
+  },
+  "items": [
+    {
+      "item_id": "discovered-source-20260901-blueberrybreeding-newsroom-084c1aac0b7cce68",
+      "source_id": "source-20260901-blueberrybreeding-newsroom",
+      "title": "Florida Blueberry Growers Association",
+      "published_date": "2025-11-18",
+      "relevance": {
+        "score": 5,
+        "threshold": 4,
+        "relevant": true,
+        "confidence": "confident",
+        "berry_identity_hit": true,
+        "reason": "Berry/cultivar named directly in title or description (score 5).",
+        "likely_topics": [
+          "berry_identity",
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "blueberry",
+          "growers"
+        ],
+        "tier": "direct",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "state": "awaiting_publication_review",
+      "transcript_status": "not_applicable",
+      "enriched": false,
+      "review_ready": true,
+      "error": null
+    },
+    {
+      "item_id": "discovered-source-20260901-blueberrybreeding-newsroom-2382fa05a8ba83c4",
+      "source_id": "source-20260901-blueberrybreeding-newsroom",
+      "title": "2025 End Of Season Data Summary Fbga Fall Meeting",
+      "published_date": "2025-11-18",
+      "relevance": {
+        "score": 2,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "borderline",
+        "berry_identity_hit": false,
+        "reason": "Generic agriculture signal only (commercial_volume_geography, score 2) with no berry/cultivar mention -- not relevant on metadata alone; needs the real article body to confirm.",
+        "likely_topics": [
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "season"
+        ],
+        "tier": null,
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "state": "article_acquisition_failed",
+      "transcript_status": "malformed",
+      "enriched": false,
+      "review_ready": false,
+      "error": "extracted body too short (59 chars) at https://www.blueberrybreeding.com/post/2025-end-of-season-data-summary-fbga-fall-meeting -- likely not a real article page"
+    },
+    {
+      "item_id": "discovered-source-20260915-fruitist-newsroom-34dd32a10d77fa9b",
+      "source_id": "source-20260915-fruitist-newsroom",
+      "title": "Caleb Williams Describes Fruitist Blueberries In His Latest Gq Magazine Profile",
+      "published_date": "2026-08-27",
+      "relevance": {
+        "score": 3,
+        "threshold": 4,
+        "relevant": true,
+        "confidence": "confident",
+        "berry_identity_hit": true,
+        "reason": "Berry/cultivar named directly in title or description (score 3).",
+        "likely_topics": [
+          "berry_identity"
+        ],
+        "matched_terms": [
+          "blueberries"
+        ],
+        "tier": "direct",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "state": "awaiting_publication_review",
+      "transcript_status": "not_applicable",
+      "enriched": false,
+      "review_ready": true,
+      "error": null
+    },
+    {
+      "item_id": "discovered-source-20260915-fruitist-newsroom-3faf8871e26454fd",
+      "source_id": "source-20260915-fruitist-newsroom",
+      "title": "Fruitist Named One Of Fast Companys Most Innovative Companies Of 2026",
+      "published_date": "2026-04-21",
+      "relevance": {
+        "score": 0,
+        "threshold": 4,
+        "relevant": false,
+        "confidence": "confident",
+        "berry_identity_hit": false,
+        "reason": "No berry/CI keyword signals matched title or description at all.",
+        "likely_topics": [],
+        "matched_terms": [],
+        "tier": "irrelevant",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "state": "skipped_irrelevant",
+      "transcript_status": "deferred",
+      "enriched": false,
+      "review_ready": false,
+      "error": null
+    },
+    {
+      "item_id": "discovered-source-20260915-oishii-press-75ba28760439c408",
+      "source_id": "source-20260915-oishii-press",
+      "title": "How Oishii Uses Bees, Robots And Solar To Sustainably Grow Strawberries Indoors",
+      "published_date": "2024-06-21",
+      "relevance": {
+        "score": 3,
+        "threshold": 4,
+        "relevant": true,
+        "confidence": "confident",
+        "berry_identity_hit": true,
+        "reason": "Berry/cultivar named directly in title or description (score 3).",
+        "likely_topics": [
+          "berry_identity"
+        ],
+        "matched_terms": [
+          "strawberries"
+        ],
+        "tier": "direct",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "state": "awaiting_publication_review",
+      "transcript_status": "not_applicable",
+      "enriched": false,
+      "review_ready": true,
+      "error": null
+    },
+    {
+      "item_id": "discovered-source-20260915-oishii-press-be1fdfaabadadb03",
+      "source_id": "source-20260915-oishii-press",
+      "title": "High-end strawberry grower Oishii opens solar-powered indoor vertical farm utilizing robots",
+      "published_date": "2024-06-21",
+      "relevance": {
+        "score": 5,
+        "threshold": 4,
+        "relevant": true,
+        "confidence": "confident",
+        "berry_identity_hit": true,
+        "reason": "Berry/cultivar named directly in title or description (score 5).",
+        "likely_topics": [
+          "berry_identity",
+          "commercial_volume_geography"
+        ],
+        "matched_terms": [
+          "strawberry",
+          "grower"
+        ],
+        "tier": "direct",
+        "query_corroboration": null,
+        "version": "relevance-screen-v3"
+      },
+      "state": "awaiting_publication_review",
+      "transcript_status": "not_applicable",
+      "enriched": false,
+      "review_ready": true,
+      "error": null
+    },
+    {
+      "item_id": "discovered-source-business-of-blueberries-podcast-860b80aef7ec4641",
+      "source_id": "source-business-of-blueberries-podcast",
+      "title": "Inside Walmart’s Berry Strategy With Melissa Byland",
+      "published_date": "2026-09-15",
+      "relevance": {
+        "score": 34,
+        "decision": "process",
+        "reason": "strong berry/cultivar signal",
+        "likely_berry_ids": [
+          "berry-blueberry"
+        ],
+        "likely_topics": [
+          "berry-cultivar-signal",
+          "production-market-signal"
+        ],
+        "matched_terms": [
+          "blueberries",
+          "blueberry",
+          "grower",
+          "growers",
+          "retail",
+          "peru",
+          "mexico",
+          "oregon",
+          "michigan"
+        ],
+        "screener_provenance": {
+          "screener": "deterministic-relevance-v1",
+          "process_threshold": 8,
+          "skip_threshold": 3,
+          "recency_bonus": 2,
+          "trust_state": "untrusted_triage"
+        }
+      },
+      "state": "awaiting_publication_review",
+      "transcript_status": "missing",
+      "enriched": true,
+      "review_ready": true,
+      "error": null
+    },
+    {
+      "item_id": "discovered-source-business-of-blueberries-podcast-78eaf24b2941fdcb",
+      "source_id": "source-business-of-blueberries-podcast",
+      "title": "Navigating Super El Niño With Luis Vegas (Part 2)",
+      "published_date": "2026-09-09",
+      "relevance": {
+        "score": 57,
+        "decision": "process",
+        "reason": "strong berry/cultivar signal",
+        "likely_berry_ids": [
+          "berry-blueberry"
+        ],
+        "likely_topics": [
+          "berry-cultivar-signal",
+          "production-market-signal"
+        ],
+        "matched_terms": [
+          "blueberries",
+          "blueberry",
+          "arándano",
+          "variety",
+          "grower",
+          "growers",
+          "yield",
+          "season",
+          "exporter",
+          "export",
+          "production",
+          "peru",
+          "oregon",
+          "washington",
+          "michigan"
+        ],
+        "screener_provenance": {
+          "screener": "deterministic-relevance-v1",
+          "process_threshold": 8,
+          "skip_threshold": 3,
+          "recency_bonus": 2,
+          "trust_state": "untrusted_triage"
+        }
+      },
+      "state": "awaiting_publication_review",
+      "transcript_status": "missing",
+      "enriched": true,
+      "review_ready": true,
+      "error": null
+    },
+    {
+      "item_id": "discovered-source-lucentlands-podcast-100dcef376fc2bd7",
+      "source_id": "source-lucentlands-podcast",
+      "title": "Ports and Fresh Produce Logistics | Ep. 157",
+      "published_date": "2026-09-14",
+      "relevance": {
+        "score": 14,
+        "decision": "process",
+        "reason": "score 14 >= process threshold 8",
+        "likely_berry_ids": [],
+        "likely_topics": [
+          "production-market-signal",
+          "adjacent-ag-signal"
+        ],
+        "matched_terms": [
+          "grower",
+          "growers",
+          "exporter",
+          "export",
+          "technology"
+        ],
+        "screener_provenance": {
+          "screener": "deterministic-relevance-v1",
+          "process_threshold": 8,
+          "skip_threshold": 3,
+          "recency_bonus": 2,
+          "trust_state": "untrusted_triage"
+        }
+      },
+      "state": "awaiting_publication_review",
+      "transcript_status": "missing",
+      "enriched": true,
+      "review_ready": true,
+      "error": null
+    },
+    {
+      "item_id": "discovered-source-lucentlands-podcast-0c85b7065446522f",
+      "source_id": "source-lucentlands-podcast",
+      "title": "Can Farmers Use Fewer Chemicals Without Risking Their Crops? | Ep. 156",
+      "published_date": "2026-09-07",
+      "relevance": {
+        "score": 11,
+        "decision": "process",
+        "reason": "score 11 >= process threshold 8",
+        "likely_berry_ids": [],
+        "likely_topics": [
+          "production-market-signal",
+          "adjacent-ag-signal"
+        ],
+        "matched_terms": [
+          "grower",
+          "growers",
+          "production",
+          "consumer"
+        ],
+        "screener_provenance": {
+          "screener": "deterministic-relevance-v1",
+          "process_threshold": 8,
+          "skip_threshold": 3,
+          "recency_bonus": 2,
+          "trust_state": "untrusted_triage"
+        }
+      },
+      "state": "awaiting_publication_review",
+      "transcript_status": "missing",
+      "enriched": true,
+      "review_ready": true,
+      "error": null
+    }
+  ],
+  "totals": {
+    "discovered": 10,
+    "relevant": 9,
+    "skipped": 1,
+    "transcript_ready": 0,
+    "enriched": 4,
+    "review_ready": 8,
+    "failed": 1
+  }
+}

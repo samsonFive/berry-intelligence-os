@@ -87,6 +87,13 @@ def append_review_event(
     notes: str | None = None,
     supporting_ids: list[str] | tuple[str, ...] | None = None,
     origin_href: str | None = None,
+    feedback_intent: str | None = None,
+    idempotency_key: str | None = None,
+    expected_version: int | None = None,
+    state_version: int | None = None,
+    source_surface: str | None = None,
+    review_blockers: list[str] | tuple[str, ...] | None = None,
+    undoes_event_id: str | None = None,
 ) -> EventAppendResult:
     subject, source = subject or {}, source or {}
     if not re.fullmatch(r"[a-z][a-z0-9_]{1,63}", workflow):
@@ -98,11 +105,21 @@ def append_review_event(
     previous_id = previous[-1]["id"] if previous else None
     if previous:
         latest = previous[-1]
-        retry_fields = ("workflow", "object_id", "object_type", "action", "prior_state", "new_state", "actor", "reason_category")
+        retry_fields = (
+            "workflow", "object_id", "object_type", "action", "prior_state", "new_state",
+            "actor", "reason_category", "feedback_intent", "idempotency_key",
+            "expected_version", "state_version", "source_surface", "review_blockers",
+            "undoes_event_id",
+        )
         requested = {
             "workflow": workflow, "object_id": object_id, "object_type": object_type,
             "action": action, "prior_state": prior_state, "new_state": new_state,
             "actor": actor, "reason_category": reason_category,
+            "feedback_intent": feedback_intent, "idempotency_key": idempotency_key,
+            "expected_version": expected_version, "state_version": state_version,
+            "source_surface": source_surface,
+            "review_blockers": list(review_blockers) if review_blockers else [],
+            "undoes_event_id": undoes_event_id,
         }
         if all(latest.get(key) == requested.get(key) for key in retry_fields):
             return EventAppendResult(event=latest, path=object_dir / f"{latest['id']}.json", created=False)
@@ -110,6 +127,11 @@ def append_review_event(
         "workflow": workflow, "object_id": object_id, "object_type": object_type,
         "action": action, "prior_state": prior_state, "new_state": new_state,
         "actor": actor, "reason_category": reason_category, "previous_event_id": previous_id,
+        "feedback_intent": feedback_intent, "idempotency_key": idempotency_key,
+        "expected_version": expected_version, "state_version": state_version,
+        "source_surface": source_surface,
+        "review_blockers": list(review_blockers) if review_blockers else [],
+        "undoes_event_id": undoes_event_id,
     }
     event_id = "rev-" + hashlib.sha256(
         json.dumps(identity, sort_keys=True, separators=(",", ":")).encode("utf-8")
@@ -128,6 +150,7 @@ def append_review_event(
         "action": action,
         "prior_state": prior_state,
         "new_state": new_state,
+        "resulting_state": new_state,
         "source_id": subject.get("source_id"),
         "source_class": _source_class(source),
         "query_family": query_family,
@@ -149,6 +172,13 @@ def append_review_event(
         "notes": notes or None,
         "supporting_ids": list(supporting_ids) if supporting_ids else [],
         "origin_href": origin_href or None,
+        "feedback_intent": feedback_intent,
+        "idempotency_key": idempotency_key,
+        "expected_version": expected_version,
+        "state_version": state_version,
+        "source_surface": source_surface,
+        "review_blockers": list(review_blockers) if review_blockers else [],
+        "undoes_event_id": undoes_event_id,
     }
     object_dir.mkdir(parents=True, exist_ok=True)
     path = object_dir / f"{event_id}.json"

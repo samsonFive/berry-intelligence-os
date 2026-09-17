@@ -27,6 +27,7 @@ GROUP_ORDER = (
     "signals",
     "assessments",
     "strategic_questions",
+    "learn",
     "sources",
 )
 GROUP_LABELS = {
@@ -39,6 +40,7 @@ GROUP_LABELS = {
     "signals": "Signals",
     "assessments": "Assessments",
     "strategic_questions": "Strategic Questions",
+    "learn": "Learner Mode",
     "sources": "Sources",
 }
 ENTITY_GROUP = {
@@ -54,6 +56,7 @@ STATE_LABELS = {
     "emerging_signal": "Emerging signal",
     "confirmed_signal": "Confirmed signal",
     "assessment": "Assessment",
+    "educational_knowledge": "Educational knowledge",
 }
 # Lower is better. Pending must never outrank an equally matched trusted hit.
 STATE_RANK = {
@@ -61,6 +64,7 @@ STATE_RANK = {
     "confirmed_signal": 1,
     "assessment": 1,
     "story": 2,
+    "educational_knowledge": 2,
     "pending": 3,
     "emerging_signal": 3,
 }
@@ -241,6 +245,7 @@ class SearchPools:
     pending_drafts: list[dict[str, Any]] = field(default_factory=list)
     signal_candidates: list[dict[str, Any]] = field(default_factory=list)
     identity_redirects: list[dict[str, Any]] = field(default_factory=list)
+    learn_concepts: list[dict[str, Any]] = field(default_factory=list)
 
 
 def _names_for_entity(entity: dict[str, Any]) -> tuple[str, list[str]]:
@@ -603,6 +608,40 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
             )
         )
 
+    for concept in pools.learn_concepts:
+        slug = str(concept.get("slug") or "")
+        if not slug:
+            continue
+        name = str(concept.get("name") or slug)
+        aliases = [str(value) for value in (concept.get("aliases") or []) if value]
+        haystack = " ".join(
+            [
+                name,
+                " ".join(aliases),
+                str(concept.get("pillar_label") or concept.get("pillar") or ""),
+                str(concept.get("summary") or ""),
+            ]
+        )
+        add(
+            SearchDoc(
+                id=str(concept.get("id") or f"concept-{slug}"),
+                group="learn",
+                object_type="learn_concept",
+                title=name,
+                href=f"/learn/{slug}",
+                state="educational_knowledge",
+                canonical=name,
+                aliases=tuple(aliases),
+                berry_ids=_as_tuple(concept.get("berry_ids")),
+                subtitle="Educational knowledge — not a Fact, Signal, or Assessment",
+                kind_label="Educational knowledge",
+                haystack=haystack,
+                folded_canonical=_fold(name),
+                folded_aliases=tuple(_fold(alias) for alias in aliases if _fold(alias)),
+                match_hints=tuple(aliases),
+            )
+        )
+
     return docs
 
 
@@ -685,6 +724,8 @@ def _match_rank(doc: SearchDoc, *, query: str, folded_query: str) -> tuple[int, 
 
 def _in_berry(doc: SearchDoc, berry: str) -> bool:
     if berry == BERRY_GLOBAL or not berry:
+        return True
+    if doc.group == "learn" and not doc.berry_ids:
         return True
     return berry in doc.berry_ids
 

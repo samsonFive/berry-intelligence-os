@@ -1,0 +1,13 @@
+{
+  "source_count": 205,
+  "duplicate_source_ids": [],
+  "normalized_feed_url_collision_groups": {
+    "https://www.freshplaza.com/rss.xml": [
+      "source-20260806173428-a004-fresh-plaza-74",
+      "source-freshplaza-global"
+    ]
+  },
+  "new_source_url_collisions": {},
+  "duplicate_source_records_created": 0,
+  "note": "Existing collision groups predate Wave 1; no new Source URL collides with an existing record."
+}

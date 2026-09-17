@@ -82,7 +82,10 @@ def source_completeness(
         or discovery.get("acquisition_failure_category")
         or discovery.get("failure_category")
     )
-    if body["state"] == "body_available" and body["body"]:
+    if body["state"] == "interstitial":
+        source_class = "NO_CONTENT"
+        explicit_failure = "INTERSTITIAL"
+    elif body["state"] == "body_available" and body["body"]:
         source_class = "FULL_ARTICLE"
     elif body["transcript_text"] or (
         source_artifact.get("kind") == "transcript"

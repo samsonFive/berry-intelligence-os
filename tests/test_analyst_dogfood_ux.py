@@ -38,6 +38,12 @@ def test_dated_label_does_not_present_captured_as_published() -> None:
     assert published.startswith("Published")
 
 
+def test_linked_evidence_table_header_is_not_a_generic_date() -> None:
+    html = Path("app/templates/_evidence_link_table.html").read_text(encoding="utf-8")
+    assert "<th>Published / captured</th>" in html
+    assert "<th>Date</th>" not in html
+
+
 def test_today_is_a_morning_console_with_source_problems_and_next_work(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
     monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
@@ -59,8 +65,9 @@ def test_today_is_a_morning_console_with_source_problems_and_next_work(monkeypat
     monkeypatch.setattr(main, "load_sources", lambda: [])
     page = TestClient(main.app).get("/today")
     assert page.status_code == 200
-    assert "What matters now" in page.text
-    assert "What changed in the last 24 hours" in page.text
+    assert "Daily Intelligence Briefing" in page.text
+    assert "Publication date drives recency" in page.text
+    assert "Needs Attention" in page.text
     assert 'href="/watches"' in page.text
     assert "Publication Review" not in page.text
     assert "name=\"decision\"" not in page.text

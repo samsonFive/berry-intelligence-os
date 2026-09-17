@@ -1536,6 +1536,7 @@ def discover_source(
     data_dir: Path = DEFAULT_DATA_DIR,
     schemas_dir: Path = SCHEMAS_DIR,
     allow_historical_backfill: bool = False,
+    max_persisted_items: int | None = None,
 ) -> DiscoveryRunResult:
     """Run discovery for exactly one Source. Never raises for network/feed
     problems (Phase 6's "understanding failures" requirement) -- those
@@ -1553,6 +1554,12 @@ def discover_source(
     not a Redagricola-specific branch: any Source, on any adapter, may
     have more than one feed. `feed_url` (singular) keeps working exactly
     as before for every existing single-feed source.
+
+    `max_persisted_items` is an operator safety cap applied after source
+    filtering/sorting and before any discovery item is written. It is
+    intentionally separate from a Source's normal ``item_limit`` so a
+    one-off canary can be more restrictive without weakening its durable
+    collection window.
 
     `allow_historical_backfill` is the explicit operator override for
     intentional historical backfill of a spoken-media source's full
@@ -1579,6 +1586,15 @@ def discover_source(
         )
     if adapter_type not in ADAPTER_TYPES:
         raise DiscoveryError(f"unknown discovery adapter type: {adapter_type!r}")
+    if (
+        max_persisted_items is not None
+        and (
+            not isinstance(max_persisted_items, int)
+            or isinstance(max_persisted_items, bool)
+            or max_persisted_items < 0
+        )
+    ):
+        raise DiscoveryError("max_persisted_items must be a non-negative integer")
 
     fetch, list_entries, normalize = ADAPTER_TYPES[adapter_type]
     if adapter_type in {"article_rss", "news_search_rss"}:
@@ -1657,6 +1673,8 @@ def discover_source(
     if discovery_config.get("sort") == "published_desc":
         normalized_pairs.sort(key=lambda pair: pair[2].published_date or "", reverse=True)
     normalized_pairs = _apply_discovery_item_limits(normalized_pairs, discovery_config, source_id)
+    if max_persisted_items is not None:
+        normalized_pairs = normalized_pairs[:max_persisted_items]
 
     first_ever_success = prior_last_success_at is None
     backlog_indexes: set[int] = set()

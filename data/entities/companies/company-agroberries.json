@@ -1,0 +1,40 @@
+{
+  "id": "company-agroberries",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "AgroBerries",
+  "aliases": [
+    "Agroberries Group",
+    "Agroberries Peru S.A.C."
+  ],
+  "status": "unverified",
+  "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 3) as a tracked competitor of type 'Commercial'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
+  "roles": [
+    "grower_marketer",
+    "competitor"
+  ],
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-competitor-registry-2026-09-15-import"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "competitor_registry_2026_09_15": {
+      "row_number": 3,
+      "spreadsheet_label": "AgroBerries",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "identity_confirmed_relationship_ambiguity_unrelated",
+      "reason": "AgroBerries' own identity is well-corroborated (agroberries.com official site, extensive FreshFruitPortal/Blueberries Consulting trade coverage, founded 1996 Chile). Held provisional because of a real, unresolved PARENT/SIBLING ambiguity found during research: marketing copy describes AgroBerries as part of a 'family of companies including Berry Fresh, BerryWorld, PrepWorld, and Poupart1895' -- BerryWorld is a separate, independently-canonical roster entity (#4, company-berryworld) with its own Source. This is inference from promotional language, not a primary corporate-registry source; per this mission's own bar ('no unresolved duplicate or parent/child ambiguity remains'), promotion is held pending a primary-source confirmation or denial of that claim.",
+      "evidence_urls": [
+        "https://www.agroberries.com/about",
+        "https://www.freshfruitportal.com/news/2026/06/24/agroberries-expansion/"
+      ],
+      "confidence": "medium",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
+    }
+  }
+}

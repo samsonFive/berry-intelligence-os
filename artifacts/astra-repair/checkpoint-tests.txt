@@ -1,0 +1,779 @@
+.F.................F.................................................... [ 19%]
+............................................................F........... [ 39%]
+...................................................................F.... [ 59%]
+........................................................................ [ 79%]
+........F............................................................... [ 99%]
+.                                                                        [100%]
+================================== FAILURES ===================================
+_ test_company_report_keeps_complete_inventory_but_pending_out_of_trusted_synthesis _
+
+    def test_company_report_keeps_complete_inventory_but_pending_out_of_trusted_synthesis():
+>       scope = ResolvedScope(report_type="competitive_landscape", company_ids=[COMPANY["id"]], date_window_days=90)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: ResolvedScope.__init__() missing 5 required positional arguments: 'berry_id', 'geography_ids', 'variety_ids', 'strategic_question_id', and 'focus_notes'
+
+tests\test_company_news_coverage.py:31: TypeError
+__________ test_date_window_excludes_old_evidence_but_keeps_undated ___________
+
+    def test_date_window_excludes_old_evidence_but_keeps_undated():
+        entities = _base_entities()
+        evidence = [
+            _evidence(id="ev-recent", published_date="2026-08-20", entity_ids=["company-fallcreek"]),
+            _evidence(id="ev-old", published_date="2020-01-01", entity_ids=["company-fallcreek"]),
+            _evidence(id="ev-undated", published_date=None, entity_ids=["company-fallcreek"]),
+        ]
+        scope = ResolvedScope(
+            report_type="market_landscape",
+            berry_id="berry-blueberry",
+            geography_ids=(),
+            company_ids=("company-fallcreek",),
+            variety_ids=(),
+            strategic_question_id=None,
+            date_window_days=14,
+            focus_notes="",
+        )
+        packet = build_report_packet(
+            scope,
+            entities=entities,
+            relationships=[],
+            published_evidence=evidence,
+            facts=[],
+            signals=[],
+            assessments=[],
+            strategic_questions=[],
+            recommendations=[],
+            variety_candidates=[],
+            berry_labels=BERRIES,
+        )
+        trace_ids = {row["id"] for row in packet["source_trace"]}
+        assert "ev-old" not in trace_ids
+>       assert "ev-undated" in trace_ids
+E       AssertionError: assert 'ev-undated' in set()
+
+tests\test_report_builder.py:380: AssertionError
+____ test_company_profile_watch_control_is_watchlist_not_monitoring_queue _____
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\_utils.py", line 79, in collapse_excgroups
+  |     yield
+  |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 183, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 815, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\_pytest\runner.py", line 361, in from_call
+    |     result: TResult | None = func()
+    |                              ~~~~^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\_pytest\runner.py", line 250, in <lambda>
+    |     lambda: runtest_hook(item=item, **kwds),
+    |             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\pluggy\_hooks.py", line 512, in __call__
+    |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+    |            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+    |            ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\pluggy\_callers.py", line 167, in _multicall
+    |     raise exception
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\pluggy\_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |     ~~~~~~~~~~~~~~^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\_pytest\logging.py", line 865, in pytest_runtest_call
+    |     yield
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\pluggy\_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |     ~~~~~~~~~~~~~~^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\_pytest\capture.py", line 900, in pytest_runtest_call
+    |     return (yield)
+    |             ^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\pluggy\_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |     ~~~~~~~~~~~~~~^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\_pytest\skipping.py", line 268, in pytest_runtest_call
+    |     return (yield)
+    |             ^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\pluggy\_callers.py", line 121, in _multicall
+    |     res = hook_impl.function(*args)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\_pytest\runner.py", line 184, in pytest_runtest_call
+    |     item.runtest()
+    |     ~~~~~~~~~~~~^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\_pytest\python.py", line 1707, in runtest
+    |     self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+    |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\pluggy\_hooks.py", line 512, in __call__
+    |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+    |            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+    |            ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\pluggy\_callers.py", line 167, in _multicall
+    |     raise exception
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\pluggy\_callers.py", line 121, in _multicall
+    |     res = hook_impl.function(*args)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\_pytest\python.py", line 167, in pytest_pyfunc_call
+    |     result = testfunction(**testargs)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\tests\test_analyst_dogfood_ux.py", line 97, in test_company_profile_watch_control_is_watchlist_not_monitoring_queue
+    |     page = TestClient(app).get("/entities/company/company-planasa")
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\testclient.py", line 479, in get
+    |     return super().get(
+    |            ~~~~~~~~~~~^
+    |         url,
+    |         ^^^^
+    |     ...<6 lines>...
+    |         extensions=extensions,
+    |         ^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py", line 1053, in get
+    |     return self.request(
+    |            ~~~~~~~~~~~~^
+    |         "GET",
+    |         ^^^^^^
+    |     ...<7 lines>...
+    |         extensions=extensions,
+    |         ^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\testclient.py", line 451, in request
+    |     return super().request(
+    |            ~~~~~~~~~~~~~~~^
+    |         method,
+    |         ^^^^^^^
+    |     ...<11 lines>...
+    |         extensions=extensions,
+    |         ^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py", line 825, in request
+    |     return self.send(request, auth=auth, follow_redirects=follow_redirects)
+    |            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py", line 914, in send
+    |     response = self._send_handling_auth(
+    |         request,
+    |     ...<2 lines>...
+    |         history=[],
+    |     )
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    |     response = self._send_handling_redirects(
+    |         request,
+    |         follow_redirects=follow_redirects,
+    |         history=history,
+    |     )
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    |     response = self._send_single_request(request)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    |     response = transport.handle_request(request)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\testclient.py", line 354, in handle_request
+    |     raise exc
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\testclient.py", line 351, in handle_request
+    |     portal.call(self.app, scope, receive, send)
+    |     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\anyio\from_thread.py", line 338, in call
+    |     return cast(T_Retval, self.start_task_soon(func, *args).result())
+    |                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+    |   File "C:\Users\Johnny\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 456, in result
+    |     return self.__get_result()
+    |            ~~~~~~~~~~~~~~~~~^^
+    |   File "C:\Users\Johnny\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    |     raise self._exception
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\anyio\from_thread.py", line 263, in _call_func
+    |     retval = await retval_or_awaitable
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\fastapi\applications.py", line 1054, in __call__
+    |     await super().__call__(scope, receive, send)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\applications.py", line 113, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    |     raise exc
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 182, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |                                    ~~~~~~~~~~~~~~~~~~^^
+    |   File "C:\Users\Johnny\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |     ~~~~~~~~~~~~~~^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 184, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\main.py", line 583, in request_corpus_middleware
+    |     return await call_next(request)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 159, in call_next
+    |     raise app_exc
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\session_auth.py", line 59, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 182, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |                                    ~~~~~~~~~~~~~~~~~~^^
+    |   File "C:\Users\Johnny\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |     ~~~~~~~~~~~~~~^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 184, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\session_auth.py", line 234, in remote_auth_middleware
+    |     return await call_next(request)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 159, in call_next
+    |     raise app_exc
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py", line 78, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py", line 75, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\fastapi\routing.py", line 302, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\fastapi\routing.py", line 215, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\concurrency.py", line 38, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\main.py", line 3460, in entity_detail
+    |     response = templates.TemplateResponse(
+    |         request=request,
+    |     ...<14 lines>...
+    |         },
+    |     )
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\templating.py", line 210, in TemplateResponse
+    |     return _TemplateResponse(
+    |         template,
+    |     ...<4 lines>...
+    |         background=background,
+    |     )
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\templating.py", line 41, in __init__
+    |     content = template.render(context)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    |     self.environment.handle_exception()
+    |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    |     raise rewrite_traceback_stack(source=source)
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\templates\entity.html", line 1, in top-level template code
+    |     {% extends "base_stakeholder.html" %}
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\templates\base_stakeholder.html", line 42, in top-level template code
+    |     {% block content %}{% endblock %}
+    |     ^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\templates\entity.html", line 5, in block 'content'
+    |     {% include "_company_profile.html" %}
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\templates\_company_profile.html", line 45, in top-level template code
+    |     <p class="sh-note">{{ company_news.items|length }} captured articles · {{ company_news.pending_count }} pending source review · {{ company_news.usable_count }} with readable source text. Publication dates determine this window.</p>
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+    | TypeError: object of type 'builtin_function_or_method' has no len()
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\tests\test_analyst_dogfood_ux.py", line 97, in test_company_profile_watch_control_is_watchlist_not_monitoring_queue
+    page = TestClient(app).get("/entities/company/company-planasa")
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\testclient.py", line 479, in get
+    return super().get(
+           ~~~~~~~~~~~^
+        url,
+        ^^^^
+    ...<6 lines>...
+        extensions=extensions,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py", line 1053, in get
+    return self.request(
+           ~~~~~~~~~~~~^
+        "GET",
+        ^^^^^^
+    ...<7 lines>...
+        extensions=extensions,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\testclient.py", line 451, in request
+    return super().request(
+           ~~~~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<11 lines>...
+        extensions=extensions,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py", line 914, in send
+    response = self._send_handling_auth(
+        request,
+    ...<2 lines>...
+        history=[],
+    )
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+        request,
+        follow_redirects=follow_redirects,
+        history=history,
+    )
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py", line 1014, in _send_single_request
+    response = transport.handle_request(request)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\testclient.py", line 354, in handle_request
+    raise exc
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\testclient.py", line 351, in handle_request
+    portal.call(self.app, scope, receive, send)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\anyio\from_thread.py", line 338, in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Johnny\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 456, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Johnny\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\anyio\from_thread.py", line 263, in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\fastapi\applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 182, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+                                   ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Johnny\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 184, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\main.py", line 583, in request_corpus_middleware
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 159, in call_next
+    raise app_exc
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\session_auth.py", line 59, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 182, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+                                   ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Johnny\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 184, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\session_auth.py", line 234, in remote_auth_middleware
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 159, in call_next
+    raise app_exc
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py", line 78, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py", line 75, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\fastapi\routing.py", line 302, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\fastapi\routing.py", line 215, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\concurrency.py", line 38, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2641, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1033, in run
+    result = context.run(func, *args)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\main.py", line 3460, in entity_detail
+    response = templates.TemplateResponse(
+        request=request,
+    ...<14 lines>...
+        },
+    )
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\templating.py", line 210, in TemplateResponse
+    return _TemplateResponse(
+        template,
+    ...<4 lines>...
+        background=background,
+    )
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\starlette\templating.py", line 41, in __init__
+    content = template.render(context)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\templates\entity.html", line 1, in top-level template code
+    {% extends "base_stakeholder.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\templates\base_stakeholder.html", line 42, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\templates\entity.html", line 5, in block 'content'
+    {% include "_company_profile.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os-astra-repair\app\templates\_company_profile.html", line 45, in top-level template code
+    <p class="sh-note">{{ company_news.items|length }} captured articles · {{ company_news.pending_count }} pending source review · {{ company_news.usable_count }} with readable source text. Publication dates determine this window.</p>
+    ^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: object of type 'builtin_function_or_method' has no len()
+
+During handling of the above exception, another exception occurred:
+
+    def test_company_profile_watch_control_is_watchlist_not_monitoring_queue() -> None:
+>       page = TestClient(app).get("/entities/company/company-planasa")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_analyst_dogfood_ux.py:97: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\testclient.py:479: in get
+    return super().get(
+..\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py:1053: in get
+    return self.request(
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\testclient.py:451: in request
+    return super().request(
+..\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py:825: in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py:914: in send
+    response = self._send_handling_auth(
+..\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py:942: in _send_handling_auth
+    response = self._send_handling_redirects(
+..\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py:979: in _send_handling_redirects
+    response = self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\berry-intelligence-os\.venv\Lib\site-packages\httpx\_client.py:1014: in _send_single_request
+    response = transport.handle_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\testclient.py:354: in handle_request
+    raise exc
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\testclient.py:351: in handle_request
+    portal.call(self.app, scope, receive, send)
+..\berry-intelligence-os\.venv\Lib\site-packages\anyio\from_thread.py:338: in call
+    return cast(T_Retval, self.start_task_soon(func, *args).result())
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py:456: in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\concurrent\futures\_base.py:401: in __get_result
+    raise self._exception
+..\berry-intelligence-os\.venv\Lib\site-packages\anyio\from_thread.py:263: in _call_func
+    retval = await retval_or_awaitable
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+..\berry-intelligence-os\.venv\Lib\site-packages\fastapi\applications.py:1054: in __call__
+    await super().__call__(scope, receive, send)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\applications.py:113: in __call__
+    await self.middleware_stack(scope, receive, send)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\errors.py:186: in __call__
+    raise exc
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py:182: in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+                                   ^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\contextlib.py:162: in __exit__
+    self.gen.throw(value)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\_utils.py:85: in collapse_excgroups
+    raise exc
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py:184: in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app\main.py:583: in request_corpus_middleware
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py:159: in call_next
+    raise app_exc
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py:144: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+app\session_auth.py:59: in __call__
+    await self.app(scope, receive, send)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py:182: in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+                                   ^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python313\Lib\contextlib.py:162: in __exit__
+    self.gen.throw(value)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\_utils.py:85: in collapse_excgroups
+    raise exc
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py:184: in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+app\session_auth.py:234: in remote_auth_middleware
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py:159: in call_next
+    raise app_exc
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\base.py:144: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\middleware\exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\_exception_handler.py:53: in wrapped_app
+    raise exc
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py:716: in __call__
+    await self.middleware_stack(scope, receive, send)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py:736: in app
+    await route.handle(scope, receive, send)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py:290: in handle
+    await self.app(scope, receive, send)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py:78: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\_exception_handler.py:53: in wrapped_app
+    raise exc
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\routing.py:75: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+..\berry-intelligence-os\.venv\Lib\site-packages\fastapi\routing.py:302: in app
+    raw_response = await run_endpoint_function(
+..\berry-intelligence-os\.venv\Lib\site-packages\fastapi\routing.py:215: in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\concurrency.py:38: in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\berry-intelligence-os\.venv\Lib\site-packages\anyio\to_thread.py:65: in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+..\berry-intelligence-os\.venv\Lib\site-packages\anyio\_backends\_asyncio.py:2641: in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+..\berry-intelligence-os\.venv\Lib\site-packages\anyio\_backends\_asyncio.py:1033: in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+app\main.py:3460: in entity_detail
+    response = templates.TemplateResponse(
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\templating.py:210: in TemplateResponse
+    return _TemplateResponse(
+..\berry-intelligence-os\.venv\Lib\site-packages\starlette\templating.py:41: in __init__
+    content = template.render(context)
+              ^^^^^^^^^^^^^^^^^^^^^^^^
+..\berry-intelligence-os\.venv\Lib\site-packages\jinja2\environment.py:1295: in render
+    self.environment.handle_exception()
+..\berry-intelligence-os\.venv\Lib\site-packages\jinja2\environment.py:942: in handle_exception
+    raise rewrite_traceback_stack(source=source)
+app\templates\entity.html:1: in top-level template code
+    {% extends "base_stakeholder.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+app\templates\base_stakeholder.html:42: in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+app\templates\entity.html:5: in block 'content'
+    {% include "_company_profile.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    {% set ui = ui_context if ui_context is defined else {"berry": "global", "berry_label": "Global", "feed_view": "grid"} %}
+    <div class="sh-page v2-page v2-company">
+    <section class="sh-header page-heading v2-page-header" data-pagefind-filter="type:entity">
+      <div>
+        <p class="sh-kicker eyebrow">Company</p>
+        <h1>{{ entity.name }}</h1>
+        {% if entity.aliases %}
+          <p class="sh-lede also-known-as" data-pagefind-weight="10">Also known as: {{ entity.aliases|join(', ') }}</p>
+        {% endif %}
+        <p class="sh-meta v2-company-meta">
+          {% if entity.status %}<span>{{ entity.status|humanize_label }}</span>{% endif %}
+          {% if entity.roles %}<span>{% for role in entity.roles %}{{ role|humanize_label }}{% if not loop.last %} · {% endif %}{% endfor %}</span>{% endif %}
+          {% if last_updated %}<span>Updated {{ last_updated|us_date }}</span>{% endif %}
+          {% if ui.berry != 'global' %}<span>{{ ui.berry_label }} context</span>{% endif %}
+        </p>
+      </div>
+      <div class="sh-actions v2-company-actions">
+        {% if not static_build %}
+          <a class="sh-btn v2-btn v2-btn-quiet" href="/entities/company/compare?ids={{ entity.id }}">Compare</a>
+          <a class="sh-btn sh-btn-primary" href="/reports/new?report_type=competitive_landscape&amp;company_ids={{ entity.id }}&amp;date_window_days=90">Create 90-day report</a>
+          <form method="post" action="/watches/toggle">
+            <input type="hidden" name="watch_type" value="company">
+            <input type="hidden" name="object_id" value="{{ entity.id }}">
+            <input type="hidden" name="action" value="{{ 'remove' if is_watched else 'add' }}">
+            <input type="hidden" name="return_to" value="{{ request.url.path }}">
+            <button class="sh-btn" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
+          </form>
+          <a class="sh-btn sh-btn-primary v2-btn v2-btn-primary" href="/pulse/company/{{ entity.id }}">Competitor Pulse</a>
+        {% endif %}
+        <a class="sh-btn" href="/entities/company/{{ entity.id }}/portfolio">Varieties</a>
+        <a class="sh-btn" href="#what-changed">Recent activity</a>
+      </div>
+    </section>
+    
+    <nav class="sh-section-nav" aria-label="Company sections">
+      <a href="#what-changed">Recent activity</a><a href="#recent-intelligence">Reporting</a>
+      <a href="#varieties">Varieties</a><a href="#geographic-activity">Geographies</a>
+      <a href="#intelligence-timeline">Timeline</a>
+    </nav>
+    
+    {% if company_news is defined and not static_build %}
+    <section class="sh-section sh-company-news" aria-label="Current company coverage">
+      <p class="sh-kicker">Current company view · {{ company_news.start|us_date }} – {{ company_news.end|us_date }}</p>
+      <h2>Reporting in the last 90 days</h2>
+>     <p class="sh-note">{{ company_news.items|length }} captured articles · {{ company_news.pending_count }} pending source review · {{ company_news.usable_count }} with readable source text. Publication dates determine this window.</p>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+E     TypeError: object of type 'builtin_function_or_method' has no len()
+
+app\templates\_company_profile.html:45: TypeError
+________ test_news_keeps_watchtower_access_without_loading_alert_panel ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002551AC3DCC0>
+
+    def test_news_keeps_watchtower_access_without_loading_alert_panel(monkeypatch) -> None:
+        dev = _development()
+        alerts = [a.as_dict() for a in _generate(developments=[dev], watches=[{"watch_type": "company", "object_id": "company-planasa"}])]
+        for a in alerts:
+            a["state"] = "open"
+        monkeypatch.setattr(main, "load_watches", lambda inbox_dir: [{"watch_type": "company", "object_id": "company-planasa"}])
+        monkeypatch.setattr(main, "_watchtower_cached", lambda: {
+            "alerts": alerts, "digest": build_digest(alerts), "cache_status": "fresh",
+            "radar_freshness_label": "fresh", "watch_count": 1, "watches": [],
+        })
+        page = TestClient(app).get("/today")
+        assert page.status_code == 200
+        assert 'href="/watchtower"' in page.text
+        assert "needs-your-attention" not in page.text
+>       assert "Open Watchtower" in page.text
+E       assert 'Open Watchtower' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>'
+E        +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...tic/vendor/bootstrap/bootstrap.bundle.min.js"></script>\n  <script src="/static/v2.js"></script>\n  \n</body>\n</html>' = <Response [200 OK]>.text
+
+tests\test_watchtower.py:519: AssertionError
+__________ test_evidence_validate_and_purge_honor_redirect_to_review __________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002551BFB0AD0>
+tmp_path = WindowsPath('C:/Users/Johnny/Downloads/sscanar/berry-intelligence-os-astra-repair/.astra-tests-checkpoint/test_evidence_validate_and_pur1')
+
+    def test_evidence_validate_and_purge_honor_redirect_to_review(monkeypatch, tmp_path) -> None:
+        _isolate(monkeypatch, tmp_path)
+        monkeypatch.setattr(main.httpx, "get", lambda *a, **k: _FakeResponse(FAKE_RSS))
+        source = {"id": "source-test", "type": "rss", "label": "Fictional Trade Press",
+                  "value": "https://example.invalid/feed.xml", "berry_ids": [], "enabled": True}
+        main.check_source(source, set())
+        record_id = client.get("/api/feed").json()[0]["id"]
+    
+        validated = client.post(
+            f"/evidence/{record_id}/validate", data={"redirect_to": "/review"}, follow_redirects=False
+        )
+        assert validated.status_code == 303
+        assert validated.headers["location"] == "/review"
+    
+>       main.check_source(source, set())
+
+tests\test_app.py:1003: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+app\main.py:2357: in check_source
+    save_evidence(record)
+app\main.py:2448: in save_evidence
+    get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.create(record)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <app.repositories.json.evidence.EvidenceRepository object at 0x000002551C147F50>
+record = {'id': 'ev-20260911133938-f61b-fictional-headline-about-blueberry-licen', 'record_type': 'evidence', 'status': 'published', 'source_type': 'rss_feed', ...}
+
+    def create(self, record: dict[str, Any]) -> dict[str, Any]:
+        record_id = record.get("id")
+        if not record_id:
+            raise InvalidRecord(None, ["record has no 'id' field"])
+        if self._locate(record_id) is not None:
+>           raise DuplicateRecord(record_id)
+E           app.repositories.base.DuplicateRecord: a record with id 'ev-20260911133938-f61b-fictional-headline-about-blueberry-licen' already exists
+
+app\repositories\json\base.py:150: DuplicateRecord
+============================== warnings summary ===============================
+..\berry-intelligence-os\.venv\Lib\site-packages\reportlab\lib\rl_safe_eval.py:12
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\reportlab\lib\rl_safe_eval.py:12: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    haveNameConstant = hasattr(ast,'NameConstant')
+
+tests/test_app.py: 144 warnings
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\feedparser\html.py:152: DeprecationWarning: 'count' is passed as positional argument
+    data = re.sub(r'<!((?!DOCTYPE|--|\[))', r'&lt;!\1', data, re.IGNORECASE)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_company_news_coverage.py::test_company_report_keeps_complete_inventory_but_pending_out_of_trusted_synthesis
+FAILED tests/test_report_builder.py::test_date_window_excludes_old_evidence_but_keeps_undated
+FAILED tests/test_analyst_dogfood_ux.py::test_company_profile_watch_control_is_watchlist_not_monitoring_queue
+FAILED tests/test_watchtower.py::test_news_keeps_watchtower_access_without_loading_alert_panel
+FAILED tests/test_app.py::test_evidence_validate_and_purge_honor_redirect_to_review
+5 failed, 356 passed, 145 warnings in 195.80s (0:03:15)

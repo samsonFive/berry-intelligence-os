@@ -37,6 +37,11 @@
   ],
   "attributes": {
     "country": "United States",
-    "trial_site": "Fruit Research Station, Clarksville, Arkansas"
+    "trial_site": "Fruit Research Station, Clarksville, Arkansas",
+    "competitor_registry_2026_09_15": {
+      "row_number": 31,
+      "spreadsheet_label": "University of Arkansas",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
   }
 }

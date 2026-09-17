@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -10,6 +10,7 @@ from fastapi.testclient import TestClient
 from app import main
 from app.session_auth import DEFAULT_NEXT_PATH, safe_next_path
 from app.services.today import build_today, development_stamp
+from tests.clock_helpers import freeze_utc_now
 
 
 NOW = datetime(2026, 8, 24, 14, 0, tzinfo=UTC)
@@ -175,9 +176,27 @@ def test_login_lands_on_today_and_preserves_deep_link(monkeypatch) -> None:
 
 
 def test_today_route_front_page_and_mobile_css(monkeypatch, tmp_path: Path) -> None:
+    freeze_utc_now(monkeypatch, NOW)
+    today = NOW.date().isoformat()
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
     monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
-    monkeypatch.setattr(main, "published_evidence", lambda: [_ev("new-low", "2026-08-24")])
+    readable = _ev(
+        "new-low",
+        today,
+        title="Blueberry harvest update",
+        article={
+            "paragraphs": [
+                {
+                    "text": (
+                        "Growers reported an earlier harvest window across coastal fields this season. "
+                        "Packing capacity was expanded to protect fruit quality for export customers. "
+                        "Managers did not disclose varieties or capital expenditure in the release."
+                    )
+                }
+            ]
+        },
+    )
+    monkeypatch.setattr(main, "published_evidence", lambda: [readable])
     monkeypatch.setattr(main, "all_signals", lambda: [])
     monkeypatch.setattr(main, "all_assessments", lambda: [])
     monkeypatch.setattr(main, "load_sources", lambda: [])
@@ -186,13 +205,17 @@ def test_today_route_front_page_and_mobile_css(monkeypatch, tmp_path: Path) -> N
     monkeypatch.setattr(main, "all_relationships", lambda: [])
     page = TestClient(main.app).get("/today")
     assert page.status_code == 200
-    assert "Top Stories" in page.text
-    assert "REVIEWED EVIDENCE" in page.text
+    assert "Daily Intelligence Briefing" in page.text
+    assert "What Changed" in page.text
+    assert "Blueberry harvest update" in page.text
     assert "Planasa Newsroom" in page.text
-    assert 'href="/evidence/new-low"' in page.text
-    assert "name=\"decision\"" not in page.text
-    css = (Path(main.BASE_DIR) / "app" / "static" / "app.css").read_text(encoding="utf-8")
-    assert ".front-story" in css
-    assert "@media(max-width:834px)" in css
-    blueberry = TestClient(main.app).get("/today?berry=berry-raspberry")
+    assert "/today?reader=new-low" in page.text or 'data-item-id="new-low"' in page.text
+    assert 'name="decision"' not in page.text
+    tokens = (Path(main.BASE_DIR) / "app" / "static" / "pvs_tokens.css").read_text(encoding="utf-8")
+    css = (Path(main.BASE_DIR) / "app" / "static" / "daily_briefing.css").read_text(encoding="utf-8")
+    assert "--pvs-navy" in tokens
+    assert ".daily-briefing" in css
+    assert "@media (max-width: 720px)" in css
+    assert 'href="/static/daily_briefing.css"' in page.text
+    blueberry = TestClient(main.app).get("/today?berry=raspberry")
     assert blueberry.status_code == 200

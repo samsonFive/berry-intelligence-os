@@ -1,0 +1,35 @@
+{
+  "id": "concept-clean-planting-stock",
+  "slug": "clean-planting-stock",
+  "name": "Clean planting stock",
+  "aliases": ["certified plants", "virus-tested", "nursery certification", "clean stock", "foundation stock"],
+  "pillar": "pest_disease_process",
+  "knowledge_class": "current_technical_guidance",
+  "trait_ids": [],
+  "summary": "Starting a planting from tested, certified nursery plants is a disease-prevention step — it is not IPM scouting and it does not make a variety immune.",
+  "what_is_it": "Many berry viruses and some soilborne problems move with planting material. Clean-stock or certification programs (foundation, registered, certified grades depending on crop and country) keep mother plants tested and propagated under isolation so commercial plants start with a known health status. This is especially load-bearing for strawberry (where plants are replaced annually in plasticulture) and for caneberries and blueberry where a planting may last many years.",
+  "why_it_matters": "A 'new planting' or 'expansion' story is incomplete without plant source. Dirty stock can introduce viruses that scouting and sprays cannot remove. Competitive talk about nursery scale, licensed plants, or a disease outbreak after planting often belongs here as well as in IPM.",
+  "how_evaluated": "Certification tags, nursery invoices, and laboratory tests on mother plants — not fruit Brix. Field indexing and ELISA/PCR protocols differ by crop and pathogen. Absence of a certificate is not proof of infection; presence of a certificate is not proof the field stayed clean.",
+  "what_affects_it": "Nursery isolation, testing panel, how plants are handled after leaving the nursery, and whether the field already had soilborne pathogens. Clean stock does not replace crop rotation, sanitation, or vector management.",
+  "how_to_interpret": "Do not read 'certified plants' as a quality-grade of fruit or as a Fact that a competitor's field is disease-free. Do not collapse this into IPM: IPM is in-season decision-making; clean stock is a planting-material control. Pair with plasticulture when the crop is annual strawberry.",
+  "related_concept_ids": ["concept-ipm", "concept-plasticulture", "concept-strawberry-viruses"],
+  "reviewed_at": "2026-09-16",
+  "review_by": "2027-03-16",
+  "sources": [
+    {
+      "publisher": "USDA APHIS",
+      "title": "National Clean Plant Network",
+      "url": "https://www.aphis.usda.gov/plant-pests-diseases/national-clean-plant-network"
+    },
+    {
+      "publisher": "NC State Extension",
+      "title": "Southern Regional Strawberry Plasticulture Production Guide",
+      "url": "https://content.ces.ncsu.edu/southern-regional-strawberry-plasticulture-production-guide"
+    },
+    {
+      "publisher": "Cornell University",
+      "title": "Berry Production Guides",
+      "url": "https://www.hort.cornell.edu/fruit/berry.html"
+    }
+  ]
+}

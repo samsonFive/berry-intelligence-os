@@ -20,9 +20,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
+from functools import lru_cache
 from typing import Any
+from urllib.parse import urlsplit
 
 from app.services.source_lifecycle import (
+    ACTIVE,
     OPERATOR_ACTION_REQUIRED,
     is_scheduled_coverage,
     lifecycle_reason,
@@ -36,6 +39,24 @@ FAILING = "FAILING"
 BLOCKED = "BLOCKED"
 QUIET = "QUIET"
 MANUAL = "MANUAL"
+
+EXECUTION_SUCCESSFUL = "SUCCESSFULLY_RUN"
+EXECUTION_NEVER_RUN = "NEVER_RUN"
+EXECUTION_BLOCKED = "BLOCKED"
+EXECUTION_RETRYABLE_FAILURE = "RETRYABLE_FAILURE"
+EXECUTION_INVALID = "INVALID_INCOMPLETE"
+EXECUTION_MANUAL = "MANUAL"
+EXECUTION_DISABLED = "DISABLED"
+
+EXECUTION_LABELS = {
+    EXECUTION_SUCCESSFUL: "Successfully run",
+    EXECUTION_NEVER_RUN: "Never run",
+    EXECUTION_BLOCKED: "Blocked",
+    EXECUTION_RETRYABLE_FAILURE: "Retryable failure",
+    EXECUTION_INVALID: "Invalid / incomplete",
+    EXECUTION_MANUAL: "Manual source",
+    EXECUTION_DISABLED: "Disabled",
+}
 
 FRESHNESS_LABELS = {
     CURRENT: "Current",
@@ -97,6 +118,78 @@ def is_discoverable(source: dict[str, Any]) -> bool:
     """Compatibility name for Sources in scheduled freshness coverage."""
 
     return is_scheduled_coverage(source)
+
+
+def _valid_feed_url(value: Any) -> bool:
+    if not isinstance(value, str) or not value.strip():
+        return False
+    parsed = urlsplit(value.strip())
+    return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
+
+
+@lru_cache(maxsize=1)
+def _supported_discovery_adapters() -> frozenset[str]:
+    # Imported lazily to avoid a source-freshness/media-discovery import cycle.
+    from app.services.media_discovery import ADAPTER_TYPES
+
+    return frozenset(ADAPTER_TYPES)
+
+
+def source_execution_status(
+    source: dict[str, Any],
+    *,
+    discovery_state: dict[str, Any] | None,
+    retry_hint: dict[str, Any] | None = None,
+    supported_adapters: set[str] | None = None,
+) -> dict[str, Any]:
+    """Describe execution capability/history separately from freshness.
+
+    This is a read-only projection over configuration and the canonical
+    per-source discovery state. It does not infer recall from a successful run.
+    """
+    lifecycle = lifecycle_state(source)
+    discovery = source.get("discovery") if isinstance(source.get("discovery"), dict) else {}
+    adapter = str(discovery.get("adapter") or "").strip()
+    feed_values = discovery.get("feed_urls") if isinstance(discovery.get("feed_urls"), list) else [discovery.get("feed_url")]
+    configured = bool(adapter or any(feed_values))
+    if supported_adapters is None:
+        supported_adapters = set(_supported_discovery_adapters())
+
+    if lifecycle == OPERATOR_ACTION_REQUIRED:
+        state, reason, runnable = EXECUTION_BLOCKED, lifecycle_reason(source) or "Operator action is required before collection can resume.", False
+    elif lifecycle != ACTIVE:
+        state, reason, runnable = EXECUTION_DISABLED, f"Source lifecycle is {lifecycle.lower()}; collection is not eligible.", False
+    elif not configured:
+        state, reason, runnable = EXECUTION_MANUAL, "No automated discovery configuration is present.", False
+    elif adapter not in supported_adapters:
+        state, reason, runnable = EXECUTION_INVALID, f"Unsupported discovery adapter: {adapter or 'missing'}.", False
+    elif not feed_values or not all(_valid_feed_url(value) for value in feed_values):
+        state, reason, runnable = EXECUTION_INVALID, "Discovery feed URL is missing or invalid.", False
+    elif (discovery_state or {}).get("status") == "error":
+        error = str((discovery_state or {}).get("error") or "Most recent discovery attempt failed.")
+        if _looks_blocked(error):
+            state, reason, runnable = EXECUTION_BLOCKED, error, False
+        else:
+            retry = retry_hint or {}
+            suffix = f" Next eligible retry: {retry['next_eligible_retry_at']}." if retry.get("next_eligible_retry_at") else ""
+            state, reason, runnable = EXECUTION_RETRYABLE_FAILURE, error + suffix, True
+    elif (discovery_state or {}).get("last_success_at"):
+        state, reason, runnable = EXECUTION_SUCCESSFUL, "At least one discovery run completed successfully.", True
+    elif not discovery_state or not (discovery_state or {}).get("last_checked_at"):
+        state, reason, runnable = EXECUTION_NEVER_RUN, "Configuration is runnable, but no discovery attempt is recorded.", True
+    else:
+        state, reason, runnable = EXECUTION_RETRYABLE_FAILURE, "Discovery was attempted but has not completed successfully.", True
+    return {"state": state, "label": EXECUTION_LABELS[state], "runnable": runnable, "reason": reason}
+
+
+def aggregate_source_execution(execution_by_source: dict[str, dict[str, Any]]) -> dict[str, int]:
+    counts = {key.lower(): 0 for key in EXECUTION_LABELS}
+    for row in execution_by_source.values():
+        key = str(row.get("state") or EXECUTION_INVALID).lower()
+        counts[key] = counts.get(key, 0) + 1
+    counts["configured_runnable"] = sum(bool(row.get("runnable")) for row in execution_by_source.values())
+    counts["total"] = len(execution_by_source)
+    return counts
 
 
 @dataclass(frozen=True)

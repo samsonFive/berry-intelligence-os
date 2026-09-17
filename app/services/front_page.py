@@ -66,11 +66,12 @@ V1 -- see docs/v2/TECHNICAL-DEBT-REGISTER.md.
 
 from __future__ import annotations
 
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any
 
 from app.services.chronology import date_label, meaningful_stamp, parse_stamp
+from app.services.clock import resolve_now
 from app.services.evidence_claim_review import trust_tier_label
 from app.services.geography_hierarchy import resolve_geography_scope
 from app.services.intelligence_feed import MARKET_TAGS, classify_kind, entity_chips
@@ -111,6 +112,9 @@ _RESEARCH_SOURCE_TYPES = {"academic", "government_registry"}
 
 
 def _publication_front_kind(record: dict[str, Any]) -> str:
+    from app.services.source_body import classify_source_body
+    if classify_source_body(record)["state"] == "interstitial":
+        return "publication_fresh"
     completeness = record.get("source_completeness") or {}
     if completeness.get("class") in _SOURCE_BACKED_COMPLETENESS:
         return "publication_pending"
@@ -118,9 +122,10 @@ def _publication_front_kind(record: dict[str, Any]) -> str:
 
 
 def _normalized_source_key(record: dict[str, Any]) -> str:
+    from app.services.article_dedup import normalize_canonical_url
     url = str(record.get("source_url") or "").strip().rstrip("/")
     if url:
-        return url.split("?", 1)[0].casefold()
+        return normalize_canonical_url(url)
     return f"id:{record.get('id')}"
 
 
@@ -166,6 +171,8 @@ def _project(
     captured_at = parse_stamp(record.get("captured_date"))
     captured_band = recency_band(captured_at, now=now) if captured_at else None
     trust_label = FRONT_TRUST_LABELS[front_kind]
+    from app.services.source_body import reader_content
+    content = reader_content(record)
     if front_kind == "evidence" and record.get("evidence_role") == "publication_artifact":
         # Trusted Evidence Semantics Repair V1: a published Publication
         # with no analyst-approved factual claim is an APPROVED SOURCE,
@@ -180,6 +187,7 @@ def _project(
         "trust_label": trust_label,
         "title": record.get("title") or record.get("id"),
         "source_name": record.get("source_name") or "",
+        "source_url": record.get("source_url") or "",
         "source_type": record.get("source_type") or "",
         "when": when.isoformat() if when else None,
         "date_basis_label": date_label(origin) if when else "Date unknown",
@@ -200,7 +208,11 @@ def _project(
         "entities": chips,
         "tags": [str(t).casefold() for t in (record.get("tags") or [])],
         "strategic_question_ids": [str(v) for v in (record.get("strategic_question_ids") or []) if v],
-        "summary": summary,
+        "summary": "" if content["contaminated"] else content["summary"][:400] or summary,
+        "content_notice": content["notice"],
+        "published_date": record.get("published_date") or "",
+        "open_reader": front_kind in {"evidence", "publication_fresh", "publication_pending"},
+        "image_url": ((record.get("article") or {}).get("image_url") or record.get("image_url") or ""),
         "href": href,
         "dedup_key": _normalized_source_key(record),
         "introduces_new_entity": _introduces_new_entity(entity_ids, str(record.get("id") or ""), entity_index),
@@ -319,8 +331,9 @@ def build_front_page(
     now: datetime | None = None,
     market_observations_repo: Any | None = None,
     watches: list[dict[str, Any]] | None = None,
+    news_only: bool = False,
 ) -> dict[str, Any]:
-    instant = (now or datetime.now(UTC)).astimezone(UTC)
+    instant = resolve_now(now)
     entity_index = {e["id"]: e for e in entities if e.get("id")}
     evidence_by_id = {str(r.get("id")): r for r in published}
     for record in signals:
@@ -328,7 +341,7 @@ def build_front_page(
     for record in assessments:
         evidence_by_id.setdefault(str(record.get("id")), record)
 
-    today_page = build_today(
+    today_page = {} if news_only else build_today(
         published=published,
         signals=signals,
         assessments=assessments,
@@ -418,6 +431,8 @@ def build_front_page(
         )
 
     deduped = _dedupe(items, evidence_by_id)
+    if news_only:
+        return {"items": deduped, "generated_at": instant.isoformat()}
     # Watchlist personalization: tag, never a separate empty module when
     # the operator has no watches (Morning Intelligence Edition V1,
     # section H). watch_type in {company, variety, geography} entries

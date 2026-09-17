@@ -1,0 +1,44 @@
+{
+  "id": "company-pairwise",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Pairwise",
+  "aliases": [
+    "Pairwise Plants"
+  ],
+  "status": "active",
+  "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 21) as a tracked competitor of type 'Commercial'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
+  "roles": [
+    "grower_marketer",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-strawberry",
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-competitor-registry-2026-09-15-import"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "competitor_registry_2026_09_15": {
+      "row_number": 21,
+      "spreadsheet_label": "Pairwise",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "externally_verified_scope_question_flagged_separately",
+      "reason": "Pairwise itself is unambiguously real and correctly identified: official site pairwise.com, Durham NC CRISPR/gene-editing company, extensively covered including a 2024 Corteva partnership and equity investment. Identity is not in question. Separately (not a blocker to identity promotion, but flagged in the evidence ledger for the internal-classification owners): this mission's research found no explicit confirmation that Pairwise's public work is berry-specific as opposed to general ag-biotech across many crops -- a modeling/scope question about this roster row's berry relevance, not an identity question about which real-world company this is.",
+      "evidence_urls": [
+        "https://www.pairwise.com/insights",
+        "https://www.corteva.com/resources/media-center/corteva-pairwise-join-forces-to-accelerate-gene-editing-advance-climate-resilience-in-agriculture.html"
+      ],
+      "confidence": "high",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
+    }
+  }
+}

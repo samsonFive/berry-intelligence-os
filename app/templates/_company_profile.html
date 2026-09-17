@@ -1,22 +1,33 @@
 {% set ui = ui_context if ui_context is defined else {"berry": "global", "berry_label": "Global", "feed_view": "grid"} %}
+{% macro lettermark(name) -%}
+{%- set parts = (name or '?').split() -%}
+{%- if parts|length >= 2 -%}{{ parts[0][0] }}{{ parts[1][0] }}
+{%- else -%}{{ (name or '?')[:2] }}
+{%- endif -%}
+{%- endmacro %}
 <div class="sh-page v2-page v2-company">
+<a class="skip-link" href="{% if competitor_profile is defined and competitor_profile %}#profile-concerns{% else %}#what-changed{% endif %}">Skip to {% if competitor_profile is defined and competitor_profile %}profile concerns{% else %}recent activity{% endif %}</a>
 <section class="sh-header page-heading v2-page-header" data-pagefind-filter="type:entity">
-  <div>
+  <div class="pvs-profile-hero">
+    <span class="pvs-lettermark" data-tone="company" aria-hidden="true">{{ lettermark(entity.name) }}</span>
+    <div>
     <p class="sh-kicker eyebrow">Company</p>
     <h1>{{ entity.name }}</h1>
     {% if entity.aliases %}
       <p class="sh-lede also-known-as" data-pagefind-weight="10">Also known as: {{ entity.aliases|join(', ') }}</p>
     {% endif %}
     <p class="sh-meta v2-company-meta">
-      {% if entity.status %}<span>{{ entity.status|humanize_label }}</span>{% endif %}
+      {% if entity.status %}<span class="pvs-badge pvs-badge-info" aria-label="Status {{ entity.status }}">{{ entity.status|humanize_label }}</span>{% endif %}
       {% if entity.roles %}<span>{% for role in entity.roles %}{{ role|humanize_label }}{% if not loop.last %} · {% endif %}{% endfor %}</span>{% endif %}
       {% if last_updated %}<span>Updated {{ last_updated|us_date }}</span>{% endif %}
       {% if ui.berry != 'global' %}<span>{{ ui.berry_label }} context</span>{% endif %}
     </p>
+    </div>
   </div>
   <div class="sh-actions v2-company-actions">
     {% if not static_build %}
       <a class="sh-btn v2-btn v2-btn-quiet" href="/entities/company/compare?ids={{ entity.id }}">Compare</a>
+      <a class="sh-btn sh-btn-primary" href="/reports/new?origin=company&amp;report_type=competitive_landscape&amp;company_ids={{ entity.id }}&amp;date_window_days=90">Create 90-day report</a>
       <form method="post" action="/watches/toggle">
         <input type="hidden" name="watch_type" value="company">
         <input type="hidden" name="object_id" value="{{ entity.id }}">
@@ -24,12 +35,42 @@
         <input type="hidden" name="return_to" value="{{ request.url.path }}">
         <button class="sh-btn" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
       </form>
-      <a class="sh-btn sh-btn-primary v2-btn v2-btn-primary" href="/pulse/company/{{ entity.id }}">Competitor Pulse</a>
+      <a class="sh-btn" href="/pulse/company/{{ entity.id }}">Competitor Pulse</a>
     {% endif %}
     <a class="sh-btn" href="/entities/company/{{ entity.id }}/portfolio">Varieties</a>
     <a class="sh-btn" href="#what-changed">Recent activity</a>
   </div>
 </section>
+
+<nav class="sh-section-nav" aria-label="Company sections">
+  <a href="#profile-concerns">Profile concerns</a>
+  <a href="#what-changed">Recent activity</a><a href="{{ '#current-reporting' if company_news is defined and not static_build else '#recent-intelligence' }}">Reporting</a>
+  <a href="#varieties">Varieties</a><a href="#geographic-activity">Geographies</a>
+  <a href="#intelligence-timeline">Timeline</a>
+</nav>
+
+{% include "_competitor_profile_concerns.html" %}
+
+{% if company_news is defined and not static_build %}
+<section class="sh-section sh-company-news" id="current-reporting" aria-label="Current company coverage">
+  <p class="sh-kicker">Current company view · {{ company_news.start|us_date }} – {{ company_news.end|us_date }}</p>
+  <h2>Reporting in the last 90 days</h2>
+  <p class="sh-note">{{ company_news['items']|length }} captured articles · {{ company_news.pending_count }} pending source review · {{ company_news.usable_count }} with readable source text. Publication dates determine this window.</p>
+  {% if company_news['items'] %}
+  <ul class="sh-story-list">
+    {% for row in company_news['items'][:5] %}
+    <li><p class="sh-story-meta">{{ row.source_name }} · {{ row.published_date|us_date }} · {{ row.trust_label }}</p>
+      <h3 class="sh-story-title"><a href="{{ row.href }}" data-open-reader data-item-id="{{ row.id }}">{{ row.title }}</a></h3>
+      {% if row.summary %}<p>{{ row.summary|truncate(240) }}</p>{% endif %}
+      {% if row.notice %}<p class="sh-content-state">{{ row.notice }}</p>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}<p class="sh-note">No articles with confirmed publication dates in this window are captured here. This is a coverage gap, not evidence of no company activity.</p>{% endif %}
+  <div class="sh-actions"><a class="sh-btn" href="/today?company={{ entity.id }}&amp;date=quarter">Browse all recent coverage</a><a class="sh-btn" href="/today?company={{ entity.id }}&amp;date=archive">Older reporting</a><a class="sh-btn" href="/sources">Inspect collection health</a></div>
+  {% if company_news.undated %}<p class="sh-note">{{ company_news.undated|length }} matching articles have no confirmed publication date and are excluded from current coverage.</p>{% endif %}
+</section>
+{% endif %}
 
 {% if company_portfolio %}
 <nav class="v2-berry-portfolio" aria-label="Berry portfolio">
@@ -143,11 +184,14 @@
 </section>
 {% endif %}
 
-{% include "_intelligence_timeline.html" %}
+<details class="sh-history-disclosure">
+  <summary>Explore the full intelligence history</summary>
+  {% include "_intelligence_timeline.html" %}
+</details>
 
 <section class="v2-company-section" id="recent-intelligence">
-  <h2>Recent intelligence</h2>
-  <p class="context-limit">Story Threads and Evidence. Opening an item uses the same Reader overlay as Feed.</p>
+  <h2>Latest captured reporting</h2>
+  <p class="context-limit">Most recently published items in the archive. These may fall outside the current 90-day window.</p>
   {% if company_recent_cards %}
     <ul class="intel-card-list v2-card-list v2-company-feed">
       {% for item in company_recent_cards %}
@@ -180,6 +224,10 @@
     <p class="empty-state">No variety or genetics links recorded{% if ui.berry != 'global' %} for {{ ui.berry_label }}{% endif %}.</p>
   {% endif %}
 </section>
+
+{% set growing_profile_title = "Educational context from portfolio varieties" %}
+{% set growing_profile_empty_subject = "this company's captured portfolio varieties" %}
+{% include "_learn_growing_profile.html" %}
 
 <section class="v2-company-section" id="geographic-activity">
   <h2>Geographic activity</h2>
@@ -260,12 +308,12 @@
   {% endif %}
 </section>
 
-<section class="v2-company-section">
-  <h2>Evidence</h2>
+<details class="v2-company-section sh-history-disclosure">
+  <summary>All linked evidence ({{ linked_evidence|length }})</summary>
   {% if linked_evidence %}
-    <div class="table-wrap"><table class="brief-table evidence-link-table"><thead><tr><th>Date</th><th>Evidence</th><th>Source</th></tr></thead><tbody>{% for item in linked_evidence %}<tr><td>{{ item|dated_label }}</td><td data-pagefind-weight="1"><a href="/evidence/{{ item.id }}"><strong>{{ item.title }}</strong></a></td><td>{{ item.source_name or item.source_type|replace('_',' ')|title }}</td></tr>{% endfor %}</tbody></table></div>
+    {% include "_evidence_link_table.html" %}
   {% else %}
     <p class="empty-state">No published evidence links to this entity yet.</p>
   {% endif %}
-</section>
+</details>
 </div>

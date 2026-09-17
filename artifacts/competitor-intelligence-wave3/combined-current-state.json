@@ -1,0 +1,22 @@
+{
+  "roster_rows": 33,
+  "none_profiles": 0,
+  "profile_summary": {
+    "profiles_returned": 33,
+    "structurally_valid": 33,
+    "missing_required_data": 0,
+    "invalid_reference": 0,
+    "unassigned_internal_classification": 32,
+    "provisional_identity": 9,
+    "lacking_genetics_information": 18,
+    "no_configured_sources": 23,
+    "no_operational_discovery": 33,
+    "no_readable_coverage": 33,
+    "no_current_usable_coverage": 33,
+    "blocking_profile_defects": 0,
+    "note": "A multidimensional summary, deliberately never collapsed into one 'X/33 complete' percentage. Unknown/Unassigned classifications, provisional identities, and monitoring/coverage gaps are counted honestly here but never treated as record defects -- only missing_required_data, invalid_reference, and blocking_profile_defects represent genuine structural problems."
+  },
+  "default_blueberry_universe_count": 33,
+  "default_blueberry_result_count": 33,
+  "missing_expected_labels": []
+}

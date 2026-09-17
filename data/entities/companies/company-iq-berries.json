@@ -26,6 +26,11 @@
   ],
   "attributes": {
     "country": "Australia",
-    "variety_family": "Mega"
+    "variety_family": "Mega",
+    "competitor_registry_2026_09_15": {
+      "row_number": 16,
+      "spreadsheet_label": "IQ Berries",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
   }
 }

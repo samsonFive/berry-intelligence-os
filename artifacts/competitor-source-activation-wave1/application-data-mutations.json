@@ -1,0 +1,72 @@
+{
+  "checkpoint": "competitor-source-activation-wave1",
+  "run_date": "2026-09-15",
+  "tracked_configuration_mutations": {
+    "source_records_created": 4,
+    "source_records_updated": 1,
+    "canonical_competitor_links_added": 5,
+    "details": "Four Source records were added and the existing University of Florida Source gained its canonical competitor link. These changes are in the implementation commit."
+  },
+  "worktree_local_canary_mutations": [
+    {
+      "category": "staged discoveries",
+      "count": 25,
+      "location": "inbox/discovered_media/*.json",
+      "tracked_in_git": false,
+      "included_in_commit": false,
+      "integration_intent": "intentionally worktree-local"
+    },
+    {
+      "category": "discovery state records",
+      "count": 5,
+      "location": "inbox/discovered_media/_state/*.json",
+      "tracked_in_git": false,
+      "included_in_commit": false,
+      "integration_intent": "intentionally worktree-local"
+    },
+    {
+      "category": "operation items",
+      "count": 20,
+      "location": "inbox/operations/items/*.json",
+      "tracked_in_git": false,
+      "included_in_commit": false,
+      "integration_intent": "intentionally worktree-local"
+    },
+    {
+      "category": "run records",
+      "count": 5,
+      "location": "inbox/operations/runs/*.json",
+      "tracked_in_git": false,
+      "included_in_commit": false,
+      "integration_intent": "intentionally worktree-local"
+    },
+    {
+      "category": "article acquisition outcomes",
+      "count": 11,
+      "location": "inbox/operations/article_acquisition_outcomes/**/*.json",
+      "tracked_in_git": false,
+      "included_in_commit": false,
+      "integration_intent": "intentionally worktree-local"
+    },
+    {
+      "category": "unapproved evidence drafts",
+      "count": 10,
+      "location": "inbox/evidence/*.json",
+      "tracked_in_git": false,
+      "included_in_commit": false,
+      "integration_intent": "intentionally worktree-local"
+    }
+  ],
+  "generated_validation_output": {
+    "location": "generated/",
+    "page_count": 1665,
+    "tracked_in_git": false,
+    "included_in_commit": false,
+    "integration_intent": "intentionally worktree-local"
+  },
+  "publication_mutations": 0,
+  "approval_mutations": 0,
+  "trusted_evidence_mutations": 0,
+  "live_canary_records_committed": 0,
+  "would_cherry_pick_import_canary_records": false
+}

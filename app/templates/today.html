@@ -1,218 +1,332 @@
-{% extends "base_stakeholder.html" %}
-{% block title %}Today — Berry Intelligence{% endblock %}
+{% extends "base.html" %}
+{% block title %}{{ briefing.title }} — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/pvs_tokens.css">
+<link rel="stylesheet" href="/static/daily_briefing.css">
+{% endblock %}
 {% block content %}
-<div class="sh-page today-page">
-  <header class="sh-header">
+<div class="v2-page daily-briefing" id="daily-briefing" data-briefing-root data-pvs-slice="1"{% if briefing.selected_reader %} data-reader-open="1"{% endif %}>
+  <a class="skip-link" href="#what-changed">Skip to What Changed</a>
+
+  <section class="page-heading daily-briefing-hero">
     <div>
-      <p class="sh-kicker">Today</p>
-      <h1>What matters now</h1>
-      <p class="sh-lede">
-        {% if today.freshness.current_through_label %}
-          Current through {{ today.freshness.current_through_label }}.
-        {% elif today.freshness.current_through %}
-          Current through {{ today.freshness.current_through }}.
-        {% else %}
-          Publication dates below are trusted dates, not a claim that collection is current.
-        {% endif %}
-        {% if not static_build %}<a href="/radar">Emerging developments</a> · <a href="/week">What changed this week?</a>{% endif %}
+      <p class="eyebrow">DAILY INTELLIGENCE · CANONICAL TODAY</p>
+      <h1>{{ briefing.title }}</h1>
+      <p class="also-known-as">{{ briefing.subtitle }}</p>
+      <p class="context-limit">
+        Publication date drives recency. Capture date is secondary and never makes old coverage look current.
+        Unreadable or blocked captures stay in Needs Attention — they are never summarized as intelligence.
       </p>
     </div>
-    {% if not static_build %}
-    <div class="sh-header-actions">
-      <a class="sh-btn sh-btn-primary" href="/week">Refresh live intelligence</a>
-      <a class="sh-btn" href="/reports/new?{{ brief_handoff_query }}">Create leadership brief</a>
+    <div class="daily-briefing-asof" aria-label="Briefing clock">
+      <strong>{{ briefing.as_of }}</strong>
+      <small>As of (product clock)</small>
+      <a class="action-button" href="{{ briefing.archive_edition_href }}">Archive edition</a>
     </div>
-    {% endif %}
-  </header>
+  </section>
 
-  <nav class="sh-pills today-berries" aria-label="Berry filter">
-    <a href="/today" class="{% if not today.berry_id %}is-active{% endif %}">All berries</a>
-    {% if berries is mapping %}
-      {% for berry_id, berry_label in berries.items() %}
-        <a href="/today?berry={{ berry_id }}" class="{% if today.berry_id == berry_id %}is-active{% endif %}">{{ berry_label }}</a>
+  <section class="daily-briefing-pulse" aria-label="Coverage Pulse">
+    <h2 class="daily-briefing-section-title">Coverage Pulse</h2>
+    <p class="daily-briefing-section-lede">Roster presence is not monitoring. Operational discovery is not readable coverage.</p>
+    <div class="daily-briefing-pulse-grid">
+      <div>
+        <strong>{{ briefing.coverage_pulse.competitors_represented }}</strong>
+        <small>Competitors represented</small>
+        <a href="{{ briefing.coverage_pulse.landscape_url }}">Competitor Landscape</a>
+      </div>
+      <div>
+        <strong>{{ briefing.coverage_pulse.discovery_configured }}</strong>
+        <small>Discovery configured</small>
+        <a href="{{ briefing.coverage_pulse.source_health_url }}">Source Health</a>
+      </div>
+      <div>
+        <strong>{{ briefing.coverage_pulse.discovery_operational }}</strong>
+        <small>Discovery operational</small>
+        <a href="{{ briefing.coverage_pulse.source_health_url }}">Source Health</a>
+      </div>
+      <div>
+        <strong>{{ briefing.coverage_pulse.readable_content_acquired }}</strong>
+        <small>Readable content acquired</small>
+        <a href="{{ briefing.coverage_pulse.review_url }}">Review</a>
+      </div>
+      <div>
+        <strong>{{ briefing.coverage_pulse.current_usable_coverage }}</strong>
+        <small>Current usable coverage</small>
+        <a href="#what-changed">What Changed</a>
+      </div>
+    </div>
+    <ul class="daily-briefing-pulse-notes">
+      {% for note in briefing.coverage_pulse.notes %}
+      <li>{{ note }}</li>
       {% endfor %}
-    {% else %}
-      {% for berry in berries %}
-        <a href="/today?berry={{ berry.id }}" class="{% if today.berry_id == berry.id %}is-active{% endif %}">{{ berry.label }}</a>
-      {% endfor %}
-    {% endif %}
+    </ul>
+  </section>
+
+  <form class="daily-briefing-filters" method="get" action="/today" id="daily-briefing-filters" aria-label="Briefing filters">
+    <div class="daily-briefing-filters-grid">
+      <label class="competitor-field">
+        <span>Recency</span>
+        <select name="recency" aria-label="Recency">
+          <option value="">All current bands</option>
+          {% for key, label in briefing.recency_labels.items() %}
+          <option value="{{ key }}"{% if briefing.filters.recency == key %} selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="competitor-field">
+        <span>Berry</span>
+        <select name="berry" aria-label="Berry">
+          <option value="">All berries</option>
+          {% for berry in briefing.filter_options.berries %}
+          <option value="{{ berry }}"{% if briefing.filters.berry == berry %} selected{% endif %}>{{ berry|capitalize }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="competitor-field">
+        <span>Region</span>
+        <select name="region" aria-label="Region">
+          <option value="">All regions</option>
+          {% for region in briefing.filter_options.regions %}
+          <option value="{{ region }}"{% if briefing.filters.region == region %} selected{% endif %}>{{ region }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="competitor-field">
+        <span>Company / entity</span>
+        <select name="entity" aria-label="Company or entity">
+          <option value="">All entities</option>
+          {% for entity_id, entity_name in briefing.filter_options.entities %}
+          <option value="{{ entity_id }}"{% if briefing.filters.entity_id == entity_id %} selected{% endif %}>{{ entity_name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="competitor-field">
+        <span>Topic</span>
+        <select name="topic" aria-label="Topic">
+          <option value="">All topics</option>
+          {% for topic in briefing.filter_options.topics %}
+          <option value="{{ topic }}"{% if briefing.filters.topic == topic %} selected{% endif %}>{{ topic }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="competitor-field">
+        <span>Source</span>
+        <select name="source" aria-label="Source">
+          <option value="">All sources</option>
+          {% for source in briefing.filter_options.sources %}
+          <option value="{{ source }}"{% if briefing.filters.source == source %} selected{% endif %}>{{ source }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label class="competitor-field">
+        <span>Attention</span>
+        <select name="attention" aria-label="Attention reason">
+          <option value="">Any attention reason</option>
+          {% for key, label in briefing.attention_reason_labels.items() %}
+          <option value="{{ key }}"{% if briefing.filters.attention == key %} selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </label>
+    </div>
+    <div class="daily-briefing-filter-actions">
+      <button class="action-button action-approve" type="submit">Apply filters</button>
+      <a class="action-button" href="{{ briefing.clear_href }}">Clear</a>
+    </div>
+  </form>
+
+  <nav class="daily-briefing-jump" aria-label="Briefing sections">
+    <a href="#what-changed">What Changed ({{ briefing.what_changed_count }})</a>
+    <a href="#needs-attention">Needs Attention ({{ briefing.needs_attention_count }})</a>
+    <a href="#historical-context">Historical ({{ briefing.historical_count }})</a>
+    <a href="#unknown-dates">Unknown dates ({{ briefing.unknown_publication_date_count }})</a>
   </nav>
 
-  {% if stakeholder_front.freshness_note %}
-    <p class="sh-note">{{ stakeholder_front.freshness_note }}</p>
-  {% elif front_page.stale_reason %}
-    <p class="sh-note">{{ front_page.stale_reason }}</p>
-  {% endif %}
-
-  {% if watchtower_digest and watchtower_digest.total_open %}
-  <section class="sh-section sh-section-highlight" id="needs-your-attention">
-    <h2>Needs your attention</h2>
-    <p class="sh-note">{{ watchtower_digest.headline }}{% if watchtower_digest.high_count %} — {{ watchtower_digest.high_count }} high attention{% endif %}. <a href="/watchtower">Open Watchtower</a></p>
-    <ul class="sh-story-list">
-      {% for item in watchtower_digest.top_alerts %}
-        <li>
-          <p class="sh-story-meta">
-            <span class="sh-trust sh-trust-watched">{{ item.priority }}</span>
-            <span>{{ item.trigger_label }}</span>
-          </p>
-          <p class="sh-story-title"><a href="{{ item.open_href }}">{{ item.title }}</a></p>
-          <p class="sh-story-meta"><span>Watching: {{ item.subject_label }}</span></p>
-        </li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
-
-  <section class="sh-lead" id="top-stories">
-    <h2 class="visually-hidden">Top Stories</h2>
-    <div class="sh-lead-main">
-      <p class="sh-kicker">{% if stakeholder_front.using_fallback %}Current picture{% else %}Top story{% endif %}</p>
-      {% if stakeholder_front.lead %}
-        {% with item=stakeholder_front.lead, featured=true %}{% include "_stakeholder_story.html" %}{% endwith %}
-      {% else %}
-        <h2>Top Stories</h2>
-        <p class="sh-empty">Nothing qualifies as a top story in the current window.</p>
-      {% endif %}
+  <section class="daily-briefing-section" id="what-changed" aria-labelledby="what-changed-title">
+    <div class="daily-briefing-section-head">
+      <h2 id="what-changed-title">What Changed</h2>
+      <p>Trusted, readable items with a valid publication date in the last 90 days.</p>
     </div>
-    <div>
-      <p class="sh-kicker">Latest developments</p>
-      {% if stakeholder_front.supporting %}
-        <ul class="sh-story-list">
-          {% for item in stakeholder_front.supporting %}
-            <li>{% include "_stakeholder_story.html" %}</li>
+    {% if briefing.what_changed_empty %}
+    <div class="daily-briefing-empty" role="status">
+      <p class="eyebrow">Honest empty state</p>
+      <h3>No current trusted readable coverage in this scope.</h3>
+      <p>
+        That does not mean nothing happened. It means the corpus does not yet have in-app-readable,
+        trusted items with valid publication dates in the current window.
+      </p>
+      <div class="daily-briefing-empty-actions">
+        <a class="action-button action-approve" href="#needs-attention">Review Needs Attention</a>
+        <a class="action-button" href="{{ briefing.coverage_pulse.source_health_url }}">Open Source Health</a>
+      </div>
+    </div>
+    {% else %}
+      {% for band in briefing.what_changed_bands %}
+      <section class="daily-briefing-band" aria-labelledby="band-{{ band.id }}">
+        <h3 id="band-{{ band.id }}">{{ band.label }} <span class="daily-briefing-count">{{ band.count }}</span></h3>
+        {% if band.entries %}
+        <ul class="daily-briefing-feed">
+          {% for item in band.entries %}
+          <li>{% include "_briefing_card.html" %}</li>
           {% endfor %}
         </ul>
-      {% elif front_page.top_stories %}
-        <p class="sh-empty">No additional stories in this window.</p>
-      {% else %}
-        <p class="sh-empty">No additional developments to show beside the current picture.</p>
-      {% endif %}
-    </div>
-  </section>
-
-  <section class="sh-section" id="since-yesterday">
-    <h2>What changed in the last 24 hours</h2>
-    {% if front_page.since_yesterday.total %}
-      <p class="sh-note">
-        {{ front_page.since_yesterday.new_publications|length }} new draft{{ 's' if front_page.since_yesterday.new_publications|length != 1 else '' }},
-        {{ front_page.since_yesterday.newly_reviewed_evidence|length }} newly reviewed,
-        {{ front_page.since_yesterday.new_signals|length }} signal{{ 's' if front_page.since_yesterday.new_signals|length != 1 else '' }},
-        {{ front_page.since_yesterday.new_assessments|length }} assessment{{ 's' if front_page.since_yesterday.new_assessments|length != 1 else '' }}.
-      </p>
-    {% else %}
-      <p class="sh-empty">Nothing new in the last 24 hours.</p>
+        {% else %}
+        <p class="daily-briefing-band-empty">No items in this band.</p>
+        {% endif %}
+      </section>
+      {% endfor %}
     {% endif %}
   </section>
 
-  {% if front_page.watchlist_matches %}
-  <section class="sh-section sh-section-highlight" id="watchlist-matches">
-    <h2>On your watchlist</h2>
-    <ul class="sh-story-list">
-      {% for item in front_page.watchlist_matches %}
-        <li>{% include "_stakeholder_story.html" %}</li>
-      {% endfor %}
-    </ul>
-  </section>
-  {% endif %}
-
-  {% if front_page.market_reality %}
-  <section class="sh-section sh-section-highlight" id="market-reality">
-    <h2>Market Reality</h2>
-    <p class="sh-note">Structured, sourced price/production/trade data -- distinct from news coverage below.</p>
-    <div class="sh-market-grid">
-      {% for card in front_page.market_reality %}
-      <article class="sh-market-card">
-        <p class="sh-story-meta">
-          <span>{{ card.commodity_label }}</span><span>{{ card.geography_label }}</span>
-        </p>
-        <p class="sh-market-headline">
-          {{ card.metric|replace('_', ' ')|title }}
-          <span class="sh-market-change sh-market-{{ card.direction }}">
-            {% if card.direction == 'up' %}▲{% elif card.direction == 'down' %}▼{% else %}—{% endif %}
-            {{ '%.1f'|format(card.pct_change|abs) }}%
-          </span>
-        </p>
-        <p class="sh-story-meta">
-          {{ '{:,.0f}'.format(card.previous_value) }} → {{ '{:,.0f}'.format(card.latest_value) }} {{ card.unit }}
-          ({{ card.previous_period }} → {{ card.latest_period }})
-        </p>
-        <p class="sh-story-meta">
-          {% if card.source_url %}<a href="{{ card.source_url }}" rel="noreferrer" target="_blank">{{ card.source }}</a>{% else %}{{ card.source }}{% endif %}
-          / {{ card.source_dataset }}
-        </p>
-      </article>
-      {% endfor %}
+  <section class="daily-briefing-section" id="needs-attention" aria-labelledby="needs-attention-title">
+    <div class="daily-briefing-section-head">
+      <h2 id="needs-attention-title">Needs Attention</h2>
+      <p>Acquisition, readability, linkage, and source-ops issues. No invented article summaries.</p>
     </div>
-  </section>
-  {% endif %}
-
-  {% if front_page.trusted_intelligence %}
-  <section class="sh-section sh-section-highlight" id="trusted-intelligence">
-    <h2>Trusted Intelligence</h2>
-    <p class="sh-note">Reviewed Evidence, Signals, and Assessments only -- distinct from unreviewed live/emerging material below.</p>
-    <ul class="sh-story-list">
-      {% for item in front_page.trusted_intelligence[:8] %}
-        <li>{% include "_stakeholder_story.html" %}</li>
+    {% if briefing.needs_attention %}
+    <ul class="daily-briefing-feed daily-briefing-attention-feed">
+      {% for item in briefing.needs_attention %}
+      <li>{% include "_briefing_card.html" %}</li>
       {% endfor %}
     </ul>
+    {% else %}
+    <p class="daily-briefing-band-empty" role="status">No attention items in this filter scope.</p>
+    {% endif %}
   </section>
-  {% endif %}
 
-  <div class="sh-grid-2">
-    {% for section in front_page.sections %}
-      {% if section.key not in ("top_stories", "trusted_intelligence") and section.rows %}
-      <section class="sh-section" id="{{ section.key|replace('_', '-') }}">
-        <h2>{{ section.label }}</h2>
-        <ul class="sh-story-list">
-          {% for item in section.rows[:6] %}
-            <li>{% include "_stakeholder_story.html" %}</li>
-          {% endfor %}
-        </ul>
-      </section>
+  <section class="daily-briefing-section daily-briefing-subordinate" id="historical-context" aria-labelledby="historical-title">
+    <div class="daily-briefing-section-head">
+      <h2 id="historical-title">Historical context</h2>
+      <p>Older than 90 days by publication date. Not current news.</p>
+    </div>
+    {% if briefing.historical_context %}
+    <ul class="daily-briefing-feed daily-briefing-subordinate-feed">
+      {% for item in briefing.historical_context %}
+      <li>{% include "_briefing_card.html" %}</li>
+      {% endfor %}
+    </ul>
+    {% if briefing.historical_count > briefing.historical_context|length %}
+    <p class="daily-briefing-more">Showing {{ briefing.historical_context|length }} of {{ briefing.historical_count }}. Use filters or the archive edition for more.</p>
+    {% endif %}
+    {% else %}
+    <p class="daily-briefing-band-empty">No historical items in this scope.</p>
+    {% endif %}
+  </section>
+
+  <section class="daily-briefing-section daily-briefing-subordinate" id="unknown-dates" aria-labelledby="unknown-dates-title">
+    <div class="daily-briefing-section-head">
+      <h2 id="unknown-dates-title">Unknown publication date</h2>
+      <p>Distinct from unknown capture date. These items never lead the current briefing.</p>
+    </div>
+    {% if briefing.unknown_publication_dates %}
+    <ul class="daily-briefing-feed daily-briefing-subordinate-feed">
+      {% for item in briefing.unknown_publication_dates %}
+      <li>{% include "_briefing_card.html" %}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="daily-briefing-band-empty">No unknown-publication-date items in this scope.</p>
+    {% endif %}
+  </section>
+
+  <p class="daily-briefing-footnote">
+    Prototype fixtures are not used on this route.
+    Thumbs feedback controls are deferred to Slice 2.
+    <a href="{{ briefing.archive_edition_href }}">Previous news edition</a>
+  </p>
+
+  {% if briefing.selected_reader %}
+  {% set reader = briefing.selected_reader %}
+  <div class="daily-briefing-reader-layer" data-briefing-reader-layer>
+    <div class="daily-briefing-reader-backdrop" data-briefing-reader-close tabindex="-1" aria-hidden="true"></div>
+    <aside class="daily-briefing-reader" id="briefing-reader" role="dialog" aria-modal="true" aria-labelledby="briefing-reader-title" tabindex="-1">
+      <div class="daily-briefing-reader-bar">
+        <p class="eyebrow">In-app reader</p>
+        <button type="button" class="action-button" data-briefing-reader-close aria-label="Close in-app reader">Close</button>
+      </div>
+      <h2 id="briefing-reader-title">{{ reader.headline }}</h2>
+      <p class="daily-briefing-reader-meta">
+        <span>{{ reader.source_name }}</span>
+        <span>Published {{ reader.publication_date or "unknown" }}</span>
+        <span>Captured {{ reader.capture_date or "unknown" }}</span>
+        <span class="daily-briefing-status" data-state="{{ reader.readable_body_state }}">{{ reader.readable_body_label }}</span>
+      </p>
+      {% if reader.entities %}
+      <p class="daily-briefing-entity-row">
+        {% for entity in reader.entities %}
+        <a href="{{ entity.profile_url }}">{{ entity.name }}</a>{% if not loop.last %} · {% endif %}
+        {% endfor %}
+      </p>
       {% endif %}
-    {% endfor %}
-    {% for geo_id, region in front_page.by_region.items() %}
-      {% if region.rows %}
-      <section class="sh-section" id="region-{{ geo_id }}">
-        <h2>{{ region.label }}</h2>
-        <ul class="sh-story-list">
-          {% for item in region.rows[:5] %}
-            <li>{% include "_stakeholder_story.html" %}</li>
-          {% endfor %}
-        </ul>
+
+      <section class="daily-briefing-reader-block" aria-label="Observed fact">
+        <h3>Observed fact</h3>
+        {% if reader.observed_change %}
+        <p>{{ reader.observed_change }}</p>
+        {% else %}
+        <p class="daily-briefing-muted">No trusted observed fact is available for in-app reading.</p>
+        {% endif %}
       </section>
-      {% endif %}
-    {% endfor %}
+
+      <section class="daily-briefing-reader-block" aria-label="Analyst interpretation">
+        <h3>Analyst interpretation</h3>
+        {% if reader.implication_available and reader.analyst_implication %}
+        <p>{{ reader.analyst_implication }}</p>
+        {% else %}
+        <p class="daily-briefing-muted">Analyst implication not yet added.</p>
+        {% endif %}
+        <p class="daily-briefing-trust">
+          Review / trust:
+          <span class="daily-briefing-trust-badge">{{ reader.review_trust_state }}</span>
+        </p>
+      </section>
+
+      <section class="daily-briefing-reader-block" aria-label="Readable body">
+        <h3>Readable body</h3>
+        {% if reader.reader_mode in ['readable', 'partial'] and reader.reader_paragraphs %}
+          {% if reader.reader_mode == 'partial' %}
+          <p class="daily-briefing-note" role="status">Partial extraction — usable but incomplete.</p>
+          {% endif %}
+          {% for paragraph in reader.reader_paragraphs %}
+          <p>{{ paragraph }}</p>
+          {% endfor %}
+        {% elif reader.reader_mode == 'transcript' and reader.reader_transcript %}
+          <p class="daily-briefing-note" role="status">Supported transcript content.</p>
+          <p>{{ reader.reader_transcript }}</p>
+        {% else %}
+          <div class="daily-briefing-reader-failure" role="status">
+            <p><strong>{{ reader.readable_body_label }}</strong></p>
+            <p>{{ reader.reader_notice or reader.body_warning or "A full reading view is not available for this item." }}</p>
+            {% if reader.attention_label %}
+            <p>Attention: {{ reader.attention_label }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      </section>
+
+      <div class="daily-briefing-reader-actions">
+        {% if reader.landscape_url %}
+        <a class="action-button action-approve" href="{{ reader.landscape_url }}">Open filtered landscape</a>
+        {% endif %}
+        {% if reader.profile_url %}
+        <a class="action-button" href="{{ reader.profile_url }}">Entity profile</a>
+        {% endif %}
+        {% if reader.intelligence_href %}
+        <a class="action-button" href="{{ reader.intelligence_href }}">Evidence record</a>
+        {% endif %}
+        {% if reader.canonical_url %}
+        <a class="action-button daily-briefing-secondary-link" href="{{ reader.canonical_url }}" target="_blank" rel="noopener noreferrer">View original source</a>
+        {% endif %}
+      </div>
+      <p class="daily-briefing-future-slot" aria-hidden="true">Trust feedback controls arrive in Slice 2.</p>
+    </aside>
   </div>
-
-  {% if today.worth_revisiting and not stakeholder_front.using_fallback %}
-  <section class="sh-section" id="worth-revisiting">
-    <h2>Worth revisiting</h2>
-    <p class="sh-note">Older strategically important items. Age here does not imply freshness.</p>
-    <ul class="sh-story-list">
-      {% for item in today.worth_revisiting[:6] %}
-        <li>{% include "_stakeholder_story.html" %}</li>
-      {% endfor %}
-    </ul>
-  </section>
   {% endif %}
-
-  {% if today.freshness.counts %}
-  <p class="sh-footnote sh-coverage-watch">
-    Coverage watch:
-    {{ today.freshness.counts.scheduled_sources|default(0) }} sources scheduled
-    {% if today.freshness.counts.failing %}· {{ today.freshness.counts.failing }} failing{% endif %}
-    {% if today.freshness.counts.overdue %}· {{ today.freshness.counts.overdue }} overdue{% endif %}
-    {% if monitoring.has_watches %}· {{ monitoring.watch_count }} watchlist entr{{ 'y' if monitoring.watch_count == 1 else 'ies' }}{% endif %}
-  </p>
-  {% endif %}
-
-  <p class="sh-footnote">
-    {% if today.freshness.degraded %}Collection is not fully current.{% endif %}
-    Dates are publication dates.
-    {% if not static_build %}<a href="/week">This week</a> · {% endif %}<a href="/watches">Watchlist</a>
-    · <a href="/reports">Reports</a>
-    {% if today.freshness.degraded %}· <a href="/review-ops">Analyst workspace</a>{% endif %}
-  </p>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/daily_briefing.js" defer></script>
 {% endblock %}

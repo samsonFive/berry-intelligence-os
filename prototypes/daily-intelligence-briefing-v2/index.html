@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Daily Intelligence Briefing V2 — Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --font:"Source Sans 3","Segoe UI",sans-serif; --display:"Fraunces",Georgia,serif;
+  --navy:#08234d; --text:#1c1812; --muted:#6d6458; --canvas:#f4f1ea; --surface:#fffcf7;
+  --raised:#f7f5f1; --border:#ddd4c6; --accent:#8a6a3b;
+  --ok:#1c6b42; --ok-bg:#e2f6e9; --pending:#5e4b8a; --pending-bg:#eee8ff;
+  --warn:#8a5a10; --warn-bg:#fff8e5; --danger:#8f2f28; --danger-bg:#fdeaea;
+  --info:#2f5d7a; --info-bg:#e7f1f6; --shadow:0 10px 28px rgba(40,28,14,.08);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);color:var(--text);line-height:1.45;background:radial-gradient(1100px 420px at 8% -8%,rgba(138,106,59,.12),transparent 60%),radial-gradient(900px 380px at 100% 0%,rgba(8,35,77,.08),transparent 55%),var(--canvas)}
+body.density-compact .observed,body.density-compact .interpretation{display:none}
+body.density-compact .card{padding:.55rem .7rem;gap:.35rem}
+a{color:#0c2d5d}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:0;background:#fff;padding:.5rem .75rem;z-index:1000}
+.skip:focus{left:.5rem;top:.5rem}
+.shell{display:grid;grid-template-columns:15rem minmax(0,1fr);min-height:100vh}
+.rail{background:linear-gradient(180deg,var(--navy),#061936);color:#e8eef8;padding:1.25rem 1rem;position:sticky;top:0;height:100vh}
+.brand{font-family:var(--display);margin:0 0 1.25rem;font-size:1.05rem}
+.brand small{display:block;margin-top:.35rem;color:#9db0cc;font-family:var(--font);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+.rail nav{display:grid;gap:.35rem}
+.rail a{color:#d7e2f3;text-decoration:none;padding:.55rem .7rem;border-radius:8px;font-size:.92rem}
+.rail a[aria-current="page"],.rail a:hover{background:rgba(255,255,255,.08);color:#fff}
+.proto{margin-top:1.5rem;padding:.7rem .75rem;border:1px solid rgba(255,255,255,.18);border-radius:10px;font-size:.78rem;color:#c6d4e8;background:rgba(0,0,0,.15)}
+.main{padding:1.25rem 1.5rem 3rem;max-width:1120px}
+.eyebrow{margin:0;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:650;font-size:clamp(1.7rem,2.4vw,2.2rem);margin:.25rem 0 .4rem;letter-spacing:-.02em}
+.lede{margin:0;color:var(--muted);max-width:46rem}
+.hero{display:grid;gap:1rem;grid-template-columns:minmax(0,1.7fr) minmax(14rem,.9fr);margin-bottom:1rem}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.stats div{background:var(--raised);border:1px solid var(--border);border-radius:12px;padding:.75rem .85rem}
+.stats strong{display:block;font-size:1.35rem;line-height:1.1}
+.stats small{color:var(--muted);font-size:.78rem}
+.note{margin:0 0 1rem;padding:.75rem 1rem;border-left:3px solid var(--accent);background:rgba(138,106,59,.08);color:var(--muted);border-radius:0 10px 10px 0}
+.sticky{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:space-between;margin:0 0 1.1rem;padding:.75rem .9rem;background:rgba(255,252,247,.95);border:1px solid var(--border);border-radius:16px;backdrop-filter:blur(8px);box-shadow:var(--shadow)}
+.jumps,.density{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}
+.jumps a,.density button,.btn{border:1px solid var(--border);background:#fff;border-radius:999px;padding:.35rem .7rem;font-size:.82rem;text-decoration:none;color:var(--text);cursor:pointer}
+.jumps a[aria-current="true"],.density button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.density span{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.block{margin:0 0 1.5rem;padding:1rem 1.05rem 1.1rem;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.block>header{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:space-between;align-items:baseline;margin-bottom:.85rem;padding-bottom:.65rem;border-bottom:1px solid var(--border)}
+.block h2{margin:0;font-family:var(--display);font-size:1.25rem}
+.help{margin:.2rem 0 0;color:var(--muted);font-size:.88rem;max-width:42rem}
+.pill{font-size:.78rem;padding:.25rem .55rem;border-radius:999px;background:var(--raised);border:1px solid var(--border);color:var(--muted)}
+.list{display:grid;gap:.75rem}
+.card{display:grid;gap:.55rem;padding:.85rem .9rem;border:1px solid var(--border);border-radius:12px;background:#fff}
+.card.lead{border-color:#c9b79a;box-shadow:inset 3px 0 0 var(--accent)}
+.card h3{margin:0;font-size:1.02rem;line-height:1.3}
+.card h3 button{all:unset;cursor:pointer;color:var(--navy);font:inherit;font-weight:700}
+.card h3 button:hover{text-decoration:underline}
+.meta{color:var(--muted);font-size:.84rem;display:flex;flex-wrap:wrap;gap:.35rem .7rem}
+.badges{display:flex;flex-wrap:wrap;gap:.35rem}
+.badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;letter-spacing:.02em;text-transform:uppercase;padding:.22rem .5rem;border-radius:999px;border:1px solid var(--border);background:var(--raised);text-decoration:none;color:inherit}
+.badge::before{content:"";width:.45rem;height:.45rem;border-radius:50%;background:currentColor}
+.b-ok{color:var(--ok);background:var(--ok-bg);border-color:#b7dfc5}
+.b-pending{color:var(--pending);background:var(--pending-bg);border-color:#d5cbf3}
+.b-warn{color:var(--warn);background:var(--warn-bg);border-color:#efd9a2}
+.b-danger{color:var(--danger);background:var(--danger-bg);border-color:#efc4c1}
+.b-info{color:var(--info);background:var(--info-bg);border-color:#b9d5e4}
+.observed,.interpretation{margin:0;padding:.65rem .75rem;border-radius:10px;font-size:.92rem}
+.observed{background:#f3f7f4;border:1px solid #cfe0d4}
+.interpretation{background:#f7f4fb;border:1px solid #ddd3ef}
+.observed strong,.interpretation strong{display:block;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.25rem;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:.45rem}
+.pulse{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.65rem;margin-bottom:.85rem}
+.pulse div{background:var(--raised);border:1px solid var(--border);border-radius:12px;padding:.75rem}
+.pulse strong{display:block;font-size:1.35rem}
+.pulse span{color:var(--muted);font-size:.78rem}
+.gaps{margin:.5rem 0 0;padding-left:1.1rem;color:var(--muted)}
+details.appendix{border:1px dashed var(--border);border-radius:12px;padding:.7rem .85rem;background:#fbfaf7}
+details.appendix summary{cursor:pointer;font-weight:700}
+.empty{color:var(--muted);font-style:italic}
+.backdrop{position:fixed;inset:0;background:rgba(20,16,10,.42);z-index:80;opacity:0;pointer-events:none;transition:opacity .18s ease}
+.backdrop.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100vh;width:min(34rem,100vw);background:var(--surface);z-index:90;border-left:1px solid var(--border);box-shadow:-12px 0 40px rgba(0,0,0,.18);transform:translateX(105%);transition:transform .2s ease;display:flex;flex-direction:column}
+.drawer.open{transform:translateX(0)}
+.drawer header{display:flex;justify-content:space-between;gap:1rem;align-items:start;padding:1rem 1.1rem;border-bottom:1px solid var(--border)}
+.drawer header h2{margin:.15rem 0 0;font-family:var(--display);font-size:1.2rem}
+.drawer .body{padding:1rem 1.1rem 2rem;overflow:auto}
+.drawer .x{border:1px solid var(--border);background:#fff;border-radius:8px;width:2.25rem;height:2.25rem;cursor:pointer;font-size:1.1rem}
+.drawer dl{display:grid;grid-template-columns:8.5rem 1fr;gap:.45rem .75rem;margin:0 0 1rem}
+.drawer dt{color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+.drawer dd{margin:0}
+.excerpt{white-space:pre-wrap;background:var(--raised);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;margin:0 0 1rem}
+.blocked{background:var(--danger-bg);border:1px solid #efc4c1;color:var(--danger);border-radius:12px;padding:.9rem 1rem;margin:0 0 1rem}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+@media(max-width:980px){.shell{grid-template-columns:1fr}.rail{position:relative;height:auto}.rail nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.hero,.pulse{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.main{padding:1rem .85rem 2.5rem}.hero,.pulse,.stats{grid-template-columns:1fr}.drawer{width:100vw}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to briefing</a>
+<div class="shell">
+  <aside class="rail" aria-label="Prototype navigation">
+    <p class="brand">Berry Intelligence OS<small>Prototype shell</small></p>
+    <nav>
+      <a href="#what-changed" aria-current="page">Briefing</a>
+      <a href="./landscape-handoff.html">Competitor Landscape</a>
+      <a href="#needs-attention">Needs Attention</a>
+      <a href="#coverage-pulse">Coverage Pulse</a>
+      <a href="#unknown-date-appendix">Unknown dates</a>
+    </nav>
+    <div class="proto">Standalone prototype. Not production navigation. Fixture-backed. No live inbox reads.</div>
+  </aside>
+  <main class="main" id="main">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Daily Intelligence Briefing · V2 Prototype</p>
+        <h1 id="title">Daily Intelligence Briefing</h1>
+        <p class="lede" id="subtitle">What changed, why it matters, and what needs attention today.</p>
+      </div>
+      <div class="stats" id="stats" aria-label="Briefing counts"></div>
+    </header>
+    <p class="note" role="note">Prototype data only. Capture date never substitutes for publication date. Unreadable, consent, and bot-wall pages never appear in What Changed.</p>
+    <div class="sticky" role="navigation" aria-label="Briefing sections and density">
+      <div class="jumps" id="jumps">
+        <a href="#what-changed">What Changed</a>
+        <a href="#why-it-matters">Why It Matters</a>
+        <a href="#needs-attention">Needs Attention</a>
+        <a href="#coverage-pulse">Coverage Pulse</a>
+        <a href="#unknown-date-appendix">Unknown dates</a>
+      </div>
+      <div class="density" role="group" aria-label="Density">
+        <span>Density</span>
+        <button type="button" id="dens-comfy" aria-pressed="true">Comfortable</button>
+        <button type="button" id="dens-compact" aria-pressed="false">Compact</button>
+      </div>
+    </div>
+    <section class="block" id="what-changed" aria-labelledby="wc-h">
+      <header><div><h2 id="wc-h">What Changed</h2><p class="help">Readable, usable, appropriately reviewed intelligence only. Strongest current changes first.</p></div><span class="pill" id="wc-count"></span></header>
+      <div class="list" id="wc-list"></div>
+    </section>
+    <section class="block" id="why-it-matters" aria-labelledby="why-h">
+      <header><div><h2 id="why-h">Why It Matters</h2><p class="help">Decision implications stay distinct from observed facts. Evidence count and review state stay visible.</p></div><span class="pill" id="why-count"></span></header>
+      <div class="list" id="why-list"></div>
+    </section>
+    <section class="block" id="needs-attention" aria-labelledby="attn-h">
+      <header><div><h2 id="attn-h">Needs Attention</h2><p class="help">Review work and operational failures — not current intelligence. No summaries for unreadable pages.</p></div><span class="pill" id="attn-count"></span></header>
+      <div class="list" id="attn-list"></div>
+    </section>
+    <section class="block" id="coverage-pulse" aria-labelledby="pulse-h">
+      <header><div><h2 id="pulse-h">Coverage Pulse</h2><p class="help">Operational coverage of the competitor set — not a claim about market activity.</p></div></header>
+      <div class="pulse" id="pulse"></div>
+      <div id="pulse-notes"></div>
+    </section>
+    <section class="block" id="unknown-date-appendix" aria-labelledby="app-h">
+      <header><div><h2 id="app-h">Unknown publication date</h2><p class="help">Exceptions only. These never lead the briefing.</p></div><span class="pill" id="app-count"></span></header>
+      <details class="appendix" open>
+        <summary>Show unknown-date appendix</summary>
+        <div class="list" id="app-list" style="margin-top:.75rem"></div>
+      </details>
+    </section>
+  </main>
+</div>
+<div class="backdrop" id="backdrop" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="reader-title" hidden>
+  <header>
+    <div><p class="eyebrow">In-app reader</p><h2 id="reader-title">Article</h2></div>
+    <button type="button" class="x" id="close" aria-label="Close reader">×</button>
+  </header>
+  <div class="body" id="reader-body"></div>
+</aside>
+<div class="sr-only" aria-live="polite" id="live"></div>
+<script src="./fixtures/briefing-v2.js"></script>
+<script>
+const RECENCY={"0-30":"0–30 days","31-60":"31–60 days","61-90":"61–90 days","older":"Older historical context","unknown_publication_date":"Unknown publication date"};
+const ATTN={"review_ready_draft":"Review-ready draft","bot_wall":"Bot wall","body_unavailable":"Body unavailable","cookie_consent_page":"Cookie / consent page","missing_company_entity_linkage":"Missing company / entity linkage","manual_acquisition_required":"Manual acquisition required","aging_classification":"Aging classification","unknown_publication_date":"Unknown publication date"};
+let DATA=null, lastFocus=null;
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+const entityMap=()=>Object.fromEntries((DATA.entities||[]).map(e=>[e.id,e]));
+const badge=(t,c)=>`<span class="badge ${c||""}"><span class="sr-only">Status: </span>${esc(t)}</span>`;
+function recencyBadge(b){const c={"0-30":"b-ok","31-60":"b-info","61-90":"b-warn","older":"","unknown_publication_date":"b-danger"}[b]||"";return badge(RECENCY[b]||b,c)}
+function stateBadges(item){
+  const out=[]; const rs=item.readable_content_state;
+  if(rs==="readable") out.push(badge("Readable","b-ok"));
+  else if(rs==="bot_wall") out.push(badge("Bot wall","b-danger"));
+  else if(rs==="cookie_consent_page") out.push(badge("Cookie / consent","b-danger"));
+  else if(rs==="body_unavailable") out.push(badge("Body unavailable","b-danger"));
+  else if(rs==="discovered") out.push(badge("Discovered only","b-info"));
+  else out.push(badge(rs,"b-warn"));
+  const rev=item.review_state;
+  if(rev==="trusted_usable") out.push(badge("Trusted usable","b-ok"));
+  else if(rev==="reviewed_implication") out.push(badge("Reviewed implication","b-ok"));
+  else if(rev==="pending_publication_review") out.push(badge("Pending review","b-pending"));
+  else if(String(rev).includes("blocked")) out.push(badge("Blocked for intelligence","b-danger"));
+  else out.push(badge(String(rev).replaceAll("_"," "),"b-warn"));
+  if(item.historical_or_current==="historical_context") out.push(badge("Historical context","b-info"));
+  if(item.historical_or_current==="current") out.push(badge("Current","b-ok"));
+  if(item.prototype_synthetic) out.push(badge("Prototype data",""));
+  return out.join("");
+}
+function entityChips(ids){const map=entityMap();return (ids||[]).map(id=>{const e=map[id]; if(!e) return badge(id,"b-warn"); const kind=e.entity_type==="company"?"Company":"Non-company entity"; return `<a class="badge b-info" href="${esc(e.profile_url)}">${esc(kind)}: ${esc(e.name)}</a>`;}).join("")}
+function dateLine(item){const pub=item.publication_date?`Published ${item.publication_date}`:"Published date unknown"; const cap=item.capture_date?`Captured ${item.capture_date}`:"Capture date unavailable"; return `${pub} · ${cap}`;}
+function actions(item){return `<div class="actions"><button type="button" class="btn primary" data-open="${esc(item.id)}">Open in-app reader</button>${item.related_landscape_url?`<a class="btn" href="${esc(item.related_landscape_url)}">Landscape handoff</a>`:""}${item.profile_url?`<a class="btn" href="${esc(item.profile_url)}">Profile</a>`:""}</div>`}
+function findItem(id){return [...(DATA.what_changed||[]),...(DATA.needs_attention||[]),...(DATA.unknown_date_appendix||[])].find(x=>x.id===id)}
+function openReader(item,trigger){
+  lastFocus=trigger||document.activeElement;
+  const drawer=document.getElementById("drawer"), backdrop=document.getElementById("backdrop");
+  document.getElementById("reader-title").textContent=item.headline;
+  const readable=item.readable_content_state==="readable"&&item.extracted_body;
+  const bodyHtml=readable?`<div class="excerpt">${esc(item.extracted_body)}</div>`:`<div class="blocked" role="status"><strong>${esc(ATTN[item.attention_reason]||item.readable_content_state)}</strong><br/>${esc(item.operator_message||"No usable extracted body. This item is not current intelligence.")}</div>`;
+  document.getElementById("reader-body").innerHTML=`<div class="badges" style="margin-bottom:.85rem">${recencyBadge(item.recency_band)}${stateBadges(item)}</div>
+  <dl><dt>Source</dt><dd>${esc(item.source)}</dd><dt>Publication date</dt><dd>${esc(item.publication_date||"Unknown")}</dd><dt>Capture date</dt><dd>${esc(item.capture_date||"Unavailable")}</dd><dt>Berry</dt><dd>${esc(item.berry||"—")}</dd><dt>Regions</dt><dd>${esc((item.regions||[]).join(", ")||"—")}</dd><dt>Content quality</dt><dd>${esc(item.content_quality_state||"—")}</dd><dt>Acquisition</dt><dd>${esc(item.acquisition_outcome||"—")}</dd><dt>Evidence confidence</dt><dd>${esc(item.evidence_confidence||"—")}</dd></dl>
+  ${bodyHtml}
+  <div class="actions">${item.related_landscape_url?`<a class="btn primary" href="${esc(item.related_landscape_url)}">Open filtered landscape</a>`:""}${item.profile_url?`<a class="btn" href="${esc(item.profile_url)}">Company / entity profile</a>`:""}<a class="btn" href="${esc(item.canonical_url)}" target="_blank" rel="noopener noreferrer">External source (secondary)</a></div>`;
+  drawer.hidden=false; backdrop.hidden=false;
+  requestAnimationFrame(()=>{drawer.classList.add("open");backdrop.classList.add("open");document.getElementById("close").focus();});
+  document.getElementById("live").textContent=`Opened in-app reader for ${item.headline}`;
+  const url=new URL(location.href); url.searchParams.set("reader", item.id); history.replaceState({reader:item.id},"",url);
+}
+function closeReader(){
+  const drawer=document.getElementById("drawer"), backdrop=document.getElementById("backdrop");
+  drawer.classList.remove("open"); backdrop.classList.remove("open");
+  setTimeout(()=>{drawer.hidden=true; backdrop.hidden=true;},180);
+  const url=new URL(location.href); url.searchParams.delete("reader"); history.replaceState({},"",url);
+  if(lastFocus&&lastFocus.focus) lastFocus.focus();
+  document.getElementById("live").textContent="Closed in-app reader";
+}
+function renderChanged(item,lead){return `<article class="card ${lead?"lead":""}" id="card-${esc(item.id)}"><div class="badges">${recencyBadge(item.recency_band)}${stateBadges(item)}</div><h3><button type="button" data-open="${esc(item.id)}">${esc(item.headline)}</button></h3><div class="meta"><span>${esc(item.source)}</span><span>${esc(dateLine(item))}</span><span>${esc(item.berry)}</span><span>${esc((item.regions||[]).join(", "))}</span></div><div class="badges">${entityChips(item.entity_ids)}</div>${item.observed_change?`<p class="observed"><strong>Observed change</strong>${esc(item.observed_change)}</p>`:""}${actions(item)}</article>`}
+function renderWhy(item){return `<article class="card lead" id="card-${esc(item.id)}"><div class="badges">${badge("Reviewed implication","b-ok")}${badge(item.supporting_evidence_count+" supporting evidence","b-info")}${badge("Confidence: "+item.evidence_confidence,"b-info")}${item.prototype_synthetic?badge("Prototype data",""):""}</div><h3>${esc(item.headline)}</h3><p class="observed"><strong>Observed fact</strong>${esc(item.observed_fact)}</p><p class="interpretation"><strong>Analyst interpretation</strong>${esc(item.analyst_interpretation)}</p><p class="observed"><strong>Decision implication</strong>${esc(item.decision_implication)}</p><div class="badges">${entityChips(item.entity_ids)}</div><div class="actions"><button type="button" class="btn primary" data-open="${esc(item.linked_item_id)}">Open supporting item</button><a class="btn" href="${esc(item.related_landscape_url)}">Filtered landscape</a></div></article>`}
+function renderAttention(item){return `<article class="card" id="card-${esc(item.id)}"><div class="badges">${badge(ATTN[item.attention_reason]||item.attention_reason,"b-warn")}${recencyBadge(item.recency_band)}${stateBadges(item)}</div><h3><button type="button" data-open="${esc(item.id)}">${esc(item.headline)}</button></h3><div class="meta"><span>${esc(item.source)}</span><span>${esc(dateLine(item))}</span><span>${esc(item.berry||"—")}</span></div>${item.operator_message?`<p class="interpretation"><strong>Operator note</strong>${esc(item.operator_message)}</p>`:""}<div class="badges">${entityChips(item.entity_ids)}</div>${actions(item)}</article>`}
+function render(data){
+  DATA=data;
+  document.getElementById("title").textContent=data.briefing_title;
+  document.getElementById("subtitle").textContent=data.briefing_subtitle;
+  const changed=[...(data.what_changed||[])].filter(i=>i.readable_content_state==="readable"&&i.review_state==="trusted_usable"&&i.recency_band!=="unknown_publication_date").sort((a,b)=>(a.lead_rank||99)-(b.lead_rank||99));
+  document.getElementById("stats").innerHTML=`<div><strong>${changed.length}</strong><small>Usable changes</small></div><div><strong>${(data.why_it_matters||[]).length}</strong><small>Implications</small></div><div><strong>${(data.needs_attention||[]).length}</strong><small>Needs attention</small></div><div><strong>${data.coverage_pulse.current_usable_coverage}</strong><small>Usable coverage</small></div>`;
+  document.getElementById("wc-count").textContent=`${changed.length} items`;
+  document.getElementById("wc-list").innerHTML=changed.map((item,i)=>renderChanged(item,i===0)).join("")||`<p class="empty">No usable current intelligence.</p>`;
+  document.getElementById("why-count").textContent=`${(data.why_it_matters||[]).length} items`;
+  document.getElementById("why-list").innerHTML=(data.why_it_matters||[]).map(renderWhy).join("")||`<p class="empty">No reviewed implications.</p>`;
+  document.getElementById("attn-count").textContent=`${(data.needs_attention||[]).length} items`;
+  document.getElementById("attn-list").innerHTML=(data.needs_attention||[]).map(renderAttention).join("");
+  const p=data.coverage_pulse;
+  document.getElementById("pulse").innerHTML=`<div><strong>${p.represented_competitors}</strong><span>Represented competitors</span></div><div><strong>${p.discovery_configured}</strong><span>Discovery configured</span></div><div><strong>${p.discovery_operational}</strong><span>Discovery operational</span></div><div><strong>${p.readable_content_acquired}</strong><span>Readable content acquired</span></div><div><strong>${p.current_usable_coverage}</strong><span>Current usable coverage</span></div>`;
+  document.getElementById("pulse-notes").innerHTML=`<p class="meta">${(p.notes||[]).map(esc).join(" · ")}</p><p><a class="btn" href="${esc(p.landscape_url)}">Open competitor landscape</a> <a class="btn" href="${esc(p.source_health_url)}">Source Health (prototype anchor)</a></p><p class="meta">Competitors with no current coverage</p><ul class="gaps">${(p.competitors_with_no_current_coverage||[]).map(g=>`<li><strong>${esc(g.name)}</strong> — ${esc(g.note)}</li>`).join("")}</ul>`;
+  document.getElementById("app-count").textContent=`${(data.unknown_date_appendix||[]).length} items`;
+  document.getElementById("app-list").innerHTML=(data.unknown_date_appendix||[]).map(renderAttention).join("");
+  const readerId=new URL(location.href).searchParams.get("reader");
+  if(readerId){const item=findItem(readerId); if(item) openReader(item,null);}
+}
+document.body.addEventListener("click",ev=>{const btn=ev.target.closest("[data-open]"); if(!btn) return; const item=findItem(btn.getAttribute("data-open")); if(item) openReader(item,btn);});
+document.getElementById("close").addEventListener("click",closeReader);
+document.getElementById("backdrop").addEventListener("click",closeReader);
+document.addEventListener("keydown",ev=>{if(ev.key==="Escape"&&!document.getElementById("drawer").hidden){ev.preventDefault();closeReader();}});
+document.getElementById("dens-comfy").addEventListener("click",()=>{document.body.classList.remove("density-compact");document.getElementById("dens-comfy").setAttribute("aria-pressed","true");document.getElementById("dens-compact").setAttribute("aria-pressed","false");});
+document.getElementById("dens-compact").addEventListener("click",()=>{document.body.classList.add("density-compact");document.getElementById("dens-comfy").setAttribute("aria-pressed","false");document.getElementById("dens-compact").setAttribute("aria-pressed","true");});
+const jumps=[...document.querySelectorAll("#jumps a")];
+const obs=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(!entry.isIntersecting)return; jumps.forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")===`#${entry.target.id}`?"true":"false"));});},{rootMargin:"-30% 0px -55% 0px",threshold:0.01});
+["what-changed","why-it-matters","needs-attention","coverage-pulse","unknown-date-appendix"].forEach(id=>obs.observe(document.getElementById(id)));
+if(window.BRIEFING_FIXTURE) render(window.BRIEFING_FIXTURE);
+else document.getElementById("wc-list").innerHTML=`<p class="empty">Fixture failed to load.</p>`;
+</script>
+</body>
+</html>

@@ -1,4 +1,9 @@
 {% set ui = ui_context if ui_context is defined else {"berry": "global", "berry_label": "Global", "feed_view": "grid"} %}
+<nav class="sh-section-nav" aria-label="Variety sections">
+  <a href="#roles">People &amp; companies</a><a href="#rights">Rights</a>
+  <a href="#commercial-footprint">Commercial footprint</a><a href="#variety-intelligence">Evidence</a>
+  <a href="#recent-intelligence">Reporting</a><a href="#intelligence-timeline">Timeline</a>
+</nav>
 {% set identity = identity if identity is defined else {"canonical_name": entity.name, "aliases": entity.aliases or [], "commercial_names": [], "denomination": "", "breeder_code": "", "package_note": ""} %}
 {% set roles = roles if roles is defined else {} %}
 <div class="sh-page v2-page v2-variety v2-variety-detail v2-company">
@@ -156,6 +161,10 @@
     <p class="empty-state">No commercial observations linked to this variety.</p>
   {% endif %}
 </section>
+
+{% set growing_profile_title = 'Growing profile' %}
+{% set growing_profile_empty_subject = 'this variety' %}
+{% include "_learn_growing_profile.html" %}
 
 <section class="v2-company-section" id="variety-intelligence">
   <h2>Variety intelligence</h2>

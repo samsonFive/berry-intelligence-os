@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "trust-feedback-event.schema.json",
+  "title": "Trust Feedback Review Event",
+  "type": "object",
+  "required": [
+    "id",
+    "record_type",
+    "occurred_at",
+    "actor",
+    "workflow",
+    "object_id",
+    "object_type",
+    "action",
+    "prior_state",
+    "new_state",
+    "resulting_state",
+    "idempotency_key",
+    "state_version",
+    "source_surface",
+    "review_blockers"
+  ],
+  "properties": {
+    "id": {"type": "string", "pattern": "^rev-[a-f0-9]{32}$"},
+    "record_type": {"const": "review_event"},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "actor": {"type": "string", "minLength": 1},
+    "workflow": {"const": "trust_feedback"},
+    "object_id": {"type": "string", "minLength": 1},
+    "object_type": {
+      "enum": ["evidence", "publication_draft", "discovered_media", "signal", "assessment"]
+    },
+    "action": {"enum": ["promote", "exclude", "defer", "undo"]},
+    "feedback_intent": {
+      "type": ["string", "null"],
+      "enum": ["relevant", "retain_for_review", "monitor", "governed_promotion", null]
+    },
+    "reason_category": {
+      "type": ["string", "null"],
+      "enum": [
+        "irrelevant",
+        "duplicate",
+        "wrong_entity",
+        "wrong_berry",
+        "wrong_region",
+        "wrong_berry_or_region",
+        "weak_source",
+        "unreadable",
+        "outdated",
+        "misleading_extraction",
+        "other",
+        null
+      ]
+    },
+    "prior_state": {"type": "string"},
+    "new_state": {"type": "string"},
+    "resulting_state": {"type": "string"},
+    "idempotency_key": {"type": "string", "minLength": 1, "maxLength": 200},
+    "expected_version": {"type": ["integer", "null"], "minimum": 0},
+    "state_version": {"type": "integer", "minimum": 1},
+    "source_surface": {"type": "string", "minLength": 1},
+    "review_blockers": {"type": "array", "items": {"type": "string"}},
+    "undoes_event_id": {"type": ["string", "null"]},
+    "previous_event_id": {"type": ["string", "null"]},
+    "source_id": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}

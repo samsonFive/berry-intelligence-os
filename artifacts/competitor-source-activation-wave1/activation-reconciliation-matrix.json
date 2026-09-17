@@ -1,0 +1,439 @@
+{
+  "id": "competitor-source-activation-wave1-reconciliation",
+  "verification_date": "2026-09-15",
+  "count": 12,
+  "rows": [
+    {
+      "spreadsheet_label": "Advanced Berry Breeding",
+      "canonical_entity_id": "company-advanced-berry-breeding",
+      "entity_type": "company",
+      "aliases_search_terms": [
+        "ABB",
+        "Advanced Berry Breeding B.V."
+      ],
+      "source_ids": [
+        "source-20260825-advanced-berry-breeding-news"
+      ],
+      "record_action": "reused_existing",
+      "adapter_states": [
+        {
+          "source_id": "source-20260825-advanced-berry-breeding-news",
+          "adapter": "article_rss",
+          "url": "https://www.abbreeding.nl/feed/",
+          "lifecycle": "ACTIVE"
+        }
+      ],
+      "region_language": "europe, global",
+      "verification_date": "2026-09-15",
+      "provenance": "Competitor Source Strategy V1 plus Wave 1 live verification",
+      "duplicate_or_syndication_risk": "expected press/reprint overlap requires normal deduplication",
+      "maturity_before": 2,
+      "maturity_after": 4,
+      "represented": true,
+      "configured": true,
+      "operational": true,
+      "readable": true,
+      "current": false,
+      "configuration_state": "operational_canary_verified",
+      "coverage_gap": "no usable published company coverage in the last 90 days"
+    },
+    {
+      "spreadsheet_label": "BerryWorld",
+      "canonical_entity_id": "company-berryworld",
+      "entity_type": "company",
+      "aliases_search_terms": [
+        "BerryWorld Group"
+      ],
+      "source_ids": [
+        "source-20260824-berryworld-newsroom"
+      ],
+      "record_action": "reused_existing",
+      "adapter_states": [
+        {
+          "source_id": "source-20260824-berryworld-newsroom",
+          "adapter": "sitemap_xml",
+          "url": "https://www.berryworld.com/sitemaps-2-section-news-9-sitemap.xml",
+          "lifecycle": "ACTIVE"
+        }
+      ],
+      "region_language": "global",
+      "verification_date": "2026-09-15",
+      "provenance": "Competitor Source Strategy V1 plus Wave 1 live verification",
+      "duplicate_or_syndication_risk": "corporate family and reprint overlap requires URL/title deduplication",
+      "maturity_before": 2,
+      "maturity_after": 4,
+      "represented": true,
+      "configured": true,
+      "operational": true,
+      "readable": true,
+      "current": false,
+      "configuration_state": "operational_canary_verified",
+      "coverage_gap": "no usable published company coverage in the last 90 days"
+    },
+    {
+      "spreadsheet_label": "Costa",
+      "canonical_entity_id": "company-costa-group-holdings",
+      "entity_type": "company",
+      "aliases_search_terms": [
+        "Costa Group Holdings",
+        "Costa Group",
+        "Costa Berry International"
+      ],
+      "source_ids": [
+        "source-news-search-costa-group",
+        "source-20260824-costa-group-newsroom"
+      ],
+      "record_action": "reused_existing",
+      "adapter_states": [
+        {
+          "source_id": "source-news-search-costa-group",
+          "adapter": "news_search_rss",
+          "url": "https://news.google.com/rss/search?q=Costa%20Group%20blueberries&hl=en-US&gl=US&ceid=US:en",
+          "lifecycle": "ACTIVE"
+        },
+        {
+          "source_id": "source-20260824-costa-group-newsroom",
+          "adapter": "article_rss",
+          "url": "https://costagroup.com.au/feed/",
+          "lifecycle": "ACTIVE"
+        }
+      ],
+      "region_language": "asia_pacific, global",
+      "verification_date": "2026-09-15",
+      "provenance": "Competitor Source Strategy V1 plus Wave 1 live verification",
+      "duplicate_or_syndication_risk": "corporate family and reprint overlap requires URL/title deduplication",
+      "maturity_before": 2,
+      "maturity_after": 2,
+      "represented": true,
+      "configured": true,
+      "operational": false,
+      "readable": false,
+      "current": false,
+      "configuration_state": "configured_never_run",
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "spreadsheet_label": "Fall Creek",
+      "canonical_entity_id": "company-fall-creek-farm-and-nursery",
+      "entity_type": "company",
+      "aliases_search_terms": [
+        "Fall Creek Farm & Nursery",
+        "Fall Creek Nursery",
+        "Sekoya"
+      ],
+      "source_ids": [
+        "source-20260824-fall-creek-newsroom",
+        "source-20260824-sekoya-news"
+      ],
+      "record_action": "reused_existing",
+      "adapter_states": [
+        {
+          "source_id": "source-20260824-fall-creek-newsroom",
+          "adapter": "sitemap_xml",
+          "url": "https://www.fallcreeknursery.com/sitemap.xml",
+          "lifecycle": "ACTIVE"
+        },
+        {
+          "source_id": "source-20260824-sekoya-news",
+          "adapter": "article_rss",
+          "url": "https://sekoya.com/feed/",
+          "lifecycle": "ACTIVE"
+        }
+      ],
+      "region_language": "global",
+      "verification_date": "2026-09-15",
+      "provenance": "Competitor Source Strategy V1 plus Wave 1 live verification",
+      "duplicate_or_syndication_risk": "corporate family and reprint overlap requires URL/title deduplication",
+      "maturity_before": 2,
+      "maturity_after": 2,
+      "represented": true,
+      "configured": true,
+      "operational": false,
+      "readable": false,
+      "current": false,
+      "configuration_state": "configured_never_run",
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "spreadsheet_label": "Fruitist",
+      "canonical_entity_id": "company-agrovision",
+      "entity_type": "company",
+      "aliases_search_terms": [
+        "Agrovision Corp.",
+        "Agrovision"
+      ],
+      "source_ids": [
+        "source-20260915-fruitist-newsroom"
+      ],
+      "record_action": "created",
+      "adapter_states": [
+        {
+          "source_id": "source-20260915-fruitist-newsroom",
+          "adapter": "sitemap_xml",
+          "url": "https://www.fruitist.com/sitemap.xml",
+          "lifecycle": "ACTIVE"
+        }
+      ],
+      "region_language": "United States, English",
+      "verification_date": "2026-09-15",
+      "provenance": "Competitor Source Strategy V1 plus Wave 1 live verification",
+      "duplicate_or_syndication_risk": "corporate family and reprint overlap requires URL/title deduplication",
+      "maturity_before": 1,
+      "maturity_after": 4,
+      "represented": true,
+      "configured": true,
+      "operational": true,
+      "readable": true,
+      "current": false,
+      "configuration_state": "operational_canary_verified",
+      "coverage_gap": "no usable published company coverage in the last 90 days"
+    },
+    {
+      "spreadsheet_label": "Hortifrut Genetica",
+      "canonical_entity_id": "company-hortifrut",
+      "entity_type": "company",
+      "aliases_search_terms": [
+        "Hortifrut S.A.",
+        "Hortifrut Genetica"
+      ],
+      "source_ids": [
+        "source-20260819-hortifrut-newsroom"
+      ],
+      "record_action": "reused_existing",
+      "adapter_states": [
+        {
+          "source_id": "source-20260819-hortifrut-newsroom",
+          "adapter": "article_rss",
+          "url": "https://www.hortifrut.com/feed/",
+          "lifecycle": "ACTIVE"
+        }
+      ],
+      "region_language": "global, south_america",
+      "verification_date": "2026-09-15",
+      "provenance": "Competitor Source Strategy V1 plus Wave 1 live verification",
+      "duplicate_or_syndication_risk": "expected press/reprint overlap requires normal deduplication",
+      "maturity_before": 2,
+      "maturity_after": 2,
+      "represented": true,
+      "configured": true,
+      "operational": false,
+      "readable": false,
+      "current": false,
+      "configuration_state": "configured_never_run",
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "spreadsheet_label": "Oishii",
+      "canonical_entity_id": "company-oishii",
+      "entity_type": "company",
+      "aliases_search_terms": [
+        "Oishii Berry",
+        "Omakase Berry"
+      ],
+      "source_ids": [
+        "source-20260915-oishii-press"
+      ],
+      "record_action": "created",
+      "adapter_states": [
+        {
+          "source_id": "source-20260915-oishii-press",
+          "adapter": "article_rss",
+          "url": "https://oishii.com/blogs/press.atom",
+          "lifecycle": "ACTIVE"
+        }
+      ],
+      "region_language": "United States, English",
+      "verification_date": "2026-09-15",
+      "provenance": "Competitor Source Strategy V1 plus Wave 1 live verification",
+      "duplicate_or_syndication_risk": "expected press/reprint overlap requires normal deduplication",
+      "maturity_before": 1,
+      "maturity_after": 3,
+      "represented": true,
+      "configured": true,
+      "operational": true,
+      "readable": false,
+      "current": false,
+      "configuration_state": "operational_canary_verified",
+      "coverage_gap": "no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "spreadsheet_label": "Ozblu",
+      "canonical_entity_id": "brand-ozblu",
+      "entity_type": "brand",
+      "aliases_search_terms": [
+        "OZblu",
+        "United Exports",
+        "Oz Varieties",
+        "Nature Select"
+      ],
+      "source_ids": [
+        "source-20260915-ozblu-news"
+      ],
+      "record_action": "created",
+      "adapter_states": [
+        {
+          "source_id": "source-20260915-ozblu-news",
+          "adapter": "article_rss",
+          "url": "https://www.ozblu.com/news/feed/",
+          "lifecycle": "OPERATOR_ACTION_REQUIRED"
+        }
+      ],
+      "region_language": "Australia/South Africa/Peru/Mexico/multi-region, English",
+      "verification_date": "2026-09-15",
+      "provenance": "Competitor Source Strategy V1 plus Wave 1 live verification",
+      "duplicate_or_syndication_risk": "brand-owner attribution requires review",
+      "maturity_before": 1,
+      "maturity_after": 1,
+      "represented": true,
+      "configured": false,
+      "operational": false,
+      "readable": false,
+      "current": false,
+      "configuration_state": "blocked_operator_action_required",
+      "coverage_gap": "no runnable linked Source; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "spreadsheet_label": "Planasa",
+      "canonical_entity_id": "company-planasa",
+      "entity_type": "company",
+      "aliases_search_terms": [
+        "Planasa"
+      ],
+      "source_ids": [
+        "source-20260819-planasa-newsroom"
+      ],
+      "record_action": "reused_existing",
+      "adapter_states": [
+        {
+          "source_id": "source-20260819-planasa-newsroom",
+          "adapter": "article_rss",
+          "url": "https://planasa.com/feed",
+          "lifecycle": "ACTIVE"
+        }
+      ],
+      "region_language": "europe, global",
+      "verification_date": "2026-09-15",
+      "provenance": "Competitor Source Strategy V1 plus Wave 1 live verification",
+      "duplicate_or_syndication_risk": "expected press/reprint overlap requires normal deduplication",
+      "maturity_before": 2,
+      "maturity_after": 2,
+      "represented": true,
+      "configured": true,
+      "operational": false,
+      "readable": false,
+      "current": false,
+      "configuration_state": "configured_never_run",
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "spreadsheet_label": "University of Arkansas",
+      "canonical_entity_id": "company-university-of-arkansas",
+      "entity_type": "company",
+      "aliases_search_terms": [
+        "University of Arkansas Division of Agriculture",
+        "UADA",
+        "Arkansas Agricultural Experiment Station"
+      ],
+      "source_ids": [
+        "source-20260824-arkansas-aaes-news"
+      ],
+      "record_action": "reused_existing",
+      "adapter_states": [
+        {
+          "source_id": "source-20260824-arkansas-aaes-news",
+          "adapter": "article_rss",
+          "url": "https://aaes.uada.edu/feed/",
+          "lifecycle": "ACTIVE"
+        }
+      ],
+      "region_language": "north_america",
+      "verification_date": "2026-09-15",
+      "provenance": "Competitor Source Strategy V1 plus Wave 1 live verification",
+      "duplicate_or_syndication_risk": "broad institutional feed requires relevance screening",
+      "maturity_before": 2,
+      "maturity_after": 4,
+      "represented": true,
+      "configured": true,
+      "operational": true,
+      "readable": true,
+      "current": false,
+      "configuration_state": "operational_canary_verified",
+      "coverage_gap": "no usable published company coverage in the last 90 days"
+    },
+    {
+      "spreadsheet_label": "University of Florida",
+      "canonical_entity_id": "company-university-of-florida",
+      "entity_type": "company",
+      "aliases_search_terms": [
+        "University of Florida IFAS",
+        "UF/IFAS",
+        "UF"
+      ],
+      "source_ids": [
+        "source-20260824-uf-ifas-news",
+        "source-20260901-blueberrybreeding-newsroom"
+      ],
+      "record_action": "updated_existing",
+      "adapter_states": [
+        {
+          "source_id": "source-20260824-uf-ifas-news",
+          "adapter": "article_rss",
+          "url": "https://blogs.ifas.ufl.edu/news/feed/",
+          "lifecycle": "ACTIVE"
+        },
+        {
+          "source_id": "source-20260901-blueberrybreeding-newsroom",
+          "adapter": "sitemap_xml",
+          "url": "https://www.blueberrybreeding.com/blog-posts-sitemap.xml",
+          "lifecycle": "ACTIVE"
+        }
+      ],
+      "region_language": "north_america",
+      "verification_date": "2026-09-15",
+      "provenance": "Competitor Source Strategy V1 plus Wave 1 live verification",
+      "duplicate_or_syndication_risk": "broad institutional feed requires relevance screening",
+      "maturity_before": 2,
+      "maturity_after": 2,
+      "represented": true,
+      "configured": true,
+      "operational": false,
+      "readable": false,
+      "current": false,
+      "configuration_state": "configured_never_run",
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "spreadsheet_label": "Wish Farms",
+      "canonical_entity_id": "company-wish-farms",
+      "entity_type": "company",
+      "aliases_search_terms": [
+        "Wish Farms"
+      ],
+      "source_ids": [
+        "source-20260915-wish-farms-newsroom"
+      ],
+      "record_action": "created",
+      "adapter_states": [
+        {
+          "source_id": "source-20260915-wish-farms-newsroom",
+          "adapter": "article_rss",
+          "url": "https://wishfarms.com/newsroom/feed/",
+          "lifecycle": "OPERATOR_ACTION_REQUIRED"
+        }
+      ],
+      "region_language": "United States (Plant City, FL), English",
+      "verification_date": "2026-09-15",
+      "provenance": "Competitor Source Strategy V1 plus Wave 1 live verification",
+      "duplicate_or_syndication_risk": "expected press/reprint overlap requires normal deduplication",
+      "maturity_before": 1,
+      "maturity_after": 1,
+      "represented": true,
+      "configured": false,
+      "operational": false,
+      "readable": false,
+      "current": false,
+      "configuration_state": "blocked_operator_action_required",
+      "coverage_gap": "no runnable linked Source; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    }
+  ]
+}

@@ -19,6 +19,7 @@ from fastapi.testclient import TestClient
 from app import main
 from app.services.front_page import build_front_page
 from app.services.stakeholder_ui import brief_handoff_query_string
+from tests.clock_helpers import freeze_utc_now
 
 NOW = datetime(2026, 9, 1, 12, 0, tzinfo=UTC)
 
@@ -536,16 +537,23 @@ def test_today_coverage_watch_is_ttl_cached_not_recomputed_every_request(monkeyp
 
 
 def test_front_page_route_smoke(monkeypatch, tmp_path: Path) -> None:
+    freeze_utc_now(monkeypatch, NOW)
+    today = NOW.date().isoformat()
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
     monkeypatch.setattr(main, "DATA_DIR", tmp_path / "data")
-    monkeypatch.setattr(main, "published_evidence", lambda: [_evidence("ev-smoke", published="2026-08-31", captured="2026-08-31")])
+    monkeypatch.setattr(main, "published_evidence", lambda: [_evidence("ev-smoke", published=today, captured=today, title="Blueberry harvest update")])
     monkeypatch.setattr(main, "all_signals", lambda: [])
     monkeypatch.setattr(main, "all_assessments", lambda: [])
     monkeypatch.setattr(main, "load_sources", lambda: [])
-    monkeypatch.setattr(main, "pending_publication_drafts", lambda: [_draft("ev-smoke-draft", captured="2026-08-31")])
+    monkeypatch.setattr(main, "pending_publication_drafts", lambda: [_draft("ev-smoke-draft", captured=today, title="Blueberry crop condition")])
     monkeypatch.setattr(main, "all_entities", lambda: [])
     monkeypatch.setattr(main, "all_relationships", lambda: [])
-    page = TestClient(main.app).get("/today")
+    # The Wave 3 Product Visual System made /today the daily briefing and
+    # retained the edition filters at /news. Exercise the integrated route.
+    page = TestClient(main.app).get("/news?date=archive")
     assert page.status_code == 200
-    assert "FRESH / UNREVIEWED" in page.text
+    assert "Draft ev-smoke-draft" not in page.text
+    undated = TestClient(main.app).get("/news?date=undated")
+    assert "FRESH / UNREVIEWED" in undated.text
+    assert "Date not established" in undated.text
     assert "REVIEWED EVIDENCE" in page.text

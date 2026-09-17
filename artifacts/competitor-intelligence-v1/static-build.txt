@@ -1,0 +1,15 @@
+Static build validation — 2026-09-15
+
+The default generated/ target could not be replaced because Windows reported
+WinError 145 (directory not empty) while removing generated/entities/variety.
+The same build function was rerun against an isolated temporary output and
+completed successfully with 1,650 HTML pages.
+
+Private/draft leakage scan of the completed output found zero matches for:
+
+- ev-competitor-genetics-handwritten-notes-2026-09-15
+- rel-agroberries-genetics-mountain-blue-orchards
+- complete 33-entry competitor-universe fixture
+- pending-competitor-
+
+No inbox runtime was read into the static output.

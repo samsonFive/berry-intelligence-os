@@ -1,0 +1,930 @@
+{
+  "id": "competitor-registry-reconciliation-matrix-2026-09-15",
+  "snapshot_date": "2026-09-15",
+  "row_count": 33,
+  "rows": [
+    {
+      "row_number": 2,
+      "spreadsheet_label": "Advanced Berry Breeding",
+      "canonical_entity_id": "company-advanced-berry-breeding",
+      "canonical_display_name": "Advanced Berry Breeding B.V.",
+      "entity_type": "company",
+      "resolution_status": "existing_exact_match",
+      "aliases_added": [],
+      "competitor_type": "Breeding",
+      "strategic_priority": null,
+      "regions": [
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "tier_1"
+      },
+      "entity_route": "/entities/company/company-advanced-berry-breeding",
+      "linked_monitoring_sources": [
+        "source-20260825-advanced-berry-breeding-news"
+      ],
+      "source_execution_state": "source_configured_never_run",
+      "source_execution_detail": "Discovery-eligible Source 'source-20260825-advanced-berry-breeding-news' exists and has never been run (last_checked_at is null in data/configuration/sources.json) -- same finding as the fix/astra-news-reader branch's independent audit of this snapshot.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 3,
+      "spreadsheet_label": "AgroBerries",
+      "canonical_entity_id": "company-agroberries",
+      "canonical_display_name": "AgroBerries",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-agroberries",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 1,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 4,
+      "spreadsheet_label": "Australasian Plant Genetics",
+      "canonical_entity_id": "company-australasian-plant-genetics",
+      "canonical_display_name": "Australasian Plant Genetics",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Genetics; Technology",
+      "strategic_priority": null,
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-australasian-plant-genetics",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 5,
+      "spreadsheet_label": "BerryWorld",
+      "canonical_entity_id": "company-berryworld",
+      "canonical_display_name": "BerryWorld Group",
+      "entity_type": "company",
+      "resolution_status": "existing_exact_match",
+      "aliases_added": [],
+      "competitor_type": "Breeding",
+      "strategic_priority": null,
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_2",
+        "blueberry": "tier_3",
+        "raspberry": "tier_1",
+        "blackberry": "tier_2"
+      },
+      "entity_route": "/entities/company/company-berryworld",
+      "linked_monitoring_sources": [
+        "source-20260824-berryworld-newsroom"
+      ],
+      "source_execution_state": "source_configured_never_run",
+      "source_execution_detail": "Discovery-eligible Source 'source-20260824-berryworld-newsroom' exists and has never been run (last_checked_at is null in data/configuration/sources.json) -- same finding as the fix/astra-news-reader branch's independent audit of this snapshot.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 6,
+      "spreadsheet_label": "Black Venture Farm",
+      "canonical_entity_id": "company-black-venture-farm",
+      "canonical_display_name": "Black Venture Farm",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": null,
+      "regions": [],
+      "berry_tier": {
+        "strawberry": "tier_3",
+        "blueberry": "unassigned",
+        "raspberry": "tier_2",
+        "blackberry": "tier_1"
+      },
+      "entity_route": "/entities/company/company-black-venture-farm",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 7,
+      "spreadsheet_label": "California Giant",
+      "canonical_entity_id": "company-california-giant-berry-farms",
+      "canonical_display_name": "California Giant Berry Farms",
+      "entity_type": "company",
+      "resolution_status": "existing_alias_match",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_1",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-california-giant-berry-farms",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "source_blocked",
+      "source_execution_detail": "Two Cal Giant Source entries exist but are type 'reference' with no discovery adapter; direct calgiant.com acquisition is TLS-fingerprint blocked (see fix/astra-news-reader branch checkpoint, commit 721a20a). Not re-diagnosed here; cited, not duplicated.",
+      "genetics_relationship_count": 1,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 8,
+      "spreadsheet_label": "Costa",
+      "canonical_entity_id": "company-costa-group-holdings",
+      "canonical_display_name": "Costa Group Holdings Pty Ltd",
+      "entity_type": "company",
+      "resolution_status": "existing_alias_match",
+      "aliases_added": [
+        "Costa"
+      ],
+      "competitor_type": "Commercial",
+      "strategic_priority": null,
+      "regions": [
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_1",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-costa-group-holdings",
+      "linked_monitoring_sources": [
+        "source-news-search-costa-group"
+      ],
+      "source_execution_state": "source_configured_never_run",
+      "source_execution_detail": "Discovery-eligible Source 'source-news-search-costa-group' exists and has never been run (last_checked_at is null in data/configuration/sources.json) -- same finding as the fix/astra-news-reader branch's independent audit of this snapshot.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": "Spreadsheet label 'Costa' is ambiguous between the ASX-listed parent (company-costa-group-holdings, already tracked as a competitor with breeder/grower/packer/marketer roles) and its genetics/IP subsidiary (company-costa-berry-international, roles patent_assignee/rights_holder/genetics_licensor). Resolved to the parent, matching the spreadsheet's 'Commercial' competitor type; company-costa-berry-international is noted as a related child entity, not merged or duplicated."
+    },
+    {
+      "row_number": 9,
+      "spreadsheet_label": "Denning Blueberries",
+      "canonical_entity_id": "company-denning-blueberries",
+      "canonical_display_name": "Denning Blueberries",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "present",
+        "raspberry": "tier_2",
+        "blackberry": "tier_1"
+      },
+      "entity_route": "/entities/company/company-denning-blueberries",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 10,
+      "spreadsheet_label": "Expoberries",
+      "canonical_entity_id": "company-expoberries",
+      "canonical_display_name": "Expoberries",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": null,
+      "strategic_priority": null,
+      "regions": [],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_1",
+        "raspberry": "tier_3",
+        "blackberry": "tier_3"
+      },
+      "entity_route": "/entities/company/company-expoberries",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 11,
+      "spreadsheet_label": "Fall Creek",
+      "canonical_entity_id": "company-fall-creek-farm-and-nursery",
+      "canonical_display_name": "Fall Creek Farm & Nursery, Inc.",
+      "entity_type": "company",
+      "resolution_status": "existing_alias_match",
+      "aliases_added": [],
+      "competitor_type": "Breeding; Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_1",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-fall-creek-farm-and-nursery",
+      "linked_monitoring_sources": [
+        "source-20260824-fall-creek-newsroom"
+      ],
+      "source_execution_state": "source_configured_never_run",
+      "source_execution_detail": "Discovery-eligible Source 'source-20260824-fall-creek-newsroom' exists and has never been run (last_checked_at is null in data/configuration/sources.json) -- same finding as the fix/astra-news-reader branch's independent audit of this snapshot.",
+      "genetics_relationship_count": 2,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 12,
+      "spreadsheet_label": "Fresh Forward",
+      "canonical_entity_id": "company-fresh-forward",
+      "canonical_display_name": "Fresh Forward",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Breeding",
+      "strategic_priority": null,
+      "regions": [
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-fresh-forward",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 13,
+      "spreadsheet_label": "Fruitist",
+      "canonical_entity_id": "company-agrovision",
+      "canonical_display_name": "Agrovision Corp. (Fruitist)",
+      "entity_type": "company",
+      "resolution_status": "existing_alias_match",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-agrovision",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 1,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": "'Fruitist' is a consumer brand of Agrovision Corp.; company-agrovision already carries 'Fruitist' as an alias and the 'competitor' role, and a separate brand-fruitist entity (entity_type brand) already exists for the brand itself. No new entity created; resolved to the operating company."
+    },
+    {
+      "row_number": 14,
+      "spreadsheet_label": "Gem-Pack Berries",
+      "canonical_entity_id": "company-gem-pack-berries",
+      "canonical_display_name": "Gem-Pack Berries",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_1",
+        "raspberry": "tier_1",
+        "blackberry": "tier_2"
+      },
+      "entity_route": "/entities/company/company-gem-pack-berries",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 15,
+      "spreadsheet_label": "Hortifrut Genetica",
+      "canonical_entity_id": "company-hortifrut",
+      "canonical_display_name": "Hortifrut S.A.",
+      "entity_type": "company",
+      "resolution_status": "existing_alias_match",
+      "aliases_added": [
+        "Hortifrut Genetica"
+      ],
+      "competitor_type": "Breeding",
+      "strategic_priority": null,
+      "regions": [
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "present",
+        "blueberry": "unassigned",
+        "raspberry": "tier_3",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-hortifrut",
+      "linked_monitoring_sources": [
+        "source-20260819-hortifrut-newsroom"
+      ],
+      "source_execution_state": "source_configured_never_run",
+      "source_execution_detail": "Discovery-eligible Source 'source-20260819-hortifrut-newsroom' exists and has never been run (last_checked_at is null in data/configuration/sources.json) -- same finding as the fix/astra-news-reader branch's independent audit of this snapshot.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": "No separately-modeled genetics division/subsidiary exists for Hortifrut S.A. in the current entity graph, and none was fabricated for this import. 'Hortifrut Genetica' is preserved as an alias on the parent entity pending confirmation of whether it is a distinct legal/organizational unit."
+    },
+    {
+      "row_number": 16,
+      "spreadsheet_label": "IQ Berries",
+      "canonical_entity_id": "company-iq-berries",
+      "canonical_display_name": "IQ Berries",
+      "entity_type": "company",
+      "resolution_status": "existing_exact_match",
+      "aliases_added": [],
+      "competitor_type": "Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "tier_3",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-iq-berries",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 17,
+      "spreadsheet_label": "Marionnet",
+      "canonical_entity_id": "company-marionnet",
+      "canonical_display_name": "Marionnet",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Breeding; Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "unassigned",
+        "raspberry": "tier_3",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-marionnet",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 18,
+      "spreadsheet_label": "Mountain Blue",
+      "canonical_entity_id": "company-mountain-blue-orchards",
+      "canonical_display_name": "Mountain Blue Orchards Pty Ltd",
+      "entity_type": "company",
+      "resolution_status": "existing_alias_match",
+      "aliases_added": [],
+      "competitor_type": "Breeding; Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "tier_2",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-mountain-blue-orchards",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 1,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 19,
+      "spreadsheet_label": "Oishii",
+      "canonical_entity_id": "company-oishii",
+      "canonical_display_name": "Oishii",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_2",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-oishii",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 20,
+      "spreadsheet_label": "Ozblu",
+      "canonical_entity_id": "brand-ozblu",
+      "canonical_display_name": "OZblu",
+      "entity_type": "brand",
+      "resolution_status": "existing_alias_match",
+      "aliases_added": [
+        "Ozblu"
+      ],
+      "competitor_type": "Genetics; Technology",
+      "strategic_priority": null,
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/brand/brand-ozblu",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": "Spreadsheet capitalization 'Ozblu' vs. the existing entity's 'OZblu'/'OZblu®' -- treated as the same identity (case variant only), plain 'Ozblu' added as an additional alias. Modeled as entity_type 'brand' (a licensed variety platform with multiple companies in owns/develops/licenses roles toward it -- United Exports owns the brand, Nature Select develops the genetics, Oz Varieties licenses it), not as a single company, since no single company IS 'Ozblu.'"
+    },
+    {
+      "row_number": 21,
+      "spreadsheet_label": "Pairwise",
+      "canonical_entity_id": "company-pairwise",
+      "canonical_display_name": "Pairwise",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "tier_2",
+        "raspberry": "tier_1",
+        "blackberry": "tier_2"
+      },
+      "entity_route": "/entities/company/company-pairwise",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 22,
+      "spreadsheet_label": "Perfection Fresh",
+      "canonical_entity_id": "company-perfection-fresh",
+      "canonical_display_name": "Perfection Fresh",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Breeding; Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "unassigned",
+        "raspberry": "tier_1",
+        "blackberry": "tier_2"
+      },
+      "entity_route": "/entities/company/company-perfection-fresh",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 23,
+      "spreadsheet_label": "Planasa",
+      "canonical_entity_id": "company-planasa",
+      "canonical_display_name": "Plantas de Navarra, S.A.",
+      "entity_type": "company",
+      "resolution_status": "existing_exact_match",
+      "aliases_added": [],
+      "competitor_type": "Breeding; Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DOTA",
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "tier_1",
+        "raspberry": "tier_3",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-planasa",
+      "linked_monitoring_sources": [
+        "source-20260819-planasa-newsroom"
+      ],
+      "source_execution_state": "source_configured_never_run",
+      "source_execution_detail": "Discovery-eligible Source 'source-20260819-planasa-newsroom' exists and has never been run (last_checked_at is null in data/configuration/sources.json) -- same finding as the fix/astra-news-reader branch's independent audit of this snapshot.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": "RESOLVED 2026-09-15 (Competitor Identity and Genetics Verification V1). The original note here was based on an incomplete check (dropdown listings only) and was stale: data/configuration/entity-identity-redirects.json already recorded, as of 2026-09-01 (predating even this roster reconciliation), that company-planasa-2 is a CONFIRMED DUPLICATE of company-planasa (\"Accidental second Company minted when publish treated the trade name Planasa as a new legal name\"), with company-planasa as the surviving id. Re-running the existing app.services.entity_identity.audit_entity_identity() auditor against the full 69-company graph on 2026-09-15 confirms this is the ONLY confirmed_duplicate in the entire graph, with zero other exact_duplicates, alias_collisions, or unresolved_probable_duplicates. company-plantas-de-navarra is not a separate entity at all -- \"Plantas de Navarra, S.A.\" is simply company-planasa's own registered legal name (see its name field), with \"Planasa\" already recorded as its alias. No further action was needed or taken; this roster row's resolution to company-planasa was already correct."
+    },
+    {
+      "row_number": 24,
+      "spreadsheet_label": "Plant Sciences",
+      "canonical_entity_id": "company-plant-sciences-genetics",
+      "canonical_display_name": "Plant Sciences, Inc.",
+      "entity_type": "company",
+      "resolution_status": "existing_alias_match",
+      "aliases_added": [
+        "Plant Sciences"
+      ],
+      "competitor_type": "Breeding; Genetics",
+      "strategic_priority": null,
+      "regions": [
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "tier_2",
+        "blackberry": "tier_1"
+      },
+      "entity_route": "/entities/company/company-plant-sciences-genetics",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 25,
+      "spreadsheet_label": "Royakkers",
+      "canonical_entity_id": "company-royakkers",
+      "canonical_display_name": "Royakkers",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [
+        "DOA_DANZ",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_2",
+        "raspberry": "unassigned",
+        "blackberry": "tier_1"
+      },
+      "entity_route": "/entities/company/company-royakkers",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 26,
+      "spreadsheet_label": "Smart Berries",
+      "canonical_entity_id": "company-smart-berries",
+      "canonical_display_name": "Smart Berries",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "tier_2",
+        "blackberry": "tier_1"
+      },
+      "entity_route": "/entities/company/company-smart-berries",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 27,
+      "spreadsheet_label": "Splendor Produce",
+      "canonical_entity_id": "company-splendor-produce",
+      "canonical_display_name": "Splendor Produce",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [
+        "DOTA",
+        "DEMEA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-splendor-produce",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 28,
+      "spreadsheet_label": "SunBelle",
+      "canonical_entity_id": "company-sunbelle",
+      "canonical_display_name": "SunBelle",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-sunbelle",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 29,
+      "spreadsheet_label": "The Berry Collective",
+      "canonical_entity_id": "company-the-berry-collective",
+      "canonical_display_name": "The Berry Collective",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "University/Public",
+      "strategic_priority": null,
+      "regions": [],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "unassigned",
+        "raspberry": "tier_2",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-the-berry-collective",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 30,
+      "spreadsheet_label": "UC Davis",
+      "canonical_entity_id": "breeding_program-uc-davis-strawberry",
+      "canonical_display_name": "UC Davis Strawberry Breeding Program",
+      "entity_type": "breeding_program",
+      "resolution_status": "existing_alias_match",
+      "aliases_added": [
+        "UC Davis"
+      ],
+      "competitor_type": "University/Public",
+      "strategic_priority": null,
+      "regions": [],
+      "berry_tier": {
+        "strawberry": "tier_1",
+        "blueberry": "tier_2",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/breeding_program/breeding_program-uc-davis-strawberry",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": "Resolved to the existing UC Davis Strawberry Breeding Program entity (entity_type breeding_program) rather than creating a generic university company entity -- UC Davis's berry-relevant identity in this graph is specifically its breeding program, and University of Arkansas / University of Florida (below) are separately already modeled as entity_type 'company' for consistency with the pre-existing convention at those two ids, which this mission preserves rather than retroactively 'fixing' either way."
+    },
+    {
+      "row_number": 31,
+      "spreadsheet_label": "University of Arkansas",
+      "canonical_entity_id": "company-university-of-arkansas",
+      "canonical_display_name": "University of Arkansas Division of Agriculture",
+      "entity_type": "company",
+      "resolution_status": "existing_exact_match",
+      "aliases_added": [],
+      "competitor_type": "University/Public",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-university-of-arkansas",
+      "linked_monitoring_sources": [
+        "source-20260824-arkansas-aaes-news"
+      ],
+      "source_execution_state": "source_configured_never_run",
+      "source_execution_detail": "Discovery-eligible Source 'source-20260824-arkansas-aaes-news' exists and has never been run (last_checked_at is null in data/configuration/sources.json) -- same finding as the fix/astra-news-reader branch's independent audit of this snapshot.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 32,
+      "spreadsheet_label": "University of Florida",
+      "canonical_entity_id": "company-university-of-florida",
+      "canonical_display_name": "University of Florida",
+      "entity_type": "company",
+      "resolution_status": "existing_exact_match",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [
+        "DOTA"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-university-of-florida",
+      "linked_monitoring_sources": [
+        "source-20260824-uf-ifas-news"
+      ],
+      "source_execution_state": "source_configured_never_run",
+      "source_execution_detail": "Discovery-eligible Source 'source-20260824-uf-ifas-news' exists and has never been run (last_checked_at is null in data/configuration/sources.json) -- same finding as the fix/astra-news-reader branch's independent audit of this snapshot.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 33,
+      "spreadsheet_label": "Well-Pict",
+      "canonical_entity_id": "company-well-pict",
+      "canonical_display_name": "Well-Pict",
+      "entity_type": "company",
+      "resolution_status": "newly_created",
+      "aliases_added": [],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Watch",
+      "regions": [],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "unassigned",
+        "raspberry": "unassigned",
+        "blackberry": "unassigned"
+      },
+      "entity_route": "/entities/company/company-well-pict",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    },
+    {
+      "row_number": 34,
+      "spreadsheet_label": "Wish Farms",
+      "canonical_entity_id": "company-wish-farms",
+      "canonical_display_name": "Wish Farms",
+      "entity_type": "company",
+      "resolution_status": "existing_exact_match",
+      "aliases_added": [
+        "Wish Farms"
+      ],
+      "competitor_type": "Commercial",
+      "strategic_priority": "Top",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "berry_tier": {
+        "strawberry": "unassigned",
+        "blueberry": "tier_1",
+        "raspberry": "unassigned",
+        "blackberry": "tier_2"
+      },
+      "entity_route": "/entities/company/company-wish-farms",
+      "linked_monitoring_sources": [],
+      "source_execution_state": "no_supported_source",
+      "source_execution_detail": "No Source record links this entity's canonical id via linked_competitor_ids, and no source was researched or fabricated for it in this mission (broad web research is out of scope). Requires an operator to identify and onboard a real source through existing governance.",
+      "genetics_relationship_count": 0,
+      "provenance": "internal_competitor_registry_spreadsheet, snapshot_date=2026-09-15",
+      "ambiguity_notes": ""
+    }
+  ]
+}

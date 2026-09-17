@@ -1,4 +1,22 @@
 (function () {
+  // Keep the edition's explicit timezone in shareable links. A browser zone is
+  // only a first-visit default; an explicit URL or saved selection wins.
+  var zoneInput = document.getElementById("news-timezone");
+  if (zoneInput) {
+    var editionUrl = new URL(window.location.href);
+    try {
+      if (!editionUrl.searchParams.has("tz")) {
+        var editionZone = localStorage.getItem("bios-news-timezone") || Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (editionZone) {
+          editionUrl.searchParams.set("tz", editionZone);
+          window.location.replace(editionUrl.toString());
+        }
+      }
+      zoneInput.form.addEventListener("submit", function () {
+        try { new Intl.DateTimeFormat("en", {timeZone: zoneInput.value}); localStorage.setItem("bios-news-timezone", zoneInput.value); } catch (err) { /* server displays its UTC fallback */ }
+      });
+    } catch (err) { /* storage can be unavailable; explicit form still works */ }
+  }
   var DESKTOP = 1100;
   var SIDEBAR_KEY = "bios-v2-sidebar";
   var app = document.getElementById("v2-app");
@@ -113,17 +131,36 @@
       });
       overlay.addEventListener("hidden.bs.offcanvas", function () {
         overlayOpen = false;
-        if (lastTrigger && lastTrigger.focus) lastTrigger.focus();
+        ++loadGen;
+        var url = new URL(window.location.href);
+        if (url.searchParams.has("story")) {
+          if (window.history.state && window.history.state.biosReader) {
+            window.history.back();
+          } else {
+            url.searchParams.delete("story");
+            window.history.replaceState(window.history.state, "", url);
+          }
+        }
+        if (lastTrigger && lastTrigger.isConnected && lastTrigger.focus) lastTrigger.focus({ preventScroll: true });
       });
     }
     return overlayInstance;
   }
-  function loadReaderById(id, trigger, cardIndex) {
+  function loadReaderById(id, trigger, cardIndex, fromHistory) {
     if (!id || !overlay || !overlayBody) return;
     if (typeof cardIndex === "number") selectCard(cardIndex, { skipFocus: true });
     lastTrigger = trigger || lastTrigger;
+    if (!fromHistory) {
+      var url = new URL(window.location.href);
+      var replacing = url.searchParams.has("story");
+      url.searchParams.set("story", id);
+      var state = Object.assign({}, window.history.state || {});
+      if (!replacing) state.biosReader = true;
+      window.history[replacing ? "replaceState" : "pushState"](state, "", url);
+    }
     var gen = ++loadGen;
     overlayBody.innerHTML = "<p class=\"empty-state\">Loading…</p>";
+    overlayBody.setAttribute("aria-busy", "true");
     var instance = ensureOverlay();
     if (instance) instance.show();
     fetch("/api/intelligence/" + encodeURIComponent(id) + "/reader", { credentials: "same-origin" })
@@ -134,16 +171,18 @@
       .then(function (html) {
         if (gen !== loadGen) return;
         overlayBody.innerHTML = html;
+        overlayBody.removeAttribute("aria-busy");
         overlayBody.querySelectorAll("form").forEach(function (form) {
           form.addEventListener("submit", function () { copyReviewer(form); });
         });
         var title = overlayBody.querySelector(".v2-reader-title");
         var titleEl = document.getElementById("v2ReaderTitle");
-        if (titleEl) titleEl.textContent = title ? title.textContent : "Reader";
+        if (titleEl) titleEl.textContent = "Story reader";
         if (overlayOpen) focusReaderHeading();
       })
       .catch(function () {
         if (gen !== loadGen) return;
+        overlayBody.removeAttribute("aria-busy");
         overlayBody.innerHTML = "<p class=\"empty-state\">Could not load this item. <a href=\"/intelligence/" + encodeURIComponent(id) + "\">Open full reader</a></p>";
       });
   }
@@ -167,6 +206,7 @@
       link.addEventListener("click", function (event) {
         if (!overlay || event.metaKey || event.ctrlKey) return;
         event.preventDefault();
+        event.stopPropagation();
         selectCard(index);
         loadReader(index);
       });
@@ -192,6 +232,18 @@
   document.querySelectorAll("[data-open-reader]").forEach(function (link) {
     if (link.closest("[data-intel-card]")) return;
     bindStandaloneReaderLink(link);
+  });
+  window.addEventListener("popstate", function () {
+    var id = new URL(window.location.href).searchParams.get("story");
+    if (id) loadReaderById(id, null, undefined, true);
+    else closeOverlay();
+  });
+  var initialStory = new URL(window.location.href).searchParams.get("story");
+  if (initialStory && overlay) loadReaderById(initialStory, null, undefined, true);
+  document.querySelectorAll(".sh-news-image img").forEach(function (img) {
+    function hideBrokenImage() { if (img.closest("figure")) img.closest("figure").hidden = true; }
+    img.addEventListener("error", hideBrokenImage);
+    if (img.complete && !img.naturalWidth) hideBrokenImage();
   });
   document.querySelectorAll("[data-intel-card] form").forEach(function (form) {
     form.addEventListener("submit", function () { copyReviewer(form); });

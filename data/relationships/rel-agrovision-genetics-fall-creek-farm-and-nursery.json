@@ -1,0 +1,14 @@
+{
+  "id": "rel-agrovision-genetics-fall-creek-farm-and-nursery",
+  "record_type": "relationship",
+  "subject_id": "company-agrovision",
+  "predicate": "partners_with",
+  "object_id": "company-fall-creek-farm-and-nursery",
+  "status": "disputed",
+  "evidence_ids": [
+    "ev-competitor-genetics-handwritten-notes-2026-09-15"
+  ],
+  "effective_date": null,
+  "confidence": "medium",
+  "notes": "PENDING REVIEW -- seeded from handwritten competitor-genetics notes (Tier 1, item 2: 'Fruitist - Fall Creek/Sekoya'). Asserted relationship: unconfirmed association (uses/licenses/grows not distinguished in source). Berry scope: unspecified. This is an unconfirmed, operator-asserted association, not a verified genetics/licensing arrangement -- status 'disputed' reflects pending-review, not an actual dispute between parties. Do not treat as trusted until reviewed. VERIFICATION ATTEMPTED 2026-09-15 (Competitor Identity and Genetics Verification V1): a targeted search for independent corroboration of a Fruitist/Agrovision-Fall Creek genetics relationship found no confirming source -- only that both are real, prominent, separately-documented blueberry-industry players, and one Perishable News article characterizes Fall Creek's Sekoya brand as active in the same 'jumbo blueberry' product category some large marketers compete in, which neither confirms nor rules out a genetics-supply relationship elsewhere. Per this mission's own rule, absence of public evidence does not disprove the handwritten assertion -- predicate, status, and confidence are left UNCHANGED (partners_with / disputed / medium)."
+}

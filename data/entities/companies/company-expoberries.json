@@ -1,0 +1,42 @@
+{
+  "id": "company-expoberries",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Expoberries",
+  "aliases": [
+    "Expoberries S.A. de C.V."
+  ],
+  "status": "unverified",
+  "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 10) as a tracked competitor of type 'unspecified'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
+  "roles": [
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-competitor-registry-2026-09-15-import"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "competitor_registry_2026_09_15": {
+      "row_number": 10,
+      "spreadsheet_label": "Expoberries",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "existence_confirmed_no_primary_source",
+      "reason": "Existence as a real Mexican berry exporter (Los Reyes, Michoacan) is corroborated by a national berry-export trade association profile (Aneberries) and import/customs records (Panjiva), which is reasonably authoritative for existence. However, no official company-owned website was found despite search effort, and this mission's own instruction is that secondary reporting 'should not be the sole basis for a canonical identity change when a primary source should exist' -- a company of this described scale plausibly has its own site not yet located. Held provisional.",
+      "evidence_urls": [
+        "https://aneberries.mx/en/expoberries/",
+        "https://panjiva.com/Expoberries-S-A-De-C-V/31221334"
+      ],
+      "confidence": "medium",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
+    }
+  }
+}

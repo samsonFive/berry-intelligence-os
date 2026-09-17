@@ -256,6 +256,12 @@ def present_feed_item(
     source_url, source_label = source_action(record, kind)
     chips = entity_chips(record, entities)
     enrichment = record.get("ai_enrichment") or {}
+    from app.services.source_body import reader_content, looks_like_interstitial
+    content = reader_content(record)
+    if content["contaminated"]:
+        card = {**card, "summary": "", "why": ""}
+    else:
+        card = {**card, "summary": "" if looks_like_interstitial(card.get("summary") or "") else card.get("summary", "")}
     berry_ids = [
         str(value)
         for value in list(record.get("berry_ids") or []) + list(enrichment.get("suggested_berry_ids") or [])
@@ -270,7 +276,8 @@ def present_feed_item(
         "trust_label": TRUST_LABELS[trust],
         "berry_ids": berry_ids,
         "source_name": record.get("source_name") or record.get("submitted_by") or "Source not recorded",
-        "date": record.get("published_date") or record.get("captured_date") or "",
+        "date": record.get("published_date") or "",
+        "content_notice": content["notice"],
         "why": card.get("why") or "",
         "summary": card.get("summary") or "",
         "relevance_band": card.get("relevance_band") or "",
@@ -516,7 +523,11 @@ def build_reader(
         readiness=transcript_readiness,
     )
     kind = item["kind"]
+    from app.services.source_body import reader_content
+    content = reader_content(record)
     paragraphs = article_paragraphs(record)
+    if content["contaminated"]:
+        paragraphs = []
     segments = load_transcript_segments(inbox_dir, record) if kind == "spoken" else []
     patent = record.get("patent_filing") if isinstance(record.get("patent_filing"), dict) else None
     parent_id = record.get("id")
@@ -538,6 +549,7 @@ def build_reader(
     enrichment = record.get("ai_enrichment") or {}
     return {
         "item": item,
+        "reader_content": content,
         "kind": kind,
         "paragraphs": paragraphs,
         "segments": segments,
@@ -548,7 +560,7 @@ def build_reader(
         "evidence_links": [
             link for link in (record.get("evidence_links") or []) if isinstance(link, dict)
         ],
-        "publisher_description": (record.get("publisher_description") or "").strip(),
+        "publisher_description": content["summary"],
         "related": related_evidence(record, published),
         "atomic_proposals": proposals,
         "extract_claims": extract_claims_status(),

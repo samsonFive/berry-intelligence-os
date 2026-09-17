@@ -1,0 +1,43 @@
+{
+  "id": "concept-harvest-methods",
+  "slug": "harvest-methods",
+  "name": "Harvest methods",
+  "aliases": ["hand harvest", "machine harvest", "mechanical harvest", "once-over harvest", "selective pick"],
+  "pillar": "harvest_technology_agtech",
+  "knowledge_class": "foundational_knowledge",
+  "trait_ids": ["trait-machine-harvest-suitability"],
+  "summary": "Whether fruit is picked by hand or machine, once-over or in multiple passes — a labor and architecture question, not a proof of better fruit.",
+  "what_is_it": "Fresh berries are often hand-harvested in multiple picks as fruit ripens. Processing blueberry, some caneberries, and a growing set of 'machine-harvestable' fresh programs use over-the-row or similar machines. Suitability depends on bush or cane architecture, fruit abscission, firmness, and how much ripe and unripe fruit the machine removes together. Harvest method is not the same as harvest maturity: a fruit can be machine-picked and still be underripe or overripe.",
+  "why_it_matters": "Labor availability, packout, and bruising are why competitors talk about machine harvest, platforms, or 'harvest-efficient' architecture. A variety trait for machine-harvest suitability is a breeder claim until a named operation's Evidence says they actually run machines on that cultivar.",
+  "how_evaluated": "In trials: percent fruit removed, green fruit in the catch, bruising, and packout versus a hand-picked control. Commercially: whether a machine is in the field and what pack is sold. Firmness instruments and machine-harvest scores are related but not identical.",
+  "what_affects_it": "Canopy training, fruiting habit, fruit firmness and scar, ground conditions, and whether the pack is fresh or process. Protected-culture table-tops change picker access without necessarily using an over-the-row machine.",
+  "how_to_interpret": "Do not read 'machine harvest' as lower quality by definition, or as a Signal that a company has converted its whole acreage. Trait-tagged Facts about machine-harvest suitability stay scoped to the trial or description that named them. Pair with trellis/training for caneberries and with firmness/shelf life for fresh packs.",
+  "related_concept_ids": ["concept-firmness", "concept-trellis-training", "concept-protected-culture", "concept-harvest-robotics"],
+  "berry_notes": [
+    {
+      "berry_id": "berry-blueberry",
+      "note": "Process blueberry has a long machine-harvest history; fresh 'machine-harvestable' claims still need architecture, scar, and packout evidence."
+    },
+    {
+      "berry_id": "berry-strawberry",
+      "note": "Fresh strawberry is still mostly hand-harvested; robotics coverage belongs on Harvest robotics, not as proof a farm converted."
+    }
+  ],
+  "sources": [
+    {
+      "publisher": "Michigan State University Extension",
+      "title": "Mechanical Harvesting of Blueberries",
+      "url": "https://www.canr.msu.edu/blueberries/harvesting/mechanical-harvesting"
+    },
+    {
+      "publisher": "Oregon State University Extension",
+      "title": "PNW 598 — Commercial Red Raspberry Production in the Pacific Northwest",
+      "url": "https://extension.oregonstate.edu/catalog/pub/pnw-598-commercial-red-raspberry-production-pacific-northwest"
+    },
+    {
+      "publisher": "Michigan State University Extension",
+      "title": "Raspberry and Blackberry Production Guide",
+      "url": "https://www.canr.msu.edu/foodsystems/uploads/files/Raspberry-and-Blackberry-Production-Guide.pdf"
+    }
+  ]
+}

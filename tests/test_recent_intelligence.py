@@ -163,10 +163,10 @@ def test_live_entity_page_opens_recent_intelligence_in_the_reader(monkeypatch, t
     )
     page = TestClient(app).get("/entities/company/company-x")
     assert page.status_code == 200
-    assert "Recent intelligence" in page.text
+    assert "Latest captured reporting" in page.text
     assert 'href="/intelligence/ev-trusted-x"' in page.text
     assert 'href="/intelligence/ev-pending-x"' in page.text
     assert 'href="/review/ev-pending-x"' not in page.text
-    recent = page.text.split("Recent intelligence", 1)[1].split("Varieties / genetics", 1)[0]
+    recent = page.text.split("Latest captured reporting", 1)[1].split("Varieties / genetics", 1)[0]
     assert 'href="/intelligence/ev-trusted-x"' in recent
     assert 'href="/evidence/ev-trusted-x"' not in recent

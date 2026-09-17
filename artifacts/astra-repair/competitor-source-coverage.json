@@ -1,0 +1,599 @@
+{
+  "scope": "Read-only current-base audit. Entity representation is not called tracked coverage.",
+  "maturity_levels": {
+    "1": "Entity represented",
+    "2": "Discovery configured",
+    "3": "Discovery operational",
+    "4": "Readable content acquired",
+    "5": "Current coverage available"
+  },
+  "roster_count": 33,
+  "resolved_count": 11,
+  "rows": [
+    {
+      "roster_name": "Advanced Berry Breeding",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-advanced-berry-breeding",
+        "name": "Advanced Berry Breeding B.V."
+      },
+      "aliases_search_terms": [
+        "Advanced Berry Breeding B.V.",
+        "ABB",
+        "Advanced Berry Breeding"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260825-advanced-berry-breeding-news",
+          "label": "Advanced Berry Breeding News",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        }
+      ],
+      "runnable_sources": 1,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 1,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 2,
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "AgroBerries",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Australasian Plant Genetics",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "BerryWorld",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-berryworld",
+        "name": "BerryWorld Group"
+      },
+      "aliases_search_terms": [
+        "BerryWorld Group",
+        "BerryWorld"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260824-berryworld-newsroom",
+          "label": "BerryWorld Newsroom",
+          "discovery": {
+            "state": "SUCCESSFULLY_RUN",
+            "label": "Successfully run",
+            "runnable": true,
+            "reason": "At least one discovery run completed successfully."
+          },
+          "article_body_acquisition": {
+            "attempts": 1,
+            "readable": 1,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": {
+              "version": "article-acquisition-outcome-v1",
+              "source_id": "source-20260824-berryworld-newsroom",
+              "item_id": "discovered-source-20260824-berryworld-newsroom-70a335b4a4a98a06",
+              "publication_or_draft_id": "ev-media-d0d76be2f0c6c09a3d96",
+              "attempted_url": "https://www.berryworld.com/news/bursting-into-asia-with-award-winning-berries",
+              "attempted_at": "2026-09-15T08:08:00+00:00",
+              "acquisition_stage": "article_body",
+              "outcome_category": "readable_article_body",
+              "http_status": null,
+              "retryable": false,
+              "manual_acquisition_required": false,
+              "content_quality": "READABLE",
+              "extractor": "trafilatura",
+              "extractor_version": "2.2.0",
+              "acquisition_version": "article-acquisition-v1",
+              "diagnostic": "Readable article body acquired (300 words).",
+              "attempt_count": 1,
+              "recorded_at": "2026-09-15T08:08:03.040479+00:00"
+            },
+            "latest_readable_acquired_at": "2026-09-15T08:08:00+00:00",
+            "most_recent_readable_article": null,
+            "state": "readable_article_body",
+            "label": "Readable Article Body"
+          },
+          "most_recent_successful_discovery": "2026-09-15T08:07:45+00:00"
+        }
+      ],
+      "runnable_sources": 1,
+      "successful_discovery_runs": 1,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": "2026-09-15T08:07:45+00:00",
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 4,
+      "coverage_gap": "no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Black Venture Farm",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "California Giant",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-california-giant-berry-farms",
+        "name": "California Giant Berry Farms"
+      },
+      "aliases_search_terms": [
+        "California Giant Berry Farms",
+        "California Giant",
+        "Cal Giant",
+        "California Giant, Inc."
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Costa",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Denning Blueberries",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Expoberries",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Fall Creek",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-fall-creek-farm-and-nursery",
+        "name": "Fall Creek Farm & Nursery, Inc."
+      },
+      "aliases_search_terms": [
+        "Fall Creek Farm & Nursery, Inc.",
+        "Fall Creek",
+        "Fall Creek Farm and Nursery",
+        "Fall Creek Nursery"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260824-fall-creek-newsroom",
+          "label": "Fall Creek Newsroom",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        },
+        {
+          "source_id": "source-20260824-sekoya-news",
+          "label": "SEKOYA News",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        }
+      ],
+      "runnable_sources": 2,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 2,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 2,
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Fresh Forward",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Fruitist",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-agrovision",
+        "name": "Agrovision Corp. (Fruitist)"
+      },
+      "aliases_search_terms": [
+        "Agrovision Corp. (Fruitist)",
+        "Fruitist",
+        "Agrovision",
+        "Agro Vision Corp."
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Gem-Pack Berries",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Hortifrut Genetica",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "IQ Berries",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-iq-berries",
+        "name": "IQ Berries"
+      },
+      "aliases_search_terms": [
+        "IQ Berries"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Marionnet",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Mountain Blue",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-mountain-blue-orchards",
+        "name": "Mountain Blue Orchards Pty Ltd"
+      },
+      "aliases_search_terms": [
+        "Mountain Blue Orchards Pty Ltd",
+        "Mountain Blue",
+        "MBO",
+        "Mountain Blue Farms"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Oishii",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Ozblu",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Pairwise",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Perfection Fresh",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Planasa",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-planasa",
+        "name": "Plantas de Navarra, S.A."
+      },
+      "aliases_search_terms": [
+        "Plantas de Navarra, S.A.",
+        "Planasa"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260819-planasa-newsroom",
+          "label": "Planasa Newsroom",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        }
+      ],
+      "runnable_sources": 1,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 1,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 2,
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Plant Sciences",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Royakkers",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Smart Berries",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Splendor Produce",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "SunBelle",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "The Berry Collective",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "UC Davis",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "University of Arkansas",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-university-of-arkansas",
+        "name": "University of Arkansas Division of Agriculture"
+      },
+      "aliases_search_terms": [
+        "University of Arkansas Division of Agriculture",
+        "University of Arkansas",
+        "UADA"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260824-arkansas-aaes-news",
+          "label": "Arkansas Agricultural Experiment Station News",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        }
+      ],
+      "runnable_sources": 1,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 1,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 2,
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "University of Florida",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-university-of-florida",
+        "name": "University of Florida"
+      },
+      "aliases_search_terms": [
+        "University of Florida",
+        "University of Florida IFAS",
+        "UF/IFAS",
+        "UF"
+      ],
+      "linked_sources": [
+        {
+          "source_id": "source-20260824-uf-ifas-news",
+          "label": "University of Florida IFAS News",
+          "discovery": {
+            "state": "NEVER_RUN",
+            "label": "Never run",
+            "runnable": true,
+            "reason": "Configuration is runnable, but no discovery attempt is recorded."
+          },
+          "article_body_acquisition": {
+            "attempts": 0,
+            "readable": 0,
+            "blocked_or_unusable": 0,
+            "retryable": 0,
+            "latest": null,
+            "latest_readable_acquired_at": null,
+            "most_recent_readable_article": null,
+            "state": "never_attempted",
+            "label": "Never Attempted"
+          },
+          "most_recent_successful_discovery": null
+        }
+      ],
+      "runnable_sources": 1,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 1,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 2,
+      "coverage_gap": "no successful linked discovery run; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    },
+    {
+      "roster_name": "Well-Pict",
+      "resolved": false,
+      "resolution_issue": "not represented in current base",
+      "maturity_level": 0,
+      "coverage_gap": "Canonical roster entity is not uniquely resolvable; entity-owner update required."
+    },
+    {
+      "roster_name": "Wish Farms",
+      "resolved": true,
+      "canonical_entity": {
+        "id": "company-wish-farms",
+        "name": "Wish Farms"
+      },
+      "aliases_search_terms": [
+        "Wish Farms"
+      ],
+      "linked_sources": [],
+      "runnable_sources": 0,
+      "successful_discovery_runs": 0,
+      "never_run_sources": 0,
+      "blocked_sources": 0,
+      "most_recent_successful_discovery": null,
+      "most_recent_readable_article": null,
+      "current_usable_published_articles": 0,
+      "maturity_level": 1,
+      "coverage_gap": "no explicitly linked Sources; no readable article acquired from linked Sources; no usable published company coverage in the last 90 days"
+    }
+  ]
+}

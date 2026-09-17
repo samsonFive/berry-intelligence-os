@@ -10,7 +10,7 @@ snapshot in the same object). That is not a new event store.
 from __future__ import annotations
 
 from collections import Counter, defaultdict
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, timedelta
 from pathlib import Path
 import re
 from typing import Any
@@ -30,6 +30,7 @@ from app.services.analyst_queue import (
     signal_alert_state,
     MONITORING_ACTIVE,
 )
+from app.services.clock import resolve_now, utc_today
 from app.services.draft_attribution import (
     attribute_draft,
     build_attribution_match_index,
@@ -159,10 +160,10 @@ def activity_stamp(record: dict[str, Any], *, first_seen_at: str | None = None) 
     return stamp
 
 
-def frontier_date(records: list[dict[str, Any]]) -> date:
+def frontier_date(records: list[dict[str, Any]], *, today: date | None = None) -> date:
     days = [_parse_day(record_date(record)) for record in records]
     known = [day for day in days if day]
-    return max(known) if known else date.today()
+    return max(known) if known else (today or utc_today())
 
 
 def brief_meta(inbox_dir) -> dict[str, Any]:
@@ -895,7 +896,7 @@ def pending_freshness_telemetry(
     TRUSTED-FRESHNESS-RECOVERY-AND-REVIEW-TRIAGE-V1.md)."""
     from app.services.review_events import load_review_events
 
-    now = now or datetime.now(timezone.utc)
+    now = resolve_now(now)
     today_prefix = now.date().isoformat()
 
     source_dates = [str(row.get("published_date") or "") for row in published if row.get("published_date")]
@@ -1480,6 +1481,7 @@ def build_morning_brief(
     mark_seen: bool = False,
     include_signal_candidates: bool = True,
     mode: str = "full",
+    now: datetime | None = None,
 ) -> dict[str, Any]:
     entity_index = entities or {}
     signal_rows = signals or []
@@ -1497,7 +1499,7 @@ def build_morning_brief(
     state = load_state(inbox_dir)
     last_seen = brief_last_seen(inbox_dir)
     prior_source_states = previous_source_states(inbox_dir)
-    today = date.today()
+    today = utc_today(now)
     if last_seen:
         since_cutoff = _parse_stamp(last_seen)
     else:
@@ -1509,7 +1511,7 @@ def build_morning_brief(
     ]
     pending_pool = draft_rows + extra_pending
     universe = reading_records + pending_pool
-    frontier = frontier_date(universe or published)
+    frontier = frontier_date(universe or published, today=today)
     match_index = build_attribution_match_index(entity_index) if entity_index else None
     watch_entities = _watch_entity_ids(published, state, entity_index, match_index=match_index)
     first_seen_by_discovered = {

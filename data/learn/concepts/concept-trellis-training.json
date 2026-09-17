@@ -1,0 +1,41 @@
+{
+  "id": "concept-trellis-training",
+  "slug": "trellis-training",
+  "name": "Trellis and cane training",
+  "aliases": ["T-trellis", "V-trellis", "rotatable cross-arm", "RCA trellis", "cane training"],
+  "pillar": "plant_biology_agronomy",
+  "knowledge_class": "regional_production_practice",
+  "trait_ids": [],
+  "summary": "How raspberry and blackberry canes are held in space — a production system that follows fruiting habit, not a variety quality score.",
+  "what_is_it": "Caneberries are trained on wires or posts so fruiting wood is reachable, light reaches the canopy, and harvest (hand or machine) has a lane. Common forms include T and V trellises; rotatable cross-arm (RCA) systems are used on some trailing blackberries so canes can be shifted. Primocane vs floricane habit, trailing vs erect cane type, and whether the crop is picked by machine all change which trellis is realistic. Blueberry is typically bush-pruned, not cane-trellised the same way.",
+  "why_it_matters": "A new blackberry or raspberry program that names a trellis, a machine-harvest trial, or a 'high-density cane' system is talking about labor, harvest window, and plant architecture together. Without the training system, a variety claim about 'machine harvest' is incomplete.",
+  "how_evaluated": "Observed in the field or described in a production guide: post spacing, wire count, cane density, and whether fruiting laterals sit in a harvestable plane. Not a lab instrument. Variety descriptions may say 'suitable for machine harvest' as a trait; that is still not a measured farm result.",
+  "what_affects_it": "Cane type (erect, semi-erect, trailing), fruiting habit, wind, labor cost, and whether the operation uses tunnels. A trellis that works for floricane blackberry in one region may be wrong for primocane raspberry in another.",
+  "how_to_interpret": "Do not treat a branded trellis name as proof of yield or fruit quality. When intelligence mentions machine harvest plus a caneberry, look for both the variety trait and the training system. Do not copy caneberry trellis language onto strawberry plasticulture or blueberry bushes.",
+  "related_concept_ids": ["concept-primocane-floricane", "concept-harvest-methods", "concept-protected-culture"],
+  "media": [
+    {
+      "kind": "diagram",
+      "title": "Pruning Brambles",
+      "publisher": "UConn Extension",
+      "url": "https://extension.uconn.edu/publication/pruning-brambles/"
+    }
+  ],
+  "sources": [
+    {
+      "publisher": "Michigan State University Extension",
+      "title": "Raspberry and Blackberry Production Guide",
+      "url": "https://www.canr.msu.edu/foodsystems/uploads/files/Raspberry-and-Blackberry-Production-Guide.pdf"
+    },
+    {
+      "publisher": "Oregon State University Extension",
+      "title": "Growing Blackberries in Your Home Garden",
+      "url": "https://extension.oregonstate.edu/catalog/pub/ec-1303-growing-blackberries-your-home-garden"
+    },
+    {
+      "publisher": "NC State Extension",
+      "title": "Blackberry and Raspberry in the Home Garden",
+      "url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden"
+    }
+  ]
+}

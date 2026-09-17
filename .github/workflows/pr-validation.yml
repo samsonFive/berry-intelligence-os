@@ -38,13 +38,27 @@ jobs:
           fi
 
           mapfile -t changed < <(git diff --name-only "$BASE_SHA...$HEAD_SHA")
-          if (( ${#changed[@]} > 0 )) && ! printf '%s\n' "${changed[@]}" | grep -qvE '(^|/)[^/]+\.md$'; then
+          docs_only=true
+          data_migration=false
+          if (( ${#changed[@]} == 0 )); then
+            docs_only=false
+          fi
+          for path in "${changed[@]}"; do
+            if [[ ! "$path" =~ (^|/)[^/]+\.md$ ]]; then
+              docs_only=false
+            fi
+            if [[ "$path" =~ ^(data/evidence/|data/configuration/|schemas/|scripts/sync_trusted_data\.py$|docker-entrypoint\.sh$) ]]; then
+              data_migration=true
+            fi
+          done
+
+          if [[ "$docs_only" == true ]]; then
             echo "docs-only=true" >> "$GITHUB_OUTPUT"
           else
             echo "docs-only=false" >> "$GITHUB_OUTPUT"
           fi
 
-          if printf '%s\n' "${changed[@]}" | grep -qE '^(data/evidence/|data/configuration/|schemas/|scripts/sync_trusted_data\.py$|docker-entrypoint\.sh$)'; then
+          if [[ "$data_migration" == true ]]; then
             echo "data-migration=true" >> "$GITHUB_OUTPUT"
           else
             echo "data-migration=false" >> "$GITHUB_OUTPUT"
@@ -142,6 +156,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Docs-only fast path
         if: needs.change-scope.outputs.docs-only == 'true'

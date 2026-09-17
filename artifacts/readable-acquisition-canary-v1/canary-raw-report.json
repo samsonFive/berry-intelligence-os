@@ -1,0 +1,300 @@
+{
+  "sources": {
+    "source-20260901-blueberrybreeding-newsroom": {
+      "discovery_status": "ok",
+      "feed_items_observed": 99,
+      "discoveries_persisted": 2,
+      "items_processed": 2,
+      "items": [
+        {
+          "item_id": "discovered-source-20260901-blueberrybreeding-newsroom-a733e3d81772fafc",
+          "title": "Pollination In Any Weather How Temperature And Humidity Affect Flowers Bees And Pollination",
+          "canonical_url": "https://www.blueberrybreeding.com/post/pollination-in-any-weather-how-temperature-and-humidity-affect-flowers-bees-and-pollination",
+          "state": "skipped_irrelevant",
+          "publication_draft_id": null,
+          "relevance_screen_stage_a": {
+            "score": 0,
+            "threshold": 4,
+            "relevant": false,
+            "confidence": "confident",
+            "berry_identity_hit": false,
+            "reason": "No berry/CI keyword signals matched title or description at all.",
+            "likely_topics": [],
+            "matched_terms": [],
+            "tier": "irrelevant",
+            "query_corroboration": null,
+            "version": "relevance-screen-v3"
+          },
+          "acquisition_outcome": null
+        },
+        {
+          "item_id": "discovered-source-20260901-blueberrybreeding-newsroom-a989f63bfe5da4a9",
+          "title": "The Four R S Of Fertilization A Blueberry Perspective",
+          "canonical_url": "https://www.blueberrybreeding.com/post/the-four-r-s-of-fertilization-a-blueberry-perspective",
+          "state": "awaiting_publication_review",
+          "publication_draft_id": "ev-media-2835435862a523f15b30",
+          "relevance_screen_stage_a": {
+            "score": 3,
+            "threshold": 4,
+            "relevant": true,
+            "confidence": "confident",
+            "berry_identity_hit": true,
+            "reason": "Berry/cultivar named directly in title or description (score 3).",
+            "likely_topics": [
+              "berry_identity"
+            ],
+            "matched_terms": [
+              "blueberry"
+            ],
+            "tier": "direct",
+            "query_corroboration": null,
+            "version": "relevance-screen-v3"
+          },
+          "acquisition_outcome": {
+            "version": "article-acquisition-outcome-v1",
+            "source_id": "source-20260901-blueberrybreeding-newsroom",
+            "item_id": "discovered-source-20260901-blueberrybreeding-newsroom-a989f63bfe5da4a9",
+            "publication_or_draft_id": "ev-media-2835435862a523f15b30",
+            "attempted_url": "https://www.blueberrybreeding.com/post/the-four-r-s-of-fertilization-a-blueberry-perspective",
+            "attempted_at": "2026-09-16T03:09:11.948077+00:00",
+            "article_published_date": null,
+            "acquisition_stage": "article_body",
+            "outcome_category": "navigation_only_shell",
+            "http_status": null,
+            "retryable": false,
+            "manual_acquisition_required": true,
+            "content_quality": "UNUSABLE_EMPTY",
+            "extractor": "trafilatura",
+            "extractor_version": null,
+            "acquisition_version": "article-acquisition-v1",
+            "diagnostic": "extracted body too short (59 chars) at https://www.blueberrybreeding.com/post/the-four-r-s-of-fertilization-a-blueberry-perspective -- likely not a real article page",
+            "attempt_count": 1,
+            "recorded_at": "2026-09-16T03:09:11.954088+00:00"
+          }
+        }
+      ],
+      "acquisition_summary": {
+        "attempts": 1,
+        "readable": 0,
+        "blocked_or_unusable": 1,
+        "retryable": 0,
+        "latest": {
+          "version": "article-acquisition-outcome-v1",
+          "source_id": "source-20260901-blueberrybreeding-newsroom",
+          "item_id": "discovered-source-20260901-blueberrybreeding-newsroom-a989f63bfe5da4a9",
+          "publication_or_draft_id": "ev-media-2835435862a523f15b30",
+          "attempted_url": "https://www.blueberrybreeding.com/post/the-four-r-s-of-fertilization-a-blueberry-perspective",
+          "attempted_at": "2026-09-16T03:09:11.948077+00:00",
+          "article_published_date": null,
+          "acquisition_stage": "article_body",
+          "outcome_category": "navigation_only_shell",
+          "http_status": null,
+          "retryable": false,
+          "manual_acquisition_required": true,
+          "content_quality": "UNUSABLE_EMPTY",
+          "extractor": "trafilatura",
+          "extractor_version": null,
+          "acquisition_version": "article-acquisition-v1",
+          "diagnostic": "extracted body too short (59 chars) at https://www.blueberrybreeding.com/post/the-four-r-s-of-fertilization-a-blueberry-perspective -- likely not a real article page",
+          "attempt_count": 1,
+          "recorded_at": "2026-09-16T03:09:11.954088+00:00"
+        },
+        "latest_readable_acquired_at": null,
+        "most_recent_readable_article": null,
+        "state": "navigation_only_shell",
+        "label": "Navigation Only Shell"
+      }
+    },
+    "source-20260915-fruitist-newsroom": {
+      "discovery_status": "ok",
+      "feed_items_observed": 42,
+      "discoveries_persisted": 2,
+      "items_processed": 2,
+      "items": [
+        {
+          "item_id": "discovered-source-20260915-fruitist-newsroom-34dd32a10d77fa9b",
+          "title": "Caleb Williams Describes Fruitist Blueberries In His Latest Gq Magazine Profile",
+          "canonical_url": "https://www.fruitist.com/news/caleb-williams-describes-fruitist-blueberries-in-his-latest-gq-magazine-profile",
+          "state": "awaiting_publication_review",
+          "publication_draft_id": "ev-media-2c0da77455c28540e74b",
+          "relevance_screen_stage_a": {
+            "score": 3,
+            "threshold": 4,
+            "relevant": true,
+            "confidence": "confident",
+            "berry_identity_hit": true,
+            "reason": "Berry/cultivar named directly in title or description (score 3).",
+            "likely_topics": [
+              "berry_identity"
+            ],
+            "matched_terms": [
+              "blueberries"
+            ],
+            "tier": "direct",
+            "query_corroboration": null,
+            "version": "relevance-screen-v3"
+          },
+          "acquisition_outcome": {
+            "version": "article-acquisition-outcome-v1",
+            "source_id": "source-20260915-fruitist-newsroom",
+            "item_id": "discovered-source-20260915-fruitist-newsroom-34dd32a10d77fa9b",
+            "publication_or_draft_id": "ev-media-2c0da77455c28540e74b",
+            "attempted_url": "https://www.fruitist.com/news/caleb-williams-describes-fruitist-blueberries-in-his-latest-gq-magazine-profile",
+            "attempted_at": "2026-09-16T03:09:23.250675+00:00",
+            "article_published_date": null,
+            "acquisition_stage": "article_body",
+            "outcome_category": "navigation_only_shell",
+            "http_status": null,
+            "retryable": false,
+            "manual_acquisition_required": true,
+            "content_quality": "UNUSABLE_EMPTY",
+            "extractor": "trafilatura",
+            "extractor_version": null,
+            "acquisition_version": "article-acquisition-v1",
+            "diagnostic": "extracted body too short (94 chars) at https://www.fruitist.com/news/caleb-williams-describes-fruitist-blueberries-in-his-latest-gq-magazine-profile -- likely not a real article page",
+            "attempt_count": 1,
+            "recorded_at": "2026-09-16T03:09:23.263899+00:00"
+          }
+        },
+        {
+          "item_id": "discovered-source-20260915-fruitist-newsroom-4b5474f1485dfc2d",
+          "title": "Caleb Williams Bets On Fruitist And Its Already Paying Off",
+          "canonical_url": "https://www.fruitist.com/news/caleb-williams-bets-on-fruitist-and-its-already-paying-off",
+          "state": "skipped_irrelevant",
+          "publication_draft_id": null,
+          "relevance_screen_stage_a": {
+            "score": 0,
+            "threshold": 4,
+            "relevant": false,
+            "confidence": "confident",
+            "berry_identity_hit": false,
+            "reason": "No berry/CI keyword signals matched title or description at all.",
+            "likely_topics": [],
+            "matched_terms": [],
+            "tier": "irrelevant",
+            "query_corroboration": null,
+            "version": "relevance-screen-v3"
+          },
+          "acquisition_outcome": null
+        }
+      ],
+      "acquisition_summary": {
+        "attempts": 1,
+        "readable": 0,
+        "blocked_or_unusable": 1,
+        "retryable": 0,
+        "latest": {
+          "version": "article-acquisition-outcome-v1",
+          "source_id": "source-20260915-fruitist-newsroom",
+          "item_id": "discovered-source-20260915-fruitist-newsroom-34dd32a10d77fa9b",
+          "publication_or_draft_id": "ev-media-2c0da77455c28540e74b",
+          "attempted_url": "https://www.fruitist.com/news/caleb-williams-describes-fruitist-blueberries-in-his-latest-gq-magazine-profile",
+          "attempted_at": "2026-09-16T03:09:23.250675+00:00",
+          "article_published_date": null,
+          "acquisition_stage": "article_body",
+          "outcome_category": "navigation_only_shell",
+          "http_status": null,
+          "retryable": false,
+          "manual_acquisition_required": true,
+          "content_quality": "UNUSABLE_EMPTY",
+          "extractor": "trafilatura",
+          "extractor_version": null,
+          "acquisition_version": "article-acquisition-v1",
+          "diagnostic": "extracted body too short (94 chars) at https://www.fruitist.com/news/caleb-williams-describes-fruitist-blueberries-in-his-latest-gq-magazine-profile -- likely not a real article page",
+          "attempt_count": 1,
+          "recorded_at": "2026-09-16T03:09:23.263899+00:00"
+        },
+        "latest_readable_acquired_at": null,
+        "most_recent_readable_article": null,
+        "state": "navigation_only_shell",
+        "label": "Navigation Only Shell"
+      }
+    },
+    "source-20260915-oishii-press": {
+      "discovery_status": "ok",
+      "feed_items_observed": 30,
+      "discoveries_persisted": 1,
+      "items_processed": 1,
+      "items": [
+        {
+          "item_id": "discovered-source-20260915-oishii-press-e79d2ed8e51221b5",
+          "title": "Vertical farming company Oishii opens solar-powered facility to grow ’20x’ more strawberries to meet market demand",
+          "canonical_url": "https://oishii.com/blogs/press/vertical-farming-company-oishii-opens-solar-powered-facility-to-grow-20x-more-strawberries-to-meet-market-demand",
+          "state": "awaiting_publication_review",
+          "publication_draft_id": "ev-media-d0474872f0a4fdde8b2a",
+          "relevance_screen_stage_a": {
+            "score": 5,
+            "threshold": 4,
+            "relevant": true,
+            "confidence": "confident",
+            "berry_identity_hit": true,
+            "reason": "Berry/cultivar named directly in title or description (score 5).",
+            "likely_topics": [
+              "berry_identity",
+              "market_pricing"
+            ],
+            "matched_terms": [
+              "strawberries",
+              "demand"
+            ],
+            "tier": "direct",
+            "query_corroboration": null,
+            "version": "relevance-screen-v3"
+          },
+          "acquisition_outcome": {
+            "version": "article-acquisition-outcome-v1",
+            "source_id": "source-20260915-oishii-press",
+            "item_id": "discovered-source-20260915-oishii-press-e79d2ed8e51221b5",
+            "publication_or_draft_id": "ev-media-d0474872f0a4fdde8b2a",
+            "attempted_url": "https://oishii.com/blogs/press/vertical-farming-company-oishii-opens-solar-powered-facility-to-grow-20x-more-strawberries-to-meet-market-demand",
+            "attempted_at": "2026-09-16T03:09:29.199831+00:00",
+            "article_published_date": null,
+            "acquisition_stage": "article_body",
+            "outcome_category": "navigation_only_shell",
+            "http_status": null,
+            "retryable": false,
+            "manual_acquisition_required": true,
+            "content_quality": "UNUSABLE_EMPTY",
+            "extractor": "trafilatura",
+            "extractor_version": null,
+            "acquisition_version": "article-acquisition-v1",
+            "diagnostic": "extracted body too short (154 chars) at https://oishii.com/blogs/press/vertical-farming-company-oishii-opens-solar-powered-facility-to-grow-20x-more-strawberries-to-meet-market-demand -- likely not a real article page",
+            "attempt_count": 1,
+            "recorded_at": "2026-09-16T03:09:29.201592+00:00"
+          }
+        }
+      ],
+      "acquisition_summary": {
+        "attempts": 1,
+        "readable": 0,
+        "blocked_or_unusable": 1,
+        "retryable": 0,
+        "latest": {
+          "version": "article-acquisition-outcome-v1",
+          "source_id": "source-20260915-oishii-press",
+          "item_id": "discovered-source-20260915-oishii-press-e79d2ed8e51221b5",
+          "publication_or_draft_id": "ev-media-d0474872f0a4fdde8b2a",
+          "attempted_url": "https://oishii.com/blogs/press/vertical-farming-company-oishii-opens-solar-powered-facility-to-grow-20x-more-strawberries-to-meet-market-demand",
+          "attempted_at": "2026-09-16T03:09:29.199831+00:00",
+          "article_published_date": null,
+          "acquisition_stage": "article_body",
+          "outcome_category": "navigation_only_shell",
+          "http_status": null,
+          "retryable": false,
+          "manual_acquisition_required": true,
+          "content_quality": "UNUSABLE_EMPTY",
+          "extractor": "trafilatura",
+          "extractor_version": null,
+          "acquisition_version": "article-acquisition-v1",
+          "diagnostic": "extracted body too short (154 chars) at https://oishii.com/blogs/press/vertical-farming-company-oishii-opens-solar-powered-facility-to-grow-20x-more-strawberries-to-meet-market-demand -- likely not a real article page",
+          "attempt_count": 1,
+          "recorded_at": "2026-09-16T03:09:29.201592+00:00"
+        },
+        "latest_readable_acquired_at": null,
+        "most_recent_readable_article": null,
+        "state": "navigation_only_shell",
+        "label": "Navigation Only Shell"
+      }
+    }
+  }
+}

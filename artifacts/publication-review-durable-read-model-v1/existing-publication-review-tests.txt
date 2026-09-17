@@ -1,0 +1,10 @@
+.........s.....sss...s.....s......s......s...s.......................... [ 47%]
+........................................................................ [ 94%]
+........                                                                 [100%]
+============================== warnings summary ===============================
+tests/test_publication_review_static_safety.py::test_approved_publication_appears_but_review_state_never_leaks_into_the_static_build
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\reportlab\lib\rl_safe_eval.py:12: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    haveNameConstant = hasattr(ast,'NameConstant')
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+143 passed, 9 skipped, 1 warning in 29.26s

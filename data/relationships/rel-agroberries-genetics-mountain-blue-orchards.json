@@ -1,0 +1,15 @@
+{
+  "id": "rel-agroberries-genetics-mountain-blue-orchards",
+  "record_type": "relationship",
+  "subject_id": "company-agroberries",
+  "predicate": "licenses",
+  "object_id": "company-mountain-blue-orchards",
+  "status": "active",
+  "evidence_ids": [
+    "ev-competitor-genetics-handwritten-notes-2026-09-15",
+    "ev-agroberries-mountain-blue-licensing-freshfruitportal-2026"
+  ],
+  "effective_date": null,
+  "confidence": "high",
+  "notes": "UPGRADED 2026-09-15 (Competitor Identity and Genetics Verification V1). Originally seeded from a handwritten competitor-genetics note (Tier 1, item 1: 'AgroBerries - MBO') as an unconfirmed, operator-asserted association with predicate partners_with/status disputed/confidence medium. Independently corroborated by authoritative trade press (FreshFruitPortal.com, 2026-06-24, ev-agroberries-mountain-blue-licensing-freshfruitportal-2026), which names the specific relationship explicitly: 'AgroBerries Group has signed new licensing agreements with Mountain Blue Orchards (MBO) to grow and market their blueberry genetics across expanded global territories from 2027.' Predicate upgraded to licenses (the article's own stated relationship type); status upgraded to active because this is now externally verified, not merely a user-provided assertion; confidence raised to high. Berry scope: blueberry, per the corroborating article -- not overgeneralized to other berries the handwritten note did not specify. Effective date left null: the article's '2027' refers to when expanded territories take effect, not a confirmed agreement-signing date, and this mission does not fabricate a more precise date than the source states."
+}

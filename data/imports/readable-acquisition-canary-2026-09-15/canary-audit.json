@@ -1,0 +1,107 @@
+{
+  "id": "readable-acquisition-canary-2026-09-15",
+  "mission": "fix/readable-acquisition-canary-v1",
+  "run_date": "2026-09-15",
+  "noncanonical": true,
+  "review_required": true,
+  "note": "NONCANONICAL. Diagnostic/operational audit only -- not Evidence, not a Source, not a publication record. Never imported into data/entities, data/relationships, or data/evidence. Every field here is a compact, redacted outcome (category/counts/word_count) -- never raw HTML, wall content, or full article text, matching app.services.article_acquisition_outcomes.py's own privacy discipline.",
+  "capped_canary": {
+    "constraints": {
+      "total_discovery_cap": 5,
+      "sources_in_scope": [
+        "source-20260901-blueberrybreeding-newsroom",
+        "source-20260915-fruitist-newsroom",
+        "source-20260915-oishii-press"
+      ],
+      "excluded_wave1_sources": [
+        {
+          "source_id": "source-20260915-ozblu-news",
+          "reason": "lifecycle.state=OPERATOR_ACTION_REQUIRED (403 at verification); not retried or bypassed"
+        },
+        {
+          "source_id": "source-20260915-wish-farms-newsroom",
+          "reason": "lifecycle.state=OPERATOR_ACTION_REQUIRED (403 at verification); not retried or bypassed"
+        }
+      ],
+      "canonical_import": false,
+      "trusted_publication": false,
+      "trusted_evidence_creation": false,
+      "automated_publication_review_approval": false
+    },
+    "funnel_by_source": {
+      "source-20260901-blueberrybreeding-newsroom": {
+        "discovered": 2,
+        "acquisition_attempted": 1,
+        "fetched": 1,
+        "blocked_or_retryable": 0,
+        "meaningful_body_extracted": 0,
+        "transcript_available": 0,
+        "publication_draft_created": 1,
+        "review_required": 1,
+        "readable_success_rate_of_attempted": 0.0,
+        "failure_reasons": [
+          "navigation_only_shell"
+        ]
+      },
+      "source-20260915-fruitist-newsroom": {
+        "discovered": 2,
+        "acquisition_attempted": 1,
+        "fetched": 1,
+        "blocked_or_retryable": 0,
+        "meaningful_body_extracted": 0,
+        "transcript_available": 0,
+        "publication_draft_created": 1,
+        "review_required": 1,
+        "readable_success_rate_of_attempted": 0.0,
+        "failure_reasons": [
+          "navigation_only_shell"
+        ]
+      },
+      "source-20260915-oishii-press": {
+        "discovered": 1,
+        "acquisition_attempted": 1,
+        "fetched": 1,
+        "blocked_or_retryable": 0,
+        "meaningful_body_extracted": 0,
+        "transcript_available": 0,
+        "publication_draft_created": 1,
+        "review_required": 1,
+        "readable_success_rate_of_attempted": 0.0,
+        "failure_reasons": [
+          "navigation_only_shell"
+        ]
+      }
+    }
+  },
+  "diagnostic_verification": {
+    "note": "Independent, non-persisted fetch_article() calls against additional real URLs from the same three sources' own feeds/sitemaps -- run to establish technical feasibility beyond the necessarily narrow 5-item capped canary sample. No discovered_media or draft record was created by these calls; they exercise the identical extraction code path the canary and production collection both use.",
+    "source-20260901-blueberrybreeding-newsroom": {
+      "urls_sampled": 3,
+      "readable": 2,
+      "empty_body": 1,
+      "example_readable_word_counts": [
+        61,
+        64
+      ]
+    },
+    "source-20260915-fruitist-newsroom": {
+      "urls_sampled": 21,
+      "readable": 6,
+      "empty_body": 15,
+      "example_readable_word_counts": [
+        83,
+        319,
+        320,
+        362,
+        412,
+        495
+      ]
+    },
+    "source-20260915-oishii-press": {
+      "urls_sampled": 8,
+      "readable": 0,
+      "empty_body": 8,
+      "finding": "Every sampled Oishii Press item is a permanently bodyless page template (hero image + title + publish metadata + share icons only, no body element, no outbound link to original coverage). Confirmed structural, not a bot wall and not a JS-rendering gap."
+    }
+  }
+}

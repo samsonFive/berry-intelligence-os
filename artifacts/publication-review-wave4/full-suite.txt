@@ -1,0 +1,198 @@
+EEEEEF.................................................................. [  2%]
+........................................................................ [  4%]
+........................................................................ [  7%]
+....................................................................F... [  9%]
+..............F......................................................... [ 11%]
+........................................................................ [ 14%]
+........................................................................ [ 16%]
+........................................................................ [ 18%]
+......................................................................F. [ 21%]
+........................................................................ [ 23%]
+........................................................................ [ 25%]
+........................................................................ [ 28%]
+........................................................................ [ 30%]
+........................................................................ [ 33%]
+................................................F...............F....F.. [ 35%]
+........................................................................ [ 37%]
+........................................................................ [ 40%]
+........................................................................ [ 42%]
+........................................................................ [ 44%]
+...F..................FF................................................ [ 47%]
+........................................................................ [ 49%]
+......F................................................................. [ 51%]
+........................................................................ [ 54%]
+........................................................................ [ 56%]
+........................................................................ [ 58%]
+.................................................................F...... [ 61%]
+........................................................................ [ 63%]
+......................................s.....sss...s.....s......s......s. [ 66%]
+..s..................................................................... [ 68%]
+........................................................................ [ 70%]
+........................................................................ [ 73%]
+........................................................................ [ 75%]
+........................................................................ [ 77%]
+........................................................................ [ 80%]
+........................................................................ [ 82%]
+....................................................F................... [ 84%]
+.F...................................................................... [ 87%]
+........................................................................ [ 89%]
+........................................................................ [ 91%]
+........................................................................ [ 94%]
+....................................F................................... [ 96%]
+................................F....................................... [ 99%]
+..............................                                           [100%]
+=================================== ERRORS ====================================
+_ ERROR at setup of test_package_manifest_structure_families_order_and_no_drafts _
+tests\exports\test_intelligence_package.py:28: in live_package
+    manifest = exporter.export(output)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+app\exports\intelligence_package.py:98: in export
+    raise ValueError("package validation failed: " + "; ".join(errors))
+E   ValueError: package validation failed: orphan_check is not empty
+___________ ERROR at setup of test_export_is_content_deterministic ____________
+tests\exports\test_intelligence_package.py:28: in live_package
+    manifest = exporter.export(output)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+app\exports\intelligence_package.py:98: in export
+    raise ValueError("package validation failed: " + "; ".join(errors))
+E   ValueError: package validation failed: orphan_check is not empty
+_______ ERROR at setup of test_lineage_and_validator_accept_live_export _______
+tests\exports\test_intelligence_package.py:28: in live_package
+    manifest = exporter.export(output)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+app\exports\intelligence_package.py:98: in export
+    raise ValueError("package validation failed: " + "; ".join(errors))
+E   ValueError: package validation failed: orphan_check is not empty
+___ ERROR at setup of test_validator_detects_intentional_dangling_reference ___
+tests\exports\test_intelligence_package.py:28: in live_package
+    manifest = exporter.export(output)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+app\exports\intelligence_package.py:98: in export
+    raise ValueError("package validation failed: " + "; ".join(errors))
+E   ValueError: package validation failed: orphan_check is not empty
+_ ERROR at setup of test_export_round_trips_all_supported_content_through_fresh_repositories _
+tests\exports\test_intelligence_package.py:28: in live_package
+    manifest = exporter.export(output)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+app\exports\intelligence_package.py:98: in export
+    raise ValueError("package validation failed: " + "; ".join(errors))
+E   ValueError: package validation failed: orphan_check is not empty
+================================== FAILURES ===================================
+________ test_exporter_reads_core_data_only_via_repository_interfaces _________
+tests\exports\test_intelligence_package.py:95: in test_exporter_reads_core_data_only_via_repository_interfaces
+    IntelligencePackageExporter(Spy(), SCHEMAS_DIR, generated_on="2026-08-14T12:00:00Z").export(tmp_path / "package")
+app\exports\intelligence_package.py:98: in export
+    raise ValueError("package validation failed: " + "; ".join(errors))
+E   ValueError: package validation failed: orphan_check is not empty
+_____ test_today_is_a_morning_console_with_source_problems_and_next_work ______
+tests\test_analyst_dogfood_ux.py:62: in test_today_is_a_morning_console_with_source_problems_and_next_work
+    assert "Berry news, in context." in page.text
+E   assert 'Berry news, in context.' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+____________ test_home_opens_news_without_fictional_seed_reporting ____________
+tests\test_app.py:19: in test_home_opens_news_without_fictional_seed_reporting
+    assert "Focus the news" in response.text
+E   assert 'Focus the news' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+___ test_live_source_repository_includes_all_onboarded_sources_generically ____
+tests\test_collection_status.py:272: in test_live_source_repository_includes_all_onboarded_sources_generically
+    assert report.sources_configured == 201 and report.sources_discoverable == 76
+E   AssertionError: assert (205 == 201)
+E    +  where 205 = CollectionStatusReport(generated_at='2026-08-16T12:00:00+00:00', source_filter=None, sources_configured=205, sources_d...', recommended_next_action='run collection', source_schedule={'due': 0, 'not_due': 0, 'blocked': 0, 'unscheduled': 78}).sources_configured
+____ test_coverage_mix_and_source_counts_are_selective_not_broad_expansion ____
+tests\test_direct_source_upgrade_v1.py:78: in test_coverage_mix_and_source_counts_are_selective_not_broad_expansion
+    assert len(sources) == 201
+E   AssertionError: assert 205 == 201
+E    +  where 205 = len([{'id': 'source-20260806173428-a8b4-michigan-state-university-blueberry-bree-0', 'type': 'reference', 'label': 'Michig...'type': 'reference', 'label': 'Global Plant Genetics (GPG)', 'value': 'https://www.globalplantgenetics.com', ...}, ...])
+________ test_every_live_relationship_resolves_to_a_declared_predicate ________
+tests\test_domain_pack.py:288: in test_every_live_relationship_resolves_to_a_declared_predicate
+    assert total == 252, f"expected 252 live relationships, found {total}"
+E   AssertionError: expected 252 live relationships, found 255
+E   assert 255 == 252
+_____________________ test_all_live_sources_accounted_for _____________________
+tests\test_domain_pack.py:426: in test_all_live_sources_accounted_for
+    assert len(sources) == 201
+E   AssertionError: assert 205 == 201
+E    +  where 205 = len([{'id': 'source-20260806173428-a8b4-michigan-state-university-blueberry-bree-0', 'type': 'reference', 'label': 'Michig...'type': 'reference', 'label': 'Global Plant Genetics (GPG)', 'value': 'https://www.globalplantgenetics.com', ...}, ...])
+____________________ test_today_and_nav_point_at_this_week ____________________
+tests\test_global_week_intelligence_v1.py:470: in test_today_and_nav_point_at_this_week
+    assert ">This week<" in page.text
+E   assert '>This week<' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+_____________ test_today_route_console_help_and_no_trust_mutation _____________
+tests\test_guided_analyst_experience_v1.py:118: in test_today_route_console_help_and_no_trust_mutation
+    assert "Focus the news" in html
+E   assert 'Focus the news' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+_______________________ test_today_sparse_empty_states ________________________
+tests\test_guided_analyst_experience_v1.py:154: in test_today_sparse_empty_states
+    assert "Berry news, in context." in page.text
+E   assert 'Berry news, in context.' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+_________________________ test_front_page_route_smoke _________________________
+tests\test_intelligence_front_page_v1.py:552: in test_front_page_route_smoke
+    assert "FRESH / UNREVIEWED" in undated.text
+E   assert 'FRESH / UNREVIEWED' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+_______ test_front_page_publication_classification_is_provider_agnostic _______
+tests\test_perplexity_semantic_pulse_v1.py:241: in test_front_page_publication_classification_is_provider_agnostic
+    assert matches and matches[0]["trust_label"] == "FRESH / UNREVIEWED"
+E   assert ([])
+_____________ test_stakeholder_today_has_slim_nav_not_ops_chrome ______________
+tests\test_stakeholder_frontend_v1.py:37: in test_stakeholder_today_has_slim_nav_not_ops_chrome
+    assert 'class="sh-nav' in html
+E   assert 'class="sh-nav' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+_______ test_brief_review_soon_collapses_reprint_into_review_now_thread _______
+tests\test_story_threads.py:556: in test_brief_review_soon_collapses_reprint_into_review_now_thread
+    assert review_now["count"] >= 1
+E   assert 0 >= 1
+_______________________ test_war_room_nav_entry_present _______________________
+tests\test_war_room.py:354: in test_war_room_nav_entry_present
+    assert 'href="/war-room"' in page.text
+E   assert 'href="/war-room"' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+________ test_news_keeps_watchtower_access_without_loading_alert_panel ________
+tests\test_watchtower.py:517: in test_news_keeps_watchtower_access_without_loading_alert_panel
+    assert 'href="/watchtower"' in page.text
+E   assert 'href="/watchtower"' in '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>'
+E    +  where '<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-wi...<script src="/static/v2.js"></script>\n  \n<script src="/static/daily_briefing.js" defer></script>\n\n</body>\n</html>' = <Response [200 OK]>.text
+============================== warnings summary ===============================
+..\berry-intelligence-os\.venv\Lib\site-packages\reportlab\lib\rl_safe_eval.py:12
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\reportlab\lib\rl_safe_eval.py:12: DeprecationWarning: ast.NameConstant is deprecated and will be removed in Python 3.14; use ast.Constant instead
+    haveNameConstant = hasattr(ast,'NameConstant')
+
+tests/test_app.py: 144 warnings
+tests/test_archive_source_discovery_onboarding.py: 20 warnings
+tests/test_article_ingestion_pipeline.py: 26 warnings
+tests/test_article_refresh.py: 60 warnings
+tests/test_competitor_source_activation_wave1.py: 16 warnings
+tests/test_industry_pulse_discovery_v1.py: 3142 warnings
+tests/test_media_discovery.py: 268 warnings
+tests/test_media_discovery_source_expansion.py: 74 warnings
+tests/test_youtube_source_portability.py: 16 warnings
+  C:\Users\Johnny\Downloads\sscanar\berry-intelligence-os\.venv\Lib\site-packages\feedparser\html.py:152: DeprecationWarning: 'count' is passed as positional argument
+    data = re.sub(r'<!((?!DOCTYPE|--|\[))', r'&lt;!\1', data, re.IGNORECASE)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/exports/test_intelligence_package.py::test_exporter_reads_core_data_only_via_repository_interfaces
+FAILED tests/test_analyst_dogfood_ux.py::test_today_is_a_morning_console_with_source_problems_and_next_work
+FAILED tests/test_app.py::test_home_opens_news_without_fictional_seed_reporting
+FAILED tests/test_collection_status.py::test_live_source_repository_includes_all_onboarded_sources_generically
+FAILED tests/test_direct_source_upgrade_v1.py::test_coverage_mix_and_source_counts_are_selective_not_broad_expansion
+FAILED tests/test_domain_pack.py::test_every_live_relationship_resolves_to_a_declared_predicate
+FAILED tests/test_domain_pack.py::test_all_live_sources_accounted_for - Asser...
+FAILED tests/test_global_week_intelligence_v1.py::test_today_and_nav_point_at_this_week
+FAILED tests/test_guided_analyst_experience_v1.py::test_today_route_console_help_and_no_trust_mutation
+FAILED tests/test_guided_analyst_experience_v1.py::test_today_sparse_empty_states
+FAILED tests/test_intelligence_front_page_v1.py::test_front_page_route_smoke
+FAILED tests/test_perplexity_semantic_pulse_v1.py::test_front_page_publication_classification_is_provider_agnostic
+FAILED tests/test_stakeholder_frontend_v1.py::test_stakeholder_today_has_slim_nav_not_ops_chrome
+FAILED tests/test_story_threads.py::test_brief_review_soon_collapses_reprint_into_review_now_thread
+FAILED tests/test_war_room.py::test_war_room_nav_entry_present - assert 'href...
+FAILED tests/test_watchtower.py::test_news_keeps_watchtower_access_without_loading_alert_panel
+ERROR tests/exports/test_intelligence_package.py::test_package_manifest_structure_families_order_and_no_drafts
+ERROR tests/exports/test_intelligence_package.py::test_export_is_content_deterministic
+ERROR tests/exports/test_intelligence_package.py::test_lineage_and_validator_accept_live_export
+ERROR tests/exports/test_intelligence_package.py::test_validator_detects_intentional_dangling_reference
+ERROR tests/exports/test_intelligence_package.py::test_export_round_trips_all_supported_content_through_fresh_repositories
+16 failed, 3024 passed, 9 skipped, 3767 warnings, 5 errors in 676.09s (0:11:16)

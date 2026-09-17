@@ -1,0 +1,273 @@
+{
+  "id": "competitor-identity-verification-2026-09-15",
+  "verification_date": "2026-09-15",
+  "row_count": 17,
+  "promoted_count": 8,
+  "retained_provisional_count": 9,
+  "rows": [
+    {
+      "spreadsheet_label": "AgroBerries",
+      "canonical_entity_id": "company-agroberries",
+      "verdict": "identity_confirmed_relationship_ambiguity_unrelated",
+      "promoted_to_active": false,
+      "reason": "AgroBerries' own identity is well-corroborated (agroberries.com official site, extensive FreshFruitPortal/Blueberries Consulting trade coverage, founded 1996 Chile). Held provisional because of a real, unresolved PARENT/SIBLING ambiguity found during research: marketing copy describes AgroBerries as part of a 'family of companies including Berry Fresh, BerryWorld, PrepWorld, and Poupart1895' -- BerryWorld is a separate, independently-canonical roster entity (#4, company-berryworld) with its own Source. This is inference from promotional language, not a primary corporate-registry source; per this mission's own bar ('no unresolved duplicate or parent/child ambiguity remains'), promotion is held pending a primary-source confirmation or denial of that claim.",
+      "aliases_added": [
+        "Agroberries Group",
+        "Agroberries Peru S.A.C."
+      ],
+      "evidence_urls": [
+        "https://www.agroberries.com/about",
+        "https://www.freshfruitportal.com/news/2026/06/24/agroberries-expansion/"
+      ],
+      "confidence": "medium",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Australasian Plant Genetics",
+      "canonical_entity_id": "company-australasian-plant-genetics",
+      "verdict": "externally_verified",
+      "promoted_to_active": true,
+      "reason": "Official domain ausplantgenetics.com.au confirms Australasian Plant Genetics (APG) as a company limited by guarantee, wholly owned by the Queensland Strawberry Growers' Association, providing commercial access to Australian Strawberry Breeding Program varieties. Clear, single, unambiguous organization; no competing or overlapping entity found.",
+      "aliases_added": [
+        "APG"
+      ],
+      "evidence_urls": [
+        "https://ausplantgenetics.com.au/",
+        "https://ausplantgenetics.com.au/about/"
+      ],
+      "confidence": "high",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Black Venture Farm",
+      "canonical_entity_id": "company-black-venture-farm",
+      "verdict": "insufficient_primary_evidence",
+      "promoted_to_active": false,
+      "reason": "Only a bare homepage (blackventurefarm.com, HTTP 200) and one Facebook page ('Black Venture Farm Oficial', Spanish-language branding) were found. No about/company page, no press coverage, no clear description of the business confirming it matches the berry-industry competitor this roster row expects. Not 'clearly verified' per this mission's bar -- a domain resolving is not proof of the correct real-world identity behind it.",
+      "aliases_added": [],
+      "evidence_urls": [
+        "https://blackventurefarm.com/",
+        "https://www.facebook.com/BlackVentureFarmOficial"
+      ],
+      "confidence": "low",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Denning Blueberries",
+      "canonical_entity_id": "company-denning-blueberries",
+      "verdict": "not_found",
+      "promoted_to_active": false,
+      "reason": "No official website, social presence, corporate registry entry, or trade-press mention was found for an entity matching this exact name across two independent search passes (this mission and the prior Competitor Source Strategy V1 mission). Existence itself is unconfirmed, not merely under-documented.",
+      "aliases_added": [],
+      "evidence_urls": [],
+      "confidence": "low",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Expoberries",
+      "canonical_entity_id": "company-expoberries",
+      "verdict": "existence_confirmed_no_primary_source",
+      "promoted_to_active": false,
+      "reason": "Existence as a real Mexican berry exporter (Los Reyes, Michoacan) is corroborated by a national berry-export trade association profile (Aneberries) and import/customs records (Panjiva), which is reasonably authoritative for existence. However, no official company-owned website was found despite search effort, and this mission's own instruction is that secondary reporting 'should not be the sole basis for a canonical identity change when a primary source should exist' -- a company of this described scale plausibly has its own site not yet located. Held provisional.",
+      "aliases_added": [
+        "Expoberries S.A. de C.V."
+      ],
+      "evidence_urls": [
+        "https://aneberries.mx/en/expoberries/",
+        "https://panjiva.com/Expoberries-S-A-De-C-V/31221334"
+      ],
+      "confidence": "medium",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Fresh Forward",
+      "canonical_entity_id": "company-fresh-forward",
+      "verdict": "externally_verified",
+      "promoted_to_active": true,
+      "reason": "Official domain fresh-forward.nl confirms Fresh Forward Breeding B.V., a strawberry (and apple) breeding company headquartered in Huissen, Gelderland, Netherlands, with a dedicated /breeding and /who-we-are page. Clear, single, unambiguous organization.",
+      "aliases_added": [
+        "Fresh Forward Breeding B.V.",
+        "Fresh Forward Breeding & Marketing"
+      ],
+      "evidence_urls": [
+        "https://www.fresh-forward.nl/en",
+        "https://www.fresh-forward.nl/en/breeding"
+      ],
+      "confidence": "high",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Gem-Pack Berries",
+      "canonical_entity_id": "company-gem-pack-berries",
+      "verdict": "identity_confirmed_relationship_ambiguity_unrelated",
+      "promoted_to_active": false,
+      "reason": "Gem-Pack Berries' own identity is solid (gem-packberries.com official site, real trade coverage of its own site relaunch). Held provisional because of a real, unresolved AFFILIATION question: trade press ('Gem-Pack and Well-Pict Berries combine companies' -- The Packer) suggests Gem-Pack Berries and Well-Pict (roster entry #33, a separate canonical entity) may now be one organization or a formal partnership. Promoting either independently before this is resolved risks the graph representing what may now be one company as two, or misattributing which entity a future article actually concerns.",
+      "aliases_added": [
+        "Gem-Pack Berries, LLC"
+      ],
+      "evidence_urls": [
+        "https://www.gem-packberries.com/en",
+        "https://theproducenews.com/berries/gem-pack-berries-unveils-new-website",
+        "https://www.thepacker.com/news/industry/gem-pack-and-well-pict-berries-combine-companies"
+      ],
+      "confidence": "medium",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Marionnet",
+      "canonical_entity_id": "company-marionnet",
+      "verdict": "structural_ambiguity",
+      "promoted_to_active": false,
+      "reason": "Real entity confirmed via US patent filings (Andre Marionnet, e.g. USPP8517P 'Mara Des Bois') and trade coverage, but the exact CURRENT legal/organizational identity is unclear: search results name 'Marionnet Label' (post-2018 R&D entity), 'Marionnet SAS', and 'MARIONNET GFA' (a produce-directory listing) as related but not clearly identical names, and state the company 'was taken over by the Agri Finest Company group' in 2018. No official current website was found. This is a real parent/renaming ambiguity, not just thin evidence -- held provisional pending a primary source (the current entity's own site or registry filing) that resolves which name is canonical today.",
+      "aliases_added": [
+        "Marionnet Label"
+      ],
+      "evidence_urls": [
+        "https://www.doriane.com/case-studies/marionnet-label",
+        "https://patents.google.com/patent/USPP8517P/en"
+      ],
+      "confidence": "medium",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Oishii",
+      "canonical_entity_id": "company-oishii",
+      "verdict": "externally_verified",
+      "promoted_to_active": true,
+      "reason": "Extensively documented: official site oishii.com with a dedicated /pages/press newsroom, PR Newswire's own dedicated Oishii news page, multiple funding-round trade articles (Agriculture Dive), Wikipedia entry. Unambiguous, single, well-known organization (indoor vertical strawberry grower, Series C financing 2026).",
+      "aliases_added": [],
+      "evidence_urls": [
+        "https://oishii.com/pages/press",
+        "https://www.prnewswire.com/news/oishii/",
+        "https://en.wikipedia.org/wiki/Oishii"
+      ],
+      "confidence": "high",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Pairwise",
+      "canonical_entity_id": "company-pairwise",
+      "verdict": "externally_verified_scope_question_flagged_separately",
+      "promoted_to_active": true,
+      "reason": "Pairwise itself is unambiguously real and correctly identified: official site pairwise.com, Durham NC CRISPR/gene-editing company, extensively covered including a 2024 Corteva partnership and equity investment. Identity is not in question. Separately (not a blocker to identity promotion, but flagged in the evidence ledger for the internal-classification owners): this mission's research found no explicit confirmation that Pairwise's public work is berry-specific as opposed to general ag-biotech across many crops -- a modeling/scope question about this roster row's berry relevance, not an identity question about which real-world company this is.",
+      "aliases_added": [
+        "Pairwise Plants"
+      ],
+      "evidence_urls": [
+        "https://www.pairwise.com/insights",
+        "https://www.corteva.com/resources/media-center/corteva-pairwise-join-forces-to-accelerate-gene-editing-advance-climate-resilience-in-agriculture.html"
+      ],
+      "confidence": "high",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Perfection Fresh",
+      "canonical_entity_id": "company-perfection-fresh",
+      "verdict": "externally_verified",
+      "promoted_to_active": true,
+      "reason": "Official domain perfection.com.au confirms Perfection Fresh Australia, established 1978, a family-run business with dedicated berry farms in Tasmania and Queensland (Caboolture) and a Berries Australia grower-profile PDF corroborating the same facts independently.",
+      "aliases_added": [
+        "Perfection Fresh Australia"
+      ],
+      "evidence_urls": [
+        "https://www.perfection.com.au/perfection-berries",
+        "https://berries.net.au/wp-content/uploads/2024/01/AUT-21-PROFILE-PERFECTION.pdf"
+      ],
+      "confidence": "high",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Royakkers",
+      "canonical_entity_id": "company-royakkers",
+      "verdict": "externally_verified",
+      "promoted_to_active": true,
+      "reason": "Official domain softfruit.be confirms Royakkers as a family fruit-plant nursery/grower business (strawberries, raspberries, blackberries) run by Jan and Gijs Royakkers, based in Kinrooi, Belgium, corroborated by an independent Dutch/Belgian business-press profile (zakenblad.nl). Geographic note: located in Belgium, not the Netherlands its surname might suggest -- recorded here for the record; the spreadsheet's own region codes (DOA_DANZ/DEMEA) are unchanged, per this mission's explicit scope limits.",
+      "aliases_added": [
+        "Royakkers Fruit & Planten",
+        "Royakkers Planten & Fruit"
+      ],
+      "evidence_urls": [
+        "https://www.softfruit.be/over-ons/",
+        "https://zakenblad.nl/2021/04/21/jan-en-gijs-royakkers-vader-en-zoon-in-een-gezond-familiebedrijf/"
+      ],
+      "confidence": "high",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Smart Berries",
+      "canonical_entity_id": "company-smart-berries",
+      "verdict": "externally_verified",
+      "promoted_to_active": true,
+      "reason": "Official domain smartberries.com.au confirms Smart Berries Pty Ltd, formed 2013 as a partnership between Fresh Produce Group (FPG) and Pascoes, with farms in Queensland/New Zealand, corroborated independently by Fruitnet's Asiafruit coverage.",
+      "aliases_added": [
+        "Smart Berries Pty Ltd"
+      ],
+      "evidence_urls": [
+        "https://www.smartberries.com.au/about-us/",
+        "https://www.fruitnet.com/asiafruit/smart-berries-building-up/170931.article"
+      ],
+      "confidence": "high",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Splendor Produce",
+      "canonical_entity_id": "company-splendor-produce",
+      "verdict": "existence_confirmed_no_primary_source",
+      "promoted_to_active": false,
+      "reason": "Existence as a real Mexican berry grower/exporter (450ha blackberries, 200ha raspberries, ~80% exported to the US) is corroborated by a Mexican federal government agriculture-ministry article, a reasonably authoritative secondary/institutional source. No official company website was found despite search effort. 'California Splendor, Inc.' (calsplendor.com) was checked and confirmed to be a distinct company (different crops/profile), not this entity -- avoiding a false identity match. Held provisional pending a primary source.",
+      "aliases_added": [],
+      "evidence_urls": [
+        "https://www.gob.mx/agricultura/articulos/splendor-produce-un-resplandeciente-negocio-de-berries"
+      ],
+      "confidence": "medium",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "SunBelle",
+      "canonical_entity_id": "company-sunbelle",
+      "verdict": "externally_verified",
+      "promoted_to_active": true,
+      "reason": "Official domain sun-belle.com (one of three related domains found -- sunbelleberries.com and sunbelle.info appear to be alternate/legacy domains for the same company, not separate entities) confirms SunBelle as a berry/specialty-produce marketer, corroborated independently by The Packer's trade coverage.",
+      "aliases_added": [
+        "Sun Belle",
+        "Sunbelle Berries"
+      ],
+      "evidence_urls": [
+        "https://www.sun-belle.com/",
+        "https://www.thepacker.com/news/produce-crops/sun-belle-expands-berry-grower-relationships"
+      ],
+      "confidence": "high",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "The Berry Collective",
+      "canonical_entity_id": "company-the-berry-collective",
+      "verdict": "genuine_identity_ambiguity",
+      "promoted_to_active": false,
+      "reason": "A real Australian berry-supply/retail-partnership organization (theberrycollective.com.au) was found and is the best available match, but the exact name is shared by at least four other, clearly unrelated organizations found in search results (a US wellness/community brand, an events platform, a classical-music ensemble). Compounding the ambiguity: the spreadsheet's own Competitor Type for this row is 'University/Public,' which does not obviously describe a growers-to-retailers supply partnership -- suggesting the matched .com.au site may not even be the organization the spreadsheet author intended. This is exactly the 'do not force ambiguous reconciliation' case; held firmly provisional pending a human confirming which real-world organization this row means.",
+      "aliases_added": [],
+      "evidence_urls": [
+        "https://theberrycollective.com.au/",
+        "https://theberrycollective.com.au/about/"
+      ],
+      "confidence": "low",
+      "verification_date": "2026-09-15"
+    },
+    {
+      "spreadsheet_label": "Well-Pict",
+      "canonical_entity_id": "company-well-pict",
+      "verdict": "identity_confirmed_relationship_ambiguity_unrelated",
+      "promoted_to_active": false,
+      "reason": "Well-Pict's own identity is not remotely in doubt: decades of trade coverage (Supermarket News, The Packer, Produce News), a long-established Watsonville, CA strawberry/berry grower-shipper. Held provisional for the same reason as Gem-Pack Berries above (symmetric treatment of the same unresolved affiliation question): trade press reports Gem-Pack and Well-Pict Berries 'combining companies,' and this mission does not have enough information to say whether that means a full merger, a marketing partnership, or something else -- promoting one side without the other would misrepresent the current, uncertain state of that relationship.",
+      "aliases_added": [
+        "Well Pict Berries"
+      ],
+      "evidence_urls": [
+        "https://www.supermarketnews.com/fresh-produce/well-pict-berries-launches-new-website",
+        "https://www.thepacker.com/news/industry/gem-pack-and-well-pict-berries-combine-companies"
+      ],
+      "confidence": "medium",
+      "verification_date": "2026-09-15"
+    }
+  ]
+}

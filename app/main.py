@@ -61,13 +61,17 @@ from app.services.publication_review_workspace import (
     build_publication_review_dossier,
 )
 from app.services.html_text import decode_html_text
+from app.services.company_news_coverage import company_news_coverage
+from app.services.article_acquisition_outcomes import aggregate_acquisition_summaries, source_acquisition_summary
 from app.services.review_events import append_review_event, remove_created_event
 from app.services.source_freshness import (
     FRESHNESS_LABELS,
     SOURCE_CADENCE_DAYS,
+    aggregate_source_execution,
     aggregate_source_coverage,
     classify_source_freshness,
     index_latest_item_dates,
+    source_execution_status,
 )
 from app.services.source_fidelity_recovery import (
     decide_recovery_artifact,
@@ -113,6 +117,16 @@ from app.services.analyst_queue import (
 from app.services.derived_review import present_derived_review, section_review_key
 from app.services.commercial_positions import commercial_page_model
 from app.services.review_operations import build_review_operations
+from app.services.publication_review_readonly import (
+    build_publication_review_readonly_view,
+    rehearsal_ui_allowed,
+    select_source_drafts,
+)
+from app.services.publication_review_domain import REVIEW_STATES as PUBLICATION_REVIEW_STATES
+from app.services.publication_review_query import get_detail as publication_review_get_detail
+from app.services.publication_review_query import list_queue as publication_review_list_queue
+from app.services.publication_review_query import status_summary as publication_review_status_summary
+from app.services.publication_review_repository import DurableReviewRepository, resolve_review_state_dir
 from app.services.collection_ops import (
     DEFAULT_RUN_SIZE,
     RUN_SIZE_CHOICES,
@@ -283,6 +297,8 @@ from app.services.variety_universe.corpus_discovery import (
 )
 from app.services.company_workspace import (
     COMPARE_MAX_COMPANIES,
+    _company_portfolio_roles,
+    _portfolio_variety_ids,
     present_company_compare,
     present_company_portfolio,
 )
@@ -305,14 +321,23 @@ from app.services.global_search import (
 )
 from app.services.learner import (
     all_concepts as learn_all_concepts,
+    berry_notes_for_display as learn_berry_notes_for_display,
     concept_by_slug as learn_concept_by_slug,
     concepts_by_pillar as learn_concepts_by_pillar,
+    freshness_summary as learn_freshness_summary,
+    glossary_hits_for_text as learn_glossary_hits_for_text,
+    growing_profile_for_varieties as learn_growing_profile_for_varieties,
     learn_href_for_trait_id,
     related_concepts as learn_related_concepts,
     related_intelligence_for_concept,
     search_concepts as learn_search_concepts,
 )
 from app.services.berries.landscape import PRIMARY_SOURCE_TYPES as LANDSCAPE_PRIMARY_SOURCE_TYPES
+from app.services.competitor_landscape import (
+    adapter_from_repositories,
+    build_landscape_context,
+    parse_filters,
+)
 from app.services.brief_pack import compose_brief_pack
 from app.services.ai_gateway.credentials import resolve_perplexity_api_key
 from app.services.ai_gateway.perplexity_research import PerplexityResearchClient
@@ -374,7 +399,12 @@ from app.services.signal_review import (
     present_review,
     triage_groups,
 )
-from app.services.story_threads import compress_recent_intelligence, expand_with_related, thread_for_item
+from app.services.story_threads import (
+    compress_recent_intelligence,
+    expand_with_related,
+    live_thread_candidate_universe,
+    thread_for_item,
+)
 from app.session_auth import (
     EnvSessionMiddleware,
     auth_template_context,
@@ -883,7 +913,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     """Nav action counts for HTML pages. Overlay fragments skip nav work entirely."""
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    if str(getattr(request.url, "path", "") or "").startswith("/api/"):
+    if str(getattr(request.url, "path", "") or "").startswith("/api/") or request.url.path == "/today":
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -917,8 +947,11 @@ def pending_review_count_value() -> int:
 
 
 templates.env.globals["pending_review_count"] = pending_review_count_value
+from app.services.source_body import safe_source_record
+templates.env.globals["safe_source_record"] = safe_source_record
 templates.env.globals["queue_counts"] = lambda: queue_counts()
 templates.env.globals["learn_href_for_trait"] = learn_href_for_trait_id
+templates.env.globals["learn_glossary_hits"] = learn_glossary_hits_for_text
 templates.env.globals["nav_work"] = lambda: work_counts(
     inbox_dir=INBOX_DIR,
     published=published_evidence(),
@@ -2520,6 +2553,8 @@ def home(
     region: str | None = None,
     media_format: str | None = None,
 ) -> HTMLResponse:
+    if not request.url.query:
+        return RedirectResponse(url="/today", status_code=307)
     evidence = published_evidence()
     entities = entity_index()
     options = filter_options(evidence, entities)
@@ -3101,15 +3136,17 @@ def entity_synthesis_context(
 
 
 @app.get("/learn", response_class=HTMLResponse)
-def learn_home(request: Request, q: str = "") -> HTMLResponse:
-    """Learner Mode V1 home -- deterministic browse/glossary over the
-    starter concept set (data/learn/concepts/*.json). Search is a plain
+def learn_home(request: Request, q: str = "", view: str = "") -> HTMLResponse:
+    """Learner Mode home -- deterministic browse/glossary over concept
+    records (data/learn/concepts/*.json). Search is a plain
     substring match over name/alias/pillar/summary, not semantic search,
     per Learner Mode governance (docs/v2/feature-requests/LEARNER-MODE.md,
     INTELLIGENCE-EXPANSION-BUILD-GUIDE.md section 12a). Educational
     knowledge, not Competitive Intelligence -- no Evidence/Fact/Signal
-    objects are created or implied here."""
+    objects are created or implied here. `view=stale` is an operator
+    cadence list, not a trust queue."""
     search_results = learn_search_concepts(q) if q.strip() else None
+    stale_view = view.strip().lower() == "stale" and search_results is None
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
@@ -3119,6 +3156,8 @@ def learn_home(request: Request, q: str = "") -> HTMLResponse:
             "concept_count": len(learn_all_concepts()),
             "search_query": q,
             "search_results": search_results,
+            "stale_view": stale_view,
+            "freshness": learn_freshness_summary(),
             "static_build": False,
             "ui_context": ui,
             "berries": BERRIES,
@@ -3152,6 +3191,7 @@ def learn_concept_detail(request: Request, slug: str) -> HTMLResponse:
             "concept": concept,
             "related": learn_related_concepts(concept),
             "related_intelligence": related_intel,
+            "berry_notes": learn_berry_notes_for_display(concept, ui["berry"]),
             "static_build": False,
             "ui_context": ui,
             "berries": BERRIES,
@@ -3409,6 +3449,9 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     evidence_idx=evidence_idx,
                 )
             if entity.get("entity_type") == "company":
+                synthesis["company_news"] = company_news_coverage(
+                    entity, published=linked_evidence, pending=pending_publication_drafts(),
+                )
                 synthesis.update(
                     company_profile_context(
                         entity,
@@ -3447,8 +3490,43 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                         ),
                     )
                 )
+                synthesis["growing_profile"] = learn_growing_profile_for_varieties(
+                    [entity_id], facts=entity_facts, entities=entities
+                )
             else:
                 synthesis["open_signals"] = open_signals
+            if entity.get("entity_type") == "company":
+                facts_pool: list[dict[str, Any]] = []
+                seen_facts: set[str] = set()
+                vids = _portfolio_variety_ids(
+                    _company_portfolio_roles(
+                        entity_id, relationships=entity_relationships, entities=entities
+                    )
+                )
+                for vid in vids:
+                    for fact in facts_for_entity(vid):
+                        fact_id = str(fact.get("id") or "")
+                        if fact_id and fact_id in seen_facts:
+                            continue
+                        if fact_id:
+                            seen_facts.add(fact_id)
+                        facts_pool.append(fact)
+                synthesis["growing_profile"] = learn_growing_profile_for_varieties(
+                    vids, facts=facts_pool, entities=entities
+                )
+            competitor_profile = None
+            if entity.get("entity_type") in ("company", "brand", "breeding_program"):
+                from app.services.competitor_profile import build_competitor_profile
+
+                competitor_profile = build_competitor_profile(
+                    entity_id,
+                    data_dir=DATA_DIR,
+                    entities=all_entities(),
+                    sources=load_sources(),
+                    relationships=all_relationships(),
+                    published=published_evidence(),
+                    inbox_dir=INBOX_DIR,
+                )
             response = templates.TemplateResponse(
                 request=request,
                 name="entity.html",
@@ -3464,6 +3542,7 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     "berry_label": berry_label,
                     "authoring_mode": AUTHORING_MODE,
                     "is_watched": is_watched(INBOX_DIR, entity_type, entity_id) if entity_type in WATCH_TYPES else False,
+                    "competitor_profile": competitor_profile,
                     **synthesis,
                 },
             )
@@ -3602,77 +3681,81 @@ def _watchtower_cached() -> dict[str, Any]:
 
 @app.get("/today", response_class=HTMLResponse)
 def today_page(request: Request) -> HTMLResponse:
-    """Recency-first landing. What is new, not what is important."""
-    berry = (request.query_params.get("berry") or "").strip()
-    berry_id = berry if berry.startswith("berry-") else (f"berry-{berry}" if berry else "")
-    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    if not berry_id and ui.get("berry") and ui["berry"] != "global":
-        berry_id = ui["berry"] if str(ui["berry"]).startswith("berry-") else f"berry-{ui['berry']}"
-    coverage_watch = _today_coverage_watch() if AUTHORING_MODE else None
-    front_page = build_front_page(
-        published=published_evidence(),
-        drafts=pending_publication_drafts(),
-        signals=all_signals(),
-        assessments=all_assessments(),
-        sources=load_sources(),
-        entities=all_entities(),
-        relationships=all_relationships(),
-        inbox_dir=INBOX_DIR,
+    """Canonical Daily Intelligence Briefing (Slice 1)."""
+    from app.services.briefing_page import present_briefing_page
+    from app.services.competitor_landscape import (
+        adapter_from_repositories,
+        build_landscape_context,
+        parse_filters as parse_landscape_filters,
+    )
+    from app.services.daily_intelligence_briefing import (
+        build_daily_intelligence_briefing,
+        parse_briefing_filters,
+    )
+
+    entities = all_entities()
+    sources = load_sources()
+    evidence = published_evidence()
+    adapter = adapter_from_repositories(
         data_dir=DATA_DIR,
-        coverage_watch=coverage_watch,
-        berry_id=berry_id,
-        market_observations_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
-        watches=load_watches(INBOX_DIR),
+        inbox_dir=INBOX_DIR,
+        entities=entities,
+        sources=sources,
+        evidence=evidence,
     )
-    newsroom_status = None
-    if AUTHORING_MODE:
-        recent_runs = load_recent_newsroom_runs(INBOX_DIR, limit=1)
-        last_run = recent_runs[0] if recent_runs else None
-        last_run_at = last_run.get("as_of") if last_run else None
-        newsroom_status = {
-            "last_run_at": last_run_at,
-            "last_run_label": freshness_clock_label(last_run_at) if last_run_at else None,
-            "last_run_drafts_created": ((last_run or {}).get("intake") or {}).get("drafts_created"),
-            "lock": newsroom_lock_status(INBOX_DIR),
-        }
-    page = {
-        "berry_id": berry_id,
-        "freshness": front_page["freshness"],
-        "worth_revisiting": front_page["worth_revisiting"],
-        "last_seen_at": front_page["last_seen_at"],
-        "newsroom_status": newsroom_status,
-    }
-    nav = nav_work_template_context(request).get("nav_work_counts") or {}
-    freshness = page.get("freshness") or {}
-    source_counts = freshness.get("counts") or {}
-    last_seen = page.get("last_seen_at")
-    attention = build_attention_queues(
-        publication_waiting=int(nav.get("review_now") or 0),
-        publication_since_brief=int(nav.get("brief_action") or 0) if last_seen else None,
-        atomic_waiting=int(nav.get("atomic_pending") or 0),
-        variety_waiting=int(nav.get("variety_identity") or 0),
-        source_failing=int(source_counts.get("failing") or 0),
-        source_overdue=int(source_counts.get("overdue") or 0),
-        source_blocked=int(source_counts.get("blocked") or 0),
-        retrying=int(source_counts.get("retrying") or freshness.get("retrying_count") or 0),
-        authoring_mode=AUTHORING_MODE,
+    landscape = build_landscape_context(adapter, parse_landscape_filters({}))
+    briefing = build_daily_intelligence_briefing(
+        evidence=evidence,
+        entities=entities,
+        sources=sources,
+        landscape_completeness=landscape.get("completeness") or {},
+        landscape_universe_count=int(landscape.get("universe_count") or 0),
+        filters=parse_briefing_filters(dict(request.query_params)),
     )
-    watchtower_digest = _watchtower_cached()["digest"] if load_watches(INBOX_DIR) else None
+    page = present_briefing_page(briefing)
     return templates.TemplateResponse(
         request=request,
         name="today.html",
         context={
-            "today": page,
-            "front_page": front_page,
-            "stakeholder_front": compose_stakeholder_front(front_page, page.get("worth_revisiting")),
-            "brief_handoff_query": brief_handoff_query_string(front_page),
-            "attention_queues": attention,
-            "monitoring": watch_monitoring_snapshot(inbox_dir=INBOX_DIR),
-            "watchtower_digest": watchtower_digest,
-            "berries": [{"id": key, "label": label} for key, label in BERRIES.items()],
+            "briefing": page,
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
-            "ui_context": ui,
+        },
+    )
+
+
+@app.get("/news", response_class=HTMLResponse)
+def news_edition_page(request: Request) -> HTMLResponse:
+    """Retained archive/news edition. Canonical daily entry remains /today."""
+    from app.services.news_edition import select_edition
+
+    entities = all_entities()
+    relationships = all_relationships()
+    projection = build_front_page(
+        published=published_evidence(),
+        drafts=pending_publication_drafts(),
+        signals=[],
+        assessments=[],
+        sources=[],
+        entities=entities,
+        relationships=relationships,
+        inbox_dir=INBOX_DIR,
+        data_dir=DATA_DIR,
+        news_only=True,
+    )
+    edition = select_edition(
+        projection["items"],
+        entities=entities,
+        relationships=relationships,
+        params=request.query_params,
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="news.html",
+        context={
+            "edition": edition,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
         },
     )
 
@@ -4912,6 +4995,125 @@ def collection_ops_run(max_items: int = Form(DEFAULT_RUN_SIZE)) -> RedirectRespo
     return RedirectResponse(url=f"/collection-ops?{urlencode(params)}", status_code=303)
 
 
+
+
+_PUBLICATION_REVIEW_PAGE_SIZE = 25
+
+
+def _publication_review_rehearsal_context(
+    request: Request,
+    *,
+    selected_id: str | None = None,
+    content_filter: str = "all",
+) -> dict[str, Any]:
+    """Build the explicitly enabled, fixture-only rehearsal view.
+
+    Production requests never enter this adapter.  It remains available for
+    the earlier read-only UI's browser rehearsal and has no mutation routes.
+    """
+    durable = [
+        record
+        for record in pending_publication_drafts()
+        if record.get("evidence_role") == "publication_artifact"
+    ]
+    drafts, source = select_source_drafts(durable_drafts=durable)
+    view = build_publication_review_readonly_view(
+        drafts=drafts,
+        selected_id=selected_id,
+        content_filter=content_filter or "all",
+        source=source,
+    )
+    return {
+        "publication_review": view,
+        "authoring_mode": AUTHORING_MODE,
+        "static_build": False,
+        "ui_context": read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR),
+    }
+
+
+@app.get("/review-ops/publications", response_class=HTMLResponse)
+def publication_review_readonly_page(
+    request: Request, state: str = "", content_class: str = "", cursor: str = "", selected: str = "",
+) -> HTMLResponse:
+    """Read-only publication-review queue and detail workspace over the
+    durable review-state store (`app.services.publication_review_query`).
+
+    This route renders exactly what the durable repository already
+    contains -- it never calls any decision command
+    (`PublicationReviewCommandService.approve_publication`/`reject_publication`/
+    etc.), never mutates the repository, and exposes no form or button
+    that could. It is a pure GET view over an existing, already-tested
+    read model; see `artifacts/publication-review-durable-read-model-v1/`
+    for that model's own contract and privacy guarantees (no full acquired
+    article/transcript body is ever included here either -- only the
+    bounded excerpt the read model itself already enforces).
+    """
+    if rehearsal_ui_allowed():
+        content_filter = (request.query_params.get("filter") or "all").strip()
+        selected_id = (request.query_params.get("draft") or "").strip() or None
+        return templates.TemplateResponse(
+            request=request,
+            name="publication_review_rehearsal.html",
+            context=_publication_review_rehearsal_context(
+                request,
+                selected_id=selected_id,
+                content_filter=content_filter,
+            ),
+        )
+
+    repository = DurableReviewRepository(resolve_review_state_dir())
+    page = publication_review_list_queue(
+        repository, state=state or None, content_class=content_class or None,
+        page_size=_PUBLICATION_REVIEW_PAGE_SIZE, cursor=cursor or None,
+    )
+    summary = publication_review_status_summary(repository)
+
+    detail = None
+    detail_id = selected.strip()
+    if not detail_id and page.items:
+        detail_id = page.items[0]["draft_id"]
+    if detail_id:
+        detail = publication_review_get_detail(repository, detail_id)
+
+    ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    response = templates.TemplateResponse(
+        request=request,
+        name="publication_review_readonly.html",
+        context={
+            "queue": page.as_dict(),
+            "summary": summary,
+            "detail": detail,
+            "selected_id": detail_id or None,
+            "filters": {"state": state, "content_class": content_class},
+            "review_states": list(PUBLICATION_REVIEW_STATES),
+            "static_build": False,
+            "ui_context": ui,
+        },
+    )
+    apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
+    return response
+
+
+@app.get("/review-ops/publications/{draft_id}", response_class=HTMLResponse)
+def publication_review_readonly_detail_compat(request: Request, draft_id: str) -> HTMLResponse:
+    """Keep fixture rehearsal deep links while production uses the durable page."""
+    if not rehearsal_ui_allowed():
+        return RedirectResponse(
+            url=f"/review-ops/publications?selected={quote(draft_id)}",
+            status_code=303,
+        )
+    content_filter = (request.query_params.get("filter") or "all").strip()
+    return templates.TemplateResponse(
+        request=request,
+        name="publication_review_rehearsal.html",
+        context=_publication_review_rehearsal_context(
+            request,
+            selected_id=draft_id,
+            content_filter=content_filter,
+        ),
+    )
+
+
 def _reconcile_active_session() -> dict[str, Any] | None:
     session = load_session(INBOX_DIR)
     if not session:
@@ -5206,6 +5408,86 @@ def _related_signal_rows(item_id: str) -> tuple[list[dict[str, Any]], list[dict[
     return related_signals, related_candidates
 
 
+def _annotate_live_thread_row(
+    row: dict[str, Any],
+    *,
+    entities: dict[str, Any],
+    source_index: dict[str, Any],
+    published_style: bool,
+) -> None:
+    """Presentation annotation for a live thread-universe copy.
+
+    Pending/seed rows resolve ``primary_subject`` via ``attribute_draft``.
+    Extra published rows keep the existing first company/variety
+    ``entity_ids`` convention so stored-link expansion stays comparable.
+    """
+
+    if published_style and not row.get("primary_subject"):
+        for entity_id in row.get("entity_ids") or []:
+            entity = entities.get(entity_id) or {}
+            if entity.get("entity_type") in {"company", "variety"}:
+                row["primary_subject"] = {
+                    "id": entity_id,
+                    "name": entity.get("name") or entity_id,
+                    "entity_type": entity.get("entity_type"),
+                }
+                break
+    if not row.get("primary_subject"):
+        attribution = attribute_draft(row, entities, sources=source_index)
+        if attribution.get("primary"):
+            row["primary_subject"] = attribution["primary"]
+    row["href"] = f"/intelligence/{row.get('id')}"
+    row["date"] = row.get("published_date") or row.get("captured_date") or ""
+    row["trust"] = "trusted" if row.get("status") == "published" else "pending"
+    row["trust_label"] = "Trusted" if row.get("status") == "published" else "Pending"
+
+
+def _live_story_thread_universe(
+    seed: dict[str, Any],
+    *,
+    entities: dict[str, Any],
+    source_index: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Candidate universe for live ``/threads`` and the full intelligence reader.
+
+    Pending drafts + the currently viewed record + recent trusted published
+    Evidence (existing ``DATE_PROXIMITY_EXACT_TITLE_DAYS`` window). Older
+    published records still enter only via one-hop ``expand_with_related``
+    so stored same-event links keep working without widening the matcher.
+    """
+
+    published = published_evidence()
+    seed_id = str(seed.get("id") or "")
+    universe = live_thread_candidate_universe(
+        pending=list_pending_drafts(),
+        seed=seed,
+        published=published,
+    )
+    for row in universe:
+        published_style = row.get("status") == "published" and str(row.get("id") or "") != seed_id
+        _annotate_live_thread_row(
+            row,
+            entities=entities,
+            source_index=source_index,
+            published_style=published_style,
+        )
+    published_rows: list[dict[str, Any]] = []
+    for rec in published:
+        rec = dict(rec)
+        _annotate_live_thread_row(
+            rec,
+            entities=entities,
+            source_index=source_index,
+            published_style=True,
+        )
+        published_rows.append(rec)
+    universe = expand_with_related(universe, published_rows)
+    for row in universe:
+        if not row.get("href"):
+            row["href"] = f"/intelligence/{row.get('id')}"
+    return universe
+
+
 def _intelligence_page_context(
     request: Request,
     record: dict[str, Any],
@@ -5245,18 +5527,10 @@ def _intelligence_page_context(
         ]})
     story_thread = None
     if not overlay and record.get("id"):
-        universe = [row for row in list_pending_drafts() if row.get("id")]
-        if record.get("status") == "published":
-            universe.append(record)
-        elif not any(str(row.get("id")) == str(record.get("id")) for row in universe):
-            universe.append(record)
-        for row in universe:
-            if row.get("primary_subject"):
-                continue
-            row_attr = attribute_draft(row, entities, sources=source_index)
-            if row_attr.get("primary"):
-                row["primary_subject"] = row_attr["primary"]
-        found = thread_for_item(str(record.get("id")), universe)
+        found = thread_for_item(
+            str(record.get("id")),
+            _live_story_thread_universe(record, entities=entities, source_index=source_index),
+        )
         if found and int(found.get("source_count") or 0) > 1:
             story_thread = found
     item_id = str(record.get("id") or "")
@@ -5316,38 +5590,7 @@ def story_thread_reader(request: Request, item_id: str) -> HTMLResponse:
         raise HTTPException(status_code=404, detail="Story thread not found")
     source_index = {str(source.get("id")): source for source in load_sources() if source.get("id")}
     entities = entity_index()
-    universe = [row for row in list_pending_drafts() if row.get("id")]
-    if seed.get("status") == "published" or not any(str(row.get("id")) == item_id for row in universe):
-        universe.append(seed)
-    for row in universe:
-        attribution = attribute_draft(row, entities, sources=source_index)
-        if attribution.get("primary"):
-            row["primary_subject"] = attribution["primary"]
-        row["href"] = f"/intelligence/{row.get('id')}"
-        row["date"] = row.get("published_date") or row.get("captured_date") or ""
-        row["trust"] = "trusted" if row.get("status") == "published" else "pending"
-        row["trust_label"] = "Trusted" if row.get("status") == "published" else "Pending"
-    published_rows = []
-    for rec in published_evidence():
-        rec = dict(rec)
-        for entity_id in rec.get("entity_ids") or []:
-            entity = entities.get(entity_id) or {}
-            if entity.get("entity_type") in {"company", "variety"}:
-                rec["primary_subject"] = {
-                    "id": entity_id,
-                    "name": entity.get("name") or entity_id,
-                    "entity_type": entity.get("entity_type"),
-                }
-                break
-        rec["href"] = f"/intelligence/{rec.get('id')}"
-        rec["date"] = rec.get("published_date") or rec.get("captured_date") or ""
-        rec["trust"] = "trusted"
-        rec["trust_label"] = "Trusted"
-        published_rows.append(rec)
-    universe = expand_with_related(universe, published_rows)
-    for row in universe:
-        if not row.get("href"):
-            row["href"] = f"/intelligence/{row.get('id')}"
+    universe = _live_story_thread_universe(seed, entities=entities, source_index=source_index)
     thread = thread_for_item(item_id, universe)
     if thread is None:
         raise HTTPException(status_code=404, detail="Story thread not found")
@@ -5894,6 +6137,35 @@ def geography_detail_page(request: Request, geography_id: str) -> HTMLResponse:
     return response
 
 
+
+
+@app.get("/competitors", response_class=HTMLResponse)
+def competitor_landscape(request: Request) -> HTMLResponse:
+    """Competitor Landscape V1 — filterable stakeholder universe.
+
+    Roster/classification come from the canonical registry while monitoring
+    facets are resolved from current sources and local operational state.
+    This read path does not invent relationships or mutate company truth.
+    """
+    multi: dict[str, list[str]] = {}
+    for key, value in request.query_params.multi_items():
+        multi.setdefault(key, []).append(value)
+    filters = parse_filters(multi)
+    adapter = adapter_from_repositories(
+        data_dir=DATA_DIR,
+        inbox_dir=INBOX_DIR,
+        entities=all_entities(),
+        sources=load_sources(),
+        evidence=published_evidence(),
+        relationships=all_relationships(),
+    )
+    context = build_landscape_context(adapter, filters)
+    return templates.TemplateResponse(
+        request=request,
+        name="competitor_landscape.html",
+        context={**context, "authoring_mode": AUTHORING_MODE},
+    )
+
 @app.get("/landscapes", response_class=HTMLResponse)
 def landscape_all(request: Request) -> HTMLResponse:
     """Landscape V2's ALL BERRIES executive overview -- registered as its
@@ -6254,6 +6526,7 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
     _varieties, visible_candidates, _corpus_report = variety_candidate_universe()
     packet = build_report_packet(
         scope,
+        pending_publications=pending_publication_drafts(),
         entities=entities,
         relationships=all_relationships(),
         published_evidence=published_evidence(),
@@ -6349,6 +6622,8 @@ def report_new_page(request: Request) -> HTMLResponse:
             "handoff_report_type": handoff_report_type,
             "handoff_focus_notes": handoff_focus_notes,
             "handoff_date_window_days": handoff_date_window_days,
+            "handoff_company_names": [entity_index()[cid]["name"] for cid in str(request.query_params.get("company_ids") or "").split(",")
+                                      if cid in entity_index()] if request.query_params.get("origin") == "company" else [],
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -6417,7 +6692,8 @@ def report_new_submit(
             }
             for d in drafts
         ]
-        report_title = title.strip() or f"{REPORT_TYPE_LABELS.get(scope.report_type, scope.report_type)} — {BERRIES.get(scope.berry_id or '', scope.berry_id or 'multi-scope')}"
+        company_names = ", ".join(row["name"] for row in packet.get("companies") or [] if row.get("name")) if scope.company_ids else ""
+        report_title = title.strip() or f"{REPORT_TYPE_LABELS.get(scope.report_type, scope.report_type)} — {company_names or BERRIES.get(scope.berry_id or '', scope.berry_id or 'multi-scope')}"
         record = create_report(
             INBOX_DIR,
             title=report_title,
@@ -7538,17 +7814,31 @@ def sources_page_context(
     discovered_items = list_discovered_items(INBOX_DIR)
     published = published_evidence()
     latest_by_source = index_latest_item_dates(discovered_items=discovered_items, published_evidence=published)
+    discovery_states = {source["id"]: read_source_discovery_state(INBOX_DIR, source["id"]) for source in all_sources if source.get("id")}
+    retry_hints = retry_hints_by_source(INBOX_DIR)
 
     def _freshness_for(source: dict[str, Any]) -> dict[str, Any]:
         published_at, captured_at = latest_by_source.get(source["id"], (None, None))
         return classify_source_freshness(
             source,
-            discovery_state=read_source_discovery_state(INBOX_DIR, source["id"]),
+            discovery_state=discovery_states.get(source["id"]),
             latest_item_published_at=published_at,
             latest_item_captured_at=captured_at,
         ).as_dict()
 
     freshness_by_source = {source["id"]: _freshness_for(source) for source in all_sources if source.get("id")}
+    execution_by_source = {
+        source["id"]: source_execution_status(
+            source,
+            discovery_state=discovery_states.get(source["id"]),
+            retry_hint=retry_hints.get(source["id"]),
+        )
+        for source in all_sources if source.get("id")
+    }
+    acquisition_by_source = {
+        source["id"]: source_acquisition_summary(INBOX_DIR, source["id"])
+        for source in all_sources if source.get("id")
+    }
     health_rows = present_source_health_rows(
         filtered,
         freshness_by_source=freshness_by_source,
@@ -7556,7 +7846,9 @@ def sources_page_context(
         berry_labels=BERRIES,
         region_labels=SOURCE_REGIONS,
         cadence_labels=SOURCE_CADENCES,
-        retry_hints=retry_hints_by_source(INBOX_DIR),
+        retry_hints=retry_hints,
+        execution_by_source=execution_by_source,
+        acquisition_by_source=acquisition_by_source,
     )
     return {
         "sources": filtered,
@@ -7567,6 +7859,8 @@ def sources_page_context(
         "due_count": len([s for s in all_sources if source_is_due(s)]),
         "freshness_by_source": freshness_by_source,
         "source_coverage": aggregate_source_coverage(freshness_by_source),
+        "source_execution": aggregate_source_execution(execution_by_source),
+        "source_acquisition": aggregate_acquisition_summaries(acquisition_by_source),
         "freshness_states": FRESHNESS_LABELS,
         "source_types": SOURCE_TYPES,
         "source_entity_types": SOURCE_ENTITY_TYPES,
@@ -8731,6 +9025,7 @@ def _search_index_key(*, include_private: bool) -> tuple[Any, ...]:
         _path_sig(DATA_DIR / "configuration" / "sources.json"),
         _json_tree_sig(DATA_DIR / "entities"),
         _json_tree_sig(DATA_DIR / "relationships"),
+        _json_folder_sig(DATA_DIR / "learn" / "concepts"),
     ]
     if include_private:
         parts.extend(
@@ -8754,6 +9049,7 @@ def _search_pools(*, include_private: bool) -> SearchPools:
         pending_drafts=list_pending_drafts() if include_private else [],
         signal_candidates=load_candidates(INBOX_DIR) if include_private else [],
         identity_redirects=identity_redirects(),
+        learn_concepts=learn_all_concepts(),
     )
 
 

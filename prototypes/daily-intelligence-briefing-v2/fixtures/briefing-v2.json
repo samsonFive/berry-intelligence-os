@@ -1,0 +1,405 @@
+{
+  "schema_version": "daily-intelligence-briefing-v2-fixture-1",
+  "prototype_note": "Synthetic/derived prototype data. Not live inbox state.",
+  "as_of": "2026-09-15",
+  "briefing_title": "Daily Intelligence Briefing",
+  "briefing_subtitle": "What changed, why it matters, and what needs attention today.",
+  "entities": [
+    {
+      "id": "company-fall-creek",
+      "name": "Fall Creek",
+      "entity_type": "company",
+      "profile_url": "./landscape-handoff.html?entity=company-fall-creek&berry=blueberry",
+      "landscape_url": "./landscape-handoff.html?berry=blueberry&region=DOTA&tier=Tier%201&focus=company-fall-creek"
+    },
+    {
+      "id": "company-hortifrut",
+      "name": "Hortifrut",
+      "entity_type": "company",
+      "profile_url": "./landscape-handoff.html?entity=company-hortifrut&berry=blueberry",
+      "landscape_url": "./landscape-handoff.html?berry=blueberry&region=DOTA&focus=company-hortifrut"
+    },
+    {
+      "id": "company-planasa",
+      "name": "Planasa",
+      "entity_type": "company",
+      "profile_url": "./landscape-handoff.html?entity=company-planasa&berry=strawberry",
+      "landscape_url": "./landscape-handoff.html?berry=strawberry&region=DEMEA&focus=company-planasa"
+    },
+    {
+      "id": "company-driscolls",
+      "name": "Driscoll\u2019s",
+      "entity_type": "company",
+      "profile_url": "./landscape-handoff.html?entity=company-driscolls&berry=blueberry",
+      "landscape_url": "./landscape-handoff.html?berry=blueberry&focus=company-driscolls"
+    },
+    {
+      "id": "variety-ozblu-prototype",
+      "name": "Ozblu platform",
+      "entity_type": "variety_platform",
+      "verified_genetics": false,
+      "profile_url": "./landscape-handoff.html?entity=variety-ozblu-prototype&berry=blueberry",
+      "landscape_url": "./landscape-handoff.html?berry=blueberry&topic=genetics&focus=variety-ozblu-prototype"
+    }
+  ],
+  "what_changed": [
+    {
+      "id": "item-readable-current-001",
+      "lead_rank": 1,
+      "headline": "Fall Creek outlines Americas blueberry nursery expansion timeline",
+      "source": "FreshPlaza (prototype excerpt)",
+      "canonical_url": "https://example.invalid/prototype/fall-creek-nursery-expansion",
+      "publication_date": "2026-09-02",
+      "capture_date": "2026-09-03",
+      "recency_band": "0-30",
+      "berry": "blueberry",
+      "regions": [
+        "DOTA"
+      ],
+      "topics": [
+        "capacity",
+        "nursery"
+      ],
+      "entity_ids": [
+        "company-fall-creek"
+      ],
+      "readable_content_state": "readable",
+      "content_quality_state": "usable_extracted",
+      "review_state": "trusted_usable",
+      "evidence_confidence": "medium",
+      "observed_change": "Public reporting describes additional nursery capacity aimed at Americas blueberry programs.",
+      "extracted_body": "Prototype extracted body (usable):\n\nFall Creek described staged nursery expansion supporting blueberry plant supply for Americas customers.\n\nNo genetics claims are asserted in this prototype excerpt.",
+      "related_landscape_url": "./landscape-handoff.html?berry=blueberry&region=DOTA&tier=Tier%201&focus=company-fall-creek",
+      "profile_url": "./landscape-handoff.html?entity=company-fall-creek",
+      "acquisition_outcome": "readable_body_acquired",
+      "historical_or_current": "current",
+      "attention_reason": null,
+      "operator_message": null,
+      "prototype_synthetic": true
+    },
+    {
+      "id": "item-historical-context-002",
+      "lead_rank": 9,
+      "headline": "Planasa strawberry program coverage from prior season (historical context)",
+      "source": "Trade press archive (prototype)",
+      "canonical_url": "https://example.invalid/prototype/planasa-historical",
+      "publication_date": "2025-11-18",
+      "capture_date": "2026-09-10",
+      "recency_band": "older",
+      "berry": "strawberry",
+      "regions": [
+        "DEMEA"
+      ],
+      "topics": [
+        "breeding"
+      ],
+      "entity_ids": [
+        "company-planasa"
+      ],
+      "readable_content_state": "readable",
+      "content_quality_state": "usable_extracted",
+      "review_state": "trusted_usable",
+      "evidence_confidence": "low",
+      "observed_change": "Older published coverage retained as baseline context for Planasa strawberry positioning.",
+      "extracted_body": "Prototype historical excerpt retained for context only.\nCapture date is recent; publication date is not.\nDo not present this as current movement.",
+      "related_landscape_url": "./landscape-handoff.html?berry=strawberry&region=DEMEA&focus=company-planasa",
+      "profile_url": "./landscape-handoff.html?entity=company-planasa",
+      "acquisition_outcome": "readable_body_acquired",
+      "historical_or_current": "historical_context",
+      "attention_reason": null,
+      "operator_message": null,
+      "prototype_synthetic": true
+    }
+  ],
+  "why_it_matters": [
+    {
+      "id": "implication-reviewed-001",
+      "linked_item_id": "item-readable-current-001",
+      "headline": "Nursery capacity news may tighten near-term Americas plant-supply competition",
+      "observed_fact": "Public reporting describes Americas-facing nursery expansion by Fall Creek.",
+      "analyst_interpretation": "Prototype analyst interpretation: capacity additions can shift grower switching costs and competitor nursery leverage \u2014 not yet a confirmed market-share fact.",
+      "decision_implication": "If expansion timelines hold, monitor Fall Creek plant-supply commitments in DOTA blueberry programs over the next two seasons.",
+      "supporting_evidence_count": 2,
+      "supporting_evidence_ids": [
+        "ev-proto-fc-001",
+        "ev-proto-fc-002"
+      ],
+      "evidence_confidence": "medium",
+      "review_state": "reviewed_implication",
+      "berry": "blueberry",
+      "regions": [
+        "DOTA"
+      ],
+      "entity_ids": [
+        "company-fall-creek"
+      ],
+      "related_landscape_url": "./landscape-handoff.html?berry=blueberry&region=DOTA&tier=Tier%201&focus=company-fall-creek",
+      "prototype_synthetic": true
+    }
+  ],
+  "needs_attention": [
+    {
+      "id": "attn-review-ready-001",
+      "attention_reason": "review_ready_draft",
+      "headline": "Hortifrut Peru blueberry harvest note awaiting publication review",
+      "source": "Company channel (prototype draft)",
+      "canonical_url": "https://example.invalid/prototype/hortifrut-draft",
+      "publication_date": "2026-09-12",
+      "capture_date": "2026-09-12",
+      "recency_band": "0-30",
+      "berry": "blueberry",
+      "regions": [
+        "DOTA"
+      ],
+      "topics": [
+        "harvest"
+      ],
+      "entity_ids": [
+        "company-hortifrut"
+      ],
+      "readable_content_state": "readable",
+      "content_quality_state": "usable_extracted",
+      "review_state": "pending_publication_review",
+      "evidence_confidence": "unreviewed",
+      "related_landscape_url": "./landscape-handoff.html?berry=blueberry&focus=company-hortifrut",
+      "profile_url": "./landscape-handoff.html?entity=company-hortifrut",
+      "acquisition_outcome": "readable_body_acquired",
+      "historical_or_current": "current",
+      "extracted_body": "Draft body is readable in-app for review, but must not appear in What Changed until review completes.",
+      "operator_message": "Review-ready draft. Keep out of What Changed until trusted.",
+      "prototype_synthetic": true
+    },
+    {
+      "id": "attn-bot-wall-002",
+      "attention_reason": "bot_wall",
+      "headline": "Trade site returned a bot / security interstitial instead of article body",
+      "source": "Protected trade publisher (prototype)",
+      "canonical_url": "https://example.invalid/prototype/bot-wall",
+      "publication_date": "2026-09-11",
+      "capture_date": "2026-09-11",
+      "recency_band": "0-30",
+      "berry": "blueberry",
+      "regions": [
+        "DEMEA"
+      ],
+      "topics": [
+        "trade"
+      ],
+      "entity_ids": [
+        "company-planasa"
+      ],
+      "readable_content_state": "bot_wall",
+      "content_quality_state": "unreadable_interstitial",
+      "review_state": "blocked_for_intelligence",
+      "evidence_confidence": "none",
+      "related_landscape_url": "./landscape-handoff.html?berry=blueberry&region=DEMEA",
+      "profile_url": null,
+      "acquisition_outcome": "bot_wall",
+      "historical_or_current": "current",
+      "extracted_body": null,
+      "operator_message": "Do not summarize. Route to reacquisition or manual acquisition.",
+      "prototype_synthetic": true
+    },
+    {
+      "id": "attn-body-unavailable-003",
+      "attention_reason": "body_unavailable",
+      "headline": "Source ran successfully but produced no readable body",
+      "source": "RSS discovery host (prototype)",
+      "canonical_url": "https://example.invalid/prototype/empty-body",
+      "publication_date": "2026-09-08",
+      "capture_date": "2026-09-09",
+      "recency_band": "0-30",
+      "berry": "raspberry",
+      "regions": [
+        "DOA_DANZ"
+      ],
+      "topics": [
+        "supply"
+      ],
+      "entity_ids": [],
+      "readable_content_state": "body_unavailable",
+      "content_quality_state": "empty_or_shell",
+      "review_state": "needs_reacquisition",
+      "evidence_confidence": "none",
+      "related_landscape_url": "./landscape-handoff.html?berry=raspberry&region=DOA_DANZ",
+      "profile_url": null,
+      "acquisition_outcome": "fetched_no_readable_body",
+      "historical_or_current": "current",
+      "extracted_body": null,
+      "operator_message": "Discovery succeeded; extraction yielded no usable article text.",
+      "prototype_synthetic": true
+    },
+    {
+      "id": "attn-cookie-consent-004",
+      "attention_reason": "cookie_consent_page",
+      "headline": "Captured page is a cookie / consent gate, not an article",
+      "source": "Publisher consent interstitial (prototype)",
+      "canonical_url": "https://example.invalid/prototype/consent",
+      "publication_date": null,
+      "capture_date": "2026-09-14",
+      "recency_band": "unknown_publication_date",
+      "berry": "blueberry",
+      "regions": [
+        "DOTA"
+      ],
+      "topics": [],
+      "entity_ids": [
+        "company-hortifrut"
+      ],
+      "readable_content_state": "cookie_consent_page",
+      "content_quality_state": "consent_masquerade",
+      "review_state": "blocked_for_intelligence",
+      "evidence_confidence": "none",
+      "related_landscape_url": "./landscape-handoff.html?berry=blueberry",
+      "profile_url": "./landscape-handoff.html?entity=company-hortifrut",
+      "acquisition_outcome": "consent_page_captured",
+      "historical_or_current": "unknown",
+      "extracted_body": null,
+      "operator_message": "Consent text must never appear as a briefing article.",
+      "prototype_synthetic": true
+    },
+    {
+      "id": "attn-missing-entity-005",
+      "attention_reason": "missing_company_entity_linkage",
+      "headline": "Readable item lacks company / entity linkage",
+      "source": "Industry newsletter (prototype)",
+      "canonical_url": "https://example.invalid/prototype/unlinked",
+      "publication_date": "2026-09-05",
+      "capture_date": "2026-09-06",
+      "recency_band": "0-30",
+      "berry": "blackberry",
+      "regions": [
+        "DOTA"
+      ],
+      "topics": [
+        "genetics"
+      ],
+      "entity_ids": [],
+      "readable_content_state": "readable",
+      "content_quality_state": "usable_extracted",
+      "review_state": "needs_entity_linking",
+      "evidence_confidence": "low",
+      "related_landscape_url": "./landscape-handoff.html?berry=blackberry&region=DOTA",
+      "profile_url": null,
+      "acquisition_outcome": "readable_body_acquired",
+      "historical_or_current": "current",
+      "extracted_body": "Readable prototype body exists, but no company entity IDs are linked yet.",
+      "operator_message": "Keep out of ranked competitor movement until linked.",
+      "prototype_synthetic": true
+    },
+    {
+      "id": "attn-manual-acq-006",
+      "attention_reason": "manual_acquisition_required",
+      "headline": "Reference source has no discovery adapter \u2014 manual acquisition required",
+      "source": "Manual reference registry (prototype)",
+      "canonical_url": "https://example.invalid/prototype/manual-source",
+      "publication_date": "2026-08-20",
+      "capture_date": null,
+      "recency_band": "31-60",
+      "berry": "blueberry",
+      "regions": [
+        "DEMEA"
+      ],
+      "topics": [
+        "registry"
+      ],
+      "entity_ids": [
+        "variety-ozblu-prototype"
+      ],
+      "readable_content_state": "discovered",
+      "content_quality_state": "not_acquired",
+      "review_state": "manual_acquisition_required",
+      "evidence_confidence": "none",
+      "related_landscape_url": "./landscape-handoff.html?berry=blueberry&topic=genetics&focus=variety-ozblu-prototype",
+      "profile_url": "./landscape-handoff.html?entity=variety-ozblu-prototype",
+      "acquisition_outcome": "manual_required",
+      "historical_or_current": "current",
+      "extracted_body": null,
+      "operator_message": "Non-company entity example. Genetics links only when verified.",
+      "prototype_synthetic": true
+    },
+    {
+      "id": "attn-aging-classification-007",
+      "attention_reason": "aging_classification",
+      "headline": "Berry / topic classification aging past review SLA",
+      "source": "Internal classification queue (prototype)",
+      "canonical_url": "https://example.invalid/prototype/aging-class",
+      "publication_date": "2026-07-01",
+      "capture_date": "2026-07-02",
+      "recency_band": "61-90",
+      "berry": "unknown",
+      "regions": [],
+      "topics": [
+        "unclassified"
+      ],
+      "entity_ids": [
+        "company-hortifrut"
+      ],
+      "readable_content_state": "readable",
+      "content_quality_state": "usable_extracted",
+      "review_state": "classification_aging",
+      "evidence_confidence": "low",
+      "related_landscape_url": "./landscape-handoff.html",
+      "profile_url": "./landscape-handoff.html?entity=company-hortifrut",
+      "acquisition_outcome": "readable_body_acquired",
+      "historical_or_current": "historical_context",
+      "extracted_body": "Readable, but berry/topic tags are aging and should not drive lead briefing ranking.",
+      "operator_message": "Reclassify before promoting into What Changed.",
+      "prototype_synthetic": true
+    }
+  ],
+  "unknown_date_appendix": [
+    {
+      "id": "appendix-unknown-date-001",
+      "attention_reason": "unknown_publication_date",
+      "headline": "Undated nursery circular retained as exception, not lead briefing",
+      "source": "PDF circular host (prototype)",
+      "canonical_url": "https://example.invalid/prototype/undated",
+      "publication_date": null,
+      "capture_date": "2026-09-13",
+      "recency_band": "unknown_publication_date",
+      "berry": "blueberry",
+      "regions": [
+        "DOTA"
+      ],
+      "topics": [
+        "nursery"
+      ],
+      "entity_ids": [
+        "company-fall-creek"
+      ],
+      "readable_content_state": "readable",
+      "content_quality_state": "usable_extracted",
+      "review_state": "date_unestablished",
+      "evidence_confidence": "low",
+      "related_landscape_url": "./landscape-handoff.html?berry=blueberry&focus=company-fall-creek",
+      "profile_url": "./landscape-handoff.html?entity=company-fall-creek",
+      "acquisition_outcome": "readable_body_acquired",
+      "historical_or_current": "unknown",
+      "extracted_body": "Prototype undated body. Capture date must not be shown as publication freshness.",
+      "operator_message": "Unknown publication date \u2014 appendix only.",
+      "prototype_synthetic": true
+    }
+  ],
+  "coverage_pulse": {
+    "represented_competitors": 33,
+    "discovery_configured": 28,
+    "discovery_operational": 22,
+    "readable_content_acquired": 17,
+    "current_usable_coverage": 11,
+    "competitors_with_no_current_coverage": [
+      {
+        "entity_id": "company-driscolls",
+        "name": "Driscoll\u2019s",
+        "note": "Configured competitor with no current usable coverage in this prototype window."
+      }
+    ],
+    "source_health_url": "#coverage-pulse",
+    "landscape_url": "./landscape-handoff.html?berry=blueberry",
+    "notes": [
+      "Coverage Pulse is operational coverage, not market activity.",
+      "Source Health remains the operator surface for failing / blocked / manual sources.",
+      "Competitor Landscape remains the filterable roster handoff."
+    ]
+  }
+}

@@ -6,6 +6,7 @@ import httpx
 import pytest
 
 from app.services import article_acquisition as aa
+from tests.test_google_news_url import PUBLISHER, google_news_article_url
 
 
 class _FakeResponse:
@@ -57,6 +58,7 @@ def test_403_response_is_a_blocked_failure_not_a_crash(monkeypatch):
     with pytest.raises(aa.ArticleAcquisitionError) as exc_info:
         aa.fetch_article("https://example.invalid/blocked")
     assert exc_info.value.category == "blocked"
+    assert exc_info.value.http_status == 403
 
 
 def test_paywall_signal_in_body_is_a_paywall_failure(monkeypatch):
@@ -116,7 +118,123 @@ def test_navigation_and_photo_credit_lines_are_stripped_from_the_body(monkeypatc
     assert "fresh figs continue to be in good supply" in body.full_text.lower()
 
 
+def test_google_news_encoded_wrapper_fetches_publisher_not_wrapper(monkeypatch):
+    fetched: list[str] = []
+
+    def _get(url, **kwargs):
+        fetched.append(url)
+        return _FakeResponse(_REAL_ARTICLE_HTML, url=url)
+
+    monkeypatch.setattr(aa.httpx, "get", _get)
+    wrapper = google_news_article_url(PUBLISHER)
+    body = aa.fetch_article(wrapper)
+    assert fetched == [PUBLISHER]
+    assert "Peru" in body.full_text
+    assert body.source_url == wrapper
+    assert body.final_url == PUBLISHER
+
+
+def test_google_news_wrapper_http_redirect_to_publisher_is_extracted(monkeypatch):
+    """TD-014's original HEAD/GET hope: if Google actually 302s, extract
+    the publisher page and do not treat remaining wrapper chrome as body."""
+    def _get(url, **kwargs):
+        return _FakeResponse(_REAL_ARTICLE_HTML, url=PUBLISHER)
+
+    monkeypatch.setattr(aa.httpx, "get", _get)
+    wrapper = "https://news.google.com/rss/articles/wrapper"
+    body = aa.fetch_article(wrapper)
+    assert "Peru" in body.full_text
+    assert body.final_url == PUBLISHER
+
+
 def test_empty_url_is_a_malformed_html_failure_not_a_crash():
     with pytest.raises(aa.ArticleAcquisitionError) as exc_info:
         aa.fetch_article("")
     assert exc_info.value.category == "malformed_html"
+
+
+def test_cookie_consent_gate_is_an_interstitial_failure_not_a_readable_body(monkeypatch):
+    """A GDPR-style cookie/consent gate that replaces the page's visible
+    content must be reported as `interstitial`, never silently extracted
+    and presented as a readable article -- the exact "cookie/consent text"
+    class this project's failure taxonomy names distinctly from an
+    ordinary bot wall (category `blocked`) or paywall."""
+    html = """
+    <html><head><title>We value your privacy</title></head>
+    <body>
+    <div class="consent-banner">
+    <h1>We value your privacy</h1>
+    <p>We use cookies and data to deliver and maintain our services, to measure audiences,
+    and to show you personalized content depending on your settings. Please choose your
+    cookie preferences below or accept all cookies to continue to the site.</p>
+    <button>Accept all cookies</button>
+    <button>Manage consent</button>
+    <button>Reject all cookies</button>
+    </div>
+    </body></html>
+    """
+    monkeypatch.setattr(aa.httpx, "get", lambda *a, **k: _FakeResponse(html))
+    with pytest.raises(aa.ArticleAcquisitionError) as exc_info:
+        aa.fetch_article("https://example.invalid/consent-gate")
+    assert exc_info.value.category == "interstitial"
+
+
+def test_headline_only_press_template_with_no_body_element_is_empty_body(monkeypatch):
+    """Regression fixture for a real, live pattern found auditing Wave 1
+    Source Oishii Press Feed (source-20260915-oishii-press): the publisher's
+    own "Press" page template renders a hero image, title, publish date, and
+    social-share icons -- and literally no body-text element at all, for
+    every item in that feed sampled during this mission. This is a genuine,
+    permanent, external content-availability fact (confirmed: no hidden
+    body div, no outbound link to original coverage), not a bot wall, not a
+    JS-rendering gap this project's static fetcher could ever resolve, and
+    not a bug in this project's own extraction code -- `empty_body` /
+    `navigation_only_shell` is the correct, honest, non-retryable outcome."""
+    html = """
+    <html><head><title>Press headline with no article body</title></head>
+    <body>
+    <section class="recipe-hero">
+    <h1 class="recipe-hero__title">Press headline with no article body</h1>
+    <p class="recipe-hero__description"></p>
+    </section>
+    <section class="recipe-metadata">
+    <p>Published on Jun 21, 2024</p>
+    <p>Written by a staff writer</p>
+    <div class="social-share">Share: Twitter Facebook Email</div>
+    </section>
+    </body></html>
+    """
+    monkeypatch.setattr(aa.httpx, "get", lambda *a, **k: _FakeResponse(html))
+    with pytest.raises(aa.ArticleAcquisitionError) as exc_info:
+        aa.fetch_article("https://example.invalid/headline-only-press")
+    assert exc_info.value.category == "empty_body"
+    assert "too short" in str(exc_info.value) or "not a real article" in str(exc_info.value)
+
+
+def test_cms_bound_empty_rich_text_article_is_empty_body(monkeypatch):
+    """Regression fixture for a real, live pattern found auditing Wave 1
+    Source Fruitist Newsroom (source-20260915-fruitist-newsroom): roughly
+    two-thirds of that publisher's own "news" CMS collection items render
+    their rich-text body container completely empty (`w-dyn-bind-empty`,
+    a real Webflow CMS marker meaning the bound field itself holds no
+    content) while the surrounding chrome (title, date, share links) is
+    otherwise identical to items that DO carry a real body -- a genuine,
+    per-item, external content-population inconsistency on the publisher's
+    own site, not an extraction bug. `empty_body` is the correct outcome;
+    a future re-check of the same URL may legitimately succeed if the
+    publisher later populates that field, which is why this failure stays
+    outside the always-permanent `script_rendered`/paywall/blocked
+    categories -- see `article_acquisition_outcomes._failure_outcome`."""
+    html = """
+    <html><head><title>Fruitist Secures Financing to Drive Global Expansion</title></head>
+    <body>
+    <h1>Fruitist Secures Financing to Drive Global Expansion</h1>
+    <div class="p-sm">04 November 2026</div>
+    <article class="news-text w-dyn-bind-empty w-richtext"></article>
+    <div class="news_share">Share: LinkedIn Twitter Email</div>
+    </body></html>
+    """
+    monkeypatch.setattr(aa.httpx, "get", lambda *a, **k: _FakeResponse(html))
+    with pytest.raises(aa.ArticleAcquisitionError) as exc_info:
+        aa.fetch_article("https://example.invalid/cms-bound-empty")
+    assert exc_info.value.category == "empty_body"

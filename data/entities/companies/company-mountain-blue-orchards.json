@@ -80,6 +80,11 @@
   "attributes": {
     "headquarters": "Lindendale, New South Wales, Australia",
     "acn": "068 706 650",
-    "selection_code_prefix": "Ridley"
+    "selection_code_prefix": "Ridley",
+    "competitor_registry_2026_09_15": {
+      "row_number": 18,
+      "spreadsheet_label": "Mountain Blue",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    }
   }
 }

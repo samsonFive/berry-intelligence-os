@@ -5,10 +5,9 @@ browser binary). Produces a professional, internally-circulable PDF:
 title, generation date, an explicit intelligence/data cutoff date,
 scope summary, every report section (structured and AI-drafted alike),
 a source/citation appendix, page numbers, a configurable
-"Internal / Confidential" label, and an "AI-assisted; analyst-reviewed"
-provenance marker on every page footer -- never presented as if a human
-wrote it unassisted, and never presented as if it were canonical
-intelligence.
+"Internal / Confidential" label, and a working-report marker requiring
+analyst review on every page footer. Generation does not certify review
+and report prose is not canonical intelligence.
 """
 
 from __future__ import annotations
@@ -16,6 +15,7 @@ from __future__ import annotations
 from datetime import date
 from io import BytesIO
 from typing import Any
+from xml.sax.saxutils import escape
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import LETTER
@@ -33,7 +33,7 @@ from reportlab.platypus import (
 )
 
 CONFIDENTIALITY_DEFAULT = "Internal / Confidential"
-PROVENANCE_MARKER = "AI-assisted; analyst-reviewed"
+PROVENANCE_MARKER = "Working report; analyst review required"
 
 
 def _styles() -> dict[str, ParagraphStyle]:
@@ -95,18 +95,21 @@ def render_report_pdf(
     story.append(Spacer(1, 14))
 
     scope = report.get("scope") or {}
-    scope_lines = [f"Report type: {report.get('report_type', '')}"]
+    scope_lines = [f"Report type: {report.get('report_type', '').replace('_', ' ').title()}"]
     if scope.get("berry_id"):
         scope_lines.append(f"Berry: {scope['berry_id']}")
     if scope.get("geography_ids"):
         scope_lines.append(f"Geographies: {', '.join(scope['geography_ids'])}")
     if scope.get("company_ids"):
-        scope_lines.append(f"Companies: {', '.join(scope['company_ids'])}")
+        company_names = {r["id"]: r.get("name") or r["id"] for r in packet.get("companies") or [] if r.get("id")}
+        scope_lines.append(f"Companies: {', '.join(company_names.get(cid, cid) for cid in scope['company_ids'])}")
+    if packet.get("source_window"):
+        scope_lines.append(f"Publication window: {packet['source_window']['start']} through {packet['source_window']['end']}")
     if scope.get("variety_ids"):
         scope_lines.append(f"Varieties: {', '.join(scope['variety_ids'])}")
     story.append(Paragraph("Scope", styles["h2"]))
     for line in scope_lines:
-        story.append(Paragraph(line, styles["body"]))
+        story.append(Paragraph(escape(line), styles["body"]))
 
     counts = coverage.get("counts") or {}
     if counts:
@@ -146,6 +149,26 @@ def render_report_pdf(
         citation_ids = section.get("citation_ids") or []
         if citation_ids:
             story.append(Paragraph(f"Sources: {', '.join(citation_ids)}", styles["source"]))
+
+    if packet.get("source_window"):
+        window = packet["source_window"]
+        story.append(Paragraph("Captured company reporting", styles["h2"]))
+        story.append(Paragraph(f"Published {window['start']} through {window['end']}. Pending sources are excluded from trusted synthesis.", styles["meta"]))
+        for row in packet.get("source_inventory") or []:
+            story.append(Paragraph(escape(row["title"]), styles["h2"]))
+            story.append(Paragraph(escape(f"{row['published_date']} | {row['source_name']} | {row['trust_label']}"), styles["meta"]))
+            text = row.get("excerpt") or row.get("summary") or ""
+            if text:
+                label = "Source excerpt: " if row.get("excerpt") else "Stored source summary: "
+                story.append(Paragraph(escape(label + text), styles["body"]))
+            if row.get("notice"):
+                story.append(Paragraph(escape(row["notice"]), styles["unsupported"]))
+            story.append(Paragraph(escape(row.get("source_url") or "Original source URL not recorded"), styles["source"]))
+        if not packet.get("source_inventory"):
+            story.append(Paragraph("No captured articles with confirmed publication dates in this window.", styles["unsupported"]))
+        undated = packet.get("undated_source_inventory") or []
+        if undated:
+            story.append(Paragraph(f"{len(undated)} additional sources need date verification and are excluded from current coverage.", styles["meta"]))
 
     source_trace = packet.get("source_trace") or (packet.get("strategic_question") or {}).get("source_trace") or []
     if source_trace:

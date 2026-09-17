@@ -1,0 +1,44 @@
+{
+  "id": "company-gem-pack-berries",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Gem-Pack Berries",
+  "aliases": [
+    "Gem-Pack Berries, LLC"
+  ],
+  "status": "unverified",
+  "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 14) as a tracked competitor of type 'Commercial'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
+  "roles": [
+    "grower_marketer",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-competitor-registry-2026-09-15-import"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "competitor_registry_2026_09_15": {
+      "row_number": 14,
+      "spreadsheet_label": "Gem-Pack Berries",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "identity_confirmed_relationship_ambiguity_unrelated",
+      "reason": "Gem-Pack Berries' own identity is solid (gem-packberries.com official site, real trade coverage of its own site relaunch). Held provisional because of a real, unresolved AFFILIATION question: trade press ('Gem-Pack and Well-Pict Berries combine companies' -- The Packer) suggests Gem-Pack Berries and Well-Pict (roster entry #33, a separate canonical entity) may now be one organization or a formal partnership. Promoting either independently before this is resolved risks the graph representing what may now be one company as two, or misattributing which entity a future article actually concerns.",
+      "evidence_urls": [
+        "https://www.gem-packberries.com/en",
+        "https://theproducenews.com/berries/gem-pack-berries-unveils-new-website",
+        "https://www.thepacker.com/news/industry/gem-pack-and-well-pict-berries-combine-companies"
+      ],
+      "confidence": "medium",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
+    }
+  }
+}

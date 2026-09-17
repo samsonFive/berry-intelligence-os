@@ -1,0 +1,102 @@
+[
+  {
+    "name": "competitor-landscape",
+    "url": "http://127.0.0.1:8022/competitors",
+    "status": 200,
+    "title": "Competitor Landscape \u2014 Berry Intelligence OS",
+    "isolated_verification_fixture": false,
+    "markers": [
+      "33",
+      "California Giant",
+      "No current usable coverage"
+    ],
+    "missing_markers": [],
+    "console_errors": [],
+    "screenshot": "artifacts/competitor-intelligence-wave2/screenshots/competitor-landscape.png"
+  },
+  {
+    "name": "california-giant-detail",
+    "url": "http://127.0.0.1:8022/competitors?berry=blueberry&company=company-california-giant-berry-farms",
+    "status": 200,
+    "title": "Competitor Landscape \u2014 Berry Intelligence OS",
+    "isolated_verification_fixture": false,
+    "markers": [
+      "California Giant",
+      "Official source blocked",
+      "No current usable coverage"
+    ],
+    "missing_markers": [],
+    "console_errors": [],
+    "screenshot": "artifacts/competitor-intelligence-wave2/screenshots/california-giant-detail.png"
+  },
+  {
+    "name": "daily-briefing",
+    "url": "http://127.0.0.1:8022/today",
+    "status": 200,
+    "title": "Daily Intelligence Briefing \u2014 Berry Intelligence OS",
+    "isolated_verification_fixture": false,
+    "markers": [
+      "Daily Intelligence Briefing",
+      "Needs Attention"
+    ],
+    "missing_markers": [],
+    "console_errors": [],
+    "screenshot": "artifacts/competitor-intelligence-wave2/screenshots/daily-briefing.png"
+  },
+  {
+    "name": "readable-reader-isolated-fixture",
+    "url": "http://127.0.0.1:8023/intelligence/ev-wave2-readable-verification-only",
+    "status": 200,
+    "title": "Readable reader verification article \u2014 Berry Intelligence OS",
+    "isolated_verification_fixture": true,
+    "markers": [
+      "Readable reader verification article",
+      "temporary article body",
+      "Read original"
+    ],
+    "missing_markers": [],
+    "console_errors": [],
+    "screenshot": "artifacts/competitor-intelligence-wave2/screenshots/readable-reader-isolated-fixture.png"
+  },
+  {
+    "name": "limited-reader",
+    "url": "http://127.0.0.1:8022/intelligence/ev-20260806173542-0a88-blueberry-variety-dispute-between-noposi",
+    "status": 200,
+    "title": "Blueberry Variety Dispute Between Noposion and Meiming Escalates - Produce Report \u2014 Berry Intelligence OS",
+    "isolated_verification_fixture": false,
+    "markers": [
+      "Limited source content",
+      "Read original"
+    ],
+    "missing_markers": [],
+    "console_errors": [],
+    "screenshot": "artifacts/competitor-intelligence-wave2/screenshots/limited-reader.png"
+  },
+  {
+    "name": "company-entity-handoff",
+    "url": "http://127.0.0.1:8022/entities/company/company-california-giant-berry-farms",
+    "status": 200,
+    "title": "California Giant Berry Farms",
+    "isolated_verification_fixture": false,
+    "markers": [
+      "California Giant"
+    ],
+    "missing_markers": [],
+    "console_errors": [],
+    "screenshot": "artifacts/competitor-intelligence-wave2/screenshots/company-entity-handoff.png"
+  },
+  {
+    "name": "source-health",
+    "url": "http://127.0.0.1:8022/sources",
+    "status": 200,
+    "title": "Source Health \u2014 Berry Intelligence OS",
+    "isolated_verification_fixture": false,
+    "markers": [
+      "DISCOVERY EXECUTION",
+      "ARTICLE-BODY ACQUISITION"
+    ],
+    "missing_markers": [],
+    "console_errors": [],
+    "screenshot": "artifacts/competitor-intelligence-wave2/screenshots/source-health.png"
+  }
+]

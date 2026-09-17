@@ -1,0 +1,40 @@
+{
+  "id": "company-australasian-plant-genetics",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Australasian Plant Genetics",
+  "aliases": [
+    "APG"
+  ],
+  "status": "active",
+  "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 4) as a tracked competitor of type 'Genetics; Technology'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
+  "roles": [
+    "genetics_licensor",
+    "technology_provider",
+    "competitor"
+  ],
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-competitor-registry-2026-09-15-import"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "competitor_registry_2026_09_15": {
+      "row_number": 4,
+      "spreadsheet_label": "Australasian Plant Genetics",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "externally_verified",
+      "reason": "Official domain ausplantgenetics.com.au confirms Australasian Plant Genetics (APG) as a company limited by guarantee, wholly owned by the Queensland Strawberry Growers' Association, providing commercial access to Australian Strawberry Breeding Program varieties. Clear, single, unambiguous organization; no competing or overlapping entity found.",
+      "evidence_urls": [
+        "https://ausplantgenetics.com.au/",
+        "https://ausplantgenetics.com.au/about/"
+      ],
+      "confidence": "high",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
+    }
+  }
+}

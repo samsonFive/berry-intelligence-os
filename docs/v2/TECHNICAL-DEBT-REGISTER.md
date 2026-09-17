@@ -71,6 +71,7 @@ these as Open UI-lane items):
 | TD-UI-004 | TD-004 **resolved** |
 | TD-ACQ-001 | TD-006 **resolved** |
 | TD-THREAD-001 | **resolved** in PR #51 (`807e059`) |
+| TD-THREAD-002 | **resolved** on `feature/td-thread-002-published-coverage-v1` (unmerged; live `/threads` now includes recent trusted published Evidence) |
 
 Unique withdrawn-draft items below keep their original IDs.
 
@@ -181,14 +182,14 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Severity** | Low–Medium |
 | **Area** | story threads / routes |
 | **Date discovered** | 2026-08-20 |
-| **Evidence** | `story_thread_reader()` and `_intelligence_page_context()` build `universe` from `list_pending_drafts()` plus at most the currently viewed published record. Trusted-only clusters never thread in the live UI. |
-| **Impact** | Published same-event coverage is not assembled as a thread unless a pending draft is also in the set. Product decision, not a silent matcher bug. |
-| **Workaround** | Tests assemble a broader universe by hand. |
-| **Recommended resolution** | Decide whether trusted-only clusters should surface in live UI; if yes, include recently published Evidence in `universe`. Do not loosen membership rules. |
-| **Status** | active |
+| **Evidence** | `story_thread_reader()` and `_intelligence_page_context()` previously built `universe` from `list_pending_drafts()` plus at most the currently viewed published record. Trusted-only clusters never threaded in the live UI. |
+| **Impact** | Published same-event coverage was not assembled as a thread unless a pending draft was also in the set. Product decision, not a silent matcher bug. |
+| **Workaround** | Tests assembled a broader universe by hand. |
+| **Recommended resolution** | Include recently published Evidence in the live `/threads` candidate universe using the existing `DATE_PROXIMITY_EXACT_TITLE_DAYS` window. Do not loosen membership rules. |
+| **Status** | resolved on `feature/td-thread-002-published-coverage-v1` (unmerged; not based on PR #255) |
 | **Owner lane** | product |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | `app/main.py` thread routes; `tests/test_story_threads.py` |
+| **PR/SHA when resolved** | branch `feature/td-thread-002-published-coverage-v1` (push-only; PR not opened while #255 remains unmerged) |
+| **Regression-test reference** | `app/services/story_threads.py` (`live_thread_candidate_universe`); `app/main.py` thread routes; `tests/test_story_threads.py` |
 
 ### TD-ACQ-002 — Growing Produce berries feed returns 403
 
@@ -485,14 +486,14 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Severity** | Medium |
 | **Area** | collection / access limitation |
 | **Date discovered** | 2026-08-21 |
-| **Evidence** | A Google News RSS entry's `<link>` is a `news.google.com/rss/articles/...` redirect wrapper, not the publisher's real URL. `app/services/article_acquisition.py`'s `fetch_article()` cannot extract readable content directly from that wrapper (live-verified: `"no extractable article body found at https://news.google.com/rss/articles/..."` on multiple real items). The mission's new metadata-only fallback (paired with `always_body_check`) only rescues items where Stage A already confirms relevance from title/description alone (`TIER_DIRECT`) -- a genuinely BORDERLINE `news_search_rss` item stays `retry_deferred` indefinitely, since the body it needs can never be fetched through this path. |
-| **Impact** | Mainstream discovery via Google News search systematically under-recalls a "company name only, no berry word" headline -- exactly the class this mission set out to catch is the class most likely to stay unconfirmed. Measured directly: 44 of 191 processed items across this mission's 5 sources ended `article_acquisition_failed`/unconfirmed. |
-| **Workaround** | None currently; relies on the item's own title/description already being Stage-A-confident. |
-| **Recommended resolution** | Resolve the Google redirect to its real destination URL before calling `fetch_article()` (a plain HTTP HEAD/GET following redirects may already work where the direct-fetch of the wrapper page does not -- not verified in this mission). |
-| **Status** | active |
+| **Evidence** | A Google News RSS entry's `<link>` is a `news.google.com/rss/articles/...` wrapper, not the publisher's real URL. `fetch_article()` cannot extract readable content from that wrapper (live-verified empty/SPA chrome; historic repeated-body incident when shared wrapper HTML was treated as an article). Metadata-only fallback only rescued Stage A `TIER_DIRECT` items; a genuinely BORDERLINE `news_search_rss` item stayed `retry_deferred` / `article_acquisition_failed`. Measured originally: 44 of 191 processed items across 5 sources ended unconfirmed. |
+| **Impact** | Mainstream discovery via Google News search systematically under-recalled "company name only, no berry word" headlines — the class this source class exists to catch. |
+| **Fix** | `app/services/google_news_url.py` locally decodes the RSS article token (base64url payload already on the `<link>`) and returns a publisher article URL when one is present. `fetch_article()` fetches that publisher URL before extraction. HTTP follow-redirects still win when Google actually 302s. Undecodable wrappers, publisher homepages, and Google tracking hosts are not accepted. Wrapper HTML is still never a FULL_ARTICLE artifact. Does **not** call an undocumented Google decode endpoint (TD-059). Discovery `canonical_url` stays the wrapper (stable identity). |
+| **Remaining limitation** | A token that does not embed a publisher article URL still cannot be body-fetched; existing `script_rendered` / `interstitial` outcomes remain correct. Direct publisher RSS is still preferable where a publisher has one. Live production yield was not re-measured this pass (tests are mocked). |
+| **Status** | resolved |
 | **Owner lane** | data |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | — |
+| **PR/SHA when resolved** | `fix/td-014-google-news-redirect-v1` |
+| **Regression-test reference** | `tests/test_google_news_url.py`; `tests/test_article_acquisition.py::test_google_news_encoded_wrapper_fetches_publisher_not_wrapper`; `tests/test_article_refresh.py::test_google_news_encoded_wrapper_acquires_publisher_body_for_borderline_item`; `tests/test_rich_source_acquisition.py::test_google_news_wrapper_is_never_preserved_as_full_article` |
 
 ### TD-015 — Generic-species-word ambiguity in broad topic search ("BlackBerry" phone)
 
@@ -950,14 +951,14 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Severity** | Medium |
 | **Area** | discovery / article acquisition |
 | **Date discovered** | 2026-08-23 |
-| **Evidence** | Live-tested against the real BM-C-04 canonical_url: `httpx.get(..., follow_redirects=True)` returns HTTP 200 with a ~580KB Google News single-page-application shell (real, server-rendered), but the actual target article URL is resolved only by client-side JavaScript -- no server-rendered link, embedded JSON payload, or `data-*` attribute carrying the real target URL was found in the response body. `article_acquisition.fetch_article()` correctly raises `empty_body` (trafilatura finds no extractable content). Measured: **100% of 309** real zero-signal `news_search_rss` items in the current backlog have a `news.google.com/rss/articles/...` canonical_url; Stage B body verification is therefore structurally unavailable for essentially this entire source class, not just an occasional failure. |
-| **Impact** | Query-provenance corroboration's `TIER_UNCERTAIN` fallback (TD-040) is the only mitigation available for this source class -- items lacking a corroboration hit remain unresolved, not because Stage B rejected them, but because Stage B can never run. Real body-content verification (the strongest, most trustworthy signal) is available only for non-Google-News sources (Federal Register, openFDA, UK FSA, direct publisher `article_rss` feeds). |
-| **Workaround** | None implemented. Community libraries exist that decode Google's redirect payload via an additional request to an undocumented internal Google endpoint -- deliberately not integrated: undocumented, has already changed encoding once (community tooling had to adapt), and sits uncomfortably against this project's own "respect access controls, never build around a wall" discipline even though it is not a paywall in the traditional sense. |
-| **Recommended resolution** | If this becomes a priority, the safer fix is source-level: prefer direct publisher RSS/JSON feeds over Google News search queries wherever a given publisher (AgriMaroc, Fruitnet, FreshPlaza, etc.) already has one, rather than attempting to resolve Google's redirect. Not evaluated this mission -- would be a new source-configuration change, out of this mission's own "no broad source expansion" stop instruction. |
-| **Status** | active |
+| **Evidence** | Live-tested against the real BM-C-04 canonical_url: `httpx.get(..., follow_redirects=True)` returns HTTP 200 with a ~580KB Google News SPA shell. No server-rendered publisher link. Community libraries that POST to an undocumented internal Google endpoint were deliberately not integrated. |
+| **Impact** | Stage B body verification was structurally unavailable for `news.google.com/rss/articles/...` canonical URLs (100% of 309 zero-signal `news_search_rss` items in that backlog). |
+| **Fix** | Google News Publisher URL Resolution V1 locally decodes the article token already present on the RSS `<link>` (`app/services/google_news_url.py`). That is not an extra request to an undocumented Google endpoint. `fetch_article()` then fetches the publisher page. Wrapper SPA HTML is still rejected. Industry Pulse intake now uses the same `preferred_url()` order (decoded article, never a Google `<source>` homepage). See TD-014. |
+| **Remaining limitation** | Tokens that do not embed a publisher article URL still cannot be body-verified; those stay `script_rendered` / metadata-only fallback. Direct publisher feeds remain the better source-level path. The undocumented batchexecute-style decoder is still not used. |
+| **Status** | resolved (local token decode; undocumented Google endpoint still rejected) |
 | **Owner lane** | collection/runtime |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | `tests/test_article_refresh.py::test_query_corroborated_zero_signal_item_becomes_uncertain_draft_when_body_unverifiable` |
+| **PR/SHA when resolved** | `fix/td-014-google-news-redirect-v1` |
+| **Regression-test reference** | `tests/test_google_news_url.py`; `tests/test_article_refresh.py::test_query_corroborated_zero_signal_item_becomes_uncertain_draft_when_body_unverifiable` |
 
 ### TD-060 — French blackberry species identity ("mûre"/"mûres") remains unrecognized
 
@@ -1743,7 +1744,7 @@ Unique withdrawn-draft items below keep their original IDs.
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | none -- a coverage-gap finding, not a code defect |
 
-### TD-108 — FreshPlaza is registered as two separate Source records pointing at the same feed
+### TD-108 — RESOLVED: FreshPlaza is registered as two separate Source records pointing at the same feed
 
 | Field | Value |
 |---|---|
@@ -1753,13 +1754,13 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Evidence** | Continuous Newsroom Intake V1 production-acceptance audit. `source-20260806173428-a004-fresh-plaza-74` ("Fresh Plaza") and `source-freshplaza-global` ("FreshPlaza global fresh produce news") both configure `discovery.adapter: "article_rss"` against the identical feed URL `https://www.freshplaza.com/rss.xml`. Same pattern as the pre-existing TD-104 hortifrut.com duplicate. |
 | **Impact** | Both Sources are independently polled by `CollectionRunner`, doubling request volume against the same feed and splitting any per-Source duplicate-suppression memory across two identities for what is really one publisher relationship -- not a trust or correctness issue (both are legitimately the real publisher), just wasted collection effort and split provenance bookkeeping. |
 | **Workaround** | None needed; `article_dedup.find_duplicate_article`'s canonical-URL/title matching still correctly collapses any article both Sources happen to discover into one Evidence/Publication record downstream. |
-| **Recommended resolution** | Merge into one Source record (or retire one via `source_lifecycle.with_lifecycle(..., state="RETIRED")`) once an operator confirms which of the two carries the more complete/accurate metadata. Out of this mission's bounded scope (auditing whether major specialist outlets are collected at all, not deduplicating the existing 201-Source registry). |
-| **Status** | active |
+| **Recommended resolution** | Retire the older duplicate `source-20260806173428-a004-fresh-plaza-74` via `lifecycle.state=RETIRED` with `replacement_source_id=source-freshplaza-global`. Keep the later, daily, specialist-feed-linked Source as the sole collection-eligible identity for `https://www.freshplaza.com/rss.xml`. |
+| **Status** | resolved |
 | **Owner lane** | data |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | none -- a data-quality finding, not a code defect |
+| **PR/SHA when resolved** | `fix/td-108-109-learner-ipm-v1` (not yet merged) |
+| **Regression-test reference** | `tests/test_td_108_109_hygiene.py` |
 
-### TD-109 — Hortifrut's entity `aliases` list includes a Chilean tax-ID string, not a name variant
+### TD-109 — RESOLVED: Hortifrut's entity `aliases` list includes a Chilean tax-ID string, not a name variant
 
 | Field | Value |
 |---|---|
@@ -1769,11 +1770,11 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Evidence** | Competitor Pulse V1 production-acceptance run against `company-hortifrut`. `data/entities/companies/company-hortifrut.json`'s `aliases` array includes `"RUT 96.896.990-0"` (a Chilean company registration number) alongside real name variants ("Hortifrut", "Hortifrut S.A."). Competitor Pulse's `company_query_terms()` uses `aliases` verbatim (deliberately, per its "never invent a term" discipline), so this string is included in the live search query text and the qualification name-regex, harmlessly (no article text will ever literally contain that RUT string) but incorrectly categorized as a name alias. |
 | **Impact** | None observed -- it never matched a real article in acceptance testing, so it is pure noise in the query string, not a false positive source. Flagged because a RUT/registration-number field being stored under `aliases` rather than a dedicated identifier field is a modeling gap other consumers of `aliases` (e.g. future Company search) could trip on. |
 | **Workaround** | None needed. |
-| **Recommended resolution** | Move Chile RUT-style identifiers (and any other jurisdiction's registration numbers found the same way) to a dedicated `attributes.registration_ids` -style field, out of `aliases`. Out of this mission's bounded scope (live research plane, not entity-schema cleanup). |
-| **Status** | active |
+| **Recommended resolution** | Move Chile RUT-style identifiers to `attributes.registration_ids` (jurisdiction/kind/value), out of `aliases`, so `company_query_terms()` and other alias consumers never treat a tax ID as a name variant. |
+| **Status** | resolved |
 | **Owner lane** | data |
-| **PR/SHA when resolved** | — |
-| **Regression-test reference** | none -- a data-quality finding, not a code defect |
+| **PR/SHA when resolved** | `fix/td-108-109-learner-ipm-v1` (not yet merged) |
+| **Regression-test reference** | `tests/test_td_108_109_hygiene.py` |
 
 ### TD-110 — RESOLVED: structured registry filings (PVR/patent) were silently bucketed into `older_backlog` by `/pending`'s calendar_age test
 
@@ -1806,6 +1807,35 @@ Unique withdrawn-draft items below keep their original IDs.
 | **Regression-test reference** | manual verification (browser DOM inspection); no dedicated JS test harness exists in this repo for keyboard interaction |
 
 Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
+
+### TD-113 — Company news coverage and source-body fidelity fail a current-company acceptance test
+
+| Field | Value |
+|---|---|
+| **Severity** | High |
+| **Area** | Company coverage / acquisition / stakeholder reporting |
+| **Date discovered** | 2026-09-11 |
+| **Evidence** | Local published snapshot: 20 Cal Giant mentions, nine access-screen captures, zero published items in June 14–September 11. Official newsroom lists current events absent here. Direct feed/article requests returned HTTP 403. Production counts reported by the user differ and were not reconciled to this local snapshot. |
+| **Implemented mitigation** | Canonical Cal Giant identity and alias recall; strict publication-date company window; read-time access-screen masking in news, readers and timelines; uncapped report inventory separating pending and undated records; honest working-report PDF marker; source reference links repaired without falsely enabling discovery. |
+| **Remaining work** | Establish reliable supported forward discovery/acquisition using existing adapters; stage usable recent sources privately; verify review-to-company/report propagation against actual production runtime before claiming freshness recovery. No automatic source-fidelity, publication, or atomic approval. |
+| **Status** | active — identity/presentation mitigated locally, acquisition unresolved |
+| **Owner lane** | acquisition / product |
+| **Regression-test reference** | `tests/test_company_news_coverage.py`, `tests/test_astra_news_reader.py`, `tests/test_entity_intelligence_timeline.py`; reproducible audit `scripts/audit_company_coverage.py`; checkpoint `artifacts/astra-repair/REPAIR-CHECKPOINT.md` |
+
+### TD-114 — Discovery success does not persist downstream article-acquisition failure
+
+| Field | Value |
+|---|---|
+| **Severity** | High |
+| **Area** | Collection operations / source fidelity |
+| **Date discovered** | 2026-09-12 |
+| **Evidence** | The local Source execution audit shows Blue Book Services as successfully run because feed discovery completed, while the bounded ingestion run found all five selected article-body acquisitions blocked. Items that fail acquisition and produce no draft do not leave a durable per-Source outcome that Source Health can aggregate. |
+| **Impact** | Operators can see that discovery ran but cannot tell whether it produced readable evidence. A healthy-looking Source can therefore add no usable intelligence, the exact gap exposed by the Cal Giant stakeholder test. |
+| **Implemented mitigation** | Article-body attempts now write immutable, redacted operational outcome records even when no draft is created. Source Health separately presents discovery execution, acquisition attempts, readable bodies, blocked/unusable outcomes, and retryable outcomes. The recurring runner includes the same counters. A five-source canary produced four readable outcomes and one honest Blue Book `bot_wall` outcome without publishing anything. Reproducible audits: `scripts/audit_source_execution.py` and `scripts/audit_competitor_source_coverage.py`. |
+| **Recommended resolution** | Carry the outcome contract into production-runtime scheduling and alerting after review. Add a compliant, explicitly linked California Giant discovery route; the official site remains HTTP 403 to the approved Python client and was not bypassed. |
+| **Status** | mitigated locally — persistence and operator visibility complete; production scheduling and Cal Giant coverage remain open |
+| **Owner lane** | acquisition / collection operations |
+| **Regression-test reference** | `tests/test_article_acquisition_outcomes.py`, `tests/test_article_refresh.py`, `tests/test_collection_runner.py`, `tests/test_monitor_workspace.py`; canary `artifacts/astra-repair/acquisition-canary-results.json` |
 
 ### TD-112 — Research Desk live recall remains provider- and index-dependent
 

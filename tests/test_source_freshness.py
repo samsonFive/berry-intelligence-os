@@ -19,10 +19,17 @@ from app.services.source_freshness import (
     MANUAL,
     QUIET,
     STALE,
+    EXECUTION_BLOCKED,
+    EXECUTION_INVALID,
+    EXECUTION_NEVER_RUN,
+    EXECUTION_RETRYABLE_FAILURE,
+    EXECUTION_SUCCESSFUL,
+    aggregate_source_execution,
     aggregate_source_coverage,
     classify_source_freshness,
     is_discoverable,
     latest_item_dates,
+    source_execution_status,
 )
 
 
@@ -30,6 +37,28 @@ def _source(**overrides):
     base = {"id": "source-x", "update_cadence": "weekly", "discovery": {"adapter": "article_rss", "feed_url": "https://example.com/feed"}}
     base.update(overrides)
     return base
+
+
+def test_execution_status_distinguishes_never_run_success_failure_block_and_invalid():
+    source = _source()
+    never = source_execution_status(source, discovery_state=None, supported_adapters={"article_rss"})
+    success = source_execution_status(source, discovery_state={"status": "ok", "last_checked_at": "2026-09-12", "last_success_at": "2026-09-12"}, supported_adapters={"article_rss"})
+    retry = source_execution_status(source, discovery_state={"status": "error", "error": "timeout"}, retry_hint={"next_eligible_retry_at": "2026-09-13T00:00:00Z"}, supported_adapters={"article_rss"})
+    blocked = source_execution_status(source, discovery_state={"status": "error", "error": "403 Forbidden"}, supported_adapters={"article_rss"})
+    invalid = source_execution_status(_source(discovery={"adapter": "unknown", "feed_url": "https://example.com/feed"}), discovery_state=None, supported_adapters={"article_rss"})
+    assert never["state"] == EXECUTION_NEVER_RUN and never["runnable"]
+    assert success["state"] == EXECUTION_SUCCESSFUL and success["runnable"]
+    assert retry["state"] == EXECUTION_RETRYABLE_FAILURE and retry["runnable"] and "Next eligible retry" in retry["reason"]
+    assert blocked["state"] == EXECUTION_BLOCKED and not blocked["runnable"]
+    assert invalid["state"] == EXECUTION_INVALID and not invalid["runnable"]
+    counts = aggregate_source_execution({"never": never, "success": success, "retry": retry, "blocked": blocked, "invalid": invalid})
+    assert counts["configured_runnable"] == 3
+    assert counts["never_run"] == counts["successfully_run"] == counts["retryable_failure"] == 1
+
+
+def test_execution_status_rejects_malformed_feed_url():
+    result = source_execution_status(_source(discovery={"adapter": "article_rss", "feed_url": "not-a-url"}), discovery_state=None, supported_adapters={"article_rss"})
+    assert result["state"] == EXECUTION_INVALID
 
 
 def test_manual_source_has_no_discovery_adapter():

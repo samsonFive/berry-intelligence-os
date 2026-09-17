@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from copy import deepcopy
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 from fastapi.testclient import TestClient
@@ -14,11 +14,20 @@ from app.main import app
 from app.services.analyst_queue import load_state, pending_workflow_state
 from app.services.morning_brief import build_morning_brief
 from app.services.story_threads import (
+    DATE_PROXIMITY_EVENT_DAYS,
+    DATE_PROXIMITY_EXACT_TITLE_DAYS,
+    DATE_PROXIMITY_TRANSLATION_DAYS,
+    MIN_EVENT_JACCARD,
+    THREAD_UNIVERSE_WINDOW_DAYS,
     compression_report,
+    expand_with_related,
     group_story_threads,
+    item_id,
     items_form_thread,
+    live_thread_candidate_universe,
     present_thread,
 )
+from tests.clock_helpers import freeze_utc_now
 
 
 PRIORITY = {
@@ -508,30 +517,35 @@ def test_different_patent_filings_for_same_breeder_stay_separate():
 
 def test_brief_review_soon_collapses_reprint_into_review_now_thread(monkeypatch, tmp_path: Path) -> None:
     _isolate(monkeypatch, tmp_path)
+    freeze_utc_now(monkeypatch, date(2026, 8, 6))
     repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
     _seed_entities(repos)
+    # Pending triage uses calendar_age <= 45 for Review now. A baked
+    # 2026-07-30 stamp aged out on 2026-09-16; keep the reprints inside
+    # that window relative to date.today() without changing production cutoffs.
+    reprint_day = (date.today() - timedelta(days=7)).isoformat()
     drafts = [
         _draft(
             "draft-hf-en",
             title=HORTIFRUT_EN,
             source_id="source-hortifrut-newsroom",
             source_name="Hortifrut Newsroom",
-            published_date="2026-07-30",
-            captured_date="2026-07-30",
+            published_date=reprint_day,
+            captured_date=reprint_day,
             summary="Hortifrut and Naturipe expand a genetics platform.",
         ),
         _draft(
             "draft-hf-es",
             title=HORTIFRUT_ES,
             source_name="International Blueberry Organization",
-            published_date="2026-07-30",
-            captured_date="2026-07-30",
+            published_date=reprint_day,
+            captured_date=reprint_day,
         ),
         _draft(
             "draft-mx-conf",
             title="Mexico will host a new international conference on blueberry cultivation",
             source_name="HortiDaily",
-            published_date=_today(),
+            published_date="2026-08-06",
         ),
     ]
     brief = build_morning_brief(
@@ -567,6 +581,61 @@ def test_brief_review_soon_collapses_reprint_into_review_now_thread(monkeypatch,
     )
     hortifrut_delta = next(row for row in brief["company_deltas"] if row["id"] == "company-hortifrut")
     assert any(bullet.get("is_thread") or "Developing" in str(bullet.get("label") or "") for bullet in hortifrut_delta["bullets"])
+
+
+def _hortifrut_triage(monkeypatch, tmp_path: Path, *, as_of: date) -> dict:
+    _isolate(monkeypatch, tmp_path)
+    freeze_utc_now(monkeypatch, as_of)
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    _seed_entities(repos)
+    drafts = [
+        _draft(
+            "draft-hf-en",
+            title=HORTIFRUT_EN,
+            source_id="source-hortifrut-newsroom",
+            source_name="Hortifrut Newsroom",
+            published_date="2026-07-30",
+            captured_date="2026-07-30",
+            summary="Hortifrut and Naturipe expand a genetics platform.",
+        ),
+        _draft(
+            "draft-hf-es",
+            title=HORTIFRUT_ES,
+            source_name="International Blueberry Organization",
+            published_date="2026-07-30",
+            captured_date="2026-07-30",
+        ),
+    ]
+    return build_morning_brief(
+        inbox_dir=main.INBOX_DIR,
+        published=[],
+        drafts=drafts,
+        entities={entity["id"]: entity for entity in repos.entities.list()},
+        berry_labels={"berry-blueberry": "Blueberry"},
+        sources=[
+            {
+                "id": "source-hortifrut-newsroom",
+                "label": "Hortifrut Newsroom",
+                "monitoring_priority": "high",
+                "linked_competitor_ids": ["company-hortifrut"],
+            }
+        ],
+        mark_seen=False,
+    )
+
+
+def test_hortifrut_reprints_stay_review_now_on_day_45(monkeypatch, tmp_path: Path) -> None:
+    brief = _hortifrut_triage(monkeypatch, tmp_path, as_of=date(2026, 9, 13))
+    buckets = {group["key"]: group for group in brief["pending_triage"]["buckets"]}
+    assert buckets["review_now"]["count"] >= 1
+    assert buckets["older_backlog"]["count"] == 0
+
+
+def test_hortifrut_reprints_are_older_backlog_on_day_46(monkeypatch, tmp_path: Path) -> None:
+    brief = _hortifrut_triage(monkeypatch, tmp_path, as_of=date(2026, 9, 14))
+    buckets = {group["key"]: group for group in brief["pending_triage"]["buckets"]}
+    assert buckets["review_now"]["count"] == 0
+    assert buckets["older_backlog"]["count"] >= 1
 
 
 def test_dismiss_redundant_coverage_keeps_file(monkeypatch, tmp_path: Path) -> None:
@@ -732,3 +801,482 @@ def test_compression_report_counts_distinct_stories():
     assert report["distinct_stories"] == 2
     assert report["multi_source_threads"] == 1
     assert report["singletons"] == 1
+
+
+AS_OF = date(2026, 9, 16)
+RECENT = "2026-09-10"
+STALE = "2026-06-01"
+TRUSTED_REPRINT_TITLE = "Planasa confirms Blue Maldiva commercial launch in Spain"
+
+
+def _subject_planasa() -> dict:
+    return {"id": "company-planasa", "name": "Plantas de Navarra, S.A.", "entity_type": "company"}
+
+
+def test_thread_universe_window_reuses_exact_title_recency():
+    assert THREAD_UNIVERSE_WINDOW_DAYS == DATE_PROXIMITY_EXACT_TITLE_DAYS == 14
+    assert DATE_PROXIMITY_EVENT_DAYS == 7
+    assert DATE_PROXIMITY_TRANSLATION_DAYS == 1
+    assert MIN_EVENT_JACCARD == 0.45
+
+
+def test_two_recent_trusted_same_event_reprints_thread():
+    left = _published(
+        "ev-trusted-reprint-a",
+        title=TRUSTED_REPRINT_TITLE,
+        source_name="Planasa Newsroom",
+        source_url="https://example.invalid/planasa-maldiva",
+        published_date=RECENT,
+        entity_ids=["company-planasa"],
+        primary_subject=_subject_planasa(),
+    )
+    right = _published(
+        "ev-trusted-reprint-b",
+        title=TRUSTED_REPRINT_TITLE,
+        source_name="FreshPlaza",
+        source_url="https://example.invalid/freshplaza-maldiva",
+        published_date=RECENT,
+        entity_ids=["company-planasa"],
+        primary_subject=_subject_planasa(),
+    )
+    universe = live_thread_candidate_universe(published=[left, right], as_of=AS_OF)
+    assert {item_id(row) for row in universe} == {"ev-trusted-reprint-a", "ev-trusted-reprint-b"}
+    assert items_form_thread(left, right)
+    threads = group_story_threads(universe)
+    assert len(threads) == 1
+    assert threads[0]["source_count"] == 2
+    assert set(threads[0]["member_ids"]) == {"ev-trusted-reprint-a", "ev-trusted-reprint-b"}
+    assert threads[0]["trust"] == "pending"
+    assert "organizational" in threads[0]["trust_label"].casefold()
+    assert left["status"] == "published"
+    assert right["status"] == "published"
+
+
+def test_unrelated_trusted_publications_do_not_thread():
+    genetics = _published(
+        "ev-trusted-unrelated-a",
+        title=TRUSTED_REPRINT_TITLE,
+        published_date=RECENT,
+        entity_ids=["company-planasa"],
+        primary_subject=_subject_planasa(),
+    )
+    weather = _published(
+        "ev-trusted-unrelated-b",
+        title="South African blueberry season faces extreme weather",
+        source_url="https://example.invalid/sa-weather",
+        published_date=RECENT,
+        entity_ids=["company-planasa"],
+        primary_subject=_subject_planasa(),
+    )
+    assert not items_form_thread(genetics, weather)
+    threads = group_story_threads(
+        live_thread_candidate_universe(published=[genetics, weather], as_of=AS_OF)
+    )
+    by_id = {thread["id"]: thread for thread in threads}
+    assert by_id["ev-trusted-unrelated-a"]["source_count"] == 1
+    assert by_id["ev-trusted-unrelated-b"]["source_count"] == 1
+
+
+def test_co_mention_alone_does_not_thread_trusted_coverage():
+    first = _published(
+        "ev-trusted-comention-a",
+        title="Hortifrut reports quarterly blueberry volumes",
+        published_date=RECENT,
+        entity_ids=["company-hortifrut", "company-planasa"],
+        primary_subject={"id": "company-hortifrut", "name": "Hortifrut S.A.", "entity_type": "company"},
+    )
+    second = _published(
+        "ev-trusted-comention-b",
+        title="Planasa opens a new nursery in Peru",
+        source_url="https://example.invalid/planasa-peru",
+        published_date=RECENT,
+        entity_ids=["company-planasa", "company-hortifrut"],
+        primary_subject=_subject_planasa(),
+    )
+    assert not items_form_thread(first, second)
+    threads = group_story_threads(
+        live_thread_candidate_universe(published=[first, second], as_of=AS_OF)
+    )
+    assert all(int(thread["source_count"]) == 1 for thread in threads)
+
+
+def test_weak_title_overlap_is_insufficient_for_trusted_thread():
+    first = _published(
+        "ev-trusted-weak-a",
+        title="Planasa expands blueberry production in Mexico",
+        published_date=RECENT,
+        entity_ids=["company-planasa"],
+        primary_subject=_subject_planasa(),
+    )
+    second = _published(
+        "ev-trusted-weak-b",
+        title="Planasa reports blueberry season update",
+        source_url="https://example.invalid/planasa-season",
+        published_date=RECENT,
+        entity_ids=["company-planasa"],
+        primary_subject=_subject_planasa(),
+    )
+    assert not items_form_thread(first, second)
+
+
+def test_records_outside_recency_window_are_excluded_from_universe():
+    stale_a = _published(
+        "ev-stale-reprint-a",
+        title=TRUSTED_REPRINT_TITLE,
+        published_date=STALE,
+        primary_subject=_subject_planasa(),
+    )
+    stale_b = _published(
+        "ev-stale-reprint-b",
+        title=TRUSTED_REPRINT_TITLE,
+        source_url="https://example.invalid/stale-b",
+        published_date=STALE,
+        primary_subject=_subject_planasa(),
+    )
+    recent = _published(
+        "ev-recent-unrelated",
+        title="USHBC President on Mexico’s role in the North American blueberry industry",
+        source_url="https://example.invalid/ushbc-recent",
+        published_date=RECENT,
+        primary_subject={"id": "company-ushbc", "name": "U.S. Highbush Blueberry Council", "entity_type": "company"},
+    )
+    assert items_form_thread(stale_a, stale_b)
+    universe = live_thread_candidate_universe(
+        published=[stale_a, stale_b, recent],
+        as_of=AS_OF,
+    )
+    assert {item_id(row) for row in universe} == {"ev-recent-unrelated"}
+    threads = group_story_threads(universe)
+    assert len(threads) == 1
+    assert threads[0]["member_ids"] == ["ev-recent-unrelated"]
+
+
+def test_pending_and_trusted_copies_deduplicate_by_id():
+    pending = _draft(
+        "ev-same-id",
+        title=TRUSTED_REPRINT_TITLE,
+        published_date=RECENT,
+        status="pending",
+    )
+    trusted = _published(
+        "ev-same-id",
+        title=TRUSTED_REPRINT_TITLE,
+        published_date=RECENT,
+        primary_subject=_subject_planasa(),
+    )
+    universe = live_thread_candidate_universe(
+        pending=[pending],
+        published=[trusted],
+        as_of=AS_OF,
+    )
+    matches = [row for row in universe if item_id(row) == "ev-same-id"]
+    assert len(matches) == 1
+    assert matches[0]["status"] == "pending"
+    assert trusted["status"] == "published"
+    assert pending["status"] == "pending"
+
+
+def test_stored_same_event_links_still_expand_outside_window():
+    recent = _published(
+        "ev-linked-recent",
+        title="Florida Foundation Seed Producers releases Jewel blueberry",
+        published_date=RECENT,
+        evidence_links=[
+            {
+                "predicate": "follows_up",
+                "target_evidence_id": "ev-linked-stale",
+                "status": "accepted",
+            }
+        ],
+    )
+    stale = _published(
+        "ev-linked-stale",
+        title="Blueberry plant named ‘Jewel’",
+        source_url="https://example.invalid/jewel-patent",
+        published_date=STALE,
+        source_type="patent_record",
+        kind="patent",
+    )
+    universe = live_thread_candidate_universe(
+        seed=recent,
+        published=[recent, stale],
+        as_of=AS_OF,
+    )
+    assert {item_id(row) for row in universe} == {"ev-linked-recent"}
+    expanded = expand_with_related(universe, [dict(stale), dict(recent)])
+    assert {item_id(row) for row in expanded} == {"ev-linked-recent", "ev-linked-stale"}
+    assert items_form_thread(recent, stale)
+    thread = present_thread(expanded)
+    assert thread["source_count"] == 2
+    assert set(thread["member_ids"]) == {"ev-linked-recent", "ev-linked-stale"}
+
+
+def test_canonical_url_duplicates_remain_one_thread():
+    left = _published(
+        "ev-url-a",
+        title="Publisher A mirror",
+        source_url="https://example.invalid/canonical-story",
+        canonical_url="https://example.invalid/canonical-story",
+        published_date=RECENT,
+    )
+    right = _published(
+        "ev-url-b",
+        title="Publisher B mirror",
+        source_url="https://example.invalid/canonical-story",
+        canonical_url="https://example.invalid/canonical-story",
+        published_date=RECENT,
+    )
+    assert items_form_thread(left, right)
+    threads = group_story_threads(
+        live_thread_candidate_universe(published=[left, right], as_of=AS_OF)
+    )
+    assert len(threads) == 1
+    assert set(threads[0]["member_ids"]) == {"ev-url-a", "ev-url-b"}
+    assert threads[0]["source_count"] == 2
+
+
+def test_thread_ordering_and_ids_are_stable():
+    left = _published(
+        "ev-stable-a",
+        title=TRUSTED_REPRINT_TITLE,
+        source_name="Planasa Newsroom",
+        source_url="https://example.invalid/stable-a",
+        published_date=RECENT,
+        primary_subject=_subject_planasa(),
+    )
+    right = _published(
+        "ev-stable-b",
+        title=TRUSTED_REPRINT_TITLE,
+        source_name="FreshPlaza",
+        source_url="https://example.invalid/stable-b",
+        published_date=RECENT,
+        primary_subject=_subject_planasa(),
+    )
+    forward = present_thread([left, right])
+    reverse = present_thread([right, left])
+    assert forward["id"] == reverse["id"]
+    assert forward["thread_id"] == reverse["thread_id"] == f"thread-{forward['id']}"
+    grouped_forward = group_story_threads([left, right])
+    grouped_reverse = group_story_threads([right, left])
+    assert grouped_forward[0]["id"] == grouped_reverse[0]["id"]
+    assert grouped_forward[0]["member_ids"] == grouped_reverse[0]["member_ids"]
+
+
+def test_threading_does_not_mutate_trust_status():
+    record = _published(
+        "ev-trust-immutable",
+        title=TRUSTED_REPRINT_TITLE,
+        published_date=RECENT,
+    )
+    original = json.dumps(record, sort_keys=True)
+    universe = live_thread_candidate_universe(published=[record], as_of=AS_OF)
+    present_thread(universe)
+    group_story_threads(universe)
+    assert json.dumps(record, sort_keys=True) == original
+    assert record["status"] == "published"
+    assert record["review_state"] == "published"
+    assert universe[0] is not record
+
+
+def test_recent_published_universe_is_bounded():
+    stale = [
+        _published(
+            f"ev-old-{index}",
+            title=f"Historical filing {index}",
+            source_url=f"https://example.invalid/old-{index}",
+            published_date="2025-01-01",
+        )
+        for index in range(200)
+    ]
+    recent = [
+        _published(
+            "ev-bound-a",
+            title=TRUSTED_REPRINT_TITLE,
+            source_url="https://example.invalid/bound-a",
+            published_date=RECENT,
+        ),
+        _published(
+            "ev-bound-b",
+            title=TRUSTED_REPRINT_TITLE,
+            source_url="https://example.invalid/bound-b",
+            published_date=RECENT,
+        ),
+    ]
+    universe = live_thread_candidate_universe(published=stale + recent, as_of=AS_OF)
+    assert {item_id(row) for row in universe} == {"ev-bound-a", "ev-bound-b"}
+    assert len(universe) == 2
+
+
+def test_thread_reader_groups_recent_trusted_reprints(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    _seed_entities(repos)
+    day = _today()
+    repos.evidence.create(
+        _published(
+            "ev-trusted-reprint-a",
+            title=TRUSTED_REPRINT_TITLE,
+            source_name="Planasa Newsroom",
+            source_url="https://example.invalid/planasa-maldiva",
+            published_date=day,
+            captured_date=day,
+            entity_ids=["company-planasa"],
+        )
+    )
+    repos.evidence.create(
+        _published(
+            "ev-trusted-reprint-b",
+            title=TRUSTED_REPRINT_TITLE,
+            source_name="FreshPlaza",
+            source_url="https://example.invalid/freshplaza-maldiva",
+            published_date=day,
+            captured_date=day,
+            entity_ids=["company-planasa"],
+        )
+    )
+    client = TestClient(app)
+    page = client.get("/threads/ev-trusted-reprint-a")
+    assert page.status_code == 200
+    assert "Developing story" in page.text
+    assert "Planasa Newsroom" in page.text
+    assert "FreshPlaza" in page.text
+    assert "Trust thread" not in page.text
+    assert "Not a Fact" in page.text or "not a Fact" in page.text
+    intel = client.get("/intelligence/ev-trusted-reprint-a")
+    assert intel.status_code == 200
+    assert "Open thread" in intel.text
+    stored = json.loads((tmp_path / "data" / "evidence" / "ev-trusted-reprint-a.json").read_text(encoding="utf-8"))
+    assert stored["status"] == "published"
+    assert stored["review_state"] == "published"
+
+
+def test_thread_reader_keeps_stored_same_event_link_to_stale_published(
+    monkeypatch, tmp_path: Path
+) -> None:
+    _isolate(monkeypatch, tmp_path)
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    _seed_entities(repos)
+    day = _today()
+    stale_day = (date.today() - timedelta(days=60)).isoformat()
+    repos.evidence.create(
+        _published(
+            "ev-linked-stale",
+            title="Blueberry plant named ‘Jewel’",
+            source_name="USPTO plant patent",
+            source_type="patent_record",
+            source_url="https://example.invalid/jewel-patent",
+            published_date=stale_day,
+            captured_date=stale_day,
+        )
+    )
+    repos.evidence.create(
+        _published(
+            "ev-linked-recent",
+            title="Florida Foundation Seed Producers releases Jewel blueberry",
+            source_name="Company Newsroom",
+            source_url="https://example.invalid/jewel-newsroom",
+            published_date=day,
+            captured_date=day,
+            evidence_links=[
+                {
+                    "predicate": "follows_up",
+                    "target_evidence_id": "ev-linked-stale",
+                    "status": "accepted",
+                }
+            ],
+        )
+    )
+    page = TestClient(app).get("/threads/ev-linked-recent")
+    assert page.status_code == 200
+    assert "Jewel" in page.text
+    assert "ev-linked-stale" in page.text or "USPTO" in page.text
+
+
+def test_unrelated_recent_trusted_item_does_not_absorb_stale_reprints(
+    monkeypatch, tmp_path: Path
+) -> None:
+    _isolate(monkeypatch, tmp_path)
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    _seed_entities(repos)
+    stale_day = (date.today() - timedelta(days=60)).isoformat()
+    day = _today()
+    repos.evidence.create(
+        _published(
+            "ev-stale-reprint-a",
+            title=TRUSTED_REPRINT_TITLE,
+            source_url="https://example.invalid/stale-a",
+            published_date=stale_day,
+            captured_date=stale_day,
+        )
+    )
+    repos.evidence.create(
+        _published(
+            "ev-stale-reprint-b",
+            title=TRUSTED_REPRINT_TITLE,
+            source_url="https://example.invalid/stale-b",
+            published_date=stale_day,
+            captured_date=stale_day,
+        )
+    )
+    repos.evidence.create(
+        _published(
+            "ev-recent-unrelated",
+            title="Mexico will host a new international conference on blueberry cultivation",
+            source_url="https://example.invalid/mexico-conference",
+            published_date=day,
+            captured_date=day,
+        )
+    )
+    response = TestClient(app).get("/threads/ev-recent-unrelated", follow_redirects=False)
+    assert response.status_code == 303
+    assert response.headers["location"] == "/intelligence/ev-recent-unrelated"
+
+
+def test_static_build_does_not_group_or_leak_private_threads() -> None:
+    root = Path(__file__).resolve().parents[1]
+    build_src = (root / "scripts" / "build_static.py").read_text(encoding="utf-8")
+    search_src = (root / "app" / "services" / "global_search.py").read_text(encoding="utf-8")
+    landscape_src = (root / "app" / "services" / "berries" / "landscape.py").read_text(encoding="utf-8")
+    main_src = (root / "app" / "main.py").read_text(encoding="utf-8")
+    assert "group_story_threads" not in build_src
+    assert "live_thread_candidate_universe" not in build_src
+    assert "group_story_threads" not in search_src
+    assert "live_thread_candidate_universe" not in search_src
+    assert "group_story_threads" not in landscape_src
+    assert "live_thread_candidate_universe" not in landscape_src
+    assert "group_story_threads(" not in main_src
+
+
+def test_static_output_excludes_pending_thread_members(monkeypatch, tmp_path: Path) -> None:
+    _isolate(monkeypatch, tmp_path)
+    repos = main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR)
+    _seed_entities(repos)
+    day = _today()
+    repos.evidence.create(
+        _published(
+            "ev-static-trusted-reprint",
+            title=TRUSTED_REPRINT_TITLE,
+            published_date=day,
+            captured_date=day,
+        )
+    )
+    pending_title = "SECRET-PENDING-THREAD-SENTINEL-TD-THREAD-002"
+    _write(
+        tmp_path / "inbox" / "evidence" / "draft-secret-thread.json",
+        _draft(
+            "draft-secret-thread",
+            title=pending_title,
+            published_date=day,
+        ),
+    )
+    import scripts.build_static as build_static
+
+    output_dir = tmp_path / "generated"
+    monkeypatch.setattr(build_static, "OUTPUT_DIR", output_dir)
+    assert build_static.main() == 0
+    assert not (output_dir / "threads").exists()
+    for html_file in output_dir.rglob("*.html"):
+        content = html_file.read_text(encoding="utf-8")
+        assert pending_title not in content
+        assert "draft-secret-thread" not in content
+        assert "SECRET-PENDING-THREAD-SENTINEL-TD-THREAD-002" not in content

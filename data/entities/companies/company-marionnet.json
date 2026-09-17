@@ -1,0 +1,43 @@
+{
+  "id": "company-marionnet",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Marionnet",
+  "aliases": [
+    "Marionnet Label"
+  ],
+  "status": "unverified",
+  "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 17) as a tracked competitor of type 'Breeding; Genetics'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
+  "roles": [
+    "breeder",
+    "genetics_licensor",
+    "competitor"
+  ],
+  "berry_ids": [
+    "berry-strawberry",
+    "berry-raspberry"
+  ],
+  "evidence_ids": [
+    "ev-competitor-registry-2026-09-15-import"
+  ],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "competitor_registry_2026_09_15": {
+      "row_number": 17,
+      "spreadsheet_label": "Marionnet",
+      "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "identity_verification_2026_09_15": {
+      "verdict": "structural_ambiguity",
+      "reason": "Real entity confirmed via US patent filings (Andre Marionnet, e.g. USPP8517P 'Mara Des Bois') and trade coverage, but the exact CURRENT legal/organizational identity is unclear: search results name 'Marionnet Label' (post-2018 R&D entity), 'Marionnet SAS', and 'MARIONNET GFA' (a produce-directory listing) as related but not clearly identical names, and state the company 'was taken over by the Agri Finest Company group' in 2018. No official current website was found. This is a real parent/renaming ambiguity, not just thin evidence -- held provisional pending a primary source (the current entity's own site or registry filing) that resolves which name is canonical today.",
+      "evidence_urls": [
+        "https://www.doriane.com/case-studies/marionnet-label",
+        "https://patents.google.com/patent/USPP8517P/en"
+      ],
+      "confidence": "medium",
+      "verification_date": "2026-09-15",
+      "verified_by": "competitor-identity-genetics-verification-v1"
+    }
+  }
+}

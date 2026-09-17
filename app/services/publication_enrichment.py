@@ -228,6 +228,10 @@ def enrich_publication_draft(
     updated = dict(draft)
     original = publisher_description(item, draft)
     updated["publisher_description"] = original
+    from app.services.source_body import classify_source_body, looks_like_interstitial
+    if looks_like_interstitial(original) or classify_source_body(updated)["state"] == "interstitial":
+        updated["ai_enrichment"] = empty_ai_enrichment(reason="ai enrichment skipped: unusable source content", model=None)
+        return updated
     updated = apply_deterministic_tags(
         updated,
         geographies=geographies,
