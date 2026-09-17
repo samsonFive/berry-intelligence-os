@@ -274,6 +274,7 @@ def test_static_link_rewrite_preserves_query_fragment_and_external_urls() -> Non
     html = (
         '<a href="/competitors?berry=blueberry&amp;company=company-a#detail">internal</a>'
         '<a href="//cdn.example.invalid/asset.css">external</a>'
+        '<form action="/competitors?berry=blueberry">filters</form>'
     )
     rewritten = build_static._rewrite_internal_links(html, "../")
 
@@ -282,6 +283,7 @@ def test_static_link_rewrite_preserves_query_fragment_and_external_urls() -> Non
         in rewritten
     )
     assert 'href="//cdn.example.invalid/asset.css"' in rewritten
+    assert 'action="../competitors/index.html?berry=blueberry"' in rewritten
 
 
 def test_build_search_index_skips_gracefully_without_pagefind(monkeypatch, tmp_path) -> None:

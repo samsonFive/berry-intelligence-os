@@ -123,7 +123,7 @@ def render(template_name: str, path: str, context: dict[str, Any]) -> str:
     return templates.get_template(template_name).render(context)
 
 
-_HREF_RE = re.compile(r'(href|src)="(/(?!/)[^"#?]*)(\?[^"#]*)?(#[^"]*)?"')
+_URL_ATTR_RE = re.compile(r'(href|src|action)="(/(?!/)[^"#?]*)(\?[^"#]*)?(#[^"]*)?"')
 
 
 def _depth_prefix(output_file: Path) -> str:
@@ -147,7 +147,7 @@ def _rewrite_internal_links(html: str, prefix: str) -> str:
             target = stripped if "." in last_segment else f"{stripped}/index.html"
         return f'{attr}="{prefix}{target}{query}{fragment}"'
 
-    return _HREF_RE.sub(repl, html)
+    return _URL_ATTR_RE.sub(repl, html)
 
 
 def write_page(template_name: str, route_path: str, context: dict[str, Any]) -> Path:
