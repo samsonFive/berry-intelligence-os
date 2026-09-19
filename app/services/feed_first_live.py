@@ -1,17 +1,16 @@
 """Same-day live acquisition for the feed-first Today surface.
 
 Keyless lanes: Google News RSS (when:1d) and specialist / official site RSS.
-Keyed catch-net: Perplexity Search when ``PERPLEXITY_API_KEY`` is present.
-Exa / APITube / NewsCatcher stay off unless a canonical name or dashboard
-alias resolves — do not invent keys. NewsCatcher CatchAll is never
-request-time on Today.
+Keyed request-time lanes when canonical names resolve: Perplexity Search,
+Exa, and APITube. Prefer ``EXA_API_KEY`` / ``APITUBE_API_KEY`` /
+``PERPLEXITY_API_KEY``. NewsCatcher CatchAll is never request-time on Today.
 
 Hits become LIVE / UNREVIEWED feed records only when ``published_date``
 equals the product UTC calendar day. Undated hits are dropped. Stored
 published evidence is never a fallback.
 
 Does not write ``data/evidence``. Inbox cache is date-keyed so yesterday
-cannot be served as today.
+cannot be served as today. Do not poll the 151-row seed one company at a time.
 """
 
 from __future__ import annotations
@@ -27,7 +26,9 @@ from typing import Any, Iterable
 from app.services.article_dedup import normalize_canonical_url
 from app.services.clock import utc_today
 from app.services.industry_pulse.dedup import dedupe_hits, unique_hits
-from app.services.industry_pulse.credentials import has_perplexity
+from app.services.industry_pulse.apitube import ApiTubeSearchProvider
+from app.services.industry_pulse.credentials import has_apitube, has_exa, has_perplexity
+from app.services.industry_pulse.exa import ExaSearchProvider
 from app.services.industry_pulse.matrix import (
     ALL_BERRIES_TERMS,
     BERRIES,
@@ -54,6 +55,8 @@ CACHE_TTL = timedelta(minutes=15)
 LIVE_LANE_GOOGLE = "google_news_rss"
 LIVE_LANE_SPECIALIST = "specialist_rss"
 LIVE_LANE_PERPLEXITY = "perplexity"
+LIVE_LANE_EXA = "exa"
+LIVE_LANE_APITUBE = "apitube"
 TRUST_LIVE = "LIVE"
 REVIEW_UNREVIEWED = "UNREVIEWED"
 
@@ -95,13 +98,25 @@ def live_disclosure(bundle: dict[str, Any]) -> str:
     fetched = bundle.get("fetched_at") or "not fetched"
     errors = bundle.get("lane_errors") or []
     err = f" Lane errors: {len(errors)}." if errors else ""
+    unused: list[str] = []
+    present = set(bundle.get("lanes") or [])
+    if LIVE_LANE_EXA not in present:
+        unused.append("Exa")
+    if LIVE_LANE_APITUBE not in present:
+        unused.append("APITube")
+    if LIVE_LANE_PERPLEXITY not in present:
+        unused.append("Perplexity")
+    unused_note = ""
+    if unused:
+        unused_note = f" {', '.join(unused)} stay unused until those keys exist."
     return (
         f"LIVE / UNREVIEWED same-day acquisition ({lanes}). "
         f"Only items whose published_date equals {bundle.get('today')} "
         f"(product UTC clock). Fetched {fetched}. "
         f"The stored August corpus is unused here.{err} "
         "Social platforms are not collected. "
-        "Exa, APITube, and NewsCatcher stay unused until those keys exist."
+        "NewsCatcher CatchAll is not request-time on Today."
+        f"{unused_note}"
     )
 
 
@@ -138,6 +153,11 @@ def today_google_queries() -> list[PulseQuery]:
             ).with_window("24h")
         )
     return rows
+
+
+def today_keyed_queries() -> list[PulseQuery]:
+    """Bounded same-day catch-net for Exa / APITube. Not a 151-entity loop."""
+    return today_perplexity_queries()[:2]
 
 
 def today_perplexity_queries() -> list[PulseQuery]:
@@ -216,16 +236,23 @@ def _is_blackberry_stock(hit: DiscoveryHit) -> bool:
     return bool(_STOCK_BLACKBERRY.search(text) and not _FRUIT_BLACKBERRY.search(text))
 
 
-def source_type_for(hit: DiscoveryHit) -> str:
+def source_type_for(hit: DiscoveryHit, *, official: set[str] | None = None) -> str:
     host = (hit.source_domain or hostname(hit.origin_publisher_url or hit.url) or "").lower().removeprefix("www.")
-    if host in OFFICIAL_HOSTS:
+    known = OFFICIAL_HOSTS | (official or set())
+    if host in known:
         return "company_website"
     if hit.provider == LIVE_LANE_SPECIALIST:
         return "trade_press"
     return "news_search"
 
 
-def hit_to_record(hit: DiscoveryHit, *, entities: Iterable[dict[str, Any]], today: date) -> dict[str, Any]:
+def hit_to_record(
+    hit: DiscoveryHit,
+    *,
+    entities: Iterable[dict[str, Any]],
+    today: date,
+    official_hosts: set[str] | None = None,
+) -> dict[str, Any]:
     url = hit.origin_publisher_url or hit.url
     text = f"{hit.title} {hit.snippet}"
     entity_ids = match_entity_ids(text, entities)
@@ -240,7 +267,7 @@ def hit_to_record(hit: DiscoveryHit, *, entities: Iterable[dict[str, Any]], toda
         "title": hit.title,
         "summary": snippet,
         "source_name": hit.origin_publisher_name or hit.source_domain or "Unknown source",
-        "source_type": source_type_for(hit),
+        "source_type": source_type_for(hit, official=official_hosts),
         "source_url": url,
         "published_date": str(hit.published_date or "")[:10],
         "captured_date": today.isoformat(),
@@ -309,19 +336,34 @@ def _run_lane(
     return hits, errors
 
 
+def _resolve_keyed_provider(
+    provider: DiscoveryProvider | None,
+    *,
+    enable: bool | None,
+    available: bool,
+    factory,
+) -> DiscoveryProvider | None:
+    if provider is not None:
+        return provider
+    if enable is False:
+        return None
+    if enable is True or available:
+        return factory()
+    return None
+
+
 def _resolve_perplexity(
     provider: DiscoveryProvider | None,
     *,
     today: date,
     enable: bool | None,
 ) -> DiscoveryProvider | None:
-    if provider is not None:
-        return provider
-    if enable is False:
-        return None
-    if enable is True or has_perplexity():
-        return PerplexitySearchProvider(today=today)
-    return None
+    return _resolve_keyed_provider(
+        provider,
+        enable=enable,
+        available=has_perplexity(),
+        factory=lambda: PerplexitySearchProvider(today=today),
+    )
 
 
 def collect_same_day_hits(
@@ -329,7 +371,11 @@ def collect_same_day_hits(
     google_provider: DiscoveryProvider | None = None,
     specialist_provider: DiscoveryProvider | None = None,
     perplexity_provider: DiscoveryProvider | None = None,
+    exa_provider: DiscoveryProvider | None = None,
+    apitube_provider: DiscoveryProvider | None = None,
     enable_perplexity: bool | None = None,
+    enable_exa: bool | None = None,
+    enable_apitube: bool | None = None,
     entities: list[dict[str, Any]] | None = None,
     sources: list[dict[str, Any]] | None = None,
     today: date | None = None,
@@ -339,6 +385,18 @@ def collect_same_day_hits(
     specialist_provider = specialist_provider or SpecialistRssProvider()
     perplexity_provider = _resolve_perplexity(
         perplexity_provider, today=today, enable=enable_perplexity
+    )
+    exa_provider = _resolve_keyed_provider(
+        exa_provider,
+        enable=enable_exa,
+        available=has_exa(),
+        factory=lambda: ExaSearchProvider(today=today),
+    )
+    apitube_provider = _resolve_keyed_provider(
+        apitube_provider,
+        enable=enable_apitube,
+        available=has_apitube(),
+        factory=lambda: ApiTubeSearchProvider(today=today),
     )
     entities = entities or []
     sources = sources or []
@@ -355,7 +413,15 @@ def collect_same_day_hits(
             today_perplexity_queries(),
             workers=3,
         )
-    raw = [*google_hits, *specialist_hits, *perplexity_hits]
+    exa_hits, exa_errors = ([], [])
+    if exa_provider is not None:
+        exa_hits, exa_errors = _run_lane(exa_provider, today_keyed_queries(), workers=2)
+    apitube_hits, apitube_errors = ([], [])
+    if apitube_provider is not None:
+        apitube_hits, apitube_errors = _run_lane(
+            apitube_provider, today_keyed_queries(), workers=2
+        )
+    raw = [*google_hits, *specialist_hits, *perplexity_hits, *exa_hits, *apitube_hits]
     company_names = names_from_entities(entities, prefix="company-")
     variety_names = names_from_entities(entities, prefix="variety-")
     index = QualificationIndex.compile(
@@ -396,13 +462,25 @@ def collect_same_day_hits(
     ]
     if perplexity_provider is not None:
         lanes.append(getattr(perplexity_provider, "name", LIVE_LANE_PERPLEXITY))
+    if exa_provider is not None:
+        lanes.append(getattr(exa_provider, "name", LIVE_LANE_EXA))
+    if apitube_provider is not None:
+        lanes.append(getattr(apitube_provider, "name", LIVE_LANE_APITUBE))
     meta = {
         "today": today.isoformat(),
         "lanes": lanes,
-        "lane_errors": [*google_errors, *specialist_errors, *perplexity_errors],
+        "lane_errors": [
+            *google_errors,
+            *specialist_errors,
+            *perplexity_errors,
+            *exa_errors,
+            *apitube_errors,
+        ],
         "stats": stats,
         "specialist_feed_count": len(WEEK_SPECIALIST_FEEDS),
         "perplexity_enabled": perplexity_provider is not None,
+        "exa_enabled": exa_provider is not None,
+        "apitube_enabled": apitube_provider is not None,
     }
     return same_day, meta
 
@@ -478,7 +556,12 @@ def live_feed_bundle(
     google_provider: DiscoveryProvider | None = None,
     specialist_provider: DiscoveryProvider | None = None,
     perplexity_provider: DiscoveryProvider | None = None,
+    exa_provider: DiscoveryProvider | None = None,
+    apitube_provider: DiscoveryProvider | None = None,
     enable_perplexity: bool | None = None,
+    enable_exa: bool | None = None,
+    enable_apitube: bool | None = None,
+    official_hosts: set[str] | None = None,
 ) -> dict[str, Any]:
     today = today or utc_today()
     now = now or datetime.now(UTC)
@@ -491,12 +574,24 @@ def live_feed_bundle(
         google_provider=google_provider,
         specialist_provider=specialist_provider,
         perplexity_provider=perplexity_provider,
+        exa_provider=exa_provider,
+        apitube_provider=apitube_provider,
         enable_perplexity=enable_perplexity,
+        enable_exa=enable_exa,
+        enable_apitube=enable_apitube,
         entities=entities,
         sources=sources,
         today=today,
     )
-    records = [hit_to_record(hit, entities=entities or [], today=today) for hit in hits]
+    records = [
+        hit_to_record(
+            hit,
+            entities=entities or [],
+            today=today,
+            official_hosts=official_hosts,
+        )
+        for hit in hits
+    ]
     bundle = {
         **empty_bundle(today, fetched_at=now.isoformat(timespec="seconds")),
         **meta,

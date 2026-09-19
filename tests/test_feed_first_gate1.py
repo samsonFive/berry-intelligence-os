@@ -324,6 +324,40 @@ def test_people_watchlist_is_honest():
     assert page.status_code == 200
     assert "provider-unavailable" in page.text
     assert "Empty watchlist" in page.text
+    assert "data-feed-first-people" in page.text
+
+
+def test_following_tracks_seed_companies_and_excludes_registries():
+    page = TestClient(app).get("/following")
+    assert page.status_code == 200
+    assert "data-feed-first-following" in page.text
+    assert "145 companies" in page.text or "145 seed companies" in page.text
+    assert "Candidate · unverified" in page.text
+    assert "cpvo.europa.eu" not in page.text.lower()
+    blueberry = TestClient(app).get("/following?crop=blueberry")
+    assert blueberry.status_code == 200
+    assert "Fall Creek" in blueberry.text
+    registries = TestClient(app).get("/following?registries=1")
+    assert "Community Plant Variety Office" in registries.text
+    assert "Excluded from competitor" in registries.text or "excluded from competitor" in registries.text.lower()
+
+
+def test_entities_roster_and_seed_only_profile():
+    page = TestClient(app).get("/entities")
+    assert page.status_code == 200
+    assert "data-feed-first-entities" in page.text
+    assert "tracked breeding world" in page.text.lower() or "Tracked breeding world" in page.text
+    roster = __import__("app.services.seed_roster", fromlist=["build_roster"]).build_roster([])
+    seed_only = next(row for row in roster if not row.get("trusted_entity_id") and row["competitor"])
+    profile = TestClient(app).get(f"/entities/company/{seed_only['id']}")
+    assert profile.status_code == 200
+    assert "data-feed-first-entity" in profile.text
+    assert seed_only["canonical_name"] in profile.text
+    if seed_only["candidate"]:
+        assert "Candidate-review" in profile.text or "unverified" in profile.text
+    trusted = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery")
+    assert trusted.status_code == 200
+    assert "From Today thumbs-up" in trusted.text or "Fall Creek" in trusted.text
 
 
 def test_playground_fixtures_are_not_the_today_corpus(monkeypatch):
@@ -404,6 +438,8 @@ def test_same_day_collector_drops_yesterday_undated_and_unqualified(tmp_path: Pa
         google_provider=provider,
         specialist_provider=specialist,
         enable_perplexity=False,
+        enable_exa=False,
+        enable_apitube=False,
     )
     assert bundle["today"] == "2026-09-21"
     assert bundle["stats"]["same_day"] == 1
@@ -434,6 +470,8 @@ def test_yesterday_cache_is_never_served_as_today(tmp_path: Path):
         ),
         specialist_provider=MemoryProvider(hits_by_query_id={}),
         enable_perplexity=False,
+        enable_exa=False,
+        enable_apitube=False,
     )
     assert stale["records"]
     monday = live_feed_bundle(
@@ -446,6 +484,8 @@ def test_yesterday_cache_is_never_served_as_today(tmp_path: Path):
         google_provider=MemoryProvider(hits_by_query_id={}),
         specialist_provider=MemoryProvider(hits_by_query_id={}),
         enable_perplexity=False,
+        enable_exa=False,
+        enable_apitube=False,
     )
     assert monday["today"] == "2026-09-21"
     assert monday["records"] == []
@@ -494,6 +534,8 @@ def test_perplexity_same_day_hits_join_keyless_lanes(tmp_path: Path):
         google_provider=google,
         specialist_provider=MemoryProvider(hits_by_query_id={}),
         perplexity_provider=perplexity,
+        enable_exa=False,
+        enable_apitube=False,
     )
     titles = {row["title"] for row in bundle["records"]}
     assert "Fall Creek expands blueberry nursery harvest after new planting" in titles
@@ -523,11 +565,68 @@ def test_perplexity_failure_does_not_drop_google_hits(tmp_path: Path):
         ),
         specialist_provider=MemoryProvider(hits_by_query_id={}),
         perplexity_provider=Boom(),
+        enable_exa=False,
+        enable_apitube=False,
     )
     assert bundle["records"]
     assert bundle["records"][0]["published_date"] == "2026-09-21"
     assert bundle["lane_errors"]
     assert bundle["lane_errors"][0]["provider"] == "perplexity"
+
+
+def test_exa_and_apitube_same_day_hits_join_keyless_lanes(tmp_path: Path):
+    today = date(2026, 9, 21)
+    exa = MemoryProvider(
+        name="exa",
+        hits_by_query_id={
+            "today:perplexity:all:global:24h": [
+                _same_day_hit(
+                    title="Hortifrut blueberry harvest volumes rise in Peru this morning",
+                    url="https://example.test/hortifrut-exa",
+                    origin_publisher_url="https://example.test/hortifrut-exa",
+                    snippet="The grower-marketer reports new acreage from the Andes.",
+                    provider="exa",
+                    query_id="today:perplexity:all:global:24h",
+                )
+            ]
+        },
+    )
+    apitube = MemoryProvider(
+        name="apitube",
+        hits_by_query_id={
+            "today:perplexity:blueberry:americas:24h": [
+                _same_day_hit(
+                    title="Planasa strawberry nursery expansion announced today",
+                    url="https://example.test/planasa-apitube",
+                    origin_publisher_url="https://example.test/planasa-apitube",
+                    snippet="The breeder reports new plant production in the Americas.",
+                    provider="apitube",
+                    berry="strawberry",
+                    query_id="today:perplexity:blueberry:americas:24h",
+                )
+            ]
+        },
+    )
+    bundle = live_feed_bundle(
+        inbox_dir=tmp_path,
+        entities=_entities(),
+        sources=[],
+        refresh=True,
+        today=today,
+        now=datetime(2026, 9, 21, 15, 0, tzinfo=timezone.utc),
+        google_provider=MemoryProvider(hits_by_query_id={}),
+        specialist_provider=MemoryProvider(hits_by_query_id={}),
+        enable_perplexity=False,
+        exa_provider=exa,
+        apitube_provider=apitube,
+    )
+    titles = {row["title"] for row in bundle["records"]}
+    assert "Hortifrut blueberry harvest volumes rise in Peru this morning" in titles
+    assert "Planasa strawberry nursery expansion announced today" in titles
+    assert "exa" in bundle["lanes"]
+    assert "apitube" in bundle["lanes"]
+    assert bundle["exa_enabled"] is True
+    assert bundle["apitube_enabled"] is True
 
 
 def test_today_http_does_not_read_stored_evidence(monkeypatch):

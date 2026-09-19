@@ -375,6 +375,20 @@
   background: var(--bos-surface);
 }
 
+.bos-roster {
+  display: grid;
+  gap: var(--bos-space-3);
+}
+
+.bos-roster .bos-card.is-dense {
+  grid-template-columns: 72px minmax(0, 1fr);
+}
+
+.bos-canvas [data-verification="candidate-review"] .bos-kicker,
+.bos-card[data-verification="candidate-review"] .bos-meta span:first-child {
+  color: var(--bos-nectar);
+}
+
 .bos-playground .bos-card { margin-bottom: var(--bos-space-4); }
 
 .bos-disclosure {

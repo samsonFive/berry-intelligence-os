@@ -28,7 +28,8 @@
 
     <main class="bos-canvas" id="today-feed">
       <p class="bos-kicker">Today</p>
-      <h1 class="bos-title">What changed across watched berries</h1>
+      <h1 class="bos-title">What changed across watched companies</h1>
+      {% if feed.tracked_companies %}<p class="bos-note">{{ feed.tracked_companies }} companies tracked · registries excluded from competitor counts</p>{% endif %}
       <p class="bos-lede">{{ feed.disclosure }}</p>
       <p class="bos-disclosure">{{ feed.extraction_disclosure }}</p>
 
