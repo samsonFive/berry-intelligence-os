@@ -58,6 +58,7 @@ WINDOWS = {
     "today": 1,
     "7d": 7,
     "30d": 30,
+    "90d": 90,
 }
 
 SOURCE_KIND = {
@@ -93,6 +94,9 @@ NAV = (
     ("People", "/people"),
     ("Statements", "/today?state=judged"),
     ("Landscapes", "/landscapes"),
+    ("This week", "/week"),
+    ("War Room", "/war-room"),
+    ("Watchtower", "/watchtower"),
     ("Research Ops", "/review"),
     ("Settings", "/guide"),
 )

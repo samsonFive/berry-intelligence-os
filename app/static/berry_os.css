@@ -47,9 +47,25 @@
   background: var(--bos-ink, #0b1020);
 }
 
+.v2-body:has(.berry-os) .v2-sidebar,
+.v2-body:has(.berry-os) .v2-topbar,
+.v2-body:has(.berry-os) .v2-nav-toggle,
+.v2-body:has(.berry-os) #v2NavOffcanvas,
+.v2-body:has(.berry-os) #v2SearchOffcanvas,
+.v2-body:has(.berry-os) #v2ReaderOffcanvas {
+  display: none !important;
+}
+
+.v2-body:has(.berry-os) .v2-app {
+  display: block;
+}
+
 .v2-body:has(.berry-os) .v2-frame,
 .v2-body:has(.berry-os) .v2-page {
   background: transparent;
+  margin: 0;
+  padding: 0;
+  max-width: none;
 }
 
 .bos-shell {
