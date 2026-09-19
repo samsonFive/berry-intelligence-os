@@ -203,7 +203,7 @@ def test_today_route_front_page_and_mobile_css(monkeypatch, tmp_path: Path) -> N
     monkeypatch.setattr(main, "pending_publication_drafts", lambda: [])
     monkeypatch.setattr(main, "all_entities", lambda: [])
     monkeypatch.setattr(main, "all_relationships", lambda: [])
-    page = TestClient(main.app).get("/today")
+    page = TestClient(main.app).get("/today?view=briefing")
     assert page.status_code == 200
     assert "Daily Intelligence Briefing" in page.text
     assert "What Changed" in page.text
@@ -217,5 +217,5 @@ def test_today_route_front_page_and_mobile_css(monkeypatch, tmp_path: Path) -> N
     assert ".daily-briefing" in css
     assert "@media (max-width: 720px)" in css
     assert 'href="/static/daily_briefing.css"' in page.text
-    blueberry = TestClient(main.app).get("/today?berry=raspberry")
+    blueberry = TestClient(main.app).get("/today?view=briefing&berry=raspberry")
     assert blueberry.status_code == 200

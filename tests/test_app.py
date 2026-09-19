@@ -12,13 +12,31 @@ from app.main import app
 client = TestClient(app)
 
 
-def test_home_opens_news_without_fictional_seed_reporting() -> None:
+def test_home_opens_news_without_fictional_seed_reporting(monkeypatch) -> None:
+    from app.services import feed_first_live
+
+    monkeypatch.setattr(
+        feed_first_live,
+        "live_feed_bundle",
+        lambda **kwargs: {
+            "today": "2026-09-21",
+            "fetched_at": "2026-09-21T12:00:00+00:00",
+            "lanes": ["google_news_rss", "specialist_rss", "perplexity"],
+            "lane_errors": [],
+            "stats": {"same_day": 0},
+            "records": [],
+        },
+    )
     response = client.get("/")
     assert response.status_code == 200
     assert response.url.path == "/today"
-    assert "Daily Intelligence Briefing" in response.text
-    assert "Publication date drives recency" in response.text
+    assert "data-feed-first-today" in response.text
     assert "Example breeder announces" not in response.text
+    assert "LIVE / UNREVIEWED" in response.text
+    assert "not a live multi-lane poll" not in response.text
+    briefing = client.get("/today?view=briefing")
+    assert "Daily Intelligence Briefing" in briefing.text
+    assert "Publication date drives recency" in briefing.text
 
 
 def test_feed_api_returns_published_records() -> None:
@@ -1298,8 +1316,12 @@ def test_region_and_geography_detected_when_only_in_entity_ids(monkeypatch, tmp_
     geography_matches = client.get("/api/feed", params={"geography": "geography-fictional-portugal"}).json()
     assert any(r["id"] == "ev-fictional-no-geography-ids-field" for r in geography_matches)
 
-    options_page = client.get("/")
+    # Bare / is feed-first Today. Geography filter options stay on the
+    # query-bearing legacy news view.
+    options_page = client.get("/", params={"region": "Europe"})
+    assert options_page.status_code == 200
     assert "Portugal" in options_page.text
+    assert "data-feed-first-today" not in options_page.text
 
 
 def test_sources_write_endpoints_blocked_in_readonly_mode(monkeypatch, tmp_path) -> None:

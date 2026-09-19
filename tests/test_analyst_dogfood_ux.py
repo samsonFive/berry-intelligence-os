@@ -63,7 +63,7 @@ def test_today_is_a_morning_console_with_source_problems_and_next_work(monkeypat
     monkeypatch.setattr(main, "all_signals", lambda: [])
     monkeypatch.setattr(main, "all_assessments", lambda: [])
     monkeypatch.setattr(main, "load_sources", lambda: [])
-    page = TestClient(main.app).get("/today")
+    page = TestClient(main.app).get("/today?view=briefing")
     assert page.status_code == 200
     assert "Daily Intelligence Briefing" in page.text
     assert "Publication date drives recency" in page.text

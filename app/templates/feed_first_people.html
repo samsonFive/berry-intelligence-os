@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}People — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os">
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    <aside class="bos-rail">
+      <p class="bos-brand">People Watchlist</p>
+      <nav class="bos-nav">
+        <a href="/today">Today</a>
+        <a href="/people" class="is-active">People</a>
+        <a href="/week">This week</a>
+        <a href="/war-room">War Room</a>
+        <a href="/watchtower">Watchtower</a>
+        <a href="/review">Research Ops</a>
+      </nav>
+    </aside>
+    <main class="bos-canvas">
+      <h1 class="bos-title">People Watchlist</h1>
+      <p class="bos-lede">People can be watched even when no compliant social adapter is active. Coverage is honest.</p>
+      <div class="bos-people-card">
+        <p class="bos-kicker">Coverage</p>
+        <p>LinkedIn / Instagram / Facebook adapters: <strong>provider-unavailable</strong>.</p>
+        <p>No person records exist in trusted <code>data/entities/</code> yet. Seed import is Gate 4.</p>
+        <p>Do not invent handles. Discovery-only mentions can be added later without claiming active monitoring.</p>
+      </div>
+      {% if people %}
+      <ul>
+        {% for person in people %}
+        <li>{{ person.canonical_name }} · {{ person.monitoring_coverage }}</li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <div class="bos-empty">
+        <p>Empty watchlist. Coverage state remains provider-unavailable, not active.</p>
+      </div>
+      {% endif %}
+    </main>
+  </div>
+</div>
+{% endblock %}
