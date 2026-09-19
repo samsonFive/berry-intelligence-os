@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-09-18",
+  "records": 151,
+  "breeding_records": 136,
+  "crop_counts": {
+    "strawberry": 110,
+    "blueberry": 47,
+    "raspberry": 71,
+    "blackberry": 51
+  },
+  "website_count": 90,
+  "social_links": {
+    "facebook_url": 43,
+    "instagram_url": 34,
+    "linkedin_url": 48
+  },
+  "verification_status_counts": {
+    "Verified-secondary": 84,
+    "Candidate-review": 61,
+    "Verified-primary": 6
+  },
+  "note": "High-recall seed. Human verification required before trusted publication."
+}
