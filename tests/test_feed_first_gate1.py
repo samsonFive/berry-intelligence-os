@@ -132,8 +132,8 @@ def test_filters_and_card_families():
         filters=parse_filters({"crop": "blueberry", "window": "30d"}),
         today=date(2026, 6, 1),
     )
-    kinds = {item["source_kind"] for item in feed["items"]}
-    families = {item["family"] for item in feed["items"]}
+    kinds = {item["source_kind"] for item in feed["cards"]}
+    families = {item["family"] for item in feed["cards"]}
     assert "article" in kinds
     assert "official" in kinds
     assert "registry" in kinds
@@ -146,7 +146,7 @@ def test_filters_and_card_families():
         filters=parse_filters({"crop": "blueberry"}),
         today=date(2026, 6, 1),
     )
-    assert all("blueberry" in item["crops"] for item in blueberry["items"])
+    assert all("blueberry" in item["crops"] for item in blueberry["cards"])
 
 
 def test_thumbs_persist_undo_and_do_not_mute(tmp_path: Path):
@@ -180,7 +180,7 @@ def test_thumbs_down_hides_from_default_feed(tmp_path: Path):
         filters=parse_filters({}),
         today=date(2026, 6, 1),
     )
-    assert hidden["items"] == []
+    assert hidden["cards"] == []
     judged = build_feed(
         evidence=[record],
         entities=_entities(),
@@ -188,7 +188,7 @@ def test_thumbs_down_hides_from_default_feed(tmp_path: Path):
         filters=parse_filters({"state": "judged"}),
         today=date(2026, 6, 1),
     )
-    assert judged["items"][0]["id"] == record["id"]
+    assert judged["cards"][0]["id"] == record["id"]
 
 
 def test_blocked_body_yields_no_statements():
@@ -225,9 +225,9 @@ def test_tier_does_not_change_verification(tmp_path: Path):
         filters=parse_filters({"tier": "tier1"}),
         today=date(2026, 6, 1),
     )
-    assert feed["items"]
-    assert feed["items"][0]["entities"][0]["verification_status"] == "active"
-    assert feed["items"][0]["entities"][0]["tier"] == "tier1"
+    assert feed["cards"]
+    assert feed["cards"][0]["entities"][0]["verification_status"] == "active"
+    assert feed["cards"][0]["entities"][0]["tier"] == "tier1"
 
 
 def test_react_http_and_entity_reflection(tmp_path, monkeypatch):

@@ -3807,7 +3807,7 @@ def design_system_page(request: Request) -> HTMLResponse:
         request=request,
         name="design_system.html",
         context={
-            "items": feed["items"],
+            "items": feed["cards"],
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
         },

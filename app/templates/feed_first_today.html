@@ -87,7 +87,7 @@
 
       <p class="bos-meta">{{ feed.count }} showing · article={{ feed.has_article }} · official={{ feed.has_official }} · social-style={{ feed.has_social_style }} · fallback={{ feed.has_fallback }}</p>
 
-      {% if not feed.items %}
+      {% if not feed.cards %}
       <div class="bos-empty">
         <h2>No current items in this filter</h2>
         <p>This is a coverage or filter gap, not proof that nothing happened. Clear filters or open Research Ops.</p>
@@ -95,7 +95,7 @@
       {% endif %}
 
       <div class="bos-feed">
-        {% for item in feed.items %}
+        {% for item in feed.cards %}
         <article class="bos-card is-{{ item.family }}{% if selected and selected.id == item.id %} is-selected{% endif %}" data-feed-card="{{ item.id }}" data-family="{{ item.family }}">
           <div class="bos-media" data-crop="{{ item.crops[0] if item.crops else 'blueberry' }}" aria-hidden="true">
             {% if item.image_url %}
