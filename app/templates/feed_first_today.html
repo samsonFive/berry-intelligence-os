@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% block title %}Today — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+{% set selected = feed.selected %}
+<div class="berry-os" data-feed-first data-feed-first-today>
+  <div class="bos-shell">
+    <aside class="bos-rail" aria-label="Feed navigation">
+      <p class="bos-brand">Berry Intelligence OS<span>Feed-first reader</span></p>
+      <nav class="bos-nav" aria-label="Primary product">
+        {% for label, href in feed.nav %}
+        <a href="{{ href }}"{% if href == '/today' %} class="is-active" aria-current="page"{% endif %}>{{ label }}</a>
+        {% endfor %}
+      </nav>
+      <p class="bos-kicker">Tiers</p>
+      <div class="bos-filters">
+        {% for key, label in feed.tier_labels.items() %}
+        <a class="bos-chip" href="{{ feed.tier_hrefs[key] }}">{{ label }}</a>
+        {% endfor %}
+      </div>
+      <p class="bos-note">Legacy briefing remains at <a href="/today?view=briefing">/today?view=briefing</a>.</p>
+    </aside>
+
+    <main class="bos-canvas" id="today-feed">
+      <p class="bos-kicker">Today</p>
+      <h1 class="bos-title">What changed across watched berries</h1>
+      <p class="bos-lede">{{ feed.disclosure }}</p>
+      <p class="bos-disclosure">{{ feed.extraction_disclosure }}</p>
+
+      <form class="bos-filters" method="get" action="/today" aria-label="Feed filters">
+        <label>Window
+          <select name="window" aria-label="Time window">
+            <option value="">All dated</option>
+            <option value="today"{% if feed.filters.window == 'today' %} selected{% endif %}>Today</option>
+            <option value="7d"{% if feed.filters.window == '7d' %} selected{% endif %}>7 days</option>
+            <option value="30d"{% if feed.filters.window == '30d' %} selected{% endif %}>30 days</option>
+          </select>
+        </label>
+        <label>Tier
+          <select name="tier" aria-label="Monitoring tier">
+            <option value="">Any tier</option>
+            {% for key, label in feed.tier_labels.items() %}
+            <option value="{{ key }}"{% if feed.filters.tier == key %} selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label>Crop
+          <select name="crop" aria-label="Crop">
+            <option value="">All crops</option>
+            {% for key, label in feed.crop_labels.items() %}
+            <option value="{{ key }}"{% if feed.filters.crop == key %} selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label>Source
+          <select name="source" aria-label="Source type">
+            <option value="">All sources</option>
+            <option value="article"{% if feed.filters.source == 'article' %} selected{% endif %}>Article</option>
+            <option value="official"{% if feed.filters.source == 'official' %} selected{% endif %}>Official</option>
+            <option value="social"{% if feed.filters.source == 'social' %} selected{% endif %}>Social-style / spoken</option>
+            <option value="registry"{% if feed.filters.source == 'registry' %} selected{% endif %}>Registry</option>
+            <option value="fallback"{% if feed.filters.source == 'fallback' %} selected{% endif %}>Honest fallback</option>
+          </select>
+        </label>
+        <label>State
+          <select name="state" aria-label="Read or judged state">
+            <option value="">Unread default</option>
+            <option value="unread"{% if feed.filters.state == 'unread' %} selected{% endif %}>Unread</option>
+            <option value="read"{% if feed.filters.state == 'read' %} selected{% endif %}>Read</option>
+            <option value="saved"{% if feed.filters.state == 'saved' %} selected{% endif %}>Saved</option>
+            <option value="judged"{% if feed.filters.state == 'judged' %} selected{% endif %}>Judged</option>
+          </select>
+        </label>
+        <label>Entity
+          <input type="search" name="entity" value="{{ feed.filters.entity }}" aria-label="Entity id" placeholder="company-…">
+        </label>
+        <label>Search
+          <input type="search" name="q" value="{{ feed.filters.q }}" aria-label="Search feed">
+        </label>
+        <button class="bos-btn is-primary" type="submit">Apply</button>
+      </form>
+
+      <p class="bos-meta">{{ feed.count }} showing · article={{ feed.has_article }} · official={{ feed.has_official }} · social-style={{ feed.has_social_style }} · fallback={{ feed.has_fallback }}</p>
+
+      {% if not feed.items %}
+      <div class="bos-empty">
+        <h2>No current items in this filter</h2>
+        <p>This is a coverage or filter gap, not proof that nothing happened. Clear filters or open Research Ops.</p>
+      </div>
+      {% endif %}
+
+      <div class="bos-feed">
+        {% for item in feed.items %}
+        <article class="bos-card is-{{ item.family }}{% if selected and selected.id == item.id %} is-selected{% endif %}" data-feed-card="{{ item.id }}" data-family="{{ item.family }}">
+          <div class="bos-media" data-crop="{{ item.crops[0] if item.crops else 'blueberry' }}" aria-hidden="true">
+            {% if item.image_url %}
+            <img src="{{ item.image_url }}" alt="">
+            {% endif %}
+            <span class="bos-monogram">{{ (item.entities[0].monogram if item.entities else item.source_name[:2])|upper }}</span>
+          </div>
+          <div>
+            <p class="bos-meta">
+              <span>{{ item.source_name }}</span>
+              <span>{{ item.published_at or 'date unknown' }}</span>
+              <span>{{ item.availability_label }}</span>
+              <span>{{ item.source_kind }}</span>
+            </p>
+            <h2><a href="{{ item.reader_href }}">{{ item.headline }}</a></h2>
+            {% if item.deck %}<p>{{ item.deck }}</p>{% endif %}
+            <p class="bos-meta">
+              {% for entity in item.entities[:3] %}
+              <a class="bos-chip" href="{{ entity.profile_url }}">{{ entity.name }} · {{ entity.tier }}</a>
+              {% endfor %}
+              {% for crop in item.crops %}
+              <span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>
+              {% endfor %}
+            </p>
+            <div class="bos-actions">
+              <button type="button" class="bos-icon-btn" data-react="thumbs_up" data-item-id="{{ item.id }}" aria-pressed="{{ 'true' if item.decision.reaction == 'up' else 'false' }}" aria-label="Thumbs up">👍</button>
+              <button type="button" class="bos-icon-btn" data-react="thumbs_down" data-item-id="{{ item.id }}" aria-pressed="{{ 'true' if item.decision.reaction == 'down' else 'false' }}" aria-label="Thumbs down">👎</button>
+              <button type="button" class="bos-icon-btn" data-react="save" data-item-id="{{ item.id }}" aria-pressed="{{ 'true' if item.decision.saved else 'false' }}" aria-label="Save">Save</button>
+              <a class="bos-btn" href="{{ item.source_url }}" rel="noopener noreferrer">View original</a>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </main>
+
+    <aside class="bos-inspector" aria-label="Reader and intelligence">
+      {% if selected %}
+      <div class="bos-reader" data-reader-root data-item-id="{{ selected.id }}">
+        <p class="bos-kicker">Reader · {{ selected.availability_label }}</p>
+        <h2>{{ selected.headline }}</h2>
+        <p class="bos-meta">{{ selected.source_name }} · {{ selected.published_at or 'date unknown' }}</p>
+        <div class="bos-actions">
+          {% if feed.prev_href %}<a class="bos-btn" data-prev-item href="{{ feed.prev_href }}">Previous</a>{% endif %}
+          {% if feed.next_href %}<a class="bos-btn" data-next-item href="{{ feed.next_href }}">Next</a>{% endif %}
+          <a class="bos-btn" data-close-reader href="{{ feed.close_href }}">Close</a>
+          <button type="button" class="bos-icon-btn" data-react="thumbs_up" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'up' else 'false' }}">👍</button>
+          <button type="button" class="bos-icon-btn" data-react="thumbs_down" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'down' else 'false' }}">👎</button>
+        </div>
+        <div class="bos-reader-body">
+          {% if selected.body_availability in ['full', 'partial'] and selected.passages %}
+            {% for passage in selected.passages %}
+            <p>{{ passage }}</p>
+            {% endfor %}
+            {% if selected.body_availability == 'partial' %}
+            <p class="bos-note">Partial capture — this is not claimed as the full article.</p>
+            {% endif %}
+          {% else %}
+          <div class="bos-fallback">
+            <p><strong>Structured fallback.</strong> Full body is not available in-app.</p>
+            {% if selected.deck %}<p>{{ selected.deck }}</p>{% endif %}
+            <p><a href="{{ selected.source_url }}" rel="noopener noreferrer">View original</a></p>
+          </div>
+          {% endif %}
+        </div>
+        <div class="bos-loader" data-growth-loader hidden>
+          <div class="bos-loader-visual" aria-hidden="true"></div>
+          <p>4 of 6 · extracting atomic claims</p>
+          <p class="bos-note">{{ feed.extraction_disclosure }}</p>
+        </div>
+        <section>
+          <h3>Intelligence inspector</h3>
+          <div data-statement-list>
+            {% for row in selected.statements %}
+            <article class="bos-statement" data-statement-id="{{ row.id }}">
+              <form data-statement-edit="{{ row.id }}">
+                <textarea name="text">{{ row.statement_text }}</textarea>
+                <div class="bos-actions">
+                  <button class="bos-btn is-primary" type="submit">Save edit</button>
+                  <button type="button" class="bos-btn" data-statement-action="important">Important</button>
+                  <button type="button" class="bos-btn" data-statement-action="demote">Demote</button>
+                  <button type="button" class="bos-btn" data-statement-action="remove">Remove</button>
+                </div>
+              </form>
+              <p class="bos-note">Evidence: {{ row.supporting_passages[0] if row.supporting_passages else 'none' }}</p>
+              <p class="bos-note">Original: {{ row.original_extraction_text }}</p>
+            </article>
+            {% else %}
+            <p class="bos-note">Thumbs-up extracts supported statements from captured passages. Thumbs-down only hides this item.</p>
+            {% endfor %}
+          </div>
+        </section>
+        {% if selected.entities %}
+        <section>
+          <h3>Entities</h3>
+          {% for entity in selected.entities %}
+          <p>
+            <a href="{{ entity.profile_url }}">{{ entity.name }}</a>
+            <select data-tier-select="{{ entity.id }}" aria-label="Tier for {{ entity.name }}">
+              {% for key, label in feed.tier_labels.items() %}
+              <option value="{{ key }}"{% if entity.tier == key %} selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+            <span class="bos-note">Verification stays {{ entity.verification_status }}</span>
+          </p>
+          {% endfor %}
+        </section>
+        {% endif %}
+      </div>
+      {% endif %}
+    </aside>
+  </div>
+</div>
+<script src="/static/feed_first.js"></script>
+{% endblock %}

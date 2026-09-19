@@ -71,7 +71,7 @@ def test_pvs_token_and_briefing_assets_exist():
 
 
 def test_today_loads_pvs_stylesheets_and_slice_marker():
-    response = client.get("/today")
+    response = client.get("/today?view=briefing")
     assert response.status_code == 200
     body = response.text
     assert 'href="/static/pvs_tokens.css"' in body
@@ -84,7 +84,7 @@ def test_today_loads_pvs_stylesheets_and_slice_marker():
 
 
 def test_readable_card_keeps_in_app_reader_affordance():
-    response = client.get("/today")
+    response = client.get("/today?view=briefing")
     assert response.status_code == 200
     body = response.text
     assert "data-briefing-open-reader" in body
