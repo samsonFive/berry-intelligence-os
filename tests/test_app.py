@@ -1316,8 +1316,12 @@ def test_region_and_geography_detected_when_only_in_entity_ids(monkeypatch, tmp_
     geography_matches = client.get("/api/feed", params={"geography": "geography-fictional-portugal"}).json()
     assert any(r["id"] == "ev-fictional-no-geography-ids-field" for r in geography_matches)
 
-    options_page = client.get("/")
+    # Bare / is feed-first Today. Geography filter options stay on the
+    # query-bearing legacy news view.
+    options_page = client.get("/", params={"region": "Europe"})
+    assert options_page.status_code == 200
     assert "Portugal" in options_page.text
+    assert "data-feed-first-today" not in options_page.text
 
 
 def test_sources_write_endpoints_blocked_in_readonly_mode(monkeypatch, tmp_path) -> None:
