@@ -12,12 +12,28 @@ from app.main import app
 client = TestClient(app)
 
 
-def test_home_opens_news_without_fictional_seed_reporting() -> None:
+def test_home_opens_news_without_fictional_seed_reporting(monkeypatch) -> None:
+    from app.services import feed_first_live
+
+    monkeypatch.setattr(
+        feed_first_live,
+        "live_feed_bundle",
+        lambda **kwargs: {
+            "today": "2026-09-21",
+            "fetched_at": "2026-09-21T12:00:00+00:00",
+            "lanes": ["google_news_rss", "specialist_rss", "perplexity"],
+            "lane_errors": [],
+            "stats": {"same_day": 0},
+            "records": [],
+        },
+    )
     response = client.get("/")
     assert response.status_code == 200
     assert response.url.path == "/today"
     assert "data-feed-first-today" in response.text
     assert "Example breeder announces" not in response.text
+    assert "LIVE / UNREVIEWED" in response.text
+    assert "not a live multi-lane poll" not in response.text
     briefing = client.get("/today?view=briefing")
     assert "Daily Intelligence Briefing" in briefing.text
     assert "Publication date drives recency" in briefing.text

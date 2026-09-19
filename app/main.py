@@ -3731,15 +3731,34 @@ def _feed_first_entity_statements(entity_id: str) -> list[dict[str, Any]]:
 
 
 def _feed_first_today(request: Request) -> HTMLResponse:
-    from app.services.feed_first import build_feed, load_state, parse_filters
+    from app.services.clock import utc_today
+    from app.services.feed_first import build_feed, filters_query, load_state, parse_filters
+    from app.services.feed_first_live import live_disclosure, live_feed_bundle
 
     params = dict(request.query_params)
+    refresh = str(params.get("refresh") or "").strip().lower() in {"1", "true", "yes"}
+    today = utc_today()
+    bundle = live_feed_bundle(
+        inbox_dir=INBOX_DIR,
+        entities=all_entities(),
+        sources=load_sources(),
+        refresh=refresh,
+        today=today,
+    )
+    filters = parse_filters(params)
     feed = build_feed(
-        evidence=published_evidence(),
+        evidence=bundle.get("records") or [],
         entities=all_entities(),
         state=load_state(INBOX_DIR),
-        filters=parse_filters(params),
+        filters=filters,
+        today=today,
+        disclosure=live_disclosure(bundle),
     )
+    feed["fetched_at"] = bundle.get("fetched_at")
+    feed["lanes"] = bundle.get("lanes") or []
+    feed["lane_errors"] = bundle.get("lane_errors") or []
+    feed["same_day_count"] = int((bundle.get("stats") or {}).get("same_day") or 0)
+    feed["refresh_href"] = f"/today?{filters_query(filters, refresh='1')}"
     return templates.TemplateResponse(
         request=request,
         name="feed_first_today.html",
@@ -3800,7 +3819,7 @@ def design_system_page(request: Request) -> HTMLResponse:
         evidence=fixtures,
         entities=entities,
         state=empty_state(),
-        filters=parse_filters({}),
+        filters=parse_filters({"window": ""}),
         today=date(2026, 6, 1),
     )
     return templates.TemplateResponse(
@@ -3820,11 +3839,13 @@ async def feed_first_react(request: Request) -> JSONResponse:
 
     payload = await request.json()
     try:
+        from app.services.feed_first_live import cached_live_records, merge_decision_records
+
         result = apply_decision(
             INBOX_DIR,
             item_id=str(payload.get("item_id") or ""),
             action=str(payload.get("action") or ""),
-            evidence=published_evidence(),
+            evidence=merge_decision_records(published_evidence(), cached_live_records(INBOX_DIR)),
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
