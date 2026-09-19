@@ -2,7 +2,9 @@
 
 Keyless lanes: Google News RSS (when:1d) and specialist / official site RSS.
 Keyed catch-net: Perplexity Search when ``PERPLEXITY_API_KEY`` is present.
-Exa / APITube / NewsCatcher stay off unless those keys exist — do not invent them.
+Exa / APITube / NewsCatcher stay off unless a canonical name or dashboard
+alias resolves — do not invent keys. NewsCatcher CatchAll is never
+request-time on Today.
 
 Hits become LIVE / UNREVIEWED feed records only when ``published_date``
 equals the product UTC calendar day. Undated hits are dropped. Stored

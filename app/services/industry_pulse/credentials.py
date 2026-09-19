@@ -1,4 +1,11 @@
-"""Resolve discovery-provider credentials without logging secrets."""
+"""Resolve discovery-provider credentials without logging secrets.
+
+Canonical Cloud / process names are ``EXA_API_KEY``, ``APITUBE_API_KEY``,
+and ``NEWSCATCHER_API_KEY``. Dashboard slugs that have appeared on fresh
+boots (``exa_api``, ``apitube``, ``newscatcher_events_api``) are accepted
+as aliases until those names are renamed to match the repo. Never invent
+a value. Never log a value.
+"""
 
 from __future__ import annotations
 
@@ -13,13 +20,40 @@ NEWSCATCHER_API_KEY_ENV = "NEWSCATCHER_API_KEY"
 CATCHALL_API_KEY_ENV = "CATCHALL_API_KEY"
 APITUBE_API_KEY_ENV = "APITUBE_API_KEY"
 
+# Dashboard names seen on a later environment boot. Johnny is renaming
+# those slugs to the canonical names above. Read both; prefer canonical.
+EXA_API_KEY_ALIASES = (EXA_API_KEY_ENV, "exa_api")
+APITUBE_API_KEY_ALIASES = (APITUBE_API_KEY_ENV, "apitube")
+NEWSCATCHER_API_KEY_ALIASES = (
+    NEWSCATCHER_API_KEY_ENV,
+    CATCHALL_API_KEY_ENV,
+    "newscatcher_events_api",
+)
+
 
 def env_key(name: str) -> str:
     return (os.environ.get(name) or "").strip()
 
 
+def first_env(*names: str) -> str:
+    """First non-empty env value among ``names``. Empty string if none."""
+    for name in names:
+        value = env_key(name)
+        if value:
+            return value
+    return ""
+
+
+def exa_key() -> str:
+    return first_env(*EXA_API_KEY_ALIASES)
+
+
+def apitube_key() -> str:
+    return first_env(*APITUBE_API_KEY_ALIASES)
+
+
 def has_exa() -> bool:
-    return bool(env_key(EXA_API_KEY_ENV))
+    return bool(exa_key())
 
 
 def has_firecrawl() -> bool:
@@ -35,7 +69,7 @@ def has_perplexity() -> bool:
 
 
 def catchall_key() -> str:
-    return env_key(NEWSCATCHER_API_KEY_ENV) or env_key(CATCHALL_API_KEY_ENV)
+    return first_env(*NEWSCATCHER_API_KEY_ALIASES)
 
 
 def has_catchall() -> bool:
@@ -43,4 +77,4 @@ def has_catchall() -> bool:
 
 
 def has_apitube() -> bool:
-    return bool(env_key(APITUBE_API_KEY_ENV))
+    return bool(apitube_key())
