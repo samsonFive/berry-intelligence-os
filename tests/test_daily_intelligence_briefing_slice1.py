@@ -200,7 +200,7 @@ def test_non_company_entities_keep_valid_profile_urls():
 
 def test_today_route_renders_briefing_without_fixture_file_dependency():
     assert FIXTURE.exists()  # prototype package remains available as design evidence
-    response = client.get("/today")
+    response = client.get("/today?view=briefing")
     assert response.status_code == 200
     body = response.text
     assert "Daily Intelligence Briefing" in body
@@ -213,7 +213,7 @@ def test_today_route_renders_briefing_without_fixture_file_dependency():
 
 
 def test_reader_query_preserves_filters_and_stays_in_app():
-    response = client.get("/today?berry=blueberry&reader=ev-20260806173605-61c6-berries-market-size-share-trends-growth-")
+    response = client.get("/today?view=briefing&berry=blueberry&reader=ev-20260806173605-61c6-berries-market-size-share-trends-growth-")
     assert response.status_code == 200
     assert "In-app reader" in response.text
     assert "Published" in response.text

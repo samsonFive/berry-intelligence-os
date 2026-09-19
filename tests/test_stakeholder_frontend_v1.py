@@ -31,7 +31,7 @@ def test_compose_front_uses_trusted_when_top_stories_empty() -> None:
 
 
 def test_today_uses_the_product_visual_system_briefing_shell() -> None:
-    page = TestClient(app).get("/today")
+    page = TestClient(app).get("/today?view=briefing")
     assert page.status_code == 200
     html = page.text
     assert 'class="v2-sidebar"' in html

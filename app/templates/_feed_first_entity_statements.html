@@ -1,0 +1,15 @@
+{% if feed_first_statements %}
+<section class="sh-section" id="feed-first-intelligence" data-feed-first-entity>
+  <p class="sh-kicker">Feed-first trusted statements</p>
+  <h2>From Today thumbs-up</h2>
+  <p class="sh-note">Analyst-trusted-but-editable statements from the feed-first store. These are not published Evidence and did not pass Publication Review. Original extraction is preserved.</p>
+  <ul>
+    {% for row in feed_first_statements %}
+    <li>
+      <p>{{ row.statement_text }}</p>
+      <p class="sh-note">Evidence: {{ row.supporting_passages[0] if row.supporting_passages else 'none' }} · {{ row.importance_state }} · {{ row.extraction_model }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}

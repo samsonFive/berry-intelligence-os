@@ -465,7 +465,7 @@ def test_send_to_review_uses_publication_intake_only(monkeypatch):
 
 
 def test_today_and_nav_point_at_this_week():
-    page = TestClient(app).get("/today")
+    page = TestClient(app).get("/today?view=briefing")
     assert page.status_code == 200
     assert ">This week<" in page.text
     assert 'href="/week"' in page.text
