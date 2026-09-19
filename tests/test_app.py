@@ -16,9 +16,11 @@ def test_home_opens_news_without_fictional_seed_reporting() -> None:
     response = client.get("/")
     assert response.status_code == 200
     assert response.url.path == "/today"
-    assert "Daily Intelligence Briefing" in response.text
-    assert "Publication date drives recency" in response.text
+    assert "data-feed-first-today" in response.text
     assert "Example breeder announces" not in response.text
+    briefing = client.get("/today?view=briefing")
+    assert "Daily Intelligence Briefing" in briefing.text
+    assert "Publication date drives recency" in briefing.text
 
 
 def test_feed_api_returns_published_records() -> None:

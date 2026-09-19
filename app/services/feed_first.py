@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlencode, urlparse
 
+from app.services.berries.landscape import SEED_FIXTURE_EVIDENCE_IDS
 from app.services.html_text import decode_html_text
 from app.services.source_body import classify_source_body, reader_content
 
@@ -424,6 +425,8 @@ def build_feed(
     for record in evidence:
         if record.get("status") and record.get("status") != "published":
             continue
+        if record.get("id") in SEED_FIXTURE_EVIDENCE_IDS:
+            continue
         if "structural" in (record.get("tags") or []):
             continue
         published = str(record.get("published_date") or "")
@@ -499,7 +502,7 @@ def build_feed(
     families = {item["family"] for item in visible}
     kinds = {item["source_kind"] for item in visible}
     return {
-        "items": [{key: value for key, value in item.items() if key != "record"} for item in visible],
+        "cards": [{key: value for key, value in item.items() if key != "record"} for item in visible],
         "selected": None
         if selected is None
         else {key: value for key, value in selected.items() if key != "record"},
