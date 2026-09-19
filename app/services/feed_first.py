@@ -91,7 +91,7 @@ NAV = (
     ("Today", "/today"),
     ("Following", "/following"),
     ("Saved", "/saved"),
-    ("Entities", "/entities/company"),
+    ("Entities", "/entities"),
     ("People", "/people"),
     ("Statements", "/today?state=judged"),
     ("Landscapes", "/landscapes"),
@@ -259,7 +259,13 @@ def present_entities(
                 "name": name,
                 "entity_type": entity_type,
                 "tier": entity_tier(str(entity_id), state),
-                "verification_status": entity.get("status") or "unknown",
+                "verification_status": entity.get("verification_status")
+                or entity.get("status")
+                or "unknown",
+                "candidate": bool(entity.get("candidate"))
+                or str(entity.get("verification_status") or "") == "candidate-review"
+                or str(entity.get("status") or "") == "unverified",
+                "is_registry": bool(entity.get("is_registry")),
                 "profile_url": f"/entities/{entity_type}/{entity_id}",
                 "monogram": _monogram(name),
             }

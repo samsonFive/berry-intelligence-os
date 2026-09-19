@@ -1,30 +1,24 @@
 {% extends "base.html" %}
 {% block title %}People — Berry Intelligence OS{% endblock %}
 {% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/static/berry_os.css">
 {% endblock %}
 {% block content %}
-<div class="berry-os">
+<div class="berry-os" data-feed-first data-feed-first-people>
   <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
-    <aside class="bos-rail">
-      <p class="bos-brand">People Watchlist</p>
-      <nav class="bos-nav">
-        <a href="/today">Today</a>
-        <a href="/people" class="is-active">People</a>
-        <a href="/week">This week</a>
-        <a href="/war-room">War Room</a>
-        <a href="/watchtower">Watchtower</a>
-        <a href="/review">Research Ops</a>
-      </nav>
-    </aside>
+    {% include "_feed_first_rail.html" %}
     <main class="bos-canvas">
+      <p class="bos-kicker">People</p>
       <h1 class="bos-title">People Watchlist</h1>
       <p class="bos-lede">People can be watched even when no compliant social adapter is active. Coverage is honest.</p>
       <div class="bos-people-card">
         <p class="bos-kicker">Coverage</p>
         <p>LinkedIn / Instagram / Facebook adapters: <strong>provider-unavailable</strong>.</p>
-        <p>No person records exist in trusted <code>data/entities/</code> yet. Seed import is Gate 4.</p>
-        <p>Do not invent handles. Discovery-only mentions can be added later without claiming active monitoring.</p>
+        <p>No person records exist in trusted <code>data/entities/</code>. The 2026-09-18 seed added company social URLs as discovery metadata, not people.</p>
+        <p>Do not invent handles. Do not scrape LinkedIn. Discovery-only mentions can be added later without claiming active monitoring.</p>
       </div>
       {% if people %}
       <ul>

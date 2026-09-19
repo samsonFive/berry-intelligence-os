@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}{{ profile.canonical_name }} — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os" data-feed-first data-feed-first-entity data-verification="{{ profile.verification_status }}">
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">{{ profile.verification_label }}</p>
+      <h1 class="bos-title">{{ profile.canonical_name }}</h1>
+      <p class="bos-lede">{% if profile.is_registry %}Registry / source system. Queryable. Excluded from competitor counts.{% elif profile.candidate %}Candidate-review. Monitored, visibly unverified. Not trusted publication.{% else %}Researched secondary seed row. Tier is monitoring priority, not a claim this company is newly verified.{% endif %}</p>
+
+      <div class="bos-people-card">
+        <p class="bos-meta">
+          <span>{{ profile.seed_entity_type }}</span>
+          <span>{{ profile.country_hq or 'country unknown' }}</span>
+          <span>Tier {{ profile.monitoring_tier }}</span>
+          <span>Status {{ profile.monitoring_status }}</span>
+        </p>
+        <p class="bos-meta">
+          {% for crop in profile.crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
+        </p>
+        {% if profile.parent_or_successor %}<p>{{ profile.parent_or_successor }}</p>{% endif %}
+        {% if profile.official_website %}
+        <p>Official website: <a href="{{ profile.official_website }}" rel="noopener noreferrer">{{ profile.official_website }}</a></p>
+        {% elif profile.resolved_website %}
+        <p class="bos-note">Resolved website is research only and was not promoted to an official domain: {{ profile.resolved_website }}</p>
+        {% else %}
+        <p class="bos-note">No official website on the seed row.</p>
+        {% endif %}
+        <p class="bos-note">Logo URLs are discovery metadata. Showing a monogram until rights-cleared local assets exist.</p>
+        <p class="bos-monogram" style="position:static">{{ profile.monogram }}</p>
+      </div>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Watches</h2>
+        <ul>
+          {% for watch in profile.watches %}
+          <li>{{ watch.kind }}{% if watch.url %} · {{ watch.url }}{% endif %}{% if watch.query %} · {{ watch.query }}{% endif %}</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Official social (discovery only)</h2>
+        <p class="bos-note">Coverage is provider-unavailable. These URLs are not scraped and are not People records.</p>
+        <ul>
+          {% if profile.social.facebook_url %}<li>Facebook discovery: {{ profile.social.facebook_url }}</li>{% endif %}
+          {% if profile.social.instagram_url %}<li>Instagram discovery: {{ profile.social.instagram_url }}</li>{% endif %}
+          {% if profile.social.linkedin_url %}<li>LinkedIn discovery: {{ profile.social.linkedin_url }}</li>{% endif %}
+          {% if not profile.social.facebook_url and not profile.social.instagram_url and not profile.social.linkedin_url %}
+          <li>No social URLs on this seed row.</li>
+          {% endif %}
+        </ul>
+      </section>
+
+      <section id="feed-first-intelligence" data-feed-first-entity>
+        <h2 class="bos-title" style="font-size:1.4rem">From Today thumbs-up</h2>
+        {% if statements %}
+        <ul>
+          {% for row in statements %}
+          <li>
+            <p>{{ row.statement_text }}</p>
+            <p class="bos-note">Evidence: {{ row.supporting_passages[0] if row.supporting_passages else 'none' }} · {{ row.extraction_model }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="bos-note">No trusted statements yet. Thumbs-up on a Today item matched to this company extracts here. There is no second review queue.</p>
+        {% endif %}
+      </section>
+
+      {% if profile.evidence_url %}
+      <p class="bos-note">Seed evidence URL: {{ profile.evidence_url }}{% if not profile.evidence_summary %} · evidence summary empty on the seed row{% endif %}</p>
+      {% endif %}
+      <p><a class="bos-btn" href="/today?entity={{ profile.id }}">Open Today filtered to this company</a></p>
+    </main>
+  </div>
+</div>
+{% endblock %}

@@ -3549,6 +3549,24 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
             )
             apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
             return response
+    from app.services.seed_roster import seed_profile
+
+    profile = seed_profile(entity_id, all_entities())
+    if profile and entity_type in {"company", "source"}:
+        world = _feed_first_world()
+        return templates.TemplateResponse(
+            request=request,
+            name="feed_first_entity.html",
+            context={
+                "profile": profile,
+                "statements": _feed_first_entity_statements(profile["id"]),
+                "nav": world["nav"],
+                "active_href": "/entities",
+                "counts": world["counts"],
+                "authoring_mode": AUTHORING_MODE,
+                "static_build": False,
+            },
+        )
     raise HTTPException(status_code=404, detail="Entity record not found")
 
 
@@ -3730,26 +3748,51 @@ def _feed_first_entity_statements(entity_id: str) -> list[dict[str, Any]]:
     return statements_for_entity(load_state(INBOX_DIR), entity_id)
 
 
+def _feed_first_world() -> dict[str, Any]:
+    from app.services.feed_first import CROP_LABELS, NAV, load_state
+    from app.services.seed_roster import (
+        build_roster,
+        merge_entities_for_matching,
+        official_hosts,
+        roster_counts,
+    )
+
+    existing = all_entities()
+    roster = build_roster(existing)
+    return {
+        "existing": existing,
+        "roster": roster,
+        "entities": merge_entities_for_matching(existing, roster),
+        "official_hosts": official_hosts(roster),
+        "counts": roster_counts(roster),
+        "nav": NAV,
+        "crop_labels": CROP_LABELS,
+        "state": load_state(INBOX_DIR),
+    }
+
+
 def _feed_first_today(request: Request) -> HTMLResponse:
     from app.services.clock import utc_today
-    from app.services.feed_first import build_feed, filters_query, load_state, parse_filters
+    from app.services.feed_first import build_feed, filters_query, parse_filters
     from app.services.feed_first_live import live_disclosure, live_feed_bundle
 
+    world = _feed_first_world()
     params = dict(request.query_params)
     refresh = str(params.get("refresh") or "").strip().lower() in {"1", "true", "yes"}
     today = utc_today()
     bundle = live_feed_bundle(
         inbox_dir=INBOX_DIR,
-        entities=all_entities(),
+        entities=world["entities"],
         sources=load_sources(),
         refresh=refresh,
         today=today,
+        official_hosts=world["official_hosts"],
     )
     filters = parse_filters(params)
     feed = build_feed(
         evidence=bundle.get("records") or [],
-        entities=all_entities(),
-        state=load_state(INBOX_DIR),
+        entities=world["entities"],
+        state=world["state"],
         filters=filters,
         today=today,
         disclosure=live_disclosure(bundle),
@@ -3758,6 +3801,7 @@ def _feed_first_today(request: Request) -> HTMLResponse:
     feed["lanes"] = bundle.get("lanes") or []
     feed["lane_errors"] = bundle.get("lane_errors") or []
     feed["same_day_count"] = int((bundle.get("stats") or {}).get("same_day") or 0)
+    feed["tracked_companies"] = world["counts"]["tracked_companies"]
     feed["refresh_href"] = f"/today?{filters_query(filters, refresh='1')}"
     return templates.TemplateResponse(
         request=request,
@@ -3780,7 +3824,31 @@ def today_page(request: Request) -> HTMLResponse:
 
 @app.get("/following", response_class=HTMLResponse)
 def following_page(request: Request) -> HTMLResponse:
-    return RedirectResponse(url="/today?state=unread", status_code=303)
+    from app.services.seed_roster import following_model
+
+    world = _feed_first_world()
+    params = request.query_params
+    model = following_model(
+        world["existing"],
+        crop=str(params.get("crop") or "").strip(),
+        verification=str(params.get("verification") or "").strip(),
+        q=str(params.get("q") or "").strip(),
+        include_registries=str(params.get("registries") or "").strip() in {"1", "true", "yes"},
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_following.html",
+        context={
+            "rows": model["rows"],
+            "counts": model["counts"],
+            "filters": model["filters"],
+            "nav": world["nav"],
+            "active_href": "/following",
+            "crop_labels": world["crop_labels"],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
 
 
 @app.get("/saved", response_class=HTMLResponse)
@@ -3788,16 +3856,50 @@ def saved_page(request: Request) -> HTMLResponse:
     return RedirectResponse(url="/today?state=saved", status_code=303)
 
 
+@app.get("/entities", response_class=HTMLResponse)
+def feed_first_entities_page(request: Request) -> HTMLResponse:
+    from app.services.seed_roster import following_model
+
+    world = _feed_first_world()
+    params = request.query_params
+    include_registries = str(params.get("registries") or "").strip() in {"1", "true", "yes"}
+    verification = str(params.get("verification") or "").strip()
+    if verification == "verified-primary":
+        include_registries = True
+    model = following_model(
+        world["existing"],
+        crop=str(params.get("crop") or "").strip(),
+        verification=verification,
+        q=str(params.get("q") or "").strip(),
+        include_registries=include_registries,
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_entities.html",
+        context={
+            "rows": model["rows"],
+            "counts": model["counts"],
+            "filters": model["filters"],
+            "nav": world["nav"],
+            "active_href": "/entities",
+            "crop_labels": world["crop_labels"],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
 @app.get("/people", response_class=HTMLResponse)
 def people_watchlist_page(request: Request) -> HTMLResponse:
-    from app.services.feed_first import load_state
-
-    state = load_state(INBOX_DIR)
+    world = _feed_first_world()
     return templates.TemplateResponse(
         request=request,
         name="feed_first_people.html",
         context={
-            "people": state.get("people") or [],
+            "people": world["state"].get("people") or [],
+            "counts": world["counts"],
+            "nav": world["nav"],
+            "active_href": "/people",
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
         },
