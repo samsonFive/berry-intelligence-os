@@ -16,6 +16,7 @@ from typing import Any
 from urllib.parse import urlencode, urlparse
 
 from app.services.berries.landscape import SEED_FIXTURE_EVIDENCE_IDS
+from app.services.clock import utc_today
 from app.services.html_text import decode_html_text
 from app.services.source_body import classify_source_body, reader_content
 
@@ -149,8 +150,13 @@ def parse_filters(params: dict[str, Any]) -> dict[str, str]:
             return raw if raw in allowed else ""
         return raw[:120]
 
+    if "window" in params:
+        raw_window = str(params.get("window") or "").strip()
+        window = raw_window if raw_window in WINDOWS else ""
+    else:
+        window = "today"
     return {
-        "window": _one("window", set(WINDOWS)),
+        "window": window,
         "tier": _one("tier", set(TIERS)),
         "entity": _one("entity"),
         "crop": _one("crop", set(CROP_LABELS)),
@@ -318,6 +324,9 @@ def present_item(
         "highest_tier": _highest_tier([row["tier"] for row in entities]),
         "body_availability": availability,
         "availability_label": _availability_label(availability),
+        "trust_state": record.get("trust_state") or "",
+        "review_state": record.get("review_state") or "",
+        "acquisition_lane": record.get("acquisition_lane") or "",
         "image_url": safe_image_url(record),
         "family": card_family(record, lead=lead, rank=rank),
         "decision": decision,
@@ -359,16 +368,20 @@ def _monogram(name: str) -> str:
 def _in_window(published: str, window: str, today: date) -> bool:
     if not window:
         return True
-    days = WINDOWS.get(window)
-    if not days:
-        return True
     if not published:
         return False
     try:
         when = date.fromisoformat(published[:10])
     except ValueError:
         return False
-    return (today - when).days <= days and when <= today
+    if when > today:
+        return False
+    if window == "today":
+        return when == today
+    days = WINDOWS.get(window)
+    if not days:
+        return True
+    return (today - when).days <= days
 
 
 def _matches(item: dict[str, Any], filters: dict[str, str]) -> bool:
@@ -418,8 +431,9 @@ def build_feed(
     filters: dict[str, str],
     today: date | None = None,
     limit: int = 48,
+    disclosure: str | None = None,
 ) -> dict[str, Any]:
-    today = today or datetime.now(UTC).date()
+    today = today or utc_today()
     entities_by_id = (
         entities
         if isinstance(entities, dict)
@@ -523,11 +537,13 @@ def build_feed(
         "nav": NAV,
         "tier_labels": TIER_LABELS,
         "crop_labels": CROP_LABELS,
-        "disclosure": (
-            "Stored published evidence — not a live multi-lane poll. "
-            "Optional discovery keys are unused on this page. "
-            "Social platforms are not actively collected."
+        "disclosure": disclosure
+        or (
+            "LIVE / UNREVIEWED same-day acquisition. "
+            "The stored August corpus is unused here. "
+            "Social platforms are not collected."
         ),
+        "today": today.isoformat(),
         "has_article": "article" in kinds,
         "has_official": "official" in kinds,
         "has_social_style": "social" in families or "social" in kinds,
