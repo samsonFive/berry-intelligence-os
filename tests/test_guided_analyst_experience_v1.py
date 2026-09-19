@@ -112,7 +112,7 @@ def test_today_route_console_help_and_no_trust_mutation(monkeypatch, tmp_path: P
     monkeypatch.setattr(main, "load_sources", lambda: [])
     before = load_watches(inbox)[0]
     assert before["last_seen_at"] is None
-    page = TestClient(main.app).get("/today")
+    page = TestClient(main.app).get("/today?view=briefing")
     assert page.status_code == 200
     html = page.text
     assert "DAILY INTELLIGENCE" in html
@@ -150,7 +150,7 @@ def test_today_sparse_empty_states(monkeypatch, tmp_path: Path) -> None:
     monkeypatch.setattr(main, "all_signals", lambda: [])
     monkeypatch.setattr(main, "all_assessments", lambda: [])
     monkeypatch.setattr(main, "load_sources", lambda: [])
-    page = TestClient(main.app).get("/today")
+    page = TestClient(main.app).get("/today?view=briefing")
     assert page.status_code == 200
     assert "DAILY INTELLIGENCE" in page.text
     assert "No current trusted readable coverage in this scope." in page.text

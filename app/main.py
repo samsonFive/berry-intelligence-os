@@ -20,7 +20,7 @@ from urllib.parse import quote, urlencode, urlparse, urlsplit
 import feedparser
 import httpx
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
-from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse, Response
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from jsonschema import Draft202012Validator, FormatChecker
@@ -3543,6 +3543,7 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     "authoring_mode": AUTHORING_MODE,
                     "is_watched": is_watched(INBOX_DIR, entity_type, entity_id) if entity_type in WATCH_TYPES else False,
                     "competitor_profile": competitor_profile,
+                    "feed_first_statements": _feed_first_entity_statements(entity_id),
                     **synthesis,
                 },
             )
@@ -3679,9 +3680,8 @@ def _watchtower_cached() -> dict[str, Any]:
     return value
 
 
-@app.get("/today", response_class=HTMLResponse)
-def today_page(request: Request) -> HTMLResponse:
-    """Canonical Daily Intelligence Briefing (Slice 1)."""
+def _legacy_briefing_today(request: Request) -> HTMLResponse:
+    """Preserved Daily Intelligence Briefing (PVS Slice 1) at ?view=briefing."""
     from app.services.briefing_page import present_briefing_page
     from app.services.competitor_landscape import (
         adapter_from_repositories,
@@ -3722,6 +3722,148 @@ def today_page(request: Request) -> HTMLResponse:
             "static_build": False,
         },
     )
+
+
+def _feed_first_entity_statements(entity_id: str) -> list[dict[str, Any]]:
+    from app.services.feed_first import load_state, statements_for_entity
+
+    return statements_for_entity(load_state(INBOX_DIR), entity_id)
+
+
+def _feed_first_today(request: Request) -> HTMLResponse:
+    from app.services.feed_first import build_feed, load_state, parse_filters
+
+    params = dict(request.query_params)
+    feed = build_feed(
+        evidence=published_evidence(),
+        entities=all_entities(),
+        state=load_state(INBOX_DIR),
+        filters=parse_filters(params),
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_today.html",
+        context={
+            "feed": feed,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/today", response_class=HTMLResponse)
+def today_page(request: Request) -> HTMLResponse:
+    """Feed-first Today. Legacy briefing remains at ?view=briefing."""
+    if str(request.query_params.get("view") or "") == "briefing":
+        return _legacy_briefing_today(request)
+    return _feed_first_today(request)
+
+
+@app.get("/following", response_class=HTMLResponse)
+def following_page(request: Request) -> HTMLResponse:
+    return RedirectResponse(url="/today?state=unread", status_code=303)
+
+
+@app.get("/saved", response_class=HTMLResponse)
+def saved_page(request: Request) -> HTMLResponse:
+    return RedirectResponse(url="/today?state=saved", status_code=303)
+
+
+@app.get("/people", response_class=HTMLResponse)
+def people_watchlist_page(request: Request) -> HTMLResponse:
+    from app.services.feed_first import load_state
+
+    state = load_state(INBOX_DIR)
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_people.html",
+        context={
+            "people": state.get("people") or [],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/design-system", response_class=HTMLResponse)
+def design_system_page(request: Request) -> HTMLResponse:
+    from app.services.feed_first import (
+        build_feed,
+        empty_state,
+        parse_filters,
+        playground_fixtures,
+    )
+
+    fixtures = playground_fixtures()
+    entities = all_entities()
+    feed = build_feed(
+        evidence=fixtures,
+        entities=entities,
+        state=empty_state(),
+        filters=parse_filters({}),
+        today=date(2026, 6, 1),
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="design_system.html",
+        context={
+            "items": feed["cards"],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.post("/api/feed-first/react")
+async def feed_first_react(request: Request) -> JSONResponse:
+    from app.services.feed_first import apply_decision
+
+    payload = await request.json()
+    try:
+        result = apply_decision(
+            INBOX_DIR,
+            item_id=str(payload.get("item_id") or ""),
+            action=str(payload.get("action") or ""),
+            evidence=published_evidence(),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return JSONResponse(result)
+
+
+@app.post("/api/feed-first/statement")
+async def feed_first_statement(request: Request) -> JSONResponse:
+    from app.services.feed_first import mutate_statement
+
+    payload = await request.json()
+    try:
+        statement = mutate_statement(
+            INBOX_DIR,
+            statement_id=str(payload.get("statement_id") or ""),
+            action=str(payload.get("action") or ""),
+            text=payload.get("text"),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if statement is None:
+        raise HTTPException(status_code=404, detail="statement not found")
+    return JSONResponse({"statement": statement})
+
+
+@app.post("/api/feed-first/tier")
+async def feed_first_tier(request: Request) -> JSONResponse:
+    from app.services.feed_first import set_entity_tier
+
+    payload = await request.json()
+    try:
+        tier = set_entity_tier(
+            INBOX_DIR,
+            entity_id=str(payload.get("entity_id") or ""),
+            tier=str(payload.get("tier") or ""),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return JSONResponse({"tier": tier, "verification_unchanged": True})
 
 
 @app.get("/news", response_class=HTMLResponse)
