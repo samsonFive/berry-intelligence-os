@@ -3426,6 +3426,7 @@ def _wants_feed_first_profile(request: Request) -> bool:
 
 
 def _feed_first_company_response(request: Request, entity_id: str) -> HTMLResponse | None:
+    from app.services.entity_dossier import build_dossier
     from app.services.entity_logo_overrides import load_logo_overrides, logo_override_url
     from app.services.people_watchlist import discover_people
     from app.services.seed_roster import seed_profile
@@ -3453,6 +3454,13 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
         entities=entities_by_id,
         facts=all_facts(),
     )
+    dossier = build_dossier(
+        entity_id=entity_id,
+        entity=trusted,
+        profile=seed,
+        state=world["state"],
+        people=linked_people,
+    )
     return templates.TemplateResponse(
         request=request,
         name="feed_first_company.html",
@@ -3477,6 +3485,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "social_channels": (seed or {}).get("social_channels") or [],
             "related_entities": (seed or {}).get("related_entities") or [],
             "growing_profile": growing_profile,
+            "dossier": dossier,
             "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
             "monogram": (seed or {}).get("monogram") or name[:2].upper(),
             "logo_url": logo_override_url(INBOX_DIR, entity_id) or (seed or {}).get("logo_url") or "",
@@ -4343,10 +4352,20 @@ async def feed_first_react(request: Request) -> JSONResponse:
 
 @app.post("/api/feed-first/statement")
 async def feed_first_statement(request: Request) -> JSONResponse:
-    from app.services.feed_first import mutate_statement
+    from app.services.feed_first import mutate_statement, mutate_statements
 
     payload = await request.json()
     try:
+        statement_ids = [
+            str(value) for value in (payload.get("statement_ids") or []) if str(value)
+        ]
+        if statement_ids:
+            statements = mutate_statements(
+                INBOX_DIR,
+                statement_ids=statement_ids,
+                action=str(payload.get("action") or ""),
+            )
+            return JSONResponse({"statements": statements})
         statement = mutate_statement(
             INBOX_DIR,
             statement_id=str(payload.get("statement_id") or ""),
@@ -4358,6 +4377,42 @@ async def feed_first_statement(request: Request) -> JSONResponse:
     if statement is None:
         raise HTTPException(status_code=404, detail="statement not found")
     return JSONResponse({"statement": statement})
+
+
+@app.post("/api/entity-dossier/research")
+async def entity_dossier_research(request: Request) -> JSONResponse:
+    from app.services.entity_dossier import launch_gap_research
+
+    payload = await request.json()
+    try:
+        result = launch_gap_research(
+            INBOX_DIR,
+            entity_id=str(payload.get("entity_id") or ""),
+            question_id=str(payload.get("question_id") or ""),
+            evidence=published_evidence(),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return JSONResponse(result)
+
+
+@app.post("/api/entity-dossier/proposal")
+async def entity_dossier_proposal(request: Request) -> JSONResponse:
+    from app.services.entity_dossier import decide_proposal
+
+    payload = await request.json()
+    try:
+        proposal = decide_proposal(
+            INBOX_DIR,
+            proposal_id=str(payload.get("proposal_id") or ""),
+            action=str(payload.get("action") or ""),
+            text=payload.get("text"),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if proposal is None:
+        raise HTTPException(status_code=404, detail="proposal not found")
+    return JSONResponse({"proposal": proposal})
 
 
 @app.post("/api/feed-first/capture")

@@ -29,6 +29,9 @@ EXTRACTION_DISCLOSURE = (
     "Local deterministic preview from captured passages only. "
     "The production atomic extractor remains unqualified and was not run."
 )
+PENDING_CONFIRMATION = "pending_confirmation"
+TRUSTED_ANALYST = "trusted_analyst"
+DOSSIER_ELIGIBLE_STATES = {TRUSTED_ANALYST, "conflicting", "superseded"}
 _CJK_RE = re.compile(r"[\u3040-\u30ff\u3400-\u9fff\uf900-\ufaff\uac00-\ud7af]")
 _TOPIC_WORDS = {
     "berry",
@@ -150,8 +153,12 @@ def state_path(inbox_dir: Path) -> Path:
 def empty_state() -> dict[str, Any]:
     return {
         "decisions": {},
+        "reaction_events": [],
         "entity_tiers": {},
         "statements": {},
+        "research_runs": {},
+        "research_proposals": {},
+        "dossier_assessments": {},
         "people": [],
         "updated_at": None,
     }
@@ -443,6 +450,10 @@ def decision_for(item_id: str, state: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _is_dossier_eligible(row: dict[str, Any]) -> bool:
+    return str(row.get("statement_state") or "") in DOSSIER_ELIGIBLE_STATES
+
+
 def present_entities(
     record: dict[str, Any],
     entities_by_id: dict[str, dict[str, Any]],
@@ -580,7 +591,7 @@ def present_item(
         "images": list(record.get("images") or (capture or {}).get("images") or []),
         "family": card_family(record, lead=lead, rank=rank),
         "decision": decision,
-        "statement_count": sum(1 for row in statements if row.get("statement_state") != "removed"),
+        "statement_count": sum(1 for row in statements if _is_dossier_eligible(row)),
         "statements": statements,
         "extraction_pending": bool(decision["reaction"] == "up" and not statements),
         "reader_href": f"/today?{query}" if query else f"/today?item={item_id}",
@@ -937,6 +948,7 @@ def apply_decision(
     state = load_state(inbox_dir)
     decisions = dict(state.get("decisions") or {})
     current = dict(decisions.get(item_id) or {"reaction": None, "saved": False, "read": False})
+    previous_reaction = current.get("reaction")
     if action == "thumbs_up":
         snapshot_state(inbox_dir)
         current["reaction"] = "up"
@@ -956,6 +968,20 @@ def apply_decision(
         raise ValueError("unknown action")
     decisions[item_id] = current
     state["decisions"] = decisions
+    if action in {"thumbs_up", "thumbs_down", "clear_reaction"} and previous_reaction != current.get("reaction"):
+        events = list(state.get("reaction_events") or [])
+        events.append(
+            {
+                "id": f"reaction-{item_id}-{len(events) + 1}",
+                "item_id": item_id,
+                "action": action,
+                "prior_reaction": previous_reaction,
+                "reaction": current.get("reaction"),
+                "occurred_at": datetime.now(UTC).isoformat(timespec="seconds"),
+                "purpose": "ranking_feedback",
+            }
+        )
+        state["reaction_events"] = events[-500:]
 
     statements = dict(state.get("statements") or {})
     if current.get("reaction") == "up":
@@ -966,15 +992,19 @@ def apply_decision(
             record = merge_capture(record or {"id": item_id}, load_capture(inbox_dir, item_id))
             statements[item_id] = extract_statements(record, people=people)
     elif current.get("reaction") != "up":
-        # Undo removes the working set but never writes trusted data.
-        statements.pop(item_id, None)
+        # Undo archives only unconfirmed working candidates. Confirmed
+        # statements require an explicit retraction so lineage is preserved.
+        rows = list(statements.get(item_id) or [])
+        confirmed = [row for row in rows if _is_dossier_eligible(row)]
+        if confirmed:
+            statements[item_id] = confirmed
+        else:
+            statements.pop(item_id, None)
     state["statements"] = statements
     save_state(inbox_dir, state)
     return {
         "decision": current,
-        "statements": [
-            row for row in statements.get(item_id) or [] if row.get("statement_state") != "removed"
-        ],
+        "statements": list(statements.get(item_id) or []),
         "extraction_disclosure": EXTRACTION_DISCLOSURE,
         "muted_world": False,
     }
@@ -1098,6 +1128,7 @@ def extract_statements(
     rows: list[dict[str, Any]] = []
     for index, sentence in enumerate(picked, start=1):
         matched_people = match_people(sentence, people or [])
+        locators = _support_locators(record, sentence)
         rows.append(
             {
                 "id": f"{item_id}::stmt-{index}",
@@ -1105,6 +1136,7 @@ def extract_statements(
                 "statement_text": sentence,
                 "original_extraction_text": sentence,
                 "supporting_passages": [sentence],
+                "support_locators": locators,
                 "entity_ids": _mentioned_entity_ids(sentence, record),
                 "person_ids": [row["id"] for row in matched_people],
                 "crops": crops,
@@ -1115,7 +1147,9 @@ def extract_statements(
                 "statement_type": _statement_type(sentence),
                 "structured_details": _structured_details(sentence),
                 "importance_state": "normal",
-                "statement_state": "trusted_editable",
+                "statement_state": PENDING_CONFIRMATION,
+                "selected": False,
+                "origin": "feed_thumbsup_extraction",
                 "confidence": "excerpt_supported" if availability != "full" else "body_supported",
                 "uncertainty_note": EXTRACTION_DISCLOSURE,
                 "extraction_model": EXTRACTION_MODEL,
@@ -1123,10 +1157,48 @@ def extract_statements(
                 "created_at": now,
                 "updated_at": now,
                 "analyst_edit_history": [],
+                "decision_history": [],
                 "corroborating_sources": corroborating_sources(record),
             }
         )
     return rows
+
+
+def _support_locators(record: dict[str, Any], excerpt: str) -> list[dict[str, Any]]:
+    """Locate exact support in captured paragraphs without fragile display text."""
+    article = record.get("article") if isinstance(record.get("article"), dict) else {}
+    paragraphs = article.get("paragraphs") if isinstance(article.get("paragraphs"), list) else []
+    for position, raw in enumerate(paragraphs):
+        if isinstance(raw, dict):
+            text = decode_html_text(raw.get("text") or "")
+            paragraph_index = int(raw.get("index", position))
+        else:
+            text = decode_html_text(raw)
+            paragraph_index = position
+        start = text.find(excerpt)
+        if start >= 0:
+            return [
+                {
+                    "medium": "article_paragraph",
+                    "paragraph_index": paragraph_index,
+                    "start_offset": start,
+                    "end_offset": start + len(excerpt),
+                    "exact": excerpt,
+                }
+            ]
+    summary = decode_html_text(record.get("summary") or "")
+    start = summary.find(excerpt)
+    if start >= 0:
+        return [
+            {
+                "medium": "summary",
+                "paragraph_index": -1,
+                "start_offset": start,
+                "end_offset": start + len(excerpt),
+                "exact": excerpt,
+            }
+        ]
+    return []
 
 
 def mutate_statement(
@@ -1152,6 +1224,7 @@ def mutate_statement(
         return None
     now = datetime.now(UTC).isoformat(timespec="seconds")
     history = list(found.get("analyst_edit_history") or [])
+    decision_history = list(found.get("decision_history") or [])
     if action == "approve":
         found["updated_at"] = now
     elif action == "edit":
@@ -1168,6 +1241,58 @@ def mutate_statement(
         found["statement_text"] = next_text
         found["updated_at"] = now
         found["analyst_edit_history"] = history
+    elif action == "select":
+        found["selected"] = True
+        found["updated_at"] = now
+    elif action == "deselect":
+        found["selected"] = False
+        found["updated_at"] = now
+    elif action == "confirm":
+        if found.get("statement_state") not in {PENDING_CONFIRMATION, "proposed"}:
+            raise ValueError("statement is not awaiting confirmation")
+        decision_history.append(
+            {
+                "at": now,
+                "action": "confirmed",
+                "from": found.get("statement_state"),
+                "to": TRUSTED_ANALYST,
+                "surface": "reader_evidence_lens",
+            }
+        )
+        found["statement_state"] = TRUSTED_ANALYST
+        found["selected"] = False
+        found["confirmed_at"] = now
+        found["decision_history"] = decision_history
+        found["updated_at"] = now
+    elif action == "reject":
+        decision_history.append(
+            {
+                "at": now,
+                "action": "rejected",
+                "from": found.get("statement_state"),
+                "to": "rejected",
+                "surface": "reader_evidence_lens",
+            }
+        )
+        found["statement_state"] = "rejected"
+        found["selected"] = False
+        found["decision_history"] = decision_history
+        found["updated_at"] = now
+    elif action == "retract":
+        if not _is_dossier_eligible(found):
+            raise ValueError("only confirmed statements can be retracted")
+        decision_history.append(
+            {
+                "at": now,
+                "action": "retracted",
+                "from": found.get("statement_state"),
+                "to": "removed",
+                "surface": "reader_evidence_lens",
+            }
+        )
+        found["statement_state"] = "removed"
+        found["decision_history"] = decision_history
+        found["updated_at"] = now
     elif action == "important":
         found["importance_state"] = "important"
         found["updated_at"] = now
@@ -1178,7 +1303,9 @@ def mutate_statement(
         found["statement_state"] = "removed"
         found["updated_at"] = now
     elif action == "restore":
-        found["statement_state"] = "trusted_editable"
+        found["statement_state"] = (
+            TRUSTED_ANALYST if found.get("confirmed_at") else PENDING_CONFIRMATION
+        )
         found["updated_at"] = now
     else:
         raise ValueError("unknown statement action")
@@ -1191,6 +1318,26 @@ def mutate_statement(
     state["statements"] = statements
     save_state(inbox_dir, state)
     return found
+
+
+def mutate_statements(
+    inbox_dir: Path,
+    *,
+    statement_ids: list[str],
+    action: str,
+) -> list[dict[str, Any]]:
+    if action not in {"confirm", "reject"}:
+        raise ValueError("invalid batch action")
+    results: list[dict[str, Any]] = []
+    for statement_id in dict.fromkeys(str(value) for value in statement_ids if value):
+        updated = mutate_statement(
+            inbox_dir,
+            statement_id=statement_id,
+            action=action,
+        )
+        if updated is not None:
+            results.append(updated)
+    return results
 
 
 def set_entity_tier(inbox_dir: Path, *, entity_id: str, tier: str) -> str:
@@ -1210,7 +1357,7 @@ def statements_for_entity(state: dict[str, Any], entity_id: str) -> list[dict[st
     rows: list[dict[str, Any]] = []
     for group in (state.get("statements") or {}).values():
         for row in group:
-            if entity_id in (row.get("entity_ids") or []) and row.get("statement_state") != "removed":
+            if entity_id in (row.get("entity_ids") or []) and _is_dossier_eligible(row):
                 rows.append(row)
     return rows
 
@@ -1219,7 +1366,7 @@ def statements_for_person(state: dict[str, Any], person_id: str) -> list[dict[st
     rows: list[dict[str, Any]] = []
     for group in (state.get("statements") or {}).values():
         for row in group:
-            if person_id in (row.get("person_ids") or []) and row.get("statement_state") != "removed":
+            if person_id in (row.get("person_ids") or []) and _is_dossier_eligible(row):
                 rows.append(row)
     return rows
 
@@ -1228,7 +1375,7 @@ def trusted_statements(state: dict[str, Any]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for group in (state.get("statements") or {}).values():
         for row in group:
-            if row.get("statement_state") != "removed":
+            if _is_dossier_eligible(row):
                 rows.append(row)
     return rows
 

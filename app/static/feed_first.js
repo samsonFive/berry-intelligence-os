@@ -33,35 +33,53 @@
     }
     box.innerHTML = statements
       .map(function (row) {
-        const removed = row.statement_state === "removed";
+        const pending = row.statement_state === "pending_confirmation";
+        const trusted = row.statement_state === "trusted_analyst";
         return (
           '<article class="bos-statement" data-statement-id="' +
-          row.id +
+          escapeHtml(row.id) +
           '" data-statement-state="' +
           escapeHtml(row.statement_state || "") +
           '" data-importance="' +
           escapeHtml(row.importance_state || "") +
+          ((row.support_locators || [])[0]
+            ? '" data-support-paragraph="' +
+              escapeHtml((row.support_locators || [])[0].paragraph_index) +
+              '" data-support-start="' +
+              escapeHtml((row.support_locators || [])[0].start_offset) +
+              '" data-support-end="' +
+              escapeHtml((row.support_locators || [])[0].end_offset) +
+              '" data-support-exact="' +
+              escapeHtml((row.support_locators || [])[0].exact) +
+              ""
+            : "") +
+          '" tabindex="0">' +
+          '<label><input type="checkbox" data-claim-select> Select claim</label>' +
+          '<form data-statement-edit="' +
+          escapeHtml(row.id) +
           '">' +
-          "<p>" +
+          '<textarea name="text">' +
           escapeHtml(row.statement_text) +
-          "</p>" +
+          "</textarea>" +
+          '<div class="bos-actions"><button class="bos-btn" type="submit">Save edit</button>' +
+          (pending
+            ? '<button type="button" class="bos-btn is-primary" data-statement-action="confirm">Confirm</button><button type="button" class="bos-btn" data-statement-action="reject">Reject</button>'
+            : "") +
+          (trusted
+            ? '<button type="button" class="bos-btn" data-statement-action="retract">Retract</button>'
+            : "") +
+          "</div></form>" +
           '<p class="bos-meta">' +
           escapeHtml(row.confidence || "") +
           " · " +
-          escapeHtml(row.importance_state || "normal") +
-          (removed ? " · removed" : "") +
+          escapeHtml((row.statement_state || "").replaceAll("_", " ")) +
           " · " +
           escapeHtml((row.supporting_passages || [])[0] || "") +
-          "</p>" +
-          '<div class="bos-actions">' +
-          '<button type="button" class="bos-btn" data-statement-action="important">Important</button>' +
-          '<button type="button" class="bos-btn" data-statement-action="demote">Demote</button>' +
-          '<button type="button" class="bos-btn" data-statement-action="remove">Remove</button>' +
-          '<button type="button" class="bos-btn" data-statement-action="restore">Restore</button>' +
-          "</div></article>"
+          "</p></article>"
         );
       })
       .join("");
+    applyEvidenceHighlights(statements);
   }
 
   function escapeHtml(value) {
@@ -104,6 +122,70 @@
       if (progress) progress.value = Number(progress.value || 0) + 1;
     }
   }
+
+  function applyEvidenceHighlights(statements) {
+    const body = root.querySelector("[data-reader-body]");
+    if (!body) return;
+    body.querySelectorAll("[data-evidence-passage]").forEach(function (paragraph) {
+      if (!paragraph.dataset.originalText) paragraph.dataset.originalText = paragraph.textContent;
+      paragraph.textContent = paragraph.dataset.originalText;
+    });
+    (statements || []).forEach(function (row) {
+      (row.support_locators || []).forEach(function (locator) {
+        if (locator.medium !== "article_paragraph") return;
+        const paragraph = body.querySelector(
+          '[data-evidence-passage="' + String(locator.paragraph_index) + '"]'
+        );
+        if (!paragraph || paragraph.querySelector("mark")) return;
+        const text = paragraph.textContent || "";
+        const start = Number(locator.start_offset);
+        const end = Number(locator.end_offset);
+        if (start < 0 || end <= start || text.slice(start, end) !== locator.exact) return;
+        paragraph.textContent = "";
+        paragraph.append(document.createTextNode(text.slice(0, start)));
+        const mark = document.createElement("mark");
+        mark.className = "bos-evidence-highlight";
+        mark.dataset.claimId = row.id;
+        mark.tabIndex = 0;
+        mark.textContent = text.slice(start, end);
+        paragraph.append(mark);
+        paragraph.append(document.createTextNode(text.slice(end)));
+      });
+    });
+  }
+
+  function focusClaim(statementId) {
+    root.querySelectorAll(".bos-evidence-highlight").forEach(function (mark) {
+      mark.classList.toggle("is-focused", mark.dataset.claimId === statementId);
+    });
+    const card = root.querySelector('[data-statement-id="' + CSS.escape(statementId) + '"]');
+    if (card) {
+      card.focus();
+      card.scrollIntoView({ block: "nearest", behavior: reduced ? "auto" : "smooth" });
+    }
+  }
+
+  function statementRowsFromDom() {
+    return Array.prototype.slice.call(root.querySelectorAll("[data-statement-id]")).map(function (card) {
+      const hasLocator = card.dataset.supportParagraph !== undefined;
+      return {
+        id: card.dataset.statementId,
+        support_locators: hasLocator
+          ? [
+              {
+                medium: "article_paragraph",
+                paragraph_index: Number(card.dataset.supportParagraph),
+                start_offset: Number(card.dataset.supportStart),
+                end_offset: Number(card.dataset.supportEnd),
+                exact: card.dataset.supportExact || "",
+              },
+            ]
+          : [],
+      };
+    });
+  }
+
+  applyEvidenceHighlights(statementRowsFromDom());
 
   root.addEventListener("click", function (event) {
     const react = event.target.closest("[data-react]");
@@ -162,6 +244,82 @@
       }).catch(function () {
         const status = article.querySelector("[data-statement-status]");
         if (status) status.textContent = "Action failed. Try again.";
+      });
+      return;
+    }
+
+    const highlight = event.target.closest(".bos-evidence-highlight");
+    if (highlight) {
+      focusClaim(highlight.dataset.claimId || "");
+      return;
+    }
+
+    const claimCard = event.target.closest("[data-statement-id]");
+    if (claimCard && !event.target.closest("button, textarea, input, a")) {
+      focusClaim(claimCard.dataset.statementId || "");
+      return;
+    }
+
+    const batchAction =
+      event.target.closest("[data-confirm-selected]") ||
+      event.target.closest("[data-reject-selected]") ||
+      event.target.closest("[data-confirm-all]");
+    if (batchAction) {
+      let cards = Array.prototype.slice.call(
+        root.querySelectorAll('[data-statement-state="pending_confirmation"]')
+      );
+      if (!batchAction.matches("[data-confirm-all]")) {
+        cards = cards.filter(function (card) {
+          const checkbox = card.querySelector("[data-claim-select]");
+          return checkbox && checkbox.checked;
+        });
+      } else if (!window.confirm("Confirm every pending claim in this reader?")) {
+        return;
+      }
+      const action = batchAction.matches("[data-reject-selected]") ? "reject" : "confirm";
+      postJSON("/api/feed-first/statement", {
+        statement_ids: cards.map(function (card) {
+          return card.dataset.statementId;
+        }),
+        action: action,
+      }).then(function () {
+        window.location.reload();
+      });
+      return;
+    }
+
+    const gap = event.target.closest("[data-launch-gap-research]");
+    if (gap) {
+      const status = root.querySelector("[data-research-status]");
+      if (status) status.textContent = "Searching the bounded existing corpus…";
+      postJSON("/api/entity-dossier/research", {
+        entity_id: root.dataset.entityId,
+        question_id: gap.dataset.launchGapResearch,
+      })
+        .then(function (data) {
+          if (status) {
+            status.textContent = data.proposal
+              ? "Proposal ready for analyst review."
+              : "Search completed with no evidence. This was not marked not publicly disclosed.";
+          }
+          window.location.reload();
+        })
+        .catch(function () {
+          if (status) status.textContent = "Research failed; no claim was created.";
+        });
+      return;
+    }
+
+    const proposalAction = event.target.closest("[data-proposal-action]");
+    if (proposalAction) {
+      const proposal = proposalAction.closest("[data-proposal-id]");
+      const editor = proposal ? proposal.querySelector("[data-proposal-edit]") : null;
+      postJSON("/api/entity-dossier/proposal", {
+        proposal_id: proposal ? proposal.dataset.proposalId : "",
+        action: proposalAction.dataset.proposalAction,
+        text: editor ? editor.value : "",
+      }).then(function () {
+        window.location.reload();
       });
     }
   });
@@ -228,8 +386,14 @@
         if (!body || !data.passages || !data.passages.length) return;
         if (data.availability === "blocked" || data.availability === "error") return;
         body.innerHTML = data.passages
-          .map(function (passage) {
-            return "<p>" + escapeHtml(passage) + "</p>";
+          .map(function (passage, index) {
+            return (
+              '<p data-evidence-passage="' +
+              index +
+              '">' +
+              escapeHtml(passage) +
+              "</p>"
+            );
           })
           .join("");
         if (data.availability !== "full") {
@@ -244,6 +408,7 @@
         if (data.images && data.images.length) {
           renderGallery(data.images);
         }
+        applyEvidenceHighlights(statementRowsFromDom());
       })
       .catch(function () {
         return;
