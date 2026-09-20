@@ -14,6 +14,26 @@ from typing import Any, Iterable
 from app.services.article_dedup import normalize_canonical_url, normalize_title
 from app.services.industry_pulse.models import DiscoveryHit
 
+_STOP = {
+    "the",
+    "a",
+    "an",
+    "of",
+    "in",
+    "for",
+    "and",
+    "to",
+    "on",
+    "with",
+    "from",
+    "after",
+    "this",
+    "that",
+}
+_SUFFIX_RE = re.compile(r"\s+[-|–—]\s+[^-|–—]{2,40}$")
+_BYLINE_RE = re.compile(r"\s+by\s+.+$", re.IGNORECASE)
+_STEM_WORDS = 8
+
 _HOBBY = re.compile(
     r"\b("
     r"how to plant|how to grow|growing guide|special care in the fall|"
@@ -52,6 +72,8 @@ _STRONG = re.compile(
     r")\b",
     re.IGNORECASE,
 )
+
+
 def today_noise_reason(hit: DiscoveryHit, *, named_entity: bool) -> str | None:
     text = f"{hit.title} {hit.snippet}"
     snippet = (hit.snippet or "").strip()
@@ -114,6 +136,18 @@ def apply_today_relevance(
     return kept, dropped
 
 
+def story_stem(title: str) -> str:
+    """First eight content words after publisher suffix and trailing byline."""
+    text = str(title or "").strip()
+    text = _SUFFIX_RE.sub("", text)
+    text = _BYLINE_RE.sub("", text)
+    text = _SUFFIX_RE.sub("", text)
+    words = [w for w in re.findall(r"[a-z0-9]+", text.casefold()) if w not in _STOP]
+    if len(words) < _STEM_WORDS:
+        return ""
+    return " ".join(words[:_STEM_WORDS])
+
+
 def cluster_key(record: dict[str, Any]) -> str:
     title = str(record.get("title") or "")
     title_id = normalize_title(title)
@@ -164,16 +198,23 @@ def collapse_story_clusters(records: list[dict[str, Any]]) -> list[dict[str, Any
             parent[root_left] = root_right
 
     url_keys: dict[str, str] = {}
+    stem_keys: dict[str, str] = {}
     for key, rows in groups.items():
         for row in rows:
             url = normalize_canonical_url(str(row.get("source_url") or ""))
-            if not url:
-                continue
-            seen = url_keys.get(url)
-            if seen is None:
-                url_keys[url] = key
-            else:
-                union(seen, key)
+            if url:
+                seen = url_keys.get(url)
+                if seen is None:
+                    url_keys[url] = key
+                else:
+                    union(seen, key)
+            stem = story_stem(str(row.get("title") or ""))
+            if stem:
+                seen_stem = stem_keys.get(stem)
+                if seen_stem is None:
+                    stem_keys[stem] = key
+                else:
+                    union(seen_stem, key)
 
     merged: dict[str, list[dict[str, Any]]] = {}
     merged_order: list[str] = []
