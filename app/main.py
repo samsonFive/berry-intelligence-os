@@ -4074,17 +4074,40 @@ def saved_page(request: Request) -> HTMLResponse:
 
 
 @app.get("/statements", response_class=HTMLResponse)
-def statements_page(request: Request) -> HTMLResponse:
-    from app.services.feed_first import statements_index
+def statements_page(request: Request, review: str = "unreviewed") -> HTMLResponse:
+    from app.services.feed_first import statements_review_index
+    from app.services.feed_first_live import cached_live_records
 
     world = _feed_first_world()
-    statements = statements_index(world["state"])
+    rows = statements_review_index(world["state"])
+    records = {
+        str(row.get("id")): row
+        for row in cached_live_records(INBOX_DIR)
+        if row.get("id")
+    }
+    for row in rows:
+        record = records.get(str(row.get("feed_item_id") or "")) or {}
+        row["article_title"] = str(record.get("title") or row.get("feed_item_id") or "Unknown article")
+        row["article_source"] = str(record.get("source_name") or "Source unavailable")
+        row["article_date"] = str(record.get("published_date") or "")
+    review = review if review in {"unreviewed", "reviewed", "all"} else "unreviewed"
+    reviewed_count = sum(bool(row.get("human_reviewed")) for row in rows)
+    if review == "unreviewed":
+        statements = [row for row in rows if not row.get("human_reviewed")]
+    elif review == "reviewed":
+        statements = [row for row in rows if row.get("human_reviewed")]
+    else:
+        statements = rows
     return templates.TemplateResponse(
         request=request,
         name="feed_first_statements.html",
         context={
             "statements": statements,
-            "statement_count": len(statements),
+            "statement_count": len(rows),
+            "visible_statement_count": len(statements),
+            "reviewed_count": reviewed_count,
+            "remaining_count": len(rows) - reviewed_count,
+            "review_filter": review,
             "counts": world["counts"],
             "nav": world["nav"],
             "active_href": "/statements",

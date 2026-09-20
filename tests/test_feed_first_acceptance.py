@@ -273,12 +273,15 @@ def test_p0_filter_tier1_crop_unread_30d_restores_url_and_facets(tmp_path):
 
 
 def test_p0_statement_important_demote_remove_restore(tmp_path):
-    from app.services.feed_first import mutate_statement, statements_index
+    from app.services.feed_first import mutate_statement, statements_index, statements_review_index
 
     inbox = tmp_path / "inbox"
     record = _record()
     applied = apply_decision(inbox, item_id=record["id"], action="thumbs_up", evidence=[record])
     statement_id = applied["statements"][0]["id"]
+    approved = mutate_statement(inbox, statement_id=statement_id, action="approve")
+    assert approved["review_state"] == "reviewed"
+    assert approved["reviewed_at"]
     important = mutate_statement(inbox, statement_id=statement_id, action="important")
     assert important["importance_state"] == "important"
     demoted = mutate_statement(inbox, statement_id=statement_id, action="demote")
@@ -286,6 +289,7 @@ def test_p0_statement_important_demote_remove_restore(tmp_path):
     removed = mutate_statement(inbox, statement_id=statement_id, action="remove")
     assert removed["statement_state"] == "removed"
     assert statement_id not in {row["id"] for row in statements_index(load_state(inbox))}
+    assert statement_id in {row["id"] for row in statements_review_index(load_state(inbox))}
     restored = mutate_statement(inbox, statement_id=statement_id, action="restore")
     assert restored["statement_state"] == "trusted_editable"
     assert statement_id in {row["id"] for row in statements_index(load_state(inbox))}

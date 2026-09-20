@@ -381,6 +381,36 @@ def test_react_http_and_entity_reflection(tmp_path, monkeypatch):
     assert down.json()["muted_world"] is False
 
 
+def test_human_gate_workspace_reviews_statement_in_place(tmp_path, monkeypatch):
+    from app import main
+
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
+    record = _record()
+    applied = apply_decision(tmp_path, item_id=record["id"], action="thumbs_up", evidence=[record])
+    statement_id = applied["statements"][0]["id"]
+    client = TestClient(main.app)
+
+    page = client.get("/statements?review=unreviewed")
+    assert page.status_code == 200
+    assert "Review extracted intelligence" in page.text
+    assert 'data-statement-action="approve"' in page.text
+    assert 'data-statement-edit="' + statement_id + '"' in page.text
+    assert "Gate 3 progress" in page.text
+
+    for statement in applied["statements"]:
+        reviewed = client.post(
+            "/api/feed-first/statement",
+            json={"statement_id": statement["id"], "action": "approve"},
+        )
+        assert reviewed.status_code == 200
+        assert reviewed.json()["statement"]["review_state"] == "reviewed"
+
+    remaining = client.get("/statements?review=unreviewed")
+    assert "Human gate complete" in remaining.text
+    labeled = client.get("/statements?review=reviewed")
+    assert statement_id in labeled.text
+
+
 def test_people_watchlist_is_honest():
     page = TestClient(app).get("/people")
     assert page.status_code == 200

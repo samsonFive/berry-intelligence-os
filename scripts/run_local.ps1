@@ -64,7 +64,8 @@ if (Test-Path .env) {
 $hostName = if ($env:BIOS_APP_BIND) { $env:BIOS_APP_BIND } else { "127.0.0.1" }
 $port = if ($env:BIOS_APP_PORT) { $env:BIOS_APP_PORT } else { "8000" }
 $browserHost = if ($hostName -eq "0.0.0.0") { "127.0.0.1" } else { $hostName }
-$appUrl = "http://${browserHost}:${port}/today"
+$startPath = if ($env:BIOS_START_PATH -and $env:BIOS_START_PATH.StartsWith("/")) { $env:BIOS_START_PATH } else { "/today" }
+$appUrl = "http://${browserHost}:${port}${startPath}"
 Write-Host "Berry OS → $appUrl"
 Write-Host "Refresh live lanes on Today if the feed looks stale. Thumbs-up is the publish path."
 
