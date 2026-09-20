@@ -82,9 +82,22 @@
         <label>Search
           <input type="search" name="q" value="{{ feed.filters.q }}" aria-label="Search feed">
         </label>
+        <label>Sort
+          <select name="sort" aria-label="Sort order">
+            <option value="rank"{% if feed.filters.sort == 'rank' %} selected{% endif %}>Rank</option>
+            <option value="chrono"{% if feed.filters.sort == 'chrono' %} selected{% endif %}>Newest first</option>
+          </select>
+        </label>
         <button class="bos-btn is-primary" type="submit">Apply</button>
         <a class="bos-btn" href="{{ feed.refresh_href }}">Refresh live lanes</a>
       </form>
+      {% if feed.filter_chips %}
+      <p class="bos-filters" data-filter-chips aria-label="Active filters">
+        {% for chip in feed.filter_chips %}
+        <a class="bos-chip" href="{{ chip.href }}" data-clear-filter="{{ chip.key }}">{{ chip.label }} ×</a>
+        {% endfor %}
+      </p>
+      {% endif %}
 
       <p class="bos-meta" data-facet-counts> {{ feed.count }} showing of {{ (feed.facet_counts.total if feed.facet_counts else feed.total_matched) }} in window · unread {{ (feed.facet_counts.state.unread if feed.facet_counts else 0) }} · tier1 {{ (feed.facet_counts.tier.tier1 if feed.facet_counts and feed.facet_counts.tier else 0) }} · blueberry {{ (feed.facet_counts.crop.blueberry if feed.facet_counts and feed.facet_counts.crop else 0) }} · same-day={{ feed.same_day_count }} · fetched {{ feed.fetched_at or 'not yet' }} · lanes={{ (feed.lanes or [])|join('+') }} · article={{ feed.has_article }} · official={{ feed.has_official }} · social-style={{ feed.has_social_style }} · fallback={{ feed.has_fallback }}</p>
       <p class="bos-note" data-keyboard-help>Keys: j / → next · k / ← previous · Esc close · u thumbs-up · d thumbs-down. State persists across reload.</p>

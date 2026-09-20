@@ -101,7 +101,7 @@ NAV = (
     ("War Room", "/war-room"),
     ("Watchtower", "/watchtower"),
     ("Research Ops", "/research-ops"),
-    ("Settings", "/guide"),
+    ("Settings", "/settings"),
 )
 
 _SENTENCE_RE = re.compile(r"(?<=[.!?])\s+")
@@ -234,6 +234,42 @@ def filters_query(filters: dict[str, str], **extra: str) -> str:
     merged = {key: value for key, value in filters.items() if value}
     merged.update({key: value for key, value in extra.items() if value})
     return urlencode(merged)
+
+
+def active_filter_chips(filters: dict[str, str]) -> list[dict[str, str]]:
+    """Removable chips for non-default filters. Clearing one leaves the rest."""
+    labels = {
+        "window": f"Window {filters.get('window') or 'all'}",
+        "tier": TIER_LABELS.get(filters.get("tier") or "", filters.get("tier") or ""),
+        "crop": CROP_LABELS.get(filters.get("crop") or "", filters.get("crop") or ""),
+        "source": (filters.get("source") or "").replace("_", " "),
+        "state": filters.get("state") or "",
+        "entity": filters.get("entity") or "",
+        "person": filters.get("person") or "",
+        "q": f"Search {filters.get('q')}" if filters.get("q") else "",
+        "sort": "Newest first" if filters.get("sort") == "chrono" else "",
+    }
+    chips: list[dict[str, str]] = []
+    for key, label in labels.items():
+        value = str(filters.get(key) or "")
+        if not value or not label:
+            continue
+        if key == "window" and value == "today":
+            continue
+        if key == "sort" and value == "rank":
+            continue
+        cleared = dict(filters)
+        cleared[key] = ""
+        suffix = filters_query(cleared)
+        chips.append(
+            {
+                "key": key,
+                "value": value,
+                "label": label,
+                "href": f"/today?{suffix}" if suffix else "/today",
+            }
+        )
+    return chips
 
 
 def crop_keys(record: dict[str, Any]) -> list[str]:
@@ -664,6 +700,7 @@ def build_feed(
         "count": len(visible),
         "total_matched": len(ranked),
         "facet_counts": facets,
+        "filter_chips": active_filter_chips(filters),
         "nav": NAV,
         "tier_labels": TIER_LABELS,
         "crop_labels": CROP_LABELS,

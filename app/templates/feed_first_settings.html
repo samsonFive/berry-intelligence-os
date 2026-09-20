@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Settings — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os" data-feed-first data-feed-first-settings>
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">Settings</p>
+      <h1 class="bos-title">Reader preferences and honest coverage</h1>
+      <p class="bos-lede">This page does not collect licensed social, Firecrawl, or Jina. Secret values are never shown.</p>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Today defaults</h2>
+        <ul>
+          <li>Window: same UTC calendar day. Use Window=7d for the last seven UTC days.</li>
+          <li>Sort: rank unless you choose newest first.</li>
+          <li>Save is a board. Only thumbs-up extracts statements.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Keyboard</h2>
+        <p class="bos-note">j / → next · k / ← previous · Esc close reader · u thumbs-up · d thumbs-down.</p>
+      </section>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Coverage</h2>
+        <p>{{ counts.tracked_companies }} companies tracked · {{ counts.candidates }} candidate · {{ counts.registries }} registries excluded.</p>
+        <p class="bos-note">Lane health, watch coverage, and error classes live on <a href="/research-ops">Research Ops</a>. The legacy how-it-works page remains at <a href="/guide">/guide</a>.</p>
+      </section>
+    </main>
+  </div>
+</div>
+{% endblock %}

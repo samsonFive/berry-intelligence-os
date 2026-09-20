@@ -14,6 +14,7 @@ ROUTES = (
     ("/week?view=feed", "data-feed-first-week"),
     ("/landscapes?view=feed", "data-feed-first-landscapes"),
     ("/research-ops", "data-feed-first-ops"),
+    ("/settings", "data-feed-first-settings"),
     ("/entities/company/company-fall-creek-farm-and-nursery", "data-feed-first-company"),
 )
 
@@ -37,6 +38,22 @@ def test_today_filter_query_restores_selected_controls():
     assert 'value="unread" selected' in page.text
     assert 'value="30d" selected' in page.text
     assert "data-facet-counts" in page.text
+    assert "data-filter-chips" in page.text
+    assert 'name="sort"' in page.text
+    assert 'href="/settings"' in page.text
+    assert "data-clear-filter" in page.text
+
+
+def test_settings_stays_in_berry_os_and_keeps_legacy_guide():
+    client = TestClient(app)
+    settings = client.get("/settings")
+    assert settings.status_code == 200
+    assert "data-feed-first-settings" in settings.text
+    assert "Research Ops" in settings.text
+    assert "Secret values are never shown" in settings.text
+    guide = client.get("/guide")
+    assert guide.status_code == 200
+    assert "data-feed-first-settings" not in guide.text
 
 
 def test_research_ops_health_has_no_secret_values():

@@ -252,6 +252,14 @@ def test_p0_filter_tier1_crop_unread_30d_restores_url_and_facets(tmp_path):
     assert "value=\"unread\" selected" in page.text
     assert "value=\"30d\" selected" in page.text
     assert "data-facet-counts" in page.text
+    assert "data-filter-chips" in page.text
+    assert 'data-clear-filter="crop"' in page.text
+    assert 'data-clear-filter="window"' in page.text
+    chips = feed["filter_chips"]
+    assert {row["key"] for row in chips} >= {"tier", "crop", "state", "window"}
+    crop_chip = next(row for row in chips if row["key"] == "crop")
+    assert "crop=" not in crop_chip["href"]
+    assert "tier=tier1" in crop_chip["href"]
 
 
 def test_p0_statement_important_demote_remove_restore(tmp_path):
