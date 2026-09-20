@@ -103,6 +103,22 @@ NAV = (
 )
 
 _SENTENCE_RE = re.compile(r"(?<=[.!?])\s+")
+_STOP = {
+    "the",
+    "a",
+    "an",
+    "of",
+    "in",
+    "for",
+    "and",
+    "to",
+    "on",
+    "with",
+    "from",
+    "after",
+    "this",
+    "that",
+}
 SAFE_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,200}$")
 
 
@@ -677,7 +693,34 @@ def _statement_type(sentence: str) -> str:
     return "captured_assertion"
 
 
-def _atomic_sentences(passages: list[str]) -> list[str]:
+def _title_tokens(title: str) -> set[str]:
+    return {
+        word
+        for word in re.findall(r"[a-z0-9]+", (title or "").casefold())
+        if len(word) >= 4 and word not in _STOP
+    }
+
+
+def _sentence_mentions_item(sentence: str, title: str) -> bool:
+    tokens = _title_tokens(title)
+    if not tokens:
+        return True
+    hay = sentence.casefold()
+    return any(re.search(rf"\b{re.escape(token)}\b", hay) for token in tokens)
+
+
+def _mentioned_entity_ids(sentence: str, record: dict[str, Any]) -> list[str]:
+    hay = sentence.casefold()
+    mentioned: list[str] = []
+    for raw in record.get("entity_ids") or []:
+        entity_id = str(raw)
+        slug = re.sub(r"^(company|geography|berry|variety)-", "", entity_id).replace("-", " ")
+        if len(slug) >= 4 and slug in hay:
+            mentioned.append(entity_id)
+    return mentioned or [str(eid) for eid in (record.get("entity_ids") or [])]
+
+
+def _atomic_sentences(passages: list[str], *, title: str = "") -> list[str]:
     sentences: list[str] = []
     for passage in passages:
         bits = [part.strip() for part in _SENTENCE_RE.split(passage) if part.strip()]
@@ -688,6 +731,10 @@ def _atomic_sentences(passages: list[str]) -> list[str]:
         if len(sentence) < 40 or len(sentence) > 320:
             continue
         if _LOGIN_WALL.search(sentence) or _QUESTION.search(sentence):
+            continue
+        if "http://" in sentence or "https://" in sentence:
+            continue
+        if not _sentence_mentions_item(sentence, title):
             continue
         if sentence in seen:
             continue
@@ -727,13 +774,12 @@ def extract_statements(
         return []
     if all(_LOGIN_WALL.search(passage or "") for passage in passages):
         return []
-    picked = _atomic_sentences(passages)
+    picked = _atomic_sentences(passages, title=str(record.get("title") or ""))
     if not picked:
         return []
     now = datetime.now(UTC).isoformat(timespec="seconds")
     item_id = str(record.get("id") or "item")
     crops = crop_keys(record)
-    entity_ids = [str(eid) for eid in (record.get("entity_ids") or [])]
     from app.services.people_watchlist import match_people
 
     rows: list[dict[str, Any]] = []
@@ -746,7 +792,7 @@ def extract_statements(
                 "statement_text": sentence,
                 "original_extraction_text": sentence,
                 "supporting_passages": [sentence],
-                "entity_ids": entity_ids,
+                "entity_ids": _mentioned_entity_ids(sentence, record),
                 "person_ids": [row["id"] for row in matched_people],
                 "crops": crops,
                 "geographies": [str(g) for g in (record.get("geography_ids") or [])],

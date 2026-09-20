@@ -41,3 +41,30 @@ def test_eval_set_scores_support_and_atomicity():
             if not any((row.get("structured_details") or {}).get("quantities") for row in statements):
                 failures.append(f"{case['id']}: missing quantity structure")
     assert failures == []
+
+
+def test_extract_drops_unrelated_sidebar_and_keeps_named_company():
+    record = {
+        "id": "eval-wish-sidebar",
+        "status": "published",
+        "title": "Wish Farms and Clarifresh transform berry quality control",
+        "source_type": "trade_press",
+        "entity_ids": ["company-wish-farms", "geography-china"],
+        "article": {
+            "paragraphs": [
+                {
+                    "text": (
+                        "China: blueberry crop tops 100.000 hectares while export is starting by Italianberry. "
+                        "The partnership includes automated defect detection for strawberries, "
+                        "which has helped Wish Farms reduce quality inspection time by 70%."
+                    )
+                }
+            ]
+        },
+    }
+    statements = extract_statements(record)
+    texts = " ".join(row["statement_text"] for row in statements)
+    assert "Wish Farms" in texts
+    assert "Italianberry" not in texts
+    assert all("company-wish-farms" in row["entity_ids"] for row in statements)
+    assert all("geography-china" not in row["entity_ids"] for row in statements)
