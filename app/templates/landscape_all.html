@@ -1,13 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Competitive Landscape — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
 {% block content %}
-<div class="v2-page">
+<div class="berry-os" data-feed-first data-berry-os-landscape>
+  <div class="bos-shell" style="grid-template-columns:220px minmax(0,1fr)">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+<div class="v2-page bos-legacy-surface">
 <section class="page-heading">
   <div>
     <p class="eyebrow">LANDSCAPE · ALL BERRIES</p>
     <h1>Competitive Landscape</h1>
     <p class="also-known-as">Who we currently track, where activity is occurring, and where our own evidence coverage is deep or thin -- across all four berries. Open a berry below for its full Landscape.</p>
     <p class="context-limit"><strong>Captured intelligence coverage, not market activity.</strong> Most trusted evidence today is a thin description rather than full article or transcript text -- a thinly covered berry, company, or geography may simply be under-captured, not inactive.</p>
+    <p class="v2-card-line"><a href="/landscapes?view=feed">Open live landscape briefs</a> · <a href="/learn">Open Learner mode</a></p>
   </div>
 </section>
 
@@ -80,5 +91,8 @@
     <p class="empty-state">No trusted intelligence-linked moves captured yet.</p>
   {% endif %}
 </section>
+</div>
+    </main>
+  </div>
 </div>
 {% endblock %}

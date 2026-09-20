@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block title %}{{ name }} — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os" data-feed-first data-feed-first-company data-verification="{{ profile.verification_status if profile else status }}">
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">{{ verification_label }}</p>
+      <h1 class="bos-title">{{ name }}</h1>
+      {% if aliases %}<p class="bos-lede">Also known as {{ aliases|join(', ') }}</p>{% endif %}
+      <p class="bos-note">{% if is_registry %}Registry / source system. Excluded from competitor counts.{% elif candidate %}Candidate-review. Monitored, visibly unverified.{% else %}Tier is monitoring priority. Verification did not change because this company is watched.{% endif %}</p>
+
+      <div class="bos-people-card">
+        <p class="bos-meta">
+          <span>Status {{ status }}</span>
+          {% for crop in crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
+        </p>
+        {% if description %}<p>{{ description }}</p>{% endif %}
+        {% if logo_url %}
+        <p><img class="bos-logo" src="{{ logo_url }}" alt="{{ name }} logo" width="64" height="64"></p>
+        {% else %}
+        <p class="bos-monogram" style="position:static">{{ monogram }}</p>
+        {% endif %}
+        {% if official_website %}
+        <p>Official website: <a href="{{ official_website }}" rel="noopener noreferrer">{{ official_website }}</a></p>
+        {% elif resolved_website %}
+        <p class="bos-note">Resolved website is research only: {{ resolved_website }}</p>
+        {% endif %}
+        {% if related_entities %}
+        <p>Related in seed notes:
+          {% for rel in related_entities %}
+          <a href="{{ rel.profile_url }}">{{ rel.name }}</a>{% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+        {% endif %}
+      </div>
+
+      <section class="bos-logo-editor" data-logo-editor>
+        <h2 class="bos-title" style="font-size:1.4rem">Company logo</h2>
+        <p class="bos-note">Presentation override only. This does not change verification or rewrite the trusted entity record.</p>
+        {% if logo_status %}<p class="bos-banner is-success" role="status">{{ logo_status }}</p>{% endif %}
+        {% if logo_error %}<p class="bos-banner is-error" role="alert">{{ logo_error }}</p>{% endif %}
+        <form method="post" action="/entities/company/{{ entity_id }}/logo" enctype="multipart/form-data" class="bos-logo-form">
+          <label>
+            Paste public image URL
+            <input type="url" name="logo_url" placeholder="https://company.example/logo.png">
+          </label>
+          <label>
+            Or upload image
+            <input type="file" name="logo_file_upload" accept="image/png,image/jpeg,image/gif,image/webp">
+          </label>
+          <div class="bos-actions">
+            <button class="bos-btn is-primary" type="submit" name="action" value="save">Save logo</button>
+            {% if logo_override %}
+            <button class="bos-btn" type="submit" name="action" value="clear">Use discovered logo</button>
+            {% endif %}
+          </div>
+        </form>
+      </section>
+
+      {% if social_channels %}
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Official social (unverified)</h2>
+        <p class="bos-note">Seed discovery URLs. official_status=unverified. Coverage is provider-unavailable. Not scraped.</p>
+        <ul>
+          {% for channel in social_channels %}
+          <li>{{ channel.platform }} · {{ channel.official_status }} · {{ channel.coverage }} · {{ channel.url }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Watches</h2>
+        <ul>
+          {% for watch in watches %}
+          <li>{{ watch.kind }}{% if watch.url %} · {{ watch.url }}{% endif %}{% if watch.query %} · {{ watch.query }}{% endif %}</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      {% if people %}
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Named people</h2>
+        <p class="bos-note">From public patent or program records. Social coverage is provider-unavailable.</p>
+        <ul>
+          {% for person in people %}
+          <li><a href="{{ person.profile_url }}">{{ person.canonical_name }}</a> · {{ person.monitoring_coverage }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      <section id="growing-profile" data-learner-profile>
+        <h2 class="bos-title" style="font-size:1.4rem">Learner context</h2>
+        <p class="bos-note">Educational context from captured portfolio-variety traits. This is not a competitive score or a new Fact.</p>
+        {% if growing_profile and growing_profile.has_any %}
+        <ul>
+          {% for row in growing_profile.rows %}
+          <li>
+            <a href="{{ row.href }}">{{ row.name }}</a>
+            {% if row.trait_names %}<span class="bos-note"> · {{ row.trait_names|join(', ') }}</span>{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="bos-note">No captured trait-tagged Facts currently connect this company’s portfolio varieties to a Learner concept.</p>
+        {% endif %}
+        <p><a class="bos-btn" href="/learn">Open Learner mode</a></p>
+      </section>
+
+      <section id="feed-first-intelligence" data-feed-first-entity>
+        <h2 class="bos-title" style="font-size:1.4rem">From Today thumbs-up</h2>
+        {% if statements %}
+        <ul>
+          {% for row in statements %}
+          <li>
+            <p>{{ row.statement_text }}</p>
+            <p class="bos-note">Evidence: {{ row.supporting_passages[0] if row.supporting_passages else 'none' }} · {{ row.extraction_model }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="bos-note">No trusted statements yet. Thumbs-up on a Today item matched to this company extracts here. No second review queue.</p>
+        {% endif %}
+      </section>
+
+      <p>
+        <a class="bos-btn" href="/today?entity={{ entity.id if entity.id else profile.id }}">Today for this company</a>
+        {% if legacy_href %}<a class="bos-btn" href="{{ legacy_href }}">Legacy catalog profile</a>{% endif %}
+      </p>
+    </main>
+  </div>
+</div>
+{% endblock %}

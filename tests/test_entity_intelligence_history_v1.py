@@ -267,7 +267,7 @@ def test_geography_sparse_timeline_honest_empty():
 
 
 def test_company_and_variety_profiles_still_render_timeline():
-    company = client.get(f"/entities/company/{COMPANY_WITH_EVIDENCE}")
+    company = client.get(f"/entities/company/{COMPANY_WITH_EVIDENCE}?view=legacy")
     assert company.status_code == 200
     assert 'id="intelligence-timeline"' in company.text
     variety = client.get(f"/entities/variety/{VARIETY_WITH_EVIDENCE}")

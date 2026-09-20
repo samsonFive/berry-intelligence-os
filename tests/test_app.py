@@ -12,13 +12,31 @@ from app.main import app
 client = TestClient(app)
 
 
-def test_home_opens_news_without_fictional_seed_reporting() -> None:
+def test_home_opens_news_without_fictional_seed_reporting(monkeypatch) -> None:
+    from app.services import feed_first_live
+
+    monkeypatch.setattr(
+        feed_first_live,
+        "live_feed_bundle",
+        lambda **kwargs: {
+            "today": "2026-09-21",
+            "fetched_at": "2026-09-21T12:00:00+00:00",
+            "lanes": ["google_news_rss", "specialist_rss", "perplexity"],
+            "lane_errors": [],
+            "stats": {"same_day": 0},
+            "records": [],
+        },
+    )
     response = client.get("/")
     assert response.status_code == 200
     assert response.url.path == "/today"
-    assert "Daily Intelligence Briefing" in response.text
-    assert "Publication date drives recency" in response.text
+    assert "data-feed-first-today" in response.text
     assert "Example breeder announces" not in response.text
+    assert "companies watched" in response.text
+    assert "not a live multi-lane poll" not in response.text
+    briefing = client.get("/today?view=briefing")
+    assert "Daily Intelligence Briefing" in briefing.text
+    assert "Publication date drives recency" in briefing.text
 
 
 def test_feed_api_returns_published_records() -> None:
@@ -37,7 +55,7 @@ def test_evidence_detail_page_shows_linked_entities() -> None:
 
 
 def test_public_intelligence_pages_use_compact_bluf_tables() -> None:
-    entity_page = client.get("/entities/company/company-costa-group-holdings").text
+    entity_page = client.get("/entities/company/company-costa-group-holdings?view=legacy").text
     assert "Bottom line" in entity_page
     assert 'class="trust-summary bluf-metrics"' not in entity_page
     assert 'class="brief-table evidence-link-table"' in entity_page
@@ -72,7 +90,7 @@ def test_evidence_detail_404_for_unknown_id() -> None:
 
 
 def test_company_entity_page_renders() -> None:
-    response = client.get("/entities/company/company-example-genetics")
+    response = client.get("/entities/company/company-example-genetics?view=legacy")
     assert response.status_code == 200
     assert "Example Genetics" in response.text
     assert "Example breeder announces" in response.text
@@ -417,7 +435,7 @@ def test_publish_creates_entities_facts_relationships_and_updates_feed(monkeypat
     assert "New Fictional Co" in evidence_page.text
     assert "trials" in evidence_page.text
 
-    company_page = client.get("/entities/company/company-new-fictional-co")
+    company_page = client.get("/entities/company/company-new-fictional-co?view=legacy")
     assert company_page.status_code == 200
     assert "New Fictional Co expanded raspberry trials" in company_page.text
 
@@ -1298,8 +1316,12 @@ def test_region_and_geography_detected_when_only_in_entity_ids(monkeypatch, tmp_
     geography_matches = client.get("/api/feed", params={"geography": "geography-fictional-portugal"}).json()
     assert any(r["id"] == "ev-fictional-no-geography-ids-field" for r in geography_matches)
 
-    options_page = client.get("/")
+    # Bare / is feed-first Today. Geography filter options stay on the
+    # query-bearing legacy news view.
+    options_page = client.get("/", params={"region": "Europe"})
+    assert options_page.status_code == 200
     assert "Portugal" in options_page.text
+    assert "data-feed-first-today" not in options_page.text
 
 
 def test_sources_write_endpoints_blocked_in_readonly_mode(monkeypatch, tmp_path) -> None:
@@ -1367,7 +1389,7 @@ def test_entity_activity_falls_back_to_created_at_without_event_date() -> None:
 
 
 def test_entity_page_shows_recent_activity_with_us_formatted_dates() -> None:
-    response = client.get("/entities/company/company-example-genetics")
+    response = client.get("/entities/company/company-example-genetics?view=legacy")
     assert response.status_code == 200
     assert "7/28/2026" in response.text
 
@@ -1725,7 +1747,7 @@ def test_feed_shows_linked_geography_tags_and_suppresses_redundant_summary(monke
 
 
 def test_entity_page_shows_weighted_searchable_aliases() -> None:
-    response = client.get("/entities/company/company-mountain-blue-orchards")
+    response = client.get("/entities/company/company-mountain-blue-orchards?view=legacy")
     assert response.status_code == 200
     assert 'data-pagefind-weight="10"' in response.text
     assert "Also known as:" in response.text
@@ -1740,13 +1762,13 @@ def test_entity_page_shows_weighted_searchable_aliases() -> None:
 
 
 def test_entity_page_omits_aliases_line_when_none() -> None:
-    response = client.get("/entities/company/company-example-genetics")
+    response = client.get("/entities/company/company-example-genetics?view=legacy")
     assert response.status_code == 200
     assert "Also known as:" not in response.text
 
 
 def test_entity_page_tagged_for_search_prioritization() -> None:
-    response = client.get("/entities/company/company-mountain-blue-orchards")
+    response = client.get("/entities/company/company-mountain-blue-orchards?view=legacy")
     assert response.status_code == 200
     assert 'data-pagefind-filter="type:entity"' in response.text
 

@@ -20,7 +20,7 @@ from urllib.parse import quote, urlencode, urlparse, urlsplit
 import feedparser
 import httpx
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
-from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse, Response
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from jsonschema import Draft202012Validator, FormatChecker
@@ -326,6 +326,7 @@ from app.services.learner import (
     concepts_by_pillar as learn_concepts_by_pillar,
     freshness_summary as learn_freshness_summary,
     glossary_hits_for_text as learn_glossary_hits_for_text,
+    growing_profile_for_company as learn_growing_profile_for_company,
     growing_profile_for_varieties as learn_growing_profile_for_varieties,
     learn_href_for_trait_id,
     related_concepts as learn_related_concepts,
@@ -3148,6 +3149,7 @@ def learn_home(request: Request, q: str = "", view: str = "") -> HTMLResponse:
     search_results = learn_search_concepts(q) if q.strip() else None
     stale_view = view.strip().lower() == "stale" and search_results is None
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    world = _feed_first_world()
     response = templates.TemplateResponse(
         request=request,
         name="learn_home.html",
@@ -3161,6 +3163,9 @@ def learn_home(request: Request, q: str = "", view: str = "") -> HTMLResponse:
             "static_build": False,
             "ui_context": ui,
             "berries": BERRIES,
+            "nav": world["nav"],
+            "active_href": "/learn",
+            "counts": world["counts"],
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -3184,6 +3189,7 @@ def learn_concept_detail(request: Request, slug: str) -> HTMLResponse:
         evidence_by_id={r["id"]: r for r in all_evidence() if r.get("id")},
     )
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    world = _feed_first_world()
     response = templates.TemplateResponse(
         request=request,
         name="learn_concept.html",
@@ -3195,6 +3201,9 @@ def learn_concept_detail(request: Request, slug: str) -> HTMLResponse:
             "static_build": False,
             "ui_context": ui,
             "berries": BERRIES,
+            "nav": world["nav"],
+            "active_href": "/learn",
+            "counts": world["counts"],
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -3409,10 +3418,143 @@ def company_portfolio_page(request: Request, entity_id: str) -> HTMLResponse:
     return response
 
 
+def _wants_feed_first_profile(request: Request) -> bool:
+    view = str(request.query_params.get("view") or "").strip().lower()
+    if view == "legacy":
+        return False
+    return True
+
+
+def _feed_first_company_response(request: Request, entity_id: str) -> HTMLResponse | None:
+    from app.services.entity_logo_overrides import load_logo_overrides, logo_override_url
+    from app.services.people_watchlist import discover_people
+    from app.services.seed_roster import seed_profile
+
+    world = _feed_first_world()
+    logo_overrides = load_logo_overrides(INBOX_DIR)
+    trusted = next(
+        (
+            entity
+            for entity in world["existing"]
+            if entity.get("id") == entity_id and entity.get("entity_type") in {"company", "brand", "breeding_program"}
+        ),
+        None,
+    )
+    seed = seed_profile(entity_id, world["existing"], logo_overrides=logo_overrides)
+    if trusted is None and seed is None:
+        return None
+    linked_people = [row for row in discover_people(world["existing"]) if entity_id in row.get("entity_ids", [])]
+    name = (trusted or {}).get("name") or (seed or {}).get("canonical_name") or entity_id
+    entity_rows = all_entities()
+    entities_by_id = {str(row.get("id")): row for row in entity_rows if row.get("id")}
+    growing_profile = learn_growing_profile_for_company(
+        entity_id,
+        relationships=all_relationships(),
+        entities=entities_by_id,
+        facts=all_facts(),
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_company.html",
+        context={
+            "entity": trusted or {},
+            "profile": seed,
+            "name": name,
+            "aliases": list((trusted or {}).get("aliases") or (seed or {}).get("aliases") or []),
+            "description": (trusted or {}).get("description") or (seed or {}).get("parent_or_successor") or "",
+            "status": (trusted or {}).get("status") or (seed or {}).get("status") or "unverified",
+            "verification_label": (seed or {}).get("verification_label")
+            or ("Trusted catalog record" if trusted else "Unverified"),
+            "candidate": bool((seed or {}).get("candidate")) or (trusted or {}).get("status") == "unverified",
+            "is_registry": bool((seed or {}).get("is_registry")),
+            "crops": (seed or {}).get("crops")
+            or [str(item).removeprefix("berry-") for item in (trusted or {}).get("berry_ids") or []],
+            "watches": (seed or {}).get("watches") or [{"kind": "mention", "query": name}],
+            "official_website": (seed or {}).get("official_website") or "",
+            "resolved_website": (seed or {}).get("resolved_website") or "",
+            "statements": _feed_first_entity_statements(entity_id),
+            "people": linked_people,
+            "social_channels": (seed or {}).get("social_channels") or [],
+            "related_entities": (seed or {}).get("related_entities") or [],
+            "growing_profile": growing_profile,
+            "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
+            "monogram": (seed or {}).get("monogram") or name[:2].upper(),
+            "logo_url": logo_override_url(INBOX_DIR, entity_id) or (seed or {}).get("logo_url") or "",
+            "logo_override": logo_overrides.get(entity_id) or {},
+            "logo_status": str(request.query_params.get("logo_status") or ""),
+            "logo_error": str(request.query_params.get("logo_error") or ""),
+            "entity_id": entity_id,
+            "nav": world["nav"],
+            "active_href": "/entities",
+            "counts": world["counts"],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/entity-logos/{entity_id}/{filename}")
+def entity_logo_asset(entity_id: str, filename: str) -> FileResponse:
+    from app.services.entity_logo_overrides import LogoOverrideError, logo_file
+
+    try:
+        path, media_type = logo_file(INBOX_DIR, entity_id, filename)
+    except LogoOverrideError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return FileResponse(path, media_type=media_type)
+
+
+@app.post("/entities/company/{entity_id}/logo")
+async def update_company_logo(
+    entity_id: str,
+    action: str = Form("save"),
+    logo_url: str = Form(""),
+    logo_file_upload: UploadFile | None = File(None),
+) -> RedirectResponse:
+    from app.services.entity_logo_overrides import (
+        LogoOverrideError,
+        MAX_LOGO_BYTES,
+        clear_logo_override,
+        set_logo_upload,
+        set_logo_url,
+    )
+    from app.services.seed_roster import seed_profile
+
+    world = _feed_first_world()
+    trusted = any(
+        row.get("id") == entity_id and row.get("entity_type") in {"company", "brand", "breeding_program"}
+        for row in world["existing"]
+    )
+    if not trusted and seed_profile(entity_id, world["existing"]) is None:
+        raise HTTPException(status_code=404, detail="Company not found")
+    try:
+        if action == "clear":
+            clear_logo_override(INBOX_DIR, entity_id)
+            status = "Logo override cleared"
+        elif logo_file_upload and logo_file_upload.filename:
+            data = await logo_file_upload.read(MAX_LOGO_BYTES + 1)
+            set_logo_upload(INBOX_DIR, entity_id, data)
+            status = "Uploaded logo saved"
+        elif logo_url.strip():
+            set_logo_url(INBOX_DIR, entity_id, logo_url)
+            status = "Logo URL saved"
+        else:
+            raise LogoOverrideError("paste a public logo URL or choose an image")
+    except LogoOverrideError as exc:
+        target = f"/entities/company/{quote(entity_id)}?logo_error={quote(str(exc))}"
+        return RedirectResponse(target, status_code=303)
+    target = f"/entities/company/{quote(entity_id)}?logo_status={quote(status)}"
+    return RedirectResponse(target, status_code=303)
+
+
 @app.get("/entities/{entity_type}/{entity_id}", response_class=HTMLResponse)
 def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLResponse:
     if entity_type == "geography":
         return RedirectResponse(url=f"/geographies/{entity_id}", status_code=303)
+    if entity_type in {"company", "brand", "breeding_program"} and _wants_feed_first_profile(request):
+        feed_first = _feed_first_company_response(request, entity_id)
+        if feed_first is not None:
+            return feed_first
     survivor_id = canonical_entity_id(entity_id, entities=entity_index(), redirects=identity_redirects())
     if survivor_id and survivor_id != entity_id:
         survivor = entity_index().get(survivor_id)
@@ -3543,11 +3685,35 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     "authoring_mode": AUTHORING_MODE,
                     "is_watched": is_watched(INBOX_DIR, entity_type, entity_id) if entity_type in WATCH_TYPES else False,
                     "competitor_profile": competitor_profile,
+                    "feed_first_statements": _feed_first_entity_statements(entity_id),
                     **synthesis,
                 },
             )
             apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
             return response
+    from app.services.entity_logo_overrides import load_logo_overrides
+    from app.services.seed_roster import seed_profile
+
+    profile = seed_profile(
+        entity_id,
+        all_entities(),
+        logo_overrides=load_logo_overrides(INBOX_DIR),
+    )
+    if profile and entity_type in {"company", "source"}:
+        world = _feed_first_world()
+        return templates.TemplateResponse(
+            request=request,
+            name="feed_first_entity.html",
+            context={
+                "profile": profile,
+                "statements": _feed_first_entity_statements(profile["id"]),
+                "nav": world["nav"],
+                "active_href": "/entities",
+                "counts": world["counts"],
+                "authoring_mode": AUTHORING_MODE,
+                "static_build": False,
+            },
+        )
     raise HTTPException(status_code=404, detail="Entity record not found")
 
 
@@ -3679,9 +3845,8 @@ def _watchtower_cached() -> dict[str, Any]:
     return value
 
 
-@app.get("/today", response_class=HTMLResponse)
-def today_page(request: Request) -> HTMLResponse:
-    """Canonical Daily Intelligence Briefing (Slice 1)."""
+def _legacy_briefing_today(request: Request) -> HTMLResponse:
+    """Preserved Daily Intelligence Briefing (PVS Slice 1) at ?view=briefing."""
     from app.services.briefing_page import present_briefing_page
     from app.services.competitor_landscape import (
         adapter_from_repositories,
@@ -3722,6 +3887,518 @@ def today_page(request: Request) -> HTMLResponse:
             "static_build": False,
         },
     )
+
+
+def _feed_first_entity_statements(entity_id: str) -> list[dict[str, Any]]:
+    from app.services.feed_first import load_state, statements_for_entity
+
+    return statements_for_entity(load_state(INBOX_DIR), entity_id)
+
+
+def _feed_first_world() -> dict[str, Any]:
+    from app.services.feed_first import CROP_LABELS, NAV, load_state, muted_entity_ids
+    from app.services.seed_roster import (
+        build_roster,
+        merge_entities_for_matching,
+        official_host_map,
+        official_hosts,
+        roster_counts,
+    )
+
+    existing = all_entities()
+    roster = build_roster(existing)
+    state = load_state(INBOX_DIR)
+    muted = muted_entity_ids(state)
+    host_map = official_host_map(roster)
+    hosts = {host for host in official_hosts(roster) if host_map.get(host) not in muted}
+    return {
+        "existing": existing,
+        "roster": roster,
+        "entities": merge_entities_for_matching(existing, roster),
+        "official_hosts": hosts,
+        "official_host_map": host_map,
+        "muted_entity_ids": muted,
+        "counts": roster_counts(roster),
+        "nav": NAV,
+        "crop_labels": CROP_LABELS,
+        "state": state,
+    }
+
+
+def _feed_first_today(request: Request) -> HTMLResponse:
+    from app.services.clock import utc_today
+    from app.services.feed_first import build_feed, filters_query, parse_filters
+    from app.services.feed_first_live import live_disclosure, live_feed_bundle
+
+    world = _feed_first_world()
+    params = dict(request.query_params)
+    refresh = str(params.get("refresh") or "").strip().lower() in {"1", "true", "yes"}
+    today = utc_today()
+    from app.services.people_watchlist import discover_people
+
+    people = discover_people(world["existing"])
+    bundle = live_feed_bundle(
+        inbox_dir=INBOX_DIR,
+        entities=world["entities"],
+        sources=load_sources(),
+        refresh=refresh,
+        today=today,
+        official_hosts=world["official_hosts"],
+        official_host_map=world["official_host_map"],
+        people=people,
+        muted_ids=world.get("muted_entity_ids") or set(),
+        enrich_lead=refresh,
+        acquire_on_miss=False,
+    )
+    filters = parse_filters(params)
+    from app.services.feed_first_reader import capture_item, load_captures
+
+    captures = load_captures(INBOX_DIR)
+    records = list(bundle.get("records") or [])
+    if filters.get("item"):
+        from app.services.feed_first import apply_decision, load_state
+
+        selected_record = next((row for row in records if str(row.get("id")) == filters["item"]), None)
+        if selected_record is not None:
+            captures[filters["item"]] = capture_item(INBOX_DIR, selected_record)
+        try:
+            apply_decision(
+                INBOX_DIR,
+                item_id=filters["item"],
+                action="read",
+                evidence=records,
+                people=people,
+            )
+            world["state"] = load_state(INBOX_DIR)
+        except ValueError:
+            pass
+    feed = build_feed(
+        evidence=records,
+        entities=world["entities"],
+        state=world["state"],
+        filters=filters,
+        today=today,
+        disclosure=live_disclosure(bundle, window=filters.get("window") or "today"),
+        people=people,
+        captures=captures,
+    )
+    feed["fetched_at"] = bundle.get("fetched_at")
+    feed["lanes"] = bundle.get("lanes") or []
+    feed["lane_errors"] = bundle.get("lane_errors") or []
+    feed["same_day_count"] = int((bundle.get("stats") or {}).get("same_day") or 0)
+    feed["tracked_companies"] = world["counts"]["tracked_companies"]
+    feed["cache_state"] = str(bundle.get("cache_state") or "fresh")
+    if feed["cache_state"] == "missing":
+        feed["empty_copy"] = {
+            "title": "Ready to fetch live stories",
+            "body": "Select Fetch live stories. Today loads immediately and acquisition runs only when requested.",
+        }
+    feed["refresh_href"] = f"/today?{filters_query(filters, refresh='1')}"
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_today.html",
+        context={
+            "feed": feed,
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/today", response_class=HTMLResponse)
+def today_page(request: Request) -> HTMLResponse:
+    """Feed-first Today. Legacy briefing remains at ?view=briefing."""
+    if str(request.query_params.get("view") or "") == "briefing":
+        return _legacy_briefing_today(request)
+    return _feed_first_today(request)
+
+
+@app.get("/following", response_class=HTMLResponse)
+def following_page(request: Request) -> HTMLResponse:
+    from app.services.entity_logo_overrides import load_logo_overrides
+    from app.services.seed_roster import following_model
+
+    world = _feed_first_world()
+    params = request.query_params
+    model = following_model(
+        world["existing"],
+        crop=str(params.get("crop") or "").strip(),
+        verification=str(params.get("verification") or "").strip(),
+        q=str(params.get("q") or "").strip(),
+        include_registries=str(params.get("registries") or "").strip() in {"1", "true", "yes"},
+        entity_tiers=(world["state"].get("entity_tiers") or {}),
+        logo_overrides=load_logo_overrides(INBOX_DIR),
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_following.html",
+        context={
+            "rows": model["rows"],
+            "counts": model["counts"],
+            "filters": model["filters"],
+            "nav": world["nav"],
+            "active_href": "/following",
+            "crop_labels": world["crop_labels"],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/saved", response_class=HTMLResponse)
+def saved_page(request: Request) -> HTMLResponse:
+    from app.services.feed_first import saved_items
+    from app.services.feed_first_live import cached_live_records
+    from app.services.people_watchlist import discover_people
+
+    world = _feed_first_world()
+    people = discover_people(world["existing"])
+    cards = saved_items(
+        evidence=cached_live_records(INBOX_DIR),
+        entities=world["entities"],
+        state=world["state"],
+        people=people,
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_saved.html",
+        context={
+            "cards": cards,
+            "counts": world["counts"],
+            "nav": world["nav"],
+            "active_href": "/saved",
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/statements", response_class=HTMLResponse)
+def statements_page(request: Request, review: str = "unreviewed") -> HTMLResponse:
+    from app.services.feed_first import statements_review_index
+    from app.services.feed_first_live import cached_live_records
+
+    world = _feed_first_world()
+    rows = statements_review_index(world["state"])
+    records = {
+        str(row.get("id")): row
+        for row in cached_live_records(INBOX_DIR)
+        if row.get("id")
+    }
+    for row in rows:
+        record = records.get(str(row.get("feed_item_id") or "")) or {}
+        row["article_title"] = str(record.get("title") or row.get("feed_item_id") or "Unknown article")
+        row["article_source"] = str(record.get("source_name") or "Source unavailable")
+        row["article_date"] = str(record.get("published_date") or "")
+    review = review if review in {"unreviewed", "reviewed", "all"} else "unreviewed"
+    reviewed_count = sum(bool(row.get("human_reviewed")) for row in rows)
+    if review == "unreviewed":
+        statements = [row for row in rows if not row.get("human_reviewed")]
+    elif review == "reviewed":
+        statements = [row for row in rows if row.get("human_reviewed")]
+    else:
+        statements = rows
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_statements.html",
+        context={
+            "statements": statements,
+            "statement_count": len(rows),
+            "visible_statement_count": len(statements),
+            "reviewed_count": reviewed_count,
+            "remaining_count": len(rows) - reviewed_count,
+            "review_filter": review,
+            "counts": world["counts"],
+            "nav": world["nav"],
+            "active_href": "/statements",
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/entities", response_class=HTMLResponse)
+def feed_first_entities_page(request: Request) -> HTMLResponse:
+    from app.services.entity_logo_overrides import load_logo_overrides
+    from app.services.seed_roster import following_model
+
+    world = _feed_first_world()
+    params = request.query_params
+    include_registries = str(params.get("registries") or "").strip() in {"1", "true", "yes"}
+    verification = str(params.get("verification") or "").strip()
+    if verification == "verified-primary":
+        include_registries = True
+    model = following_model(
+        world["existing"],
+        crop=str(params.get("crop") or "").strip(),
+        verification=verification,
+        q=str(params.get("q") or "").strip(),
+        include_registries=include_registries,
+        logo_overrides=load_logo_overrides(INBOX_DIR),
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_entities.html",
+        context={
+            "rows": model["rows"],
+            "counts": model["counts"],
+            "filters": model["filters"],
+            "nav": world["nav"],
+            "active_href": "/entities",
+            "crop_labels": world["crop_labels"],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/people", response_class=HTMLResponse)
+def people_watchlist_page(request: Request) -> HTMLResponse:
+    from app.services.people_watchlist import people_model
+
+    world = _feed_first_world()
+    model = people_model(world["existing"])
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_people.html",
+        context={
+            "people": model["people"],
+            "people_count": model["count"],
+            "people_disclosure": model["disclosure"],
+            "social_coverage": model["social_coverage"],
+            "mention_coverage": model["mention_coverage"],
+            "counts": world["counts"],
+            "nav": world["nav"],
+            "active_href": "/people",
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/people/{person_id}", response_class=HTMLResponse)
+def people_profile_page(request: Request, person_id: str) -> HTMLResponse:
+    from app.services.feed_first import statements_for_person
+    from app.services.people_watchlist import person_by_id
+
+    world = _feed_first_world()
+    person = person_by_id(world["existing"], person_id)
+    if person is None:
+        raise HTTPException(status_code=404, detail="Person not found")
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_person.html",
+        context={
+            "person": person,
+            "statements": statements_for_person(world["state"], person_id),
+            "counts": world["counts"],
+            "nav": world["nav"],
+            "active_href": "/people",
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/settings", response_class=HTMLResponse)
+def feed_first_settings_page(request: Request) -> HTMLResponse:
+    world = _feed_first_world()
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_settings.html",
+        context={
+            "nav": world["nav"],
+            "active_href": "/settings",
+            "counts": world["counts"],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/research-ops", response_class=HTMLResponse)
+def research_ops_health_page(request: Request) -> HTMLResponse:
+    from app.services.clock import utc_today
+    from app.services.feed_first_live import load_cached_bundle
+    from app.services.industry_pulse.credentials import (
+        has_apitube,
+        has_catchall,
+        has_exa,
+        has_perplexity,
+    )
+    from app.services.people_watchlist import people_model
+
+    world = _feed_first_world()
+    bundle = load_cached_bundle(INBOX_DIR, today=utc_today()) or {}
+    people = people_model(world["existing"])
+    from app.services.feed_first_reader import bakeoff_report
+    from app.services.seed_roster import official_social_channels
+
+    social_found = sum(len(official_social_channels(row)) for row in world["roster"])
+    from app.services.feed_first import latest_snapshot
+
+    snap = latest_snapshot(INBOX_DIR)
+    snapshot_name = snap.name if snap else ""
+    snapshot_at = ""
+    if snap:
+        try:
+            snapshot_at = str(json.loads(snap.read_text(encoding="utf-8")).get("snapshot_at") or "")
+        except (OSError, json.JSONDecodeError):
+            snapshot_at = ""
+    lanes = {
+        "google_news_rss": True,
+        "specialist_rss": True,
+        "official_site": True,
+        "perplexity": has_perplexity(),
+        "exa": has_exa(),
+        "apitube": has_apitube(),
+        "newscatcher_catchall": has_catchall(),
+    }
+    from app.services.research_ops_health import research_ops_health
+
+    health = research_ops_health(
+        bundle=bundle,
+        counts=world["counts"],
+        entities=world["entities"],
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_research_ops.html",
+        context={
+            "nav": world["nav"],
+            "active_href": "/research-ops",
+            "counts": world["counts"],
+            "lanes": lanes,
+            "bundle": bundle,
+            "health": health,
+            "people_count": people["count"],
+            "social_coverage": people["social_coverage"],
+            "social_discovered": social_found,
+            "social_verified": 0,
+            "snapshot_name": snapshot_name,
+            "snapshot_at": snapshot_at,
+            "bakeoff": bakeoff_report(
+                firecrawl=bool(os.environ.get("FIRECRAWL_API_KEY")),
+                jina=bool(os.environ.get("JINA_API_KEY")),
+                cascade=bundle.get("cascade") if isinstance(bundle, dict) else None,
+                stats=(bundle.get("stats") if isinstance(bundle, dict) else None) or {},
+            ),
+            "cascade": (bundle.get("cascade") if isinstance(bundle, dict) else None) or {},
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/design-system", response_class=HTMLResponse)
+def design_system_page(request: Request) -> HTMLResponse:
+    from app.services.feed_first import (
+        build_feed,
+        empty_state,
+        parse_filters,
+        playground_fixtures,
+    )
+
+    fixtures = playground_fixtures()
+    entities = all_entities()
+    feed = build_feed(
+        evidence=fixtures,
+        entities=entities,
+        state=empty_state(),
+        filters=parse_filters({"window": ""}),
+        today=date(2026, 6, 1),
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="design_system.html",
+        context={
+            "items": feed["cards"],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.post("/api/feed-first/react")
+async def feed_first_react(request: Request) -> JSONResponse:
+    from app.services.feed_first import apply_decision
+
+    payload = await request.json()
+    try:
+        from app.services.feed_first_live import cached_live_records, merge_decision_records
+
+        from app.services.people_watchlist import discover_people
+
+        result = apply_decision(
+            INBOX_DIR,
+            item_id=str(payload.get("item_id") or ""),
+            action=str(payload.get("action") or ""),
+            evidence=merge_decision_records(published_evidence(), cached_live_records(INBOX_DIR)),
+            people=discover_people(all_entities()),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return JSONResponse(result)
+
+
+@app.post("/api/feed-first/statement")
+async def feed_first_statement(request: Request) -> JSONResponse:
+    from app.services.feed_first import mutate_statement
+
+    payload = await request.json()
+    try:
+        statement = mutate_statement(
+            INBOX_DIR,
+            statement_id=str(payload.get("statement_id") or ""),
+            action=str(payload.get("action") or ""),
+            text=payload.get("text"),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    if statement is None:
+        raise HTTPException(status_code=404, detail="statement not found")
+    return JSONResponse({"statement": statement})
+
+
+@app.post("/api/feed-first/capture")
+async def feed_first_capture(request: Request) -> JSONResponse:
+    from app.services.feed_first_live import cached_live_records
+    from app.services.feed_first_reader import capture_item
+
+    payload = await request.json()
+    item_id = str(payload.get("item_id") or "")
+    record = next((row for row in cached_live_records(INBOX_DIR) if str(row.get("id")) == item_id), None)
+    if record is None:
+        raise HTTPException(status_code=404, detail="item not found")
+    capture = capture_item(INBOX_DIR, record, refresh=bool(payload.get("refresh")))
+    return JSONResponse(
+        {
+            "item_id": item_id,
+            "availability": capture.get("availability"),
+            "passages": capture.get("passages") or [],
+            "images": capture.get("images") or [],
+            "content_kind": capture.get("content_kind") or "article",
+            "frame_allowed": capture.get("frame_allowed"),
+            "reader_modes": capture.get("reader_modes") or ["structured_fallback"],
+            "reason": capture.get("reason") or "",
+        }
+    )
+
+
+@app.post("/api/feed-first/tier")
+async def feed_first_tier(request: Request) -> JSONResponse:
+    from app.services.feed_first import set_entity_tier
+
+    payload = await request.json()
+    try:
+        tier = set_entity_tier(
+            INBOX_DIR,
+            entity_id=str(payload.get("entity_id") or ""),
+            tier=str(payload.get("tier") or ""),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return JSONResponse({"tier": tier, "verification_unchanged": True})
 
 
 @app.get("/news", response_class=HTMLResponse)
@@ -4533,6 +5210,34 @@ def week_page(request: Request, window: str = WEEK_DEFAULT_WINDOW) -> HTMLRespon
     """Stakeholder weekly intelligence shell. GET does not fetch the public
     web -- the live edition loads from /week/live so the first paint is
     immediate. Trust stays visibly LIVE / UNREVIEWED."""
+    view = str(request.query_params.get("view") or "feed").strip().lower()
+    if view in {"", "feed"}:
+        from app.services.clock import utc_today
+        from app.services.feed_first import week_model
+        from app.services.feed_first_live import cached_live_records
+
+        world = _feed_first_world()
+        if window not in WEEK_LIVE_WINDOWS:
+            window = WEEK_DEFAULT_WINDOW
+        model = week_model(
+            world["state"],
+            today=utc_today(),
+            live_records=cached_live_records(INBOX_DIR),
+            entities=world["entities"],
+        )
+        return templates.TemplateResponse(
+            request=request,
+            name="feed_first_week.html",
+            context={
+                **model,
+                "window": window,
+                "nav": world["nav"],
+                "active_href": "/week",
+                "counts": world["counts"],
+                "authoring_mode": AUTHORING_MODE,
+                "static_build": False,
+            },
+        )
     if window not in WEEK_LIVE_WINDOWS:
         window = WEEK_DEFAULT_WINDOW
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
@@ -6172,11 +6877,42 @@ def landscape_all(request: Request) -> HTMLResponse:
     own literal path, not a "/landscapes/{berry_slug}" catch-all, so it
     never risks being swallowed by or swallowing the existing per-berry
     route."""
+    view = str(request.query_params.get("view") or "").strip().lower()
+    if view == "feed":
+        from app.services.feed_first import landscapes_model
+        from app.services.feed_first_live import cached_live_records
+
+        world = _feed_first_world()
+        model = landscapes_model(
+            state=world["state"],
+            entities=world["entities"],
+            counts=world["counts"],
+            live_records=cached_live_records(INBOX_DIR),
+        )
+        return templates.TemplateResponse(
+            request=request,
+            name="feed_first_landscapes.html",
+            context={
+                **model,
+                "nav": world["nav"],
+                "active_href": "/landscapes",
+                "counts": world["counts"],
+                "authoring_mode": AUTHORING_MODE,
+                "static_build": False,
+            },
+        )
     context = _cached_landscape_context_all()
+    world = _feed_first_world()
     return templates.TemplateResponse(
         request=request,
         name="landscape_all.html",
-        context={**context, "authoring_mode": AUTHORING_MODE},
+        context={
+            **context,
+            "nav": world["nav"],
+            "active_href": "/landscapes",
+            "counts": world["counts"],
+            "authoring_mode": AUTHORING_MODE,
+        },
     )
 
 
@@ -6187,11 +6923,15 @@ def landscape_berry(
     berry_id = f"berry-{berry_slug}"
     if berry_id not in BERRIES:
         raise HTTPException(status_code=404, detail="Unknown berry")
+    world = _feed_first_world()
     return templates.TemplateResponse(
         request=request,
         name="landscape.html",
         context={
             **_cached_landscape_context(berry_id, region, intelligence_state),
+            "nav": world["nav"],
+            "active_href": "/landscapes",
+            "counts": world["counts"],
             "authoring_mode": AUTHORING_MODE,
         },
     )

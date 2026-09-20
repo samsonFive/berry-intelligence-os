@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Design system — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os bos-playground" data-design-system>
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    <aside class="bos-rail">
+      <p class="bos-brand">Berry OS<span>UI playground</span></p>
+      <nav class="bos-outline" aria-label="Playground outline">
+        <a href="#tokens">Tokens</a>
+        <a href="#cards">Card families</a>
+        <a href="#reader">Reader</a>
+        <a href="#reactions">Reactions</a>
+        <a href="#loader">Loader</a>
+      </nav>
+      <p class="bos-disclosure">Playground fixtures only — not live coverage.</p>
+    </aside>
+    <main class="bos-canvas">
+      <h1 class="bos-title" id="tokens">Berry Intelligence Visual System</h1>
+      <p class="bos-lede">Premium editorial reader × analyst density × kaleidoscopic crop color. Tokens live in <code>berry_os.css</code>.</p>
+      <section id="cards">
+        <h2>Card families</h2>
+        {% for item in items %}
+        <article class="bos-card is-{{ item.family }}">
+          <div class="bos-media" data-crop="{{ item.crops[0] if item.crops else 'blueberry' }}">
+            <span class="bos-monogram">{{ item.source_name[:2] }}</span>
+          </div>
+          <div>
+            <p class="bos-meta">{{ item.family }} · {{ item.source_name }} · {{ item.availability_label }}</p>
+            <h3>{{ item.headline }}</h3>
+            <p>{{ item.deck }}</p>
+          </div>
+        </article>
+        {% endfor %}
+      </section>
+      <section id="reader">
+        <h2>Reader shell</h2>
+        <div class="bos-reader">
+          <p class="bos-kicker">Structured fallback</p>
+          <h2>Honest blocked article</h2>
+          <div class="bos-fallback">Metadata and View Original only. No claim of a full article.</div>
+        </div>
+      </section>
+      <section id="reactions">
+        <h2>Reactions and tiers</h2>
+        <div class="bos-actions">
+          <button class="bos-icon-btn" aria-pressed="true">👍</button>
+          <button class="bos-icon-btn" aria-pressed="false">👎</button>
+          <button class="bos-icon-btn">Save</button>
+          <span class="bos-chip" data-crop="blueberry">Tier 1</span>
+        </div>
+      </section>
+      <section id="loader">
+        <h2>Berry Growth Loader</h2>
+        <div class="bos-loader">
+          <div class="bos-loader-visual"></div>
+          <p>4 of 6 · extracting atomic claims</p>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+{% endblock %}

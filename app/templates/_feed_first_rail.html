@@ -1,0 +1,12 @@
+<aside class="bos-rail" aria-label="Feed navigation">
+  <p class="bos-brand">Berry Intelligence OS<span>Feed-first reader</span></p>
+  <nav class="bos-nav" aria-label="Primary product">
+    {% for label, href in nav %}
+    <a href="{{ href }}"{% if href == active_href %} class="is-active" aria-current="page"{% endif %}>{{ label }}</a>
+    {% endfor %}
+  </nav>
+  {% if counts %}
+  <p class="bos-kicker">Watched world</p>
+  <p class="bos-note">{{ counts.tracked_companies }} companies tracked · {{ counts.candidates }} candidate · {{ counts.registries }} registries excluded from competitor counts</p>
+  {% endif %}
+</aside>

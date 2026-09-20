@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}People — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os" data-feed-first data-feed-first-people>
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">People</p>
+      <h1 class="bos-title">People Watchlist</h1>
+      <p class="bos-lede">{{ people_disclosure }}</p>
+      <div class="bos-people-card">
+        <p class="bos-kicker">Coverage</p>
+        <p>LinkedIn / Instagram / Facebook adapters: <strong>{{ social_coverage }}</strong>.</p>
+        <p>Patent / program mention watches: <strong>{{ mention_coverage }}</strong>.</p>
+        <p>{{ people_count }} people named on public records already in this catalog. Do not invent handles. Discovery-only is not active social monitoring.</p>
+      </div>
+      {% if people %}
+      <div class="bos-roster">
+        {% for person in people %}
+        <article class="bos-card is-dense" data-person-id="{{ person.id }}" data-coverage="{{ person.monitoring_coverage }}">
+          <div class="bos-media" data-crop="blueberry">
+            <span class="bos-monogram">{{ person.monogram }}</span>
+          </div>
+          <div>
+            <p class="bos-meta">
+              <span>{{ person.monitoring_coverage }}</span>
+              <span>social {{ person.social_coverage }}</span>
+            </p>
+            <h3><a href="{{ person.profile_url }}">{{ person.canonical_name }}</a></h3>
+            <p class="bos-note">{{ person.watch_rationale }}</p>
+            {% if person.entity_names %}
+            <p class="bos-meta">{% for name in person.entity_names[:4] %}<span>{{ name }}</span>{% endfor %}</p>
+            {% endif %}
+            <p><a class="bos-btn" href="{{ person.profile_url }}">Open person</a></p>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="bos-empty">
+        <p>Empty watchlist. Coverage state remains provider-unavailable, not active.</p>
+      </div>
+      {% endif %}
+    </main>
+  </div>
+</div>
+{% endblock %}

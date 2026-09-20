@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from datetime import date, timedelta
 
 from app.services.research_decision_support import build_research_decision_support
 from app.services.research_desk import (
@@ -228,7 +229,7 @@ def test_blueberry_scope_drops_other_berry_varieties_from_packet() -> None:
             "id": "ev-mix",
             "title": "Mixed",
             "entity_ids": ["company-a", "variety-blue", "variety-rasp"],
-            "published_date": "2026-08-20",
+            "published_date": (date.today() - timedelta(days=10)).isoformat(),
         }],
         facts=[], signals=[], assessments=[],
     )

@@ -13,7 +13,7 @@ from typing import Any, Callable
 
 import httpx
 
-from app.services.industry_pulse.credentials import APITUBE_API_KEY_ENV, env_key, has_apitube
+from app.services.industry_pulse.credentials import APITUBE_API_KEY_ENV, apitube_key, has_apitube
 from app.services.industry_pulse.errors import ProviderAuthError
 from app.services.industry_pulse.http import map_transport, raise_for_status
 from app.services.industry_pulse.matrix import PulseQuery
@@ -59,7 +59,7 @@ class ApiTubeSearchProvider:
     today: date | None = None
 
     def discover(self, query: PulseQuery) -> list[DiscoveryHit]:
-        key = (self.api_key or env_key(APITUBE_API_KEY_ENV)).strip()
+        key = (self.api_key or apitube_key()).strip()
         if not key:
             raise ProviderAuthError(f"{APITUBE_API_KEY_ENV} is not configured. {APITUBE_SETUP}")
         window = date_window_of(query)
@@ -108,7 +108,13 @@ class ApiTubeSearchProvider:
                     "snippet": str(item.get("description") or item.get("snippet") or item.get("summary") or "")[:500],
                     "origin_publisher_name": source.get("name") or source.get("domain") or item.get("source"),
                     "origin_publisher_url": url,
-                    "provider_metadata": {"apitube_id": item.get("id")},
+                    "provider_metadata": {
+                        "apitube_id": item.get("id"),
+                        "image_url": item.get("image")
+                        or item.get("urlToImage")
+                        or item.get("media")
+                        or "",
+                    },
                 }
             )
         return hits_from_web_rows(rows, query=query, provider_name=self.name)

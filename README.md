@@ -28,6 +28,17 @@ pip install -r requirements-dev.txt  # runtime deps + pytest
 uvicorn app.main:app --reload        # http://127.0.0.1:8000
 ```
 
+Feed-first Today (human thumbs-up / statement scoring) on this branch:
+
+```bash
+./scripts/run_local.sh               # macOS / Linux → http://127.0.0.1:8000/today
+```
+
+Windows (Python 3.12, not 3.14): `.\scripts\run_local.ps1` — see `docs/LOCAL-FEED-FIRST.md`.
+
+Optional live-lane keys go in a gitignored `.env` copied from `.env.example`.
+See `docs/LOCAL-FEED-FIRST.md`. Do not invent Firecrawl, Jina, or social keys.
+
 `requirements-dev.txt` installs everything needed to run the app and the test
 suite. On Debian/Ubuntu, creating a virtualenv may require `python3-venv`.
 

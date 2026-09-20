@@ -1,0 +1,70 @@
+[
+  {
+    "id": "eval-press-quantity",
+    "kind": "press_release",
+    "expect": {
+      "min_statements": 1,
+      "max_statements": 8,
+      "all_have_support": true,
+      "require_quantity": true
+    },
+    "record": {
+      "id": "eval-press-quantity",
+      "status": "published",
+      "title": "Fall Creek Spain reaches 14 million blueberry plants after 10 years",
+      "summary": "Fall Creek marked 10 years in Spain and reports 14 million plants.",
+      "source_name": "FreshPlaza",
+      "source_type": "company_press_release",
+      "source_url": "https://example.test/fall-creek-spain",
+      "published_date": "2026-05-26",
+      "berry_ids": ["berry-blueberry"],
+      "entity_ids": ["company-fall-creek-farm-and-nursery"],
+      "article": {
+        "paragraphs": [
+          {
+            "text": "Fall Creek Farm & Nursery marked 10 years of operations in Spain. The operation has expanded to 14 million blueberry plants."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "eval-blocked",
+    "kind": "blocked",
+    "expect": {
+      "min_statements": 0,
+      "max_statements": 0,
+      "all_have_support": true
+    },
+    "record": {
+      "id": "eval-blocked",
+      "status": "published",
+      "title": "Paywalled trade note",
+      "summary": "Please log in to continue. Subscribe to continue reading.",
+      "source_name": "Trade desk",
+      "source_type": "trade_press",
+      "article": {
+        "paragraphs": [
+          {"text": "Please log in to continue. Subscribe to continue reading."}
+        ]
+      }
+    }
+  },
+  {
+    "id": "eval-headline-only",
+    "kind": "metadata_only",
+    "expect": {
+      "min_statements": 0,
+      "max_statements": 0,
+      "all_have_support": true
+    },
+    "record": {
+      "id": "eval-headline-only",
+      "status": "published",
+      "title": "Nursery announces a new blueberry cultivar",
+      "summary": "",
+      "source_name": "Wire",
+      "source_type": "news_search"
+    }
+  }
+]

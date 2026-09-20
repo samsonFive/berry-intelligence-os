@@ -23,7 +23,7 @@ def test_planasa_is_linked_to_both_assessment_kinds():
 
 def test_company_profile_shows_both_ai_proposed_and_reviewed():
     client = TestClient(app)
-    page = client.get("/entities/company/company-planasa")
+    page = client.get("/entities/company/company-planasa?view=legacy")
     assert page.status_code == 200
     assert "AI PROPOSED" in page.text
     assert "REVIEWED" in page.text
@@ -88,7 +88,7 @@ def test_intelligence_timeline_preserves_assessment_type_label():
     # design choice, not a leftover bare badge: see docs/v2/
     # PRESENTATION-CREDIBILITY-AUDIT-V1.md.
     client = TestClient(app)
-    page = client.get("/entities/company/company-planasa")
+    page = client.get("/entities/company/company-planasa?view=legacy")
     assert page.status_code == 200
     assert '<span class="badge badge-assessment">ASSESSMENT</span>' in page.text
     assert "AI PROPOSED" in page.text

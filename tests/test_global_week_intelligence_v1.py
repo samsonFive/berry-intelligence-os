@@ -366,7 +366,7 @@ def test_week_shell_does_not_fetch_and_matches_stakeholder_chrome(monkeypatch):
         raise AssertionError("shell must not run live discovery")
 
     monkeypatch.setattr("app.main.run_week_intelligence", boom)
-    page = TestClient(app).get("/week")
+    page = TestClient(app).get("/week?view=legacy")
     assert page.status_code == 200
     html = page.text
     assert "What changed this week?" in html
@@ -465,7 +465,7 @@ def test_send_to_review_uses_publication_intake_only(monkeypatch):
 
 
 def test_today_and_nav_point_at_this_week():
-    page = TestClient(app).get("/today")
+    page = TestClient(app).get("/today?view=briefing")
     assert page.status_code == 200
     assert ">This week<" in page.text
     assert 'href="/week"' in page.text

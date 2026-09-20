@@ -31,7 +31,7 @@ def test_compose_front_uses_trusted_when_top_stories_empty() -> None:
 
 
 def test_today_uses_the_product_visual_system_briefing_shell() -> None:
-    page = TestClient(app).get("/today")
+    page = TestClient(app).get("/today?view=briefing")
     assert page.status_code == 200
     html = page.text
     assert 'class="v2-sidebar"' in html
@@ -91,7 +91,7 @@ def test_search_newest_undated_entities_keep_exact_match_first() -> None:
 
 
 def test_company_page_humanizes_roles() -> None:
-    page = TestClient(app).get("/entities/company/company-planasa")
+    page = TestClient(app).get("/entities/company/company-planasa?view=legacy")
     assert page.status_code == 200
     html = page.text
     assert "genetics_licensor" not in html

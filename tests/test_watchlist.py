@@ -382,7 +382,7 @@ def test_watchlist_page_never_rendered_seen_by_itself(tmp_path: Path, monkeypatc
 
 def test_company_profile_has_watchlist_toggle():
     client = TestClient(app)
-    page = client.get("/entities/company/company-planasa")
+    page = client.get("/entities/company/company-planasa?view=legacy")
     assert page.status_code == 200
     assert "Add to watchlist" in page.text or "Remove from watchlist" in page.text
 

@@ -342,7 +342,7 @@ def test_compare_no_ids_shows_selection_prompt_not_error():
 
 def test_company_profile_has_compare_link():
     client = TestClient(app)
-    page = client.get("/entities/company/company-planasa")
+    page = client.get("/entities/company/company-planasa?view=legacy")
     assert page.status_code == 200
     assert "/entities/company/compare?ids=company-planasa" in page.text
 
