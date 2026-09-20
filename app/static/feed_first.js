@@ -33,9 +33,14 @@
     }
     box.innerHTML = statements
       .map(function (row) {
+        const removed = row.statement_state === "removed";
         return (
           '<article class="bos-statement" data-statement-id="' +
           row.id +
+          '" data-statement-state="' +
+          escapeHtml(row.statement_state || "") +
+          '" data-importance="' +
+          escapeHtml(row.importance_state || "") +
           '">' +
           "<p>" +
           escapeHtml(row.statement_text) +
@@ -43,12 +48,16 @@
           '<p class="bos-meta">' +
           escapeHtml(row.confidence || "") +
           " · " +
+          escapeHtml(row.importance_state || "normal") +
+          (removed ? " · removed" : "") +
+          " · " +
           escapeHtml((row.supporting_passages || [])[0] || "") +
           "</p>" +
           '<div class="bos-actions">' +
           '<button type="button" class="bos-btn" data-statement-action="important">Important</button>' +
           '<button type="button" class="bos-btn" data-statement-action="demote">Demote</button>' +
           '<button type="button" class="bos-btn" data-statement-action="remove">Remove</button>' +
+          '<button type="button" class="bos-btn" data-statement-action="restore">Restore</button>' +
           "</div></article>"
         );
       })
@@ -116,9 +125,9 @@
         statement_id: article.getAttribute("data-statement-id"),
         action: statement.getAttribute("data-statement-action"),
       }).then(function (data) {
-        if (data.statement && data.statement.statement_state === "removed") {
-          article.remove();
-        }
+        if (!data.statement) return;
+        article.setAttribute("data-statement-state", data.statement.statement_state || "");
+        article.setAttribute("data-importance", data.statement.importance_state || "");
       });
     }
   });

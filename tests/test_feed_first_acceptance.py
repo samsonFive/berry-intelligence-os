@@ -187,3 +187,250 @@ def test_p1_people_saved_landscapes_and_reader_help_are_in_the_shell():
     today = TestClient(app).get("/today")
     assert 'href="/statements"' in today.text
     assert 'href="/week?view=feed"' in today.text
+
+
+def test_p0_filter_tier1_crop_unread_30d_restores_url_and_facets(tmp_path):
+    from urllib.parse import parse_qsl
+
+    from app.services.feed_first import filters_query
+
+    inbox = tmp_path / "inbox"
+    set_entity_tier(inbox, entity_id="company-fall-creek-farm-and-nursery", tier="tier1")
+    keep = _record(id="keep-tier1-unread")
+    wrong_crop = _record(
+        id="wrong-crop",
+        title="Fall Creek strawberry trial note",
+        berry_ids=["berry-strawberry"],
+    )
+    aged = _record(id="too-old", published_date="2026-03-01")
+    other = _record(
+        id="other-company",
+        title="Hortifrut blueberry harvest volumes rise",
+        entity_ids=["company-hortifrut"],
+    )
+    apply_decision(inbox, item_id=other["id"], action="read", evidence=[other])
+    entities = [
+        {
+            "id": "company-fall-creek-farm-and-nursery",
+            "name": "Fall Creek",
+            "status": "active",
+            "verification_status": "verified-secondary",
+        },
+        {
+            "id": "company-hortifrut",
+            "name": "Hortifrut",
+            "status": "active",
+            "verification_status": "unverified",
+        },
+    ]
+    filters = parse_filters({"tier": "tier1", "crop": "blueberry", "state": "unread", "window": "30d"})
+    feed = build_feed(
+        evidence=[keep, wrong_crop, aged, other],
+        entities=entities,
+        state=load_state(inbox),
+        filters=filters,
+        today=date(2026, 6, 1),
+    )
+    assert [card["id"] for card in feed["cards"]] == ["keep-tier1-unread"]
+    assert feed["facet_counts"]["total"] == 3
+    assert feed["facet_counts"]["crop"]["blueberry"] == 2
+    assert feed["facet_counts"]["crop"]["strawberry"] == 1
+    assert feed["facet_counts"]["tier"]["tier1"] == 2
+    assert feed["facet_counts"]["state"]["unread"] == 2
+    restored = parse_filters(dict(parse_qsl(filters_query(filters))))
+    assert restored["tier"] == "tier1"
+    assert restored["crop"] == "blueberry"
+    assert restored["state"] == "unread"
+    assert restored["window"] == "30d"
+    page = TestClient(app).get("/today?tier=tier1&crop=blueberry&state=unread&window=30d")
+    assert page.status_code == 200
+    assert 'name="tier"' in page.text
+    assert "value=\"tier1\" selected" in page.text or "value='tier1' selected" in page.text
+    assert "value=\"blueberry\" selected" in page.text
+    assert "value=\"unread\" selected" in page.text
+    assert "value=\"30d\" selected" in page.text
+    assert "data-facet-counts" in page.text
+
+
+def test_p0_statement_important_demote_remove_restore(tmp_path):
+    from app.services.feed_first import mutate_statement, statements_index
+
+    inbox = tmp_path / "inbox"
+    record = _record()
+    applied = apply_decision(inbox, item_id=record["id"], action="thumbs_up", evidence=[record])
+    statement_id = applied["statements"][0]["id"]
+    important = mutate_statement(inbox, statement_id=statement_id, action="important")
+    assert important["importance_state"] == "important"
+    demoted = mutate_statement(inbox, statement_id=statement_id, action="demote")
+    assert demoted["importance_state"] == "demoted"
+    removed = mutate_statement(inbox, statement_id=statement_id, action="remove")
+    assert removed["statement_state"] == "removed"
+    assert statements_index(load_state(inbox)) == []
+    restored = mutate_statement(inbox, statement_id=statement_id, action="restore")
+    assert restored["statement_state"] == "trusted_editable"
+    assert statements_index(load_state(inbox))[0]["id"] == statement_id
+    today = TestClient(app).get("/today")
+    assert 'data-statement-action="restore"' in today.text
+
+
+def test_p0_one_story_once_keeps_cluster_on_the_card():
+    from app.services.today_relevance import collapse_story_clusters
+
+    records = collapse_story_clusters(
+        [
+            {
+                **_record(id="lead-wish"),
+                "title": "Wish Farms and Clarifresh transform berry quality control",
+                "source_url": "https://perishablenews.example/wish",
+                "source_name": "Perishable News",
+                "acquisition_lane": "specialist_rss",
+            },
+            {
+                **_record(id="dup-wish"),
+                "title": "Wish Farms and Clarifresh transform berry quality control",
+                "source_url": "https://perishablenews.example/wish?utm_source=exa",
+                "source_name": "Exa",
+                "acquisition_lane": "exa",
+            },
+        ]
+    )
+    feed = build_feed(
+        evidence=records,
+        entities=[
+            {
+                "id": "company-fall-creek-farm-and-nursery",
+                "name": "Fall Creek",
+                "status": "active",
+                "verification_status": "verified-secondary",
+            }
+        ],
+        state=empty_state(),
+        filters=parse_filters({"window": "30d"}),
+        today=date(2026, 6, 1),
+    )
+    assert len(feed["cards"]) == 1
+    card = feed["cards"][0]
+    assert card["cluster_size"] == 2
+    assert card["cluster_sources"] == ["Exa"]
+    today = TestClient(app).get("/today")
+    assert "cluster ×" in today.text or "Also seen via" in today.text or "data-feed-first-today" in today.text
+
+
+def test_p0_unknown_date_does_not_masquerade_as_new():
+    undated = _record(id="undated", published_date="")
+    dated = _record(id="dated", published_date="2026-06-01")
+    today_feed = build_feed(
+        evidence=[undated, dated],
+        entities=[
+            {
+                "id": "company-fall-creek-farm-and-nursery",
+                "name": "Fall Creek",
+                "status": "active",
+                "verification_status": "verified-secondary",
+            }
+        ],
+        state=empty_state(),
+        filters=parse_filters({}),
+        today=date(2026, 6, 1),
+    )
+    assert [card["id"] for card in today_feed["cards"]] == ["dated"]
+    all_time = build_feed(
+        evidence=[undated, dated],
+        entities=[
+            {
+                "id": "company-fall-creek-farm-and-nursery",
+                "name": "Fall Creek",
+                "status": "active",
+                "verification_status": "verified-secondary",
+            }
+        ],
+        state=empty_state(),
+        filters=parse_filters({"window": ""}),
+        today=date(2026, 6, 1),
+    )
+    by_id = {card["id"]: card for card in all_time["cards"]}
+    assert by_id["undated"]["date_uncertain"] is True
+    assert by_id["dated"]["date_uncertain"] is False
+    assert all_time["cards"][0]["id"] == "dated"
+
+
+def test_p0_source_failure_is_recorded_without_dropping_history(tmp_path):
+    from app.services.feed_first_live import live_feed_bundle
+    from app.services.industry_pulse.models import DiscoveryHit
+    from app.services.industry_pulse.providers import MemoryProvider
+    from app.services.research_ops_health import public_lane_errors
+
+    class Boom:
+        name = "perplexity"
+
+        def discover(self, query):
+            raise RuntimeError("EXA_API_KEY=sk-secret-must-not-leak")
+
+    hit = DiscoveryHit(
+        title="Fall Creek expands blueberry nursery harvest after new planting",
+        url="https://example.test/fall-creek-same-day",
+        source_domain="freshplaza.com",
+        published_date="2026-09-21",
+        snippet="The blueberry breeder reports new acreage and plant production in Spain.",
+        query_id="today:blueberry:global:24h",
+        query_text="blueberry harvest",
+        geography="global",
+        berry="blueberry",
+        topic="industry_pulse",
+        provider="google_news_rss",
+        origin_publisher_name="FreshPlaza",
+        origin_publisher_url="https://example.test/fall-creek-same-day",
+        qualifying=True,
+    )
+    bundle = live_feed_bundle(
+        inbox_dir=tmp_path,
+        entities=[{"id": "company-fall-creek-farm-and-nursery", "name": "Fall Creek", "aliases": []}],
+        sources=[],
+        refresh=True,
+        today=date(2026, 9, 21),
+        google_provider=MemoryProvider(hits_by_query_id={"today:blueberry:global:24h": [hit]}),
+        specialist_provider=MemoryProvider(hits_by_query_id={}),
+        perplexity_provider=Boom(),
+        enable_exa=False,
+        enable_apitube=False,
+    )
+    assert bundle["records"]
+    assert bundle["lane_errors"]
+    public = public_lane_errors(bundle["lane_errors"])
+    assert public[0]["provider"] == "perplexity"
+    assert public[0]["error_class"] == "RuntimeError"
+    leaked = " ".join(f"{row['provider']} {row['error_class']}" for row in public)
+    assert "sk-secret" not in leaked
+    assert "EXA_API_KEY" not in leaked
+
+
+def test_p1_watch_coverage_and_ops_health_are_inspectable():
+    from app.services.research_ops_health import research_ops_health
+    from app.services.seed_roster import build_roster, roster_counts
+
+    counts = roster_counts(build_roster([]))
+    health = research_ops_health(
+        bundle={
+            "fetched_at": "2026-09-20T12:00:00+00:00",
+            "lanes": ["google_news_rss", "specialist_rss", "perplexity"],
+            "lane_errors": [{"provider": "perplexity", "error_class": "TimeoutError", "error": "TimeoutError: token=abcd"}],
+            "stats": {"same_day": 1, "week": 4},
+            "records": [
+                {"cluster_size": 3, "title": "Wish Farms"},
+                {"cluster_size": 1, "title": "Planasa"},
+            ],
+        },
+        counts=counts,
+    )
+    assert health["watches"]["official_site_watches"] == 84
+    assert health["watches"]["mention_watches"] == 145
+    assert health["clusters"]["clustered_stories"] == 1
+    assert health["clusters"]["extra_lane_hits"] == 2
+    assert health["lane_errors"][0] == {"provider": "perplexity", "error_class": "TimeoutError"}
+    ops = TestClient(app).get("/research-ops")
+    assert ops.status_code == 200
+    assert "data-watch-coverage" in ops.text
+    assert "data-cluster-stats" in ops.text
+    assert "data-lane-errors" in ops.text
+    assert "official-site watches" in ops.text
+    assert "Error class only" in ops.text

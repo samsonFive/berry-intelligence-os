@@ -4,6 +4,8 @@ from app.services.feed_first_reader import (
     frame_allowed,
     is_public_http_url,
     merge_capture,
+    paragraphs_from_html,
+    sanitize_reader_html,
 )
 
 
@@ -42,3 +44,21 @@ def test_bakeoff_does_not_claim_missing_vendors():
     assert report["firecrawl"]["available"] is False
     assert report["jina"]["available"] is False
     assert "unused" in report["firecrawl"]["notes"].casefold()
+
+
+def test_unsafe_html_cannot_execute_in_native_reader():
+    html = (
+        "<p>Wish Farms cut strawberry inspection time by 70 percent this season after the Clarifresh rollout.</p>"
+        "<script>alert('xss')</script>"
+        "<img src=x onerror=\"alert('xss')\">"
+        "<p><a href=\"javascript:alert(1)\">Open the partnership note</a> for growers.</p>"
+    )
+    cleaned = sanitize_reader_html(html)
+    assert "<script" not in cleaned.casefold()
+    assert "onerror" not in cleaned.casefold()
+    assert "javascript:" not in cleaned.casefold()
+    passages = paragraphs_from_html(html)
+    blob = " ".join(passages).casefold()
+    assert "alert" not in blob
+    assert "<script" not in blob
+    assert "wish farms" in blob
