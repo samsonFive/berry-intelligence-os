@@ -707,6 +707,19 @@
   color: var(--bos-text);
 }
 
+.berry-os .bos-legacy-surface a,
+.berry-os .bos-legacy-surface .card a {
+  color: #f8fafc;
+}
+
+.berry-os .bos-legacy-surface .card p,
+.berry-os .bos-legacy-surface .card li,
+.berry-os .bos-legacy-surface .metric-bullets,
+.berry-os .bos-legacy-surface .entity-links li,
+.berry-os .bos-legacy-surface .relationship-list li {
+  color: #c7d2e5;
+}
+
 .berry-os .bos-legacy-surface .also-known-as,
 .berry-os .bos-legacy-surface .context-limit,
 .berry-os .bos-legacy-surface .v2-meta,
@@ -750,6 +763,25 @@
   color: var(--bos-text);
   padding: var(--bos-space-3);
   box-shadow: none;
+}
+
+.berry-os .bos-legacy-surface .compact-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: var(--bos-space-2);
+}
+
+.berry-os .bos-legacy-surface .compact-stats > div {
+  border: 1px solid #34425f;
+  border-radius: var(--bos-radius-sm);
+  background: var(--bos-raised);
+  color: var(--bos-text);
+  padding: var(--bos-space-3);
+}
+
+.berry-os .bos-legacy-surface .compact-stats strong,
+.berry-os .bos-legacy-surface .compact-stats small {
+  color: inherit;
 }
 
 .berry-os .bos-legacy-surface .filters,
@@ -814,6 +846,12 @@
 
 .berry-os .v2-learn-concept > .v2-company-section {
   margin: 0;
+}
+
+.berry-os .v2-learn-page:not(.v2-learn-concept) > #learn-search,
+.berry-os .v2-learn-page:not(.v2-learn-concept) > #learn-search-results,
+.berry-os .v2-learn-page:not(.v2-learn-concept) > #learn-freshness {
+  grid-column: 1 / -1;
 }
 
 .berry-os .bos-legacy-surface #public-landscape {
