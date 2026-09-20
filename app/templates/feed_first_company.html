@@ -22,7 +22,11 @@
           {% for crop in crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
         </p>
         {% if description %}<p>{{ description }}</p>{% endif %}
+        {% if logo_url %}
+        <p><img class="bos-logo" src="{{ logo_url }}" alt="{{ name }} logo" width="64" height="64"></p>
+        {% else %}
         <p class="bos-monogram" style="position:static">{{ monogram }}</p>
+        {% endif %}
         {% if official_website %}
         <p>Official website: <a href="{{ official_website }}" rel="noopener noreferrer">{{ official_website }}</a></p>
         {% elif resolved_website %}

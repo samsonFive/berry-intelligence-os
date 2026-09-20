@@ -387,3 +387,17 @@ def test_rss_and_source_preview_images_fill_cards():
         fetch=lambda url: "https://cdn.freshplaza.com/og.jpg",
     )
     assert filled[0]["image_url"] == "https://cdn.freshplaza.com/og.jpg"
+    from app.services.feed_first_reader import preview_image_from_publisher_home
+
+    html = (
+        '<a href="/news/6aa8"><img alt="Hoddys launches South Island berry production" '
+        'src="https://cdn.topsouthnow.co.nz/hoddys.jpg"></a>'
+    )
+    assert preview_image_from_publisher_home(
+        html,
+        "https://www.topsouthnow.co.nz/",
+        "Hoddys launches South Island berry production - Top South Now",
+    ).endswith("hoddys.jpg")
+    company = TestClient(app).get("/entities/company/seed-org-0018?view=feed")
+    assert company.status_code == 200
+    assert "bos-logo" in company.text

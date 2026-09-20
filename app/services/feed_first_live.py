@@ -403,6 +403,7 @@ def hit_to_record(
         "source_name": hit.origin_publisher_name or hit.source_domain or "Unknown source",
         "source_type": source_type_for(hit, official=official_hosts),
         "source_url": url,
+        "origin_publisher_url": hit.origin_publisher_url or "",
         "published_date": str(hit.published_date or "")[:10],
         "captured_date": today.isoformat(),
         "berry_ids": berry_ids_for(hit),
