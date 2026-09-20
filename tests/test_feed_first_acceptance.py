@@ -166,6 +166,12 @@ def test_p1_people_saved_landscapes_and_reader_help_are_in_the_shell():
     landscapes = TestClient(app).get("/landscapes?view=feed")
     assert landscapes.status_code == 200
     assert "data-feed-first-landscapes" in landscapes.text
+    assert "Open full competitive landscape" in landscapes.text
+    full_landscape = TestClient(app).get("/landscapes")
+    assert full_landscape.status_code == 200
+    assert "Competitive Landscape" in full_landscape.text
+    assert "Executive readout" in full_landscape.text
+    assert "Open live landscape briefs" in full_landscape.text
     ops = TestClient(app).get("/research-ops")
     assert "Reader bake-off" in ops.text
     assert "Official social" in ops.text
@@ -191,6 +197,8 @@ def test_p1_people_saved_landscapes_and_reader_help_are_in_the_shell():
     today = TestClient(app).get("/today")
     assert 'href="/statements"' in today.text
     assert 'href="/week"' in today.text
+    assert 'href="/landscapes"' in today.text
+    assert 'href="/learn"' in today.text
 
 
 def test_p0_filter_tier1_crop_unread_30d_restores_url_and_facets(tmp_path):

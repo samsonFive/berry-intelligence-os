@@ -78,8 +78,28 @@ def test_default_company_stays_berry_os_and_legacy_is_opt_in():
     default = client.get("/entities/company/company-fall-creek-farm-and-nursery")
     assert "data-feed-first-company" in default.text
     assert "Create 90-day report" not in default.text
+    assert "Learner context" in default.text
+    assert 'href="/learn"' in default.text
     legacy = client.get("/entities/company/company-fall-creek-farm-and-nursery?view=legacy")
     assert "data-feed-first-company" not in legacy.text
+
+
+def test_feed_nav_restores_full_landscape_and_learner_entry_points():
+    client = TestClient(app)
+    today = client.get("/today")
+    assert 'href="/landscapes"' in today.text
+    assert 'href="/learn"' in today.text
+    assert 'href="/landscapes?view=feed"' not in today.text
+
+    full = client.get("/landscapes")
+    assert full.status_code == 200
+    assert "Executive readout" in full.text
+    assert "Actors to watch" in full.text
+    assert 'href="/landscapes?view=feed"' in full.text
+
+    briefs = client.get("/landscapes?view=feed")
+    assert "data-feed-first-landscapes" in briefs.text
+    assert "Open full competitive landscape" in briefs.text
 
 
 def test_people_and_week_keep_honest_coverage_copy():
