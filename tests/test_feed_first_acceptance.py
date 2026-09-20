@@ -652,3 +652,46 @@ def test_p1_keyboard_help_and_js_complete_golden_path():
     assert 'querySelector("[data-reader-root]")' in script
     assert "renderStatements([])" in script
     assert 'data-react="save"' in Path("app/templates/feed_first_today.html").read_text(encoding="utf-8")
+
+
+def test_p1_landscape_brief_links_match_entity_type():
+    from app.services.feed_first import empty_state, landscapes_model
+
+    model = landscapes_model(
+        state=empty_state(),
+        entities=[
+            {"id": "company-wish-farms", "name": "Wish Farms", "entity_type": "company"},
+            {"id": "berry-blueberry", "name": "Blueberry", "entity_type": "berry"},
+            {"id": "geography-morocco", "name": "Morocco", "entity_type": "geography"},
+        ],
+        counts={"tracked_companies": 145},
+        live_records=[
+            {
+                "id": "live-wish",
+                "title": "Wish Farms quality",
+                "entity_ids": ["company-wish-farms"],
+                "published_date": "2026-09-20",
+            },
+            {
+                "id": "live-blue",
+                "title": "Blueberry packs",
+                "entity_ids": ["berry-blueberry"],
+                "published_date": "2026-09-20",
+            },
+            {
+                "id": "live-morocco",
+                "title": "Morocco harvest",
+                "entity_ids": ["geography-morocco"],
+                "published_date": "2026-09-20",
+            },
+        ],
+    )
+    by_id = {row["id"]: row for row in model["companies"]}
+    assert by_id["company-wish-farms"]["profile_url"] == "/entities/company/company-wish-farms"
+    assert by_id["berry-blueberry"]["profile_url"] == "/today?crop=blueberry"
+    assert by_id["geography-morocco"]["profile_url"] == "/today?geography=geography-morocco"
+    client = TestClient(app)
+    assert client.get(by_id["company-wish-farms"]["profile_url"]).status_code == 200
+    assert client.get(by_id["berry-blueberry"]["profile_url"]).status_code == 200
+    assert client.get(by_id["geography-morocco"]["profile_url"]).status_code == 200
+    assert client.get("/today").status_code == 200
