@@ -11,7 +11,6 @@ from __future__ import annotations
 import ipaddress
 import json
 import re
-import time
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -473,20 +472,12 @@ def attach_source_preview_images(
             continue
         attempted += 1
         url = str(row.get("source_url") or "")
-        attempt_started = time.perf_counter()
         image = str(getter(url) or "").strip()
-        source_ms = round((time.perf_counter() - attempt_started) * 1000, 1)
-        home_ms = 0.0
         if not image:
             home = str(row.get("origin_publisher_url") or "").strip()
             title = str(row.get("title") or "")
             if home and title:
-                home_started = time.perf_counter()
                 image = str(fetch_publisher_home_preview(home, title) or "").strip()
-                home_ms = round((time.perf_counter() - home_started) * 1000, 1)
-        # region agent log
-        open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "C", "location": "app/services/feed_first_reader.py:attach_source_preview_images", "message": "preview attempt completed", "data": {"host": (urlparse(url).hostname or "").lower(), "source_ms": source_ms, "home_ms": home_ms, "found": bool(image), "successful_fills_before": filled, "limit": limit}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
-        # endregion
         if image:
             image = _clean_image_url(image)
             row["image_url"] = image

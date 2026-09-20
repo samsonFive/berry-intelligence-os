@@ -3930,14 +3930,7 @@ def _feed_first_today(request: Request) -> HTMLResponse:
     from app.services.feed_first import build_feed, filters_query, parse_filters
     from app.services.feed_first_live import live_disclosure, live_feed_bundle
 
-    request_started = time.perf_counter()
-    # region agent log
-    open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "D", "location": "app/main.py:_feed_first_today", "message": "today request entered", "data": {"query": str(request.url.query)}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
-    # endregion
     world = _feed_first_world()
-    # region agent log
-    open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "D", "location": "app/main.py:_feed_first_today", "message": "world loaded", "data": {"elapsed_ms": round((time.perf_counter() - request_started) * 1000, 1), "entity_count": len(world["entities"])}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
-    # endregion
     params = dict(request.query_params)
     refresh = str(params.get("refresh") or "").strip().lower() in {"1", "true", "yes"}
     today = utc_today()
@@ -3956,9 +3949,6 @@ def _feed_first_today(request: Request) -> HTMLResponse:
         muted_ids=world.get("muted_entity_ids") or set(),
         enrich_lead=refresh,
     )
-    # region agent log
-    open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "A,B,C", "location": "app/main.py:_feed_first_today", "message": "live bundle returned", "data": {"elapsed_ms": round((time.perf_counter() - request_started) * 1000, 1), "refresh": refresh, "record_count": len(bundle.get("records") or [])}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
-    # endregion
     filters = parse_filters(params)
     from app.services.feed_first_reader import capture_item, load_captures
 
