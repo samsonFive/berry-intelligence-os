@@ -45,6 +45,25 @@ until it responds, and opens `/today` in your normal external browser.
 Set `$env:BIOS_NO_BROWSER = "1"` first only when you do not want automatic
 browser launch.
 
+### Human Gate 3 statement review
+
+After rating articles, launch directly into the unreviewed statement batch:
+
+```powershell
+.\scripts\run_human_gate.ps1
+```
+
+The external browser opens `/statements?review=unreviewed`. For each tile:
+
+- **Approve** when the statement is useful as written;
+- **Save edit** when wording needs correction;
+- **Important** for material intelligence;
+- **Demote** for supported but low-value trivia;
+- **Remove** for fragments, boilerplate, or unrelated claims.
+
+Every action persists immediately in `inbox/feed_first_state.json`. Progress
+updates on the page. The Reviewed filter is the resulting labeled set.
+
 If `Activate.ps1` is blocked:
 
 ```powershell

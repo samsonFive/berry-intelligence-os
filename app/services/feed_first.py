@@ -1152,7 +1152,9 @@ def mutate_statement(
         return None
     now = datetime.now(UTC).isoformat(timespec="seconds")
     history = list(found.get("analyst_edit_history") or [])
-    if action == "edit":
+    if action == "approve":
+        found["updated_at"] = now
+    elif action == "edit":
         next_text = (text or "").strip()
         if not next_text:
             raise ValueError("empty statement")
@@ -1180,6 +1182,8 @@ def mutate_statement(
         found["updated_at"] = now
     else:
         raise ValueError("unknown statement action")
+    found["review_state"] = "reviewed"
+    found["reviewed_at"] = now
     updated = []
     for row in statements[parent]:
         updated.append(found if row.get("id") == statement_id else row)
@@ -1240,6 +1244,31 @@ def statements_index(state: dict[str, Any]) -> list[dict[str, Any]]:
     important.sort(key=_stamp, reverse=True)
     rest.sort(key=_stamp, reverse=True)
     return [*important, *rest]
+
+
+def statement_is_reviewed(row: dict[str, Any]) -> bool:
+    return bool(
+        row.get("review_state") == "reviewed"
+        or row.get("analyst_edit_history")
+        or row.get("statement_state") == "removed"
+        or row.get("importance_state") in {"important", "demoted"}
+    )
+
+
+def statements_review_index(state: dict[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for group in (state.get("statements") or {}).values():
+        for raw in group:
+            row = dict(raw)
+            row["human_reviewed"] = statement_is_reviewed(row)
+            rows.append(row)
+    rows.sort(
+        key=lambda row: (
+            bool(row.get("human_reviewed")),
+            str(row.get("updated_at") or row.get("created_at") or ""),
+        )
+    )
+    return rows
 
 
 def week_statements(state: dict[str, Any], *, today: date) -> list[dict[str, Any]]:

@@ -609,6 +609,66 @@
   background: color-mix(in srgb, var(--bos-danger) 24%, var(--bos-surface));
 }
 
+.bos-gate-progress {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 34%);
+  gap: var(--bos-space-4);
+  align-items: center;
+}
+
+.bos-gate-progress progress {
+  width: 100%;
+  height: 14px;
+  accent-color: var(--bos-leaf);
+}
+
+.bos-review-card {
+  display: grid;
+  gap: var(--bos-space-3);
+  align-content: start;
+}
+
+.bos-review-card[data-reviewed="true"] {
+  border-color: color-mix(in srgb, var(--bos-leaf) 58%, #34425f);
+}
+
+.bos-review-card[data-statement-state="removed"] {
+  opacity: 0.72;
+}
+
+.bos-review-card h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.bos-review-text {
+  display: grid;
+  gap: var(--bos-space-2);
+  color: var(--bos-muted);
+}
+
+.bos-review-text textarea {
+  width: 100%;
+  resize: vertical;
+  border: 1px solid #52617a;
+  border-radius: var(--bos-radius-sm);
+  background: #202b43;
+  color: #fff;
+  padding: var(--bos-space-3);
+  font: inherit;
+  line-height: 1.4;
+}
+
+.bos-review-card details {
+  border-top: 1px solid #34425f;
+  padding-top: var(--bos-space-2);
+}
+
+.bos-review-card summary {
+  color: var(--bos-muted);
+  cursor: pointer;
+}
+
 .bos-roster {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

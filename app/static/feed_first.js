@@ -78,6 +78,33 @@
     loader.hidden = !on;
   }
 
+  function markStatementReviewed(article, statement) {
+    if (!article || !statement) return;
+    const wasReviewed = article.getAttribute("data-reviewed") === "true";
+    article.setAttribute("data-reviewed", "true");
+    article.setAttribute("data-statement-state", statement.statement_state || "");
+    article.setAttribute("data-importance", statement.importance_state || "");
+    const label = article.querySelector("[data-review-label]");
+    if (label) label.textContent = "Reviewed";
+    const status = article.querySelector("[data-statement-status]");
+    if (status) {
+      const edits = (statement.analyst_edit_history || []).length;
+      status.textContent =
+        (statement.statement_state || "") +
+        " · " +
+        (statement.importance_state || "normal") +
+        (edits ? " · " + edits + " edit(s)" : "");
+    }
+    if (!wasReviewed) {
+      const reviewed = root.querySelector("[data-reviewed-count]");
+      const remaining = root.querySelector("[data-remaining-count]");
+      const progress = root.querySelector("[data-gate-progress] progress");
+      if (reviewed) reviewed.textContent = String(Number(reviewed.textContent || 0) + 1);
+      if (remaining) remaining.textContent = String(Math.max(0, Number(remaining.textContent || 0) - 1));
+      if (progress) progress.value = Number(progress.value || 0) + 1;
+    }
+  }
+
   root.addEventListener("click", function (event) {
     const react = event.target.closest("[data-react]");
     if (react && csrfSafe()) {
@@ -131,8 +158,10 @@
         action: statement.getAttribute("data-statement-action"),
       }).then(function (data) {
         if (!data.statement) return;
-        article.setAttribute("data-statement-state", data.statement.statement_state || "");
-        article.setAttribute("data-importance", data.statement.importance_state || "");
+        markStatementReviewed(article, data.statement);
+      }).catch(function () {
+        const status = article.querySelector("[data-statement-status]");
+        if (status) status.textContent = "Action failed. Try again.";
       });
     }
   });
@@ -147,6 +176,12 @@
       statement_id: id,
       action: "edit",
       text: text,
+    }).then(function (data) {
+      if (!data.statement) return;
+      markStatementReviewed(form.closest("[data-statement-id]"), data.statement);
+    }).catch(function () {
+      const status = form.querySelector("[data-statement-status]");
+      if (status) status.textContent = "Edit failed. Try again.";
     });
   });
 
