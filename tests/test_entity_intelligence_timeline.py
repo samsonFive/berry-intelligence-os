@@ -424,7 +424,7 @@ def test_kinds_and_berries_present_reflect_only_real_rows():
 
 def test_company_profile_route_renders_timeline_for_real_data():
     client = TestClient(app)
-    page = client.get("/entities/company/company-planasa")
+    page = client.get("/entities/company/company-planasa?view=legacy")
     assert page.status_code == 200
     assert "Intelligence timeline" in page.text
     assert "not a new record type" in page.text
@@ -459,7 +459,7 @@ def test_timeline_empty_state_for_sparse_entity_does_not_fabricate():
 
 def test_timeline_does_not_leak_pending_or_signal_candidate_content():
     client = TestClient(app)
-    page = client.get("/entities/company/company-planasa")
+    page = client.get("/entities/company/company-planasa?view=legacy")
     assert page.status_code == 200
     # No pending-review or signal-candidate vocabulary should appear inside
     # the timeline section specifically.

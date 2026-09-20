@@ -101,7 +101,7 @@ def test_sidebar_puts_strategic_questions_in_decide_and_renames_monitoring_queue
 
 
 def test_company_profile_watch_control_is_watchlist_not_monitoring_queue() -> None:
-    page = TestClient(app).get("/entities/company/company-planasa")
+    page = TestClient(app).get("/entities/company/company-planasa?view=legacy")
     assert page.status_code == 200
     assert "Add to watchlist" in page.text or "Remove from watchlist" in page.text
     assert 'href="/queues/monitoring">Watch<' not in page.text

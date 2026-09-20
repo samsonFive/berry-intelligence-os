@@ -342,7 +342,7 @@ def test_identity_page_is_authoring_only(monkeypatch):
 
 def test_old_planasa_href_redirects_on_live_catalog():
     client = TestClient(app)
-    response = client.get("/entities/company/company-planasa-2", follow_redirects=False)
+    response = client.get("/entities/company/company-planasa-2?view=legacy", follow_redirects=False)
     assert response.status_code == 303
     assert response.headers["location"] == "/entities/company/company-planasa"
 

@@ -91,7 +91,7 @@ def test_search_newest_undated_entities_keep_exact_match_first() -> None:
 
 
 def test_company_page_humanizes_roles() -> None:
-    page = TestClient(app).get("/entities/company/company-planasa")
+    page = TestClient(app).get("/entities/company/company-planasa?view=legacy")
     assert page.status_code == 200
     html = page.text
     assert "genetics_licensor" not in html

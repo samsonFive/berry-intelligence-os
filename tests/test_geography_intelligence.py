@@ -288,7 +288,7 @@ def test_geography_actor_links_to_company_portfolio():
 
 def test_company_profile_links_to_geography_intelligence():
     client = TestClient(app)
-    page = client.get("/entities/company/company-planasa")
+    page = client.get("/entities/company/company-planasa?view=legacy")
     assert page.status_code == 200
     assert "/geographies/" in page.text
 
