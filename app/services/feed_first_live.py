@@ -336,6 +336,7 @@ def _discover_one(provider: DiscoveryProvider, query: PulseQuery) -> tuple[list[
         return [], {
             "query_id": query.id,
             "provider": getattr(provider, "name", "unknown"),
+            "error_class": type(exc).__name__,
             "error": f"{type(exc).__name__}: {exc}",
         }
 
