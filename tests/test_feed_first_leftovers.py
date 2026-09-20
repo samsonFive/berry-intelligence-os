@@ -398,6 +398,13 @@ def test_rss_and_source_preview_images_fill_cards():
         "https://www.topsouthnow.co.nz/",
         "Hoddys launches South Island berry production - Top South Now",
     ).endswith("hoddys.jpg")
+    from app.services.feed_first_reader import _clean_image_url
+
+    proxy = (
+        "https://k2.kere.co.nz/v2/resize/property?image="
+        "https%3A%2F%2Fcdn.example.com%2Fhero.JPG&amp;width=1920"
+    )
+    assert _clean_image_url(proxy) == "https://cdn.example.com/hero.JPG"
     company = TestClient(app).get("/entities/company/seed-org-0018?view=feed")
     assert company.status_code == 200
     assert "bos-logo" in company.text

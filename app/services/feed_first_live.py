@@ -802,9 +802,10 @@ def live_feed_bundle(
                     1 for row in rows if is_same_calendar_day(str(row.get("published_date") or ""), today)
                 )
                 payload["stats"] = stats
-            if any(not str(row.get("image_url") or "").strip() for row in rows):
-                rows = attach_source_preview_images(rows)
-                payload["records"] = rows
+            before = [str(row.get("image_url") or "") for row in rows]
+            rows = attach_source_preview_images(rows)
+            payload["records"] = rows
+            if [str(row.get("image_url") or "") for row in rows] != before:
                 save_bundle(inbox_dir, payload)
             return payload
 

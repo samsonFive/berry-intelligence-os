@@ -14,7 +14,8 @@ import re
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
-from urllib.parse import urljoin, urlparse
+from html import unescape
+from urllib.parse import parse_qs, unquote, urljoin, urlparse
 
 import httpx
 
@@ -201,18 +202,31 @@ def _alt_matches_title(alt: str, title: str) -> bool:
     return hits >= need
 
 
+def _clean_image_url(url: str) -> str:
+    raw = unescape(str(url or "")).replace("\\/", "/").strip()
+    if not raw:
+        return ""
+    parsed = urlparse(raw)
+    inner = (parse_qs(parsed.query).get("image") or parse_qs(parsed.query).get("url") or [""])[0]
+    if str(inner).startswith("http"):
+        candidate = unquote(unescape(inner))
+        if is_public_http_url(candidate):
+            return candidate
+    return raw
+
+
 def preview_image_from_publisher_home(html: str, page_url: str, title: str) -> str:
     """Article image whose alt/text matches the headline. Not the site logo."""
     for match in _IMG_ALT_SRC_RE.finditer(html or ""):
         alt = match.group(1) or match.group(4) or ""
         src = match.group(2) or match.group(3) or ""
         if _alt_matches_title(alt, title):
-            resolved = urljoin(page_url, src.strip())
+            resolved = _clean_image_url(urljoin(page_url, src.strip()))
             if is_public_http_url(resolved) and not _LOGO_HOST_RE.search(resolved):
                 return resolved
     for alt, src in _JSON_ALT_SRC_RE.findall(html or ""):
         if _alt_matches_title(alt.replace("\\/", "/"), title):
-            resolved = urljoin(page_url, src.replace("\\/", "/").strip())
+            resolved = _clean_image_url(urljoin(page_url, src.replace("\\/", "/").strip()))
             if is_public_http_url(resolved) and not _LOGO_HOST_RE.search(resolved):
                 return resolved
     return ""
@@ -444,6 +458,12 @@ def attach_source_preview_images(
         article = row.get("article") if isinstance(row.get("article"), dict) else {}
         current = current or str(article.get("image_url") or "").strip()
         if current:
+            cleaned = _clean_image_url(current)
+            if cleaned and cleaned != current:
+                row["image_url"] = cleaned
+                article = dict(article)
+                article["image_url"] = cleaned
+                row["article"] = article
             out.append(row)
             continue
         if filled >= limit:
@@ -457,6 +477,7 @@ def attach_source_preview_images(
             if home and title:
                 image = str(fetch_publisher_home_preview(home, title) or "").strip()
         if image:
+            image = _clean_image_url(image)
             row["image_url"] = image
             article = dict(article)
             article["image_url"] = image
