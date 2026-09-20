@@ -109,7 +109,8 @@ def live_disclosure(bundle: dict[str, Any], *, window: str = "today") -> str:
     if window == "30d":
         return f"Stories from the last 30 days, ending {today}."
     same_day = int((bundle.get("stats") or {}).get("same_day") or count)
-    return f"{same_day} stories published {today} for the companies you watch."
+    noun = "story" if same_day == 1 else "stories"
+    return f"{same_day} {noun} published {today} for the companies you watch."
 
 
 def cache_path(inbox_dir: Path, today: date) -> Path:
