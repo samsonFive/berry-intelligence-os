@@ -383,6 +383,7 @@ def test_react_http_and_entity_reflection(tmp_path, monkeypatch):
         inbox,
         statement_id=up.json()["statements"][0]["id"],
         action="confirm",
+        canonical_fact_id="fact-gate1-http",
     )
     assert confirmed["statement_state"] == "trusted_analyst"
     assert statements_for_entity(

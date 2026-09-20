@@ -81,6 +81,7 @@
           <article class="bos-fact-block">
             <p>{{ row.statement_text }}</p>
             <p class="bos-meta">Confirmed {{ row.confirmed_at or row.updated_at }} · {{ row.origin|replace('_', ' ') }}</p>
+            <p class="bos-meta">Canonical Fact · {{ row.canonical_fact_id }}</p>
             {% if row.feed_item_id %}<a href="/today?item={{ row.feed_item_id }}">Open source reader</a>{% endif %}
             <details><summary>Evidence</summary><blockquote>{{ row.supporting_passages[0] if row.supporting_passages else 'Support unavailable' }}</blockquote></details>
           </article>
@@ -115,6 +116,7 @@
           {% for row in rows %}
           <article class="bos-fact-block">
             <p>{{ row.statement_text }}</p>
+            <p class="bos-meta">Canonical Fact · {{ row.canonical_fact_id }}</p>
             <details><summary>Inspect evidence</summary><blockquote>{{ row.supporting_passages[0] }}</blockquote></details>
           </article>
           {% endfor %}

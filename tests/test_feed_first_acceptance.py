@@ -287,7 +287,12 @@ def test_p0_statement_important_demote_remove_restore(tmp_path):
     assert important["importance_state"] == "important"
     demoted = mutate_statement(inbox, statement_id=statement_id, action="demote")
     assert demoted["importance_state"] == "demoted"
-    confirmed = mutate_statement(inbox, statement_id=statement_id, action="confirm")
+    confirmed = mutate_statement(
+        inbox,
+        statement_id=statement_id,
+        action="confirm",
+        canonical_fact_id="fact-acceptance-confirmed",
+    )
     assert confirmed["statement_state"] == "trusted_analyst"
     removed = mutate_statement(inbox, statement_id=statement_id, action="retract")
     assert removed["statement_state"] == "removed"
@@ -649,6 +654,7 @@ def test_p1_undo_clears_landscapes_and_week(tmp_path):
         inbox,
         statement_id=staged["statements"][0]["id"],
         action="confirm",
+        canonical_fact_id="fact-acceptance-landscape",
     )
     state = load_state(inbox)
     assert landscapes_model(

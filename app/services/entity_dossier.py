@@ -447,6 +447,7 @@ def decide_proposal(
     proposal_id: str,
     action: str,
     text: str | None = None,
+    canonical_fact_id: str | None = None,
 ) -> dict[str, Any] | None:
     if action not in {"approve", "amend", "reject", "defer"}:
         raise ValueError("invalid proposal action")
@@ -463,6 +464,8 @@ def decide_proposal(
     if action == "amend" and not next_text:
         raise ValueError("amended text is required")
     if action in {"approve", "amend"}:
+        if not canonical_fact_id:
+            raise ValueError("canonical Fact confirmation is required")
         statement_text = next_text if action == "amend" else str(proposal["statement_text"])
         statement = {
             "id": f"{proposal_id}::statement",
@@ -486,6 +489,7 @@ def decide_proposal(
             "structured_details": {},
             "importance_state": "normal",
             "statement_state": TRUSTED_ANALYST,
+            "canonical_fact_id": canonical_fact_id,
             "origin": "autonomous_gap_research",
             "confidence": "analyst_confirmed_support",
             "created_at": now,

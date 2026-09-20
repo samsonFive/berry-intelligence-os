@@ -451,7 +451,10 @@ def decision_for(item_id: str, state: dict[str, Any]) -> dict[str, Any]:
 
 
 def _is_dossier_eligible(row: dict[str, Any]) -> bool:
-    return str(row.get("statement_state") or "") in DOSSIER_ELIGIBLE_STATES
+    return (
+        str(row.get("statement_state") or "") in DOSSIER_ELIGIBLE_STATES
+        and bool(row.get("canonical_fact_id"))
+    )
 
 
 def present_entities(
@@ -1133,6 +1136,28 @@ def extract_statements(
             {
                 "id": f"{item_id}::stmt-{index}",
                 "feed_item_id": item_id,
+                "source_context": {
+                    "id": item_id,
+                    "title": str(record.get("title") or ""),
+                    "source_name": str(record.get("source_name") or ""),
+                    "source_type": str(record.get("source_type") or ""),
+                    "source_url": str(record.get("source_url") or ""),
+                    "published_date": record.get("published_date"),
+                    "captured_date": record.get("captured_date"),
+                    "summary": str(record.get("summary") or ""),
+                    "berry_ids": list(record.get("berry_ids") or []),
+                    "entity_ids": list(record.get("entity_ids") or []),
+                    "article": {
+                        "paragraphs": [
+                            {
+                                "index": locator.get("paragraph_index", 0),
+                                "text": sentence,
+                            }
+                            for locator in locators
+                            if locator.get("medium") == "article_paragraph"
+                        ]
+                    },
+                },
                 "statement_text": sentence,
                 "original_extraction_text": sentence,
                 "supporting_passages": [sentence],
@@ -1209,6 +1234,7 @@ def mutate_statement(
     statement_id: str,
     action: str,
     text: str | None = None,
+    canonical_fact_id: str | None = None,
 ) -> dict[str, Any] | None:
     state = load_state(inbox_dir)
     statements = dict(state.get("statements") or {})
@@ -1252,6 +1278,8 @@ def mutate_statement(
     elif action == "confirm":
         if found.get("statement_state") not in {PENDING_CONFIRMATION, "proposed"}:
             raise ValueError("statement is not awaiting confirmation")
+        if not canonical_fact_id:
+            raise ValueError("canonical Fact confirmation is required")
         decision_history.append(
             {
                 "at": now,
@@ -1262,6 +1290,7 @@ def mutate_statement(
             }
         )
         found["statement_state"] = TRUSTED_ANALYST
+        found["canonical_fact_id"] = canonical_fact_id
         found["selected"] = False
         found["confirmed_at"] = now
         found["decision_history"] = decision_history
@@ -1327,6 +1356,7 @@ def mutate_statements(
     *,
     statement_ids: list[str],
     action: str,
+    canonical_fact_ids: dict[str, str] | None = None,
 ) -> list[dict[str, Any]]:
     if action not in {"confirm", "reject"}:
         raise ValueError("invalid batch action")
@@ -1336,10 +1366,19 @@ def mutate_statements(
             inbox_dir,
             statement_id=statement_id,
             action=action,
+            canonical_fact_id=(canonical_fact_ids or {}).get(statement_id),
         )
         if updated is not None:
             results.append(updated)
     return results
+
+
+def statement_by_id(state: dict[str, Any], statement_id: str) -> dict[str, Any] | None:
+    for rows in (state.get("statements") or {}).values():
+        for row in rows:
+            if row.get("id") == statement_id:
+                return dict(row)
+    return None
 
 
 def set_entity_tier(inbox_dir: Path, *, entity_id: str, tier: str) -> str:
