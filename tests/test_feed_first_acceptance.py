@@ -144,7 +144,8 @@ def test_p1_feed_first_company_profile_is_berry_os():
     page = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery")
     assert page.status_code == 200
     assert "data-feed-first-company" in page.text
-    assert "From Today thumbs-up" in page.text
+    assert "Living entity dossier" in page.text
+    assert "Only in-reader confirmation enters this dossier" in page.text
     assert "Create 90-day report" not in page.text
     explicit = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=feed")
     assert "data-feed-first-company" in explicit.text
@@ -286,17 +287,19 @@ def test_p0_statement_important_demote_remove_restore(tmp_path):
     assert important["importance_state"] == "important"
     demoted = mutate_statement(inbox, statement_id=statement_id, action="demote")
     assert demoted["importance_state"] == "demoted"
-    removed = mutate_statement(inbox, statement_id=statement_id, action="remove")
+    confirmed = mutate_statement(inbox, statement_id=statement_id, action="confirm")
+    assert confirmed["statement_state"] == "trusted_analyst"
+    removed = mutate_statement(inbox, statement_id=statement_id, action="retract")
     assert removed["statement_state"] == "removed"
     assert statement_id not in {row["id"] for row in statements_index(load_state(inbox))}
     assert statement_id in {row["id"] for row in statements_review_index(load_state(inbox))}
     restored = mutate_statement(inbox, statement_id=statement_id, action="restore")
-    assert restored["statement_state"] == "trusted_editable"
+    assert restored["statement_state"] == "trusted_analyst"
     assert statement_id in {row["id"] for row in statements_index(load_state(inbox))}
     template = Path("app/templates/feed_first_today.html").read_text(encoding="utf-8")
     script = Path("app/static/feed_first.js").read_text(encoding="utf-8")
-    assert 'data-statement-action="restore"' in template
-    assert 'data-statement-action="restore"' in script
+    assert 'data-statement-action="confirm"' in template
+    assert 'data-statement-action="retract"' in script
 
 
 def test_p0_one_story_once_keeps_cluster_on_the_card():
@@ -458,8 +461,8 @@ def test_p1_entity_click_opens_profile_with_coverage_and_statements():
     assert page.status_code == 200
     assert "data-feed-first-company" in page.text
     assert "data-feed-first-entity" in page.text
-    assert "From Today thumbs-up" in page.text
-    assert "Watches" in page.text
+    assert "Living entity dossier" in page.text
+    assert "Watchpoints" in page.text
     assert 'href="/today?entity=' in page.text
     today = TestClient(app).get("/today")
     assert "data-feed-first-today" in today.text
@@ -623,7 +626,7 @@ def test_p1_undo_clears_landscapes_and_week(tmp_path):
         }
     ]
     counts = {"tracked_companies": 145}
-    apply_decision(inbox, item_id=record["id"], action="thumbs_up", evidence=[record])
+    staged = apply_decision(inbox, item_id=record["id"], action="thumbs_up", evidence=[record])
     state = load_state(inbox)
     live = [
         {
@@ -636,16 +639,28 @@ def test_p1_undo_clears_landscapes_and_week(tmp_path):
     ]
     landscapes = landscapes_model(state=state, entities=entities, counts=counts, live_records=live)
     week = week_model(state, today=today, live_records=live)
-    assert landscapes["statement_count"] >= 1
+    assert landscapes["statement_count"] == 0
     assert landscapes["story_count"] == 1
-    assert week["statement_count"] >= 1
+    assert week["statement_count"] == 0
     assert week["story_count"] == 1
+    from app.services.feed_first import mutate_statement
+
+    mutate_statement(
+        inbox,
+        statement_id=staged["statements"][0]["id"],
+        action="confirm",
+    )
+    state = load_state(inbox)
+    assert landscapes_model(
+        state=state, entities=entities, counts=counts, live_records=live
+    )["statement_count"] >= 1
+    assert week_model(state, today=today, live_records=live)["statement_count"] >= 1
     apply_decision(inbox, item_id=record["id"], action="clear_reaction", evidence=[record])
     state = load_state(inbox)
     landscapes = landscapes_model(state=state, entities=entities, counts=counts, live_records=live)
     week = week_model(state, today=today, live_records=live)
-    assert landscapes["statement_count"] == 0
-    assert week["statement_count"] == 0
+    assert landscapes["statement_count"] >= 1
+    assert week["statement_count"] >= 1
     assert landscapes["story_count"] == 1
     assert week["story_count"] == 1
 
