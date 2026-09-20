@@ -74,7 +74,7 @@ def test_collapse_story_clusters_keeps_one_lead():
     collapsed = collapse_story_clusters(records)
     assert len(collapsed) == 1
     assert collapsed[0]["cluster_size"] == 2
-    assert collapsed[0]["cluster_sources"] == ["B"]
+    assert collapsed[0]["cluster_sources"] == ["a.example"]
     assert collapsed[0]["story_cluster_id"].startswith("cluster-")
     assert collapsed[0]["source_url"] == "https://a.example/story"
     assert len(collapsed[0]["discovery_urls"]) == 2
@@ -111,7 +111,7 @@ def test_collapse_story_clusters_merges_utm_and_publisher_suffix():
     ]
     wish = collapsed[0]
     assert wish["cluster_size"] == 2
-    assert wish["cluster_sources"] == ["Exa"]
+    assert wish["cluster_sources"] == ["perishablenews.example"]
     assert wish["discovery_urls"] == [
         "https://perishablenews.example/wish-farms",
         "https://perishablenews.example/wish-farms?utm_source=exa&utm_medium=api",
@@ -167,5 +167,5 @@ def test_collapse_story_clusters_merges_bylined_republish():
     collapsed = collapse_story_clusters(records)
     assert len(collapsed) == 2
     assert collapsed[0]["cluster_size"] == 2
-    assert collapsed[0]["cluster_sources"] == ["Befve"]
+    assert collapsed[0]["cluster_sources"] == ["befve.example"]
     assert collapsed[1]["cluster_size"] == 1

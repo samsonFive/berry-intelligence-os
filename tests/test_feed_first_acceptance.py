@@ -323,7 +323,7 @@ def test_p0_one_story_once_keeps_cluster_on_the_card():
     assert len(feed["cards"]) == 1
     card = feed["cards"][0]
     assert card["cluster_size"] == 2
-    assert card["cluster_sources"] == ["Exa"]
+    assert card["cluster_sources"] == ["perishablenews.example"]
     today = TestClient(app).get("/today")
     assert "cluster ×" in today.text or "Also seen via" in today.text or "data-feed-first-today" in today.text
 
