@@ -1,13 +1,14 @@
-"""Same-day live acquisition for the feed-first Today surface.
+"""Live acquisition for the feed-first Today surface.
 
 Keyless lanes: Google News RSS (when:1d) and specialist / official site RSS.
 Keyed request-time lanes when canonical names resolve: Perplexity Search,
 Exa, and APITube. Prefer ``EXA_API_KEY`` / ``APITUBE_API_KEY`` /
 ``PERPLEXITY_API_KEY``. NewsCatcher CatchAll is never request-time on Today.
 
-Hits become LIVE / UNREVIEWED feed records only when ``published_date``
-equals the product UTC calendar day. Undated hits are dropped. Stored
-published evidence is never a fallback.
+Default Today still filters to the product UTC calendar day. The live
+bundle also keeps the last 7 UTC days so Window=7d is not empty.
+Undated hits and items older than 7 days are dropped. Stored published
+evidence is never a fallback.
 
 Does not write ``data/evidence``. Inbox cache is date-keyed so yesterday
 cannot be served as today. Do not poll the 151-row seed one company at a time.
@@ -49,6 +50,7 @@ from app.services.industry_pulse.specialist_feeds import (
     week_specialist_feed_queries,
 )
 from app.services.recall_audit.classify import hostname
+from app.services.industry_pulse.canonical_urls import preferred_url
 from app.services.today_relevance import apply_today_relevance, collapse_story_clusters
 
 CACHE_SUBDIR = "feed_first_live"
@@ -111,9 +113,10 @@ def live_disclosure(bundle: dict[str, Any]) -> str:
     if unused:
         unused_note = f" {', '.join(unused)} stay unused until those keys exist."
     return (
-        f"LIVE / UNREVIEWED same-day acquisition ({lanes}). "
-        f"Only items whose published_date equals {bundle.get('today')} "
-        f"(product UTC clock). Fetched {fetched}. "
+        f"LIVE / UNREVIEWED acquisition ({lanes}). "
+        f"Default Today keeps published_date equal to {bundle.get('today')} "
+        f"(product UTC clock). Window=7d can show the last 7 UTC days from this fetch. "
+        f"Fetched {fetched}. "
         f"The stored August corpus is unused here.{err} "
         "Social platforms are not collected. "
         "NewsCatcher CatchAll is not request-time on Today."
@@ -133,6 +136,17 @@ def is_same_calendar_day(published: str | None, today: date) -> bool:
     except ValueError:
         return False
     return when == today
+
+
+def is_within_days(published: str | None, today: date, days: int) -> bool:
+    if not published:
+        return False
+    try:
+        when = date.fromisoformat(str(published).strip()[:10])
+    except ValueError:
+        return False
+    age = (today - when).days
+    return 0 <= age <= days
 
 
 def today_google_queries() -> list[PulseQuery]:
@@ -258,7 +272,7 @@ def hit_to_record(
     official_hosts: set[str] | None = None,
     people: Iterable[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    url = hit.origin_publisher_url or hit.url
+    url = preferred_url(hit)
     text = f"{hit.title} {hit.snippet}"
     entity_ids = match_entity_ids(text, entities)
     from app.services.people_watchlist import match_people
@@ -442,7 +456,7 @@ def collect_same_day_hits(
     relevant, dropped_today_noise = apply_today_relevance(qualified_rows, entities=entities)
     deduped = unique_hits(dedupe_hits(relevant))
 
-    same_day: list[DiscoveryHit] = []
+    kept: list[DiscoveryHit] = []
     dropped_not_today = 0
     dropped_undated = 0
     dropped_unqualified = 0
@@ -453,15 +467,17 @@ def collect_same_day_hits(
         if not hit.published_date:
             dropped_undated += 1
             continue
-        if not is_same_calendar_day(hit.published_date, today):
+        if not is_within_days(hit.published_date, today, 7):
             dropped_not_today += 1
             continue
-        same_day.append(hit)
+        kept.append(hit)
+    same_day = [hit for hit in kept if is_same_calendar_day(hit.published_date, today)]
 
     stats = {
         "discovered": len(raw),
         "qualified": sum(1 for hit in deduped if hit.qualifying),
         "same_day": len(same_day),
+        "week": len(kept),
         "dropped_not_today": dropped_not_today,
         "dropped_undated": dropped_undated,
         "dropped_unqualified": dropped_unqualified + dropped_today_noise,
@@ -493,7 +509,7 @@ def collect_same_day_hits(
         "exa_enabled": exa_provider is not None,
         "apitube_enabled": apitube_provider is not None,
     }
-    return same_day, meta
+    return kept, meta
 
 
 def _cache_fresh(payload: dict[str, Any], *, today: date, now: datetime) -> bool:

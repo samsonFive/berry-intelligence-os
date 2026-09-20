@@ -390,9 +390,17 @@ def test_today_window_is_calendar_equality_not_24h():
         today=date(2026, 9, 21),
     )
     assert [item["id"] for item in feed["cards"]] == ["ev-today"]
+    week = build_feed(
+        evidence=[yesterday, today_row],
+        entities=_entities(),
+        state=empty_state(),
+        filters=parse_filters({"window": "7d"}),
+        today=date(2026, 9, 21),
+    )
+    assert {item["id"] for item in week["cards"]} == {"ev-today", "ev-yesterday"}
 
 
-def test_same_day_collector_drops_yesterday_undated_and_unqualified(tmp_path: Path):
+def test_live_collector_keeps_week_and_drops_older_noise(tmp_path: Path):
     today = date(2026, 9, 21)
     hits = [
         _same_day_hit(),
@@ -445,10 +453,12 @@ def test_same_day_collector_drops_yesterday_undated_and_unqualified(tmp_path: Pa
     )
     assert bundle["today"] == "2026-09-21"
     assert bundle["stats"]["same_day"] == 1
-    assert bundle["stats"]["dropped_not_today"] >= 2
-    assert len(bundle["records"]) == 1
-    record = bundle["records"][0]
-    assert record["published_date"] == "2026-09-21"
+    assert bundle["stats"]["week"] == 2
+    assert bundle["stats"]["dropped_not_today"] >= 1
+    dates = {row["published_date"] for row in bundle["records"]}
+    assert dates == {"2026-09-21", "2026-09-20"}
+    assert "2026-08-06" not in dates
+    record = next(row for row in bundle["records"] if row["published_date"] == "2026-09-21")
     assert record["id"] == live_item_id("https://example.test/fall-creek-same-day")
     assert record["trust_state"] == "LIVE"
     assert record["review_state"] == "UNREVIEWED"
@@ -542,10 +552,12 @@ def test_perplexity_same_day_hits_join_keyless_lanes(tmp_path: Path):
     titles = {row["title"] for row in bundle["records"]}
     assert "Fall Creek expands blueberry nursery harvest after new planting" in titles
     assert "Planasa blueberry harvest volumes rise in Peru this morning" in titles
-    assert "Yesterday only: Planasa blueberry briefing" not in titles
+    assert "Yesterday only: Planasa blueberry briefing" in titles
+    assert bundle["stats"]["same_day"] == 2
+    assert bundle["stats"]["week"] == 3
     assert "perplexity" in bundle["lanes"]
     assert bundle["perplexity_enabled"] is True
-    assert all(row["published_date"] == "2026-09-21" for row in bundle["records"])
+    assert {row["published_date"] for row in bundle["records"]} == {"2026-09-21", "2026-09-20"}
 
 
 def test_perplexity_failure_does_not_drop_google_hits(tmp_path: Path):
