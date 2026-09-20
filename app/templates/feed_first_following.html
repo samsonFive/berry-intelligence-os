@@ -13,7 +13,8 @@
     <main class="bos-canvas">
       <p class="bos-kicker">Following</p>
       <h1 class="bos-title">Companies you watch</h1>
-      <p class="bos-lede">{{ counts.tracked_companies }} companies. Candidates stay unverified. Registries are not competitors.</p>
+      <p class="bos-lede">{{ counts.tracked_companies }} seed companies are tracked for Today relevance. Candidates stay unverified. The six registries are queryable and never counted as competitors.</p>
+      <p class="bos-disclosure">{{ counts.mention_watches }} mention watches · {{ counts.official_site_watches }} official-site watches · {{ counts.matched_trusted }} matched to trusted catalog · {{ counts.seed_only }} seed-only · {{ counts.monitoring_status_repaired }} URL-status rows repaired</p>
 
       <form class="bos-filters" method="get" action="/following" aria-label="Following filters">
         <label>Crop
@@ -42,13 +43,26 @@
       <div class="bos-roster">
         {% for row in rows %}
         <article class="bos-card is-tile" data-seed-id="{{ row.seed_id }}" data-verification="{{ row.verification_status }}" data-competitor="{{ 'true' if row.competitor else 'false' }}">
-          <p class="bos-kicker">{{ row.country_hq or 'HQ unknown' }}</p>
+          {% if row.logo_url %}
+          <img class="bos-logo" src="{{ row.logo_url }}" alt="" width="40" height="40">
+          {% else %}
+          <span class="bos-logo bos-logo-fallback">{{ row.monogram }}</span>
+          {% endif %}
+          <p class="bos-kicker">{{ row.country_hq or 'country unknown' }}</p>
           <h3><a href="{{ row.profile_url }}">{{ row.canonical_name }}</a></h3>
           <p class="bos-meta">
             <span>{{ row.verification_label }}</span>
-            {% for crop in row.crops[:3] %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
-            {% if row.muted %}<span class="bos-chip" data-muted-watch>Muted</span>{% endif %}
+            <span>{{ row.monitoring_status }}</span>
+            {% if row.trusted_entity_id %}<span>matched {{ row.trusted_entity_id }}</span>{% else %}<span>seed-only</span>{% endif %}
           </p>
+          <p class="bos-meta">
+            {% for crop in row.crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
+            {% for watch in row.watch_labels %}<span class="bos-chip">{{ watch }}</span>{% endfor %}
+            {% if row.muted %}<span class="bos-chip" data-muted-watch>Muted · searchable, not acquired</span>{% endif %}
+          </p>
+          {% if row.official_website %}<p class="bos-note">Official site {{ row.official_website }}</p>{% endif %}
+          {% if not row.official_website and row.resolved_website %}<p class="bos-note">Resolved website is research only — not treated as official.</p>{% endif %}
+          <p><a class="bos-btn" href="/today?entity={{ row.id }}">Today for this company</a></p>
         </article>
         {% else %}
         <div class="bos-empty">

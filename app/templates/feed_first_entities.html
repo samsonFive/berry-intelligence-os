@@ -13,7 +13,7 @@
     <main class="bos-canvas">
       <p class="bos-kicker">Entities</p>
       <h1 class="bos-title">Tracked breeding world</h1>
-      <p class="bos-lede">{{ counts.tracked_companies }} companies. Registries stay out of competitor totals.</p>
+      <p class="bos-lede">{{ counts.tracked_companies }} companies from the 2026-09-18 seed, plus {{ counts.registries }} registries kept out of competitor totals. This is not a trusted publication import.</p>
 
       <form class="bos-filters" method="get" action="/entities" aria-label="Entity filters">
         <label>Crop
@@ -43,11 +43,19 @@
       <div class="bos-roster">
         {% for row in rows %}
         <article class="bos-card is-tile" data-entity-id="{{ row.id }}" data-verification="{{ row.verification_status }}">
-          <p class="bos-kicker">{{ row.country_hq or 'HQ unknown' }}</p>
+          {% if row.logo_url %}
+          <img class="bos-logo" src="{{ row.logo_url }}" alt="" width="40" height="40">
+          {% else %}
+          <span class="bos-logo bos-logo-fallback">{{ row.monogram }}</span>
+          {% endif %}
+          <p class="bos-kicker">{{ row.country_hq or 'country unknown' }}</p>
           <h3><a href="{{ row.profile_url }}">{{ row.canonical_name }}</a></h3>
           <p class="bos-meta">
             <span>{{ row.verification_label }}</span>
-            {% for crop in row.crops[:3] %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
+            <span>{{ row.seed_entity_type }}</span>
+          </p>
+          <p class="bos-meta">
+            {% for crop in row.crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
           </p>
         </article>
         {% endfor %}

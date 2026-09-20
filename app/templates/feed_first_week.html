@@ -5,6 +5,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/static/berry_os.css">
+<link rel="stylesheet" href="/static/stakeholder.css">
 {% endblock %}
 {% block content %}
 <div class="berry-os" data-feed-first data-feed-first-week>
@@ -15,6 +16,11 @@
       <h1 class="bos-title">What changed this week</h1>
       <p class="bos-lede">{{ disclosure }}</p>
       <p><a class="bos-btn is-primary" href="{{ ask_href }}">Ask Berry OS</a></p>
+      <nav class="bos-filters" aria-label="Time window">
+        {% for w, label in [("24h", "24 hours"), ("7d", "7 days"), ("30d", "30 days")] %}
+        <a class="bos-chip{% if w == window %} is-active{% endif %}" href="/week?window={{ w }}">{{ label }}</a>
+        {% endfor %}
+      </nav>
 
       <section data-varieties>
         <h2 class="bos-title" style="font-size:1.3rem">Varieties</h2>
@@ -51,6 +57,7 @@
           <li class="bos-people-card">
             {% if row.importance_state == 'important' %}<p class="bos-kicker">Important</p>{% endif %}
             <p>{{ row.statement_text }}</p>
+            <p class="bos-note">{{ row.created_at }} · Evidence attached{% if row.extraction_model %} · {{ row.extraction_model }}{% endif %}</p>
           </li>
           {% endfor %}
         </ul>
@@ -64,19 +71,39 @@
           {% for row in stories %}
           <article class="bos-card is-tile">
             <h3>{{ row.title }}</h3>
-            <p class="bos-note">{{ row.source_name }} · {{ row.published_date }}</p>
+            <p class="bos-note">{{ row.source_name }} · {{ row.published_date }}{% if row.cluster_size %} · cluster ×{{ row.cluster_size }}{% endif %}{% if row.trust_state %} · {{ row.trust_state }}{% endif %}</p>
           </article>
           {% endfor %}
         </div>
       </section>
       {% endif %}
 
-      {% if not statements and not stories %}
-      <div class="bos-empty">
-        <p>No trusted statements or live stories in the last 7 days.</p>
-      </div>
-      {% endif %}
+      <section data-week-edition>
+        <h2 class="bos-title" style="font-size:1.3rem">Week edition</h2>
+        <p class="bos-note" id="week-status">Loading this week’s public coverage…</p>
+        <p class="bos-note" id="week-noscript"><a class="bos-btn" href="/week/live?window={{ window }}">Load this week’s coverage</a></p>
+        <div class="bos-week-edition" id="week-edition" data-week-live="/week/live?window={{ window }}&amp;fragment=1"></div>
+      </section>
     </main>
   </div>
 </div>
+<script>
+(function () {
+  var root = document.getElementById("week-edition");
+  if (!root || !root.dataset.weekLive) return;
+  var status = document.getElementById("week-status");
+  var noscript = document.getElementById("week-noscript");
+  if (noscript) noscript.hidden = true;
+  fetch(root.dataset.weekLive, { headers: { "Accept": "text/html" } })
+    .then(function (response) { return response.text(); })
+    .then(function (html) {
+      root.innerHTML = html;
+      if (status) status.remove();
+    })
+    .catch(function () {
+      if (status) status.textContent = "Live search did not finish. Use Load this week’s coverage.";
+      if (noscript) noscript.hidden = false;
+    });
+})();
+</script>
 {% endblock %}

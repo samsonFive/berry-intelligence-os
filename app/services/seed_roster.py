@@ -456,6 +456,7 @@ def following_model(
                 **row,
                 "profile_url": profile_url(row),
                 "monogram": _monogram(row["canonical_name"]),
+                "logo_url": logo_display_url(row),
                 "verification_label": _verification_label(row),
                 "watch_labels": [watch["kind"].replace("_", " ") for watch in row["watches"]],
                 "social_channels": official_social_channels(row),
@@ -486,6 +487,7 @@ def seed_profile(entity_id: str, existing: Iterable[dict[str, Any]], *, seed_pat
                 **row,
                 "profile_url": profile_url(row),
                 "monogram": _monogram(row["canonical_name"]),
+                "logo_url": logo_display_url(row),
                 "verification_label": _verification_label(row),
                 "social_channels": official_social_channels(row),
                 "related_entities": related_from_seed_note(row, roster),
@@ -503,6 +505,18 @@ def _monogram(name: str) -> str:
     if len(parts) >= 2:
         return (parts[0][:1] + parts[1][:1]).upper()
     return (name[:2] or "BI").upper()
+
+
+def logo_display_url(row: dict[str, Any]) -> str:
+    raw = str(row.get("logo_source_url") or "").strip()
+    parsed = urlparse(raw)
+    if parsed.scheme in {"http", "https"} and parsed.hostname and not parsed.username:
+        return raw
+    for key in ("official_website", "resolved_website"):
+        host = (urlparse(str(row.get(key) or "")).hostname or "").removeprefix("www.")
+        if host:
+            return f"https://www.google.com/s2/favicons?sz=128&domain={host}"
+    return ""
 
 
 def _verification_label(row: dict[str, Any]) -> str:

@@ -92,6 +92,7 @@ class ExaSearchProvider:
                     "provider_metadata": {
                         "exa_id": item.get("id"),
                         "exa_score": item.get("score"),
+                        "image_url": item.get("image") or item.get("imageUrl") or "",
                     },
                 }
             )

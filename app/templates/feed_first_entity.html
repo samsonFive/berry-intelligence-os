@@ -40,8 +40,11 @@
         {% else %}
         <p class="bos-note">No official website on the seed row.</p>
         {% endif %}
-        <p class="bos-note">Logo URLs are discovery metadata. Showing a monogram until rights-cleared local assets exist.</p>
+        {% if profile.logo_url %}
+        <p><img class="bos-logo" src="{{ profile.logo_url }}" alt="{{ profile.canonical_name }} logo" width="64" height="64"></p>
+        {% else %}
         <p class="bos-monogram" style="position:static">{{ profile.monogram }}</p>
+        {% endif %}
       </div>
 
       <section>

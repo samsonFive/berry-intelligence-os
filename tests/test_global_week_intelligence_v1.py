@@ -366,7 +366,7 @@ def test_week_shell_does_not_fetch_and_matches_stakeholder_chrome(monkeypatch):
         raise AssertionError("shell must not run live discovery")
 
     monkeypatch.setattr("app.main.run_week_intelligence", boom)
-    page = TestClient(app).get("/week")
+    page = TestClient(app).get("/week?view=legacy")
     assert page.status_code == 200
     html = page.text
     assert "What changed this week?" in html

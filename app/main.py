@@ -5099,6 +5099,8 @@ def week_page(request: Request, window: str = WEEK_DEFAULT_WINDOW) -> HTMLRespon
         from app.services.feed_first_live import cached_live_records
 
         world = _feed_first_world()
+        if window not in WEEK_LIVE_WINDOWS:
+            window = WEEK_DEFAULT_WINDOW
         model = week_model(
             world["state"],
             today=utc_today(),
@@ -5110,6 +5112,7 @@ def week_page(request: Request, window: str = WEEK_DEFAULT_WINDOW) -> HTMLRespon
             name="feed_first_week.html",
             context={
                 **model,
+                "window": window,
                 "nav": world["nav"],
                 "active_href": "/week",
                 "counts": world["counts"],

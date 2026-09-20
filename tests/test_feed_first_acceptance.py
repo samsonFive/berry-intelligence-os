@@ -183,6 +183,7 @@ def test_p1_people_saved_landscapes_and_reader_help_are_in_the_shell():
     assert "data-feed-first-week" in week.text
     assert "Ask Berry OS" in week.text
     assert "data-varieties" in week.text
+    assert "data-week-live" in week.text
     legacy_week = TestClient(app).get("/week?view=legacy")
     assert "data-feed-first-week" not in legacy_week.text
     ops = TestClient(app).get("/research-ops")

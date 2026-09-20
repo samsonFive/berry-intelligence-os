@@ -25,6 +25,15 @@ CAPTURE_SUBDIR = "feed_first_reader"
 MAX_BYTES = 800_000
 FETCH_TIMEOUT = 4.0
 USER_AGENT = "BerryIntelligenceOS-Reader/1.0 (+https://github.com/samsonFive/berry-intelligence-os)"
+_SKIP_PREVIEW_HOSTS = {
+    "example.test",
+    "example.com",
+    "example.invalid",
+    "localhost",
+    "127.0.0.1",
+    "news.google.com",
+    "news.google",
+}
 _SCRIPT_RE = re.compile(r"<script\b[^>]*>.*?</script>", re.IGNORECASE | re.DOTALL)
 _STYLE_RE = re.compile(r"<style\b[^>]*>.*?</style>", re.IGNORECASE | re.DOTALL)
 _ON_EVENT_RE = re.compile(r"\son\w+\s*=\s*(['\"]).*?\1", re.IGNORECASE | re.DOTALL)
@@ -321,6 +330,70 @@ def capture_item(
     if item_id:
         save_capture(inbox_dir, item_id, capture)
     return capture
+
+
+def preview_image_from_html(html: str, page_url: str) -> str:
+    from app.services.article_acquisition import publisher_image
+
+    return str(publisher_image(html, page_url) or "").strip()
+
+
+def fetch_source_preview_image(url: str, *, client: httpx.Client | None = None) -> str:
+    if not is_public_http_url(url):
+        return ""
+    host = (urlparse(url).hostname or "").lower().removeprefix("www.")
+    if host in _SKIP_PREVIEW_HOSTS:
+        return ""
+    closer = None
+    http = client
+    if http is None:
+        http = httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=True, headers={"User-Agent": USER_AGENT})
+        closer = http
+    try:
+        response = http.get(url)
+        final = str(response.url)
+        if not is_public_http_url(final):
+            return ""
+        html = response.text[:80_000]
+        return preview_image_from_html(html, final)
+    except Exception:  # noqa: BLE001 — a missing preview must not abort Today
+        return ""
+    finally:
+        if closer is not None:
+            closer.close()
+
+
+def attach_source_preview_images(
+    records: list[dict[str, Any]],
+    *,
+    fetch: Any = None,
+    limit: int = 24,
+) -> list[dict[str, Any]]:
+    """Fill missing card images from the publisher page og:image."""
+    getter = fetch or fetch_source_preview_image
+    out: list[dict[str, Any]] = []
+    filled = 0
+    for record in records:
+        row = dict(record)
+        current = str(row.get("image_url") or "").strip()
+        article = row.get("article") if isinstance(row.get("article"), dict) else {}
+        current = current or str(article.get("image_url") or "").strip()
+        if current:
+            out.append(row)
+            continue
+        if filled >= limit:
+            out.append(row)
+            continue
+        url = str(row.get("source_url") or "")
+        image = str(getter(url) or "").strip()
+        if image:
+            row["image_url"] = image
+            article = dict(article)
+            article["image_url"] = image
+            row["article"] = article
+            filled += 1
+        out.append(row)
+    return out
 
 
 def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dict[str, Any]:
