@@ -73,5 +73,69 @@ def test_collapse_story_clusters_keeps_one_lead():
     ]
     collapsed = collapse_story_clusters(records)
     assert len(collapsed) == 1
-    assert collapsed[0]["cluster_size"] >= 1
+    assert collapsed[0]["cluster_size"] == 2
+    assert collapsed[0]["cluster_sources"] == ["B"]
     assert collapsed[0]["story_cluster_id"].startswith("cluster-")
+    assert collapsed[0]["source_url"] == "https://a.example/story"
+    assert len(collapsed[0]["discovery_urls"]) == 2
+
+
+def test_collapse_story_clusters_merges_utm_and_publisher_suffix():
+    records = [
+        {
+            "title": "Wish Farms and Clarifresh transform berry quality control",
+            "source_url": "https://perishablenews.example/wish-farms",
+            "source_name": "Perishable News",
+            "acquisition_lane": "specialist_rss",
+            "published_date": "2026-09-18",
+        },
+        {
+            "title": "Wish Farms and Clarifresh transform berry quality control - PerishableNews",
+            "source_url": "https://perishablenews.example/wish-farms?utm_source=exa&utm_medium=api",
+            "source_name": "Exa",
+            "acquisition_lane": "exa",
+            "published_date": "2026-09-18",
+        },
+        {
+            "title": "Planasa blueberry harvest volumes rise in Peru",
+            "source_url": "https://freshplaza.example/planasa-peru",
+            "source_name": "FreshPlaza",
+            "acquisition_lane": "google_news_rss",
+            "published_date": "2026-09-18",
+        },
+    ]
+    collapsed = collapse_story_clusters(records)
+    assert [row["title"] for row in collapsed] == [
+        "Wish Farms and Clarifresh transform berry quality control",
+        "Planasa blueberry harvest volumes rise in Peru",
+    ]
+    wish = collapsed[0]
+    assert wish["cluster_size"] == 2
+    assert wish["cluster_sources"] == ["Exa"]
+    assert wish["discovery_urls"] == [
+        "https://perishablenews.example/wish-farms",
+        "https://perishablenews.example/wish-farms?utm_source=exa&utm_medium=api",
+    ]
+    assert collapsed[1]["cluster_size"] == 1
+    assert collapsed[1]["cluster_sources"] == []
+
+
+def test_collapse_story_clusters_unions_same_canonical_url():
+    records = [
+        {
+            "title": "Hoddys Berry Farm harvest note",
+            "source_url": "https://hoddys.example/news?utm_campaign=today",
+            "source_name": "Google News",
+            "published_date": "2026-09-20",
+        },
+        {
+            "title": "Season update from the farm",
+            "source_url": "https://www.hoddys.example/news",
+            "source_name": "Official site",
+            "published_date": "2026-09-20",
+        },
+    ]
+    collapsed = collapse_story_clusters(records)
+    assert len(collapsed) == 1
+    assert collapsed[0]["cluster_size"] == 2
+    assert collapsed[0]["cluster_sources"] == ["Official site"]

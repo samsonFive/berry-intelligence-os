@@ -11,7 +11,7 @@ import hashlib
 import re
 from typing import Any, Iterable
 
-from app.services.article_dedup import normalize_canonical_url
+from app.services.article_dedup import normalize_canonical_url, normalize_title
 from app.services.industry_pulse.models import DiscoveryHit
 
 _HOBBY = re.compile(
@@ -52,24 +52,6 @@ _STRONG = re.compile(
     r")\b",
     re.IGNORECASE,
 )
-_STOP = {
-    "the",
-    "a",
-    "an",
-    "of",
-    "in",
-    "for",
-    "and",
-    "to",
-    "on",
-    "with",
-    "from",
-    "after",
-    "this",
-    "that",
-}
-
-
 def today_noise_reason(hit: DiscoveryHit, *, named_entity: bool) -> str | None:
     text = f"{hit.title} {hit.snippet}"
     snippet = (hit.snippet or "").strip()
@@ -134,19 +116,27 @@ def apply_today_relevance(
 
 def cluster_key(record: dict[str, Any]) -> str:
     title = str(record.get("title") or "")
-    words = [w for w in re.findall(r"[a-z0-9]+", title.casefold()) if w not in _STOP]
-    stem = " ".join(words[:8])
+    title_id = normalize_title(title)
     published = str(record.get("published_date") or "")[:10]
-    if stem:
-        return f"title:{published}:{stem}"
+    if title_id:
+        return f"title:{published}:{title_id}"
     url = normalize_canonical_url(str(record.get("source_url") or ""))
     if url:
         return f"url:{url}"
     return f"id:{record.get('id') or title}"
 
 
+def _cluster_label(row: dict[str, Any]) -> str:
+    return str(row.get("source_name") or row.get("acquisition_lane") or "").strip()
+
+
 def collapse_story_clusters(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """One story once. Extra lanes become cluster sources on the lead."""
+    """One story once. Extra lanes become cluster sources on the lead.
+
+    Title+date groups already collapse syndicated headlines. A second pass
+    unions groups that share a tracking-stripped canonical URL so UTM
+    variants do not reopen the same page.
+    """
     groups: dict[str, list[dict[str, Any]]] = {}
     order: list[str] = []
     for record in records:
@@ -155,17 +145,60 @@ def collapse_story_clusters(records: list[dict[str, Any]]) -> list[dict[str, Any
             order.append(key)
             groups[key] = []
         groups[key].append(record)
-    collapsed: list[dict[str, Any]] = []
+
+    parent = {key: key for key in order}
+
+    def find(key: str) -> str:
+        while parent[key] != key:
+            parent[key] = parent[parent[key]]
+            key = parent[key]
+        return key
+
+    def union(left: str, right: str) -> None:
+        root_left, root_right = find(left), find(right)
+        if root_left == root_right:
+            return
+        if order.index(root_left) <= order.index(root_right):
+            parent[root_right] = root_left
+        else:
+            parent[root_left] = root_right
+
+    url_keys: dict[str, str] = {}
+    for key, rows in groups.items():
+        for row in rows:
+            url = normalize_canonical_url(str(row.get("source_url") or ""))
+            if not url:
+                continue
+            seen = url_keys.get(url)
+            if seen is None:
+                url_keys[url] = key
+            else:
+                union(seen, key)
+
+    merged: dict[str, list[dict[str, Any]]] = {}
+    merged_order: list[str] = []
     for key in order:
-        rows = groups[key]
+        root = find(key)
+        if root not in merged:
+            merged_order.append(root)
+            merged[root] = []
+        merged[root].extend(groups[key])
+
+    collapsed: list[dict[str, Any]] = []
+    for key in merged_order:
+        rows = merged[key]
         lead = dict(rows[0])
         digest = hashlib.sha256(key.encode("utf-8")).hexdigest()[:12]
+        extra: list[str] = []
+        seen_extra: set[str] = set()
+        for row in rows[1:]:
+            label = _cluster_label(row)
+            if label and label not in seen_extra:
+                seen_extra.add(label)
+                extra.append(label)
         lead["story_cluster_id"] = f"cluster-{digest}"
         lead["cluster_size"] = len(rows)
-        lead["cluster_sources"] = [
-            str(row.get("source_name") or row.get("acquisition_lane") or "")
-            for row in rows[1:]
-        ]
+        lead["cluster_sources"] = extra
         lead["discovery_urls"] = [str(row.get("source_url") or "") for row in rows if row.get("source_url")]
         collapsed.append(lead)
     return collapsed
