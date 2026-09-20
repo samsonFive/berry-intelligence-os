@@ -24,6 +24,7 @@ from app.services.feed_first_live import (
     OFFICIAL_SITE_HOST_CAP,
     live_feed_bundle,
     live_item_id,
+    save_bundle,
     today_official_site_queries,
 )
 from app.services.industry_pulse.models import DiscoveryHit
@@ -520,6 +521,51 @@ def test_yesterday_cache_is_never_served_as_today(tmp_path: Path):
     assert monday["today"] == "2026-09-21"
     assert monday["records"] == []
     assert all(row.get("published_date") != "2026-09-20" for row in monday["records"])
+
+
+def test_fresh_cache_does_not_invoke_translation_or_image_network(tmp_path: Path, monkeypatch):
+    today = date(2026, 9, 21)
+    now = datetime(2026, 9, 21, 9, 0, tzinfo=timezone.utc)
+    record = {
+        "id": "live-cached",
+        "title": "今日のブルーベリー生産者市場更新",
+        "summary": "生産量と収穫量に関する最新情報です",
+        "source_url": "https://publisher.invalid/story",
+        "origin_publisher_url": "https://publisher.invalid/",
+        "published_date": today.isoformat(),
+        "image_url": "",
+    }
+    save_bundle(
+        tmp_path,
+        {
+            "today": today.isoformat(),
+            "fetched_at": now.isoformat(),
+            "records": [record],
+            "stats": {"same_day": 1, "week": 1},
+        },
+    )
+    calls: list[str] = []
+
+    def unexpected_network(*args, **kwargs):
+        calls.append("network")
+        raise AssertionError("ordinary cached Today must not perform network enrichment")
+
+    monkeypatch.setattr("app.services.feed_first_translate.perplexity_translator", unexpected_network)
+    monkeypatch.setattr("app.services.feed_first_reader.fetch_source_preview_image", unexpected_network)
+    monkeypatch.setattr("app.services.feed_first_reader.fetch_publisher_home_preview", unexpected_network)
+
+    cached = live_feed_bundle(
+        inbox_dir=tmp_path,
+        entities=_entities(),
+        sources=[],
+        refresh=False,
+        today=today,
+        now=now,
+    )
+
+    assert calls == []
+    assert cached["records"][0]["title"] == record["title"]
+    assert cached["records"][0]["image_url"] == ""
 
 
 def test_perplexity_same_day_hits_join_keyless_lanes(tmp_path: Path):
