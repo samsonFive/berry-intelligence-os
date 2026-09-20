@@ -1,3 +1,4 @@
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+markers = ["live_today: exercise the real Today bundle instead of the suite HTTP stub"]

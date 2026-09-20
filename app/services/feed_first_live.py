@@ -103,6 +103,12 @@ _FRUIT_BLACKBERRY = re.compile(
 
 def live_disclosure(bundle: dict[str, Any], *, window: str = "today") -> str:
     today = str(bundle.get("today") or "")
+    cache_state = str(bundle.get("cache_state") or "")
+    if cache_state == "missing":
+        return "No cached Today edition yet. Select Refresh to fetch live stories."
+    if cache_state == "stale":
+        fetched = str(bundle.get("fetched_at") or "an earlier run")
+        return f"Showing the cached Today edition from {fetched}. Select Refresh to update it."
     count = int((bundle.get("stats") or {}).get("week") or 0)
     if window == "7d":
         return f"Stories from the last 7 days, ending {today}."
@@ -778,12 +784,13 @@ def live_feed_bundle(
     people: list[dict[str, Any]] | None = None,
     muted_ids: Iterable[str] | None = None,
     enrich_lead: bool = False,
+    acquire_on_miss: bool = True,
 ) -> dict[str, Any]:
     today = today or utc_today()
     now = now or datetime.now(UTC)
     if not refresh:
         cached = load_cached_bundle(inbox_dir, today=today)
-        if cached and _cache_fresh(cached, today=today, now=now):
+        if cached and (_cache_fresh(cached, today=today, now=now) or not acquire_on_miss):
             rows, dropped = filter_today_records(
                 list(cached.get("records") or []),
                 entities=entities or [],
@@ -791,6 +798,9 @@ def live_feed_bundle(
             rows = annotate_live_geographies(rows, entities=entities or [])
             payload = dict(cached)
             payload["records"] = rows
+            payload["cache_state"] = (
+                "fresh" if _cache_fresh(cached, today=today, now=now) else "stale"
+            )
             stats = dict(payload.get("stats") or {})
             if dropped:
                 stats["dropped_today_noise"] = int(stats.get("dropped_today_noise") or 0) + dropped
@@ -799,6 +809,10 @@ def live_feed_bundle(
                     1 for row in rows if is_same_calendar_day(str(row.get("published_date") or ""), today)
                 )
                 payload["stats"] = stats
+            return payload
+        if not acquire_on_miss:
+            payload = empty_bundle(today)
+            payload["cache_state"] = "missing"
             return payload
 
     hits, meta = collect_same_day_hits(
