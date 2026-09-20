@@ -3893,7 +3893,7 @@ def _feed_first_today(request: Request) -> HTMLResponse:
         state=world["state"],
         filters=filters,
         today=today,
-        disclosure=live_disclosure(bundle),
+        disclosure=live_disclosure(bundle, window=filters.get("window") or "today"),
         people=people,
         captures=captures,
     )
@@ -5092,7 +5092,8 @@ def week_page(request: Request, window: str = WEEK_DEFAULT_WINDOW) -> HTMLRespon
     """Stakeholder weekly intelligence shell. GET does not fetch the public
     web -- the live edition loads from /week/live so the first paint is
     immediate. Trust stays visibly LIVE / UNREVIEWED."""
-    if str(request.query_params.get("view") or "").strip().lower() == "feed":
+    view = str(request.query_params.get("view") or "feed").strip().lower()
+    if view in {"", "feed"}:
         from app.services.clock import utc_today
         from app.services.feed_first import week_model
         from app.services.feed_first_live import cached_live_records
@@ -5102,6 +5103,7 @@ def week_page(request: Request, window: str = WEEK_DEFAULT_WINDOW) -> HTMLRespon
             world["state"],
             today=utc_today(),
             live_records=cached_live_records(INBOX_DIR),
+            entities=world["entities"],
         )
         return templates.TemplateResponse(
             request=request,
@@ -5109,7 +5111,7 @@ def week_page(request: Request, window: str = WEEK_DEFAULT_WINDOW) -> HTMLRespon
             context={
                 **model,
                 "nav": world["nav"],
-                "active_href": "/week?view=feed",
+                "active_href": "/week",
                 "counts": world["counts"],
                 "authoring_mode": AUTHORING_MODE,
                 "static_build": False,

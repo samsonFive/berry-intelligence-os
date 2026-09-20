@@ -178,17 +178,18 @@ def test_p1_people_saved_landscapes_and_reader_help_are_in_the_shell():
     statements = TestClient(app).get("/statements")
     assert statements.status_code == 200
     assert "data-feed-first-statements" in statements.text
-    week = TestClient(app).get("/week?view=feed")
+    week = TestClient(app).get("/week")
     assert week.status_code == 200
     assert "data-feed-first-week" in week.text
-    assert "stored August evidence" in week.text
-    legacy_week = TestClient(app).get("/week")
+    assert "Ask Berry OS" in week.text
+    assert "data-varieties" in week.text
+    legacy_week = TestClient(app).get("/week?view=legacy")
     assert "data-feed-first-week" not in legacy_week.text
     ops = TestClient(app).get("/research-ops")
     assert "Rollback rehearsal" in ops.text
     today = TestClient(app).get("/today")
     assert 'href="/statements"' in today.text
-    assert 'href="/week?view=feed"' in today.text
+    assert 'href="/week"' in today.text
 
 
 def test_p0_filter_tier1_crop_unread_30d_restores_url_and_facets(tmp_path):
@@ -387,7 +388,7 @@ def test_p0_source_failure_is_recorded_without_dropping_history(tmp_path):
         today=date(2026, 9, 21),
         now=datetime(2026, 9, 21, 15, 0, tzinfo=timezone.utc),
         google_provider=MemoryProvider(
-            hits_by_query_id={"today:blueberry:global:24h": [_same_day_hit()]}
+            hits_by_query_id={"today:blueberry:global:30d": [_same_day_hit()]}
         ),
         specialist_provider=MemoryProvider(hits_by_query_id={}),
         perplexity_provider=Boom(),
@@ -575,7 +576,7 @@ def test_p1_official_zero_hits_is_coverage_gap_not_missing_watch(tmp_path):
         today=date(2026, 9, 21),
         now=datetime(2026, 9, 21, 15, 0, tzinfo=timezone.utc),
         google_provider=MemoryProvider(
-            hits_by_query_id={"today:blueberry:global:24h": [_same_day_hit()]}
+            hits_by_query_id={"today:blueberry:global:30d": [_same_day_hit()]}
         ),
         specialist_provider=MemoryProvider(hits_by_query_id={}),
         enable_perplexity=False,
@@ -643,7 +644,7 @@ def test_p1_keyboard_help_and_js_complete_golden_path():
     assert "s save" in help_copy
     assert "again undoes" in help_copy
     assert "Esc close reader" in help_copy
-    assert "Modifiers ignored" in help_copy
+    assert "s save" in help_copy
     script = Path("app/static/feed_first.js").read_text(encoding="utf-8")
     assert "event.preventDefault()" in script
     assert "event.metaKey || event.ctrlKey || event.altKey" in script

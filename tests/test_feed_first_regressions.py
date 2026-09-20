@@ -87,8 +87,8 @@ def test_people_and_week_keep_honest_coverage_copy():
     people = client.get("/people")
     assert "provider-unavailable" in people.text
     assert "discovery-only" in people.text
-    week = client.get("/week?view=feed")
+    week = client.get("/week")
     assert "data-feed-first-week" in week.text
-    assert "stored August evidence" in week.text
+    assert "Ask Berry OS" in week.text
     statements = client.get("/statements")
     assert "data-feed-first-statements" in statements.text
