@@ -343,6 +343,9 @@ def test_today_and_ops_expose_leftover_contracts():
     assert "data-gallery-next" in html
     assert "data-story-thread" in html
     assert "data-corroboration" in html
+    assert "data-reader-toggle" in html
+    assert "Collapse reader" in html
+    assert "Show reader" in html
     ops = TestClient(app).get("/research-ops")
     assert ops.status_code == 200
     assert "data-cost-cascade" in ops.text
@@ -351,6 +354,11 @@ def test_today_and_ops_expose_leftover_contracts():
     css = Path("app/static/berry_os.css").read_text(encoding="utf-8")
     assert "repeat(auto-fill, minmax(260px, 1fr))" in css
     assert "repeat(auto-fill, minmax(200px, 1fr))" in css
+    assert ".bos-shell.is-reader-collapsed" in css
+    assert "grid-column: auto" in css
+    script = Path("app/static/feed_first.js").read_text(encoding="utf-8")
+    assert "setReaderCollapsed" in script
+    assert 'closest("[data-reader-toggle]")' in script
     following = TestClient(app).get("/following")
     assert "bos-card is-tile" in following.text
     assert "Today for this company" in following.text
