@@ -139,11 +139,13 @@ def test_p0_reader_keyboard_help_and_research_ops_are_not_home():
 
 
 def test_p1_feed_first_company_profile_is_berry_os():
-    page = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=feed")
+    page = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery")
     assert page.status_code == 200
     assert "data-feed-first-company" in page.text
     assert "From Today thumbs-up" in page.text
     assert "Create 90-day report" not in page.text
+    explicit = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=feed")
+    assert "data-feed-first-company" in explicit.text
     legacy = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=legacy")
     assert legacy.status_code == 200
     assert "data-feed-first-company" not in legacy.text
@@ -165,3 +167,9 @@ def test_p1_people_saved_landscapes_and_reader_help_are_in_the_shell():
     ops = TestClient(app).get("/research-ops")
     assert "Reader bake-off" in ops.text
     assert "Official social" in ops.text
+    today = TestClient(app).get("/today")
+    assert "data-viewport-shell" in today.text
+    css = TestClient(app).get("/static/berry_os.css")
+    assert "@media (min-width: 2560px)" in css.text
+    assert "@media (min-width: 1920px)" in css.text
+    assert "@media (max-width: 1280px)" in css.text
