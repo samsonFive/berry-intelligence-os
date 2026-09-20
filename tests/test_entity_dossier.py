@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from types import SimpleNamespace
 
 from fastapi.testclient import TestClient
 
@@ -18,6 +19,7 @@ from app.services.feed_first import (
     statements_for_entity,
     trusted_statements,
 )
+from app.services.feed_first_trust import confirm_feed_statement
 
 
 ENTITY_ID = "company-fall-creek-farm-and-nursery"
@@ -113,6 +115,7 @@ def test_confirmation_is_the_only_dossier_transition(tmp_path: Path):
         tmp_path,
         statement_id=first["id"],
         action="confirm",
+        canonical_fact_id="fact-gate1-confirmed",
     )
     assert confirmed is not None
     assert confirmed["statement_state"] == "trusted_analyst"
@@ -138,7 +141,12 @@ def test_confirm_selected_batch_does_not_confirm_unselected(tmp_path: Path):
         evidence=[_record()],
     )
     ids = [row["id"] for row in staged["statements"]]
-    updated = mutate_statements(tmp_path, statement_ids=ids[:1], action="confirm")
+    updated = mutate_statements(
+        tmp_path,
+        statement_ids=ids[:1],
+        action="confirm",
+        canonical_fact_ids={ids[0]: "fact-gate1-batch"},
+    )
     assert [row["statement_state"] for row in updated] == ["trusted_analyst"]
     all_rows = load_state(tmp_path)["statements"][_record()["id"]]
     assert all_rows[0]["statement_state"] == "trusted_analyst"
@@ -158,6 +166,7 @@ def test_dossier_projects_confirmed_facts_and_honest_assessment(tmp_path: Path):
         tmp_path,
         statement_id=staged["statements"][0]["id"],
         action="confirm",
+        canonical_fact_id="fact-gate1-dossier",
     )
     dossier = build_dossier(
         entity_id=ENTITY_ID,
@@ -194,6 +203,7 @@ def test_targeted_existing_corpus_research_stays_proposed_until_approval(
         tmp_path,
         proposal_id=result["proposal"]["id"],
         action="approve",
+        canonical_fact_id="fact-gate1-research",
     )
     assert approved is not None
     assert approved["statement_state"] == "trusted_analyst"
@@ -241,3 +251,76 @@ def test_company_route_renders_wide_living_dossier():
     assert "Vulnerabilities" in page.text
     assert "What changed" in page.text
     assert "No 151×75 sweep" in page.text
+
+
+def test_canonical_bridge_reuses_existing_published_evidence():
+    record = _record()
+    evidence = {record["id"]: record}
+    repositories = SimpleNamespace(
+        evidence=SimpleNamespace(get=lambda record_id: evidence.get(record_id)),
+        entities=SimpleNamespace(list=lambda: [_entity()]),
+    )
+
+    class Service:
+        request = None
+
+        def approve_claim(self, request):
+            self.request = request
+            return SimpleNamespace(
+                ok=True,
+                fact_id="fact-canonical-existing",
+                schema_errors=[],
+            )
+
+    service = Service()
+    fact_id = confirm_feed_statement(
+        service=service,
+        repositories=repositories,
+        record=record,
+        statement={
+            "statement_text": "The nursery expanded to 14 million blueberry plants in 2026.",
+            "original_extraction_text": "The nursery expanded to 14 million blueberry plants in 2026.",
+            "entity_ids": [ENTITY_ID],
+        },
+        reviewer="johnny",
+    )
+    assert fact_id == "fact-canonical-existing"
+    assert service.request.evidence_id == record["id"]
+    assert service.request.origin == "feed_thumbsup_extraction"
+
+
+def test_canonical_bridge_publishes_live_item_and_fact_together():
+    record = {**_record(), "id": "live-fall-creek-14m", "status": "live"}
+    evidence: dict[str, dict] = {}
+    repositories = SimpleNamespace(
+        evidence=SimpleNamespace(get=lambda record_id: evidence.get(record_id)),
+        entities=SimpleNamespace(list=lambda: [_entity()]),
+    )
+
+    class Service:
+        def publish(self, request):
+            evidence[request.draft_id] = {
+                "id": request.draft_id,
+                "status": "published",
+                "fact_ids": [f"fact-{request.draft_id[3:]}-1"],
+            }
+            return SimpleNamespace(
+                ok=True,
+                evidence_id=request.draft_id,
+                schema_errors=[],
+                conflicts=[],
+            )
+
+    fact_id = confirm_feed_statement(
+        service=Service(),
+        repositories=repositories,
+        record=record,
+        statement={
+            "statement_text": "The nursery expanded to 14 million blueberry plants in 2026.",
+            "original_extraction_text": "The nursery expanded to 14 million blueberry plants in 2026.",
+            "entity_ids": [ENTITY_ID],
+        },
+        reviewer="johnny",
+    )
+    assert fact_id.startswith("fact-feed-")
+    assert len(evidence) == 1

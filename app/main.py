@@ -4322,25 +4322,67 @@ async def feed_first_react(request: Request) -> JSONResponse:
 
 @app.post("/api/feed-first/statement")
 async def feed_first_statement(request: Request) -> JSONResponse:
-    from app.services.feed_first import mutate_statement, mutate_statements
+    from app.services.feed_first import (
+        load_state,
+        mutate_statement,
+        mutate_statements,
+        statement_by_id,
+    )
+    from app.services.feed_first_live import cached_live_records, merge_decision_records
+    from app.services.feed_first_trust import confirm_feed_statement
 
     payload = await request.json()
     try:
         statement_ids = [
             str(value) for value in (payload.get("statement_ids") or []) if str(value)
         ]
+        single_id = str(payload.get("statement_id") or "")
+        action = str(payload.get("action") or "")
+        ids_to_confirm = statement_ids or ([single_id] if single_id else [])
+        canonical_fact_ids: dict[str, str] = {}
+        if action == "confirm":
+            if not AUTHORING_MODE:
+                raise ValueError("canonical confirmation requires authoring mode")
+            state = load_state(INBOX_DIR)
+            records = {
+                str(row.get("id")): row
+                for row in merge_decision_records(
+                    published_evidence(), cached_live_records(INBOX_DIR)
+                )
+                if row.get("id")
+            }
+            repos = get_repositories(DATA_DIR, SCHEMAS_DIR)
+            reviewer = _default_reader_reviewer(request, {})
+            for statement_id in ids_to_confirm:
+                candidate = statement_by_id(state, statement_id)
+                if candidate is None:
+                    raise ValueError("statement not found")
+                record = records.get(
+                    str(candidate.get("feed_item_id") or "")
+                ) or candidate.get("source_context")
+                if record is None:
+                    raise ValueError("source Feed Item not found")
+                canonical_fact_ids[statement_id] = confirm_feed_statement(
+                    service=_review_publish_service(),
+                    repositories=repos,
+                    record=record,
+                    statement=candidate,
+                    reviewer=reviewer,
+                )
         if statement_ids:
             statements = mutate_statements(
                 INBOX_DIR,
                 statement_ids=statement_ids,
-                action=str(payload.get("action") or ""),
+                action=action,
+                canonical_fact_ids=canonical_fact_ids,
             )
             return JSONResponse({"statements": statements})
         statement = mutate_statement(
             INBOX_DIR,
-            statement_id=str(payload.get("statement_id") or ""),
-            action=str(payload.get("action") or ""),
+            statement_id=single_id,
+            action=action,
             text=payload.get("text"),
+            canonical_fact_id=canonical_fact_ids.get(single_id),
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -4369,14 +4411,60 @@ async def entity_dossier_research(request: Request) -> JSONResponse:
 @app.post("/api/entity-dossier/proposal")
 async def entity_dossier_proposal(request: Request) -> JSONResponse:
     from app.services.entity_dossier import decide_proposal
+    from app.services.feed_first import load_state
+    from app.services.feed_first_trust import confirm_feed_statement
 
     payload = await request.json()
     try:
+        proposal_id = str(payload.get("proposal_id") or "")
+        action = str(payload.get("action") or "")
+        canonical_fact_id = None
+        if action in {"approve", "amend"}:
+            if not AUTHORING_MODE:
+                raise ValueError("canonical confirmation requires authoring mode")
+            proposal = dict(
+                (load_state(INBOX_DIR).get("research_proposals") or {}).get(
+                    proposal_id
+                )
+                or {}
+            )
+            if not proposal:
+                raise ValueError("proposal not found")
+            statement_text = (
+                str(payload.get("text") or "").strip()
+                if action == "amend"
+                else str(proposal.get("statement_text") or "")
+            )
+            record = next(
+                (
+                    row
+                    for row in published_evidence()
+                    if str(row.get("id")) == str(proposal.get("evidence_id"))
+                ),
+                None,
+            )
+            if record is None:
+                raise ValueError("proposal source Evidence not found")
+            canonical_fact_id = confirm_feed_statement(
+                service=_review_publish_service(),
+                repositories=get_repositories(DATA_DIR, SCHEMAS_DIR),
+                record=record,
+                statement={
+                    **proposal,
+                    "statement_text": statement_text,
+                    "original_extraction_text": proposal.get(
+                        "original_proposal_text"
+                    ),
+                    "entity_ids": [proposal.get("entity_id")],
+                },
+                reviewer=_default_reader_reviewer(request, {}),
+            )
         proposal = decide_proposal(
             INBOX_DIR,
-            proposal_id=str(payload.get("proposal_id") or ""),
-            action=str(payload.get("action") or ""),
+            proposal_id=proposal_id,
+            action=action,
             text=payload.get("text"),
+            canonical_fact_id=canonical_fact_id,
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
