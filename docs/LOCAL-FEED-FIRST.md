@@ -9,6 +9,38 @@ not publish onto Hortifrut.com or any other company site.
 
 ## Start
 
+Python **3.12** is required. Python 3.14 cannot install `pydantic==2.11.7`
+(`pydantic-core` has no 3.14 wheel; PyO3 max is 3.13). If `pip` failed with
+`the configured Python interpreter version (3.14) is newer than PyO3's
+maximum supported version (3.13)`, delete `.venv` and recreate it with 3.12.
+
+### Windows PowerShell
+
+From `C:\Users\Johnny\berry-intelligence-os` (the clone, not Downloads\sscanar).
+Do not keep the 3.14 `.venv`. Press Ctrl+C if `uvicorn` is waiting. Then:
+
+```powershell
+winget install Python.Python.3.12 --accept-package-agreements --accept-source-agreements
+# close and reopen PowerShell if `py -3.12` is not found
+Remove-Item -Recurse -Force .venv -ErrorAction SilentlyContinue
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python --version
+# must print 3.12.x
+pip install -r requirements.txt
+python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+Or after 3.12 is installed: `.\scripts\run_local.ps1`
+
+If `Activate.ps1` is blocked:
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
+
+### macOS / Linux
+
 ```bash
 git fetch origin
 git checkout cursor/monday-tracked-companies-80ac
@@ -16,8 +48,6 @@ git checkout cursor/monday-tracked-companies-80ac
 ```
 
 Open http://127.0.0.1:8000/today
-
-Python 3.12, `requirements-dev.txt`. The script creates `.venv` if needed.
 
 ## Optional live keys
 
