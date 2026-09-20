@@ -155,5 +155,13 @@
       const close = root.querySelector("[data-close-reader]");
       if (close && close.href) window.location.href = close.href;
     }
+    if (event.key === "u" || event.key === "d") {
+      const itemId = (root.querySelector("[data-reader-root]") || {}).getAttribute
+        ? root.querySelector("[data-reader-root]").getAttribute("data-item-id")
+        : "";
+      const action = event.key === "u" ? "thumbs_up" : "thumbs_down";
+      const button = root.querySelector('[data-react="' + action + '"][data-item-id="' + itemId + '"]');
+      if (button) button.click();
+    }
   });
 })();

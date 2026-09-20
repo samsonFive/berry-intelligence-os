@@ -22,7 +22,7 @@ from app.services.source_body import classify_source_body, reader_content
 
 STATE_FILENAME = "feed_first_state.json"
 EXTRACTION_MODEL = "local-deterministic-preview"
-EXTRACTION_VERSION = "gate1-v1"
+EXTRACTION_VERSION = "gate3-v1"
 EXTRACTION_DISCLOSURE = (
     "Local deterministic preview from captured passages only. "
     "The production atomic extractor remains unqualified and was not run."
@@ -98,7 +98,7 @@ NAV = (
     ("This week", "/week"),
     ("War Room", "/war-room"),
     ("Watchtower", "/watchtower"),
-    ("Research Ops", "/review"),
+    ("Research Ops", "/research-ops"),
     ("Settings", "/guide"),
 )
 
@@ -266,7 +266,7 @@ def present_entities(
                 or str(entity.get("verification_status") or "") == "candidate-review"
                 or str(entity.get("status") or "") == "unverified",
                 "is_registry": bool(entity.get("is_registry")),
-                "profile_url": f"/entities/{entity_type}/{entity_id}",
+                "profile_url": f"/entities/{entity_type}/{entity_id}?view=feed",
                 "monogram": _monogram(name),
             }
         )
@@ -343,6 +343,9 @@ def present_item(
         "profile_href": entities[0]["profile_url"] if entities else "",
         "content_type": kind,
         "passages": captured_passages(record),
+        "story_cluster_id": record.get("story_cluster_id") or "",
+        "cluster_size": int(record.get("cluster_size") or 1),
+        "cluster_sources": list(record.get("cluster_sources") or []),
         "record": record,
     }
 
@@ -612,6 +615,62 @@ def apply_decision(
     }
 
 
+_LOGIN_WALL = re.compile(
+    r"please log in|subscribe to continue|sign in to read|create a free account",
+    re.IGNORECASE,
+)
+_QUESTION = re.compile(r"^\s*(who|what|when|where|why|how)\b", re.IGNORECASE)
+_QUANTITY = re.compile(
+    r"\b(\d[\d,\.]*\s*(million|billion|percent|%|hectare|hectares|acre|acres|plants?|growers?))\b",
+    re.IGNORECASE,
+)
+_DATEISH = re.compile(r"\b(20\d{2}|january|february|march|april|may|june|july|august|september|october|november|december)\b", re.IGNORECASE)
+_LAUNCH = re.compile(r"\b(launch|launched|unveiled|released|opened|expanded|expansion)\b", re.IGNORECASE)
+_PARTNER = re.compile(r"\b(partner|partnership|license|licensing|acquired|acquisition|joint venture)\b", re.IGNORECASE)
+
+
+def _statement_type(sentence: str) -> str:
+    if _QUANTITY.search(sentence):
+        return "quantity"
+    if _PARTNER.search(sentence):
+        return "partnership"
+    if _LAUNCH.search(sentence):
+        return "launch"
+    if _DATEISH.search(sentence):
+        return "dated_event"
+    return "captured_assertion"
+
+
+def _atomic_sentences(passages: list[str]) -> list[str]:
+    sentences: list[str] = []
+    for passage in passages:
+        bits = [part.strip() for part in _SENTENCE_RE.split(passage) if part.strip()]
+        sentences.extend(bits if bits else [passage])
+    scored: list[tuple[int, str]] = []
+    seen: set[str] = set()
+    for sentence in sentences:
+        if len(sentence) < 40 or len(sentence) > 320:
+            continue
+        if _LOGIN_WALL.search(sentence) or _QUESTION.search(sentence):
+            continue
+        if sentence in seen:
+            continue
+        seen.add(sentence)
+        score = 0
+        if _QUANTITY.search(sentence):
+            score += 3
+        if _DATEISH.search(sentence):
+            score += 2
+        if _LAUNCH.search(sentence) or _PARTNER.search(sentence):
+            score += 2
+        if any(crop in sentence.casefold() for crop in CROP_LABELS):
+            score += 1
+        scored.append((score, sentence))
+    scored.sort(key=lambda row: (-row[0], sentences.index(row[1]) if row[1] in sentences else 99))
+    picked = [sentence for _score, sentence in scored[:6]]
+    return picked
+
+
 def extract_statements(record: dict[str, Any]) -> list[dict[str, Any]]:
     availability = body_availability(record)
     if availability in {"blocked", "error"}:
@@ -619,21 +678,11 @@ def extract_statements(record: dict[str, Any]) -> list[dict[str, Any]]:
     passages = captured_passages(record)
     if not passages:
         return []
-    sentences: list[str] = []
-    for passage in passages:
-        bits = [part.strip() for part in _SENTENCE_RE.split(passage) if part.strip()]
-        sentences.extend(bits if bits else [passage])
-    picked: list[str] = []
-    for sentence in sentences:
-        if len(sentence) < 40:
-            continue
-        if sentence in picked:
-            continue
-        picked.append(sentence)
-        if len(picked) >= 6:
-            break
+    if all(_LOGIN_WALL.search(passage or "") for passage in passages):
+        return []
+    picked = _atomic_sentences(passages)
     if not picked:
-        picked = passages[:3]
+        return []
     now = datetime.now(UTC).isoformat(timespec="seconds")
     item_id = str(record.get("id") or "item")
     crops = crop_keys(record)
@@ -652,7 +701,7 @@ def extract_statements(record: dict[str, Any]) -> list[dict[str, Any]]:
                 "crops": crops,
                 "geographies": [str(g) for g in (record.get("geography_ids") or [])],
                 "topics": list(record.get("tags") or []),
-                "statement_type": "captured_assertion",
+                "statement_type": _statement_type(sentence),
                 "importance_state": "normal",
                 "statement_state": "trusted_editable",
                 "confidence": "excerpt_supported" if availability != "full" else "body_supported",
