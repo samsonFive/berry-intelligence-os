@@ -238,6 +238,22 @@ def test_thumbs_persist_undo_and_do_not_mute(tmp_path: Path):
     assert undo["decision"]["reaction"] is None
 
 
+def test_inbox_state_snapshot_restores_thumbs_without_touching_evidence(tmp_path: Path):
+    from app.services.feed_first import latest_snapshot, restore_state, snapshot_state
+
+    inbox = tmp_path / "inbox"
+    record = _record()
+    apply_decision(inbox, item_id=record["id"], action="thumbs_up", evidence=[record])
+    snap = snapshot_state(inbox)
+    assert snap.exists()
+    apply_decision(inbox, item_id=record["id"], action="thumbs_down", evidence=[record])
+    assert load_state(inbox)["decisions"][record["id"]]["reaction"] == "down"
+    restored = restore_state(inbox, latest_snapshot(inbox))
+    assert restored["decisions"][record["id"]]["reaction"] == "up"
+    assert restored["statements"][record["id"]]
+    assert not (tmp_path / "data" / "evidence").exists()
+
+
 def test_thumbs_down_hides_from_default_feed(tmp_path: Path):
     inbox = tmp_path / "inbox"
     record = _record()

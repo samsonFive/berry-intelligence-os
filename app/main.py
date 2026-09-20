@@ -3970,6 +3970,27 @@ def saved_page(request: Request) -> HTMLResponse:
     )
 
 
+@app.get("/statements", response_class=HTMLResponse)
+def statements_page(request: Request) -> HTMLResponse:
+    from app.services.feed_first import statements_index
+
+    world = _feed_first_world()
+    statements = statements_index(world["state"])
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_statements.html",
+        context={
+            "statements": statements,
+            "statement_count": len(statements),
+            "counts": world["counts"],
+            "nav": world["nav"],
+            "active_href": "/statements",
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
 @app.get("/entities", response_class=HTMLResponse)
 def feed_first_entities_page(request: Request) -> HTMLResponse:
     from app.services.seed_roster import following_model
@@ -4070,6 +4091,16 @@ def research_ops_health_page(request: Request) -> HTMLResponse:
     from app.services.seed_roster import official_social_channels
 
     social_found = sum(len(official_social_channels(row)) for row in world["roster"])
+    from app.services.feed_first import latest_snapshot
+
+    snap = latest_snapshot(INBOX_DIR)
+    snapshot_name = snap.name if snap else ""
+    snapshot_at = ""
+    if snap:
+        try:
+            snapshot_at = str(json.loads(snap.read_text(encoding="utf-8")).get("snapshot_at") or "")
+        except (OSError, json.JSONDecodeError):
+            snapshot_at = ""
     lanes = {
         "google_news_rss": True,
         "specialist_rss": True,
@@ -4091,6 +4122,8 @@ def research_ops_health_page(request: Request) -> HTMLResponse:
             "social_coverage": people["social_coverage"],
             "social_discovered": social_found,
             "social_verified": 0,
+            "snapshot_name": snapshot_name,
+            "snapshot_at": snapshot_at,
             "bakeoff": bakeoff_report(
                 firecrawl=bool(os.environ.get("FIRECRAWL_API_KEY")),
                 jina=bool(os.environ.get("JINA_API_KEY")),
@@ -5019,6 +5052,29 @@ def week_page(request: Request, window: str = WEEK_DEFAULT_WINDOW) -> HTMLRespon
     """Stakeholder weekly intelligence shell. GET does not fetch the public
     web -- the live edition loads from /week/live so the first paint is
     immediate. Trust stays visibly LIVE / UNREVIEWED."""
+    if str(request.query_params.get("view") or "").strip().lower() == "feed":
+        from app.services.clock import utc_today
+        from app.services.feed_first import week_statements
+
+        world = _feed_first_world()
+        rows = week_statements(world["state"], today=utc_today())
+        return templates.TemplateResponse(
+            request=request,
+            name="feed_first_week.html",
+            context={
+                "statements": rows,
+                "statement_count": len(rows),
+                "disclosure": (
+                    "This week reuses trusted Today thumbs-up statements from the last 7 UTC days. "
+                    "It does not run the Pulse week matrix and does not treat stored August evidence as current."
+                ),
+                "nav": world["nav"],
+                "active_href": "/week?view=feed",
+                "counts": world["counts"],
+                "authoring_mode": AUTHORING_MODE,
+                "static_build": False,
+            },
+        )
     if window not in WEEK_LIVE_WINDOWS:
         window = WEEK_DEFAULT_WINDOW
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)

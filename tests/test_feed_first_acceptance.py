@@ -173,3 +173,17 @@ def test_p1_people_saved_landscapes_and_reader_help_are_in_the_shell():
     assert "@media (min-width: 2560px)" in css.text
     assert "@media (min-width: 1920px)" in css.text
     assert "@media (max-width: 1280px)" in css.text
+    statements = TestClient(app).get("/statements")
+    assert statements.status_code == 200
+    assert "data-feed-first-statements" in statements.text
+    week = TestClient(app).get("/week?view=feed")
+    assert week.status_code == 200
+    assert "data-feed-first-week" in week.text
+    assert "stored August evidence" in week.text
+    legacy_week = TestClient(app).get("/week")
+    assert "data-feed-first-week" not in legacy_week.text
+    ops = TestClient(app).get("/research-ops")
+    assert "Rollback rehearsal" in ops.text
+    today = TestClient(app).get("/today")
+    assert 'href="/statements"' in today.text
+    assert 'href="/week?view=feed"' in today.text
