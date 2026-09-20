@@ -19,7 +19,6 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
@@ -787,14 +786,10 @@ def live_feed_bundle(
     enrich_lead: bool = False,
     acquire_on_miss: bool = True,
 ) -> dict[str, Any]:
-    bundle_started = time.perf_counter()
     today = today or utc_today()
     now = now or datetime.now(UTC)
     if not refresh:
         cached = load_cached_bundle(inbox_dir, today=today)
-        # region agent log
-        open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "A", "location": "app/services/feed_first_live.py:live_feed_bundle", "message": "ordinary request cache decision", "data": {"cache_found": cached is not None, "cache_fresh": bool(cached and _cache_fresh(cached, today=today, now=now)), "elapsed_ms": round((time.perf_counter() - bundle_started) * 1000, 1)}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
-        # endregion
         if cached and (_cache_fresh(cached, today=today, now=now) or not acquire_on_miss):
             rows, dropped = filter_today_records(
                 list(cached.get("records") or []),
@@ -820,9 +815,6 @@ def live_feed_bundle(
             payload["cache_state"] = "missing"
             return payload
 
-    # region agent log
-    open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "A,B", "location": "app/services/feed_first_live.py:live_feed_bundle", "message": "live acquisition entered", "data": {"refresh": refresh, "official_host_count": len(official_hosts or []), "elapsed_ms": round((time.perf_counter() - bundle_started) * 1000, 1)}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
-    # endregion
     hits, meta = collect_same_day_hits(
         google_provider=google_provider,
         specialist_provider=specialist_provider,
@@ -838,9 +830,6 @@ def live_feed_bundle(
         official_hosts=official_hosts,
         official_provider=official_provider,
     )
-    # region agent log
-    open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "B", "location": "app/services/feed_first_live.py:live_feed_bundle", "message": "live acquisition completed", "data": {"hit_count": len(hits), "lane_errors": len(meta.get("lane_errors") or []), "elapsed_ms": round((time.perf_counter() - bundle_started) * 1000, 1)}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
-    # endregion
     records = collapse_story_clusters(
         [
             hit_to_record(
@@ -874,13 +863,7 @@ def live_feed_bundle(
     from app.services.feed_first_translate import translate_records
 
     records = translate_records(records, inbox_dir=inbox_dir)
-    # region agent log
-    open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "C", "location": "app/services/feed_first_live.py:live_feed_bundle", "message": "translation pass completed", "data": {"record_count": len(records), "pending_count": sum(1 for row in records if row.get("translation_pending")), "elapsed_ms": round((time.perf_counter() - bundle_started) * 1000, 1)}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
-    # endregion
     records = attach_source_preview_images(records)
-    # region agent log
-    open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "D", "location": "app/services/feed_first_live.py:live_feed_bundle", "message": "image pass completed", "data": {"record_count": len(records), "missing_count": sum(1 for row in records if not row.get("image_url")), "elapsed_ms": round((time.perf_counter() - bundle_started) * 1000, 1)}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
-    # endregion
     bundle = {
         **empty_bundle(today, fetched_at=now.isoformat(timespec="seconds")),
         **meta,
