@@ -66,6 +66,82 @@ def test_consumer_buy_guide_drops():
     assert today_noise_reason(hit, named_entity=False)
 
 
+def test_exa_superfruit_directory_and_pyo_drop_industry_kept():
+    from app.services.today_relevance import filter_today_records
+
+    superfruit = _hit(
+        "Spain Blueberry: The Juicy Secret Behind Europe’s Rising Superfruit - MyDesignation",
+        "A juicy secret behind Europe's rising superfruit.",
+        url="https://test.mydesignation.com/spain-blueberry-the-juicy-secret-behind-europes-rising-superfruit",
+        source_domain="test.mydesignation.com",
+        origin_publisher_url="https://test.mydesignation.com/spain-blueberry-the-juicy-secret-behind-europes-rising-superfruit",
+        provider="exa",
+    )
+    directory = _hit(
+        "North Bay Produce - International Blueberry Organization",
+        "Member directory profile.",
+        url="https://www.internationalblueberry.org/north-bay-produce/",
+        source_domain="internationalblueberry.org",
+        origin_publisher_url="https://www.internationalblueberry.org/north-bay-produce/",
+        provider="exa",
+    )
+    translation = _hit(
+        "The Cranberry In Spanish Translation And Uses: From Bog To Bottle - MyDesignation",
+        "From bog to bottle translation copy.",
+        url="https://test.mydesignation.com/the-cranberry-in-spanish-translation-and-uses-from-bog-to-bottle",
+        source_domain="test.mydesignation.com",
+        origin_publisher_url="https://test.mydesignation.com/the-cranberry-in-spanish-translation-and-uses-from-bog-to-bottle",
+        provider="exa",
+    )
+    pyo = _hit(
+        "Blueberry Picking in Connecticut | Lyman Orchards",
+        "Pick your own blueberries this weekend.",
+        url="https://lymanorchards.com/pick-your-own/blueberries/",
+        source_domain="lymanorchards.com",
+        origin_publisher_url="https://lymanorchards.com/pick-your-own/blueberries/",
+        provider="perplexity",
+    )
+    mango = _hit(
+        '"There is no need to rush the mango harvest, since crop volumes are down 40%"',
+        "Mango harvest volumes are down.",
+        url="https://freshplaza.com/article/9874296/mango-harvest",
+        source_domain="freshplaza.com",
+        provider="specialist_rss",
+    )
+    industry = _hit(
+        "China: blueberry crop tops 100.000 hectares while export is starting by Italianberry",
+        "Blueberry acreage and export from the commercial crop.",
+        url="https://befve.com/en/china-blueberry-crop-tops-100-000-hectares-while-export-is-starting-by-italianberry/",
+        source_domain="befve.com",
+        origin_publisher_url="https://befve.com/en/china-blueberry-crop-tops-100-000-hectares-while-export-is-starting-by-italianberry/",
+        provider="exa",
+    )
+    assert today_noise_reason(superfruit, named_entity=True)
+    assert today_noise_reason(directory, named_entity=True)
+    assert today_noise_reason(translation, named_entity=False)
+    assert today_noise_reason(pyo, named_entity=False)
+    assert today_noise_reason(mango, named_entity=False)
+    kept, dropped = apply_today_relevance(
+        [superfruit, directory, translation, pyo, mango, industry],
+        entities=_entities(),
+    )
+    assert dropped >= 5
+    assert [hit.title for hit in kept] == [industry.title]
+    records, dropped_records = filter_today_records(
+        [
+            {"title": superfruit.title, "summary": superfruit.snippet, "source_url": superfruit.url},
+            {
+                "title": "Demand for larger blueberry packs takes the market beyond the familiar 125g",
+                "summary": "Retail packs move beyond 125g for blueberry exporters.",
+                "source_url": "https://freshplaza.com/article/9874367/demand-for-larger-blueberry-packs",
+            },
+        ],
+        entities=_entities(),
+    )
+    assert dropped_records == 1
+    assert records[0]["title"].startswith("Demand for larger")
+
+
 def test_collapse_story_clusters_keeps_one_lead():
     records = [
         {"title": "Fall Creek expands nursery", "source_url": "https://a.example/story", "source_name": "A", "published_date": "2026-09-21"},

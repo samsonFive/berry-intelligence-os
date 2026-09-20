@@ -90,9 +90,15 @@ def research_ops_health(
     *,
     bundle: dict[str, Any] | None,
     counts: dict[str, Any],
+    entities: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     payload = bundle or {}
     records = [row for row in (payload.get("records") or []) if isinstance(row, dict)]
+    dropped = 0
+    if entities is not None:
+        from app.services.today_relevance import filter_today_records
+
+        records, dropped = filter_today_records(records, entities=entities)
     errors = public_lane_errors(payload.get("lane_errors") or [])
     stats = payload.get("stats") if isinstance(payload.get("stats"), dict) else {}
     return {
@@ -104,6 +110,13 @@ def research_ops_health(
             lane_errors=errors,
             lanes=[str(name) for name in (payload.get("lanes") or [])],
         ),
-        "same_day": int(stats.get("same_day") or 0),
-        "week": int(stats.get("week") or 0),
+        "same_day": sum(
+            1
+            for row in records
+            if str(payload.get("today") or "") and str(row.get("published_date") or "")[:10] == str(payload.get("today"))
+        )
+        if entities is not None
+        else int(stats.get("same_day") or 0),
+        "week": len(records) if entities is not None else int(stats.get("week") or 0),
+        "dropped_today_noise": int(stats.get("dropped_today_noise") or 0) + dropped,
     }

@@ -4127,7 +4127,11 @@ def research_ops_health_page(request: Request) -> HTMLResponse:
     }
     from app.services.research_ops_health import research_ops_health
 
-    health = research_ops_health(bundle=bundle, counts=world["counts"])
+    health = research_ops_health(
+        bundle=bundle,
+        counts=world["counts"],
+        entities=world["entities"],
+    )
     return templates.TemplateResponse(
         request=request,
         name="feed_first_research_ops.html",
