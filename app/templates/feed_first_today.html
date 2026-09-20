@@ -67,6 +67,14 @@
             <option value="fallback"{% if feed.filters.source == 'fallback' %} selected{% endif %}>Honest fallback</option>
           </select>
         </label>
+        <label>Geography
+          <select name="geography" aria-label="Geography">
+            <option value="">All geographies</option>
+            {% for geo in feed.geography_options or [] %}
+            <option value="{{ geo.id }}"{% if feed.filters.geography == geo.id %} selected{% endif %}>{{ geo.name }}</option>
+            {% endfor %}
+          </select>
+        </label>
         <label>State
           <select name="state" aria-label="Read or judged state">
             <option value="">Unread default</option>
@@ -145,6 +153,9 @@
               {% endfor %}
               {% for crop in item.crops %}
               <span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>
+              {% endfor %}
+              {% for geo in item.geography_chips[:3] %}
+              <a class="bos-chip" href="{{ geo.href }}">{{ geo.name }}</a>
               {% endfor %}
             </p>
             <div class="bos-actions">

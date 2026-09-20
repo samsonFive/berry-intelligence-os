@@ -3816,6 +3816,7 @@ def _feed_first_world() -> dict[str, Any]:
     from app.services.seed_roster import (
         build_roster,
         merge_entities_for_matching,
+        official_host_map,
         official_hosts,
         roster_counts,
     )
@@ -3827,6 +3828,7 @@ def _feed_first_world() -> dict[str, Any]:
         "roster": roster,
         "entities": merge_entities_for_matching(existing, roster),
         "official_hosts": official_hosts(roster),
+        "official_host_map": official_host_map(roster),
         "counts": roster_counts(roster),
         "nav": NAV,
         "crop_labels": CROP_LABELS,
@@ -3853,6 +3855,7 @@ def _feed_first_today(request: Request) -> HTMLResponse:
         refresh=refresh,
         today=today,
         official_hosts=world["official_hosts"],
+        official_host_map=world["official_host_map"],
         people=people,
         enrich_lead=refresh,
     )
