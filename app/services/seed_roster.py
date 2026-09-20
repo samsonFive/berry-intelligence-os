@@ -436,6 +436,7 @@ def following_model(
     q: str = "",
     include_registries: bool = False,
     seed_path: Path | None = None,
+    entity_tiers: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     roster = build_roster(existing, seed_path=seed_path)
     counts = roster_counts(roster)
@@ -447,7 +448,9 @@ def following_model(
         include_registries=include_registries,
     )
     presented = []
+    tiers = entity_tiers or {}
     for row in rows:
+        tier = str(tiers.get(row["id"]) or row.get("monitoring_tier") or "tier2")
         presented.append(
             {
                 **row,
@@ -457,6 +460,8 @@ def following_model(
                 "watch_labels": [watch["kind"].replace("_", " ") for watch in row["watches"]],
                 "social_channels": official_social_channels(row),
                 "related_entities": related_from_seed_note(row, roster),
+                "monitoring_tier": tier,
+                "muted": tier == "muted",
             }
         )
     return {

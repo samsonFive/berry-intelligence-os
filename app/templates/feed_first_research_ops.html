@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="/static/berry_os.css">
 {% endblock %}
 {% block content %}
+{% set cascade = cascade if cascade is defined else {} %}
 <div class="berry-os" data-feed-first data-feed-first-ops>
   <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
     {% include "_feed_first_rail.html" %}
@@ -39,6 +40,12 @@
         <p class="bos-note">Unverified social URLs are not scraped and are not People records.</p>
       </section>
 
+      <section data-cost-cascade>
+        <h2 class="bos-title" style="font-size:1.4rem">Cost cascade</h2>
+        <p>Policy {{ cascade.policy or 'primary_then_secondary_if_thin' }} · primary unique {{ cascade.primary_unique if cascade.primary_unique is not none else 'n/a' }} · threshold {{ cascade.threshold or 8 }} · secondary {{ 'fired' if cascade.secondary_fired else 'skipped' }} · {{ cascade.reason or 'not fetched this session' }}</p>
+        <p class="bos-note">Secondary vendors (Perplexity / Exa / APITube) are not called per item. They fire on refresh only when primary unique stories are thin. CatchAll is never request-time.</p>
+      </section>
+
       <section>
         <h2 class="bos-title" style="font-size:1.4rem">Reader bake-off</h2>
         <ul>
@@ -47,6 +54,9 @@
           <li>Jina — {{ 'keyed' if bakeoff.jina.available else 'key absent' }} · {{ bakeoff.jina.notes }}</li>
         </ul>
         <p class="bos-note">{{ bakeoff.disclosure }}</p>
+        {% if bakeoff.coverage_audit %}
+        <p class="bos-note" data-coverage-audit>Coverage audit · unique finds {{ bakeoff.coverage_audit.unique_finds }} · {{ bakeoff.coverage_audit.readable_yield }} · latency {{ bakeoff.coverage_audit.latency }} · cost {{ bakeoff.coverage_audit.cost }}</p>
+        {% endif %}
       </section>
 
       <section data-official-site-lane>

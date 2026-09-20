@@ -57,6 +57,7 @@
             <p class="bos-meta">
               {% for crop in row.crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
               {% for watch in row.watch_labels %}<span class="bos-chip">{{ watch }}</span>{% endfor %}
+              {% if row.muted %}<span class="bos-chip" data-muted-watch>Muted · searchable, not acquired</span>{% endif %}
             </p>
             {% if row.official_website %}<p class="bos-note">Official site {{ row.official_website }}</p>{% endif %}
             {% if not row.official_website and row.resolved_website %}<p class="bos-note">Resolved website is research only — not treated as official.</p>{% endif %}

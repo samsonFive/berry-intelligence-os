@@ -236,12 +236,18 @@ def live_item_id(url: str) -> str:
     return f"live-{digest}"
 
 
-def match_entity_ids(text: str, entities: Iterable[dict[str, Any]]) -> list[str]:
+def match_entity_ids(
+    text: str,
+    entities: Iterable[dict[str, Any]],
+    *,
+    skip_ids: Iterable[str] | None = None,
+) -> list[str]:
     hay = (text or "").casefold()
+    skip = {str(row) for row in (skip_ids or [])}
     found: list[str] = []
     for entity in entities:
         entity_id = str(entity.get("id") or "")
-        if not entity_id or entity_id in found:
+        if not entity_id or entity_id in found or entity_id in skip:
             continue
         names = [entity.get("name"), *(entity.get("aliases") or [])]
         for raw in names:
@@ -383,18 +389,20 @@ def hit_to_record(
     official_hosts: set[str] | None = None,
     official_host_map: dict[str, str] | None = None,
     people: Iterable[dict[str, Any]] | None = None,
+    muted_ids: Iterable[str] | None = None,
 ) -> dict[str, Any]:
     url = preferred_url(hit)
     if url and "://" not in url:
         url = f"https://{url.lstrip('/')}"
     text = f"{hit.title} {hit.snippet}"
-    entity_ids = match_entity_ids(text, entities)
+    entity_ids = match_entity_ids(text, entities, skip_ids=muted_ids)
     official_entity = match_official_entity_id(
         url or hit.origin_publisher_url or hit.url or "",
         hit.source_domain or "",
         official_host_map,
     )
-    if official_entity and official_entity not in entity_ids:
+    muted = {str(row) for row in (muted_ids or [])}
+    if official_entity and official_entity not in entity_ids and official_entity not in muted:
         entity_ids.append(official_entity)
     from app.services.people_watchlist import match_people
 
@@ -447,6 +455,7 @@ def empty_bundle(today: date, *, fetched_at: str | None = None) -> dict[str, Any
             "official_hosts_polled": 0,
             "official_hits": 0,
         },
+        "cascade": cost_cascade_decision(primary_unique=0, secondary_available=False),
         "records": [],
     }
 
@@ -514,6 +523,70 @@ def _resolve_perplexity(
     )
 
 
+SECONDARY_FIRE_IF_PRIMARY_UNIQUE_LT = 8
+
+
+def cost_cascade_decision(*, primary_unique: int, secondary_available: bool) -> dict[str, Any]:
+    """Secondary vendors fire when primary unique stories are thin — not per item."""
+    fire = bool(secondary_available) and primary_unique < SECONDARY_FIRE_IF_PRIMARY_UNIQUE_LT
+    if not secondary_available:
+        reason = "no_secondary_keys"
+    elif fire:
+        reason = "primary_thin"
+    else:
+        reason = "primary_sufficient"
+    return {
+        "policy": "primary_then_secondary_if_thin",
+        "primary_unique": primary_unique,
+        "threshold": SECONDARY_FIRE_IF_PRIMARY_UNIQUE_LT,
+        "secondary_available": bool(secondary_available),
+        "secondary_fired": fire,
+        "reason": reason,
+    }
+
+
+def _keep_window_hits(
+    raw: list[DiscoveryHit],
+    *,
+    entities: list[dict[str, Any]],
+    sources: list[dict[str, Any]],
+    today: date,
+) -> tuple[list[DiscoveryHit], dict[str, int]]:
+    company_names = names_from_entities(entities, prefix="company-")
+    variety_names = names_from_entities(entities, prefix="variety-")
+    index = QualificationIndex.compile(
+        company_names=company_names,
+        variety_names=variety_names,
+        sources=sources,
+    )
+    qualified_rows = [qualify_hit(hit, index=index) for hit in raw]
+    relevant, dropped_today_noise = apply_today_relevance(qualified_rows, entities=entities)
+    deduped = unique_hits(dedupe_hits(relevant))
+    kept: list[DiscoveryHit] = []
+    dropped_not_today = 0
+    dropped_undated = 0
+    dropped_unqualified = 0
+    for hit in deduped:
+        if not hit.qualifying or _is_blackberry_stock(hit):
+            dropped_unqualified += 1
+            continue
+        if not hit.published_date:
+            dropped_undated += 1
+            continue
+        if not is_within_days(hit.published_date, today, 7):
+            dropped_not_today += 1
+            continue
+        kept.append(hit)
+    return kept, {
+        "discovered": len(raw),
+        "qualified": sum(1 for hit in deduped if hit.qualifying),
+        "dropped_not_today": dropped_not_today,
+        "dropped_undated": dropped_undated,
+        "dropped_unqualified": dropped_unqualified + dropped_today_noise,
+        "dropped_today_noise": dropped_today_noise,
+    }
+
+
 def collect_same_day_hits(
     *,
     google_provider: DiscoveryProvider | None = None,
@@ -564,73 +637,57 @@ def collect_same_day_hits(
         specialist_provider,
         week_specialist_feed_queries(),
     )
+    primary_raw = [*google_hits, *official_hits, *specialist_hits]
+    primary_kept, _primary_drops = _keep_window_hits(
+        primary_raw, entities=entities, sources=sources, today=today
+    )
+    secondary_available = any(
+        provider is not None
+        for provider in (perplexity_provider, exa_provider, apitube_provider)
+    )
+    cascade = cost_cascade_decision(
+        primary_unique=len(primary_kept),
+        secondary_available=secondary_available,
+    )
     perplexity_hits, perplexity_errors = ([], [])
-    if perplexity_provider is not None:
+    exa_hits, exa_errors = ([], [])
+    apitube_hits, apitube_errors = ([], [])
+    if cascade["secondary_fired"] and perplexity_provider is not None:
         perplexity_hits, perplexity_errors = _run_lane(
             perplexity_provider,
             today_perplexity_queries(),
             workers=3,
         )
-    exa_hits, exa_errors = ([], [])
-    if exa_provider is not None:
+    if cascade["secondary_fired"] and exa_provider is not None:
         exa_hits, exa_errors = _run_lane(exa_provider, today_keyed_queries(), workers=2)
-    apitube_hits, apitube_errors = ([], [])
-    if apitube_provider is not None:
+    if cascade["secondary_fired"] and apitube_provider is not None:
         apitube_hits, apitube_errors = _run_lane(
             apitube_provider, today_keyed_queries(), workers=2
         )
-    raw = [*google_hits, *official_hits, *specialist_hits, *perplexity_hits, *exa_hits, *apitube_hits]
-    company_names = names_from_entities(entities, prefix="company-")
-    variety_names = names_from_entities(entities, prefix="variety-")
-    index = QualificationIndex.compile(
-        company_names=company_names,
-        variety_names=variety_names,
-        sources=sources,
-    )
-    qualified_rows = [qualify_hit(hit, index=index) for hit in raw]
-    relevant, dropped_today_noise = apply_today_relevance(qualified_rows, entities=entities)
-    deduped = unique_hits(dedupe_hits(relevant))
-
-    kept: list[DiscoveryHit] = []
-    dropped_not_today = 0
-    dropped_undated = 0
-    dropped_unqualified = 0
-    for hit in deduped:
-        if not hit.qualifying or _is_blackberry_stock(hit):
-            dropped_unqualified += 1
-            continue
-        if not hit.published_date:
-            dropped_undated += 1
-            continue
-        if not is_within_days(hit.published_date, today, 7):
-            dropped_not_today += 1
-            continue
-        kept.append(hit)
+    raw = [*primary_raw, *perplexity_hits, *exa_hits, *apitube_hits]
+    kept, drop_stats = _keep_window_hits(raw, entities=entities, sources=sources, today=today)
     same_day = [hit for hit in kept if is_same_calendar_day(hit.published_date, today)]
 
     official_kept = [hit for hit in kept if hit.provider == LIVE_LANE_OFFICIAL]
     stats = {
-        "discovered": len(raw),
-        "qualified": sum(1 for hit in deduped if hit.qualifying),
+        **drop_stats,
         "same_day": len(same_day),
         "week": len(kept),
-        "dropped_not_today": dropped_not_today,
-        "dropped_undated": dropped_undated,
-        "dropped_unqualified": dropped_unqualified + dropped_today_noise,
-        "dropped_today_noise": dropped_today_noise,
         "official_hosts_polled": len(official_queries),
         "official_hits": len(official_kept),
+        "primary_unique": cascade["primary_unique"],
+        "secondary_fired": cascade["secondary_fired"],
     }
     lanes = [
         getattr(google_provider, "name", LIVE_LANE_GOOGLE),
         getattr(specialist_provider, "name", LIVE_LANE_SPECIALIST),
         LIVE_LANE_OFFICIAL,
     ]
-    if perplexity_provider is not None:
+    if cascade["secondary_fired"] and perplexity_provider is not None:
         lanes.append(getattr(perplexity_provider, "name", LIVE_LANE_PERPLEXITY))
-    if exa_provider is not None:
+    if cascade["secondary_fired"] and exa_provider is not None:
         lanes.append(getattr(exa_provider, "name", LIVE_LANE_EXA))
-    if apitube_provider is not None:
+    if cascade["secondary_fired"] and apitube_provider is not None:
         lanes.append(getattr(apitube_provider, "name", LIVE_LANE_APITUBE))
     meta = {
         "today": today.isoformat(),
@@ -644,6 +701,7 @@ def collect_same_day_hits(
             *apitube_errors,
         ],
         "stats": stats,
+        "cascade": cascade,
         "specialist_feed_count": len(WEEK_SPECIALIST_FEEDS),
         "perplexity_enabled": perplexity_provider is not None,
         "exa_enabled": exa_provider is not None,
@@ -732,6 +790,7 @@ def live_feed_bundle(
     official_host_map: dict[str, str] | None = None,
     official_provider: DiscoveryProvider | None = None,
     people: list[dict[str, Any]] | None = None,
+    muted_ids: Iterable[str] | None = None,
     enrich_lead: bool = False,
 ) -> dict[str, Any]:
     today = today or utc_today()
@@ -780,6 +839,7 @@ def live_feed_bundle(
                 official_hosts=official_hosts,
                 official_host_map=official_host_map,
                 people=people,
+                muted_ids=muted_ids,
             )
             for hit in hits
         ]
