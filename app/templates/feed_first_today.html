@@ -10,7 +10,7 @@
 {% set selected = feed.selected %}
 <a class="bos-skip" href="#today-feed">Skip to Today feed</a>
 <div class="berry-os" data-feed-first data-feed-first-today data-freshness="same-day" data-today="{{ feed.today }}">
-  <div class="bos-shell" data-viewport-shell>
+  <div class="bos-shell{% if selected %} has-reader{% endif %}" data-viewport-shell>
     <aside class="bos-rail" aria-label="Feed navigation">
       <p class="bos-brand">Berry Intelligence OS<span>Feed-first reader</span></p>
       <nav class="bos-nav" aria-label="Primary product">
@@ -108,6 +108,9 @@
 
       <p class="bos-meta" data-facet-counts>{{ feed.count }} in this window</p>
       <p class="bos-note" data-keyboard-help>j / k move · u thumbs-up (again undoes) · d hide (again undoes) · s save · Esc close reader</p>
+      {% if selected %}
+      <button type="button" class="bos-btn bos-reader-reopen" data-reader-toggle aria-expanded="false" hidden>Show reader</button>
+      {% endif %}
 
       {% if not feed.cards %}
       <div class="bos-empty">
@@ -160,15 +163,16 @@
       </div>
     </main>
 
-    <aside class="bos-inspector" aria-label="Reader and intelligence">
+    <aside class="bos-inspector" data-reader-panel aria-label="Reader and intelligence">
       {% if selected %}
-      <div class="bos-reader" data-reader-root data-item-id="{{ selected.id }}" role="dialog" aria-modal="true" tabindex="-1">
+      <div class="bos-reader" data-reader-root data-item-id="{{ selected.id }}" role="region" aria-label="Article reader" tabindex="-1">
         <p class="bos-kicker">{% if selected.content_kind == 'pdf' %}PDF{% elif selected.passages %}Article{% else %}Summary{% endif %}</p>
         <h2>{{ selected.headline }}</h2>
         <p class="bos-meta">{{ selected.source_name }} · {% if selected.date_uncertain %}date unknown{% else %}{{ selected.published_at or 'date unknown' }}{% endif %}</p>
         <div class="bos-actions">
           {% if feed.prev_href %}<a class="bos-btn" data-prev-item href="{{ feed.prev_href }}">Previous</a>{% endif %}
           {% if feed.next_href %}<a class="bos-btn" data-next-item href="{{ feed.next_href }}">Next</a>{% endif %}
+          <button type="button" class="bos-btn" data-reader-toggle aria-expanded="true">Collapse reader</button>
           <a class="bos-btn" data-close-reader href="{{ feed.close_href }}">Close</a>
           <button type="button" class="bos-icon-btn" data-react="thumbs_up" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'up' else 'false' }}" aria-label="Thumbs up">👍</button>
           <button type="button" class="bos-icon-btn" data-react="thumbs_down" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'down' else 'false' }}" aria-label="Thumbs down">👎</button>

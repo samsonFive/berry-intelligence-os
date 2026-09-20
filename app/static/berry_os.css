@@ -100,11 +100,27 @@
 
 .bos-shell {
   display: grid;
-  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) minmax(320px, 420px);
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
   gap: var(--bos-space-5);
   padding: var(--bos-space-5);
   max-width: none;
   width: 100%;
+}
+
+.bos-shell.has-reader {
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) minmax(320px, 420px);
+}
+
+.bos-shell.is-reader-collapsed {
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+}
+
+.bos-shell.is-reader-collapsed .bos-inspector {
+  display: none;
+}
+
+.bos-reader-reopen {
+  margin-bottom: var(--bos-space-3);
 }
 
 .bos-rail,
@@ -252,8 +268,8 @@
 }
 
 .bos-card.is-lead {
-  grid-column: 1 / -1;
-  grid-template-columns: minmax(160px, 28%) minmax(0, 1fr);
+  grid-column: auto;
+  grid-template-columns: 1fr;
   min-height: 0;
 }
 
@@ -483,16 +499,28 @@
 
 @media (min-width: 1920px) {
   .bos-shell {
-    grid-template-columns: 240px minmax(0, 1fr) minmax(380px, 480px);
+    grid-template-columns: 240px minmax(0, 1fr);
     padding: var(--bos-space-6);
     gap: var(--bos-space-6);
+  }
+  .bos-shell.has-reader {
+    grid-template-columns: 240px minmax(0, 1fr) minmax(380px, 480px);
+  }
+  .bos-shell.is-reader-collapsed {
+    grid-template-columns: 240px minmax(0, 1fr);
   }
 }
 
 @media (min-width: 2560px) {
   .bos-shell {
-    grid-template-columns: 260px minmax(720px, 1.35fr) minmax(440px, 560px);
+    grid-template-columns: 260px minmax(0, 1fr);
     padding: var(--bos-space-7);
+  }
+  .bos-shell.has-reader {
+    grid-template-columns: 260px minmax(720px, 1.35fr) minmax(440px, 560px);
+  }
+  .bos-shell.is-reader-collapsed {
+    grid-template-columns: 260px minmax(0, 1fr);
   }
   .bos-feed {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -501,14 +529,16 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
   .bos-card.is-lead {
-    grid-template-columns: minmax(200px, 30%) minmax(0, 1fr);
+    grid-template-columns: 1fr;
     min-height: 0;
   }
   .bos-title { font-size: clamp(2.2rem, 2.4vw, 3.1rem); }
 }
 
 @media (max-width: 1440px) {
-  .bos-shell { grid-template-columns: 200px minmax(0, 1fr) minmax(280px, 360px); }
+  .bos-shell { grid-template-columns: 200px minmax(0, 1fr); }
+  .bos-shell.has-reader { grid-template-columns: 200px minmax(0, 1fr) minmax(280px, 360px); }
+  .bos-shell.is-reader-collapsed { grid-template-columns: 200px minmax(0, 1fr); }
 }
 
 @media (max-width: 1280px) {
