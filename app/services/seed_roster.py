@@ -323,10 +323,10 @@ def official_hosts(roster: list[dict[str, Any]]) -> set[str]:
 def profile_url(row: dict[str, Any]) -> str:
     entity_id = str(row.get("id") or "")
     if entity_id.startswith("breeding_program-"):
-        return f"/entities/breeding_program/{entity_id}"
+        return f"/entities/breeding_program/{entity_id}?view=feed"
     if entity_id.startswith("brand-"):
-        return f"/entities/brand/{entity_id}"
-    return f"/entities/company/{entity_id}"
+        return f"/entities/brand/{entity_id}?view=feed"
+    return f"/entities/company/{entity_id}?view=feed"
 
 
 def filter_roster(

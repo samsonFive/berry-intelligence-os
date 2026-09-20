@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Research Ops — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os" data-feed-first data-feed-first-ops>
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">Research Ops</p>
+      <h1 class="bos-title">Coverage and lane health</h1>
+      <p class="bos-lede">Ingestion lives here, not on Today. Secret values are never shown.</p>
+
+      <div class="bos-people-card">
+        <p class="bos-kicker">Watched world</p>
+        <p>{{ counts.tracked_companies }} companies tracked · {{ counts.candidates }} candidate · {{ counts.registries }} registries excluded · {{ people_count }} people ({{ social_coverage }} social)</p>
+      </div>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Acquisition lanes</h2>
+        <ul>
+          <li>Google News RSS — {{ 'live' if lanes.google_news_rss else 'down' }} (fallback, not backbone)</li>
+          <li>Specialist RSS — {{ 'live' if lanes.specialist_rss else 'down' }}</li>
+          <li>Perplexity — {{ 'keyed' if lanes.perplexity else 'key absent' }}</li>
+          <li>Exa — {{ 'keyed' if lanes.exa else 'key absent' }}</li>
+          <li>APITube — {{ 'keyed' if lanes.apitube else 'key absent' }}</li>
+          <li>NewsCatcher CatchAll — {{ 'cache-only / background' if lanes.newscatcher_catchall else 'not request-time; CATCHALL unset or unused' }}</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Today cache</h2>
+        {% if bundle.fetched_at %}
+        <p>Fetched {{ bundle.fetched_at }} · same-day {{ (bundle.stats or {}).same_day or 0 }} · lanes {{ (bundle.lanes or [])|join('+') }}</p>
+        <p class="bos-note">{{ (bundle.lane_errors or [])|length }} lane error(s). Empty same-day stays empty.</p>
+        {% else %}
+        <p class="bos-note">No same-day cache yet. Open Today or Refresh live lanes.</p>
+        {% endif %}
+      </section>
+
+      <p class="bos-note">Publication Review remains at <a href="/review">/review</a>. It is not on the thumbs-up path.</p>
+    </main>
+  </div>
+</div>
+{% endblock %}

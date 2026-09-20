@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}{{ name }} — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os" data-feed-first data-feed-first-company data-verification="{{ profile.verification_status if profile else status }}">
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">{{ verification_label }}</p>
+      <h1 class="bos-title">{{ name }}</h1>
+      {% if aliases %}<p class="bos-lede">Also known as {{ aliases|join(', ') }}</p>{% endif %}
+      <p class="bos-note">{% if is_registry %}Registry / source system. Excluded from competitor counts.{% elif candidate %}Candidate-review. Monitored, visibly unverified.{% else %}Tier is monitoring priority. Verification did not change because this company is watched.{% endif %}</p>
+
+      <div class="bos-people-card">
+        <p class="bos-meta">
+          <span>Status {{ status }}</span>
+          {% for crop in crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
+        </p>
+        {% if description %}<p>{{ description }}</p>{% endif %}
+        <p class="bos-monogram" style="position:static">{{ monogram }}</p>
+        {% if official_website %}
+        <p>Official website: <a href="{{ official_website }}" rel="noopener noreferrer">{{ official_website }}</a></p>
+        {% elif resolved_website %}
+        <p class="bos-note">Resolved website is research only: {{ resolved_website }}</p>
+        {% endif %}
+      </div>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Watches</h2>
+        <ul>
+          {% for watch in watches %}
+          <li>{{ watch.kind }}{% if watch.url %} · {{ watch.url }}{% endif %}{% if watch.query %} · {{ watch.query }}{% endif %}</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      {% if people %}
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Named people</h2>
+        <p class="bos-note">From public patent or program records. Social coverage is provider-unavailable.</p>
+        <ul>
+          {% for person in people %}
+          <li>{{ person.canonical_name }} · {{ person.monitoring_coverage }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      <section id="feed-first-intelligence" data-feed-first-entity>
+        <h2 class="bos-title" style="font-size:1.4rem">From Today thumbs-up</h2>
+        {% if statements %}
+        <ul>
+          {% for row in statements %}
+          <li>
+            <p>{{ row.statement_text }}</p>
+            <p class="bos-note">Evidence: {{ row.supporting_passages[0] if row.supporting_passages else 'none' }} · {{ row.extraction_model }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="bos-note">No trusted statements yet. Thumbs-up on a Today item matched to this company extracts here. No second review queue.</p>
+        {% endif %}
+      </section>
+
+      <p>
+        <a class="bos-btn" href="/today?entity={{ entity.id if entity.id else profile.id }}">Today for this company</a>
+        {% if legacy_href %}<a class="bos-btn" href="{{ legacy_href }}">Legacy catalog profile</a>{% endif %}
+      </p>
+    </main>
+  </div>
+</div>
+{% endblock %}

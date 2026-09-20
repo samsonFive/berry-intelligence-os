@@ -323,8 +323,10 @@ def test_people_watchlist_is_honest():
     page = TestClient(app).get("/people")
     assert page.status_code == 200
     assert "provider-unavailable" in page.text
-    assert "Empty watchlist" in page.text
+    assert "discovery-only" in page.text
     assert "data-feed-first-people" in page.text
+    assert "Empty watchlist" not in page.text
+    assert "do not invent" in page.text.lower() or "Do not invent" in page.text
 
 
 def test_following_tracks_seed_companies_and_excludes_registries():
