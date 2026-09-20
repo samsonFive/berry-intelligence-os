@@ -40,6 +40,7 @@ def test_today_filter_query_restores_selected_controls():
     assert "data-facet-counts" in page.text
     assert "data-filter-chips" in page.text
     assert 'name="sort"' in page.text
+    assert 'name="geography"' in page.text
     assert 'href="/settings"' in page.text
     assert "data-clear-filter" in page.text
 

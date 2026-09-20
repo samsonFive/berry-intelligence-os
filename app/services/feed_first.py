@@ -226,6 +226,7 @@ def parse_filters(params: dict[str, Any]) -> dict[str, str]:
         "q": _one("q"),
         "item": _one("item"),
         "person": _one("person"),
+        "geography": _one("geography"),
         "sort": _one("sort", {"rank", "chrono"}) or "rank",
     }
 
@@ -246,6 +247,7 @@ def active_filter_chips(filters: dict[str, str]) -> list[dict[str, str]]:
         "state": filters.get("state") or "",
         "entity": filters.get("entity") or "",
         "person": filters.get("person") or "",
+        "geography": filters.get("geography") or "",
         "q": f"Search {filters.get('q')}" if filters.get("q") else "",
         "sort": "Newest first" if filters.get("sort") == "chrono" else "",
     }
@@ -434,6 +436,19 @@ def present_item(
     statements = list((state.get("statements") or {}).get(item_id) or [])
     published, date_uncertain = published_date_state(record.get("published_date") or "")
     query = filters_query(filters, item=item_id)
+    geography_chips = []
+    for geo_id in record.get("geography_ids") or []:
+        geo = entities_by_id.get(str(geo_id)) or {}
+        if str(geo.get("entity_type") or "") not in {"", "geography"} and geo:
+            continue
+        name = str(geo.get("name") or geo_id)
+        geography_chips.append(
+            {
+                "id": str(geo_id),
+                "name": name,
+                "href": f"/geographies/{geo_id}",
+            }
+        )
     return {
         "id": item_id,
         "headline": decode_html_text(record.get("title") or item_id),
@@ -449,6 +464,7 @@ def present_item(
         "crops": crops,
         "crop_labels": [CROP_LABELS[c] for c in crops if c in CROP_LABELS],
         "geographies": [str(g) for g in (record.get("geography_ids") or [])],
+        "geography_chips": geography_chips,
         "entities": entities,
         "people": people,
         "highest_tier": _highest_tier([row["tier"] for row in entities]),
@@ -557,6 +573,10 @@ def _matches(item: dict[str, Any], filters: dict[str, str]) -> bool:
     if filters["entity"] and filters["entity"] not in {row["id"] for row in item["entities"]}:
         return False
     if filters.get("person") and filters["person"] not in {row["id"] for row in item.get("people") or []}:
+        return False
+    if filters.get("geography") and filters["geography"] not in {
+        row["id"] for row in item.get("geography_chips") or []
+    } and filters["geography"] not in set(item.get("geographies") or []):
         return False
     if filters["crop"] and filters["crop"] not in item["crops"]:
         return False
@@ -684,6 +704,20 @@ def build_feed(
 
     families = {item["family"] for item in visible}
     kinds = {item["source_kind"] for item in visible}
+    geo_options: dict[str, str] = {}
+    for item in windowed:
+        for chip in item.get("geography_chips") or []:
+            geo_options[str(chip["id"])] = str(chip.get("name") or chip["id"])
+    geography_options = [
+        {"id": geo_id, "name": name}
+        for geo_id, name in sorted(geo_options.items(), key=lambda row: row[1].casefold())
+    ]
+    chips = active_filter_chips(filters)
+    geo_filter = str(filters.get("geography") or "")
+    if geo_filter:
+        for chip in chips:
+            if chip["key"] == "geography":
+                chip["label"] = geo_options.get(geo_filter, geo_filter)
     return {
         "cards": [{key: value for key, value in item.items() if key != "record"} for item in visible],
         "selected": None
@@ -700,7 +734,8 @@ def build_feed(
         "count": len(visible),
         "total_matched": len(ranked),
         "facet_counts": facets,
-        "filter_chips": active_filter_chips(filters),
+        "filter_chips": chips,
+        "geography_options": geography_options,
         "nav": NAV,
         "tier_labels": TIER_LABELS,
         "crop_labels": CROP_LABELS,

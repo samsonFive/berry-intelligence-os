@@ -331,6 +331,17 @@ def official_hosts(roster: list[dict[str, Any]]) -> set[str]:
     return hosts
 
 
+def official_host_map(roster: list[dict[str, Any]]) -> dict[str, str]:
+    """Official website host -> roster entity id. Caps belong at the caller."""
+    mapping: dict[str, str] = {}
+    for row in roster:
+        entity_id = str(row.get("id") or "")
+        host = hostname_of(str(row.get("official_website") or ""))
+        if entity_id and host and host not in mapping:
+            mapping[host] = entity_id
+    return mapping
+
+
 def official_social_channels(row: dict[str, Any]) -> list[dict[str, str]]:
     """Seed social URLs stay discovery-only. Never marked official/verified."""
     social = row.get("social") if isinstance(row.get("social"), dict) else {}

@@ -68,6 +68,10 @@ OFFICIAL_HOSTS = {
     "berries.net.au",
     "britishberrygrowers.org.uk",
 }
+OFFICIAL_SITE_HOST_CAP = 6
+_GEO_EXTRA_ALIASES = {
+    "geography-united-states": ("u.s.", "u.s.a.", "usa"),
+}
 
 _CROP_MARKERS = (
     ("blueberry", "berry-blueberry"),
@@ -236,6 +240,87 @@ def match_entity_ids(text: str, entities: Iterable[dict[str, Any]]) -> list[str]
     return found
 
 
+def match_geography_ids(text: str, entities: Iterable[dict[str, Any]]) -> list[str]:
+    geos = [row for row in entities if str(row.get("entity_type") or "") == "geography"]
+    found = match_entity_ids(text, geos)
+    hay = (text or "").casefold()
+    for entity_id, aliases in _GEO_EXTRA_ALIASES.items():
+        if entity_id in found:
+            continue
+        if not any(str(row.get("id") or "") == entity_id for row in geos):
+            continue
+        if any(re.search(rf"\b{re.escape(alias)}\b", hay) for alias in aliases):
+            found.append(entity_id)
+    return found
+
+
+def match_official_entity_id(
+    url: str,
+    source_domain: str,
+    official_host_map: dict[str, str] | None,
+) -> str:
+    if not official_host_map:
+        return ""
+    host = hostname(url) or (source_domain or "").casefold().removeprefix("www.")
+    return official_host_map.get(host) or ""
+
+
+def bounded_official_hosts(hosts: Iterable[str] | None = None) -> list[str]:
+    """At most six official hosts. Never one-request-per-seed-company."""
+    ordered: list[str] = []
+    seen: set[str] = set()
+    for raw in (*sorted(OFFICIAL_HOSTS), *sorted(hosts or [])):
+        host = str(raw or "").casefold().removeprefix("www.")
+        if not host or host in seen:
+            continue
+        seen.add(host)
+        ordered.append(host)
+        if len(ordered) >= OFFICIAL_SITE_HOST_CAP:
+            break
+    return ordered
+
+
+def today_official_site_queries(hosts: Iterable[str] | None = None) -> list[PulseQuery]:
+    """Bounded Google News site: rows for first-party company hosts."""
+    edition = GEO_EDITIONS["global"]
+    berry = (
+        "(blueberry OR strawberries OR strawberry OR raspberry OR blackberry "
+        "OR berry OR cultivar OR harvest OR grower)"
+    )
+    rows: list[PulseQuery] = []
+    for host in bounded_official_hosts(hosts):
+        rows.append(
+            PulseQuery(
+                id=f"today:official:{host}",
+                text=f"site:{host} {berry}",
+                berry=None,
+                geography="global",
+                topic="official_site",
+                kind="official_site",
+                hl=edition["hl"],
+                gl=edition["gl"],
+                ceid=edition["ceid"],
+            ).with_window("24h")
+        )
+    return rows
+
+
+def annotate_live_geographies(
+    records: list[dict[str, Any]],
+    *,
+    entities: Iterable[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Fill empty geography_ids on cached live rows from named geographies."""
+    annotated: list[dict[str, Any]] = []
+    for row in records:
+        updated = dict(row)
+        if not updated.get("geography_ids"):
+            text = f"{updated.get('title') or ''} {updated.get('summary') or ''}"
+            updated["geography_ids"] = match_geography_ids(text, entities)
+        annotated.append(updated)
+    return annotated
+
+
 def berry_ids_for(hit: DiscoveryHit) -> list[str]:
     found: list[str] = []
     if hit.berry and hit.berry in BERRY_IDS:
@@ -270,6 +355,7 @@ def hit_to_record(
     entities: Iterable[dict[str, Any]],
     today: date,
     official_hosts: set[str] | None = None,
+    official_host_map: dict[str, str] | None = None,
     people: Iterable[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     url = preferred_url(hit)
@@ -277,6 +363,13 @@ def hit_to_record(
         url = f"https://{url.lstrip('/')}"
     text = f"{hit.title} {hit.snippet}"
     entity_ids = match_entity_ids(text, entities)
+    official_entity = match_official_entity_id(
+        url or hit.origin_publisher_url or hit.url or "",
+        hit.source_domain or "",
+        official_host_map,
+    )
+    if official_entity and official_entity not in entity_ids:
+        entity_ids.append(official_entity)
     from app.services.people_watchlist import match_people
 
     person_ids = [row["id"] for row in match_people(text, people or [])]
@@ -298,7 +391,7 @@ def hit_to_record(
         "berry_ids": berry_ids_for(hit),
         "entity_ids": entity_ids,
         "person_ids": person_ids,
-        "geography_ids": [],
+        "geography_ids": match_geography_ids(text, entities),
         "tags": ["live", "unreviewed"],
         "publisher_description": snippet,
         "qualify_reason": hit.qualify_reason,
@@ -405,6 +498,7 @@ def collect_same_day_hits(
     entities: list[dict[str, Any]] | None = None,
     sources: list[dict[str, Any]] | None = None,
     today: date | None = None,
+    official_hosts: set[str] | None = None,
 ) -> tuple[list[DiscoveryHit], dict[str, Any]]:
     today = today or utc_today()
     google_provider = google_provider or GoogleNewsRssProvider()
@@ -427,7 +521,10 @@ def collect_same_day_hits(
     entities = entities or []
     sources = sources or []
 
-    google_hits, google_errors = _run_lane(google_provider, today_google_queries())
+    google_hits, google_errors = _run_lane(
+        google_provider,
+        [*today_google_queries(), *today_official_site_queries(official_hosts)],
+    )
     specialist_hits, specialist_errors = _run_lane(
         specialist_provider,
         week_specialist_feed_queries(),
@@ -592,6 +689,7 @@ def live_feed_bundle(
     enable_exa: bool | None = None,
     enable_apitube: bool | None = None,
     official_hosts: set[str] | None = None,
+    official_host_map: dict[str, str] | None = None,
     people: list[dict[str, Any]] | None = None,
     enrich_lead: bool = False,
 ) -> dict[str, Any]:
@@ -604,6 +702,7 @@ def live_feed_bundle(
                 list(cached.get("records") or []),
                 entities=entities or [],
             )
+            rows = annotate_live_geographies(rows, entities=entities or [])
             payload = dict(cached)
             payload["records"] = rows
             stats = dict(payload.get("stats") or {})
@@ -628,6 +727,7 @@ def live_feed_bundle(
         entities=entities,
         sources=sources,
         today=today,
+        official_hosts=official_hosts,
     )
     records = collapse_story_clusters(
         [
@@ -636,6 +736,7 @@ def live_feed_bundle(
                 entities=entities or [],
                 today=today,
                 official_hosts=official_hosts,
+                official_host_map=official_host_map,
                 people=people,
             )
             for hit in hits

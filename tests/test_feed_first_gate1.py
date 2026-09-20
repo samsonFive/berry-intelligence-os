@@ -21,8 +21,10 @@ from app.services.feed_first import (
     statements_for_entity,
 )
 from app.services.feed_first_live import (
+    OFFICIAL_SITE_HOST_CAP,
     live_feed_bundle,
     live_item_id,
+    today_official_site_queries,
 )
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.industry_pulse.providers import MemoryProvider
@@ -674,3 +676,99 @@ def test_today_http_does_not_read_stored_evidence(monkeypatch):
     assert "Fall Creek expands blueberry nursery harvest" in page.text
     assert "14 million blueberry plants after 10 years" not in page.text
     assert "not a live multi-lane poll" not in page.text
+
+
+def _geo_entities():
+    return [
+        *_entities(),
+        {"id": "geography-spain", "name": "Spain", "entity_type": "geography", "status": "active"},
+        {"id": "geography-peru", "name": "Peru", "entity_type": "geography", "status": "active"},
+        {"id": "company-hortifrut", "name": "Hortifrut", "entity_type": "company", "status": "active"},
+    ]
+
+
+def test_live_rows_tag_named_geography_and_filter():
+    spain = _record(id="ev-spain")
+    peru = _record(
+        id="ev-peru",
+        title="Peru blueberry export volumes rise",
+        geography_ids=["geography-peru"],
+    )
+    feed = build_feed(
+        evidence=[spain, peru],
+        entities=_geo_entities(),
+        state=empty_state(),
+        filters=parse_filters({"window": "30d", "geography": "geography-spain"}),
+        today=date(2026, 6, 1),
+    )
+    assert [item["id"] for item in feed["cards"]] == ["ev-spain"]
+    assert feed["cards"][0]["geography_chips"][0]["name"] == "Spain"
+    assert {row["id"] for row in feed["geography_options"]} == {"geography-peru", "geography-spain"}
+    restored = parse_filters({"window": "30d", "geography": "geography-spain"})
+    assert restored["geography"] == "geography-spain"
+
+
+def test_live_collector_tags_spain_and_official_first_party(tmp_path: Path):
+    today = date(2026, 9, 21)
+    now = datetime(2026, 9, 21, 15, 0, tzinfo=timezone.utc)
+    google = MemoryProvider(
+        hits_by_query_id={
+            "today:blueberry:global:24h": [_same_day_hit()],
+            "today:official:hortifrut.com:24h": [
+                _same_day_hit(
+                    title="Hortifrut reports new blueberry plantings",
+                    url="https://www.hortifrut.com/news/plantings",
+                    source_domain="hortifrut.com",
+                    origin_publisher_url="https://www.hortifrut.com/news/plantings",
+                    origin_publisher_name="Hortifrut",
+                    snippet="The company expands blueberry acreage in Spain.",
+                    query_id="today:official:hortifrut.com:24h",
+                )
+            ],
+        }
+    )
+    bundle = live_feed_bundle(
+        inbox_dir=tmp_path,
+        entities=_geo_entities(),
+        sources=[],
+        refresh=True,
+        today=today,
+        now=now,
+        google_provider=google,
+        specialist_provider=MemoryProvider(hits_by_query_id={}),
+        enable_perplexity=False,
+        enable_exa=False,
+        enable_apitube=False,
+        official_hosts={"hortifrut.com"},
+        official_host_map={"hortifrut.com": "company-hortifrut"},
+    )
+    titles = {row["title"]: row for row in bundle["records"]}
+    fall_creek = titles["Fall Creek expands blueberry nursery harvest after new planting"]
+    hortifrut = titles["Hortifrut reports new blueberry plantings"]
+    assert "geography-spain" in fall_creek["geography_ids"]
+    assert hortifrut["source_type"] == "company_website"
+    assert "company-hortifrut" in hortifrut["entity_ids"]
+    assert "geography-spain" in hortifrut["geography_ids"]
+
+    cached = live_feed_bundle(
+        inbox_dir=tmp_path,
+        entities=_geo_entities(),
+        sources=[],
+        refresh=False,
+        today=today,
+        now=now,
+        google_provider=MemoryProvider(hits_by_query_id={}),
+        specialist_provider=MemoryProvider(hits_by_query_id={}),
+        enable_perplexity=False,
+        enable_exa=False,
+        enable_apitube=False,
+    )
+    assert all(row.get("geography_ids") for row in cached["records"])
+
+
+def test_official_site_queries_stay_bounded():
+    hosts = {f"grower{i}.example" for i in range(40)}
+    queries = today_official_site_queries(hosts)
+    assert len(queries) <= OFFICIAL_SITE_HOST_CAP
+    assert any(query.id.startswith("today:official:hortifrut.com") for query in queries)
+    assert all("site:" in query.text for query in queries)
