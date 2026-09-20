@@ -326,6 +326,7 @@ from app.services.learner import (
     concepts_by_pillar as learn_concepts_by_pillar,
     freshness_summary as learn_freshness_summary,
     glossary_hits_for_text as learn_glossary_hits_for_text,
+    growing_profile_for_company as learn_growing_profile_for_company,
     growing_profile_for_varieties as learn_growing_profile_for_varieties,
     learn_href_for_trait_id,
     related_concepts as learn_related_concepts,
@@ -3434,6 +3435,14 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
         return None
     linked_people = [row for row in discover_people(world["existing"]) if entity_id in row.get("entity_ids", [])]
     name = (trusted or {}).get("name") or (seed or {}).get("canonical_name") or entity_id
+    entity_rows = all_entities()
+    entities_by_id = {str(row.get("id")): row for row in entity_rows if row.get("id")}
+    growing_profile = learn_growing_profile_for_company(
+        entity_id,
+        relationships=all_relationships(),
+        entities=entities_by_id,
+        facts=all_facts(),
+    )
     return templates.TemplateResponse(
         request=request,
         name="feed_first_company.html",
@@ -3457,6 +3466,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "people": linked_people,
             "social_channels": (seed or {}).get("social_channels") or [],
             "related_entities": (seed or {}).get("related_entities") or [],
+            "growing_profile": growing_profile,
             "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
             "monogram": (seed or {}).get("monogram") or name[:2].upper(),
             "logo_url": (seed or {}).get("logo_url") or "",
@@ -6778,7 +6788,7 @@ def landscape_all(request: Request) -> HTMLResponse:
             context={
                 **model,
                 "nav": world["nav"],
-                "active_href": "/landscapes?view=feed",
+                "active_href": "/landscapes",
                 "counts": world["counts"],
                 "authoring_mode": AUTHORING_MODE,
                 "static_build": False,

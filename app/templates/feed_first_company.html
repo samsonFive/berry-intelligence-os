@@ -74,6 +74,24 @@
       </section>
       {% endif %}
 
+      <section id="growing-profile" data-learner-profile>
+        <h2 class="bos-title" style="font-size:1.4rem">Learner context</h2>
+        <p class="bos-note">Educational context from captured portfolio-variety traits. This is not a competitive score or a new Fact.</p>
+        {% if growing_profile and growing_profile.has_any %}
+        <ul>
+          {% for row in growing_profile.rows %}
+          <li>
+            <a href="{{ row.href }}">{{ row.name }}</a>
+            {% if row.trait_names %}<span class="bos-note"> · {{ row.trait_names|join(', ') }}</span>{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="bos-note">No captured trait-tagged Facts currently connect this company’s portfolio varieties to a Learner concept.</p>
+        {% endif %}
+        <p><a class="bos-btn" href="/learn">Open Learner mode</a></p>
+      </section>
+
       <section id="feed-first-intelligence" data-feed-first-entity>
         <h2 class="bos-title" style="font-size:1.4rem">From Today thumbs-up</h2>
         {% if statements %}

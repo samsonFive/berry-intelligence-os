@@ -15,6 +15,13 @@
       <h1 class="bos-title">Trusted statements across the watched world</h1>
       <p class="bos-lede">{{ disclosure }}</p>
       <p class="bos-note">{{ tracked_companies }} companies tracked · {{ statement_count }} trusted statements · {{ story_count or 0 }} live stories</p>
+      <div class="bos-actions">
+        <a class="bos-btn is-primary" href="/landscapes">Open full competitive landscape</a>
+        <a class="bos-btn" href="/landscapes/berries/strawberry">Strawberry</a>
+        <a class="bos-btn" href="/landscapes/berries/blueberry">Blueberry</a>
+        <a class="bos-btn" href="/landscapes/berries/raspberry">Raspberry</a>
+        <a class="bos-btn" href="/landscapes/berries/blackberry">Blackberry</a>
+      </div>
       {% if companies %}
       {% for company in companies %}
       <section class="bos-people-card">
@@ -43,7 +50,6 @@
         <p>No trusted statements or live clustered stories yet. Thumbs-up on Today lands intelligence here; live one-story-once clusters reuse as briefs without implying trust.</p>
       </div>
       {% endif %}
-      <p><a class="bos-btn" href="/landscapes?view=legacy">Legacy landscape</a></p>
     </main>
   </div>
 </div>

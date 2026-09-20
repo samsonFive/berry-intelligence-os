@@ -15,7 +15,10 @@
       <p class="bos-kicker">This week</p>
       <h1 class="bos-title">What changed this week</h1>
       <p class="bos-lede">{{ disclosure }}</p>
-      <p><a class="bos-btn is-primary" href="{{ ask_href }}">Ask Berry OS</a></p>
+      <p>
+        <a class="bos-btn is-primary" href="{{ ask_href }}">Ask Berry OS</a>
+        <a class="bos-btn" href="/week?view=legacy">Open legacy week edition</a>
+      </p>
       <nav class="bos-filters" aria-label="Time window">
         {% for w, label in [("24h", "24 hours"), ("7d", "7 days"), ("30d", "30 days")] %}
         <a class="bos-chip{% if w == window %} is-active{% endif %}" href="/week?window={{ w }}">{{ label }}</a>
