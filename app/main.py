@@ -3413,21 +3413,7 @@ def _wants_feed_first_profile(request: Request) -> bool:
     view = str(request.query_params.get("view") or "").strip().lower()
     if view == "legacy":
         return False
-    if view == "feed":
-        return True
-    referer = str(request.headers.get("referer") or "")
-    return any(
-        token in referer
-        for token in (
-            "/today",
-            "/following",
-            "/people",
-            "/research-ops",
-            "/saved",
-            "/landscapes",
-            "/entities?",
-        )
-    ) or referer.rstrip("/").endswith("/entities")
+    return True
 
 
 def _feed_first_company_response(request: Request, entity_id: str) -> HTMLResponse | None:

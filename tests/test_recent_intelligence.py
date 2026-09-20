@@ -161,7 +161,7 @@ def test_live_entity_page_opens_recent_intelligence_in_the_reader(monkeypatch, t
             "entity_ids": ["company-x"],
         }
     )
-    page = TestClient(app).get("/entities/company/company-x")
+    page = TestClient(app).get("/entities/company/company-x?view=legacy")
     assert page.status_code == 200
     assert "Latest captured reporting" in page.text
     assert 'href="/intelligence/ev-trusted-x"' in page.text
