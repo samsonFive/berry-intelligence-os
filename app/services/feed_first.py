@@ -395,12 +395,8 @@ def present_item(
     else:
         display_kind = kind
     decision = decision_for(item_id, state)
-    statements = [
-        row
-        for row in (state.get("statements") or {}).get(item_id) or []
-        if row.get("statement_state") != "removed"
-    ]
-    published = str(record.get("published_date") or "")
+    statements = list((state.get("statements") or {}).get(item_id) or [])
+    published, date_uncertain = published_date_state(record.get("published_date") or "")
     query = filters_query(filters, item=item_id)
     return {
         "id": item_id,
@@ -412,6 +408,7 @@ def present_item(
         "display_kind": display_kind,
         "source_url": record.get("source_url") or "",
         "published_at": published,
+        "date_uncertain": date_uncertain,
         "captured_at": record.get("captured_date") or "",
         "crops": crops,
         "crop_labels": [CROP_LABELS[c] for c in crops if c in CROP_LABELS],
@@ -430,7 +427,7 @@ def present_item(
         "image_url": safe_image_url(record),
         "family": card_family(record, lead=lead, rank=rank),
         "decision": decision,
-        "statement_count": len(statements),
+        "statement_count": sum(1 for row in statements if row.get("statement_state") != "removed"),
         "statements": statements,
         "extraction_pending": bool(decision["reaction"] == "up" and not statements),
         "reader_href": f"/today?{query}" if query else f"/today?item={item_id}",
@@ -468,15 +465,24 @@ def _monogram(name: str) -> str:
     return (name[:2] or "BI").upper()
 
 
+def published_date_state(published: Any) -> tuple[str, bool]:
+    raw = str(published or "").strip()
+    if not raw:
+        return "", True
+    try:
+        when = date.fromisoformat(raw[:10])
+    except ValueError:
+        return raw, True
+    return when.isoformat(), False
+
+
 def _in_window(published: str, window: str, today: date) -> bool:
     if not window:
         return True
-    if not published:
+    stamp, uncertain = published_date_state(published)
+    if uncertain or not stamp:
         return False
-    try:
-        when = date.fromisoformat(published[:10])
-    except ValueError:
-        return False
+    when = date.fromisoformat(stamp)
     if when > today:
         return False
     if window == "today":
@@ -485,6 +491,28 @@ def _in_window(published: str, window: str, today: date) -> bool:
     if not days:
         return True
     return (today - when).days <= days
+
+
+def _facet_counts(items: list[dict[str, Any]]) -> dict[str, Any]:
+    tiers: dict[str, int] = {}
+    crops: dict[str, int] = {}
+    states = {"unread": 0, "read": 0, "saved": 0, "judged": 0}
+    for item in items:
+        tier = str(item.get("highest_tier") or "")
+        if tier:
+            tiers[tier] = tiers.get(tier, 0) + 1
+        for crop in item.get("crops") or []:
+            crops[str(crop)] = crops.get(str(crop), 0) + 1
+        decision = item.get("decision") or {}
+        if decision.get("read"):
+            states["read"] += 1
+        else:
+            states["unread"] += 1
+        if decision.get("saved"):
+            states["saved"] += 1
+        if decision.get("reaction") in {"up", "down"}:
+            states["judged"] += 1
+    return {"tier": tiers, "crop": crops, "state": states, "total": len(items)}
 
 
 def _matches(item: dict[str, Any], filters: dict[str, str]) -> bool:
@@ -562,7 +590,7 @@ def build_feed(
             capture=captures.get(item_id),
         )
 
-    ranked: list[dict[str, Any]] = []
+    windowed: list[dict[str, Any]] = []
     for record in evidence:
         if record.get("status") and record.get("status") != "published":
             continue
@@ -573,10 +601,9 @@ def build_feed(
         published = str(record.get("published_date") or "")
         if not _in_window(published, filters["window"], today):
             continue
-        item = _present(record)
-        if not _matches(item, filters):
-            continue
-        ranked.append(item)
+        windowed.append(_present(record))
+    facets = _facet_counts(windowed)
+    ranked = [item for item in windowed if _matches(item, filters)]
 
     order = {name: index for index, name in enumerate(TIERS)}
     ranked.sort(key=lambda item: (item["published_at"] or "", item["id"]), reverse=True)
@@ -636,6 +663,7 @@ def build_feed(
         "tier_hrefs": {key: _href(tier=key) for key in TIERS},
         "count": len(visible),
         "total_matched": len(ranked),
+        "facet_counts": facets,
         "nav": NAV,
         "tier_labels": TIER_LABELS,
         "crop_labels": CROP_LABELS,

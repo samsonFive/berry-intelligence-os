@@ -86,7 +86,7 @@
         <a class="bos-btn" href="{{ feed.refresh_href }}">Refresh live lanes</a>
       </form>
 
-      <p class="bos-meta">{{ feed.count }} showing · same-day={{ feed.same_day_count }} · fetched {{ feed.fetched_at or 'not yet' }} · lanes={{ (feed.lanes or [])|join('+') }} · article={{ feed.has_article }} · official={{ feed.has_official }} · social-style={{ feed.has_social_style }} · fallback={{ feed.has_fallback }}</p>
+      <p class="bos-meta" data-facet-counts> {{ feed.count }} showing of {{ (feed.facet_counts.total if feed.facet_counts else feed.total_matched) }} in window · unread {{ (feed.facet_counts.state.unread if feed.facet_counts else 0) }} · tier1 {{ (feed.facet_counts.tier.tier1 if feed.facet_counts and feed.facet_counts.tier else 0) }} · blueberry {{ (feed.facet_counts.crop.blueberry if feed.facet_counts and feed.facet_counts.crop else 0) }} · same-day={{ feed.same_day_count }} · fetched {{ feed.fetched_at or 'not yet' }} · lanes={{ (feed.lanes or [])|join('+') }} · article={{ feed.has_article }} · official={{ feed.has_official }} · social-style={{ feed.has_social_style }} · fallback={{ feed.has_fallback }}</p>
       <p class="bos-note" data-keyboard-help>Keys: j / → next · k / ← previous · Esc close · u thumbs-up · d thumbs-down. State persists across reload.</p>
       {% if feed.lane_errors %}
       <p class="bos-note">{{ feed.lane_errors|length }} lane error(s). Refresh to poll again. Empty is a coverage gap, not stored August evidence.</p>
@@ -111,7 +111,7 @@
           <div>
             <p class="bos-meta">
               <span>{{ item.source_name }}</span>
-              <span>{{ item.published_at or 'date unknown' }}</span>
+              <span>{% if item.date_uncertain %}date unknown{% else %}{{ item.published_at or 'date unknown' }}{% endif %}</span>
               <span>{{ item.availability_label }}</span>
               <span>{{ item.source_kind }}</span>
               {% if item.trust_state %}<span>{{ item.trust_state }} / {{ item.review_state }}</span>{% endif %}
@@ -151,7 +151,7 @@
       <div class="bos-reader" data-reader-root data-item-id="{{ selected.id }}">
         <p class="bos-kicker">Reader · {{ selected.availability_label }}</p>
         <h2>{{ selected.headline }}</h2>
-        <p class="bos-meta">{{ selected.source_name }} · {{ selected.published_at or 'date unknown' }}</p>
+        <p class="bos-meta">{{ selected.source_name }} · {% if selected.date_uncertain %}date unknown{% else %}{{ selected.published_at or 'date unknown' }}{% endif %}</p>
         <div class="bos-actions">
           {% if feed.prev_href %}<a class="bos-btn" data-prev-item href="{{ feed.prev_href }}">Previous</a>{% endif %}
           {% if feed.next_href %}<a class="bos-btn" data-next-item href="{{ feed.next_href }}">Next</a>{% endif %}
@@ -194,7 +194,7 @@
           <h3>Intelligence inspector</h3>
           <div data-statement-list>
             {% for row in selected.statements %}
-            <article class="bos-statement" data-statement-id="{{ row.id }}">
+            <article class="bos-statement" data-statement-id="{{ row.id }}" data-statement-state="{{ row.statement_state }}" data-importance="{{ row.importance_state }}">
               <form data-statement-edit="{{ row.id }}">
                 <textarea name="text">{{ row.statement_text }}</textarea>
                 <div class="bos-actions">
@@ -202,6 +202,7 @@
                   <button type="button" class="bos-btn" data-statement-action="important">Important</button>
                   <button type="button" class="bos-btn" data-statement-action="demote">Demote</button>
                   <button type="button" class="bos-btn" data-statement-action="remove">Remove</button>
+                  <button type="button" class="bos-btn" data-statement-action="restore">Restore</button>
                 </div>
               </form>
               <p class="bos-note">Evidence: {{ row.supporting_passages[0] if row.supporting_passages else 'none' }}</p>

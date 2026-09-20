@@ -27,6 +27,8 @@ FETCH_TIMEOUT = 4.0
 USER_AGENT = "BerryIntelligenceOS-Reader/1.0 (+https://github.com/samsonFive/berry-intelligence-os)"
 _SCRIPT_RE = re.compile(r"<script\b[^>]*>.*?</script>", re.IGNORECASE | re.DOTALL)
 _STYLE_RE = re.compile(r"<style\b[^>]*>.*?</style>", re.IGNORECASE | re.DOTALL)
+_ON_EVENT_RE = re.compile(r"\son\w+\s*=\s*(['\"]).*?\1", re.IGNORECASE | re.DOTALL)
+_JS_URL_RE = re.compile(r"javascript:", re.IGNORECASE)
 _P_RE = re.compile(r"<p\b[^>]*>(.*?)</p>", re.IGNORECASE | re.DOTALL)
 _TITLE_RE = re.compile(r"<title\b[^>]*>(.*?)</title>", re.IGNORECASE | re.DOTALL)
 _BLOCKED_HOSTS = {
@@ -74,9 +76,16 @@ def frame_allowed(headers: dict[str, str]) -> bool:
     return "*" in hay
 
 
-def _paragraphs_from_html(html: str) -> list[str]:
-    cleaned = _SCRIPT_RE.sub(" ", html)
+def sanitize_reader_html(html: str) -> str:
+    """Drop active scripts, styles, handlers, and javascript: URLs."""
+    cleaned = _SCRIPT_RE.sub(" ", html or "")
     cleaned = _STYLE_RE.sub(" ", cleaned)
+    cleaned = _ON_EVENT_RE.sub("", cleaned)
+    return _JS_URL_RE.sub("", cleaned)
+
+
+def paragraphs_from_html(html: str) -> list[str]:
+    cleaned = sanitize_reader_html(html)
     found = [decode_html_text(chunk) for chunk in _P_RE.findall(cleaned)]
     passages = [row for row in found if len(row) >= 40]
     if passages:
@@ -85,6 +94,10 @@ def _paragraphs_from_html(html: str) -> list[str]:
     if len(blob) >= 80:
         return [blob[:2000]]
     return []
+
+
+def _paragraphs_from_html(html: str) -> list[str]:
+    return paragraphs_from_html(html)
 
 
 def classify_capture(passages: list[str], *, status_code: int) -> str:
