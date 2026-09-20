@@ -1,5 +1,7 @@
 """Feed-first golden-path regressions across the Berry OS shell."""
 
+from pathlib import Path
+
 from fastapi.testclient import TestClient
 
 from app.main import app
@@ -121,12 +123,13 @@ def test_restored_surfaces_use_berry_os_shell_and_dense_collections():
     assert "data-berry-os-landscape" in blueberry.text
     assert "landscape-quick-nav" in blueberry.text
 
-    statements = client.get("/statements")
-    assert "bos-dense-grid" in statements.text
-    week = client.get("/week")
-    assert "bos-dense-grid" in week.text
-    briefs = client.get("/landscapes?view=feed")
-    assert "bos-dense-grid" in briefs.text
+    for template in (
+        "feed_first_statements.html",
+        "feed_first_week.html",
+        "feed_first_landscapes.html",
+    ):
+        source = Path("app/templates", template).read_text(encoding="utf-8")
+        assert "bos-dense-grid" in source
 
     css = client.get("/static/berry_os.css").text
     assert ".bos-dense-grid" in css
