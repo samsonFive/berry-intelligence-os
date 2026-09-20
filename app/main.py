@@ -3987,6 +3987,12 @@ def _feed_first_today(request: Request) -> HTMLResponse:
     feed["lane_errors"] = bundle.get("lane_errors") or []
     feed["same_day_count"] = int((bundle.get("stats") or {}).get("same_day") or 0)
     feed["tracked_companies"] = world["counts"]["tracked_companies"]
+    feed["cache_state"] = str(bundle.get("cache_state") or "fresh")
+    if feed["cache_state"] == "missing":
+        feed["empty_copy"] = {
+            "title": "Ready to fetch live stories",
+            "body": "Select Fetch live stories. Today loads immediately and acquisition runs only when requested.",
+        }
     feed["refresh_href"] = f"/today?{filters_query(filters, refresh='1')}"
     return templates.TemplateResponse(
         request=request,
