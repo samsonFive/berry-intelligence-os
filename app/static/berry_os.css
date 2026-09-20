@@ -500,10 +500,79 @@
   margin-top: var(--bos-space-4);
 }
 
+.bos-logo-editor {
+  border: 1px solid #34425f;
+  border-radius: var(--bos-radius);
+  background: var(--bos-surface);
+  padding: var(--bos-space-4);
+  margin: var(--bos-space-3) 0;
+}
+
+.bos-logo-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--bos-space-3);
+  align-items: end;
+}
+
+.bos-logo-form label {
+  display: grid;
+  gap: var(--bos-space-2);
+  color: var(--bos-muted);
+}
+
+.bos-logo-form input {
+  min-width: 0;
+  min-height: 42px;
+  border: 1px solid #52617a;
+  border-radius: var(--bos-radius-sm);
+  background: #202b43;
+  color: #fff;
+  padding: 8px 10px;
+  font: inherit;
+}
+
+.bos-logo-form input[type="file"]::file-selector-button {
+  border: 0;
+  border-radius: 999px;
+  background: var(--bos-raised);
+  color: #fff;
+  padding: 6px 10px;
+  margin-right: 8px;
+}
+
+.bos-banner {
+  border-radius: var(--bos-radius-sm);
+  padding: var(--bos-space-3);
+}
+
+.bos-banner.is-success {
+  background: color-mix(in srgb, var(--bos-leaf) 24%, var(--bos-surface));
+}
+
+.bos-banner.is-error {
+  background: color-mix(in srgb, var(--bos-danger) 24%, var(--bos-surface));
+}
+
 .bos-roster {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: var(--bos-space-3);
+}
+
+.bos-dense-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--bos-space-3);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  align-items: start;
+}
+
+.bos-dense-grid > * {
+  min-width: 0;
+  height: 100%;
 }
 
 .bos-roster .bos-card.is-dense,
@@ -522,6 +591,146 @@
 .bos-disclosure {
   font-size: 0.8rem;
   color: var(--bos-nectar);
+}
+
+/* Restored V2 knowledge surfaces inside the Berry OS shell. Existing
+   semantic sections and landscape JS hooks stay intact; only presentation
+   is normalized to the dark, dense, responsive product language. */
+.berry-os .bos-legacy-surface {
+  color: var(--bos-text);
+  background: transparent;
+  max-width: none;
+}
+
+.berry-os .bos-legacy-surface .page-heading,
+.berry-os .bos-legacy-surface .v2-company-section,
+.berry-os .bos-legacy-surface .landscape-section {
+  border: 1px solid #34425f;
+  border-radius: var(--bos-radius);
+  background: var(--bos-surface);
+  color: var(--bos-text);
+  padding: var(--bos-space-4);
+  margin: 0 0 var(--bos-space-3);
+  box-shadow: none;
+}
+
+.berry-os .bos-legacy-surface .page-heading {
+  background:
+    linear-gradient(135deg, rgba(79, 99, 245, 0.14), rgba(244, 63, 94, 0.08)),
+    var(--bos-surface);
+}
+
+.berry-os .bos-legacy-surface h1,
+.berry-os .bos-legacy-surface h2,
+.berry-os .bos-legacy-surface h3 {
+  color: var(--bos-text);
+}
+
+.berry-os .bos-legacy-surface .also-known-as,
+.berry-os .bos-legacy-surface .context-limit,
+.berry-os .bos-legacy-surface .v2-meta,
+.berry-os .bos-legacy-surface .draft-meta,
+.berry-os .bos-legacy-surface .section-hint,
+.berry-os .bos-legacy-surface .landscape-scope {
+  color: var(--bos-muted);
+}
+
+.berry-os .bos-legacy-surface .balanced-card-grid,
+.berry-os .bos-legacy-surface .regional-summary-grid,
+.berry-os .bos-legacy-surface .enrichment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: var(--bos-space-3);
+}
+
+.berry-os .bos-legacy-surface .card,
+.berry-os .bos-legacy-surface .regional-summary-card,
+.berry-os .bos-legacy-surface .enrichment-grid article {
+  border: 1px solid #34425f;
+  border-radius: var(--bos-radius-sm);
+  background: var(--bos-raised);
+  color: var(--bos-text);
+  padding: var(--bos-space-3);
+  box-shadow: none;
+}
+
+.berry-os .bos-legacy-surface .filters,
+.berry-os .bos-legacy-surface .landscape-filter-bar,
+.berry-os .bos-legacy-surface .landscape-quick-nav,
+.berry-os .bos-legacy-surface .explore-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bos-space-2);
+  border: 1px solid #34425f;
+  border-radius: var(--bos-radius);
+  background: var(--bos-surface);
+  padding: var(--bos-space-3);
+  margin: 0 0 var(--bos-space-3);
+}
+
+.berry-os .bos-legacy-surface input,
+.berry-os .bos-legacy-surface select,
+.berry-os .bos-legacy-surface button,
+.berry-os .bos-legacy-surface .filter-chip {
+  border: 1px solid #52617a;
+  border-radius: 999px;
+  background: #202b43;
+  color: #fff;
+  min-height: 36px;
+  padding: 6px 10px;
+  font: inherit;
+}
+
+.berry-os .bos-legacy-surface select option {
+  background: #f8fafc;
+  color: #111827;
+}
+
+.berry-os .bos-legacy-surface button.is-active,
+.berry-os .bos-legacy-surface .filter-chip.is-active {
+  border-color: var(--bos-leaf);
+  background: color-mix(in srgb, var(--bos-leaf) 32%, var(--bos-raised));
+}
+
+.berry-os .bos-legacy-surface table {
+  width: 100%;
+  color: var(--bos-text);
+  background: var(--bos-surface);
+}
+
+.berry-os .bos-legacy-surface th,
+.berry-os .bos-legacy-surface td {
+  border-color: #34425f;
+  background: transparent;
+}
+
+.berry-os .v2-learn-concept {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--bos-space-3);
+}
+
+.berry-os .v2-learn-concept > .page-heading {
+  grid-column: 1 / -1;
+}
+
+.berry-os .v2-learn-concept > .v2-company-section {
+  margin: 0;
+}
+
+.berry-os .bos-legacy-surface #public-landscape {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--bos-space-3);
+}
+
+.berry-os .bos-legacy-surface #public-landscape > .landscape-section {
+  margin: 0;
+}
+
+.berry-os .bos-legacy-surface #explore-landscape,
+.berry-os .bos-legacy-surface .internal-enrichment {
+  grid-column: 1 / -1;
 }
 
 @keyframes bos-grow {

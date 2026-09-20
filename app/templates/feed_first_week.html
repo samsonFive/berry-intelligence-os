@@ -55,7 +55,7 @@
       {% if statements %}
       <section>
         <h2 class="bos-title" style="font-size:1.3rem">Trusted statements</h2>
-        <ul>
+        <ul class="bos-dense-grid">
           {% for row in statements %}
           <li class="bos-people-card">
             {% if row.importance_state == 'important' %}<p class="bos-kicker">Important</p>{% endif %}

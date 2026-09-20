@@ -102,6 +102,38 @@ def test_feed_nav_restores_full_landscape_and_learner_entry_points():
     assert "Open full competitive landscape" in briefs.text
 
 
+def test_restored_surfaces_use_berry_os_shell_and_dense_collections():
+    client = TestClient(app)
+    learn = client.get("/learn")
+    assert "data-berry-os-learn" in learn.text
+    assert "bos-shell" in learn.text
+    assert "balanced-card-grid" in learn.text
+
+    concept = client.get("/learn/firmness")
+    assert "data-berry-os-learn" in concept.text
+    assert "v2-learn-concept" in concept.text
+    assert "When you see this in intelligence" in concept.text
+
+    landscape = client.get("/landscapes")
+    assert "data-berry-os-landscape" in landscape.text
+    assert "balanced-card-grid" in landscape.text
+    blueberry = client.get("/landscapes/berries/blueberry")
+    assert "data-berry-os-landscape" in blueberry.text
+    assert "landscape-quick-nav" in blueberry.text
+
+    statements = client.get("/statements")
+    assert "bos-dense-grid" in statements.text
+    week = client.get("/week")
+    assert "bos-dense-grid" in week.text
+    briefs = client.get("/landscapes?view=feed")
+    assert "bos-dense-grid" in briefs.text
+
+    css = client.get("/static/berry_os.css").text
+    assert ".bos-dense-grid" in css
+    assert ".berry-os .bos-legacy-surface" in css
+    assert "repeat(auto-fill, minmax(260px, 1fr))" in css
+
+
 def test_people_and_week_keep_honest_coverage_copy():
     client = TestClient(app)
     people = client.get("/people")

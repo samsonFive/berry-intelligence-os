@@ -23,6 +23,7 @@
         <a class="bos-btn" href="/landscapes/berries/blackberry">Blackberry</a>
       </div>
       {% if companies %}
+      <div class="bos-dense-grid">
       {% for company in companies %}
       <section class="bos-people-card">
         <h2 class="bos-title" style="font-size:1.3rem"><a href="{{ company.profile_url }}">{{ company.name }}</a></h2>
@@ -45,6 +46,7 @@
         {% endif %}
       </section>
       {% endfor %}
+      </div>
       {% else %}
       <div class="bos-empty">
         <p>No trusted statements or live clustered stories yet. Thumbs-up on Today lands intelligence here; live one-story-once clusters reuse as briefs without implying trust.</p>
