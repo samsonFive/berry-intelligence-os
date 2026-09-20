@@ -88,6 +88,9 @@
         action = "clear_reaction";
       }
       if (action === "thumbs_up") showLoader(true);
+      if (action === "clear_reaction" || action === "thumbs_down") {
+        renderStatements([]);
+      }
       const previous = {
         up: react.getAttribute("aria-pressed"),
       };
@@ -95,8 +98,10 @@
         .then(function (data) {
           const up = root.querySelector('[data-react="thumbs_up"][data-item-id="' + itemId + '"]');
           const down = root.querySelector('[data-react="thumbs_down"][data-item-id="' + itemId + '"]');
+          const save = root.querySelector('[data-react="save"][data-item-id="' + itemId + '"]');
           if (up) setPressed(up, data.decision.reaction === "up");
           if (down) setPressed(down, data.decision.reaction === "down");
+          if (save) setPressed(save, Boolean(data.decision.saved));
           renderStatements(data.statements || []);
           const card = root.querySelector('[data-feed-card="' + itemId + '"]');
           if (card && data.decision.reaction === "down" && !reduced) {
@@ -193,23 +198,36 @@
 
   document.addEventListener("keydown", function (event) {
     if (event.target.matches("input, textarea, select")) return;
-    if (event.key === "j" || event.key === "ArrowRight") {
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    const key = event.key;
+    if (key === "j" || key === "ArrowRight") {
       const next = root.querySelector("[data-next-item]");
-      if (next && next.href) window.location.href = next.href;
+      if (next && next.href) {
+        event.preventDefault();
+        window.location.href = next.href;
+      }
     }
-    if (event.key === "k" || event.key === "ArrowLeft") {
+    if (key === "k" || key === "ArrowLeft") {
       const prev = root.querySelector("[data-prev-item]");
-      if (prev && prev.href) window.location.href = prev.href;
+      if (prev && prev.href) {
+        event.preventDefault();
+        window.location.href = prev.href;
+      }
     }
-    if (event.key === "Escape") {
+    if (key === "Escape") {
+      const reader = root.querySelector("[data-reader-root]");
       const close = root.querySelector("[data-close-reader]");
-      if (close && close.href) window.location.href = close.href;
+      if (reader && close && close.href) {
+        event.preventDefault();
+        window.location.href = close.href;
+      }
     }
-    if (event.key === "u" || event.key === "d") {
+    if (key === "u" || key === "d" || key === "s") {
+      event.preventDefault();
       const itemId = (root.querySelector("[data-reader-root]") || {}).getAttribute
         ? root.querySelector("[data-reader-root]").getAttribute("data-item-id")
         : "";
-      const action = event.key === "u" ? "thumbs_up" : "thumbs_down";
+      const action = key === "u" ? "thumbs_up" : key === "d" ? "thumbs_down" : "save";
       const button = root.querySelector('[data-react="' + action + '"][data-item-id="' + itemId + '"]');
       if (button) button.click();
     }

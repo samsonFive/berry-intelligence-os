@@ -4123,6 +4123,7 @@ def research_ops_health_page(request: Request) -> HTMLResponse:
     lanes = {
         "google_news_rss": True,
         "specialist_rss": True,
+        "official_site": True,
         "perplexity": has_perplexity(),
         "exa": has_exa(),
         "apitube": has_apitube(),
@@ -5081,20 +5082,20 @@ def week_page(request: Request, window: str = WEEK_DEFAULT_WINDOW) -> HTMLRespon
     immediate. Trust stays visibly LIVE / UNREVIEWED."""
     if str(request.query_params.get("view") or "").strip().lower() == "feed":
         from app.services.clock import utc_today
-        from app.services.feed_first import week_statements
+        from app.services.feed_first import week_model
+        from app.services.feed_first_live import cached_live_records
 
         world = _feed_first_world()
-        rows = week_statements(world["state"], today=utc_today())
+        model = week_model(
+            world["state"],
+            today=utc_today(),
+            live_records=cached_live_records(INBOX_DIR),
+        )
         return templates.TemplateResponse(
             request=request,
             name="feed_first_week.html",
             context={
-                "statements": rows,
-                "statement_count": len(rows),
-                "disclosure": (
-                    "This week reuses trusted Today thumbs-up statements from the last 7 UTC days. "
-                    "It does not run the Pulse week matrix and does not treat stored August evidence as current."
-                ),
+                **model,
                 "nav": world["nav"],
                 "active_href": "/week?view=feed",
                 "counts": world["counts"],
@@ -6744,12 +6745,14 @@ def landscape_all(request: Request) -> HTMLResponse:
     view = str(request.query_params.get("view") or "").strip().lower()
     if view == "feed":
         from app.services.feed_first import landscapes_model
+        from app.services.feed_first_live import cached_live_records
 
         world = _feed_first_world()
         model = landscapes_model(
             state=world["state"],
             entities=world["entities"],
             counts=world["counts"],
+            live_records=cached_live_records(INBOX_DIR),
         )
         return templates.TemplateResponse(
             request=request,

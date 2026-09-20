@@ -747,8 +747,12 @@ def test_live_collector_tags_spain_and_official_first_party(tmp_path: Path):
     hortifrut = titles["Hortifrut reports new blueberry plantings"]
     assert "geography-spain" in fall_creek["geography_ids"]
     assert hortifrut["source_type"] == "company_website"
+    assert hortifrut["acquisition_lane"] == "official_site"
     assert "company-hortifrut" in hortifrut["entity_ids"]
     assert "geography-spain" in hortifrut["geography_ids"]
+    assert "official_site" in bundle["lanes"]
+    assert bundle["stats"]["official_hits"] >= 1
+    assert bundle["stats"]["official_hosts_polled"] >= 1
 
     cached = live_feed_bundle(
         inbox_dir=tmp_path,

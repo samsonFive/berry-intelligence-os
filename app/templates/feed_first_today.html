@@ -108,7 +108,7 @@
       {% endif %}
 
       <p class="bos-meta" data-facet-counts> {{ feed.count }} showing of {{ (feed.facet_counts.total if feed.facet_counts else feed.total_matched) }} in window · unread {{ (feed.facet_counts.state.unread if feed.facet_counts else 0) }} · tier1 {{ (feed.facet_counts.tier.tier1 if feed.facet_counts and feed.facet_counts.tier else 0) }} · blueberry {{ (feed.facet_counts.crop.blueberry if feed.facet_counts and feed.facet_counts.crop else 0) }} · same-day={{ feed.same_day_count }} · fetched {{ feed.fetched_at or 'not yet' }} · lanes={{ (feed.lanes or [])|join('+') }} · article={{ feed.has_article }} · official={{ feed.has_official }} · social-style={{ feed.has_social_style }} · fallback={{ feed.has_fallback }}</p>
-      <p class="bos-note" data-keyboard-help>Keys: j / → next · k / ← previous · Esc close · u thumbs-up · d thumbs-down. State persists across reload.</p>
+      <p class="bos-note" data-keyboard-help>Keys: j / → next · k / ← previous · Esc close reader · u thumbs-up (again undoes) · d thumbs-down (again undoes) · s save. Modifiers ignored. State persists across reload.</p>
       {% if feed.lane_errors %}
       <p class="bos-note">{{ feed.lane_errors|length }} lane error(s). Refresh to poll again. Empty is a coverage gap, not stored August evidence.</p>
       {% endif %}
@@ -180,8 +180,9 @@
           {% if feed.prev_href %}<a class="bos-btn" data-prev-item href="{{ feed.prev_href }}">Previous</a>{% endif %}
           {% if feed.next_href %}<a class="bos-btn" data-next-item href="{{ feed.next_href }}">Next</a>{% endif %}
           <a class="bos-btn" data-close-reader href="{{ feed.close_href }}">Close</a>
-          <button type="button" class="bos-icon-btn" data-react="thumbs_up" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'up' else 'false' }}">👍</button>
-          <button type="button" class="bos-icon-btn" data-react="thumbs_down" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'down' else 'false' }}">👎</button>
+          <button type="button" class="bos-icon-btn" data-react="thumbs_up" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'up' else 'false' }}" aria-label="Thumbs up">👍</button>
+          <button type="button" class="bos-icon-btn" data-react="thumbs_down" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'down' else 'false' }}" aria-label="Thumbs down">👎</button>
+          <button type="button" class="bos-icon-btn" data-react="save" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.saved else 'false' }}" aria-label="Save">Save</button>
           {% if selected.reader_modes|length > 1 %}
           {% for mode in selected.reader_modes %}
           <button type="button" class="bos-btn" data-reader-mode="{{ mode }}">{{ mode|replace('_', ' ') }}</button>
