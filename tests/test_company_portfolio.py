@@ -252,7 +252,7 @@ def test_portfolio_links_to_company_profile_and_compare():
 
 def test_company_profile_has_portfolio_link():
     client = TestClient(app)
-    page = client.get("/entities/company/company-planasa")
+    page = client.get("/entities/company/company-planasa?view=legacy")
     assert page.status_code == 200
     assert "/entities/company/company-planasa/portfolio" in page.text
 

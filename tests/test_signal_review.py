@@ -359,7 +359,7 @@ def test_brief_and_reviewer_show_does_not_prove_before_confirm(monkeypatch, tmp_
     )
     assert saved["status"] == "deferred"
     assert list((tmp_path / "data" / "signals").glob("*.json")) == []
-    company = client.get("/entities/company/company-hortifrut")
+    company = client.get("/entities/company/company-hortifrut?view=legacy")
     assert company.status_code == 200
     assert "Open signals" in company.text
     assert "Deferred" in company.text

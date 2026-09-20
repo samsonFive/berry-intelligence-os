@@ -206,7 +206,7 @@ def test_reader_overlay_warm_is_under_500ms() -> None:
 
 def test_company_profile_is_v2_and_multi_berry() -> None:
     client = TestClient(app)
-    page = client.get("/entities/company/company-driscolls")
+    page = client.get("/entities/company/company-driscolls?view=legacy")
     assert page.status_code == 200
     html = page.text
     assert "v2-company" in html
@@ -225,7 +225,7 @@ def test_company_profile_is_v2_and_multi_berry() -> None:
     assert "data-open-reader" in html
     strawberry = TestClient(app)
     strawberry.cookies.set("bios_berry", "berry-strawberry")
-    page = strawberry.get("/entities/company/company-driscolls")
+    page = strawberry.get("/entities/company/company-driscolls?view=legacy")
     assert page.status_code == 200
     assert "STRAWBERRY" in page.text
     assert "Strawberry context" in page.text or "strawberry context" in page.text.casefold()

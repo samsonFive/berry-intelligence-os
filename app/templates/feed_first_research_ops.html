@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}Research Ops — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+{% set cascade = cascade if cascade is defined else {} %}
+<div class="berry-os" data-feed-first data-feed-first-ops>
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">Research Ops</p>
+      <h1 class="bos-title">Coverage and lane health</h1>
+      <p class="bos-lede">Ingestion lives here, not on Today. Secret values are never shown.</p>
+
+      <div class="bos-people-card">
+        <p class="bos-kicker">Watched world</p>
+        <p>{{ counts.tracked_companies }} companies tracked · {{ counts.candidates }} candidate · {{ counts.registries }} registries excluded · {{ people_count }} people ({{ social_coverage }} social)</p>
+      </div>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Acquisition lanes</h2>
+        <ul>
+          <li>Google News RSS — {{ 'live' if lanes.google_news_rss else 'down' }} (fallback, not backbone)</li>
+          <li>Specialist RSS — {{ 'live' if lanes.specialist_rss else 'down' }}</li>
+          <li>Official site — {{ health.official_site.summary }} (bounded Google News site:; cap 6)</li>
+          <li>Perplexity — {{ 'keyed' if lanes.perplexity else 'key absent' }}</li>
+          <li>Exa — {{ 'keyed' if lanes.exa else 'key absent' }}</li>
+          <li>APITube — {{ 'keyed' if lanes.apitube else 'key absent' }}</li>
+          <li>NewsCatcher CatchAll — {{ 'cache-only / background' if lanes.newscatcher_catchall else 'not request-time; CATCHALL unset or unused' }}</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Official social</h2>
+        <p>{{ social_discovered }} seed discovery URLs · {{ social_verified }} verified official · coverage {{ social_coverage }}</p>
+        <p class="bos-note">Unverified social URLs are not scraped and are not People records.</p>
+      </section>
+
+      <section data-cost-cascade>
+        <h2 class="bos-title" style="font-size:1.4rem">Cost cascade</h2>
+        <p>Policy {{ cascade.policy or 'primary_then_secondary_if_thin' }} · primary unique {{ cascade.primary_unique if cascade.primary_unique is not none else 'n/a' }} · threshold {{ cascade.threshold or 8 }} · secondary {{ 'fired' if cascade.secondary_fired else 'skipped' }} · {{ cascade.reason or 'not fetched this session' }}</p>
+        <p class="bos-note">Secondary vendors (Perplexity / Exa / APITube) are not called per item. They fire on refresh only when primary unique stories are thin. CatchAll is never request-time.</p>
+      </section>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Reader bake-off</h2>
+        <ul>
+          <li>Direct HTTP — {{ 'available' if bakeoff.direct_http.available else 'down' }} · {{ bakeoff.direct_http.notes }}</li>
+          <li>Firecrawl — {{ 'keyed' if bakeoff.firecrawl.available else 'key absent' }} · {{ bakeoff.firecrawl.notes }}</li>
+          <li>Jina — {{ 'keyed' if bakeoff.jina.available else 'key absent' }} · {{ bakeoff.jina.notes }}</li>
+        </ul>
+        <p class="bos-note">{{ bakeoff.disclosure }}</p>
+        {% if bakeoff.coverage_audit %}
+        <p class="bos-note" data-coverage-audit>Coverage audit · unique finds {{ bakeoff.coverage_audit.unique_finds }} · {{ bakeoff.coverage_audit.readable_yield }} · latency {{ bakeoff.coverage_audit.latency }} · cost {{ bakeoff.coverage_audit.cost }}</p>
+        {% endif %}
+      </section>
+
+      <section data-official-site-lane>
+        <h2 class="bos-title" style="font-size:1.4rem">Official-site first party</h2>
+        <p>{{ health.official_site.summary }}</p>
+        <p class="bos-note">Zero first-party this fetch is a coverage gap, not a missing watch. When a host publishes, the card is company_website on the official_site lane.</p>
+      </section>
+
+      <section data-watch-coverage>
+        <h2 class="bos-title" style="font-size:1.4rem">Watch coverage</h2>
+        <p>{{ health.watches.tracked_companies }} companies · {{ health.watches.official_site_watches }} official-site watches · {{ health.watches.mention_watches }} mention watches</p>
+        <p class="bos-note">Last attempt {{ health.watches.last_attempt_at or 'none' }} · last success {{ health.watches.last_success_at or 'none' }} · state {{ health.watches.coverage_state }}</p>
+        {% if health.watches.lanes %}
+        <ul>
+          {% for row in health.watches.lanes %}
+          <li>{{ row.provider }} — {{ row.coverage_state }}{% if row.last_error_class %} · {{ row.last_error_class }}{% endif %}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </section>
+
+      <section data-cluster-stats>
+        <h2 class="bos-title" style="font-size:1.4rem">One story once</h2>
+        <p>{{ health.clusters.stories }} stories · {{ health.clusters.clustered_stories }} clustered · {{ health.clusters.extra_lane_hits }} extra-lane hits collapsed</p>
+        <p class="bos-note">Same-day {{ health.same_day }} · week {{ health.week }} · Today noise dropped {{ health.dropped_today_noise }}. Tracking variants stay on the lead card. SEO, directory, and pick-your-own pages stay out of Today.</p>
+      </section>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Today cache</h2>
+        {% if bundle.fetched_at %}
+        <p>Fetched {{ bundle.fetched_at }} · same-day {{ (bundle.stats or {}).same_day or 0 }} · week {{ (bundle.stats or {}).week or 0 }} · lanes {{ (bundle.lanes or [])|join('+') }}</p>
+        <p class="bos-note">{{ health.lane_errors|length }} lane error(s). Empty same-day stays empty.</p>
+        {% else %}
+        <p class="bos-note">No same-day cache yet. Open Today or Refresh live lanes.</p>
+        {% endif %}
+      </section>
+
+      <section data-lane-errors>
+        <h2 class="bos-title" style="font-size:1.4rem">Lane errors</h2>
+        {% if health.lane_errors %}
+        <ul>
+          {% for row in health.lane_errors %}
+          <li>{{ row.provider }} — {{ row.error_class }}</li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="bos-note">No recorded lane errors on the current cache.</p>
+        {% endif %}
+        <p class="bos-note">Error class only. Secret values are never shown. Historical cards stay on Today.</p>
+      </section>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Rollback rehearsal</h2>
+        <p>Inbox analyst state snapshots live under <code>inbox/feed_first_backups/</code>. Restore replaces only <code>feed_first_state.json</code>.</p>
+        {% if snapshot_name %}
+        <p class="bos-note">Latest snapshot: {{ snapshot_name }} at {{ snapshot_at or 'unknown' }}. Does not write <code>data/evidence</code> or merge to master/prod.</p>
+        {% else %}
+        <p class="bos-note">No snapshot yet. The next thumbs-up writes one. Restore is a rehearsal function, not a production deploy.</p>
+        {% endif %}
+      </section>
+
+      <p class="bos-note">Publication Review remains at <a href="/review">/review</a>. It is not on the thumbs-up path.</p>
+    </main>
+  </div>
+</div>
+{% endblock %}

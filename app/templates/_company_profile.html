@@ -47,9 +47,11 @@
   <a href="#what-changed">Recent activity</a><a href="{{ '#current-reporting' if company_news is defined and not static_build else '#recent-intelligence' }}">Reporting</a>
   <a href="#varieties">Varieties</a><a href="#geographic-activity">Geographies</a>
   <a href="#intelligence-timeline">Timeline</a>
+  {% if feed_first_statements %}<a href="#feed-first-intelligence">Feed statements</a>{% endif %}
 </nav>
 
 {% include "_competitor_profile_concerns.html" %}
+{% include "_feed_first_entity_statements.html" %}
 
 {% if company_news is defined and not static_build %}
 <section class="sh-section sh-company-news" id="current-reporting" aria-label="Current company coverage">

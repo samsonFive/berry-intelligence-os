@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Saved — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os" data-feed-first data-feed-first-saved>
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">Saved / Boards</p>
+      <h1 class="bos-title">Saved items</h1>
+      <p class="bos-lede">Save is a board, not trust. Only thumbs-up extracts atomic statements.</p>
+      {% if cards %}
+      <div class="bos-roster">
+        {% for item in cards %}
+        <article class="bos-card is-dense">
+          <div>
+            <p class="bos-meta"><span>{{ item.source_name }}</span><span>{{ item.published_at }}</span></p>
+            <h3><a href="{{ item.reader_href }}">{{ item.headline }}</a></h3>
+            {% if item.statements %}
+            <ul data-saved-statements>
+              {% for row in item.statements %}
+              {% if row.statement_state != 'removed' %}
+              <li>{{ row.statement_text }}</li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+            {% else %}
+            <p class="bos-note">Saved only. No trusted statements on this card.</p>
+            {% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="bos-empty">
+        <p>Nothing saved yet. Save on a Today card to park it here without trusting it.</p>
+      </div>
+      {% endif %}
+    </main>
+  </div>
+</div>
+{% endblock %}

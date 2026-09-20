@@ -314,7 +314,7 @@ def test_company_page_shows_recent_competitive_moves(monkeypatch) -> None:
     )
     board = compose_moves_board(rows)
     monkeypatch.setattr("app.services.competitive_moves.board.compose_moves_board", lambda inbox_dir=None, developments=None: board)
-    page = TestClient(app).get("/entities/company/company-planasa")
+    page = TestClient(app).get("/entities/company/company-planasa?view=legacy")
     assert page.status_code == 200
     assert "Recent competitive moves" in page.text
     assert "LIVE / UNREVIEWED MOVE" in page.text

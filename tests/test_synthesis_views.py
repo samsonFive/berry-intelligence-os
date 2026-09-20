@@ -490,7 +490,7 @@ def test_landscape_route_excludes_fictional_seed_data() -> None:
 
 
 def test_company_page_shows_intelligence_summary_and_portfolio() -> None:
-    response = client.get("/entities/company/company-costa-group-holdings")
+    response = client.get("/entities/company/company-costa-group-holdings?view=legacy")
     assert response.status_code == 200
     assert "Bottom line" in response.text
     assert "Network / relationships" in response.text
@@ -498,7 +498,7 @@ def test_company_page_shows_intelligence_summary_and_portfolio() -> None:
 
 
 def test_company_page_relationship_direction_reads_naturally() -> None:
-    response = client.get("/entities/company/company-costa-group-holdings")
+    response = client.get("/entities/company/company-costa-group-holdings?view=legacy")
     # British Columbia Investment Management Corporation owns Costa (incoming edge) --
     # must render as "X owns Costa", not silently flipped or upgraded to a stronger claim.
     assert "British Columbia Investment Management Corporation" in response.text
@@ -528,7 +528,7 @@ def test_variety_page_breeding_program_and_patent_links_resolve() -> None:
 
 
 def test_fact_and_claim_badges_are_visually_distinct_on_entity_page() -> None:
-    response = client.get("/entities/company/company-costa-group-holdings")
+    response = client.get("/entities/company/company-costa-group-holdings?view=legacy")
     assert 'badge-fact' in response.text
     assert 'badge-claim' in response.text
     assert 'badge-counterevidence">DISPUTED' in response.text  # the disputed founding-date claim

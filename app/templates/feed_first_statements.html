@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Statements — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os" data-feed-first data-feed-first-statements>
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">Human Gate / Statements</p>
+      <h1 class="bos-title">Review extracted intelligence</h1>
+      <p class="bos-lede">Approve statements that are useful as written. Edit imprecise language. Demote trivia. Remove fragments, boilerplate, or unrelated claims.</p>
+
+      <section class="bos-gate-progress" data-gate-progress>
+        <div>
+          <p class="bos-kicker">Gate 3 progress</p>
+          <p><strong data-reviewed-count>{{ reviewed_count }}</strong> reviewed · <strong data-remaining-count>{{ remaining_count }}</strong> remaining · {{ statement_count }} total</p>
+        </div>
+        <progress value="{{ reviewed_count }}" max="{{ statement_count or 1 }}" aria-label="Statement review progress">{{ reviewed_count }} / {{ statement_count }}</progress>
+      </section>
+
+      <form class="bos-filters" method="get" action="/statements" aria-label="Statement review filters">
+        <label>Review state
+          <select name="review">
+            <option value="unreviewed"{% if review_filter == 'unreviewed' %} selected{% endif %}>Unreviewed</option>
+            <option value="reviewed"{% if review_filter == 'reviewed' %} selected{% endif %}>Reviewed</option>
+            <option value="all"{% if review_filter == 'all' %} selected{% endif %}>All statements</option>
+          </select>
+        </label>
+        <button class="bos-btn is-primary" type="submit">Apply</button>
+      </form>
+      <p class="bos-note">{{ visible_statement_count }} showing · edits retain the original extraction and exact supporting passage.</p>
+      {% if statements %}
+      <ul class="bos-dense-grid">
+        {% for row in statements %}
+        <li class="bos-people-card bos-review-card" data-statement-id="{{ row.id }}" data-statement-state="{{ row.statement_state }}" data-importance="{{ row.importance_state }}" data-reviewed="{{ 'true' if row.human_reviewed else 'false' }}">
+          <p class="bos-kicker">
+            <span data-review-label>{{ 'Reviewed' if row.human_reviewed else 'Needs review' }}</span>
+            · {{ row.confidence or 'confidence unknown' }}
+          </p>
+          <h2>{{ row.article_title }}</h2>
+          <p class="bos-note">{{ row.article_source }}{% if row.article_date %} · {{ row.article_date }}{% endif %}</p>
+
+          <form data-statement-edit="{{ row.id }}">
+            <label class="bos-review-text">
+              Atomic statement
+              <textarea name="text" rows="5">{{ row.statement_text }}</textarea>
+            </label>
+            <div class="bos-actions">
+              <button class="bos-btn is-primary" type="button" data-statement-action="approve">Approve</button>
+              <button class="bos-btn" type="submit">Save edit</button>
+              <button class="bos-btn" type="button" data-statement-action="important">Important</button>
+              <button class="bos-btn" type="button" data-statement-action="demote">Demote</button>
+              {% if row.statement_state == 'removed' %}
+              <button class="bos-btn" type="button" data-statement-action="restore">Restore</button>
+              {% else %}
+              <button class="bos-btn is-danger" type="button" data-statement-action="remove">Remove</button>
+              {% endif %}
+            </div>
+            <p class="bos-note" data-statement-status>
+              {{ row.statement_state }} · {{ row.importance_state }}
+              {% if row.analyst_edit_history %} · {{ row.analyst_edit_history|length }} edit(s){% endif %}
+            </p>
+          </form>
+
+          <details>
+            <summary>Evidence and provenance</summary>
+            <p>{{ row.supporting_passages[0] if row.supporting_passages else 'No supporting passage retained.' }}</p>
+            <p class="bos-note">Original: {{ row.original_extraction_text }} · {{ row.extraction_model }}</p>
+          </details>
+          <p class="bos-actions">
+            {% for entity_id in row.entity_ids %}
+            <a class="bos-chip" href="/entities/company/{{ entity_id }}">{{ entity_id }}</a>
+            {% endfor %}
+            {% if row.feed_item_id %}
+            <a class="bos-chip" href="/today?window=30d&item={{ row.feed_item_id }}">Open article in Today</a>
+            {% endif %}
+          </p>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <div class="bos-empty">
+        {% if statement_count and review_filter == 'unreviewed' %}
+        <h2>Human gate complete</h2>
+        <p>Every extracted statement has a persisted analyst decision. Open Reviewed to inspect the labeled set.</p>
+        {% elif statement_count and review_filter == 'reviewed' %}
+        <p>No reviewed statements yet. Switch to Unreviewed and start with Approve, Edit, Demote, or Remove.</p>
+        {% else %}
+        <p>No statements yet. Thumbs-up a relevant Today item to extract a review batch.</p>
+        {% endif %}
+      </div>
+      {% endif %}
+    </main>
+  </div>
+</div>
+<script src="/static/feed_first.js"></script>
+{% endblock %}

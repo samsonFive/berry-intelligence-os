@@ -71,7 +71,7 @@ def test_pvs_token_and_briefing_assets_exist():
 
 
 def test_today_loads_pvs_stylesheets_and_slice_marker():
-    response = client.get("/today")
+    response = client.get("/today?view=briefing")
     assert response.status_code == 200
     body = response.text
     assert 'href="/static/pvs_tokens.css"' in body
@@ -84,7 +84,7 @@ def test_today_loads_pvs_stylesheets_and_slice_marker():
 
 
 def test_readable_card_keeps_in_app_reader_affordance():
-    response = client.get("/today")
+    response = client.get("/today?view=briefing")
     assert response.status_code == 200
     body = response.text
     assert "data-briefing-open-reader" in body
@@ -134,14 +134,14 @@ def test_empty_what_changed_honest_copy():
     page = present_briefing_page(briefing)
     assert page["what_changed_empty"] is True
     # Route still renders empty state chrome
-    response = client.get("/today?berry=__none__")
+    response = client.get("/today?view=briefing&berry=__none__")
     assert response.status_code == 200
     assert "No current trusted readable coverage" in response.text or "What Changed" in response.text
 
 
 def test_reader_dialog_accessibility_contract():
     response = client.get(
-        "/today?reader=ev-20260806173605-61c6-berries-market-size-share-trends-growth-"
+        "/today?view=briefing&reader=ev-20260806173605-61c6-berries-market-size-share-trends-growth-"
     )
     assert response.status_code == 200
     body = response.text

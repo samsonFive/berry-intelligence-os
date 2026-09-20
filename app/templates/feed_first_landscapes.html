@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Landscapes — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os" data-feed-first data-feed-first-landscapes>
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">Landscapes / Briefs</p>
+      <h1 class="bos-title">Trusted statements across the watched world</h1>
+      <p class="bos-lede">{{ disclosure }}</p>
+      <p class="bos-note">{{ tracked_companies }} companies tracked · {{ statement_count }} trusted statements · {{ story_count or 0 }} live stories</p>
+      <div class="bos-actions">
+        <a class="bos-btn is-primary" href="/landscapes">Open full competitive landscape</a>
+        <a class="bos-btn" href="/landscapes/berries/strawberry">Strawberry</a>
+        <a class="bos-btn" href="/landscapes/berries/blueberry">Blueberry</a>
+        <a class="bos-btn" href="/landscapes/berries/raspberry">Raspberry</a>
+        <a class="bos-btn" href="/landscapes/berries/blackberry">Blackberry</a>
+      </div>
+      {% if companies %}
+      <div class="bos-dense-grid">
+      {% for company in companies %}
+      <section class="bos-people-card">
+        <h2 class="bos-title" style="font-size:1.3rem"><a href="{{ company.profile_url }}">{{ company.name }}</a></h2>
+        <p class="bos-note">{{ company.statement_count }} statement(s) · {{ company.story_count or 0 }} live stor{{ 'y' if company.story_count == 1 else 'ies' }}</p>
+        {% if company.statements %}
+        <p class="bos-kicker">Trusted statements</p>
+        <ul>
+          {% for row in company.statements %}
+          <li>{{ row.statement_text }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% if company.stories %}
+        <p class="bos-kicker">Live briefs</p>
+        <ul data-live-stories>
+          {% for row in company.stories %}
+          <li>{{ row.title }} · {{ row.source_name }} · cluster ×{{ row.cluster_size }} · {{ row.trust_state }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </section>
+      {% endfor %}
+      </div>
+      {% else %}
+      <div class="bos-empty">
+        <p>No trusted statements or live clustered stories yet. Thumbs-up on Today lands intelligence here; live one-story-once clusters reuse as briefs without implying trust.</p>
+      </div>
+      {% endif %}
+    </main>
+  </div>
+</div>
+{% endblock %}

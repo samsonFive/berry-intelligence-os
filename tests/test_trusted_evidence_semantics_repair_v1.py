@@ -27,6 +27,7 @@ from app.services.evidence_claim_review import (
     trust_tier_label,
 )
 from app.services.review_events import load_review_events
+from app.services.feed_first import empty_state, save_state
 from tests.test_review_publish_portability import SOURCE_ID, _item, _publish, _restore
 
 
@@ -163,6 +164,53 @@ def test_claim_review_get_never_mutates(restored_runtime):
     assert after == before  # GET changed nothing
 
 
+def test_feed_reader_confirmation_uses_canonical_fact_path(
+    restored_runtime, monkeypatch
+):
+    client = TestClient(app)
+    draft_id = restored_runtime["draft_id"]
+    _publish(client, draft_id)
+    monkeypatch.setattr(main, "review_username", lambda: "johnny")
+    state = empty_state()
+    statement_id = f"{draft_id}::stmt-1"
+    state["statements"] = {
+        draft_id: [
+            {
+                "id": statement_id,
+                "feed_item_id": draft_id,
+                "statement_text": "Lucentlands podcast discussed scaling the blueberry industry in Africa.",
+                "original_extraction_text": "Lucentlands podcast discussed scaling the blueberry industry in Africa.",
+                "supporting_passages": [
+                    "Lucentlands podcast discussed scaling the blueberry industry in Africa."
+                ],
+                "support_locators": [],
+                "entity_ids": [],
+                "person_ids": [],
+                "statement_state": "pending_confirmation",
+                "importance_state": "normal",
+                "decision_history": [],
+                "analyst_edit_history": [],
+            }
+        ]
+    }
+    save_state(restored_runtime["inbox"], state)
+
+    response = client.post(
+        "/api/feed-first/statement",
+        json={"statement_id": statement_id, "action": "confirm"},
+    )
+    assert response.status_code == 200
+    confirmed = response.json()["statement"]
+    assert confirmed["statement_state"] == "trusted_analyst"
+    assert confirmed["canonical_fact_id"].startswith("fact-")
+
+    repos = main.get_repositories(restored_runtime["data"], main.SCHEMAS_DIR)
+    fact = repos.facts.get(confirmed["canonical_fact_id"])
+    assert fact["statement"] == confirmed["statement_text"]
+    assert fact["origin"] == "feed_thumbsup_extraction"
+    assert confirmed["canonical_fact_id"] in repos.evidence.get(draft_id)["fact_ids"]
+
+
 def test_claim_approve_creates_fact_and_promotes_to_trusted_evidence(restored_runtime):
     client = TestClient(app)
     draft_id = restored_runtime["draft_id"]
@@ -204,6 +252,29 @@ def test_claim_approve_creates_fact_and_promotes_to_trusted_evidence(restored_ru
     assert len(claim_events) == 1
     assert claim_events[0]["action"] == "approve_claim"
     assert claim_events[0]["actor"] == "johnny"
+
+    retry = client.post(
+        f"/review/{draft_id}/claim/approve",
+        data={
+            "statement": "Lucentlands podcast discussed scaling the blueberry industry in Africa.",
+            "proposed_statement": "",
+            "classification": "fact",
+            "confidence": "medium",
+            "reviewer": "johnny",
+            "origin": "publication_claim_review",
+            "return_to": "/pending",
+        },
+        follow_redirects=False,
+    )
+    assert retry.status_code == 303
+    assert len(repos.evidence.get(draft_id)["fact_ids"]) == 1
+    assert len(
+        [
+            event
+            for event in load_review_events(inbox)
+            if event["workflow"] == "evidence_claim_review"
+        ]
+    ) == 1
 
 
 def test_claim_edited_before_approval_is_recorded_accurately(restored_runtime):

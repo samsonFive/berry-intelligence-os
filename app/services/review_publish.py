@@ -499,6 +499,14 @@ class ReviewPublishService:
             return ApproveClaimResult(schema_errors=["Source Evidence record is not an approved, published source."])
 
         existing_fact_ids = list(evidence.get("fact_ids") or [])
+        for existing_fact_id in existing_fact_ids:
+            existing_fact = self._repos.facts.get(existing_fact_id)
+            if (
+                existing_fact is not None
+                and _norm(existing_fact.get("statement")) == _norm(request.statement)
+                and existing_fact.get("origin") == request.origin
+            ):
+                return ApproveClaimResult(fact_id=existing_fact_id)
         fact_id = f"fact-{request.evidence_id[3:]}-{len(existing_fact_ids) + 1}"
         edited = _norm(request.statement) != _norm(request.proposed_statement)
         fact_record = {

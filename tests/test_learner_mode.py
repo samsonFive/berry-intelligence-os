@@ -459,7 +459,7 @@ def test_variety_and_company_pages_render_growing_profile():
     assert variety.status_code == 200
     assert 'id="growing-profile"' in variety.text
     assert "Educational context for traits already captured" in variety.text
-    company = client.get("/entities/company/company-driscolls")
+    company = client.get("/entities/company/company-driscolls?view=legacy")
     assert company.status_code == 200
     assert 'id="growing-profile"' in company.text
     assert "not a new Fact" in company.text

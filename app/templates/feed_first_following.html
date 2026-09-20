@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Following — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os" data-feed-first data-feed-first-following>
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">Following</p>
+      <h1 class="bos-title">Companies you watch</h1>
+      <p class="bos-lede">{{ counts.tracked_companies }} seed companies are tracked for Today relevance. Candidates stay unverified. The six registries are queryable and never counted as competitors.</p>
+      <p class="bos-disclosure">{{ counts.mention_watches }} mention watches · {{ counts.official_site_watches }} official-site watches · {{ counts.matched_trusted }} matched to trusted catalog · {{ counts.seed_only }} seed-only · {{ counts.monitoring_status_repaired }} URL-status rows repaired</p>
+
+      <form class="bos-filters" method="get" action="/following" aria-label="Following filters">
+        <label>Crop
+          <select name="crop">
+            <option value="">All crops</option>
+            {% for key, label in crop_labels.items() %}
+            <option value="{{ key }}"{% if filters.crop == key %} selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <label>Verification
+          <select name="verification">
+            <option value="">Any</option>
+            <option value="candidate-review"{% if filters.verification == 'candidate-review' %} selected{% endif %}>Candidate · unverified</option>
+            <option value="verified-secondary"{% if filters.verification == 'verified-secondary' %} selected{% endif %}>Researched · secondary</option>
+          </select>
+        </label>
+        <label>Search
+          <input type="search" name="q" value="{{ filters.q }}" placeholder="Company or country">
+        </label>
+        <label><input type="checkbox" name="registries" value="1"{% if filters.include_registries %} checked{% endif %}> Show registries</label>
+        <button class="bos-btn is-primary" type="submit">Apply</button>
+      </form>
+
+      <p class="bos-meta">{{ rows|length }} showing · competitor count stays {{ counts.tracked_companies }}</p>
+      <div class="bos-roster">
+        {% for row in rows %}
+        <article class="bos-card is-tile" data-seed-id="{{ row.seed_id }}" data-verification="{{ row.verification_status }}" data-competitor="{{ 'true' if row.competitor else 'false' }}">
+          {% if row.logo_url %}
+          <img class="bos-logo" src="{{ row.logo_url }}" alt="" width="40" height="40">
+          {% else %}
+          <span class="bos-logo bos-logo-fallback">{{ row.monogram }}</span>
+          {% endif %}
+          <p class="bos-kicker">{{ row.country_hq or 'country unknown' }}</p>
+          <h3><a href="{{ row.profile_url }}">{{ row.canonical_name }}</a></h3>
+          <p class="bos-meta">
+            <span>{{ row.verification_label }}</span>
+            <span>{{ row.monitoring_status }}</span>
+            {% if row.trusted_entity_id %}<span>matched {{ row.trusted_entity_id }}</span>{% else %}<span>seed-only</span>{% endif %}
+          </p>
+          <p class="bos-meta">
+            {% for crop in row.crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
+            {% for watch in row.watch_labels %}<span class="bos-chip">{{ watch }}</span>{% endfor %}
+            {% if row.muted %}<span class="bos-chip" data-muted-watch>Muted · searchable, not acquired</span>{% endif %}
+          </p>
+          {% if row.official_website %}<p class="bos-note">Official site {{ row.official_website }}</p>{% endif %}
+          {% if not row.official_website and row.resolved_website %}<p class="bos-note">Resolved website is research only — not treated as official.</p>{% endif %}
+          <p><a class="bos-btn" href="/today?entity={{ row.id }}">Today for this company</a></p>
+        </article>
+        {% else %}
+        <div class="bos-empty">
+          <h2>No matching watches</h2>
+          <p>Filters hid every tracked company. Clear crop or verification rather than inventing coverage.</p>
+        </div>
+        {% endfor %}
+      </div>
+    </main>
+  </div>
+</div>
+{% endblock %}

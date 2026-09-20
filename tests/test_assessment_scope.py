@@ -60,7 +60,7 @@ def test_scope_does_not_infer_from_title_or_company_names() -> None:
 def test_company_bottom_line_labels_unscoped_and_does_not_hide() -> None:
     strawberry = TestClient(app)
     strawberry.cookies.set("bios_berry", "berry-strawberry")
-    page = strawberry.get("/entities/company/company-driscolls")
+    page = strawberry.get("/entities/company/company-driscolls?view=legacy")
     assert page.status_code == 200
     html = page.text
     assert UNSCOPED_ID in html
@@ -217,7 +217,7 @@ def test_assessment_edit_round_trips_stored_scope(monkeypatch, tmp_path: Path) -
     assert 'name="market_ids"' in edit.text
     assert 'value="berry-blueberry"' in edit.text
     assert "checked" in edit.text
-    company = client.get("/entities/company/company-scope-authoring")
+    company = client.get("/entities/company/company-scope-authoring?view=legacy")
     assert company.status_code == 200
     assert "v2-mark-scope-berry_specific" in company.text
     assert "Blueberry" in company.text
@@ -232,7 +232,7 @@ def test_assessment_edit_round_trips_stored_scope(monkeypatch, tmp_path: Path) -
     assert stored["market_ids"] == ["berry-blueberry", "berry-raspberry"]
     assert stored["fact_ids"] == ["fact-scope-authoring"]
     assert stored["created_at"]
-    company_multi = client.get("/entities/company/company-scope-authoring")
+    company_multi = client.get("/entities/company/company-scope-authoring?view=legacy")
     assert "v2-mark-scope-multi_berry" in company_multi.text
     assert "Multi-berry" in company_multi.text
 
@@ -245,7 +245,7 @@ def test_assessment_edit_round_trips_stored_scope(monkeypatch, tmp_path: Path) -
     unscoped = main.assessment_by_id(assessment_id)
     assert "market_ids" not in unscoped
     assert assessment_berry_scope(unscoped, BERRIES)["kind"] == SCOPE_UNSCOPED
-    company_unscoped = client.get("/entities/company/company-scope-authoring")
+    company_unscoped = client.get("/entities/company/company-scope-authoring?view=legacy")
     assert "v2-mark-scope-unscoped" in company_unscoped.text
     assert "Company-wide / unscoped" in company_unscoped.text
     detail = client.get(f"/assessments/{assessment_id}")

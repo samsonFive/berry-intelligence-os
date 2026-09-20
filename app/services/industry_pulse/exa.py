@@ -8,7 +8,7 @@ from typing import Any, Callable
 
 import httpx
 
-from app.services.industry_pulse.credentials import EXA_API_KEY_ENV, env_key, has_exa
+from app.services.industry_pulse.credentials import EXA_API_KEY_ENV, exa_key, has_exa
 from app.services.industry_pulse.errors import ProviderAuthError
 from app.services.industry_pulse.http import request_json
 from app.services.industry_pulse.matrix import PulseQuery
@@ -48,7 +48,7 @@ class ExaSearchProvider:
     today: date | None = None
 
     def discover(self, query: PulseQuery) -> list[DiscoveryHit]:
-        key = (self.api_key or env_key(EXA_API_KEY_ENV)).strip()
+        key = (self.api_key or exa_key()).strip()
         if not key:
             raise ProviderAuthError(f"EXA_API_KEY is not configured. {EXA_SETUP}")
         window = date_window_of(query)
@@ -92,6 +92,7 @@ class ExaSearchProvider:
                     "provider_metadata": {
                         "exa_id": item.get("id"),
                         "exa_score": item.get("score"),
+                        "image_url": item.get("image") or item.get("imageUrl") or "",
                     },
                 }
             )
