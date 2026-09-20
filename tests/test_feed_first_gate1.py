@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import date, datetime, timezone
 from pathlib import Path
 
+import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
@@ -165,6 +166,7 @@ def test_today_is_feed_first_front_door(monkeypatch):
     assert "Fall Creek expands blueberry nursery harvest" in today.text
 
 
+@pytest.mark.live_today
 def test_today_cache_miss_is_offline_until_explicit_refresh(tmp_path: Path, monkeypatch):
     from app import main
     from app.services import feed_first_live
