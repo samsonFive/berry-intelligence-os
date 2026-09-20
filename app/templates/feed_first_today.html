@@ -96,7 +96,7 @@
           </select>
         </label>
         <button class="bos-btn is-primary" type="submit">Apply</button>
-        <a class="bos-btn" href="{{ feed.refresh_href }}">Refresh</a>
+        <a class="bos-btn{% if feed.cache_state in ['missing', 'stale'] %} is-primary{% endif %}" href="{{ feed.refresh_href }}">{% if feed.cache_state == 'missing' %}Fetch live stories{% else %}Refresh{% endif %}</a>
       </form>
       {% if feed.filter_chips %}
       <p class="bos-filters" data-filter-chips aria-label="Active filters">

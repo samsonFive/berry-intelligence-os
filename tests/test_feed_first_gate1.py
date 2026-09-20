@@ -196,7 +196,8 @@ def test_today_cache_miss_is_offline_until_explicit_refresh(tmp_path: Path, monk
         {"cache_state": "missing", "today": "2026-09-21"}
     )
     assert "refresh=1" in ordinary.text
-    assert ">Refresh</a>" in ordinary.text
+    assert "Ready to fetch live stories" in ordinary.text
+    assert ">Fetch live stories</a>" in ordinary.text
     assert not (tmp_path / "feed_first_live").exists()
 
     refreshed = TestClient(main.app).get("/today?refresh=1")
