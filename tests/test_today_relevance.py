@@ -139,3 +139,33 @@ def test_collapse_story_clusters_unions_same_canonical_url():
     assert len(collapsed) == 1
     assert collapsed[0]["cluster_size"] == 2
     assert collapsed[0]["cluster_sources"] == ["Official site"]
+
+
+def test_collapse_story_clusters_merges_bylined_republish():
+    records = [
+        {
+            "title": "Demand for larger blueberry packs takes the market beyond the familiar 125g",
+            "source_url": "https://freshplaza.example/larger-packs",
+            "source_name": "FreshPlaza",
+            "acquisition_lane": "specialist_rss",
+            "published_date": "2026-09-18",
+        },
+        {
+            "title": "Demand for larger blueberry packs takes the market beyond the familiar 125g by Paras Pack and FreshPlaza - Befve & Co",
+            "source_url": "https://befve.example/demand-for-larger-blueberry-packs",
+            "source_name": "Befve",
+            "acquisition_lane": "exa",
+            "published_date": "2026-09-19",
+        },
+        {
+            "title": "Wish Farms Cuts Berry Inspection Time 70% With Clarifresh AI - The Packer",
+            "source_url": "https://thepacker.example/wish-farms",
+            "source_name": "The Packer",
+            "published_date": "2026-09-15",
+        },
+    ]
+    collapsed = collapse_story_clusters(records)
+    assert len(collapsed) == 2
+    assert collapsed[0]["cluster_size"] == 2
+    assert collapsed[0]["cluster_sources"] == ["Befve"]
+    assert collapsed[1]["cluster_size"] == 1
