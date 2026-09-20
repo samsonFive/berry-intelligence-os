@@ -22,7 +22,9 @@ from pathlib import Path
 from typing import Any, Iterable
 from urllib.parse import urlparse
 
-SEED_RELATIVE = Path("data/imports/berry-breeding-seed-2026-09-18/berry_breeding_entities.json")
+from app.runtime_config import resolve_data_dir
+
+SEED_RELATIVE = Path("imports/berry-breeding-seed-2026-09-18/berry_breeding_entities.json")
 REGISTRY_ENTITY_TYPE = "registry/source system"
 REGISTRY_VERIFICATION = "verified-primary"
 
@@ -42,7 +44,7 @@ CROP_FLAGS = ("strawberry", "blueberry", "raspberry", "blackberry")
 
 
 def default_seed_path() -> Path:
-    return Path(__file__).resolve().parents[2] / SEED_RELATIVE
+    return resolve_data_dir() / SEED_RELATIVE
 
 
 def _text(value: Any) -> str:

@@ -2,8 +2,12 @@
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 from app.services.seed_roster import (
     build_roster,
+    default_seed_path,
     filter_roster,
     following_model,
     is_http_url,
@@ -45,6 +49,48 @@ def _raw(**overrides):
     }
     base.update(overrides)
     return base
+
+
+def test_default_seed_path_uses_repository_data_without_runtime(monkeypatch):
+    monkeypatch.delenv("BIOS_RUNTIME_DIR", raising=False)
+    monkeypatch.delenv("BIOS_DATA_DIR", raising=False)
+    assert default_seed_path() == Path(__file__).parents[1] / "data" / "imports" / "berry-breeding-seed-2026-09-18" / "berry_breeding_entities.json"
+
+
+def test_default_seed_path_uses_runtime_data(monkeypatch, tmp_path: Path):
+    runtime = tmp_path / "runtime"
+    monkeypatch.setenv("BIOS_RUNTIME_DIR", str(runtime))
+    monkeypatch.delenv("BIOS_DATA_DIR", raising=False)
+    assert default_seed_path() == runtime / "data" / "imports" / "berry-breeding-seed-2026-09-18" / "berry_breeding_entities.json"
+
+
+def test_explicit_data_dir_overrides_runtime_data_for_seed(monkeypatch, tmp_path: Path):
+    runtime = tmp_path / "runtime"
+    explicit = tmp_path / "explicit-data"
+    monkeypatch.setenv("BIOS_RUNTIME_DIR", str(runtime))
+    monkeypatch.setenv("BIOS_DATA_DIR", str(explicit))
+    assert default_seed_path() == explicit / "imports" / "berry-breeding-seed-2026-09-18" / "berry_breeding_entities.json"
+
+
+def test_build_roster_loads_seed_from_runtime_data(monkeypatch, tmp_path: Path):
+    runtime = tmp_path / "runtime"
+    seed_path = runtime / "data" / "imports" / "berry-breeding-seed-2026-09-18" / "berry_breeding_entities.json"
+    seed_path.parent.mkdir(parents=True)
+    seed_path.write_text(json.dumps([_raw(entity_id="ORG-RUNTIME")]), encoding="utf-8")
+    monkeypatch.setenv("BIOS_RUNTIME_DIR", str(runtime))
+    monkeypatch.delenv("BIOS_DATA_DIR", raising=False)
+    roster = build_roster([])
+    assert len(roster) == 1
+    assert roster[0]["seed_id"] == "ORG-RUNTIME"
+
+
+def test_build_roster_explicit_seed_path_overrides_default(monkeypatch, tmp_path: Path):
+    explicit = tmp_path / "explicit-seed.json"
+    explicit.write_text(json.dumps([_raw(entity_id="ORG-EXPLICIT")]), encoding="utf-8")
+    monkeypatch.setenv("BIOS_RUNTIME_DIR", str(tmp_path / "missing-runtime"))
+    roster = build_roster([], seed_path=explicit)
+    assert len(roster) == 1
+    assert roster[0]["seed_id"] == "ORG-EXPLICIT"
 
 
 def test_monitoring_status_urls_are_not_imported_as_status():
