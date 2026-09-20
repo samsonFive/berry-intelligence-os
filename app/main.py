@@ -4109,6 +4109,9 @@ def research_ops_health_page(request: Request) -> HTMLResponse:
         "apitube": has_apitube(),
         "newscatcher_catchall": has_catchall(),
     }
+    from app.services.research_ops_health import research_ops_health
+
+    health = research_ops_health(bundle=bundle, counts=world["counts"])
     return templates.TemplateResponse(
         request=request,
         name="feed_first_research_ops.html",
@@ -4118,6 +4121,7 @@ def research_ops_health_page(request: Request) -> HTMLResponse:
             "counts": world["counts"],
             "lanes": lanes,
             "bundle": bundle,
+            "health": health,
             "people_count": people["count"],
             "social_coverage": people["social_coverage"],
             "social_discovered": social_found,
