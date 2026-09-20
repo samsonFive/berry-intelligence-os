@@ -4072,6 +4072,22 @@ def people_profile_page(request: Request, person_id: str) -> HTMLResponse:
     )
 
 
+@app.get("/settings", response_class=HTMLResponse)
+def feed_first_settings_page(request: Request) -> HTMLResponse:
+    world = _feed_first_world()
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_settings.html",
+        context={
+            "nav": world["nav"],
+            "active_href": "/settings",
+            "counts": world["counts"],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
 @app.get("/research-ops", response_class=HTMLResponse)
 def research_ops_health_page(request: Request) -> HTMLResponse:
     from app.services.clock import utc_today
