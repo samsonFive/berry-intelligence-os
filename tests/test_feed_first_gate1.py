@@ -192,7 +192,8 @@ def test_today_cache_miss_is_offline_until_explicit_refresh(tmp_path: Path, monk
     assert ordinary.status_code == 200
     assert acquisition_calls == []
     assert "No cached Today edition yet" in ordinary.text
-    assert 'href="/today?refresh=1' in ordinary.text
+    assert "refresh=1" in ordinary.text
+    assert ">Refresh</a>" in ordinary.text
     assert not (tmp_path / "feed_first_live").exists()
 
     refreshed = TestClient(main.app).get("/today?refresh=1")
