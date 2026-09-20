@@ -332,7 +332,19 @@ def test_react_http_and_entity_reflection(tmp_path, monkeypatch):
     assert [row["id"] for row in retry.json()["statements"]] == [row["id"] for row in up.json()["statements"]]
     state = load_state(inbox)
     reflected = statements_for_entity(state, "company-fall-creek-farm-and-nursery")
-    assert reflected
+    assert reflected == []
+    from app.services.feed_first import mutate_statement
+
+    confirmed = mutate_statement(
+        inbox,
+        statement_id=up.json()["statements"][0]["id"],
+        action="confirm",
+        canonical_fact_id="fact-gate1-http",
+    )
+    assert confirmed["statement_state"] == "trusted_analyst"
+    assert statements_for_entity(
+        load_state(inbox), "company-fall-creek-farm-and-nursery"
+    )
     down = client.post("/api/feed-first/react", json={"item_id": record["id"], "action": "thumbs_down"})
     assert down.json()["muted_world"] is False
 

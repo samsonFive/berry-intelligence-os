@@ -7,135 +7,233 @@
 <link rel="stylesheet" href="/static/berry_os.css">
 {% endblock %}
 {% block content %}
-<div class="berry-os" data-feed-first data-feed-first-company data-verification="{{ profile.verification_status if profile else status }}">
-  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+<a class="bos-skip" href="#snapshot">Skip to dossier</a>
+<div class="berry-os" data-feed-first data-feed-first-company data-feed-first-entity data-entity-dossier data-entity-id="{{ entity_id }}" data-archetype="{{ dossier.archetype }}" data-verification="{{ profile.verification_status if profile else status }}">
+  <div class="bos-shell bos-dossier-shell">
     {% include "_feed_first_rail.html" %}
-    <main class="bos-canvas">
-      <p class="bos-kicker">{{ verification_label }}</p>
-      <h1 class="bos-title">{{ name }}</h1>
-      {% if aliases %}<p class="bos-lede">Also known as {{ aliases|join(', ') }}</p>{% endif %}
-      <p class="bos-note">{% if is_registry %}Registry / source system. Excluded from competitor counts.{% elif candidate %}Candidate-review. Monitored, visibly unverified.{% else %}Tier is monitoring priority. Verification did not change because this company is watched.{% endif %}</p>
+    <main class="bos-dossier-canvas">
+      <header class="bos-dossier-header">
+        <div class="bos-entity-lockup">
+          <div class="bos-entity-logo-frame">
+            {% if logo_url %}<img class="bos-logo bos-entity-logo" src="{{ logo_url }}" alt="{{ name }} logo" width="80" height="80">
+            {% else %}<span class="bos-monogram bos-entity-logo-fallback">{{ monogram }}</span>{% endif %}
+          </div>
+          <div>
+            <p class="bos-kicker">Living entity dossier · {{ verification_label }}</p>
+            <h1 class="bos-title">{{ name }}</h1>
+            <p class="bos-meta"><span class="bos-archetype-pill">{{ dossier.archetype_label }}</span>{% if not dossier.competitor_eligible %}<span class="bos-state-pill">Excluded from competitor counts</span>{% endif %}</p>
+            {% if aliases %}<p class="bos-lede">Also known as {{ aliases|join(', ') }}</p>{% endif %}
+          </div>
+        </div>
+        <div class="bos-actions">
+          <a class="bos-btn is-primary" href="/today?entity={{ entity.id if entity.id else profile.id }}">Open entity feed</a>
+          {% if legacy_href %}<a class="bos-btn" href="{{ legacy_href }}">Catalog profile</a>{% endif %}
+        </div>
+      </header>
 
-      <div class="bos-people-card">
-        <p class="bos-meta">
-          <span>Status {{ status }}</span>
-          {% for crop in crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
-        </p>
-        {% if description %}<p>{{ description }}</p>{% endif %}
-        {% if logo_url %}
-        <p><img class="bos-logo" src="{{ logo_url }}" alt="{{ name }} logo" width="64" height="64"></p>
-        {% else %}
-        <p class="bos-monogram" style="position:static">{{ monogram }}</p>
-        {% endif %}
-        {% if official_website %}
-        <p>Official website: <a href="{{ official_website }}" rel="noopener noreferrer">{{ official_website }}</a></p>
-        {% elif resolved_website %}
-        <p class="bos-note">Resolved website is research only: {{ resolved_website }}</p>
-        {% endif %}
-        {% if related_entities %}
-        <p>Related in seed notes:
-          {% for rel in related_entities %}
-          <a href="{{ rel.profile_url }}">{{ rel.name }}</a>{% if not loop.last %}, {% endif %}
+      <nav class="bos-dossier-outline" aria-label="Dossier sections">
+        {% for item in dossier.outline %}<a href="#{{ item.id }}">{{ item.label }}</a>{% endfor %}
+      </nav>
+
+      <section id="snapshot" class="bos-dossier-section">
+        <div class="bos-section-heading">
+          <p class="bos-kicker">Snapshot</p>
+          <h2>Current operating picture</h2>
+          <p class="bos-note">Entity metadata and explicitly confirmed statements only. Missing evidence stays visible.</p>
+        </div>
+        <div class="bos-snapshot-grid">
+          <article class="is-identity">
+            <p class="bos-kicker">Identity & footprint</p>
+            <h3>{{ name }}</h3>
+            <p>{{ profile.seed_entity_type if profile and profile.seed_entity_type else entity.entity_type or 'Entity type unresolved' }} · {{ status }}</p>
+            <p>{% if official_website %}<a href="{{ official_website }}" rel="noopener noreferrer">Official website</a>{% else %}<span class="bos-gap-text">Headquarters / official site evidence incomplete</span>{% endif %}</p>
+            <p class="bos-meta">Entity metadata · not an analytical claim</p>
+          </article>
+          {% if 'berry-value-chain' in dossier.applicable_section_ids %}
+          <article class="is-activity">
+            <p class="bos-kicker">Activity & scale</p>
+            {% set scale_rows = dossier.statement_groups.get('scale-performance', []) %}
+            {% if scale_rows %}<p>{{ scale_rows[0].statement_text }}</p>
+            {% else %}<p class="bos-gap-text">No confirmed scale statement yet.</p>{% endif %}
+            <p>{% for crop in crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}</p>
+          </article>
+          {% endif %}
+          {% if 'competitive-assessment' in dossier.applicable_section_ids %}
+          <article class="is-analysis">
+            <p class="bos-kicker">Competitive posture</p>
+            <p class="bos-assessment-state">{{ dossier.assessment.state|replace('_', ' ') }}</p>
+            <p>{{ dossier.assessment.conclusion }}</p>
+            <p class="bos-meta">{{ dossier.assessment.prerequisite_status }}</p>
+          </article>
+          <article class="is-vulnerability">
+            <p class="bos-kicker">Vulnerabilities</p>
+            {% set vulnerability = dossier.questions|selectattr('id', 'equalto', 'entity.competitive.vulnerabilities')|first %}
+            {% if vulnerability and vulnerability.answer %}<p>{{ vulnerability.answer }}</p>
+            {% else %}<p class="bos-gap-text">Not yet supported by confirmed evidence.</p>{% endif %}
+          </article>
+          {% endif %}
+          <article class="is-change">
+            <p class="bos-kicker">What changed</p>
+            {% if dossier.recent_changes %}
+            <p>{{ dossier.recent_changes[0].statement_text }}</p>
+            <a href="/today?item={{ dossier.recent_changes[0].feed_item_id }}">Open originating feed item</a>
+            {% else %}<p class="bos-gap-text">No confirmed recent change yet. Pending extractions never appear here.</p>{% endif %}
+          </article>
+        </div>
+      </section>
+
+      <section id="recent-changes" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Recent Changes</p><h2>Feed-to-dossier impact</h2></div>
+        {% if dossier.recent_changes %}
+        <div class="bos-change-list">
+          {% for row in dossier.recent_changes %}
+          <article class="bos-fact-block">
+            <p>{{ row.statement_text }}</p>
+            <p class="bos-meta">Confirmed {{ row.confirmed_at or row.updated_at }} · {{ row.origin|replace('_', ' ') }}</p>
+            <p class="bos-meta">Canonical Fact · {{ row.canonical_fact_id }}</p>
+            {% if row.feed_item_id %}<a href="/today?item={{ row.feed_item_id }}">Open source reader</a>{% endif %}
+            <details><summary>Evidence</summary><blockquote>{{ row.supporting_passages[0] if row.supporting_passages else 'Support unavailable' }}</blockquote></details>
+          </article>
           {% endfor %}
-        </p>
+        </div>
+        {% else %}<p class="bos-empty">No confirmed changes. Thumbs-up starts extraction; confirmation in the reader creates trust.</p>{% endif %}
+      </section>
+
+      <section id="identity-structure" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Identity & Structure</p><h2>Canonical record</h2></div>
+        <dl class="bos-dossier-dl">
+          <dt>Canonical name</dt><dd>{{ name }}</dd>
+          <dt>Status</dt><dd>{{ status }}</dd>
+          <dt>Verification</dt><dd>{{ verification_label }}</dd>
+          <dt>Aliases</dt><dd>{{ aliases|join(', ') if aliases else 'None captured' }}</dd>
+          <dt>Registry boundary</dt><dd>{{ 'Source system · excluded from competitor counts' if is_registry else 'Operating entity' }}</dd>
+        </dl>
+      </section>
+
+      {% for section_id, title in [
+        ('berry-value-chain', 'Berry & Value Chain'),
+        ('genetics-cultivars', 'Genetics & Cultivars'),
+        ('geography', 'Geography'),
+        ('relationships', 'Partnerships & Relationships'),
+        ('scale-performance', 'Scale & Performance'),
+        ('history', 'History')
+      ] %}
+      {% if section_id in dossier.applicable_section_ids %}
+      <section id="{{ section_id }}" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Facts</p><h2>{{ title }}</h2></div>
+        {% set rows = dossier.statement_groups.get(section_id, []) %}
+        {% if rows %}
+          {% for row in rows %}
+          <article class="bos-fact-block">
+            <p>{{ row.statement_text }}</p>
+            <p class="bos-meta">Canonical Fact · {{ row.canonical_fact_id }}</p>
+            <details><summary>Inspect evidence</summary><blockquote>{{ row.supporting_passages[0] }}</blockquote></details>
+          </article>
+          {% endfor %}
+        {% else %}<p class="bos-gap-text">No confirmed statements mapped to this section.</p>{% endif %}
+        {% if section_id == 'genetics-cultivars' and growing_profile and growing_profile.has_any %}
+        <p class="bos-note">Learner context is educational context, not a Fact or competitive score.</p>
+        <ul>{% for row in growing_profile.rows %}<li><a href="{{ row.href }}">{{ row.name }}</a>{% if row.trait_names %} · {{ row.trait_names|join(', ') }}{% endif %}</li>{% endfor %}</ul>
         {% endif %}
-      </div>
+      </section>
+      {% endif %}
+      {% endfor %}
+
+      {% if 'people' in dossier.applicable_section_ids %}
+      <section id="people" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">People</p><h2>Current coverage</h2></div>
+        {% if people %}<ul>{% for person in people %}<li><a href="{{ person.profile_url }}">{{ person.canonical_name }}</a> · {{ person.monitoring_coverage }} · {{ person.social_coverage }}</li>{% endfor %}</ul>
+        {% else %}<p class="bos-gap-text">No linked monitored people in the current corpus.</p>{% endif %}
+      </section>
+      {% endif %}
+
+      {% if 'competitive-assessment' in dossier.applicable_section_ids %}
+      <section id="competitive-assessment" class="bos-dossier-section bos-analysis-block">
+        <div class="bos-section-heading"><p class="bos-kicker">Analysis · dated object</p><h2>Competitive Assessment</h2></div>
+        <p class="bos-assessment-state">{{ dossier.assessment.state|replace('_', ' ') }}</p>
+        <p>{{ dossier.assessment.conclusion }}</p>
+        <p class="bos-meta">Generated {{ dossier.assessment.generated_at or 'not yet' }} · confidence {{ dossier.assessment.confidence }} · supporting claims {{ dossier.assessment.supporting_statement_ids|length }}</p>
+      </section>
+      {% endif %}
+
+      <section id="watchpoints" class="bos-dossier-section bos-watchpoint-block">
+        <div class="bos-section-heading"><p class="bos-kicker">Watchpoints · observable</p><h2>Monitoring instructions</h2></div>
+        <ul>{% for watch in watches %}<li>{{ watch.kind }}{% if watch.query %} · {{ watch.query }}{% endif %}{% if watch.url %} · {{ watch.url }}{% endif %}</li>{% endfor %}</ul>
+      </section>
+
+      <section id="evidence-gaps" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Evidence, Gaps & Conflicts</p><h2>Progressive question coverage</h2><p class="bos-note">Registry {{ dossier.registry_version }} · archetype-aware Gate 2 routing. No 151×75 sweep.</p></div>
+        <div class="bos-question-list">
+          {% for question in dossier.questions %}
+          <article data-question-id="{{ question.id }}" data-answer-state="{{ question.answer_state }}">
+            <p class="bos-meta">Wave {{ question.wave }} · {{ question.section }} · {{ question.criticality }}</p>
+            <h3>{{ question.question }}</h3>
+            <p><span class="bos-state-pill is-{{ question.answer_state }}">{{ question.answer_state|replace('_', ' ') }}</span></p>
+            {% if question.answer %}<p>{{ question.answer }}</p>{% endif %}
+            {% if question.answer_state in ['not_yet_researched', 'unknown', 'stale', 'conflicting'] %}
+            <button class="bos-btn" type="button" data-launch-gap-research="{{ question.id }}">Research this gap</button>
+            {% endif %}
+          </article>
+          {% endfor %}
+        </div>
+        <div data-research-status aria-live="polite"></div>
+        {% for proposal in dossier.proposals %}
+        <article class="bos-proposal" data-proposal-id="{{ proposal.id }}" data-proposal-state="{{ proposal.statement_state }}">
+          <p class="bos-kicker">Research proposal · {{ proposal.statement_state }}</p>
+          <p>{{ proposal.statement_text }}</p>
+          <p class="bos-meta">{{ proposal.source_name }} · {{ proposal.source_suitability }}</p>
+          <details><summary>Evidence</summary><blockquote>{{ proposal.supporting_passages[0] }}</blockquote><a href="{{ proposal.source_url }}" rel="noopener noreferrer">Open source</a></details>
+          {% if proposal.statement_state == 'proposed' %}
+          <textarea data-proposal-edit aria-label="Amend proposal">{{ proposal.statement_text }}</textarea>
+          <div class="bos-actions">
+            <button class="bos-btn is-primary" type="button" data-proposal-action="approve">Approve</button>
+            <button class="bos-btn" type="button" data-proposal-action="amend">Approve amended</button>
+            <button class="bos-btn" type="button" data-proposal-action="reject">Reject</button>
+            <button class="bos-btn" type="button" data-proposal-action="defer">Defer</button>
+          </div>
+          {% endif %}
+        </article>
+        {% endfor %}
+      </section>
 
       <section class="bos-logo-editor" data-logo-editor>
-        <h2 class="bos-title" style="font-size:1.4rem">Company logo</h2>
-        <p class="bos-note">Presentation override only. This does not change verification or rewrite the trusted entity record.</p>
-        {% if logo_status %}<p class="bos-banner is-success" role="status">{{ logo_status }}</p>{% endif %}
-        {% if logo_error %}<p class="bos-banner is-error" role="alert">{{ logo_error }}</p>{% endif %}
+        <h2>Presentation settings</h2>
+        <p class="bos-note">Logo overrides never change verification or trusted entity data.</p>
         <form method="post" action="/entities/company/{{ entity_id }}/logo" enctype="multipart/form-data" class="bos-logo-form">
-          <label>
-            Paste public image URL
-            <input type="url" name="logo_url" placeholder="https://company.example/logo.png">
-          </label>
-          <label>
-            Or upload image
-            <input type="file" name="logo_file_upload" accept="image/png,image/jpeg,image/gif,image/webp">
-          </label>
-          <div class="bos-actions">
-            <button class="bos-btn is-primary" type="submit" name="action" value="save">Save logo</button>
-            {% if logo_override %}
-            <button class="bos-btn" type="submit" name="action" value="clear">Use discovered logo</button>
-            {% endif %}
-          </div>
+          <label>Public image URL <input type="url" name="logo_url" placeholder="https://company.example/logo.png"></label>
+          <label>Or upload image <input type="file" name="logo_file_upload" accept="image/png,image/jpeg,image/gif,image/webp"></label>
+          <button class="bos-btn" type="submit" name="action" value="save">Save logo</button>
+          {% if logo_override %}<button class="bos-btn" type="submit" name="action" value="clear">Use discovered logo</button>{% endif %}
         </form>
       </section>
-
-      {% if social_channels %}
-      <section>
-        <h2 class="bos-title" style="font-size:1.4rem">Official social (unverified)</h2>
-        <p class="bos-note">Seed discovery URLs. official_status=unverified. Coverage is provider-unavailable. Not scraped.</p>
-        <ul>
-          {% for channel in social_channels %}
-          <li>{{ channel.platform }} · {{ channel.official_status }} · {{ channel.coverage }} · {{ channel.url }}</li>
-          {% endfor %}
-        </ul>
-      </section>
-      {% endif %}
-
-      <section>
-        <h2 class="bos-title" style="font-size:1.4rem">Watches</h2>
-        <ul>
-          {% for watch in watches %}
-          <li>{{ watch.kind }}{% if watch.url %} · {{ watch.url }}{% endif %}{% if watch.query %} · {{ watch.query }}{% endif %}</li>
-          {% endfor %}
-        </ul>
-      </section>
-
-      {% if people %}
-      <section>
-        <h2 class="bos-title" style="font-size:1.4rem">Named people</h2>
-        <p class="bos-note">From public patent or program records. Social coverage is provider-unavailable.</p>
-        <ul>
-          {% for person in people %}
-          <li><a href="{{ person.profile_url }}">{{ person.canonical_name }}</a> · {{ person.monitoring_coverage }}</li>
-          {% endfor %}
-        </ul>
-      </section>
-      {% endif %}
-
-      <section id="growing-profile" data-learner-profile>
-        <h2 class="bos-title" style="font-size:1.4rem">Learner context</h2>
-        <p class="bos-note">Educational context from captured portfolio-variety traits. This is not a competitive score or a new Fact.</p>
-        {% if growing_profile and growing_profile.has_any %}
-        <ul>
-          {% for row in growing_profile.rows %}
-          <li>
-            <a href="{{ row.href }}">{{ row.name }}</a>
-            {% if row.trait_names %}<span class="bos-note"> · {{ row.trait_names|join(', ') }}</span>{% endif %}
-          </li>
-          {% endfor %}
-        </ul>
-        {% else %}
-        <p class="bos-note">No captured trait-tagged Facts currently connect this company’s portfolio varieties to a Learner concept.</p>
-        {% endif %}
-        <p><a class="bos-btn" href="/learn">Open Learner mode</a></p>
-      </section>
-
-      <section id="feed-first-intelligence" data-feed-first-entity>
-        <h2 class="bos-title" style="font-size:1.4rem">From Today thumbs-up</h2>
-        {% if statements %}
-        <ul>
-          {% for row in statements %}
-          <li>
-            <p>{{ row.statement_text }}</p>
-            <p class="bos-note">Evidence: {{ row.supporting_passages[0] if row.supporting_passages else 'none' }} · {{ row.extraction_model }}</p>
-          </li>
-          {% endfor %}
-        </ul>
-        {% else %}
-        <p class="bos-note">No trusted statements yet. Thumbs-up on a Today item matched to this company extracts here. No second review queue.</p>
-        {% endif %}
-      </section>
-
-      <p>
-        <a class="bos-btn" href="/today?entity={{ entity.id if entity.id else profile.id }}">Today for this company</a>
-        {% if legacy_href %}<a class="bos-btn" href="{{ legacy_href }}">Legacy catalog profile</a>{% endif %}
-      </p>
     </main>
+
+    <aside class="bos-dossier-context" aria-label="Dossier context">
+      <section>
+        <p class="bos-kicker">Archetype</p>
+        <strong>{{ dossier.archetype_label }}</strong>
+        <p class="bos-note">{{ 'Competitive entity' if dossier.competitor_eligible else 'Queryable source system · not a competitor' }}</p>
+      </section>
+      <section>
+        <p class="bos-kicker">Coverage</p>
+        <strong>{{ dossier.coverage.answered }} / {{ dossier.coverage.applicable }}</strong>
+        <p class="bos-note">answered applicable pilot questions</p>
+        <dl><dt>Gaps</dt><dd>{{ dossier.coverage.gaps }}</dd><dt>Conflicts</dt><dd>{{ dossier.coverage.conflicts }}</dd><dt>Stale</dt><dd>{{ dossier.coverage.stale }}</dd></dl>
+      </section>
+      <section>
+        <p class="bos-kicker">Trust boundary</p>
+        <p>Thumbs-up ranks and starts extraction. Only in-reader confirmation enters this dossier.</p>
+      </section>
+      <section>
+        <p class="bos-kicker">Recent changes</p>
+        <p>{{ dossier.recent_changes|length }} confirmed</p>
+      </section>
+      <section>
+        <p class="bos-kicker">Research runs</p>
+        <p>{{ dossier.research_runs|length }} bounded runs</p>
+      </section>
+    </aside>
   </div>
 </div>
+<script src="/static/feed_first.js"></script>
 {% endblock %}
