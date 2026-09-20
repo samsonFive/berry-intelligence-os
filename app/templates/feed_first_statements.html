@@ -16,7 +16,7 @@
       <p class="bos-lede">Thumbs-up on Today is the only trust path. Important statements sort first. Save is not trust.</p>
       <p class="bos-note">{{ statement_count }} trusted · local deterministic preview · no second review queue</p>
       {% if statements %}
-      <ul>
+      <ul class="bos-dense-grid">
         {% for row in statements %}
         <li class="bos-people-card">
           {% if row.importance_state == 'important' %}<p class="bos-kicker">Important</p>{% endif %}

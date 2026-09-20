@@ -1,7 +1,17 @@
 {% extends "base.html" %}
 {% block title %}Learn — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
 {% block content %}
-<div class="v2-page v2-learn-page">
+<div class="berry-os" data-feed-first data-berry-os-learn>
+  <div class="bos-shell" style="grid-template-columns:220px minmax(0,1fr)">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+<div class="v2-page v2-learn-page bos-legacy-surface">
 <section class="page-heading v2-page-header" data-pagefind-filter="type:learn">
   <div>
     <p class="eyebrow">LEARN</p>
@@ -75,5 +85,8 @@
   {% endfor %}
   <p class="context-limit">{{ concept_count }} concept{{ 's' if concept_count != 1 else '' }} today across all five educational pillars. {{ freshness.cadence_count }} page{{ 's' if freshness.cadence_count != 1 else '' }} carry a review-by date; {{ freshness.stale_count }} {{ 'are' if freshness.stale_count != 1 else 'is' }} past it. {% if freshness.cadence_count %}{% if static_build %}<a href="/learn/stale">Review cadence</a>{% else %}<a href="/learn?view=stale">Review cadence</a>{% endif %}.{% endif %} Educational knowledge never becomes a Fact, Signal, or Assessment.</p>
 {% endif %}
+</div>
+    </main>
+  </div>
 </div>
 {% endblock %}

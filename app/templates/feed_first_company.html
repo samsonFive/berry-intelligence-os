@@ -41,6 +41,29 @@
         {% endif %}
       </div>
 
+      <section class="bos-logo-editor" data-logo-editor>
+        <h2 class="bos-title" style="font-size:1.4rem">Company logo</h2>
+        <p class="bos-note">Presentation override only. This does not change verification or rewrite the trusted entity record.</p>
+        {% if logo_status %}<p class="bos-banner is-success" role="status">{{ logo_status }}</p>{% endif %}
+        {% if logo_error %}<p class="bos-banner is-error" role="alert">{{ logo_error }}</p>{% endif %}
+        <form method="post" action="/entities/company/{{ entity_id }}/logo" enctype="multipart/form-data" class="bos-logo-form">
+          <label>
+            Paste public image URL
+            <input type="url" name="logo_url" placeholder="https://company.example/logo.png">
+          </label>
+          <label>
+            Or upload image
+            <input type="file" name="logo_file_upload" accept="image/png,image/jpeg,image/gif,image/webp">
+          </label>
+          <div class="bos-actions">
+            <button class="bos-btn is-primary" type="submit" name="action" value="save">Save logo</button>
+            {% if logo_override %}
+            <button class="bos-btn" type="submit" name="action" value="clear">Use discovered logo</button>
+            {% endif %}
+          </div>
+        </form>
+      </section>
+
       {% if social_channels %}
       <section>
         <h2 class="bos-title" style="font-size:1.4rem">Official social (unverified)</h2>

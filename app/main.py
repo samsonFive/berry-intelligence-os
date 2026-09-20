@@ -3149,6 +3149,7 @@ def learn_home(request: Request, q: str = "", view: str = "") -> HTMLResponse:
     search_results = learn_search_concepts(q) if q.strip() else None
     stale_view = view.strip().lower() == "stale" and search_results is None
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    world = _feed_first_world()
     response = templates.TemplateResponse(
         request=request,
         name="learn_home.html",
@@ -3162,6 +3163,9 @@ def learn_home(request: Request, q: str = "", view: str = "") -> HTMLResponse:
             "static_build": False,
             "ui_context": ui,
             "berries": BERRIES,
+            "nav": world["nav"],
+            "active_href": "/learn",
+            "counts": world["counts"],
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -3185,6 +3189,7 @@ def learn_concept_detail(request: Request, slug: str) -> HTMLResponse:
         evidence_by_id={r["id"]: r for r in all_evidence() if r.get("id")},
     )
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    world = _feed_first_world()
     response = templates.TemplateResponse(
         request=request,
         name="learn_concept.html",
@@ -3196,6 +3201,9 @@ def learn_concept_detail(request: Request, slug: str) -> HTMLResponse:
             "static_build": False,
             "ui_context": ui,
             "berries": BERRIES,
+            "nav": world["nav"],
+            "active_href": "/learn",
+            "counts": world["counts"],
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -3418,10 +3426,12 @@ def _wants_feed_first_profile(request: Request) -> bool:
 
 
 def _feed_first_company_response(request: Request, entity_id: str) -> HTMLResponse | None:
+    from app.services.entity_logo_overrides import load_logo_overrides, logo_override_url
     from app.services.people_watchlist import discover_people
     from app.services.seed_roster import seed_profile
 
     world = _feed_first_world()
+    logo_overrides = load_logo_overrides(INBOX_DIR)
     trusted = next(
         (
             entity
@@ -3430,7 +3440,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
         ),
         None,
     )
-    seed = seed_profile(entity_id, world["existing"])
+    seed = seed_profile(entity_id, world["existing"], logo_overrides=logo_overrides)
     if trusted is None and seed is None:
         return None
     linked_people = [row for row in discover_people(world["existing"]) if entity_id in row.get("entity_ids", [])]
@@ -3469,7 +3479,11 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "growing_profile": growing_profile,
             "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
             "monogram": (seed or {}).get("monogram") or name[:2].upper(),
-            "logo_url": (seed or {}).get("logo_url") or "",
+            "logo_url": logo_override_url(INBOX_DIR, entity_id) or (seed or {}).get("logo_url") or "",
+            "logo_override": logo_overrides.get(entity_id) or {},
+            "logo_status": str(request.query_params.get("logo_status") or ""),
+            "logo_error": str(request.query_params.get("logo_error") or ""),
+            "entity_id": entity_id,
             "nav": world["nav"],
             "active_href": "/entities",
             "counts": world["counts"],
@@ -3477,6 +3491,60 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "static_build": False,
         },
     )
+
+
+@app.get("/entity-logos/{entity_id}/{filename}")
+def entity_logo_asset(entity_id: str, filename: str) -> FileResponse:
+    from app.services.entity_logo_overrides import LogoOverrideError, logo_file
+
+    try:
+        path, media_type = logo_file(INBOX_DIR, entity_id, filename)
+    except LogoOverrideError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return FileResponse(path, media_type=media_type)
+
+
+@app.post("/entities/company/{entity_id}/logo")
+async def update_company_logo(
+    entity_id: str,
+    action: str = Form("save"),
+    logo_url: str = Form(""),
+    logo_file_upload: UploadFile | None = File(None),
+) -> RedirectResponse:
+    from app.services.entity_logo_overrides import (
+        LogoOverrideError,
+        MAX_LOGO_BYTES,
+        clear_logo_override,
+        set_logo_upload,
+        set_logo_url,
+    )
+    from app.services.seed_roster import seed_profile
+
+    world = _feed_first_world()
+    trusted = any(
+        row.get("id") == entity_id and row.get("entity_type") in {"company", "brand", "breeding_program"}
+        for row in world["existing"]
+    )
+    if not trusted and seed_profile(entity_id, world["existing"]) is None:
+        raise HTTPException(status_code=404, detail="Company not found")
+    try:
+        if action == "clear":
+            clear_logo_override(INBOX_DIR, entity_id)
+            status = "Logo override cleared"
+        elif logo_file_upload and logo_file_upload.filename:
+            data = await logo_file_upload.read(MAX_LOGO_BYTES + 1)
+            set_logo_upload(INBOX_DIR, entity_id, data)
+            status = "Uploaded logo saved"
+        elif logo_url.strip():
+            set_logo_url(INBOX_DIR, entity_id, logo_url)
+            status = "Logo URL saved"
+        else:
+            raise LogoOverrideError("paste a public logo URL or choose an image")
+    except LogoOverrideError as exc:
+        target = f"/entities/company/{quote(entity_id)}?logo_error={quote(str(exc))}"
+        return RedirectResponse(target, status_code=303)
+    target = f"/entities/company/{quote(entity_id)}?logo_status={quote(status)}"
+    return RedirectResponse(target, status_code=303)
 
 
 @app.get("/entities/{entity_type}/{entity_id}", response_class=HTMLResponse)
@@ -3623,9 +3691,14 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
             )
             apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
             return response
+    from app.services.entity_logo_overrides import load_logo_overrides
     from app.services.seed_roster import seed_profile
 
-    profile = seed_profile(entity_id, all_entities())
+    profile = seed_profile(
+        entity_id,
+        all_entities(),
+        logo_overrides=load_logo_overrides(INBOX_DIR),
+    )
     if profile and entity_type in {"company", "source"}:
         world = _feed_first_world()
         return templates.TemplateResponse(
@@ -3935,6 +4008,7 @@ def today_page(request: Request) -> HTMLResponse:
 
 @app.get("/following", response_class=HTMLResponse)
 def following_page(request: Request) -> HTMLResponse:
+    from app.services.entity_logo_overrides import load_logo_overrides
     from app.services.seed_roster import following_model
 
     world = _feed_first_world()
@@ -3946,6 +4020,7 @@ def following_page(request: Request) -> HTMLResponse:
         q=str(params.get("q") or "").strip(),
         include_registries=str(params.get("registries") or "").strip() in {"1", "true", "yes"},
         entity_tiers=(world["state"].get("entity_tiers") or {}),
+        logo_overrides=load_logo_overrides(INBOX_DIR),
     )
     return templates.TemplateResponse(
         request=request,
@@ -4014,6 +4089,7 @@ def statements_page(request: Request) -> HTMLResponse:
 
 @app.get("/entities", response_class=HTMLResponse)
 def feed_first_entities_page(request: Request) -> HTMLResponse:
+    from app.services.entity_logo_overrides import load_logo_overrides
     from app.services.seed_roster import following_model
 
     world = _feed_first_world()
@@ -4028,6 +4104,7 @@ def feed_first_entities_page(request: Request) -> HTMLResponse:
         verification=verification,
         q=str(params.get("q") or "").strip(),
         include_registries=include_registries,
+        logo_overrides=load_logo_overrides(INBOX_DIR),
     )
     return templates.TemplateResponse(
         request=request,
@@ -6795,10 +6872,17 @@ def landscape_all(request: Request) -> HTMLResponse:
             },
         )
     context = _cached_landscape_context_all()
+    world = _feed_first_world()
     return templates.TemplateResponse(
         request=request,
         name="landscape_all.html",
-        context={**context, "authoring_mode": AUTHORING_MODE},
+        context={
+            **context,
+            "nav": world["nav"],
+            "active_href": "/landscapes",
+            "counts": world["counts"],
+            "authoring_mode": AUTHORING_MODE,
+        },
     )
 
 
@@ -6809,11 +6893,15 @@ def landscape_berry(
     berry_id = f"berry-{berry_slug}"
     if berry_id not in BERRIES:
         raise HTTPException(status_code=404, detail="Unknown berry")
+    world = _feed_first_world()
     return templates.TemplateResponse(
         request=request,
         name="landscape.html",
         context={
             **_cached_landscape_context(berry_id, region, intelligence_state),
+            "nav": world["nav"],
+            "active_href": "/landscapes",
+            "counts": world["counts"],
             "authoring_mode": AUTHORING_MODE,
         },
     )

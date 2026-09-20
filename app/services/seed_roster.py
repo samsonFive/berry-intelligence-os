@@ -437,6 +437,7 @@ def following_model(
     include_registries: bool = False,
     seed_path: Path | None = None,
     entity_tiers: dict[str, str] | None = None,
+    logo_overrides: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     roster = build_roster(existing, seed_path=seed_path)
     counts = roster_counts(roster)
@@ -456,7 +457,7 @@ def following_model(
                 **row,
                 "profile_url": profile_url(row),
                 "monogram": _monogram(row["canonical_name"]),
-                "logo_url": logo_display_url(row),
+                "logo_url": logo_display_url(row, logo_overrides=logo_overrides),
                 "verification_label": _verification_label(row),
                 "watch_labels": [watch["kind"].replace("_", " ") for watch in row["watches"]],
                 "social_channels": official_social_channels(row),
@@ -479,7 +480,13 @@ def following_model(
     }
 
 
-def seed_profile(entity_id: str, existing: Iterable[dict[str, Any]], *, seed_path: Path | None = None) -> dict[str, Any] | None:
+def seed_profile(
+    entity_id: str,
+    existing: Iterable[dict[str, Any]],
+    *,
+    seed_path: Path | None = None,
+    logo_overrides: dict[str, dict[str, Any]] | None = None,
+) -> dict[str, Any] | None:
     roster = build_roster(existing, seed_path=seed_path)
     for row in roster:
         if row["id"] == entity_id or row["seed_id"] == entity_id or seed_track_id(row["seed_id"]) == entity_id:
@@ -487,7 +494,7 @@ def seed_profile(entity_id: str, existing: Iterable[dict[str, Any]], *, seed_pat
                 **row,
                 "profile_url": profile_url(row),
                 "monogram": _monogram(row["canonical_name"]),
-                "logo_url": logo_display_url(row),
+                "logo_url": logo_display_url(row, logo_overrides=logo_overrides),
                 "verification_label": _verification_label(row),
                 "social_channels": official_social_channels(row),
                 "related_entities": related_from_seed_note(row, roster),
@@ -507,7 +514,16 @@ def _monogram(name: str) -> str:
     return (name[:2] or "BI").upper()
 
 
-def logo_display_url(row: dict[str, Any]) -> str:
+def logo_display_url(
+    row: dict[str, Any],
+    *,
+    logo_overrides: dict[str, dict[str, Any]] | None = None,
+) -> str:
+    overrides = logo_overrides or {}
+    for key in (row.get("id"), row.get("trusted_entity_id"), row.get("seed_id")):
+        override = overrides.get(str(key or "")) or {}
+        if override.get("url"):
+            return str(override["url"])
     raw = str(row.get("logo_source_url") or "").strip()
     parsed = urlparse(raw)
     if parsed.scheme in {"http", "https"} and parsed.hostname and not parsed.username:
