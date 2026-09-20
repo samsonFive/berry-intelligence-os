@@ -357,6 +357,8 @@ def test_gate2_real_archetype_routes_are_queryable_and_distinct():
     registry = client.get("/entities/company/seed-org-0147")
     assert "Excluded from competitor counts" in registry.text
     assert 'id="competitive-assessment"' not in registry.text
+    assert "Competitive posture" not in registry.text
+    assert "Vulnerabilities" not in registry.text
 
 
 def test_canonical_bridge_reuses_existing_published_evidence():

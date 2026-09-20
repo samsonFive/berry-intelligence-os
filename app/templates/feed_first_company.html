@@ -49,6 +49,7 @@
             <p>{% if official_website %}<a href="{{ official_website }}" rel="noopener noreferrer">Official website</a>{% else %}<span class="bos-gap-text">Headquarters / official site evidence incomplete</span>{% endif %}</p>
             <p class="bos-meta">Entity metadata · not an analytical claim</p>
           </article>
+          {% if 'berry-value-chain' in dossier.applicable_section_ids %}
           <article class="is-activity">
             <p class="bos-kicker">Activity & scale</p>
             {% set scale_rows = dossier.statement_groups.get('scale-performance', []) %}
@@ -56,6 +57,8 @@
             {% else %}<p class="bos-gap-text">No confirmed scale statement yet.</p>{% endif %}
             <p>{% for crop in crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}</p>
           </article>
+          {% endif %}
+          {% if 'competitive-assessment' in dossier.applicable_section_ids %}
           <article class="is-analysis">
             <p class="bos-kicker">Competitive posture</p>
             <p class="bos-assessment-state">{{ dossier.assessment.state|replace('_', ' ') }}</p>
@@ -68,6 +71,7 @@
             {% if vulnerability and vulnerability.answer %}<p>{{ vulnerability.answer }}</p>
             {% else %}<p class="bos-gap-text">Not yet supported by confirmed evidence.</p>{% endif %}
           </article>
+          {% endif %}
           <article class="is-change">
             <p class="bos-kicker">What changed</p>
             {% if dossier.recent_changes %}
