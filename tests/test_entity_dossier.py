@@ -251,6 +251,112 @@ def test_company_route_renders_wide_living_dossier():
     assert "Vulnerabilities" in page.text
     assert "What changed" in page.text
     assert "No 151×75 sweep" in page.text
+    assert "bos-entity-logo" in page.text
+    assert "data-archetype=\"specialist_breeder_nursery\"" in page.text
+
+
+def test_dossier_nav_wraps_without_horizontal_scrolling():
+    css = Path("app/static/berry_os.css").read_text(encoding="utf-8")
+    assert ".bos-dossier-outline" in css
+    assert "grid-template-columns: repeat(7, minmax(0, 1fr))" in css
+    assert "overflow: visible" in css
+
+
+def test_gate2_archetypes_route_questions_and_sections_differently():
+    state = {"statements": {}, "research_proposals": {}, "research_runs": {}}
+    planasa = build_dossier(
+        entity_id="company-planasa",
+        entity={
+            "roles": ["breeder", "nursery", "plant_producer"],
+            "attributes": {"ownership": "private"},
+        },
+        profile={"seed_entity_type": "private company", "crops": ["strawberry"]},
+        state=state,
+    )
+    fall_creek = build_dossier(
+        entity_id=ENTITY_ID,
+        entity=_entity(),
+        profile={"seed_entity_type": "private company", "crops": ["blueberry"]},
+        state=state,
+    )
+    university = build_dossier(
+        entity_id="company-university-of-florida",
+        entity={
+            "roles": ["public_research_institution", "breeder"],
+            "attributes": {"sector": "public_research"},
+        },
+        profile={},
+        state=state,
+    )
+    hortifrut = build_dossier(
+        entity_id="company-hortifrut",
+        entity={
+            "roles": [
+                "grower",
+                "marketer",
+                "breeding_joint_venture_partner",
+                "genetics_licensee",
+            ]
+        },
+        profile={"seed_entity_type": "public company"},
+        state=state,
+    )
+    registry = build_dossier(
+        entity_id="seed-org-0147",
+        entity={},
+        profile={"is_registry": True, "seed_entity_type": "registry"},
+        state=state,
+    )
+
+    assert planasa["archetype"] == "integrated_private_genetics"
+    assert fall_creek["archetype"] == "specialist_breeder_nursery"
+    assert university["archetype"] == "public_research_program"
+    assert hortifrut["archetype"] == "grower_marketer_genetics"
+    assert registry["archetype"] == "registry_source_system"
+    assert registry["competitor_eligible"] is False
+    assert "competitive-assessment" not in registry["applicable_section_ids"]
+    assert "scale-performance" not in university["applicable_section_ids"]
+    assert "genetics-cultivars" not in hortifrut["applicable_section_ids"]
+
+    question_states = {
+        dossier["archetype"]: {
+            row["id"]: row["answer_state"] for row in dossier["questions"]
+        }
+        for dossier in (planasa, fall_creek, university, hortifrut, registry)
+    }
+    assert (
+        question_states["integrated_private_genetics"][
+            "entity.performance.plants_sold"
+        ]
+        != "not_applicable"
+    )
+    assert (
+        question_states["public_research_program"][
+            "entity.performance.plants_sold"
+        ]
+        == "not_applicable"
+    )
+    assert (
+        question_states["registry_source_system"]["entity.activity.berry_roles"]
+        == "not_applicable"
+    )
+
+
+def test_gate2_real_archetype_routes_are_queryable_and_distinct():
+    routes = {
+        "/entities/company/company-planasa": "integrated_private_genetics",
+        "/entities/company/company-university-of-florida": "public_research_program",
+        "/entities/company/company-hortifrut": "grower_marketer_genetics",
+        "/entities/company/seed-org-0147": "registry_source_system",
+    }
+    client = TestClient(app)
+    for route, archetype in routes.items():
+        page = client.get(route)
+        assert page.status_code == 200
+        assert f'data-archetype="{archetype}"' in page.text
+    registry = client.get("/entities/company/seed-org-0147")
+    assert "Excluded from competitor counts" in registry.text
+    assert 'id="competitive-assessment"' not in registry.text
 
 
 def test_canonical_bridge_reuses_existing_published_evidence():
