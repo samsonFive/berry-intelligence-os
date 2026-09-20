@@ -8,18 +8,23 @@
 {% endblock %}
 {% block content %}
 <a class="bos-skip" href="#snapshot">Skip to dossier</a>
-<div class="berry-os" data-feed-first data-feed-first-company data-feed-first-entity data-entity-dossier data-entity-id="{{ entity_id }}" data-verification="{{ profile.verification_status if profile else status }}">
+<div class="berry-os" data-feed-first data-feed-first-company data-feed-first-entity data-entity-dossier data-entity-id="{{ entity_id }}" data-archetype="{{ dossier.archetype }}" data-verification="{{ profile.verification_status if profile else status }}">
   <div class="bos-shell bos-dossier-shell">
     {% include "_feed_first_rail.html" %}
     <main class="bos-dossier-canvas">
       <header class="bos-dossier-header">
-        <div>
-          <p class="bos-kicker">Living entity dossier · {{ verification_label }}</p>
-          <h1 class="bos-title">{{ name }}</h1>
-          {% if aliases %}<p class="bos-lede">Also known as {{ aliases|join(', ') }}</p>{% endif %}
+        <div class="bos-entity-lockup">
+          <div class="bos-entity-logo-frame">
+            {% if logo_url %}<img class="bos-logo bos-entity-logo" src="{{ logo_url }}" alt="{{ name }} logo" width="80" height="80">
+            {% else %}<span class="bos-monogram bos-entity-logo-fallback">{{ monogram }}</span>{% endif %}
+          </div>
+          <div>
+            <p class="bos-kicker">Living entity dossier · {{ verification_label }}</p>
+            <h1 class="bos-title">{{ name }}</h1>
+            <p class="bos-meta"><span class="bos-archetype-pill">{{ dossier.archetype_label }}</span>{% if not dossier.competitor_eligible %}<span class="bos-state-pill">Excluded from competitor counts</span>{% endif %}</p>
+            {% if aliases %}<p class="bos-lede">Also known as {{ aliases|join(', ') }}</p>{% endif %}
+          </div>
         </div>
-        {% if logo_url %}<img class="bos-logo" src="{{ logo_url }}" alt="{{ name }} logo" width="64" height="64">
-        {% else %}<span class="bos-monogram" style="position:static">{{ monogram }}</span>{% endif %}
         <div class="bos-actions">
           <a class="bos-btn is-primary" href="/today?entity={{ entity.id if entity.id else profile.id }}">Open entity feed</a>
           {% if legacy_href %}<a class="bos-btn" href="{{ legacy_href }}">Catalog profile</a>{% endif %}
@@ -37,27 +42,27 @@
           <p class="bos-note">Entity metadata and explicitly confirmed statements only. Missing evidence stays visible.</p>
         </div>
         <div class="bos-snapshot-grid">
-          <article>
+          <article class="is-identity">
             <p class="bos-kicker">Identity & footprint</p>
             <h3>{{ name }}</h3>
             <p>{{ profile.seed_entity_type if profile and profile.seed_entity_type else entity.entity_type or 'Entity type unresolved' }} · {{ status }}</p>
             <p>{% if official_website %}<a href="{{ official_website }}" rel="noopener noreferrer">Official website</a>{% else %}<span class="bos-gap-text">Headquarters / official site evidence incomplete</span>{% endif %}</p>
             <p class="bos-meta">Entity metadata · not an analytical claim</p>
           </article>
-          <article>
+          <article class="is-activity">
             <p class="bos-kicker">Activity & scale</p>
             {% set scale_rows = dossier.statement_groups.get('scale-performance', []) %}
             {% if scale_rows %}<p>{{ scale_rows[0].statement_text }}</p>
             {% else %}<p class="bos-gap-text">No confirmed scale statement yet.</p>{% endif %}
             <p>{% for crop in crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}</p>
           </article>
-          <article>
+          <article class="is-analysis">
             <p class="bos-kicker">Competitive posture</p>
             <p class="bos-assessment-state">{{ dossier.assessment.state|replace('_', ' ') }}</p>
             <p>{{ dossier.assessment.conclusion }}</p>
             <p class="bos-meta">{{ dossier.assessment.prerequisite_status }}</p>
           </article>
-          <article>
+          <article class="is-vulnerability">
             <p class="bos-kicker">Vulnerabilities</p>
             {% set vulnerability = dossier.questions|selectattr('id', 'equalto', 'entity.competitive.vulnerabilities')|first %}
             {% if vulnerability and vulnerability.answer %}<p>{{ vulnerability.answer }}</p>
@@ -109,6 +114,7 @@
         ('scale-performance', 'Scale & Performance'),
         ('history', 'History')
       ] %}
+      {% if section_id in dossier.applicable_section_ids %}
       <section id="{{ section_id }}" class="bos-dossier-section">
         <div class="bos-section-heading"><p class="bos-kicker">Facts</p><h2>{{ title }}</h2></div>
         {% set rows = dossier.statement_groups.get(section_id, []) %}
@@ -126,20 +132,25 @@
         <ul>{% for row in growing_profile.rows %}<li><a href="{{ row.href }}">{{ row.name }}</a>{% if row.trait_names %} · {{ row.trait_names|join(', ') }}{% endif %}</li>{% endfor %}</ul>
         {% endif %}
       </section>
+      {% endif %}
       {% endfor %}
 
+      {% if 'people' in dossier.applicable_section_ids %}
       <section id="people" class="bos-dossier-section">
         <div class="bos-section-heading"><p class="bos-kicker">People</p><h2>Current coverage</h2></div>
         {% if people %}<ul>{% for person in people %}<li><a href="{{ person.profile_url }}">{{ person.canonical_name }}</a> · {{ person.monitoring_coverage }} · {{ person.social_coverage }}</li>{% endfor %}</ul>
         {% else %}<p class="bos-gap-text">No linked monitored people in the current corpus.</p>{% endif %}
       </section>
+      {% endif %}
 
+      {% if 'competitive-assessment' in dossier.applicable_section_ids %}
       <section id="competitive-assessment" class="bos-dossier-section bos-analysis-block">
         <div class="bos-section-heading"><p class="bos-kicker">Analysis · dated object</p><h2>Competitive Assessment</h2></div>
         <p class="bos-assessment-state">{{ dossier.assessment.state|replace('_', ' ') }}</p>
         <p>{{ dossier.assessment.conclusion }}</p>
         <p class="bos-meta">Generated {{ dossier.assessment.generated_at or 'not yet' }} · confidence {{ dossier.assessment.confidence }} · supporting claims {{ dossier.assessment.supporting_statement_ids|length }}</p>
       </section>
+      {% endif %}
 
       <section id="watchpoints" class="bos-dossier-section bos-watchpoint-block">
         <div class="bos-section-heading"><p class="bos-kicker">Watchpoints · observable</p><h2>Monitoring instructions</h2></div>
@@ -147,7 +158,7 @@
       </section>
 
       <section id="evidence-gaps" class="bos-dossier-section">
-        <div class="bos-section-heading"><p class="bos-kicker">Evidence, Gaps & Conflicts</p><h2>Progressive question coverage</h2><p class="bos-note">Registry {{ dossier.registry_version }} · bounded Gate 1 Wave A/B view. No 151×75 sweep.</p></div>
+        <div class="bos-section-heading"><p class="bos-kicker">Evidence, Gaps & Conflicts</p><h2>Progressive question coverage</h2><p class="bos-note">Registry {{ dossier.registry_version }} · archetype-aware Gate 2 routing. No 151×75 sweep.</p></div>
         <div class="bos-question-list">
           {% for question in dossier.questions %}
           <article data-question-id="{{ question.id }}" data-answer-state="{{ question.answer_state }}">
@@ -194,6 +205,11 @@
     </main>
 
     <aside class="bos-dossier-context" aria-label="Dossier context">
+      <section>
+        <p class="bos-kicker">Archetype</p>
+        <strong>{{ dossier.archetype_label }}</strong>
+        <p class="bos-note">{{ 'Competitive entity' if dossier.competitor_eligible else 'Queryable source system · not a competitor' }}</p>
+      </section>
       <section>
         <p class="bos-kicker">Coverage</p>
         <strong>{{ dossier.coverage.answered }} / {{ dossier.coverage.applicable }}</strong>

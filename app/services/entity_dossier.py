@@ -99,6 +99,84 @@ SECTION_ORDER = (
     ("evidence-gaps", "Evidence, Gaps & Conflicts"),
 )
 
+ARCHETYPE_LABELS = {
+    "integrated_private_genetics": "Integrated private genetics platform",
+    "specialist_breeder_nursery": "Specialist breeder / nursery",
+    "public_research_program": "Public / university breeding program",
+    "grower_marketer_genetics": "Grower-marketer with genetics",
+    "registry_source_system": "Registry / source system",
+    "operating_entity": "Operating entity",
+}
+
+QUESTION_ARCHETYPE_APPLICABILITY = {
+    "entity.identity.canonical_name": set(ARCHETYPE_LABELS),
+    "entity.identity.entity_type": set(ARCHETYPE_LABELS),
+    "entity.identity.operating_status": set(ARCHETYPE_LABELS),
+    "entity.identity.website": set(ARCHETYPE_LABELS),
+    "entity.activity.berry_roles": {
+        "integrated_private_genetics",
+        "specialist_breeder_nursery",
+        "public_research_program",
+        "grower_marketer_genetics",
+        "operating_entity",
+    },
+    "entity.geography.headquarters": set(ARCHETYPE_LABELS),
+    "entity.performance.plants_sold": {
+        "integrated_private_genetics",
+        "specialist_breeder_nursery",
+    },
+    "entity.competitive.vulnerabilities": {
+        "integrated_private_genetics",
+        "specialist_breeder_nursery",
+        "grower_marketer_genetics",
+        "operating_entity",
+    },
+}
+
+ARCHETYPE_SECTIONS = {
+    "registry_source_system": {
+        "snapshot",
+        "recent-changes",
+        "identity-structure",
+        "geography",
+        "watchpoints",
+        "evidence-gaps",
+    },
+    "public_research_program": {
+        section_id
+        for section_id, _label in SECTION_ORDER
+        if section_id not in {"scale-performance"}
+    },
+    "grower_marketer_genetics": {
+        section_id
+        for section_id, _label in SECTION_ORDER
+        if section_id not in {"genetics-cultivars"}
+    },
+}
+
+
+def classify_archetype(
+    entity: dict[str, Any],
+    profile: dict[str, Any],
+) -> str:
+    if profile.get("is_registry"):
+        return "registry_source_system"
+    roles = {str(value).casefold() for value in (entity.get("roles") or [])}
+    attributes = entity.get("attributes") if isinstance(entity.get("attributes"), dict) else {}
+    sector = str(attributes.get("sector") or "").casefold()
+    seed_type = str(profile.get("seed_entity_type") or "").casefold()
+    if "public_research" in sector or "public_research_institution" in roles or "university" in seed_type:
+        return "public_research_program"
+    if {"grower", "marketer"}.issubset(roles) and (
+        "genetics_licensee" in roles or "breeding_joint_venture_partner" in roles
+    ):
+        return "grower_marketer_genetics"
+    if "plant_producer" in roles and "breeder" in roles:
+        return "integrated_private_genetics"
+    if "breeder" in roles and ("nursery" in roles or "genetics_licensor" in roles):
+        return "specialist_breeder_nursery"
+    return "operating_entity"
+
 
 def _question_state(
     question_id: str,
@@ -106,7 +184,12 @@ def _question_state(
     entity: dict[str, Any],
     profile: dict[str, Any],
     statements: list[dict[str, Any]],
+    archetype: str,
 ) -> tuple[str, str]:
+    if archetype not in QUESTION_ARCHETYPE_APPLICABILITY.get(
+        question_id, set(ARCHETYPE_LABELS)
+    ):
+        return "not_applicable", ""
     metadata = {
         "entity.identity.canonical_name": entity.get("name") or profile.get("canonical_name"),
         "entity.identity.entity_type": entity.get("entity_type") or profile.get("seed_entity_type"),
@@ -202,6 +285,10 @@ def build_dossier(
 ) -> dict[str, Any]:
     entity = entity or {}
     profile = profile or {}
+    archetype = classify_archetype(entity, profile)
+    applicable_section_ids = ARCHETYPE_SECTIONS.get(
+        archetype, {section_id for section_id, _label in SECTION_ORDER}
+    )
     statements = statements_for_entity(state, entity_id)
     statement_groups: dict[str, list[dict[str, Any]]] = {}
     for row in statements:
@@ -218,6 +305,7 @@ def build_dossier(
             entity=entity,
             profile=profile,
             statements=statements,
+            archetype=archetype,
         )
         questions.append({**question, "answer_state": answer_state, "answer": answer})
     applicable = [row for row in questions if row["answer_state"] != "not_applicable"]
@@ -226,8 +314,16 @@ def build_dossier(
     stale = [row for row in questions if row["answer_state"] == "stale"]
     return {
         "entity_id": entity_id,
+        "archetype": archetype,
+        "archetype_label": ARCHETYPE_LABELS[archetype],
+        "competitor_eligible": archetype != "registry_source_system",
         "registry_version": REGISTRY_VERSION,
-        "outline": [{"id": sid, "label": label} for sid, label in SECTION_ORDER],
+        "outline": [
+            {"id": sid, "label": label}
+            for sid, label in SECTION_ORDER
+            if sid in applicable_section_ids
+        ],
+        "applicable_section_ids": sorted(applicable_section_ids),
         "statements": statements,
         "statement_groups": statement_groups,
         "recent_changes": recent[:8],
