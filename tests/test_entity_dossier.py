@@ -344,6 +344,7 @@ def test_gate2_archetypes_route_questions_and_sections_differently():
 
 def test_gate2_real_archetype_routes_are_queryable_and_distinct():
     routes = {
+        f"/entities/company/{ENTITY_ID}": "specialist_breeder_nursery",
         "/entities/company/company-planasa": "integrated_private_genetics",
         "/entities/company/company-university-of-florida": "public_research_program",
         "/entities/company/company-hortifrut": "grower_marketer_genetics",
@@ -359,6 +360,11 @@ def test_gate2_real_archetype_routes_are_queryable_and_distinct():
     assert 'id="competitive-assessment"' not in registry.text
     assert "Competitive posture" not in registry.text
     assert "Vulnerabilities" not in registry.text
+    university = client.get("/entities/company/company-university-of-florida")
+    assert 'id="scale-performance"' not in university.text
+    hortifrut = client.get("/entities/company/company-hortifrut")
+    assert 'id="genetics-cultivars"' not in hortifrut.text
+    assert 'id="scale-performance"' in hortifrut.text
 
 
 def test_canonical_bridge_reuses_existing_published_evidence():
