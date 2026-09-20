@@ -766,6 +766,21 @@ def test_live_collector_tags_spain_and_official_first_party(tmp_path: Path):
     assert all(row.get("geography_ids") for row in cached["records"])
 
 
+def test_us_abbreviation_tags_united_states():
+    from app.services.feed_first_live import match_geography_ids
+
+    entities = [
+        {
+            "id": "geography-united-states",
+            "name": "United States",
+            "entity_type": "geography",
+        }
+    ]
+    assert match_geography_ids("U.S. blueberry prices rise", entities) == [
+        "geography-united-states"
+    ]
+
+
 def test_official_site_queries_stay_bounded():
     hosts = {f"grower{i}.example" for i in range(40)}
     queries = today_official_site_queries(hosts)
