@@ -31,7 +31,19 @@ pip install -r requirements.txt
 python -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-Or after 3.12 is installed: `.\scripts\run_local.ps1`
+Or after 3.12 is installed:
+
+```powershell
+git fetch origin
+git switch cursor/monday-tracked-companies-80ac
+git pull --ff-only origin cursor/monday-tracked-companies-80ac
+.\scripts\run_local.ps1
+```
+
+The launcher installs requirements, starts Berry OS on port `8000`, waits
+until it responds, and opens `/today` in your normal external browser.
+Set `$env:BIOS_NO_BROWSER = "1"` first only when you do not want automatic
+browser launch.
 
 If `Activate.ps1` is blocked:
 
