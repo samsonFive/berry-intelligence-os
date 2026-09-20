@@ -221,12 +221,49 @@
   font: inherit;
 }
 
+.bos-filters label {
+  border: 1px solid #52617a;
+  background: #202b43;
+  color: #f8fafc;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset;
+}
+
 .bos-filters select,
 .bos-filters input[type="search"] {
   border: 0;
   background: transparent;
-  color: var(--bos-text);
+  color: #ffffff;
   font: inherit;
+}
+
+.bos-filters select {
+  color-scheme: dark;
+  cursor: pointer;
+}
+
+.bos-filters select option,
+.bos-filters select optgroup {
+  background: #f8fafc;
+  color: #111827;
+}
+
+.bos-filters select option:checked {
+  background: #dbeafe;
+  color: #111827;
+}
+
+.bos-filters select option:disabled {
+  color: #64748b;
+}
+
+.bos-filters input[type="search"]::placeholder {
+  color: #c0cadb;
+  opacity: 1;
+}
+
+.bos-filters label:focus-within {
+  border-color: var(--bos-nectar);
+  background: #26344f;
 }
 
 .bos-chip[data-crop="strawberry"],
