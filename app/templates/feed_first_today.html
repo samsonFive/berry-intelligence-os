@@ -8,6 +8,7 @@
 {% endblock %}
 {% block content %}
 {% set selected = feed.selected %}
+<a class="bos-skip" href="#today-feed">Skip to Today feed</a>
 <div class="berry-os" data-feed-first data-feed-first-today data-freshness="same-day" data-today="{{ feed.today }}">
   <div class="bos-shell" data-viewport-shell>
     <aside class="bos-rail" aria-label="Feed navigation">
@@ -142,8 +143,9 @@
             <h2><a href="{{ item.reader_href }}">{{ item.headline }}</a></h2>
             {% if item.deck %}<p>{{ item.deck }}</p>{% endif %}
             {% if item.cluster_sources %}
-            <p class="bos-note">Also seen via {{ item.cluster_sources|join(', ') }}</p>
+            <p class="bos-note" data-story-thread>Story thread · also seen via {{ item.cluster_sources|join(', ') }}</p>
             {% endif %}
+            {% if item.muted %}<p class="bos-note">Muted watch — searchable, not in the default feed.</p>{% endif %}
             <p class="bos-meta">
               {% for entity in item.entities[:3] %}
               <a class="bos-chip" href="{{ entity.profile_url }}">{{ entity.name }} · {{ entity.tier }}</a>
@@ -172,8 +174,8 @@
 
     <aside class="bos-inspector" aria-label="Reader and intelligence">
       {% if selected %}
-      <div class="bos-reader" data-reader-root data-item-id="{{ selected.id }}">
-        <p class="bos-kicker">Reader · {{ selected.availability_label }}</p>
+      <div class="bos-reader" data-reader-root data-item-id="{{ selected.id }}" role="dialog" aria-modal="true" tabindex="-1">
+        <p class="bos-kicker">Reader · {{ selected.availability_label }}{% if selected.content_kind == 'pdf' %} · PDF{% endif %}</p>
         <h2>{{ selected.headline }}</h2>
         <p class="bos-meta">{{ selected.source_name }} · {% if selected.date_uncertain %}date unknown{% else %}{{ selected.published_at or 'date unknown' }}{% endif %}</p>
         <div class="bos-actions">
@@ -189,7 +191,26 @@
           {% endfor %}
           {% endif %}
         </div>
+        {% if selected.images and selected.images|length %}
+        <div class="bos-gallery" data-gallery>
+          {% for image in selected.images %}
+          <figure class="bos-gallery-slide"{% if not loop.first %} hidden{% endif %} data-gallery-slide>
+            <img src="{{ image.url }}" alt="{{ image.alt or 'Article image ' ~ loop.index }}">
+          </figure>
+          {% endfor %}
+          {% if selected.images|length > 1 %}
+          <div class="bos-actions">
+            <button type="button" class="bos-btn" data-gallery-prev aria-label="Previous image">Previous image</button>
+            <button type="button" class="bos-btn" data-gallery-next aria-label="Next image">Next image</button>
+            <span class="bos-note" data-gallery-status>1 / {{ selected.images|length }}</span>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
         <div class="bos-reader-body" data-reader-body data-availability="{{ selected.body_availability }}">
+          {% if selected.content_kind == 'pdf' %}
+          <p class="bos-note">PDF source fidelity — extracted text only. This is not claimed as the full document. <a href="{{ selected.source_url }}" rel="noopener noreferrer">View original PDF</a></p>
+          {% endif %}
           {% if selected.body_availability in ['full', 'partial', 'excerpt_only'] and selected.passages %}
             {% for passage in selected.passages %}
             <p>{{ passage }}</p>
@@ -215,6 +236,22 @@
           <p>4 of 6 · extracting atomic claims</p>
           <p class="bos-note">{{ feed.extraction_disclosure }}</p>
         </div>
+        {% if selected.cluster_sources or selected.corroborating_sources %}
+        <section data-story-thread>
+          <h3>Story thread</h3>
+          <p class="bos-note">One story once. Extra lanes stay independent corroboration, not a merged body.</p>
+          {% if selected.cluster_sources %}
+          <p>Also seen via {{ selected.cluster_sources|join(', ') }}</p>
+          {% endif %}
+          {% if selected.corroborating_sources %}
+          <ul>
+            {% for src in selected.corroborating_sources %}
+            <li>{{ src.name }}{% if src.lane %} · {{ src.lane }}{% endif %}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </section>
+        {% endif %}
         <section>
           <h3>Intelligence inspector</h3>
           <div data-statement-list>
@@ -232,6 +269,14 @@
               </form>
               <p class="bos-note">Evidence: {{ row.supporting_passages[0] if row.supporting_passages else 'none' }}</p>
               <p class="bos-note">Original: {{ row.original_extraction_text }}</p>
+              {% if row.corroborating_sources %}
+              <p class="bos-note" data-corroboration>Also supported independently by
+                {% for src in row.corroborating_sources %}
+                {{ src.name }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+                — provenance stays separate.
+              </p>
+              {% endif %}
             </article>
             {% else %}
             <p class="bos-note">Thumbs-up extracts supported statements from captured passages. Thumbs-down only hides this item.</p>

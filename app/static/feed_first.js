@@ -175,13 +175,74 @@
           body.innerHTML +=
             '<p class="bos-note">' + escapeHtml(data.availability || "partial") + " — this is not claimed as the full article.</p>";
         }
+        if (data.content_kind === "pdf") {
+          body.innerHTML =
+            '<p class="bos-note">PDF source fidelity — extracted text only. This is not claimed as the full document.</p>' +
+            body.innerHTML;
+        }
+        if (data.images && data.images.length) {
+          renderGallery(data.images);
+        }
       })
       .catch(function () {
         return;
       });
   }
 
+  function renderGallery(images) {
+    const gallery = root.querySelector("[data-gallery]");
+    if (!gallery || !images || !images.length) return;
+    const slides = gallery.querySelectorAll("[data-gallery-slide]");
+    if (!slides.length) {
+      gallery.innerHTML = images
+        .map(function (image, index) {
+          return (
+            '<figure class="bos-gallery-slide"' +
+            (index ? " hidden" : "") +
+            ' data-gallery-slide><img src="' +
+            escapeHtml(image.url || "") +
+            '" alt="' +
+            escapeHtml(image.alt || "Article image " + (index + 1)) +
+            '"></figure>'
+          );
+        })
+        .join("");
+      if (images.length > 1) {
+        gallery.innerHTML +=
+          '<div class="bos-actions"><button type="button" class="bos-btn" data-gallery-prev aria-label="Previous image">Previous image</button><button type="button" class="bos-btn" data-gallery-next aria-label="Next image">Next image</button><span class="bos-note" data-gallery-status>1 / ' +
+          images.length +
+          "</span></div>";
+      }
+    }
+  }
+
+  function stepGallery(delta) {
+    const gallery = root.querySelector("[data-gallery]");
+    if (!gallery) return;
+    const slides = Array.prototype.slice.call(gallery.querySelectorAll("[data-gallery-slide]"));
+    if (slides.length < 2) return;
+    let index = slides.findIndex(function (slide) {
+      return !slide.hidden;
+    });
+    if (index < 0) index = 0;
+    slides[index].hidden = true;
+    index = (index + delta + slides.length) % slides.length;
+    slides[index].hidden = false;
+    const status = gallery.querySelector("[data-gallery-status]");
+    if (status) status.textContent = index + 1 + " / " + slides.length;
+  }
+
   root.addEventListener("click", function (event) {
+    if (event.target.closest("[data-gallery-next]")) {
+      event.preventDefault();
+      stepGallery(1);
+      return;
+    }
+    if (event.target.closest("[data-gallery-prev]")) {
+      event.preventDefault();
+      stepGallery(-1);
+      return;
+    }
     const mode = event.target.closest("[data-reader-mode]");
     if (!mode) return;
     const chosen = mode.getAttribute("data-reader-mode");

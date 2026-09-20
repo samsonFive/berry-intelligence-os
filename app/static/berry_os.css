@@ -1,6 +1,36 @@
 /* Berry Intelligence Visual System — Gate A tokens + golden-path chrome.
    Scoped to .berry-os so legacy PVS/V2 surfaces keep their contracts. */
 
+.bos-skip {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  z-index: 20;
+  padding: 8px 12px;
+  background: var(--bos-nectar, #f3a712);
+  color: #141018;
+  border-radius: 8px;
+}
+.bos-skip:focus {
+  top: 12px;
+}
+
+.berry-os :focus-visible {
+  outline: 2px solid var(--bos-nectar, #f3a712);
+  outline-offset: 3px;
+}
+
+.bos-gallery {
+  margin: 0 0 12px;
+}
+.bos-gallery-slide img {
+  display: block;
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
 .berry-os {
   --bos-ink: #0b1020;
   --bos-plum: #171127;
@@ -416,6 +446,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .bos-loader-visual { animation: none; transform: scaleX(0.7); }
+  .bos-gallery-slide img { transition: none; }
 }
 
 @media (min-width: 1920px) {

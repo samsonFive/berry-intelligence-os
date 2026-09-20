@@ -477,6 +477,7 @@ def present_item(
         "review_state": record.get("review_state") or "",
         "acquisition_lane": record.get("acquisition_lane") or "",
         "image_url": safe_image_url(record),
+        "images": list(record.get("images") or (capture or {}).get("images") or []),
         "family": card_family(record, lead=lead, rank=rank),
         "decision": decision,
         "statement_count": sum(1 for row in statements if row.get("statement_state") != "removed"),
@@ -485,10 +486,15 @@ def present_item(
         "reader_href": f"/today?{query}" if query else f"/today?item={item_id}",
         "profile_href": entities[0]["profile_url"] if entities else "",
         "content_type": kind,
+        "content_kind": str(
+            (record.get("content_kind") or (record.get("reader_capture") or {}).get("content_kind") or kind)
+        ),
         "passages": captured_passages(record),
         "story_cluster_id": record.get("story_cluster_id") or "",
         "cluster_size": int(record.get("cluster_size") or 1),
         "cluster_sources": list(record.get("cluster_sources") or []),
+        "corroborating_sources": corroborating_sources(record),
+        "muted": item_is_muted({"entities": entities}),
         "record": record,
     }
 
@@ -507,7 +513,45 @@ def _availability_label(value: str) -> str:
         "metadata_only": "Metadata only",
         "blocked": "Blocked / not readable in-app",
         "error": "Capture error",
+        "pdf": "PDF · metadata / text route",
     }.get(value, value)
+
+
+def muted_entity_ids(state: dict[str, Any]) -> set[str]:
+    return {
+        str(entity_id)
+        for entity_id, tier in (state.get("entity_tiers") or {}).items()
+        if str(tier) == "muted"
+    }
+
+
+def item_is_muted(item: dict[str, Any]) -> bool:
+    entities = [row for row in (item.get("entities") or []) if row.get("id")]
+    if not entities:
+        return False
+    return all(str(row.get("tier") or "") == "muted" for row in entities)
+
+
+def corroborating_sources(record: dict[str, Any]) -> list[dict[str, str]]:
+    """Related cluster sources stay independent. They do not replace support."""
+    lead_url = str(record.get("source_url") or "").strip()
+    rows: list[dict[str, str]] = []
+    seen: set[str] = {lead_url}
+    for raw in record.get("cluster_sources") or []:
+        if isinstance(raw, dict):
+            name = str(raw.get("name") or raw.get("source") or "").strip()
+            url = str(raw.get("url") or "").strip()
+            lane = str(raw.get("lane") or raw.get("provider") or "").strip()
+        else:
+            name = str(raw).strip()
+            url = ""
+            lane = ""
+        key = url or name
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        rows.append({"name": name or key, "url": url, "lane": lane, "independent": "true"})
+    return rows[:8]
 
 
 def _monogram(name: str) -> str:
@@ -568,6 +612,14 @@ def _facet_counts(items: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def _matches(item: dict[str, Any], filters: dict[str, str]) -> bool:
+    if item_is_muted(item):
+        searching = bool(filters.get("q"))
+        explicit_muted = filters.get("tier") == "muted"
+        entity_lookup = bool(filters.get("entity")) and filters["entity"] in {
+            row["id"] for row in item.get("entities") or []
+        }
+        if not (searching or explicit_muted or entity_lookup):
+            return False
     if filters["tier"] and item["highest_tier"] != filters["tier"]:
         return False
     if filters["entity"] and filters["entity"] not in {row["id"] for row in item["entities"]}:
@@ -956,6 +1008,7 @@ def extract_statements(
                 "created_at": now,
                 "updated_at": now,
                 "analyst_edit_history": [],
+                "corroborating_sources": corroborating_sources(record),
             }
         )
     return rows

@@ -3812,7 +3812,7 @@ def _feed_first_entity_statements(entity_id: str) -> list[dict[str, Any]]:
 
 
 def _feed_first_world() -> dict[str, Any]:
-    from app.services.feed_first import CROP_LABELS, NAV, load_state
+    from app.services.feed_first import CROP_LABELS, NAV, load_state, muted_entity_ids
     from app.services.seed_roster import (
         build_roster,
         merge_entities_for_matching,
@@ -3823,16 +3823,21 @@ def _feed_first_world() -> dict[str, Any]:
 
     existing = all_entities()
     roster = build_roster(existing)
+    state = load_state(INBOX_DIR)
+    muted = muted_entity_ids(state)
+    host_map = official_host_map(roster)
+    hosts = {host for host in official_hosts(roster) if host_map.get(host) not in muted}
     return {
         "existing": existing,
         "roster": roster,
         "entities": merge_entities_for_matching(existing, roster),
-        "official_hosts": official_hosts(roster),
-        "official_host_map": official_host_map(roster),
+        "official_hosts": hosts,
+        "official_host_map": host_map,
+        "muted_entity_ids": muted,
         "counts": roster_counts(roster),
         "nav": NAV,
         "crop_labels": CROP_LABELS,
-        "state": load_state(INBOX_DIR),
+        "state": state,
     }
 
 
@@ -3857,6 +3862,7 @@ def _feed_first_today(request: Request) -> HTMLResponse:
         official_hosts=world["official_hosts"],
         official_host_map=world["official_host_map"],
         people=people,
+        muted_ids=world.get("muted_entity_ids") or set(),
         enrich_lead=refresh,
     )
     filters = parse_filters(params)
@@ -3928,6 +3934,7 @@ def following_page(request: Request) -> HTMLResponse:
         verification=str(params.get("verification") or "").strip(),
         q=str(params.get("q") or "").strip(),
         include_registries=str(params.get("registries") or "").strip() in {"1", "true", "yes"},
+        entity_tiers=(world["state"].get("entity_tiers") or {}),
     )
     return templates.TemplateResponse(
         request=request,
@@ -4155,7 +4162,10 @@ def research_ops_health_page(request: Request) -> HTMLResponse:
             "bakeoff": bakeoff_report(
                 firecrawl=bool(os.environ.get("FIRECRAWL_API_KEY")),
                 jina=bool(os.environ.get("JINA_API_KEY")),
+                cascade=bundle.get("cascade") if isinstance(bundle, dict) else None,
+                stats=(bundle.get("stats") if isinstance(bundle, dict) else None) or {},
             ),
+            "cascade": (bundle.get("cascade") if isinstance(bundle, dict) else None) or {},
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
         },
@@ -4248,6 +4258,8 @@ async def feed_first_capture(request: Request) -> JSONResponse:
             "item_id": item_id,
             "availability": capture.get("availability"),
             "passages": capture.get("passages") or [],
+            "images": capture.get("images") or [],
+            "content_kind": capture.get("content_kind") or "article",
             "frame_allowed": capture.get("frame_allowed"),
             "reader_modes": capture.get("reader_modes") or ["structured_fallback"],
             "reason": capture.get("reason") or "",
