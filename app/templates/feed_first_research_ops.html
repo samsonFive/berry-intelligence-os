@@ -25,6 +25,7 @@
         <ul>
           <li>Google News RSS — {{ 'live' if lanes.google_news_rss else 'down' }} (fallback, not backbone)</li>
           <li>Specialist RSS — {{ 'live' if lanes.specialist_rss else 'down' }}</li>
+          <li>Official site — {{ health.official_site.summary }} (bounded Google News site:; cap 6)</li>
           <li>Perplexity — {{ 'keyed' if lanes.perplexity else 'key absent' }}</li>
           <li>Exa — {{ 'keyed' if lanes.exa else 'key absent' }}</li>
           <li>APITube — {{ 'keyed' if lanes.apitube else 'key absent' }}</li>
@@ -46,6 +47,12 @@
           <li>Jina — {{ 'keyed' if bakeoff.jina.available else 'key absent' }} · {{ bakeoff.jina.notes }}</li>
         </ul>
         <p class="bos-note">{{ bakeoff.disclosure }}</p>
+      </section>
+
+      <section data-official-site-lane>
+        <h2 class="bos-title" style="font-size:1.4rem">Official-site first party</h2>
+        <p>{{ health.official_site.summary }}</p>
+        <p class="bos-note">Zero first-party this fetch is a coverage gap, not a missing watch. When a host publishes, the card is company_website on the official_site lane.</p>
       </section>
 
       <section data-watch-coverage>

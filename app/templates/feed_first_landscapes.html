@@ -14,22 +14,33 @@
       <p class="bos-kicker">Landscapes / Briefs</p>
       <h1 class="bos-title">Trusted statements across the watched world</h1>
       <p class="bos-lede">{{ disclosure }}</p>
-      <p class="bos-note">{{ tracked_companies }} companies tracked · {{ statement_count }} trusted statements</p>
+      <p class="bos-note">{{ tracked_companies }} companies tracked · {{ statement_count }} trusted statements · {{ story_count or 0 }} live stories</p>
       {% if companies %}
       {% for company in companies %}
       <section class="bos-people-card">
         <h2 class="bos-title" style="font-size:1.3rem"><a href="{{ company.profile_url }}">{{ company.name }}</a></h2>
-        <p class="bos-note">{{ company.statement_count }} statement(s)</p>
+        <p class="bos-note">{{ company.statement_count }} statement(s) · {{ company.story_count or 0 }} live stor{{ 'y' if company.story_count == 1 else 'ies' }}</p>
+        {% if company.statements %}
+        <p class="bos-kicker">Trusted statements</p>
         <ul>
           {% for row in company.statements %}
           <li>{{ row.statement_text }}</li>
           {% endfor %}
         </ul>
+        {% endif %}
+        {% if company.stories %}
+        <p class="bos-kicker">Live briefs</p>
+        <ul data-live-stories>
+          {% for row in company.stories %}
+          <li>{{ row.title }} · {{ row.source_name }} · cluster ×{{ row.cluster_size }} · {{ row.trust_state }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
       </section>
       {% endfor %}
       {% else %}
       <div class="bos-empty">
-        <p>No trusted statements yet. Thumbs-up on Today is the only path that lands intelligence here.</p>
+        <p>No trusted statements or live clustered stories yet. Thumbs-up on Today lands intelligence here; live one-story-once clusters reuse as briefs without implying trust.</p>
       </div>
       {% endif %}
       <p><a class="bos-btn" href="/landscapes?view=legacy">Legacy landscape</a></p>

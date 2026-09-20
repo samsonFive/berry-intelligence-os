@@ -14,7 +14,7 @@
       <p class="bos-kicker">This week</p>
       <h1 class="bos-title">Trusted statements from the last 7 days</h1>
       <p class="bos-lede">{{ disclosure }}</p>
-      <p class="bos-note">{{ statement_count }} statement(s) · not the Pulse live week matrix</p>
+      <p class="bos-note">{{ statement_count }} statement(s) · {{ story_count or 0 }} live stor{{ 'y' if story_count == 1 else 'ies' }} · not the Pulse live week matrix</p>
       {% if statements %}
       <ul>
         {% for row in statements %}
@@ -25,9 +25,23 @@
         </li>
         {% endfor %}
       </ul>
-      {% else %}
+      {% endif %}
+      {% if stories %}
+      <section data-live-stories>
+        <h2 class="bos-title" style="font-size:1.3rem">Live one-story-once briefs</h2>
+        <ul>
+          {% for row in stories %}
+          <li class="bos-people-card">
+            <p>{{ row.title }}</p>
+            <p class="bos-note">{{ row.source_name }} · {{ row.published_date }} · cluster ×{{ row.cluster_size }} · {{ row.trust_state }} · not trusted until thumbs-up</p>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+      {% if not statements and not stories %}
       <div class="bos-empty">
-        <p>No thumbs-up statements created in the last 7 UTC days. This page does not pull stored August evidence.</p>
+        <p>No thumbs-up statements or live clustered stories in the last 7 UTC days. This page does not pull stored August evidence.</p>
       </div>
       {% endif %}
       <p><a class="bos-btn" href="/week">Legacy week shell</a></p>

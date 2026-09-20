@@ -60,6 +60,7 @@ LIVE_LANE_SPECIALIST = "specialist_rss"
 LIVE_LANE_PERPLEXITY = "perplexity"
 LIVE_LANE_EXA = "exa"
 LIVE_LANE_APITUBE = "apitube"
+LIVE_LANE_OFFICIAL = "official_site"
 TRUST_LIVE = "LIVE"
 REVIEW_UNREVIEWED = "UNREVIEWED"
 
@@ -213,6 +214,22 @@ def today_perplexity_queries() -> list[PulseQuery]:
     return rows
 
 
+class RelabeledProvider:
+    """Reuse an inner provider's fetch, but keep a distinct lane name."""
+
+    def __init__(self, inner: DiscoveryProvider, name: str):
+        self.inner = inner
+        self.name = name
+
+    def discover(self, query: PulseQuery) -> list[DiscoveryHit]:
+        hits: list[DiscoveryHit] = []
+        for hit in self.inner.discover(query):
+            payload = hit.as_dict()
+            payload["provider"] = self.name
+            hits.append(DiscoveryHit(**payload))
+        return hits
+
+
 def live_item_id(url: str) -> str:
     key = normalize_canonical_url(url) or url.strip()
     digest = hashlib.sha256(key.encode("utf-8")).hexdigest()[:16]
@@ -347,6 +364,8 @@ def _is_blackberry_stock(hit: DiscoveryHit) -> bool:
 
 
 def source_type_for(hit: DiscoveryHit, *, official: set[str] | None = None) -> str:
+    if hit.provider == LIVE_LANE_OFFICIAL:
+        return "company_website"
     host = (hit.source_domain or hostname(hit.origin_publisher_url or hit.url) or "").lower().removeprefix("www.")
     known = OFFICIAL_HOSTS | (official or set())
     if host in known:
@@ -415,15 +434,18 @@ def empty_bundle(today: date, *, fetched_at: str | None = None) -> dict[str, Any
     return {
         "today": today.isoformat(),
         "fetched_at": fetched_at,
-        "lanes": [LIVE_LANE_GOOGLE, LIVE_LANE_SPECIALIST],
+        "lanes": [LIVE_LANE_GOOGLE, LIVE_LANE_SPECIALIST, LIVE_LANE_OFFICIAL],
         "lane_errors": [],
         "stats": {
             "discovered": 0,
             "qualified": 0,
             "same_day": 0,
+            "week": 0,
             "dropped_not_today": 0,
             "dropped_undated": 0,
             "dropped_unqualified": 0,
+            "official_hosts_polled": 0,
+            "official_hits": 0,
         },
         "records": [],
     }
@@ -506,6 +528,7 @@ def collect_same_day_hits(
     sources: list[dict[str, Any]] | None = None,
     today: date | None = None,
     official_hosts: set[str] | None = None,
+    official_provider: DiscoveryProvider | None = None,
 ) -> tuple[list[DiscoveryHit], dict[str, Any]]:
     today = today or utc_today()
     google_provider = google_provider or GoogleNewsRssProvider()
@@ -528,10 +551,15 @@ def collect_same_day_hits(
     entities = entities or []
     sources = sources or []
 
-    google_hits, google_errors = _run_lane(
-        google_provider,
-        [*today_google_queries(), *today_official_site_queries(official_hosts)],
+    google_hits, google_errors = _run_lane(google_provider, today_google_queries())
+    official_queries = today_official_site_queries(official_hosts)
+    official_source = official_provider or google_provider
+    official_lane = (
+        official_source
+        if getattr(official_source, "name", "") == LIVE_LANE_OFFICIAL
+        else RelabeledProvider(official_source, LIVE_LANE_OFFICIAL)
     )
+    official_hits, official_errors = _run_lane(official_lane, official_queries)
     specialist_hits, specialist_errors = _run_lane(
         specialist_provider,
         week_specialist_feed_queries(),
@@ -551,7 +579,7 @@ def collect_same_day_hits(
         apitube_hits, apitube_errors = _run_lane(
             apitube_provider, today_keyed_queries(), workers=2
         )
-    raw = [*google_hits, *specialist_hits, *perplexity_hits, *exa_hits, *apitube_hits]
+    raw = [*google_hits, *official_hits, *specialist_hits, *perplexity_hits, *exa_hits, *apitube_hits]
     company_names = names_from_entities(entities, prefix="company-")
     variety_names = names_from_entities(entities, prefix="variety-")
     index = QualificationIndex.compile(
@@ -580,6 +608,7 @@ def collect_same_day_hits(
         kept.append(hit)
     same_day = [hit for hit in kept if is_same_calendar_day(hit.published_date, today)]
 
+    official_kept = [hit for hit in kept if hit.provider == LIVE_LANE_OFFICIAL]
     stats = {
         "discovered": len(raw),
         "qualified": sum(1 for hit in deduped if hit.qualifying),
@@ -589,10 +618,13 @@ def collect_same_day_hits(
         "dropped_undated": dropped_undated,
         "dropped_unqualified": dropped_unqualified + dropped_today_noise,
         "dropped_today_noise": dropped_today_noise,
+        "official_hosts_polled": len(official_queries),
+        "official_hits": len(official_kept),
     }
     lanes = [
         getattr(google_provider, "name", LIVE_LANE_GOOGLE),
         getattr(specialist_provider, "name", LIVE_LANE_SPECIALIST),
+        LIVE_LANE_OFFICIAL,
     ]
     if perplexity_provider is not None:
         lanes.append(getattr(perplexity_provider, "name", LIVE_LANE_PERPLEXITY))
@@ -605,6 +637,7 @@ def collect_same_day_hits(
         "lanes": lanes,
         "lane_errors": [
             *google_errors,
+            *official_errors,
             *specialist_errors,
             *perplexity_errors,
             *exa_errors,
@@ -697,6 +730,7 @@ def live_feed_bundle(
     enable_apitube: bool | None = None,
     official_hosts: set[str] | None = None,
     official_host_map: dict[str, str] | None = None,
+    official_provider: DiscoveryProvider | None = None,
     people: list[dict[str, Any]] | None = None,
     enrich_lead: bool = False,
 ) -> dict[str, Any]:
@@ -735,6 +769,7 @@ def live_feed_bundle(
         sources=sources,
         today=today,
         official_hosts=official_hosts,
+        official_provider=official_provider,
     )
     records = collapse_story_clusters(
         [

@@ -1087,6 +1087,67 @@ def week_statements(state: dict[str, Any], *, today: date) -> list[dict[str, Any
     return rows
 
 
+def live_story_briefs(
+    records: list[dict[str, Any]] | None,
+    *,
+    today: date | None = None,
+    window_days: int | None = None,
+) -> list[dict[str, Any]]:
+    """Reuse one-story-once live clusters as briefs. LIVE / UNREVIEWED, not trusted."""
+    rows: list[dict[str, Any]] = []
+    for record in records or []:
+        if not isinstance(record, dict):
+            continue
+        published = str(record.get("published_date") or "")[:10]
+        if today is not None and window_days is not None:
+            try:
+                when = date.fromisoformat(published)
+            except ValueError:
+                continue
+            if not (0 <= (today - when).days <= window_days):
+                continue
+        rows.append(
+            {
+                "id": str(record.get("id") or ""),
+                "title": record.get("title") or "",
+                "summary": record.get("summary") or "",
+                "source_name": record.get("source_name") or "",
+                "source_type": record.get("source_type") or "",
+                "published_date": published,
+                "entity_ids": [str(eid) for eid in (record.get("entity_ids") or []) if eid],
+                "cluster_size": int(record.get("cluster_size") or 1),
+                "cluster_sources": list(record.get("cluster_sources") or []),
+                "acquisition_lane": record.get("acquisition_lane") or "",
+                "trust_state": record.get("trust_state") or "LIVE",
+                "kind": "live_story",
+            }
+        )
+    rows.sort(key=lambda row: (row["published_date"], int(row["cluster_size"])), reverse=True)
+    return rows
+
+
+def week_model(
+    state: dict[str, Any],
+    *,
+    today: date,
+    live_records: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    statements = week_statements(state, today=today)
+    stories = live_story_briefs(live_records, today=today, window_days=7)
+    return {
+        "statements": statements,
+        "stories": stories,
+        "statement_count": len(statements),
+        "story_count": len(stories),
+        "disclosure": (
+            "This week reuses trusted Today thumbs-up statements from the last 7 UTC days "
+            "and live one-story-once clusters from the same window. "
+            "Live stories stay LIVE / UNREVIEWED until thumbs-up. "
+            "It does not run the Pulse week matrix and does not treat stored August evidence as current."
+        ),
+    }
+
+
 def saved_items(
     *,
     evidence: list[dict[str, Any]],
@@ -1110,33 +1171,52 @@ def landscapes_model(
     state: dict[str, Any],
     entities: list[dict[str, Any]],
     counts: dict[str, Any],
+    live_records: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     by_id = {str(row.get("id")): row for row in entities if row.get("id")}
     statements = trusted_statements(state)
-    grouped: dict[str, list[dict[str, Any]]] = {}
-    for row in statements:
-        for entity_id in row.get("entity_ids") or ["unmatched"]:
-            grouped.setdefault(str(entity_id), []).append(row)
-    companies = []
-    for entity_id, rows in grouped.items():
-        entity = by_id.get(entity_id) or {}
-        companies.append(
-            {
+    stories = live_story_briefs(live_records)
+    grouped: dict[str, dict[str, Any]] = {}
+
+    def _bucket(entity_id: str) -> dict[str, Any]:
+        if entity_id not in grouped:
+            entity = by_id.get(entity_id) or {}
+            grouped[entity_id] = {
                 "id": entity_id,
                 "name": entity.get("name") or entity_id,
                 "profile_url": f"/entities/company/{entity_id}",
-                "statement_count": len(rows),
-                "statements": rows[:6],
+                "statement_count": 0,
+                "story_count": 0,
+                "statements": [],
+                "stories": [],
             }
-        )
-    companies.sort(key=lambda row: (-row["statement_count"], row["name"].casefold()))
+        return grouped[entity_id]
+
+    for row in statements:
+        for entity_id in row.get("entity_ids") or ["unmatched"]:
+            bucket = _bucket(str(entity_id))
+            bucket["statement_count"] += 1
+            if len(bucket["statements"]) < 6:
+                bucket["statements"].append(row)
+    for story in stories:
+        for entity_id in story.get("entity_ids") or ["unmatched"]:
+            bucket = _bucket(str(entity_id))
+            bucket["story_count"] += 1
+            if len(bucket["stories"]) < 6:
+                bucket["stories"].append(story)
+    companies = list(grouped.values())
+    companies.sort(
+        key=lambda row: (-row["statement_count"], -row["story_count"], row["name"].casefold())
+    )
     return {
         "companies": companies,
         "statement_count": len(statements),
+        "story_count": len(stories),
         "tracked_companies": counts.get("tracked_companies") or 0,
         "disclosure": (
-            "Landscapes reuse trusted Today thumbs-up statements. "
-            "Save is not trust. Legacy landscape remains at /landscapes?view=legacy."
+            "Landscapes reuse trusted Today thumbs-up statements and live one-story-once clusters as briefs. "
+            "Live stories stay LIVE / UNREVIEWED until thumbs-up. Save is not trust. "
+            "Legacy landscape remains at /landscapes?view=legacy."
         ),
     }
 

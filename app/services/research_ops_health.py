@@ -43,6 +43,26 @@ def cluster_stats(records: list[dict[str, Any]] | None) -> dict[str, int]:
     }
 
 
+def official_site_lane(
+    stats: dict[str, Any] | None,
+    records: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    payload = stats if isinstance(stats, dict) else {}
+    hosts = int(payload.get("official_hosts_polled") or 0)
+    hits = int(payload.get("official_hits") or 0)
+    if not hits:
+        hits = sum(
+            1
+            for row in (records or [])
+            if str(row.get("acquisition_lane") or "") == "official_site"
+        )
+    return {
+        "hosts_polled": hosts,
+        "first_party_hits": hits,
+        "summary": f"polled {hosts} hosts · {hits} first-party this fetch",
+    }
+
+
 def watch_coverage(
     counts: dict[str, Any],
     *,
@@ -119,4 +139,5 @@ def research_ops_health(
         else int(stats.get("same_day") or 0),
         "week": len(records) if entities is not None else int(stats.get("week") or 0),
         "dropped_today_noise": int(stats.get("dropped_today_noise") or 0) + dropped,
+        "official_site": official_site_lane(stats, records),
     }

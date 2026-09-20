@@ -21,6 +21,17 @@
           <div>
             <p class="bos-meta"><span>{{ item.source_name }}</span><span>{{ item.published_at }}</span></p>
             <h3><a href="{{ item.reader_href }}">{{ item.headline }}</a></h3>
+            {% if item.statements %}
+            <ul data-saved-statements>
+              {% for row in item.statements %}
+              {% if row.statement_state != 'removed' %}
+              <li>{{ row.statement_text }}</li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+            {% else %}
+            <p class="bos-note">Saved only. No trusted statements on this card.</p>
+            {% endif %}
           </div>
         </article>
         {% endfor %}

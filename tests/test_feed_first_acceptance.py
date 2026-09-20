@@ -412,9 +412,9 @@ def test_p1_watch_coverage_and_ops_health_are_inspectable():
     health = research_ops_health(
         bundle={
             "fetched_at": "2026-09-20T12:00:00+00:00",
-            "lanes": ["google_news_rss", "specialist_rss", "perplexity"],
+            "lanes": ["google_news_rss", "specialist_rss", "official_site", "perplexity"],
             "lane_errors": [{"provider": "perplexity", "error_class": "TimeoutError", "error": "TimeoutError: token=abcd"}],
-            "stats": {"same_day": 1, "week": 4},
+            "stats": {"same_day": 1, "week": 4, "official_hosts_polled": 6, "official_hits": 0},
             "records": [
                 {"cluster_size": 3, "title": "Wish Farms"},
                 {"cluster_size": 1, "title": "Planasa"},
@@ -427,10 +427,228 @@ def test_p1_watch_coverage_and_ops_health_are_inspectable():
     assert health["clusters"]["clustered_stories"] == 1
     assert health["clusters"]["extra_lane_hits"] == 2
     assert health["lane_errors"][0] == {"provider": "perplexity", "error_class": "TimeoutError"}
+    assert health["official_site"]["summary"] == "polled 6 hosts · 0 first-party this fetch"
     ops = TestClient(app).get("/research-ops")
     assert ops.status_code == 200
     assert "data-watch-coverage" in ops.text
     assert "data-cluster-stats" in ops.text
     assert "data-lane-errors" in ops.text
+    assert "data-official-site-lane" in ops.text
     assert "official-site watches" in ops.text
     assert "Error class only" in ops.text
+    assert "coverage gap, not a missing watch" in ops.text
+
+
+def test_p1_entity_click_opens_profile_with_coverage_and_statements():
+    page = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery")
+    assert page.status_code == 200
+    assert "data-feed-first-company" in page.text
+    assert "data-feed-first-entity" in page.text
+    assert "From Today thumbs-up" in page.text
+    assert "Watches" in page.text
+    assert 'href="/today?entity=' in page.text
+    today = TestClient(app).get("/today")
+    assert "data-feed-first-today" in today.text
+
+
+def test_p1_people_watch_stays_honest_coverage():
+    import re
+
+    people = TestClient(app).get("/people")
+    assert people.status_code == 200
+    assert "provider-unavailable" in people.text
+    assert "discovery-only" in people.text
+    assert "data-coverage=" in people.text
+    match = re.search(r'href="(/people/person-[^"]+)"', people.text)
+    assert match, people.text[:500]
+    person = TestClient(app).get(match.group(1))
+    assert person.status_code == 200
+    assert "data-feed-first-person" in person.text
+    assert "provider-unavailable" in person.text
+    assert "From Today thumbs-up" in person.text
+
+
+def test_p1_board_save_surfaces_statements_without_trust(tmp_path):
+    from app.services.feed_first import saved_items
+
+    inbox = tmp_path / "inbox"
+    record = _record()
+    apply_decision(inbox, item_id=record["id"], action="save", evidence=[record])
+    apply_decision(inbox, item_id=record["id"], action="thumbs_up", evidence=[record])
+    cards = saved_items(
+        evidence=[record],
+        entities=[
+            {
+                "id": "company-fall-creek-farm-and-nursery",
+                "name": "Fall Creek",
+                "status": "active",
+                "verification_status": "verified-secondary",
+            }
+        ],
+        state=load_state(inbox),
+    )
+    assert len(cards) == 1
+    assert cards[0]["decision"]["saved"] is True
+    assert cards[0]["decision"]["reaction"] == "up"
+    assert cards[0]["statements"]
+    saved = TestClient(app).get("/saved")
+    assert saved.status_code == 200
+    assert "Save is a board, not trust" in saved.text
+    assert "data-feed-first-saved" in saved.text
+
+
+def test_p1_geography_filter_restores_url_state():
+    from urllib.parse import parse_qsl
+
+    from app.services.feed_first import filters_query
+
+    filters = parse_filters({"window": "7d", "geography": "geography-morocco"})
+    restored = parse_filters(dict(parse_qsl(filters_query(filters))))
+    assert restored["geography"] == "geography-morocco"
+    assert restored["window"] == "7d"
+    page = TestClient(app).get("/today?window=7d&geography=geography-morocco")
+    assert page.status_code == 200
+    assert 'name="geography"' in page.text
+    assert "data-feed-first-today" in page.text
+
+
+def test_p1_official_update_when_host_publishes(tmp_path):
+    from datetime import datetime, timezone
+
+    from app.services.industry_pulse.providers import MemoryProvider
+    from app.services.research_ops_health import research_ops_health
+    from tests.test_feed_first_gate1 import _geo_entities, _same_day_hit
+
+    today = date(2026, 9, 21)
+    bundle = live_feed_bundle(
+        inbox_dir=tmp_path,
+        entities=_geo_entities(),
+        sources=[],
+        refresh=True,
+        today=today,
+        now=datetime(2026, 9, 21, 15, 0, tzinfo=timezone.utc),
+        google_provider=MemoryProvider(
+            hits_by_query_id={
+                "today:official:hortifrut.com:24h": [
+                    _same_day_hit(
+                        title="Hortifrut reports new blueberry plantings",
+                        url="https://www.hortifrut.com/news/plantings",
+                        source_domain="hortifrut.com",
+                        origin_publisher_url="https://www.hortifrut.com/news/plantings",
+                        origin_publisher_name="Hortifrut",
+                        snippet="The company expands blueberry acreage in Spain.",
+                        query_id="today:official:hortifrut.com:24h",
+                    )
+                ]
+            }
+        ),
+        specialist_provider=MemoryProvider(hits_by_query_id={}),
+        enable_perplexity=False,
+        enable_exa=False,
+        enable_apitube=False,
+        official_hosts={"hortifrut.com"},
+        official_host_map={"hortifrut.com": "company-hortifrut"},
+    )
+    hortifrut = next(row for row in bundle["records"] if "Hortifrut" in row["title"])
+    assert hortifrut["acquisition_lane"] == "official_site"
+    assert hortifrut["source_type"] == "company_website"
+    assert "company-hortifrut" in hortifrut["entity_ids"]
+    assert "official_site" in bundle["lanes"]
+    assert bundle["stats"]["official_hits"] >= 1
+    health = research_ops_health(bundle=bundle, counts={"official_site_watches": 84, "mention_watches": 145, "tracked_companies": 145})
+    assert health["official_site"]["first_party_hits"] >= 1
+    assert "first-party this fetch" in health["official_site"]["summary"]
+
+
+def test_p1_official_zero_hits_is_coverage_gap_not_missing_watch(tmp_path):
+    from datetime import datetime, timezone
+
+    from app.services.industry_pulse.providers import MemoryProvider
+    from app.services.research_ops_health import research_ops_health
+    from tests.test_feed_first_gate1 import _geo_entities, _same_day_hit
+
+    bundle = live_feed_bundle(
+        inbox_dir=tmp_path,
+        entities=_geo_entities(),
+        sources=[],
+        refresh=True,
+        today=date(2026, 9, 21),
+        now=datetime(2026, 9, 21, 15, 0, tzinfo=timezone.utc),
+        google_provider=MemoryProvider(
+            hits_by_query_id={"today:blueberry:global:24h": [_same_day_hit()]}
+        ),
+        specialist_provider=MemoryProvider(hits_by_query_id={}),
+        enable_perplexity=False,
+        enable_exa=False,
+        enable_apitube=False,
+        official_hosts={"hortifrut.com"},
+    )
+    assert "official_site" in bundle["lanes"]
+    assert bundle["stats"]["official_hosts_polled"] >= 1
+    assert bundle["stats"]["official_hits"] == 0
+    health = research_ops_health(bundle=bundle, counts={"official_site_watches": 84})
+    assert health["official_site"]["first_party_hits"] == 0
+    assert health["official_site"]["summary"].startswith("polled ")
+    assert "0 first-party this fetch" in health["official_site"]["summary"]
+
+
+def test_p1_undo_clears_landscapes_and_week(tmp_path):
+    from datetime import UTC, datetime
+
+    from app.services.feed_first import landscapes_model, week_model
+
+    inbox = tmp_path / "inbox"
+    today = datetime.now(UTC).date()
+    record = _record(published_date=today.isoformat())
+    entities = [
+        {
+            "id": "company-fall-creek-farm-and-nursery",
+            "name": "Fall Creek",
+            "status": "active",
+            "verification_status": "verified-secondary",
+        }
+    ]
+    counts = {"tracked_companies": 145}
+    apply_decision(inbox, item_id=record["id"], action="thumbs_up", evidence=[record])
+    state = load_state(inbox)
+    live = [
+        {
+            **record,
+            "cluster_size": 2,
+            "cluster_sources": ["freshplaza.com"],
+            "trust_state": "LIVE",
+            "acquisition_lane": "google_news_rss",
+        }
+    ]
+    landscapes = landscapes_model(state=state, entities=entities, counts=counts, live_records=live)
+    week = week_model(state, today=today, live_records=live)
+    assert landscapes["statement_count"] >= 1
+    assert landscapes["story_count"] == 1
+    assert week["statement_count"] >= 1
+    assert week["story_count"] == 1
+    apply_decision(inbox, item_id=record["id"], action="clear_reaction", evidence=[record])
+    state = load_state(inbox)
+    landscapes = landscapes_model(state=state, entities=entities, counts=counts, live_records=live)
+    week = week_model(state, today=today, live_records=live)
+    assert landscapes["statement_count"] == 0
+    assert week["statement_count"] == 0
+    assert landscapes["story_count"] == 1
+    assert week["story_count"] == 1
+
+
+def test_p1_keyboard_help_and_js_complete_golden_path():
+    today = TestClient(app).get("/today")
+    help_copy = today.text
+    assert "data-keyboard-help" in help_copy
+    assert "s save" in help_copy
+    assert "again undoes" in help_copy
+    assert "Esc close reader" in help_copy
+    assert "Modifiers ignored" in help_copy
+    script = Path("app/static/feed_first.js").read_text(encoding="utf-8")
+    assert "event.preventDefault()" in script
+    assert "event.metaKey || event.ctrlKey || event.altKey" in script
+    assert 'key === "s"' in script
+    assert 'key === "Escape"' in script
+    assert 'querySelector("[data-reader-root]")' in script
+    assert "renderStatements([])" in script
+    assert 'data-react="save"' in Path("app/templates/feed_first_today.html").read_text(encoding="utf-8")
