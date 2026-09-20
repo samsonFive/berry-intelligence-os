@@ -33,3 +33,7 @@ Thumbs.db
 
 # Per-developer local tool settings (not shared project config)
 .claude/settings.local.json
+
+# Local secrets. Copy .env.example → .env. Never commit values.
+.env
+.env.local
