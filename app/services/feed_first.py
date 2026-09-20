@@ -21,6 +21,8 @@ from app.services.html_text import decode_html_text
 from app.services.source_body import classify_source_body, reader_content
 
 STATE_FILENAME = "feed_first_state.json"
+BACKUP_SUBDIR = "feed_first_backups"
+BACKUP_KEEP = 8
 EXTRACTION_MODEL = "local-deterministic-preview"
 EXTRACTION_VERSION = "gate3-v2"
 EXTRACTION_DISCLOSURE = (
@@ -93,9 +95,9 @@ NAV = (
     ("Saved", "/saved"),
     ("Entities", "/entities"),
     ("People", "/people"),
-    ("Statements", "/today?state=judged"),
+    ("Statements", "/statements"),
     ("Landscapes", "/landscapes?view=feed"),
-    ("This week", "/week"),
+    ("This week", "/week?view=feed"),
     ("War Room", "/war-room"),
     ("Watchtower", "/watchtower"),
     ("Research Ops", "/research-ops"),
@@ -157,6 +159,49 @@ def save_state(inbox_dir: Path, state: dict[str, Any]) -> None:
     state = dict(state)
     state["updated_at"] = datetime.now(UTC).isoformat(timespec="seconds")
     path.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
+
+
+def snapshot_state(inbox_dir: Path) -> Path:
+    """Copy analyst state so a rollback rehearsal can restore it."""
+    state = load_state(inbox_dir)
+    folder = Path(inbox_dir) / BACKUP_SUBDIR
+    folder.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+    path = folder / f"feed_first_state-{stamp}.json"
+    payload = dict(state)
+    payload["snapshot_at"] = datetime.now(UTC).isoformat(timespec="seconds")
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    snapshots = sorted(folder.glob("feed_first_state-*.json"))
+    for stale in snapshots[:-BACKUP_KEEP]:
+        stale.unlink(missing_ok=True)
+    return path
+
+
+def latest_snapshot(inbox_dir: Path) -> Path | None:
+    folder = Path(inbox_dir) / BACKUP_SUBDIR
+    snapshots = sorted(folder.glob("feed_first_state-*.json"))
+    return snapshots[-1] if snapshots else None
+
+
+def restore_state(inbox_dir: Path, snapshot: Path | None = None) -> dict[str, Any]:
+    """Replace working state from a snapshot. Does not touch data/evidence."""
+    path = snapshot or latest_snapshot(inbox_dir)
+    if path is None or not path.exists():
+        raise ValueError("no snapshot")
+    backup_root = (Path(inbox_dir) / BACKUP_SUBDIR).resolve()
+    resolved = path.resolve()
+    if backup_root not in resolved.parents and resolved.parent != backup_root:
+        raise ValueError("snapshot must live under feed_first_backups")
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError("unreadable snapshot") from exc
+    if not isinstance(payload, dict):
+        raise ValueError("invalid snapshot")
+    state = empty_state()
+    state.update({key: payload.get(key, state[key]) for key in state})
+    save_state(inbox_dir, state)
+    return state
 
 
 def parse_filters(params: dict[str, Any]) -> dict[str, str]:
@@ -626,6 +671,7 @@ def apply_decision(
     decisions = dict(state.get("decisions") or {})
     current = dict(decisions.get(item_id) or {"reaction": None, "saved": False, "read": False})
     if action == "thumbs_up":
+        snapshot_state(inbox_dir)
         current["reaction"] = "up"
         current["read"] = True
     elif action == "thumbs_down":
@@ -795,7 +841,9 @@ def extract_statements(
                 "entity_ids": _mentioned_entity_ids(sentence, record),
                 "person_ids": [row["id"] for row in matched_people],
                 "crops": crops,
-                "geographies": [str(g) for g in (record.get("geography_ids") or [])],
+                "geographies": _mentioned_entity_ids(
+                    sentence, {"entity_ids": record.get("geography_ids") or []}
+                ),
                 "topics": list(record.get("tags") or []),
                 "statement_type": _statement_type(sentence),
                 "structured_details": _structured_details(sentence),
@@ -913,6 +961,32 @@ def trusted_statements(state: dict[str, Any]) -> list[dict[str, Any]]:
     return rows
 
 
+def statements_index(state: dict[str, Any]) -> list[dict[str, Any]]:
+    rows = trusted_statements(state)
+
+    def _stamp(row: dict[str, Any]) -> str:
+        return str(row.get("updated_at") or row.get("created_at") or "")
+
+    important = [row for row in rows if row.get("importance_state") == "important"]
+    rest = [row for row in rows if row.get("importance_state") != "important"]
+    important.sort(key=_stamp, reverse=True)
+    rest.sort(key=_stamp, reverse=True)
+    return [*important, *rest]
+
+
+def week_statements(state: dict[str, Any], *, today: date) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for row in statements_index(state):
+        stamp = str(row.get("created_at") or row.get("updated_at") or "")[:10]
+        try:
+            when = date.fromisoformat(stamp)
+        except ValueError:
+            continue
+        if 0 <= (today - when).days <= 7:
+            rows.append(row)
+    return rows
+
+
 def saved_items(
     *,
     evidence: list[dict[str, Any]],
@@ -950,7 +1024,7 @@ def landscapes_model(
             {
                 "id": entity_id,
                 "name": entity.get("name") or entity_id,
-                "profile_url": f"/entities/company/{entity_id}?view=feed",
+                "profile_url": f"/entities/company/{entity_id}",
                 "statement_count": len(rows),
                 "statements": rows[:6],
             }

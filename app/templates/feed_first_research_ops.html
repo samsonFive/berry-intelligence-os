@@ -51,10 +51,20 @@
       <section>
         <h2 class="bos-title" style="font-size:1.4rem">Today cache</h2>
         {% if bundle.fetched_at %}
-        <p>Fetched {{ bundle.fetched_at }} · same-day {{ (bundle.stats or {}).same_day or 0 }} · lanes {{ (bundle.lanes or [])|join('+') }}</p>
+        <p>Fetched {{ bundle.fetched_at }} · same-day {{ (bundle.stats or {}).same_day or 0 }} · week {{ (bundle.stats or {}).week or 0 }} · lanes {{ (bundle.lanes or [])|join('+') }}</p>
         <p class="bos-note">{{ (bundle.lane_errors or [])|length }} lane error(s). Empty same-day stays empty.</p>
         {% else %}
         <p class="bos-note">No same-day cache yet. Open Today or Refresh live lanes.</p>
+        {% endif %}
+      </section>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Rollback rehearsal</h2>
+        <p>Inbox analyst state snapshots live under <code>inbox/feed_first_backups/</code>. Restore replaces only <code>feed_first_state.json</code>.</p>
+        {% if snapshot_name %}
+        <p class="bos-note">Latest snapshot: {{ snapshot_name }} at {{ snapshot_at or 'unknown' }}. Does not write <code>data/evidence</code> or merge to master/prod.</p>
+        {% else %}
+        <p class="bos-note">No snapshot yet. The next thumbs-up writes one. Restore is a rehearsal function, not a production deploy.</p>
         {% endif %}
       </section>
 

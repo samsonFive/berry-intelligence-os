@@ -68,3 +68,27 @@ def test_extract_drops_unrelated_sidebar_and_keeps_named_company():
     assert "Italianberry" not in texts
     assert all("company-wish-farms" in row["entity_ids"] for row in statements)
     assert all("geography-china" not in row["entity_ids"] for row in statements)
+
+
+def test_extract_attaches_geography_named_in_the_sentence():
+    record = {
+        "id": "eval-spain-geo",
+        "status": "published",
+        "title": "Fall Creek Spain reaches 14 million blueberry plants after 10 years",
+        "source_type": "trade_press",
+        "entity_ids": ["company-fall-creek-farm-and-nursery"],
+        "geography_ids": ["geography-spain"],
+        "article": {
+            "paragraphs": [
+                {
+                    "text": (
+                        "Fall Creek Farm & Nursery marked 10 years of operations in Spain. "
+                        "The operation has expanded to 14 million blueberry plants."
+                    )
+                }
+            ]
+        },
+    }
+    statements = extract_statements(record)
+    assert statements
+    assert any("geography-spain" in row["geographies"] for row in statements)
