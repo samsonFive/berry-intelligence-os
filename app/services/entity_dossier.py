@@ -13,12 +13,14 @@ import re
 from typing import Any
 from uuid import uuid4
 
+from app.services.company_workspace import present_company_portfolio
 from app.services.feed_first import (
     TRUSTED_ANALYST,
     load_state,
     save_state,
     statements_for_entity,
 )
+from app.services.variety_workspace import _party
 
 REGISTRY_VERSION = "1.0.0"
 
@@ -275,6 +277,147 @@ def _assessment(entity_id: str, statements: list[dict[str, Any]]) -> dict[str, A
     }
 
 
+_RELATIONSHIP_PREDICATE_LABELS = {
+    "owns": "Owns",
+    "operates_in": "Operates in",
+    "partners_with": "Partners with",
+    "part_of": "Part of",
+    "licenses": "Licenses",
+    "sells": "Sells",
+    "carries": "Carries",
+    "trials": "Trials",
+    "markets": "Markets",
+    "grows": "Grows",
+    "develops": "Develops",
+}
+
+
+def _relationship_predicate_label(predicate: str) -> str:
+    return _RELATIONSHIP_PREDICATE_LABELS.get(predicate, predicate.replace("_", " ").title() or "Related to")
+
+
+def _corporate_relationship_rows(
+    entity_id: str,
+    *,
+    relationships: list[dict[str, Any]],
+    entities: dict[str, dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Company/brand/geography-facing relationships this dossier does not
+    already show via the portfolio's own Company->Variety ROLE_BUCKETS rows
+    (Gate 3A). Reuses the existing Relationship store verbatim, in both
+    directions, so an incoming ``owns`` (a real parent company) is visible
+    -- never a new predicate and never an inferred edge."""
+    rows: list[dict[str, Any]] = []
+    for rel in relationships:
+        subject_id = str(rel.get("subject_id") or "")
+        object_id = str(rel.get("object_id") or "")
+        if entity_id not in (subject_id, object_id):
+            continue
+        other_id = object_id if subject_id == entity_id else subject_id
+        other = entities.get(other_id)
+        if not other or other.get("entity_type") == "variety":
+            continue  # already represented via the portfolio's own role rows
+        party = _party(other)
+        if not party:
+            continue
+        rows.append(
+            {
+                "direction": "outgoing" if subject_id == entity_id else "incoming",
+                "predicate": rel.get("predicate"),
+                "predicate_label": _relationship_predicate_label(str(rel.get("predicate") or "")),
+                "party": party,
+                "status": rel.get("status") or "active",
+                "effective_date": rel.get("effective_date"),
+            }
+        )
+    rows.sort(key=lambda row: (row["party"]["entity_type"], row["party"]["name"]))
+    return rows
+
+
+def _linked_breeding_programs(
+    entity_id: str,
+    *,
+    entities: dict[str, dict[str, Any]],
+    published_evidence: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Breeding-program entities sharing real, trusted Evidence with this
+    entity -- the same dual entity_ids co-occurrence convention Variety
+    Intelligence V2 and Geography Intelligence V1 already use (never a
+    name-prefix guess, never an inferred link)."""
+    co_occurring_ids: set[str] = set()
+    for record in published_evidence:
+        ids = set(record.get("entity_ids") or [])
+        if entity_id in ids:
+            co_occurring_ids.update(ids)
+    programs: list[dict[str, Any]] = []
+    for candidate_id in sorted(co_occurring_ids):
+        candidate = entities.get(candidate_id)
+        if not candidate or candidate.get("entity_type") != "breeding_program":
+            continue
+        party = _party(candidate)
+        if not party:
+            continue
+        attributes = candidate.get("attributes") if isinstance(candidate.get("attributes"), dict) else {}
+        programs.append(
+            {
+                **party,
+                "description": candidate.get("description") or "",
+                "sites": [str(site) for site in (attributes.get("sites") or [])],
+                "status": candidate.get("status") or "",
+            }
+        )
+    return programs
+
+
+def build_company_backbone(
+    entity_id: str,
+    *,
+    entities: dict[str, dict[str, Any]],
+    relationships: list[dict[str, Any]],
+    published_evidence: list[dict[str, Any]],
+    facts: list[dict[str, Any]],
+    evidence_by_id: dict[str, dict[str, Any]],
+    signals: list[dict[str, Any]],
+    assessments: list[dict[str, Any]],
+    berry_labels: dict[str, str],
+    strategic_questions: list[dict[str, Any]] | None = None,
+) -> dict[str, Any] | None:
+    """Gate 3A: layers the existing Entity/Relationship/Variety/Evidence/Fact
+    backbone Company Compare V1 and Company Variety Portfolio Intelligence V1
+    already proved onto the living dossier, instead of leaving the dossier's
+    Genetics & Cultivars / Partnerships & Relationships / Scale & Performance
+    / Geography / History sections sourced only from ad-hoc confirmed feed
+    statements. Returns ``None`` for a non-company entity (breeding programs
+    and other archetypes stay on statement-only sections -- Gate 3B scope).
+    Every row here traces to a real, already-published Relationship or
+    Evidence record; nothing is derived or inferred here that
+    ``present_company_portfolio`` did not already compute."""
+    entity = entities.get(entity_id)
+    if not entity or entity.get("entity_type") != "company":
+        return None
+    portfolio = present_company_portfolio(
+        entity_id,
+        entities=entities,
+        relationships=relationships,
+        published_evidence=published_evidence,
+        facts=facts,
+        evidence_by_id=evidence_by_id,
+        signals=signals,
+        assessments=assessments,
+        berry_labels=berry_labels,
+        strategic_questions=strategic_questions,
+    )
+    return {
+        "portfolio": portfolio,
+        "corporate_relationships": _corporate_relationship_rows(
+            entity_id, relationships=relationships, entities=entities
+        ),
+        "breeding_programs": _linked_breeding_programs(
+            entity_id, entities=entities, published_evidence=published_evidence
+        ),
+    }
+
+
 def build_dossier(
     *,
     entity_id: str,
@@ -282,6 +425,7 @@ def build_dossier(
     profile: dict[str, Any] | None,
     state: dict[str, Any],
     people: list[dict[str, Any]] | None = None,
+    backbone: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     entity = entity or {}
     profile = profile or {}
@@ -336,6 +480,7 @@ def build_dossier(
             "stale": len(stale),
         },
         "assessment": _assessment(entity_id, statements),
+        "backbone": backbone,
         "people": list(people or []),
         "proposals": [
             row

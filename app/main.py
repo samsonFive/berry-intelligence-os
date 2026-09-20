@@ -3426,7 +3426,7 @@ def _wants_feed_first_profile(request: Request) -> bool:
 
 
 def _feed_first_company_response(request: Request, entity_id: str) -> HTMLResponse | None:
-    from app.services.entity_dossier import build_dossier
+    from app.services.entity_dossier import build_company_backbone, build_dossier
     from app.services.entity_logo_overrides import load_logo_overrides, logo_override_url
     from app.services.people_watchlist import discover_people
     from app.services.seed_roster import seed_profile
@@ -3448,11 +3448,25 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     name = (trusted or {}).get("name") or (seed or {}).get("canonical_name") or entity_id
     entity_rows = all_entities()
     entities_by_id = {str(row.get("id")): row for row in entity_rows if row.get("id")}
+    relationships = all_relationships()
+    facts = all_facts()
     growing_profile = learn_growing_profile_for_company(
         entity_id,
-        relationships=all_relationships(),
+        relationships=relationships,
         entities=entities_by_id,
-        facts=all_facts(),
+        facts=facts,
+    )
+    backbone = build_company_backbone(
+        entity_id,
+        entities=entities_by_id,
+        relationships=relationships,
+        published_evidence=published_evidence(),
+        facts=facts,
+        evidence_by_id={row["id"]: row for row in all_evidence() if row.get("id")},
+        signals=all_signals(),
+        assessments=all_assessments(),
+        berry_labels=BERRIES,
+        strategic_questions=load_strategic_questions(),
     )
     dossier = build_dossier(
         entity_id=entity_id,
@@ -3460,6 +3474,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
         profile=seed,
         state=world["state"],
         people=linked_people,
+        backbone=backbone,
     )
     return templates.TemplateResponse(
         request=request,

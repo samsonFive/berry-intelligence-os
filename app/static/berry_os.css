@@ -1122,6 +1122,27 @@
   border-left: 4px solid var(--bos-nectar);
 }
 
+.bos-backbone-block {
+  margin-top: var(--bos-space-3);
+  padding: var(--bos-space-3);
+  border-left: 3px solid var(--bos-blackberry);
+  background: var(--bos-raised);
+  border-radius: 0 var(--bos-radius-sm) var(--bos-radius-sm) 0;
+}
+
+.bos-backbone-block + .bos-backbone-block {
+  margin-top: var(--bos-space-2);
+}
+
+.bos-portfolio-list {
+  margin: var(--bos-space-2) 0 0;
+  padding-left: 1.1em;
+}
+
+.bos-portfolio-list li {
+  margin-bottom: var(--bos-space-1);
+}
+
 .bos-assessment-state,
 .bos-state-pill {
   display: inline-block;

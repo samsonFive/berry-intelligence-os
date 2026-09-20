@@ -135,6 +135,106 @@
         <p class="bos-note">Learner context is educational context, not a Fact or competitive score.</p>
         <ul>{% for row in growing_profile.rows %}<li><a href="{{ row.href }}">{{ row.name }}</a>{% if row.trait_names %} · {{ row.trait_names|join(', ') }}{% endif %}</li>{% endfor %}</ul>
         {% endif %}
+
+        {% if section_id == 'genetics-cultivars' and dossier.backbone and dossier.backbone.portfolio and dossier.backbone.portfolio.variety_rows %}
+        <div class="bos-backbone-block">
+          <p class="bos-kicker">Canonical portfolio · {{ dossier.backbone.portfolio.variety_rows|length }} variet{{ 'y' if dossier.backbone.portfolio.variety_rows|length == 1 else 'ies' }}</p>
+          <ul class="bos-portfolio-list">
+            {% for row in dossier.backbone.portfolio.variety_rows %}
+            <li>
+              <a href="{{ row.href }}">{{ row.name }}</a>
+              {% if row.roles %} · {{ row.roles|join(', ') }}{% endif %}
+              {% if row.berries %} · {{ row.berries|join(', ') }}{% endif %}
+              {% if row.geographies %} · {{ row.geographies|join(', ') }}{% endif %}
+              {% if row.rights_count %} · {{ row.rights_count }} rights/IP filing{{ '' if row.rights_count == 1 else 's' }}{% endif %}
+              {% if row.evidence_count %} · <a href="{{ row.timeline_href }}">{{ row.evidence_count }} evidence</a>{% else %}<span class="bos-gap-text"> · no trusted Evidence captured</span>{% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          <p class="bos-meta">Canonical Relationship/Variety record · <a href="/entities/company/{{ entity_id }}/portfolio">Full portfolio</a></p>
+        </div>
+        {% endif %}
+
+        {% if section_id == 'genetics-cultivars' and dossier.backbone and dossier.backbone.breeding_programs %}
+        <div class="bos-backbone-block">
+          <p class="bos-kicker">Breeding programs</p>
+          <ul>
+            {% for program in dossier.backbone.breeding_programs %}
+            <li>
+              <a href="{{ program.href }}">{{ program.name }}</a>{% if program.status %} · {{ program.status }}{% endif %}
+              {% if program.sites %}<p class="bos-meta">Sites: {{ program.sites|join('; ') }}</p>{% endif %}
+              {% if program.description %}<p>{{ program.description }}</p>{% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          <p class="bos-meta">Real entity co-occurring with this Company across trusted Evidence</p>
+        </div>
+        {% endif %}
+
+        {% if section_id == 'geography' and dossier.backbone %}
+        {% set geo_rows = dossier.backbone.corporate_relationships|selectattr('party.entity_type', 'equalto', 'geography')|list %}
+        {% if geo_rows %}
+        <div class="bos-backbone-block">
+          <p class="bos-kicker">Canonical footprint</p>
+          <ul>
+            {% for row in geo_rows %}
+            <li>
+              <a href="{{ row.party.href }}">{{ row.party.name }}</a> · {{ row.predicate_label }}
+              {% if row.effective_date %} · since {{ row.effective_date }}{% else %}<span class="bos-gap-text"> · effective date not established</span>{% endif %}
+              {% if row.status != 'active' %} · <span class="bos-state-pill">{{ row.status }}</span>{% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          <p class="bos-meta">Canonical Relationship record</p>
+        </div>
+        {% endif %}
+        {% endif %}
+
+        {% if section_id == 'relationships' and dossier.backbone %}
+        {% set corp_rows = dossier.backbone.corporate_relationships|rejectattr('party.entity_type', 'equalto', 'geography')|list %}
+        {% if corp_rows %}
+        <div class="bos-backbone-block">
+          <p class="bos-kicker">Canonical corporate relationships</p>
+          <ul>
+            {% for row in corp_rows %}
+            <li>
+              {% if row.direction == 'incoming' %}<a href="{{ row.party.href }}">{{ row.party.name }}</a> {{ row.predicate_label|lower }} this entity
+              {% else %}This entity {{ row.predicate_label|lower }} <a href="{{ row.party.href }}">{{ row.party.name }}</a>{% endif %}
+              {% if row.status != 'active' %} · <span class="bos-state-pill">{{ row.status }}</span>{% endif %}
+              {% if row.effective_date %} · since {{ row.effective_date }}{% else %}<span class="bos-gap-text"> · effective date not established</span>{% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          <p class="bos-meta">Canonical Relationship record · roles beyond Breeder / Owner / Licensee / Marketer / Grower / Distributor (e.g. propagator, nursery, applicant, titleholder) are not yet distinct predicates in this schema</p>
+        </div>
+        {% endif %}
+        {% endif %}
+
+        {% if section_id == 'scale-performance' and dossier.backbone and dossier.backbone.portfolio %}
+        {% set coverage = dossier.backbone.portfolio.coverage %}
+        <div class="bos-backbone-block">
+          <p class="bos-kicker">Canonical portfolio coverage</p>
+          <dl class="bos-dossier-dl">
+            <dt>Varieties captured</dt><dd>{{ coverage.total_varieties }}</dd>
+            <dt>With rights/IP filings</dt><dd>{{ coverage.varieties_with_rights }}</dd>
+            <dt>With commercial observations</dt><dd>{{ coverage.varieties_with_commercial }}</dd>
+            <dt>With trusted Evidence</dt><dd>{{ coverage.varieties_with_evidence }}</dd>
+            <dt>Sparse (no trusted Evidence)</dt><dd>{{ coverage.varieties_sparse }}</dd>
+          </dl>
+          <p class="bos-meta">Coverage counts, not a performance or competitive score</p>
+        </div>
+        {% endif %}
+
+        {% if section_id == 'history' and dossier.backbone and dossier.backbone.portfolio and dossier.backbone.portfolio.recent_moves %}
+        <div class="bos-backbone-block">
+          <p class="bos-kicker">Canonical recent portfolio moves</p>
+          <ul>
+            {% for move in dossier.backbone.portfolio.recent_moves %}
+            <li>{{ move.date }} · {{ move.kind }} · {{ move.title }}{% if move.variety_name %} ({{ move.variety_name }}){% endif %}{% if move.href %} · <a href="{{ move.href }}">source</a>{% endif %}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
       </section>
       {% endif %}
       {% endfor %}
