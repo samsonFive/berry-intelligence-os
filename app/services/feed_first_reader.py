@@ -452,6 +452,7 @@ def attach_source_preview_images(
     getter = fetch or fetch_source_preview_image
     out: list[dict[str, Any]] = []
     filled = 0
+    attempted = 0
     for record in records:
         row = dict(record)
         current = str(row.get("image_url") or "").strip()
@@ -466,9 +467,10 @@ def attach_source_preview_images(
                 row["article"] = article
             out.append(row)
             continue
-        if filled >= limit:
+        if attempted >= limit:
             out.append(row)
             continue
+        attempted += 1
         url = str(row.get("source_url") or "")
         image = str(getter(url) or "").strip()
         if not image:
