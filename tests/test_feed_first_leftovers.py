@@ -356,6 +356,10 @@ def test_today_and_ops_expose_leftover_contracts():
     assert "repeat(auto-fill, minmax(200px, 1fr))" in css
     assert ".bos-shell.is-reader-collapsed" in css
     assert "grid-column: auto" in css
+    assert ".bos-filters select option" in css
+    assert "background: #f8fafc" in css
+    assert "color: #111827" in css
+    assert "border: 1px solid #52617a" in css
     script = Path("app/static/feed_first.js").read_text(encoding="utf-8")
     assert "setReaderCollapsed" in script
     assert 'closest("[data-reader-toggle]")' in script
