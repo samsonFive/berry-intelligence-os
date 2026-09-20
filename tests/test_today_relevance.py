@@ -140,6 +140,25 @@ def test_exa_superfruit_directory_and_pyo_drop_industry_kept():
     )
     assert dropped_records == 1
     assert records[0]["title"].startswith("Demand for larger")
+    seminar = _hit(
+        "XXV Seminar Chile 2023 - Blueberries Consulting",
+        "Event listing for the 2023 Chile blueberry seminar.",
+        url="https://blueberriesconsulting.com/en/seminario/xxv-seminario-chile-2023/",
+        source_domain="blueberriesconsulting.com",
+        origin_publisher_url="https://blueberriesconsulting.com/en/seminario/xxv-seminario-chile-2023/",
+        provider="exa",
+    )
+    current = _hit(
+        "Photoreport: 43rd International Berries Seminar Morocco 2026",
+        "Growers and breeders met on varietal timing and acreage.",
+        url="https://hortidaily.com/article/9874082/photoreport-43rd-international-berries-seminar-morocco-2026",
+        source_domain="hortidaily.com",
+        provider="specialist_rss",
+    )
+    assert today_noise_reason(seminar, named_entity=True)
+    kept_seminar, dropped_seminar = apply_today_relevance([seminar, current], entities=_entities())
+    assert dropped_seminar == 1
+    assert [hit.title for hit in kept_seminar] == [current.title]
 
 
 def test_collapse_story_clusters_keeps_one_lead():

@@ -249,9 +249,16 @@ def match_geography_ids(text: str, entities: Iterable[dict[str, Any]]) -> list[s
             continue
         if not any(str(row.get("id") or "") == entity_id for row in geos):
             continue
-        if any(re.search(rf"\b{re.escape(alias)}\b", hay) for alias in aliases):
+        if any(_alias_in_text(alias, hay) for alias in aliases):
             found.append(entity_id)
     return found
+
+
+def _alias_in_text(alias: str, hay: str) -> bool:
+    token = alias.casefold()
+    if re.search(r"[0-9a-z]$", token):
+        return bool(re.search(rf"\b{re.escape(token)}\b", hay))
+    return token in hay
 
 
 def match_official_entity_id(

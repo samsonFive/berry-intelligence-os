@@ -82,6 +82,12 @@ _JUNK_HOSTS = {
 _DIRECTORY_HOSTS = {
     "internationalblueberry.org",
 }
+_STALE_EVENT = re.compile(
+    r"(seminar|seminario|conference|summit|symposium).{0,60}\b(19\d{2}|200\d|201\d|202[0-4])\b"
+    r"|"
+    r"\b(19\d{2}|200\d|201\d|202[0-4])\b.{0,60}(seminar|seminario|conference|summit|symposium)",
+    re.IGNORECASE,
+)
 _GENERIC = re.compile(
     r"\b(top \d+|things to do|weekend getaway|horoscope|astrology)\b",
     re.IGNORECASE,
@@ -126,6 +132,8 @@ def noise_reason(
         return "content-mill / SEO host"
     if host in _DIRECTORY_HOSTS and not _NEWS_PATH.search(path or "/"):
         return "directory / member profile"
+    if _STALE_EVENT.search(text):
+        return "stale event listing"
     if _PYO.search(text):
         return "pick-your-own consumer"
     if _TOMATO.search(text):
