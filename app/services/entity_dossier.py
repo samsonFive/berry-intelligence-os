@@ -262,7 +262,11 @@ def _support_from_evidence(record: dict[str, Any]) -> tuple[str, dict[str, Any]]
         if len(text) >= 40:
             return text, {
                 "medium": "article_paragraph",
-                "paragraph_index": int(paragraph.get("index", position)),
+                "paragraph_index": int(
+                    paragraph.get("index")
+                    if paragraph.get("index") is not None
+                    else position
+                ),
                 "start_offset": 0,
                 "end_offset": len(text),
                 "exact": text,

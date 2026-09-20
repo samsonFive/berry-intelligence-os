@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
 <a class="bos-skip" href="#snapshot">Skip to dossier</a>
-<div class="berry-os" data-feed-first data-feed-first-company data-entity-dossier data-entity-id="{{ entity_id }}" data-verification="{{ profile.verification_status if profile else status }}">
+<div class="berry-os" data-feed-first data-feed-first-company data-feed-first-entity data-entity-dossier data-entity-id="{{ entity_id }}" data-verification="{{ profile.verification_status if profile else status }}">
   <div class="bos-shell bos-dossier-shell">
     {% include "_feed_first_rail.html" %}
     <main class="bos-dossier-canvas">

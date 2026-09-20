@@ -1171,7 +1171,9 @@ def _support_locators(record: dict[str, Any], excerpt: str) -> list[dict[str, An
     for position, raw in enumerate(paragraphs):
         if isinstance(raw, dict):
             text = decode_html_text(raw.get("text") or "")
-            paragraph_index = int(raw.get("index", position))
+            paragraph_index = int(
+                raw.get("index") if raw.get("index") is not None else position
+            )
         else:
             text = decode_html_text(raw)
             paragraph_index = position
