@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import date, datetime, timezone
 from pathlib import Path
 
+import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
@@ -22,6 +23,7 @@ from app.services.feed_first import (
 )
 from app.services.feed_first_live import (
     OFFICIAL_SITE_HOST_CAP,
+    live_disclosure,
     live_feed_bundle,
     live_item_id,
     save_bundle,
@@ -162,6 +164,46 @@ def test_today_is_feed_first_front_door(monkeypatch):
     assert 'name="window"' in today.text
     assert 'name="state"' in today.text
     assert "Fall Creek expands blueberry nursery harvest" in today.text
+
+
+@pytest.mark.live_today
+def test_today_cache_miss_is_offline_until_explicit_refresh(tmp_path: Path, monkeypatch):
+    from app import main
+    from app.services import feed_first_live
+
+    acquisition_calls: list[bool] = []
+
+    def injected_acquisition(**kwargs):
+        acquisition_calls.append(True)
+        today = kwargs["today"]
+        return [], {
+            "today": today.isoformat(),
+            "lanes": [],
+            "lane_errors": [],
+            "stats": {"same_day": 0, "week": 0},
+            "cascade": {},
+        }
+
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
+    monkeypatch.setattr(feed_first_live, "collect_same_day_hits", injected_acquisition)
+
+    ordinary = TestClient(main.app).get("/today")
+
+    assert ordinary.status_code == 200
+    assert acquisition_calls == []
+    assert "data-feed-first-today" in ordinary.text
+    assert "No cached Today edition yet" in live_disclosure(
+        {"cache_state": "missing", "today": "2026-09-21"}
+    )
+    assert "refresh=1" in ordinary.text
+    assert ">Refresh</a>" in ordinary.text
+    assert not (tmp_path / "feed_first_live").exists()
+
+    refreshed = TestClient(main.app).get("/today?refresh=1")
+
+    assert refreshed.status_code == 200
+    assert acquisition_calls == [True]
+    assert (tmp_path / "feed_first_live").exists()
 
 
 def test_legacy_briefing_still_available():
@@ -566,6 +608,50 @@ def test_fresh_cache_does_not_invoke_translation_or_image_network(tmp_path: Path
     assert calls == []
     assert cached["records"][0]["title"] == record["title"]
     assert cached["records"][0]["image_url"] == ""
+
+
+def test_stale_cache_can_be_presented_without_live_acquisition(tmp_path: Path, monkeypatch):
+    today = date(2026, 9, 21)
+    now = datetime(2026, 9, 21, 12, 0, tzinfo=timezone.utc)
+    save_bundle(
+        tmp_path,
+        {
+            "today": today.isoformat(),
+            "fetched_at": datetime(2026, 9, 21, 9, 0, tzinfo=timezone.utc).isoformat(),
+            "records": [
+                {
+                    "id": "live-stale",
+                    "title": "Fall Creek blueberry harvest update",
+                    "summary": "The breeder reported its latest harvest.",
+                    "source_url": "https://publisher.invalid/story",
+                    "published_date": today.isoformat(),
+                }
+            ],
+            "stats": {"same_day": 1, "week": 1},
+        },
+    )
+
+    def unexpected_acquisition(**kwargs):
+        raise AssertionError("stale cache presentation must not acquire live stories")
+
+    monkeypatch.setattr(
+        "app.services.feed_first_live.collect_same_day_hits",
+        unexpected_acquisition,
+    )
+
+    stale = live_feed_bundle(
+        inbox_dir=tmp_path,
+        entities=_entities(),
+        sources=[],
+        refresh=False,
+        acquire_on_miss=False,
+        today=today,
+        now=now,
+    )
+
+    assert stale["cache_state"] == "stale"
+    assert [row["id"] for row in stale["records"]] == ["live-stale"]
+    assert "Select Refresh" in live_disclosure(stale)
 
 
 def test_perplexity_same_day_hits_join_keyless_lanes(tmp_path: Path):

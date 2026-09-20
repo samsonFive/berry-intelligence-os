@@ -3948,6 +3948,7 @@ def _feed_first_today(request: Request) -> HTMLResponse:
         people=people,
         muted_ids=world.get("muted_entity_ids") or set(),
         enrich_lead=refresh,
+        acquire_on_miss=False,
     )
     filters = parse_filters(params)
     from app.services.feed_first_reader import capture_item, load_captures
