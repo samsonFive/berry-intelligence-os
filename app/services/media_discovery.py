@@ -625,6 +625,35 @@ def _normalize_youtube_feed_entry(entry: Any) -> NormalizedItem:
 # ---------------------------------------------------------------------------
 
 
+def _rss_entry_image_url(entry: Any) -> str:
+    """Publisher image from RSS media tags. Empty when the feed has none."""
+    def _url(row: Any) -> str:
+        if isinstance(row, dict):
+            return str(row.get("url") or row.get("href") or "").strip()
+        return str(getattr(row, "url", "") or getattr(row, "href", "") or "").strip()
+
+    def _type(row: Any) -> str:
+        if isinstance(row, dict):
+            return str(row.get("type") or row.get("medium") or "").casefold()
+        return str(getattr(row, "type", "") or getattr(row, "medium", "") or "").casefold()
+
+    def _looks_image(url: str, typ: str) -> bool:
+        if typ.startswith("image") or typ in {"image", "photo"}:
+            return True
+        lower = url.casefold()
+        return any(lower.endswith(ext) for ext in (".jpg", ".jpeg", ".png", ".webp", ".gif"))
+
+    for group_name in ("media_thumbnail", "media_content", "enclosures"):
+        rows = getattr(entry, group_name, None) or []
+        if isinstance(entry, dict):
+            rows = entry.get(group_name) or rows
+        for row in rows:
+            url = _url(row)
+            if url and _looks_image(url, _type(row)):
+                return url
+    return ""
+
+
 def _normalize_article_rss_entry(entry: Any) -> NormalizedItem:
     title = _strip_html(getattr(entry, "title", "") or "(untitled)")
     description = _strip_html(getattr(entry, "summary", "") or getattr(entry, "description", ""))[:4000]
@@ -651,6 +680,7 @@ def _normalize_article_rss_entry(entry: Any) -> NormalizedItem:
         "raw_title": getattr(entry, "title", None),
         "raw_published": getattr(entry, "published", None),
         "raw_author": author,
+        "image_url": _rss_entry_image_url(entry),
     }
 
     return NormalizedItem(

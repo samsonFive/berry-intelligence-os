@@ -102,6 +102,12 @@ def hits_from_news_search_items(
         published_date = str(published).strip()[:10] if published else None
         if published_date == "":
             published_date = None
+        image_url = ""
+        if isinstance(item, dict):
+            image_url = str(item.get("image_url") or raw.get("image_url") or "").strip()
+        else:
+            image_url = str(raw.get("image_url") or "").strip()
+        metadata = {"image_url": image_url} if image_url else {}
         hits.append(
             DiscoveryHit(
                 title=title,
@@ -118,6 +124,7 @@ def hits_from_news_search_items(
                 origin_publisher_name=origin_name,
                 origin_publisher_url=origin_url,
                 wrapper_url=wrapper or None,
+                provider_metadata=metadata,
             )
         )
     return hits
@@ -147,6 +154,9 @@ def hits_from_web_rows(
         metadata = row.get("provider_metadata")
         if not isinstance(metadata, dict):
             metadata = {}
+        metadata = dict(metadata)
+        if row.get("image_url") and not metadata.get("image_url"):
+            metadata["image_url"] = row.get("image_url")
         hits.append(
             DiscoveryHit(
                 title=str(row.get("title") or ""),

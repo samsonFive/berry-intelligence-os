@@ -223,7 +223,7 @@ def restore_state(inbox_dir: Path, snapshot: Path | None = None) -> dict[str, An
 
 
 def is_analyst_english(text: str) -> bool:
-    """English is the analyst language. CJK-majority copy does not enter Today."""
+    """True when the copy is already English enough for the analyst feed."""
     sample = str(text or "")
     if not sample.strip():
         return True
@@ -236,7 +236,14 @@ def is_analyst_english(text: str) -> bool:
     return True
 
 
-def analyst_lede(*, window: str, today: date, count: int, held_non_english: int = 0) -> str:
+def analyst_lede(
+    *,
+    window: str,
+    today: date,
+    count: int,
+    held_non_english: int = 0,
+    translation_pending: int = 0,
+) -> str:
     day = today.isoformat()
     if window == "today":
         line = f"{count} stor{'y' if count == 1 else 'ies'} published {day}."
@@ -247,7 +254,9 @@ def analyst_lede(*, window: str, today: date, count: int, held_non_english: int 
     else:
         line = f"{count} stor{'y' if count == 1 else 'ies'} for the companies you watch."
     if held_non_english:
-        line += f" {held_non_english} held — not in English."
+        line += f" {held_non_english} translated into English."
+    if translation_pending:
+        line += f" {translation_pending} awaiting English translation."
     return line
 
 
@@ -585,6 +594,10 @@ def present_item(
         "cluster_sources": list(record.get("cluster_sources") or []),
         "corroborating_sources": corroborating_sources(record),
         "muted": item_is_muted({"entities": entities}),
+        "translated": bool(record.get("translated")),
+        "translation_pending": bool(record.get("translation_pending")),
+        "source_language": str(record.get("source_language") or ""),
+        "original_title": str(record.get("original_title") or ""),
         "record": record,
     }
 
@@ -790,6 +803,7 @@ def build_feed(
 
     windowed: list[dict[str, Any]] = []
     held_non_english = 0
+    translation_pending = 0
     for record in evidence:
         if record.get("status") and record.get("status") != "published":
             continue
@@ -797,10 +811,10 @@ def build_feed(
             continue
         if "structural" in (record.get("tags") or []):
             continue
-        display = f"{record.get('title') or ''} {record.get('summary') or ''}"
-        if not is_analyst_english(display):
+        if record.get("translated"):
             held_non_english += 1
-            continue
+        elif record.get("translation_pending"):
+            translation_pending += 1
         published = str(record.get("published_date") or "")
         if not _in_window(published, filters["window"], today):
             continue
@@ -892,8 +906,10 @@ def build_feed(
             today=today,
             count=len(visible),
             held_non_english=held_non_english,
+            translation_pending=translation_pending,
         ),
         "held_non_english": held_non_english,
+        "translation_pending": translation_pending,
         "empty_copy": empty_feed_copy(filters.get("window") or "today", today),
         "today": today.isoformat(),
         "has_article": "article" in kinds,

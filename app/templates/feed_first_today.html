@@ -132,6 +132,7 @@
             <p class="bos-meta">
               <span>{{ item.source_name }}</span>
               <span>{% if item.date_uncertain %}date unknown{% else %}{{ item.published_at or 'date unknown' }}{% endif %}</span>
+              {% if item.translated %}<span>Translated into English</span>{% elif item.translation_pending %}<span>English translation pending</span>{% endif %}
               {% if item.cluster_size and item.cluster_size > 1 %}<span>also {{ item.cluster_sources|join(', ') }}</span>{% endif %}
             </p>
             <h2><a href="{{ item.reader_href }}">{{ item.headline }}</a></h2>

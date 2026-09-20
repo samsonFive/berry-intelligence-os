@@ -787,6 +787,10 @@ def live_feed_bundle(
                 entities=entities or [],
             )
             rows = annotate_live_geographies(rows, entities=entities or [])
+            from app.services.feed_first_reader import attach_source_preview_images
+            from app.services.feed_first_translate import translate_records
+
+            rows = translate_records(rows, inbox_dir=inbox_dir)
             payload = dict(cached)
             payload["records"] = rows
             stats = dict(payload.get("stats") or {})
@@ -797,6 +801,10 @@ def live_feed_bundle(
                     1 for row in rows if is_same_calendar_day(str(row.get("published_date") or ""), today)
                 )
                 payload["stats"] = stats
+            if any(not str(row.get("image_url") or "").strip() for row in rows):
+                rows = attach_source_preview_images(rows)
+                payload["records"] = rows
+                save_bundle(inbox_dir, payload)
             return payload
 
     hits, meta = collect_same_day_hits(
@@ -843,6 +851,11 @@ def live_feed_bundle(
 
         lead = merge_capture(records[0], capture_item(inbox_dir, records[0]))
         records[0] = lead
+    from app.services.feed_first_reader import attach_source_preview_images
+    from app.services.feed_first_translate import translate_records
+
+    records = translate_records(records, inbox_dir=inbox_dir)
+    records = attach_source_preview_images(records)
     bundle = {
         **empty_bundle(today, fetched_at=now.isoformat(timespec="seconds")),
         **meta,

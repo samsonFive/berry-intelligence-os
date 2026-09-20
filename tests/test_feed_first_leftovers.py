@@ -251,23 +251,56 @@ def test_bakeoff_audit_does_not_invent_vendors():
     assert "unused" in report["firecrawl"]["notes"].casefold()
 
 
-def test_non_english_items_are_held_off_today():
+def test_non_english_items_stay_on_today_and_translate():
+    from app.services.feed_first_translate import apply_english_translation
+
     english = _record()
     chinese = _record(
         id="ev-zh",
         title="莓果龍頭進中國被偷光",
         summary="美國莓果龍頭進中國市場",
     )
+    translated = apply_english_translation(
+        chinese,
+        translator=lambda title, summary: {
+            "title": "Berry giant expansion in China",
+            "summary": "A U.S. berry company entered the China market.",
+            "source_language": "zh",
+        },
+    )
+    assert translated["title"] == "Berry giant expansion in China"
+    assert translated["translated"] is True
+    assert translated["original_title"].startswith("莓")
     feed = build_feed(
-        evidence=[english, chinese],
+        evidence=[english, translated],
         entities=_entities(),
         state={"decisions": {}, "entity_tiers": {}, "statements": {}},
         filters=parse_filters({}),
         today=date(2026, 5, 26),
     )
-    assert [row["id"] for row in feed["cards"]] == [english["id"]]
+    ids = [row["id"] for row in feed["cards"]]
+    assert english["id"] in ids
+    assert chinese["id"] in ids
     assert feed["held_non_english"] == 1
-    assert "not in English" in feed["disclosure"]
+    assert "translated into English" in feed["disclosure"]
+
+
+def test_untranslated_non_english_items_still_appear():
+    chinese = _record(
+        id="ev-zh-raw",
+        title="莓果龍頭進中國被偷光",
+        summary="美國莓果龍頭進中國市場",
+        translation_pending=True,
+    )
+    feed = build_feed(
+        evidence=[chinese],
+        entities=_entities(),
+        state={"decisions": {}, "entity_tiers": {}, "statements": {}},
+        filters=parse_filters({}),
+        today=date(2026, 5, 26),
+    )
+    assert [row["id"] for row in feed["cards"]] == [chinese["id"]]
+    assert feed["translation_pending"] == 1
 
 
 def test_off_topic_passages_do_not_enter_the_reader():
@@ -317,7 +350,40 @@ def test_today_and_ops_expose_leftover_contracts():
     assert "Cost cascade" in ops.text
     css = Path("app/static/berry_os.css").read_text(encoding="utf-8")
     assert "repeat(auto-fill, minmax(260px, 1fr))" in css
-    assert "repeat(auto-fill, minmax(180px, 1fr))" in css
+    assert "repeat(auto-fill, minmax(200px, 1fr))" in css
     following = TestClient(app).get("/following")
     assert "bos-card is-tile" in following.text
-    assert "URL-status rows repaired" not in following.text
+    assert "Today for this company" in following.text
+    assert "bos-logo" in following.text
+    assert "URL-status rows repaired" in following.text
+    week = TestClient(app).get("/week")
+    assert "data-week-live" in week.text
+    assert "Ask Berry OS" in week.text
+    assert "data-varieties" in week.text
+
+
+def test_rss_and_source_preview_images_fill_cards():
+    from types import SimpleNamespace
+
+    from app.services.feed_first_reader import attach_source_preview_images
+    from app.services.media_discovery import _normalize_article_rss_entry
+
+    entry = SimpleNamespace(
+        title="Berry news",
+        summary="summary",
+        link="https://www.freshplaza.com/story",
+        id="guid-1",
+        published_parsed=None,
+        updated_parsed=None,
+        author="",
+        media_thumbnail=[{"url": "https://cdn.freshplaza.com/hero.jpg", "type": "image/jpeg"}],
+        media_content=[],
+        enclosures=[],
+    )
+    item = _normalize_article_rss_entry(entry)
+    assert item.raw_metadata["image_url"] == "https://cdn.freshplaza.com/hero.jpg"
+    filled = attach_source_preview_images(
+        [{"id": "a", "source_url": "https://www.freshplaza.com/story", "image_url": ""}],
+        fetch=lambda url: "https://cdn.freshplaza.com/og.jpg",
+    )
+    assert filled[0]["image_url"] == "https://cdn.freshplaza.com/og.jpg"

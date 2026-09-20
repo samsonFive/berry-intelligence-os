@@ -108,7 +108,13 @@ class ApiTubeSearchProvider:
                     "snippet": str(item.get("description") or item.get("snippet") or item.get("summary") or "")[:500],
                     "origin_publisher_name": source.get("name") or source.get("domain") or item.get("source"),
                     "origin_publisher_url": url,
-                    "provider_metadata": {"apitube_id": item.get("id")},
+                    "provider_metadata": {
+                        "apitube_id": item.get("id"),
+                        "image_url": item.get("image")
+                        or item.get("urlToImage")
+                        or item.get("media")
+                        or "",
+                    },
                 }
             )
         return hits_from_web_rows(rows, query=query, provider_name=self.name)

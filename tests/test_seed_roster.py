@@ -161,7 +161,16 @@ def test_following_model_and_seed_profile_use_repaired_rows():
     assert found["id"].startswith("seed-")
 
 
-def test_merge_entities_does_not_replace_trusted_records():
+def test_logo_display_url_uses_seed_then_domain_favicon():
+    from app.services.seed_roster import logo_display_url
+
+    assert (
+        logo_display_url({"logo_source_url": "https://www.fallcreeknursery.com/favicon.ico"})
+        == "https://www.fallcreeknursery.com/favicon.ico"
+    )
+    fallback = logo_display_url({"official_website": "https://www.abz-strawberry.com/"})
+    assert "google.com/s2/favicons" in fallback
+    assert "abz-strawberry.com" in fallback
     existing = [
         {
             "id": "company-fall-creek-farm-and-nursery",
