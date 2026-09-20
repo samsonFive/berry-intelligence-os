@@ -14,7 +14,7 @@ import re
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 import httpx
 
@@ -52,6 +52,14 @@ _OG_IMAGE_REV_RE = re.compile(
 _IMG_SRC_RE = re.compile(
     r'<img\b[^>]*\bsrc=["\'](https?://[^"\']+)["\']',
     re.IGNORECASE,
+)
+_IMG_ALT_SRC_RE = re.compile(
+    r'<img\b[^>]*(?:alt=["\']([^"\']+)["\'][^>]*src=["\']([^"\']+)["\']|src=["\']([^"\']+)["\'][^>]*alt=["\']([^"\']+)["\'])',
+    re.IGNORECASE,
+)
+_JSON_ALT_SRC_RE = re.compile(
+    r'\\?"alt\\?":\\?"([^"\\]+)\\?".{0,500}?(https://[^"\\]+\.(?:jpg|jpeg|png|webp|gif))',
+    re.IGNORECASE | re.DOTALL,
 )
 _LOGO_HOST_RE = re.compile(r"logo|favicon|sprite", re.IGNORECASE)
 _BLOCKED_HOSTS = {
@@ -176,6 +184,63 @@ def extract_article_images(html: str) -> list[dict[str, str]]:
         if len(found) >= 8:
             break
     return found
+
+
+def _title_tokens(title: str) -> set[str]:
+    head = str(title or "").split(" - ")[0]
+    return {word.casefold() for word in re.findall(r"[A-Za-z][A-Za-z0-9]{3,}", head)}
+
+
+def _alt_matches_title(alt: str, title: str) -> bool:
+    tokens = _title_tokens(title)
+    if not tokens:
+        return False
+    hay = str(alt or "").casefold()
+    hits = sum(1 for token in tokens if token in hay)
+    need = 3 if len(tokens) >= 4 else max(1, len(tokens) - 1)
+    return hits >= need
+
+
+def preview_image_from_publisher_home(html: str, page_url: str, title: str) -> str:
+    """Article image whose alt/text matches the headline. Not the site logo."""
+    for match in _IMG_ALT_SRC_RE.finditer(html or ""):
+        alt = match.group(1) or match.group(4) or ""
+        src = match.group(2) or match.group(3) or ""
+        if _alt_matches_title(alt, title):
+            resolved = urljoin(page_url, src.strip())
+            if is_public_http_url(resolved) and not _LOGO_HOST_RE.search(resolved):
+                return resolved
+    for alt, src in _JSON_ALT_SRC_RE.findall(html or ""):
+        if _alt_matches_title(alt.replace("\\/", "/"), title):
+            resolved = urljoin(page_url, src.replace("\\/", "/").strip())
+            if is_public_http_url(resolved) and not _LOGO_HOST_RE.search(resolved):
+                return resolved
+    return ""
+
+
+def fetch_publisher_home_preview(home_url: str, title: str, *, client: httpx.Client | None = None) -> str:
+    if not is_public_http_url(home_url):
+        return ""
+    host = (urlparse(home_url).hostname or "").lower().removeprefix("www.")
+    if host in _SKIP_PREVIEW_HOSTS:
+        return ""
+    closer = None
+    http = client
+    if http is None:
+        http = httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=True, headers={"User-Agent": USER_AGENT})
+        closer = http
+    try:
+        response = http.get(home_url)
+        final = str(response.url)
+        if not is_public_http_url(final):
+            return ""
+        html = response.text[:400_000]
+        return preview_image_from_publisher_home(html, final, title)
+    except Exception:  # noqa: BLE001
+        return ""
+    finally:
+        if closer is not None:
+            closer.close()
 
 
 def classify_capture(passages: list[str], *, status_code: int) -> str:
@@ -386,6 +451,11 @@ def attach_source_preview_images(
             continue
         url = str(row.get("source_url") or "")
         image = str(getter(url) or "").strip()
+        if not image:
+            home = str(row.get("origin_publisher_url") or "").strip()
+            title = str(row.get("title") or "")
+            if home and title:
+                image = str(fetch_publisher_home_preview(home, title) or "").strip()
         if image:
             row["image_url"] = image
             article = dict(article)

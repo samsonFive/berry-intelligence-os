@@ -3459,6 +3459,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "related_entities": (seed or {}).get("related_entities") or [],
             "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
             "monogram": (seed or {}).get("monogram") or name[:2].upper(),
+            "logo_url": (seed or {}).get("logo_url") or "",
             "nav": world["nav"],
             "active_href": "/entities",
             "counts": world["counts"],
