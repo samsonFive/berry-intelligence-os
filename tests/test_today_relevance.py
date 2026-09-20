@@ -54,6 +54,18 @@ def test_named_company_survives_without_strong_industry_if_already_named():
     assert kept
 
 
+def test_thin_industry_mention_without_company_drops():
+    hit = _hit("Growers see new genetics", "Acreage.")
+    kept, dropped = apply_today_relevance([hit], entities=_entities())
+    assert kept == []
+    assert dropped == 1
+
+
+def test_consumer_buy_guide_drops():
+    hit = _hit("Where to buy the best blueberries this weekend", "Walmart grocery haul and antioxidant snack list.")
+    assert today_noise_reason(hit, named_entity=False)
+
+
 def test_collapse_story_clusters_keeps_one_lead():
     records = [
         {"title": "Fall Creek expands nursery", "source_url": "https://a.example/story", "source_name": "A", "published_date": "2026-09-21"},
