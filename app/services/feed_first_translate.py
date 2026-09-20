@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import time
 from pathlib import Path
 from typing import Any, Callable
 
@@ -168,6 +169,8 @@ def apply_english_translation(
     cache = _load_cache(inbox_dir)
     key = _cache_key(updated["original_title"], updated["original_summary"])
     result = cache.get(key) if isinstance(cache.get(key), dict) else None
+    cache_hit = result is not None
+    translation_started = time.perf_counter()
     if result is None:
         fn = translator if translator is not None else perplexity_translator
         try:
@@ -177,6 +180,9 @@ def apply_english_translation(
         if result:
             cache[key] = result
             _save_cache(inbox_dir, cache)
+    # region agent log
+    open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "B", "location": "app/services/feed_first_translate.py:apply_english_translation", "message": "translation attempt completed", "data": {"cache_hit": cache_hit, "elapsed_ms": round((time.perf_counter() - translation_started) * 1000, 1), "translated": bool(result), "source_language_guess": updated["source_language"]}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
+    # endregion
     if result and result.get("title"):
         updated["title"] = result["title"]
         if result.get("summary"):

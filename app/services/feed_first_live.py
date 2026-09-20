@@ -19,6 +19,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
@@ -779,10 +780,14 @@ def live_feed_bundle(
     muted_ids: Iterable[str] | None = None,
     enrich_lead: bool = False,
 ) -> dict[str, Any]:
+    bundle_started = time.perf_counter()
     today = today or utc_today()
     now = now or datetime.now(UTC)
     if not refresh:
         cached = load_cached_bundle(inbox_dir, today=today)
+        # region agent log
+        open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "A", "location": "app/services/feed_first_live.py:live_feed_bundle", "message": "cache evaluated", "data": {"cache_found": cached is not None, "cache_fresh": bool(cached and _cache_fresh(cached, today=today, now=now)), "record_count": len((cached or {}).get("records") or []), "elapsed_ms": round((time.perf_counter() - bundle_started) * 1000, 1)}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
+        # endregion
         if cached and _cache_fresh(cached, today=today, now=now):
             rows, dropped = filter_today_records(
                 list(cached.get("records") or []),
@@ -793,6 +798,9 @@ def live_feed_bundle(
             from app.services.feed_first_translate import translate_records
 
             rows = translate_records(rows, inbox_dir=inbox_dir)
+            # region agent log
+            open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "B", "location": "app/services/feed_first_live.py:live_feed_bundle", "message": "cached translations completed", "data": {"elapsed_ms": round((time.perf_counter() - bundle_started) * 1000, 1), "pending_count": sum(1 for row in rows if row.get("translation_pending"))}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
+            # endregion
             payload = dict(cached)
             payload["records"] = rows
             stats = dict(payload.get("stats") or {})
@@ -805,6 +813,9 @@ def live_feed_bundle(
                 payload["stats"] = stats
             before = [str(row.get("image_url") or "") for row in rows]
             rows = attach_source_preview_images(rows)
+            # region agent log
+            open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "C", "location": "app/services/feed_first_live.py:live_feed_bundle", "message": "cached image enrichment completed", "data": {"elapsed_ms": round((time.perf_counter() - bundle_started) * 1000, 1), "missing_image_count": sum(1 for row in rows if not str(row.get("image_url") or "").strip())}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
+            # endregion
             payload["records"] = rows
             if [str(row.get("image_url") or "") for row in rows] != before:
                 save_bundle(inbox_dir, payload)
