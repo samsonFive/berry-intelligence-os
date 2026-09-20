@@ -116,12 +116,19 @@
               <span>{{ item.source_kind }}</span>
               {% if item.trust_state %}<span>{{ item.trust_state }} / {{ item.review_state }}</span>{% endif %}
               {% if item.cluster_size and item.cluster_size > 1 %}<span>cluster ×{{ item.cluster_size }}</span>{% endif %}
+              {% if item.source_kind == 'official' %}<span>official site</span>{% endif %}
             </p>
             <h2><a href="{{ item.reader_href }}">{{ item.headline }}</a></h2>
             {% if item.deck %}<p>{{ item.deck }}</p>{% endif %}
+            {% if item.cluster_sources %}
+            <p class="bos-note">Also seen via {{ item.cluster_sources|join(', ') }}</p>
+            {% endif %}
             <p class="bos-meta">
               {% for entity in item.entities[:3] %}
               <a class="bos-chip" href="{{ entity.profile_url }}">{{ entity.name }} · {{ entity.tier }}</a>
+              {% endfor %}
+              {% for person in item.people[:3] %}
+              <a class="bos-chip" href="{{ person.profile_url }}">{{ person.canonical_name }}</a>
               {% endfor %}
               {% for crop in item.crops %}
               <span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>
@@ -151,14 +158,19 @@
           <a class="bos-btn" data-close-reader href="{{ feed.close_href }}">Close</a>
           <button type="button" class="bos-icon-btn" data-react="thumbs_up" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'up' else 'false' }}">👍</button>
           <button type="button" class="bos-icon-btn" data-react="thumbs_down" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'down' else 'false' }}">👎</button>
+          {% if selected.reader_modes|length > 1 %}
+          {% for mode in selected.reader_modes %}
+          <button type="button" class="bos-btn" data-reader-mode="{{ mode }}">{{ mode|replace('_', ' ') }}</button>
+          {% endfor %}
+          {% endif %}
         </div>
-        <div class="bos-reader-body">
-          {% if selected.body_availability in ['full', 'partial'] and selected.passages %}
+        <div class="bos-reader-body" data-reader-body data-availability="{{ selected.body_availability }}">
+          {% if selected.body_availability in ['full', 'partial', 'excerpt_only'] and selected.passages %}
             {% for passage in selected.passages %}
             <p>{{ passage }}</p>
             {% endfor %}
-            {% if selected.body_availability == 'partial' %}
-            <p class="bos-note">Partial capture — this is not claimed as the full article.</p>
+            {% if selected.body_availability != 'full' %}
+            <p class="bos-note">{{ selected.availability_label }} — this is not claimed as the full article.</p>
             {% endif %}
           {% else %}
           <div class="bos-fallback">
@@ -168,6 +180,11 @@
           </div>
           {% endif %}
         </div>
+        {% if selected.frame_allowed %}
+        <iframe class="bos-live-page" data-live-page hidden sandbox="allow-scripts allow-same-origin" src="{{ selected.source_url }}" title="Live page"></iframe>
+        {% else %}
+        <p class="bos-note">Live Page is off. The publisher did not permit framing (or capture has not confirmed it).</p>
+        {% endif %}
         <div class="bos-loader" data-growth-loader hidden>
           <div class="bos-loader-visual" aria-hidden="true"></div>
           <p>4 of 6 · extracting atomic claims</p>

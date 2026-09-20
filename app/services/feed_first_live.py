@@ -253,10 +253,14 @@ def hit_to_record(
     entities: Iterable[dict[str, Any]],
     today: date,
     official_hosts: set[str] | None = None,
+    people: Iterable[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     url = hit.origin_publisher_url or hit.url
     text = f"{hit.title} {hit.snippet}"
     entity_ids = match_entity_ids(text, entities)
+    from app.services.people_watchlist import match_people
+
+    person_ids = [row["id"] for row in match_people(text, people or [])]
     snippet = (hit.snippet or "").strip()
     return {
         "id": live_item_id(url),
@@ -274,6 +278,7 @@ def hit_to_record(
         "captured_date": today.isoformat(),
         "berry_ids": berry_ids_for(hit),
         "entity_ids": entity_ids,
+        "person_ids": person_ids,
         "geography_ids": [],
         "tags": ["live", "unreviewed"],
         "publisher_description": snippet,
@@ -565,6 +570,8 @@ def live_feed_bundle(
     enable_exa: bool | None = None,
     enable_apitube: bool | None = None,
     official_hosts: set[str] | None = None,
+    people: list[dict[str, Any]] | None = None,
+    enrich_lead: bool = False,
 ) -> dict[str, Any]:
     today = today or utc_today()
     now = now or datetime.now(UTC)
@@ -593,10 +600,16 @@ def live_feed_bundle(
                 entities=entities or [],
                 today=today,
                 official_hosts=official_hosts,
+                people=people,
             )
             for hit in hits
         ]
     )
+    if enrich_lead and records:
+        from app.services.feed_first_reader import capture_item, merge_capture
+
+        lead = merge_capture(records[0], capture_item(inbox_dir, records[0]))
+        records[0] = lead
     bundle = {
         **empty_bundle(today, fetched_at=now.isoformat(timespec="seconds")),
         **meta,

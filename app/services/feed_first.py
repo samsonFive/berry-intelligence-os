@@ -22,7 +22,7 @@ from app.services.source_body import classify_source_body, reader_content
 
 STATE_FILENAME = "feed_first_state.json"
 EXTRACTION_MODEL = "local-deterministic-preview"
-EXTRACTION_VERSION = "gate3-v1"
+EXTRACTION_VERSION = "gate3-v2"
 EXTRACTION_DISCLOSURE = (
     "Local deterministic preview from captured passages only. "
     "The production atomic extractor remains unqualified and was not run."
@@ -94,7 +94,7 @@ NAV = (
     ("Entities", "/entities"),
     ("People", "/people"),
     ("Statements", "/today?state=judged"),
-    ("Landscapes", "/landscapes"),
+    ("Landscapes", "/landscapes?view=feed"),
     ("This week", "/week"),
     ("War Room", "/war-room"),
     ("Watchtower", "/watchtower"),
@@ -164,6 +164,7 @@ def parse_filters(params: dict[str, Any]) -> dict[str, str]:
         "state": _one("state", {"unread", "read", "saved", "judged"}),
         "q": _one("q"),
         "item": _one("item"),
+        "person": _one("person"),
         "sort": _one("sort", {"rank", "chrono"}) or "rank",
     }
 
@@ -275,6 +276,8 @@ def present_entities(
 
 def card_family(record: dict[str, Any], *, lead: bool, rank: int) -> str:
     kind = source_kind(record)
+    if int(record.get("cluster_size") or 1) > 1 and not lead:
+        return "cluster"
     if kind == "registry":
         return "registry"
     if kind == "social" or str(record.get("source_type") or "") == "company_catalog":
@@ -286,6 +289,24 @@ def card_family(record: dict[str, Any], *, lead: bool, rank: int) -> str:
     return "standard"
 
 
+def present_people(record: dict[str, Any], people_by_id: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for pid in record.get("person_ids") or []:
+        person = people_by_id.get(str(pid))
+        if not person:
+            continue
+        rows.append(
+            {
+                "id": person["id"],
+                "canonical_name": person.get("canonical_name") or person["id"],
+                "profile_url": person.get("profile_url") or f"/people/{person['id']}",
+                "monitoring_coverage": person.get("monitoring_coverage") or "discovery-only",
+                "social_coverage": person.get("social_coverage") or "provider-unavailable",
+            }
+        )
+    return rows
+
+
 def present_item(
     record: dict[str, Any],
     *,
@@ -294,11 +315,19 @@ def present_item(
     filters: dict[str, str],
     lead: bool = False,
     rank: int = 0,
+    people_by_id: dict[str, dict[str, Any]] | None = None,
+    capture: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    from app.services.feed_first_reader import merge_capture
+
+    record = merge_capture(record, capture)
     item_id = str(record.get("id") or "")
     entities = present_entities(record, entities_by_id, state)
+    people = present_people(record, people_by_id or {})
     crops = crop_keys(record)
     availability = body_availability(record)
+    if capture and capture.get("availability"):
+        availability = str(capture.get("availability") or availability)
     kind = source_kind(record)
     if availability in {"blocked", "metadata_only", "excerpt_only"} and kind == "article":
         display_kind = "fallback" if availability != "excerpt_only" else "article"
@@ -327,9 +356,13 @@ def present_item(
         "crop_labels": [CROP_LABELS[c] for c in crops if c in CROP_LABELS],
         "geographies": [str(g) for g in (record.get("geography_ids") or [])],
         "entities": entities,
+        "people": people,
         "highest_tier": _highest_tier([row["tier"] for row in entities]),
         "body_availability": availability,
         "availability_label": _availability_label(availability),
+        "reader_modes": list((record.get("reader_capture") or {}).get("reader_modes") or ["structured_fallback"]),
+        "frame_allowed": bool((record.get("reader_capture") or {}).get("frame_allowed")),
+        "capture_method": (record.get("reader_capture") or {}).get("method") or "",
         "trust_state": record.get("trust_state") or "",
         "review_state": record.get("review_state") or "",
         "acquisition_lane": record.get("acquisition_lane") or "",
@@ -398,6 +431,8 @@ def _matches(item: dict[str, Any], filters: dict[str, str]) -> bool:
         return False
     if filters["entity"] and filters["entity"] not in {row["id"] for row in item["entities"]}:
         return False
+    if filters.get("person") and filters["person"] not in {row["id"] for row in item.get("people") or []}:
+        return False
     if filters["crop"] and filters["crop"] not in item["crops"]:
         return False
     if filters["source"]:
@@ -441,6 +476,8 @@ def build_feed(
     today: date | None = None,
     limit: int = 48,
     disclosure: str | None = None,
+    people: list[dict[str, Any]] | None = None,
+    captures: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     today = today or utc_today()
     entities_by_id = (
@@ -448,6 +485,22 @@ def build_feed(
         if isinstance(entities, dict)
         else {str(row.get("id")): row for row in entities if row.get("id")}
     )
+    people_by_id = {str(row.get("id")): row for row in (people or []) if row.get("id")}
+    captures = captures or {}
+
+    def _present(record: dict[str, Any], *, lead: bool = False, rank: int = 0) -> dict[str, Any]:
+        item_id = str(record.get("id") or "")
+        return present_item(
+            record,
+            entities_by_id=entities_by_id,
+            state=state,
+            filters=filters,
+            lead=lead,
+            rank=rank,
+            people_by_id=people_by_id,
+            capture=captures.get(item_id),
+        )
+
     ranked: list[dict[str, Any]] = []
     for record in evidence:
         if record.get("status") and record.get("status") != "published":
@@ -459,12 +512,7 @@ def build_feed(
         published = str(record.get("published_date") or "")
         if not _in_window(published, filters["window"], today):
             continue
-        item = present_item(
-            record,
-            entities_by_id=entities_by_id,
-            state=state,
-            filters=filters,
-        )
+        item = _present(record)
         if not _matches(item, filters):
             continue
         ranked.append(item)
@@ -482,23 +530,9 @@ def build_feed(
 
     visible = ranked[:limit]
     if visible:
-        visible[0] = present_item(
-            visible[0]["record"],
-            entities_by_id=entities_by_id,
-            state=state,
-            filters=filters,
-            lead=True,
-            rank=0,
-        )
+        visible[0] = _present(visible[0]["record"], lead=True, rank=0)
         for index, item in enumerate(visible[1:], start=1):
-            visible[index] = present_item(
-                item["record"],
-                entities_by_id=entities_by_id,
-                state=state,
-                filters=filters,
-                lead=False,
-                rank=index,
-            )
+            visible[index] = _present(item["record"], lead=False, rank=index)
 
     selected = None
     if filters["item"]:
@@ -506,12 +540,7 @@ def build_feed(
         if selected is None:
             raw = next((row for row in evidence if str(row.get("id")) == filters["item"]), None)
             if raw is not None:
-                selected = present_item(
-                    raw,
-                    entities_by_id=entities_by_id,
-                    state=state,
-                    filters=filters,
-                )
+                selected = _present(raw)
     if selected is None and visible:
         selected = visible[0]
 
@@ -570,6 +599,7 @@ def apply_decision(
     item_id: str,
     action: str,
     evidence: list[dict[str, Any]] | None = None,
+    people: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     if not SAFE_ID_RE.match(item_id):
         raise ValueError("invalid item id")
@@ -598,8 +628,11 @@ def apply_decision(
     statements = dict(state.get("statements") or {})
     if current.get("reaction") == "up":
         if item_id not in statements:
+            from app.services.feed_first_reader import load_capture, merge_capture
+
             record = next((row for row in (evidence or []) if str(row.get("id")) == item_id), None)
-            statements[item_id] = extract_statements(record or {"id": item_id})
+            record = merge_capture(record or {"id": item_id}, load_capture(inbox_dir, item_id))
+            statements[item_id] = extract_statements(record, people=people)
     elif current.get("reaction") != "up":
         # Undo removes the working set but never writes trusted data.
         statements.pop(item_id, None)
@@ -671,7 +704,18 @@ def _atomic_sentences(passages: list[str]) -> list[str]:
     return picked
 
 
-def extract_statements(record: dict[str, Any]) -> list[dict[str, Any]]:
+def _structured_details(sentence: str) -> dict[str, list[str]]:
+    return {
+        "quantities": [match.group(0) for match in _QUANTITY.finditer(sentence)],
+        "dates": [match.group(0) for match in _DATEISH.finditer(sentence)],
+    }
+
+
+def extract_statements(
+    record: dict[str, Any],
+    *,
+    people: list[dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
     availability = body_availability(record)
     if availability in {"blocked", "error"}:
         return []
@@ -687,8 +731,11 @@ def extract_statements(record: dict[str, Any]) -> list[dict[str, Any]]:
     item_id = str(record.get("id") or "item")
     crops = crop_keys(record)
     entity_ids = [str(eid) for eid in (record.get("entity_ids") or [])]
+    from app.services.people_watchlist import match_people
+
     rows: list[dict[str, Any]] = []
     for index, sentence in enumerate(picked, start=1):
+        matched_people = match_people(sentence, people or [])
         rows.append(
             {
                 "id": f"{item_id}::stmt-{index}",
@@ -697,11 +744,12 @@ def extract_statements(record: dict[str, Any]) -> list[dict[str, Any]]:
                 "original_extraction_text": sentence,
                 "supporting_passages": [sentence],
                 "entity_ids": entity_ids,
-                "person_ids": [],
+                "person_ids": [row["id"] for row in matched_people],
                 "crops": crops,
                 "geographies": [str(g) for g in (record.get("geography_ids") or [])],
                 "topics": list(record.get("tags") or []),
                 "statement_type": _statement_type(sentence),
+                "structured_details": _structured_details(sentence),
                 "importance_state": "normal",
                 "statement_state": "trusted_editable",
                 "confidence": "excerpt_supported" if availability != "full" else "body_supported",
@@ -796,6 +844,78 @@ def statements_for_entity(state: dict[str, Any], entity_id: str) -> list[dict[st
             if entity_id in (row.get("entity_ids") or []) and row.get("statement_state") != "removed":
                 rows.append(row)
     return rows
+
+
+def statements_for_person(state: dict[str, Any], person_id: str) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for group in (state.get("statements") or {}).values():
+        for row in group:
+            if person_id in (row.get("person_ids") or []) and row.get("statement_state") != "removed":
+                rows.append(row)
+    return rows
+
+
+def trusted_statements(state: dict[str, Any]) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for group in (state.get("statements") or {}).values():
+        for row in group:
+            if row.get("statement_state") != "removed":
+                rows.append(row)
+    return rows
+
+
+def saved_items(
+    *,
+    evidence: list[dict[str, Any]],
+    entities: list[dict[str, Any]],
+    state: dict[str, Any],
+    people: list[dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    filters = parse_filters({"window": "", "state": "saved"})
+    feed = build_feed(
+        evidence=evidence,
+        entities=entities,
+        state=state,
+        filters=filters,
+        people=people,
+    )
+    return feed["cards"]
+
+
+def landscapes_model(
+    *,
+    state: dict[str, Any],
+    entities: list[dict[str, Any]],
+    counts: dict[str, Any],
+) -> dict[str, Any]:
+    by_id = {str(row.get("id")): row for row in entities if row.get("id")}
+    statements = trusted_statements(state)
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    for row in statements:
+        for entity_id in row.get("entity_ids") or ["unmatched"]:
+            grouped.setdefault(str(entity_id), []).append(row)
+    companies = []
+    for entity_id, rows in grouped.items():
+        entity = by_id.get(entity_id) or {}
+        companies.append(
+            {
+                "id": entity_id,
+                "name": entity.get("name") or entity_id,
+                "profile_url": f"/entities/company/{entity_id}?view=feed",
+                "statement_count": len(rows),
+                "statements": rows[:6],
+            }
+        )
+    companies.sort(key=lambda row: (-row["statement_count"], row["name"].casefold()))
+    return {
+        "companies": companies,
+        "statement_count": len(statements),
+        "tracked_companies": counts.get("tracked_companies") or 0,
+        "disclosure": (
+            "Landscapes reuse trusted Today thumbs-up statements. "
+            "Save is not trust. Legacy landscape remains at /landscapes?view=legacy."
+        ),
+    }
 
 
 def playground_fixtures() -> list[dict[str, Any]]:

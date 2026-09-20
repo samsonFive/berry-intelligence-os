@@ -1,4 +1,4 @@
-from app.services.people_watchlist import discover_people, people_model
+from app.services.people_watchlist import clean_person_name, discover_people, people_model
 
 
 def test_people_come_from_structured_inventor_fields_only():
@@ -35,3 +35,32 @@ def test_people_come_from_structured_inventor_fields_only():
     model = people_model(entities)
     assert model["count"] == 2
     assert "provider-unavailable" in model["disclosure"]
+
+
+def test_title_and_parenthetical_are_stripped_not_invented():
+    assert clean_person_name("Dr Jessica Scalzo (since 2013)") == "Jessica Scalzo"
+    entities = [
+        {
+            "id": "breeding_program-costa",
+            "entity_type": "breeding_program",
+            "name": "Costa VIP",
+            "berry_ids": ["berry-blueberry"],
+            "attributes": {"lead_breeder": "Dr Jessica Scalzo (since 2013)"},
+        }
+    ]
+    people = discover_people(entities)
+    assert {row["canonical_name"] for row in people} == {"Jessica Scalzo"}
+    assert people[0]["profile_url"] == "/people/person-jessica-scalzo"
+    assert people[0]["social_coverage"] == "provider-unavailable"
+
+
+def test_organization_shaped_names_are_not_people():
+    entities = [
+        {
+            "id": "variety-x",
+            "entity_type": "variety",
+            "name": "X",
+            "attributes": {"named_inventors": ["Advanced Berry Breeding", "Cornell University Berry Breeding Program"]},
+        }
+    ]
+    assert discover_people(entities) == []

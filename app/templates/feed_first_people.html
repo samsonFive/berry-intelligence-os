@@ -32,11 +32,12 @@
               <span>{{ person.monitoring_coverage }}</span>
               <span>social {{ person.social_coverage }}</span>
             </p>
-            <h3>{{ person.canonical_name }}</h3>
+            <h3><a href="{{ person.profile_url }}">{{ person.canonical_name }}</a></h3>
             <p class="bos-note">{{ person.watch_rationale }}</p>
             {% if person.entity_names %}
             <p class="bos-meta">{% for name in person.entity_names[:4] %}<span>{{ name }}</span>{% endfor %}</p>
             {% endif %}
+            <p><a class="bos-btn" href="{{ person.profile_url }}">Open person</a></p>
           </div>
         </article>
         {% endfor %}

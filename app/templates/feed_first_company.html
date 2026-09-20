@@ -28,7 +28,26 @@
         {% elif resolved_website %}
         <p class="bos-note">Resolved website is research only: {{ resolved_website }}</p>
         {% endif %}
+        {% if related_entities %}
+        <p>Related in seed notes:
+          {% for rel in related_entities %}
+          <a href="{{ rel.profile_url }}">{{ rel.name }}</a>{% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+        {% endif %}
       </div>
+
+      {% if social_channels %}
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Official social (unverified)</h2>
+        <p class="bos-note">Seed discovery URLs. official_status=unverified. Coverage is provider-unavailable. Not scraped.</p>
+        <ul>
+          {% for channel in social_channels %}
+          <li>{{ channel.platform }} · {{ channel.official_status }} · {{ channel.coverage }} · {{ channel.url }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
 
       <section>
         <h2 class="bos-title" style="font-size:1.4rem">Watches</h2>
@@ -45,7 +64,7 @@
         <p class="bos-note">From public patent or program records. Social coverage is provider-unavailable.</p>
         <ul>
           {% for person in people %}
-          <li>{{ person.canonical_name }} · {{ person.monitoring_coverage }}</li>
+          <li><a href="{{ person.profile_url }}">{{ person.canonical_name }}</a> · {{ person.monitoring_coverage }}</li>
           {% endfor %}
         </ul>
       </section>

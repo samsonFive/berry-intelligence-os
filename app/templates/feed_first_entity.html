@@ -26,6 +26,13 @@
           {% for crop in profile.crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
         </p>
         {% if profile.parent_or_successor %}<p>{{ profile.parent_or_successor }}</p>{% endif %}
+        {% if profile.related_entities %}
+        <p>Related in seed notes:
+          {% for rel in profile.related_entities %}
+          <a href="{{ rel.profile_url }}">{{ rel.name }}</a>{% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+        {% endif %}
         {% if profile.official_website %}
         <p>Official website: <a href="{{ profile.official_website }}" rel="noopener noreferrer">{{ profile.official_website }}</a></p>
         {% elif profile.resolved_website %}

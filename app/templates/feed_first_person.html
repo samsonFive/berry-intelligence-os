@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ person.canonical_name }} — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os" data-feed-first data-feed-first-person data-coverage="{{ person.monitoring_coverage }}">
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">People · {{ person.monitoring_coverage }}</p>
+      <h1 class="bos-title">{{ person.canonical_name }}</h1>
+      <p class="bos-lede">{{ person.watch_rationale }}</p>
+      <p class="bos-note">Social coverage is {{ person.social_coverage }}. This is not active LinkedIn, Instagram, or Facebook monitoring.</p>
+
+      <div class="bos-people-card">
+        <p class="bos-monogram" style="position:static">{{ person.monogram }}</p>
+        <p class="bos-meta">
+          {% for crop in person.crops %}<span class="bos-chip" data-crop="{{ crop|replace('berry-','') }}">{{ crop|replace('berry-','') }}</span>{% endfor %}
+        </p>
+        {% if person.entity_names %}
+        <p>Affiliated programs: {% for name in person.entity_names %}{{ name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+        {% endif %}
+        {% if person.source_record_names %}
+        <p class="bos-note">Named on: {% for name in person.source_record_names[:8] %}{{ name }}{% if not loop.last %}; {% endif %}{% endfor %}</p>
+        {% endif %}
+      </div>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">From Today thumbs-up</h2>
+        {% if statements %}
+        <ul>
+          {% for row in statements %}
+          <li>
+            <p>{{ row.statement_text }}</p>
+            <p class="bos-note">Evidence: {{ row.supporting_passages[0] if row.supporting_passages else 'none' }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="bos-note">No trusted statements name this person yet. Thumbs-up on a Today item that mentions them extracts here.</p>
+        {% endif %}
+      </section>
+      <p><a class="bos-btn" href="/today?person={{ person.id }}">Today filtered to this person</a> <a class="bos-btn" href="/people">All people</a></p>
+    </main>
+  </div>
+</div>
+{% endblock %}

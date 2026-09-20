@@ -45,8 +45,19 @@ def default_seed_path() -> Path:
     return Path(__file__).resolve().parents[2] / SEED_RELATIVE
 
 
+def _text(value: Any) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, float) and value != value:
+        return ""
+    text = str(value).strip()
+    if text.casefold() == "nan":
+        return ""
+    return text
+
+
 def is_http_url(value: Any) -> bool:
-    text = str(value or "").strip()
+    text = _text(value)
     parsed = urlparse(text)
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
@@ -82,8 +93,8 @@ def seed_track_id(entity_id: str) -> str:
 
 def repair_row(raw: dict[str, Any]) -> dict[str, Any]:
     """Normalize one seed row. Never treat URL-shaped status as a state."""
-    monitoring_raw = str(raw.get("monitoring_status") or "").strip()
-    evidence_url = str(raw.get("evidence_url") or "").strip()
+    monitoring_raw = _text(raw.get("monitoring_status"))
+    evidence_url = _text(raw.get("evidence_url"))
     repaired_fields: list[str] = []
     if is_http_url(monitoring_raw):
         if not evidence_url:
@@ -98,8 +109,8 @@ def repair_row(raw: dict[str, Any]) -> dict[str, Any]:
     else:
         monitoring_status = "watch"
 
-    website = str(raw.get("website") or "").strip()
-    resolved_website = str(raw.get("resolved_website") or "").strip()
+    website = _text(raw.get("website"))
+    resolved_website = _text(raw.get("resolved_website"))
     official_website = website if is_http_url(website) else ""
     if resolved_website and resolved_website != official_website:
         repaired_fields.append("resolved_website_not_official")
@@ -111,7 +122,7 @@ def repair_row(raw: dict[str, Any]) -> dict[str, Any]:
         verification = "verified-primary"
         entity_type = REGISTRY_ENTITY_TYPE
 
-    name = str(raw.get("competitor_name") or raw.get("canonical_name") or "").strip()
+    name = _text(raw.get("competitor_name") or raw.get("canonical_name"))
     aliases = parse_aliases(raw.get("aliases_legacy_names"))
     crops = [crop for crop in CROP_FLAGS if raw.get(crop)]
     tier = TIER_MAP.get(str(raw.get("monitoring_tier") or ""), "tier2")
@@ -121,10 +132,10 @@ def repair_row(raw: dict[str, Any]) -> dict[str, Any]:
         status = "active"
 
     social = {
-        "facebook_url": str(raw.get("facebook_url") or "").strip(),
-        "instagram_url": str(raw.get("instagram_url") or "").strip(),
-        "linkedin_url": str(raw.get("linkedin_url") or "").strip(),
-        "social_verification": str(raw.get("social_verification") or "").strip(),
+        "facebook_url": _text(raw.get("facebook_url")),
+        "instagram_url": _text(raw.get("instagram_url")),
+        "linkedin_url": _text(raw.get("linkedin_url")),
+        "social_verification": _text(raw.get("social_verification")),
     }
     watches = [{"kind": "mention", "query": name, "enabled": True}]
     if official_website:
@@ -138,11 +149,11 @@ def repair_row(raw: dict[str, Any]) -> dict[str, Any]:
         "aliases": aliases,
         "legal_name": name,
         "seed_entity_type": entity_type,
-        "country_hq": str(raw.get("country_hq") or "").strip(),
-        "parent_or_successor": str(raw.get("parent_or_successor") or "").strip(),
+        "country_hq": _text(raw.get("country_hq")),
+        "parent_or_successor": _text(raw.get("parent_or_successor")),
         "official_website": official_website,
         "resolved_website": resolved_website if is_http_url(resolved_website) else "",
-        "logo_source_url": str(raw.get("logo_image_url") or "").strip(),
+        "logo_source_url": _text(raw.get("logo_image_url")),
         "logo_rights_status": "discovery-only",
         "crops": crops,
         "roles": [
@@ -165,9 +176,9 @@ def repair_row(raw: dict[str, Any]) -> dict[str, Any]:
         "candidate": candidate,
         "is_registry": is_registry,
         "evidence_url": evidence_url if is_http_url(evidence_url) else "",
-        "evidence_summary": str(raw.get("evidence_summary") or "").strip(),
-        "last_verified": str(raw.get("last_verified") or "").strip(),
-        "research_notes": str(raw.get("research_notes") or "").strip(),
+        "evidence_summary": _text(raw.get("evidence_summary")),
+        "last_verified": _text(raw.get("last_verified")),
+        "research_notes": _text(raw.get("research_notes")),
         "social": social,
         "watches": watches,
         "repaired_fields": repaired_fields,
@@ -320,6 +331,55 @@ def official_hosts(roster: list[dict[str, Any]]) -> set[str]:
     return hosts
 
 
+def official_social_channels(row: dict[str, Any]) -> list[dict[str, str]]:
+    """Seed social URLs stay discovery-only. Never marked official/verified."""
+    social = row.get("social") if isinstance(row.get("social"), dict) else {}
+    channels: list[dict[str, str]] = []
+    for platform, key in (
+        ("facebook", "facebook_url"),
+        ("instagram", "instagram_url"),
+        ("linkedin", "linkedin_url"),
+    ):
+        url = str(social.get(key) or "").strip()
+        if not is_http_url(url):
+            continue
+        channels.append(
+            {
+                "platform": platform,
+                "url": url,
+                "official_status": "unverified",
+                "coverage": "provider-unavailable",
+                "source": "seed-discovery",
+            }
+        )
+    return channels
+
+
+def related_from_seed_note(row: dict[str, Any], roster: list[dict[str, Any]]) -> list[dict[str, str]]:
+    """Link parent/successor only when another roster name appears in the seed note."""
+    note = str(row.get("parent_or_successor") or "").casefold()
+    if len(note) < 8:
+        return []
+    related: list[dict[str, str]] = []
+    self_id = str(row.get("id") or "")
+    for other in roster:
+        other_id = str(other.get("id") or "")
+        if not other_id or other_id == self_id:
+            continue
+        name = str(other.get("canonical_name") or "").strip()
+        if len(name) < 6 or name.casefold() not in note:
+            continue
+        related.append(
+            {
+                "id": other_id,
+                "name": name,
+                "profile_url": profile_url(other),
+                "evidence": "seed parent_or_successor note",
+            }
+        )
+    return related
+
+
 def profile_url(row: dict[str, Any]) -> str:
     entity_id = str(row.get("id") or "")
     if entity_id.startswith("breeding_program-"):
@@ -384,6 +444,8 @@ def following_model(
                 "monogram": _monogram(row["canonical_name"]),
                 "verification_label": _verification_label(row),
                 "watch_labels": [watch["kind"].replace("_", " ") for watch in row["watches"]],
+                "social_channels": official_social_channels(row),
+                "related_entities": related_from_seed_note(row, roster),
             }
         )
     return {
@@ -409,6 +471,8 @@ def seed_profile(entity_id: str, existing: Iterable[dict[str, Any]], *, seed_pat
                 "profile_url": profile_url(row),
                 "monogram": _monogram(row["canonical_name"]),
                 "verification_label": _verification_label(row),
+                "social_channels": official_social_channels(row),
+                "related_entities": related_from_seed_note(row, roster),
             }
     return None
 
