@@ -63,6 +63,29 @@ if (Test-Path .env) {
 
 $hostName = if ($env:BIOS_APP_BIND) { $env:BIOS_APP_BIND } else { "127.0.0.1" }
 $port = if ($env:BIOS_APP_PORT) { $env:BIOS_APP_PORT } else { "8000" }
-Write-Host "Berry OS → http://${hostName}:${port}/today"
+$browserHost = if ($hostName -eq "0.0.0.0") { "127.0.0.1" } else { $hostName }
+$appUrl = "http://${browserHost}:${port}/today"
+Write-Host "Berry OS → $appUrl"
 Write-Host "Refresh live lanes on Today if the feed looks stale. Thumbs-up is the publish path."
+
+# Open the user's normal external browser only after uvicorn answers. The
+# server remains in this foreground window so Ctrl+C still stops it cleanly.
+if ($env:BIOS_NO_BROWSER -notmatch '^(1|true|yes)$') {
+    Write-Host "Your default browser will open when Berry OS is ready."
+    Start-Job -ArgumentList $appUrl -ScriptBlock {
+        param($url)
+        for ($attempt = 0; $attempt -lt 90; $attempt++) {
+            try {
+                $response = Invoke-WebRequest -Uri $url -UseBasicParsing -TimeoutSec 2
+                if ($response.StatusCode -ge 200 -and $response.StatusCode -lt 500) {
+                    Start-Process $url
+                    return
+                }
+            } catch {
+                Start-Sleep -Seconds 1
+            }
+        }
+    } | Out-Null
+}
+
 & .\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --host $hostName --port $port
