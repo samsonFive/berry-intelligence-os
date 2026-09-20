@@ -4,12 +4,25 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 if ! command -v python3 >/dev/null 2>&1; then
-  echo "python3 is required (3.12+)." >&2
+  echo "python3 is required (3.12)." >&2
+  exit 1
+fi
+
+py_ver="$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')"
+if [[ "$py_ver" != "3.12" ]]; then
+  echo "Python 3.12 is required (got $py_ver). Python 3.14 cannot install pydantic-core==2.33.2." >&2
   exit 1
 fi
 
 if [[ ! -d .venv ]]; then
   python3 -m venv .venv
+else
+  venv_ver="$(.venv/bin/python -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')"
+  if [[ "$venv_ver" != "3.12" ]]; then
+    echo "Existing .venv is Python $venv_ver. Recreating with 3.12."
+    rm -rf .venv
+    python3 -m venv .venv
+  fi
 fi
 # shellcheck disable=SC1091
 source .venv/bin/activate
