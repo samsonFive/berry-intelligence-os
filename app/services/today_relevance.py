@@ -161,7 +161,16 @@ def cluster_key(record: dict[str, Any]) -> str:
 
 
 def _cluster_label(row: dict[str, Any]) -> str:
-    return str(row.get("source_name") or row.get("acquisition_lane") or "").strip()
+    name = str(row.get("source_name") or "").strip()
+    host = ""
+    url = str(row.get("source_url") or "")
+    if "://" in url:
+        host = url.split("://", 1)[1].split("/", 1)[0].casefold().removeprefix("www.")
+    if name and (" " in name or "." in name):
+        return name
+    if host:
+        return host
+    return name or str(row.get("acquisition_lane") or "").strip()
 
 
 def collapse_story_clusters(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
