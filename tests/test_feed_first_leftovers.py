@@ -420,3 +420,28 @@ def test_rss_and_source_preview_images_fill_cards():
     company = TestClient(app).get("/entities/company/seed-org-0018?view=feed")
     assert company.status_code == 200
     assert "bos-logo" in company.text
+
+
+def test_source_preview_limit_bounds_attempts_not_successes():
+    from app.services.feed_first_reader import attach_source_preview_images
+
+    calls: list[str] = []
+
+    def missing_image(url: str) -> str:
+        calls.append(url)
+        return ""
+
+    records = [
+        {
+            "id": f"missing-{index}",
+            "source_url": f"https://publisher.invalid/story-{index}",
+            "image_url": "",
+        }
+        for index in range(30)
+    ]
+
+    enriched = attach_source_preview_images(records, fetch=missing_image, limit=5)
+
+    assert len(calls) == 5
+    assert len(enriched) == 30
+    assert all(not row.get("image_url") for row in enriched)

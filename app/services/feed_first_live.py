@@ -794,10 +794,6 @@ def live_feed_bundle(
                 entities=entities or [],
             )
             rows = annotate_live_geographies(rows, entities=entities or [])
-            from app.services.feed_first_reader import attach_source_preview_images
-            from app.services.feed_first_translate import translate_records
-
-            rows = translate_records(rows, inbox_dir=inbox_dir)
             # region agent log
             open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "B", "location": "app/services/feed_first_live.py:live_feed_bundle", "message": "cached translations completed", "data": {"elapsed_ms": round((time.perf_counter() - bundle_started) * 1000, 1), "pending_count": sum(1 for row in rows if row.get("translation_pending"))}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
             # endregion
@@ -811,14 +807,9 @@ def live_feed_bundle(
                     1 for row in rows if is_same_calendar_day(str(row.get("published_date") or ""), today)
                 )
                 payload["stats"] = stats
-            before = [str(row.get("image_url") or "") for row in rows]
-            rows = attach_source_preview_images(rows)
             # region agent log
             open("/opt/cursor/logs/debug.log", "a").write(json.dumps({"hypothesisId": "C", "location": "app/services/feed_first_live.py:live_feed_bundle", "message": "cached image enrichment completed", "data": {"elapsed_ms": round((time.perf_counter() - bundle_started) * 1000, 1), "missing_image_count": sum(1 for row in rows if not str(row.get("image_url") or "").strip())}, "timestamp": time.time_ns() // 1_000_000}) + "\n")
             # endregion
-            payload["records"] = rows
-            if [str(row.get("image_url") or "") for row in rows] != before:
-                save_bundle(inbox_dir, payload)
             return payload
 
     hits, meta = collect_same_day_hits(
