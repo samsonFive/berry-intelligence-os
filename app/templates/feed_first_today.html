@@ -87,6 +87,7 @@
       </form>
 
       <p class="bos-meta">{{ feed.count }} showing · same-day={{ feed.same_day_count }} · fetched {{ feed.fetched_at or 'not yet' }} · lanes={{ (feed.lanes or [])|join('+') }} · article={{ feed.has_article }} · official={{ feed.has_official }} · social-style={{ feed.has_social_style }} · fallback={{ feed.has_fallback }}</p>
+      <p class="bos-note" data-keyboard-help>Keys: j / → next · k / ← previous · Esc close · u thumbs-up · d thumbs-down. State persists across reload.</p>
       {% if feed.lane_errors %}
       <p class="bos-note">{{ feed.lane_errors|length }} lane error(s). Refresh to poll again. Empty is a coverage gap, not stored August evidence.</p>
       {% endif %}
@@ -114,6 +115,7 @@
               <span>{{ item.availability_label }}</span>
               <span>{{ item.source_kind }}</span>
               {% if item.trust_state %}<span>{{ item.trust_state }} / {{ item.review_state }}</span>{% endif %}
+              {% if item.cluster_size and item.cluster_size > 1 %}<span>cluster ×{{ item.cluster_size }}</span>{% endif %}
             </p>
             <h2><a href="{{ item.reader_href }}">{{ item.headline }}</a></h2>
             {% if item.deck %}<p>{{ item.deck }}</p>{% endif %}

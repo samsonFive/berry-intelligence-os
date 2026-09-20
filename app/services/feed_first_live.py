@@ -49,6 +49,7 @@ from app.services.industry_pulse.specialist_feeds import (
     week_specialist_feed_queries,
 )
 from app.services.recall_audit.classify import hostname
+from app.services.today_relevance import apply_today_relevance, collapse_story_clusters
 
 CACHE_SUBDIR = "feed_first_live"
 CACHE_TTL = timedelta(minutes=15)
@@ -430,7 +431,8 @@ def collect_same_day_hits(
         sources=sources,
     )
     qualified_rows = [qualify_hit(hit, index=index) for hit in raw]
-    deduped = unique_hits(dedupe_hits(qualified_rows))
+    relevant, dropped_today_noise = apply_today_relevance(qualified_rows, entities=entities)
+    deduped = unique_hits(dedupe_hits(relevant))
 
     same_day: list[DiscoveryHit] = []
     dropped_not_today = 0
@@ -454,7 +456,8 @@ def collect_same_day_hits(
         "same_day": len(same_day),
         "dropped_not_today": dropped_not_today,
         "dropped_undated": dropped_undated,
-        "dropped_unqualified": dropped_unqualified,
+        "dropped_unqualified": dropped_unqualified + dropped_today_noise,
+        "dropped_today_noise": dropped_today_noise,
     }
     lanes = [
         getattr(google_provider, "name", LIVE_LANE_GOOGLE),
@@ -583,15 +586,17 @@ def live_feed_bundle(
         sources=sources,
         today=today,
     )
-    records = [
-        hit_to_record(
-            hit,
-            entities=entities or [],
-            today=today,
-            official_hosts=official_hosts,
-        )
-        for hit in hits
-    ]
+    records = collapse_story_clusters(
+        [
+            hit_to_record(
+                hit,
+                entities=entities or [],
+                today=today,
+                official_hosts=official_hosts,
+            )
+            for hit in hits
+        ]
+    )
     bundle = {
         **empty_bundle(today, fetched_at=now.isoformat(timespec="seconds")),
         **meta,
