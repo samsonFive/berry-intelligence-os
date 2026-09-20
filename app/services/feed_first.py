@@ -1166,6 +1166,22 @@ def saved_items(
     return feed["cards"]
 
 
+def landscape_profile_url(entity_id: str, entity: dict[str, Any] | None = None) -> str:
+    """Company profiles stay on Berry OS. Crops and geographies filter Today."""
+    eid = str(entity_id or "")
+    etype = str((entity or {}).get("entity_type") or "")
+    if eid.startswith("berry-") or etype in {"berry", "crop"}:
+        crop = eid.removeprefix("berry-") or str((entity or {}).get("id") or "").removeprefix("berry-")
+        return f"/today?crop={crop}" if crop else "/today"
+    if eid.startswith("geography-") or etype == "geography":
+        return f"/today?geography={eid}" if eid else "/today"
+    if eid in {"", "unmatched"}:
+        return "/today"
+    if eid.startswith("company-") or etype in {"company", "brand", "breeding_program", ""}:
+        return f"/entities/company/{eid}"
+    return f"/entities/{etype}/{eid}"
+
+
 def landscapes_model(
     *,
     state: dict[str, Any],
@@ -1184,7 +1200,7 @@ def landscapes_model(
             grouped[entity_id] = {
                 "id": entity_id,
                 "name": entity.get("name") or entity_id,
-                "profile_url": f"/entities/company/{entity_id}",
+                "profile_url": landscape_profile_url(entity_id, entity),
                 "statement_count": 0,
                 "story_count": 0,
                 "statements": [],
