@@ -232,6 +232,10 @@
   grid-template-columns: 1fr;
 }
 
+.bos-card.is-cluster {
+  outline: 1px dashed color-mix(in srgb, var(--bos-leaf) 45%, transparent);
+}
+
 .bos-card.is-selected {
   outline: 2px solid color-mix(in srgb, var(--bos-blueberry) 70%, white);
 }
@@ -322,6 +326,14 @@
 
 .bos-fallback {
   padding: var(--bos-space-4);
+  border-radius: var(--bos-radius);
+  background: var(--bos-raised);
+}
+
+.bos-live-page {
+  width: 100%;
+  min-height: 360px;
+  border: 0;
   border-radius: var(--bos-radius);
   background: var(--bos-raised);
 }

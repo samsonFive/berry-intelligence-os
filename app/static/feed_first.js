@@ -79,6 +79,9 @@
         action = "clear_reaction";
       }
       if (action === "thumbs_up") showLoader(true);
+      const previous = {
+        up: react.getAttribute("aria-pressed"),
+      };
       postJSON("/api/feed-first/react", { item_id: itemId, action: action })
         .then(function (data) {
           const up = root.querySelector('[data-react="thumbs_up"][data-item-id="' + itemId + '"]');
@@ -95,6 +98,7 @@
         })
         .catch(function () {
           showLoader(false);
+          if (previous.up != null) react.setAttribute("aria-pressed", previous.up);
         })
         .finally(function () {
           window.setTimeout(function () {
@@ -139,6 +143,43 @@
       entity_id: tier.getAttribute("data-tier-select"),
       tier: tier.value,
     });
+  });
+
+  const readerRoot = root.querySelector("[data-reader-root]");
+  if (readerRoot && readerRoot.getAttribute("data-item-id")) {
+    postJSON("/api/feed-first/capture", { item_id: readerRoot.getAttribute("data-item-id") })
+      .then(function (data) {
+        const body = root.querySelector("[data-reader-body]");
+        if (!body || !data.passages || !data.passages.length) return;
+        if (data.availability === "blocked" || data.availability === "error") return;
+        body.innerHTML = data.passages
+          .map(function (passage) {
+            return "<p>" + escapeHtml(passage) + "</p>";
+          })
+          .join("");
+        if (data.availability !== "full") {
+          body.innerHTML +=
+            '<p class="bos-note">' + escapeHtml(data.availability || "partial") + " — this is not claimed as the full article.</p>";
+        }
+      })
+      .catch(function () {
+        return;
+      });
+  }
+
+  root.addEventListener("click", function (event) {
+    const mode = event.target.closest("[data-reader-mode]");
+    if (!mode) return;
+    const chosen = mode.getAttribute("data-reader-mode");
+    const body = root.querySelector("[data-reader-body]");
+    const live = root.querySelector("[data-live-page]");
+    if (chosen === "live_page" && live) {
+      live.hidden = false;
+      if (body) body.hidden = true;
+    } else {
+      if (live) live.hidden = true;
+      if (body) body.hidden = false;
+    }
   });
 
   document.addEventListener("keydown", function (event) {

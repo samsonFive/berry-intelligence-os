@@ -33,6 +33,22 @@
       </section>
 
       <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Official social</h2>
+        <p>{{ social_discovered }} seed discovery URLs · {{ social_verified }} verified official · coverage {{ social_coverage }}</p>
+        <p class="bos-note">Unverified social URLs are not scraped and are not People records.</p>
+      </section>
+
+      <section>
+        <h2 class="bos-title" style="font-size:1.4rem">Reader bake-off</h2>
+        <ul>
+          <li>Direct HTTP — {{ 'available' if bakeoff.direct_http.available else 'down' }} · {{ bakeoff.direct_http.notes }}</li>
+          <li>Firecrawl — {{ 'keyed' if bakeoff.firecrawl.available else 'key absent' }} · {{ bakeoff.firecrawl.notes }}</li>
+          <li>Jina — {{ 'keyed' if bakeoff.jina.available else 'key absent' }} · {{ bakeoff.jina.notes }}</li>
+        </ul>
+        <p class="bos-note">{{ bakeoff.disclosure }}</p>
+      </section>
+
+      <section>
         <h2 class="bos-title" style="font-size:1.4rem">Today cache</h2>
         {% if bundle.fetched_at %}
         <p>Fetched {{ bundle.fetched_at }} · same-day {{ (bundle.stats or {}).same_day or 0 }} · lanes {{ (bundle.lanes or [])|join('+') }}</p>

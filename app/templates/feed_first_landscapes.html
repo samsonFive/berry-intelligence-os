@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Landscapes — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os" data-feed-first data-feed-first-landscapes>
+  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">Landscapes / Briefs</p>
+      <h1 class="bos-title">Trusted statements across the watched world</h1>
+      <p class="bos-lede">{{ disclosure }}</p>
+      <p class="bos-note">{{ tracked_companies }} companies tracked · {{ statement_count }} trusted statements</p>
+      {% if companies %}
+      {% for company in companies %}
+      <section class="bos-people-card">
+        <h2 class="bos-title" style="font-size:1.3rem"><a href="{{ company.profile_url }}">{{ company.name }}</a></h2>
+        <p class="bos-note">{{ company.statement_count }} statement(s)</p>
+        <ul>
+          {% for row in company.statements %}
+          <li>{{ row.statement_text }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endfor %}
+      {% else %}
+      <div class="bos-empty">
+        <p>No trusted statements yet. Thumbs-up on Today is the only path that lands intelligence here.</p>
+      </div>
+      {% endif %}
+      <p><a class="bos-btn" href="/landscapes?view=legacy">Legacy landscape</a></p>
+    </main>
+  </div>
+</div>
+{% endblock %}

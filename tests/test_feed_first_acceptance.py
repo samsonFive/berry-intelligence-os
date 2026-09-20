@@ -147,3 +147,21 @@ def test_p1_feed_first_company_profile_is_berry_os():
     legacy = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=legacy")
     assert legacy.status_code == 200
     assert "data-feed-first-company" not in legacy.text
+
+
+def test_p1_people_saved_landscapes_and_reader_help_are_in_the_shell():
+    people = TestClient(app).get("/people")
+    assert people.status_code == 200
+    assert "data-feed-first-people" in people.text
+    assert "provider-unavailable" in people.text
+    assert "/people/person-" in people.text
+    saved = TestClient(app).get("/saved")
+    assert saved.status_code == 200
+    assert "data-feed-first-saved" in saved.text
+    assert "Save is a board, not trust" in saved.text
+    landscapes = TestClient(app).get("/landscapes?view=feed")
+    assert landscapes.status_code == 200
+    assert "data-feed-first-landscapes" in landscapes.text
+    ops = TestClient(app).get("/research-ops")
+    assert "Reader bake-off" in ops.text
+    assert "Official social" in ops.text

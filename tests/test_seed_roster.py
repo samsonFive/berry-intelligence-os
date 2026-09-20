@@ -9,6 +9,8 @@ from app.services.seed_roster import (
     is_http_url,
     merge_entities_for_matching,
     normalize_name,
+    official_social_channels,
+    related_from_seed_note,
     repair_row,
     roster_counts,
     seed_profile,
@@ -176,6 +178,40 @@ def test_merge_entities_does_not_replace_trusted_records():
     assert trusted["description"] == "trusted"
     assert trusted["status"] == "active"
     assert any(row["id"].startswith("seed-") for row in merged)
+
+
+def test_nan_resolved_website_is_not_promoted():
+    row = repair_row(_raw(website="", resolved_website=float("nan"), crawl_status=float("nan")))
+    assert row["official_website"] == ""
+    assert row["resolved_website"] == ""
+
+
+def test_official_social_stays_unverified_discovery():
+    row = repair_row(_raw(facebook_url="https://www.facebook.com/FallCreekNursery", instagram_url=""))
+    channels = official_social_channels(row)
+    assert channels == [
+        {
+            "platform": "facebook",
+            "url": "https://www.facebook.com/FallCreekNursery",
+            "official_status": "unverified",
+            "coverage": "provider-unavailable",
+            "source": "seed-discovery",
+        }
+    ]
+
+
+def test_parent_successor_links_only_when_another_roster_name_appears():
+    fall = repair_row(_raw())
+    other = repair_row(
+        _raw(
+            entity_id="ORG-0006",
+            competitor_name="Hortifrut",
+            parent_or_successor="Expanded after a Fall Creek Farm & Nursery partnership note.",
+        )
+    )
+    linked = related_from_seed_note(other, [fall, other])
+    assert [row["name"] for row in linked] == ["Fall Creek Farm & Nursery"]
+    assert related_from_seed_note(fall, [fall, other]) == []
 
 
 def test_normalize_name_aligns_apostrophes_and_legal_suffixes():

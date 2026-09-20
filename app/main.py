@@ -3418,7 +3418,15 @@ def _wants_feed_first_profile(request: Request) -> bool:
     referer = str(request.headers.get("referer") or "")
     return any(
         token in referer
-        for token in ("/today", "/following", "/people", "/research-ops", "/entities?")
+        for token in (
+            "/today",
+            "/following",
+            "/people",
+            "/research-ops",
+            "/saved",
+            "/landscapes",
+            "/entities?",
+        )
     ) or referer.rstrip("/").endswith("/entities")
 
 
@@ -3461,6 +3469,8 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "resolved_website": (seed or {}).get("resolved_website") or "",
             "statements": _feed_first_entity_statements(entity_id),
             "people": linked_people,
+            "social_channels": (seed or {}).get("social_channels") or [],
+            "related_entities": (seed or {}).get("related_entities") or [],
             "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
             "monogram": (seed or {}).get("monogram") or name[:2].upper(),
             "nav": world["nav"],
@@ -3847,6 +3857,9 @@ def _feed_first_today(request: Request) -> HTMLResponse:
     params = dict(request.query_params)
     refresh = str(params.get("refresh") or "").strip().lower() in {"1", "true", "yes"}
     today = utc_today()
+    from app.services.people_watchlist import discover_people
+
+    people = discover_people(world["existing"])
     bundle = live_feed_bundle(
         inbox_dir=INBOX_DIR,
         entities=world["entities"],
@@ -3854,28 +3867,40 @@ def _feed_first_today(request: Request) -> HTMLResponse:
         refresh=refresh,
         today=today,
         official_hosts=world["official_hosts"],
+        people=people,
+        enrich_lead=refresh,
     )
     filters = parse_filters(params)
+    from app.services.feed_first_reader import capture_item, load_captures
+
+    captures = load_captures(INBOX_DIR)
+    records = list(bundle.get("records") or [])
     if filters.get("item"):
         from app.services.feed_first import apply_decision, load_state
 
+        selected_record = next((row for row in records if str(row.get("id")) == filters["item"]), None)
+        if selected_record is not None:
+            captures[filters["item"]] = capture_item(INBOX_DIR, selected_record)
         try:
             apply_decision(
                 INBOX_DIR,
                 item_id=filters["item"],
                 action="read",
-                evidence=bundle.get("records") or [],
+                evidence=records,
+                people=people,
             )
             world["state"] = load_state(INBOX_DIR)
         except ValueError:
             pass
     feed = build_feed(
-        evidence=bundle.get("records") or [],
+        evidence=records,
         entities=world["entities"],
         state=world["state"],
         filters=filters,
         today=today,
         disclosure=live_disclosure(bundle),
+        people=people,
+        captures=captures,
     )
     feed["fetched_at"] = bundle.get("fetched_at")
     feed["lanes"] = bundle.get("lanes") or []
@@ -3933,7 +3958,30 @@ def following_page(request: Request) -> HTMLResponse:
 
 @app.get("/saved", response_class=HTMLResponse)
 def saved_page(request: Request) -> HTMLResponse:
-    return RedirectResponse(url="/today?state=saved", status_code=303)
+    from app.services.feed_first import saved_items
+    from app.services.feed_first_live import cached_live_records
+    from app.services.people_watchlist import discover_people
+
+    world = _feed_first_world()
+    people = discover_people(world["existing"])
+    cards = saved_items(
+        evidence=cached_live_records(INBOX_DIR),
+        entities=world["entities"],
+        state=world["state"],
+        people=people,
+    )
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_saved.html",
+        context={
+            "cards": cards,
+            "counts": world["counts"],
+            "nav": world["nav"],
+            "active_href": "/saved",
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
 
 
 @app.get("/entities", response_class=HTMLResponse)
@@ -3993,6 +4041,30 @@ def people_watchlist_page(request: Request) -> HTMLResponse:
     )
 
 
+@app.get("/people/{person_id}", response_class=HTMLResponse)
+def people_profile_page(request: Request, person_id: str) -> HTMLResponse:
+    from app.services.feed_first import statements_for_person
+    from app.services.people_watchlist import person_by_id
+
+    world = _feed_first_world()
+    person = person_by_id(world["existing"], person_id)
+    if person is None:
+        raise HTTPException(status_code=404, detail="Person not found")
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_person.html",
+        context={
+            "person": person,
+            "statements": statements_for_person(world["state"], person_id),
+            "counts": world["counts"],
+            "nav": world["nav"],
+            "active_href": "/people",
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
 @app.get("/research-ops", response_class=HTMLResponse)
 def research_ops_health_page(request: Request) -> HTMLResponse:
     from app.services.clock import utc_today
@@ -4008,6 +4080,10 @@ def research_ops_health_page(request: Request) -> HTMLResponse:
     world = _feed_first_world()
     bundle = load_cached_bundle(INBOX_DIR, today=utc_today()) or {}
     people = people_model(world["existing"])
+    from app.services.feed_first_reader import bakeoff_report
+    from app.services.seed_roster import official_social_channels
+
+    social_found = sum(len(official_social_channels(row)) for row in world["roster"])
     lanes = {
         "google_news_rss": True,
         "specialist_rss": True,
@@ -4027,6 +4103,12 @@ def research_ops_health_page(request: Request) -> HTMLResponse:
             "bundle": bundle,
             "people_count": people["count"],
             "social_coverage": people["social_coverage"],
+            "social_discovered": social_found,
+            "social_verified": 0,
+            "bakeoff": bakeoff_report(
+                firecrawl=bool(os.environ.get("FIRECRAWL_API_KEY")),
+                jina=bool(os.environ.get("JINA_API_KEY")),
+            ),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
         },
@@ -4070,11 +4152,14 @@ async def feed_first_react(request: Request) -> JSONResponse:
     try:
         from app.services.feed_first_live import cached_live_records, merge_decision_records
 
+        from app.services.people_watchlist import discover_people
+
         result = apply_decision(
             INBOX_DIR,
             item_id=str(payload.get("item_id") or ""),
             action=str(payload.get("action") or ""),
             evidence=merge_decision_records(published_evidence(), cached_live_records(INBOX_DIR)),
+            people=discover_people(all_entities()),
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -4098,6 +4183,29 @@ async def feed_first_statement(request: Request) -> JSONResponse:
     if statement is None:
         raise HTTPException(status_code=404, detail="statement not found")
     return JSONResponse({"statement": statement})
+
+
+@app.post("/api/feed-first/capture")
+async def feed_first_capture(request: Request) -> JSONResponse:
+    from app.services.feed_first_live import cached_live_records
+    from app.services.feed_first_reader import capture_item
+
+    payload = await request.json()
+    item_id = str(payload.get("item_id") or "")
+    record = next((row for row in cached_live_records(INBOX_DIR) if str(row.get("id")) == item_id), None)
+    if record is None:
+        raise HTTPException(status_code=404, detail="item not found")
+    capture = capture_item(INBOX_DIR, record, refresh=bool(payload.get("refresh")))
+    return JSONResponse(
+        {
+            "item_id": item_id,
+            "availability": capture.get("availability"),
+            "passages": capture.get("passages") or [],
+            "frame_allowed": capture.get("frame_allowed"),
+            "reader_modes": capture.get("reader_modes") or ["structured_fallback"],
+            "reason": capture.get("reason") or "",
+        }
+    )
 
 
 @app.post("/api/feed-first/tier")
@@ -6564,6 +6672,28 @@ def landscape_all(request: Request) -> HTMLResponse:
     own literal path, not a "/landscapes/{berry_slug}" catch-all, so it
     never risks being swallowed by or swallowing the existing per-berry
     route."""
+    view = str(request.query_params.get("view") or "").strip().lower()
+    if view == "feed":
+        from app.services.feed_first import landscapes_model
+
+        world = _feed_first_world()
+        model = landscapes_model(
+            state=world["state"],
+            entities=world["entities"],
+            counts=world["counts"],
+        )
+        return templates.TemplateResponse(
+            request=request,
+            name="feed_first_landscapes.html",
+            context={
+                **model,
+                "nav": world["nav"],
+                "active_href": "/landscapes?view=feed",
+                "counts": world["counts"],
+                "authoring_mode": AUTHORING_MODE,
+                "static_build": False,
+            },
+        )
     context = _cached_landscape_context_all()
     return templates.TemplateResponse(
         request=request,
