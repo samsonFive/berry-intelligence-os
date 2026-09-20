@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 from pathlib import Path
+import re
 from typing import Any
 from uuid import uuid4
 
@@ -253,34 +254,115 @@ def build_dossier(
     }
 
 
-def _support_from_evidence(record: dict[str, Any]) -> tuple[str, dict[str, Any]] | None:
+def _support_options(record: dict[str, Any]) -> list[tuple[str, dict[str, Any]]]:
+    options: list[tuple[str, dict[str, Any]]] = []
     article = record.get("article") if isinstance(record.get("article"), dict) else {}
     for position, paragraph in enumerate(article.get("paragraphs") or []):
         if not isinstance(paragraph, dict):
             continue
         text = str(paragraph.get("text") or "").strip()
         if len(text) >= 40:
-            return text, {
-                "medium": "article_paragraph",
-                "paragraph_index": int(
-                    paragraph.get("index")
-                    if paragraph.get("index") is not None
-                    else position
-                ),
-                "start_offset": 0,
-                "end_offset": len(text),
-                "exact": text,
-            }
+            options.append(
+                (
+                    text,
+                    {
+                        "medium": "article_paragraph",
+                        "paragraph_index": int(
+                            paragraph.get("index")
+                            if paragraph.get("index") is not None
+                            else position
+                        ),
+                        "start_offset": 0,
+                        "end_offset": len(text),
+                        "exact": text,
+                    },
+                )
+            )
     summary = str(record.get("summary") or "").strip()
     if len(summary) >= 40:
-        return summary, {
-            "medium": "summary",
-            "paragraph_index": -1,
-            "start_offset": 0,
-            "end_offset": len(summary),
-            "exact": summary,
-        }
-    return None
+        options.append(
+            (
+                summary,
+                {
+                    "medium": "summary",
+                    "paragraph_index": -1,
+                    "start_offset": 0,
+                    "end_offset": len(summary),
+                    "exact": summary,
+                },
+            )
+        )
+    title = str(record.get("title") or "").strip()
+    if len(title) >= 20:
+        options.append(
+            (
+                title,
+                {
+                    "medium": "headline",
+                    "paragraph_index": -1,
+                    "start_offset": 0,
+                    "end_offset": len(title),
+                    "exact": title,
+                },
+            )
+        )
+    return options
+
+
+def _support_matches_question(
+    question_id: str,
+    text: str,
+    record: dict[str, Any] | None = None,
+) -> bool:
+    hay = text.casefold()
+    if question_id == "entity.performance.plants_sold":
+        source_type = str((record or {}).get("source_type") or "").casefold()
+        if source_type in {
+            "patent_record",
+            "plant_breeders_rights_record",
+            "plant_patent",
+        } or re.search(
+            r"\b(?:patent|application|certificate|plant breeders?' rights?)\b",
+            hay,
+        ):
+            return False
+        quantity = (
+            r"\b\d+(?:[,.]\d+)*(?:\s*(?:million|billion|thousand|m|bn|k))?\b"
+        )
+        plants = r"(?:[a-z][a-z-]*\s+){0,3}plants?\b"
+        activity = (
+            r"\b(?:sell(?:s|ing)?|sold|deliver(?:s|ed|ing)?|"
+            r"produc(?:e[sd]?|ed|ing|tion)|output|capacity|"
+            r"expand(?:s|ed|ing)?\s+to|reach(?:es|ed)?)\b"
+        )
+        return bool(
+            re.search(rf"{activity}(?:\W+\w+){{0,5}}\W+{quantity}\s+{plants}", hay)
+            or re.search(
+                rf"{quantity}\s+{plants}(?:\W+\w+){{0,5}}\W+{activity}",
+                hay,
+            )
+        )
+    if question_id == "entity.geography.headquarters":
+        return "headquarter" in hay or bool(re.search(r"\bbased in\b", hay))
+    if question_id == "entity.competitive.vulnerabilities":
+        return any(
+            token in hay
+            for token in ("dependency", "depends on", "vulnerability", "risk", "exposed to")
+        )
+    return True
+
+
+def _source_suitability(question_id: str, record: dict[str, Any]) -> str:
+    source_type = str(record.get("source_type") or "")
+    if question_id == "entity.performance.plants_sold":
+        if source_type in {"annual_report", "regulatory_filing"}:
+            return "direct_disclosure_candidate"
+        return "trade_report_candidate_needs_scope_review"
+    if question_id == "entity.geography.headquarters":
+        if source_type in {"company_website", "government_record", "regulatory_filing"}:
+            return "direct_identity_source_candidate"
+        return "secondary_identity_candidate_needs_confirmation"
+    return "candidate_support_requires_analyst_review"
 
 
 def launch_gap_research(
@@ -304,7 +386,12 @@ def launch_gap_research(
         and row.get("source_url")
     ]
     supported = next(
-        ((row, support) for row in candidates if (support := _support_from_evidence(row))),
+        (
+            (row, support)
+            for row in candidates
+            for support in _support_options(row)
+            if _support_matches_question(question_id, support[0], row)
+        ),
         None,
     )
     run = {
@@ -338,7 +425,7 @@ def launch_gap_research(
             "supporting_passages": [passage],
             "support_locators": [locator],
             "origin": "autonomous_gap_research",
-            "source_suitability": "candidate_support_requires_analyst_review",
+            "source_suitability": _source_suitability(question_id, record),
             "created_at": now,
             "decision_history": [],
         }
@@ -391,7 +478,11 @@ def decide_proposal(
             "geographies": [],
             "topics": [],
             "question_ids": [proposal["question_id"]],
-            "statement_type": "captured_assertion",
+            "statement_type": (
+                "quantity"
+                if proposal["question_id"] == "entity.performance.plants_sold"
+                else "captured_assertion"
+            ),
             "structured_details": {},
             "importance_state": "normal",
             "statement_state": TRUSTED_ANALYST,

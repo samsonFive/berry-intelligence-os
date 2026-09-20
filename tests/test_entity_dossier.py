@@ -46,6 +46,24 @@ def _record() -> dict:
     }
 
 
+def _plant_rights_record() -> dict:
+    return {
+        "id": "ev-cfia-pbr-blue-ribbon",
+        "record_type": "evidence",
+        "status": "published",
+        "source_type": "plant_breeders_rights_record",
+        "title": "Plant Breeders' Rights record - Blue Ribbon",
+        "source_name": "Canadian Food Inspection Agency",
+        "source_url": "https://example.test/pbr/blue-ribbon",
+        "entity_ids": [ENTITY_ID],
+        "summary": (
+            "Canadian plant breeders' rights record for Blue Ribbon. "
+            "Application 12-7574 dated 2012-03-26, granted 2016-11-12, "
+            "certificate 5369, expiring 2036-11-12."
+        ),
+    }
+
+
 def _entity() -> dict:
     return {
         "id": ENTITY_ID,
@@ -164,7 +182,7 @@ def test_targeted_existing_corpus_research_stays_proposed_until_approval(
     result = launch_gap_research(
         tmp_path,
         entity_id=ENTITY_ID,
-        question_id="entity.geography.headquarters",
+        question_id="entity.performance.plants_sold",
         evidence=[_record()],
     )
     assert result["run"]["scope"] == "one_entity_one_question_existing_corpus"
@@ -182,6 +200,35 @@ def test_targeted_existing_corpus_research_stays_proposed_until_approval(
     projected = statements_for_entity(load_state(tmp_path), ENTITY_ID)
     assert projected[0]["origin"] == "autonomous_gap_research"
     assert projected[0]["evidence_id"] == _record()["id"]
+
+
+def test_plants_sold_research_rejects_pbr_numbers_and_selects_quantity_headline(
+    tmp_path: Path,
+):
+    valid_headline = _record()
+    valid_headline["article"] = {"paragraphs": []}
+    result = launch_gap_research(
+        tmp_path,
+        entity_id=ENTITY_ID,
+        question_id="entity.performance.plants_sold",
+        evidence=[_plant_rights_record(), valid_headline],
+    )
+
+    assert result["proposal"]["evidence_id"] == valid_headline["id"]
+    assert result["proposal"]["statement_text"] == valid_headline["title"]
+    assert result["proposal"]["support_locators"][0]["medium"] == "headline"
+
+
+def test_plants_sold_research_returns_no_evidence_for_pbr_record(tmp_path: Path):
+    result = launch_gap_research(
+        tmp_path,
+        entity_id=ENTITY_ID,
+        question_id="entity.performance.plants_sold",
+        evidence=[_plant_rights_record()],
+    )
+
+    assert result["run"]["status"] == "searched_no_evidence"
+    assert result["proposal"] is None
 
 
 def test_company_route_renders_wide_living_dossier():
