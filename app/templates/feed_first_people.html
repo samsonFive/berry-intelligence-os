@@ -13,19 +13,34 @@
     <main class="bos-canvas">
       <p class="bos-kicker">People</p>
       <h1 class="bos-title">People Watchlist</h1>
-      <p class="bos-lede">People can be watched even when no compliant social adapter is active. Coverage is honest.</p>
+      <p class="bos-lede">{{ people_disclosure }}</p>
       <div class="bos-people-card">
         <p class="bos-kicker">Coverage</p>
-        <p>LinkedIn / Instagram / Facebook adapters: <strong>provider-unavailable</strong>.</p>
-        <p>No person records exist in trusted <code>data/entities/</code>. The 2026-09-18 seed added company social URLs as discovery metadata, not people.</p>
-        <p>Do not invent handles. Do not scrape LinkedIn. Discovery-only mentions can be added later without claiming active monitoring.</p>
+        <p>LinkedIn / Instagram / Facebook adapters: <strong>{{ social_coverage }}</strong>.</p>
+        <p>Patent / program mention watches: <strong>{{ mention_coverage }}</strong>.</p>
+        <p>{{ people_count }} people named on public records already in this catalog. Do not invent handles. Discovery-only is not active social monitoring.</p>
       </div>
       {% if people %}
-      <ul>
+      <div class="bos-roster">
         {% for person in people %}
-        <li>{{ person.canonical_name }} · {{ person.monitoring_coverage }}</li>
+        <article class="bos-card is-dense" data-person-id="{{ person.id }}" data-coverage="{{ person.monitoring_coverage }}">
+          <div class="bos-media" data-crop="blueberry">
+            <span class="bos-monogram">{{ person.monogram }}</span>
+          </div>
+          <div>
+            <p class="bos-meta">
+              <span>{{ person.monitoring_coverage }}</span>
+              <span>social {{ person.social_coverage }}</span>
+            </p>
+            <h3>{{ person.canonical_name }}</h3>
+            <p class="bos-note">{{ person.watch_rationale }}</p>
+            {% if person.entity_names %}
+            <p class="bos-meta">{% for name in person.entity_names[:4] %}<span>{{ name }}</span>{% endfor %}</p>
+            {% endif %}
+          </div>
+        </article>
         {% endfor %}
-      </ul>
+      </div>
       {% else %}
       <div class="bos-empty">
         <p>Empty watchlist. Coverage state remains provider-unavailable, not active.</p>

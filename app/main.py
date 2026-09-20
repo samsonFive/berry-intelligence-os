@@ -3409,10 +3409,77 @@ def company_portfolio_page(request: Request, entity_id: str) -> HTMLResponse:
     return response
 
 
+def _wants_feed_first_profile(request: Request) -> bool:
+    view = str(request.query_params.get("view") or "").strip().lower()
+    if view == "legacy":
+        return False
+    if view == "feed":
+        return True
+    referer = str(request.headers.get("referer") or "")
+    return any(
+        token in referer
+        for token in ("/today", "/following", "/people", "/research-ops", "/entities?")
+    ) or referer.rstrip("/").endswith("/entities")
+
+
+def _feed_first_company_response(request: Request, entity_id: str) -> HTMLResponse | None:
+    from app.services.people_watchlist import discover_people
+    from app.services.seed_roster import seed_profile
+
+    world = _feed_first_world()
+    trusted = next(
+        (
+            entity
+            for entity in world["existing"]
+            if entity.get("id") == entity_id and entity.get("entity_type") in {"company", "brand", "breeding_program"}
+        ),
+        None,
+    )
+    seed = seed_profile(entity_id, world["existing"])
+    if trusted is None and seed is None:
+        return None
+    linked_people = [row for row in discover_people(world["existing"]) if entity_id in row.get("entity_ids", [])]
+    name = (trusted or {}).get("name") or (seed or {}).get("canonical_name") or entity_id
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_company.html",
+        context={
+            "entity": trusted or {},
+            "profile": seed,
+            "name": name,
+            "aliases": list((trusted or {}).get("aliases") or (seed or {}).get("aliases") or []),
+            "description": (trusted or {}).get("description") or (seed or {}).get("parent_or_successor") or "",
+            "status": (trusted or {}).get("status") or (seed or {}).get("status") or "unverified",
+            "verification_label": (seed or {}).get("verification_label")
+            or ("Trusted catalog record" if trusted else "Unverified"),
+            "candidate": bool((seed or {}).get("candidate")) or (trusted or {}).get("status") == "unverified",
+            "is_registry": bool((seed or {}).get("is_registry")),
+            "crops": (seed or {}).get("crops")
+            or [str(item).removeprefix("berry-") for item in (trusted or {}).get("berry_ids") or []],
+            "watches": (seed or {}).get("watches") or [{"kind": "mention", "query": name}],
+            "official_website": (seed or {}).get("official_website") or "",
+            "resolved_website": (seed or {}).get("resolved_website") or "",
+            "statements": _feed_first_entity_statements(entity_id),
+            "people": linked_people,
+            "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
+            "monogram": (seed or {}).get("monogram") or name[:2].upper(),
+            "nav": world["nav"],
+            "active_href": "/entities",
+            "counts": world["counts"],
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
 @app.get("/entities/{entity_type}/{entity_id}", response_class=HTMLResponse)
 def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLResponse:
     if entity_type == "geography":
         return RedirectResponse(url=f"/geographies/{entity_id}", status_code=303)
+    if entity_type in {"company", "brand", "breeding_program"} and _wants_feed_first_profile(request):
+        feed_first = _feed_first_company_response(request, entity_id)
+        if feed_first is not None:
+            return feed_first
     survivor_id = canonical_entity_id(entity_id, entities=entity_index(), redirects=identity_redirects())
     if survivor_id and survivor_id != entity_id:
         survivor = entity_index().get(survivor_id)
@@ -3789,6 +3856,19 @@ def _feed_first_today(request: Request) -> HTMLResponse:
         official_hosts=world["official_hosts"],
     )
     filters = parse_filters(params)
+    if filters.get("item"):
+        from app.services.feed_first import apply_decision, load_state
+
+        try:
+            apply_decision(
+                INBOX_DIR,
+                item_id=filters["item"],
+                action="read",
+                evidence=bundle.get("records") or [],
+            )
+            world["state"] = load_state(INBOX_DIR)
+        except ValueError:
+            pass
     feed = build_feed(
         evidence=bundle.get("records") or [],
         entities=world["entities"],
@@ -3891,15 +3971,62 @@ def feed_first_entities_page(request: Request) -> HTMLResponse:
 
 @app.get("/people", response_class=HTMLResponse)
 def people_watchlist_page(request: Request) -> HTMLResponse:
+    from app.services.people_watchlist import people_model
+
     world = _feed_first_world()
+    model = people_model(world["existing"])
     return templates.TemplateResponse(
         request=request,
         name="feed_first_people.html",
         context={
-            "people": world["state"].get("people") or [],
+            "people": model["people"],
+            "people_count": model["count"],
+            "people_disclosure": model["disclosure"],
+            "social_coverage": model["social_coverage"],
+            "mention_coverage": model["mention_coverage"],
             "counts": world["counts"],
             "nav": world["nav"],
             "active_href": "/people",
+            "authoring_mode": AUTHORING_MODE,
+            "static_build": False,
+        },
+    )
+
+
+@app.get("/research-ops", response_class=HTMLResponse)
+def research_ops_health_page(request: Request) -> HTMLResponse:
+    from app.services.clock import utc_today
+    from app.services.feed_first_live import load_cached_bundle
+    from app.services.industry_pulse.credentials import (
+        has_apitube,
+        has_catchall,
+        has_exa,
+        has_perplexity,
+    )
+    from app.services.people_watchlist import people_model
+
+    world = _feed_first_world()
+    bundle = load_cached_bundle(INBOX_DIR, today=utc_today()) or {}
+    people = people_model(world["existing"])
+    lanes = {
+        "google_news_rss": True,
+        "specialist_rss": True,
+        "perplexity": has_perplexity(),
+        "exa": has_exa(),
+        "apitube": has_apitube(),
+        "newscatcher_catchall": has_catchall(),
+    }
+    return templates.TemplateResponse(
+        request=request,
+        name="feed_first_research_ops.html",
+        context={
+            "nav": world["nav"],
+            "active_href": "/research-ops",
+            "counts": world["counts"],
+            "lanes": lanes,
+            "bundle": bundle,
+            "people_count": people["count"],
+            "social_coverage": people["social_coverage"],
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
         },
