@@ -203,7 +203,7 @@
           {% endif %}
           {% if selected.body_availability in ['full', 'partial', 'excerpt_only'] and selected.passages %}
             {% for passage in selected.passages %}
-            <p>{{ passage }}</p>
+            <p data-evidence-passage="{{ loop.index0 }}">{{ passage }}</p>
             {% endfor %}
           {% else %}
           <div class="bos-fallback">
@@ -235,20 +235,30 @@
         </section>
         {% endif %}
         <section>
-          <h3>Intelligence inspector</h3>
+          <h3>Evidence Lens · Claim Inspector</h3>
+          <p class="bos-note">Thumbs-up ranks this item and starts extraction. Candidates remain untrusted until you confirm them here.</p>
+          <div class="bos-actions" data-batch-claim-actions>
+            <button class="bos-btn is-primary" type="button" data-confirm-selected>Confirm Selected</button>
+            <button class="bos-btn" type="button" data-confirm-all>Confirm All (explicit)</button>
+            <button class="bos-btn" type="button" data-reject-selected>Reject Selected</button>
+          </div>
           <div data-statement-list>
             {% for row in selected.statements %}
-            <article class="bos-statement" data-statement-id="{{ row.id }}" data-statement-state="{{ row.statement_state }}" data-importance="{{ row.importance_state }}">
+            <article class="bos-statement" tabindex="0" data-statement-id="{{ row.id }}" data-statement-state="{{ row.statement_state }}" data-importance="{{ row.importance_state }}"{% if row.support_locators %} data-support-paragraph="{{ row.support_locators[0].paragraph_index }}" data-support-start="{{ row.support_locators[0].start_offset }}" data-support-end="{{ row.support_locators[0].end_offset }}" data-support-exact="{{ row.support_locators[0].exact|e }}"{% endif %}>
               <form data-statement-edit="{{ row.id }}">
+                <label><input type="checkbox" data-claim-select{% if row.selected %} checked{% endif %}> Select claim</label>
                 <textarea name="text">{{ row.statement_text }}</textarea>
                 <div class="bos-actions">
                   <button class="bos-btn is-primary" type="submit">Save edit</button>
-                  <button type="button" class="bos-btn" data-statement-action="important">Important</button>
-                  <button type="button" class="bos-btn" data-statement-action="demote">Demote</button>
-                  <button type="button" class="bos-btn" data-statement-action="remove">Remove</button>
-                  <button type="button" class="bos-btn" data-statement-action="restore">Restore</button>
+                  {% if row.statement_state == 'pending_confirmation' %}
+                  <button type="button" class="bos-btn is-primary" data-statement-action="confirm">Confirm</button>
+                  <button type="button" class="bos-btn" data-statement-action="reject">Reject</button>
+                  {% elif row.statement_state == 'trusted_analyst' %}
+                  <button type="button" class="bos-btn" data-statement-action="retract">Retract</button>
+                  {% endif %}
                 </div>
               </form>
+              <p class="bos-meta">{{ row.statement_state|replace('_', ' ') }} · {{ row.statement_type|replace('_', ' ') }} · destination {{ row.entity_ids[0] if row.entity_ids else 'unresolved' }}</p>
               <p class="bos-note">Evidence: {{ row.supporting_passages[0] if row.supporting_passages else 'none' }}</p>
               <p class="bos-note">Original: {{ row.original_extraction_text }}</p>
               {% if row.corroborating_sources %}
@@ -261,7 +271,7 @@
               {% endif %}
             </article>
             {% else %}
-            <p class="bos-note">Thumbs-up keeps this story and extracts statements from the article text.</p>
+            <p class="bos-note">Thumbs-up keeps this story, records ranking feedback, and starts recoverable extraction.</p>
             {% endfor %}
           </div>
         </section>
