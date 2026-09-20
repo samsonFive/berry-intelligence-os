@@ -31,7 +31,15 @@ _FOREX = re.compile(
     re.IGNORECASE,
 )
 _CONSUMER = re.compile(
-    r"\b(recipe|smoothie|muffin|calories|superfood|dessert)\b",
+    r"\b("
+    r"recipe|smoothie|muffin|calories|superfood|dessert|"
+    r"where to buy|best blueberries to buy|amazon|walmart|"
+    r"weight loss|antioxidant snack|grocery haul"
+    r")\b",
+    re.IGNORECASE,
+)
+_GENERIC = re.compile(
+    r"\b(top \d+|things to do|weekend getaway|horoscope|astrology)\b",
     re.IGNORECASE,
 )
 _STRONG = re.compile(
@@ -64,17 +72,32 @@ _STOP = {
 
 def today_noise_reason(hit: DiscoveryHit, *, named_entity: bool) -> str | None:
     text = f"{hit.title} {hit.snippet}"
+    snippet = (hit.snippet or "").strip()
     if _TOMATO.search(text):
         return "cherry-tomato / non-berry produce"
     if _FOREX.search(text):
         return "forex/equity noise"
     if _CONSUMER.search(text):
         return "recipe/consumer food"
+    if _GENERIC.search(text) and not named_entity:
+        return "generic listicle"
     if _HOBBY.search(text) and not named_entity and not _STRONG.search(text):
         return "home-garden how-to"
     if not named_entity and not _STRONG.search(text):
         return "berry mention without industry signal"
+    if not named_entity and len(snippet) < 40:
+        return "thin industry mention without a company"
     return None
+
+
+def _name_hits(hay: str, name: str) -> bool:
+    token = name.strip()
+    if len(token) < 5:
+        return False
+    folded = token.casefold()
+    if len(token) >= 10 and folded in hay:
+        return True
+    return bool(re.search(rf"\b{re.escape(folded)}\b", hay))
 
 
 def hit_has_named_entity(hit: DiscoveryHit, entities: Iterable[dict[str, Any]]) -> bool:
@@ -82,8 +105,7 @@ def hit_has_named_entity(hit: DiscoveryHit, entities: Iterable[dict[str, Any]]) 
     for entity in entities:
         names = [entity.get("name"), *(entity.get("aliases") or [])]
         for raw in names:
-            name = str(raw or "").strip()
-            if len(name) >= 4 and name.casefold() in hay:
+            if _name_hits(hay, str(raw or "")):
                 return True
     return False
 

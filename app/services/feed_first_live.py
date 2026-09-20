@@ -213,7 +213,10 @@ def match_entity_ids(text: str, entities: Iterable[dict[str, Any]]) -> list[str]
             name = str(raw or "").strip()
             if len(name) < _NAME_MIN:
                 continue
-            if name.casefold() in hay:
+            folded = name.casefold()
+            if len(name) < 10 and not re.search(rf"\b{re.escape(folded)}\b", hay):
+                continue
+            if folded in hay:
                 found.append(entity_id)
                 break
     return found

@@ -523,8 +523,11 @@ def build_feed(
         ranked.sort(
             key=lambda item: (
                 item["decision"]["reaction"] == "down",
+                0 if item.get("entities") else 1,
+                0 if item.get("source_kind") == "official" else 1,
                 order.get(item["highest_tier"], 9),
                 item["body_availability"] not in {"full", "partial", "excerpt_only"},
+                -(len(item.get("deck") or "")),
             )
         )
 
