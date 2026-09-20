@@ -64,6 +64,7 @@ def test_research_ops_health_has_no_secret_values():
     assert "data-lane-errors" in page.text
     assert "One story once" in page.text
     assert "Watch coverage" in page.text
+    assert "Today noise dropped" in page.text
     lowered = page.text.casefold()
     assert "bearer " not in lowered
     assert "sk-" not in page.text

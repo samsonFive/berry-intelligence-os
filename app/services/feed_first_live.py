@@ -51,7 +51,7 @@ from app.services.industry_pulse.specialist_feeds import (
 )
 from app.services.recall_audit.classify import hostname
 from app.services.industry_pulse.canonical_urls import preferred_url
-from app.services.today_relevance import apply_today_relevance, collapse_story_clusters
+from app.services.today_relevance import apply_today_relevance, collapse_story_clusters, filter_today_records
 
 CACHE_SUBDIR = "feed_first_live"
 CACHE_TTL = timedelta(minutes=15)
@@ -600,7 +600,21 @@ def live_feed_bundle(
     if not refresh:
         cached = load_cached_bundle(inbox_dir, today=today)
         if cached and _cache_fresh(cached, today=today, now=now):
-            return cached
+            rows, dropped = filter_today_records(
+                list(cached.get("records") or []),
+                entities=entities or [],
+            )
+            payload = dict(cached)
+            payload["records"] = rows
+            stats = dict(payload.get("stats") or {})
+            if dropped:
+                stats["dropped_today_noise"] = int(stats.get("dropped_today_noise") or 0) + dropped
+                stats["week"] = len(rows)
+                stats["same_day"] = sum(
+                    1 for row in rows if is_same_calendar_day(str(row.get("published_date") or ""), today)
+                )
+                payload["stats"] = stats
+            return payload
 
     hits, meta = collect_same_day_hits(
         google_provider=google_provider,
@@ -627,6 +641,16 @@ def live_feed_bundle(
             for hit in hits
         ]
     )
+    records, dropped_cached_noise = filter_today_records(records, entities=entities or [])
+    if dropped_cached_noise:
+        meta = dict(meta)
+        stats = dict(meta.get("stats") or {})
+        stats["dropped_today_noise"] = int(stats.get("dropped_today_noise") or 0) + dropped_cached_noise
+        stats["week"] = len(records)
+        stats["same_day"] = sum(
+            1 for row in records if is_same_calendar_day(str(row.get("published_date") or ""), today)
+        )
+        meta["stats"] = stats
     if enrich_lead and records:
         from app.services.feed_first_reader import capture_item, merge_capture
 

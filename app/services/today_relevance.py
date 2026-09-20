@@ -11,6 +11,8 @@ import hashlib
 import re
 from typing import Any, Iterable
 
+from urllib.parse import urlparse
+
 from app.services.article_dedup import normalize_canonical_url, normalize_title
 from app.services.industry_pulse.models import DiscoveryHit
 
@@ -52,12 +54,34 @@ _FOREX = re.compile(
 )
 _CONSUMER = re.compile(
     r"\b("
-    r"recipe|smoothie|muffin|calories|superfood|dessert|"
-    r"where to buy|best blueberries to buy|amazon|walmart|"
-    r"weight loss|antioxidant snack|grocery haul"
+    r"recipe|smoothie|muffin|calories|superfood|superfruit|dessert|"
+    r"juicy secret|where to buy|best blueberries to buy|amazon|walmart|"
+    r"weight loss|antioxidant snack|grocery haul|from bog to bottle|"
+    r"in spanish translation"
     r")\b",
     re.IGNORECASE,
 )
+_PYO = re.compile(
+    r"\b(pick your own|pick-your-own|u-pick|blueberry picking|strawberry picking)\b",
+    re.IGNORECASE,
+)
+_BERRY_TERM = re.compile(
+    r"\b(blueberr\w*|strawberr\w*|raspberr\w*|blackberr\w*|cranberr\w*|berries|berry|莓果|蓝莓)\b",
+    re.IGNORECASE,
+)
+_NON_BERRY = re.compile(
+    r"\b(mangoes|mango|avocados?|avocado|bananas?|banana|cucumbers?|cucumber)\b",
+    re.IGNORECASE,
+)
+_NEWS_PATH = re.compile(r"/(news|article|press|blog|story)/", re.IGNORECASE)
+_JUNK_HOSTS = {
+    "test.mydesignation.com",
+    "mydesignation.com",
+    "mysheen.com",
+}
+_DIRECTORY_HOSTS = {
+    "internationalblueberry.org",
+}
 _GENERIC = re.compile(
     r"\b(top \d+|things to do|weekend getaway|horoscope|astrology)\b",
     re.IGNORECASE,
@@ -74,24 +98,66 @@ _STRONG = re.compile(
 )
 
 
-def today_noise_reason(hit: DiscoveryHit, *, named_entity: bool) -> str | None:
-    text = f"{hit.title} {hit.snippet}"
-    snippet = (hit.snippet or "").strip()
+def _hostname(*values: str) -> str:
+    for raw in values:
+        text = str(raw or "").strip()
+        if not text:
+            continue
+        host = text.split("/")[0] if "://" not in text else (urlparse(text).hostname or "")
+        host = host.casefold().removeprefix("www.")
+        if host:
+            return host
+    return ""
+
+
+def noise_reason(
+    *,
+    title: str,
+    snippet: str = "",
+    url: str = "",
+    source_domain: str = "",
+    named_entity: bool = False,
+    include_soft: bool = True,
+) -> str | None:
+    text = f"{title} {snippet}"
+    host = _hostname(source_domain, url)
+    path = urlparse(str(url or "")).path if url else ""
+    if host in _JUNK_HOSTS:
+        return "content-mill / SEO host"
+    if host in _DIRECTORY_HOSTS and not _NEWS_PATH.search(path or "/"):
+        return "directory / member profile"
+    if _PYO.search(text):
+        return "pick-your-own consumer"
     if _TOMATO.search(text):
         return "cherry-tomato / non-berry produce"
+    if _NON_BERRY.search(text) and not _BERRY_TERM.search(text):
+        return "non-berry produce"
     if _FOREX.search(text):
         return "forex/equity noise"
     if _CONSUMER.search(text):
         return "recipe/consumer food"
+    if not include_soft:
+        return None
     if _GENERIC.search(text) and not named_entity:
         return "generic listicle"
     if _HOBBY.search(text) and not named_entity and not _STRONG.search(text):
         return "home-garden how-to"
     if not named_entity and not _STRONG.search(text):
         return "berry mention without industry signal"
-    if not named_entity and len(snippet) < 40:
+    snippet_text = (snippet or "").strip()
+    if not named_entity and len(snippet_text) < 40:
         return "thin industry mention without a company"
     return None
+
+
+def today_noise_reason(hit: DiscoveryHit, *, named_entity: bool) -> str | None:
+    return noise_reason(
+        title=hit.title,
+        snippet=hit.snippet,
+        url=hit.origin_publisher_url or hit.url or "",
+        source_domain=hit.source_domain or "",
+        named_entity=named_entity,
+    )
 
 
 def _name_hits(hay: str, name: str) -> bool:
@@ -133,6 +199,40 @@ def apply_today_relevance(
             dropped += 1
             continue
         kept.append(hit)
+    return kept, dropped
+
+
+def filter_today_records(
+    records: list[dict[str, Any]],
+    *,
+    entities: Iterable[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], int]:
+    """Drop SEO/directory junk from cached Today records without a refetch."""
+    kept: list[dict[str, Any]] = []
+    dropped = 0
+    for row in records:
+        hay = f"{row.get('title') or ''} {row.get('summary') or ''}"
+        named = False
+        for entity in entities:
+            names = [entity.get("name"), *(entity.get("aliases") or [])]
+            for raw in names:
+                if _name_hits(hay.casefold(), str(raw or "")):
+                    named = True
+                    break
+            if named:
+                break
+        reason = noise_reason(
+            title=str(row.get("title") or ""),
+            snippet=str(row.get("summary") or row.get("publisher_description") or ""),
+            url=str(row.get("source_url") or ""),
+            source_domain="",
+            named_entity=named,
+            include_soft=False,
+        )
+        if reason:
+            dropped += 1
+            continue
+        kept.append(row)
     return kept, dropped
 
 
