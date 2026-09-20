@@ -234,28 +234,32 @@
 
 .bos-feed {
   display: grid;
-  gap: var(--bos-space-4);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--bos-space-3);
 }
 
 .bos-card {
   display: grid;
-  grid-template-columns: 168px minmax(0, 1fr);
-  gap: var(--bos-space-4);
-  padding: var(--bos-space-4);
+  grid-template-columns: 1fr;
+  gap: var(--bos-space-3);
+  padding: var(--bos-space-3);
   border-radius: var(--bos-radius);
   background: var(--bos-surface);
   box-shadow: var(--bos-shadow);
   text-decoration: none;
   color: inherit;
+  min-width: 0;
 }
 
 .bos-card.is-lead {
-  grid-template-columns: minmax(260px, 42%) minmax(0, 1fr);
-  min-height: 280px;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(160px, 28%) minmax(0, 1fr);
+  min-height: 0;
 }
 
-.bos-card.is-dense {
-  grid-template-columns: 72px minmax(0, 1fr);
+.bos-card.is-dense,
+.bos-card.is-tile {
+  grid-template-columns: 1fr;
   padding: var(--bos-space-3);
 }
 
@@ -273,11 +277,15 @@
 
 .bos-media {
   position: relative;
-  min-height: 100%;
+  min-height: 120px;
   border-radius: var(--bos-radius);
   overflow: hidden;
   background:
     linear-gradient(160deg, color-mix(in srgb, var(--bos-crop, var(--bos-blueberry)) 55%, #0b1020), var(--bos-plum));
+}
+
+.bos-media-compact {
+  min-height: 56px;
 }
 
 .bos-media img {
@@ -420,11 +428,14 @@
 
 .bos-roster {
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: var(--bos-space-3);
 }
 
-.bos-roster .bos-card.is-dense {
-  grid-template-columns: 72px minmax(0, 1fr);
+.bos-roster .bos-card.is-dense,
+.bos-roster .bos-card.is-tile {
+  grid-template-columns: 1fr;
+  min-height: 0;
 }
 
 .bos-canvas [data-verification="candidate-review"] .bos-kicker,
@@ -462,9 +473,15 @@
     grid-template-columns: 260px minmax(720px, 1.35fr) minmax(440px, 560px);
     padding: var(--bos-space-7);
   }
+  .bos-feed {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+  .bos-roster {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
   .bos-card.is-lead {
-    grid-template-columns: minmax(360px, 42%) minmax(0, 1fr);
-    min-height: 340px;
+    grid-template-columns: minmax(200px, 30%) minmax(0, 1fr);
+    min-height: 0;
   }
   .bos-title { font-size: clamp(2.2rem, 2.4vw, 3.1rem); }
 }

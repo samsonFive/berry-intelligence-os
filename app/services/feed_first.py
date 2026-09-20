@@ -29,6 +29,24 @@ EXTRACTION_DISCLOSURE = (
     "Local deterministic preview from captured passages only. "
     "The production atomic extractor remains unqualified and was not run."
 )
+_CJK_RE = re.compile(r"[\u3040-\u30ff\u3400-\u9fff\uf900-\ufaff\uac00-\ud7af]")
+_TOPIC_WORDS = {
+    "berry",
+    "berries",
+    "strawberry",
+    "blueberry",
+    "raspberry",
+    "blackberry",
+    "grower",
+    "nursery",
+    "hectare",
+    "hectares",
+    "variety",
+    "varieties",
+    "harvest",
+    "breeding",
+    "fruit",
+}
 
 TIERS = ("tier1", "tier2", "tier3", "watch", "muted")
 TIER_LABELS = {
@@ -97,7 +115,7 @@ NAV = (
     ("People", "/people"),
     ("Statements", "/statements"),
     ("Landscapes", "/landscapes?view=feed"),
-    ("This week", "/week?view=feed"),
+    ("This week", "/week"),
     ("War Room", "/war-room"),
     ("Watchtower", "/watchtower"),
     ("Research Ops", "/research-ops"),
@@ -204,6 +222,53 @@ def restore_state(inbox_dir: Path, snapshot: Path | None = None) -> dict[str, An
     return state
 
 
+def is_analyst_english(text: str) -> bool:
+    """English is the analyst language. CJK-majority copy does not enter Today."""
+    sample = str(text or "")
+    if not sample.strip():
+        return True
+    cjk = len(_CJK_RE.findall(sample))
+    latin = len(re.findall(r"[A-Za-z]", sample))
+    if cjk >= 8 and cjk > latin:
+        return False
+    if cjk >= 4 and latin == 0:
+        return False
+    return True
+
+
+def analyst_lede(*, window: str, today: date, count: int, held_non_english: int = 0) -> str:
+    day = today.isoformat()
+    if window == "today":
+        line = f"{count} stor{'y' if count == 1 else 'ies'} published {day}."
+    elif window == "7d":
+        line = f"{count} stor{'y' if count == 1 else 'ies'} from the last 7 days, ending {day}."
+    elif window == "30d":
+        line = f"{count} stor{'y' if count == 1 else 'ies'} from the last 30 days, ending {day}."
+    else:
+        line = f"{count} stor{'y' if count == 1 else 'ies'} for the companies you watch."
+    if held_non_english:
+        line += f" {held_non_english} held — not in English."
+    return line
+
+
+def empty_feed_copy(window: str, today: date) -> dict[str, str]:
+    day = today.isoformat()
+    if window == "7d":
+        return {
+            "title": "No stories in the last 7 days",
+            "body": f"Nothing published for watched companies between {(today - timedelta(days=7)).isoformat()} and {day}.",
+        }
+    if window == "30d":
+        return {
+            "title": "No stories in the last 30 days",
+            "body": f"Nothing published for watched companies between {(today - timedelta(days=30)).isoformat()} and {day}.",
+        }
+    return {
+        "title": "No stories published today",
+        "body": f"Nothing published for watched companies on {day}. Widen the window to 7 or 30 days.",
+    }
+
+
 def parse_filters(params: dict[str, Any]) -> dict[str, str]:
     def _one(name: str, allowed: set[str] | None = None) -> str:
         raw = str(params.get(name) or "").strip()
@@ -292,6 +357,25 @@ def body_availability(record: dict[str, Any]) -> str:
     return BODY_TO_AVAILABILITY.get(body.get("state") or "", "metadata_only")
 
 
+def topic_tokens(title: str, summary: str = "") -> set[str]:
+    words = {
+        word
+        for word in re.findall(r"[a-z0-9]+", f"{title} {summary}".casefold())
+        if len(word) >= 4 and word not in _STOP
+    }
+    return words | _TOPIC_WORDS
+
+
+def passages_on_topic(passages: list[str], *, title: str, summary: str = "") -> list[str]:
+    tokens = topic_tokens(title, summary)
+    kept: list[str] = []
+    for passage in passages:
+        hay = passage.casefold()
+        if any(re.search(rf"\b{re.escape(token)}\b", hay) for token in tokens):
+            kept.append(passage)
+    return kept
+
+
 def captured_passages(record: dict[str, Any]) -> list[str]:
     content = reader_content(record)
     if content.get("contaminated"):
@@ -309,7 +393,13 @@ def captured_passages(record: dict[str, Any]) -> list[str]:
     summary = decode_html_text(content.get("summary") or record.get("summary") or "").strip()
     if summary and summary not in passages:
         passages.append(summary)
-    return passages
+    title = str(record.get("title") or "")
+    on_topic = passages_on_topic(passages, title=title, summary=summary)
+    if on_topic:
+        return on_topic
+    if summary and passages_on_topic([summary], title=title, summary=summary):
+        return [summary]
+    return []
 
 
 def safe_image_url(record: dict[str, Any]) -> str:
@@ -699,12 +789,17 @@ def build_feed(
         )
 
     windowed: list[dict[str, Any]] = []
+    held_non_english = 0
     for record in evidence:
         if record.get("status") and record.get("status") != "published":
             continue
         if record.get("id") in SEED_FIXTURE_EVIDENCE_IDS:
             continue
         if "structural" in (record.get("tags") or []):
+            continue
+        display = f"{record.get('title') or ''} {record.get('summary') or ''}"
+        if not is_analyst_english(display):
+            held_non_english += 1
             continue
         published = str(record.get("published_date") or "")
         if not _in_window(published, filters["window"], today):
@@ -792,11 +887,14 @@ def build_feed(
         "tier_labels": TIER_LABELS,
         "crop_labels": CROP_LABELS,
         "disclosure": disclosure
-        or (
-            "LIVE / UNREVIEWED same-day acquisition. "
-            "The stored August corpus is unused here. "
-            "Social platforms are not collected."
+        or analyst_lede(
+            window=filters.get("window") or "today",
+            today=today,
+            count=len(visible),
+            held_non_english=held_non_english,
         ),
+        "held_non_english": held_non_english,
+        "empty_copy": empty_feed_copy(filters.get("window") or "today", today),
         "today": today.isoformat(),
         "has_article": "article" in kinds,
         "has_official": "official" in kinds,
@@ -1179,11 +1277,61 @@ def live_story_briefs(
     return rows
 
 
+def week_crop_rows(stories: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    buckets: dict[str, list[dict[str, Any]]] = {crop: [] for crop in CROP_LABELS}
+    for story in stories:
+        hay = f"{story.get('title') or ''} {story.get('summary') or ''}".casefold()
+        for crop, label in CROP_LABELS.items():
+            if crop in hay or label.casefold() in hay:
+                buckets[crop].append(story)
+    return [
+        {
+            "id": crop,
+            "name": CROP_LABELS[crop],
+            "count": len(rows),
+            "stories": rows[:6],
+            "href": f"/today?window=7d&crop={crop}",
+        }
+        for crop, rows in buckets.items()
+    ]
+
+
+def week_variety_rows(
+    stories: list[dict[str, Any]],
+    *,
+    entities: list[dict[str, Any]] | None,
+    statements: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    by_id = {str(row.get("id")): row for row in (entities or []) if row.get("id")}
+    seen: set[str] = set()
+    rows: list[dict[str, Any]] = []
+    for group in (stories, statements):
+        for item in group:
+            for raw in item.get("entity_ids") or []:
+                entity_id = str(raw)
+                if entity_id in seen:
+                    continue
+                entity = by_id.get(entity_id) or {}
+                if not entity_id.startswith("variety-") and entity.get("entity_type") != "variety":
+                    continue
+                seen.add(entity_id)
+                name = str(entity.get("name") or entity_id.removeprefix("variety-").replace("-", " "))
+                rows.append(
+                    {
+                        "id": entity_id,
+                        "name": name,
+                        "href": f"/entities/variety/{entity_id}",
+                    }
+                )
+    return rows[:24]
+
+
 def week_model(
     state: dict[str, Any],
     *,
     today: date,
     live_records: list[dict[str, Any]] | None = None,
+    entities: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     statements = week_statements(state, today=today)
     stories = live_story_briefs(live_records, today=today, window_days=7)
@@ -1193,11 +1341,12 @@ def week_model(
         "statement_count": len(statements),
         "story_count": len(stories),
         "disclosure": (
-            "This week reuses trusted Today thumbs-up statements from the last 7 UTC days "
-            "and live one-story-once clusters from the same window. "
-            "Live stories stay LIVE / UNREVIEWED until thumbs-up. "
-            "It does not run the Pulse week matrix and does not treat stored August evidence as current."
+            f"{len(statements)} trusted statement(s) and {len(stories)} live stor"
+            f"{'y' if len(stories) == 1 else 'ies'} from the last 7 days."
         ),
+        "varieties": week_variety_rows(stories, entities=entities, statements=statements),
+        "by_crop": week_crop_rows(stories),
+        "ask_href": "/research?q=What+changed+this+week+across+watched+berry+companies+and+varieties%3F",
     }
 
 

@@ -12,39 +12,70 @@
     {% include "_feed_first_rail.html" %}
     <main class="bos-canvas">
       <p class="bos-kicker">This week</p>
-      <h1 class="bos-title">Trusted statements from the last 7 days</h1>
+      <h1 class="bos-title">What changed this week</h1>
       <p class="bos-lede">{{ disclosure }}</p>
-      <p class="bos-note">{{ statement_count }} statement(s) · {{ story_count or 0 }} live stor{{ 'y' if story_count == 1 else 'ies' }} · not the Pulse live week matrix</p>
+      <p><a class="bos-btn is-primary" href="{{ ask_href }}">Ask Berry OS</a></p>
+
+      <section data-varieties>
+        <h2 class="bos-title" style="font-size:1.3rem">Varieties</h2>
+        {% if varieties %}
+        <div class="bos-roster">
+          {% for row in varieties %}
+          <article class="bos-card is-tile">
+            <h3><a href="{{ row.href }}">{{ row.name }}</a></h3>
+          </article>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="bos-note">No named varieties in this week’s stories yet.</p>
+        {% endif %}
+      </section>
+
+      <section data-by-crop>
+        <h2 class="bos-title" style="font-size:1.3rem">By crop</h2>
+        <div class="bos-roster">
+          {% for row in by_crop %}
+          <article class="bos-card is-tile">
+            <p class="bos-kicker">{{ row.name }}</p>
+            <h3><a href="{{ row.href }}">{{ row.count }} stor{{ 'y' if row.count == 1 else 'ies' }}</a></h3>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+
       {% if statements %}
-      <ul>
-        {% for row in statements %}
-        <li class="bos-people-card">
-          {% if row.importance_state == 'important' %}<p class="bos-kicker">Important</p>{% endif %}
-          <p>{{ row.statement_text }}</p>
-          <p class="bos-note">{{ row.created_at }} · Evidence attached · {{ row.extraction_model }}</p>
-        </li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-      {% if stories %}
-      <section data-live-stories>
-        <h2 class="bos-title" style="font-size:1.3rem">Live one-story-once briefs</h2>
+      <section>
+        <h2 class="bos-title" style="font-size:1.3rem">Trusted statements</h2>
         <ul>
-          {% for row in stories %}
+          {% for row in statements %}
           <li class="bos-people-card">
-            <p>{{ row.title }}</p>
-            <p class="bos-note">{{ row.source_name }} · {{ row.published_date }} · cluster ×{{ row.cluster_size }} · {{ row.trust_state }} · not trusted until thumbs-up</p>
+            {% if row.importance_state == 'important' %}<p class="bos-kicker">Important</p>{% endif %}
+            <p>{{ row.statement_text }}</p>
           </li>
           {% endfor %}
         </ul>
       </section>
       {% endif %}
+
+      {% if stories %}
+      <section data-live-stories>
+        <h2 class="bos-title" style="font-size:1.3rem">Live stories</h2>
+        <div class="bos-feed">
+          {% for row in stories %}
+          <article class="bos-card is-tile">
+            <h3>{{ row.title }}</h3>
+            <p class="bos-note">{{ row.source_name }} · {{ row.published_date }}</p>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+
       {% if not statements and not stories %}
       <div class="bos-empty">
-        <p>No thumbs-up statements or live clustered stories in the last 7 UTC days. This page does not pull stored August evidence.</p>
+        <p>No trusted statements or live stories in the last 7 days.</p>
       </div>
       {% endif %}
-      <p><a class="bos-btn" href="/week">Legacy week shell</a></p>
     </main>
   </div>
 </div>

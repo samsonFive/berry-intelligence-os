@@ -92,7 +92,7 @@ def _same_day_hit(**overrides):
         source_domain="freshplaza.com",
         published_date="2026-09-21",
         snippet="The blueberry breeder reports new acreage and plant production in Spain.",
-        query_id="today:blueberry:global:24h",
+        query_id="today:blueberry:global:30d",
         query_text="blueberry harvest",
         geography="global",
         berry="blueberry",
@@ -151,7 +151,7 @@ def test_today_is_feed_first_front_door(monkeypatch):
     assert 'data-freshness="same-day"' in today.text
     assert "thumbs_up" in today.text
     assert "berry_os.css" in today.text
-    assert "LIVE / UNREVIEWED" in today.text
+    assert "companies watched" in today.text
     assert "same-day" in today.text
     assert "not a live multi-lane poll" not in today.text
     assert "90 days" not in today.text
@@ -454,7 +454,7 @@ def test_live_collector_keeps_week_and_drops_older_noise(tmp_path: Path):
             berry="blackberry",
         ),
     ]
-    provider = MemoryProvider(hits_by_query_id={"today:blueberry:global:24h": hits})
+    provider = MemoryProvider(hits_by_query_id={"today:blueberry:global:30d": hits})
     specialist = MemoryProvider(hits_by_query_id={})
     bundle = live_feed_bundle(
         inbox_dir=tmp_path,
@@ -493,7 +493,7 @@ def test_yesterday_cache_is_never_served_as_today(tmp_path: Path):
         now=datetime(2026, 9, 20, 18, 0, tzinfo=timezone.utc),
         google_provider=MemoryProvider(
             hits_by_query_id={
-                "today:blueberry:global:24h": [
+                "today:blueberry:global:30d": [
                     _same_day_hit(published_date="2026-09-20", title="Sunday blueberry harvest note")
                 ]
             }
@@ -526,7 +526,7 @@ def test_perplexity_same_day_hits_join_keyless_lanes(tmp_path: Path):
     today = date(2026, 9, 21)
     google = MemoryProvider(
         hits_by_query_id={
-            "today:blueberry:global:24h": [_same_day_hit()],
+            "today:blueberry:global:30d": [_same_day_hit()],
         }
     )
     perplexity = MemoryProvider(
@@ -593,7 +593,7 @@ def test_perplexity_failure_does_not_drop_google_hits(tmp_path: Path):
         today=date(2026, 9, 21),
         now=datetime(2026, 9, 21, 15, 0, tzinfo=timezone.utc),
         google_provider=MemoryProvider(
-            hits_by_query_id={"today:blueberry:global:24h": [_same_day_hit()]}
+            hits_by_query_id={"today:blueberry:global:30d": [_same_day_hit()]}
         ),
         specialist_provider=MemoryProvider(hits_by_query_id={}),
         perplexity_provider=Boom(),
@@ -713,7 +713,7 @@ def test_live_collector_tags_spain_and_official_first_party(tmp_path: Path):
     now = datetime(2026, 9, 21, 15, 0, tzinfo=timezone.utc)
     google = MemoryProvider(
         hits_by_query_id={
-            "today:blueberry:global:24h": [_same_day_hit()],
+            "today:blueberry:global:30d": [_same_day_hit()],
             "today:official:hortifrut.com:24h": [
                 _same_day_hit(
                     title="Hortifrut reports new blueberry plantings",

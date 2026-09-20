@@ -101,32 +101,15 @@ _FRUIT_BLACKBERRY = re.compile(
 )
 
 
-def live_disclosure(bundle: dict[str, Any]) -> str:
-    lanes = ", ".join(bundle.get("lanes") or []) or "none"
-    fetched = bundle.get("fetched_at") or "not fetched"
-    errors = bundle.get("lane_errors") or []
-    err = f" Lane errors: {len(errors)}." if errors else ""
-    unused: list[str] = []
-    present = set(bundle.get("lanes") or [])
-    if LIVE_LANE_EXA not in present:
-        unused.append("Exa")
-    if LIVE_LANE_APITUBE not in present:
-        unused.append("APITube")
-    if LIVE_LANE_PERPLEXITY not in present:
-        unused.append("Perplexity")
-    unused_note = ""
-    if unused:
-        unused_note = f" {', '.join(unused)} stay unused until those keys exist."
-    return (
-        f"LIVE / UNREVIEWED acquisition ({lanes}). "
-        f"Default Today keeps published_date equal to {bundle.get('today')} "
-        f"(product UTC clock). Window=7d can show the last 7 UTC days from this fetch. "
-        f"Fetched {fetched}. "
-        f"The stored August corpus is unused here.{err} "
-        "Social platforms are not collected. "
-        "NewsCatcher CatchAll is not request-time on Today."
-        f"{unused_note}"
-    )
+def live_disclosure(bundle: dict[str, Any], *, window: str = "today") -> str:
+    today = str(bundle.get("today") or "")
+    count = int((bundle.get("stats") or {}).get("week") or 0)
+    if window == "7d":
+        return f"Stories from the last 7 days, ending {today}."
+    if window == "30d":
+        return f"Stories from the last 30 days, ending {today}."
+    same_day = int((bundle.get("stats") or {}).get("same_day") or count)
+    return f"{same_day} stories published {today} for the companies you watch."
 
 
 def cache_path(inbox_dir: Path, today: date) -> Path:
@@ -155,7 +138,7 @@ def is_within_days(published: str | None, today: date, days: int) -> bool:
 
 
 def today_google_queries() -> list[PulseQuery]:
-    """Four berry × global Google News rows with when:1d. Not the Pulse 32."""
+    """Four berry × global Google News rows with when:30d so 7d/30d filters have data."""
     edition = GEO_EDITIONS["global"]
     rows: list[PulseQuery] = []
     for berry in BERRIES:
@@ -170,7 +153,7 @@ def today_google_queries() -> list[PulseQuery]:
                 hl=edition["hl"],
                 gl=edition["gl"],
                 ceid=edition["ceid"],
-            ).with_window("24h")
+            ).with_window("30d")
         )
     return rows
 
@@ -428,6 +411,7 @@ def hit_to_record(
         "geography_ids": match_geography_ids(text, entities),
         "tags": ["live", "unreviewed"],
         "publisher_description": snippet,
+        "image_url": str((hit.provider_metadata or {}).get("image_url") or ""),
         "qualify_reason": hit.qualify_reason,
         "editorial_topic": hit.editorial_topic,
         "discovery_provenance": {
@@ -573,7 +557,7 @@ def _keep_window_hits(
         if not hit.published_date:
             dropped_undated += 1
             continue
-        if not is_within_days(hit.published_date, today, 7):
+        if not is_within_days(hit.published_date, today, 30):
             dropped_not_today += 1
             continue
         kept.append(hit)

@@ -13,7 +13,7 @@
     <main class="bos-canvas">
       <p class="bos-kicker">Entities</p>
       <h1 class="bos-title">Tracked breeding world</h1>
-      <p class="bos-lede">{{ counts.tracked_companies }} companies from the 2026-09-18 seed, plus {{ counts.registries }} registries kept out of competitor totals. This is not a trusted publication import.</p>
+      <p class="bos-lede">{{ counts.tracked_companies }} companies. Registries stay out of competitor totals.</p>
 
       <form class="bos-filters" method="get" action="/entities" aria-label="Entity filters">
         <label>Crop
@@ -42,21 +42,13 @@
       <p class="bos-meta">{{ rows|length }} showing · competitor count {{ counts.tracked_companies }} · registries {{ counts.registries }}</p>
       <div class="bos-roster">
         {% for row in rows %}
-        <article class="bos-card is-dense" data-entity-id="{{ row.id }}" data-verification="{{ row.verification_status }}">
-          <div class="bos-media" data-crop="{{ row.crops[0] if row.crops else 'blueberry' }}">
-            <span class="bos-monogram">{{ row.monogram }}</span>
-          </div>
-          <div>
-            <p class="bos-meta">
-              <span>{{ row.verification_label }}</span>
-              <span>{{ row.seed_entity_type }}</span>
-              <span>{{ row.country_hq or 'country unknown' }}</span>
-            </p>
-            <h3><a href="{{ row.profile_url }}">{{ row.canonical_name }}</a></h3>
-            <p class="bos-meta">
-              {% for crop in row.crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
-            </p>
-          </div>
+        <article class="bos-card is-tile" data-entity-id="{{ row.id }}" data-verification="{{ row.verification_status }}">
+          <p class="bos-kicker">{{ row.country_hq or 'HQ unknown' }}</p>
+          <h3><a href="{{ row.profile_url }}">{{ row.canonical_name }}</a></h3>
+          <p class="bos-meta">
+            <span>{{ row.verification_label }}</span>
+            {% for crop in row.crops[:3] %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
+          </p>
         </article>
         {% endfor %}
       </div>

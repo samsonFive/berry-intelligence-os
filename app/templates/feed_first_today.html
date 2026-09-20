@@ -29,10 +29,9 @@
 
     <main class="bos-canvas" id="today-feed">
       <p class="bos-kicker">Today</p>
-      <h1 class="bos-title">What changed across watched companies</h1>
-      {% if feed.tracked_companies %}<p class="bos-note">{{ feed.tracked_companies }} companies tracked · registries excluded from competitor counts</p>{% endif %}
+      <h1 class="bos-title">What changed</h1>
+      {% if feed.tracked_companies %}<p class="bos-note">{{ feed.tracked_companies }} companies watched</p>{% endif %}
       <p class="bos-lede">{{ feed.disclosure }}</p>
-      <p class="bos-disclosure">{{ feed.extraction_disclosure }}</p>
 
       <form class="bos-filters" method="get" action="/today" aria-label="Feed filters">
         <label>Window
@@ -98,7 +97,7 @@
           </select>
         </label>
         <button class="bos-btn is-primary" type="submit">Apply</button>
-        <a class="bos-btn" href="{{ feed.refresh_href }}">Refresh live lanes</a>
+        <a class="bos-btn" href="{{ feed.refresh_href }}">Refresh</a>
       </form>
       {% if feed.filter_chips %}
       <p class="bos-filters" data-filter-chips aria-label="Active filters">
@@ -108,55 +107,44 @@
       </p>
       {% endif %}
 
-      <p class="bos-meta" data-facet-counts> {{ feed.count }} showing of {{ (feed.facet_counts.total if feed.facet_counts else feed.total_matched) }} in window · unread {{ (feed.facet_counts.state.unread if feed.facet_counts else 0) }} · tier1 {{ (feed.facet_counts.tier.tier1 if feed.facet_counts and feed.facet_counts.tier else 0) }} · blueberry {{ (feed.facet_counts.crop.blueberry if feed.facet_counts and feed.facet_counts.crop else 0) }} · same-day={{ feed.same_day_count }} · fetched {{ feed.fetched_at or 'not yet' }} · lanes={{ (feed.lanes or [])|join('+') }} · article={{ feed.has_article }} · official={{ feed.has_official }} · social-style={{ feed.has_social_style }} · fallback={{ feed.has_fallback }}</p>
-      <p class="bos-note" data-keyboard-help>Keys: j / → next · k / ← previous · Esc close reader · u thumbs-up (again undoes) · d thumbs-down (again undoes) · s save. Modifiers ignored. State persists across reload.</p>
-      {% if feed.lane_errors %}
-      <p class="bos-note">{{ feed.lane_errors|length }} lane error(s). Refresh to poll again. Empty is a coverage gap, not stored August evidence.</p>
-      {% endif %}
+      <p class="bos-meta" data-facet-counts>{{ feed.count }} in this window</p>
+      <p class="bos-note" data-keyboard-help>j / k move · u thumbs-up (again undoes) · d hide (again undoes) · s save · Esc close reader</p>
 
       {% if not feed.cards %}
       <div class="bos-empty">
-        <h2>No same-day qualified items</h2>
-        <p>Live Google News RSS and specialist feeds returned nothing published on {{ feed.today }}. This is a coverage or filter gap — not stored August evidence. Refresh live lanes, or keep the empty state honest.</p>
+        <h2>{{ feed.empty_copy.title }}</h2>
+        <p>{{ feed.empty_copy.body }}</p>
       </div>
       {% endif %}
 
       <div class="bos-feed">
         {% for item in feed.cards %}
         <article class="bos-card is-{{ item.family }}{% if selected and selected.id == item.id %} is-selected{% endif %}" data-feed-card="{{ item.id }}" data-family="{{ item.family }}">
-          <div class="bos-media" data-crop="{{ item.crops[0] if item.crops else 'blueberry' }}" aria-hidden="true">
-            {% if item.image_url %}
+          {% if item.image_url %}
+          <div class="bos-media" data-crop="{{ item.crops[0] if item.crops else 'blueberry' }}">
             <img src="{{ item.image_url }}" alt="">
-            {% endif %}
+          </div>
+          {% else %}
+          <div class="bos-media bos-media-compact" data-crop="{{ item.crops[0] if item.crops else 'blueberry' }}" aria-hidden="true">
             <span class="bos-monogram">{{ (item.entities[0].monogram if item.entities else item.source_name[:2])|upper }}</span>
           </div>
+          {% endif %}
           <div>
             <p class="bos-meta">
               <span>{{ item.source_name }}</span>
               <span>{% if item.date_uncertain %}date unknown{% else %}{{ item.published_at or 'date unknown' }}{% endif %}</span>
-              <span>{{ item.availability_label }}</span>
-              <span>{{ item.source_kind }}</span>
-              {% if item.trust_state %}<span>{{ item.trust_state }} / {{ item.review_state }}</span>{% endif %}
-              {% if item.cluster_size and item.cluster_size > 1 %}<span>cluster ×{{ item.cluster_size }}</span>{% endif %}
-              {% if item.source_kind == 'official' %}<span>official site</span>{% endif %}
+              {% if item.cluster_size and item.cluster_size > 1 %}<span>also {{ item.cluster_sources|join(', ') }}</span>{% endif %}
             </p>
             <h2><a href="{{ item.reader_href }}">{{ item.headline }}</a></h2>
             {% if item.deck %}<p>{{ item.deck }}</p>{% endif %}
-            {% if item.cluster_sources %}
-            <p class="bos-note" data-story-thread>Story thread · also seen via {{ item.cluster_sources|join(', ') }}</p>
-            {% endif %}
-            {% if item.muted %}<p class="bos-note">Muted watch — searchable, not in the default feed.</p>{% endif %}
             <p class="bos-meta">
               {% for entity in item.entities[:3] %}
-              <a class="bos-chip" href="{{ entity.profile_url }}">{{ entity.name }} · {{ entity.tier }}</a>
-              {% endfor %}
-              {% for person in item.people[:3] %}
-              <a class="bos-chip" href="{{ person.profile_url }}">{{ person.canonical_name }}</a>
+              <a class="bos-chip" href="{{ entity.profile_url }}">{{ entity.name }}</a>
               {% endfor %}
               {% for crop in item.crops %}
               <span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>
               {% endfor %}
-              {% for geo in item.geography_chips[:3] %}
+              {% for geo in item.geography_chips[:2] %}
               <a class="bos-chip" href="{{ geo.href }}">{{ geo.name }}</a>
               {% endfor %}
             </p>
@@ -175,7 +163,7 @@
     <aside class="bos-inspector" aria-label="Reader and intelligence">
       {% if selected %}
       <div class="bos-reader" data-reader-root data-item-id="{{ selected.id }}" role="dialog" aria-modal="true" tabindex="-1">
-        <p class="bos-kicker">Reader · {{ selected.availability_label }}{% if selected.content_kind == 'pdf' %} · PDF{% endif %}</p>
+        <p class="bos-kicker">{% if selected.content_kind == 'pdf' %}PDF{% elif selected.passages %}Article{% else %}Summary{% endif %}</p>
         <h2>{{ selected.headline }}</h2>
         <p class="bos-meta">{{ selected.source_name }} · {% if selected.date_uncertain %}date unknown{% else %}{{ selected.published_at or 'date unknown' }}{% endif %}</p>
         <div class="bos-actions">
@@ -185,10 +173,8 @@
           <button type="button" class="bos-icon-btn" data-react="thumbs_up" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'up' else 'false' }}" aria-label="Thumbs up">👍</button>
           <button type="button" class="bos-icon-btn" data-react="thumbs_down" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'down' else 'false' }}" aria-label="Thumbs down">👎</button>
           <button type="button" class="bos-icon-btn" data-react="save" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.saved else 'false' }}" aria-label="Save">Save</button>
-          {% if selected.reader_modes|length > 1 %}
-          {% for mode in selected.reader_modes %}
-          <button type="button" class="bos-btn" data-reader-mode="{{ mode }}">{{ mode|replace('_', ' ') }}</button>
-          {% endfor %}
+          {% if selected.frame_allowed %}
+          <button type="button" class="bos-btn" data-reader-mode="live_page">Open page</button>
           {% endif %}
         </div>
         {% if selected.images and selected.images|length %}
@@ -215,31 +201,23 @@
             {% for passage in selected.passages %}
             <p>{{ passage }}</p>
             {% endfor %}
-            {% if selected.body_availability != 'full' %}
-            <p class="bos-note">{{ selected.availability_label }} — this is not claimed as the full article.</p>
-            {% endif %}
           {% else %}
           <div class="bos-fallback">
-            <p><strong>Structured fallback.</strong> Full body is not available in-app.</p>
             {% if selected.deck %}<p>{{ selected.deck }}</p>{% endif %}
-            <p><a href="{{ selected.source_url }}" rel="noopener noreferrer">View original</a></p>
+            <p><a href="{{ selected.source_url }}" rel="noopener noreferrer">Read the original</a></p>
           </div>
           {% endif %}
         </div>
         {% if selected.frame_allowed %}
         <iframe class="bos-live-page" data-live-page hidden sandbox="allow-scripts allow-same-origin" src="{{ selected.source_url }}" title="Live page"></iframe>
-        {% else %}
-        <p class="bos-note">Live Page is off. The publisher did not permit framing (or capture has not confirmed it).</p>
         {% endif %}
         <div class="bos-loader" data-growth-loader hidden>
           <div class="bos-loader-visual" aria-hidden="true"></div>
-          <p>4 of 6 · extracting atomic claims</p>
-          <p class="bos-note">{{ feed.extraction_disclosure }}</p>
+          <p>Extracting statements</p>
         </div>
         {% if selected.cluster_sources or selected.corroborating_sources %}
         <section data-story-thread>
-          <h3>Story thread</h3>
-          <p class="bos-note">One story once. Extra lanes stay independent corroboration, not a merged body.</p>
+          <h3>Also reported</h3>
           {% if selected.cluster_sources %}
           <p>Also seen via {{ selected.cluster_sources|join(', ') }}</p>
           {% endif %}
@@ -279,7 +257,7 @@
               {% endif %}
             </article>
             {% else %}
-            <p class="bos-note">Thumbs-up extracts supported statements from captured passages. Thumbs-down only hides this item.</p>
+            <p class="bos-note">Thumbs-up keeps this story and extracts statements from the article text.</p>
             {% endfor %}
           </div>
         </section>

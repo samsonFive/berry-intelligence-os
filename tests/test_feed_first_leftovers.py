@@ -77,7 +77,7 @@ def _same_day_hit(**overrides):
         source_domain="freshplaza.com",
         published_date="2026-09-21",
         snippet="The blueberry breeder reports new acreage and plant production in Spain.",
-        query_id="today:blueberry:global:24h",
+        query_id="today:blueberry:global:30d",
         query_text="blueberry harvest",
         geography="global",
         berry="blueberry",
@@ -222,7 +222,7 @@ def test_cost_cascade_skips_secondary_when_primary_is_thick(tmp_path):
         refresh=True,
         today=date(2026, 9, 21),
         now=datetime(2026, 9, 21, 15, 0, tzinfo=timezone.utc),
-        google_provider=MemoryProvider(hits_by_query_id={"today:blueberry:global:24h": primary}),
+        google_provider=MemoryProvider(hits_by_query_id={"today:blueberry:global:30d": primary}),
         specialist_provider=MemoryProvider(hits_by_query_id={}),
         enable_perplexity=False,
         exa_provider=exa,
@@ -251,6 +251,54 @@ def test_bakeoff_audit_does_not_invent_vendors():
     assert "unused" in report["firecrawl"]["notes"].casefold()
 
 
+def test_non_english_items_are_held_off_today():
+    english = _record()
+    chinese = _record(
+        id="ev-zh",
+        title="莓果龍頭進中國被偷光",
+        summary="美國莓果龍頭進中國市場",
+    )
+    feed = build_feed(
+        evidence=[english, chinese],
+        entities=_entities(),
+        state={"decisions": {}, "entity_tiers": {}, "statements": {}},
+        filters=parse_filters({}),
+        today=date(2026, 5, 26),
+    )
+    assert [row["id"] for row in feed["cards"]] == [english["id"]]
+    assert feed["held_non_english"] == 1
+    assert "not in English" in feed["disclosure"]
+
+
+def test_off_topic_passages_do_not_enter_the_reader():
+    from app.services.feed_first import captured_passages
+
+    record = _record(
+        title="Hoddys launches South Island berry production",
+        summary="Hoddys Fruit Co planted strawberries in New Zealand.",
+        article={
+            "paragraphs": [
+                {"text": "When Lance Double started his solar business in 2009, he was a one-man band."},
+                {"text": "Hoddys Fruit Co planted seven hectares of strawberries on the South Island this season."},
+            ]
+        },
+    )
+    passages = captured_passages(record)
+    blob = " ".join(passages).casefold()
+    assert "strawberry" in blob or "hoddys" in blob
+    assert "solar business" not in blob
+
+
+def test_empty_copy_follows_selected_window():
+    from app.services.feed_first import empty_feed_copy
+
+    today = empty_feed_copy("today", date(2026, 9, 20))
+    month = empty_feed_copy("30d", date(2026, 9, 20))
+    assert "today" in today["title"].casefold()
+    assert "30 days" in month["title"]
+    assert "same-day qualified" not in month["body"]
+
+
 def test_today_and_ops_expose_leftover_contracts():
     today = TestClient(app).get("/today")
     assert today.status_code == 200
@@ -267,3 +315,9 @@ def test_today_and_ops_expose_leftover_contracts():
     assert "data-cost-cascade" in ops.text
     assert "data-coverage-audit" in ops.text
     assert "Cost cascade" in ops.text
+    css = Path("app/static/berry_os.css").read_text(encoding="utf-8")
+    assert "repeat(auto-fill, minmax(260px, 1fr))" in css
+    assert "repeat(auto-fill, minmax(180px, 1fr))" in css
+    following = TestClient(app).get("/following")
+    assert "bos-card is-tile" in following.text
+    assert "URL-status rows repaired" not in following.text
