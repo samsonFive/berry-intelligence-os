@@ -132,6 +132,15 @@ def test_restored_surfaces_use_berry_os_shell_and_dense_collections():
     assert ".bos-dense-grid" in css
     assert ".berry-os .bos-legacy-surface" in css
     assert "repeat(auto-fill, minmax(260px, 1fr))" in css
+    assert "grid-template-columns: repeat(12, minmax(0, 1fr))" in css
+    assert ".bos-canvas > section" in css
+    assert ".bos-canvas > section > ul:not(.bos-dense-grid)" in css
+    assert ".berry-os .bos-legacy-surface .entity-links" in css
+
+    ops = client.get("/research-ops")
+    assert ops.text.count("<section") >= 8
+    settings = client.get("/settings")
+    assert settings.text.count("<section") >= 3
 
 
 def test_people_and_week_keep_honest_coverage_copy():

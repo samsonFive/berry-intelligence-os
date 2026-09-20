@@ -129,6 +129,61 @@
   min-width: 0;
 }
 
+.bos-canvas {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--bos-space-3);
+  align-content: start;
+}
+
+.bos-canvas > * {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.bos-canvas > section,
+.bos-canvas > .bos-people-card,
+.bos-canvas > .bos-logo-editor {
+  grid-column: span 6;
+  margin: 0;
+}
+
+.bos-canvas > [data-week-edition],
+.bos-canvas > [data-live-stories],
+.bos-canvas > .page-heading,
+.bos-canvas > .landscape-filter-bar,
+.bos-canvas > .landscape-quick-nav,
+.bos-canvas > .internal-empty-state {
+  grid-column: 1 / -1;
+}
+
+.bos-canvas > section,
+.bos-canvas > .bos-people-card {
+  border: 1px solid #34425f;
+  border-radius: var(--bos-radius);
+  background: var(--bos-surface);
+  padding: var(--bos-space-4);
+}
+
+.bos-canvas > ul:not(.bos-dense-grid),
+.bos-canvas > section > ul:not(.bos-dense-grid) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--bos-space-3);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.bos-canvas > ul:not(.bos-dense-grid) > li,
+.bos-canvas > section > ul:not(.bos-dense-grid) > li {
+  min-width: 0;
+  border: 1px solid #34425f;
+  border-radius: var(--bos-radius-sm);
+  background: var(--bos-raised);
+  padding: var(--bos-space-3);
+}
+
 .bos-rail {
   position: sticky;
   top: 12px;
@@ -602,6 +657,32 @@
   max-width: none;
 }
 
+.berry-os .bos-legacy-surface:not(.v2-learn-concept) {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--bos-space-3);
+}
+
+.berry-os .bos-legacy-surface:not(.v2-learn-concept) > * {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.berry-os .bos-legacy-surface:not(.v2-learn-concept) > .v2-company-section,
+.berry-os .bos-legacy-surface:not(.v2-learn-concept) > .landscape-section {
+  grid-column: span 6;
+  margin: 0;
+}
+
+.berry-os .bos-legacy-surface:not(.v2-learn-concept) > .page-heading,
+.berry-os .bos-legacy-surface:not(.v2-learn-concept) > #public-landscape,
+.berry-os .bos-legacy-surface:not(.v2-learn-concept) > .landscape-filter-bar,
+.berry-os .bos-legacy-surface:not(.v2-learn-concept) > .landscape-quick-nav,
+.berry-os .bos-legacy-surface:not(.v2-learn-concept) > .internal-empty-state,
+.berry-os .bos-legacy-surface:not(.v2-learn-concept) > .internal-enrichment {
+  grid-column: 1 / -1;
+}
+
 .berry-os .bos-legacy-surface .page-heading,
 .berry-os .bos-legacy-surface .v2-company-section,
 .berry-os .bos-legacy-surface .landscape-section {
@@ -637,10 +718,27 @@
 
 .berry-os .bos-legacy-surface .balanced-card-grid,
 .berry-os .bos-legacy-surface .regional-summary-grid,
-.berry-os .bos-legacy-surface .enrichment-grid {
+.berry-os .bos-legacy-surface .enrichment-grid,
+.berry-os .bos-legacy-surface .entity-links,
+.berry-os .bos-legacy-surface .relationship-list,
+.berry-os .bos-legacy-surface .brief-list,
+.berry-os .bos-legacy-surface .landscape-briefing {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: var(--bos-space-3);
+  padding: 0;
+  list-style: none;
+}
+
+.berry-os .bos-legacy-surface .entity-links > li,
+.berry-os .bos-legacy-surface .relationship-list > li,
+.berry-os .bos-legacy-surface .brief-list > li,
+.berry-os .bos-legacy-surface .landscape-briefing > * {
+  min-width: 0;
+  border: 1px solid #34425f;
+  border-radius: var(--bos-radius-sm);
+  background: var(--bos-raised);
+  padding: var(--bos-space-3);
 }
 
 .berry-os .bos-legacy-surface .card,
@@ -741,6 +839,16 @@
 @media (prefers-reduced-motion: reduce) {
   .bos-loader-visual { animation: none; transform: scaleX(0.7); }
   .bos-gallery-slide img { transition: none; }
+}
+
+@media (max-width: 900px) {
+  .bos-canvas > section,
+  .bos-canvas > .bos-people-card,
+  .bos-canvas > .bos-logo-editor,
+  .berry-os .bos-legacy-surface:not(.v2-learn-concept) > .v2-company-section,
+  .berry-os .bos-legacy-surface:not(.v2-learn-concept) > .landscape-section {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (min-width: 1920px) {
