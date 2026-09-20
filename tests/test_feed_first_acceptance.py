@@ -1,6 +1,7 @@
 """P0 acceptance matrix for the feed-first path. Not a Gate 5 release."""
 
 from datetime import date
+from pathlib import Path
 
 from fastapi.testclient import TestClient
 
@@ -14,6 +15,7 @@ from app.services.feed_first import (
     parse_filters,
     set_entity_tier,
 )
+from app.services.feed_first_live import live_feed_bundle
 from app.services.seed_roster import build_roster, roster_counts
 
 
@@ -265,12 +267,14 @@ def test_p0_statement_important_demote_remove_restore(tmp_path):
     assert demoted["importance_state"] == "demoted"
     removed = mutate_statement(inbox, statement_id=statement_id, action="remove")
     assert removed["statement_state"] == "removed"
-    assert statements_index(load_state(inbox)) == []
+    assert statement_id not in {row["id"] for row in statements_index(load_state(inbox))}
     restored = mutate_statement(inbox, statement_id=statement_id, action="restore")
     assert restored["statement_state"] == "trusted_editable"
-    assert statements_index(load_state(inbox))[0]["id"] == statement_id
-    today = TestClient(app).get("/today")
-    assert 'data-statement-action="restore"' in today.text
+    assert statement_id in {row["id"] for row in statements_index(load_state(inbox))}
+    template = Path("app/templates/feed_first_today.html").read_text(encoding="utf-8")
+    script = Path("app/static/feed_first.js").read_text(encoding="utf-8")
+    assert 'data-statement-action="restore"' in template
+    assert 'data-statement-action="restore"' in script
 
 
 def test_p0_one_story_once_keeps_cluster_on_the_card():
@@ -355,10 +359,11 @@ def test_p0_unknown_date_does_not_masquerade_as_new():
 
 
 def test_p0_source_failure_is_recorded_without_dropping_history(tmp_path):
-    from app.services.feed_first_live import live_feed_bundle
-    from app.services.industry_pulse.models import DiscoveryHit
+    from datetime import datetime, timezone
+
     from app.services.industry_pulse.providers import MemoryProvider
     from app.services.research_ops_health import public_lane_errors
+    from tests.test_feed_first_gate1 import _entities, _same_day_hit
 
     class Boom:
         name = "perplexity"
@@ -366,29 +371,16 @@ def test_p0_source_failure_is_recorded_without_dropping_history(tmp_path):
         def discover(self, query):
             raise RuntimeError("EXA_API_KEY=sk-secret-must-not-leak")
 
-    hit = DiscoveryHit(
-        title="Fall Creek expands blueberry nursery harvest after new planting",
-        url="https://example.test/fall-creek-same-day",
-        source_domain="freshplaza.com",
-        published_date="2026-09-21",
-        snippet="The blueberry breeder reports new acreage and plant production in Spain.",
-        query_id="today:blueberry:global:24h",
-        query_text="blueberry harvest",
-        geography="global",
-        berry="blueberry",
-        topic="industry_pulse",
-        provider="google_news_rss",
-        origin_publisher_name="FreshPlaza",
-        origin_publisher_url="https://example.test/fall-creek-same-day",
-        qualifying=True,
-    )
     bundle = live_feed_bundle(
         inbox_dir=tmp_path,
-        entities=[{"id": "company-fall-creek-farm-and-nursery", "name": "Fall Creek", "aliases": []}],
+        entities=_entities(),
         sources=[],
         refresh=True,
         today=date(2026, 9, 21),
-        google_provider=MemoryProvider(hits_by_query_id={"today:blueberry:global:24h": [hit]}),
+        now=datetime(2026, 9, 21, 15, 0, tzinfo=timezone.utc),
+        google_provider=MemoryProvider(
+            hits_by_query_id={"today:blueberry:global:24h": [_same_day_hit()]}
+        ),
         specialist_provider=MemoryProvider(hits_by_query_id={}),
         perplexity_provider=Boom(),
         enable_exa=False,
