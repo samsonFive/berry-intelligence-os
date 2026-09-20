@@ -273,6 +273,8 @@ def hit_to_record(
     people: Iterable[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     url = preferred_url(hit)
+    if url and "://" not in url:
+        url = f"https://{url.lstrip('/')}"
     text = f"{hit.title} {hit.snippet}"
     entity_ids = match_entity_ids(text, entities)
     from app.services.people_watchlist import match_people
