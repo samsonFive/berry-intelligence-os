@@ -29,7 +29,7 @@
     <main class="bos-canvas" id="today-feed">
       <p class="bos-kicker">News</p>
       <h1 class="bos-title">What changed</h1>
-      {% if feed.tracked_companies %}<p class="bos-note">{{ feed.tracked_companies }} companies watched</p>{% endif %}
+      {% if feed.tracked_industry_entities %}<p class="bos-note">{{ feed.tracked_industry_entities }} industry entities watched · {{ feed.tracked_company_count }} companies · {{ feed.tracked_other_industry_count }} other industry entities</p>{% endif %}
       <p class="bos-lede">{{ feed.disclosure }}</p>
       {% if feed.fallback_notice %}<div class="bos-banner is-warning" role="status">{{ feed.fallback_notice }}</div>{% endif %}
 

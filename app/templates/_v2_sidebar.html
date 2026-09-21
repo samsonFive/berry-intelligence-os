@@ -123,7 +123,7 @@
 
   <p class="v2-nav-group">Library</p>
   <a href="/entities/company" class="v2-nav-link{% if path.startswith('/entities/company') %} is-active{% endif %}" title="Companies" aria-label="Companies">{{ nav_icon('company') }}<span class="v2-nav-text">Companies</span></a>
-  <a href="/entities/variety" class="v2-nav-link{% if path.startswith('/entities/variety') %} is-active{% endif %}" title="Varieties" aria-label="Varieties">{{ nav_icon('variety') }}<span class="v2-nav-text">Varieties</span></a>
+  <a href="/entities/variety" class="v2-nav-link{% if path.startswith('/entities/variety') %} is-active{% endif %}" title="Variety Database" aria-label="Variety Database"{% if path.startswith('/entities/variety') %} aria-current="page"{% endif %}>{{ nav_icon('variety') }}<span class="v2-nav-text">Variety Database</span></a>
   {% if not static_build %}
   <a href="/varieties/coverage" class="v2-nav-link{% if path.startswith('/varieties/coverage') %} is-active{% endif %}" title="Variety coverage" aria-label="Variety coverage">{{ nav_icon('variety') }}<span class="v2-nav-text">Variety coverage</span></a>
   {% endif %}

@@ -155,7 +155,7 @@ def test_today_is_feed_first_front_door(monkeypatch):
     assert 'value="7d" selected' in today.text
     assert "thumbs_up" in today.text
     assert "berry_os.css" in today.text
-    assert "companies watched" in today.text
+    assert "industry entities watched" in today.text
     assert "same-day" in today.text
     assert "not a live multi-lane poll" not in today.text
     assert "90 days" not in today.text
@@ -438,7 +438,9 @@ def test_following_tracks_seed_companies_and_excludes_registries():
     page = TestClient(app).get("/following")
     assert page.status_code == 200
     assert "data-feed-first-following" in page.text
-    assert "145 companies" in page.text or "145 seed companies" in page.text
+    assert "187 tracked industry entities" in page.text
+    assert "181 companies" in page.text
+    assert "6 other industry entities" in page.text
     assert "Candidate · unverified" in page.text
     assert "cpvo.europa.eu" not in page.text.lower()
     blueberry = TestClient(app).get("/following?crop=blueberry")

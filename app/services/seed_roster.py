@@ -25,6 +25,9 @@ from urllib.parse import urlparse
 from app.runtime_config import resolve_data_dir
 
 SEED_RELATIVE = Path("imports/berry-breeding-seed-2026-09-18/berry_breeding_entities.json")
+COVERAGE_MATRIX_RELATIVE = Path(
+    "imports/competitor-coverage-registry-2026-09-21/reconciliation-matrix.json"
+)
 REGISTRY_ENTITY_TYPE = "registry/source system"
 REGISTRY_VERIFICATION = "verified-primary"
 
@@ -199,6 +202,148 @@ def load_seed_rows(path: Path | None = None) -> list[dict[str, Any]]:
     return [row for row in payload if isinstance(row, dict)]
 
 
+def load_coverage_matrix(path: Path | None = None) -> dict[str, Any] | None:
+    """Load the operator-supplied 77-line reconciliation contract.
+
+    This is an identity/navigation projection only. It never turns the
+    registry into Evidence and never changes publication trust state.
+    """
+    matrix_path = path or (resolve_data_dir() / COVERAGE_MATRIX_RELATIVE)
+    if not matrix_path.is_file():
+        return None
+    payload = json.loads(matrix_path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict) or not isinstance(payload.get("rows"), list):
+        raise ValueError("competitor coverage matrix must contain a rows list")
+    return payload
+
+
+def _coverage_projection_rows(
+    existing: Iterable[dict[str, Any]],
+    *,
+    matrix_path: Path | None = None,
+) -> list[dict[str, Any]]:
+    """Project matrix-resolved canonical entities into the feed-first roster.
+
+    Canonical entity JSON remains the identity source of truth. The matrix
+    contributes only the exact input labels that must be searchable.
+    """
+    matrix = load_coverage_matrix(matrix_path)
+    if matrix is None:
+        return []
+    by_id = {str(entity.get("id") or ""): entity for entity in existing if entity.get("id")}
+    aliases_by_id: dict[str, list[str]] = {}
+    for row in matrix["rows"]:
+        ids = [str(value) for value in (row.get("canonical_entity_ids") or []) if value]
+        if not ids:
+            continue
+        input_name = str(row.get("input_registry_name") or "").strip()
+        parts = [part.strip() for part in input_name.split(" / ") if part.strip()]
+        for index, entity_id in enumerate(ids):
+            labels = aliases_by_id.setdefault(entity_id, [])
+            label = parts[index] if len(parts) == len(ids) else input_name
+            if label and label not in labels:
+                labels.append(label)
+
+    projected: list[dict[str, Any]] = []
+    for entity_id, registry_aliases in aliases_by_id.items():
+        entity = by_id.get(entity_id)
+        if entity is None:
+            continue
+        attributes = entity.get("attributes") if isinstance(entity.get("attributes"), dict) else {}
+        aliases = list(entity.get("aliases") or [])
+        for alias in registry_aliases:
+            if alias and alias != entity.get("name") and alias not in aliases:
+                aliases.append(alias)
+        website = str(
+            entity.get("website")
+            or attributes.get("website")
+            or attributes.get("official_website")
+            or ""
+        )
+        country = str(attributes.get("country") or attributes.get("headquarters") or "")
+        projected.append({
+            "seed_id": f"coverage-{entity_id}",
+            "canonical_name": str(entity.get("name") or entity_id),
+            "aliases": aliases,
+            "legal_name": str(entity.get("name") or entity_id),
+            "seed_entity_type": str(entity.get("entity_type") or "company"),
+            "country_hq": country,
+            "parent_or_successor": "",
+            "official_website": website if is_http_url(website) else "",
+            "resolved_website": "",
+            "logo_source_url": "",
+            "logo_rights_status": "none",
+            "crops": [
+                str(berry_id).removeprefix("berry-")
+                for berry_id in (entity.get("berry_ids") or [])
+                if str(berry_id).startswith("berry-")
+            ],
+            "roles": list(entity.get("roles") or []),
+            "global_activity": False,
+            "monitoring_tier": "tier2",
+            "monitoring_status": "watch",
+            "monitoring_enabled": True,
+            "verification_status": (
+                "verified-secondary" if entity.get("status") == "active" else "candidate-review"
+            ),
+            "status": str(entity.get("status") or "unverified"),
+            "candidate": entity.get("status") != "active",
+            "is_registry": False,
+            "evidence_url": "",
+            "evidence_summary": "",
+            "last_verified": "2026-09-21",
+            "research_notes": "",
+            "social": {},
+            "watches": [{"kind": "mention", "query": str(entity.get("name") or entity_id), "enabled": True}],
+            "repaired_fields": [],
+            "trusted_entity_id": entity_id,
+            "id": entity_id,
+            "entity_type": str(entity.get("entity_type") or "company"),
+            "competitor": True,
+            "coverage_registry": True,
+        })
+    return projected
+
+
+def _merge_coverage_projection(
+    roster: list[dict[str, Any]],
+    projected: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Merge by canonical id so aliases never create duplicate cards."""
+    merged = [dict(row) for row in roster]
+    index = {str(row.get("id") or ""): position for position, row in enumerate(merged)}
+    for projection in projected:
+        entity_id = str(projection.get("id") or "")
+        if not entity_id:
+            continue
+        position = index.get(entity_id)
+        if position is None:
+            index[entity_id] = len(merged)
+            merged.append(dict(projection))
+            continue
+        current = merged[position]
+        aliases = list(current.get("aliases") or [])
+        previous_name = str(current.get("canonical_name") or "")
+        for alias in [previous_name, *(projection.get("aliases") or [])]:
+            if alias and alias != projection.get("canonical_name") and alias not in aliases:
+                aliases.append(alias)
+        current["canonical_name"] = projection["canonical_name"]
+        current["aliases"] = aliases
+        current["trusted_entity_id"] = entity_id
+        current["id"] = entity_id
+        current["seed_entity_type"] = projection["seed_entity_type"]
+        current["entity_type"] = projection["entity_type"]
+        current["status"] = projection["status"]
+        current["candidate"] = projection["candidate"]
+        current["verification_status"] = projection["verification_status"]
+        current["country_hq"] = projection.get("country_hq") or current.get("country_hq") or ""
+        current["official_website"] = projection.get("official_website") or current.get("official_website") or ""
+        current["crops"] = list(dict.fromkeys([*(current.get("crops") or []), *(projection.get("crops") or [])]))
+        current["roles"] = list(dict.fromkeys([*(current.get("roles") or []), *(projection.get("roles") or [])]))
+        current["coverage_registry"] = True
+    return merged
+
+
 def _existing_indexes(existing: Iterable[dict[str, Any]]) -> tuple[dict[str, str], dict[str, str]]:
     by_name: dict[str, str] = {}
     by_host: dict[str, str] = {}
@@ -247,17 +392,30 @@ def build_roster(
     *,
     seed_path: Path | None = None,
 ) -> list[dict[str, Any]]:
-    by_name, by_host = _existing_indexes(existing or [])
+    existing_rows = list(existing or [])
+    by_name, by_host = _existing_indexes(existing_rows)
     rows = [repair_row(raw) for raw in load_seed_rows(seed_path)]
-    return [reconcile_row(row, by_name=by_name, by_host=by_host) for row in rows]
+    roster = [reconcile_row(row, by_name=by_name, by_host=by_host) for row in rows]
+    if seed_path is None:
+        roster = _merge_coverage_projection(roster, _coverage_projection_rows(existing_rows))
+    return roster
 
 
 def roster_counts(roster: list[dict[str, Any]]) -> dict[str, int]:
     competitors = [row for row in roster if row["competitor"]]
     registries = [row for row in roster if row["is_registry"]]
+    companies = [row for row in competitors if row.get("entity_type") == "company"]
+    other_industry_entities = [row for row in competitors if row.get("entity_type") != "company"]
     return {
         "seed_records": len(roster),
+        "tracked_industry_entities": len(competitors),
         "tracked_companies": len(competitors),
+        "companies": len(companies),
+        "other_industry_entities": len(other_industry_entities),
+        "brands": sum(1 for row in competitors if row.get("entity_type") == "brand"),
+        "breeding_programs": sum(
+            1 for row in competitors if row.get("entity_type") == "breeding_program"
+        ),
         "registries": len(registries),
         "candidates": sum(1 for row in competitors if row["candidate"]),
         "researched_secondary": sum(1 for row in competitors if row["verification_status"] == "verified-secondary"),
@@ -522,7 +680,12 @@ def logo_display_url(
     logo_overrides: dict[str, dict[str, Any]] | None = None,
 ) -> str:
     overrides = logo_overrides or {}
-    for key in (row.get("id"), row.get("trusted_entity_id"), row.get("seed_id")):
+    for key in (
+        row.get("id"),
+        row.get("trusted_entity_id"),
+        row.get("seed_id"),
+        seed_track_id(str(row.get("seed_id") or "")),
+    ):
         override = overrides.get(str(key or "")) or {}
         if override.get("url"):
             return str(override["url"])

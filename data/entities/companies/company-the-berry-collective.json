@@ -5,14 +5,13 @@
   "name": "The Berry Collective",
   "aliases": [],
   "status": "unverified",
-  "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 29) as a tracked competitor of type 'University/Public'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
+  "description": "The supplied registry and first-party venture material point to the Australian berry marketing venture associated with Mountain Blue and Oz Group Co-operative. It remains a distinct canonical company and stays unverified until normal human identity review.",
   "roles": [
-    "public_research_institution",
+    "marketer",
     "competitor"
   ],
   "berry_ids": [
-    "berry-strawberry",
-    "berry-raspberry"
+    "berry-blueberry"
   ],
   "evidence_ids": [
     "ev-competitor-registry-2026-09-15-import"
@@ -35,6 +34,11 @@
       "confidence": "low",
       "verification_date": "2026-09-15",
       "verified_by": "competitor-identity-genetics-verification-v1"
+    },
+    "website": "https://theberrycollective.com.au/",
+    "competitor_coverage_registry_2026_09_21": {
+      "input_name": "The Berry Collective",
+      "relationship_note": "Distinct joint venture of Mountain Blue and Oz Group; formal trusted Relationship records await normal evidence review."
     }
   }
 }

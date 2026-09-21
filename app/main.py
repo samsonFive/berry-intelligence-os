@@ -4042,6 +4042,9 @@ def _feed_first_today(request: Request) -> HTMLResponse:
     feed["lane_errors"] = bundle.get("lane_errors") or []
     feed["same_day_count"] = int((bundle.get("stats") or {}).get("same_day") or 0)
     feed["tracked_companies"] = world["counts"]["tracked_companies"]
+    feed["tracked_industry_entities"] = world["counts"]["tracked_industry_entities"]
+    feed["tracked_company_count"] = world["counts"]["companies"]
+    feed["tracked_other_industry_count"] = world["counts"]["other_industry_entities"]
     feed["cache_state"] = str(bundle.get("cache_state") or "fresh")
     feed["freshness_semantics"] = "stored-published" if feed.get("fallback_notice") else feed["cache_state"]
     if feed["cache_state"] == "missing":

@@ -2,18 +2,19 @@
   "id": "company-denning-blueberries",
   "record_type": "entity",
   "entity_type": "company",
-  "name": "Denning Blueberries",
-  "aliases": [],
+  "name": "Benning Blueberries",
+  "aliases": [
+    "Denning Blueberries"
+  ],
   "status": "unverified",
-  "description": "Added to the entity graph from the internal Competitor Registry spreadsheet snapshot (2026-09-15, row 9) as a tracked competitor of type 'Commercial'. Not yet independently verified or researched beyond that spreadsheet -- no company history, ownership, or activity detail is asserted here. See ev-competitor-registry-2026-09-15-import for provenance.",
+  "description": "The 2026-09-21 registry reconciliation found an official Australian Benning Blueberries site and retained the prior 'Denning Blueberries' label as a legacy alias on the stable canonical ID. Identity status remains unverified until normal human review.",
   "roles": [
-    "grower_marketer",
+    "grower",
+    "marketer",
     "competitor"
   ],
   "berry_ids": [
-    "berry-blueberry",
-    "berry-raspberry",
-    "berry-blackberry"
+    "berry-blueberry"
   ],
   "evidence_ids": [
     "ev-competitor-registry-2026-09-15-import"
@@ -33,6 +34,12 @@
       "confidence": "low",
       "verification_date": "2026-09-15",
       "verified_by": "competitor-identity-genetics-verification-v1"
+    },
+    "website": "https://benningblueberries.com.au/",
+    "competitor_coverage_registry_2026_09_21": {
+      "input_name": "Benning Blueberries",
+      "legacy_label": "Denning Blueberries",
+      "resolution_note": "Official-site match found after the prior audit; display-name correction is recorded without promoting identity trust state."
     }
   }
 }

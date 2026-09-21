@@ -13,7 +13,7 @@
     <main class="bos-canvas">
       <p class="bos-kicker">Following</p>
       <h1 class="bos-title">Companies you watch</h1>
-      <p class="bos-lede">{{ counts.tracked_companies }} seed companies are tracked for Today relevance. Candidates stay unverified. The six registries are queryable and never counted as competitors.</p>
+      <p class="bos-lede">{{ counts.tracked_industry_entities }} tracked industry entities include {{ counts.companies }} companies and {{ counts.other_industry_entities }} other industry entities. {{ counts.candidates }} candidates stay unverified. The {{ counts.registries }} registries are queryable and never counted as competitors.</p>
       <p class="bos-disclosure">{{ counts.mention_watches }} mention watches · {{ counts.official_site_watches }} official-site watches · {{ counts.matched_trusted }} matched to trusted catalog · {{ counts.seed_only }} seed-only · {{ counts.monitoring_status_repaired }} URL-status rows repaired</p>
 
       <form class="bos-filters" method="get" action="/following" aria-label="Following filters">
@@ -39,7 +39,7 @@
         <button class="bos-btn is-primary" type="submit">Apply</button>
       </form>
 
-      <p class="bos-meta">{{ rows|length }} showing · competitor count stays {{ counts.tracked_companies }}</p>
+      <p class="bos-meta">{{ rows|length }} showing · tracked industry entity count stays {{ counts.tracked_industry_entities }}</p>
       <div class="bos-roster">
         {% for row in rows %}
         <article class="bos-card is-tile" data-seed-id="{{ row.seed_id }}" data-verification="{{ row.verification_status }}" data-competitor="{{ 'true' if row.competitor else 'false' }}">
