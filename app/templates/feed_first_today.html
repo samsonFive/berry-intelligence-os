@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Today — Berry Intelligence OS{% endblock %}
+{% block title %}News — Berry Intelligence OS{% endblock %}
 {% block head_extra %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
 {% set selected = feed.selected %}
-<a class="bos-skip" href="#today-feed">Skip to Today feed</a>
+<a class="bos-skip" href="#today-feed">Skip to News feed</a>
 <div class="berry-os" data-feed-first data-feed-first-today data-freshness="same-day" data-today="{{ feed.today }}">
   <div class="bos-shell{% if selected %} has-reader{% endif %}" data-viewport-shell>
     <aside class="bos-rail" aria-label="Feed navigation">
@@ -27,15 +27,16 @@
     </aside>
 
     <main class="bos-canvas" id="today-feed">
-      <p class="bos-kicker">Today</p>
+      <p class="bos-kicker">News</p>
       <h1 class="bos-title">What changed</h1>
       {% if feed.tracked_companies %}<p class="bos-note">{{ feed.tracked_companies }} companies watched</p>{% endif %}
       <p class="bos-lede">{{ feed.disclosure }}</p>
+      {% if feed.fallback_notice %}<div class="bos-banner is-warning" role="status">{{ feed.fallback_notice }}</div>{% endif %}
 
       <form class="bos-filters" method="get" action="/today" aria-label="Feed filters">
         <label>Window
           <select name="window" aria-label="Time window">
-            <option value="today"{% if feed.filters.window == 'today' %} selected{% endif %}>Today (same calendar day)</option>
+            <option value="today"{% if feed.filters.window == 'today' %} selected{% endif %}>Today</option>
             <option value="7d"{% if feed.filters.window == '7d' %} selected{% endif %}>7 days</option>
             <option value="30d"{% if feed.filters.window == '30d' %} selected{% endif %}>30 days</option>
           </select>
@@ -48,9 +49,9 @@
             {% endfor %}
           </select>
         </label>
-        <label>Crop
-          <select name="crop" aria-label="Crop">
-            <option value="">All crops</option>
+        <label>Berry
+          <select name="crop" aria-label="Berry">
+            <option value="">All berries</option>
             {% for key, label in feed.crop_labels.items() %}
             <option value="{{ key }}"{% if feed.filters.crop == key %} selected{% endif %}>{{ label }}</option>
             {% endfor %}
@@ -107,10 +108,7 @@
       {% endif %}
 
       <p class="bos-meta" data-facet-counts>{{ feed.count }} in this window</p>
-      <p class="bos-note" data-keyboard-help>j / k move · u thumbs-up (again undoes) · d hide (again undoes) · s save · Esc close reader</p>
-      {% if selected %}
-      <button type="button" class="bos-btn bos-reader-reopen" data-reader-toggle aria-expanded="false" hidden>Show reader</button>
-      {% endif %}
+      <p class="bos-note" data-keyboard-help>j / k or ← / → move · u useful (again undoes) · d negative (again undoes) · s save · Esc close reader</p>
 
       {% if not feed.cards %}
       <div class="bos-empty">
@@ -152,10 +150,10 @@
               {% endfor %}
             </p>
             <div class="bos-actions">
-              <button type="button" class="bos-icon-btn" data-react="thumbs_up" data-item-id="{{ item.id }}" aria-pressed="{{ 'true' if item.decision.reaction == 'up' else 'false' }}" aria-label="Thumbs up">👍</button>
-              <button type="button" class="bos-icon-btn" data-react="thumbs_down" data-item-id="{{ item.id }}" aria-pressed="{{ 'true' if item.decision.reaction == 'down' else 'false' }}" aria-label="Thumbs down">👎</button>
-              <button type="button" class="bos-icon-btn" data-react="save" data-item-id="{{ item.id }}" aria-pressed="{{ 'true' if item.decision.saved else 'false' }}" aria-label="Save">Save</button>
-              <a class="bos-btn" href="{{ item.source_url }}" rel="noopener noreferrer">View original</a>
+              <button type="button" class="bos-icon-btn" data-react="thumbs_up" data-item-id="{{ item.id }}" aria-pressed="{{ 'true' if item.decision.reaction == 'up' else 'false' }}" aria-label="Useful — authorize extraction for confirmation" title="Useful — authorize extraction for confirmation">👍</button>
+              <button type="button" class="bos-icon-btn" data-react="thumbs_down" data-item-id="{{ item.id }}" aria-pressed="{{ 'true' if item.decision.reaction == 'down' else 'false' }}" aria-label="Not relevant" title="Not relevant">👎</button>
+              <button type="button" class="bos-icon-btn" data-react="save" data-item-id="{{ item.id }}" aria-pressed="{{ 'true' if item.decision.saved else 'false' }}" aria-label="Save for later" title="Save for later">🔖</button>
+              <a class="bos-icon-btn" href="{{ item.source_url }}" rel="noopener noreferrer" aria-label="View original" title="View original">↗</a>
             </div>
           </div>
         </article>
@@ -170,13 +168,12 @@
         <h2>{{ selected.headline }}</h2>
         <p class="bos-meta">{{ selected.source_name }} · {% if selected.date_uncertain %}date unknown{% else %}{{ selected.published_at or 'date unknown' }}{% endif %}</p>
         <div class="bos-actions">
-          {% if feed.prev_href %}<a class="bos-btn" data-prev-item href="{{ feed.prev_href }}">Previous</a>{% endif %}
-          {% if feed.next_href %}<a class="bos-btn" data-next-item href="{{ feed.next_href }}">Next</a>{% endif %}
-          <button type="button" class="bos-btn" data-reader-toggle aria-expanded="true">Collapse reader</button>
-          <a class="bos-btn" data-close-reader href="{{ feed.close_href }}">Close</a>
-          <button type="button" class="bos-icon-btn" data-react="thumbs_up" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'up' else 'false' }}" aria-label="Thumbs up">👍</button>
-          <button type="button" class="bos-icon-btn" data-react="thumbs_down" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'down' else 'false' }}" aria-label="Thumbs down">👎</button>
-          <button type="button" class="bos-icon-btn" data-react="save" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.saved else 'false' }}" aria-label="Save">Save</button>
+          {% if feed.prev_href %}<a class="bos-icon-btn" data-prev-item href="{{ feed.prev_href }}" aria-label="Previous story" title="Previous story">←</a>{% endif %}
+          {% if feed.next_href %}<a class="bos-icon-btn" data-next-item href="{{ feed.next_href }}" aria-label="Next story" title="Next story">→</a>{% endif %}
+          <a class="bos-icon-btn bos-reader-close" data-close-reader href="{{ feed.close_href }}" aria-label="Close reader" title="Close reader">×</a>
+          <button type="button" class="bos-icon-btn" data-react="thumbs_up" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'up' else 'false' }}" aria-label="Useful — authorize extraction for confirmation" title="Useful — authorize extraction for confirmation">👍</button>
+          <button type="button" class="bos-icon-btn" data-react="thumbs_down" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'down' else 'false' }}" aria-label="Not relevant" title="Not relevant">👎</button>
+          <button type="button" class="bos-icon-btn" data-react="save" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.saved else 'false' }}" aria-label="Save for later" title="Save for later">🔖</button>
           {% if selected.frame_allowed %}
           <button type="button" class="bos-btn" data-reader-mode="live_page">Open page</button>
           {% endif %}

@@ -111,7 +111,7 @@ BODY_TO_AVAILABILITY = {
 }
 
 NAV = (
-    ("Today", "/today"),
+    ("News", "/today"),
     ("Following", "/following"),
     ("Saved", "/saved"),
     ("Entities", "/entities"),
@@ -297,7 +297,7 @@ def parse_filters(params: dict[str, Any]) -> dict[str, str]:
         raw_window = str(params.get("window") or "").strip()
         window = raw_window if raw_window in WINDOWS else ""
     else:
-        window = "today"
+        window = "7d"
     return {
         "window": window,
         "tier": _one("tier", set(TIERS)),
@@ -864,8 +864,8 @@ def build_feed(
             raw = next((row for row in evidence if str(row.get("id")) == filters["item"]), None)
             if raw is not None:
                 selected = _present(raw)
-    if selected is None and visible:
-        selected = visible[0]
+    # News opens as a feed-first surface. A reader is an explicit selection,
+    # never an implicit first-card takeover of the initial viewport.
 
     ids = [item["id"] for item in visible]
     prev_id = next_id = ""

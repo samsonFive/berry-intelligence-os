@@ -353,32 +353,6 @@
   });
 
   const readerRoot = root.querySelector("[data-reader-root]");
-  const readerPanel = root.querySelector("[data-reader-panel]");
-  const viewportShell = root.querySelector("[data-viewport-shell]");
-  const readerReopen = root.querySelector(".bos-reader-reopen");
-
-  function setReaderCollapsed(collapsed) {
-    if (!readerRoot || !readerPanel || !viewportShell) return;
-    viewportShell.classList.toggle("is-reader-collapsed", collapsed);
-    readerPanel.hidden = collapsed;
-    root.querySelectorAll("[data-reader-toggle]").forEach(function (button) {
-      button.setAttribute("aria-expanded", collapsed ? "false" : "true");
-    });
-    if (readerReopen) readerReopen.hidden = !collapsed;
-    if (collapsed && readerReopen) {
-      readerReopen.focus();
-    } else if (!collapsed) {
-      readerRoot.focus();
-    }
-  }
-
-  root.addEventListener("click", function (event) {
-    const toggle = event.target.closest("[data-reader-toggle]");
-    if (!toggle) return;
-    event.preventDefault();
-    setReaderCollapsed(!viewportShell || !viewportShell.classList.contains("is-reader-collapsed"));
-  });
-
   if (readerRoot && readerRoot.getAttribute("data-item-id")) {
     postJSON("/api/feed-first/capture", { item_id: readerRoot.getAttribute("data-item-id") })
       .then(function (data) {
@@ -487,6 +461,14 @@
     if (event.target.matches("input, textarea, select")) return;
     if (event.metaKey || event.ctrlKey || event.altKey) return;
     const key = event.key;
+    if (key === "Escape") {
+      const close = root.querySelector("[data-close-reader]");
+      if (close && close.href) {
+        event.preventDefault();
+        close.click();
+      }
+      return;
+    }
     if (key === "j" || key === "ArrowRight") {
       const next = root.querySelector("[data-next-item]");
       if (next && next.href) {

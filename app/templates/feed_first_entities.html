@@ -16,9 +16,9 @@
       <p class="bos-lede">{{ counts.tracked_companies }} companies from the 2026-09-18 seed, plus {{ counts.registries }} registries kept out of competitor totals. This is not a trusted publication import.</p>
 
       <form class="bos-filters" method="get" action="/entities" aria-label="Entity filters">
-        <label>Crop
+        <label>Berry
           <select name="crop">
-            <option value="">All crops</option>
+            <option value="">All berries</option>
             {% for key, label in crop_labels.items() %}
             <option value="{{ key }}"{% if filters.crop == key %} selected{% endif %}>{{ label }}</option>
             {% endfor %}
@@ -39,9 +39,16 @@
         <button class="bos-btn is-primary" type="submit">Apply</button>
       </form>
 
+      <nav class="bos-az" aria-label="Companies A to Z">
+        {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
+        <a href="#entity-letter-{{ letter }}"{% if letter not in entity_letters %} aria-disabled="true" tabindex="-1"{% endif %}>{{ letter }}</a>
+        {% endfor %}
+      </nav>
       <p class="bos-meta">{{ rows|length }} showing · competitor count {{ counts.tracked_companies }} · registries {{ counts.registries }}</p>
       <div class="bos-roster">
         {% for row in rows %}
+        {% set letter = row.canonical_name[:1]|upper %}
+        {% if loop.first or letter != rows[loop.index0 - 1].canonical_name[:1]|upper %}<span class="bos-az-anchor" id="entity-letter-{{ letter }}" aria-hidden="true"></span>{% endif %}
         <article class="bos-card is-tile" data-entity-id="{{ row.id }}" data-verification="{{ row.verification_status }}">
           {% if row.logo_url %}
           <img class="bos-logo" src="{{ row.logo_url }}" alt="" width="40" height="40">

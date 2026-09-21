@@ -477,8 +477,9 @@ def test_playground_fixtures_are_not_the_today_corpus(monkeypatch):
     assert "14 million blueberry plants after 10 years" not in today.text
 
 
-def test_default_window_is_calendar_today():
-    assert parse_filters({})["window"] == "today"
+def test_default_window_is_seven_days_with_calendar_today_override_available():
+    assert parse_filters({})["window"] == "7d"
+    assert parse_filters({"window": "today"})["window"] == "today"
     assert parse_filters({"window": ""})["window"] == ""
     assert parse_filters({"window": "30d"})["window"] == "30d"
 
@@ -493,7 +494,7 @@ def test_today_window_is_calendar_equality_not_24h():
         filters=parse_filters({}),
         today=date(2026, 9, 21),
     )
-    assert [item["id"] for item in feed["cards"]] == ["ev-today"]
+    assert {item["id"] for item in feed["cards"]} == {"ev-today", "ev-yesterday"}
     week = build_feed(
         evidence=[yesterday, today_row],
         entities=_entities(),

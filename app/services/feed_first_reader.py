@@ -71,6 +71,34 @@ _BLOCKED_HOSTS = {
     "metadata.google.internal",
 }
 
+_LEADING_READER_BOILERPLATE = (
+    "before you continue",
+    "we use cookies",
+    "accept all cookies",
+    "manage consent",
+    "cookie preferences",
+    "enable javascript",
+    "javascript is required",
+    "disable your ad blocker",
+    "please disable your ad blocker",
+    "subscribe to continue",
+    "sign in to continue",
+    "this content is for subscribers",
+    "enable cookies",
+)
+
+
+def suppress_leading_boilerplate(passages: list[str]) -> list[str]:
+    """Display-only removal of contiguous acquisition boilerplate at the start."""
+    rows = [str(row).strip() for row in passages if str(row).strip()]
+    index = 0
+    while index < len(rows):
+        head = rows[index].casefold()
+        if not any(token in head for token in _LEADING_READER_BOILERPLATE):
+            break
+        index += 1
+    return rows[index:]
+
 
 def capture_path(inbox_dir: Path, item_id: str) -> Path:
     safe = re.sub(r"[^A-Za-z0-9._:-]+", "-", item_id)[:200]
@@ -119,7 +147,7 @@ def sanitize_reader_html(html: str) -> str:
 def paragraphs_from_html(html: str) -> list[str]:
     cleaned = sanitize_reader_html(html)
     found = [decode_html_text(chunk) for chunk in _P_RE.findall(cleaned)]
-    passages = [row for row in found if len(row) >= 40]
+    passages = suppress_leading_boilerplate([row for row in found if len(row) >= 40])
     if passages:
         return passages[:24]
     blob = decode_html_text(cleaned)

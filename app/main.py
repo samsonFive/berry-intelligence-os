@@ -3991,6 +3991,27 @@ def _feed_first_today(request: Request) -> HTMLResponse:
         people=people,
         captures=captures,
     )
+    if not feed["cards"] and filters.get("window") == "7d" and bundle.get("cache_state") != "missing":
+        recent = sorted(
+            [row for row in published_evidence() if isinstance(row, dict)],
+            key=lambda row: str(row.get("published_date") or ""),
+            reverse=True,
+        )
+        if recent:
+            fallback_filters = dict(filters)
+            fallback_filters["window"] = ""
+            feed = build_feed(
+                evidence=recent,
+                entities=world["entities"],
+                state=world["state"],
+                filters=fallback_filters,
+                today=today,
+                disclosure="No monitored stories were available in the last 7 days. Showing the most recent monitored news as an honest fallback.",
+                people=people,
+                captures=captures,
+            )
+            feed["filters"] = filters
+            feed["fallback_notice"] = "Most recent monitored news · outside the seven-day window"
     feed["fetched_at"] = bundle.get("fetched_at")
     feed["lanes"] = bundle.get("lanes") or []
     feed["lane_errors"] = bundle.get("lane_errors") or []
@@ -4145,6 +4166,7 @@ def feed_first_entities_page(request: Request) -> HTMLResponse:
         include_registries=include_registries,
         logo_overrides=load_logo_overrides(INBOX_DIR),
     )
+    entity_letters = {str(row.get("canonical_name") or "")[:1].upper() for row in model["rows"] if row.get("canonical_name")}
     return templates.TemplateResponse(
         request=request,
         name="feed_first_entities.html",
@@ -4157,6 +4179,7 @@ def feed_first_entities_page(request: Request) -> HTMLResponse:
             "crop_labels": world["crop_labels"],
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
+            "entity_letters": entity_letters,
         },
     )
 
