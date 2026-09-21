@@ -1,0 +1,356 @@
+{% extends "base.html" %}
+{% block title %}{{ identity.canonical_name }} — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<a class="bos-skip" href="#snapshot">Skip to variety dossier</a>
+<div class="berry-os" data-feed-first data-feed-first-variety data-entity-id="{{ entity.id }}">
+  <div class="bos-shell bos-dossier-shell">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-dossier-canvas">
+      <header class="bos-dossier-header">
+        <div class="bos-entity-lockup">
+          <div class="bos-entity-logo-frame">
+            <span class="bos-monogram bos-entity-logo-fallback">{{ identity.canonical_name[:2]|upper }}</span>
+          </div>
+          <div>
+            <p class="bos-kicker">Variety</p>
+            <h1 class="bos-title">{{ identity.canonical_name }}</h1>
+            <p class="bos-meta">
+              {% if entity.status %}<span class="bos-archetype-pill">{{ entity.status|replace('_',' ') }}</span>{% endif %}
+              {% for berry_id in entity.berry_ids %}<span class="bos-chip" data-crop="{{ berry_id|replace('berry-','') }}">{{ berry_label(berry_id) }}</span>{% endfor %}
+            </p>
+            {% if identity.aliases %}<p class="bos-lede">Also known as {{ identity.aliases|join(', ') }}</p>{% endif %}
+            {% if identity.commercial_names or identity.denomination or identity.breeder_code %}
+            <p class="bos-meta">
+              {% if identity.commercial_names %}<span>Commercial name {{ identity.commercial_names|join(', ') }}</span>{% endif %}
+              {% if identity.denomination %}<span>Denomination {{ identity.denomination }}</span>{% endif %}
+              {% if identity.breeder_code %}<span>Breeder code {{ identity.breeder_code }}</span>{% endif %}
+            </p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="bos-actions">
+          {% if not static_build %}
+          <form method="post" action="/watches/toggle">
+            <input type="hidden" name="watch_type" value="variety">
+            <input type="hidden" name="object_id" value="{{ entity.id }}">
+            <input type="hidden" name="action" value="{{ 'remove' if is_watched else 'add' }}">
+            <input type="hidden" name="return_to" value="{{ request.url.path }}">
+            <button class="bos-btn is-primary" type="submit">{{ 'Remove from watchlist' if is_watched else 'Add to watchlist' }}</button>
+          </form>
+          {% endif %}
+          <a class="bos-btn" href="/entities/variety">Variety Database</a>
+          <a class="bos-btn" href="/entities/variety/{{ entity.id }}?view=legacy">Full catalog profile</a>
+        </div>
+      </header>
+
+      <nav class="bos-dossier-outline" aria-label="Variety sections">
+        <a href="#roles">Roles</a><a href="#rights">Rights &amp; IP</a><a href="#commercial-footprint">Commercial footprint</a>
+        <a href="#growing-profile">Growing profile</a><a href="#variety-intelligence">Variety intelligence</a><a href="#traits">Trait profile</a>
+        <a href="#intelligence-timeline">Timeline</a><a href="#recent-intelligence">Recent intelligence</a><a href="#network">Network</a><a href="#evidence-gaps">Signals &amp; questions</a>
+      </nav>
+
+      {% if entity.description %}
+      <section class="bos-dossier-section">
+        <p class="bos-lede">{{ entity.description|truncate(360) }}</p>
+        {% if identity.package_note %}<p class="bos-note">{{ identity.package_note }}</p>{% endif %}
+      </section>
+      {% endif %}
+
+      {% if regions %}
+      <section class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Regions</p><h2>Where this appears</h2></div>
+        <p class="bos-meta">{{ regions|join(', ') }}</p>
+      </section>
+      {% endif %}
+
+      {% if uk_named_pilot %}
+      <p class="bos-note">UK retail pilot named-variety case. Only two listings in that 18-observation pilot named a cultivar. Absence of other UK listings here does not mean this variety is unknown globally.</p>
+      {% endif %}
+
+      {% if identity_issues %}
+      <section class="bos-dossier-section" id="identity-issues">
+        <div class="bos-section-heading"><p class="bos-kicker">Identity</p><h2>Unresolved identity issues</h2><p class="bos-note">Inbox candidates that may be this variety. Not canonical aliases until a reviewer confirms them. Live/authoring only.</p></div>
+        <ul class="bos-portfolio-list">
+          {% for issue in identity_issues %}
+          <li><span class="bos-state-pill">{{ issue.identity_label|replace('_',' ') }}</span> <a href="/varieties/candidates#{{ issue.id }}">{{ issue.candidate_name }}</a>{% if issue.jurisdiction %} · {{ issue.jurisdiction }}{% endif %}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      <section id="roles" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Identity &amp; Structure</p><h2>Who is involved</h2></div>
+        <dl class="bos-dossier-dl">
+          {% for bucket, label in role_labels.items() %}
+          <dt>{{ label }}</dt>
+          <dd>{% if roles[bucket] %}{% for party in roles[bucket] %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% else %}<span class="bos-gap-text">Not recorded</span>{% endif %}</dd>
+          {% endfor %}
+        </dl>
+      </section>
+
+      <section id="rights" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Rights &amp; IP</p><h2>Filings on record</h2><p class="bos-note">USPTO, CPVO, and other filings as recorded. Pending-review drafts are not trusted grants.</p></div>
+        <dl class="bos-dossier-dl">
+          <dt>Breeding program</dt>
+          <dd>{% if variety_breeding_program %}<a href="/entities/breeding_program/{{ variety_breeding_program.id }}">{{ variety_breeding_program.name }}</a>{% else %}<span class="bos-gap-text">Not linked in the dataset</span>{% endif %}</dd>
+          <dt>Patent / IP right</dt>
+          <dd>{% if variety_patent_link %}<a href="/entities/patent/{{ variety_patent_link.id }}">{{ variety_patent_link.name }}</a>{% elif entity.attributes and entity.attributes.patent_number %}{{ entity.attributes.patent_number }} — <span class="bos-gap-text">no matching patent record found in the dataset</span>{% else %}<span class="bos-gap-text">no patent number recorded</span>{% endif %}</dd>
+        </dl>
+        {% if rights_published or rights_drafts %}
+        <ul class="bos-portfolio-list">
+          {% for row in rights_published %}
+          <li><span class="bos-state-pill is-answered">Trusted</span> {{ row.kind }} · <a href="{{ row.trusted_href }}">{{ row.title }}</a>{% if row.published_date %} · {{ row.published_date }}{% endif %}</li>
+          {% endfor %}
+          {% for row in rights_drafts %}
+          <li><span class="bos-state-pill">Pending review</span> {{ row.kind }} · {{ row.title }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </section>
+
+      <section id="commercial-footprint" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Scale &amp; Performance</p><h2>Commercial footprint</h2><p class="bos-note">Derived from commercial_observation Evidence. An observation is not proof of market scale.</p></div>
+        <dl class="bos-dossier-dl">
+          <dt>Countries observed</dt>
+          <dd>{% if countries_observed %}{% for geo in countries_observed %}{% if geo.href %}<a href="{{ geo.href }}">{{ geo.name }}</a>{% else %}{{ geo.name }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}<span class="bos-gap-text">None recorded</span>{% endif %}</dd>
+          <dt>Retailers / channels</dt>
+          <dd>{% if retailers_observed %}{% for party in retailers_observed %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% else %}<span class="bos-gap-text">None recorded</span>{% endif %}</dd>
+          <dt>Observed window</dt>
+          <dd>{% if footprint.first_observed %}{{ footprint.first_observed }}{% else %}—{% endif %} to {% if footprint.latest_observed %}{{ footprint.latest_observed }}{% else %}—{% endif %}</dd>
+        </dl>
+        {% if observations %}
+        <ul class="bos-portfolio-list">
+          {% for obs in observations %}
+          <li>
+            <a href="{{ obs.trusted_href or obs.href }}">{{ obs.title }}</a>
+            {% if obs.retailer_name %} · {{ obs.retailer_name }}{% endif %}{% if obs.market_country %} · {{ obs.market_country }}{% endif %}{% if obs.observed_at %} · {{ obs.observed_at }}{% endif %}
+            {% if obs.is_draft %} · <span class="bos-state-pill">Pending review</span>{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}<p class="bos-gap-text">No commercial observations linked to this variety.</p>{% endif %}
+      </section>
+
+      <section id="growing-profile" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Educational context</p><h2>Growing profile</h2><p class="bos-note">Educational context for traits already captured on trusted Facts — a map onto Learner Mode, not a farm guide, not a competitive score, and not a new Fact.</p></div>
+        {% if growing_profile and growing_profile.has_any %}
+        <ul class="bos-portfolio-list">
+          {% for row in growing_profile.rows %}
+          <li><span class="bos-state-pill">Educational knowledge</span> <a href="{{ row.href }}">{{ row.name }}</a>{% if row.trait_names %} · {{ row.trait_names|join(', ') }}{% endif %}</li>
+          {% endfor %}
+        </ul>
+        {% else %}<p class="bos-gap-text">No captured trait-tagged Facts currently link this variety to Learner Mode concepts.</p>{% endif %}
+      </section>
+
+      <section id="variety-intelligence" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Facts</p><h2>Variety intelligence</h2><p class="bos-note">Evidence-backed product, postharvest, and production observations, grouped by real trait entities and Fact classification.</p></div>
+        {% if evidence_coverage and evidence_coverage.observation_count %}
+        <p class="bos-meta"><span class="bos-kicker">Overall variety evidence coverage</span> {{ evidence_coverage.observation_count }} trusted observation{{ 's' if evidence_coverage.observation_count != 1 else '' }} · {{ evidence_coverage.source_count }} source{{ 's' if evidence_coverage.source_count != 1 else '' }}{% if evidence_coverage.geography_count %} · {{ evidence_coverage.geography_count }} geograph{{ 'ies' if evidence_coverage.geography_count != 1 else 'y' }}{% endif %}{% if evidence_coverage.latest_date %} · Latest {{ evidence_coverage.latest_date }}{% endif %}</p>
+        {% endif %}
+        {% if variety_intelligence and variety_intelligence.has_any %}
+          {% for group in variety_intelligence.groups %}
+          <h3 class="bos-note">{{ group.label }} ({{ group.rows|length }})</h3>
+          {% for row in group.rows %}
+          <article class="bos-fact-block">
+            <p class="bos-meta">
+              <span class="bos-state-pill {{ 'is-answered' if row.classification == 'fact' else '' }}">{{ row.classification|upper }}</span>
+              {% if row.confidence %}Confidence {{ row.confidence }}{% endif %}
+              {% for chip in row.trait_chips %}<span class="bos-chip">{{ chip.name }}</span>{% set explain_href = learn_href_for_trait(chip.id) %}{% if explain_href %} <a href="{{ explain_href }}" title="Explain this: {{ chip.name }}">Explain this</a>{% endif %}{% endfor %}
+            </p>
+            <p>{% if row.evidence_href %}<a href="{{ row.evidence_href }}">{{ row.statement }}</a>{% else %}{{ row.statement }}{% endif %}</p>
+            <p class="bos-meta">{{ row.source_name or "—" }} · {{ row.source_type_label }}{% if row.published_date %} · {{ row.published_date }}{% elif row.captured_date %} · {{ row.captured_date }}{% endif %}</p>
+            {% if row.geography %}<p class="bos-meta">{% for g in row.geography %}<a href="{{ g.href }}">{{ g.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+            {% if row.does_not_prove %}<p class="bos-note">Does not prove: {{ row.does_not_prove|join('; ') }}</p>{% endif %}
+            <p class="bos-meta"><a href="{{ row.fact_href }}">View Fact</a>{% if row.additional_source_count %} · +{{ row.additional_source_count }} more source{{ 's' if row.additional_source_count != 1 else '' }}{% endif %}</p>
+          </article>
+          {% endfor %}
+          {% endfor %}
+        {% else %}<p class="bos-gap-text">No trusted variety-level product or performance observations have been captured yet.</p>{% endif %}
+      </section>
+
+      <section id="intelligence-timeline" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">History</p><h2>Intelligence timeline</h2><p class="bos-note">Chronological history assembled from existing trusted Evidence, Facts, Relationships, Signals, and Assessments — a derived view, not a new record type. Meaningful real-world dates are preferred over record-created timestamps; an item with none is marked below rather than dated arbitrarily.</p></div>
+        {% if intelligence_timeline and intelligence_timeline.has_any %}
+        <p class="bos-meta">{{ intelligence_timeline.dated_count }} dated item{{ 's' if intelligence_timeline.dated_count != 1 else '' }}{% if intelligence_timeline.undated_count %} · {{ intelligence_timeline.undated_count }} undated{% endif %}</p>
+        {% if intelligence_timeline.kinds_present|length > 1 or intelligence_timeline.berries_present %}
+        <form class="bos-filters" data-timeline-filters onsubmit="return false;">
+          <label>Type
+            <select data-timeline-kind-filter>
+              <option value="">All</option>
+              {% for kind in intelligence_timeline.kinds_present %}<option value="{{ kind }}">{{ {"evidence": "Evidence", "rights": "Rights / IP", "commercial": "Commercial", "fact": "Facts", "relationship": "Relationships", "signal": "Signals", "assessment": "Assessments"}[kind] }}</option>{% endfor %}
+            </select>
+          </label>
+          {% if intelligence_timeline.berries_present|length > 1 %}
+          <label>Berry
+            <select data-timeline-berry-filter>
+              <option value="">All</option>
+              {% for berry_id in intelligence_timeline.berries_present %}<option value="{{ berry_id }}">{{ berry_label(berry_id) }}</option>{% endfor %}
+            </select>
+          </label>
+          {% endif %}
+          <label>Date range
+            <select data-timeline-range-filter>
+              <option value="">All time</option>
+              <option value="90">Last 90 days</option>
+              <option value="365">Last year</option>
+            </select>
+          </label>
+        </form>
+        <script>
+        (function () {
+          var scope = document.getElementById('intelligence-timeline');
+          if (!scope || scope.dataset.timelineBound) return;
+          scope.dataset.timelineBound = '1';
+          var kindSel = scope.querySelector('[data-timeline-kind-filter]');
+          var berrySel = scope.querySelector('[data-timeline-berry-filter]');
+          var rangeSel = scope.querySelector('[data-timeline-range-filter]');
+          var rows = scope.querySelectorAll('[data-timeline-row]');
+          function apply() {
+            var kind = kindSel ? kindSel.value : '';
+            var berry = berrySel ? berrySel.value : '';
+            var days = rangeSel ? parseInt(rangeSel.value, 10) : 0;
+            var cutoff = null;
+            if (days) { cutoff = new Date(); cutoff.setDate(cutoff.getDate() - days); }
+            rows.forEach(function (row) {
+              var show = true;
+              if (kind && row.dataset.kind !== kind) show = false;
+              if (show && berry && (row.dataset.berries || '').split(',').indexOf(berry) === -1) show = false;
+              if (show && cutoff) {
+                var d = row.dataset.date ? new Date(row.dataset.date) : null;
+                if (!d || d < cutoff) show = false;
+              }
+              row.style.display = show ? '' : 'none';
+            });
+          }
+          [kindSel, berrySel, rangeSel].forEach(function (el) { if (el) el.addEventListener('change', apply); });
+        })();
+        </script>
+        {% endif %}
+        {% for row in intelligence_timeline.dated %}
+        <article class="bos-fact-block" data-timeline-row data-kind="{{ row.kind }}" data-date="{{ row.date }}" data-berries="{{ row.berry_ids|join(',') }}">
+          <p class="bos-meta">
+            <span>{{ row.date if row.date else "Undated" }}</span>
+            <span class="bos-state-pill {{ 'is-answered' if row.kind in ('evidence','rights','commercial') else '' }}">{{ row.kind_label if row.kind_label is defined else row.kind|upper }}</span>
+            {% if row.confidence %}{{ row.confidence }} confidence{% endif %}
+            {% if row.is_fallback_date %}<span class="bos-gap-text">(recorded date)</span>{% endif %}
+          </p>
+          <p>
+            {% if row.kind in ('evidence', 'rights', 'commercial') and row.evidence_href %}<a href="{{ row.evidence_href }}">{{ row.headline }}</a>
+            {% elif row.reader_href %}<a href="{{ row.reader_href }}">{{ row.headline }}</a>
+            {% else %}{{ row.headline }}{% endif %}
+          </p>
+          {% if row.excerpt %}<p class="bos-note">{{ row.excerpt|truncate(220) }}</p>{% endif %}
+          {% if row.source_name or row.source_type_label %}<p class="bos-meta">{{ row.source_name }}{% if row.source_type_label %} · {{ row.source_type_label }}{% endif %}</p>{% endif %}
+          {% if row.does_not_prove %}<p class="bos-note">Does not prove: {{ row.does_not_prove|join('; ') }}</p>{% endif %}
+          {% if row.lineage %}<p class="bos-meta">Derived from {% for item in row.lineage %}<a href="{{ item.href }}">{{ item.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+        </article>
+        {% endfor %}
+        {% if intelligence_timeline.undated %}
+        <h3 class="bos-note">Undated / date not established</h3>
+        {% for row in intelligence_timeline.undated %}
+        <article class="bos-fact-block" data-timeline-row data-kind="{{ row.kind }}" data-date="" data-berries="{{ row.berry_ids|join(',') }}">
+          <p class="bos-meta"><span class="bos-state-pill">{{ row.kind_label if row.kind_label is defined else row.kind|upper }}</span></p>
+          <p>{% if row.kind in ('evidence', 'rights', 'commercial') and row.evidence_href %}<a href="{{ row.evidence_href }}">{{ row.headline }}</a>{% elif row.reader_href %}<a href="{{ row.reader_href }}">{{ row.headline }}</a>{% else %}{{ row.headline }}{% endif %}</p>
+        </article>
+        {% endfor %}
+        {% endif %}
+        {% else %}<p class="bos-gap-text">No dated trusted intelligence has been captured yet.</p>{% endif %}
+      </section>
+
+      <section id="traits" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Facts</p><h2>Trait profile</h2><p class="bos-note">Evidence-backed rows only as recorded on the Variety. Owner/marketer claims are labeled and are not trusted Facts.</p></div>
+        {% if variety_trait_profile %}
+        <dl class="bos-dossier-dl">
+          {% for row in variety_trait_profile %}
+          <dt>{{ row.trait_name|replace('_',' ')|title }}</dt>
+          <dd>
+            {{ row.value }}{% if row.conditions %} ({{ row.conditions }}){% endif %}
+            {% if row.is_unresolved %}<span class="bos-state-pill">UNRESOLVED</span>
+            {% elif row.is_claim %}<span class="bos-state-pill">OWNER/MARKETER CLAIM</span>
+            {% else %}<span class="bos-state-pill is-answered">{{ row.provenance|replace('_',' ')|upper }}</span>{% endif %}
+            {% if row.asserted_by %} · {{ row.asserted_by }}{% endif %}
+          </dd>
+          {% endfor %}
+        </dl>
+        {% else %}<p class="bos-gap-text">No structured trait data recorded for this variety yet — see Variety intelligence above for unstructured mentions.</p>{% endif %}
+      </section>
+
+      {% if open_signals and (open_signals.emerging or open_signals.confirmed or open_signals.deferred) %}
+      <section class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Signals</p><h2>Open signals</h2><p class="bos-note">Untrusted Signal candidates that name this variety. Emerging is not confirmed. Confirm does not publish a trusted Signal.</p></div>
+        <ul class="bos-portfolio-list">
+          {% for item in open_signals.emerging %}<li><span class="bos-state-pill">Emerging</span> <a href="{{ item.href }}">{{ item.label }}</a> · {{ item.support_label }}</li>{% endfor %}
+          {% for item in open_signals.confirmed %}<li><span class="bos-state-pill is-answered">Confirmed</span> <a href="{{ item.href }}">{{ item.label }}</a> · {{ item.support_label }}</li>{% endfor %}
+          {% for item in open_signals.deferred %}<li><span class="bos-state-pill">Deferred</span> <a href="{{ item.href }}">{{ item.label }}</a> · {{ item.support_label }}</li>{% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      <section id="evidence-gaps" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Evidence, Gaps &amp; Conflicts</p><h2>Signals, assessments &amp; strategic questions</h2></div>
+        {% if entity_signals or entity_assessments or entity_recommendations %}
+        <ul class="bos-portfolio-list">
+          {% for s in entity_signals %}<li><span class="bos-state-pill">Signal</span> <a href="/signals/{{ s.id }}">{{ s.title }}</a> · {{ s.status|upper }}</li>{% endfor %}
+          {% for a in entity_assessments %}<li><span class="bos-state-pill {{ 'is-answered' if not a.ai_proposed else '' }}">{{ 'AI PROPOSED' if a.ai_proposed else 'REVIEWED' }}</span> <a href="/assessments/{{ a.id }}">{{ a.title }}</a>{% if a.berry_scope %} · {{ a.berry_scope.label }}{% endif %}</li>{% endfor %}
+          {% for r in entity_recommendations %}<li><span class="bos-state-pill">Recommendation</span> <a href="/recommendations/{{ r.id }}">{{ r.title }}</a></li>{% endfor %}
+        </ul>
+        {% else %}<p class="bos-gap-text">No Signals, Assessments, or Recommendations linked yet.</p>{% endif %}
+        {% if entity_strategic_questions %}
+        <p class="bos-kicker">Strategic questions this bears on</p>
+        <ul class="bos-portfolio-list">
+          {% for sq in entity_strategic_questions %}<li><a href="/strategic-questions/{{ sq.id }}">{{ sq.title }}</a></li>{% endfor %}
+        </ul>
+        {% endif %}
+      </section>
+
+      <section id="recent-intelligence" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Recent Changes</p><h2>Recent intelligence</h2><p class="bos-note">Story Threads and Evidence naming this variety. Opens in the Today reader.</p></div>
+        {% if recent_cards %}
+        <ul class="bos-portfolio-list">
+          {% for item in recent_cards %}
+          <li>
+            {% if item.is_thread %}<span class="bos-state-pill">Story</span> <a href="{{ item.href }}">{{ item.title }}</a>
+            {% else %}<span class="bos-state-pill {{ 'is-answered' if item.trust == 'trusted' else '' }}">{{ item.trust_label }}</span> <a href="/today?item={{ item.id }}">{{ item.title }}</a>{% endif %}
+            {% if item.source_name %} · {{ item.source_name }}{% endif %}{% if item.date %} · {{ item.date }}{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}<p class="bos-gap-text">No recent intelligence linked to this variety.</p>{% endif %}
+      </section>
+
+      <section id="network" class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Partnerships &amp; Relationships</p><h2>Network</h2><p class="bos-note">Directed, evidenced edges. "Markets" is a marketer role, not ownership.</p></div>
+        {% if grouped_relationships %}
+        <ul class="bos-portfolio-list">
+          {% for rel in grouped_relationships %}
+          <li>
+            {% if rel.direction == 'outgoing' %}<strong>{{ entity.name }}</strong> {{ rel.predicate|replace('_',' ') }} <a href="/entities/{{ rel.other.entity_type }}/{{ rel.other.id }}">{{ rel.other.name }}</a>
+            {% else %}<a href="/entities/{{ rel.other.entity_type }}/{{ rel.other.id }}">{{ rel.other.name }}</a> {{ rel.predicate|replace('_',' ') }} <strong>{{ entity.name }}</strong>{% endif %}
+            · <span class="bos-state-pill">{{ rel.other.entity_type|replace('_',' ')|upper }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}<p class="bos-gap-text">No recorded relationships to other entities yet.</p>{% endif %}
+      </section>
+
+      {% if linked_facts %}
+      <section class="bos-dossier-section">
+        <div class="bos-section-heading"><p class="bos-kicker">Facts</p><h2>All linked Facts</h2></div>
+        <ul class="bos-portfolio-list">
+          {% for fact in linked_facts %}<li><a href="/facts/{{ fact.id }}">{{ fact.statement }}</a></li>{% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      <p class="bos-note">Full chronological timeline and in-page evidence reader remain on the <a href="/entities/variety/{{ entity.id }}?view=legacy">full catalog profile</a>.</p>
+    </main>
+  </div>
+</div>
+<script src="/static/feed_first.js"></script>
+{% endblock %}

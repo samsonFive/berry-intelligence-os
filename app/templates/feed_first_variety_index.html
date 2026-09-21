@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block title %}Variety Database — Berry Intelligence OS{% endblock %}
+{% block head_extra %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/berry_os.css">
+{% endblock %}
+{% block content %}
+<div class="berry-os" data-feed-first data-feed-first-variety-index>
+  <div class="bos-shell">
+    {% include "_feed_first_rail.html" %}
+    <main class="bos-canvas">
+      <p class="bos-kicker">Variety Database</p>
+      <h1 class="bos-title">Competitive identity, rights &amp; footprint</h1>
+      <p class="bos-lede">Who bred/owns/markets each variety, what rights exist, where it has been observed, and what changed. Commercial observations are Evidence, never Facts.</p>
+      {% if universe is defined and universe %}
+      <p class="bos-meta" title="Raw counts. Not a completeness score. Candidate names are not trusted Varieties.">Trusted Varieties: {{ universe.trusted_varieties }} · Discovered Candidates: {{ universe.discovered_candidates }} · Unresolved identities: {{ universe.unresolved_identities }}</p>
+      {% endif %}
+
+      <div class="bos-actions" aria-label="Variety surfaces">
+        <a class="bos-btn is-primary" href="/entities/variety" aria-current="page">Varieties · {{ variety_cards|length }}</a>
+        <a class="bos-btn" href="/entities/variety?view=compete">Competition</a>
+        <a class="bos-btn" href="/entities/variety?view=observations">Observations · {{ observation_total_count }}</a>
+      </div>
+
+      {% if berry_inventory %}
+      <p class="bos-meta">Catalog — {% for row in berry_inventory %}{{ row.label }} {{ row.count }}{% if row.thin %} (thin){% endif %}{% if not loop.last %} · {% endif %}{% endfor %}</p>
+      {% endif %}
+
+      <form class="bos-filters" method="get" action="/entities/variety" aria-label="Filter varieties">
+        <label>Search
+          <input type="search" name="q" value="{{ filters.q }}" placeholder="Name, alias, trade name, or breeder code…">
+        </label>
+        <label>Berry
+          <select name="berry">
+            <option value="">All berries</option>
+            {% for berry_id, label in berries.items() %}<option value="{{ berry_id }}"{% if filters.berry == berry_id %} selected{% endif %}>{{ label }}</option>{% endfor %}
+          </select>
+        </label>
+        <label>Geography
+          <select name="region">
+            <option value="">All regions</option>
+            {% for r in regions %}<option value="{{ r }}"{% if filters.region == r %} selected{% endif %}>{{ r }}</option>{% endfor %}
+          </select>
+        </label>
+        <label>Company / breeder
+          <select name="company">
+            <option value="">All companies</option>
+            {% for c in companies %}<option value="{{ c.id }}"{% if filters.company == c.id %} selected{% endif %}>{{ c.name }}</option>{% endfor %}
+          </select>
+        </label>
+        <label><input type="checkbox" name="has_rights" value="1"{% if filters.has_rights %} checked{% endif %}> Rights / IP present</label>
+        <label><input type="checkbox" name="has_observation" value="1"{% if filters.has_observation %} checked{% endif %}> Commercial observation present</label>
+        <label><input type="checkbox" name="has_product_evidence" value="1"{% if filters.has_product_evidence %} checked{% endif %}> Product / performance Evidence present</label>
+        <label><input type="checkbox" name="has_signal" value="1"{% if filters.has_signal %} checked{% endif %}> Signal present</label>
+        <button class="bos-btn is-primary" type="submit">Apply</button>
+        <a class="bos-btn" href="/entities/variety">Clear</a>
+      </form>
+
+      <p class="bos-meta">Showing {{ variety_cards|length }} of {{ total_count }} varieties</p>
+      <div class="bos-roster">
+        {% for card in variety_cards %}
+        <article class="bos-card is-tile" data-entity-id="{{ card.id }}">
+          <p class="bos-kicker">
+            {% for name in card.berries %}<span class="bos-chip">{{ name }}</span>{% endfor %}
+            {% if card.has_rights %}<span>{{ card.rights_summary }}</span>{% else %}<span class="bos-gap-text">No filings recorded</span>{% endif %}
+          </p>
+          <h3><a href="{{ card.href }}">{{ card.name }}</a></h3>
+          {% if card.identity.commercial_names or card.identity.aliases %}
+          <p class="bos-meta">
+            {% if card.identity.commercial_names %}Commercial {{ card.identity.commercial_names|join(', ') }}{% endif %}
+            {% if card.identity.aliases %} · Aliases {{ card.identity.aliases|join(', ') }}{% endif %}
+          </p>
+          {% endif %}
+          <p class="bos-summary">
+            Breeder {% if card.breeders %}{% for party in card.breeders %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% else %}—{% endif %}
+            · Owner {% if card.owners %}{% for party in card.owners %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% else %}—{% endif %}
+          </p>
+          <p class="bos-meta">
+            Markets {% if card.markets_observed %}{{ card.markets_observed|join(', ')|truncate(80, True) }}{% else %}None recorded{% endif %}
+            {% if card.observation_count %} · {{ card.observation_count }} observation{{ 's' if card.observation_count != 1 else '' }}{% endif %}
+            {% if card.product_evidence_count %} · {{ card.product_evidence_count }} product/perf.{% endif %}
+          </p>
+          <p class="bos-meta">
+            {% if card.recent.title %}Recent {{ card.recent.title|truncate(60, True) }}{% if card.recent.date %} · {{ card.recent.date }}{% endif %}{% else %}No recent intelligence{% endif %}
+            {% if card.signal_count %} · {{ card.signal_count }} signal{{ 's' if card.signal_count != 1 else '' }}{% endif %}
+            {% if card.candidate_count %} · {{ card.candidate_count }} candidate{{ 's' if card.candidate_count != 1 else '' }}{% endif %}
+          </p>
+          <p class="bos-meta"><a href="/entities/variety/compare?ids={{ card.id }}">Compare</a></p>
+        </article>
+        {% else %}
+        <p class="bos-empty">No varieties match these filters.</p>
+        {% endfor %}
+      </div>
+      <p class="bos-note">Observations and Competition workspace views remain at <a href="/entities/variety?view=observations">Observations</a> / <a href="/entities/variety?view=compete">Competition</a>. This list in its original layout remains at <a href="/entities/variety?layout=legacy">the full catalog</a>.</p>
+    </main>
+  </div>
+</div>
+{% endblock %}
