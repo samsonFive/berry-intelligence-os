@@ -111,7 +111,7 @@ BODY_TO_AVAILABILITY = {
 }
 
 NAV = (
-    ("Today", "/today"),
+    ("News", "/today"),
     ("Following", "/following"),
     ("Saved", "/saved"),
     ("Entities", "/entities"),
@@ -281,7 +281,7 @@ def empty_feed_copy(window: str, today: date) -> dict[str, str]:
             "body": f"Nothing published for watched companies between {(today - timedelta(days=30)).isoformat()} and {day}.",
         }
     return {
-        "title": "No stories published today",
+        "title": "No stories published on this day",
         "body": f"Nothing published for watched companies on {day}. Widen the window to 7 or 30 days.",
     }
 
@@ -297,7 +297,7 @@ def parse_filters(params: dict[str, Any]) -> dict[str, str]:
         raw_window = str(params.get("window") or "").strip()
         window = raw_window if raw_window in WINDOWS else ""
     else:
-        window = "today"
+        window = "7d"
     return {
         "window": window,
         "tier": _one("tier", set(TIERS)),
@@ -338,7 +338,7 @@ def active_filter_chips(filters: dict[str, str]) -> list[dict[str, str]]:
         value = str(filters.get(key) or "")
         if not value or not label:
             continue
-        if key == "window" and value == "today":
+        if key == "window" and value in {"today", "7d"}:
             continue
         if key == "sort" and value == "rank":
             continue
@@ -394,6 +394,8 @@ def passages_on_topic(passages: list[str], *, title: str, summary: str = "") -> 
 
 
 def captured_passages(record: dict[str, Any]) -> list[str]:
+    from app.services.feed_first_reader import display_reader_passages
+
     content = reader_content(record)
     if content.get("contaminated"):
         return []
@@ -407,7 +409,10 @@ def captured_passages(record: dict[str, Any]) -> list[str]:
     full = decode_html_text(article.get("full_text") or "").strip()
     if full and full not in passages:
         passages.append(full)
+    passages = display_reader_passages(passages)
     summary = decode_html_text(content.get("summary") or record.get("summary") or "").strip()
+    summary_rows = display_reader_passages([summary]) if summary else []
+    summary = summary_rows[0] if summary_rows else ""
     if summary and summary not in passages:
         passages.append(summary)
     title = str(record.get("title") or "")
@@ -520,6 +525,63 @@ def present_people(record: dict[str, Any], people_by_id: dict[str, dict[str, Any
     return rows
 
 
+def _tag_label_key(value: Any) -> str:
+    return re.sub(r"[^a-z0-9]+", "", str(value or "").casefold())
+
+
+def present_card_tags(
+    *,
+    entities: list[dict[str, Any]],
+    people: list[dict[str, Any]],
+    geography_chips: list[dict[str, Any]],
+    crops: list[str],
+) -> list[dict[str, Any]]:
+    """Build one semantic tag list, collapsing linked/classification berry duplicates."""
+    tags: list[dict[str, Any]] = []
+    seen_semantic: set[str] = set()
+    seen_labels: set[str] = set()
+
+    def add(row: dict[str, Any], *, semantic: str, kind: str, berry: bool = False) -> None:
+        label = str(row.get("name") or row.get("canonical_name") or "").strip()
+        label_key = _tag_label_key(label)
+        if not label_key or semantic in seen_semantic or (berry and label_key in seen_labels):
+            return
+        seen_semantic.add(semantic)
+        seen_labels.add(label_key)
+        tags.append({**row, "name": label, "kind": kind, "berry": berry})
+
+    for entity in entities:
+        entity_id = str(entity.get("id") or "")
+        entity_type = str(entity.get("entity_type") or "company")
+        berry_key = CROPS.get(entity_id) if entity_type == "berry" else ""
+        add(
+            {"id": entity_id, "name": entity.get("name") or entity_id, "href": entity.get("profile_url") or "", "crop": berry_key},
+            semantic=f"berry:{berry_key}" if berry_key else f"entity:{entity_id}",
+            kind=entity_type,
+            berry=bool(berry_key),
+        )
+    for person in people:
+        add(
+            {"id": person.get("id"), "name": person.get("canonical_name") or person.get("id"), "href": person.get("profile_url") or ""},
+            semantic=f"person:{person.get('id')}",
+            kind="person",
+        )
+    for geo in geography_chips:
+        add(
+            {"id": geo.get("id"), "name": geo.get("name"), "href": geo.get("href") or ""},
+            semantic=f"geography:{geo.get('id')}",
+            kind="geography",
+        )
+    for crop in crops:
+        add(
+            {"id": crop, "name": CROP_LABELS.get(crop, crop), "href": f"/today?window=7d&crop={crop}", "crop": crop},
+            semantic=f"berry:{crop}",
+            kind="berry",
+            berry=True,
+        )
+    return tags
+
+
 def present_item(
     record: dict[str, Any],
     *,
@@ -563,6 +625,12 @@ def present_item(
                 "href": f"/geographies/{geo_id}",
             }
         )
+    card_tags = present_card_tags(
+        entities=entities,
+        people=people,
+        geography_chips=geography_chips,
+        crops=crops,
+    )
     return {
         "id": item_id,
         "headline": decode_html_text(record.get("title") or item_id),
@@ -581,6 +649,7 @@ def present_item(
         "geography_chips": geography_chips,
         "entities": entities,
         "people": people,
+        "tags": card_tags,
         "highest_tier": _highest_tier([row["tier"] for row in entities]),
         "body_availability": availability,
         "availability_label": _availability_label(availability),
@@ -864,8 +933,8 @@ def build_feed(
             raw = next((row for row in evidence if str(row.get("id")) == filters["item"]), None)
             if raw is not None:
                 selected = _present(raw)
-    if selected is None and visible:
-        selected = visible[0]
+    # News opens as a feed-first surface. A reader is an explicit selection,
+    # never an implicit first-card takeover of the initial viewport.
 
     ids = [item["id"] for item in visible]
     prev_id = next_id = ""

@@ -151,7 +151,8 @@ def test_today_is_feed_first_front_door(monkeypatch):
     today = TestClient(app).get("/today")
     assert today.status_code == 200
     assert "data-feed-first-today" in today.text
-    assert 'data-freshness="same-day"' in today.text
+    assert 'data-freshness="' in today.text
+    assert 'value="7d" selected' in today.text
     assert "thumbs_up" in today.text
     assert "berry_os.css" in today.text
     assert "companies watched" in today.text
@@ -192,11 +193,11 @@ def test_today_cache_miss_is_offline_until_explicit_refresh(tmp_path: Path, monk
     assert ordinary.status_code == 200
     assert acquisition_calls == []
     assert "data-feed-first-today" in ordinary.text
-    assert "No cached Today edition yet" in live_disclosure(
+    assert "No live News cache yet" in live_disclosure(
         {"cache_state": "missing", "today": "2026-09-21"}
     )
     assert "refresh=1" in ordinary.text
-    assert "Ready to fetch live stories" in ordinary.text
+    assert "Stored published news" in ordinary.text
     assert ">Fetch live stories</a>" in ordinary.text
     assert not (tmp_path / "feed_first_live").exists()
 
@@ -477,8 +478,9 @@ def test_playground_fixtures_are_not_the_today_corpus(monkeypatch):
     assert "14 million blueberry plants after 10 years" not in today.text
 
 
-def test_default_window_is_calendar_today():
-    assert parse_filters({})["window"] == "today"
+def test_default_window_is_seven_days_with_calendar_today_override_available():
+    assert parse_filters({})["window"] == "7d"
+    assert parse_filters({"window": "today"})["window"] == "today"
     assert parse_filters({"window": ""})["window"] == ""
     assert parse_filters({"window": "30d"})["window"] == "30d"
 
@@ -493,7 +495,7 @@ def test_today_window_is_calendar_equality_not_24h():
         filters=parse_filters({}),
         today=date(2026, 9, 21),
     )
-    assert [item["id"] for item in feed["cards"]] == ["ev-today"]
+    assert {item["id"] for item in feed["cards"]} == {"ev-today", "ev-yesterday"}
     week = build_feed(
         evidence=[yesterday, today_row],
         entities=_entities(),

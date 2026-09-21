@@ -327,7 +327,7 @@ def test_empty_copy_follows_selected_window():
 
     today = empty_feed_copy("today", date(2026, 9, 20))
     month = empty_feed_copy("30d", date(2026, 9, 20))
-    assert "today" in today["title"].casefold()
+    assert "this day" in today["title"].casefold()
     assert "30 days" in month["title"]
     assert "same-day qualified" not in month["body"]
 
@@ -343,9 +343,10 @@ def test_today_and_ops_expose_leftover_contracts():
     assert "data-gallery-next" in html
     assert "data-story-thread" in html
     assert "data-corroboration" in html
-    assert "data-reader-toggle" in html
-    assert "Collapse reader" in html
-    assert "Show reader" in html
+    assert "data-close-reader" in html
+    assert "data-reader-toggle" not in html
+    assert "Collapse reader" not in html
+    assert "Show reader" not in html
     ops = TestClient(app).get("/research-ops")
     assert ops.status_code == 200
     assert "data-cost-cascade" in ops.text
@@ -354,15 +355,15 @@ def test_today_and_ops_expose_leftover_contracts():
     css = Path("app/static/berry_os.css").read_text(encoding="utf-8")
     assert "repeat(auto-fill, minmax(260px, 1fr))" in css
     assert "repeat(auto-fill, minmax(200px, 1fr))" in css
-    assert ".bos-shell.is-reader-collapsed" in css
+    assert ".bos-shell.is-reader-collapsed" not in css
     assert "grid-column: auto" in css
     assert ".bos-filters select option" in css
     assert "background: #f8fafc" in css
     assert "color: #111827" in css
     assert "border: 1px solid #52617a" in css
     script = Path("app/static/feed_first.js").read_text(encoding="utf-8")
-    assert "setReaderCollapsed" in script
-    assert 'closest("[data-reader-toggle]")' in script
+    assert "data-close-reader" in script
+    assert "Escape" in script
     following = TestClient(app).get("/following")
     assert "bos-card is-tile" in following.text
     assert "Today for this company" in following.text

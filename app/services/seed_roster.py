@@ -541,7 +541,7 @@ def _verification_label(row: dict[str, Any]) -> str:
     if row["is_registry"]:
         return "Registry / source system"
     if row["candidate"]:
-        return "Candidate · unverified"
+        return "Needs verification"
     if row["verification_status"] == "verified-secondary":
-        return "Researched · secondary (not trusted publication)"
-    return row["verification_status"]
+        return "Research context · secondary"
+    return "Verified source system" if row["verification_status"] == "verified-primary" else "Details to be confirmed"

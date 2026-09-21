@@ -3991,16 +3991,48 @@ def _feed_first_today(request: Request) -> HTMLResponse:
         people=people,
         captures=captures,
     )
+    if not feed["cards"] and filters.get("window") == "7d":
+        recent = sorted(
+            [
+                row for row in published_evidence()
+                if isinstance(row, dict)
+                and str(row.get("source_type") or "").casefold() in {
+                    "news_search", "trade_press", "company_press_release", "company_website",
+                    "brand_website", "industry_association_report", "industry_association_profile",
+                    "research_program_publication", "private_equity_press_release",
+                }
+                and str(row.get("source_url") or "").strip()
+            ],
+            key=lambda row: str(row.get("published_date") or ""),
+            reverse=True,
+        )
+        if recent:
+            fallback_filters = dict(filters)
+            fallback_filters["window"] = ""
+            feed = build_feed(
+                evidence=recent,
+                entities=world["entities"],
+                state=world["state"],
+                filters=fallback_filters,
+                today=today,
+                disclosure="Live News cache unavailable. Showing stored published news while keeping live acquisition manual.",
+                people=people,
+                captures=captures,
+            )
+            feed["filters"] = filters
+            freshest = str(recent[0].get("published_date") or "date unknown")
+            feed["fallback_notice"] = f"Stored published news · freshest item {freshest} · live cache unavailable"
     feed["fetched_at"] = bundle.get("fetched_at")
     feed["lanes"] = bundle.get("lanes") or []
     feed["lane_errors"] = bundle.get("lane_errors") or []
     feed["same_day_count"] = int((bundle.get("stats") or {}).get("same_day") or 0)
     feed["tracked_companies"] = world["counts"]["tracked_companies"]
     feed["cache_state"] = str(bundle.get("cache_state") or "fresh")
+    feed["freshness_semantics"] = "stored-published" if feed.get("fallback_notice") else feed["cache_state"]
     if feed["cache_state"] == "missing":
         feed["empty_copy"] = {
             "title": "Ready to fetch live stories",
-            "body": "Select Fetch live stories. Today loads immediately and acquisition runs only when requested.",
+            "body": "Select Fetch live stories. News loads immediately and acquisition runs only when requested.",
         }
     feed["refresh_href"] = f"/today?{filters_query(filters, refresh='1')}"
     return templates.TemplateResponse(
@@ -4145,6 +4177,7 @@ def feed_first_entities_page(request: Request) -> HTMLResponse:
         include_registries=include_registries,
         logo_overrides=load_logo_overrides(INBOX_DIR),
     )
+    entity_letters = {str(row.get("canonical_name") or "")[:1].upper() for row in model["rows"] if row.get("canonical_name")}
     return templates.TemplateResponse(
         request=request,
         name="feed_first_entities.html",
@@ -4157,6 +4190,7 @@ def feed_first_entities_page(request: Request) -> HTMLResponse:
             "crop_labels": world["crop_labels"],
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
+            "entity_letters": entity_letters,
         },
     )
 

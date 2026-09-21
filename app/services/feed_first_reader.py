@@ -71,6 +71,48 @@ _BLOCKED_HOSTS = {
     "metadata.google.internal",
 }
 
+_LEADING_READER_BOILERPLATE = (
+    "before you continue",
+    "we use cookies",
+    "accept all cookies",
+    "manage consent",
+    "cookie preferences",
+    "enable javascript",
+    "javascript is required",
+    "disable your ad blocker",
+    "please disable your ad blocker",
+    "subscribe to continue",
+    "sign in to continue",
+    "this content is for subscribers",
+    "enable cookies",
+    "you are using software which is blocking our advertisements",
+    "blocking our advertisements",
+    "ad blocker detected",
+    "popup blocked",
+    "pop-up blocked",
+    "please log in",
+    "log in to continue",
+    "login to continue",
+    "sign in to read",
+)
+
+
+def suppress_leading_boilerplate(passages: list[str]) -> list[str]:
+    """Display-only removal of contiguous acquisition boilerplate at the start."""
+    rows = [str(row).strip() for row in passages if str(row).strip()]
+    index = 0
+    while index < len(rows):
+        head = rows[index].casefold()
+        if not any(token in head for token in _LEADING_READER_BOILERPLATE):
+            break
+        index += 1
+    return rows[index:]
+
+
+def display_reader_passages(passages: list[str]) -> list[str]:
+    """Project stored/cached passages for display without mutating raw captures."""
+    return suppress_leading_boilerplate(passages)
+
 
 def capture_path(inbox_dir: Path, item_id: str) -> Path:
     safe = re.sub(r"[^A-Za-z0-9._:-]+", "-", item_id)[:200]
@@ -119,12 +161,15 @@ def sanitize_reader_html(html: str) -> str:
 def paragraphs_from_html(html: str) -> list[str]:
     cleaned = sanitize_reader_html(html)
     found = [decode_html_text(chunk) for chunk in _P_RE.findall(cleaned)]
-    passages = [row for row in found if len(row) >= 40]
+    raw_passages = [row for row in found if len(row) >= 40]
+    passages = display_reader_passages(raw_passages)
     if passages:
         return passages[:24]
+    if raw_passages:
+        return []
     blob = decode_html_text(cleaned)
     if len(blob) >= 80:
-        return [blob[:2000]]
+        return display_reader_passages([blob[:2000]])[:1]
     return []
 
 
@@ -494,7 +539,7 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
     if not capture:
         return record
     merged = dict(record)
-    passages = [str(row) for row in (capture.get("passages") or []) if str(row).strip()]
+    passages = display_reader_passages([str(row) for row in (capture.get("passages") or []) if str(row).strip()])
     if passages:
         article = dict(merged.get("article") or {}) if isinstance(merged.get("article"), dict) else {}
         existing = article.get("paragraphs") if isinstance(article.get("paragraphs"), list) else []
