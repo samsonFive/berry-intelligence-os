@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
 <div class="berry-os" data-feed-first data-feed-first-entities>
-  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
+  <div class="bos-shell">
     {% include "_feed_first_rail.html" %}
     <main class="bos-canvas">
       <p class="bos-kicker">Entities</p>
@@ -27,8 +27,8 @@
         <label>Verification
           <select name="verification">
             <option value="">Any</option>
-            <option value="candidate-review"{% if filters.verification == 'candidate-review' %} selected{% endif %}>Candidate · unverified</option>
-            <option value="verified-secondary"{% if filters.verification == 'verified-secondary' %} selected{% endif %}>Researched · secondary</option>
+            <option value="candidate-review"{% if filters.verification == 'candidate-review' %} selected{% endif %}>Needs verification</option>
+            <option value="verified-secondary"{% if filters.verification == 'verified-secondary' %} selected{% endif %}>Research context · secondary</option>
             <option value="verified-primary"{% if filters.verification == 'verified-primary' %} selected{% endif %}>Registry / source system</option>
           </select>
         </label>
@@ -61,6 +61,7 @@
             <span>{{ row.verification_label }}</span>
             <span>{{ row.seed_entity_type }}</span>
           </p>
+          <p class="bos-summary">{% if row.evidence_summary %}{{ row.evidence_summary|truncate(140, True) }}{% elif row.research_notes %}{{ row.research_notes|truncate(140, True) }}{% else %}Details to be confirmed{% endif %}</p>
           <p class="bos-meta">
             {% for crop in row.crops %}<span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>{% endfor %}
           </p>

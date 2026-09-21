@@ -43,6 +43,7 @@
   --bos-blueberry: #4f63f5;
   --bos-blackberry: #7c3aed;
   --bos-leaf: #2cb67d;
+  --bos-gold: #f59e0b;
   --bos-nectar: #f3a712;
   --bos-blossom: #ffb4c8;
   --bos-danger: #ef4444;
@@ -488,12 +489,34 @@
 .bos-actions .bos-icon-btn[aria-pressed="true"] { border-color: var(--bos-leaf); color: var(--bos-text); }
 .bos-reader-close { margin-left: auto; font-size: 1.35rem; }
 
+.bos-reader-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.bos-reader-header .bos-reader-close { flex: 0 0 auto; }
+.bos-reader-nav { display: flex; gap: 4px; margin-top: 8px; }
+.bos-reader-actions { border-top: 1px solid var(--bos-border); padding-top: 8px; }
+
 .bos-icon-btn[aria-pressed="true"] {
   background: color-mix(in srgb, var(--bos-leaf) 28%, var(--bos-surface));
 }
 
-.bos-icon-btn[data-action="thumbs_down"][aria-pressed="true"] {
+.bos-icon-btn[data-react="thumbs_down"][aria-pressed="true"] {
   background: color-mix(in srgb, var(--bos-danger) 28%, var(--bos-surface));
+  border-color: var(--bos-danger);
+  color: var(--bos-danger);
+}
+.bos-icon-btn[data-react="thumbs_up"][aria-pressed="true"] {
+  background: color-mix(in srgb, var(--bos-leaf) 28%, var(--bos-surface));
+  border-color: var(--bos-leaf);
+  color: var(--bos-leaf);
+}
+.bos-icon-btn[data-react="save"][aria-pressed="true"] {
+  background: color-mix(in srgb, var(--bos-gold) 28%, var(--bos-surface));
+  border-color: var(--bos-gold);
+  color: var(--bos-gold);
 }
 
 .bos-reader {
@@ -1290,6 +1313,9 @@
 
 @media (max-width: 700px) {
   .bos-shell { padding: 8px; gap: 8px; }
+  .bos-shell.has-reader { grid-template-columns: 1fr; }
+  .bos-inspector { position: static; width: auto; max-width: 100%; overflow: visible; }
+  .bos-reader { width: auto; max-width: 100%; }
   .bos-rail { gap: 8px; }
   .bos-brand { margin: 0; font-size: 1.05rem; }
   .bos-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; }

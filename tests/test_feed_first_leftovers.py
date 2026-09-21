@@ -327,7 +327,7 @@ def test_empty_copy_follows_selected_window():
 
     today = empty_feed_copy("today", date(2026, 9, 20))
     month = empty_feed_copy("30d", date(2026, 9, 20))
-    assert "today" in today["title"].casefold()
+    assert "this day" in today["title"].casefold()
     assert "30 days" in month["title"]
     assert "same-day qualified" not in month["body"]
 

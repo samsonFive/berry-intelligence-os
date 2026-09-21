@@ -105,10 +105,10 @@ def live_disclosure(bundle: dict[str, Any], *, window: str = "today") -> str:
     today = str(bundle.get("today") or "")
     cache_state = str(bundle.get("cache_state") or "")
     if cache_state == "missing":
-        return "No cached Today edition yet. Select Refresh to fetch live stories."
+        return "No live News cache yet. Stored published news appears when available; select Fetch live stories to update it."
     if cache_state == "stale":
         fetched = str(bundle.get("fetched_at") or "an earlier run")
-        return f"Showing the cached Today edition from {fetched}. Select Refresh to update it."
+        return f"Showing the cached News edition from {fetched}. Select Refresh to update it."
     count = int((bundle.get("stats") or {}).get("week") or 0)
     if window == "7d":
         return f"Stories from the last 7 days, ending {today}."

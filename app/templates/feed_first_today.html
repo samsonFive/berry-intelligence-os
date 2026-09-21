@@ -9,7 +9,7 @@
 {% block content %}
 {% set selected = feed.selected %}
 <a class="bos-skip" href="#today-feed">Skip to News feed</a>
-<div class="berry-os" data-feed-first data-feed-first-today data-freshness="same-day" data-today="{{ feed.today }}">
+<div class="berry-os" data-feed-first data-feed-first-today data-freshness="{{ feed.freshness_semantics }}" data-today="{{ feed.today }}">
   <div class="bos-shell{% if selected %} has-reader{% endif %}" data-viewport-shell>
     <aside class="bos-rail" aria-label="Feed navigation">
       <p class="bos-brand">Berry Intelligence OS<span>Feed-first reader</span></p>
@@ -36,7 +36,7 @@
       <form class="bos-filters" method="get" action="/today" aria-label="Feed filters">
         <label>Window
           <select name="window" aria-label="Time window">
-            <option value="today"{% if feed.filters.window == 'today' %} selected{% endif %}>Today</option>
+            <option value="today"{% if feed.filters.window == 'today' %} selected{% endif %}>Same day</option>
             <option value="7d"{% if feed.filters.window == '7d' %} selected{% endif %}>7 days</option>
             <option value="30d"{% if feed.filters.window == '30d' %} selected{% endif %}>30 days</option>
           </select>
@@ -139,14 +139,9 @@
             <h2><a href="{{ item.reader_href }}">{{ item.headline }}</a></h2>
             {% if item.deck %}<p>{{ item.deck }}</p>{% endif %}
             <p class="bos-meta">
-              {% for entity in item.entities[:3] %}
-              <a class="bos-chip" href="{{ entity.profile_url }}">{{ entity.name }}</a>
-              {% endfor %}
-              {% for crop in item.crops %}
-              <span class="bos-chip" data-crop="{{ crop }}">{{ crop }}</span>
-              {% endfor %}
-              {% for geo in item.geography_chips[:2] %}
-              <a class="bos-chip" href="{{ geo.href }}">{{ geo.name }}</a>
+              {% for tag in item.tags[:6] %}
+              {% if tag.href %}<a class="bos-chip{% if tag.berry %} bos-chip-berry{% endif %}"{% if tag.crop %} data-crop="{{ tag.crop }}"{% endif %} href="{{ tag.href }}">{{ tag.name }}</a>
+              {% else %}<span class="bos-chip{% if tag.berry %} bos-chip-berry{% endif %}"{% if tag.crop %} data-crop="{{ tag.crop }}"{% endif %}>{{ tag.name }}</span>{% endif %}
               {% endfor %}
             </p>
             <div class="bos-actions">
@@ -164,13 +159,19 @@
     <aside class="bos-inspector" data-reader-panel aria-label="Reader and intelligence">
       {% if selected %}
       <div class="bos-reader" data-reader-root data-item-id="{{ selected.id }}" role="region" aria-label="Article reader" tabindex="-1">
-        <p class="bos-kicker">{% if selected.content_kind == 'pdf' %}PDF{% elif selected.passages %}Article{% else %}Summary{% endif %}</p>
-        <h2>{{ selected.headline }}</h2>
-        <p class="bos-meta">{{ selected.source_name }} · {% if selected.date_uncertain %}date unknown{% else %}{{ selected.published_at or 'date unknown' }}{% endif %}</p>
-        <div class="bos-actions">
+        <div class="bos-reader-header">
+          <div>
+            <p class="bos-kicker">{% if selected.content_kind == 'pdf' %}PDF{% elif selected.passages %}Article{% else %}Summary{% endif %}</p>
+            <h2>{{ selected.headline }}</h2>
+            <p class="bos-meta">{{ selected.source_name }} · {% if selected.date_uncertain %}date unknown{% else %}{{ selected.published_at or 'date unknown' }}{% endif %}</p>
+          </div>
+          <a class="bos-icon-btn bos-reader-close" data-close-reader href="{{ feed.close_href }}" aria-label="Close reader" title="Close reader">×</a>
+        </div>
+        <div class="bos-reader-nav" aria-label="Reader navigation">
           {% if feed.prev_href %}<a class="bos-icon-btn" data-prev-item href="{{ feed.prev_href }}" aria-label="Previous story" title="Previous story">←</a>{% endif %}
           {% if feed.next_href %}<a class="bos-icon-btn" data-next-item href="{{ feed.next_href }}" aria-label="Next story" title="Next story">→</a>{% endif %}
-          <a class="bos-icon-btn bos-reader-close" data-close-reader href="{{ feed.close_href }}" aria-label="Close reader" title="Close reader">×</a>
+        </div>
+        <div class="bos-actions bos-reader-actions" aria-label="Reader actions">
           <button type="button" class="bos-icon-btn" data-react="thumbs_up" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'up' else 'false' }}" aria-label="Useful — authorize extraction for confirmation" title="Useful — authorize extraction for confirmation">👍</button>
           <button type="button" class="bos-icon-btn" data-react="thumbs_down" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.reaction == 'down' else 'false' }}" aria-label="Not relevant" title="Not relevant">👎</button>
           <button type="button" class="bos-icon-btn" data-react="save" data-item-id="{{ selected.id }}" aria-pressed="{{ 'true' if selected.decision.saved else 'false' }}" aria-label="Save for later" title="Save for later">🔖</button>
