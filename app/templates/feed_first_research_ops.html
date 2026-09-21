@@ -18,7 +18,7 @@
 
       <div class="bos-people-card">
         <p class="bos-kicker">Watched world</p>
-        <p>{{ counts.tracked_companies }} companies tracked · {{ counts.candidates }} candidate · {{ counts.registries }} registries excluded · {{ people_count }} people ({{ social_coverage }} social)</p>
+        <p>{{ counts.tracked_industry_entities }} industry entities tracked · {{ counts.companies }} companies · {{ counts.other_industry_entities }} other industry entities · {{ counts.candidates }} candidates · {{ counts.registries }} registries excluded · {{ people_count }} people ({{ social_coverage }} social)</p>
       </div>
 
       <section>
@@ -67,7 +67,7 @@
 
       <section data-watch-coverage>
         <h2 class="bos-title" style="font-size:1.4rem">Watch coverage</h2>
-        <p>{{ health.watches.tracked_companies }} companies · {{ health.watches.official_site_watches }} official-site watches · {{ health.watches.mention_watches }} mention watches</p>
+        <p>{{ health.watches.tracked_companies }} tracked entities · {{ health.watches.official_site_watches }} official-site watches · {{ health.watches.mention_watches }} mention watches</p>
         <p class="bos-note">Last attempt {{ health.watches.last_attempt_at or 'none' }} · last success {{ health.watches.last_success_at or 'none' }} · state {{ health.watches.coverage_state }}</p>
         {% if health.watches.lanes %}
         <ul>

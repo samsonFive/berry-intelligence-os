@@ -763,6 +763,9 @@
   .v2-variety-list,
   .v2-observation-list,
   .v2-variety-section { margin-left: 12px; margin-right: 12px; }
+  .v2-variety .filter-field { min-width: 0; }
+  .v2-variety .filter-field input,
+  .v2-variety .filter-field select { width: 100%; min-width: 0; max-width: 100%; }
 }
 .v2-reading-list .v2-card-actions,
 .v2-decision-list .v2-card-actions,

@@ -13,7 +13,7 @@
     <main class="bos-canvas">
       <p class="bos-kicker">Entities</p>
       <h1 class="bos-title">Tracked breeding world</h1>
-      <p class="bos-lede">{{ counts.tracked_companies }} companies from the 2026-09-18 seed, plus {{ counts.registries }} registries kept out of competitor totals. This is not a trusted publication import.</p>
+      <p class="bos-lede">{{ counts.tracked_industry_entities }} tracked industry entities include {{ counts.companies }} companies and {{ counts.other_industry_entities }} brand or breeding-program records. {{ counts.candidates }} remain candidates; {{ counts.registries }} registries stay outside competitor totals. This is not a trusted publication import.</p>
 
       <form class="bos-filters" method="get" action="/entities" aria-label="Entity filters">
         <label>Berry
@@ -44,7 +44,7 @@
         <a href="#entity-letter-{{ letter }}"{% if letter not in entity_letters %} aria-disabled="true" tabindex="-1"{% endif %}>{{ letter }}</a>
         {% endfor %}
       </nav>
-      <p class="bos-meta">{{ rows|length }} showing · competitor count {{ counts.tracked_companies }} · registries {{ counts.registries }}</p>
+      <p class="bos-meta">{{ rows|length }} showing · tracked industry entities {{ counts.tracked_industry_entities }} · candidates {{ counts.candidates }} · registries {{ counts.registries }}</p>
       <div class="bos-roster">
         {% for row in rows %}
         {% set letter = row.canonical_name[:1]|upper %}

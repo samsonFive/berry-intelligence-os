@@ -115,6 +115,7 @@ NAV = (
     ("Following", "/following"),
     ("Saved", "/saved"),
     ("Entities", "/entities"),
+    ("Variety Database", "/entities/variety"),
     ("People", "/people"),
     ("Statements", "/statements"),
     ("Landscapes", "/landscapes"),
@@ -315,7 +316,11 @@ def parse_filters(params: dict[str, Any]) -> dict[str, str]:
 
 def filters_query(filters: dict[str, str], **extra: str) -> str:
     merged = {key: value for key, value in filters.items() if value}
-    merged.update({key: value for key, value in extra.items() if value})
+    for key, value in extra.items():
+        if value:
+            merged[key] = value
+        else:
+            merged.pop(key, None)
     return urlencode(merged)
 
 

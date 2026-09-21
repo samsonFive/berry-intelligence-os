@@ -8,7 +8,7 @@ records and `data/configuration/sources.json`. This is not marketing.
 If a class is blueberry-only with a live pipeline elsewhere, write `PILOT`.
 Update this file when sources, entities, or trusted evidence change.
 
-**As-of:** 2026-08-26 · published Evidence `1,266` · Sources `198` · inbox
+**As-of:** 2026-09-21 · published Evidence `1,272` · Sources `205` · inbox
 drafts are runtime-only and noted separately. Source-path counts were refreshed
 by Direct Source Upgrade + Coverage Gap Closure V1; trusted Evidence maturity
 cells were not promoted because that mission made no trust decisions.
@@ -45,10 +45,22 @@ The raspberry published-patent cell notes the seed row.
 
 | Entity | Total | Blueberry | Strawberry | Raspberry | Blackberry |
 |---|---:|---:|---:|---:|---:|
-| Companies | 49 | 36 | 11 | 12 | 7 |
-| Varieties | 60 | 41 | 6 | 12 | 1 |
-| Breeding programs | 12 | 9 | 3 | 1 | 0 |
+| Companies | 102 | 54 | 38 | 36 | 27 |
+| Varieties | 64 | 41 | 6 | 12 | 5 |
+| Breeding programs | 13 | 10 | 3 | 1 | 0 |
+| Brands | 10 | 8 | 0 | 0 | 2 |
 | Retailers | 8 | -- | -- | -- | -- |
+
+Competitor Coverage Registry V1 (2026-09-21) reconciled an operator-supplied
+77-line identity list against canonical entities, aliases, relationships, and
+the feed-first Entities roster. Thirty-five lines required a new canonical
+entity, 40 reuse an existing identity/alias/relationship or corrected
+duplicate, and two were excluded with a specific reason. The complete
+deterministic audit is in
+`data/imports/competitor-coverage-registry-2026-09-21/reconciliation-matrix.md`.
+This is entity identity coverage, not intelligence recall, competitive rank,
+or trusted Evidence expansion; it does not promote any evidence-class maturity
+cell below.
 
 Raspberry Vertical V1 (PR #49) added real raspberry companies/varieties
 (Wish Farms, Global Plant Genetics, James Hutton Ltd, Chambers, Berrytech,
