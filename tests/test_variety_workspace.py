@@ -268,6 +268,56 @@ def test_index_does_not_call_variety_footprint(monkeypatch) -> None:
     assert calls["n"] == 0
 
 
+def test_variety_index_defaults_to_berry_os_grid() -> None:
+    """Gate 3A follow-up: the variety index now matches the Berry OS grid
+    system used by Today/Entities/Company dossier, reusing the exact same
+    present_variety_index() cards -- no new data logic."""
+    client = TestClient(app)
+    page = client.get("/entities/variety")
+    assert page.status_code == 200
+    assert "data-feed-first-variety-index" in page.text
+    assert 'href="/entities/variety/' in page.text
+    assert "Zara" in page.text
+    assert "Blackberry 5" in page.text
+
+
+def test_variety_index_legacy_layout_still_reachable() -> None:
+    client = TestClient(app)
+    page = client.get("/entities/variety", params={"layout": "legacy"})
+    assert page.status_code == 200
+    assert "data-feed-first-variety-index" not in page.text
+    assert "v2-variety-card" in page.text
+    assert "Zara" in page.text
+
+
+def test_variety_index_observations_and_compete_views_unaffected() -> None:
+    """Only the index view moved to Berry OS; Observations/Competition stay
+    on the existing stakeholder-shell workspace regardless of ?layout."""
+    client = TestClient(app)
+    observations = client.get("/entities/variety", params={"view": "observations"})
+    compete = client.get("/entities/variety", params={"view": "compete"})
+    assert observations.status_code == 200
+    assert "data-feed-first" not in observations.text
+    assert compete.status_code == 200
+    assert "data-feed-first" not in compete.text
+
+
+def test_variety_detail_defaults_to_berry_os_dossier() -> None:
+    client = TestClient(app)
+    page = client.get("/entities/variety/variety-blue-manila")
+    assert page.status_code == 200
+    assert "data-feed-first-variety" in page.text
+    assert "data-open-reader" not in page.text
+
+
+def test_variety_detail_legacy_view_still_reachable() -> None:
+    client = TestClient(app)
+    page = client.get("/entities/variety/variety-blue-manila", params={"view": "legacy"})
+    assert page.status_code == 200
+    assert "data-feed-first-variety" not in page.text
+    assert "data-open-reader" in page.text
+
+
 def test_index_route_does_not_call_footprint_or_compete(monkeypatch) -> None:
     calls = {"footprint": 0, "compete": 0}
     original_fp = footprint_mod.variety_footprint
@@ -290,9 +340,12 @@ def test_index_route_does_not_call_footprint_or_compete(monkeypatch) -> None:
     assert page.status_code == 200
     assert calls["footprint"] == 0
     assert calls["compete"] == 0
-    assert "Variety Intelligence" in page.text
-    assert "not a cultivar catalog" in page.text.casefold()
-    assert "v2-variety-card" in page.text
+    # Default index is now the Berry OS grid (feed_first_variety_index.html);
+    # the original stakeholder-shell workspace is unchanged and still
+    # reachable at ?layout=legacy (covered by test_legacy_index_layout_is_
+    # still_reachable below).
+    assert "Variety Database" in page.text
+    assert 'class="bos-card is-tile"' in page.text
     assert "Zara" in page.text
     assert "Victoria" in page.text
     assert "DrisBlueSeventeen" in page.text
@@ -318,8 +371,15 @@ def test_detail_calls_footprint_once() -> None:
     assert html.count("Driscoll") >= 2
     assert "Who is involved" in html
     assert "Commercial footprint" in html
-    assert "id=\"v2ReaderOffcanvas\"" in html
-    assert "data-open-reader" in html
+    # Default detail page is now the Berry OS dossier
+    # (feed_first_variety.html), which deliberately never uses
+    # data-open-reader/#v2ReaderOffcanvas: that offcanvas is force-hidden
+    # site-wide by berry_os.css's `.v2-body:has(.berry-os)` rule, so a
+    # data-open-reader link there would be a dead click. It links out to
+    # the Today reader instead. The old offcanvas-based reader is
+    # unchanged and still reachable at ?view=legacy.
+    assert "data-open-reader" not in html
+    assert "Recent intelligence" in html
     assert "variety-specific reader" not in html.casefold()
 
 
@@ -333,13 +393,13 @@ def test_zara_and_victoria_are_named_pilot_cases() -> None:
     assert "UK retail pilot named-variety case" in victoria.text
     assert "Driscoll" in zara.text
     assert "Zara" in zara.text
-    assert "Aliases:" in zara.text
+    assert "Also known as" in zara.text
     assert "Victoria" in victoria.text
-    assert "Aliases:" in victoria.text
+    assert "Also known as" in victoria.text
     assert "Marketer" in zara.text
     assert "Do not create separate pages" not in zara.text
     assert "Victoria" in victoria.text
-    assert "Aliases:" in victoria.text
+    assert "Also known as" in victoria.text
 
 
 def test_observations_runtime_without_inbox_is_honest(monkeypatch, tmp_path: Path) -> None:

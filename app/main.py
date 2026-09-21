@@ -2837,9 +2837,20 @@ def entity_list(
                 berry_labels=BERRIES,
                 ip_and_observation=ip_and_observation in {"1", "true", "yes", "on"},
             )
+    template_name = "entity_list.html"
+    if (
+        entity_type == "variety"
+        and context["variety_view"] == "index"
+        and str(request.query_params.get("layout") or "") != "legacy"
+    ):
+        world = _feed_first_world()
+        context["nav"] = world["nav"]
+        context["active_href"] = "/entities/variety"
+        context["counts"] = world["counts"]
+        template_name = "feed_first_variety_index.html"
     response = templates.TemplateResponse(
         request=request,
-        name="entity_list.html",
+        name=template_name,
         context=context,
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -3693,25 +3704,34 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     published=published_evidence(),
                     inbox_dir=INBOX_DIR,
                 )
+            detail_context: dict[str, Any] = {
+                "entity": entity,
+                "linked_evidence": linked_evidence,
+                "linked_facts": entity_facts,
+                "activity": activity,
+                "evidence_count": len(linked_evidence),
+                "source_count": len(independent_sources),
+                "last_updated": last_updated,
+                "regions": regions,
+                "berry_label": berry_label,
+                "authoring_mode": AUTHORING_MODE,
+                "is_watched": is_watched(INBOX_DIR, entity_type, entity_id) if entity_type in WATCH_TYPES else False,
+                "competitor_profile": competitor_profile,
+                "feed_first_statements": _feed_first_entity_statements(entity_id),
+                **synthesis,
+            }
+            detail_template = "entity.html"
+            if entity_type == "variety" and _wants_feed_first_profile(request):
+                world = _feed_first_world()
+                detail_context["nav"] = world["nav"]
+                detail_context["active_href"] = "/entities/variety"
+                detail_context["counts"] = world["counts"]
+                detail_context["static_build"] = False
+                detail_template = "feed_first_variety.html"
             response = templates.TemplateResponse(
                 request=request,
-                name="entity.html",
-                context={
-                    "entity": entity,
-                    "linked_evidence": linked_evidence,
-                    "linked_facts": entity_facts,
-                    "activity": activity,
-                    "evidence_count": len(linked_evidence),
-                    "source_count": len(independent_sources),
-                    "last_updated": last_updated,
-                    "regions": regions,
-                    "berry_label": berry_label,
-                    "authoring_mode": AUTHORING_MODE,
-                    "is_watched": is_watched(INBOX_DIR, entity_type, entity_id) if entity_type in WATCH_TYPES else False,
-                    "competitor_profile": competitor_profile,
-                    "feed_first_statements": _feed_first_entity_statements(entity_id),
-                    **synthesis,
-                },
+                name=detail_template,
+                context=detail_context,
             )
             apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
             return response
