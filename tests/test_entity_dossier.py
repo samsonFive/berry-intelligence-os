@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 
 from app.main import app
 from app.services.entity_dossier import (
+    build_company_backbone,
     build_dossier,
     decide_proposal,
     launch_gap_research,
@@ -438,3 +439,216 @@ def test_canonical_bridge_publishes_live_item_and_fact_together():
     )
     assert fact_id.startswith("fact-feed-")
     assert len(evidence) == 1
+
+
+# Gate 3A -- Entity Dossier genetics/relationship backbone. These tests
+# cover build_company_backbone() itself (synthetic fixtures, matching the
+# rest of this file's convention); real-corpus behavior for the two pilot
+# archetypes (Planasa / Fall Creek) is additionally proven by
+# test_company_route_renders_canonical_backbone_for_real_planasa_data below
+# and by browser evidence in the mission report -- not just fixtures.
+
+
+def _backbone_fixture_entities() -> dict:
+    return {
+        ENTITY_ID: _entity(),
+        "variety-blue-ribbon": {
+            "id": "variety-blue-ribbon",
+            "record_type": "entity",
+            "entity_type": "variety",
+            "name": "Blue Ribbon",
+            "berry_ids": ["berry-blueberry"],
+        },
+        "geography-chile": {
+            "id": "geography-chile",
+            "record_type": "entity",
+            "entity_type": "geography",
+            "name": "Chile",
+        },
+        "company-agrovision": {
+            "id": "company-agrovision",
+            "record_type": "entity",
+            "entity_type": "company",
+            "name": "Agrovision Corp.",
+        },
+        "breeding_program-fall-creek-blueberry": {
+            "id": "breeding_program-fall-creek-blueberry",
+            "record_type": "entity",
+            "entity_type": "breeding_program",
+            "name": "Fall Creek Blueberry Breeding Program",
+            "status": "active",
+            "description": "In-house blueberry breeding.",
+            "attributes": {"sites": ["Lowell, Oregon"]},
+        },
+    }
+
+
+def _backbone_relationships() -> list[dict]:
+    return [
+        {
+            "subject_id": ENTITY_ID,
+            "predicate": "develops",
+            "object_id": "variety-blue-ribbon",
+            "status": "active",
+        },
+        {
+            "subject_id": ENTITY_ID,
+            "predicate": "operates_in",
+            "object_id": "geography-chile",
+            "status": "active",
+            "effective_date": "2026-03-06",
+        },
+        {
+            "subject_id": "company-agrovision",
+            "predicate": "partners_with",
+            "object_id": ENTITY_ID,
+            "status": "disputed",
+        },
+    ]
+
+
+def _backbone_evidence() -> list[dict]:
+    return [
+        {
+            "id": "ev-fc-blue-ribbon",
+            "status": "published",
+            "title": "Blue Ribbon evidence",
+            "entity_ids": [ENTITY_ID, "variety-blue-ribbon"],
+            "source_type": "trade_press",
+            "published_date": "2026-01-05",
+        },
+        {
+            "id": "ev-fc-breeding-program",
+            "status": "published",
+            "title": "Fall Creek breeding program profile",
+            "entity_ids": [ENTITY_ID, "breeding_program-fall-creek-blueberry"],
+            "source_type": "company_website",
+            "published_date": "2026-01-06",
+        },
+    ]
+
+
+def test_build_company_backbone_none_for_non_company_entity():
+    result = build_company_backbone(
+        "breeding_program-fall-creek-blueberry",
+        entities=_backbone_fixture_entities(),
+        relationships=[],
+        published_evidence=[],
+        facts=[],
+        evidence_by_id={},
+        signals=[],
+        assessments=[],
+        berry_labels={},
+    )
+    assert result is None
+
+
+def test_build_company_backbone_reuses_portfolio_relationships_and_programs():
+    entities = _backbone_fixture_entities()
+    evidence = _backbone_evidence()
+    backbone = build_company_backbone(
+        ENTITY_ID,
+        entities=entities,
+        relationships=_backbone_relationships(),
+        published_evidence=evidence,
+        facts=[],
+        evidence_by_id={row["id"]: row for row in evidence},
+        signals=[],
+        assessments=[],
+        berry_labels={"berry-blueberry": "Blueberry"},
+    )
+    assert backbone is not None
+    variety_rows = backbone["portfolio"]["variety_rows"]
+    assert [row["id"] for row in variety_rows] == ["variety-blue-ribbon"]
+    assert variety_rows[0]["roles"] == ["Breeder"]
+    assert variety_rows[0]["evidence_count"] == 1
+
+    corp = {row["party"]["id"]: row for row in backbone["corporate_relationships"]}
+    assert corp["geography-chile"]["predicate_label"] == "Operates in"
+    assert corp["geography-chile"]["effective_date"] == "2026-03-06"
+    assert corp["geography-chile"]["direction"] == "outgoing"
+    assert corp["company-agrovision"]["direction"] == "incoming"
+    assert corp["company-agrovision"]["status"] == "disputed"
+    # variety-blue-ribbon must not also appear here -- it is already
+    # represented via the portfolio's own role rows, never duplicated.
+    assert "variety-blue-ribbon" not in corp
+
+    programs = backbone["breeding_programs"]
+    assert [row["id"] for row in programs] == ["breeding_program-fall-creek-blueberry"]
+    assert programs[0]["sites"] == ["Lowell, Oregon"]
+
+
+def test_build_company_backbone_excludes_unlinked_breeding_programs():
+    """A breeding_program entity that shares no real Evidence with this
+    Company must not appear -- co-occurrence is required, a shared name
+    prefix or berry is not enough."""
+    entities = _backbone_fixture_entities()
+    entities["breeding_program-unrelated"] = {
+        "id": "breeding_program-unrelated",
+        "record_type": "entity",
+        "entity_type": "breeding_program",
+        "name": "Unrelated Breeding Program",
+    }
+    backbone = build_company_backbone(
+        ENTITY_ID,
+        entities=entities,
+        relationships=_backbone_relationships(),
+        published_evidence=_backbone_evidence(),
+        facts=[],
+        evidence_by_id={},
+        signals=[],
+        assessments=[],
+        berry_labels={},
+    )
+    program_ids = [row["id"] for row in backbone["breeding_programs"]]
+    assert program_ids == ["breeding_program-fall-creek-blueberry"]
+
+
+def test_dossier_backbone_field_is_none_by_default():
+    dossier = build_dossier(
+        entity_id=ENTITY_ID,
+        entity=_entity(),
+        profile={},
+        state={"statements": {}, "research_proposals": {}, "research_runs": {}},
+    )
+    assert dossier["backbone"] is None
+
+
+def test_dossier_carries_backbone_when_supplied():
+    entities = _backbone_fixture_entities()
+    evidence = _backbone_evidence()
+    backbone = build_company_backbone(
+        ENTITY_ID,
+        entities=entities,
+        relationships=_backbone_relationships(),
+        published_evidence=evidence,
+        facts=[],
+        evidence_by_id={row["id"]: row for row in evidence},
+        signals=[],
+        assessments=[],
+        berry_labels={"berry-blueberry": "Blueberry"},
+    )
+    dossier = build_dossier(
+        entity_id=ENTITY_ID,
+        entity=_entity(),
+        profile={},
+        state={"statements": {}, "research_proposals": {}, "research_runs": {}},
+        backbone=backbone,
+    )
+    assert dossier["backbone"] is backbone
+    assert dossier["backbone"]["portfolio"]["variety_rows"]
+
+
+def test_company_route_renders_canonical_backbone_for_real_planasa_data():
+    """Real committed production data (company-planasa), not a fixture --
+    proves the wiring reaches app/main.py's actual route, not just the
+    service function in isolation."""
+    page = TestClient(app).get("/entities/company/company-planasa")
+    assert page.status_code == 200
+    assert "Canonical portfolio" in page.text
+    assert "Blue Manila" in page.text
+    assert "Breeding programs" in page.text
+    assert "Planasa blueberry breeding programme" in page.text
+    assert "Canonical footprint" in page.text
+    assert "Canonical corporate relationships" in page.text
+    assert "not yet distinct predicates in this schema" in page.text
