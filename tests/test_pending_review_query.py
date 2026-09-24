@@ -173,15 +173,22 @@ def test_draft_mutation_invalidates_sidecar(tmp_path: Path) -> None:
     path = _write(inbox / "evidence", _draft(0, status="pending"))
     provider = JsonPendingDraftSnapshotProvider(inbox)
     first = provider.snapshot(entities=ENTITIES, sources=SOURCES)
+    first_signature = json.loads(
+        (inbox / "indexes" / "pending-review-v2.json").read_text(encoding="utf-8")
+    )["entries"][path.name]["signature"]
     changed = _draft(0, source_id="source-changed")
     encoded = json.dumps(changed)
     old_encoded = path.read_text(encoding="utf-8")
     assert len(encoded) == len(old_encoded)
     path.write_text(encoded, encoding="utf-8")
     second = provider.snapshot(entities=ENTITIES, sources=SOURCES)
+    second_signature = json.loads(
+        (inbox / "indexes" / "pending-review-v2.json").read_text(encoding="utf-8")
+    )["entries"][path.name]["signature"]
     assert first.records[0]["status"] == "pending"
     assert second.parsed_records == 1
     assert second.records[0]["source_id"] == "source-changed"
+    assert first_signature["sha256"] != second_signature["sha256"]
 
 
 def test_pending_mode_hydrates_only_bounded_visible_single_cards(monkeypatch, tmp_path: Path) -> None:
@@ -227,7 +234,7 @@ def test_pending_route_uses_private_projection_and_renders_filters(monkeypatch, 
     assert "pending-0001" not in response.text
     sidecar = json.loads((inbox / "indexes" / "pending-review-v2.json").read_text(encoding="utf-8"))
     encoded = json.dumps(sidecar)
-    assert sidecar["version"] == 5
+    assert sidecar["version"] == 6
     assert "full private article body" not in encoded
     assert "Private full transcript" not in encoded
     assert "FULL ARTICLE" in response.text

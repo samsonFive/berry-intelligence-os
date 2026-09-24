@@ -15,7 +15,7 @@ from pathlib import Path
 import time
 from typing import Any, Protocol
 
-INDEX_VERSION = 5
+INDEX_VERSION = 6
 INDEX_RELATIVE_PATH = Path("indexes") / "pending-review-v2.json"
 _RICH_TOP_LEVEL_FIELDS = {
     "article",
@@ -80,7 +80,16 @@ def _dependency_digest(
 
 def _file_signature(path: Path) -> dict[str, Any]:
     stat = path.stat()
-    return {"mtime_ns": stat.st_mtime_ns, "ctime_ns": stat.st_ctime_ns, "size": stat.st_size}
+    digest = hashlib.sha256()
+    with path.open("rb") as source:
+        for chunk in iter(lambda: source.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return {
+        "mtime_ns": stat.st_mtime_ns,
+        "ctime_ns": stat.st_ctime_ns,
+        "size": stat.st_size,
+        "sha256": digest.hexdigest(),
+    }
 
 
 def _metadata_projection(record: dict[str, Any], attribution: dict[str, Any]) -> tuple[dict[str, Any], bool]:
