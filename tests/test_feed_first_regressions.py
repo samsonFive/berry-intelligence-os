@@ -47,6 +47,28 @@ def test_today_filter_query_restores_selected_controls():
     assert "data-clear-filter" in page.text
 
 
+def test_today_progressive_filters_and_async_reader_contract():
+    page = TestClient(app).get(
+        "/today?tier=tier1&crop=blueberry&state=saved&window=30d&source=podcast"
+    )
+    assert page.status_code == 200
+    assert "data-progressive-filters" in page.text
+    assert "<summary>" in page.text
+    assert "More filters" in page.text
+    assert "active secondary filters" in page.text
+    assert "data-clear-all-filters" in page.text
+    assert "data-open-feed-reader" in page.text
+    assert "Open original evidence" in page.text
+    assert "Podcast" in page.text
+
+    script = Path("app/static/feed_first.js").read_text(encoding="utf-8")
+    assert "openFeedReader" in script
+    assert "window.history.pushState" in script
+    assert 'window.addEventListener("popstate"' in script
+    assert 'headers: { "X-Requested-With": "feed-first-reader" }' in script
+    assert "window.location.assign(target)" in script
+
+
 def test_selected_reader_precedes_feed_in_single_column_layout():
     css = Path("app/static/berry_os.css").read_text(encoding="utf-8")
 
