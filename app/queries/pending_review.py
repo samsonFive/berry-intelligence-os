@@ -12,7 +12,6 @@ from dataclasses import dataclass
 import hashlib
 import json
 from pathlib import Path
-import time
 from typing import Any, Protocol
 
 INDEX_VERSION = 6
@@ -125,7 +124,7 @@ class JsonPendingDraftSnapshotProvider:
     """Incremental JSON implementation of the pending inventory seam.
 
     The sidecar is private because it lives below ``inbox/``.  It is safe to
-    delete: every entry is validated against the source filename/mtime/size,
+    delete: every entry is validated against source metadata and content digest,
     and entity/source matcher changes invalidate all derived attribution.
     """
 
@@ -173,13 +172,6 @@ class JsonPendingDraftSnapshotProvider:
             and isinstance(stored.get("entries"), dict)
         )
         previous = stored.get("entries") if reusable else {}
-        # region agent log
-        try:
-            with open("/opt/cursor/logs/debug.log", "a", encoding="utf-8") as debug_file:
-                debug_file.write(json.dumps({"hypothesisId": "C,E", "location": "app/queries/pending_review.py:snapshot:index", "message": "Pending sidecar load state", "data": {"pathCount": len(paths), "storedVersion": stored.get("version"), "dependencyMatches": stored.get("dependency_sha256") == dependency, "reusable": reusable, "entryNames": sorted(previous) if isinstance(previous, dict) else []}, "timestamp": int(time.time() * 1000)}) + "\n")
-        except OSError:
-            pass
-        # endregion
         entries: dict[str, Any] = {}
         records: list[dict[str, Any]] = []
         parsed = 0
@@ -188,17 +180,9 @@ class JsonPendingDraftSnapshotProvider:
         for path in paths:
             signature = _file_signature(path)
             cached = previous.get(path.name) if isinstance(previous, dict) else None
-            # region agent log
-            try:
-                with open("/opt/cursor/logs/debug.log", "a", encoding="utf-8") as debug_file:
-                    debug_file.write(json.dumps({"hypothesisId": "A,B,D", "location": "app/queries/pending_review.py:snapshot:signature", "message": "Pending draft invalidation inputs", "data": {"name": path.name, "signature": signature, "cachedSignature": cached.get("signature") if isinstance(cached, dict) else None, "signatureMatches": isinstance(cached, dict) and cached.get("signature") == signature, "contentSha256": hashlib.sha256(path.read_bytes()).hexdigest()}, "timestamp": int(time.time() * 1000)}) + "\n")
-            except OSError:
-                pass
-            # endregion
             if isinstance(cached, dict) and cached.get("signature") == signature and isinstance(cached.get("record"), dict):
                 entry = cached
                 reused += 1
-                branch = "reuse"
             else:
                 try:
                     source_record = json.loads(path.read_text(encoding="utf-8"))
@@ -219,14 +203,6 @@ class JsonPendingDraftSnapshotProvider:
                 )
                 entry = {"signature": signature, "record": record, "body_omitted": had_body}
                 parsed += 1
-                branch = "parse"
-            # region agent log
-            try:
-                with open("/opt/cursor/logs/debug.log", "a", encoding="utf-8") as debug_file:
-                    debug_file.write(json.dumps({"hypothesisId": "B,C,D", "location": "app/queries/pending_review.py:snapshot:branch", "message": "Pending draft cache branch", "data": {"name": path.name, "branch": branch, "recordSourceId": str((entry.get("record") or {}).get("source_id") or ""), "parsed": parsed, "reused": reused}, "timestamp": int(time.time() * 1000)}) + "\n")
-            except OSError:
-                pass
-            # endregion
             entries[path.name] = entry
             if entry.get("body_omitted"):
                 omitted += 1
@@ -236,17 +212,9 @@ class JsonPendingDraftSnapshotProvider:
             "dependency_sha256": dependency,
             "entries": entries,
         }
-        index_changed = next_index != stored
-        if index_changed:
+        if next_index != stored:
             self._write_index(next_index)
         records.sort(key=lambda row: str(row.get("captured_date") or ""), reverse=True)
-        # region agent log
-        try:
-            with open("/opt/cursor/logs/debug.log", "a", encoding="utf-8") as debug_file:
-                debug_file.write(json.dumps({"hypothesisId": "E", "location": "app/queries/pending_review.py:snapshot:exit", "message": "Pending snapshot result", "data": {"parsed": parsed, "reused": reused, "recordCount": len(records), "indexChanged": index_changed}, "timestamp": int(time.time() * 1000)}) + "\n")
-        except OSError:
-            pass
-        # endregion
         return PendingDraftSnapshot(
             records=records,
             inventory_count=len(records),
