@@ -1,8 +1,8 @@
 # Executive Demo QA Report
 
-Date: 2026-09-24  
-Branch: `cursor/executive-demo-sprint-ba0a`  
-Target: `v2/intelligence-os`  
+Date: 2026-09-24
+Branch: `cursor/executive-demo-sprint-ba0a`
+Target: `v2/intelligence-os`
 Environment tested: local interactive application with repository-published evidence
 
 ## Release decision
