@@ -120,8 +120,36 @@ def monitored_public_signals(
         ),
         reverse=True,
     )
+    diverse: list[dict[str, Any]] = []
+    selected_ids: set[str] = set()
+    seen_families: set[str] = set()
+    for record in rows:
+        family = signal_type(record)
+        if family in seen_families:
+            continue
+        diverse.append(record)
+        selected_ids.add(str(record.get("id") or ""))
+        seen_families.add(family)
+        if len(diverse) >= limit:
+            break
+    for record in rows:
+        record_id = str(record.get("id") or "")
+        if record_id in selected_ids:
+            continue
+        diverse.append(record)
+        selected_ids.add(record_id)
+        if len(diverse) >= limit:
+            break
+    diverse.sort(
+        key=lambda row: (
+            str(row.get("published_date") or ""),
+            str(row.get("id") or ""),
+        ),
+        reverse=True,
+    )
+
     presented = []
-    for record in rows[:limit]:
+    for record in diverse:
         family = signal_type(record)
         mechanism = str(record.get("link_mechanism") or "entity_id")
         if mechanism == "alias_recall":

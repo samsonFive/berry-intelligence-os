@@ -73,6 +73,42 @@ def test_monitored_signals_preserve_source_family_and_match_provenance():
     assert records == original
 
 
+def test_monitored_signals_keep_real_source_diversity_within_bound():
+    entity = _entity()
+    records = [
+        {
+            "id": f"ev-news-{index}",
+            "status": "published",
+            "title": f"Example Berry Genetics news {index}",
+            "source_name": "Trade publisher",
+            "source_type": "trade_press",
+            "source_url": f"https://example.test/news/{index}",
+            "published_date": f"2026-09-{20 + index:02d}",
+            "entity_ids": [entity["id"]],
+        }
+        for index in range(5)
+    ] + [
+        {
+            "id": "ev-older-podcast",
+            "status": "published",
+            "title": "Public industry interview",
+            "source_name": "Podcast publisher",
+            "source_type": "industry_podcast",
+            "source_url": "https://example.test/podcast",
+            "published_date": "2025-10-28",
+            "entity_ids": [entity["id"]],
+        }
+    ]
+    rows = monitored_public_signals(
+        entity,
+        records,
+        entities={entity["id"]: entity},
+        limit=3,
+    )
+    assert len(rows) == 3
+    assert {row["signal_label"] for row in rows} == {"News", "Podcast"}
+
+
 def test_company_dossier_exposes_monitoring_profile_and_public_signals():
     page = TestClient(app).get(
         "/entities/company/company-fall-creek-farm-and-nursery"
