@@ -553,7 +553,6 @@ def present_entities(
 
 def card_family(record: dict[str, Any], *, lead: bool, rank: int) -> str:
     kind = source_kind(record)
-    normalized_signal_type = signal_type(record)
     if int(record.get("cluster_size") or 1) > 1 and not lead:
         return "cluster"
     if kind == "registry":
@@ -664,6 +663,7 @@ def present_item(
     if capture and capture.get("availability"):
         availability = str(capture.get("availability") or availability)
     kind = source_kind(record)
+    normalized_signal_type = signal_type(record)
     if availability in {"blocked", "metadata_only", "excerpt_only"} and kind == "article":
         display_kind = "fallback" if availability != "excerpt_only" else "article"
     else:
