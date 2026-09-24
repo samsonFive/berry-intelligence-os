@@ -57,9 +57,11 @@ def test_today_progressive_filters_and_async_reader_contract():
     assert "More filters" in page.text
     assert "active secondary filters" in page.text
     assert "data-clear-all-filters" in page.text
-    assert "data-open-feed-reader" in page.text
-    assert "Open original evidence" in page.text
     assert "Podcast" in page.text
+
+    default_page = TestClient(app).get("/today")
+    assert "data-open-feed-reader" in default_page.text
+    assert "Open original evidence" in default_page.text
 
     script = Path("app/static/feed_first.js").read_text(encoding="utf-8")
     assert "openFeedReader" in script
