@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-24T20:45:00Z",
+  "branch": "cursor/executive-demo-sprint-ba0a",
+  "base_branch": "v2/intelligence-os",
+  "decision": "pass_for_review",
+  "deployment_status": "not_deployed",
+  "automated": {
+    "full_python_suite": {
+      "status": "pass",
+      "passed": 3328,
+      "skipped": 9,
+      "warnings": 2,
+      "live_provider_credentials": "removed"
+    },
+    "pull_request_checks": [
+      {
+        "name": "Change scope",
+        "status": "pass"
+      },
+      {
+        "name": "Repository integrity",
+        "status": "pass"
+      },
+      {
+        "name": "Static public safety",
+        "status": "pass"
+      },
+      {
+        "name": "Python tests",
+        "status": "pass"
+      }
+    ]
+  },
+  "manual_runs": [
+    {
+      "run": 1,
+      "viewport": "430x932",
+      "status": "pass",
+      "mutations": false
+    },
+    {
+      "run": 2,
+      "viewport": "430x932",
+      "status": "pass",
+      "mutations": false
+    },
+    {
+      "run": 3,
+      "viewport": "1280x800",
+      "status": "pass",
+      "mutations": false
+    }
+  ],
+  "acceptance": {
+    "mobile_reader_precedes_feed": "pass",
+    "reader_opens_without_document_reload": "pass",
+    "reader_close_preserves_feed_context": "pass",
+    "progressive_filters": "pass",
+    "original_evidence_action": "pass",
+    "source_family_normalization": "pass",
+    "transparent_entity_monitoring": "pass",
+    "multi_source_provenance": "pass",
+    "same_timestamp_sidecar_invalidation": "pass"
+  },
+  "artifacts": [
+    {
+      "path": "/opt/cursor/artifacts/mobile_async_reader.mp4",
+      "description": "Desktop-width asynchronous reader open/close proof"
+    }
+  ],
+  "limitations": [
+    "Live discovery remains provider- and network-dependent.",
+    "The trusted corpus contains one published podcast item.",
+    "Monitoring expressions do not imply exhaustive company monitoring.",
+    "No geographic map is claimed or demonstrated.",
+    "Production deployment requires approval, merge, and post-deploy verification."
+  ]
+}
