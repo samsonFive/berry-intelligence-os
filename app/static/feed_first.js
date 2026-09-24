@@ -354,46 +354,6 @@
 
   const readerRoot = root.querySelector("[data-reader-root]");
   if (readerRoot && readerRoot.getAttribute("data-item-id")) {
-    // #region agent log
-    window.requestAnimationFrame(function () {
-      const shell = root.querySelector("[data-viewport-shell]");
-      const inspector = root.querySelector("[data-reader-panel]");
-      const rect = function (node) {
-        if (!node) return null;
-        const box = node.getBoundingClientRect();
-        return { top: box.top, bottom: box.bottom, left: box.left, right: box.right, width: box.width, height: box.height };
-      };
-      const readerStyle = window.getComputedStyle(readerRoot);
-      const inspectorStyle = inspector ? window.getComputedStyle(inspector) : null;
-      const shellStyle = shell ? window.getComputedStyle(shell) : null;
-      fetch("/api/debug/feed-first-layout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        keepalive: true,
-        body: JSON.stringify({
-          item: readerRoot.getAttribute("data-item-id"),
-          viewport: { width: window.innerWidth, height: window.innerHeight },
-          scrollY: window.scrollY,
-          documentHeight: document.documentElement.scrollHeight,
-          shellRect: rect(shell),
-          inspectorRect: rect(inspector),
-          readerRect: rect(readerRoot),
-          domOrder: inspector && root.querySelector(".bos-canvas")
-            ? Boolean(root.querySelector(".bos-canvas").compareDocumentPosition(inspector) & Node.DOCUMENT_POSITION_FOLLOWING)
-            : null,
-          readerExists: true,
-          readerDisplay: readerStyle.display,
-          readerVisibility: readerStyle.visibility,
-          readerPosition: readerStyle.position,
-          inspectorDisplay: inspectorStyle ? inspectorStyle.display : null,
-          inspectorPosition: inspectorStyle ? inspectorStyle.position : null,
-          shellColumns: shellStyle ? shellStyle.gridTemplateColumns : null,
-          media1100: window.matchMedia("(max-width: 1100px)").matches,
-          media700: window.matchMedia("(max-width: 700px)").matches,
-        }),
-      }).catch(function () {});
-    });
-    // #endregion
     postJSON("/api/feed-first/capture", { item_id: readerRoot.getAttribute("data-item-id") })
       .then(function (data) {
         const body = root.querySelector("[data-reader-body]");
