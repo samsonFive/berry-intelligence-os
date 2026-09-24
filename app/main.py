@@ -3956,6 +3956,13 @@ def _feed_first_today(request: Request) -> HTMLResponse:
 
     world = _feed_first_world()
     params = dict(request.query_params)
+    # region agent log
+    try:
+        with open("/opt/cursor/logs/debug.log", "a", encoding="utf-8") as debug_file:
+            debug_file.write(json.dumps({"hypothesisId": "A", "location": "app/main.py:_feed_first_today:entry", "message": "Today request selection input", "data": {"item": str(params.get("item") or ""), "queryKeys": sorted(params), "mobileUa": "Mobile" in str(request.headers.get("user-agent") or "")}, "timestamp": int(time.time() * 1000)}) + "\n")
+    except OSError:
+        pass
+    # endregion
     refresh = str(params.get("refresh") or "").strip().lower() in {"1", "true", "yes"}
     today = utc_today()
     from app.services.people_watchlist import discover_people
@@ -4053,6 +4060,13 @@ def _feed_first_today(request: Request) -> HTMLResponse:
             "body": "Select Fetch live stories. News loads immediately and acquisition runs only when requested.",
         }
     feed["refresh_href"] = f"/today?{filters_query(filters, refresh='1')}"
+    # region agent log
+    try:
+        with open("/opt/cursor/logs/debug.log", "a", encoding="utf-8") as debug_file:
+            debug_file.write(json.dumps({"hypothesisId": "A", "location": "app/main.py:_feed_first_today:exit", "message": "Today selection render result", "data": {"requestedItem": str(filters.get("item") or ""), "selectedItem": str((feed.get("selected") or {}).get("id") or ""), "cardCount": len(feed.get("cards") or []), "hasFallback": bool(feed.get("fallback_notice"))}, "timestamp": int(time.time() * 1000)}) + "\n")
+    except OSError:
+        pass
+    # endregion
     return templates.TemplateResponse(
         request=request,
         name="feed_first_today.html",
@@ -4070,6 +4084,26 @@ def today_page(request: Request) -> HTMLResponse:
     if str(request.query_params.get("view") or "") == "briefing":
         return _legacy_briefing_today(request)
     return _feed_first_today(request)
+
+
+@app.post("/api/debug/feed-first-layout", response_class=JSONResponse)
+async def debug_feed_first_layout(request: Request) -> JSONResponse:
+    payload = await request.json()
+    # region agent log
+    try:
+        with open("/opt/cursor/logs/debug.log", "a", encoding="utf-8") as debug_file:
+            debug_file.write(json.dumps({"hypothesisId": "B,C", "location": "app/main.py:debug_feed_first_layout:geometry", "message": "Selected reader browser geometry", "data": {"item": str(payload.get("item") or ""), "viewport": payload.get("viewport"), "scrollY": payload.get("scrollY"), "documentHeight": payload.get("documentHeight"), "shellRect": payload.get("shellRect"), "inspectorRect": payload.get("inspectorRect"), "readerRect": payload.get("readerRect"), "domOrder": payload.get("domOrder")}, "timestamp": int(time.time() * 1000)}) + "\n")
+    except OSError:
+        pass
+    # endregion
+    # region agent log
+    try:
+        with open("/opt/cursor/logs/debug.log", "a", encoding="utf-8") as debug_file:
+            debug_file.write(json.dumps({"hypothesisId": "B,D,E", "location": "app/main.py:debug_feed_first_layout:styles", "message": "Selected reader computed responsive state", "data": {"readerExists": payload.get("readerExists"), "readerDisplay": payload.get("readerDisplay"), "readerVisibility": payload.get("readerVisibility"), "readerPosition": payload.get("readerPosition"), "inspectorDisplay": payload.get("inspectorDisplay"), "inspectorPosition": payload.get("inspectorPosition"), "shellColumns": payload.get("shellColumns"), "media1100": payload.get("media1100"), "media700": payload.get("media700")}, "timestamp": int(time.time() * 1000)}) + "\n")
+    except OSError:
+        pass
+    # endregion
+    return JSONResponse({"ok": True})
 
 
 @app.get("/following", response_class=HTMLResponse)
