@@ -3428,6 +3428,7 @@ def _wants_feed_first_profile(request: Request) -> bool:
 def _feed_first_company_response(request: Request, entity_id: str) -> HTMLResponse | None:
     from app.services.entity_dossier import build_company_backbone, build_dossier
     from app.services.entity_logo_overrides import load_logo_overrides, logo_override_url
+    from app.services.entity_monitoring import build_monitoring_profile, monitored_public_signals
     from app.services.people_watchlist import discover_people
     from app.services.seed_roster import seed_profile
 
@@ -3450,6 +3451,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     entities_by_id = {str(row.get("id")): row for row in entity_rows if row.get("id")}
     relationships = all_relationships()
     facts = all_facts()
+    published = published_evidence()
     growing_profile = learn_growing_profile_for_company(
         entity_id,
         relationships=relationships,
@@ -3460,7 +3462,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
         entity_id,
         entities=entities_by_id,
         relationships=relationships,
-        published_evidence=published_evidence(),
+        published_evidence=published,
         facts=facts,
         evidence_by_id={row["id"]: row for row in all_evidence() if row.get("id")},
         signals=all_signals(),
@@ -3475,6 +3477,32 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
         state=world["state"],
         people=linked_people,
         backbone=backbone,
+    )
+    monitor_entity = trusted or {
+        "id": entity_id,
+        "name": name,
+        "aliases": list((seed or {}).get("aliases") or []),
+        "berry_ids": [
+            f"berry-{crop}"
+            for crop in ((seed or {}).get("crops") or [])
+        ],
+    }
+    related_terms = [
+        str(row.get("name") or "")
+        for row in (((backbone or {}).get("portfolio") or {}).get("variety_rows") or [])
+    ] + [
+        str(row.get("canonical_name") or "")
+        for row in linked_people
+    ]
+    monitoring_profile = build_monitoring_profile(
+        monitor_entity,
+        profile=seed,
+        related_terms=related_terms,
+    )
+    monitored_signals = monitored_public_signals(
+        monitor_entity,
+        published,
+        entities=entities_by_id,
     )
     return templates.TemplateResponse(
         request=request,
@@ -3493,6 +3521,8 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "crops": (seed or {}).get("crops")
             or [str(item).removeprefix("berry-") for item in (trusted or {}).get("berry_ids") or []],
             "watches": (seed or {}).get("watches") or [{"kind": "mention", "query": name}],
+            "monitoring_profile": monitoring_profile,
+            "monitored_signals": monitored_signals,
             "official_website": (seed or {}).get("official_website") or "",
             "resolved_website": (seed or {}).get("resolved_website") or "",
             "statements": _feed_first_entity_statements(entity_id),
