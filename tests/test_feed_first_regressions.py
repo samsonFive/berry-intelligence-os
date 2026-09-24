@@ -47,6 +47,16 @@ def test_today_filter_query_restores_selected_controls():
     assert "data-clear-filter" in page.text
 
 
+def test_selected_reader_precedes_feed_in_single_column_layout():
+    css = Path("app/static/berry_os.css").read_text(encoding="utf-8")
+
+    single_column = css.split("@media (max-width: 1100px)", 1)[1].split(
+        "@media (max-width: 700px)", 1
+    )[0]
+    assert ".bos-shell.has-reader > .bos-inspector { grid-column: 1; grid-row: 2; }" in single_column
+    assert ".bos-shell.has-reader > .bos-canvas { grid-row: 3; }" in single_column
+
+
 def test_settings_stays_in_berry_os_and_keeps_legacy_guide():
     client = TestClient(app)
     settings = client.get("/settings")
