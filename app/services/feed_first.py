@@ -100,6 +100,39 @@ SOURCE_KIND = {
     "academic": "article",
 }
 
+SIGNAL_TYPE_BY_SOURCE = {
+    "industry_podcast": "podcast",
+    "research_program_publication": "research",
+    "university_trial_report": "research",
+    "extension_publication": "research",
+    "academic": "research",
+    "industry_association_report": "report",
+    "company_annual_report": "report",
+    "company_technical_datasheet": "report",
+    "company_website": "company_signal",
+    "company_press_release": "company_signal",
+    "company_catalog": "company_signal",
+    "brand_website": "company_signal",
+    "licensing_body_website": "company_signal",
+    "development_finance_press_release": "company_signal",
+    "private_equity_press_release": "company_signal",
+    "press_release": "company_signal",
+    "individual_analysis_post": "professional_signal",
+    "patent_record": "registry",
+    "plant_breeders_rights_record": "registry",
+    "government_registry": "registry",
+    "court_record": "registry",
+}
+SIGNAL_TYPE_LABELS = {
+    "news": "News",
+    "report": "Report",
+    "podcast": "Podcast",
+    "research": "Research",
+    "company_signal": "Company signal",
+    "professional_signal": "Professional signal",
+    "registry": "Registry",
+}
+
 BODY_TO_AVAILABILITY = {
     "body_available": "full",
     "body_partial": "partial",
@@ -304,7 +337,16 @@ def parse_filters(params: dict[str, Any]) -> dict[str, str]:
         "tier": _one("tier", set(TIERS)),
         "entity": _one("entity"),
         "crop": _one("crop", set(CROP_LABELS)),
-        "source": _one("source", {"article", "official", "social", "registry", "fallback"}),
+        "source": _one(
+            "source",
+            {
+                "article",
+                "official",
+                "social",
+                "fallback",
+                *SIGNAL_TYPE_LABELS,
+            },
+        ),
         "state": _one("state", {"unread", "read", "saved", "judged"}),
         "q": _one("q"),
         "item": _one("item"),
@@ -330,7 +372,10 @@ def active_filter_chips(filters: dict[str, str]) -> list[dict[str, str]]:
         "window": f"Window {filters.get('window') or 'all'}",
         "tier": TIER_LABELS.get(filters.get("tier") or "", filters.get("tier") or ""),
         "crop": CROP_LABELS.get(filters.get("crop") or "", filters.get("crop") or ""),
-        "source": (filters.get("source") or "").replace("_", " "),
+        "source": SIGNAL_TYPE_LABELS.get(
+            filters.get("source") or "",
+            (filters.get("source") or "").replace("_", " "),
+        ),
         "state": filters.get("state") or "",
         "entity": filters.get("entity") or "",
         "person": filters.get("person") or "",
@@ -372,6 +417,15 @@ def crop_keys(record: dict[str, Any]) -> list[str]:
 
 def source_kind(record: dict[str, Any]) -> str:
     return SOURCE_KIND.get(str(record.get("source_type") or ""), "article")
+
+
+def signal_type(record: dict[str, Any]) -> str:
+    """Normalize public source families without changing trusted Evidence."""
+    source_type = str(record.get("source_type") or "")
+    explicit = SIGNAL_TYPE_BY_SOURCE.get(source_type)
+    if explicit:
+        return explicit
+    return "registry" if source_kind(record) == "registry" else "news"
 
 
 def body_availability(record: dict[str, Any]) -> str:
@@ -609,6 +663,7 @@ def present_item(
     if capture and capture.get("availability"):
         availability = str(capture.get("availability") or availability)
     kind = source_kind(record)
+    normalized_signal_type = signal_type(record)
     if availability in {"blocked", "metadata_only", "excerpt_only"} and kind == "article":
         display_kind = "fallback" if availability != "excerpt_only" else "article"
     else:
@@ -643,6 +698,8 @@ def present_item(
         "source_name": record.get("source_name") or "Unknown source",
         "source_type": record.get("source_type") or "",
         "source_kind": kind,
+        "signal_type": normalized_signal_type,
+        "signal_label": SIGNAL_TYPE_LABELS[normalized_signal_type],
         "display_kind": display_kind,
         "source_url": record.get("source_url") or "",
         "published_at": published,
@@ -784,6 +841,7 @@ def _in_window(published: str, window: str, today: date) -> bool:
 def _facet_counts(items: list[dict[str, Any]]) -> dict[str, Any]:
     tiers: dict[str, int] = {}
     crops: dict[str, int] = {}
+    signal_types: dict[str, int] = {}
     states = {"unread": 0, "read": 0, "saved": 0, "judged": 0}
     for item in items:
         tier = str(item.get("highest_tier") or "")
@@ -791,6 +849,9 @@ def _facet_counts(items: list[dict[str, Any]]) -> dict[str, Any]:
             tiers[tier] = tiers.get(tier, 0) + 1
         for crop in item.get("crops") or []:
             crops[str(crop)] = crops.get(str(crop), 0) + 1
+        signal_type_key = str(item.get("signal_type") or "")
+        if signal_type_key:
+            signal_types[signal_type_key] = signal_types.get(signal_type_key, 0) + 1
         decision = item.get("decision") or {}
         if decision.get("read"):
             states["read"] += 1
@@ -800,7 +861,13 @@ def _facet_counts(items: list[dict[str, Any]]) -> dict[str, Any]:
             states["saved"] += 1
         if decision.get("reaction") in {"up", "down"}:
             states["judged"] += 1
-    return {"tier": tiers, "crop": crops, "state": states, "total": len(items)}
+    return {
+        "tier": tiers,
+        "crop": crops,
+        "signal_type": signal_types,
+        "state": states,
+        "total": len(items),
+    }
 
 
 def _matches(item: dict[str, Any], filters: dict[str, str]) -> bool:
@@ -827,6 +894,9 @@ def _matches(item: dict[str, Any], filters: dict[str, str]) -> bool:
     if filters["source"]:
         if filters["source"] == "fallback":
             if item["body_availability"] not in {"blocked", "metadata_only", "excerpt_only"}:
+                return False
+        elif filters["source"] in SIGNAL_TYPE_LABELS:
+            if item["signal_type"] != filters["source"]:
                 return False
         elif item["source_kind"] != filters["source"]:
             return False
@@ -963,6 +1033,11 @@ def build_feed(
         for geo_id, name in sorted(geo_options.items(), key=lambda row: row[1].casefold())
     ]
     chips = active_filter_chips(filters)
+    secondary_filter_count = sum(
+        1
+        for key in ("tier", "state", "entity", "q", "sort")
+        if filters.get(key) and not (key == "sort" and filters.get(key) == "rank")
+    )
     geo_filter = str(filters.get("geography") or "")
     if geo_filter:
         for chip in chips:
@@ -985,10 +1060,12 @@ def build_feed(
         "total_matched": len(ranked),
         "facet_counts": facets,
         "filter_chips": chips,
+        "secondary_filter_count": secondary_filter_count,
         "geography_options": geography_options,
         "nav": NAV,
         "tier_labels": TIER_LABELS,
         "crop_labels": CROP_LABELS,
+        "signal_type_labels": SIGNAL_TYPE_LABELS,
         "disclosure": disclosure
         or analyst_lede(
             window=filters.get("window") or "today",

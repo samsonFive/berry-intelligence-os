@@ -273,6 +273,48 @@ def test_p0_filter_tier1_crop_unread_30d_restores_url_and_facets(tmp_path):
     assert "tier=tier1" in crop_chip["href"]
 
 
+def test_source_families_normalize_and_filter_without_changing_evidence(tmp_path):
+    records = [
+        _record(id="news", source_type="trade_press"),
+        _record(id="podcast", source_type="industry_podcast"),
+        _record(id="report", source_type="company_annual_report"),
+        _record(id="research", source_type="research_program_publication"),
+        _record(id="company", source_type="company_press_release"),
+    ]
+    entities = [
+        {
+            "id": "company-fall-creek-farm-and-nursery",
+            "name": "Fall Creek",
+            "status": "active",
+            "verification_status": "verified-secondary",
+        }
+    ]
+    feed = build_feed(
+        evidence=records,
+        entities=entities,
+        state=load_state(tmp_path / "inbox"),
+        filters=parse_filters({"window": "30d"}),
+        today=date(2026, 6, 1),
+    )
+    labels = {card["id"]: card["signal_label"] for card in feed["cards"]}
+    assert labels == {
+        "news": "News",
+        "podcast": "Podcast",
+        "report": "Report",
+        "research": "Research",
+        "company": "Company signal",
+    }
+    podcast = build_feed(
+        evidence=records,
+        entities=entities,
+        state=load_state(tmp_path / "inbox"),
+        filters=parse_filters({"window": "30d", "source": "podcast"}),
+        today=date(2026, 6, 1),
+    )
+    assert [card["id"] for card in podcast["cards"]] == ["podcast"]
+    assert podcast["facet_counts"]["signal_type"]["report"] == 1
+
+
 def test_p0_statement_important_demote_remove_restore(tmp_path):
     from app.services.feed_first import mutate_statement, statements_index, statements_review_index
 

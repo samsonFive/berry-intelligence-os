@@ -99,6 +99,43 @@
         {% else %}<p class="bos-empty">No confirmed changes. Thumbs-up starts extraction; confirmation in the reader creates trust.</p>{% endif %}
       </section>
 
+      <section id="monitoring-signals" class="bos-dossier-section" data-monitoring-profile>
+        <div class="bos-section-heading">
+          <p class="bos-kicker">Entity monitoring · transparent matching</p>
+          <h2>Signals associated with {{ name }}</h2>
+          <p class="bos-note">{{ monitoring_profile.explanation }}</p>
+        </div>
+        <details class="bos-monitoring-expression">
+          <summary>Inspect monitoring expression</summary>
+          <p><code>{{ monitoring_profile.expression }}</code></p>
+          <p class="bos-meta">
+            {% for term in monitoring_profile.terms %}
+            <span class="bos-chip">{{ term.value }}{% if term.weak %} · context required{% endif %}</span>
+            {% endfor %}
+          </p>
+          <p class="bos-note">Exclusions: {{ monitoring_profile.exclusions|join(', ') }}. This profile explains matching; it does not bypass publication review.</p>
+        </details>
+        {% if monitored_signals %}
+        <div class="bos-dense-grid">
+          {% for signal in monitored_signals %}
+          <article class="bos-fact-block" data-monitoring-signal="{{ signal.id }}">
+            <p class="bos-meta">
+              <span class="bos-source-type is-{{ signal.signal_type }}">{{ signal.signal_label }}</span>
+              <span>{{ signal.publisher }}</span>
+              <span>{{ signal.published_date or 'date unknown' }}</span>
+            </p>
+            <h3><a href="{{ signal.reader_href }}">{{ signal.title }}</a></h3>
+            {% if signal.summary %}<p>{{ signal.summary|truncate(180) }}</p>{% endif %}
+            <p class="bos-note">{{ signal.match_reason }} · {{ signal.review_state }}</p>
+            <a href="{{ signal.source_url }}" rel="noopener noreferrer">Open original evidence ↗</a>
+          </article>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="bos-gap-text">No published Evidence is currently associated with this monitoring profile.</p>
+        {% endif %}
+      </section>
+
       <section id="identity-structure" class="bos-dossier-section">
         <div class="bos-section-heading"><p class="bos-kicker">Identity & Structure</p><h2>Canonical record</h2></div>
         <dl class="bos-dossier-dl">

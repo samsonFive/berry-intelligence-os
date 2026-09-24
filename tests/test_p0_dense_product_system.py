@@ -66,7 +66,7 @@ def test_golden_news_reader_has_one_close_control_and_distinct_actions() -> None
     assert "Collapse reader" not in template
     assert 'aria-label="Save for later"' in template
     assert "authorize extraction for confirmation" in template
-    assert 'aria-label="View original"' in template
+    assert 'aria-label="Open original evidence"' in template
 
 
 def test_shared_product_language_and_entity_index_are_present() -> None:

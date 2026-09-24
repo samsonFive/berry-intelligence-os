@@ -3,6 +3,136 @@
   if (!root) return;
 
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const viewportShell = root.querySelector("[data-viewport-shell]");
+  const readerPanel = root.querySelector("[data-reader-panel]");
+  let readerRequest = 0;
+  let lastReaderTrigger = null;
+
+  function readerItemFromUrl(value) {
+    try {
+      return new URL(value, window.location.href).searchParams.get("item") || "";
+    } catch (error) {
+      return "";
+    }
+  }
+
+  function selectFeedCard(itemId) {
+    root.querySelectorAll("[data-feed-card]").forEach(function (card) {
+      card.classList.toggle("is-selected", card.dataset.feedCard === itemId);
+    });
+  }
+
+  function clearFeedReader(scrollY) {
+    if (!readerPanel || !viewportShell) return;
+    ++readerRequest;
+    readerPanel.innerHTML = "";
+    viewportShell.classList.remove("has-reader");
+    selectFeedCard("");
+    if (lastReaderTrigger && lastReaderTrigger.isConnected) {
+      lastReaderTrigger.focus({ preventScroll: true });
+    }
+    if (Number.isFinite(scrollY)) {
+      window.requestAnimationFrame(function () {
+        window.scrollTo({ top: scrollY, behavior: "auto" });
+      });
+    }
+  }
+
+  async function openFeedReader(href, trigger, options) {
+    if (!readerPanel || !viewportShell) {
+      window.location.assign(href);
+      return;
+    }
+    const target = new URL(href, window.location.href);
+    const itemId = readerItemFromUrl(target);
+    if (!itemId) return;
+    const fromHistory = options && options.fromHistory;
+    const savedScroll = Number(
+      (fromHistory && window.history.state && window.history.state.feedScrollY) ||
+        window.scrollY
+    );
+    lastReaderTrigger = trigger || lastReaderTrigger;
+    if (!fromHistory) {
+      const current = Object.assign({}, window.history.state || {}, { feedScrollY: savedScroll });
+      window.history.replaceState(current, "", window.location.href);
+      window.history.pushState(
+        { feedFirstReader: true, feedScrollY: savedScroll, itemId: itemId },
+        "",
+        target
+      );
+    }
+    viewportShell.classList.add("has-reader");
+    selectFeedCard(itemId);
+    readerPanel.innerHTML = '<div class="bos-reader" aria-busy="true"><p class="bos-note">Loading reader…</p></div>';
+    if (window.matchMedia("(max-width: 1100px)").matches) {
+      readerPanel.scrollIntoView({ block: "start", behavior: reduced ? "auto" : "smooth" });
+    }
+    const request = ++readerRequest;
+    try {
+      const response = await fetch(target, {
+        credentials: "same-origin",
+        headers: { "X-Requested-With": "feed-first-reader" },
+      });
+      if (!response.ok) throw new Error("reader unavailable");
+      const documentCopy = new DOMParser().parseFromString(await response.text(), "text/html");
+      const nextPanel = documentCopy.querySelector("[data-reader-panel]");
+      if (!nextPanel || request !== readerRequest) return;
+      readerPanel.innerHTML = nextPanel.innerHTML;
+      selectFeedCard(itemId);
+      const heading = readerPanel.querySelector(".bos-reader h2");
+      if (heading) {
+        heading.setAttribute("tabindex", "-1");
+        heading.focus({ preventScroll: true });
+      }
+    } catch (error) {
+      if (request !== readerRequest) return;
+      window.location.assign(target);
+    }
+  }
+
+  if (readerPanel) {
+    root.addEventListener("click", function (event) {
+      const close = event.target.closest("a[data-close-reader]");
+      if (close && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+        event.preventDefault();
+        const state = window.history.state || {};
+        if (state.feedFirstReader) {
+          window.history.back();
+        } else {
+          window.history.replaceState(
+            { feedScrollY: 0 },
+            "",
+            new URL(close.href, window.location.href)
+          );
+          clearFeedReader(0);
+        }
+        return;
+      }
+      const opener = event.target.closest("a[data-open-feed-reader]");
+      if (
+        !opener ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        event.button !== 0
+      ) {
+        return;
+      }
+      event.preventDefault();
+      openFeedReader(opener.href, opener);
+    });
+
+    window.addEventListener("popstate", function (event) {
+      const itemId = readerItemFromUrl(window.location.href);
+      if (itemId) {
+        openFeedReader(window.location.href, null, { fromHistory: true });
+      } else {
+        const scrollY = Number(event.state && event.state.feedScrollY);
+        clearFeedReader(Number.isFinite(scrollY) ? scrollY : 0);
+      }
+    });
+  }
 
   function csrfSafe() {
     return true;
@@ -473,14 +603,14 @@
       const next = root.querySelector("[data-next-item]");
       if (next && next.href) {
         event.preventDefault();
-        window.location.href = next.href;
+        next.click();
       }
     }
     if (key === "k" || key === "ArrowLeft") {
       const prev = root.querySelector("[data-prev-item]");
       if (prev && prev.href) {
         event.preventDefault();
-        window.location.href = prev.href;
+        prev.click();
       }
     }
     if (key === "Escape") {
