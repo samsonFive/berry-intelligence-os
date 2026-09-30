@@ -96,10 +96,14 @@ def render_report_pdf(
 
     scope = report.get("scope") or {}
     scope_lines = [f"Report type: {report.get('report_type', '').replace('_', ' ').title()}"]
+    if len(scope.get("berry_ids") or []) > 1:
+        scope_lines.append(f"Berries: {', '.join(scope['berry_ids'])}")
     if scope.get("berry_id"):
         scope_lines.append(f"Berry: {scope['berry_id']}")
     if scope.get("geography_ids"):
         scope_lines.append(f"Geographies: {', '.join(scope['geography_ids'])}")
+    if scope.get("country_codes"):
+        scope_lines.append(f"Countries without canonical geography records (ISO): {', '.join(scope['country_codes'])}")
     if scope.get("company_ids"):
         company_names = {r["id"]: r.get("name") or r["id"] for r in packet.get("companies") or [] if r.get("id")}
         scope_lines.append(f"Companies: {', '.join(company_names.get(cid, cid) for cid in scope['company_ids'])}")
@@ -178,6 +182,13 @@ def render_report_pdf(
             date_text = row.get("date") or row.get("published_date") or ""
             source_name = row.get("source_name") or ""
             story.append(Paragraph(f"[{row.get('id')}] {label} — {source_name} ({date_text or 'date unknown'})", styles["source"]))
+
+    # Optional source URLs preserve provenance for structured snapshots too.
+    for row in source_trace:
+        url = str(row.get("source_url") or "")
+        if url.startswith(("https://", "http://")):
+            safe_url = escape(url, {'"': '&quot;'})
+            story.append(Paragraph(f'<link href="{safe_url}">{escape(str(row.get("id") or ""))}: {safe_url}</link>', styles["source"]))
 
     included = [row for row in (report.get("external_research_appendix") or []) if row.get("included_in_report")]
     if included:

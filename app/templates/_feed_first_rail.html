@@ -4,6 +4,7 @@
     {% for label, href in nav %}
     <a href="{{ href }}"{% if href == active_href %} class="is-active" aria-current="page"{% endif %}>{{ label }}</a>
     {% endfor %}
+        {% if not static_build %}<a href="/explorer"{% if active_href == "/explorer" %} class="is-active" aria-current="page"{% endif %}>Global Explorer</a>{% endif %}
   </nav>
   {% if counts %}
   <p class="bos-kicker">Watched world</p>

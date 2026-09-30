@@ -1,5 +1,6 @@
 {# Compact feed/brief intelligence card. Hover/current exposes DecisionBar. #}
 <li class="v2-card intel-card intel-card-{{ item.trust }}" data-intel-card data-item-id="{{ item.id }}" data-pending="{{ 'true' if item.pending else 'false' }}" tabindex="-1">
+  {% if item.image_url %}<img class="gx-article-image" src="{{ item.image_url }}" alt="" loading="lazy" referrerpolicy="no-referrer">{% endif %}
   <p class="v2-card-kicker">
     <span class="v2-source">{{ item.source_name }}</span>
     {% if item.date %}<time class="v2-meta">{{ item.date|us_date }}</time>{% endif %}
@@ -40,6 +41,8 @@
       <span class="v2-chip v2-chip-entity">{{ name }}</span>
     {% endfor %}
   </div>
+  {% for fact in item.escalations or [] %}<p class="gx-escalation"><strong>{{ fact.classification|default('Claim')|title }}</strong> · {{ fact.statement }} <small>{{ fact.id }}</small></p>{% endfor %}
+  {% if item.explorer_feedback %}<div class="gx-feedback"><button type="button" class="v2-btn" data-react="thumbs_up" data-item-id="{{ item.id }}" aria-label="Useful — prepare for human confirmation" aria-pressed="{{ 'true' if item.decision.reaction == 'up' else 'false' }}">&#128077; Useful</button><button type="button" class="v2-btn" data-react="thumbs_down" data-item-id="{{ item.id }}" aria-label="Not relevant" aria-pressed="{{ 'true' if item.decision.reaction == 'down' else 'false' }}">&#128078; Not relevant</button><a href="/today?item={{ item.id }}">Review candidates</a></div>{% endif %}
   <footer class="v2-card-footer">
     {% if item.berry_direct %}<span class="v2-mark v2-mark-direct">Direct</span>{% endif %}
     {% if item.watch_match == 'primary' %}<span class="v2-mark v2-mark-watch">Watch</span>{% endif %}

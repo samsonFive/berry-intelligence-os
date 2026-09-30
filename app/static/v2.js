@@ -192,6 +192,9 @@
     loadReaderById(itemIdFromCard(card), card.querySelector("[data-open-reader]") || card, index);
   }
 
+  function bindIntelligenceCards() {
+    cards = Array.prototype.slice.call(document.querySelectorAll("[data-intel-card]"));
+    active = 0;
   cards.forEach(function (card, index) {
     card.addEventListener("click", function (event) {
       selectCard(index);
@@ -212,6 +215,10 @@
       });
     });
   });
+  }
+  bindIntelligenceCards();
+  // Query interfaces may replace feed cards while preserving the shared Reader.
+  document.addEventListener("bios:intelligence-updated", bindIntelligenceCards);
   function bindStandaloneReaderLink(link) {
     if (!link || link.dataset.readerBound === "1" || link.closest("[data-intel-card]")) return;
     link.dataset.readerBound = "1";

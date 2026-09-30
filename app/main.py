@@ -7508,6 +7508,62 @@ def reports_index_page(request: Request, status: str = "draft") -> HTMLResponse:
     return response
 
 
+def _explorer_context(request, countries, berry, sections=None):
+    from app.services.global_explorer import IntelligenceQuery, explorer_model, snapshot_model, SECTIONS
+    entities = entity_index()
+    # Native checkbox forms send repeated berry values; URLs may use CSV.
+    berry = ','.join(request.query_params.getlist('berry')) or berry
+    try:
+        query = IntelligenceQuery.parse(countries, berry, entities, BERRIES)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    from dataclasses import replace
+    from app.services.feed_first import load_state
+    from app.services.feed_first_live import cached_live_records, merge_decision_records
+    view = request.query_params.get("view", "trusted")
+    if view not in {"trusted", "unreviewed"}:
+        raise HTTPException(status_code=422, detail="Unknown intelligence view")
+    query = replace(query, view=view)
+    records = published_evidence()
+    if view == "unreviewed" and sections is None:
+        records = merge_decision_records(records, cached_live_records(INBOX_DIR))
+    args = (query, records, entities, all_relationships(), BERRIES)
+    trust = {"facts": all_facts(), "state": load_state(INBOX_DIR)}
+    if sections is None:
+        model = explorer_model(*args, **trust)
+    else:
+        included = [key for key in sections.split(',') if key in SECTIONS]
+        model = snapshot_model(*args, included, **trust)
+    from app.services.feed_first import NAV
+    return model | {"ui_context": read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR),
+                    "nav": NAV, "active_href": "/explorer"}
+
+
+@app.get("/explorer", response_class=HTMLResponse)
+def global_explorer_page(request: Request, countries: str = "", berry: str = "", page: int = 1):
+    model = _explorer_context(request, countries, berry)
+    pages = max(1, (model["total"] + 47) // 48)
+    page = min(max(1, page), pages)
+    model.update(page=page, pages=pages, entries=model["entries"][(page-1)*48:page*48])
+    return templates.TemplateResponse(request=request, name="global_explorer.html", context=model)
+
+
+@app.get("/explorer/snapshot", response_class=HTMLResponse)
+def global_snapshot_page(request: Request, countries: str = "", berry: str = "",
+                         sections: str = "overview,developments,companies,varieties"):
+    return templates.TemplateResponse(request=request, name="global_snapshot.html",
+        context=_explorer_context(request, countries, berry, sections))
+
+
+@app.get("/explorer/snapshot.pdf")
+def global_snapshot_pdf(request: Request, countries: str = "", berry: str = "",
+                        sections: str = "overview,developments,companies,varieties"):
+    model = _explorer_context(request, countries, berry, sections)
+    content = render_report_pdf(model["report"], model["packet"], model["coverage"], confidentiality="Public-source intelligence")
+    return Response(content=content, media_type="application/pdf",
+        headers={"Content-Disposition": 'attachment; filename="market-snapshot.pdf"'})
+
+
 @app.get("/reports/new", response_class=HTMLResponse)
 def report_new_page(request: Request) -> HTMLResponse:
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
