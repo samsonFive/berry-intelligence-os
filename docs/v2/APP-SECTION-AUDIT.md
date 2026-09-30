@@ -252,3 +252,8 @@ The current guide is a first audit edition, not evidence that this gate passed. 
 - Specialist purpose: `app/services/watchtower/__init__.py`, `war_room/__init__.py`, `research_desk.py`, `competitive_moves/__init__.py`, `whitespace_radar.py`, `executive_readout.py`, `brief_pack.py`, `saved_brief_packs.py`.
 - Settings: `app/templates/feed_first_settings.html`. Broken Fact links: `app/queries/timeline.py`, `app/services/commercial_positions.py`; reproduced in the render results.
 - Governing limits: [expansion guide](INTELLIGENCE-EXPANSION-BUILD-GUIDE.md), [design mission](IMMERSIVE-DESIGN-MISSION.md), [design review audit](DESIGN-REVIEW-AUDIT.md), `AGENTS.md`. Older architecture/status documents were checked against current code rather than assumed current.
+
+
+## Preview navigation now follows consolidation
+
+The 44 individual More links have been replaced with eight workspace entries and 20 nested views, including combined Personal Digest, Monitor, Reports & Briefings, Operations and one Landscape. Existing tools are available under a collapsed disclosure within each relevant view, preserving original route behavior. Companies replaces the Entities header label; People remains company-scoped. The navigation inventory now maps old destinations to these homes. This corrects the mismatch between audit recommendations and preview navigation; the nested views explain the planned experience and are not completed workflow migrations.

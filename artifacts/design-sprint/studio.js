@@ -250,7 +250,7 @@
   $('#country-picker').addEventListener('toggle',()=>{if($('#country-picker').open)$('#date-picker').open=false;});
   $('#density').addEventListener('change',e=>{document.documentElement.dataset.density=e.target.value;});
   $('#country-options').addEventListener('change',e=>{if(e.target.matches('input'))toggleCountry(e.target.value);});
-  document.addEventListener('keydown',e=>{if(e.target.closest('input,select,textarea,dialog')||e.ctrlKey||e.metaKey||e.altKey)return;if(['companies','people'].includes(document.documentElement.dataset.view) && ['j','k','Escape'].includes(e.key))return;if(e.key==='Escape' && !readerCollapsed){e.preventDefault();setReaderCollapsed(true,true);}else if(e.key==='/'){e.preventDefault();$('#search').focus();}else if(e.key.toLowerCase()==='j'){e.preventDefault();move(1);}else if(e.key.toLowerCase()==='k'){e.preventDefault();move(-1);}});
+  document.addEventListener('keydown',e=>{if(document.documentElement.dataset.workspace)return;if(e.target.closest('input,select,textarea,dialog')||e.ctrlKey||e.metaKey||e.altKey)return;if(['companies','people'].includes(document.documentElement.dataset.view) && ['j','k','Escape'].includes(e.key))return;if(e.key==='Escape' && !readerCollapsed){e.preventDefault();setReaderCollapsed(true,true);}else if(e.key==='/'){e.preventDefault();$('#search').focus();}else if(e.key.toLowerCase()==='j'){e.preventDefault();move(1);}else if(e.key.toLowerCase()==='k'){e.preventDefault();move(-1);}});
   function drawMap(data){
     const byISO=new Map(countries.map(c=>[c.iso,c]));
     function ringPath(ring){return ring.map(([lon,lat],i)=>`${!i||Math.abs(lon-ring[i-1][0])>180?'M':'L'}${((lon+180)*1000/360).toFixed(1)},${((90-lat)*500/180).toFixed(1)}`).join(' ')+'Z';}

@@ -2,76 +2,78 @@
 
 Status: design proposal; no production sections removed. Originally audited the feed-first NAV and V2 sidebar; the section audit adds the stakeholder navigation and other entry points. The complete route registry and disposition recommendations are in `APP-SECTION-AUDIT.md`. No production navigation has been consolidated yet.
 
-Top level: News, Map Explorer, Entities, Learn, More. More contains eight groups in four desktop columns and remains within the viewport. People is a tab within an individual company dossier, not a global directory or News section. Learn is always top level; Statements is under More. Prototype links marked ↗ open the existing app; their layouts have not been redesigned.
+Current prototype navigation: News, Map Explorer, Companies, Learn and More. More now has **eight consolidated entries across four groups**: Personal Digest, Landscape, Varieties, Intelligence, Monitor, Reports & Briefings, Operations and Help. Each opens an in-preview workspace with nested views. Existing tools are accessible inside a collapsed disclosure within their new home; the old 44-link menu has been removed. `workspace-navigation.js` defines this review-only navigation. Production routes, permissions and state are unchanged.
+
+Personal Digest contains Reading, Subscriptions and News briefings. Monitor contains Watches and Alerts. Reports & Briefings contains Briefs (builder + library + executive view), Reports, Market snapshots and Meeting Prep. Operations contains Collection & sources, Review and Data quality. Landscape has one home with a coverage lens. People stays inside company profiles; Learn stays top-level. Varieties remains under More until its final top-level placement is decided. These are navigation/organization previews; their integrated workflows are not implemented merely by opening a tab.
 
 | Existing section | Existing route | Proposed access | Prototype status |
 | --- | --- | --- | --- |
 | News | `/today` | News | Interactive sample; existing route preserved |
-| Following | `/following` | More → Read & follow → Following | Link to existing app; redesign pending |
-| Saved | `/saved` | News → Personal Digest | Accepted consolidation with Reading Queue and subscribed-list stories; compatibility link retained |
+| Following | `/following` | Monitor → Watches | Existing route preserved; combined workflow integration pending |
+| Saved | `/saved` | Personal Digest → Reading | Existing route preserved; combined workflow integration pending |
 | Entities | `/entities` | Entities | Interactive sample; existing route preserved |
-| Variety Database | `/entities/variety` | More → Markets & varieties → Variety Database | Link to existing app; redesign pending |
+| Variety Database | `/entities/variety` | Varieties → Directory & comparison | Existing route preserved; combined workflow integration pending |
 | People | `/people` | Entities → selected company → People tab | Company-scoped prototype; legacy route remains intact, no global navigation entry |
-| Statements | `/statements` | More → Analysis & decisions → Statements | Link to existing app; redesign pending |
-| Landscapes | `/landscapes` | Intelligence → Landscape | User-configurable subjects, geography and sections accepted; implementation pending |
-| This week | `/week` | More → Read & follow → This week | Link to existing app; redesign pending |
+| Statements | `/statements` | Intelligence → Evidence & judgments | Existing route preserved; combined workflow integration pending |
+| Landscapes | `/landscapes` | Landscape → Overview | Existing route preserved; combined workflow integration pending |
+| This week | `/week` | Personal Digest → Briefings (News views) | Existing route preserved; combined workflow integration pending |
 | Learn | `/learn` | Learn; contextual Explain this / Research & add to Learn | Visual lesson and Perplexity deep-research expansion accepted; implementation pending |
-| War Room | `/war-room` | More → Reports & Briefings → Meeting Prep | Accepted rename; preserve notes, scope and existing links |
-| Watchtower | `/watchtower` | More → Watches & alerts → Watchtower | Link to existing app; redesign pending |
-| Research Ops | `/research-ops` | More → Sources & collection → Research Ops | Link to existing app; redesign pending |
-| Settings | `/settings` | More → Directory & settings → Settings | Link to existing app; redesign pending |
-| How it works | `/guide` | More → Directory & settings → How it works | Link to existing app; redesign pending |
-| Morning Brief | `/brief` | More → Read & follow → Morning Brief | Link to existing app; redesign pending |
-| Live Intelligence | `/work-queue` | More → Read & follow → Live Intelligence | Link to existing app; redesign pending |
-| Review Operations | `/review-ops` | More → Review & quality → Review Operations | Link to existing app; redesign pending |
-| Reading Queue | `/queues/reading` | News → Personal Digest | Accepted shared workspace; keep independent saved/read/priority/completed state |
-| Pending Review | `/pending` | More → Review & quality → Pending Review | Link to existing app; redesign pending |
-| Signal Review | `/signals/review` | More → Review & quality → Signal Review | Link to existing app; redesign pending |
-| Assessments | `/assessments` | More → Analysis & decisions → Assessments | Link to existing app; redesign pending |
-| Strategic Questions | `/strategic-questions` | More → Analysis & decisions → Strategic Questions | Link to existing app; redesign pending |
-| Monitoring queue | `/queues/monitoring` | More → Watches & alerts → Monitoring queue | Link to existing app; redesign pending |
-| Alerts | `/queues/monitoring#alerts` | More → Watches & alerts → Alerts | Link to existing app; redesign pending |
-| My Watches | `/watches` | More → Watches & alerts → My Watches | Link to existing app; redesign pending |
-| Source Health | `/sources` | More → Sources & collection → Source Health | Link to existing app; redesign pending |
+| War Room | `/war-room` | Reports & Briefings → Meeting Prep | Existing route preserved; combined workflow integration pending |
+| Watchtower | `/watchtower` | Monitor → Alerts | Existing route preserved; combined workflow integration pending |
+| Research Ops | `/research-ops` | Operations → Collection & sources | Existing route preserved; combined workflow integration pending |
+| Settings | `/settings` | Help → Using Berry Intelligence | Existing route preserved; combined workflow integration pending |
+| How it works | `/guide` | Help → Using Berry Intelligence | Existing route preserved; combined workflow integration pending |
+| Morning Brief | `/brief` | Personal Digest → Briefings (News views) | Existing route preserved; combined workflow integration pending |
+| Live Intelligence | `/work-queue` | Personal Digest → Briefings (News views) | Existing route preserved; combined workflow integration pending |
+| Review Operations | `/review-ops` | Operations → Review | Existing route preserved; combined workflow integration pending |
+| Reading Queue | `/queues/reading` | Personal Digest → Reading | Existing route preserved; combined workflow integration pending |
+| Pending Review | `/pending` | Operations → Review | Existing route preserved; combined workflow integration pending |
+| Signal Review | `/signals/review` | Operations → Review | Existing route preserved; combined workflow integration pending |
+| Assessments | `/assessments` | Intelligence → Evidence & judgments | Existing route preserved; combined workflow integration pending |
+| Strategic Questions | `/strategic-questions` | Intelligence → Research questions | Existing route preserved; combined workflow integration pending |
+| Monitoring queue | `/queues/monitoring` | Monitor → Alerts | Existing route preserved; combined workflow integration pending |
+| Alerts | `/queues/monitoring#alerts` | Monitor → Alerts | Existing route preserved; combined workflow integration pending |
+| My Watches | `/watches` | Monitor → Watches | Existing route preserved; combined workflow integration pending |
+| Source Health | `/sources` | Operations → Collection & sources | Existing route preserved; combined workflow integration pending |
 | Companies | `/entities/company` | Entities → Companies | Interactive sample; existing route preserved |
-| Variety coverage | `/varieties/coverage` | More → Markets & varieties → Variety coverage | Link to existing app; redesign pending |
-| Variety identity review | `/varieties/candidates` | More → Directory & settings → Variety identity review | Link to existing app; redesign pending |
-| Entity identity integrity | `/entities/identity` | More → Directory & settings → Entity identity integrity | Link to existing app; redesign pending |
+| Variety coverage | `/varieties/coverage` | Varieties → Coverage | Existing route preserved; combined workflow integration pending |
+| Variety identity review | `/varieties/candidates` | Operations → Data quality | Existing route preserved; combined workflow integration pending |
+| Entity identity integrity | `/entities/identity` | Operations → Data quality | Existing route preserved; combined workflow integration pending |
 | Map Explorer | `/explorer` | Map Explorer | Interactive sample; existing route preserved |
-| Geographies | `/geographies` | More → Markets & varieties → Geographies | Link to existing app; redesign pending |
-| Landscape | `/entities/berry` | More → Markets & varieties → Landscape | Link to existing app; redesign pending |
-| Competitor Landscape | `/competitors` | More → Markets & varieties → Competitor Landscape | Link to existing app; redesign pending |
-| Executive Readout | `/readout` | More → Reports & briefs → Executive Readout | Link to existing app; redesign pending |
-| Manager Brief Pack | `/brief-pack` | More → Reports & briefs → Manager Brief Pack | Link to existing app; redesign pending |
-| Saved Brief Packs | `/brief-packs` | More → Reports & briefs → Saved Brief Packs | Link to existing app; redesign pending |
-| AI-Assisted Reports | `/reports` | More → Reports & briefs → AI-Assisted Reports | Link to existing app; redesign pending |
-| Intake | `/intake` | More → Sources & collection → Intake | Link to existing app; redesign pending |
-| Publications | `/review?kind=publication` | More → Review & quality → Publications | Link to existing app; redesign pending |
-| Claims | `/review?kind=atomic` | More → Review & quality → Claims | Link to existing app; redesign pending |
-| Source fidelity | `/source-fidelity` | More → Review & quality → Source fidelity | Link to existing app; redesign pending |
-| Collection Operations | `/collection-ops` | More → Sources & collection → Collection Operations | Link to existing app; redesign pending |
-| Coverage Assurance | `/coverage-assurance` | More → Sources & collection → Coverage Assurance | Link to existing app; redesign pending |
-| Claim testing | `/queues/testing` | More → Review & quality → Claim testing | Link to existing app; redesign pending |
-| Signal catalog | `/signals` | More → Analysis & decisions → Signal catalog | Link to existing app; redesign pending |
-| Newsfeed | `/` | More → Read & follow → Newsfeed | Link to existing app; redesign pending |
-| Commercial positions | `/queues/commercial_position` | More → Analysis & decisions → Commercial positions | Link to existing app; redesign pending |
-| Recommendations | `/recommendations` | More → Analysis & decisions → Recommendations | Link to existing app; redesign pending |
+| Geographies | `/geographies` | Map Explorer → geographic context | Existing route preserved; combined workflow integration pending |
+| Landscape | `/entities/berry` | Landscape → Coverage & concentration | Existing route preserved; combined workflow integration pending |
+| Competitor Landscape | `/competitors` | Landscape → Overview | Existing route preserved; combined workflow integration pending |
+| Executive Readout | `/readout` | Reports & Briefings → Briefs | Existing route preserved; combined workflow integration pending |
+| Manager Brief Pack | `/brief-pack` | Reports & Briefings → Briefs | Existing route preserved; combined workflow integration pending |
+| Saved Brief Packs | `/brief-packs` | Reports & Briefings → Briefs | Existing route preserved; combined workflow integration pending |
+| AI-Assisted Reports | `/reports` | Reports & Briefings → Reports | Existing route preserved; combined workflow integration pending |
+| Intake | `/intake` | Operations → Collection & sources | Existing route preserved; combined workflow integration pending |
+| Publications | `/review?kind=publication` | Operations → Review | Existing route preserved; combined workflow integration pending |
+| Claims | `/review?kind=atomic` | Operations → Review | Existing route preserved; combined workflow integration pending |
+| Source fidelity | `/source-fidelity` | Operations → Review | Existing route preserved; combined workflow integration pending |
+| Collection Operations | `/collection-ops` | Operations → Collection & sources | Existing route preserved; combined workflow integration pending |
+| Coverage Assurance | `/coverage-assurance` | Operations → Collection & sources | Existing route preserved; combined workflow integration pending |
+| Claim testing | `/queues/testing` | Operations → Review | Existing route preserved; combined workflow integration pending |
+| Signal catalog | `/signals` | Intelligence → Evidence & judgments | Existing route preserved; combined workflow integration pending |
+| Newsfeed | `/` | Personal Digest → Briefings (News views) | Existing route preserved; combined workflow integration pending |
+| Commercial positions | `/queues/commercial_position` | Intelligence → Developments | Existing route preserved; combined workflow integration pending |
+| Recommendations | `/recommendations` | Intelligence → Evidence & judgments | Existing route preserved; combined workflow integration pending |
 
 Before migration sign-off: audit every routed page and detail/action endpoint, preserve bookmarks and permissions, check active section highlighting, empty/error states and keyboard navigation. Static/public builds must keep their existing route and private-data exclusions; this local studio menu is not a public-build navigation manifest. No consolidation or retirement is authorized by omission from a mockup.
 
 
 ## Additional entry points found in the section audit
 
-These were absent from the original 50-entry inventory. They are inventoried here, not newly added to the prototype menu. The audit recommends consolidated destinations before another menu expansion.
+These were absent from the original 50-entry inventory. They are mapped into the consolidated workspaces below; global Search and developer-only fixtures retain their separate roles.
 
 | Existing section | Existing route | Recommended home to review | Status |
 | --- | --- | --- | --- |
-| Front Page | `/news` | News edition/briefing view | Working route; consolidation candidate |
-| Industry Pulse | `/industry-pulse` | Operations → Discovery | Operator-only; not abandoned |
-| Ask Berry | `/research` | Intelligence, with contextual access | Working question interface |
-| Radar | `/radar` | Intelligence → Developments | Working cached-development surface |
-| Moves | `/moves` | Intelligence/Companies → Moves | Working derived company lens |
-| Whitespace | `/whitespace` | Landscape → Coverage and concentration | Working coverage-sensitive view |
+| Front Page | `/news` | Personal Digest → Briefings (News views) | Existing route preserved; combined workflow integration pending |
+| Industry Pulse | `/industry-pulse` | Operations → Collection & sources | Existing route preserved; combined workflow integration pending |
+| Ask Berry | `/research` | Intelligence → Research questions | Existing route preserved; combined workflow integration pending |
+| Radar | `/radar` | Intelligence → Developments | Existing route preserved; combined workflow integration pending |
+| Moves | `/moves` | Intelligence → Developments | Existing route preserved; combined workflow integration pending |
+| Whitespace | `/whitespace` | Landscape → Coverage & concentration | Existing route preserved; combined workflow integration pending |
 | Search | `/search` | Global search/results | Retain full results and overlay |
 | Design System | `/design-system` | Developer-only | Component gallery; not product navigation |
 

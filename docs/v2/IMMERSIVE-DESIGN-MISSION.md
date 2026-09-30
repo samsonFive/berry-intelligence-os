@@ -300,3 +300,8 @@ The final guide must match delivered navigation and verified jobs, remain access
 ### Checkpoint boundaries
 
 The user authorized building and pushing a reviewable design checkpoint on September 30. Push the accepted prototype, source assets, this mission, the navigation inventory and design audit on the design branch. Do not merge or deploy the production redesign based on prototype acceptance. Next representative reviews are Learn, Market Snapshot plus export, and a dense Varieties/Statements page including the Growing regions section. Migrate existing page families with preservation checks, real persistence, accessibility and trust boundaries; the local prototype is not production completion.
+
+
+## Consolidated navigation checkpoint
+
+The preview now demonstrates the agreed workspace hierarchy rather than exposing the legacy 44-link list. Eight More destinations open 20 nested views; Personal Digest absorbs Reading Queue access, Monitor absorbs separate watch/alert entries, Reports & Briefings groups brief creation/library and Meeting Prep, and Operations groups collection/review/quality. Existing tools remain available within their new home. Continue with concrete workflow prototypes and durable integration; do not treat explanatory workspace tabs as completed merged features.
