@@ -1,0 +1,19 @@
+{
+  "generator": "image_gen__imagegen",
+  "transparent_background": true,
+  "variants": [
+    {
+      "asset": "berry-intelligence-icon-v1.png",
+      "mode": "generate",
+      "status": "Current user preference after comparison at header size; restored to header and favicon",
+      "prompt": "Create a premium, memorable app icon for Berry Intelligence, an agricultural intelligence platform. One bold compact berry silhouette made from five or six generously rounded drupelets, with a fresh green leaf and a subtle connected-node insight motif integrated into the berry itself. Botanical emerald and bright lime green dominate, a restrained deep blueberry-purple accent at the lower fruit. Organic futuristic precision, elegant liquid-glass highlights, clean geometric silhouette, strong contrast, richly colored but comfortable. The intelligence connection must feel intentional and simple, with thick connections and just a few nodes, never hairline circuitry or a literal brain. A beautifully resolved single app mark, readable at 32 pixels. Centered square composition, mark occupies 80 percent of canvas. Transparent background. No words, letters, text, mockup, labels, border, surrounding tile, external cast shadow, or extra objects. Not a dark financial dashboard aesthetic; fresh living agriculture."
+    },
+    {
+      "asset": "berry-intelligence-icon-v2.png",
+      "mode": "edit",
+      "reference": "berry-intelligence-icon-v1.png",
+      "status": "Alternative exploration retained; user prefers V1 at header size",
+      "prompt": "Reinterpret this Berry Intelligence logo as a much more sophisticated, simple, graphic app icon. Keep the idea of berry + intelligence, but radically simplify: a compact raspberry/blackberry silhouette constructed from just five or six solid rounded forms with one small leaf. One elegant four-point insight glint in negative space at its center, suggesting discovery and clarity. Flat vector-like design with subtle material depth at most; NO glossy bubbles, NO circuit connectors, NO orbit, NO brain, NO tiny details, NO realistic leaf veins. Predominantly deep botanical emerald with a bright fresh lime leaf and one small deep mulberry accent. Bold dark shape works on a light green-white app surface. Memorable silhouette with restrained modern geometry, fresh agriculture and useful intelligence. Design for clear recognition as a 24\u201340 pixel navigation icon. Single isolated mark fills 75 percent of square transparent canvas. No text, words, letters, labels, tiles, gradients in the background, cast shadow, or mockup."
+    }
+  ]
+}
