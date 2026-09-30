@@ -352,3 +352,15 @@ def test_war_room_nav_entry_present() -> None:
     page = TestClient(app).get("/today")
     assert page.status_code == 200
     assert 'href="/war-room"' in page.text
+
+
+def test_whitespace_excludes_moves_outside_session_window(monkeypatch, tmp_path: Path) -> None:
+    old_moves = [
+        _move(latest_update="2026-07-01T09:00:00+00:00"),
+        _move(id="old-hortifrut", company_id="company-hortifrut", company_name="Hortifrut S.A.",
+              latest_update="2026-07-01T09:00:00+00:00"),
+    ]
+    scope = WarRoomScope(berry_id="berry-blueberry", geography_ids=("geography-europe",),
+                         company_ids=("company-planasa", "company-hortifrut"))
+    session = _compose(monkeypatch, scope=scope, moves=old_moves, inbox_dir=tmp_path)
+    assert session["competitive_overlap"] == []

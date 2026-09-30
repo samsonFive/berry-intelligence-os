@@ -62,3 +62,12 @@ screenshots/PDF under `artifacts/global-explorer/`; these are local verification
 artifacts, not canonical intelligence.
 
 Final check results and PR body are recorded in `GLOBAL-EXPLORER-PR.md`.
+
+## Existing clock regression resolved
+
+Full-suite validation found a pre-existing War Room overlap failure, reproduced
+on untouched canonical 916b8f0: competitive-move retrieval used real wall time
+instead of compose_war_room's injected session clock. Passing instant.date() into
+the existing today parameter restores consistent time windows and deterministic
+replay. Existing overlap coverage and a stale-move exclusion regression pass.
+No War Room architecture or trust rules were changed.
