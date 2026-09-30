@@ -7511,17 +7511,32 @@ def reports_index_page(request: Request, status: str = "draft") -> HTMLResponse:
 def _explorer_context(request, countries, berry, sections=None):
     from app.services.global_explorer import IntelligenceQuery, explorer_model, snapshot_model, SECTIONS
     entities = entity_index()
+    # Native checkbox forms send repeated berry values; URLs may use CSV.
+    berry = ','.join(request.query_params.getlist('berry')) or berry
     try:
         query = IntelligenceQuery.parse(countries, berry, entities, BERRIES)
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
-    args = (query, published_evidence(), entities, all_relationships(), BERRIES)
+    from dataclasses import replace
+    from app.services.feed_first import load_state
+    from app.services.feed_first_live import cached_live_records, merge_decision_records
+    view = request.query_params.get("view", "trusted")
+    if view not in {"trusted", "unreviewed"}:
+        raise HTTPException(status_code=422, detail="Unknown intelligence view")
+    query = replace(query, view=view)
+    records = published_evidence()
+    if view == "unreviewed" and sections is None:
+        records = merge_decision_records(records, cached_live_records(INBOX_DIR))
+    args = (query, records, entities, all_relationships(), BERRIES)
+    trust = {"facts": all_facts(), "state": load_state(INBOX_DIR)}
     if sections is None:
-        model = explorer_model(*args)
+        model = explorer_model(*args, **trust)
     else:
         included = [key for key in sections.split(',') if key in SECTIONS]
-        model = snapshot_model(*args, included)
-    return model | {"ui_context": read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)}
+        model = snapshot_model(*args, included, **trust)
+    from app.services.feed_first import NAV
+    return model | {"ui_context": read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR),
+                    "nav": NAV, "active_href": "/explorer"}
 
 
 @app.get("/explorer", response_class=HTMLResponse)

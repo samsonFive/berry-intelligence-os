@@ -96,3 +96,9 @@ reliable ISO identity remain preview-only. No source/domain expansion is claimed
 shared Reader binding in `app/static/v2.js`, existing report PDF exporter,
 live navigation templates, query/provenance/security tests, and the opt-in
 browser acceptance script. Details: `docs/v2/GLOBAL-INTELLIGENCE-EXPLORER.md`.
+
+
+### Design and review scope
+Explorer and snapshots now use the newer navy/blue shell, compact spacing, distinct Reader typography and multi-select berries. Trusted includes only sources supporting active canonical facts; Unreviewed includes published raw news and existing cached feed records, with source preview images and the existing thumbs-up/down workflow. Thumbs up prepares candidates and requires human confirmation. Snapshots always use Trusted scope.
+
+The separate site-wide design sprint is scoped in `docs/v2/SITE-WIDE-DESIGN-SPRINT.md`, including typography hierarchy and density across all pages.

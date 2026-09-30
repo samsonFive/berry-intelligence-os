@@ -30,6 +30,8 @@ class IntelligenceQuery:
     geography_ids: tuple[str, ...] = ()
     berry_id: str = ''
     country_codes: tuple[str, ...] = ()
+    berry_ids: tuple[str, ...] = ()
+    view: str = "trusted"
 
     @classmethod
     def parse(cls, countries, berry, entities, berries):
@@ -49,12 +51,18 @@ class IntelligenceQuery:
                 canonical.append(eid)
             else:
                 raise ValueError('Unknown geography selection')
-        if berry and berry not in berries:
+        commodities = tuple(dict.fromkeys(x.strip() for x in berry.split(',') if x.strip()))
+        if any(bid not in berries for bid in commodities):
             raise ValueError('Unknown berry selection')
-        return cls(tuple(dict.fromkeys(canonical)), berry, tuple(dict.fromkeys(codes)))
+        return cls(tuple(dict.fromkeys(canonical)), commodities[0] if len(commodities) == 1 else '',
+                   tuple(dict.fromkeys(codes)), commodities)
+
+    def commodities(self):
+        # Preserve callers that constructed the former single-berry query.
+        return self.berry_ids or ((self.berry_id,) if self.berry_id else ())
 
     def params(self):
-        return {'countries': ','.join((*self.geography_ids, *(f'iso:{code}' for code in self.country_codes))), 'berry': self.berry_id}
+        return {'countries': ','.join((*self.geography_ids, *(f'iso:{code}' for code in self.country_codes))), 'berry': ','.join(self.commodities()), 'view': self.view}
 
     def url(self, path='/explorer'):
         return path + '?' + urlencode(self.params())
@@ -68,7 +76,7 @@ class IntelligenceQuery:
         return sorted((r for r in records if r.get('status') == 'published'
             and 'structural' not in (r.get('tags') or [])
             and (not scope or bool(record_geography_ids(r) & scope))
-            and (not self.berry_id or self.berry_id in (r.get('berry_ids') or []))),
+            and (not self.commodities() or bool(set(self.commodities()) & set(r.get('berry_ids') or [])))),
             key=lambda r: (r.get('published_date') or '', r.get('id') or ''), reverse=True)
 
 @dataclass(frozen=True)
@@ -86,14 +94,31 @@ SECTIONS = {'overview': 'Market overview', 'developments': 'Recent developments'
 GAPS = ['Production volumes and growing-region metrics are not populated by this explorer. '
         'Evidence counts reflect stored coverage, not market size or source independence.']
 
-def explorer_model(query, records, entities, relationships, berries):
+def explorer_model(query, records, entities, relationships, berries, facts=None, state=None):
+    from app.services.feed_first import safe_image_url, decision_for
+    escalations = {}
+    for fact in facts or []:
+        if fact.get("status") != "active":
+            continue
+        for eid in fact.get("evidence_ids") or []:
+            escalations.setdefault(eid, []).append(fact)
+    if facts is not None and query.view == "trusted":
+        records = [r for r in records if r.get("id") in escalations]
     selected = query.retrieve(records, relationships)
     entries = [present_feed_item(r, entities=entities, berry_labels=berries) for r in selected]
+    by_id = {r['id']: r for r in selected}
+    for item in entries:
+        record = by_id[item['id']]
+        item['image_url'] = safe_image_url(record)
+        item['explorer_feedback'] = query.view == 'unreviewed'
+        item['decision'] = decision_for(item['id'], state or {})
+        item['escalations'] = escalations.get(item['id'], [])
+        item['trust'] = 'trusted' if item['escalations'] else 'pending'
     countries = []
     for e in entities.values():
         iso = (e.get('attributes') or {}).get('iso_3166_1_alpha_2')
         if e.get('entity_type') != 'geography' or not iso: continue
-        rows = IntelligenceQuery((e['id'],), query.berry_id).retrieve(records, relationships)
+        rows = IntelligenceQuery((e['id'],), berry_ids=query.commodities()).retrieve(records, relationships)
         countries.append({'id': e['id'], 'name': e['name'], 'iso': iso,
                           'count': len(rows), 'recent': [{'title': r.get('title') or r['id'],
                           'href': '/intelligence/'+r['id'], 'date': r.get('published_date') or 'Date unknown'} for r in rows[:3]],
@@ -112,8 +137,10 @@ def explorer_model(query, records, entities, relationships, berries):
             'selected': selected_countries, 'berries': berries,
             'total': len(entries), 'gaps': GAPS}
 
-def snapshot_model(query, records, entities, relationships, berries, included):
-    model = explorer_model(query, records, entities, relationships, berries)
+def snapshot_model(query, records, entities, relationships, berries, included, facts=None, state=None):
+    from dataclasses import replace
+    query = replace(query, view="trusted")
+    model = explorer_model(query, records, entities, relationships, berries, facts=facts, state=state)
     entries = model['entries']
     sections = []
     for key, title in SECTIONS.items():
@@ -127,8 +154,8 @@ def snapshot_model(query, records, entities, relationships, berries, included):
         sections.append({'section_id':key,'title':title,'generated_prose':text,
                          'citation_ids':[r['id'] for r in rows], 'status':'supported' if rows else 'unavailable'})
     scope = {'geography_ids':list(query.geography_ids), 'berry_id':query.berry_id,
-             'country_codes': list(query.country_codes)}
-    report = {'title':'Market Snapshot — '+(', '.join(e['name'] for e in model['selected']) or 'Global')+' / '+berries.get(query.berry_id,'All Berries'),
+             'country_codes': list(query.country_codes), 'berry_ids': list(query.commodities())}
+    report = {'title':'Market Snapshot — '+(', '.join(e['name'] for e in model['selected']) or 'Global')+' / '+(', '.join(berries[bid] for bid in query.commodities()) or 'All Berries'),
               'report_type':'market_snapshot', 'scope':scope, 'sections':sections}
     cited = {eid for s in sections for eid in s['citation_ids']}
     trace = [{'id':r['id'], 'title':escape(r['title']), 'source_name':escape(r['source_name']),

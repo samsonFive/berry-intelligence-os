@@ -96,6 +96,8 @@ def render_report_pdf(
 
     scope = report.get("scope") or {}
     scope_lines = [f"Report type: {report.get('report_type', '').replace('_', ' ').title()}"]
+    if len(scope.get("berry_ids") or []) > 1:
+        scope_lines.append(f"Berries: {', '.join(scope['berry_ids'])}")
     if scope.get("berry_id"):
         scope_lines.append(f"Berry: {scope['berry_id']}")
     if scope.get("geography_ids"):

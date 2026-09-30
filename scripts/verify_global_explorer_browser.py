@@ -15,9 +15,11 @@ with sync_playwright() as p:
     for eid in ['geography-peru','geography-chile','geography-china']:
         el=page.locator(f'path[data-country="{eid}"]')
         el.focus(); el.press('Enter')
-    page.locator('#gx-berry').select_option('berry-blueberry')
+    page.locator('[data-berry][value="berry-blueberry"]').check()
+    page.locator('[data-berry][value="berry-raspberry"]').check()
     page.wait_for_function("location.search.includes('berry-blueberry') && document.getElementById('gx-map-status').textContent.includes('updated')")
     assert page.locator('.gx-chip').count()==3
+    assert page.locator('[data-berry]:checked').count()==2
     assert 'berry-blueberry' in page.locator('[data-clear-countries]').get_attribute('href')
     assert page.locator('path.is-selected').count()>=3
     page.screenshot(path='artifacts/global-explorer/desktop.png',full_page=False)
@@ -30,7 +32,7 @@ with sync_playwright() as p:
     page.keyboard.press('Escape')
     page.locator('#v2ReaderOffcanvas.show').wait_for(state='hidden')
     page.get_by_role('link',name='Create Market Snapshot').click()
-    assert 'geography-peru' in page.url and 'berry-blueberry' in page.url
+    assert 'geography-peru' in page.url and 'berry-blueberry' in page.url and 'berry-raspberry' in page.url
     page.locator('[data-section="varieties"]').uncheck()
     page.get_by_role('button',name='Update composition').click()
     assert 'varieties' not in page.url
@@ -53,6 +55,9 @@ with sync_playwright() as p:
     mobile.locator('path[data-country="geography-peru"]').tap()
     mobile.wait_for_function("document.getElementById('gx-map-status').textContent.includes('updated')")
     assert mobile.locator('.gx-chip').count()==3
+    mobile.locator('[data-berry][value="berry-raspberry"]').check()
+    mobile.wait_for_function("location.search.includes('berry-raspberry') && document.getElementById('gx-map-status').textContent.includes('updated')")
+    assert mobile.locator('[data-berry]:checked').count()==2
     mobile.screenshot(path='artifacts/global-explorer/mobile.png',full_page=False)
     tablet=browser.new_page(viewport={'width':820,'height':1180})
     tablet.goto('http://127.0.0.1:18321/explorer?countries=geography-peru&berry=berry-blackberry')

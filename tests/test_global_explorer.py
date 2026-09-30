@@ -45,6 +45,7 @@ def test_routes_and_pdf(monkeypatch):
     monkeypatch.setattr(main,'entity_index',lambda:ENTITIES)
     monkeypatch.setattr(main,'published_evidence',lambda:RECORDS)
     monkeypatch.setattr(main,'all_relationships',lambda:REL)
+    monkeypatch.setattr(main,'all_facts',lambda:[{'id':'fact-'+r['id'],'status':'active','statement':'Confirmed claim '+r['id'],'evidence_ids':[r['id']]} for r in RECORDS])
     client=TestClient(app)
     scope='?countries=geography-peru,geography-chile,geography-china&berry=berry-blueberry'
     response=client.get('/explorer'+scope)
@@ -93,3 +94,46 @@ def test_unavailable_country_is_explicit_empty_scope():
     assert {r['id'] for r in combined.retrieve(RECORDS,REL)}=={'pe','lima'}
     # ISO selection resolves a stored canonical entity where one actually exists.
     assert IntelligenceQuery.parse('iso:PE','',ENTITIES,BERRIES).geography_ids==('geography-peru',)
+
+
+def test_multiple_berries_compose_with_countries_and_snapshot():
+    query=IntelligenceQuery.parse('geography-peru','berry-blueberry,berry-strawberry,berry-blueberry',ENTITIES,BERRIES)
+    assert query.commodities()==('berry-blueberry','berry-strawberry')
+    assert {r['id'] for r in query.retrieve(RECORDS,REL)}=={'pe','lima','straw'}
+    model=snapshot_model(query,RECORDS,ENTITIES,REL,BERRIES,['developments'])
+    assert model['report']['scope']['berry_ids']==['berry-blueberry','berry-strawberry']
+    assert 'Blueberry, Strawberry' in model['report']['title']
+    assert set(model['report']['sections'][0]['citation_ids'])=={'pe','lima','straw'}
+    peru=next(c for c in model['countries'] if c['id']=='geography-peru')
+    assert peru['count']==3
+
+
+def test_multi_berry_native_form_and_blue_shell(monkeypatch):
+    import app.main as main
+    monkeypatch.setattr(main,'entity_index',lambda:ENTITIES)
+    monkeypatch.setattr(main,'published_evidence',lambda:RECORDS)
+    monkeypatch.setattr(main,'all_relationships',lambda:REL)
+    monkeypatch.setattr(main,'all_facts',lambda:[{'id':'fact-'+r['id'],'status':'active','statement':'Confirmed claim '+r['id'],'evidence_ids':[r['id']]} for r in RECORDS])
+    client=TestClient(app)
+    response=client.get('/explorer?countries=geography-peru&berry=berry-blueberry&berry=berry-strawberry')
+    assert response.status_code==200
+    assert 'gx-workspace' in response.text and '/static/berry_os.css' in response.text
+    assert '/static/stakeholder.css' not in response.text
+    assert '3 trusted records' in response.text
+    pdf=client.get('/explorer/snapshot.pdf?countries=geography-peru&berry=berry-blueberry,berry-strawberry')
+    assert pdf.status_code==200 and pdf.content.startswith(b'%PDF')
+
+
+def test_trusted_requires_active_fact_and_keeps_source_images():
+    from dataclasses import replace
+    query = IntelligenceQuery(('geography-peru',), 'berry-blueberry')
+    records = [evidence('pe','geography-peru',image_url='https://example.org/photo.jpg'), evidence('raw','geography-peru')]
+    facts = [{'id':'fact-pe','status':'active','statement':'Escalated claim','evidence_ids':['pe']}, {'id':'fact-raw','status':'draft','evidence_ids':['raw']}]
+    trusted = explorer_model(query,records,ENTITIES,REL,BERRIES,facts=facts)
+    assert [r['id'] for r in trusted['entries']] == ['pe']
+    assert trusted['entries'][0]['image_url'] == 'https://example.org/photo.jpg'
+    raw = explorer_model(replace(query,view='unreviewed'),records,ENTITIES,REL,BERRIES,facts=facts)
+    assert len(raw['entries']) == 2
+    assert all(r['explorer_feedback'] for r in raw['entries'])
+    snapshot = snapshot_model(replace(query,view='unreviewed'),records,ENTITIES,REL,BERRIES,['developments'],facts=facts)
+    assert [r['id'] for r in snapshot['entries']] == ['pe']

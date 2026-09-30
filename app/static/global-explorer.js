@@ -10,6 +10,7 @@
   const group = document.getElementById('gx-boundaries');
   const status = document.getElementById('gx-map-status');
   const NS = 'http://www.w3.org/2000/svg';
+  function berryValue() { return Array.from(document.querySelectorAll('[data-berry]:checked')).map(el => el.value).join(','); }
   form.addEventListener('keydown', event => event.stopPropagation());
   let scale = 1, tx = 0, ty = 0, drag = null, moved = false;
   let refreshTimer, revision = 0, previewID = null;
@@ -17,7 +18,7 @@
     clearTimeout(refreshTimer);
     const mine = ++revision;
     refreshTimer = setTimeout(async () => {
-      const params = new URLSearchParams({countries: field.value, berry: document.getElementById('gx-berry').value});
+      const params = new URLSearchParams({countries: field.value, berry: berryValue(), view: form.elements.view.value});
       status.textContent = 'Updating intelligence…';
       try {
         const response = await fetch('/explorer?' + params);
@@ -49,7 +50,7 @@
     if (!country.recent.length) add('p', 'No published intelligence for this country and berry. Production and growing-region metrics are unavailable.');
     country.recent.forEach(r => { const a = add('a', r.title + ' · ' + r.date); a.href = r.href; });
     const button = add('button', selected.has(country.id) ? 'Deselect country' : 'Select country');
-    button.type = 'button'; button.className = 'sh-btn';
+    button.type = 'button'; button.className = 'bos-btn';
     button.onclick = () => { toggle(country.id); preview(country); };
   }
   function sync() {
@@ -59,13 +60,17 @@
     const chips = document.querySelector('.gx-chips'); chips.replaceChildren();
     if (!selected.size) chips.textContent = 'Global scope · select countries to focus';
     selected.forEach(id => { const b = document.createElement('button'); b.type = 'button'; b.className = 'gx-chip'; b.textContent = (byID.get(id)?.name || id) + ' ×'; b.setAttribute('aria-label', 'Deselect ' + (byID.get(id)?.name || id)); b.onclick = () => toggle(id); chips.append(b); });
-    const params = new URLSearchParams({countries:field.value, berry:document.getElementById('gx-berry').value});
-    document.querySelector('.gx .sh-header > a').href = '/explorer/snapshot?' + params;
-    document.querySelector('[data-clear-countries]').href = '/explorer?' + new URLSearchParams({berry:document.getElementById('gx-berry').value});
+    const params = new URLSearchParams({countries:field.value, berry:berryValue(), view:form.elements.view.value});
+    document.querySelector('.gx .gx-header > a').href = '/explorer/snapshot?' + params;
+    document.querySelector('[data-clear-countries]').href = '/explorer?' + new URLSearchParams({berry:berryValue(), view:form.elements.view.value});
+    document.querySelector('[data-all-berries]').setAttribute('aria-pressed', String(!berryValue()));
     status.textContent = `${selected.size} countries selected.`;
   }
   function toggle(id) { selected.has(id) ? selected.delete(id) : selected.add(id); sync(); refresh(); }
-  document.getElementById('gx-berry').addEventListener('change', () => { sync(); refresh(); });
+  document.querySelectorAll('[data-berry]').forEach(el => el.addEventListener('change', () => { sync(); refresh(); }));
+  document.querySelector('[data-all-berries]').addEventListener('click', () => {
+    document.querySelectorAll('[data-berry]').forEach(el => { el.checked = false; }); sync(); refresh();
+  });
   form.addEventListener('change', e => { if (e.target.matches('.gx-country-list input')) toggle(e.target.value); });
   document.querySelectorAll('[data-remove]').forEach(b => { b.onclick = () => toggle(b.dataset.remove); });
   document.getElementById('gx-search').oninput = e => {
