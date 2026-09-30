@@ -8,15 +8,15 @@ Top level: News, Map Explorer, Entities, Learn, More. More contains eight groups
 | --- | --- | --- | --- |
 | News | `/today` | News | Interactive sample; existing route preserved |
 | Following | `/following` | More → Read & follow → Following | Link to existing app; redesign pending |
-| Saved | `/saved` | More → Read & follow → Saved | Link to existing app; redesign pending |
+| Saved | `/saved` | News → Personal Digest | Accepted consolidation with Reading Queue and subscribed-list stories; compatibility link retained |
 | Entities | `/entities` | Entities | Interactive sample; existing route preserved |
 | Variety Database | `/entities/variety` | More → Markets & varieties → Variety Database | Link to existing app; redesign pending |
 | People | `/people` | Entities → selected company → People tab | Company-scoped prototype; legacy route remains intact, no global navigation entry |
 | Statements | `/statements` | More → Analysis & decisions → Statements | Link to existing app; redesign pending |
-| Landscapes | `/landscapes` | More → Markets & varieties → Landscapes | Link to existing app; redesign pending |
+| Landscapes | `/landscapes` | Intelligence → Landscape | User-configurable subjects, geography and sections accepted; implementation pending |
 | This week | `/week` | More → Read & follow → This week | Link to existing app; redesign pending |
-| Learn | `/learn` | Learn | Link to existing app; redesign pending |
-| War Room | `/war-room` | More → Watches & alerts → War Room | Link to existing app; redesign pending |
+| Learn | `/learn` | Learn; contextual Explain this / Research & add to Learn | Visual lesson and Perplexity deep-research expansion accepted; implementation pending |
+| War Room | `/war-room` | More → Reports & Briefings → Meeting Prep | Accepted rename; preserve notes, scope and existing links |
 | Watchtower | `/watchtower` | More → Watches & alerts → Watchtower | Link to existing app; redesign pending |
 | Research Ops | `/research-ops` | More → Sources & collection → Research Ops | Link to existing app; redesign pending |
 | Settings | `/settings` | More → Directory & settings → Settings | Link to existing app; redesign pending |
@@ -24,7 +24,7 @@ Top level: News, Map Explorer, Entities, Learn, More. More contains eight groups
 | Morning Brief | `/brief` | More → Read & follow → Morning Brief | Link to existing app; redesign pending |
 | Live Intelligence | `/work-queue` | More → Read & follow → Live Intelligence | Link to existing app; redesign pending |
 | Review Operations | `/review-ops` | More → Review & quality → Review Operations | Link to existing app; redesign pending |
-| Reading Queue | `/queues/reading` | More → Read & follow → Reading Queue | Link to existing app; redesign pending |
+| Reading Queue | `/queues/reading` | News → Personal Digest | Accepted shared workspace; keep independent saved/read/priority/completed state |
 | Pending Review | `/pending` | More → Review & quality → Pending Review | Link to existing app; redesign pending |
 | Signal Review | `/signals/review` | More → Review & quality → Signal Review | Link to existing app; redesign pending |
 | Assessments | `/assessments` | More → Analysis & decisions → Assessments | Link to existing app; redesign pending |

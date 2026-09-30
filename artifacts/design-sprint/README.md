@@ -133,3 +133,10 @@ Open `http://127.0.0.1:18322/workflow-guide.html`, or Mission & audit → Open t
 The section audit now includes a required purpose/input/behavior/output/state/proof/gap/disposition/acceptance contract and a 12-family initial behavior ledger. The mission requires this guide to evolve alongside consolidation and match delivered navigation and verified workflows at final handoff. The 58-entry section inventory remains the route-level baseline; full action and end-to-end acceptance is still pending.
 
 Verified this edition at 1440×1000 and 390×844: chapter navigation clears the desktop sticky bar; section disclosure opens/closes by Enter; all six report rows render; the narrow report table scrolls internally with keyboard access and no page overflow. The preview Mission dialog links to the guide. Screenshot: `workflow-guide-desktop.jpg`. These checks verify the guide, not the application workflows it describes.
+
+
+## Accepted section-review amendments
+
+Personal Digest combines saved stories, Reading Queue and stories from explicitly subscribed lists, with visible origins and no duplicate copies of the same article. Saved/read/priority/completed state and list subscription remain distinct. Landscape gets selectable subjects, geography and sections. Learn defaults to detailed, visual, interactive lessons and research; selection-triggered Perplexity research-to-lesson work is an accepted feature requirement, not implemented by this preview. War Room is renamed Meeting Prep and its existing link moves into Reports & briefs. The guide, audit, navigation inventory and Learn requirements now capture these decisions. Existing `/saved`, `/queues/reading` and `/war-room` routes retain their current behavior. No live research or production-state migration occurred.
+
+Verified the renamed Personal Digest and Meeting Prep links retain their existing route targets; Meeting Prep is in Reports & briefs and all 44 menu destinations remain. The Learn guide card shows the confirmed detailed-lesson-first direction. Screenshot: `section-review-menu.jpg`.

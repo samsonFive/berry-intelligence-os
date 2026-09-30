@@ -6,6 +6,25 @@ September 30, 2026. Basis: design checkpoint `153c7d1`, current application rout
 
 No production section, record, action or route was deleted during this audit. A consolidation recommendation is not approval to discard data or bypass review.
 
+## User review decisions — September 30, 2026
+
+The user generally agrees with the consolidation recommendations, with the following amendments. These supersede earlier proposed names and placement where they conflict. General agreement approves the planning direction; it does not establish functional parity or authorize deleting unreplaced behavior.
+
+| Decision | Required experience | Implementation proof still needed |
+| --- | --- | --- |
+| **Personal Digest** replaces the Saved destination and includes Reading Queue | One personal reading workspace for saved stories, unread/in-progress/completed state and reading priority. Preserve source links, images, filters and Reader continuity. A saved mark and a read/completed disposition stay independent. Confirmed contents: deliberate user saves, reading-queue items and stories from lists the user explicitly subscribes to. Keep origin labels and deduplicate the same article across those sources; list subscription is separate from list membership, favorites, tiers and notifications. Do not inject unrelated algorithmic suggestions by default. | Map existing saved and queue stores without dropping history or confusing their states; save from News → prioritize in Digest → read → complete → revisit. Preserve `/saved` and `/queues/reading` compatibility. This is not a scheduled email digest or an AI-generated report by default. |
+| **Customizable Landscape** | Select what and where to include: berries, companies/lists, varieties or topics where supported by actual relationships, geography, relevant period, and included overview sections. Show active scope and offer reset. Proposed convenience: named saved views, using current underlying data when reopened. | Inventory supported filters first; do not imply each input can filter every panel. State scope exceptions, missing coverage and undated records; confirm selected sections and filters carry into relevant reporting handoffs. No invented competitive score or market-share inference. |
+| **Expanded visual Learn** | Keep Learn top-level. Default to detailed visual lessons and research, with a short orientation followed by substantive teaching content. Make lessons structured, highly visual and interactive: meaningful photos, labeled diagrams, comparisons/process steps and linked videos. Add a contextual action on selected text or a selected app object to research and add educational content to Learn using Perplexity deep research. | Follow the new scope in `feature-requests/LEARNER-MODE.md`. Build one full research-to-lesson slice with persistent job status, citations, media attribution, editing, duplicate-topic handling and return-to-origin. Existing glossary, Search and research seams are foundations, not proof this flow already exists. |
+| **Meeting Prep** replaces War Room | Use plain-language Meeting Prep in navigation, the guide and the future workspace. Keep scoped preparation, linked intelligence and session notes. | Preserve `/war-room` links and saved notes/scope; rename production labels during the reporting-family migration. |
+
+### Next review and execution sequence
+
+1. Apply these decisions to the audit, visual guide and navigation preservation map. Keep remaining details explicitly proposed instead of silently inventing features.
+2. Review three short task-based prototypes: News → Personal Digest → read/complete; scope a Landscape; select a term → research → visual Learn lesson. Use one real educational topic for the last flow. Meeting Prep needs a plain-language label and a reporting walkthrough, not another branding exercise.
+3. Resolve a small number of behavior choices through those walkthroughs. The user's limited app usage makes concrete examples more useful than a long abstract interview. Digest contents and detailed-lesson-first depth are now confirmed. Provider budget/default scope can be set when the actual research action is ready to connect.
+4. Complete action/state audits and acceptance jobs for the first family, then migrate News/Reader/Personal Digest and shared navigation. Build Learn's research-to-lesson flow as its own bounded feature slice alongside the consolidation sequence, not as a cosmetic restyle or a prerequisite for all other pages.
+5. Migrate scoped Landscape, directories/Explorer, reporting/Meeting Prep and remaining families with the existing preservation gates. Update the visual guide in each change; final walkthrough must use the delivered application.
+
 ## What was checked
 
 - All **50 entries** in the earlier navigation inventory, including query/anchor variants. That inventory covered the feed-first rail and V2 sidebar but missed the stakeholder navigation's specialist links.
