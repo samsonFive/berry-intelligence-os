@@ -1,0 +1,4364 @@
+{
+  "countries": [
+    {
+      "id": "geography-australia",
+      "name": "Australia",
+      "iso": "AU"
+    },
+    {
+      "id": "geography-chile",
+      "name": "Chile",
+      "iso": "CL"
+    },
+    {
+      "id": "geography-china",
+      "name": "China",
+      "iso": "CN"
+    },
+    {
+      "id": "geography-mexico",
+      "name": "Mexico",
+      "iso": "MX"
+    },
+    {
+      "id": "geography-morocco",
+      "name": "Morocco",
+      "iso": "MA"
+    },
+    {
+      "id": "geography-netherlands",
+      "name": "Netherlands",
+      "iso": "NL"
+    },
+    {
+      "id": "geography-peru",
+      "name": "Peru",
+      "iso": "PE"
+    },
+    {
+      "id": "geography-south-africa",
+      "name": "South Africa",
+      "iso": "ZA"
+    },
+    {
+      "id": "geography-spain",
+      "name": "Spain",
+      "iso": "ES"
+    },
+    {
+      "id": "geography-united-kingdom",
+      "name": "United Kingdom",
+      "iso": "GB"
+    },
+    {
+      "id": "geography-united-states",
+      "name": "United States",
+      "iso": "US"
+    }
+  ],
+  "entities": [
+    {
+      "id": "company-abz-seeds",
+      "name": "ABZ Seeds",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-advanced-berry-breeding",
+      "name": "Advanced Berry Breeding B.V.",
+      "kind": "company",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "company-african-blue",
+      "name": "African Blue",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-agroberries",
+      "name": "AgroBerries",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "company-agrovision",
+      "name": "Agrovision Corp. (Fruitist)",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-amalia-rossa",
+      "name": "Amalia Rossa",
+      "kind": "variety",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "company-angus-soft-fruits",
+      "name": "Angus Soft Fruits",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "variety-arana",
+      "name": "Arana",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-australasian-plant-genetics",
+      "name": "Australasian Plant Genetics",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "company-australian-strawberry-distributors",
+      "name": "Australian Strawberry Distributors Pty Limited",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "variety-bk-6-13",
+      "name": "BK 6-13",
+      "kind": "variety",
+      "berries": [
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "variety-baridi",
+      "name": "Baridi",
+      "kind": "variety",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "company-bayer",
+      "name": "Bayer",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "variety-bella",
+      "name": "Bella",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-denning-blueberries",
+      "name": "Benning Blueberries",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-berries-del-oeste",
+      "name": "Berries del Oeste",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-berry-blue-llc",
+      "name": "Berry Blue, LLC",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-berryworld",
+      "name": "BerryWorld Group",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-berrytech",
+      "name": "Berrytech",
+      "kind": "company",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "company-biogea",
+      "name": "Biogea",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "company-bisa-trading",
+      "name": "Bisa Trading Pty Ltd",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-black-venture-farm",
+      "name": "Black Venture Farm",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "variety-blue-maldiva",
+      "name": "Blue Maldiva",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-blue-manila",
+      "name": "Blue Manila",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-blue-ribbon",
+      "name": "Blue Ribbon",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-bonita",
+      "name": "Bonita",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-bci",
+      "name": "British Columbia Investment Management Corporation",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-ciopora",
+      "name": "CIOPORA",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-civ-italy",
+      "name": "CIV (Consorzio Italiano Vivaisti)",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-california-berry-cultivars",
+      "name": "California Berry Cultivars, LLC",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-california-giant-berry-farms",
+      "name": "California Giant Berry Farms",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-camposol",
+      "name": "Camposol",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "company-cfia",
+      "name": "Canadian Food Inspection Agency",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-cargo",
+      "name": "Cargo",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-chambers",
+      "name": "Chambers",
+      "kind": "company",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "company-cinven",
+      "name": "Cinven",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-colossus",
+      "name": "Colossus",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-costa-berry-international",
+      "name": "Costa Berry International Pty Ltd",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-costa-group-holdings",
+      "name": "Costa Group Holdings Pty Ltd",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-crimson-night",
+      "name": "Crimson Night",
+      "kind": "variety",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "variety-crimson-treasure",
+      "name": "Crimson Treasure",
+      "kind": "variety",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "company-cuna-de-platero",
+      "name": "Cuna de Platero",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "variety-dina",
+      "name": "Dina",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-double-gold",
+      "name": "Double Gold",
+      "kind": "variety",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "variety-drisblueseventeen",
+      "name": "DrisBlueSeventeen",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-drisbluetwentyone",
+      "name": "DrisBlueTwentyOne",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-drisbluetwentythree",
+      "name": "DrisBlueTwentyThree",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-driscolls",
+      "name": "Driscoll's, Inc.",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-eu-plants",
+      "name": "EU Plants Ltd",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-ew-group",
+      "name": "EW Group",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-elaina",
+      "name": "Elaina",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-emerald",
+      "name": "Emerald",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-ervin",
+      "name": "Ervin",
+      "kind": "variety",
+      "berries": [
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "variety-eterna",
+      "name": "Eterna",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-eureka",
+      "name": "Eureka",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-eureka-sunrise",
+      "name": "Eureka Sunrise",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-eurosemillas",
+      "name": "Eurosemillas, S.A.",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "variety-example-blue",
+      "name": "Example Blue",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-example-genetics",
+      "name": "Example Genetics",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-example-nursery",
+      "name": "Example Nursery Partners",
+      "kind": "company",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "variety-example-red",
+      "name": "Example Red",
+      "kind": "variety",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "company-expoberries",
+      "name": "Expoberries",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "variety-fc11-164",
+      "name": "FC11-164",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-fall-creek-italia",
+      "name": "Fall Creek Farm & Nursery Italia",
+      "kind": "company",
+      "berries": [
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-fall-creek-farm-and-nursery",
+      "name": "Fall Creek Farm & Nursery, Inc.",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-family-tree-farms",
+      "name": "Family Tree Farms",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "variety-farthing",
+      "name": "Farthing",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-flavia",
+      "name": "Flavia",
+      "kind": "variety",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-flevo-berry",
+      "name": "Flevo Berry",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-florida-foundation-seed-producers",
+      "name": "Florida Foundation Seed Producers, Inc.",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-fresas-nuevos-materiales",
+      "name": "Fresas Nuevos Materiales S.A.",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "company-fresh-forward",
+      "name": "Fresh Forward",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-fresh-kampo",
+      "name": "FreshKampo",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-freshuelva",
+      "name": "Freshuelva",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-g-berries",
+      "name": "G-Berries",
+      "kind": "company",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "company-gem-pack-berries",
+      "name": "Gem-Pack Berries",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-global-plant-genetics",
+      "name": "Global Plant Genetics (GPG)",
+      "kind": "company",
+      "berries": [
+        "berry-raspberry",
+        "berry-blueberry",
+        "berry-blackberry",
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-grupo-heres",
+      "name": "Grupo HerEs",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-hansabred",
+      "name": "Hansabred GmbH & Co. KG",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "company-hortifrut",
+      "name": "Hortifrut S.A.",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-ip-australia",
+      "name": "IP Australia",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-iq-berries",
+      "name": "IQ Berries",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-inkas-berries",
+      "name": "Inka's Berries S.A.C.",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-institute-of-botany-cas",
+      "name": "Institute of Botany, Chinese Academy of Sciences",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "company-james-hutton-ltd",
+      "name": "James Hutton Ltd",
+      "kind": "company",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "variety-jewel",
+      "name": "Jewel",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-julieta",
+      "name": "Julieta",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-keepsake",
+      "name": "Keepsake",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-kwanza",
+      "name": "Kwanza",
+      "kind": "variety",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "variety-last-call",
+      "name": "Last Call",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-limgroup",
+      "name": "Limgroup",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "variety-magica",
+      "name": "Magica",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-magnifica",
+      "name": "Magnifica",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-malaika",
+      "name": "Malaika",
+      "kind": "variety",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "variety-marimbella",
+      "name": "Marimbella",
+      "kind": "variety",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-marionnet",
+      "name": "Marionnet",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "company-masia-ciscar",
+      "name": "Masiá Ciscar",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-mattivi-group",
+      "name": "Mattivi Group",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "variety-meadowlark",
+      "name": "Meadowlark",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-medallion",
+      "name": "Medallion",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-melissa",
+      "name": "Melissa",
+      "kind": "variety",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-michigan-blueberry-growers",
+      "name": "Michigan Blueberry Growers Association",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-miyoshi-group",
+      "name": "Miyoshi Group",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "company-mountain-blue-orchards",
+      "name": "Mountain Blue Orchards Pty Ltd",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-niab",
+      "name": "NIAB",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "company-niwa-berry-breeding",
+      "name": "NIWA Berry Breeding",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-nature-select",
+      "name": "Nature Select",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-naturipe-farms",
+      "name": "Naturipe Farms",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-next-progeny",
+      "name": "Next Progeny Pty Ltd",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-nc-state-university",
+      "name": "North Carolina State University",
+      "kind": "company",
+      "berries": [
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-nova-siri-genetics",
+      "name": "Nova Siri Genetics",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-oz-varieties",
+      "name": "OZ Varieties",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-oishii",
+      "name": "Oishii",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "variety-olivia",
+      "name": "Olivia",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-onubafruit",
+      "name": "Onubafruit",
+      "kind": "company",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "variety-opi",
+      "name": "Opi",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-optimus",
+      "name": "Optimus",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-oregon-blueberry",
+      "name": "Oregon Blueberry Farms & Nursery",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-ouachita",
+      "name": "Ouachita",
+      "kind": "variety",
+      "berries": [
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-paine-schwartz-partners",
+      "name": "Paine Schwartz Partners",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-pairwise",
+      "name": "Pairwise",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "variety-patrecia",
+      "name": "Patrecia",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-perfection-fresh",
+      "name": "Perfection Fresh",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-plant-sciences-genetics",
+      "name": "Plant Sciences, Inc.",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-planasa",
+      "name": "Plantas de Navarra, S.A.",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "variety-ponca",
+      "name": "Ponca",
+      "kind": "variety",
+      "berries": [
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-prunus-persica",
+      "name": "Prunus Persica Pty Ltd",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-queensland-government",
+      "name": "Queensland Government",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "variety-rafiki",
+      "name": "Rafiki",
+      "kind": "variety",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "variety-redsayra",
+      "name": "RedSayra",
+      "kind": "variety",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-rijk-zwaan",
+      "name": "Rijk Zwaan",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-royakkers",
+      "name": "Royakkers",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "variety-rutgers-dlight",
+      "name": "Rutgers D'Light",
+      "kind": "variety",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "variety-sekoya-beauty",
+      "name": "SEKOYA Beauty",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-sekoya-crunch",
+      "name": "SEKOYA Crunch",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-sekoya-fiesta",
+      "name": "SEKOYA Fiesta",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-sekoya-grande",
+      "name": "SEKOYA Grande",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-sekoya-nova",
+      "name": "SEKOYA Nova",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-sekoya-pop",
+      "name": "SEKOYA Pop",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-sanlucar",
+      "name": "SanLucar Group",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "company-sant-orsola",
+      "name": "Sant'Orsola",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "variety-sarafina",
+      "name": "Sarafina",
+      "kind": "variety",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "variety-sentinel",
+      "name": "Sentinel",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-shani",
+      "name": "Shani",
+      "kind": "variety",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "company-singrow",
+      "name": "Singrow",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "company-smart-berries",
+      "name": "Smart Berries",
+      "kind": "company",
+      "berries": [
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-splendor-produce",
+      "name": "Splendor Produce",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "company-sunbelle",
+      "name": "SunBelle",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-surexport",
+      "name": "Surexport",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "company-the-berry-collective",
+      "name": "The Berry Collective",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-james-hutton-institute",
+      "name": "The James Hutton Institute",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-the-summer-berry-company",
+      "name": "The Summer Berry Company",
+      "kind": "company",
+      "berries": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "id": "variety-top-shelf",
+      "name": "Top Shelf",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-topfruit",
+      "name": "TopFruit",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "variety-twilight",
+      "name": "Twilight",
+      "kind": "variety",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-ushbc",
+      "name": "U.S. Highbush Blueberry Council",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-united-exports",
+      "name": "United Exports",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry"
+      ]
+    },
+    {
+      "id": "company-usda",
+      "name": "United States Department of Agriculture",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "company-university-of-arkansas",
+      "name": "University of Arkansas Division of Agriculture",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-university-of-florida",
+      "name": "University of Florida",
+      "kind": "company",
+      "berries": [
+        "berry-blueberry",
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "variety-victoria",
+      "name": "Victoria",
+      "kind": "variety",
+      "berries": [
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "company-vissers-plant-innovators",
+      "name": "Vissers Plant Innovators",
+      "kind": "company",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "company-well-pict",
+      "name": "Well-Pict",
+      "kind": "company",
+      "berries": []
+    },
+    {
+      "id": "company-wish-farms",
+      "name": "Wish Farms",
+      "kind": "company",
+      "berries": [
+        "berry-raspberry",
+        "berry-blackberry"
+      ]
+    },
+    {
+      "id": "variety-zara",
+      "name": "Zara",
+      "kind": "variety",
+      "berries": [
+        "berry-strawberry"
+      ]
+    },
+    {
+      "id": "variety-zawadi",
+      "name": "Zawadi",
+      "kind": "variety",
+      "berries": [
+        "berry-raspberry"
+      ]
+    }
+  ],
+  "regions": [
+    {
+      "id": "rel-advanced-berry-breeding-operates-in-netherlands",
+      "entity_id": "company-advanced-berry-breeding",
+      "country_id": "geography-netherlands",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Dutch berry breeding company.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-abb-varieties",
+      "source_id": "ev-abb-varieties",
+      "record_id": "rel-advanced-berry-breeding-operates-in-netherlands"
+    },
+    {
+      "id": "rel-african-blue-operates-in-morocco",
+      "entity_id": "company-african-blue",
+      "country_id": "geography-morocco",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Moroccan operation running since 2007 with about 465 hectares.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-costa-african-blue-2023",
+      "source_id": "ev-costa-african-blue-2023",
+      "record_id": "rel-african-blue-operates-in-morocco"
+    },
+    {
+      "id": "rel-agrovision-operates-in-mexico",
+      "entity_id": "company-agrovision",
+      "country_id": "geography-mexico",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Operations in Jalisco above 300 hectares.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-blueberriesconsulting-agrovision-2024",
+      "source_id": "ev-blueberriesconsulting-agrovision-2024",
+      "record_id": "rel-agrovision-operates-in-mexico"
+    },
+    {
+      "id": "rel-agrovision-operates-in-morocco",
+      "entity_id": "company-agrovision",
+      "country_id": "geography-morocco",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Operations in Souss-Massa at 250 hectares.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-blueberriesconsulting-agrovision-2024",
+      "source_id": "ev-blueberriesconsulting-agrovision-2024",
+      "record_id": "rel-agrovision-operates-in-morocco"
+    },
+    {
+      "id": "rel-agrovision-operates-in-peru",
+      "entity_id": "company-agrovision",
+      "country_id": "geography-peru",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Operations at Olmos and Morrope in Lambayeque.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-ibo-agrovision-2019",
+      "source_id": "ev-ibo-agrovision-2019",
+      "record_id": "rel-agrovision-operates-in-peru"
+    },
+    {
+      "id": "rel-bisa-trading-operates-in-australia",
+      "entity_id": "company-bisa-trading",
+      "country_id": "geography-australia",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Australian assignee of record on OZblu blueberry plant patents; breeding site at Yanchep, Western Australia.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-uspp025858-eb8-42",
+      "source_id": "ev-uspp025858-eb8-42",
+      "record_id": "rel-bisa-trading-operates-in-australia"
+    },
+    {
+      "id": "rel-costa-operates-in-australia",
+      "entity_id": "company-costa-group-holdings",
+      "country_id": "geography-australia",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Breeding programme and farms at Corindi, New South Wales.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-costa-vip",
+      "source_id": "ev-costa-vip",
+      "record_id": "rel-costa-operates-in-australia"
+    },
+    {
+      "id": "rel-costa-operates-in-china",
+      "entity_id": "company-costa-group-holdings",
+      "country_id": "geography-china",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Named BluGenix growing country and licensing region.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-producereport-blugenix-2026",
+      "source_id": "ev-producereport-blugenix-2026",
+      "record_id": "rel-costa-operates-in-china"
+    },
+    {
+      "id": "rel-costa-operates-in-morocco",
+      "entity_id": "company-costa-group-holdings",
+      "country_id": "geography-morocco",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; African Blue operation.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-costa-african-blue-2023",
+      "source_id": "ev-costa-african-blue-2023",
+      "record_id": "rel-costa-operates-in-morocco"
+    },
+    {
+      "id": "rel-costa-operates-in-south-africa",
+      "entity_id": "company-costa-group-holdings",
+      "country_id": "geography-south-africa",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Named BluGenix growing country.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-producereport-blugenix-2026",
+      "source_id": "ev-producereport-blugenix-2026",
+      "record_id": "rel-costa-operates-in-south-africa"
+    },
+    {
+      "id": "rel-driscolls-operates-in-australia",
+      "entity_id": "company-driscolls",
+      "country_id": "geography-australia",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Australian plant breeders' rights applications and grants for DrisBlue denominations.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-ipaustralia-pvj-33-4",
+      "source_id": "ev-ipaustralia-pvj-33-4",
+      "record_id": "rel-driscolls-operates-in-australia"
+    },
+    {
+      "id": "rel-driscolls-operates-in-united-states",
+      "entity_id": "company-driscolls",
+      "country_id": "geography-united-states",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Headquartered in Watsonville, California; breeding and selection in Santa Cruz County and Florida.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-driscolls-cbc-appeal-2025",
+      "source_id": "ev-driscolls-cbc-appeal-2025",
+      "record_id": "rel-driscolls-operates-in-united-states"
+    },
+    {
+      "id": "rel-fall-creek-operates-in-chile",
+      "entity_id": "company-fall-creek-farm-and-nursery",
+      "country_id": "geography-chile",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "2026-03-06",
+      "note": "confidence=medium; Variety validation programme reported in southern Chile.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-freshplaza-fall-creek-chile-2026",
+      "source_id": "ev-freshplaza-fall-creek-chile-2026",
+      "record_id": "rel-fall-creek-operates-in-chile"
+    },
+    {
+      "id": "rel-fall-creek-operates-in-mexico",
+      "entity_id": "company-fall-creek-farm-and-nursery",
+      "country_id": "geography-mexico",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Selection of 'FCM12-097' and 'FCM14-052' in Mexico evidences a breeding and evaluation presence.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-sekoya-story",
+      "source_id": "ev-sekoya-story",
+      "record_id": "rel-fall-creek-operates-in-mexico"
+    },
+    {
+      "id": "rel-fall-creek-operates-in-netherlands",
+      "entity_id": "company-fall-creek-farm-and-nursery",
+      "country_id": "geography-netherlands",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "2018-06-15",
+      "note": "confidence=medium; Established through the acquisition of the Dutch nursery Driesvenplant.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-fruitnet-driesvenplant-2018",
+      "source_id": "ev-fruitnet-driesvenplant-2018",
+      "record_id": "rel-fall-creek-operates-in-netherlands"
+    },
+    {
+      "id": "rel-fall-creek-operates-in-united-states",
+      "entity_id": "company-fall-creek-farm-and-nursery",
+      "country_id": "geography-united-states",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Founded and headquartered in Lowell, Oregon.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-fall-creek-our-history",
+      "source_id": "ev-fall-creek-our-history",
+      "record_id": "rel-fall-creek-operates-in-united-states"
+    },
+    {
+      "id": "rel-fall-creek-operates-sekoya",
+      "entity_id": "company-fall-creek-farm-and-nursery",
+      "country_id": "geography-china",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "2025-11-13",
+      "note": "confidence=low; Stated market intent for the SEKOYA platform in China. Substituted predicate: 'operates_in' overstates a stated intention; treat as an intent signal, not an established operation.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-produce-report-sekoya-china-2025",
+      "source_id": "ev-produce-report-sekoya-china-2025",
+      "record_id": "rel-fall-creek-operates-sekoya"
+    },
+    {
+      "id": "rel-freshuelva-operates-in-spain",
+      "entity_id": "company-freshuelva",
+      "country_id": "geography-spain",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Freshuelva is the Huelva, Spain red-fruit growers/exporters association, quoted directly in both articles.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-20260806173603-e188-spain-freshuelva-estimates-a-50-drop-in-",
+      "source_id": "ev-20260806173603-e188-spain-freshuelva-estimates-a-50-drop-in-",
+      "record_id": "rel-freshuelva-operates-in-spain"
+    },
+    {
+      "id": "rel-hortifrut-operates-in-chile",
+      "entity_id": "company-hortifrut",
+      "country_id": "geography-chile",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Country of incorporation and registered office.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-hortifrut-annual-report-2020",
+      "source_id": "ev-hortifrut-annual-report-2020",
+      "record_id": "rel-hortifrut-operates-in-chile"
+    },
+    {
+      "id": "rel-hortifrut-operates-in-china",
+      "entity_id": "company-hortifrut",
+      "country_id": "geography-china",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Named breeding test-station location.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-hortifrut-genetic-development",
+      "source_id": "ev-hortifrut-genetic-development",
+      "record_id": "rel-hortifrut-operates-in-china"
+    },
+    {
+      "id": "rel-hortifrut-operates-in-mexico",
+      "entity_id": "company-hortifrut",
+      "country_id": "geography-mexico",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Named breeding test-station location.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-hortifrut-genetic-development",
+      "source_id": "ev-hortifrut-genetic-development",
+      "record_id": "rel-hortifrut-operates-in-mexico"
+    },
+    {
+      "id": "rel-hortifrut-operates-in-peru",
+      "entity_id": "company-hortifrut",
+      "country_id": "geography-peru",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Named breeding test-station location.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-hortifrut-genetic-development",
+      "source_id": "ev-hortifrut-genetic-development",
+      "record_id": "rel-hortifrut-operates-in-peru"
+    },
+    {
+      "id": "rel-hortifrut-operates-in-spain",
+      "entity_id": "company-hortifrut",
+      "country_id": "geography-spain",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Acquisition of Atlantic Blue in Huelva.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-leadersleague-atlantic-blue-2021",
+      "source_id": "ev-leadersleague-atlantic-blue-2021",
+      "record_id": "rel-hortifrut-operates-in-spain"
+    },
+    {
+      "id": "rel-hortifrut-operates-in-united-states",
+      "entity_id": "company-hortifrut",
+      "country_id": "geography-united-states",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Named breeding test-station location.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-hortifrut-genetic-development",
+      "source_id": "ev-hortifrut-genetic-development",
+      "record_id": "rel-hortifrut-operates-in-united-states"
+    },
+    {
+      "id": "rel-ip-australia-operates-in-australia",
+      "entity_id": "company-ip-australia",
+      "country_id": "geography-australia",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; National plant breeders' rights registry authority.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-ipaustralia-pvj-33-4",
+      "source_id": "ev-ipaustralia-pvj-33-4",
+      "record_id": "rel-ip-australia-operates-in-australia"
+    },
+    {
+      "id": "rel-iq-berries-operates-in-australia",
+      "entity_id": "company-iq-berries",
+      "country_id": "geography-australia",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Australian blueberry breeder.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-topfruit-megacrisp",
+      "source_id": "ev-topfruit-megacrisp",
+      "record_id": "rel-iq-berries-operates-in-australia"
+    },
+    {
+      "id": "rel-mbo-operates-in-australia",
+      "entity_id": "company-mountain-blue-orchards",
+      "country_id": "geography-australia",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Grower and breeder based at Lindendale, New South Wales.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-mbo-home",
+      "source_id": "ev-mbo-home",
+      "record_id": "rel-mbo-operates-in-australia"
+    },
+    {
+      "id": "rel-mbo-operates-in-china",
+      "entity_id": "company-mountain-blue-orchards",
+      "country_id": "geography-china",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "2024-12-02",
+      "note": "confidence=medium; Holds and has successfully enforced a plant breeders' right in China. Substituted predicate: 'operates_in' is used for a rights-holding and enforcement presence rather than production.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-ibo-mbo-china-judgment-2024",
+      "source_id": "ev-ibo-mbo-china-judgment-2024",
+      "record_id": "rel-mbo-operates-in-china"
+    },
+    {
+      "id": "rel-nature-select-operates-in-australia",
+      "entity_id": "company-nature-select",
+      "country_id": "geography-australia",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Breeding programme based near Perth, Western Australia.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-ozblu-around-the-world-2019",
+      "source_id": "ev-ozblu-around-the-world-2019",
+      "record_id": "rel-nature-select-operates-in-australia"
+    },
+    {
+      "id": "rel-nc-state-operates-in-united-states",
+      "entity_id": "company-nc-state-university",
+      "country_id": "geography-united-states",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; North Carolina State University is a US public land-grant institution; the source article names North Carolina growers as the variety's initial release market.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe",
+      "source_id": "ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe",
+      "record_id": "rel-nc-state-operates-in-united-states"
+    },
+    {
+      "id": "rel-next-progeny-operates-in-australia",
+      "entity_id": "company-next-progeny",
+      "country_id": "geography-australia",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Australian assignee of record on OZblu blueberry plant patents; breeding site at Yanchep, Western Australia.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-uspp025858-eb8-42",
+      "source_id": "ev-uspp025858-eb8-42",
+      "record_id": "rel-next-progeny-operates-in-australia"
+    },
+    {
+      "id": "rel-onubafruit-operates-in-spain",
+      "entity_id": "company-onubafruit",
+      "country_id": "geography-spain",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Hortidaily describes Onubafruit as a Spanish (Huelva) grower expanding Malaika raspberry plantings.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-20260806173853-c7ff-spanish-malaika-raspberry-plantings-expa",
+      "source_id": "ev-20260806173853-c7ff-spanish-malaika-raspberry-plantings-expa",
+      "record_id": "rel-onubafruit-operates-in-spain"
+    },
+    {
+      "id": "rel-planasa-operates-in-morocco",
+      "entity_id": "company-planasa",
+      "country_id": "geography-morocco",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Trial plots in Morocco cited as the basis for published Blue Manila performance figures.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-planasa-blue-manila-datasheet",
+      "source_id": "ev-planasa-blue-manila-datasheet",
+      "record_id": "rel-planasa-operates-in-morocco"
+    },
+    {
+      "id": "rel-planasa-operates-in-spain",
+      "entity_id": "company-planasa",
+      "country_id": "geography-spain",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Propagation in Segovia and primocane observation in Huelva.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-uspp031345-plablue-1545",
+      "source_id": "ev-uspp031345-plablue-1545",
+      "record_id": "rel-planasa-operates-in-spain"
+    },
+    {
+      "id": "rel-prunus-persica-operates-in-australia",
+      "entity_id": "company-prunus-persica",
+      "country_id": "geography-australia",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Australian assignee of record on OZblu blueberry plant patents; breeding site at Yanchep, Western Australia.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-uspp025858-eb8-42",
+      "source_id": "ev-uspp025858-eb8-42",
+      "record_id": "rel-prunus-persica-operates-in-australia"
+    },
+    {
+      "id": "rel-topfruit-operates-in-south-africa",
+      "entity_id": "company-topfruit",
+      "country_id": "geography-south-africa",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Southern African variety commercialisation manager.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-topfruit-megacrisp",
+      "source_id": "ev-topfruit-megacrisp",
+      "record_id": "rel-topfruit-operates-in-south-africa"
+    },
+    {
+      "id": "rel-uf-operates-in-united-states",
+      "entity_id": "company-university-of-florida",
+      "country_id": "geography-united-states",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Land-grant institution based in Gainesville, Florida.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-uf-ifas-hs1245",
+      "source_id": "ev-uf-ifas-hs1245",
+      "record_id": "rel-uf-operates-in-united-states"
+    },
+    {
+      "id": "rel-united-exports-operates-in-australia",
+      "entity_id": "company-united-exports",
+      "country_id": "geography-australia",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=low; Self-reported production country list.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-united-exports-what-we-do",
+      "source_id": "ev-united-exports-what-we-do",
+      "record_id": "rel-united-exports-operates-in-australia"
+    },
+    {
+      "id": "rel-united-exports-operates-in-chile",
+      "entity_id": "company-united-exports",
+      "country_id": "geography-chile",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=low; Self-reported production country list.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-united-exports-what-we-do",
+      "source_id": "ev-united-exports-what-we-do",
+      "record_id": "rel-united-exports-operates-in-chile"
+    },
+    {
+      "id": "rel-united-exports-operates-in-mexico",
+      "entity_id": "company-united-exports",
+      "country_id": "geography-mexico",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=low; Self-reported production country list.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-united-exports-what-we-do",
+      "source_id": "ev-united-exports-what-we-do",
+      "record_id": "rel-united-exports-operates-in-mexico"
+    },
+    {
+      "id": "rel-united-exports-operates-in-peru",
+      "entity_id": "company-united-exports",
+      "country_id": "geography-peru",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=low; Self-reported production country list.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-united-exports-what-we-do",
+      "source_id": "ev-united-exports-what-we-do",
+      "record_id": "rel-united-exports-operates-in-peru"
+    },
+    {
+      "id": "rel-united-exports-operates-in-south-africa",
+      "entity_id": "company-united-exports",
+      "country_id": "geography-south-africa",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; 180 hectare blueberry farm expansion financed by IFC, FMO and IFU.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-ifc-united-exports-2019",
+      "source_id": "ev-ifc-united-exports-2019",
+      "record_id": "rel-united-exports-operates-in-south-africa"
+    },
+    {
+      "id": "rel-united-exports-operates-in-spain",
+      "entity_id": "company-united-exports",
+      "country_id": "geography-spain",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=low; Self-reported production country list.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-united-exports-what-we-do",
+      "source_id": "ev-united-exports-what-we-do",
+      "record_id": "rel-united-exports-operates-in-spain"
+    },
+    {
+      "id": "rel-united-exports-operates-in-united-states",
+      "entity_id": "company-united-exports",
+      "country_id": "geography-united-states",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=medium; Announced joint venture farms at Venus and Sebring, Florida. Announced, not confirmed as planted.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-ozblu-migiva-2019",
+      "source_id": "ev-ozblu-migiva-2019",
+      "record_id": "rel-united-exports-operates-in-united-states"
+    },
+    {
+      "id": "rel-university-of-arkansas-operates-in-united-states",
+      "entity_id": "company-university-of-arkansas",
+      "country_id": "geography-united-states",
+      "region": "",
+      "activity": "Operations (unspecified)",
+      "date": "",
+      "note": "confidence=high; Land-grant institution operating the Fruit Research Station at Clarksville, Arkansas.",
+      "origin": "Existing relationship",
+      "source_url": "http://127.0.0.1:18321/evidence/ev-uaex-blueberry-trial-2024",
+      "source_id": "ev-uaex-blueberry-trial-2024",
+      "record_id": "rel-university-of-arkansas-operates-in-united-states"
+    }
+  ],
+  "sources": [
+    {
+      "id": "fact-abc-chellew-judgment-2019-1",
+      "label": "An Australian Federal Court judgment reported on 8 November 2019 awarded approximately A$290,000 against a grower for unauthorised propagation of a Mountain Blue variety protected by plant breeders' rights.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-abc-chellew-judgment-2019-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-mountain-blue-orchards",
+        "geography-australia",
+        "variety-opi"
+      ]
+    },
+    {
+      "id": "fact-abc-chellew-judgment-2019-2",
+      "label": "The cultivar at issue in the 2019 Australian Federal Court judgment corresponds to the selection code 'Ridley 1111', which the United States plant patent record identifies as Opi rather than Eureka. Secondary sources that attribute this judgment to Eureka are in conflict with the patent record.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-abc-chellew-judgment-2019-2",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-opi",
+        "variety-eureka",
+        "company-mountain-blue-orchards"
+      ]
+    },
+    {
+      "id": "fact-advanced-berry-breeding-raspberry-only",
+      "label": "Advanced Berry Breeding B.V.'s own public variety list contains raspberry cultivars only - Zawadi, Sarafina, Rafiki, Baridi, Shani, Malaika and Kwanza. No blueberry cultivar appears on it, and Cinven separately describes the acquired business as a Dutch raspberry breeding group.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-advanced-berry-breeding-raspberry-only",
+      "classification": "fact",
+      "entity_ids": [
+        "company-advanced-berry-breeding",
+        "company-planasa"
+      ]
+    },
+    {
+      "id": "fact-african-blue-morocco-zimbabwe",
+      "label": "Costa reports that African Blue, its Moroccan business operating since 2007 with about 465 hectares, is broadening supply through a Zimbabwe Direct from Source project involving 11 growers and more than 300 hectares first planted in 2018, accounting for about 15 per cent of African Blue's annual sales. The varieties adopted are named as Kirra, Akala, Corindi Verdure and Arana.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-african-blue-morocco-zimbabwe",
+      "classification": "claim",
+      "entity_ids": [
+        "company-african-blue",
+        "company-costa-group-holdings",
+        "variety-arana",
+        "geography-morocco",
+        "geography-zimbabwe"
+      ]
+    },
+    {
+      "id": "fact-agronometrics-prism-2025-1",
+      "label": "In the 2025 Agronometrics Peruvian varietal price analysis, Eureka indexes at 1.02 times the varietal average price with a 95 percent confidence interval of 0.62 to 1.42 across 182 pricing reports. The interval is wide enough that no price premium can be asserted.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-agronometrics-prism-2025-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-eureka",
+        "geography-peru"
+      ]
+    },
+    {
+      "id": "fact-agronometrics-prism-2025-2",
+      "label": "In the 2025 Agronometrics Peruvian varietal price analysis, Eureka Sunrise indexes at 0.08 times the varietal average price with a 95 percent confidence interval of minus 0.28 to 0.44 across 227 pricing reports. The negative lower bound indicates the index should be treated with caution.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-agronometrics-prism-2025-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-eureka-sunrise",
+        "geography-peru"
+      ]
+    },
+    {
+      "id": "fact-agrovision-licenses-not-breeds",
+      "label": "Agrovision states that it partners with leading breeders to develop a broad portfolio of premium varietals, and its Peruvian operation is reported to have begun with Biloxi and Ventura before moving to other varieties including those of the Sekoya programme. No blueberry plant patent or plant breeders' right held in Agrovision's own name was found in any source examined.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-agrovision-licenses-not-breeds",
+      "classification": "claim",
+      "entity_ids": [
+        "company-agrovision",
+        "brand-sekoya",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-agrovision-peru-scale",
+      "label": "Agrovision describes itself as the third largest blueberry grower in Peru and reports more than US$350 million invested in operations over the six years to February 2024. For 2022 it is separately reported at 2,800 hectares of berries across Peru, Mexico and Morocco, turnover of US$210 million and more than 2,500 containers exported, 40 per cent to China.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-agrovision-peru-scale",
+      "classification": "claim",
+      "entity_ids": [
+        "company-agrovision",
+        "geography-peru",
+        "geography-mexico",
+        "geography-morocco",
+        "geography-china"
+      ]
+    },
+    {
+      "id": "fact-berry-blue-hortifrut-jv-claim",
+      "label": "Hortifrut describes Berry Blue, LLC as a blueberry breeding joint venture with Michigan Blueberry Growers created over a decade ago, whose varieties are exclusive to Hortifrut, MBG and their producers.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-berry-blue-hortifrut-jv-claim",
+      "classification": "claim",
+      "entity_ids": [
+        "company-hortifrut",
+        "company-berry-blue-llc",
+        "company-michigan-blueberry-growers"
+      ]
+    },
+    {
+      "id": "fact-berry-blue-mbg-ownership-claim",
+      "label": "Michigan Blueberry Growers states that it owns and operates its own blueberry breeding programme, Berry Blue, LLC, and describes Berry Blue as an MBG Marketing company.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-berry-blue-mbg-ownership-claim",
+      "classification": "claim",
+      "entity_ids": [
+        "company-michigan-blueberry-growers",
+        "company-berry-blue-llc"
+      ]
+    },
+    {
+      "id": "fact-berryworld-varieties-1",
+      "label": "BerryWorld markets Mountain Blue genetics under its own retail brand names, including BerryWorld Eureka, Eureka Sunrise, Twilight and Opi, so that a single cultivar may appear in the market under a breeder denomination, a Mountain Blue brand and a BerryWorld retail brand simultaneously.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-berryworld-varieties-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-berryworld",
+        "company-mountain-blue-orchards",
+        "brand-berryworld-varietal-brands",
+        "variety-eureka",
+        "variety-eureka-sunrise",
+        "variety-twilight",
+        "variety-opi"
+      ]
+    },
+    {
+      "id": "fact-berryworld-varieties-2",
+      "label": "BerryWorld Eureka received three-star Superior Taste Awards from the International Taste Institute in 2025 and in 2022.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-berryworld-varieties-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-eureka",
+        "company-berryworld",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-berryworld-varieties-3",
+      "label": "The selection code, plant patent and plant breeders' rights covering the Mountain Blue cultivar marketed as Twilight could not be established from any source retrieved for this package. Candidate codes considered and not confirmed were 'Ridley 0501', 'Ridley 0502', 'Ridley 1812', 'Ridley 1202' and 'Ridley 0328'.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-berryworld-varieties-3",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-twilight",
+        "company-mountain-blue-orchards"
+      ]
+    },
+    {
+      "id": "fact-blue-maldiva-plablue-1542",
+      "label": "Planasa states that its blueberry variety Blue Maldiva corresponds to the breeder selection 'Plablue 1542'.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-blue-maldiva-plablue-1542",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-blue-maldiva",
+        "company-planasa"
+      ]
+    },
+    {
+      "id": "fact-blue-manila-owner-yield-claim",
+      "label": "Planasa states in its Blue Manila data sheet that average production is 19,000 kg per hectare in years one and two rising to 23,000 kg per hectare in year three, with shelf life of more than four weeks and calibre L at 22 mm, described as average results from Planasa trial plots in Morocco and Spain under specific and controlled conditions. No season, replication or plot design is given.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-blue-manila-owner-yield-claim",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-blue-manila",
+        "company-planasa",
+        "trait-yield",
+        "trait-postharvest-shelf-life",
+        "trait-fruit-size"
+      ]
+    },
+    {
+      "id": "fact-blue-manila-plablue-1545",
+      "label": "The Planasa blueberry variety Blue Manila corresponds to the breeder selection 'Plablue 1545', the subject of United States plant patent document US PP31,345 published 14 January 2020, with parents 14.027.001 and 14.049.001 from the applicant's own programme, propagated in Segovia and observed in Huelva, Spain, and a corresponding CPVO application 2018/2073 filed 9 August 2018.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-blue-manila-plablue-1545",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-blue-manila",
+        "patent-uspp031345p2",
+        "company-planasa",
+        "geography-spain"
+      ]
+    },
+    {
+      "id": "fact-blugenix-growing-countries",
+      "label": "South Africa, Zimbabwe, Morocco, the United States, Mexico, Peru, China and Australia are named as growing countries for BluGenix varieties.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-blugenix-growing-countries",
+      "classification": "claim",
+      "entity_ids": [
+        "brand-blugenix",
+        "company-costa-group-holdings",
+        "geography-south-africa",
+        "geography-zimbabwe",
+        "geography-morocco",
+        "geography-united-states",
+        "geography-mexico",
+        "geography-peru",
+        "geography-china",
+        "geography-australia"
+      ]
+    },
+    {
+      "id": "fact-blugenix-launch-2026",
+      "label": "BluGenix was launched on 29 May 2026 as the brand and platform for Costa's blueberry breeding programme, introduced with five varieties: Bounty, Breeze, Cascade, Delight and Eterna.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-blugenix-launch-2026",
+      "classification": "fact",
+      "entity_ids": [
+        "brand-blugenix",
+        "company-costa-group-holdings",
+        "breeding_program-costa-variety-improvement",
+        "variety-eterna"
+      ]
+    },
+    {
+      "id": "fact-blugenix-shelf-life-claim",
+      "label": "Costa claims a shelf life of 27 days at 4 degrees Celsius for all five launch BluGenix varieties and up to 50 days for Eterna. No trial site, season, replication or measurement protocol is stated for either figure.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-blugenix-shelf-life-claim",
+      "classification": "claim",
+      "entity_ids": [
+        "brand-blugenix",
+        "company-costa-group-holdings",
+        "variety-eterna",
+        "trait-postharvest-shelf-life"
+      ]
+    },
+    {
+      "id": "fact-bonita-patent-correction",
+      "label": "The OZblu variety Bonita corresponds to selection 'EB 9-12' under US PP28,358. Any attribution of Bonita to US PP25,358 is a mis-citation, because that number belongs to an Aglaonema ornamental patent.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-bonita-patent-correction",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-bonita",
+        "patent-uspp028358p3",
+        "patent-uspp025358p3"
+      ]
+    },
+    {
+      "id": "fact-brevis-ip-registration-trends-1",
+      "label": "A self-published analysis reports that Eureka was the most widely registered blueberry variety of the 2009 to 2019 period with protection in 15 countries or regions, with Opi at 13 and Blue Ribbon among the four most widely registered at 13. The post states no methodology, is not peer reviewed, and these counts were not verified against any registry.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-brevis-ip-registration-trends-1",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-eureka",
+        "variety-opi",
+        "variety-blue-ribbon"
+      ]
+    },
+    {
+      "id": "fact-cafc-dismissal-2025",
+      "label": "On 23 June 2025 the United States Court of Appeals for the Federal Circuit dismissed Driscoll's appeal 25-1747 for lack of jurisdiction, because invalidity counterclaims remained pending in the district court.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-cafc-dismissal-2025",
+      "classification": "fact",
+      "entity_ids": [
+        "company-driscolls"
+      ]
+    },
+    {
+      "id": "fact-cbi-ffsp-joint-patents",
+      "label": "Costa Berry International Pty Ltd and Florida Foundation Seed Producers, Inc. jointly hold seven United States blueberry plant patents, all filed on 26 January 2022 and granted between 14 February and 28 March 2023, covering the selections 'C13-051', 'C14-409', 'C15-143', 'C14-771', 'C15-270', 'C15-268' and 'C12-122'. Inventors named include Jessica Scalzo, Paul M. Lyrene, James W. Olmstead and Gary Wright.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-cbi-ffsp-joint-patents",
+      "classification": "fact",
+      "entity_ids": [
+        "company-costa-berry-international",
+        "company-florida-foundation-seed-producers",
+        "breeding_program-costa-variety-improvement"
+      ]
+    },
+    {
+      "id": "fact-cfia-driscolls-21-denominations",
+      "label": "The Canadian plant breeders' rights blueberry register index lists 21 Driscoll's blueberry denominations, with trade names including Kimberley, Rosita, Regina, Carlotta, Corrina, Caldonia, Cecilia, Roberto, Barbara Ann, Rosie Rooke, Sweet Jane and Stella Blue.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-cfia-driscolls-21-denominations",
+      "classification": "fact",
+      "entity_ids": [
+        "company-driscolls",
+        "company-cfia",
+        "geography-canada"
+      ]
+    },
+    {
+      "id": "fact-cfia-no-costa-planasa-hortifrut-blueberry",
+      "label": "No blueberry variety held by Costa, Planasa, Hortifrut or Advanced Berry Breeding appears on the Canadian plant breeders' rights blueberry register index as retrieved on 4 August 2026.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-cfia-no-costa-planasa-hortifrut-blueberry",
+      "classification": "fact",
+      "entity_ids": [
+        "company-cfia",
+        "company-costa-group-holdings",
+        "company-planasa",
+        "company-hortifrut",
+        "company-advanced-berry-breeding",
+        "geography-canada"
+      ]
+    },
+    {
+      "id": "fact-cfia-pbr-blue-ribbon-1",
+      "label": "In a Canadian plant breeders' rights examination trial at Chilliwack, British Columbia in 2015, Blue Ribbon was described by the examiner as having very firm fruit with low to medium sweetness and high acidity.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-blue-ribbon-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-blue-ribbon",
+        "trait-fruit-firmness",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-cfia-pbr-blue-ribbon-2",
+      "label": "Canadian plant breeders' rights for Blue Ribbon were granted on 12 November 2016 under certificate 5369, expiring 12 November 2036, naming David M. Brazelton and Adam L. Wagner as breeders.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-blue-ribbon-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-blue-ribbon",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-cfia-pbr-fc11-164-1",
+      "label": "A Canadian plant breeders' rights application for 'FC11-164' was filed on 29 July 2022 under number 22-11055, with provisional protection from that date, naming Peter Stefan Boches and Adam L. Wagner as breeders.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-fc11-164-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-fc11-164",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-cfia-pbr-fc11-164-2",
+      "label": "The Canadian plant breeders' rights examiner description of 'FC11-164', compared against 'Cargo' and 'Draper', records medium to strong vigour, a semi-upright habit, oblate fruit, strong bloom and late-season flowering onset. It does not contain any comparative firmness ranking, and therefore does not corroborate the owner's claim that the selection has firmness beyond any other variety.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-fc11-164-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-fc11-164",
+        "trait-fruit-firmness"
+      ]
+    },
+    {
+      "id": "fact-cfia-pbr-last-call-1",
+      "label": "Canadian plant breeders' rights for Last Call were granted on 12 November 2016 under certificate 5372, on application 13-7859 filed 23 January 2013, naming Haley Belnap-McCall as breeder.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-last-call-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-last-call",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-cfia-pbr-sekoya-grande-1",
+      "label": "Canadian plant breeders' rights for 'FC13-122' were granted on 6 October 2023 under certificate 6925, on application 18-9614 filed 20 September 2018, expiring 6 October 2043.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-sekoya-grande-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sekoya-grande",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-cfia-pbr-sekoya-grande-2",
+      "label": "In a Canadian plant breeders' rights examination trial at Chilliwack, British Columbia in 2022, laid out as a randomised complete block with four replicates of three plants, 'FC13-122' was described by the examiner as having very strong vigour, large fruit, very firm fruit, high sweetness and high acidity.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-sekoya-grande-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sekoya-grande",
+        "trait-fruit-firmness",
+        "trait-fruit-size",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-cfia-pbr-top-shelf-1",
+      "label": "In its Canadian plant breeders' rights examination, Top Shelf was described by the examiner as having firm fruit with high sweetness and low acidity.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-top-shelf-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-top-shelf",
+        "trait-fruit-firmness",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-costa-consortium-2024",
+      "label": "On 26 February 2024 Costa announced that a consortium of Paine Schwartz Partners, Driscoll's, Inc. and British Columbia Investment Management Corporation had taken control of the company at A$3.20 per share, with Harry Debney as interim chief executive.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-costa-consortium-2024",
+      "classification": "fact",
+      "entity_ids": [
+        "company-costa-group-holdings",
+        "company-paine-schwartz-partners",
+        "company-driscolls",
+        "company-bci",
+        "geography-australia"
+      ]
+    },
+    {
+      "id": "fact-costa-delisted-2024",
+      "label": "Costa Group Holdings Limited, ASX code CGC, listed on 24 July 2015 and was delisted on 27 February 2024.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-costa-delisted-2024",
+      "classification": "fact",
+      "entity_ids": [
+        "company-costa-group-holdings",
+        "geography-australia"
+      ]
+    },
+    {
+      "id": "fact-costa-entity-name-change-2024",
+      "label": "The Australian Business Register records the entity for ABN 68 151 363 129 as Costa Group Holdings Limited from 19 November 2015 to 3 June 2024 and as Costa Group Holdings Pty Ltd from 3 June 2024.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-costa-entity-name-change-2024",
+      "classification": "fact",
+      "entity_ids": [
+        "company-costa-group-holdings",
+        "geography-australia"
+      ]
+    },
+    {
+      "id": "fact-costa-licensing-regions",
+      "label": "Costa states that it licenses Costa-bred blueberry varieties in regions including the Americas, Morocco, China and south east Africa.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-costa-licensing-regions",
+      "classification": "claim",
+      "entity_ids": [
+        "company-costa-group-holdings",
+        "breeding_program-costa-variety-improvement",
+        "geography-morocco",
+        "geography-china"
+      ]
+    },
+    {
+      "id": "fact-costa-vip-corindi",
+      "label": "Costa states that its Variety Improvement Program is based at Corindi on the Mid North Coast of New South Wales, screens around 20,000 seedlings a year of which one to two per cent are retained, works to a seven to ten year timeline and releases one to two new varieties a year.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-costa-vip-corindi",
+      "classification": "claim",
+      "entity_ids": [
+        "company-costa-group-holdings",
+        "breeding_program-costa-variety-improvement",
+        "geography-australia"
+      ]
+    },
+    {
+      "id": "fact-drisblueseventeen-carlotta",
+      "label": "The blueberry variety 'DrisBlueSeventeen', trade name Carlotta, received Canadian plant breeders' rights certificate 7097 on 3 May 2024 under application 19-9740, applicant Driscoll's, Inc. of Watsonville, California. Its origin is given as '136D 2' crossed with '8B 4' in 2004 in Santa Cruz County, California, selected in 2006.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-drisblueseventeen-carlotta",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-drisblueseventeen",
+        "patent-ca-pbr-7097",
+        "company-driscolls",
+        "company-cfia",
+        "geography-canada"
+      ]
+    },
+    {
+      "id": "fact-drisblueseventeen-portugal-examination",
+      "label": "The Canadian description of 'DrisBlueSeventeen' derives from a UPOV Report of Technical Examination for CPVO application 2018/3441, trialled by the Direcao Geral de Alimentacao e Veterinaria at Escaroupim, Portugal over 2019 to 2022 against 'DrisBlueFifteen' and 'DrisBlueFive'. In that examination the fruit is described as large to very large, oblate, soft, with medium sweetness and medium acidity.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-drisblueseventeen-portugal-examination",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-drisblueseventeen",
+        "company-driscolls",
+        "geography-portugal",
+        "trait-fruit-size",
+        "trait-fruit-firmness",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-drisbluetwentyone-kimberley",
+      "label": "The blueberry cultivar 'DrisBlueTwentyOne', protected by United States plant patent US PP32,267 granted 6 October 2020 with parentage '136D 2' crossed with '181C 1', is registered in Canada under the trade name Kimberley.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-drisbluetwentyone-kimberley",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-drisbluetwentyone",
+        "patent-uspp032267p2",
+        "company-driscolls"
+      ]
+    },
+    {
+      "id": "fact-drisbluetwentythree-chilliwack-trial",
+      "label": "The comparative trial for 'DrisBlueTwentyThree' was carried out by Expert Agriculture Team Ltd. at Chilliwack, British Columbia in the 2023 growing season in a randomised complete block design of four replicates of three plants per variety with measurements taken from ten plants, against 'DrisBlueSeven' (Stella Blue) and 'DrisBlueTwentyTwo' (Regina). The fruit is described as medium size, oblate, firm, with medium sweetness and medium-high acidity.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-drisbluetwentythree-chilliwack-trial",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-drisbluetwentythree",
+        "company-driscolls",
+        "geography-canada",
+        "trait-fruit-firmness",
+        "trait-fruit-size",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-drisbluetwentythree-rosita",
+      "label": "The blueberry variety 'DrisBlueTwentyThree', trade name Rosita, received Canadian plant breeders' rights certificate 7211 on 1 November 2024 under application 20-10341. Its origin is given as '196H-3' crossed with '75J301' in February 2011 in Santa Cruz County, California, selected April 2013 in Hillsborough County, Florida, with breeders named including Raymond L. Jacobs III, James Olmstead and Sarah Wool.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-drisbluetwentythree-rosita",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-drisbluetwentythree",
+        "patent-ca-pbr-7211",
+        "company-driscolls",
+        "company-cfia",
+        "geography-canada"
+      ]
+    },
+    {
+      "id": "fact-driscolls-australia-pbr",
+      "label": "IP Australia's Plant Varieties Journal volume 33 number 4 records Driscoll's application 2014/116 for 'DrisBlueThirteen' with certificate 6408 expiring 26 August 2040, and application 2020/017 for 'DrisBlueEighteen' accepted on 1 October 2020 with provisional protection from acceptance.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-driscolls-australia-pbr",
+      "classification": "fact",
+      "entity_ids": [
+        "company-driscolls",
+        "company-ip-australia",
+        "geography-australia"
+      ]
+    },
+    {
+      "id": "fact-driscolls-cbc-litigation-is-strawberry",
+      "label": "The Driscoll's v. California Berry Cultivars litigation in the Eastern District of California, case 2:19-cv-00493, concerns strawberry patents. No blueberry patent is at issue in it.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-driscolls-cbc-litigation-is-strawberry",
+      "classification": "fact",
+      "entity_ids": [
+        "company-driscolls"
+      ]
+    },
+    {
+      "id": "fact-driscolls-closed-plant-model",
+      "label": "Driscoll's states that it develops exclusive patented berry varieties, does not sell its plants, and grows through more than 900 independent growers, with berries grown in more than 20 countries and sold in more than 40.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-driscolls-closed-plant-model",
+      "classification": "claim",
+      "entity_ids": [
+        "company-driscolls"
+      ]
+    },
+    {
+      "id": "fact-eterna-heaviest-blueberry-2023",
+      "label": "Costa reports that a blueberry of the Eterna variety picked at its Corindi farm on 13 November 2023 was recognised as the world's heaviest at 20.40 g and 39.31 mm, beating a previous record of 16.20 g set in Western Australia in 2020. The berry is credited to Brad Hocking, Jessica Scalzo and Marie-France Courtois.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-eterna-heaviest-blueberry-2023",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-eterna",
+        "company-costa-group-holdings",
+        "trait-fruit-size",
+        "geography-australia"
+      ]
+    },
+    {
+      "id": "fact-eureka-blueberries-our-story-1",
+      "label": "Eureka-brand blueberries are sold exclusively through Coles supermarkets in Australia.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-eureka-blueberries-our-story-1",
+      "classification": "fact",
+      "entity_ids": [
+        "brand-eureka",
+        "retailer-coles",
+        "geography-australia",
+        "company-mountain-blue-orchards"
+      ]
+    },
+    {
+      "id": "fact-fall-creek-commercial-platforms-2026-1",
+      "label": "Fall Creek Farm & Nursery commercialises its blueberry genetics through three distinct routes: the closed SEKOYA member platform, the Fall Creek Collection, and an open catalogue.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fall-creek-commercial-platforms-2026-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-fall-creek-farm-and-nursery",
+        "brand-sekoya",
+        "brand-fall-creek-collection"
+      ]
+    },
+    {
+      "id": "fact-fall-creek-commercial-platforms-2026-2",
+      "label": "Fall Creek Farm & Nursery states that the SEKOYA platform was founded in 2017.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fall-creek-commercial-platforms-2026-2",
+      "classification": "fact",
+      "entity_ids": [
+        "company-fall-creek-farm-and-nursery",
+        "brand-sekoya"
+      ]
+    },
+    {
+      "id": "fact-fall-creek-our-history-1",
+      "label": "Fall Creek Farm & Nursery, Inc. was founded in 1978 in Lowell, Oregon.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fall-creek-our-history-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-fallcreek-catalog-blue-ribbon-1",
+      "label": "Fall Creek Farm & Nursery claims in its own catalogue that Blue Ribbon offers 28 days of storage. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-blue-ribbon-1",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-blue-ribbon",
+        "company-fall-creek-farm-and-nursery",
+        "trait-postharvest-shelf-life"
+      ]
+    },
+    {
+      "id": "fact-fallcreek-catalog-last-call-1",
+      "label": "Fall Creek Farm & Nursery claims in its own catalogue that Last Call offers medium to large, light blue, very firm fruit and 28 days of storage. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-last-call-1",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-last-call",
+        "company-fall-creek-farm-and-nursery",
+        "trait-postharvest-shelf-life"
+      ]
+    },
+    {
+      "id": "fact-fallcreek-catalog-sekoya-beauty-1",
+      "label": "Fall Creek Farm & Nursery claims in its own catalogue that SEKOYA Beauty offers jumbo size, very firm fruit and 45 days of storage. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-sekoya-beauty-1",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-sekoya-beauty",
+        "company-fall-creek-farm-and-nursery",
+        "trait-postharvest-shelf-life"
+      ]
+    },
+    {
+      "id": "fact-fallcreek-catalog-sekoya-fiesta-1",
+      "label": "Fall Creek Farm & Nursery claims in its own catalogue that SEKOYA Fiesta offers jumbo size, crunchiness, very firm fruit and up to 60 days of storage. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-sekoya-fiesta-1",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-sekoya-fiesta",
+        "company-fall-creek-farm-and-nursery",
+        "trait-postharvest-shelf-life"
+      ]
+    },
+    {
+      "id": "fact-fallcreek-catalog-sekoya-grande-1",
+      "label": "Fall Creek Farm & Nursery claims in its own catalogue that SEKOYA Grande offers jumbo, very light blue, very firm fruit and up to 60 days of storage. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-sekoya-grande-1",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-sekoya-grande",
+        "company-fall-creek-farm-and-nursery",
+        "trait-postharvest-shelf-life"
+      ]
+    },
+    {
+      "id": "fact-fallcreek-catalog-sekoya-pop-1",
+      "label": "Fall Creek Farm & Nursery claims in its own catalogue that SEKOYA Pop offers jumbo size, exceptionally firm fruit and 60 days of storage. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-sekoya-pop-1",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-sekoya-pop",
+        "company-fall-creek-farm-and-nursery",
+        "trait-postharvest-shelf-life"
+      ]
+    },
+    {
+      "id": "fact-fallcreek-catalog-top-shelf-1",
+      "label": "Fall Creek Farm & Nursery claims in its own catalogue that Top Shelf offers 28 days of storage and hardiness to minus 20 degrees Celsius. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-top-shelf-1",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-top-shelf",
+        "company-fall-creek-farm-and-nursery",
+        "trait-postharvest-shelf-life"
+      ]
+    },
+    {
+      "id": "fact-fallcreek-catalog-top-shelf-2",
+      "label": "Fall Creek Farm & Nursery reports that Top Shelf is susceptible to Botryosphaeria.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-top-shelf-2",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-top-shelf",
+        "trait-disease-susceptibility"
+      ]
+    },
+    {
+      "id": "fact-ffsp-emerald-1",
+      "label": "Florida Foundation Seed Producers reports that Emerald is susceptible to target spot and reaches first harvest around 22 April at Gainesville, Florida.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ffsp-emerald-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-emerald",
+        "trait-disease-susceptibility",
+        "company-florida-foundation-seed-producers"
+      ]
+    },
+    {
+      "id": "fact-ffsp-farthing-1",
+      "label": "Florida Foundation Seed Producers states that Farthing has a chilling requirement of 300 hours below 7 degrees Celsius.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ffsp-farthing-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-farthing",
+        "trait-chilling-requirement",
+        "company-florida-foundation-seed-producers"
+      ]
+    },
+    {
+      "id": "fact-ffsp-jewel-1",
+      "label": "Florida Foundation Seed Producers states that the United States plant patent on Jewel has expired while international protection continues. The specific territories where protection remains in force were not identified from any source retrieved for this package.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ffsp-jewel-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-jewel",
+        "company-florida-foundation-seed-producers",
+        "patent-uspp011807p2"
+      ]
+    },
+    {
+      "id": "fact-ffsp-optimus-1",
+      "label": "Florida Foundation Seed Producers states that Optimus has a chilling requirement of 150 to 200 hours.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ffsp-optimus-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-optimus",
+        "trait-chilling-requirement",
+        "company-florida-foundation-seed-producers"
+      ]
+    },
+    {
+      "id": "fact-freshfruitportal-fall-creek-2026-1",
+      "label": "Fall Creek Farm & Nursery claims that 'FC11-164' is the first machine-harvestable fresh-market blueberry variety, with firmness beyond any other variety and 60 or more days of storage. No independent trial data supporting any of these three claims was located, and the Canadian plant breeders' rights examiner description does not corroborate the firmness claim.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-freshfruitportal-fall-creek-2026-1",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-fc11-164",
+        "trait-machine-harvest-suitability",
+        "trait-fruit-firmness",
+        "trait-postharvest-shelf-life",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-freshfruitportal-fall-creek-2026-2",
+      "label": "The commercial denomination for the Fall Creek selection 'FC11-164' was revealed at a company grower event on 29 July 2026, but the name itself was not published on any source retrieved for this package.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-freshfruitportal-fall-creek-2026-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-fc11-164",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-freshplaza-fall-creek-chile-2026-1",
+      "label": "As of 2025 Fall Creek Farm & Nursery had seven varieties under validation in southern Chile: SEKOYA Fiesta 'FC13-113', SEKOYA Crunch 'FC13-083', SEKOYA Grande 'FC13-122', SEKOYA Pop 'FCM14-052', ArabellaBlue 'FC14-062', LunaBlue 'FC12-205' and LoretoBlue 'FC11-118', with 'FC15-173', 'FC16-003' and 'FC11-164' listed as selections still in development.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-freshplaza-fall-creek-chile-2026-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-fall-creek-farm-and-nursery",
+        "geography-chile",
+        "variety-sekoya-fiesta",
+        "variety-sekoya-crunch",
+        "variety-sekoya-grande",
+        "variety-sekoya-pop",
+        "variety-fc11-164",
+        "variety-sekoya-nova"
+      ]
+    },
+    {
+      "id": "fact-fruitist-consumer-brands",
+      "label": "Fruitist lists Fruitist and Fruitist Jumbo as its blueberry brands and Big Skye is referred to as its brand in China. These are consumer brands rather than cultivar denominations.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fruitist-consumer-brands",
+      "classification": "fact",
+      "entity_ids": [
+        "company-agrovision",
+        "brand-fruitist",
+        "brand-big-skye",
+        "geography-china"
+      ]
+    },
+    {
+      "id": "fact-fruitist-financing-2025",
+      "label": "Fruitist raised US$150 million of equity financing led by JP Morgan, reported 10 November 2025, with Steve Magami named as co-founder and chief executive.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fruitist-financing-2025",
+      "classification": "fact",
+      "entity_ids": [
+        "company-agrovision"
+      ]
+    },
+    {
+      "id": "fact-fruitist-rebrand-2025",
+      "label": "Agrovision rebranded as Fruitist in 2025 and is reported to have reached US$400 million of sales in 2024 with a three-fold increase in jumbo blueberry sales.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fruitist-rebrand-2025",
+      "classification": "fact",
+      "entity_ids": [
+        "company-agrovision",
+        "brand-fruitist"
+      ]
+    },
+    {
+      "id": "fact-fruitnet-driesvenplant-2018-1",
+      "label": "Fall Creek Farm & Nursery acquired the Dutch nursery Driesvenplant, reported on 15 June 2018.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fruitnet-driesvenplant-2018-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-fall-creek-farm-and-nursery",
+        "geography-netherlands"
+      ]
+    },
+    {
+      "id": "fact-fruitnet-eureka-sunrise-2023-1",
+      "label": "Eureka Sunrise received a two-star Superior Taste Award from the International Taste Institute in 2023 with a score of 86.5 percent.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fruitnet-eureka-sunrise-2023-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-eureka-sunrise",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-fruitnet-eureka-sunrise-2023-2",
+      "label": "Eureka Sunrise is grown exclusively by BerryWorld growers in South Africa, Zimbabwe, Morocco, Spain and Portugal, with plantings reported in Egypt.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fruitnet-eureka-sunrise-2023-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-eureka-sunrise",
+        "company-berryworld",
+        "geography-south-africa",
+        "geography-morocco",
+        "geography-spain"
+      ]
+    },
+    {
+      "id": "fact-fruitnet-ozblu-dispute-2020-1",
+      "label": "Two containers of blueberries totalling approximately 27 tonnes were seized in Rotterdam on 27 October and 5 November 2020 in a dispute in which United Exports asserted plant breeders' rights ownership in South Africa and the European Union against the Rossouw Group's Ross Berries operation.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fruitnet-ozblu-dispute-2020-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-united-exports",
+        "brand-ozblu",
+        "geography-netherlands",
+        "geography-south-africa"
+      ]
+    },
+    {
+      "id": "fact-fruitnet-ozblu-dispute-2020-2",
+      "label": "United Exports announced a five-year South African investment plan of R1.3 billion, approximately US$85 million, reported on 9 November 2020. This is a company announcement carried by trade press and no independent confirmation of the amount or of subsequent execution was located.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fruitnet-ozblu-dispute-2020-2",
+      "classification": "claim",
+      "entity_ids": [
+        "company-united-exports",
+        "geography-south-africa"
+      ]
+    },
+    {
+      "id": "fact-fruitnet-romania-2024-1",
+      "label": "Fall Creek Farm & Nursery acquired a Romanian site of approximately 50 hectares, reported on 6 June 2024.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-fruitnet-romania-2024-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-hortifrut-atlantic-blue-2021",
+      "label": "Hortifrut acquired 100 per cent of Atlantic Blue of Huelva, Spain at an enterprise value of 241 million euros, about US$280 million, reported 20 October 2021. The transaction was described as including the Euroberry commercial platform and Atlantic Blue's worldwide blueberry and low-chill cherry variety and breeding development programme.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-atlantic-blue-2021",
+      "classification": "fact",
+      "entity_ids": [
+        "company-hortifrut",
+        "breeding_program-atlantic-blue-royal-berries",
+        "geography-spain"
+      ]
+    },
+    {
+      "id": "fact-hortifrut-bfruit-2019",
+      "label": "In December 2019 Hortifrut agreed to acquire a non-controlling interest in the Portuguese BFruit Producers Organization.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-bfruit-2019",
+      "classification": "fact",
+      "entity_ids": [
+        "company-hortifrut",
+        "geography-portugal"
+      ]
+    },
+    {
+      "id": "fact-hortifrut-blueberry-ip-vehicle",
+      "label": "In the sources retrieved, Hortifrut's blueberry breeding output is attributed to Berry Blue, LLC and to the acquired Atlantic Blue / Royal Berries programme. No entity named 'Hortifrut Genetics' holding blueberry varieties appears in any source examined.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-blueberry-ip-vehicle",
+      "classification": "fact",
+      "entity_ids": [
+        "company-hortifrut",
+        "company-berry-blue-llc",
+        "breeding_program-atlantic-blue-royal-berries"
+      ]
+    },
+    {
+      "id": "fact-hortifrut-breeding-stations",
+      "label": "Hortifrut lists blueberry breeding test stations in the United States, Chile, Peru, Mexico and China.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-breeding-stations",
+      "classification": "claim",
+      "entity_ids": [
+        "company-hortifrut",
+        "geography-united-states",
+        "geography-chile",
+        "geography-peru",
+        "geography-mexico",
+        "geography-china"
+      ]
+    },
+    {
+      "id": "fact-hortifrut-colombia-jv-2019",
+      "label": "In October 2019 Hortifrut formed a Colombian joint venture with Proplantas in which Hortifrut holds 75 per cent and the Afanador family 25 per cent, with blueberry exports from Colombia beginning in March 2020.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-colombia-jv-2019",
+      "classification": "fact",
+      "entity_ids": [
+        "company-hortifrut",
+        "geography-colombia"
+      ]
+    },
+    {
+      "id": "fact-hortifrut-controlling-families",
+      "label": "Hortifrut's 2023 integrated annual report records the controlling group as the Moller, Quevedo, Del Rio and Elberg families.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-controlling-families",
+      "classification": "fact",
+      "entity_ids": [
+        "company-hortifrut"
+      ]
+    },
+    {
+      "id": "fact-hortifrut-corporate-identity",
+      "label": "Hortifrut S.A., RUT 96.896.990-0, has its registered office at Av. Del Condor 600, Huechuraba, Santiago, Chile, and its shares trade on the Bolsa de Comercio de Santiago under the code HF.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-corporate-identity",
+      "classification": "fact",
+      "entity_ids": [
+        "company-hortifrut",
+        "geography-chile"
+      ]
+    },
+    {
+      "id": "fact-hortifrut-founded-1983",
+      "label": "Hortifrut states that it was founded in 1983 in Chile's VIII Region and operates in 15 countries.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-founded-1983",
+      "classification": "claim",
+      "entity_ids": [
+        "company-hortifrut",
+        "geography-chile"
+      ]
+    },
+    {
+      "id": "fact-hortifrut-in-licensed-genetics",
+      "label": "Hortifrut states that it licenses 'Rocio' and 'Corona' from the Spanish Royal Berry programme exclusively for the Americas and 'Draper', 'Aurora', 'Liberty' and 'Osorno' from Michigan State University.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-in-licensed-genetics",
+      "classification": "claim",
+      "entity_ids": [
+        "company-hortifrut",
+        "breeding_program-atlantic-blue-royal-berries"
+      ]
+    },
+    {
+      "id": "fact-hortifrut-mbo-collaboration-2026",
+      "label": "On 30 July 2026 Naturipe Farms and Hortifrut announced an expanded berry genetics platform reached through a strategic collaboration with Mountain Blue Orchards, under which Hortifrut states it gains access to new elite blueberry selections for the United States, Mexico, Peru and other Latin American countries.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-mbo-collaboration-2026",
+      "classification": "claim",
+      "entity_ids": [
+        "company-hortifrut",
+        "company-naturipe-farms",
+        "company-mountain-blue-orchards"
+      ]
+    },
+    {
+      "id": "fact-hortifrut-psp-4956",
+      "label": "Following a December 2022 investment agreement, PSP Investments of Canada together with SJF Investment SpA acquired 49.56 per cent of Hortifrut S.A.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-psp-4956",
+      "classification": "fact",
+      "entity_ids": [
+        "company-hortifrut",
+        "geography-canada"
+      ]
+    },
+    {
+      "id": "fact-ibo-eureka-moment-2015-1",
+      "label": "Eureka blueberries were launched at retail in Coles supermarkets in Australia in spring 2015, following earlier limited in-store trials.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ibo-eureka-moment-2015-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-eureka",
+        "brand-eureka",
+        "retailer-coles"
+      ]
+    },
+    {
+      "id": "fact-ibo-mbo-china-judgment-2024-1",
+      "label": "The Kunming Intermediate People's Court upheld Mountain Blue's plant breeders' right over 'Ridley 1602' against an unlicensed Chinese nursery, reported on 2 December 2024.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ibo-mbo-china-judgment-2024-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-mountain-blue-orchards",
+        "variety-eureka-sunrise",
+        "geography-china"
+      ]
+    },
+    {
+      "id": "fact-ifc-united-exports-2019-1",
+      "label": "The International Finance Corporation, FMO and IFU announced on 29 January 2019 an investment in Mbiza Trading Ltd, described in the announcement as being renamed United Exports, to fund a 180 hectare blueberry farm expansion expected to create 200 to 250 permanent and 4,200 seasonal jobs.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ifc-united-exports-2019-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-united-exports",
+        "geography-south-africa"
+      ]
+    },
+    {
+      "id": "fact-italianberry-mbo-chile-2020-1",
+      "label": "Mountain Blue genetics are licensed in Chile through Snackberries, with Eureka and Twilight described as the two most important Mountain Blue varieties in that country.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-italianberry-mbo-chile-2020-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-mountain-blue-orchards",
+        "variety-eureka",
+        "variety-twilight",
+        "geography-chile"
+      ]
+    },
+    {
+      "id": "fact-italianberry-peru-varieties-2025-1",
+      "label": "In the 2024/25 Peruvian export season to week 33, SEKOYA Pop was the single largest exported blueberry variety by volume at 2,514 tonnes, equal to 19 percent of national volume, according to Proarandanos figures.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-italianberry-peru-varieties-2025-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sekoya-pop",
+        "geography-peru",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-italianberry-peru-varieties-2025-2",
+      "label": "In the 2024/25 Peruvian export season to week 33, Eureka accounted for 655 tonnes, approximately 5 percent of national volume, according to Proarandanos figures.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-italianberry-peru-varieties-2025-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-eureka",
+        "geography-peru",
+        "company-mountain-blue-orchards"
+      ]
+    },
+    {
+      "id": "fact-italianberry-peru-varieties-2025-4",
+      "label": "Trade and market sources attribute the Eureka brand name to the breeding selection code 'Ridley 1403'. The IP Australia plant breeders' rights record for the corresponding application carries 'N/A' in its synonym field, so there is no registry-level confirmation of this mapping.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-italianberry-peru-varieties-2025-4",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-eureka",
+        "brand-eureka",
+        "company-mountain-blue-orchards"
+      ]
+    },
+    {
+      "id": "fact-keepsake-selection-code",
+      "label": "The Berry Blue cultivar Keepsake corresponds to the breeder selection 'BB05-251MI-14' and is cited by Michigan Blueberry Growers as protected by United States plant patent US PP24,807, with Edmund J. Wheeler and James F. Hancock named as inventors.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-keepsake-selection-code",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-keepsake",
+        "patent-uspp024807p3",
+        "company-berry-blue-llc",
+        "company-michigan-blueberry-growers"
+      ]
+    },
+    {
+      "id": "fact-mbo-distinct-from-mbg",
+      "label": "Mountain Blue Orchards, named in the 30 July 2026 Hortifrut and Naturipe genetics announcement, and Michigan Blueberry Growers Association, Hortifrut's Berry Blue joint venture partner, are separately named organisations in the retrieved sources and are not stated anywhere to be the same entity.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-mbo-distinct-from-mbg",
+      "classification": "fact",
+      "entity_ids": [
+        "company-mountain-blue-orchards",
+        "company-michigan-blueberry-growers",
+        "company-hortifrut"
+      ]
+    },
+    {
+      "id": "fact-mbo-eureka-blueberries-1",
+      "label": "Mountain Blue uses the name Eureka both as the denomination of a single cultivar and as an umbrella brand covering several distinct cultivars, including Eureka Sunrise, Eureka Sunset, Eureka Dawn, Eureka Gold and Eureka Maxx. Data reported against the brand name Eureka may therefore refer to more than one genetic object.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-mbo-eureka-blueberries-1",
+      "classification": "fact",
+      "entity_ids": [
+        "brand-eureka",
+        "variety-eureka",
+        "variety-eureka-sunrise",
+        "company-mountain-blue-orchards"
+      ]
+    },
+    {
+      "id": "fact-mbo-eureka-blueberries-2",
+      "label": "Mountain Blue claims that Eureka offers jumbo size, exceptional sweetness and a crisp, juicy texture.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-mbo-eureka-blueberries-2",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-eureka",
+        "brand-eureka",
+        "company-mountain-blue-orchards",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-mbo-home-1",
+      "label": "Mountain Blue Orchards Pty Ltd is an Australian blueberry grower and breeder based at Lindendale, New South Wales.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-mbo-home-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-mountain-blue-orchards",
+        "geography-australia"
+      ]
+    },
+    {
+      "id": "fact-medallion-selection-code",
+      "label": "The Berry Blue cultivar Medallion corresponds to the breeder selection 'BB05-259MI-15' and is cited by Michigan Blueberry Growers as protected by United States plant patent US PP32,574.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-medallion-selection-code",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-medallion",
+        "patent-uspp032574p3",
+        "company-berry-blue-llc",
+        "company-michigan-blueberry-growers"
+      ]
+    },
+    {
+      "id": "fact-megacrisp-iq-berries",
+      "label": "TopFruit identifies IQ Berries of Australia as the breeder of the blueberry variety MegaCrisp and TopFruit as the commercial manager of the variety in southern Africa. MegaCrisp belongs to a Mega family that also includes MegaEarly, MegaCrop, MegaGem, MegaGrand and MegaOne.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-megacrisp-iq-berries",
+      "classification": "fact",
+      "entity_ids": [
+        "company-iq-berries",
+        "company-topfruit",
+        "geography-australia",
+        "geography-south-africa"
+      ]
+    },
+    {
+      "id": "fact-nda-za-variety-list-2025-1",
+      "label": "The South African official 2025 blueberry export variety list independently pairs brand names with breeding selection codes across multiple breeding programmes, corroborating the SEKOYA brand to code mappings published by Fall Creek and confirming that Eureka, Eureka Sunrise, Eureka Sunset, Eureka Dawn, Eureka Maxx and Twilight are all traded denominations.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-nda-za-variety-list-2025-1",
+      "classification": "fact",
+      "entity_ids": [
+        "geography-south-africa",
+        "variety-sekoya-beauty",
+        "variety-sekoya-pop",
+        "variety-eureka",
+        "variety-eureka-sunrise",
+        "variety-twilight"
+      ]
+    },
+    {
+      "id": "fact-ozblu-around-the-world-2019-1",
+      "label": "The blueberry varieties marketed under the OZblu brand, carrying EB and NS selection codes, were bred by David and Leasa Mazzardis near Perth, Western Australia, through the breeding companies Prunus Persica and Nature Select. United Exports is not the breeder of these varieties.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-around-the-world-2019-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-nature-select",
+        "company-united-exports",
+        "brand-ozblu",
+        "breeding_program-nature-select-blueberry-breeding"
+      ]
+    },
+    {
+      "id": "fact-ozblu-around-the-world-2019-2",
+      "label": "The OZblu breeding programme is separate from the Mountain Blue breeding programme. The only genetic link located between them in the public record is that Nature Select's 'NS 14-3' is reported to derive from a cross of 'Ridley 1403' with 'Ridley 4609'. The two programmes are not the same source of genetics and must not be treated as one.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-around-the-world-2019-2",
+      "classification": "fact",
+      "entity_ids": [
+        "company-nature-select",
+        "company-mountain-blue-orchards",
+        "breeding_program-nature-select-blueberry-breeding",
+        "breeding_program-mountain-blue-blueberry-breeding"
+      ]
+    },
+    {
+      "id": "fact-ozblu-assignee-structure",
+      "label": "The OZblu 'EB'-series United States plant patents examined name Bisa Trading Pty Ltd and Prunus Persica Pty Ltd as assignees of record, while the later 'NS'-series patents name Next Progeny Pty Ltd. United Exports is not named as an assignee on any of these granted patents.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-assignee-structure",
+      "classification": "fact",
+      "entity_ids": [
+        "company-bisa-trading",
+        "company-prunus-persica",
+        "company-next-progeny",
+        "company-united-exports",
+        "brand-ozblu"
+      ]
+    },
+    {
+      "id": "fact-ozblu-identity-bella",
+      "label": "The blueberry marketed internationally under the OZblu brand name Bella is the breeder selection 'EB 8-46', protected in the United States by plant patent US PP26,173, granted 1 December 2015.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-bella",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-bella",
+        "patent-uspp026173p3",
+        "brand-ozblu"
+      ]
+    },
+    {
+      "id": "fact-ozblu-identity-bonita",
+      "label": "The blueberry marketed internationally under the OZblu brand name Bonita is the breeder selection 'EB 9-12', protected in the United States by plant patent US PP28,358, granted 5 September 2017.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-bonita",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-bonita",
+        "patent-uspp028358p3",
+        "brand-ozblu"
+      ]
+    },
+    {
+      "id": "fact-ozblu-identity-dina",
+      "label": "The blueberry marketed internationally under the OZblu brand name Dina is the breeder selection 'NS 15-13', protected in the United States by plant patent US PP33,138, granted 8 June 2021.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-dina",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-dina",
+        "patent-uspp033138p3",
+        "brand-ozblu"
+      ]
+    },
+    {
+      "id": "fact-ozblu-identity-elaina",
+      "label": "The blueberry marketed internationally under the OZblu brand name Elaina is the breeder selection 'NS 13-6', protected in the United States by plant patent US PP30,934, granted 15 October 2019.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-elaina",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-elaina",
+        "patent-uspp030934p3",
+        "brand-ozblu"
+      ]
+    },
+    {
+      "id": "fact-ozblu-identity-julieta",
+      "label": "The blueberry marketed internationally under the OZblu brand name Julieta is the breeder selection 'EB 8-42', protected in the United States by plant patent US PP25,858, granted 8 September 2015.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-julieta",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-julieta",
+        "patent-uspp025858p3",
+        "brand-ozblu"
+      ]
+    },
+    {
+      "id": "fact-ozblu-identity-magica",
+      "label": "The blueberry marketed internationally under the OZblu brand name Magica is the breeder selection 'EB 9-2', protected in the United States by plant patent US PP28,149, granted 4 July 2017.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-magica",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-magica",
+        "patent-uspp028149p3",
+        "brand-ozblu"
+      ]
+    },
+    {
+      "id": "fact-ozblu-identity-magnifica",
+      "label": "The blueberry marketed internationally under the OZblu brand name Magnifica is the breeder selection 'EB 12-19', protected in the United States by plant patent US PP27,142, granted 13 September 2016.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-magnifica",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-magnifica",
+        "patent-uspp027142p3",
+        "brand-ozblu"
+      ]
+    },
+    {
+      "id": "fact-ozblu-identity-olivia",
+      "label": "The blueberry marketed internationally under the OZblu brand name Olivia is the breeder selection 'NS 16-2', protected in the United States by plant patent US PP32,897, granted 16 March 2021.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-olivia",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-olivia",
+        "patent-uspp032897p3",
+        "brand-ozblu"
+      ]
+    },
+    {
+      "id": "fact-ozblu-inventor-mazzardis",
+      "label": "Vincent David Mazzardis is named as the sole inventor on the United States plant patents for the OZblu 'EB' and 'NS' blueberry selections, with the crosses made at Yanchep Springs, Yanchep, Western Australia.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-inventor-mazzardis",
+      "classification": "fact",
+      "entity_ids": [
+        "brand-ozblu",
+        "company-united-exports"
+      ]
+    },
+    {
+      "id": "fact-ozblu-migiva-2019-1",
+      "label": "United Exports announced on 25 March 2019 a joint venture with MIGIVA Group involving US$32 million to establish the first OZblu farm in North America, comprising a 453 acre site at Venus, Florida and an 82 acre site at Sebring, Florida. This is an announcement of planned investment; no source confirming realised plantings or production was located.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-migiva-2019-1",
+      "classification": "claim",
+      "entity_ids": [
+        "company-united-exports",
+        "brand-ozblu",
+        "geography-united-states"
+      ]
+    },
+    {
+      "id": "fact-ozblu-oz-varieties-1",
+      "label": "United Exports holds the exclusive right to sub-license the production of and to market the OZblu varieties, and exercises that right through OZ Varieties, a United Exports company. Its position is that of an exclusive licensor and marketer, not an owner of the underlying breeding rights.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-oz-varieties-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-united-exports",
+        "company-oz-varieties",
+        "brand-ozblu"
+      ]
+    },
+    {
+      "id": "fact-ozblu-rossouw-settlement-2020",
+      "label": "A settlement and interim licence between United Exports and the Rossouw Farming Group were reached on 17 November 2020, with the dispute over removal of the plants referred to arbitration.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-rossouw-settlement-2020",
+      "classification": "fact",
+      "entity_ids": [
+        "company-united-exports",
+        "geography-south-africa"
+      ]
+    },
+    {
+      "id": "fact-ozblu-rotterdam-seizure-2020",
+      "label": "CIOPORA reports that in November 2020 Dutch Customs issued a Red Alert Notice at Rotterdam and confiscated two containers of approximately 10 tonnes and 16 tonnes of protected OZblu-variety blueberries shipped without licence by Rosle Berries / Ross Berries of the Rossouw Farming Group, South Africa, following termination in May 2020 of two licence agreements dating from 2017.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-rotterdam-seizure-2020",
+      "classification": "claim",
+      "entity_ids": [
+        "company-united-exports",
+        "brand-ozblu",
+        "geography-south-africa",
+        "geography-netherlands"
+      ]
+    },
+    {
+      "id": "fact-ozblu-where-we-grow-2024-1",
+      "label": "United Exports publishes a mapping of OZblu selection codes to brand names and United States plant patent numbers covering at least eight varieties, including EB8-42 as Julieta under PP25,858, EB9-2 as Magica under PP28,149, NS13-6 as Elaina under PP30,934 and NS16-2 as Olivia under PP32,897.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-ozblu-where-we-grow-2024-1",
+      "classification": "fact",
+      "entity_ids": [
+        "brand-ozblu",
+        "company-united-exports",
+        "company-nature-select"
+      ]
+    },
+    {
+      "id": "fact-packer-finefield-2024-1",
+      "label": "Fall Creek Farm & Nursery took a minority investment position in the mechanical harvesting company FineField, reported on 5 February 2024.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-packer-finefield-2024-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-fall-creek-farm-and-nursery",
+        "trait-machine-harvest-suitability"
+      ]
+    },
+    {
+      "id": "fact-planasa-ew-group-sale",
+      "label": "Cinven and Label Investments agreed to sell Planasa to the EW Group, the German family-owned genetics group controlled by the Wesjohann family. No financial details were disclosed.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-planasa-ew-group-sale",
+      "classification": "fact",
+      "entity_ids": [
+        "company-planasa",
+        "company-cinven",
+        "company-ew-group",
+        "geography-germany"
+      ]
+    },
+    {
+      "id": "fact-planasa-scale-claim",
+      "label": "Planasa states that it has more than 4,000 employees, is present in more than 25 countries, holds more than 225 registered varieties across all crops, operates seven research and development centres and produces more than 1,000 million plants a year.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-planasa-scale-claim",
+      "classification": "claim",
+      "entity_ids": [
+        "company-planasa"
+      ]
+    },
+    {
+      "id": "fact-portalfruticola-fall-creek-2025-1",
+      "label": "Trade coverage reports that the principal outstanding challenge for the Fall Creek selection 'FC11-164' is matching the productivity of other new varieties.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-portalfruticola-fall-creek-2025-1",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-fc11-164",
+        "trait-yield"
+      ]
+    },
+    {
+      "id": "fact-produce-report-sekoya-china-2025-1",
+      "label": "SEKOYA has publicly stated an intention to expand its premium blueberry position in Asian and Chinese markets, reported on 13 November 2025.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-produce-report-sekoya-china-2025-1",
+      "classification": "claim",
+      "entity_ids": [
+        "brand-sekoya",
+        "company-fall-creek-farm-and-nursery",
+        "geography-china"
+      ]
+    },
+    {
+      "id": "fact-produce-report-sekoya-nova-2026-1",
+      "label": "Fall Creek Farm & Nursery announced the high-chill selection 'FC15-173' as SEKOYA Nova on 3 February 2026.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-produce-report-sekoya-nova-2026-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sekoya-nova",
+        "brand-sekoya",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-produce-report-sekoya-nova-2026-2",
+      "label": "Fall Creek Farm & Nursery claims that SEKOYA Nova 'FC15-173' achieves more than 60 days of shelf life, against approximately 45 days it describes as typical for newer high-chill releases. The figure comes from company evaluation data with no stated trial site, season, replication or storage protocol.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-produce-report-sekoya-nova-2026-2",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-sekoya-nova",
+        "trait-postharvest-shelf-life",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-produce-report-sekoya-nova-2026-3",
+      "label": "Fall Creek Farm & Nursery claims that approximately 80 percent of SEKOYA Nova 'FC15-173' fruit exceeds 18 mm in diameter, against 20 to 50 percent for comparable high-chill varieties. The figure comes from company evaluation data and no independent measurement was located.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-produce-report-sekoya-nova-2026-3",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-sekoya-nova",
+        "trait-fruit-size",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-sekoya-story-6",
+      "label": "SEKOYA Beauty 'FCM12-097' and SEKOYA Pop 'FCM14-052' were both selected in Mexico, in 2012 and 2014 respectively.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-sekoya-story-6",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sekoya-beauty",
+        "variety-sekoya-pop",
+        "geography-mexico"
+      ]
+    },
+    {
+      "id": "fact-sekoya-story-beauty",
+      "label": "The SEKOYA brand name SEKOYA Beauty refers to the Fall Creek breeding selection 'FCM12-097'.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-sekoya-story-beauty",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sekoya-beauty",
+        "brand-sekoya",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-sekoya-story-crunch",
+      "label": "The SEKOYA brand name SEKOYA Crunch refers to the Fall Creek breeding selection 'FC13-083'.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-sekoya-story-crunch",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sekoya-crunch",
+        "brand-sekoya",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-sekoya-story-fiesta",
+      "label": "The SEKOYA brand name SEKOYA Fiesta refers to the Fall Creek breeding selection 'FC13-113'.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-sekoya-story-fiesta",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sekoya-fiesta",
+        "brand-sekoya",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-sekoya-story-grande",
+      "label": "The SEKOYA brand name SEKOYA Grande refers to the Fall Creek breeding selection 'FC13-122'.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-sekoya-story-grande",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sekoya-grande",
+        "brand-sekoya",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-sekoya-story-pop",
+      "label": "The SEKOYA brand name SEKOYA Pop refers to the Fall Creek breeding selection 'FCM14-052'.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-sekoya-story-pop",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sekoya-pop",
+        "brand-sekoya",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-uaex-quality-range-2024",
+      "label": "In the 2024 University of Arkansas Clarksville trial, soluble solids ranged from 8 to 13.2 degrees Brix, lowest in Bluecrop and highest in Ochlockonee; pH ranged from 2.8 to 3.3 and titratable acidity from 0.27 to 0.85 per cent.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uaex-quality-range-2024",
+      "classification": "fact",
+      "entity_ids": [
+        "company-university-of-arkansas",
+        "trait-soluble-solids",
+        "trait-titratable-acidity",
+        "geography-united-states"
+      ]
+    },
+    {
+      "id": "fact-uaex-trial-design-2024",
+      "label": "A 20-variety blueberry trial covering northern highbush, southern highbush and rabbiteye types was established in 2021 at the University of Arkansas Fruit Research Station, Clarksville, Arkansas, on the zone 7b/8a boundary, with weekly harvests from 21 May to 2 August 2024 in the first harvest season. Highest yields were from the rabbiteye varieties Alapaha and Vernon at about 10 lb of marketable fruit per plant, while a mid-March freeze cut southern and northern highbush yields to under 1 lb per plant in some cases.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uaex-trial-design-2024",
+      "classification": "fact",
+      "entity_ids": [
+        "company-university-of-arkansas",
+        "trait-yield",
+        "geography-united-states"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-colossus-1",
+      "label": "The University of Florida blueberry breeding programme publishes measured values for Colossus 'FL11-35' of firmness of 304 g/mm at harvest, 336 g/mm after 21 days and 286 g/mm after 49 days, berry weight averaging 2.8 g, diameter averaging 20.5 mm and average soluble solids of 12.3 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-colossus-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-colossus",
+        "company-university-of-florida",
+        "breeding_program-uf-ifas-blueberry-breeding",
+        "trait-fruit-firmness",
+        "trait-fruit-size",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-colossus-2",
+      "label": "The University of Florida blueberry breeding programme measured Colossus 'FL11-35' yields of 6.5 to 12.4 pounds per plant, averaging 10.3, in north-central Florida over the 2018 and 2019 seasons, and 6.1 pounds per plant in central Florida.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-colossus-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-colossus",
+        "trait-yield",
+        "company-university-of-florida"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-colossus-3",
+      "label": "The University of Florida blueberry breeding programme reports that Colossus 'FL11-35' performed well in machine-harvest trials.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-colossus-3",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-colossus",
+        "trait-machine-harvest-suitability",
+        "company-university-of-florida"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-emerald-1",
+      "label": "The University of Florida blueberry breeding programme publishes measured values for Emerald of firmness of 184 to 211 g/mm with an average of 195, average berry weight of 2.4 g, average diameter of 18.4 mm and average soluble solids of 11.3 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-emerald-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-emerald",
+        "company-university-of-florida",
+        "breeding_program-uf-ifas-blueberry-breeding",
+        "trait-fruit-firmness",
+        "trait-fruit-size",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-farthing-1",
+      "label": "The University of Florida blueberry breeding programme publishes measured values for Farthing of firmness of 212 to 263 g/mm with an average of 227, average berry weight of 2.2 g, average diameter of 17.7 mm and average soluble solids of 11.8 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-farthing-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-farthing",
+        "company-university-of-florida",
+        "breeding_program-uf-ifas-blueberry-breeding",
+        "trait-fruit-firmness",
+        "trait-fruit-size",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-jewel-1",
+      "label": "The University of Florida blueberry breeding programme publishes measured values for Jewel of firmness of 166 to 205 g/mm with an average of 180 and average soluble solids of 11.1 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-jewel-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-jewel",
+        "company-university-of-florida",
+        "breeding_program-uf-ifas-blueberry-breeding",
+        "trait-fruit-firmness",
+        "trait-fruit-size",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-jewel-2",
+      "label": "The University of Florida blueberry breeding programme states that Jewel is no longer recommended for Florida.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-jewel-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-jewel",
+        "company-university-of-florida"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-meadowlark-1",
+      "label": "The University of Florida blueberry breeding programme publishes measured values for Meadowlark 'FL01-173' of firmness of 221 to 277 g/mm with an average of 256, average berry weight of 2.5 g, average diameter of 18.3 mm and average soluble solids of 10.9 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-meadowlark-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-meadowlark",
+        "company-university-of-florida",
+        "breeding_program-uf-ifas-blueberry-breeding",
+        "trait-fruit-firmness",
+        "trait-fruit-size",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-meadowlark-2",
+      "label": "The University of Florida reports that Meadowlark 'FL01-173' is susceptible to Xylella and to Blueberry Red Ringspot Virus, and that it performed well in machine-harvest trials.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-meadowlark-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-meadowlark",
+        "trait-disease-susceptibility",
+        "trait-machine-harvest-suitability",
+        "company-university-of-florida"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-optimus-1",
+      "label": "The University of Florida blueberry breeding programme publishes measured values for Optimus 'FL08-262' of firmness of 241 g/mm at harvest falling to 219 g/mm after 21 days, average berry weight of 1.7 g, average diameter of 15.8 mm and average soluble solids of 12.3 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-optimus-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-optimus",
+        "company-university-of-florida",
+        "breeding_program-uf-ifas-blueberry-breeding",
+        "trait-fruit-firmness",
+        "trait-fruit-size",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-optimus-2",
+      "label": "The University of Florida blueberry breeding programme measured Optimus 'FL08-262' yields of 9.3 pounds per plant in north-central Florida and 6.7 pounds per plant in central Florida.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-optimus-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-optimus",
+        "trait-yield",
+        "company-university-of-florida"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-patrecia-1",
+      "label": "The University of Florida blueberry breeding programme publishes measured values for Patrecia of firmness of 212 to 265 g/mm with an average of 232, average berry weight of 3.0 g, average diameter of 19.9 mm and average soluble solids of 10.5 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-patrecia-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-patrecia",
+        "company-university-of-florida",
+        "breeding_program-uf-ifas-blueberry-breeding",
+        "trait-fruit-firmness",
+        "trait-fruit-size",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-patrecia-2",
+      "label": "The University of Florida does not recommend machine harvest for Patrecia, citing a large scar that can tear and tight fruit clusters.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-patrecia-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-patrecia",
+        "trait-machine-harvest-suitability",
+        "company-university-of-florida"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-sentinel-1",
+      "label": "The University of Florida blueberry breeding programme publishes measured values for Sentinel 'FL11-155' of firmness of 237 g/mm at harvest and 226 g/mm after 21 days, berry weight averaging 2.2 g, diameter averaging 17.2 mm, soluble solids averaging 11.1 degrees Brix and an average Brix to acid ratio of 30.67. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-sentinel-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sentinel",
+        "company-university-of-florida",
+        "breeding_program-uf-ifas-blueberry-breeding",
+        "trait-fruit-firmness",
+        "trait-fruit-size",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-sentinel-2",
+      "label": "The University of Florida blueberry breeding programme measured Sentinel 'FL11-155' yields of 8.8 to 21.0 pounds per plant, averaging 16.4, in north-central Florida across the 2018 to 2020 seasons, and 5.6 to 10.9 pounds per plant, averaging 8.2, in central Florida.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-sentinel-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sentinel",
+        "trait-yield",
+        "company-university-of-florida"
+      ]
+    },
+    {
+      "id": "fact-uf-breeding-sentinel-3",
+      "label": "The University of Florida blueberry breeding programme reports a sensory flavour score of 27.5 for Sentinel, against 19.9 for Emerald and 29.2 for Kestrel on the same scale.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-sentinel-3",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sentinel",
+        "variety-emerald",
+        "trait-eating-quality",
+        "company-university-of-florida"
+      ]
+    },
+    {
+      "id": "fact-uf-ifas-hs1245-1",
+      "label": "Commercialisation rights to University of Florida IFAS blueberry cultivars are held and licensed by Florida Foundation Seed Producers, Inc., not by the university directly.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-ifas-hs1245-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-university-of-florida",
+        "company-florida-foundation-seed-producers",
+        "breeding_program-uf-ifas-blueberry-breeding"
+      ]
+    },
+    {
+      "id": "fact-uf-ifas-hs1245-2",
+      "label": "The University of Florida IFAS blueberry breeding programme develops southern highbush cultivars, which are interspecific hybrids of Vaccinium corymbosum adapted to low chill accumulation.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-ifas-hs1245-2",
+      "classification": "fact",
+      "entity_ids": [
+        "company-university-of-florida",
+        "breeding_program-uf-ifas-blueberry-breeding"
+      ]
+    },
+    {
+      "id": "fact-uf-ifas-hs1245-3",
+      "label": "UF/IFAS extension literature uses the trademark form Meadowlark for 'FL01-173' while presenting the other University of Florida releases as cultivar denominations without a separate brand.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uf-ifas-hs1245-3",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-meadowlark",
+        "company-university-of-florida"
+      ]
+    },
+    {
+      "id": "fact-united-exports-joint-titleholder-2016",
+      "label": "CIOPORA states that United Exports became joint titleholder of the OZblu varieties in 2016, responsible for commercialisation and for royalty return to the breeding programme. No assignment instrument or registry entry confirming the joint title was retrieved.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-united-exports-joint-titleholder-2016",
+      "classification": "claim",
+      "entity_ids": [
+        "company-united-exports",
+        "brand-ozblu"
+      ]
+    },
+    {
+      "id": "fact-united-exports-overview-1",
+      "label": "United Exports was established in 2002 by Roger Horak as a vertically integrated fruit exporter, moving from low-chill stone fruit into evergreen blueberries.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-united-exports-overview-1",
+      "classification": "fact",
+      "entity_ids": [
+        "company-united-exports"
+      ]
+    },
+    {
+      "id": "fact-united-exports-what-we-do-1",
+      "label": "United Exports states that OZblu varieties are grown in South Africa, Australia, the United States, Chile, Peru, Mexico, Zambia and Spain, and that it exports to approximately 19 markets. The statement is undated and self-reported, and no independent corroboration of the country list was located.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-united-exports-what-we-do-1",
+      "classification": "claim",
+      "entity_ids": [
+        "company-united-exports",
+        "brand-ozblu"
+      ]
+    },
+    {
+      "id": "fact-uspp023572-ridley-1111-1",
+      "label": "The breeding selection code 'Ridley 1111' designates the cultivar Opi, an open-pollinated seedling of 'C99-42' raised at Lindendale, New South Wales in 2001 and selected in 2003, covered by United States plant patent USPP023572P3. 'Ridley 1111' is not Eureka.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp023572-ridley-1111-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-opi",
+        "patent-uspp023572p3",
+        "company-mountain-blue-orchards",
+        "variety-eureka"
+      ]
+    },
+    {
+      "id": "fact-uspp023572-ridley-1111-2",
+      "label": "The United States plant patent for 'Ridley 1111' reports an average fruit diameter of 17.3 mm against 15.5 mm for its parent 'C99-42', and describes the fruit as firm with medium to high sweetness and suited to hand picking.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp023572-ridley-1111-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-opi",
+        "trait-fruit-size",
+        "trait-fruit-firmness",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-uspp024636-blue-ribbon-1",
+      "label": "United States plant patent USPP024636P3, covering Blue Ribbon, was granted on 15 July 2014 to Fall Creek Farm and Nursery Inc. on an application filed 12 March 2012.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp024636-blue-ribbon-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-blue-ribbon",
+        "patent-uspp024636p3",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-uspp024636-blue-ribbon-2",
+      "label": "The United States plant patent for Blue Ribbon states a chilling requirement of 800 to 1000 hours.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp024636-blue-ribbon-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-blue-ribbon",
+        "trait-chilling-requirement"
+      ]
+    },
+    {
+      "id": "fact-uspp024661-cargo-1",
+      "label": "United States plant patent USPP024661P3, covering Cargo, was granted on 22 July 2014.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp024661-cargo-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-cargo",
+        "patent-uspp024661p3",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-uspp024661-cargo-2",
+      "label": "The United States plant patent for Cargo describes the cultivar as oriented toward machine harvest and states a chilling requirement of 800 to 1000 hours.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp024661-cargo-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-cargo",
+        "trait-machine-harvest-suitability",
+        "trait-chilling-requirement"
+      ]
+    },
+    {
+      "id": "fact-uspp024697-top-shelf-1",
+      "label": "United States plant patent USPP024697P3, covering Top Shelf, was granted on 29 July 2014 and gives the parentage as 'Magnolia' crossed with 'Draper'.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp024697-top-shelf-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-top-shelf",
+        "patent-uspp024697p3",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-uspp024697-top-shelf-2",
+      "label": "The United States plant patent for Top Shelf states a chilling requirement of 700 to 1000 hours.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp024697-top-shelf-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-top-shelf",
+        "trait-chilling-requirement"
+      ]
+    },
+    {
+      "id": "fact-uspp025386-last-call-1",
+      "label": "United States plant patent USPP025386P3, covering Last Call, was granted on 31 March 2015 and gives the parentage as 'Ozarkblue' crossed with 'Elliott'.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp025386-last-call-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-last-call",
+        "patent-uspp025386p3",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-uspp025386-last-call-2",
+      "label": "The United States plant patent for Last Call reports that fruit firmness was measured against 'Elliott' using a FirmTech 2 instrument, and estimates a chilling requirement of about 1000 hours.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp025386-last-call-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-last-call",
+        "trait-fruit-firmness",
+        "trait-chilling-requirement"
+      ]
+    },
+    {
+      "id": "fact-uspp025432-ridley-1403-1",
+      "label": "The cultivar 'Ridley 1403' originated as a single plant, 'M08-14-03', selected in 2008 from 100 seedlings at Lindendale, New South Wales, from a 2006 cross of 'S02-25-05' with 'S03-08-02', both unpatented.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp025432-ridley-1403-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-eureka",
+        "company-mountain-blue-orchards",
+        "patent-uspp025432p3"
+      ]
+    },
+    {
+      "id": "fact-uspp025432-ridley-1403-2",
+      "label": "The official botanical description in United States plant patent USPP025432P3 characterises 'Ridley 1403' fruit as very large and medium-firm, with a good balance of sweetness and acidity and a small dry picking scar.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp025432-ridley-1403-2",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-eureka",
+        "trait-fruit-firmness",
+        "trait-fruit-size",
+        "trait-eating-quality"
+      ]
+    },
+    {
+      "id": "fact-uspp025432-ridley-1403-3",
+      "label": "The firmness description in the United States plant patent for 'Ridley 1403', which reads medium-firm, is materially weaker than the owner's marketing description of the corresponding Eureka product. Both descriptions are qualitative and no instrumented comparison between them was located.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp025432-ridley-1403-3",
+      "classification": "claim",
+      "entity_ids": [
+        "variety-eureka",
+        "trait-fruit-firmness",
+        "company-mountain-blue-orchards"
+      ]
+    },
+    {
+      "id": "fact-uspp028437-sekoya-beauty-1",
+      "label": "United States plant patent USPP028437P3, covering 'FCM12-097', was granted on 26 September 2017 on application 14/998,607 filed 21 January 2016, with parentage 'FF03-194' crossed with 'FL00-180'.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp028437-sekoya-beauty-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sekoya-beauty",
+        "patent-uspp028437p3",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-uspp031605-ridley-1602-1",
+      "label": "The cultivar 'Ridley 1602', marketed as Eureka Sunrise, is a cross of 'Ridley 1403' with 'Ridley 4609', bred at Lindendale, New South Wales in 2011 under breeding designation 'M14-16-02', and is covered by United States plant patent USPP031605P3 granted 31 March 2020.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp031605-ridley-1602-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-eureka-sunrise",
+        "variety-eureka",
+        "patent-uspp031605p3",
+        "company-mountain-blue-orchards"
+      ]
+    },
+    {
+      "id": "fact-uspp031822-sekoya-grande-1",
+      "label": "United States plant patent USPP031822P3, covering 'FC13-122', was granted on 2 June 2020.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp031822-sekoya-grande-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sekoya-grande",
+        "patent-uspp031822p3",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-uspp032186-sekoya-pop-1",
+      "label": "United States plant patent USPP032186P3, covering 'FCM14-052', was granted on 15 September 2020 with parentage 'FL01-06' crossed with 'FL06-556'.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp032186-sekoya-pop-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-sekoya-pop",
+        "patent-uspp032186p3",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "fact-uspp034903-fc11-164-1",
+      "label": "United States plant patent USPP034903P2 covers the Fall Creek selection 'FC11-164', described as an open-pollinated cross with female parent 'ZF06-168' made in 2008 at Lowell, Oregon.",
+      "kind": "Statement",
+      "url": "http://127.0.0.1:18321/facts/fact-uspp034903-fc11-164-1",
+      "classification": "fact",
+      "entity_ids": [
+        "variety-fc11-164",
+        "patent-uspp034903p2",
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "ev-producereport-blugenix-2026",
+      "label": "Costa launches BluGenix with five blueberry varieties suited to Yunnan",
+      "kind": "News",
+      "url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+      "classification": "Source report",
+      "entity_ids": [
+        "brand-blugenix",
+        "company-costa-group-holdings",
+        "breeding_program-costa-variety-improvement",
+        "variety-eterna",
+        "trait-postharvest-shelf-life",
+        "geography-china",
+        "geography-south-africa",
+        "geography-zimbabwe",
+        "geography-morocco",
+        "geography-united-states",
+        "geography-mexico",
+        "geography-peru",
+        "geography-australia"
+      ]
+    },
+    {
+      "id": "ev-20260806173554-8b8d-usda-philadelphia-terminal-market-fruit-",
+      "label": "USDA Philadelphia Terminal Market Fruit Prices Report for July 29, 2026 - News and Statistics - IndexBox",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNeUFYeXVlNWZVMUtLUlg2X1poSXplN3liTDA0NVFhNG14RXR3dnFNdU9JLTZ1Q1FLZWN0RlhfYUxnV0poclgyY0pRQVpMVVUtTXBHWm5odXpFWTJQUXNsZzRyNzBJenBWTTU2VU1JZERnXzFUMnVIZ0Z6VVBCNWRiV0lfVlJvV09CWEVaYkZSQThudUJWWHc?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173852-4a9a-agronometrics-in-charts-california-berry",
+      "label": "Agronometrics in Charts: California berry harvest hits full stride, raspberries leading growth - FreshFruitPortal.com",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1CaFl6NWRjUUY1M3BQS1dsd0s2SXNpTk1VWGxqcFB3c2xtdW84LTlIRDZnU2VtZ21YamtPMXhzbGVkV2l0MU55RUxZLXhqQllZZEw4WGRHT1hGai0zdlJRa3FJanNrNVJlMDE3Sg?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173600-86e1-mexico-s-san-quint-n-water-crisis-threat",
+      "label": "Mexico's San Quintín water crisis threatens tomato and berry production - FreshPlaza",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNbTJLNUV1dFRhcjhZMnFIQlhOWGhPZVdwSWFtUzhydHJQNjRTNGpiVnpRaWdHR1lpN3ZWM3pfZzhvcnhwclp2N3VaUnpaOWF5OWZRd1MtMXl2TDRCODQ1VHlCSll6OE4tZmdKcWRaV05Zb1ItNVlyS04xNmg2SW9UdVRJTTQ0WG1RWjdhS2pZQnZ0ay1xTTZzUGpaN0tXaU5MdHVacHZyRE1DcW1ib0ZJNTB4V1UzZVNrTGdKYzNqcmdDeVN2UmpHaA?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-hortifrut-mbo-genetics-2026",
+      "label": "Naturipe Farms and Hortifrut expand berry genetics platform with Mountain Blue",
+      "kind": "News",
+      "url": "https://www.hortifrut.com/naturipe-farms-and-hortifrut-expand-one-of-the-worlds-broadest-berry-geneticsplatforms-to-deliver-the-next-generation-of-premium-berriesnaturipe-farms-and-hortifrut-expand-one-of-the-world/",
+      "classification": "Source report",
+      "entity_ids": [
+        "company-hortifrut",
+        "company-naturipe-farms",
+        "company-mountain-blue-orchards",
+        "geography-united-states",
+        "geography-mexico",
+        "geography-peru",
+        "company-michigan-blueberry-growers"
+      ]
+    },
+    {
+      "id": "ev-20260806173600-6f49-mexican-blueberries-the-3-decades-that-t",
+      "label": "Mexican blueberries: The 3 decades that transformed the industry forever - FreshFruitPortal.com",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9SLTZCOWdNZzR4aklqMjZoWHMwaWxFQThyVm9yUDE1akdUQ2NYMERsQnBVUXB2SHlTRHZweW1pa0J5YmU4NTlIaE5uN1Nzbm1uNlN3NUFLYjJTQ0VNSVZObHc3OUt3TWdRUVg2TTktMHVUbVpuUFl0eVpRV1BTdw?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806175514-b429-india-wants-to-join-the-strawberry-super",
+      "label": "India wants to join the strawberry superpowers - MyJoyOnline",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPX3N3SkFqYjVTbUhoVTdnZzFZZjFSelVmYUo5UkNqNmZELXFXeTRMLUVwN2J3eFFnM1NZb3hvMk5kQ1hic1F1b0RhVG03dmlzSVZ0aG1pY0dLWlNIeWE3dEowcFpjM1ktQnR0b0hRbE9La0xsb2xKbzNPRlpiVTZxag?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173604-7604-strawberry-grower-helps-electrify-public",
+      "label": "Strawberry grower helps electrify public transport - Hortidaily",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxONFNicUdPTURYNUJIeWRPWmFQd3hiNk5fX0NUdmtvTGRIVGp4alZkQTlBa250eS0tREJObzZZYUZBTmxZX29xbVBpR0JSb3RjNWZtWExYTW56dVNCNlFlY0xFTG5TbW1VeWc5bHJZdDFDdEhKakVKQ1lGVkFLbmJEaEd0TF9ObkpEQjFDeGZuVHljUjUyRDM0QTdR?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173542-0a88-blueberry-variety-dispute-between-noposi",
+      "label": "Blueberry Variety Dispute Between Noposion and Meiming Escalates - Produce Report",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNc3dKdFlhOGZGY3F6anJaVGxzTWNTNk51RFN5V1R0blFaLWFtWGRoRi1NR1VtcFplVUFReXUzMG9jSTZjQlo1U0lkQjU5SEwzRVAycUhuTWZhSVZXbllPeFIyby1CUkRrakQ2MVJRcUZFbnhENGV3clhaSjRzeGlzeU5QaWlISGx3M203ZU9OamluZEItX3hmV2o5bWtWN3M?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-sample-patent-published",
+      "label": "Patent published for a late-ripening, high-yield raspberry genetics program",
+      "kind": "News",
+      "url": "https://example.invalid/patents/12345678",
+      "classification": "Source report",
+      "entity_ids": [
+        "company-example-nursery",
+        "variety-example-red",
+        "geography-europe"
+      ]
+    },
+    {
+      "id": "ev-20260806173906-7858-driscoll-s-responds-to-u-s-lawsuits-amid",
+      "label": "Driscoll’s Responds to U.S. Lawsuits Amid China Market Concerns - Produce Report",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNSFNhSkoxd090RXpzc3hQZExEUEFUcTE1S25odC0xQkxRTVhFTHJ3a2RYMW1IVlhETDVjaHVnUGZXM3Yya19wYXc0RV84Vmk3UTJ6M0M3QWhHdHhqOTFGRWJSQjhnVHVwU09SNU94VEZEc3lyRnpqNVRKZ2pzeGV1alhtd0NzajVmUWtyVTdEREVDNHAyTE10elFiYw?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173609-3f7f-wish-farms-returns-to-organic-produce-su",
+      "label": "Wish Farms Returns to Organic Produce Summit with Flavor-First Focus and Year-Round Organic Supply - Perishable News",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPYi1HTUxFTzd1WjNzS3ZjMEM0WGtvVHU1R056X2Zha0JhMi13MHlSUjJMNkZJelA2QmlHUWNnc2RtX1o1NHFJSFNhSTZpLXJ3R1F4TF8wZnpXdF94SUx1eENBbjRtZkdIaTRrekIyLUIxQ2trVi1VVlU4OEdwbFMzbXlCbmdUWHgwTWl4S2F6aF9Pa0ktV0lPc3QtRXd4Q3BzaFBrYnhkNDYyb0hsYkY3Ukh2Mk1Pc0YtT3JiZXJxN2F3cExhNkFoTEpGclVXY21fUnc?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173608-37ca-the-berry-in-your-breakfast-could-be-hel",
+      "label": "The Berry in Your Breakfast Could Be Helping Your Heart, According to New Research - Food & Wine",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQdnVGRGM4dGkzSUNVSHR2b2RPVUJBSWZxTWRVWmhfLTNtTm9qaG16VHh4UjNFRXRqUGhKZDBZQnVUeTBLbWNTLVFhUzFKMDBOSkVoeEJBeS1vOUdvaG5GUG9MODBtal9sZFNfLV9LZUJITF81YTFiZWdPcVZrWWRWbjc3a2pmSEFHQXVBUXpOMGFNWUNON25nWWtQQQ?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173541-de69-fall-creek-acquires-berryplant-berrytech",
+      "label": "Fall Creek acquires Berryplant, Berrytech to expand genetics portfolio - Fruit Growers News",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOZTV5Y19GUVAwMzFVWFFPOWxmeVFxay1mZTY0TXBBQUFnSVdLeS05ZnNvWW95RGtsaUNhY3pPNXFDNjFNQ1VuakVKdXVMeTlVVWtnWXhFNFNoeVBrbDNneWdLQkxKbldXQW5McTNiSllJQkRBcnNULUNhdkViWThWWmxYbEt5cG9haEdUcGs1dzl3UFpo?oc=5",
+      "classification": "Source report",
+      "entity_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ]
+    },
+    {
+      "id": "ev-20260806173550-98d0-berry-good-news-maine-strawberry-season-",
+      "label": "Berry good news: Maine strawberry season off to sweet start - WGME",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOeE5pcmZzNEFPdXVRYktxcWlxODhPZHJibUF2YS01d25UTE9OYmhlTGh4Y1BCcS0zWkpkWlFuVE9RemgxenNEV1l0YkdaX3UwMk9waVBnaHVWaGZXblE4dC1xOVFsNHJZa3Nrc0lDUE8wZlhiME1tV2FTRVpNbm9HOTRzaEVPMDBrcFJUUkxTQ3NZdFhySnVPR3o3N29hVkFIYnAxVw?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173540-a6ec-new-year-round-premium-blackberry-platfo",
+      "label": "New Year-Round Premium Blackberry Platform Launched by Plant Sciences Genetics - The Packer",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPYUJZMkNXY3pHODkxQnptdG9JNkpXeGJiVzJDWk1NY3RRRnBTek1GSmtfM0N4aDR5U3lVdEpLVEw4X3R1Z0xCTlk5T3Y1eVpYOWJueWZhWGdjakwxUFViVlFQUWQzelE2UnRTU3NVLTdGUXgwX05FNldwUzROSzQwTThIY3R3S1dlT0JDcUhrX1lVWXJQNVFLNXNLNUdvZFBxc3NSRmZLelhsQQ?oc=5",
+      "classification": "Source report",
+      "entity_ids": [
+        "company-plant-sciences-genetics",
+        "brand-rejoice",
+        "variety-bk-6-13"
+      ]
+    },
+    {
+      "id": "ev-20260806173558-8d84-el-nino-threat-raises-the-risk-of-higher",
+      "label": "El Nino threat raises the risk of higher blueberry prices - The Straits Times",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNZDhzSnJsdHc3ZkJrZkxPczVCYTVCNXhwbXRnYW1ZcXhBLTk1ZXU5aFV4a3pfckp3Yl81R2tkRnI3eVREZHNyTEJwWmUyR2t2SXZ2bGNjeV9aV0NlemZZc1lXMmxiRHIyV3VsUXlJZjgwX1VycnotYlZGVEJaaXpJZ1R4VWd5d1BLeDNhUVZydkNjR2U0aWFV?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173540-f021-blackberry-breakthrough-psg-unveils-firs",
+      "label": "Blackberry breakthrough: PSG unveils first year-round primocane variety - Fruitnet",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOZ21QY3d0VS1vVktKNzEyVkJha0x0UnNmeFJULXJmeEk1VVhMdFNjOWl6RXd6YldOQUN2U2RRenNLN3gtamF3WjJkU05uRVVjTDVfd1VJNW10aGVDV0dyTGpIV3p2eWFMamE2UnhMUFZsYlREVS15NWM4WHFIc1hJTUFLRHZoRi1NLXR4cVY1MEhNSFF4X2JNUVQzZWNNcnJVcFFHYks2V09QamZvNGQ4ODl2d3hyTjlFaC1Xdg?oc=5",
+      "classification": "Source report",
+      "entity_ids": [
+        "company-plant-sciences-genetics",
+        "brand-rejoice"
+      ]
+    },
+    {
+      "id": "ev-20260806173558-97dc-agronometrics-in-charts-peruvian-blueber",
+      "label": "Agronometrics in Charts: Peruvian blueberry sector leads export boom with 18 new markets - FreshFruitPortal.com",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE91ZWdTR0xsLUZMaU5RZG5HMDdxUV9FVndsRnh4QTBySnBCRkhZTkpsMUdDOGV1bFktNlpqQ3VUcWEweVVFSV8zMFZvVzZuYndEWkQ4TGFUVG9nTFJJMHNRT2w2ZWNfbnByVGNRbUpCMkh2RGlnOF9sWGFMOWdYOTg?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    },
+    {
+      "id": "ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe",
+      "label": "Boosting Blackberries: NC State’s Gina Fernandez Launches Latest Botanical Offspring - NC State University",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNOFlmdVE3QWtZckdMODZTaEpMN3NNMGN0RGc0dnpMYVo5bjNRUmdpdFZqbnN0bVlveTFrbFpwVnN3WGhjNXVuTWJ3LW5RTWVRclpuTTZyV09aZVFPM0c1a3Vwa2xvQzRTUUZaWVpyQTBOWnBrWWNiLS1kX1FIVmx6VHRvdmxvM3lJMWFGbFBkNWxERXoyNTdXNFFfWEY4bFk1Ym5wc1cyVUpkNnBrM3R3?oc=5",
+      "classification": "Source report",
+      "entity_ids": [
+        "company-nc-state-university",
+        "variety-ervin"
+      ]
+    },
+    {
+      "id": "ev-ffp-hortifrut-mbo-2026",
+      "label": "Hortifrut and MBO berry deal",
+      "kind": "News",
+      "url": "https://www.freshfruitportal.com/news/2026/07/30/hortifrut-mbo-berry-deal/",
+      "classification": "Source report",
+      "entity_ids": [
+        "company-hortifrut",
+        "company-naturipe-farms",
+        "company-mountain-blue-orchards"
+      ]
+    },
+    {
+      "id": "ev-20260806173540-749e-arkansas-blackberry-season-is-here-witho",
+      "label": "Arkansas blackberry season is here — without the thorns - The Arkansas Democrat-Gazette",
+      "kind": "News",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQV0c4akJVRGpFQ29BRjRVOFhFVTBraFpYeGd2OTdzbGxLLWRENXBSOG5ITUJ0ejVOQ2gyNEN1dDh4Vi1RVkdwWENxdno4RTdfVFhzalkwdjdaSU0yWWtzZ0FNRjBKb2dtQTNfOGJ0X1JTbGhKcGVHYlRzMVZ3Yjh5S3dmOEhTcEV5YXFzbW5GTEpwcUk4QkUzamRDZw?oc=5",
+      "classification": "Source report",
+      "entity_ids": []
+    }
+  ]
+}

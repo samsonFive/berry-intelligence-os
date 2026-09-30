@@ -1867,3 +1867,5 @@ Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
 | Status | limitation |
 | Owner lane | data / product |
 | Regression-test reference | tests/test_global_explorer.py; scripts/verify_global_explorer_browser.py |
+
+**2026-09-30 design checkpoint, TD-113 follow-up:** The isolated design study demonstrates sourced annual statistics and editable variety/company region layers, using 45 existing operates_in relationships and browser-local corrections. Production GeographicLayer providers, shared persistence, reviewed growing-location associations, subnational coverage and statistic refresh remain unresolved. This does not close TD-113 or change domain schemas. See `IMMERSIVE-DESIGN-MISSION.md` for acceptance requirements.

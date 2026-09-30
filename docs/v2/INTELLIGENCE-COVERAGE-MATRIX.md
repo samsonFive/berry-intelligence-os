@@ -574,3 +574,5 @@ The canonical company and aliases now support discovery in the app. The two exis
 Re-count committed `data/evidence/*.json` by stored `source_type` /
 `media_format` and explicit `berry_ids`. Do not hand-edit a cell without
 re-running the inventory. Inbox drafts stay out of the class table.
+
+**2026-09-30 design-only market/geography preview:** Four public-source annual statistics (US cultivated blueberries and Peru fresh-blueberry exports) were added under `artifacts/design-sprint/`, together with a region editor over committed public entities/relationships. These are preview context, not newly published Evidence. No evidence-class counts, maturity ratings or canonical growing-region claims change. Production expansion requires original-source validation and existing review gates; details are in `IMMERSIVE-DESIGN-MISSION.md`.

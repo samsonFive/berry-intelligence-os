@@ -1,0 +1,38 @@
+{
+  "checked_on": "2026-09-30",
+  "scope": "Initial public-source sample, not global coverage or a live feed",
+  "groups": [
+    {
+      "country_id": "geography-united-states",
+      "country": "United States",
+      "berry_id": "berry-blueberry",
+      "commodity": "Cultivated blueberries",
+      "period": "2025 crop year",
+      "publisher": "USDA NASS",
+      "released_on": "2026-05-01",
+      "source_url": "https://esmis.nal.usda.gov/sites/default/release-files/795891/ncit0526.pdf#page=75",
+      "source_title": "Noncitrus Fruits and Nuts 2025 Summary, p. 75",
+      "note": "USDA estimates. Utilized production includes fresh and processed fruit; excludes harvested fruit not sold. Cultivated blueberries only, excluding wild blueberries. Values retain the source's units and rounding.",
+      "metrics": [
+        {"label": "Utilized production", "value": 761, "unit": "million lb", "display": "761", "change": "4% lower than 2024"},
+        {"label": "Harvested area", "value": 104700, "unit": "acres", "display": "104,700", "change": "Estimated harvested area"}
+      ]
+    },
+    {
+      "country_id": "geography-peru",
+      "country": "Peru",
+      "berry_id": "berry-blueberry",
+      "commodity": "Fresh blueberries",
+      "period": "2025 calendar year",
+      "publisher": "MIDAGRI",
+      "released_on": "2026-02-16",
+      "source_url": "https://www.gob.pe/institucion/midagri/noticias/1354335-midagri-peru-consolida-su-liderazgo-mundial-en-arandanos-y-supera-los-usd-2-400-millones-en-ventas-durante-el-2025",
+      "source_title": "MIDAGRI: blueberry exports in 2025",
+      "note": "Export figures reported by Peru's agriculture ministry. These describe shipments abroad, not production or total market size. The release does not specify the valuation basis; do not assume FOB or compare with CIF values.",
+      "metrics": [
+        {"label": "Export volume", "value": 373514, "unit": "tonnes", "display": "373,514", "change": "14.6% higher than 2024"},
+        {"label": "Export value", "value": 2457, "unit": "million USD", "display": "2,457", "change": "8.2% higher than 2024"}
+      ]
+    }
+  ]
+}

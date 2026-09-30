@@ -1,0 +1,542 @@
+{
+  "records": [
+    {
+      "id": "ev-producereport-blugenix-2026",
+      "title": "Costa launches BluGenix with five blueberry varieties suited to Yunnan",
+      "source": "Produce Report",
+      "url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+      "date": "2026-06-08",
+      "summary": "Reports the launch of BluGenix on 29 May 2026 as the brand and platform for Costa's blueberry breeding programme, introduced with five varieties: Bounty, Breeze, Cascade, Delight and Eterna. Shelf life of 27 days at 4 degrees Celsius is claimed for all five and up to 50 days for Eterna. Costa chief executive Marc Werner and Leon Van Biljon, regional director of Costa Berry International, are quoted. The article describes the programme as drawing on close to 40 years of plant breeding expertise, and names South Africa, Zimbabwe, Morocco, the United States, Mexico, Peru, China and Australia as growing countries for BluGenix varieties.",
+      "analysis": "A competitor putting a brand in front of its breeding programme is a shift from selling varieties to selling a platform, which is the same move Fall Creek made with Sekoya and United Exports with OZblu. The shelf-life claims carry no method, and the close to 40 years figure contradicts the more than 25 years Costa states on its own programme page.",
+      "berries": [
+        "berry-blueberry"
+      ],
+      "countries": [
+        {
+          "id": "geography-china",
+          "name": "China",
+          "iso": "CN"
+        },
+        {
+          "id": "geography-south-africa",
+          "name": "South Africa",
+          "iso": "ZA"
+        },
+        {
+          "id": "geography-morocco",
+          "name": "Morocco",
+          "iso": "MA"
+        },
+        {
+          "id": "geography-united-states",
+          "name": "United States",
+          "iso": "US"
+        },
+        {
+          "id": "geography-mexico",
+          "name": "Mexico",
+          "iso": "MX"
+        },
+        {
+          "id": "geography-peru",
+          "name": "Peru",
+          "iso": "PE"
+        },
+        {
+          "id": "geography-australia",
+          "name": "Australia",
+          "iso": "AU"
+        }
+      ],
+      "companies": [
+        {
+          "id": "company-costa-group-holdings",
+          "name": "Costa Group Holdings Pty Ltd"
+        }
+      ],
+      "facts": [
+        {
+          "id": "fact-blugenix-growing-countries",
+          "text": "South Africa, Zimbabwe, Morocco, the United States, Mexico, Peru, China and Australia are named as growing countries for BluGenix varieties.",
+          "classification": "claim"
+        },
+        {
+          "id": "fact-blugenix-launch-2026",
+          "text": "BluGenix was launched on 29 May 2026 as the brand and platform for Costa's blueberry breeding programme, introduced with five varieties: Bounty, Breeze, Cascade, Delight and Eterna.",
+          "classification": "fact"
+        },
+        {
+          "id": "fact-blugenix-shelf-life-claim",
+          "text": "Costa claims a shelf life of 27 days at 4 degrees Celsius for all five launch BluGenix varieties and up to 50 days for Eterna. No trial site, season, replication or measurement protocol is stated for either figure.",
+          "classification": "claim"
+        }
+      ],
+      "image": "",
+      "illustration": "images/blueberry-orchard.png"
+    },
+    {
+      "id": "ev-20260806173554-8b8d-usda-philadelphia-terminal-market-fruit-",
+      "title": "USDA Philadelphia Terminal Market Fruit Prices Report for July 29, 2026 - News and Statistics - IndexBox",
+      "source": "IndexBox",
+      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNeUFYeXVlNWZVMUtLUlg2X1poSXplN3liTDA0NVFhNG14RXR3dnFNdU9JLTZ1Q1FLZWN0RlhfYUxnV0poclgyY0pRQVpMVVUtTXBHWm5odXpFWTJQUXNsZzRyNzBJenBWTTU2VU1JZERnXzFUMnVIZ0Z6VVBCNWRiV0lfVlJvV09CWEVaYkZSQThudUJWWHc?oc=5",
+      "date": "2026-07-29",
+      "summary": "USDA Philadelphia Terminal Market Fruit Prices report for July 29, 2026: steady markets for berries, citrus, melons, apples, bananas, and organic fruit, light offerings for raspberries, Hami melons, and cherries, price ranges provided for blackberries, blueberries, strawberries, lemons, limes, watermelons, and more.",
+      "analysis": "",
+      "berries": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/blackberry-quality.png"
+    },
+    {
+      "id": "ev-20260806173852-4a9a-agronometrics-in-charts-california-berry",
+      "title": "Agronometrics in Charts: California berry harvest hits full stride, raspberries leading growth - FreshFruitPortal.com",
+      "source": "FreshFruitPortal.com",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1CaFl6NWRjUUY1M3BQS1dsd0s2SXNpTk1VWGxqcFB3c2xtdW84LTlIRDZnU2VtZ21YamtPMXhzbGVkV2l0MU55RUxZLXhqQllZZEw4WGRHT1hGai0zdlJRa3FJanNrNVJlMDE3Sg?oc=5",
+      "date": "2026-07-28",
+      "summary": "California's berry season has entered its peak production period, with abundant strawberry and raspberry supplies.",
+      "analysis": "",
+      "berries": [
+        "berry-strawberry",
+        "berry-raspberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/strawberry-growing.png"
+    },
+    {
+      "id": "ev-20260806173600-86e1-mexico-s-san-quint-n-water-crisis-threat",
+      "title": "Mexico's San Quintín water crisis threatens tomato and berry production - FreshPlaza",
+      "source": "FreshPlaza",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNbTJLNUV1dFRhcjhZMnFIQlhOWGhPZVdwSWFtUzhydHJQNjRTNGpiVnpRaWdHR1lpN3ZWM3pfZzhvcnhwclp2N3VaUnpaOWF5OWZRd1MtMXl2TDRCODQ1VHlCSll6OE4tZmdKcWRaV05Zb1ItNVlyS04xNmg2SW9UdVRJTTQ0WG1RWjdhS2pZQnZ0ay1xTTZzUGpaN0tXaU5MdHVacHZyRE1DcW1ib0ZJNTB4V1UzZVNrTGdKYzNqcmdDeVN2UmpHaA?oc=5",
+      "date": "2026-07-24",
+      "summary": "Excessive groundwater pumping in Mexico's San Quintín Valley is threatening the long-term reliability of tomato and berry production and exports to the United States. Overpumping of…",
+      "analysis": "",
+      "berries": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-strawberry",
+        "berry-blackberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/raspberry-harvest.png"
+    },
+    {
+      "id": "ev-hortifrut-mbo-genetics-2026",
+      "title": "Naturipe Farms and Hortifrut expand berry genetics platform with Mountain Blue",
+      "source": "Hortifrut S.A.",
+      "url": "https://www.hortifrut.com/naturipe-farms-and-hortifrut-expand-one-of-the-worlds-broadest-berry-geneticsplatforms-to-deliver-the-next-generation-of-premium-berriesnaturipe-farms-and-hortifrut-expand-one-of-the-world/",
+      "date": "2026-07-30",
+      "summary": "Joint Naturipe Farms and Hortifrut announcement dated 30 July 2026 of an expanded berry genetics platform reached through a strategic collaboration with Mountain Blue Orchards. Hortifrut states it gains access to new elite blueberry selections for the United States, Mexico, Peru and other Latin American countries. Hortifrut CEO Hector Lujan and Mountain Blue International Business Manager Mano Babiolakis are quoted. The release also mentions Hortifrut's 2025 global B Corp certification.",
+      "analysis": "If it holds, this connects the largest listed blueberry producer to the Ridley breeding lineage, which until now reached the Americas through separate licensing arrangements. It is the single most consequential structural development in the package, and it rests on one originating announcement.",
+      "berries": [
+        "berry-blueberry"
+      ],
+      "countries": [
+        {
+          "id": "geography-united-states",
+          "name": "United States",
+          "iso": "US"
+        },
+        {
+          "id": "geography-mexico",
+          "name": "Mexico",
+          "iso": "MX"
+        },
+        {
+          "id": "geography-peru",
+          "name": "Peru",
+          "iso": "PE"
+        }
+      ],
+      "companies": [
+        {
+          "id": "company-hortifrut",
+          "name": "Hortifrut S.A."
+        },
+        {
+          "id": "company-naturipe-farms",
+          "name": "Naturipe Farms"
+        },
+        {
+          "id": "company-mountain-blue-orchards",
+          "name": "Mountain Blue Orchards Pty Ltd"
+        },
+        {
+          "id": "company-michigan-blueberry-growers",
+          "name": "Michigan Blueberry Growers Association"
+        }
+      ],
+      "facts": [
+        {
+          "id": "fact-hortifrut-mbo-collaboration-2026",
+          "text": "On 30 July 2026 Naturipe Farms and Hortifrut announced an expanded berry genetics platform reached through a strategic collaboration with Mountain Blue Orchards, under which Hortifrut states it gains access to new elite blueberry selections for the United States, Mexico, Peru and other Latin American countries.",
+          "classification": "claim"
+        },
+        {
+          "id": "fact-mbo-distinct-from-mbg",
+          "text": "Mountain Blue Orchards, named in the 30 July 2026 Hortifrut and Naturipe genetics announcement, and Michigan Blueberry Growers Association, Hortifrut's Berry Blue joint venture partner, are separately named organisations in the retrieved sources and are not stated anywhere to be the same entity.",
+          "classification": "fact"
+        }
+      ],
+      "image": "",
+      "illustration": "images/blueberry-orchard.png"
+    },
+    {
+      "id": "ev-20260806173600-6f49-mexican-blueberries-the-3-decades-that-t",
+      "title": "Mexican blueberries: The 3 decades that transformed the industry forever - FreshFruitPortal.com",
+      "source": "FreshFruitPortal.com",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9SLTZCOWdNZzR4aklqMjZoWHMwaWxFQThyVm9yUDE1akdUQ2NYMERsQnBVUXB2SHlTRHZweW1pa0J5YmU4NTlIaE5uN1Nzbm1uNlN3NUFLYjJTQ0VNSVZObHc3OUt3TWdRUVg2TTktMHVUbVpuUFl0eVpRV1BTdw?oc=5",
+      "date": "2026-07-16",
+      "summary": "New genetics and a multilateral effort brought turned the Mexican blueberry industry into a berry powerhouse, writes Miguel Ángel Curiel, Driscoll’s local General Director.",
+      "analysis": "",
+      "berries": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-strawberry",
+        "berry-blackberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/strawberry-growing.png"
+    },
+    {
+      "id": "ev-20260806175514-b429-india-wants-to-join-the-strawberry-super",
+      "title": "India wants to join the strawberry superpowers - MyJoyOnline",
+      "source": "MyJoyOnline",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPX3N3SkFqYjVTbUhoVTdnZzFZZjFSelVmYUo5UkNqNmZELXFXeTRMLUVwN2J3eFFnM1NZb3hvMk5kQ1hic1F1b0RhVG03dmlzSVZ0aG1pY0dLWlNIeWE3dEowcFpjM1ktQnR0b0hRbE9La0xsb2xKbzNPRlpiVTZxag?oc=5",
+      "date": "2026-07-31",
+      "summary": "In the west of India, the mountainous region of Mahabaleshwar is home to most of India's strawberry farms.",
+      "analysis": "",
+      "berries": [
+        "berry-strawberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/strawberry-growing.png"
+    },
+    {
+      "id": "ev-20260806173604-7604-strawberry-grower-helps-electrify-public",
+      "title": "Strawberry grower helps electrify public transport - Hortidaily",
+      "source": "Hortidaily",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxONFNicUdPTURYNUJIeWRPWmFQd3hiNk5fX0NUdmtvTGRIVGp4alZkQTlBa250eS0tREJObzZZYUZBTmxZX29xbVBpR0JSb3RjNWZtWExYTW56dVNCNlFlY0xFTG5TbW1VeWc5bHJZdDFDdEhKakVKQ1lGVkFLbmJEaEd0TF9ObkpEQjFDeGZuVHljUjUyRDM0QTdR?oc=5",
+      "date": "2026-07-14",
+      "summary": "Strawberry grower Royal Berry and public transport operator Transdev have officially launched a partnership focused on sustainable energy and emission-free public transport in the…",
+      "analysis": "",
+      "berries": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-strawberry",
+        "berry-blackberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/strawberry-growing.png"
+    },
+    {
+      "id": "ev-20260806173542-0a88-blueberry-variety-dispute-between-noposi",
+      "title": "Blueberry Variety Dispute Between Noposion and Meiming Escalates - Produce Report",
+      "source": "Produce Report",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNc3dKdFlhOGZGY3F6anJaVGxzTWNTNk51RFN5V1R0blFaLWFtWGRoRi1NR1VtcFplVUFReXUzMG9jSTZjQlo1U0lkQjU5SEwzRVAycUhuTWZhSVZXbllPeFIyby1CUkRrakQ2MVJRcUZFbnhENGV3clhaSjRzeGlzeU5QaWlISGx3M203ZU9OamluZEItX3hmV2o5bWtWN3M?oc=5",
+      "date": "2026-08-06",
+      "summary": "Noposion is facing new lawsuits from Meiming over the alleged infringement of blueberry variety rights, adding to a long-running dispute involving hundreds of millions of yuan.",
+      "analysis": "",
+      "berries": [
+        "berry-blueberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/blueberry-orchard.png"
+    },
+    {
+      "id": "ev-sample-patent-published",
+      "title": "Patent published for a late-ripening, high-yield raspberry genetics program",
+      "source": "Example Patent Office",
+      "url": "https://example.invalid/patents/12345678",
+      "date": "2026-07-15",
+      "summary": "A fictional patent publication describes genetics for a late-ripening, high-yield primocane raspberry with claimed shelf-life advantages.",
+      "analysis": "Late-ripening, high-yield genetics could extend the commercial season window and warrant monitoring for licensing activity.",
+      "berries": [
+        "berry-raspberry"
+      ],
+      "countries": [],
+      "companies": [
+        {
+          "id": "company-example-nursery",
+          "name": "Example Nursery Partners"
+        }
+      ],
+      "facts": [],
+      "image": "",
+      "illustration": "images/raspberry-harvest.png"
+    },
+    {
+      "id": "ev-20260806173906-7858-driscoll-s-responds-to-u-s-lawsuits-amid",
+      "title": "Driscoll’s Responds to U.S. Lawsuits Amid China Market Concerns - Produce Report",
+      "source": "Produce Report",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNSFNhSkoxd090RXpzc3hQZExEUEFUcTE1S25odC0xQkxRTVhFTHJ3a2RYMW1IVlhETDVjaHVnUGZXM3Yya19wYXc0RV84Vmk3UTJ6M0M3QWhHdHhqOTFGRWJSQjhnVHVwU09SNU94VEZEc3lyRnpqNVRKZ2pzeGV1alhtd0NzajVmUWtyVTdEREVDNHAyTE10elFiYw?oc=5",
+      "date": "2026-07-28",
+      "summary": "Driscoll’s has responded to allegations linked to two U.S. lawsuits, emphasizing that products sold in China are unrelated and meet food safety standards.",
+      "analysis": "",
+      "berries": [
+        "berry-strawberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/strawberry-growing.png"
+    },
+    {
+      "id": "ev-20260806173609-3f7f-wish-farms-returns-to-organic-produce-su",
+      "title": "Wish Farms Returns to Organic Produce Summit with Flavor-First Focus and Year-Round Organic Supply - Perishable News",
+      "source": "Perishable News",
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPYi1HTUxFTzd1WjNzS3ZjMEM0WGtvVHU1R056X2Zha0JhMi13MHlSUjJMNkZJelA2QmlHUWNnc2RtX1o1NHFJSFNhSTZpLXJ3R1F4TF8wZnpXdF94SUx1eENBbjRtZkdIaTRrekIyLUIxQ2trVi1VVlU4OEdwbFMzbXlCbmdUWHgwTWl4S2F6aF9Pa0ktV0lPc3QtRXd4Q3BzaFBrYnhkNDYyb0hsYkY3Ukh2Mk1Pc0YtT3JiZXJxN2F3cExhNkFoTEpGclVXY21fUnc?oc=5",
+      "date": "2026-07-08",
+      "summary": "Wish Farms, a leading year-round grower and marketer of organic strawberries, blueberries, raspberries, and blackberries, is proud to return to the Organic Produce Summit.",
+      "analysis": "",
+      "berries": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/blackberry-quality.png"
+    },
+    {
+      "id": "ev-20260806173608-37ca-the-berry-in-your-breakfast-could-be-hel",
+      "title": "The Berry in Your Breakfast Could Be Helping Your Heart, According to New Research - Food & Wine",
+      "source": "Food & Wine",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQdnVGRGM4dGkzSUNVSHR2b2RPVUJBSWZxTWRVWmhfLTNtTm9qaG16VHh4UjNFRXRqUGhKZDBZQnVUeTBLbWNTLVFhUzFKMDBOSkVoeEJBeS1vOUdvaG5GUG9MODBtal9sZFNfLV9LZUJITF81YTFiZWdPcVZrWWRWbjc3a2pmSEFHQXVBUXpOMGFNWUNON25nWWtQQQ?oc=5",
+      "date": "2026-07-31",
+      "summary": "Your morning handful of blueberries may be doing more for your heart than you realized. New research found that anthocyanin-rich foods like blueberries, cherries, and red cabbage are linked to a lower risk of heart disease and type 2 diabetes. The best part? You don’t need to eat very much to potentially reap the benefits.",
+      "analysis": "",
+      "berries": [
+        "berry-blueberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/blueberry-orchard.png"
+    },
+    {
+      "id": "ev-20260806173541-de69-fall-creek-acquires-berryplant-berrytech",
+      "title": "Fall Creek acquires Berryplant, Berrytech to expand genetics portfolio - Fruit Growers News",
+      "source": "Fruit Growers News",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOZTV5Y19GUVAwMzFVWFFPOWxmeVFxay1mZTY0TXBBQUFnSVdLeS05ZnNvWW95RGtsaUNhY3pPNXFDNjFNQ1VuakVKdXVMeTlVVWtnWXhFNFNoeVBrbDNneWdLQkxKbldXQW5McTNiSllJQkRBcnNULUNhdkViWThWWmxYbEt5cG9haEdUcGs1dzl3UFpo?oc=5",
+      "date": "2026-06-15",
+      "summary": "Fall Creek has acquired Italy-based Berryplant and Berrytech, adding raspberry and blackberry genetics to its portfolio.",
+      "analysis": "",
+      "berries": [
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "countries": [],
+      "companies": [
+        {
+          "id": "company-fall-creek-farm-and-nursery",
+          "name": "Fall Creek Farm & Nursery, Inc."
+        }
+      ],
+      "facts": [],
+      "image": "",
+      "illustration": "images/blackberry-quality.png"
+    },
+    {
+      "id": "ev-20260806173550-98d0-berry-good-news-maine-strawberry-season-",
+      "title": "Berry good news: Maine strawberry season off to sweet start - WGME",
+      "source": "WGME",
+      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOeE5pcmZzNEFPdXVRYktxcWlxODhPZHJibUF2YS01d25UTE9OYmhlTGh4Y1BCcS0zWkpkWlFuVE9RemgxenNEV1l0YkdaX3UwMk9waVBnaHVWaGZXblE4dC1xOVFsNHJZa3Nrc0lDUE8wZlhiME1tV2FTRVpNbm9HOTRzaEVPMDBrcFJUUkxTQ3NZdFhySnVPR3o3N29hVkFIYnAxVw?oc=5",
+      "date": "2026-06-26",
+      "summary": "Pineland Farms grows strawberries on 35 acres and cultivates several different varieties.",
+      "analysis": "",
+      "berries": [
+        "berry-strawberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/strawberry-growing.png"
+    },
+    {
+      "id": "ev-20260806173540-a6ec-new-year-round-premium-blackberry-platfo",
+      "title": "New Year-Round Premium Blackberry Platform Launched by Plant Sciences Genetics - The Packer",
+      "source": "The Packer",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPYUJZMkNXY3pHODkxQnptdG9JNkpXeGJiVzJDWk1NY3RRRnBTek1GSmtfM0N4aDR5U3lVdEpLVEw4X3R1Z0xCTlk5T3Y1eVpYOWJueWZhWGdjakwxUFViVlFQUWQzelE2UnRTU3NVLTdGUXgwX05FNldwUzROSzQwTThIY3R3S1dlT0JDcUhrX1lVWXJQNVFLNXNLNUdvZFBxc3NSRmZLelhsQQ?oc=5",
+      "date": "2026-08-04",
+      "summary": "Built around the new BK 6-13 variety, the company's program boasts steady supply and high-spec fruit year-round.",
+      "analysis": "",
+      "berries": [
+        "berry-blackberry"
+      ],
+      "countries": [],
+      "companies": [
+        {
+          "id": "company-plant-sciences-genetics",
+          "name": "Plant Sciences, Inc."
+        }
+      ],
+      "facts": [],
+      "image": "",
+      "illustration": "images/blackberry-quality.png"
+    },
+    {
+      "id": "ev-20260806173558-8d84-el-nino-threat-raises-the-risk-of-higher",
+      "title": "El Nino threat raises the risk of higher blueberry prices - The Straits Times",
+      "source": "The Straits Times",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNZDhzSnJsdHc3ZkJrZkxPczVCYTVCNXhwbXRnYW1ZcXhBLTk1ZXU5aFV4a3pfckp3Yl81R2tkRnI3eVREZHNyTEJwWmUyR2t2SXZ2bGNjeV9aV0NlemZZc1lXMmxiRHIyV3VsUXlJZjgwX1VycnotYlZGVEJaaXpJZ1R4VWd5d1BLeDNhUVZydkNjR2U0aWFV?oc=5",
+      "date": "2026-07-30",
+      "summary": "Higher temperatures and heavy rains threaten to interfere with the fruit’s flowering and reduce yields.  Read more at straitstimes.com. Read more at straitstimes.com.",
+      "analysis": "",
+      "berries": [
+        "berry-blueberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/blueberry-orchard.png"
+    },
+    {
+      "id": "ev-20260806173540-f021-blackberry-breakthrough-psg-unveils-firs",
+      "title": "Blackberry breakthrough: PSG unveils first year-round primocane variety - Fruitnet",
+      "source": "Fruitnet",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOZ21QY3d0VS1vVktKNzEyVkJha0x0UnNmeFJULXJmeEk1VVhMdFNjOWl6RXd6YldOQUN2U2RRenNLN3gtamF3WjJkU05uRVVjTDVfd1VJNW10aGVDV0dyTGpIV3p2eWFMamE2UnhMUFZsYlREVS15NWM4WHFIc1hJTUFLRHZoRi1NLXR4cVY1MEhNSFF4X2JNUVQzZWNNcnJVcFFHYks2V09QamZvNGQ4ODl2d3hyTjlFaC1Xdg?oc=5",
+      "date": "2026-07-28",
+      "summary": "New Rejoice Blackberry Platform to be launched at this week's Aneberries International Congress in Guadalajara",
+      "analysis": "",
+      "berries": [
+        "berry-blackberry"
+      ],
+      "countries": [],
+      "companies": [
+        {
+          "id": "company-plant-sciences-genetics",
+          "name": "Plant Sciences, Inc."
+        }
+      ],
+      "facts": [],
+      "image": "",
+      "illustration": "images/blackberry-quality.png"
+    },
+    {
+      "id": "ev-20260806173558-97dc-agronometrics-in-charts-peruvian-blueber",
+      "title": "Agronometrics in Charts: Peruvian blueberry sector leads export boom with 18 new markets - FreshFruitPortal.com",
+      "source": "FreshFruitPortal.com",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE91ZWdTR0xsLUZMaU5RZG5HMDdxUV9FVndsRnh4QTBySnBCRkhZTkpsMUdDOGV1bFktNlpqQ3VUcWEweVVFSV8zMFZvVzZuYndEWkQ4TGFUVG9nTFJJMHNRT2w2ZWNfbnByVGNRbUpCMkh2RGlnOF9sWGFMOWdYOTg?oc=5",
+      "date": "2026-07-30",
+      "summary": "The Peruvian blueberry sector is continuing to strengthen its global position, with fresh blueberries reaching a diverse range of destinations.",
+      "analysis": "",
+      "berries": [
+        "berry-blueberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/blueberry-orchard.png"
+    },
+    {
+      "id": "ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe",
+      "title": "Boosting Blackberries: NC State’s Gina Fernandez Launches Latest Botanical Offspring - NC State University",
+      "source": "NC State University",
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNOFlmdVE3QWtZckdMODZTaEpMN3NNMGN0RGc0dnpMYVo5bjNRUmdpdFZqbnN0bVlveTFrbFpwVnN3WGhjNXVuTWJ3LW5RTWVRclpuTTZyV09aZVFPM0c1a3Vwa2xvQzRTUUZaWVpyQTBOWnBrWWNiLS1kX1FIVmx6VHRvdmxvM3lJMWFGbFBkNWxERXoyNTdXNFFfWEY4bFk1Ym5wc1cyVUpkNnBrM3R3?oc=5",
+      "date": "2026-07-22",
+      "summary": "A new flavor-packed NC State blackberry variety named Ervin is ready for North Carolina growers and an international debut after four years of rigorous testing.",
+      "analysis": "",
+      "berries": [
+        "berry-blackberry"
+      ],
+      "countries": [],
+      "companies": [
+        {
+          "id": "company-nc-state-university",
+          "name": "North Carolina State University"
+        }
+      ],
+      "facts": [],
+      "image": "",
+      "illustration": "images/blackberry-quality.png"
+    },
+    {
+      "id": "ev-ffp-hortifrut-mbo-2026",
+      "title": "Hortifrut and MBO berry deal",
+      "source": "FreshFruitPortal",
+      "url": "https://www.freshfruitportal.com/news/2026/07/30/hortifrut-mbo-berry-deal/",
+      "date": "2026-07-30",
+      "summary": "Trade coverage of the 30 July 2026 Naturipe, Hortifrut and Mountain Blue Orchards genetics collaboration, published the same day as the announcement and reporting the same content.",
+      "analysis": "Recorded to document that the trade coverage is same-day republication of the companies' own announcement rather than independent reporting. It does not raise the confidence of the underlying claim, and this record exists so that the package does not appear to have two independent sources where it has one.",
+      "berries": [
+        "berry-blueberry"
+      ],
+      "countries": [],
+      "companies": [
+        {
+          "id": "company-hortifrut",
+          "name": "Hortifrut S.A."
+        },
+        {
+          "id": "company-naturipe-farms",
+          "name": "Naturipe Farms"
+        },
+        {
+          "id": "company-mountain-blue-orchards",
+          "name": "Mountain Blue Orchards Pty Ltd"
+        }
+      ],
+      "facts": [
+        {
+          "id": "fact-hortifrut-mbo-collaboration-2026",
+          "text": "On 30 July 2026 Naturipe Farms and Hortifrut announced an expanded berry genetics platform reached through a strategic collaboration with Mountain Blue Orchards, under which Hortifrut states it gains access to new elite blueberry selections for the United States, Mexico, Peru and other Latin American countries.",
+          "classification": "claim"
+        }
+      ],
+      "image": "",
+      "illustration": "images/blueberry-orchard.png"
+    },
+    {
+      "id": "ev-20260806173540-749e-arkansas-blackberry-season-is-here-witho",
+      "title": "Arkansas blackberry season is here — without the thorns - The Arkansas Democrat-Gazette",
+      "source": "The Arkansas Democrat-Gazette",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQV0c4akJVRGpFQ29BRjRVOFhFVTBraFpYeGd2OTdzbGxLLWRENXBSOG5ITUJ0ejVOQ2gyNEN1dDh4Vi1RVkdwWENxdno4RTdfVFhzalkwdjdaSU0yWWtzZ0FNRjBKb2dtQTNfOGJ0X1JTbGhKcGVHYlRzMVZ3Yjh5S3dmOEhTcEV5YXFzbW5GTEpwcUk4QkUzamRDZw?oc=5",
+      "date": "2026-06-19",
+      "summary": "Many of us can remember picking wild blackberries in the summer, but having our arms covered in scratches from the thorns. Today's blackberry varieties put those wild ones to shame.",
+      "analysis": "",
+      "berries": [
+        "berry-blackberry"
+      ],
+      "countries": [],
+      "companies": [],
+      "facts": [],
+      "image": "",
+      "illustration": "images/blackberry-quality.png"
+    }
+  ],
+  "sourceCommit": "d2d1759",
+  "note": "Curated design sample from stored published records; not live news or total coverage."
+}
