@@ -179,6 +179,13 @@ def render_report_pdf(
             source_name = row.get("source_name") or ""
             story.append(Paragraph(f"[{row.get('id')}] {label} — {source_name} ({date_text or 'date unknown'})", styles["source"]))
 
+    # Optional source URLs preserve provenance for structured snapshots too.
+    for row in source_trace:
+        url = str(row.get("source_url") or "")
+        if url.startswith(("https://", "http://")):
+            safe_url = escape(url, {'"': '&quot;'})
+            story.append(Paragraph(f'<link href="{safe_url}">{escape(str(row.get("id") or ""))}: {safe_url}</link>', styles["source"]))
+
     included = [row for row in (report.get("external_research_appendix") or []) if row.get("included_in_report")]
     if included:
         story.append(Paragraph("External Public Research — Unreviewed", styles["h2"]))

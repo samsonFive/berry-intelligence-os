@@ -17,6 +17,7 @@
         {% for label, href in feed.nav %}
         <a href="{{ href }}"{% if href == '/today' %} class="is-active" aria-current="page"{% endif %}>{{ label }}</a>
         {% endfor %}
+        {% if not static_build %}<a href="/explorer">Global Explorer</a>{% endif %}
       </nav>
       <p class="bos-kicker">Tiers</p>
       <div class="bos-filters">

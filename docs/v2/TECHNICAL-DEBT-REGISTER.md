@@ -1852,3 +1852,18 @@ Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
 | **Owner lane** | discovery / product |
 | **PR/SHA when resolved** | — |
 | **Regression-test reference** | `tests/test_research_desk.py::test_live_research_is_provider_neutral_and_keeps_live_separate`; manual challenge in `docs/v2/ASK-BERRY-OS-V1.md` |
+
+### TD-113 — Global Explorer coverage and overlays depend on canonical geography tags
+
+| Field | Value |
+|---|---|
+| Severity | Medium |
+| Area | Global Explorer / geographic coverage |
+| Date discovered | 2026-09-29 |
+| Evidence | Explorer uses stored country ISO metadata and explicit Evidence geography/berry tags. Some boundaries lack canonical entities; unsupported production/growing-region/seasonality overlays remain unavailable. |
+| Impact | Map coverage and record counts are not production scale or exhaustive recall; untagged relevant Evidence can be absent from a scoped query. |
+| Workaround | Explicit unavailable previews, evidence/source links, global scope, and visible coverage caveats. Never infer country from company HQ or a title. |
+| Recommended resolution | Extend canonical public-data geography/tagging coverage and add provenance-bearing GeographicLayer providers through the shared IntelligenceQuery. |
+| Status | limitation |
+| Owner lane | data / product |
+| Regression-test reference | tests/test_global_explorer.py; scripts/verify_global_explorer_browser.py |
