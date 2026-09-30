@@ -1,0 +1,3782 @@
+{
+  "basis": "app/main.py AST, read-only; route existence does not prove runtime or usage",
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/healthz",
+      "function": "healthz",
+      "line": 996,
+      "end_line": 1002,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "get",
+        "remote_interactive_enabled"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/source-fidelity",
+      "function": "source_fidelity_queue",
+      "line": 1035,
+      "end_line": 1054,
+      "templates": [
+        "source_fidelity_queue.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_source_fidelity_filters",
+        "_source_fidelity_queue_rows",
+        "filter_query",
+        "get",
+        "sum"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/source-fidelity/{evidence_id}",
+      "function": "source_fidelity_detail",
+      "line": 1058,
+      "end_line": 1099,
+      "templates": [
+        "source_fidelity_detail.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "_source_fidelity_filters",
+        "_source_fidelity_folder",
+        "_source_fidelity_queue_rows",
+        "all_entities",
+        "berry_labels",
+        "consequence_preview",
+        "filter_query",
+        "get",
+        "get_repositories",
+        "identity_proof_items",
+        "is_file",
+        "list",
+        "loads",
+        "named_ids",
+        "neighbor_ids",
+        "read_text",
+        "reader_payload",
+        "recovery_kind",
+        "review_status",
+        "review_username",
+        "session_username",
+        "warning_codes"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/source-fidelity/{evidence_id}/decision",
+      "function": "source_fidelity_decision",
+      "line": 1103,
+      "end_line": 1162,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "_safe_review_return",
+        "_source_fidelity_filters",
+        "_source_fidelity_folder",
+        "_source_fidelity_queue_rows",
+        "append_review_event",
+        "decide_recovery_artifact",
+        "dict",
+        "filter_query",
+        "get",
+        "get_repositories",
+        "is_file",
+        "is_session_return",
+        "loads",
+        "neighbor_ids",
+        "post",
+        "read_text",
+        "remove_created_event",
+        "review_username",
+        "save_recovery_decision",
+        "session_username",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/login",
+      "function": "login_form",
+      "line": 1188,
+      "end_line": 1192,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "RedirectResponse",
+        "_login_page",
+        "get",
+        "safe_next_path",
+        "session_username"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/login",
+      "function": "login_submit",
+      "line": 1196,
+      "end_line": 1221,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "RedirectResponse",
+        "_login_page",
+        "clear_login_failures",
+        "credentials_match",
+        "establish_session",
+        "login_is_throttled",
+        "post",
+        "record_login_failure",
+        "safe_next_path",
+        "strip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/logout",
+      "function": "logout",
+      "line": 1225,
+      "end_line": 1227,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "RedirectResponse",
+        "clear_session",
+        "post"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/ui/context",
+      "function": "set_ui_context",
+      "line": 1231,
+      "end_line": 1243,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "RedirectResponse",
+        "apply_ui_cookies",
+        "parse_berry",
+        "parse_feed_view",
+        "persist_ui_prefs",
+        "post",
+        "read_ui_context",
+        "safe_next_path"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/",
+      "function": "home",
+      "line": 2546,
+      "end_line": 2591,
+      "templates": [
+        "feed.html"
+      ],
+      "imports": [],
+      "calls": [
+        "RedirectResponse",
+        "TemplateResponse",
+        "entity_index",
+        "filter_evidence",
+        "filter_options",
+        "get",
+        "len",
+        "published_evidence"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/evidence/{record_id}",
+      "function": "evidence_detail",
+      "line": 2595,
+      "end_line": 2629,
+      "templates": [
+        "evidence.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "all_evidence",
+        "append",
+        "entity_index",
+        "facts_for_evidence",
+        "get",
+        "get_query_services",
+        "relationships_for_evidence",
+        "resolve_assessments_citing_evidence",
+        "resolve_linked_strategic_questions",
+        "resolve_signals_citing_evidence"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/evidence/{record_id}/attachments/{filename}",
+      "function": "evidence_attachment",
+      "line": 2633,
+      "end_line": 2638,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "FileResponse",
+        "HTTPException",
+        "get",
+        "is_file",
+        "is_relative_to",
+        "resolve"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/evidence/{record_id}/validate",
+      "function": "evidence_validate",
+      "line": 2645,
+      "end_line": 2659,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "bump_source_tally",
+        "get",
+        "get_repositories",
+        "post",
+        "update"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/evidence/{record_id}/purge",
+      "function": "evidence_purge",
+      "line": 2663,
+      "end_line": 2686,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "add_blocked_domain",
+        "bump_source_tally",
+        "delete",
+        "domain_of",
+        "get",
+        "get_repositories",
+        "post"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entities/identity",
+      "function": "entity_identity_page",
+      "line": 2690,
+      "end_line": 2713,
+      "templates": [
+        "entity_identity.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "all_entities",
+        "all_relationships",
+        "apply_ui_cookies",
+        "audit_entity_identity",
+        "get",
+        "identity_redirects",
+        "load_variety_candidates",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entities/{entity_type}",
+      "function": "entity_list",
+      "line": 2717,
+      "end_line": 2846,
+      "templates": [
+        "entity_list.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "all_facts",
+        "all_relationships",
+        "all_signals",
+        "apply_ui_cookies",
+        "berry_inventory",
+        "entity_index",
+        "filter_entities",
+        "get",
+        "len",
+        "list",
+        "list_pending_drafts",
+        "living_catalog",
+        "load_candidates",
+        "present_competition",
+        "present_observation_workspace",
+        "present_variety_index",
+        "published_evidence",
+        "read_ui_context",
+        "sorted",
+        "universe_headcounts",
+        "update",
+        "values",
+        "variety_candidate_universe"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/learn",
+      "function": "learn_home",
+      "line": 3140,
+      "end_line": 3172,
+      "templates": [
+        "learn_home.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_feed_first_world",
+        "apply_ui_cookies",
+        "get",
+        "learn_all_concepts",
+        "learn_concepts_by_pillar",
+        "learn_freshness_summary",
+        "learn_search_concepts",
+        "len",
+        "lower",
+        "read_ui_context",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/learn/{slug}",
+      "function": "learn_concept_detail",
+      "line": 3176,
+      "end_line": 3210,
+      "templates": [
+        "learn_concept.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "_feed_first_world",
+        "all_evidence",
+        "all_facts",
+        "apply_ui_cookies",
+        "entity_index",
+        "get",
+        "learn_berry_notes_for_display",
+        "learn_concept_by_slug",
+        "learn_related_concepts",
+        "read_ui_context",
+        "related_intelligence_for_concept"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/varieties/coverage",
+      "function": "variety_coverage_page",
+      "line": 3214,
+      "end_line": 3247,
+      "templates": [
+        "variety_coverage.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "all_entities",
+        "all_facts",
+        "all_relationships",
+        "apply_ui_cookies",
+        "coverage_matrix",
+        "get",
+        "len",
+        "published_evidence",
+        "read_ui_context",
+        "variety_candidate_universe"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/varieties/candidates",
+      "function": "variety_candidates_page",
+      "line": 3251,
+      "end_line": 3270,
+      "templates": [
+        "variety_candidates.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "apply_ui_cookies",
+        "get",
+        "read_ui_context",
+        "review_username",
+        "session_username",
+        "variety_candidate_universe"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/varieties/candidates/{candidate_id}/decision",
+      "function": "variety_candidate_decision",
+      "line": 3274,
+      "end_line": 3300,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "apply_identity_decision",
+        "candidate_by_id",
+        "get",
+        "next",
+        "persist_variety_candidates",
+        "post",
+        "review_username",
+        "session_username",
+        "str",
+        "variety_candidate_universe"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entities/variety/compare",
+      "function": "variety_compare_page",
+      "line": 3304,
+      "end_line": 3338,
+      "templates": [
+        "variety_compare.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "all_assessments",
+        "all_evidence",
+        "all_facts",
+        "all_relationships",
+        "all_signals",
+        "apply_ui_cookies",
+        "entity_index",
+        "get",
+        "present_variety_compare",
+        "published_evidence",
+        "read_ui_context",
+        "split",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entities/company/compare",
+      "function": "company_compare_page",
+      "line": 3342,
+      "end_line": 3377,
+      "templates": [
+        "company_compare.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "all_assessments",
+        "all_evidence",
+        "all_facts",
+        "all_relationships",
+        "all_signals",
+        "apply_ui_cookies",
+        "entity_index",
+        "get",
+        "identity_redirects",
+        "present_company_compare",
+        "published_evidence",
+        "read_ui_context",
+        "split",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entities/company/{entity_id}/portfolio",
+      "function": "company_portfolio_page",
+      "line": 3381,
+      "end_line": 3418,
+      "templates": [
+        "company_portfolio.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "all_assessments",
+        "all_evidence",
+        "all_facts",
+        "all_relationships",
+        "all_signals",
+        "apply_ui_cookies",
+        "entity_index",
+        "get",
+        "is_watched",
+        "load_strategic_questions",
+        "present_company_portfolio",
+        "published_evidence",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entity-logos/{entity_id}/{filename}",
+      "function": "entity_logo_asset",
+      "line": 3521,
+      "end_line": 3528,
+      "templates": [],
+      "imports": [
+        "app.services.entity_logo_overrides"
+      ],
+      "calls": [
+        "FileResponse",
+        "HTTPException",
+        "get",
+        "logo_file",
+        "str"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/entities/company/{entity_id}/logo",
+      "function": "update_company_logo",
+      "line": 3532,
+      "end_line": 3571,
+      "templates": [],
+      "imports": [
+        "app.services.entity_logo_overrides",
+        "app.services.seed_roster"
+      ],
+      "calls": [
+        "File",
+        "Form",
+        "HTTPException",
+        "LogoOverrideError",
+        "RedirectResponse",
+        "_feed_first_world",
+        "any",
+        "clear_logo_override",
+        "get",
+        "post",
+        "quote",
+        "read",
+        "seed_profile",
+        "set_logo_upload",
+        "set_logo_url",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entities/{entity_type}/{entity_id}",
+      "function": "entity_detail",
+      "line": 3575,
+      "end_line": 3741,
+      "templates": [
+        "entity.html",
+        "feed_first_entity.html"
+      ],
+      "imports": [
+        "app.services.entity_logo_overrides",
+        "app.services.seed_roster",
+        "app.services.competitor_profile"
+      ],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "TemplateResponse",
+        "_company_portfolio_roles",
+        "_evidence_index",
+        "_feed_first_company_response",
+        "_feed_first_entity_statements",
+        "_feed_first_world",
+        "_portfolio_variety_ids",
+        "_wants_feed_first_profile",
+        "add",
+        "all_entities",
+        "all_evidence",
+        "all_relationships",
+        "all_signals",
+        "append",
+        "apply_ui_cookies",
+        "build_competitor_profile",
+        "canonical_entity_id",
+        "company_news_coverage",
+        "company_profile_context",
+        "entity_activity",
+        "entity_index",
+        "entity_intelligence_timeline",
+        "entity_regions",
+        "entity_synthesis_context",
+        "facts_for_entity",
+        "get",
+        "identity_issues_for_variety",
+        "identity_redirects",
+        "is_watched",
+        "learn_growing_profile_for_varieties",
+        "len",
+        "linked_evidence_for_entity",
+        "list_pending_drafts",
+        "load_logo_overrides",
+        "load_sources",
+        "open_signals_for_entity",
+        "pending_publication_drafts",
+        "present_candidates",
+        "present_variety_detail",
+        "published_evidence",
+        "read_ui_context",
+        "relationships_for_entity",
+        "seed_profile",
+        "set",
+        "sorted",
+        "str",
+        "update",
+        "variety_candidate_universe"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/today",
+      "function": "today_page",
+      "line": 4068,
+      "end_line": 4072,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "_feed_first_today",
+        "_legacy_briefing_today",
+        "get",
+        "str"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/following",
+      "function": "following_page",
+      "line": 4076,
+      "end_line": 4104,
+      "templates": [
+        "feed_first_following.html"
+      ],
+      "imports": [
+        "app.services.entity_logo_overrides",
+        "app.services.seed_roster"
+      ],
+      "calls": [
+        "TemplateResponse",
+        "_feed_first_world",
+        "following_model",
+        "get",
+        "load_logo_overrides",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/saved",
+      "function": "saved_page",
+      "line": 4108,
+      "end_line": 4132,
+      "templates": [
+        "feed_first_saved.html"
+      ],
+      "imports": [
+        "app.services.feed_first",
+        "app.services.feed_first_live",
+        "app.services.people_watchlist"
+      ],
+      "calls": [
+        "TemplateResponse",
+        "_feed_first_world",
+        "cached_live_records",
+        "discover_people",
+        "get",
+        "saved_items"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/statements",
+      "function": "statements_page",
+      "line": 4136,
+      "end_line": 4176,
+      "templates": [
+        "feed_first_statements.html"
+      ],
+      "imports": [
+        "app.services.feed_first",
+        "app.services.feed_first_live"
+      ],
+      "calls": [
+        "TemplateResponse",
+        "_feed_first_world",
+        "bool",
+        "cached_live_records",
+        "get",
+        "len",
+        "statements_review_index",
+        "str",
+        "sum"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entities",
+      "function": "feed_first_entities_page",
+      "line": 4180,
+      "end_line": 4213,
+      "templates": [
+        "feed_first_entities.html"
+      ],
+      "imports": [
+        "app.services.entity_logo_overrides",
+        "app.services.seed_roster"
+      ],
+      "calls": [
+        "TemplateResponse",
+        "_feed_first_world",
+        "following_model",
+        "get",
+        "load_logo_overrides",
+        "str",
+        "strip",
+        "upper"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/people",
+      "function": "people_watchlist_page",
+      "line": 4217,
+      "end_line": 4237,
+      "templates": [
+        "feed_first_people.html"
+      ],
+      "imports": [
+        "app.services.people_watchlist"
+      ],
+      "calls": [
+        "TemplateResponse",
+        "_feed_first_world",
+        "get",
+        "people_model"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/people/{person_id}",
+      "function": "people_profile_page",
+      "line": 4241,
+      "end_line": 4261,
+      "templates": [
+        "feed_first_person.html"
+      ],
+      "imports": [
+        "app.services.feed_first",
+        "app.services.people_watchlist"
+      ],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "_feed_first_world",
+        "get",
+        "person_by_id",
+        "statements_for_person"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/settings",
+      "function": "feed_first_settings_page",
+      "line": 4265,
+      "end_line": 4277,
+      "templates": [
+        "feed_first_settings.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_feed_first_world",
+        "get"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/research-ops",
+      "function": "research_ops_health_page",
+      "line": 4281,
+      "end_line": 4351,
+      "templates": [
+        "feed_first_research_ops.html"
+      ],
+      "imports": [
+        "app.services.clock",
+        "app.services.feed_first_live",
+        "app.services.industry_pulse.credentials",
+        "app.services.people_watchlist",
+        "app.services.feed_first_reader",
+        "app.services.seed_roster",
+        "app.services.feed_first",
+        "app.services.research_ops_health"
+      ],
+      "calls": [
+        "TemplateResponse",
+        "_feed_first_world",
+        "bakeoff_report",
+        "bool",
+        "get",
+        "has_apitube",
+        "has_catchall",
+        "has_exa",
+        "has_perplexity",
+        "isinstance",
+        "latest_snapshot",
+        "len",
+        "load_cached_bundle",
+        "loads",
+        "official_social_channels",
+        "people_model",
+        "read_text",
+        "research_ops_health",
+        "str",
+        "sum",
+        "utc_today"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/design-system",
+      "function": "design_system_page",
+      "line": 4355,
+      "end_line": 4380,
+      "templates": [
+        "design_system.html"
+      ],
+      "imports": [
+        "app.services.feed_first"
+      ],
+      "calls": [
+        "TemplateResponse",
+        "all_entities",
+        "build_feed",
+        "date",
+        "empty_state",
+        "get",
+        "parse_filters",
+        "playground_fixtures"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/feed-first/react",
+      "function": "feed_first_react",
+      "line": 4384,
+      "end_line": 4402,
+      "templates": [],
+      "imports": [
+        "app.services.feed_first",
+        "app.services.feed_first_live",
+        "app.services.people_watchlist"
+      ],
+      "calls": [
+        "HTTPException",
+        "JSONResponse",
+        "all_entities",
+        "apply_decision",
+        "cached_live_records",
+        "discover_people",
+        "get",
+        "json",
+        "merge_decision_records",
+        "post",
+        "published_evidence",
+        "str"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/feed-first/statement",
+      "function": "feed_first_statement",
+      "line": 4406,
+      "end_line": 4473,
+      "templates": [],
+      "imports": [
+        "app.services.feed_first",
+        "app.services.feed_first_live",
+        "app.services.feed_first_trust"
+      ],
+      "calls": [
+        "HTTPException",
+        "JSONResponse",
+        "ValueError",
+        "_default_reader_reviewer",
+        "_review_publish_service",
+        "cached_live_records",
+        "confirm_feed_statement",
+        "get",
+        "get_repositories",
+        "json",
+        "load_state",
+        "merge_decision_records",
+        "mutate_statement",
+        "mutate_statements",
+        "post",
+        "published_evidence",
+        "statement_by_id",
+        "str"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/entity-dossier/research",
+      "function": "entity_dossier_research",
+      "line": 4477,
+      "end_line": 4490,
+      "templates": [],
+      "imports": [
+        "app.services.entity_dossier"
+      ],
+      "calls": [
+        "HTTPException",
+        "JSONResponse",
+        "get",
+        "json",
+        "launch_gap_research",
+        "post",
+        "published_evidence",
+        "str"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/entity-dossier/proposal",
+      "function": "entity_dossier_proposal",
+      "line": 4494,
+      "end_line": 4555,
+      "templates": [],
+      "imports": [
+        "app.services.entity_dossier",
+        "app.services.feed_first",
+        "app.services.feed_first_trust"
+      ],
+      "calls": [
+        "HTTPException",
+        "JSONResponse",
+        "ValueError",
+        "_default_reader_reviewer",
+        "_review_publish_service",
+        "confirm_feed_statement",
+        "decide_proposal",
+        "dict",
+        "get",
+        "get_repositories",
+        "json",
+        "load_state",
+        "next",
+        "post",
+        "published_evidence",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/feed-first/capture",
+      "function": "feed_first_capture",
+      "line": 4559,
+      "end_line": 4580,
+      "templates": [],
+      "imports": [
+        "app.services.feed_first_live",
+        "app.services.feed_first_reader"
+      ],
+      "calls": [
+        "HTTPException",
+        "JSONResponse",
+        "bool",
+        "cached_live_records",
+        "capture_item",
+        "get",
+        "json",
+        "next",
+        "post",
+        "str"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/feed-first/tier",
+      "function": "feed_first_tier",
+      "line": 4584,
+      "end_line": 4596,
+      "templates": [],
+      "imports": [
+        "app.services.feed_first"
+      ],
+      "calls": [
+        "HTTPException",
+        "JSONResponse",
+        "get",
+        "json",
+        "post",
+        "set_entity_tier",
+        "str"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/news",
+      "function": "news_edition_page",
+      "line": 4600,
+      "end_line": 4632,
+      "templates": [
+        "news.html"
+      ],
+      "imports": [
+        "app.services.news_edition"
+      ],
+      "calls": [
+        "TemplateResponse",
+        "all_entities",
+        "all_relationships",
+        "build_front_page",
+        "get",
+        "pending_publication_drafts",
+        "published_evidence",
+        "select_edition"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/guide",
+      "function": "guide_page",
+      "line": 4636,
+      "end_line": 4647,
+      "templates": [
+        "guide.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "get",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/brief",
+      "function": "morning_brief_page",
+      "line": 4651,
+      "end_line": 4668,
+      "templates": [
+        "morning_brief.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_assemble_morning_brief",
+        "_attach_pending_decision_actions",
+        "_filter_brief_for_berry",
+        "get",
+        "read_ui_context",
+        "review_username",
+        "session_username"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/pending",
+      "function": "pending_review_page",
+      "line": 4672,
+      "end_line": 4744,
+      "templates": [
+        "pending_review.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_assemble_morning_brief",
+        "_attach_pending_decision_actions",
+        "_filter_brief_for_berry",
+        "entity_index",
+        "get",
+        "get_pending_review_query_service",
+        "len",
+        "list_pending",
+        "load_sources",
+        "pending_freshness_telemetry",
+        "published_evidence",
+        "read_ui_context",
+        "review_username",
+        "session_username",
+        "set",
+        "split",
+        "startswith",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/review-ops",
+      "function": "review_operations_page",
+      "line": 4748,
+      "end_line": 4783,
+      "templates": [
+        "review_operations.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "build_review_operations",
+        "entity_index",
+        "get",
+        "get_pending_review_query_service",
+        "list_drafts_metadata",
+        "list_recent_sessions",
+        "load_session",
+        "load_sources",
+        "present_session",
+        "published_evidence",
+        "read_ui_context",
+        "startswith",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/coverage-assurance",
+      "function": "coverage_assurance_page",
+      "line": 4787,
+      "end_line": 4821,
+      "templates": [
+        "coverage_assurance.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "apply_ui_cookies",
+        "build_coverage_report",
+        "get",
+        "list_discovered_items",
+        "list_drafts_metadata",
+        "load_blocked_domains",
+        "load_sources",
+        "published_evidence",
+        "read_ui_context",
+        "variety_candidate_universe"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/industry-pulse",
+      "function": "industry_pulse_page",
+      "line": 4825,
+      "end_line": 4866,
+      "templates": [
+        "industry_pulse.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "apply_ui_cookies",
+        "audit_freshness",
+        "get",
+        "has_perplexity",
+        "list_discovered_items",
+        "list_drafts_metadata",
+        "load_recent_newsroom_runs",
+        "load_snapshot",
+        "load_sources",
+        "newsroom_lock_status",
+        "published_evidence",
+        "query_count",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/industry-pulse/run",
+      "function": "industry_pulse_run",
+      "line": 4870,
+      "end_line": 4903,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "GoogleNewsRssProvider",
+        "HTTPException",
+        "PerplexitySearchProvider",
+        "RedirectResponse",
+        "all_entities",
+        "get",
+        "has_perplexity",
+        "list_discovered_items",
+        "list_drafts_metadata",
+        "list_pending_drafts",
+        "load_sources",
+        "post",
+        "published_evidence",
+        "quote",
+        "run_newsroom_cycle",
+        "variety_candidate_universe"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/research",
+      "function": "research_desk_page",
+      "line": 5116,
+      "end_line": 5137,
+      "templates": [
+        "research_desk.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "apply_ui_cookies",
+        "get",
+        "read_ui_context",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/research",
+      "function": "research_desk_submit",
+      "line": 5141,
+      "end_line": 5190,
+      "templates": [
+        "research_desk.html"
+      ],
+      "imports": [],
+      "calls": [
+        "Form",
+        "TemplateResponse",
+        "_research_brief_notes",
+        "_research_packet",
+        "_research_scope_display",
+        "all_relationships",
+        "apply_ui_cookies",
+        "as_dict",
+        "compose_research_answer",
+        "dumps",
+        "entity_index",
+        "from_dict",
+        "interpret_research_scope",
+        "living_catalog",
+        "load_strategic_questions",
+        "loads",
+        "monotonic",
+        "post",
+        "read_ui_context",
+        "round"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/research/live",
+      "function": "research_desk_live",
+      "line": 5194,
+      "end_line": 5263,
+      "templates": [
+        "_research_result.html"
+      ],
+      "imports": [
+        "app.services.industry_pulse.live_stack"
+      ],
+      "calls": [
+        "HTTPException",
+        "ResearchScope",
+        "TemplateResponse",
+        "_present_research_company_compare",
+        "_pulse_providers",
+        "_research_brief_notes",
+        "_research_packet",
+        "all_relationships",
+        "build_research_decision_support",
+        "comparison_candidate_ids",
+        "compose_research_answer",
+        "entity_index",
+        "from_dict",
+        "get",
+        "int",
+        "isinstance",
+        "json",
+        "load_sources",
+        "max",
+        "maybe_untrusted_completer",
+        "min",
+        "monotonic",
+        "post",
+        "round",
+        "to_thread",
+        "tuple",
+        "week_background_hits"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/pulse/company/{company_id}",
+      "function": "pulse_company_page",
+      "line": 5267,
+      "end_line": 5317,
+      "templates": [
+        "pulse_company.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "_pulse_providers",
+        "all_relationships",
+        "any",
+        "apply_ui_cookies",
+        "entity_index",
+        "enumerate",
+        "get",
+        "getattr",
+        "maybe_untrusted_completer",
+        "pulse_generate_current_brief",
+        "read_ui_context",
+        "relationships_for_entity",
+        "run_company_pulse"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/pulse/company/{company_id}/promote",
+      "function": "pulse_company_promote",
+      "line": 5321,
+      "end_line": 5355,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "_pulse_providers",
+        "all_entities",
+        "all_relationships",
+        "entity_index",
+        "get",
+        "intake_qualified_hits",
+        "list_pending_drafts",
+        "load_sources",
+        "post",
+        "published_evidence",
+        "pulse_find_live_hit_by_url",
+        "relationships_for_entity"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/week",
+      "function": "week_page",
+      "line": 5404,
+      "end_line": 5455,
+      "templates": [
+        "feed_first_week.html",
+        "week.html"
+      ],
+      "imports": [
+        "app.services.clock",
+        "app.services.feed_first",
+        "app.services.feed_first_live"
+      ],
+      "calls": [
+        "TemplateResponse",
+        "_feed_first_world",
+        "apply_ui_cookies",
+        "cached_live_records",
+        "get",
+        "lower",
+        "read_ui_context",
+        "str",
+        "strip",
+        "utc_today",
+        "week_model"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/week/live",
+      "function": "week_live_page",
+      "line": 5459,
+      "end_line": 5468,
+      "templates": [
+        "week.html",
+        "week_fragment.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_week_edition_context",
+        "apply_ui_cookies",
+        "get"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/week/review",
+      "function": "week_send_to_review",
+      "line": 5472,
+      "end_line": 5508,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "_week_discovery_stack",
+        "all_entities",
+        "find_week_hit_by_url",
+        "get",
+        "intake_qualified_hits",
+        "list_pending_drafts",
+        "load_sources",
+        "post",
+        "published_evidence"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/radar",
+      "function": "radar_page",
+      "line": 5550,
+      "end_line": 5564,
+      "templates": [
+        "radar.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_radar_page_context",
+        "apply_ui_cookies",
+        "bool",
+        "cache_is_fresh",
+        "edition_from_cache",
+        "get",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/radar/live",
+      "function": "radar_live_page",
+      "line": 5568,
+      "end_line": 5579,
+      "templates": [
+        "radar.html",
+        "radar_fragment.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_radar_edition_live",
+        "_radar_page_context",
+        "apply_ui_cookies",
+        "get",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/radar/{development_id}",
+      "function": "radar_detail_page",
+      "line": 5583,
+      "end_line": 5621,
+      "templates": [
+        "radar_detail.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "apply_ui_cookies",
+        "as_dict",
+        "edition_from_cache",
+        "extend",
+        "get",
+        "hasattr",
+        "join",
+        "load_analyst_queue_state",
+        "next",
+        "present_derived_review",
+        "read_ui_context",
+        "str",
+        "urlencode"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/moves",
+      "function": "moves_page",
+      "line": 5625,
+      "end_line": 5644,
+      "templates": [
+        "moves.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "apply_ui_cookies",
+        "as_dict",
+        "compose_moves_board",
+        "get",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/whitespace",
+      "function": "whitespace_page",
+      "line": 5648,
+      "end_line": 5682,
+      "templates": [
+        "whitespace.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_cached_whitespace_landscape",
+        "apply_ui_cookies",
+        "default_demo_scope",
+        "get",
+        "int",
+        "parse_id_list",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/moves/{company_id}",
+      "function": "moves_company_page",
+      "line": 5686,
+      "end_line": 5712,
+      "templates": [
+        "moves_company.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "apply_ui_cookies",
+        "as_dict",
+        "compose_moves_board",
+        "entity_index",
+        "get",
+        "next",
+        "read_ui_context",
+        "sort"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/watchtower",
+      "function": "watchtower_page",
+      "line": 5716,
+      "end_line": 5736,
+      "templates": [
+        "watchtower.html"
+      ],
+      "imports": [
+        "app.services.watchtower.present"
+      ],
+      "calls": [
+        "TemplateResponse",
+        "_watchtower_cached",
+        "apply_ui_cookies",
+        "get",
+        "present_watchtower",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/watchtower/{alert_id}/action",
+      "function": "watchtower_alert_action",
+      "line": 5740,
+      "end_line": 5750,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "apply_alert_action",
+        "post",
+        "startswith"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/war-room",
+      "function": "war_room_page",
+      "line": 5785,
+      "end_line": 5810,
+      "templates": [
+        "war_room.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_compose_war_room_for_request",
+        "_war_room_scope_from_params",
+        "all_entities",
+        "apply_ui_cookies",
+        "as_dict",
+        "get",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/war-room/live",
+      "function": "war_room_live_page",
+      "line": 5814,
+      "end_line": 5821,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "RedirectResponse",
+        "_radar_edition_live",
+        "_war_room_scope_from_params",
+        "get"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/war-room/notes",
+      "function": "war_room_add_note_route",
+      "line": 5825,
+      "end_line": 5847,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "RedirectResponse",
+        "post",
+        "split",
+        "startswith",
+        "strip",
+        "tuple",
+        "war_room_add_note"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/collection-ops",
+      "function": "collection_ops_page",
+      "line": 5851,
+      "end_line": 5879,
+      "templates": [
+        "collection_ops.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "apply_ui_cookies",
+        "build_status_report",
+        "failing_source_health_rows",
+        "get",
+        "get_repositories",
+        "list_recent_runs",
+        "load_sources",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/collection-ops/run",
+      "function": "collection_ops_run",
+      "line": 5883,
+      "end_line": 5895,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "RedirectResponse",
+        "get",
+        "get_repositories",
+        "post",
+        "trigger_bounded_run",
+        "urlencode"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/review-ops/publications",
+      "function": "publication_review_readonly_page",
+      "line": 5935,
+      "end_line": 5994,
+      "templates": [
+        "publication_review_readonly.html",
+        "publication_review_rehearsal.html"
+      ],
+      "imports": [],
+      "calls": [
+        "DurableReviewRepository",
+        "TemplateResponse",
+        "_publication_review_rehearsal_context",
+        "apply_ui_cookies",
+        "as_dict",
+        "get",
+        "list",
+        "publication_review_get_detail",
+        "publication_review_list_queue",
+        "publication_review_status_summary",
+        "read_ui_context",
+        "rehearsal_ui_allowed",
+        "resolve_review_state_dir",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/review-ops/publications/{draft_id}",
+      "function": "publication_review_readonly_detail_compat",
+      "line": 5998,
+      "end_line": 6014,
+      "templates": [
+        "publication_review_rehearsal.html"
+      ],
+      "imports": [],
+      "calls": [
+        "RedirectResponse",
+        "TemplateResponse",
+        "_publication_review_rehearsal_context",
+        "get",
+        "quote",
+        "rehearsal_ui_allowed",
+        "strip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/review-ops/session",
+      "function": "start_review_session",
+      "line": 6030,
+      "end_line": 6057,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "create_session",
+        "entity_index",
+        "get",
+        "get_pending_review_query_service",
+        "list_drafts_metadata",
+        "load_sources",
+        "post",
+        "published_evidence",
+        "startswith",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/review-ops/session",
+      "function": "review_session_page",
+      "line": 6061,
+      "end_line": 6075,
+      "templates": [
+        "review_session.html"
+      ],
+      "imports": [],
+      "calls": [
+        "RedirectResponse",
+        "TemplateResponse",
+        "_reconcile_active_session",
+        "get",
+        "present_session",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/review-ops/session/continue",
+      "function": "continue_review_session",
+      "line": 6079,
+      "end_line": 6086,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "RedirectResponse",
+        "_reconcile_active_session",
+        "get",
+        "present_session",
+        "str"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/review-ops/session/skip",
+      "function": "skip_review_session_item",
+      "line": 6090,
+      "end_line": 6095,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "RedirectResponse",
+        "load_session",
+        "post",
+        "skip_current"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/review-ops/session/stop",
+      "function": "stop_review_session",
+      "line": 6099,
+      "end_line": 6104,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "RedirectResponse",
+        "load_session",
+        "post",
+        "stop_session"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/watches",
+      "function": "watchlist_page",
+      "line": 6108,
+      "end_line": 6148,
+      "templates": [
+        "watchlist.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "all_assessments",
+        "all_recommendations",
+        "all_signals",
+        "apply_ui_cookies",
+        "bool",
+        "entity_index",
+        "get",
+        "load_sources",
+        "load_strategic_questions",
+        "published_evidence",
+        "read_ui_context",
+        "watchlist_index"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/watches/toggle",
+      "function": "toggle_watch",
+      "line": 6152,
+      "end_line": 6166,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "add_watch",
+        "post",
+        "remove_watch",
+        "safe_next_path",
+        "str"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/watches/open",
+      "function": "open_watch",
+      "line": 6170,
+      "end_line": 6184,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "get",
+        "mark_watch_seen"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/work-queue",
+      "function": "work_queue",
+      "line": 6188,
+      "end_line": 6261,
+      "templates": [
+        "work_queue.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_default_review_values",
+        "_overlay_attribution_companies",
+        "all_signals",
+        "annotate_feed_semantics",
+        "any",
+        "apply_ui_cookies",
+        "attribute_draft",
+        "build_intelligence_feed",
+        "build_scanner_summary",
+        "entity_index",
+        "get",
+        "list_drafts",
+        "load_candidates",
+        "load_publication_transcript_readiness",
+        "load_sources",
+        "matches_berry_context",
+        "persist_ui_prefs",
+        "published_evidence",
+        "queue_counts",
+        "read_ui_context",
+        "review_username",
+        "session_username",
+        "str",
+        "unresolved_entities",
+        "values"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/intelligence/{item_id}",
+      "function": "intelligence_reader",
+      "line": 6459,
+      "end_line": 6467,
+      "templates": [
+        "intelligence_reader.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "_intelligence_page_context",
+        "_load_intelligence_record",
+        "get"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/intelligence/{item_id}/reader",
+      "function": "intelligence_reader_fragment",
+      "line": 6471,
+      "end_line": 6483,
+      "templates": [
+        "_reader_panel.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "_intelligence_page_context",
+        "_load_intelligence_record",
+        "get"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/threads/{item_id}",
+      "function": "story_thread_reader",
+      "line": 6487,
+      "end_line": 6525,
+      "templates": [
+        "story_thread.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "TemplateResponse",
+        "_attach_pending_decision_actions",
+        "_evidence_index",
+        "_live_story_thread_universe",
+        "_load_intelligence_record",
+        "candidates_for_thread",
+        "entity_index",
+        "get",
+        "int",
+        "is_pending_dismissed",
+        "load_analyst_queue_state",
+        "load_sources",
+        "present_candidates",
+        "review_username",
+        "session_username",
+        "str",
+        "thread_for_item"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/queues/{dimension}",
+      "function": "priority_queue",
+      "line": 6537,
+      "end_line": 6677,
+      "templates": [
+        "queue.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "_assemble_morning_brief",
+        "all_recommendations",
+        "all_signals",
+        "annotate_feed_semantics",
+        "bool",
+        "build_dimension_page",
+        "commercial_page_model",
+        "entity_index",
+        "evidence_regions",
+        "failing_source_health_rows",
+        "get",
+        "get_repositories",
+        "is_open_signal_alert",
+        "len",
+        "list",
+        "list_pending_drafts",
+        "load_analyst_queue_state",
+        "load_candidates",
+        "load_sources",
+        "monitor_page_model",
+        "pending_position_proposals",
+        "published_evidence",
+        "queue_items",
+        "related_indexes",
+        "review_username",
+        "session_username",
+        "testing_page_model"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/queues/reading/bulk-read",
+      "function": "reading_bulk_read",
+      "line": 6681,
+      "end_line": 6695,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "_source_index",
+        "bulk_mark_read",
+        "form",
+        "get",
+        "getlist",
+        "isinstance",
+        "post",
+        "queue_items",
+        "review_username",
+        "safe_next_path",
+        "session_username",
+        "set",
+        "startswith",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/queues/pending/bulk-dismiss",
+      "function": "pending_bulk_dismiss",
+      "line": 6699,
+      "end_line": 6712,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "_source_index",
+        "bulk_dismiss_pending",
+        "form",
+        "get",
+        "getlist",
+        "isinstance",
+        "list_pending_drafts",
+        "post",
+        "review_username",
+        "safe_next_path",
+        "session_username",
+        "set",
+        "startswith",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/queues/pending/{item_id}",
+      "function": "pending_item_action",
+      "line": 6716,
+      "end_line": 6741,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "_source_index",
+        "apply_queue_action",
+        "get",
+        "list_pending_drafts",
+        "post",
+        "review_username",
+        "safe_next_path",
+        "session_username",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/queues/testing/{item_id}",
+      "function": "testing_claim_review",
+      "line": 6745,
+      "end_line": 6776,
+      "templates": [
+        "testing_detail.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "enrich_testing_item",
+        "entity_index",
+        "get",
+        "get_repositories",
+        "load_analyst_queue_state",
+        "next",
+        "queue_items",
+        "related_indexes",
+        "review_username",
+        "session_username"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/queues/{dimension}/{item_id}",
+      "function": "queue_item_action",
+      "line": 6780,
+      "end_line": 6822,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "_source_index",
+        "append",
+        "apply_queue_action",
+        "get",
+        "join",
+        "post",
+        "queue_items",
+        "review_username",
+        "safe_next_path",
+        "session_username",
+        "startswith",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/derived-review/{object_type}/{item_id}",
+      "function": "derived_review_action",
+      "line": 6826,
+      "end_line": 6860,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "apply_queue_action",
+        "post",
+        "review_username",
+        "safe_next_path",
+        "session_username",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/recommendations/{recommendation_id}/proposal-decision",
+      "function": "recommendation_proposal_decision",
+      "line": 6864,
+      "end_line": 6886,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "apply_queue_action",
+        "post",
+        "recommendation_by_id",
+        "review_username",
+        "session_username",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/signals/{signal_id}/alert-decision",
+      "function": "signal_alert_decision",
+      "line": 6890,
+      "end_line": 6912,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "apply_queue_action",
+        "post",
+        "review_username",
+        "session_username",
+        "signal_by_id",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/strategic-questions",
+      "function": "strategic_question_list_page",
+      "line": 6916,
+      "end_line": 6937,
+      "templates": [
+        "strategic_question_list.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "all_assessments",
+        "all_facts",
+        "all_recommendations",
+        "all_signals",
+        "apply_ui_cookies",
+        "get",
+        "load_strategic_questions",
+        "present_strategic_question_index",
+        "published_evidence",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/strategic-questions/{sq_id}",
+      "function": "strategic_question_detail_page",
+      "line": 6941,
+      "end_line": 6968,
+      "templates": [
+        "strategic_question_detail.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "all_assessments",
+        "all_facts",
+        "all_recommendations",
+        "all_signals",
+        "apply_ui_cookies",
+        "entity_index",
+        "get",
+        "is_watched",
+        "load_strategic_questions",
+        "present_strategic_question_detail",
+        "published_evidence",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/geographies",
+      "function": "geography_index_page",
+      "line": 6972,
+      "end_line": 6998,
+      "templates": [
+        "geography_index.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "all_relationships",
+        "all_signals",
+        "apply_ui_cookies",
+        "entity_index",
+        "geography_index",
+        "get",
+        "published_evidence",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/geographies/{geography_id}",
+      "function": "geography_detail_page",
+      "line": 7002,
+      "end_line": 7037,
+      "templates": [
+        "geography_detail.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "all_assessments",
+        "all_evidence",
+        "all_relationships",
+        "all_signals",
+        "apply_ui_cookies",
+        "entity_index",
+        "facts_for_entity",
+        "geography_detail",
+        "get",
+        "is_watched",
+        "load_strategic_questions",
+        "published_evidence",
+        "read_ui_context",
+        "relationships_for_entity"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/competitors",
+      "function": "competitor_landscape",
+      "line": 7043,
+      "end_line": 7067,
+      "templates": [
+        "competitor_landscape.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "adapter_from_repositories",
+        "all_entities",
+        "all_relationships",
+        "append",
+        "build_landscape_context",
+        "get",
+        "load_sources",
+        "multi_items",
+        "parse_filters",
+        "published_evidence",
+        "setdefault"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/landscapes",
+      "function": "landscape_all",
+      "line": 7070,
+      "end_line": 7111,
+      "templates": [
+        "feed_first_landscapes.html",
+        "landscape_all.html"
+      ],
+      "imports": [
+        "app.services.feed_first",
+        "app.services.feed_first_live"
+      ],
+      "calls": [
+        "TemplateResponse",
+        "_cached_landscape_context_all",
+        "_feed_first_world",
+        "cached_live_records",
+        "get",
+        "landscapes_model",
+        "lower",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/landscapes/berries/{berry_slug}",
+      "function": "landscape_berry",
+      "line": 7115,
+      "end_line": 7132,
+      "templates": [
+        "landscape.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "_cached_landscape_context",
+        "_feed_first_world",
+        "get"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/readout",
+      "function": "executive_readout",
+      "line": 7136,
+      "end_line": 7153,
+      "templates": [
+        "executive_readout.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_cached_readout_context",
+        "get"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/brief-pack",
+      "function": "brief_pack",
+      "line": 7232,
+      "end_line": 7294,
+      "templates": [
+        "brief_pack.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_cached_brief_pack",
+        "get",
+        "learn_all_concepts",
+        "load_pack",
+        "max",
+        "min"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/brief-packs",
+      "function": "saved_brief_packs_page",
+      "line": 7298,
+      "end_line": 7315,
+      "templates": [
+        "saved_brief_packs.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "apply_ui_cookies",
+        "get",
+        "list_packs",
+        "present_pack_row",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/brief-packs/save",
+      "function": "save_brief_pack_route",
+      "line": 7319,
+      "end_line": 7355,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "_csv_ids",
+        "int",
+        "max",
+        "min",
+        "pack_query_string",
+        "post",
+        "save_pack",
+        "str"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/brief-packs/{pack_id}/duplicate",
+      "function": "duplicate_brief_pack_route",
+      "line": 7359,
+      "end_line": 7363,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "duplicate_pack",
+        "post"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/brief-packs/{pack_id}/archive",
+      "function": "archive_brief_pack_route",
+      "line": 7367,
+      "end_line": 7371,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "archive_pack",
+        "post"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/brief-packs/{pack_id}/unarchive",
+      "function": "unarchive_brief_pack_route",
+      "line": 7375,
+      "end_line": 7379,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "post",
+        "unarchive_pack"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports",
+      "function": "reports_index_page",
+      "line": 7493,
+      "end_line": 7508,
+      "templates": [
+        "reports_index.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "apply_ui_cookies",
+        "get",
+        "list_reports",
+        "present_report_row",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/explorer",
+      "function": "global_explorer_page",
+      "line": 7543,
+      "end_line": 7548,
+      "templates": [
+        "global_explorer.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_explorer_context",
+        "get",
+        "max",
+        "min",
+        "update"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/explorer/snapshot",
+      "function": "global_snapshot_page",
+      "line": 7552,
+      "end_line": 7555,
+      "templates": [
+        "global_snapshot.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_explorer_context",
+        "get"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/explorer/snapshot.pdf",
+      "function": "global_snapshot_pdf",
+      "line": 7559,
+      "end_line": 7564,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Response",
+        "_explorer_context",
+        "get",
+        "render_report_pdf"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/new",
+      "function": "report_new_page",
+      "line": 7568,
+      "end_line": 7621,
+      "templates": [
+        "report_new.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "apply_ui_cookies",
+        "casefold",
+        "entity_index",
+        "get",
+        "lower",
+        "read_ui_context",
+        "replace",
+        "split",
+        "startswith",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reports/new",
+      "function": "report_new_submit",
+      "line": 7625,
+      "end_line": 7719,
+      "templates": [
+        "report_new.html"
+      ],
+      "imports": [],
+      "calls": [
+        "Form",
+        "RedirectResponse",
+        "TemplateResponse",
+        "_build_packet_and_coverage",
+        "_generate_sections_for",
+        "_report_scope_context",
+        "_scope_from_form",
+        "all_relationships",
+        "apply_ui_cookies",
+        "create_report",
+        "get",
+        "interpret_scope_text",
+        "join",
+        "list",
+        "living_catalog",
+        "load_strategic_questions",
+        "maybe_untrusted_completer",
+        "post",
+        "read_ui_context",
+        "resolve_scope",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/{report_id}",
+      "function": "report_workspace_page",
+      "line": 7744,
+      "end_line": 7762,
+      "templates": [
+        "report_workspace.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_build_packet_and_coverage",
+        "_load_report_or_404",
+        "_scope_from_record",
+        "apply_ui_cookies",
+        "get",
+        "read_ui_context"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reports/{report_id}/save",
+      "function": "report_save_route",
+      "line": 7766,
+      "end_line": 7782,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "RedirectResponse",
+        "_load_report_or_404",
+        "dict",
+        "get",
+        "post",
+        "save_report_edits",
+        "strip",
+        "zip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reports/{report_id}/section/{section_id}/regenerate",
+      "function": "report_regenerate_section_route",
+      "line": 7786,
+      "end_line": 7807,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "_build_packet_and_coverage",
+        "_generate_sections_for",
+        "_load_report_or_404",
+        "_scope_from_record",
+        "list",
+        "maybe_untrusted_completer",
+        "next",
+        "post",
+        "replace_section"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reports/{report_id}/research-gaps",
+      "function": "report_research_gaps_route",
+      "line": 7826,
+      "end_line": 7901,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "PerplexityResearchClient",
+        "PublicQueryContext",
+        "RedirectResponse",
+        "_build_packet_and_coverage",
+        "_load_report_or_404",
+        "_public_scope_labels",
+        "_scope_from_record",
+        "append_research_batch",
+        "entity_index",
+        "extend",
+        "get",
+        "post",
+        "research_public_gaps",
+        "resolve_perplexity_api_key"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reports/{report_id}/research/{finding_id}/state",
+      "function": "report_research_finding_state_route",
+      "line": 7905,
+      "end_line": 7927,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "_load_report_or_404",
+        "find_research_finding",
+        "post",
+        "update_research_finding"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reports/{report_id}/research/{finding_id}/send-to-review",
+      "function": "report_research_send_to_review_route",
+      "line": 7931,
+      "end_line": 7954,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "_load_report_or_404",
+        "_scope_from_record",
+        "build_perplexity_research_draft",
+        "find_research_finding",
+        "get",
+        "isoformat",
+        "post",
+        "save_draft",
+        "today",
+        "update_research_finding"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reports/{report_id}/archive",
+      "function": "report_archive_route",
+      "line": 7958,
+      "end_line": 7962,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "archive_report_record",
+        "post"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/reports/{report_id}/export.pdf",
+      "function": "report_export_pdf_route",
+      "line": 7966,
+      "end_line": 7976,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Response",
+        "_build_packet_and_coverage",
+        "_load_report_or_404",
+        "_scope_from_record",
+        "get",
+        "render_report_pdf"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/signals",
+      "function": "signal_list",
+      "line": 7980,
+      "end_line": 7985,
+      "templates": [
+        "signal_list.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "all_signals",
+        "get"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/signals/review",
+      "function": "signal_candidate_review",
+      "line": 7989,
+      "end_line": 8006,
+      "templates": [
+        "signal_candidate_review.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_evidence_index",
+        "entity_index",
+        "get",
+        "matches_berry_context",
+        "present_candidates",
+        "read_ui_context",
+        "review_username",
+        "session_username",
+        "triage_groups"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/signals/candidates/{candidate_id}",
+      "function": "signal_candidate_page",
+      "line": 8010,
+      "end_line": 8045,
+      "templates": [
+        "signal_candidate.html",
+        "signal_candidate_gone.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "_evidence_index",
+        "entity_index",
+        "get",
+        "list",
+        "lookup_candidate",
+        "present_review",
+        "review_username",
+        "session_username",
+        "values"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/signals/candidates/{candidate_id}/decision",
+      "function": "signal_candidate_decision",
+      "line": 8049,
+      "end_line": 8083,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "apply_and_persist_decision",
+        "candidate_by_id",
+        "lookup_candidate",
+        "post",
+        "review_username",
+        "safe_next_path",
+        "session_username",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/signals/new",
+      "function": "signal_new",
+      "line": 8105,
+      "end_line": 8117,
+      "templates": [
+        "signal_form.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_default_signal_values",
+        "get"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/signals",
+      "function": "signal_create",
+      "line": 8121,
+      "end_line": 8241,
+      "templates": [
+        "signal_form.html"
+      ],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "TemplateResponse",
+        "all_facts",
+        "append",
+        "entity_index",
+        "get",
+        "get_validator",
+        "isoformat",
+        "iter_errors",
+        "join",
+        "keys",
+        "load_strategic_questions",
+        "lower",
+        "new_signal_id",
+        "post",
+        "published_evidence",
+        "save_signal",
+        "set",
+        "split_list",
+        "strip",
+        "today"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/signals/{signal_id}",
+      "function": "signal_detail",
+      "line": 8245,
+      "end_line": 8267,
+      "templates": [
+        "signal_detail.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "entity_index",
+        "get",
+        "get_query_services",
+        "load_analyst_queue_state",
+        "resolve_assessments_citing_signal",
+        "resolve_linked_entities",
+        "resolve_linked_evidence",
+        "resolve_linked_facts",
+        "resolve_linked_strategic_questions",
+        "signal_alert_state",
+        "signal_by_id"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/assessments",
+      "function": "assessment_list",
+      "line": 8271,
+      "end_line": 8279,
+      "templates": [
+        "assessment_list.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "all_assessments",
+        "attach_assessment_scope",
+        "get"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/assessments/new",
+      "function": "assessment_new",
+      "line": 8433,
+      "end_line": 8434,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "_assessment_form_response",
+        "_default_assessment_values",
+        "get"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/assessments",
+      "function": "assessment_create",
+      "line": 8438,
+      "end_line": 8481,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "_assessment_form_errors",
+        "_assessment_form_response",
+        "_assessment_record_from_values",
+        "_assessment_schema_error",
+        "new_assessment_id",
+        "parse_assessment_market_ids",
+        "post",
+        "save_assessment"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/assessments/{assessment_id}/edit",
+      "function": "assessment_edit",
+      "line": 8485,
+      "end_line": 8494,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "_assessment_form_response",
+        "_assessment_values_from_record",
+        "assessment_by_id",
+        "get"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/assessments/{assessment_id}",
+      "function": "assessment_update",
+      "line": 8498,
+      "end_line": 8559,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "_assessment_form_errors",
+        "_assessment_form_response",
+        "_assessment_record_from_values",
+        "_assessment_schema_error",
+        "assessment_by_id",
+        "parse_assessment_market_ids",
+        "post",
+        "update_assessment"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/assessments/{assessment_id}",
+      "function": "assessment_detail",
+      "line": 8563,
+      "end_line": 8589,
+      "templates": [
+        "assessment_detail.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "assessment_berry_scope",
+        "assessment_by_id",
+        "entity_index",
+        "get",
+        "get_query_services",
+        "resolve_linked_entities",
+        "resolve_linked_evidence",
+        "resolve_linked_facts",
+        "resolve_linked_signals",
+        "resolve_linked_strategic_questions"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/recommendations",
+      "function": "recommendation_list",
+      "line": 8593,
+      "end_line": 8598,
+      "templates": [
+        "recommendation_list.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "all_recommendations",
+        "get"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/recommendations/new",
+      "function": "recommendation_new",
+      "line": 8619,
+      "end_line": 8630,
+      "templates": [
+        "recommendation_form.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "_default_recommendation_values",
+        "get"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/recommendations",
+      "function": "recommendation_create",
+      "line": 8634,
+      "end_line": 8755,
+      "templates": [
+        "recommendation_form.html"
+      ],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "TemplateResponse",
+        "all_assessments",
+        "all_facts",
+        "all_signals",
+        "append",
+        "entity_index",
+        "get_validator",
+        "isoformat",
+        "iter_errors",
+        "join",
+        "keys",
+        "new_recommendation_id",
+        "post",
+        "published_evidence",
+        "resolve_strategic_question_ids",
+        "save_recommendation",
+        "set",
+        "split_list",
+        "strip",
+        "today"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/recommendations/{recommendation_id}",
+      "function": "recommendation_detail",
+      "line": 8759,
+      "end_line": 8781,
+      "templates": [
+        "recommendation_detail.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "entity_index",
+        "get",
+        "get_query_services",
+        "load_analyst_queue_state",
+        "proposal_state",
+        "recommendation_by_id",
+        "resolve_linked_assessments",
+        "resolve_linked_entities",
+        "resolve_linked_evidence",
+        "resolve_linked_facts",
+        "resolve_linked_signals",
+        "resolve_linked_strategic_questions"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/sources",
+      "function": "sources_list",
+      "line": 8883,
+      "end_line": 8897,
+      "templates": [
+        "sources.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "get",
+        "sources_page_context"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/sources",
+      "function": "sources_add",
+      "line": 8901,
+      "end_line": 8949,
+      "templates": [
+        "sources.html"
+      ],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "TemplateResponse",
+        "append",
+        "isoformat",
+        "load_sources",
+        "new_source_id",
+        "post",
+        "save_sources",
+        "sources_page_context",
+        "strip",
+        "today"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/sources/{source_id}/toggle",
+      "function": "sources_toggle",
+      "line": 8953,
+      "end_line": 8964,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "get",
+        "load_sources",
+        "post",
+        "save_sources"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/sources/{source_id}/delete",
+      "function": "sources_delete",
+      "line": 8968,
+      "end_line": 8973,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "load_sources",
+        "post",
+        "save_sources"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/sources/{source_id}/check-now",
+      "function": "sources_check_now",
+      "line": 8977,
+      "end_line": 8994,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "check_source",
+        "existing_evidence_source_urls",
+        "isoformat",
+        "load_sources",
+        "now",
+        "post",
+        "save_sources"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/sources/{source_id}/mark-checked",
+      "function": "sources_mark_checked",
+      "line": 8998,
+      "end_line": 9013,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "isoformat",
+        "load_sources",
+        "now",
+        "post",
+        "save_sources"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/sources/blocked-domains/{domain}/remove",
+      "function": "sources_unblock_domain",
+      "line": 9017,
+      "end_line": 9021,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "load_blocked_domains",
+        "post",
+        "save_blocked_domains"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/intake",
+      "function": "intake_form",
+      "line": 9025,
+      "end_line": 9044,
+      "templates": [
+        "intake.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "get",
+        "list_drafts"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/intake",
+      "function": "intake_submit",
+      "line": 9048,
+      "end_line": 9138,
+      "templates": [
+        "intake.html"
+      ],
+      "imports": [],
+      "calls": [
+        "File",
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "TemplateResponse",
+        "append",
+        "isoformat",
+        "join",
+        "list_drafts",
+        "new_draft_id",
+        "post",
+        "save_attachment",
+        "save_draft",
+        "split_list",
+        "strip",
+        "today"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/intake/{draft_id}",
+      "function": "intake_detail",
+      "line": 9142,
+      "end_line": 9146,
+      "templates": [
+        "intake_detail.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "get",
+        "get_draft"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/intake/{draft_id}/attachments/{filename}",
+      "function": "intake_attachment",
+      "line": 9150,
+      "end_line": 9155,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "FileResponse",
+        "HTTPException",
+        "get",
+        "is_file",
+        "is_relative_to",
+        "resolve"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/review/batch/{parent_id}",
+      "function": "review_atomic_batch",
+      "line": 9199,
+      "end_line": 9201,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "RedirectResponse",
+        "get",
+        "quote"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/review",
+      "function": "review_queue",
+      "line": 9205,
+      "end_line": 9283,
+      "templates": [
+        "review_queue.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "build_review_workbench",
+        "build_scanner_summary",
+        "enumerate",
+        "get",
+        "get_repositories",
+        "is_session_return",
+        "items",
+        "len",
+        "list",
+        "list_drafts",
+        "load_publication_transcript_readiness",
+        "quote",
+        "unvalidated_auto_captured_evidence",
+        "urlencode"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/review/{draft_id}",
+      "function": "review_form",
+      "line": 9432,
+      "end_line": 9445,
+      "templates": [
+        "review.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "_default_review_values",
+        "_review_context",
+        "get",
+        "get_draft"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/review/{draft_id}/publish",
+      "function": "review_publish",
+      "line": 9449,
+      "end_line": 9722,
+      "templates": [
+        "review.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "PublishRequest",
+        "RedirectResponse",
+        "TemplateResponse",
+        "_review_context",
+        "_review_publish_service",
+        "_safe_review_return",
+        "adjacent_publication_draft_id",
+        "append",
+        "deepcopy",
+        "field",
+        "form",
+        "get",
+        "get_draft",
+        "get_repositories",
+        "getlist",
+        "is_session_return",
+        "isinstance",
+        "isoformat",
+        "join",
+        "list",
+        "post",
+        "publish",
+        "quote",
+        "range",
+        "replace",
+        "split_list",
+        "strip",
+        "today",
+        "values"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/review/{evidence_id}/claim",
+      "function": "review_claim_form",
+      "line": 9726,
+      "end_line": 9755,
+      "templates": [
+        "claim_review.html"
+      ],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "TemplateResponse",
+        "evidence_trust_tier",
+        "get",
+        "get_repositories",
+        "review_username",
+        "session_username",
+        "trust_tier_label"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/review/{evidence_id}/claim/approve",
+      "function": "review_claim_approve",
+      "line": 9759,
+      "end_line": 9790,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "ApproveClaimRequest",
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "_review_publish_service",
+        "_safe_review_return",
+        "approve_claim",
+        "join",
+        "post",
+        "strip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/review/{evidence_id}/claim/reject",
+      "function": "review_claim_reject",
+      "line": 9794,
+      "end_line": 9812,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "_review_publish_service",
+        "_safe_review_return",
+        "get",
+        "get_repositories",
+        "post",
+        "reject_claim",
+        "strip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/review/{draft_id}/approve-atomic",
+      "function": "review_approve_atomic",
+      "line": 9816,
+      "end_line": 9860,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "PublishRequest",
+        "RedirectResponse",
+        "_review_publish_service",
+        "_safe_review_return",
+        "fromkeys",
+        "get",
+        "get_draft",
+        "isoformat",
+        "join",
+        "list",
+        "post",
+        "publish",
+        "strip",
+        "today"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/review/{draft_id}/save",
+      "function": "review_save",
+      "line": 9864,
+      "end_line": 9898,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "RedirectResponse",
+        "_safe_review_return",
+        "adjacent_publication_draft_id",
+        "field",
+        "form",
+        "get",
+        "get_draft",
+        "getlist",
+        "is_session_return",
+        "isinstance",
+        "post",
+        "quote",
+        "save_draft",
+        "split_list",
+        "strip"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/review/{draft_id}/reject",
+      "function": "review_reject",
+      "line": 9902,
+      "end_line": 9963,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "Form",
+        "HTTPException",
+        "RedirectResponse",
+        "_safe_review_return",
+        "adjacent_publication_draft_id",
+        "append_review_event",
+        "get",
+        "get_draft",
+        "get_repositories",
+        "is_session_return",
+        "post",
+        "remove_created_event",
+        "save_draft",
+        "str",
+        "strip",
+        "update"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/feed",
+      "function": "api_feed",
+      "line": 9967,
+      "end_line": 9982,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "filter_evidence",
+        "get",
+        "published_evidence"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/entities/{entity_type}/{entity_id}",
+      "function": "api_entity_detail",
+      "line": 9986,
+      "end_line": 9990,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "HTTPException",
+        "all_entities",
+        "get"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/search",
+      "function": "api_search",
+      "line": 9994,
+      "end_line": 10006,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "all_entities",
+        "filter_evidence",
+        "get",
+        "join",
+        "lower",
+        "published_evidence",
+        "strip",
+        "text_matches"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/search",
+      "function": "global_search_page",
+      "line": 10083,
+      "end_line": 10113,
+      "templates": [
+        "search.html"
+      ],
+      "imports": [],
+      "calls": [
+        "TemplateResponse",
+        "get",
+        "parse_berry",
+        "read_ui_context",
+        "run_global_search",
+        "str",
+        "strip"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/search/global",
+      "function": "api_global_search",
+      "line": 10117,
+      "end_line": 10139,
+      "templates": [],
+      "imports": [],
+      "calls": [
+        "get",
+        "int",
+        "max",
+        "min",
+        "parse_berry",
+        "read_ui_context",
+        "run_global_search",
+        "str",
+        "strip"
+      ]
+    }
+  ]
+}

@@ -1869,3 +1869,10 @@ Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
 | Regression-test reference | tests/test_global_explorer.py; scripts/verify_global_explorer_browser.py |
 
 **2026-09-30 design checkpoint, TD-113 follow-up:** The isolated design study demonstrates sourced annual statistics and editable variety/company region layers, using 45 existing operates_in relationships and browser-local corrections. Production GeographicLayer providers, shared persistence, reviewed growing-location associations, subnational coverage and statistic refresh remain unresolved. This does not close TD-113 or change domain schemas. See `IMMERSIVE-DESIGN-MISSION.md` for acceptance requirements.
+
+
+### Design section audit follow-up — navigation and canonical statement links
+
+September 30, 2026. `APP-SECTION-AUDIT.md` documents fragmentation across feed-first, V2 and stakeholder navigation; overlapping News/Monitor/Reports homes; informational-only Settings; and state mappings required before consolidation. No abandonment claim is inferred from sparse private data or the user's limited usage. These issues remain open production/product work, not fixed by the prototype.
+
+Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in the isolated render audit, and no Fact-detail GET handler exists in the inspected application. `app/queries/timeline.py` and `app/services/commercial_positions.py` emit this URL family. The design preview's statement-source links were repaired to supporting publication pages; production consumers still require a canonical destination/compatibility decision and regression checks. Preserve Fact vs feed-statement identity and provenance. Owner: product/navigation. Evidence: `artifacts/design-sprint/section-render-audit.json`.

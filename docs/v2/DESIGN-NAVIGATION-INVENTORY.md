@@ -1,6 +1,6 @@
 # Navigation preservation inventory
 
-Status: design proposal; no production sections removed. Audited the feed-first NAV and V2 sidebar. This is the visible navigation inventory, not yet an exhaustive application route audit.
+Status: design proposal; no production sections removed. Originally audited the feed-first NAV and V2 sidebar; the section audit adds the stakeholder navigation and other entry points. The complete route registry and disposition recommendations are in `APP-SECTION-AUDIT.md`. No production navigation has been consolidated yet.
 
 Top level: News, Map Explorer, Entities, Learn, More. More contains eight groups in four desktop columns and remains within the viewport. People is a tab within an individual company dossier, not a global directory or News section. Learn is always top level; Statements is under More. Prototype links marked ↗ open the existing app; their layouts have not been redesigned.
 
@@ -58,3 +58,21 @@ Top level: News, Map Explorer, Entities, Learn, More. More contains eight groups
 | Recommendations | `/recommendations` | More → Analysis & decisions → Recommendations | Link to existing app; redesign pending |
 
 Before migration sign-off: audit every routed page and detail/action endpoint, preserve bookmarks and permissions, check active section highlighting, empty/error states and keyboard navigation. Static/public builds must keep their existing route and private-data exclusions; this local studio menu is not a public-build navigation manifest. No consolidation or retirement is authorized by omission from a mockup.
+
+
+## Additional entry points found in the section audit
+
+These were absent from the original 50-entry inventory. They are inventoried here, not newly added to the prototype menu. The audit recommends consolidated destinations before another menu expansion.
+
+| Existing section | Existing route | Recommended home to review | Status |
+| --- | --- | --- | --- |
+| Front Page | `/news` | News edition/briefing view | Working route; consolidation candidate |
+| Industry Pulse | `/industry-pulse` | Operations → Discovery | Operator-only; not abandoned |
+| Ask Berry | `/research` | Intelligence, with contextual access | Working question interface |
+| Radar | `/radar` | Intelligence → Developments | Working cached-development surface |
+| Moves | `/moves` | Intelligence/Companies → Moves | Working derived company lens |
+| Whitespace | `/whitespace` | Landscape → Coverage and concentration | Working coverage-sensitive view |
+| Search | `/search` | Global search/results | Retain full results and overlay |
+| Design System | `/design-system` | Developer-only | Component gallery; not product navigation |
+
+Company/variety comparisons, company portfolio, geographic and entity details, Story Threads, publication-review migration views, report builders/exports and alternate views are also covered in `APP-SECTION-AUDIT.md`. Action/API endpoints are listed in `artifacts/design-sprint/route-audit-inventory.json` and are not counted as independent menu sections.

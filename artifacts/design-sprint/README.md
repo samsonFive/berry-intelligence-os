@@ -115,3 +115,12 @@ Verified add → map → reload → edit → remove with a clearly labeled tempo
 Five deterministic Reader boundary/cache/failure tests pass (`tests/test_design_studio.py`). Canonical validation passed. The trusted static build produced 1,751 pages, built Pagefind and passed its unpublished-data leakage check. The full deterministic suite is reported in the PR/checkpoint response; do not infer a complete suite pass from these focused checks. No canonical Variety/Trade schema, published records, production navigation or runtime review state changed.
 
 Morning review: open the local preview, then Map Explorer → Show and Edit regions; scroll below the map for Market statistics. Review the mission and audit before implementation. Remaining representative designs are Learn, Market Snapshot plus export, and a dense Varieties/Statements page. Known Reader continuity/image/scope-control issues and shared persistence remain listed in `DESIGN-REVIEW-AUDIT.md`.
+
+
+## Section audit and dense region table
+
+Map region results now occupy a full-width table below the map/news row, with sticky column headings, A–Z filtering, name/country/activity search, Company/Country ascending sorts, source links and edit actions. The 480px table viewport replaces the 190px stacked-card list; roughly ten compact rows fit rather than two or three cards. One entry per region preserves source/activity/date distinctions. Alphabet/search narrow the table only; map country/berry and company mark/list scope remain shared.
+
+Browser checks: A returned five entries across three companies; Peru search returned three entries; Country sort began with Australian entries; clearing search/alphabet restored all 45 entries. At 390px, the table scrolls internally with no document overflow. Screenshot: `company-region-table-desktop.jpg`. Statement source links now point to supporting Evidence pages, fixing a `/facts/...` route shape that the section audit verified returns 404.
+
+The complete section audit is `docs/v2/APP-SECTION-AUDIT.md`, supported by route and render JSON inventories here. The isolated render audit checked 75 URL variants plus four operator-only rechecks: 72 successful pages, two expected redirects, four expected permission denials, and the canonical Fact-shaped link's 404. No network attempt occurred. Run `python scripts/audit_app_sections.py` to reproduce with a separate empty audit runtime. The script does not exercise approvals, live refresh, user runtime or binary exports.

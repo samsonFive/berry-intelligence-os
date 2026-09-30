@@ -68,3 +68,7 @@ Local branch: `feature/immersive-design-sprint`, baseline `d2d1759`. The user au
 ## Additions after UI acceptance
 
 The market statistics and editable region layers above were requested after the initial review. Include the growing-region profile/editor and market-data scope in the final representative Varieties and Snapshot reviews. The functional prototype demonstrates local edits and country-level mapping; it does not establish verified commercial footprints or automated extraction. No canonical domain records were changed.
+
+## Section audit supersedes page-by-page migration assumptions
+
+See `APP-SECTION-AUDIT.md` before broad UI execution. The original 50-entry navigation list is expanded with eight overlooked entry points from stakeholder navigation and route review. The new audit recommends consolidating News, Monitor, Reports and Operations entry points while retaining review/state boundaries. No pages were deleted. Explorer company/variety results now use a full-width A–Z/searchable table instead of a small card list.

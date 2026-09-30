@@ -2016,7 +2016,7 @@
       "id": "fact-abc-chellew-judgment-2019-1",
       "label": "An Australian Federal Court judgment reported on 8 November 2019 awarded approximately A$290,000 against a grower for unauthorised propagation of a Mountain Blue variety protected by plant breeders' rights.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-abc-chellew-judgment-2019-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-abc-chellew-judgment-2019",
       "classification": "fact",
       "entity_ids": [
         "company-mountain-blue-orchards",
@@ -2028,7 +2028,7 @@
       "id": "fact-abc-chellew-judgment-2019-2",
       "label": "The cultivar at issue in the 2019 Australian Federal Court judgment corresponds to the selection code 'Ridley 1111', which the United States plant patent record identifies as Opi rather than Eureka. Secondary sources that attribute this judgment to Eureka are in conflict with the patent record.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-abc-chellew-judgment-2019-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-abc-chellew-judgment-2019",
       "classification": "claim",
       "entity_ids": [
         "variety-opi",
@@ -2040,7 +2040,7 @@
       "id": "fact-advanced-berry-breeding-raspberry-only",
       "label": "Advanced Berry Breeding B.V.'s own public variety list contains raspberry cultivars only - Zawadi, Sarafina, Rafiki, Baridi, Shani, Malaika and Kwanza. No blueberry cultivar appears on it, and Cinven separately describes the acquired business as a Dutch raspberry breeding group.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-advanced-berry-breeding-raspberry-only",
+      "url": "http://127.0.0.1:18321/evidence/ev-abb-varieties",
       "classification": "fact",
       "entity_ids": [
         "company-advanced-berry-breeding",
@@ -2051,7 +2051,7 @@
       "id": "fact-african-blue-morocco-zimbabwe",
       "label": "Costa reports that African Blue, its Moroccan business operating since 2007 with about 465 hectares, is broadening supply through a Zimbabwe Direct from Source project involving 11 growers and more than 300 hectares first planted in 2018, accounting for about 15 per cent of African Blue's annual sales. The varieties adopted are named as Kirra, Akala, Corindi Verdure and Arana.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-african-blue-morocco-zimbabwe",
+      "url": "http://127.0.0.1:18321/evidence/ev-costa-african-blue-2023",
       "classification": "claim",
       "entity_ids": [
         "company-african-blue",
@@ -2065,7 +2065,7 @@
       "id": "fact-agronometrics-prism-2025-1",
       "label": "In the 2025 Agronometrics Peruvian varietal price analysis, Eureka indexes at 1.02 times the varietal average price with a 95 percent confidence interval of 0.62 to 1.42 across 182 pricing reports. The interval is wide enough that no price premium can be asserted.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-agronometrics-prism-2025-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-agronometrics-prism-2025",
       "classification": "fact",
       "entity_ids": [
         "variety-eureka",
@@ -2076,7 +2076,7 @@
       "id": "fact-agronometrics-prism-2025-2",
       "label": "In the 2025 Agronometrics Peruvian varietal price analysis, Eureka Sunrise indexes at 0.08 times the varietal average price with a 95 percent confidence interval of minus 0.28 to 0.44 across 227 pricing reports. The negative lower bound indicates the index should be treated with caution.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-agronometrics-prism-2025-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-agronometrics-prism-2025",
       "classification": "fact",
       "entity_ids": [
         "variety-eureka-sunrise",
@@ -2087,7 +2087,7 @@
       "id": "fact-agrovision-licenses-not-breeds",
       "label": "Agrovision states that it partners with leading breeders to develop a broad portfolio of premium varietals, and its Peruvian operation is reported to have begun with Biloxi and Ventura before moving to other varieties including those of the Sekoya programme. No blueberry plant patent or plant breeders' right held in Agrovision's own name was found in any source examined.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-agrovision-licenses-not-breeds",
+      "url": "http://127.0.0.1:18321/evidence/ev-agrovision-10-years-2024",
       "classification": "claim",
       "entity_ids": [
         "company-agrovision",
@@ -2099,7 +2099,7 @@
       "id": "fact-agrovision-peru-scale",
       "label": "Agrovision describes itself as the third largest blueberry grower in Peru and reports more than US$350 million invested in operations over the six years to February 2024. For 2022 it is separately reported at 2,800 hectares of berries across Peru, Mexico and Morocco, turnover of US$210 million and more than 2,500 containers exported, 40 per cent to China.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-agrovision-peru-scale",
+      "url": "http://127.0.0.1:18321/evidence/ev-agrovision-10-years-2024",
       "classification": "claim",
       "entity_ids": [
         "company-agrovision",
@@ -2113,7 +2113,7 @@
       "id": "fact-berry-blue-hortifrut-jv-claim",
       "label": "Hortifrut describes Berry Blue, LLC as a blueberry breeding joint venture with Michigan Blueberry Growers created over a decade ago, whose varieties are exclusive to Hortifrut, MBG and their producers.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-berry-blue-hortifrut-jv-claim",
+      "url": "http://127.0.0.1:18321/evidence/ev-hortifrut-genetic-development",
       "classification": "claim",
       "entity_ids": [
         "company-hortifrut",
@@ -2125,7 +2125,7 @@
       "id": "fact-berry-blue-mbg-ownership-claim",
       "label": "Michigan Blueberry Growers states that it owns and operates its own blueberry breeding programme, Berry Blue, LLC, and describes Berry Blue as an MBG Marketing company.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-berry-blue-mbg-ownership-claim",
+      "url": "http://127.0.0.1:18321/evidence/ev-mbg-berry-blue-varieties",
       "classification": "claim",
       "entity_ids": [
         "company-michigan-blueberry-growers",
@@ -2136,7 +2136,7 @@
       "id": "fact-berryworld-varieties-1",
       "label": "BerryWorld markets Mountain Blue genetics under its own retail brand names, including BerryWorld Eureka, Eureka Sunrise, Twilight and Opi, so that a single cultivar may appear in the market under a breeder denomination, a Mountain Blue brand and a BerryWorld retail brand simultaneously.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-berryworld-varieties-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-berryworld-varieties",
       "classification": "fact",
       "entity_ids": [
         "company-berryworld",
@@ -2152,7 +2152,7 @@
       "id": "fact-berryworld-varieties-2",
       "label": "BerryWorld Eureka received three-star Superior Taste Awards from the International Taste Institute in 2025 and in 2022.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-berryworld-varieties-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-berryworld-varieties",
       "classification": "fact",
       "entity_ids": [
         "variety-eureka",
@@ -2164,7 +2164,7 @@
       "id": "fact-berryworld-varieties-3",
       "label": "The selection code, plant patent and plant breeders' rights covering the Mountain Blue cultivar marketed as Twilight could not be established from any source retrieved for this package. Candidate codes considered and not confirmed were 'Ridley 0501', 'Ridley 0502', 'Ridley 1812', 'Ridley 1202' and 'Ridley 0328'.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-berryworld-varieties-3",
+      "url": "http://127.0.0.1:18321/evidence/ev-berryworld-varieties",
       "classification": "fact",
       "entity_ids": [
         "variety-twilight",
@@ -2175,7 +2175,7 @@
       "id": "fact-blue-maldiva-plablue-1542",
       "label": "Planasa states that its blueberry variety Blue Maldiva corresponds to the breeder selection 'Plablue 1542'.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-blue-maldiva-plablue-1542",
+      "url": "http://127.0.0.1:18321/evidence/ev-planasa-blue-maldiva",
       "classification": "claim",
       "entity_ids": [
         "variety-blue-maldiva",
@@ -2186,7 +2186,7 @@
       "id": "fact-blue-manila-owner-yield-claim",
       "label": "Planasa states in its Blue Manila data sheet that average production is 19,000 kg per hectare in years one and two rising to 23,000 kg per hectare in year three, with shelf life of more than four weeks and calibre L at 22 mm, described as average results from Planasa trial plots in Morocco and Spain under specific and controlled conditions. No season, replication or plot design is given.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-blue-manila-owner-yield-claim",
+      "url": "http://127.0.0.1:18321/evidence/ev-planasa-blue-manila-datasheet",
       "classification": "claim",
       "entity_ids": [
         "variety-blue-manila",
@@ -2200,7 +2200,7 @@
       "id": "fact-blue-manila-plablue-1545",
       "label": "The Planasa blueberry variety Blue Manila corresponds to the breeder selection 'Plablue 1545', the subject of United States plant patent document US PP31,345 published 14 January 2020, with parents 14.027.001 and 14.049.001 from the applicant's own programme, propagated in Segovia and observed in Huelva, Spain, and a corresponding CPVO application 2018/2073 filed 9 August 2018.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-blue-manila-plablue-1545",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp031345-plablue-1545",
       "classification": "fact",
       "entity_ids": [
         "variety-blue-manila",
@@ -2213,7 +2213,7 @@
       "id": "fact-blugenix-growing-countries",
       "label": "South Africa, Zimbabwe, Morocco, the United States, Mexico, Peru, China and Australia are named as growing countries for BluGenix varieties.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-blugenix-growing-countries",
+      "url": "http://127.0.0.1:18321/evidence/ev-producereport-blugenix-2026",
       "classification": "claim",
       "entity_ids": [
         "brand-blugenix",
@@ -2232,7 +2232,7 @@
       "id": "fact-blugenix-launch-2026",
       "label": "BluGenix was launched on 29 May 2026 as the brand and platform for Costa's blueberry breeding programme, introduced with five varieties: Bounty, Breeze, Cascade, Delight and Eterna.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-blugenix-launch-2026",
+      "url": "http://127.0.0.1:18321/evidence/ev-producereport-blugenix-2026",
       "classification": "fact",
       "entity_ids": [
         "brand-blugenix",
@@ -2245,7 +2245,7 @@
       "id": "fact-blugenix-shelf-life-claim",
       "label": "Costa claims a shelf life of 27 days at 4 degrees Celsius for all five launch BluGenix varieties and up to 50 days for Eterna. No trial site, season, replication or measurement protocol is stated for either figure.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-blugenix-shelf-life-claim",
+      "url": "http://127.0.0.1:18321/evidence/ev-producereport-blugenix-2026",
       "classification": "claim",
       "entity_ids": [
         "brand-blugenix",
@@ -2258,7 +2258,7 @@
       "id": "fact-bonita-patent-correction",
       "label": "The OZblu variety Bonita corresponds to selection 'EB 9-12' under US PP28,358. Any attribution of Bonita to US PP25,358 is a mis-citation, because that number belongs to an Aglaonema ornamental patent.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-bonita-patent-correction",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp028358-eb9-12",
       "classification": "fact",
       "entity_ids": [
         "variety-bonita",
@@ -2270,7 +2270,7 @@
       "id": "fact-brevis-ip-registration-trends-1",
       "label": "A self-published analysis reports that Eureka was the most widely registered blueberry variety of the 2009 to 2019 period with protection in 15 countries or regions, with Opi at 13 and Blue Ribbon among the four most widely registered at 13. The post states no methodology, is not peer reviewed, and these counts were not verified against any registry.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-brevis-ip-registration-trends-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-brevis-ip-registration-trends",
       "classification": "claim",
       "entity_ids": [
         "variety-eureka",
@@ -2282,7 +2282,7 @@
       "id": "fact-cafc-dismissal-2025",
       "label": "On 23 June 2025 the United States Court of Appeals for the Federal Circuit dismissed Driscoll's appeal 25-1747 for lack of jurisdiction, because invalidity counterclaims remained pending in the district court.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-cafc-dismissal-2025",
+      "url": "http://127.0.0.1:18321/evidence/ev-cafc-driscolls-25-1747",
       "classification": "fact",
       "entity_ids": [
         "company-driscolls"
@@ -2292,7 +2292,7 @@
       "id": "fact-cbi-ffsp-joint-patents",
       "label": "Costa Berry International Pty Ltd and Florida Foundation Seed Producers, Inc. jointly hold seven United States blueberry plant patents, all filed on 26 January 2022 and granted between 14 February and 28 March 2023, covering the selections 'C13-051', 'C14-409', 'C15-143', 'C14-771', 'C15-270', 'C15-268' and 'C12-122'. Inventors named include Jessica Scalzo, Paul M. Lyrene, James W. Olmstead and Gary Wright.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-cbi-ffsp-joint-patents",
+      "url": "http://127.0.0.1:18321/evidence/ev-justia-costa-berry-international",
       "classification": "fact",
       "entity_ids": [
         "company-costa-berry-international",
@@ -2304,7 +2304,7 @@
       "id": "fact-cfia-driscolls-21-denominations",
       "label": "The Canadian plant breeders' rights blueberry register index lists 21 Driscoll's blueberry denominations, with trade names including Kimberley, Rosita, Regina, Carlotta, Corrina, Caldonia, Cecilia, Roberto, Barbara Ann, Rosie Rooke, Sweet Jane and Stella Blue.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-cfia-driscolls-21-denominations",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-blueberry-index",
       "classification": "fact",
       "entity_ids": [
         "company-driscolls",
@@ -2316,7 +2316,7 @@
       "id": "fact-cfia-no-costa-planasa-hortifrut-blueberry",
       "label": "No blueberry variety held by Costa, Planasa, Hortifrut or Advanced Berry Breeding appears on the Canadian plant breeders' rights blueberry register index as retrieved on 4 August 2026.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-cfia-no-costa-planasa-hortifrut-blueberry",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-blueberry-index",
       "classification": "fact",
       "entity_ids": [
         "company-cfia",
@@ -2331,7 +2331,7 @@
       "id": "fact-cfia-pbr-blue-ribbon-1",
       "label": "In a Canadian plant breeders' rights examination trial at Chilliwack, British Columbia in 2015, Blue Ribbon was described by the examiner as having very firm fruit with low to medium sweetness and high acidity.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-blue-ribbon-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-pbr-blue-ribbon",
       "classification": "fact",
       "entity_ids": [
         "variety-blue-ribbon",
@@ -2343,7 +2343,7 @@
       "id": "fact-cfia-pbr-blue-ribbon-2",
       "label": "Canadian plant breeders' rights for Blue Ribbon were granted on 12 November 2016 under certificate 5369, expiring 12 November 2036, naming David M. Brazelton and Adam L. Wagner as breeders.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-blue-ribbon-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-pbr-blue-ribbon",
       "classification": "fact",
       "entity_ids": [
         "variety-blue-ribbon",
@@ -2354,7 +2354,7 @@
       "id": "fact-cfia-pbr-fc11-164-1",
       "label": "A Canadian plant breeders' rights application for 'FC11-164' was filed on 29 July 2022 under number 22-11055, with provisional protection from that date, naming Peter Stefan Boches and Adam L. Wagner as breeders.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-fc11-164-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-pbr-fc11-164",
       "classification": "fact",
       "entity_ids": [
         "variety-fc11-164",
@@ -2365,7 +2365,7 @@
       "id": "fact-cfia-pbr-fc11-164-2",
       "label": "The Canadian plant breeders' rights examiner description of 'FC11-164', compared against 'Cargo' and 'Draper', records medium to strong vigour, a semi-upright habit, oblate fruit, strong bloom and late-season flowering onset. It does not contain any comparative firmness ranking, and therefore does not corroborate the owner's claim that the selection has firmness beyond any other variety.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-fc11-164-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-pbr-fc11-164",
       "classification": "fact",
       "entity_ids": [
         "variety-fc11-164",
@@ -2376,7 +2376,7 @@
       "id": "fact-cfia-pbr-last-call-1",
       "label": "Canadian plant breeders' rights for Last Call were granted on 12 November 2016 under certificate 5372, on application 13-7859 filed 23 January 2013, naming Haley Belnap-McCall as breeder.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-last-call-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-pbr-last-call",
       "classification": "fact",
       "entity_ids": [
         "variety-last-call",
@@ -2387,7 +2387,7 @@
       "id": "fact-cfia-pbr-sekoya-grande-1",
       "label": "Canadian plant breeders' rights for 'FC13-122' were granted on 6 October 2023 under certificate 6925, on application 18-9614 filed 20 September 2018, expiring 6 October 2043.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-sekoya-grande-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-pbr-sekoya-grande",
       "classification": "fact",
       "entity_ids": [
         "variety-sekoya-grande",
@@ -2398,7 +2398,7 @@
       "id": "fact-cfia-pbr-sekoya-grande-2",
       "label": "In a Canadian plant breeders' rights examination trial at Chilliwack, British Columbia in 2022, laid out as a randomised complete block with four replicates of three plants, 'FC13-122' was described by the examiner as having very strong vigour, large fruit, very firm fruit, high sweetness and high acidity.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-sekoya-grande-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-pbr-sekoya-grande",
       "classification": "fact",
       "entity_ids": [
         "variety-sekoya-grande",
@@ -2411,7 +2411,7 @@
       "id": "fact-cfia-pbr-top-shelf-1",
       "label": "In its Canadian plant breeders' rights examination, Top Shelf was described by the examiner as having firm fruit with high sweetness and low acidity.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-cfia-pbr-top-shelf-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-pbr-top-shelf",
       "classification": "fact",
       "entity_ids": [
         "variety-top-shelf",
@@ -2423,7 +2423,7 @@
       "id": "fact-costa-consortium-2024",
       "label": "On 26 February 2024 Costa announced that a consortium of Paine Schwartz Partners, Driscoll's, Inc. and British Columbia Investment Management Corporation had taken control of the company at A$3.20 per share, with Harry Debney as interim chief executive.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-costa-consortium-2024",
+      "url": "http://127.0.0.1:18321/evidence/ev-costa-ownership-2024",
       "classification": "fact",
       "entity_ids": [
         "company-costa-group-holdings",
@@ -2437,7 +2437,7 @@
       "id": "fact-costa-delisted-2024",
       "label": "Costa Group Holdings Limited, ASX code CGC, listed on 24 July 2015 and was delisted on 27 February 2024.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-costa-delisted-2024",
+      "url": "http://127.0.0.1:18321/evidence/ev-delisted-costa",
       "classification": "fact",
       "entity_ids": [
         "company-costa-group-holdings",
@@ -2448,7 +2448,7 @@
       "id": "fact-costa-entity-name-change-2024",
       "label": "The Australian Business Register records the entity for ABN 68 151 363 129 as Costa Group Holdings Limited from 19 November 2015 to 3 June 2024 and as Costa Group Holdings Pty Ltd from 3 June 2024.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-costa-entity-name-change-2024",
+      "url": "http://127.0.0.1:18321/evidence/ev-abn-costa-history",
       "classification": "fact",
       "entity_ids": [
         "company-costa-group-holdings",
@@ -2459,7 +2459,7 @@
       "id": "fact-costa-licensing-regions",
       "label": "Costa states that it licenses Costa-bred blueberry varieties in regions including the Americas, Morocco, China and south east Africa.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-costa-licensing-regions",
+      "url": "http://127.0.0.1:18321/evidence/ev-costa-vip",
       "classification": "claim",
       "entity_ids": [
         "company-costa-group-holdings",
@@ -2472,7 +2472,7 @@
       "id": "fact-costa-vip-corindi",
       "label": "Costa states that its Variety Improvement Program is based at Corindi on the Mid North Coast of New South Wales, screens around 20,000 seedlings a year of which one to two per cent are retained, works to a seven to ten year timeline and releases one to two new varieties a year.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-costa-vip-corindi",
+      "url": "http://127.0.0.1:18321/evidence/ev-costa-vip",
       "classification": "claim",
       "entity_ids": [
         "company-costa-group-holdings",
@@ -2484,7 +2484,7 @@
       "id": "fact-drisblueseventeen-carlotta",
       "label": "The blueberry variety 'DrisBlueSeventeen', trade name Carlotta, received Canadian plant breeders' rights certificate 7097 on 3 May 2024 under application 19-9740, applicant Driscoll's, Inc. of Watsonville, California. Its origin is given as '136D 2' crossed with '8B 4' in 2004 in Santa Cruz County, California, selected in 2006.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-drisblueseventeen-carlotta",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-pbr-drisblueseventeen",
       "classification": "fact",
       "entity_ids": [
         "variety-drisblueseventeen",
@@ -2498,7 +2498,7 @@
       "id": "fact-drisblueseventeen-portugal-examination",
       "label": "The Canadian description of 'DrisBlueSeventeen' derives from a UPOV Report of Technical Examination for CPVO application 2018/3441, trialled by the Direcao Geral de Alimentacao e Veterinaria at Escaroupim, Portugal over 2019 to 2022 against 'DrisBlueFifteen' and 'DrisBlueFive'. In that examination the fruit is described as large to very large, oblate, soft, with medium sweetness and medium acidity.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-drisblueseventeen-portugal-examination",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-pbr-drisblueseventeen",
       "classification": "fact",
       "entity_ids": [
         "variety-drisblueseventeen",
@@ -2513,7 +2513,7 @@
       "id": "fact-drisbluetwentyone-kimberley",
       "label": "The blueberry cultivar 'DrisBlueTwentyOne', protected by United States plant patent US PP32,267 granted 6 October 2020 with parentage '136D 2' crossed with '181C 1', is registered in Canada under the trade name Kimberley.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-drisbluetwentyone-kimberley",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp032267-drisbluetwentyone",
       "classification": "fact",
       "entity_ids": [
         "variety-drisbluetwentyone",
@@ -2525,7 +2525,7 @@
       "id": "fact-drisbluetwentythree-chilliwack-trial",
       "label": "The comparative trial for 'DrisBlueTwentyThree' was carried out by Expert Agriculture Team Ltd. at Chilliwack, British Columbia in the 2023 growing season in a randomised complete block design of four replicates of three plants per variety with measurements taken from ten plants, against 'DrisBlueSeven' (Stella Blue) and 'DrisBlueTwentyTwo' (Regina). The fruit is described as medium size, oblate, firm, with medium sweetness and medium-high acidity.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-drisbluetwentythree-chilliwack-trial",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-pbr-drisbluetwentythree",
       "classification": "fact",
       "entity_ids": [
         "variety-drisbluetwentythree",
@@ -2540,7 +2540,7 @@
       "id": "fact-drisbluetwentythree-rosita",
       "label": "The blueberry variety 'DrisBlueTwentyThree', trade name Rosita, received Canadian plant breeders' rights certificate 7211 on 1 November 2024 under application 20-10341. Its origin is given as '196H-3' crossed with '75J301' in February 2011 in Santa Cruz County, California, selected April 2013 in Hillsborough County, Florida, with breeders named including Raymond L. Jacobs III, James Olmstead and Sarah Wool.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-drisbluetwentythree-rosita",
+      "url": "http://127.0.0.1:18321/evidence/ev-cfia-pbr-drisbluetwentythree",
       "classification": "fact",
       "entity_ids": [
         "variety-drisbluetwentythree",
@@ -2554,7 +2554,7 @@
       "id": "fact-driscolls-australia-pbr",
       "label": "IP Australia's Plant Varieties Journal volume 33 number 4 records Driscoll's application 2014/116 for 'DrisBlueThirteen' with certificate 6408 expiring 26 August 2040, and application 2020/017 for 'DrisBlueEighteen' accepted on 1 October 2020 with provisional protection from acceptance.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-driscolls-australia-pbr",
+      "url": "http://127.0.0.1:18321/evidence/ev-ipaustralia-pvj-33-4",
       "classification": "fact",
       "entity_ids": [
         "company-driscolls",
@@ -2566,7 +2566,7 @@
       "id": "fact-driscolls-cbc-litigation-is-strawberry",
       "label": "The Driscoll's v. California Berry Cultivars litigation in the Eastern District of California, case 2:19-cv-00493, concerns strawberry patents. No blueberry patent is at issue in it.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-driscolls-cbc-litigation-is-strawberry",
+      "url": "http://127.0.0.1:18321/evidence/ev-cafc-driscolls-25-1747",
       "classification": "fact",
       "entity_ids": [
         "company-driscolls"
@@ -2576,7 +2576,7 @@
       "id": "fact-driscolls-closed-plant-model",
       "label": "Driscoll's states that it develops exclusive patented berry varieties, does not sell its plants, and grows through more than 900 independent growers, with berries grown in more than 20 countries and sold in more than 40.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-driscolls-closed-plant-model",
+      "url": "http://127.0.0.1:18321/evidence/ev-driscolls-cbc-appeal-2025",
       "classification": "claim",
       "entity_ids": [
         "company-driscolls"
@@ -2586,7 +2586,7 @@
       "id": "fact-eterna-heaviest-blueberry-2023",
       "label": "Costa reports that a blueberry of the Eterna variety picked at its Corindi farm on 13 November 2023 was recognised as the world's heaviest at 20.40 g and 39.31 mm, beating a previous record of 16.20 g set in Western Australia in 2020. The berry is credited to Brad Hocking, Jessica Scalzo and Marie-France Courtois.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-eterna-heaviest-blueberry-2023",
+      "url": "http://127.0.0.1:18321/evidence/ev-costa-heaviest-blueberry-2024",
       "classification": "claim",
       "entity_ids": [
         "variety-eterna",
@@ -2599,7 +2599,7 @@
       "id": "fact-eureka-blueberries-our-story-1",
       "label": "Eureka-brand blueberries are sold exclusively through Coles supermarkets in Australia.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-eureka-blueberries-our-story-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-eureka-blueberries-our-story",
       "classification": "fact",
       "entity_ids": [
         "brand-eureka",
@@ -2612,7 +2612,7 @@
       "id": "fact-fall-creek-commercial-platforms-2026-1",
       "label": "Fall Creek Farm & Nursery commercialises its blueberry genetics through three distinct routes: the closed SEKOYA member platform, the Fall Creek Collection, and an open catalogue.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fall-creek-commercial-platforms-2026-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-fall-creek-commercial-platforms-2026",
       "classification": "fact",
       "entity_ids": [
         "company-fall-creek-farm-and-nursery",
@@ -2624,7 +2624,7 @@
       "id": "fact-fall-creek-commercial-platforms-2026-2",
       "label": "Fall Creek Farm & Nursery states that the SEKOYA platform was founded in 2017.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fall-creek-commercial-platforms-2026-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-fall-creek-commercial-platforms-2026",
       "classification": "fact",
       "entity_ids": [
         "company-fall-creek-farm-and-nursery",
@@ -2635,7 +2635,7 @@
       "id": "fact-fall-creek-our-history-1",
       "label": "Fall Creek Farm & Nursery, Inc. was founded in 1978 in Lowell, Oregon.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fall-creek-our-history-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-fall-creek-our-history",
       "classification": "fact",
       "entity_ids": [
         "company-fall-creek-farm-and-nursery"
@@ -2645,7 +2645,7 @@
       "id": "fact-fallcreek-catalog-blue-ribbon-1",
       "label": "Fall Creek Farm & Nursery claims in its own catalogue that Blue Ribbon offers 28 days of storage. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-blue-ribbon-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-fallcreek-catalog-blue-ribbon",
       "classification": "claim",
       "entity_ids": [
         "variety-blue-ribbon",
@@ -2657,7 +2657,7 @@
       "id": "fact-fallcreek-catalog-last-call-1",
       "label": "Fall Creek Farm & Nursery claims in its own catalogue that Last Call offers medium to large, light blue, very firm fruit and 28 days of storage. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-last-call-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-fallcreek-catalog-last-call",
       "classification": "claim",
       "entity_ids": [
         "variety-last-call",
@@ -2669,7 +2669,7 @@
       "id": "fact-fallcreek-catalog-sekoya-beauty-1",
       "label": "Fall Creek Farm & Nursery claims in its own catalogue that SEKOYA Beauty offers jumbo size, very firm fruit and 45 days of storage. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-sekoya-beauty-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-fallcreek-catalog-sekoya-beauty",
       "classification": "claim",
       "entity_ids": [
         "variety-sekoya-beauty",
@@ -2681,7 +2681,7 @@
       "id": "fact-fallcreek-catalog-sekoya-fiesta-1",
       "label": "Fall Creek Farm & Nursery claims in its own catalogue that SEKOYA Fiesta offers jumbo size, crunchiness, very firm fruit and up to 60 days of storage. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-sekoya-fiesta-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-fallcreek-catalog-sekoya-fiesta",
       "classification": "claim",
       "entity_ids": [
         "variety-sekoya-fiesta",
@@ -2693,7 +2693,7 @@
       "id": "fact-fallcreek-catalog-sekoya-grande-1",
       "label": "Fall Creek Farm & Nursery claims in its own catalogue that SEKOYA Grande offers jumbo, very light blue, very firm fruit and up to 60 days of storage. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-sekoya-grande-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-fallcreek-catalog-sekoya-grande",
       "classification": "claim",
       "entity_ids": [
         "variety-sekoya-grande",
@@ -2705,7 +2705,7 @@
       "id": "fact-fallcreek-catalog-sekoya-pop-1",
       "label": "Fall Creek Farm & Nursery claims in its own catalogue that SEKOYA Pop offers jumbo size, exceptionally firm fruit and 60 days of storage. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-sekoya-pop-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-fallcreek-catalog-sekoya-pop",
       "classification": "claim",
       "entity_ids": [
         "variety-sekoya-pop",
@@ -2717,7 +2717,7 @@
       "id": "fact-fallcreek-catalog-top-shelf-1",
       "label": "Fall Creek Farm & Nursery claims in its own catalogue that Top Shelf offers 28 days of storage and hardiness to minus 20 degrees Celsius. No storage temperature, packaging specification or quality threshold accompanies the storage figure, and no independent measurement of it was located.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-top-shelf-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-fallcreek-catalog-top-shelf",
       "classification": "claim",
       "entity_ids": [
         "variety-top-shelf",
@@ -2729,7 +2729,7 @@
       "id": "fact-fallcreek-catalog-top-shelf-2",
       "label": "Fall Creek Farm & Nursery reports that Top Shelf is susceptible to Botryosphaeria.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fallcreek-catalog-top-shelf-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-fallcreek-catalog-top-shelf",
       "classification": "claim",
       "entity_ids": [
         "variety-top-shelf",
@@ -2740,7 +2740,7 @@
       "id": "fact-ffsp-emerald-1",
       "label": "Florida Foundation Seed Producers reports that Emerald is susceptible to target spot and reaches first harvest around 22 April at Gainesville, Florida.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ffsp-emerald-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-ffsp-emerald",
       "classification": "fact",
       "entity_ids": [
         "variety-emerald",
@@ -2752,7 +2752,7 @@
       "id": "fact-ffsp-farthing-1",
       "label": "Florida Foundation Seed Producers states that Farthing has a chilling requirement of 300 hours below 7 degrees Celsius.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ffsp-farthing-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-ffsp-farthing",
       "classification": "fact",
       "entity_ids": [
         "variety-farthing",
@@ -2764,7 +2764,7 @@
       "id": "fact-ffsp-jewel-1",
       "label": "Florida Foundation Seed Producers states that the United States plant patent on Jewel has expired while international protection continues. The specific territories where protection remains in force were not identified from any source retrieved for this package.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ffsp-jewel-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-ffsp-jewel",
       "classification": "fact",
       "entity_ids": [
         "variety-jewel",
@@ -2776,7 +2776,7 @@
       "id": "fact-ffsp-optimus-1",
       "label": "Florida Foundation Seed Producers states that Optimus has a chilling requirement of 150 to 200 hours.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ffsp-optimus-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-ffsp-optimus",
       "classification": "fact",
       "entity_ids": [
         "variety-optimus",
@@ -2788,7 +2788,7 @@
       "id": "fact-freshfruitportal-fall-creek-2026-1",
       "label": "Fall Creek Farm & Nursery claims that 'FC11-164' is the first machine-harvestable fresh-market blueberry variety, with firmness beyond any other variety and 60 or more days of storage. No independent trial data supporting any of these three claims was located, and the Canadian plant breeders' rights examiner description does not corroborate the firmness claim.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-freshfruitportal-fall-creek-2026-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-freshfruitportal-fall-creek-2026",
       "classification": "claim",
       "entity_ids": [
         "variety-fc11-164",
@@ -2802,7 +2802,7 @@
       "id": "fact-freshfruitportal-fall-creek-2026-2",
       "label": "The commercial denomination for the Fall Creek selection 'FC11-164' was revealed at a company grower event on 29 July 2026, but the name itself was not published on any source retrieved for this package.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-freshfruitportal-fall-creek-2026-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-freshfruitportal-fall-creek-2026",
       "classification": "fact",
       "entity_ids": [
         "variety-fc11-164",
@@ -2813,7 +2813,7 @@
       "id": "fact-freshplaza-fall-creek-chile-2026-1",
       "label": "As of 2025 Fall Creek Farm & Nursery had seven varieties under validation in southern Chile: SEKOYA Fiesta 'FC13-113', SEKOYA Crunch 'FC13-083', SEKOYA Grande 'FC13-122', SEKOYA Pop 'FCM14-052', ArabellaBlue 'FC14-062', LunaBlue 'FC12-205' and LoretoBlue 'FC11-118', with 'FC15-173', 'FC16-003' and 'FC11-164' listed as selections still in development.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-freshplaza-fall-creek-chile-2026-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-freshplaza-fall-creek-chile-2026",
       "classification": "fact",
       "entity_ids": [
         "company-fall-creek-farm-and-nursery",
@@ -2830,7 +2830,7 @@
       "id": "fact-fruitist-consumer-brands",
       "label": "Fruitist lists Fruitist and Fruitist Jumbo as its blueberry brands and Big Skye is referred to as its brand in China. These are consumer brands rather than cultivar denominations.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fruitist-consumer-brands",
+      "url": "http://127.0.0.1:18321/evidence/ev-fruitist-brands",
       "classification": "fact",
       "entity_ids": [
         "company-agrovision",
@@ -2843,7 +2843,7 @@
       "id": "fact-fruitist-financing-2025",
       "label": "Fruitist raised US$150 million of equity financing led by JP Morgan, reported 10 November 2025, with Steve Magami named as co-founder and chief executive.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fruitist-financing-2025",
+      "url": "http://127.0.0.1:18321/evidence/ev-foodnavigator-fruitist-2025",
       "classification": "fact",
       "entity_ids": [
         "company-agrovision"
@@ -2853,7 +2853,7 @@
       "id": "fact-fruitist-rebrand-2025",
       "label": "Agrovision rebranded as Fruitist in 2025 and is reported to have reached US$400 million of sales in 2024 with a three-fold increase in jumbo blueberry sales.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fruitist-rebrand-2025",
+      "url": "http://127.0.0.1:18321/evidence/ev-agfunder-fruitist-rebrand",
       "classification": "fact",
       "entity_ids": [
         "company-agrovision",
@@ -2864,7 +2864,7 @@
       "id": "fact-fruitnet-driesvenplant-2018-1",
       "label": "Fall Creek Farm & Nursery acquired the Dutch nursery Driesvenplant, reported on 15 June 2018.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fruitnet-driesvenplant-2018-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-fruitnet-driesvenplant-2018",
       "classification": "fact",
       "entity_ids": [
         "company-fall-creek-farm-and-nursery",
@@ -2875,7 +2875,7 @@
       "id": "fact-fruitnet-eureka-sunrise-2023-1",
       "label": "Eureka Sunrise received a two-star Superior Taste Award from the International Taste Institute in 2023 with a score of 86.5 percent.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fruitnet-eureka-sunrise-2023-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-fruitnet-eureka-sunrise-2023",
       "classification": "fact",
       "entity_ids": [
         "variety-eureka-sunrise",
@@ -2886,7 +2886,7 @@
       "id": "fact-fruitnet-eureka-sunrise-2023-2",
       "label": "Eureka Sunrise is grown exclusively by BerryWorld growers in South Africa, Zimbabwe, Morocco, Spain and Portugal, with plantings reported in Egypt.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fruitnet-eureka-sunrise-2023-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-fruitnet-eureka-sunrise-2023",
       "classification": "fact",
       "entity_ids": [
         "variety-eureka-sunrise",
@@ -2900,7 +2900,7 @@
       "id": "fact-fruitnet-ozblu-dispute-2020-1",
       "label": "Two containers of blueberries totalling approximately 27 tonnes were seized in Rotterdam on 27 October and 5 November 2020 in a dispute in which United Exports asserted plant breeders' rights ownership in South Africa and the European Union against the Rossouw Group's Ross Berries operation.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fruitnet-ozblu-dispute-2020-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-fruitnet-ozblu-dispute-2020",
       "classification": "fact",
       "entity_ids": [
         "company-united-exports",
@@ -2913,7 +2913,7 @@
       "id": "fact-fruitnet-ozblu-dispute-2020-2",
       "label": "United Exports announced a five-year South African investment plan of R1.3 billion, approximately US$85 million, reported on 9 November 2020. This is a company announcement carried by trade press and no independent confirmation of the amount or of subsequent execution was located.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fruitnet-ozblu-dispute-2020-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-fruitnet-ozblu-dispute-2020",
       "classification": "claim",
       "entity_ids": [
         "company-united-exports",
@@ -2924,7 +2924,7 @@
       "id": "fact-fruitnet-romania-2024-1",
       "label": "Fall Creek Farm & Nursery acquired a Romanian site of approximately 50 hectares, reported on 6 June 2024.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-fruitnet-romania-2024-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-fruitnet-romania-2024",
       "classification": "fact",
       "entity_ids": [
         "company-fall-creek-farm-and-nursery"
@@ -2934,7 +2934,7 @@
       "id": "fact-hortifrut-atlantic-blue-2021",
       "label": "Hortifrut acquired 100 per cent of Atlantic Blue of Huelva, Spain at an enterprise value of 241 million euros, about US$280 million, reported 20 October 2021. The transaction was described as including the Euroberry commercial platform and Atlantic Blue's worldwide blueberry and low-chill cherry variety and breeding development programme.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-atlantic-blue-2021",
+      "url": "http://127.0.0.1:18321/evidence/ev-leadersleague-atlantic-blue-2021",
       "classification": "fact",
       "entity_ids": [
         "company-hortifrut",
@@ -2946,7 +2946,7 @@
       "id": "fact-hortifrut-bfruit-2019",
       "label": "In December 2019 Hortifrut agreed to acquire a non-controlling interest in the Portuguese BFruit Producers Organization.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-bfruit-2019",
+      "url": "http://127.0.0.1:18321/evidence/ev-hortifrut-investor-company",
       "classification": "fact",
       "entity_ids": [
         "company-hortifrut",
@@ -2957,7 +2957,7 @@
       "id": "fact-hortifrut-blueberry-ip-vehicle",
       "label": "In the sources retrieved, Hortifrut's blueberry breeding output is attributed to Berry Blue, LLC and to the acquired Atlantic Blue / Royal Berries programme. No entity named 'Hortifrut Genetics' holding blueberry varieties appears in any source examined.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-blueberry-ip-vehicle",
+      "url": "http://127.0.0.1:18321/evidence/ev-hortifrut-genetic-development",
       "classification": "fact",
       "entity_ids": [
         "company-hortifrut",
@@ -2969,7 +2969,7 @@
       "id": "fact-hortifrut-breeding-stations",
       "label": "Hortifrut lists blueberry breeding test stations in the United States, Chile, Peru, Mexico and China.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-breeding-stations",
+      "url": "http://127.0.0.1:18321/evidence/ev-hortifrut-genetic-development",
       "classification": "claim",
       "entity_ids": [
         "company-hortifrut",
@@ -2984,7 +2984,7 @@
       "id": "fact-hortifrut-colombia-jv-2019",
       "label": "In October 2019 Hortifrut formed a Colombian joint venture with Proplantas in which Hortifrut holds 75 per cent and the Afanador family 25 per cent, with blueberry exports from Colombia beginning in March 2020.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-colombia-jv-2019",
+      "url": "http://127.0.0.1:18321/evidence/ev-hortifrut-investor-company",
       "classification": "fact",
       "entity_ids": [
         "company-hortifrut",
@@ -2995,7 +2995,7 @@
       "id": "fact-hortifrut-controlling-families",
       "label": "Hortifrut's 2023 integrated annual report records the controlling group as the Moller, Quevedo, Del Rio and Elberg families.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-controlling-families",
+      "url": "http://127.0.0.1:18321/evidence/ev-hortifrut-integrated-report-2023",
       "classification": "fact",
       "entity_ids": [
         "company-hortifrut"
@@ -3005,7 +3005,7 @@
       "id": "fact-hortifrut-corporate-identity",
       "label": "Hortifrut S.A., RUT 96.896.990-0, has its registered office at Av. Del Condor 600, Huechuraba, Santiago, Chile, and its shares trade on the Bolsa de Comercio de Santiago under the code HF.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-corporate-identity",
+      "url": "http://127.0.0.1:18321/evidence/ev-hortifrut-annual-report-2020",
       "classification": "fact",
       "entity_ids": [
         "company-hortifrut",
@@ -3016,7 +3016,7 @@
       "id": "fact-hortifrut-founded-1983",
       "label": "Hortifrut states that it was founded in 1983 in Chile's VIII Region and operates in 15 countries.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-founded-1983",
+      "url": "http://127.0.0.1:18321/evidence/ev-hortifrut-investor-company",
       "classification": "claim",
       "entity_ids": [
         "company-hortifrut",
@@ -3027,7 +3027,7 @@
       "id": "fact-hortifrut-in-licensed-genetics",
       "label": "Hortifrut states that it licenses 'Rocio' and 'Corona' from the Spanish Royal Berry programme exclusively for the Americas and 'Draper', 'Aurora', 'Liberty' and 'Osorno' from Michigan State University.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-in-licensed-genetics",
+      "url": "http://127.0.0.1:18321/evidence/ev-hortifrut-genetic-development",
       "classification": "claim",
       "entity_ids": [
         "company-hortifrut",
@@ -3038,7 +3038,7 @@
       "id": "fact-hortifrut-mbo-collaboration-2026",
       "label": "On 30 July 2026 Naturipe Farms and Hortifrut announced an expanded berry genetics platform reached through a strategic collaboration with Mountain Blue Orchards, under which Hortifrut states it gains access to new elite blueberry selections for the United States, Mexico, Peru and other Latin American countries.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-mbo-collaboration-2026",
+      "url": "http://127.0.0.1:18321/evidence/ev-hortifrut-mbo-genetics-2026",
       "classification": "claim",
       "entity_ids": [
         "company-hortifrut",
@@ -3050,7 +3050,7 @@
       "id": "fact-hortifrut-psp-4956",
       "label": "Following a December 2022 investment agreement, PSP Investments of Canada together with SJF Investment SpA acquired 49.56 per cent of Hortifrut S.A.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-hortifrut-psp-4956",
+      "url": "http://127.0.0.1:18321/evidence/ev-hortifrut-integrated-report-2023",
       "classification": "fact",
       "entity_ids": [
         "company-hortifrut",
@@ -3061,7 +3061,7 @@
       "id": "fact-ibo-eureka-moment-2015-1",
       "label": "Eureka blueberries were launched at retail in Coles supermarkets in Australia in spring 2015, following earlier limited in-store trials.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ibo-eureka-moment-2015-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-ibo-eureka-moment-2015",
       "classification": "fact",
       "entity_ids": [
         "variety-eureka",
@@ -3073,7 +3073,7 @@
       "id": "fact-ibo-mbo-china-judgment-2024-1",
       "label": "The Kunming Intermediate People's Court upheld Mountain Blue's plant breeders' right over 'Ridley 1602' against an unlicensed Chinese nursery, reported on 2 December 2024.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ibo-mbo-china-judgment-2024-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-ibo-mbo-china-judgment-2024",
       "classification": "fact",
       "entity_ids": [
         "company-mountain-blue-orchards",
@@ -3085,7 +3085,7 @@
       "id": "fact-ifc-united-exports-2019-1",
       "label": "The International Finance Corporation, FMO and IFU announced on 29 January 2019 an investment in Mbiza Trading Ltd, described in the announcement as being renamed United Exports, to fund a 180 hectare blueberry farm expansion expected to create 200 to 250 permanent and 4,200 seasonal jobs.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ifc-united-exports-2019-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-ifc-united-exports-2019",
       "classification": "fact",
       "entity_ids": [
         "company-united-exports",
@@ -3096,7 +3096,7 @@
       "id": "fact-italianberry-mbo-chile-2020-1",
       "label": "Mountain Blue genetics are licensed in Chile through Snackberries, with Eureka and Twilight described as the two most important Mountain Blue varieties in that country.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-italianberry-mbo-chile-2020-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-italianberry-mbo-chile-2020",
       "classification": "fact",
       "entity_ids": [
         "company-mountain-blue-orchards",
@@ -3109,7 +3109,7 @@
       "id": "fact-italianberry-peru-varieties-2025-1",
       "label": "In the 2024/25 Peruvian export season to week 33, SEKOYA Pop was the single largest exported blueberry variety by volume at 2,514 tonnes, equal to 19 percent of national volume, according to Proarandanos figures.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-italianberry-peru-varieties-2025-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-italianberry-peru-varieties-2025",
       "classification": "fact",
       "entity_ids": [
         "variety-sekoya-pop",
@@ -3121,7 +3121,7 @@
       "id": "fact-italianberry-peru-varieties-2025-2",
       "label": "In the 2024/25 Peruvian export season to week 33, Eureka accounted for 655 tonnes, approximately 5 percent of national volume, according to Proarandanos figures.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-italianberry-peru-varieties-2025-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-italianberry-peru-varieties-2025",
       "classification": "fact",
       "entity_ids": [
         "variety-eureka",
@@ -3133,7 +3133,7 @@
       "id": "fact-italianberry-peru-varieties-2025-4",
       "label": "Trade and market sources attribute the Eureka brand name to the breeding selection code 'Ridley 1403'. The IP Australia plant breeders' rights record for the corresponding application carries 'N/A' in its synonym field, so there is no registry-level confirmation of this mapping.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-italianberry-peru-varieties-2025-4",
+      "url": "http://127.0.0.1:18321/evidence/ev-italianberry-peru-varieties-2025",
       "classification": "claim",
       "entity_ids": [
         "variety-eureka",
@@ -3145,7 +3145,7 @@
       "id": "fact-keepsake-selection-code",
       "label": "The Berry Blue cultivar Keepsake corresponds to the breeder selection 'BB05-251MI-14' and is cited by Michigan Blueberry Growers as protected by United States plant patent US PP24,807, with Edmund J. Wheeler and James F. Hancock named as inventors.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-keepsake-selection-code",
+      "url": "http://127.0.0.1:18321/evidence/ev-mbg-berry-blue-varieties",
       "classification": "claim",
       "entity_ids": [
         "variety-keepsake",
@@ -3158,7 +3158,7 @@
       "id": "fact-mbo-distinct-from-mbg",
       "label": "Mountain Blue Orchards, named in the 30 July 2026 Hortifrut and Naturipe genetics announcement, and Michigan Blueberry Growers Association, Hortifrut's Berry Blue joint venture partner, are separately named organisations in the retrieved sources and are not stated anywhere to be the same entity.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-mbo-distinct-from-mbg",
+      "url": "http://127.0.0.1:18321/evidence/ev-hortifrut-mbo-genetics-2026",
       "classification": "fact",
       "entity_ids": [
         "company-mountain-blue-orchards",
@@ -3170,7 +3170,7 @@
       "id": "fact-mbo-eureka-blueberries-1",
       "label": "Mountain Blue uses the name Eureka both as the denomination of a single cultivar and as an umbrella brand covering several distinct cultivars, including Eureka Sunrise, Eureka Sunset, Eureka Dawn, Eureka Gold and Eureka Maxx. Data reported against the brand name Eureka may therefore refer to more than one genetic object.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-mbo-eureka-blueberries-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-mbo-eureka-blueberries",
       "classification": "fact",
       "entity_ids": [
         "brand-eureka",
@@ -3183,7 +3183,7 @@
       "id": "fact-mbo-eureka-blueberries-2",
       "label": "Mountain Blue claims that Eureka offers jumbo size, exceptional sweetness and a crisp, juicy texture.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-mbo-eureka-blueberries-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-mbo-eureka-blueberries",
       "classification": "claim",
       "entity_ids": [
         "variety-eureka",
@@ -3196,7 +3196,7 @@
       "id": "fact-mbo-home-1",
       "label": "Mountain Blue Orchards Pty Ltd is an Australian blueberry grower and breeder based at Lindendale, New South Wales.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-mbo-home-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-mbo-home",
       "classification": "fact",
       "entity_ids": [
         "company-mountain-blue-orchards",
@@ -3207,7 +3207,7 @@
       "id": "fact-medallion-selection-code",
       "label": "The Berry Blue cultivar Medallion corresponds to the breeder selection 'BB05-259MI-15' and is cited by Michigan Blueberry Growers as protected by United States plant patent US PP32,574.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-medallion-selection-code",
+      "url": "http://127.0.0.1:18321/evidence/ev-mbg-berry-blue-varieties",
       "classification": "claim",
       "entity_ids": [
         "variety-medallion",
@@ -3220,7 +3220,7 @@
       "id": "fact-megacrisp-iq-berries",
       "label": "TopFruit identifies IQ Berries of Australia as the breeder of the blueberry variety MegaCrisp and TopFruit as the commercial manager of the variety in southern Africa. MegaCrisp belongs to a Mega family that also includes MegaEarly, MegaCrop, MegaGem, MegaGrand and MegaOne.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-megacrisp-iq-berries",
+      "url": "http://127.0.0.1:18321/evidence/ev-topfruit-megacrisp",
       "classification": "fact",
       "entity_ids": [
         "company-iq-berries",
@@ -3233,7 +3233,7 @@
       "id": "fact-nda-za-variety-list-2025-1",
       "label": "The South African official 2025 blueberry export variety list independently pairs brand names with breeding selection codes across multiple breeding programmes, corroborating the SEKOYA brand to code mappings published by Fall Creek and confirming that Eureka, Eureka Sunrise, Eureka Sunset, Eureka Dawn, Eureka Maxx and Twilight are all traded denominations.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-nda-za-variety-list-2025-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-nda-za-variety-list-2025",
       "classification": "fact",
       "entity_ids": [
         "geography-south-africa",
@@ -3248,7 +3248,7 @@
       "id": "fact-ozblu-around-the-world-2019-1",
       "label": "The blueberry varieties marketed under the OZblu brand, carrying EB and NS selection codes, were bred by David and Leasa Mazzardis near Perth, Western Australia, through the breeding companies Prunus Persica and Nature Select. United Exports is not the breeder of these varieties.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-around-the-world-2019-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-ozblu-around-the-world-2019",
       "classification": "fact",
       "entity_ids": [
         "company-nature-select",
@@ -3261,7 +3261,7 @@
       "id": "fact-ozblu-around-the-world-2019-2",
       "label": "The OZblu breeding programme is separate from the Mountain Blue breeding programme. The only genetic link located between them in the public record is that Nature Select's 'NS 14-3' is reported to derive from a cross of 'Ridley 1403' with 'Ridley 4609'. The two programmes are not the same source of genetics and must not be treated as one.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-around-the-world-2019-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-ozblu-around-the-world-2019",
       "classification": "fact",
       "entity_ids": [
         "company-nature-select",
@@ -3274,7 +3274,7 @@
       "id": "fact-ozblu-assignee-structure",
       "label": "The OZblu 'EB'-series United States plant patents examined name Bisa Trading Pty Ltd and Prunus Persica Pty Ltd as assignees of record, while the later 'NS'-series patents name Next Progeny Pty Ltd. United Exports is not named as an assignee on any of these granted patents.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-assignee-structure",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp025858-eb8-42",
       "classification": "fact",
       "entity_ids": [
         "company-bisa-trading",
@@ -3288,7 +3288,7 @@
       "id": "fact-ozblu-identity-bella",
       "label": "The blueberry marketed internationally under the OZblu brand name Bella is the breeder selection 'EB 8-46', protected in the United States by plant patent US PP26,173, granted 1 December 2015.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-bella",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp026173-eb8-46",
       "classification": "fact",
       "entity_ids": [
         "variety-bella",
@@ -3300,7 +3300,7 @@
       "id": "fact-ozblu-identity-bonita",
       "label": "The blueberry marketed internationally under the OZblu brand name Bonita is the breeder selection 'EB 9-12', protected in the United States by plant patent US PP28,358, granted 5 September 2017.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-bonita",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp028358-eb9-12",
       "classification": "fact",
       "entity_ids": [
         "variety-bonita",
@@ -3312,7 +3312,7 @@
       "id": "fact-ozblu-identity-dina",
       "label": "The blueberry marketed internationally under the OZblu brand name Dina is the breeder selection 'NS 15-13', protected in the United States by plant patent US PP33,138, granted 8 June 2021.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-dina",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp033138-ns15-13",
       "classification": "fact",
       "entity_ids": [
         "variety-dina",
@@ -3324,7 +3324,7 @@
       "id": "fact-ozblu-identity-elaina",
       "label": "The blueberry marketed internationally under the OZblu brand name Elaina is the breeder selection 'NS 13-6', protected in the United States by plant patent US PP30,934, granted 15 October 2019.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-elaina",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp030934-ns13-6",
       "classification": "fact",
       "entity_ids": [
         "variety-elaina",
@@ -3336,7 +3336,7 @@
       "id": "fact-ozblu-identity-julieta",
       "label": "The blueberry marketed internationally under the OZblu brand name Julieta is the breeder selection 'EB 8-42', protected in the United States by plant patent US PP25,858, granted 8 September 2015.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-julieta",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp025858-eb8-42",
       "classification": "fact",
       "entity_ids": [
         "variety-julieta",
@@ -3348,7 +3348,7 @@
       "id": "fact-ozblu-identity-magica",
       "label": "The blueberry marketed internationally under the OZblu brand name Magica is the breeder selection 'EB 9-2', protected in the United States by plant patent US PP28,149, granted 4 July 2017.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-magica",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp028149-eb9-2",
       "classification": "fact",
       "entity_ids": [
         "variety-magica",
@@ -3360,7 +3360,7 @@
       "id": "fact-ozblu-identity-magnifica",
       "label": "The blueberry marketed internationally under the OZblu brand name Magnifica is the breeder selection 'EB 12-19', protected in the United States by plant patent US PP27,142, granted 13 September 2016.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-magnifica",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp027142-eb12-19",
       "classification": "fact",
       "entity_ids": [
         "variety-magnifica",
@@ -3372,7 +3372,7 @@
       "id": "fact-ozblu-identity-olivia",
       "label": "The blueberry marketed internationally under the OZblu brand name Olivia is the breeder selection 'NS 16-2', protected in the United States by plant patent US PP32,897, granted 16 March 2021.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-identity-olivia",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp032897-ns16-2",
       "classification": "fact",
       "entity_ids": [
         "variety-olivia",
@@ -3384,7 +3384,7 @@
       "id": "fact-ozblu-inventor-mazzardis",
       "label": "Vincent David Mazzardis is named as the sole inventor on the United States plant patents for the OZblu 'EB' and 'NS' blueberry selections, with the crosses made at Yanchep Springs, Yanchep, Western Australia.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-inventor-mazzardis",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp025858-eb8-42",
       "classification": "fact",
       "entity_ids": [
         "brand-ozblu",
@@ -3395,7 +3395,7 @@
       "id": "fact-ozblu-migiva-2019-1",
       "label": "United Exports announced on 25 March 2019 a joint venture with MIGIVA Group involving US$32 million to establish the first OZblu farm in North America, comprising a 453 acre site at Venus, Florida and an 82 acre site at Sebring, Florida. This is an announcement of planned investment; no source confirming realised plantings or production was located.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-migiva-2019-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-ozblu-migiva-2019",
       "classification": "claim",
       "entity_ids": [
         "company-united-exports",
@@ -3407,7 +3407,7 @@
       "id": "fact-ozblu-oz-varieties-1",
       "label": "United Exports holds the exclusive right to sub-license the production of and to market the OZblu varieties, and exercises that right through OZ Varieties, a United Exports company. Its position is that of an exclusive licensor and marketer, not an owner of the underlying breeding rights.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-oz-varieties-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-ozblu-oz-varieties",
       "classification": "fact",
       "entity_ids": [
         "company-united-exports",
@@ -3419,7 +3419,7 @@
       "id": "fact-ozblu-rossouw-settlement-2020",
       "label": "A settlement and interim licence between United Exports and the Rossouw Farming Group were reached on 17 November 2020, with the dispute over removal of the plants referred to arbitration.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-rossouw-settlement-2020",
+      "url": "http://127.0.0.1:18321/evidence/ev-harvestsa-rossouw-2020",
       "classification": "fact",
       "entity_ids": [
         "company-united-exports",
@@ -3430,7 +3430,7 @@
       "id": "fact-ozblu-rotterdam-seizure-2020",
       "label": "CIOPORA reports that in November 2020 Dutch Customs issued a Red Alert Notice at Rotterdam and confiscated two containers of approximately 10 tonnes and 16 tonnes of protected OZblu-variety blueberries shipped without licence by Rosle Berries / Ross Berries of the Rossouw Farming Group, South Africa, following termination in May 2020 of two licence agreements dating from 2017.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-rotterdam-seizure-2020",
+      "url": "http://127.0.0.1:18321/evidence/ev-ciopora-united-exports-pbr-2020",
       "classification": "claim",
       "entity_ids": [
         "company-united-exports",
@@ -3443,7 +3443,7 @@
       "id": "fact-ozblu-where-we-grow-2024-1",
       "label": "United Exports publishes a mapping of OZblu selection codes to brand names and United States plant patent numbers covering at least eight varieties, including EB8-42 as Julieta under PP25,858, EB9-2 as Magica under PP28,149, NS13-6 as Elaina under PP30,934 and NS16-2 as Olivia under PP32,897.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-ozblu-where-we-grow-2024-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-ozblu-where-we-grow-2024",
       "classification": "fact",
       "entity_ids": [
         "brand-ozblu",
@@ -3455,7 +3455,7 @@
       "id": "fact-packer-finefield-2024-1",
       "label": "Fall Creek Farm & Nursery took a minority investment position in the mechanical harvesting company FineField, reported on 5 February 2024.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-packer-finefield-2024-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-packer-finefield-2024",
       "classification": "fact",
       "entity_ids": [
         "company-fall-creek-farm-and-nursery",
@@ -3466,7 +3466,7 @@
       "id": "fact-planasa-ew-group-sale",
       "label": "Cinven and Label Investments agreed to sell Planasa to the EW Group, the German family-owned genetics group controlled by the Wesjohann family. No financial details were disclosed.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-planasa-ew-group-sale",
+      "url": "http://127.0.0.1:18321/evidence/ev-cinven-planasa-ew-group",
       "classification": "fact",
       "entity_ids": [
         "company-planasa",
@@ -3479,7 +3479,7 @@
       "id": "fact-planasa-scale-claim",
       "label": "Planasa states that it has more than 4,000 employees, is present in more than 25 countries, holds more than 225 registered varieties across all crops, operates seven research and development centres and produces more than 1,000 million plants a year.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-planasa-scale-claim",
+      "url": "http://127.0.0.1:18321/evidence/ev-planasa-about-us",
       "classification": "claim",
       "entity_ids": [
         "company-planasa"
@@ -3489,7 +3489,7 @@
       "id": "fact-portalfruticola-fall-creek-2025-1",
       "label": "Trade coverage reports that the principal outstanding challenge for the Fall Creek selection 'FC11-164' is matching the productivity of other new varieties.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-portalfruticola-fall-creek-2025-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-portalfruticola-fall-creek-2025",
       "classification": "claim",
       "entity_ids": [
         "variety-fc11-164",
@@ -3500,7 +3500,7 @@
       "id": "fact-produce-report-sekoya-china-2025-1",
       "label": "SEKOYA has publicly stated an intention to expand its premium blueberry position in Asian and Chinese markets, reported on 13 November 2025.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-produce-report-sekoya-china-2025-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-produce-report-sekoya-china-2025",
       "classification": "claim",
       "entity_ids": [
         "brand-sekoya",
@@ -3512,7 +3512,7 @@
       "id": "fact-produce-report-sekoya-nova-2026-1",
       "label": "Fall Creek Farm & Nursery announced the high-chill selection 'FC15-173' as SEKOYA Nova on 3 February 2026.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-produce-report-sekoya-nova-2026-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-produce-report-sekoya-nova-2026",
       "classification": "fact",
       "entity_ids": [
         "variety-sekoya-nova",
@@ -3524,7 +3524,7 @@
       "id": "fact-produce-report-sekoya-nova-2026-2",
       "label": "Fall Creek Farm & Nursery claims that SEKOYA Nova 'FC15-173' achieves more than 60 days of shelf life, against approximately 45 days it describes as typical for newer high-chill releases. The figure comes from company evaluation data with no stated trial site, season, replication or storage protocol.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-produce-report-sekoya-nova-2026-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-produce-report-sekoya-nova-2026",
       "classification": "claim",
       "entity_ids": [
         "variety-sekoya-nova",
@@ -3536,7 +3536,7 @@
       "id": "fact-produce-report-sekoya-nova-2026-3",
       "label": "Fall Creek Farm & Nursery claims that approximately 80 percent of SEKOYA Nova 'FC15-173' fruit exceeds 18 mm in diameter, against 20 to 50 percent for comparable high-chill varieties. The figure comes from company evaluation data and no independent measurement was located.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-produce-report-sekoya-nova-2026-3",
+      "url": "http://127.0.0.1:18321/evidence/ev-produce-report-sekoya-nova-2026",
       "classification": "claim",
       "entity_ids": [
         "variety-sekoya-nova",
@@ -3548,7 +3548,7 @@
       "id": "fact-sekoya-story-6",
       "label": "SEKOYA Beauty 'FCM12-097' and SEKOYA Pop 'FCM14-052' were both selected in Mexico, in 2012 and 2014 respectively.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-sekoya-story-6",
+      "url": "http://127.0.0.1:18321/evidence/ev-sekoya-story",
       "classification": "fact",
       "entity_ids": [
         "variety-sekoya-beauty",
@@ -3560,7 +3560,7 @@
       "id": "fact-sekoya-story-beauty",
       "label": "The SEKOYA brand name SEKOYA Beauty refers to the Fall Creek breeding selection 'FCM12-097'.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-sekoya-story-beauty",
+      "url": "http://127.0.0.1:18321/evidence/ev-sekoya-story",
       "classification": "fact",
       "entity_ids": [
         "variety-sekoya-beauty",
@@ -3572,7 +3572,7 @@
       "id": "fact-sekoya-story-crunch",
       "label": "The SEKOYA brand name SEKOYA Crunch refers to the Fall Creek breeding selection 'FC13-083'.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-sekoya-story-crunch",
+      "url": "http://127.0.0.1:18321/evidence/ev-sekoya-story",
       "classification": "fact",
       "entity_ids": [
         "variety-sekoya-crunch",
@@ -3584,7 +3584,7 @@
       "id": "fact-sekoya-story-fiesta",
       "label": "The SEKOYA brand name SEKOYA Fiesta refers to the Fall Creek breeding selection 'FC13-113'.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-sekoya-story-fiesta",
+      "url": "http://127.0.0.1:18321/evidence/ev-sekoya-story",
       "classification": "fact",
       "entity_ids": [
         "variety-sekoya-fiesta",
@@ -3596,7 +3596,7 @@
       "id": "fact-sekoya-story-grande",
       "label": "The SEKOYA brand name SEKOYA Grande refers to the Fall Creek breeding selection 'FC13-122'.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-sekoya-story-grande",
+      "url": "http://127.0.0.1:18321/evidence/ev-sekoya-story",
       "classification": "fact",
       "entity_ids": [
         "variety-sekoya-grande",
@@ -3608,7 +3608,7 @@
       "id": "fact-sekoya-story-pop",
       "label": "The SEKOYA brand name SEKOYA Pop refers to the Fall Creek breeding selection 'FCM14-052'.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-sekoya-story-pop",
+      "url": "http://127.0.0.1:18321/evidence/ev-sekoya-story",
       "classification": "fact",
       "entity_ids": [
         "variety-sekoya-pop",
@@ -3620,7 +3620,7 @@
       "id": "fact-uaex-quality-range-2024",
       "label": "In the 2024 University of Arkansas Clarksville trial, soluble solids ranged from 8 to 13.2 degrees Brix, lowest in Bluecrop and highest in Ochlockonee; pH ranged from 2.8 to 3.3 and titratable acidity from 0.27 to 0.85 per cent.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uaex-quality-range-2024",
+      "url": "http://127.0.0.1:18321/evidence/ev-uaex-blueberry-trial-2024",
       "classification": "fact",
       "entity_ids": [
         "company-university-of-arkansas",
@@ -3633,7 +3633,7 @@
       "id": "fact-uaex-trial-design-2024",
       "label": "A 20-variety blueberry trial covering northern highbush, southern highbush and rabbiteye types was established in 2021 at the University of Arkansas Fruit Research Station, Clarksville, Arkansas, on the zone 7b/8a boundary, with weekly harvests from 21 May to 2 August 2024 in the first harvest season. Highest yields were from the rabbiteye varieties Alapaha and Vernon at about 10 lb of marketable fruit per plant, while a mid-March freeze cut southern and northern highbush yields to under 1 lb per plant in some cases.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uaex-trial-design-2024",
+      "url": "http://127.0.0.1:18321/evidence/ev-uaex-blueberry-trial-2024",
       "classification": "fact",
       "entity_ids": [
         "company-university-of-arkansas",
@@ -3645,7 +3645,7 @@
       "id": "fact-uf-breeding-colossus-1",
       "label": "The University of Florida blueberry breeding programme publishes measured values for Colossus 'FL11-35' of firmness of 304 g/mm at harvest, 336 g/mm after 21 days and 286 g/mm after 49 days, berry weight averaging 2.8 g, diameter averaging 20.5 mm and average soluble solids of 12.3 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-colossus-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-colossus",
       "classification": "fact",
       "entity_ids": [
         "variety-colossus",
@@ -3660,7 +3660,7 @@
       "id": "fact-uf-breeding-colossus-2",
       "label": "The University of Florida blueberry breeding programme measured Colossus 'FL11-35' yields of 6.5 to 12.4 pounds per plant, averaging 10.3, in north-central Florida over the 2018 and 2019 seasons, and 6.1 pounds per plant in central Florida.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-colossus-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-colossus",
       "classification": "fact",
       "entity_ids": [
         "variety-colossus",
@@ -3672,7 +3672,7 @@
       "id": "fact-uf-breeding-colossus-3",
       "label": "The University of Florida blueberry breeding programme reports that Colossus 'FL11-35' performed well in machine-harvest trials.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-colossus-3",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-colossus",
       "classification": "fact",
       "entity_ids": [
         "variety-colossus",
@@ -3684,7 +3684,7 @@
       "id": "fact-uf-breeding-emerald-1",
       "label": "The University of Florida blueberry breeding programme publishes measured values for Emerald of firmness of 184 to 211 g/mm with an average of 195, average berry weight of 2.4 g, average diameter of 18.4 mm and average soluble solids of 11.3 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-emerald-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-emerald",
       "classification": "fact",
       "entity_ids": [
         "variety-emerald",
@@ -3699,7 +3699,7 @@
       "id": "fact-uf-breeding-farthing-1",
       "label": "The University of Florida blueberry breeding programme publishes measured values for Farthing of firmness of 212 to 263 g/mm with an average of 227, average berry weight of 2.2 g, average diameter of 17.7 mm and average soluble solids of 11.8 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-farthing-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-farthing",
       "classification": "fact",
       "entity_ids": [
         "variety-farthing",
@@ -3714,7 +3714,7 @@
       "id": "fact-uf-breeding-jewel-1",
       "label": "The University of Florida blueberry breeding programme publishes measured values for Jewel of firmness of 166 to 205 g/mm with an average of 180 and average soluble solids of 11.1 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-jewel-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-jewel",
       "classification": "fact",
       "entity_ids": [
         "variety-jewel",
@@ -3729,7 +3729,7 @@
       "id": "fact-uf-breeding-jewel-2",
       "label": "The University of Florida blueberry breeding programme states that Jewel is no longer recommended for Florida.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-jewel-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-jewel",
       "classification": "fact",
       "entity_ids": [
         "variety-jewel",
@@ -3740,7 +3740,7 @@
       "id": "fact-uf-breeding-meadowlark-1",
       "label": "The University of Florida blueberry breeding programme publishes measured values for Meadowlark 'FL01-173' of firmness of 221 to 277 g/mm with an average of 256, average berry weight of 2.5 g, average diameter of 18.3 mm and average soluble solids of 10.9 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-meadowlark-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-meadowlark",
       "classification": "fact",
       "entity_ids": [
         "variety-meadowlark",
@@ -3755,7 +3755,7 @@
       "id": "fact-uf-breeding-meadowlark-2",
       "label": "The University of Florida reports that Meadowlark 'FL01-173' is susceptible to Xylella and to Blueberry Red Ringspot Virus, and that it performed well in machine-harvest trials.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-meadowlark-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-meadowlark",
       "classification": "fact",
       "entity_ids": [
         "variety-meadowlark",
@@ -3768,7 +3768,7 @@
       "id": "fact-uf-breeding-optimus-1",
       "label": "The University of Florida blueberry breeding programme publishes measured values for Optimus 'FL08-262' of firmness of 241 g/mm at harvest falling to 219 g/mm after 21 days, average berry weight of 1.7 g, average diameter of 15.8 mm and average soluble solids of 12.3 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-optimus-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-optimus",
       "classification": "fact",
       "entity_ids": [
         "variety-optimus",
@@ -3783,7 +3783,7 @@
       "id": "fact-uf-breeding-optimus-2",
       "label": "The University of Florida blueberry breeding programme measured Optimus 'FL08-262' yields of 9.3 pounds per plant in north-central Florida and 6.7 pounds per plant in central Florida.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-optimus-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-optimus",
       "classification": "fact",
       "entity_ids": [
         "variety-optimus",
@@ -3795,7 +3795,7 @@
       "id": "fact-uf-breeding-patrecia-1",
       "label": "The University of Florida blueberry breeding programme publishes measured values for Patrecia of firmness of 212 to 265 g/mm with an average of 232, average berry weight of 3.0 g, average diameter of 19.9 mm and average soluble solids of 10.5 degrees Brix. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-patrecia-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-patrecia",
       "classification": "fact",
       "entity_ids": [
         "variety-patrecia",
@@ -3810,7 +3810,7 @@
       "id": "fact-uf-breeding-patrecia-2",
       "label": "The University of Florida does not recommend machine harvest for Patrecia, citing a large scar that can tear and tight fruit clusters.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-patrecia-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-patrecia",
       "classification": "fact",
       "entity_ids": [
         "variety-patrecia",
@@ -3822,7 +3822,7 @@
       "id": "fact-uf-breeding-sentinel-1",
       "label": "The University of Florida blueberry breeding programme publishes measured values for Sentinel 'FL11-155' of firmness of 237 g/mm at harvest and 226 g/mm after 21 days, berry weight averaging 2.2 g, diameter averaging 17.2 mm, soluble solids averaging 11.1 degrees Brix and an average Brix to acid ratio of 30.67. The firmness figures use the programme's own g/mm compression index and are not directly comparable with firmness figures produced by other methods.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-sentinel-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-sentinel",
       "classification": "fact",
       "entity_ids": [
         "variety-sentinel",
@@ -3837,7 +3837,7 @@
       "id": "fact-uf-breeding-sentinel-2",
       "label": "The University of Florida blueberry breeding programme measured Sentinel 'FL11-155' yields of 8.8 to 21.0 pounds per plant, averaging 16.4, in north-central Florida across the 2018 to 2020 seasons, and 5.6 to 10.9 pounds per plant, averaging 8.2, in central Florida.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-sentinel-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-sentinel",
       "classification": "fact",
       "entity_ids": [
         "variety-sentinel",
@@ -3849,7 +3849,7 @@
       "id": "fact-uf-breeding-sentinel-3",
       "label": "The University of Florida blueberry breeding programme reports a sensory flavour score of 27.5 for Sentinel, against 19.9 for Emerald and 29.2 for Kestrel on the same scale.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-breeding-sentinel-3",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-breeding-sentinel",
       "classification": "fact",
       "entity_ids": [
         "variety-sentinel",
@@ -3862,7 +3862,7 @@
       "id": "fact-uf-ifas-hs1245-1",
       "label": "Commercialisation rights to University of Florida IFAS blueberry cultivars are held and licensed by Florida Foundation Seed Producers, Inc., not by the university directly.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-ifas-hs1245-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-ifas-hs1245",
       "classification": "fact",
       "entity_ids": [
         "company-university-of-florida",
@@ -3874,7 +3874,7 @@
       "id": "fact-uf-ifas-hs1245-2",
       "label": "The University of Florida IFAS blueberry breeding programme develops southern highbush cultivars, which are interspecific hybrids of Vaccinium corymbosum adapted to low chill accumulation.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-ifas-hs1245-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-ifas-hs1245",
       "classification": "fact",
       "entity_ids": [
         "company-university-of-florida",
@@ -3885,7 +3885,7 @@
       "id": "fact-uf-ifas-hs1245-3",
       "label": "UF/IFAS extension literature uses the trademark form Meadowlark for 'FL01-173' while presenting the other University of Florida releases as cultivar denominations without a separate brand.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uf-ifas-hs1245-3",
+      "url": "http://127.0.0.1:18321/evidence/ev-uf-ifas-hs1245",
       "classification": "fact",
       "entity_ids": [
         "variety-meadowlark",
@@ -3896,7 +3896,7 @@
       "id": "fact-united-exports-joint-titleholder-2016",
       "label": "CIOPORA states that United Exports became joint titleholder of the OZblu varieties in 2016, responsible for commercialisation and for royalty return to the breeding programme. No assignment instrument or registry entry confirming the joint title was retrieved.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-united-exports-joint-titleholder-2016",
+      "url": "http://127.0.0.1:18321/evidence/ev-ciopora-united-exports-pbr-2020",
       "classification": "claim",
       "entity_ids": [
         "company-united-exports",
@@ -3907,7 +3907,7 @@
       "id": "fact-united-exports-overview-1",
       "label": "United Exports was established in 2002 by Roger Horak as a vertically integrated fruit exporter, moving from low-chill stone fruit into evergreen blueberries.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-united-exports-overview-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-united-exports-overview",
       "classification": "fact",
       "entity_ids": [
         "company-united-exports"
@@ -3917,7 +3917,7 @@
       "id": "fact-united-exports-what-we-do-1",
       "label": "United Exports states that OZblu varieties are grown in South Africa, Australia, the United States, Chile, Peru, Mexico, Zambia and Spain, and that it exports to approximately 19 markets. The statement is undated and self-reported, and no independent corroboration of the country list was located.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-united-exports-what-we-do-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-united-exports-what-we-do",
       "classification": "claim",
       "entity_ids": [
         "company-united-exports",
@@ -3928,7 +3928,7 @@
       "id": "fact-uspp023572-ridley-1111-1",
       "label": "The breeding selection code 'Ridley 1111' designates the cultivar Opi, an open-pollinated seedling of 'C99-42' raised at Lindendale, New South Wales in 2001 and selected in 2003, covered by United States plant patent USPP023572P3. 'Ridley 1111' is not Eureka.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp023572-ridley-1111-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp023572-ridley-1111",
       "classification": "fact",
       "entity_ids": [
         "variety-opi",
@@ -3941,7 +3941,7 @@
       "id": "fact-uspp023572-ridley-1111-2",
       "label": "The United States plant patent for 'Ridley 1111' reports an average fruit diameter of 17.3 mm against 15.5 mm for its parent 'C99-42', and describes the fruit as firm with medium to high sweetness and suited to hand picking.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp023572-ridley-1111-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp023572-ridley-1111",
       "classification": "fact",
       "entity_ids": [
         "variety-opi",
@@ -3954,7 +3954,7 @@
       "id": "fact-uspp024636-blue-ribbon-1",
       "label": "United States plant patent USPP024636P3, covering Blue Ribbon, was granted on 15 July 2014 to Fall Creek Farm and Nursery Inc. on an application filed 12 March 2012.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp024636-blue-ribbon-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp024636-blue-ribbon",
       "classification": "fact",
       "entity_ids": [
         "variety-blue-ribbon",
@@ -3966,7 +3966,7 @@
       "id": "fact-uspp024636-blue-ribbon-2",
       "label": "The United States plant patent for Blue Ribbon states a chilling requirement of 800 to 1000 hours.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp024636-blue-ribbon-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp024636-blue-ribbon",
       "classification": "fact",
       "entity_ids": [
         "variety-blue-ribbon",
@@ -3977,7 +3977,7 @@
       "id": "fact-uspp024661-cargo-1",
       "label": "United States plant patent USPP024661P3, covering Cargo, was granted on 22 July 2014.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp024661-cargo-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp024661-cargo",
       "classification": "fact",
       "entity_ids": [
         "variety-cargo",
@@ -3989,7 +3989,7 @@
       "id": "fact-uspp024661-cargo-2",
       "label": "The United States plant patent for Cargo describes the cultivar as oriented toward machine harvest and states a chilling requirement of 800 to 1000 hours.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp024661-cargo-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp024661-cargo",
       "classification": "fact",
       "entity_ids": [
         "variety-cargo",
@@ -4001,7 +4001,7 @@
       "id": "fact-uspp024697-top-shelf-1",
       "label": "United States plant patent USPP024697P3, covering Top Shelf, was granted on 29 July 2014 and gives the parentage as 'Magnolia' crossed with 'Draper'.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp024697-top-shelf-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp024697-top-shelf",
       "classification": "fact",
       "entity_ids": [
         "variety-top-shelf",
@@ -4013,7 +4013,7 @@
       "id": "fact-uspp024697-top-shelf-2",
       "label": "The United States plant patent for Top Shelf states a chilling requirement of 700 to 1000 hours.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp024697-top-shelf-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp024697-top-shelf",
       "classification": "fact",
       "entity_ids": [
         "variety-top-shelf",
@@ -4024,7 +4024,7 @@
       "id": "fact-uspp025386-last-call-1",
       "label": "United States plant patent USPP025386P3, covering Last Call, was granted on 31 March 2015 and gives the parentage as 'Ozarkblue' crossed with 'Elliott'.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp025386-last-call-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp025386-last-call",
       "classification": "fact",
       "entity_ids": [
         "variety-last-call",
@@ -4036,7 +4036,7 @@
       "id": "fact-uspp025386-last-call-2",
       "label": "The United States plant patent for Last Call reports that fruit firmness was measured against 'Elliott' using a FirmTech 2 instrument, and estimates a chilling requirement of about 1000 hours.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp025386-last-call-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp025386-last-call",
       "classification": "fact",
       "entity_ids": [
         "variety-last-call",
@@ -4048,7 +4048,7 @@
       "id": "fact-uspp025432-ridley-1403-1",
       "label": "The cultivar 'Ridley 1403' originated as a single plant, 'M08-14-03', selected in 2008 from 100 seedlings at Lindendale, New South Wales, from a 2006 cross of 'S02-25-05' with 'S03-08-02', both unpatented.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp025432-ridley-1403-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp025432-ridley-1403",
       "classification": "fact",
       "entity_ids": [
         "variety-eureka",
@@ -4060,7 +4060,7 @@
       "id": "fact-uspp025432-ridley-1403-2",
       "label": "The official botanical description in United States plant patent USPP025432P3 characterises 'Ridley 1403' fruit as very large and medium-firm, with a good balance of sweetness and acidity and a small dry picking scar.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp025432-ridley-1403-2",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp025432-ridley-1403",
       "classification": "fact",
       "entity_ids": [
         "variety-eureka",
@@ -4073,7 +4073,7 @@
       "id": "fact-uspp025432-ridley-1403-3",
       "label": "The firmness description in the United States plant patent for 'Ridley 1403', which reads medium-firm, is materially weaker than the owner's marketing description of the corresponding Eureka product. Both descriptions are qualitative and no instrumented comparison between them was located.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp025432-ridley-1403-3",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp025432-ridley-1403",
       "classification": "claim",
       "entity_ids": [
         "variety-eureka",
@@ -4085,7 +4085,7 @@
       "id": "fact-uspp028437-sekoya-beauty-1",
       "label": "United States plant patent USPP028437P3, covering 'FCM12-097', was granted on 26 September 2017 on application 14/998,607 filed 21 January 2016, with parentage 'FF03-194' crossed with 'FL00-180'.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp028437-sekoya-beauty-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp028437-sekoya-beauty",
       "classification": "fact",
       "entity_ids": [
         "variety-sekoya-beauty",
@@ -4097,7 +4097,7 @@
       "id": "fact-uspp031605-ridley-1602-1",
       "label": "The cultivar 'Ridley 1602', marketed as Eureka Sunrise, is a cross of 'Ridley 1403' with 'Ridley 4609', bred at Lindendale, New South Wales in 2011 under breeding designation 'M14-16-02', and is covered by United States plant patent USPP031605P3 granted 31 March 2020.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp031605-ridley-1602-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp031605-ridley-1602",
       "classification": "fact",
       "entity_ids": [
         "variety-eureka-sunrise",
@@ -4110,7 +4110,7 @@
       "id": "fact-uspp031822-sekoya-grande-1",
       "label": "United States plant patent USPP031822P3, covering 'FC13-122', was granted on 2 June 2020.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp031822-sekoya-grande-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp031822-sekoya-grande",
       "classification": "fact",
       "entity_ids": [
         "variety-sekoya-grande",
@@ -4122,7 +4122,7 @@
       "id": "fact-uspp032186-sekoya-pop-1",
       "label": "United States plant patent USPP032186P3, covering 'FCM14-052', was granted on 15 September 2020 with parentage 'FL01-06' crossed with 'FL06-556'.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp032186-sekoya-pop-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp032186-sekoya-pop",
       "classification": "fact",
       "entity_ids": [
         "variety-sekoya-pop",
@@ -4134,7 +4134,7 @@
       "id": "fact-uspp034903-fc11-164-1",
       "label": "United States plant patent USPP034903P2 covers the Fall Creek selection 'FC11-164', described as an open-pollinated cross with female parent 'ZF06-168' made in 2008 at Lowell, Oregon.",
       "kind": "Statement",
-      "url": "http://127.0.0.1:18321/facts/fact-uspp034903-fc11-164-1",
+      "url": "http://127.0.0.1:18321/evidence/ev-uspp034903-fc11-164",
       "classification": "fact",
       "entity_ids": [
         "variety-fc11-164",

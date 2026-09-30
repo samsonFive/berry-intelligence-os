@@ -275,6 +275,14 @@ Map layers: News coverage, Variety growing regions, Company operating regions. U
 
 Checkpoint implementation: browser-local editor for 64 repository varieties and 102 companies, 11 canonical countries, country shading and source-selection assistance. It reads 45 existing operates_in relationships for 22 companies, preserving notes and source links; no variety growing regions were inferred. Company profiles expose Operating regions; varieties can be selected in the map's region editor and linked to their existing profile. Add/edit/remove and reload persistence work within this browser preview. Full redesigned variety profile placement, durable shared storage, automated suggestions, reconciliation/conflicts, subnational boundaries, snapshot inclusion and production layers remain execution work. Do not alter Variety/Trade backend schemas unless implementation demonstrates a genuine blocker and documents it.
 
+## Section consolidation gate before broad migration
+
+The user requested a thorough section audit before redesigning every page. `APP-SECTION-AUDIT.md` now takes precedence over any assumption that every old navigation label needs its own newly styled page. Keep the accepted UI direction and core workflow prototypes. Review the proposed destination map, preserve distinct state/trust semantics, and prove replacement workflows before retiring duplicate navigation or legacy presentation variants. No production section has been removed or automatically approved for removal.
+
+The audit covers the prior 50 menu entries plus eight additional entry points, all 165 route registrations, and 79 isolated render checks. It found working specialist features missing from the earlier inventory, a mislabeled informational Settings page, overlapping News/Monitor/Reports families, and broken canonical Fact-shaped links. The proposed combinations are decisions for review, not completed migrations.
+
+Explorer region results now use a full-width compact table below the map/news row, with A–Z navigation, text search, Company/Country sorting, source links and editing. The table shows one location entry per row to preserve activity/date/source differences. Table search/alphabet do not alter geographic map scope. Narrow screens scroll inside the table without widening the document.
+
 ## Accepted checkpoint and handoff
 
 The user authorized building and pushing a reviewable design checkpoint on September 30. Push the accepted prototype, source assets, this mission, the navigation inventory and design audit on the design branch. Do not merge or deploy the production redesign based on prototype acceptance. Next representative reviews are Learn, Market Snapshot plus export, and a dense Varieties/Statements page including the Growing regions section. Migrate existing page families with preservation checks, real persistence, accessibility and trust boundaries; the local prototype is not production completion.

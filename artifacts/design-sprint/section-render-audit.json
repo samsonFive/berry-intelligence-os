@@ -1,0 +1,2515 @@
+{
+  "date": "2026-09-30",
+  "mode": "readonly; committed data; isolated empty inbox; outbound sockets blocked",
+  "limits": "Render smoke check only. No live providers, user runtime, action submissions, export binaries or authenticated deployment tested. Empty private queues are expected, not evidence of abandoned features.",
+  "blocked_network_attempts": 0,
+  "results": [
+    {
+      "path": "/today",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "News — Berry Intelligence OS",
+      "headings": [
+        "What changed",
+        "Naturipe Farms and Hortifrut expand berry genetics platform with Mountain Blue",
+        "Fall Creek To Reveal New Sekoya Nova 'FC15-173' High-Chill Blueberry Variety",
+        "Driscoll's files appeal in strawberry patent case",
+        "Where We Grow",
+        "World's heaviest blueberry",
+        "Costa Group enters new ownership phase as experienced consortium takes control",
+        "Agrovision celebrates 10 years of bringing the world a better berry",
+        "African Blue broadens supply",
+        "Around the world in thirty years",
+        "MIGIVA Group to invest US$32 million in OZblu production in North America",
+        "TopFruit - MegaCrisp",
+        "Planasa - About us",
+        "Proprietary berry varieties - Berry Blue, LLC",
+        "Hortifrut - Company (investor site)",
+        "Hortifrut - Genetic Development",
+        "Costa - Variety Improvement Program",
+        "Story"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/today"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/following",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Following — Berry Intelligence OS",
+      "headings": [
+        "Companies you watch",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/following"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/saved",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Saved — Berry Intelligence OS",
+      "headings": [
+        "Saved items",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/entities",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Entities — Berry Intelligence OS",
+      "headings": [
+        "Tracked breeding world",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/entities"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/entities/variety",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Variety Intelligence — Berry Intelligence OS",
+      "headings": [
+        "Variety Intelligence",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/entities/variety"
+        }
+      ]
+    },
+    {
+      "path": "/people",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "People — Berry Intelligence OS",
+      "headings": [
+        "People Watchlist",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/statements",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Statements — Berry Intelligence OS",
+      "headings": [
+        "Review extracted intelligence",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/statements"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/landscapes",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Competitive Landscape — Berry Intelligence OS",
+      "headings": [
+        "Competitive Landscape",
+        "Executive readout",
+        "Berries",
+        "Blackberry",
+        "Blueberry",
+        "Raspberry",
+        "Strawberry",
+        "Actors to watch",
+        "Driscoll's, Inc.",
+        "Plant Sciences, Inc.",
+        "Rijk Zwaan",
+        "Costa Group Holdings Pty Ltd",
+        "Plantas de Navarra, S.A.",
+        "United Exports",
+        "Plantas de Navarra, S.A.",
+        "Driscoll's, Inc.",
+        "Advanced Berry Breeding B.V.",
+        "Plantas de Navarra, S.A."
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/week",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "This week — Berry Intelligence OS",
+      "headings": [
+        "What changed this week",
+        "Varieties",
+        "By crop",
+        "Week edition",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/learn",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Learn — Berry Intelligence OS",
+      "headings": [
+        "Learner Mode",
+        "Plant Biology & Agronomy",
+        "Bloom",
+        "Chill hours",
+        "Double cropping",
+        "Precocity",
+        "Primocane vs floricane",
+        "Soil pH and blueberry roots",
+        "Strawberry plasticulture",
+        "Trellis and cane training",
+        "Winter production",
+        "Pest, Disease & Cross-Cutting Process",
+        "Botrytis (gray mold)",
+        "Clean planting stock",
+        "Integrated Pest Management (IPM)",
+        "Phytophthora root rot",
+        "Spotted-wing drosophila",
+        "Strawberry viruses"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/learn"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/war-room",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "War Room — Berry Intelligence",
+      "headings": [
+        "Prepare for the meeting",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/war-room"
+        }
+      ]
+    },
+    {
+      "path": "/watchtower",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Watchtower — Berry Intelligence",
+      "headings": [
+        "Nothing needs your attention right now",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/research-ops",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Research Ops — Berry Intelligence OS",
+      "headings": [
+        "Coverage and lane health",
+        "Acquisition lanes",
+        "Official social",
+        "Cost cascade",
+        "Reader bake-off",
+        "Official-site first party",
+        "Watch coverage",
+        "One story once",
+        "Today cache",
+        "Lane errors",
+        "Rollback rehearsal",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/settings",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Settings — Berry Intelligence OS",
+      "headings": [
+        "Reader preferences and honest coverage",
+        "Today defaults",
+        "Keyboard",
+        "Coverage",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/guide",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "How Berry Intelligence Works — Berry Intelligence OS",
+      "headings": [
+        "How Berry Intelligence Works",
+        "Where to start",
+        "Trusted intelligence lifecycle",
+        "Variety identity (separate from trusted Varieties)",
+        "Collection",
+        "Words this workbench reuses",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/brief",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Morning Brief — Berry Intelligence OS",
+      "headings": [
+        "Morning Brief",
+        "Since your last brief",
+        "New developments",
+        "Important",
+        "Top developments",
+        "Watchlist activity",
+        "What changed",
+        "Genetics / variety / IP",
+        "Markets / supply",
+        "Pending draft triage",
+        "Source coverage",
+        "Attention buckets",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/work-queue",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Live Intelligence — Berry Intelligence OS",
+      "headings": [
+        "Live Intelligence",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/review-ops",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Review Operations — Berry Intelligence OS",
+      "headings": [
+        "Review Operations",
+        "Bounded review session",
+        "0 pending",
+        "0 pending",
+        "0 pending",
+        "Blocked / empty states",
+        "Recent review activity",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/review-ops"
+        },
+        {
+          "method": "POST",
+          "action": "/review-ops/session"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/queues/reading",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Reading Queue — Berry Intelligence OS",
+      "headings": [
+        "Reading Queue",
+        "Top priority (30)",
+        "Saved for later (0)",
+        "Adjacent (0)",
+        "Backlog / older (96)",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/queues/reading"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/pending",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Pending Review — Berry Intelligence OS",
+      "headings": [
+        "Pending review",
+        "Trusted freshness",
+        "Review now — 0",
+        "Structured registry (PVR / patent) — 0",
+        "Review soon — 0",
+        "Adjacent / context — 0",
+        "Likely ignore — 0",
+        "Older backlog — 0",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/pending"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/signals/review",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Signal candidate review — Berry Intelligence OS",
+      "headings": [
+        "Signal review",
+        "Review now — 0",
+        "Review soon — 0",
+        "Low confidence — 0",
+        "Same-origin / weak — 0",
+        "Deferred — 0",
+        "Limited evidence — 0",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/assessments",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Assessments — Berry Intelligence OS",
+      "headings": [
+        "Assessments",
+        "Named genetics platforms are becoming a visible commercial layer above individual blueberry cultivars",
+        "Public registry visibility varies materially by blueberry breeder, creating structural coverage bias",
+        "Public blueberry trait claims are not yet comparable enough to support confident programme-level performance rankings",
+        "Southern Africa is a recurring deployment, licensing and enforcement arena for proprietary blueberry genetics",
+        "Institutional and financial capital has taken large, but not uniformly controlling, ownership positions across the major diversified berry-genetics groups reviewed",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/strategic-questions",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Strategic Questions",
+      "headings": [
+        "Strategic Questions",
+        "Where is the public blueberry record incomplete, contradictory, outdated, or dependent on self-reported marketing claims?",
+        "Which breeding programs and genetics owners have the strongest visible global blueberry reach?",
+        "Which genetics are becoming available in new countries or production regions through licensing or nursery distribution?",
+        "Which market entities are most likely to challenge premium flavor positioning?",
+        "Which organizations appear to be expanding through partnerships, acquisitions, nurseries, licensing networks or commercial plantings?",
+        "Which product traits are increasingly repeated across releases and commercial claims?",
+        "Which recently introduced or expanding blueberry varieties appear most commercially significant?",
+        "Which varieties merit potential internal product testing based on public evidence?",
+        "Which varieties or programs may challenge established premium flavor, firmness, size, shelf-life, yield, harvest-window or machine-harvest positions?",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/queues/monitoring",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Watches — Berry Intelligence OS",
+      "headings": [
+        "Watches",
+        "Alerts",
+        "Watches",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/queues/monitoring"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/queues/monitoring#alerts",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Watches — Berry Intelligence OS",
+      "headings": [
+        "Watches",
+        "Alerts",
+        "Watches",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/queues/monitoring"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/watches",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Watchlist",
+      "headings": [
+        "Watchlist",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/sources",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Source Health — Berry Intelligence OS",
+      "headings": [
+        "Source Health",
+        "Failing (0)",
+        "Blocked (3)",
+        "Stale (77)",
+        "Due for a check (0)",
+        "Healthy but quiet (0)",
+        "Healthy (0)",
+        "Not configured for discovery (125)",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/sources"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/entities/company",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Company records — Berry Intelligence OS",
+      "headings": [
+        "Company records",
+        "ABZ Seeds",
+        "Advanced Berry Breeding B.V.",
+        "African Blue",
+        "AgroBerries",
+        "Agrovision Corp. (Fruitist)",
+        "Angus Soft Fruits",
+        "Australasian Plant Genetics",
+        "Australian Strawberry Distributors Pty Limited",
+        "Bayer",
+        "Benning Blueberries",
+        "Berries del Oeste",
+        "Berry Blue, LLC",
+        "BerryWorld Group",
+        "Berrytech",
+        "Biogea",
+        "Bisa Trading Pty Ltd",
+        "Black Venture Farm"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/entities/company"
+        }
+      ]
+    },
+    {
+      "path": "/varieties/coverage",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Variety coverage — Berry Intelligence OS",
+      "headings": [
+        "Variety coverage",
+        "Totals",
+        "By berry",
+        "By geography",
+        "By breeder / owner",
+        "Corpus reconciliation",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/varieties/candidates",
+      "mode": "readonly",
+      "status": 403,
+      "redirect": "",
+      "title": "",
+      "headings": [],
+      "forms": []
+    },
+    {
+      "path": "/entities/identity",
+      "mode": "readonly",
+      "status": 403,
+      "redirect": "",
+      "title": "",
+      "headings": [],
+      "forms": []
+    },
+    {
+      "path": "/explorer",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Global Intelligence Explorer — Berry Intelligence",
+      "headings": [
+        "Global Intelligence Explorer",
+        "Explore a country",
+        "Intelligence in scope",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/explorer"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/geographies",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Markets",
+      "headings": [
+        "Markets & regions",
+        "APAC",
+        "Africa",
+        "Americas",
+        "Australia",
+        "Canada",
+        "Chile",
+        "China",
+        "Colombia",
+        "Europe",
+        "Germany",
+        "Mexico",
+        "Morocco",
+        "Netherlands",
+        "North America",
+        "Peru",
+        "Portugal",
+        "South Africa"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/entities/berry",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Berry records — Berry Intelligence OS",
+      "headings": [
+        "Berry records",
+        "Blackberry",
+        "Blueberry",
+        "Raspberry",
+        "Strawberry",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/entities/berry"
+        }
+      ]
+    },
+    {
+      "path": "/competitors",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Competitor Landscape — Berry Intelligence OS",
+      "headings": [
+        "Competitor Landscape",
+        "Tier 1",
+        "Tier 2",
+        "Tier 3",
+        "Present",
+        "Unknown/Unassigned",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/competitors"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/readout",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Executive Readout — Berry Intelligence OS",
+      "headings": [
+        "Executive Intelligence Readout",
+        "What changed",
+        "Who / what matters",
+        "Driscoll's, Inc.",
+        "Plant Sciences, Inc.",
+        "Rijk Zwaan",
+        "Costa Group Holdings Pty Ltd",
+        "Plantas de Navarra, S.A.",
+        "United Exports",
+        "Plantas de Navarra, S.A.",
+        "Driscoll's, Inc.",
+        "Advanced Berry Breeding B.V.",
+        "Plantas de Navarra, S.A.",
+        "Driscoll's, Inc.",
+        "California Berry Cultivars, LLC",
+        "What do we actually know",
+        "What do our analyst assessments say",
+        "Signals"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/brief-pack",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Manager Brief — Manager Brief Pack — Berry Intelligence OS",
+      "headings": [
+        "Manager Brief",
+        "Save this brief pack",
+        "Create / edit this brief pack",
+        "Executive readout: key developments",
+        "Landscape snapshot: All berries",
+        "Driscoll's, Inc.",
+        "Plant Sciences, Inc.",
+        "Rijk Zwaan",
+        "Costa Group Holdings Pty Ltd",
+        "Plantas de Navarra, S.A.",
+        "Selected companies",
+        "Selected varieties",
+        "Signals",
+        "Analyst assessments",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "POST",
+          "action": "/brief-packs/save"
+        },
+        {
+          "method": "GET",
+          "action": "/brief-pack"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/brief-packs",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Saved Brief Packs — Berry Intelligence OS",
+      "headings": [
+        "Saved brief packs",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/reports",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Reports — Berry Intelligence",
+      "headings": [
+        "Reports",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/intake",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Add Intelligence — Berry Intelligence OS",
+      "headings": [
+        "Add Intelligence",
+        "Recent drafts",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/review?kind=publication",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Review Queue — Berry Intelligence OS",
+      "headings": [
+        "Publication review",
+        "Scanner",
+        "Needs publication review (0)",
+        "Auto-captured evidence awaiting validation (0)",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/review"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/review?kind=atomic",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Review Queue — Berry Intelligence OS",
+      "headings": [
+        "Claim review",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/review"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/source-fidelity",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Source Fidelity Review — Berry Intelligence OS",
+      "headings": [
+        "Source fidelity review",
+        "No source-fidelity artifacts match these filters",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/source-fidelity"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/collection-ops",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Collection Operations — Berry Intelligence OS",
+      "headings": [
+        "Collection operations",
+        "Recurring collection",
+        "Lock state",
+        "Last run",
+        "Recent run history",
+        "Extraction",
+        "Degraded / failing Sources",
+        "Run now",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "POST",
+          "action": "/collection-ops/run"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/coverage-assurance",
+      "mode": "readonly",
+      "status": 403,
+      "redirect": "",
+      "title": "",
+      "headings": [],
+      "forms": []
+    },
+    {
+      "path": "/queues/testing",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Claim testing — Berry Intelligence OS",
+      "headings": [
+        "Claim testing",
+        "Needs testing (65)",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/queues/testing"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/signals",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Signals — Berry Intelligence OS",
+      "headings": [
+        "Signals",
+        "Public and trade sources repeatedly attribute blueberry genetics to the wrong breeder or the wrong patent number",
+        "Breeding programmes are being repackaged as named, branded platforms rather than sold as individual cultivars",
+        "Institutional and private-equity capital is taking or rotating ownership positions in businesses that hold blueberry genetics",
+        "Owner-published fruit-quality figures sit consistently above the range produced by the one independent trial in this package",
+        "Breeders differ sharply in how far they register blueberry varieties in searchable public registries",
+        "Southern Africa recurs as the place where blueberry variety rights are licensed, contested and enforced",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/",
+      "mode": "readonly",
+      "status": 307,
+      "redirect": "/today",
+      "title": "",
+      "headings": [],
+      "forms": []
+    },
+    {
+      "path": "/queues/commercial_position",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Commercial positions — Berry Intelligence OS",
+      "headings": [
+        "Commercial positions",
+        "Position proposals",
+        "Advanced Berry Breeding B.V. (1)",
+        "African Blue (1)",
+        "Agrovision Corp. (Fruitist) (6)",
+        "BerryWorld Group (2)",
+        "Canadian Food Inspection Agency (1)",
+        "Costa Berry International Pty Ltd (1)",
+        "Costa Group Holdings Pty Ltd (6)",
+        "Driscoll's, Inc. (7)",
+        "Example Genetics (1)",
+        "Example Nursery Partners (1)",
+        "Fall Creek Farm & Nursery, Inc. (35)",
+        "Florida Foundation Seed Producers, Inc. (4)",
+        "Hortifrut S.A. (7)",
+        "IP Australia (1)",
+        "IQ Berries (1)",
+        "Michigan Blueberry Growers Association (1)"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/queues/commercial_position"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/recommendations",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Recommendations — Berry Intelligence OS",
+      "headings": [
+        "Recommendations",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/news",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Latest · 14 days — Berry Intelligence",
+      "headings": [
+        "Berry news, in context.",
+        "Latest · 14 days",
+        "No stories match this edition.",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/news"
+        }
+      ]
+    },
+    {
+      "path": "/industry-pulse",
+      "mode": "readonly",
+      "status": 403,
+      "redirect": "",
+      "title": "",
+      "headings": [],
+      "forms": []
+    },
+    {
+      "path": "/research",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Ask Berry OS — Berry Intelligence",
+      "headings": [
+        "Ask Berry OS",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "POST",
+          "action": "/research"
+        }
+      ]
+    },
+    {
+      "path": "/radar",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Emerging developments — Berry Intelligence",
+      "headings": [
+        "Things moving in the berry industry that may matter before they become obvious.",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/moves",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Competitive moves — Berry Intelligence",
+      "headings": [
+        "Who is moving.",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/whitespace",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Strategic Whitespace — Berry Intelligence",
+      "headings": [
+        "Blueberry concentration vs whitespace",
+        "What this landscape can answer",
+        "Market Reality — shown separately",
+        "Company × geography",
+        "Geography × activity type",
+        "Company positioning",
+        "Observed concentration",
+        "Potential areas to investigate",
+        "Coverage gaps",
+        "What to watch next",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "POST",
+          "action": "/reports/new"
+        },
+        {
+          "method": "GET",
+          "action": "/whitespace"
+        }
+      ]
+    },
+    {
+      "path": "/search",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Search — Berry Intelligence",
+      "headings": [
+        "Search",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/design-system",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Design system — Berry Intelligence OS",
+      "headings": [
+        "Berry Intelligence Visual System",
+        "Card families",
+        "Reader shell",
+        "Honest blocked article",
+        "Reactions and tiers",
+        "Berry Growth Loader",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/today?view=briefing",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Daily Intelligence Briefing — Berry Intelligence OS",
+      "headings": [
+        "Daily Intelligence Briefing",
+        "Coverage Pulse",
+        "What Changed",
+        "Needs Attention",
+        "Historical context",
+        "Unknown publication date",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/today"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/landscapes?view=feed",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Landscapes — Berry Intelligence OS",
+      "headings": [
+        "Trusted statements across the watched world",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/landscapes/berries/blueberry",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Blueberry Landscape — Berry Intelligence OS",
+      "headings": [
+        "Blueberry Landscape",
+        "No internal observation records are connected in this public prototype.",
+        "No internal test records are connected in this environment.",
+        "Executive Readout",
+        "What We Think",
+        "Competitive Actors to Watch",
+        "Where Competition Is Concentrating",
+        "Regional Briefing",
+        "Recent Developments",
+        "What Changed",
+        "What We're Watching",
+        "Intelligence Agenda",
+        "Explore the Landscape",
+        "Regional intelligence",
+        "Competitive themes",
+        "What deserves attention",
+        "Recent meaningful movement",
+        "Competitive field"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/entities/variety?view=compete",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Variety Intelligence — Berry Intelligence OS",
+      "headings": [
+        "Variety Intelligence",
+        "Variety competition",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/entities/variety"
+        }
+      ]
+    },
+    {
+      "path": "/entities/variety?view=observations",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Variety Intelligence — Berry Intelligence OS",
+      "headings": [
+        "Variety Intelligence",
+        "UK retail observation pilot",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/entities/variety"
+        }
+      ]
+    },
+    {
+      "path": "/entities/company/compare",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Company Compare",
+      "headings": [
+        "Compare companies",
+        "Selection",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/entities/variety/compare",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Variety Compare",
+      "headings": [
+        "Compare varieties",
+        "Selection",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/entities/company/company-planasa",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Plantas de Navarra, S.A. — Berry Intelligence OS",
+      "headings": [
+        "Plantas de Navarra, S.A.",
+        "Current operating picture",
+        "Feed-to-dossier impact",
+        "Canonical record",
+        "Berry & Value Chain",
+        "Genetics & Cultivars",
+        "Geography",
+        "Partnerships & Relationships",
+        "Scale & Performance",
+        "History",
+        "Current coverage",
+        "Competitive Assessment",
+        "Monitoring instructions",
+        "Progressive question coverage",
+        "Presentation settings",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "POST",
+          "action": "/entities/company/company-planasa/logo"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/entities/company/company-planasa?view=legacy",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Plantas de Navarra, S.A.",
+      "headings": [
+        "Plantas de Navarra, S.A.",
+        "Profile concerns",
+        "Reporting in the last 90 days",
+        "What changed",
+        "Bottom line",
+        "Intelligence timeline",
+        "Latest captured reporting",
+        "Varieties / genetics",
+        "Educational context from portfolio varieties",
+        "Geographic activity",
+        "Network / relationships",
+        "Strategic questions this bears on",
+        "Facts",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "POST",
+          "action": "/watches/toggle"
+        },
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        }
+      ]
+    },
+    {
+      "path": "/entities/company/company-planasa/portfolio",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Plantas de Navarra, S.A. — Variety portfolio",
+      "headings": [
+        "Plantas de Navarra, S.A.",
+        "Evidence coverage",
+        "3",
+        "3",
+        "1",
+        "0",
+        "2",
+        "0",
+        "Varieties",
+        "Blue Maldiva",
+        "Blue Manila",
+        "RedSayra",
+        "Recent portfolio moves",
+        "Source mix",
+        "Signals",
+        "Assessments",
+        "Strategic questions this bears on",
+        "Navigation"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "POST",
+          "action": "/watches/toggle"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/entities/variety/variety-zara",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Zara",
+      "headings": [
+        "Zara",
+        "Regions",
+        "Who is involved",
+        "Rights / IP",
+        "Commercial footprint",
+        "Growing profile",
+        "Variety intelligence",
+        "Intelligence timeline",
+        "Trait profile",
+        "Recent intelligence",
+        "Network",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "POST",
+          "action": "/watches/toggle"
+        }
+      ]
+    },
+    {
+      "path": "/geographies/geography-peru",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Peru — Markets",
+      "headings": [
+        "Peru",
+        "Current developments",
+        "Companies active in captured intelligence",
+        "Fall Creek Farm & Nursery, Inc.",
+        "Mountain Blue Orchards Pty Ltd",
+        "Agrovision Corp. (Fruitist)",
+        "Hortifrut S.A.",
+        "Michigan Blueberry Growers Association",
+        "Berry Blue, LLC",
+        "Costa Group Holdings Pty Ltd",
+        "Naturipe Farms",
+        "United Exports",
+        "Varieties named in captured intelligence",
+        "Eureka",
+        "Eureka Sunrise",
+        "Eterna",
+        "Keepsake",
+        "Medallion"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "POST",
+          "action": "/watches/toggle"
+        }
+      ]
+    },
+    {
+      "path": "/explorer/snapshot",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Market Snapshot — Berry Intelligence",
+      "headings": [
+        "Market Snapshot — Global / All Berries",
+        "Market overview",
+        "Recent developments",
+        "Company activity",
+        "Variety activity",
+        "Evidence / Sources",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/explorer/snapshot"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/reports/new",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "New report — Berry Intelligence",
+      "headings": [
+        "Build a report",
+        "Reader"
+      ],
+      "forms": [
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "POST",
+          "action": "/reports/new"
+        },
+        {
+          "method": "POST",
+          "action": "/reports/new"
+        }
+      ]
+    },
+    {
+      "path": "/review-ops/publications",
+      "mode": "readonly",
+      "status": 200,
+      "redirect": "",
+      "title": "Publication Review (read-only) — Berry Intelligence OS",
+      "headings": [
+        "Publication review queue",
+        "Status summary",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "Filters",
+        "Queue",
+        "Detail",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/review-ops/session",
+      "mode": "readonly",
+      "status": 303,
+      "redirect": "/review-ops",
+      "title": "",
+      "headings": [],
+      "forms": []
+    },
+    {
+      "path": "/facts/fact-agrovision-peru-scale",
+      "mode": "readonly",
+      "status": 404,
+      "redirect": "",
+      "title": "",
+      "headings": [],
+      "forms": []
+    },
+    {
+      "path": "/varieties/candidates",
+      "mode": "authoring (isolated)",
+      "status": 200,
+      "redirect": "",
+      "title": "Variety identity review — Berry Intelligence OS",
+      "headings": [
+        "Variety identity review",
+        "Regina",
+        "Corrina",
+        "Caldonia",
+        "Cecilia",
+        "Roberto",
+        "Barbara Ann",
+        "Rosie Rooke",
+        "Sweet Jane",
+        "Stella Blue",
+        "DrisBlueThirteen",
+        "DrisBlueEighteen",
+        "Eureka Sunset",
+        "Eureka Dawn",
+        "Eureka Maxx",
+        "KKAG201303",
+        "ArabellaBlue",
+        "AtlasBlue"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-6fbcdffb48a6/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-9221df57e02a/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-361923d71589/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-0939c4dc2da2/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-1b95e3eb69f6/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-092090b43c86/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-3fe1d57be50e/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-e95d18cf0966/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-33148f885133/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-a6c086154370/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-a89a3b5a064f/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-034b8549f1fa/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-cf06495df749/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-58ca3dd9e583/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-b858349894c8/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-4cd38b62b9a1/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-f6cd67cb42b1/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-a1b5d56d8b71/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-323868976660/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-eb68888a48a0/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-2b60a59f7b8c/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-d5ddf38f1532/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-1a3251dac882/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-68d2c4557572/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-1e7908699d1a/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-ff001b47c73b/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-0322cba8f3e6/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-018344b2b383/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-c679aec7f343/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-2bc504f641ae/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-de88bd970424/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-b7ce0892df37/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-5e4a8ca21956/decision"
+        },
+        {
+          "method": "POST",
+          "action": "/varieties/candidates/vcand-611a3b442bc3/decision"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/entities/identity",
+      "mode": "authoring (isolated)",
+      "status": 200,
+      "redirect": "",
+      "title": "Entity identity integrity — Berry Intelligence OS",
+      "headings": [
+        "Entity identity integrity",
+        "Companies",
+        "Varieties",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/coverage-assurance",
+      "mode": "authoring (isolated)",
+      "status": 200,
+      "redirect": "",
+      "title": "Coverage Assurance — Berry Intelligence OS",
+      "headings": [
+        "Public intelligence coverage",
+        "Totals",
+        "Cited in trusted Evidence, not collected",
+        "Technically healthy, yield degraded",
+        "Coverage matrix",
+        "Independent recall benchmarks",
+        "Source Universe inventory",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    },
+    {
+      "path": "/industry-pulse",
+      "mode": "authoring (isolated)",
+      "status": 200,
+      "redirect": "",
+      "title": "Industry Pulse — Berry Intelligence OS",
+      "headings": [
+        "Catch-net discovery",
+        "Corpus freshness",
+        "Query matrix",
+        "Semantic catch-net (Perplexity)",
+        "No pulse snapshot yet",
+        "Run newsroom cycle",
+        "Recent newsroom runs",
+        "Navigation",
+        "Reader",
+        "Search intelligence"
+      ],
+      "forms": [
+        {
+          "method": "POST",
+          "action": "/ui/context"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        },
+        {
+          "method": "POST",
+          "action": "/industry-pulse/run"
+        },
+        {
+          "method": "GET",
+          "action": "/search"
+        }
+      ]
+    }
+  ]
+}
