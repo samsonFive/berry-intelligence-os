@@ -43,6 +43,24 @@ with sync_playwright() as p:
     dl.value.save_as('artifacts/global-explorer/market-snapshot.pdf')
     page.get_by_role('link',name='Back to explorer').click()
     assert page.locator('.gx-chip').count()==3
+    raw=browser.new_page(viewport={'width':1440,'height':1000})
+    raw.goto('http://127.0.0.1:18321/explorer?countries=geography-china&berry=berry-blueberry&view=unreviewed')
+    reactions=[]
+    def mock_reaction(route):
+        payload=route.request.post_data_json
+        reactions.append(payload)
+        route.fulfill(json={'decision':{'reaction':'up' if payload['action']=='thumbs_up' else 'down','saved':False},'statements':[]})
+    raw.route('**/api/feed-first/react',mock_reaction)
+    up=raw.locator('[data-react="thumbs_up"]').first
+    up.click()
+    raw.wait_for_function("document.querySelector('[data-react=thumbs_up]').getAttribute('aria-pressed') === 'true'")
+    down=raw.locator('[data-react="thumbs_down"]').first
+    down.click()
+    raw.wait_for_function("document.querySelector('[data-react=thumbs_down]').getAttribute('aria-pressed') === 'true'")
+    assert [r['action'] for r in reactions] == ['thumbs_up','thumbs_down']
+    assert raw.locator('.gx-feedback').count() > 0
+    # Older published records may lack imagery; supplied URLs are covered by service tests.
+    assert all(src.startswith(('http://','https://')) for src in raw.locator('.gx-article-image').evaluate_all("els => els.map(el => el.src)"))
     mobile=browser.new_page(viewport={'width':390,'height':844},is_mobile=True,has_touch=True)
     mobile.goto('http://127.0.0.1:18321/explorer?countries=geography-peru,geography-chile,geography-china&berry=berry-blueberry')
     mobile.locator('#gx-boundaries path').first.wait_for()

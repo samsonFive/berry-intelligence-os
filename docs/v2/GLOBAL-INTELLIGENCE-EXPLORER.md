@@ -71,3 +71,11 @@ instead of compose_war_room's injected session clock. Passing instant.date() int
 the existing today parameter restores consistent time windows and deterministic
 replay. Existing overlap coverage and a stale-move exclusion regression pass.
 No War Room architecture or trust rules were changed.
+
+
+## Review status and current design
+Trusted sources support active canonical facts, whose actual escalated statements appear on cards and in snapshots. Unreviewed is a raw source view, including existing current-day cached feed records. It does not initiate collection. Reactions use the existing feed-first state and API; thumbs up prepares extraction candidates for human confirmation and never promotes trust automatically. Snapshots always use Trusted information.
+
+Source preview images use the main feed's validated image URL. Historical records without a stored image remain text cards; the Explorer does not invent or scrape missing images. Multiple berry checkboxes compose as a union inside the selected geography scope and persist into snapshots.
+
+Explorer and snapshot use the newer navy/blue shell with compact spacing and Reader typography hierarchy. The broader migration is scoped in [Site-wide design sprint](SITE-WIDE-DESIGN-SPRINT.md). Validation includes 69 focused tests and desktop/tablet/mobile browser acceptance, including mocked thumbs-up/down requests without modifying runtime review state.
