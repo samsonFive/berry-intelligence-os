@@ -285,4 +285,16 @@ Explorer region results now use a full-width compact table below the map/news ro
 
 ## Accepted checkpoint and handoff
 
+### Required deliverable: visual product and workflow guide
+
+The user requested an explainer of the site's sections, analyst workflow and reporting capabilities as an outcome of redesign/consolidation. The first audit edition is [workflow-guide.html](../../artifacts/design-sprint/workflow-guide.html), linked from the preview's Mission and audit dialog. It is a review artifact, not an extra production navigation section.
+
+Maintain three explanations: **where to go** (purpose, audience and destination of every section); **how to work** (daily reading, deeper investigation, explicit human review, communication and monitoring); **what to produce** (report inputs, composition, persistence, presentation/export and limitations). Distinguish current capabilities, demonstrated prototype behavior and proposed consolidation. Do not illustrate an automatic article → Fact → Signal ladder or imply every article needs formal analysis.
+
+Every audited section requires the purpose/behavior/proof contract and acceptance record in `APP-SECTION-AUDIT.md`: how it works, what was verified, defects and a reasoned keep/combine/improve/relocate/retire recommendation. Source inspection and successful page rendering do not establish a complete working workflow.
+
+The final guide must match delivered navigation and verified jobs, remain accessible from Help, and include real reporting examples with source/status labels intact. Keep the review edition separate until then. Update guide and audit in the same changes that consolidate a family. Final walkthrough includes reading/saving, company monitoring, variety/region investigation, source/proposition review, Learn detours and a reviewed finding carried through report or brief export.
+
+### Checkpoint boundaries
+
 The user authorized building and pushing a reviewable design checkpoint on September 30. Push the accepted prototype, source assets, this mission, the navigation inventory and design audit on the design branch. Do not merge or deploy the production redesign based on prototype acceptance. Next representative reviews are Learn, Market Snapshot plus export, and a dense Varieties/Statements page including the Growing regions section. Migrate existing page families with preservation checks, real persistence, accessibility and trust boundaries; the local prototype is not production completion.

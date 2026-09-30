@@ -178,7 +178,53 @@ No empirical abandonment verdict is justified without a representative real work
 
 Each retirement needs a named replacement, behavior/data checklist, bookmark migration, role/public-build checks, tests for state continuity, and an accessible path for the less frequent specialist task. No production pages should be removed merely because the prototype does not display them.
 
-## Source references
+## Purpose, behavior and proof: required audit contract
+
+User addition, September 30: the audit must explain what each section is for, how it works, whether it works, and how it should be consolidated or improved. The companion [visual workflow guide](../../artifacts/design-sprint/workflow-guide.html) presents the proposed section map, analyst paths and reporting choices. Open it through the design preview at `/workflow-guide.html`. Its grouping is proposed; its descriptions distinguish current implementations from preview additions.
+
+The existing 58-entry disposition inventory is the baseline, not a completed functional acceptance report. Each entry and its material alternate/detail workflows must receive the following record before migration or retirement. A family record may explain shared behavior, but each route's exceptions, state and proof must remain explicit.
+
+| Field | Required answer |
+| --- | --- |
+| Purpose and audience | The user's question, when they arrive, and the decision or task it enables. Avoid implementation names as the explanation. |
+| Inputs and scope | Actual records, filters, periods and identities; freshness, missing coverage and public/private/proposed/reviewed distinctions. |
+| How it works | User steps, computations or derivations, existing services, prerequisites, permissions and explicit external/provider actions. |
+| Outputs and state | What is shown, created, edited or exported; where it persists; what reopening resolves; whether reading has a side effect. |
+| Verification evidence | Exact route/job, environment, date/revision and result. Separate source inspection, page rendering, action verification and full workflow verification. |
+| Gaps and failure behavior | Broken links, unavailable providers, empty/stale/partial data, missing persistence, misleading terminology and inaccessible controls. Untested capabilities stay unverified. |
+| Recommendation | Keep, combine, improve, relocate or conditionally retire; reason, destination and behavior to preserve. Similar names alone are insufficient. |
+| Acceptance and migration | Named end-to-end job, state/history mapping, compatibility links, permissions/static exclusions and proof needed to remove the old surface. |
+
+Use evidence labels rather than a single working/broken flag: **source inspected**, **page checked**, **action checked**, **workflow verified**, **defect reproduced**, **unverified**, **preview only**, **proposed**. Multiple labels may apply. A successful GET cannot verify a save, approval, provider call, notification or PDF. A read-only 403 may be correct behavior. Historical tests are supporting evidence with their own revision, not proof of an unexecuted current job.
+
+### Initial behavior and acceptance ledger
+
+Apply these inspected mechanics alongside every individual disposition row above. This ledger does not replace route-specific verification.
+
+| Family / job | How it works and where state lives | Evidence now / next proof | Improvement |
+| --- | --- | --- | --- |
+| News and reading | Published Evidence, cached live items, pending inputs and analyst decisions enter distinct feed views. Saving/reading/triage use their existing stores; Morning Brief marks brief-seen state. Preview feedback is temporary. | Source inspected; page variants rendered. Production save → leave → reopen and merged-view state mapping remain unverified by this audit. | One News home; preserve original article, newest-first, source status, and separate saved/read/priority/completed states. |
+| Companies and People | Roster/canonical identities, relationships and linked records form directory/dossier/portfolio/compare views. People can have multiple affiliations. Preview edits and favorites/tiers/lists use browser storage. | Source inspected; representative pages rendered. Preview edits checked separately in design audit. Durable shared edits and state migration pending. | One directory; People in company tabs. Preserve roles, affiliations and other entity types. Favorites must not silently become alert rules. |
+| Varieties | Canonical varieties, traits, rights and commercial observations feed profiles and comparisons. Observation location is not growing location. Preview region edits are browser-local. | Source inspected; representative views rendered. Full profile → region edit → map → snapshot persistence job pending. | Keep specialized lenses; add source/date/activity-aware Growing regions and reconcile operator quality tools separately. |
+| Map and geography | Country/berry scope selects evidence and snapshot composition. Preview regions and annual figures use distinct filter semantics. Relationships/manual entries retain their basis. | Page checks and separate preview interactions recorded. Binary export and production additions unverified in this audit. | Embed geography access in Explorer; keep profiles, dense tables and sources. Presence/counts must not imply acreage or market share. |
+| Learn | Committed concepts supply browse/search, explanations and supported linked intelligence. Reading creates no trust record. | Source inspected; index/detail rendering checked. Contextual detour/return and redesigned accessibility pending. | Keep top-level access. Education stays distinct from claim testing. |
+| Landscape, Radar, Moves, coverage, Ask Berry | Canonical intelligence and stored/provider caches form different overviews/developments. Research uses question/scope and explicitly invoked live actions. | Source inspected; page variants checked. Provider/live-refresh/data-export paths not exercised. | Group investigation tools; preserve derivation and source identity; rename Whitespace. Missing data is not proof of opportunity. |
+| Statements, Signals, Assessments, Questions, Recommendations | Statement decisions, canonical propositions, proposed/stored patterns, authored interpretations, persistent questions and action proposals remain distinct objects/stores. | Source inspected; entry/detail pages checked. Create/edit/decision/history actions unverified. Production `/facts/{id}` link defect reproduced. | Group Intelligence; repair navigation, preserve trust/authorship. There is no automatic conversion chain. |
+| Monitor | Following, typed watch state, tagged items and notifications match different inputs. Seen/pause/dismiss state stays in existing workflows; alerts lead to authoritative actions. | Source inspected; pages checked in empty private runtime. Watch → relevant change → alert → inspect → seen job pending. | One home; map interests, lists, favorites, tiers, mutes and notification rules before combining UI. |
+| Reports and Briefings | Readout synthesizes records; Brief composes IDs; saved Briefs persist selections and resolve current objects; Reports persist editable sourced drafts; Snapshot composes geography scope; War Room combines scoped views and notes. | Source/templates inspected; inventoried pages checked. Save/reopen, provider-backed drafting, presentation and binary exports not exercised. | One goal-oriented home. Preserve live views vs saved selections vs drafts vs dated files. Visual guide details each tool and next proof. |
+| Collection, sources, coverage | Configuration/run state/caches describe discovery/acquisition. Intake creates reviewable drafts. Health measures collection behavior; coverage compares intended and observed collection. | Source inspected; routes checked with expected permissions. Collection/provider/intake actions not executed. | Operations home; explicit run actions and stale/blocked/quiet states, separate configuration privileges. |
+| Review and data quality | Publication review, proposition review, authenticity checks, testing, signal-candidate decisions and identity adjudication act on distinct inputs/private state. Sessions organize work. | Source inspected; readonly and four authoring entry checks. Writes, history and deployed authorization unverified. | Shared navigation with separate decisions. Preserve authoritative commands, private-state boundaries and identity history. |
+| Help, Settings, Search, gallery | Guide explains use; Settings currently has copy without controls; Search navigates across objects; gallery displays components. | Template/source inspection and page checks. Search/deep-link/accessibility acceptance pending. | Correct stale defaults, consolidate help, build real preferences, keep global Search and exclude gallery from ordinary navigation. |
+
+### Visual explainer completion gate
+
+Maintain the guide during migration. Final handoff must show actual delivered section names/locations, daily reading and investigation loops, distinct human-review decisions, and reporting choices with examples of real outputs. Each purpose card must direct users to its actual destination. Move unresolved proposals into an explicit future section instead of mixing them into current instructions.
+
+Acceptance: a new user can locate the six representative jobs without remembering old names; perform them in a safe representative runtime; follow material source links; distinguish a saved selection from a dated export; and identify what still needs human review. Check desktop/narrow layouts, keyboard, zoom, empty/unavailable states and printed/exported instructions where offered. Record failures instead of declaring completion because the guide looks finished.
+
+The current guide is a first audit edition, not evidence that this gate passed. Low usage and empty test queues do not establish abandonment.
+
+## Implementation source references
 
 - Navigation: `app/services/feed_first.py::NAV`, `app/templates/_v2_sidebar.html`, `app/templates/_stakeholder_nav.html`; [updated inventory](DESIGN-NAVIGATION-INVENTORY.md).
 - Default/legacy feed: `app/main.py::home`, `_feed_first_today`, `today_page`; state distinctions in `app/services/feed_first.py`, `analyst_queue.py`, `watchlist.py`.

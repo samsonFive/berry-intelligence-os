@@ -124,3 +124,12 @@ Map region results now occupy a full-width table below the map/news row, with st
 Browser checks: A returned five entries across three companies; Peru search returned three entries; Country sort began with Australian entries; clearing search/alphabet restored all 45 entries. At 390px, the table scrolls internally with no document overflow. Screenshot: `company-region-table-desktop.jpg`. Statement source links now point to supporting Evidence pages, fixing a `/facts/...` route shape that the section audit verified returns 404.
 
 The complete section audit is `docs/v2/APP-SECTION-AUDIT.md`, supported by route and render JSON inventories here. The isolated render audit checked 75 URL variants plus four operator-only rechecks: 72 successful pages, two expected redirects, four expected permission denials, and the canonical Fact-shaped link's 404. No network attempt occurred. Run `python scripts/audit_app_sections.py` to reproduce with a separate empty audit runtime. The script does not exercise approvals, live refresh, user runtime or binary exports.
+
+
+## Visual product and workflow guide
+
+Open `http://127.0.0.1:18322/workflow-guide.html`, or Mission & audit → Open the visual guide. The audit edition explains nine proposed section families plus cross-app Help/Search, the everyday analyst loop, separate human-review decisions, and six reporting capabilities. Expand section cards for current mechanics, proposed improvements and outstanding proof. Current implementations, browser-local additions and proposed groupings stay distinct. No production navigation or workflow was migrated.
+
+The section audit now includes a required purpose/input/behavior/output/state/proof/gap/disposition/acceptance contract and a 12-family initial behavior ledger. The mission requires this guide to evolve alongside consolidation and match delivered navigation and verified workflows at final handoff. The 58-entry section inventory remains the route-level baseline; full action and end-to-end acceptance is still pending.
+
+Verified this edition at 1440×1000 and 390×844: chapter navigation clears the desktop sticky bar; section disclosure opens/closes by Enter; all six report rows render; the narrow report table scrolls internally with keyboard access and no page overflow. The preview Mission dialog links to the guide. Screenshot: `workflow-guide-desktop.jpg`. These checks verify the guide, not the application workflows it describes.
