@@ -55,6 +55,8 @@ PRIVATE_SENTINELS = {
     "private-source-fidelity-reviewer",
     "private-atomic-proposal-excerpt",
     "private-variety-universe-candidate",
+    "private-company-list-name",
+    "private-digest-subscription",
 }
 
 
@@ -107,13 +109,18 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
         encoding="utf-8",
     )
     private_files = {
+        inbox_dir / "feed_first_state.json": {
+            "company_lists": {"private-digest-subscription": {"name": "private-company-list-name", "company_ids": ["company-static-test"]}},
+            "digest_subscriptions": ["private-digest-subscription"],
+            "decisions": {"ev-static-test": {"saved": True, "reaction": "up"}},
+        },
         inbox_dir / "review_events" / "private-review-event-id.json": {
             "id": "private-review-event-id",
             "record_type": "review_event",
             "actor": "private-reviewer-name",
         },
         inbox_dir / "analyst_queue_state.json": {
-            "reading": {"ev-static-test": {"note": "private-analyst-queue-note"}},
+            "reading": {"ev-static-test": {"note": "private-analyst-queue-note", "state": "in_progress", "reader_mode": "brief", "reader_positions": {"article": 642}, "priority": "high"}},
             "proposals": {"rec-private": {"note": "private-unpublished-proposal-note"}},
         },
         inbox_dir / "signal_candidates" / "candidate-private.json": {

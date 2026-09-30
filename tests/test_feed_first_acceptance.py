@@ -162,8 +162,9 @@ def test_p1_people_saved_landscapes_and_reader_help_are_in_the_shell():
     assert "/people/person-" in people.text
     saved = TestClient(app).get("/saved")
     assert saved.status_code == 200
-    assert "data-feed-first-saved" in saved.text
-    assert "Save is a board, not trust" in saved.text
+    assert "data-personal-digest" in saved.text
+    assert "Personal Digest" in saved.text
+    assert "Saving and feedback do not change a story’s review status" in saved.text
     landscapes = TestClient(app).get("/landscapes?view=feed")
     assert landscapes.status_code == 200
     assert "data-feed-first-landscapes" in landscapes.text
@@ -515,8 +516,8 @@ def test_p1_board_save_surfaces_statements_without_trust(tmp_path):
     assert cards[0]["statements"]
     saved = TestClient(app).get("/saved")
     assert saved.status_code == 200
-    assert "Save is a board, not trust" in saved.text
-    assert "data-feed-first-saved" in saved.text
+    assert "Saving and feedback do not change a story’s review status" in saved.text
+    assert "data-personal-digest" in saved.text
 
 
 def test_p1_geography_filter_restores_url_state():

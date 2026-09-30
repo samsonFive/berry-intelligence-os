@@ -11,7 +11,8 @@ ROUTES = (
     ("/today", "data-feed-first-today"),
     ("/following", "data-feed-first-following"),
     ("/people", "data-feed-first-people"),
-    ("/saved", "data-feed-first-saved"),
+    ("/saved", "data-personal-digest"),
+    ("/digest", "data-personal-digest"),
     ("/statements", "data-feed-first-statements"),
     ("/week?view=feed", "data-feed-first-week"),
     ("/landscapes?view=feed", "data-feed-first-landscapes"),
@@ -27,8 +28,12 @@ def test_golden_path_routes_render_berry_os_shell():
         page = client.get(path)
         assert page.status_code == 200, path
         assert marker in page.text, path
-        assert "Berry Intelligence OS" in page.text
-        assert "data-feed-first" in page.text
+        if path in {"/saved", "/digest"}:
+            assert "Personal Digest · Berry Intelligence" in page.text
+            assert "/static/personal_digest.css" in page.text
+        else:
+            assert "Berry Intelligence OS" in page.text
+            assert "data-feed-first" in page.text
 
 
 def test_today_filter_query_restores_selected_controls():

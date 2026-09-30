@@ -93,7 +93,7 @@
     if (!opts || !opts.skipFocus) {
       cards[active].focus({ preventScroll: true });
     }
-    cards[active].scrollIntoView({ block: "nearest" });
+    if (!opts || !opts.preserveScroll) cards[active].scrollIntoView({ block: "nearest" });
   }
   function current() { return cards[active]; }
   function submitAction(name) {
@@ -119,7 +119,7 @@
     var heading = overlayBody && overlayBody.querySelector(".v2-reader-title");
     if (!heading) return;
     heading.setAttribute("tabindex", "-1");
-    heading.focus();
+    heading.focus({ preventScroll: true });
   }
   function ensureOverlay() {
     if (!overlay || !window.bootstrap) return null;
@@ -148,7 +148,7 @@
   }
   function loadReaderById(id, trigger, cardIndex, fromHistory) {
     if (!id || !overlay || !overlayBody) return;
-    if (typeof cardIndex === "number") selectCard(cardIndex, { skipFocus: true });
+    if (typeof cardIndex === "number") selectCard(cardIndex, { skipFocus: true, preserveScroll: document.body.hasAttribute("data-personal-digest") });
     lastTrigger = trigger || lastTrigger;
     if (!fromHistory) {
       var url = new URL(window.location.href);
@@ -159,11 +159,12 @@
       window.history[replacing ? "replaceState" : "pushState"](state, "", url);
     }
     var gen = ++loadGen;
+    document.dispatchEvent(new CustomEvent("bios:reader-unloading"));
     overlayBody.innerHTML = "<p class=\"empty-state\">Loading…</p>";
     overlayBody.setAttribute("aria-busy", "true");
     var instance = ensureOverlay();
     if (instance) instance.show();
-    fetch("/api/intelligence/" + encodeURIComponent(id) + "/reader", { credentials: "same-origin" })
+    fetch("/api/intelligence/" + encodeURIComponent(id) + "/reader" + (document.body.hasAttribute("data-personal-digest") ? "?personal=1" : ""), { credentials: "same-origin" })
       .then(function (res) {
         if (!res.ok) throw new Error("Reader unavailable");
         return res.text();
@@ -172,6 +173,7 @@
         if (gen !== loadGen) return;
         overlayBody.innerHTML = html;
         overlayBody.removeAttribute("aria-busy");
+        document.dispatchEvent(new CustomEvent("bios:reader-loaded"));
         overlayBody.querySelectorAll("form").forEach(function (form) {
           form.addEventListener("submit", function () { copyReviewer(form); });
         });
@@ -197,7 +199,7 @@
     active = 0;
   cards.forEach(function (card, index) {
     card.addEventListener("click", function (event) {
-      selectCard(index);
+      selectCard(index, { preserveScroll: document.body.hasAttribute("data-personal-digest") });
       if (event.target.closest("form, button, .v2-chip, a:not([data-open-reader])")) return;
       if (event.target.closest("[data-open-reader]") && overlay) {
         event.preventDefault();
@@ -210,7 +212,7 @@
         if (!overlay || event.metaKey || event.ctrlKey) return;
         event.preventDefault();
         event.stopPropagation();
-        selectCard(index);
+        selectCard(index, { preserveScroll: document.body.hasAttribute("data-personal-digest") });
         loadReader(index);
       });
     });

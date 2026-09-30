@@ -13,18 +13,21 @@ from pathlib import Path
 from typing import Any
 
 from app.services.review_events import append_review_event, remove_created_event
+from app.services.analyst_state_io import atomic_json, serialized_write
 
 STATE_FILENAME = "analyst_queue_state.json"
 
 READING_DEFAULT = "unread"
-READING_ACTIVE = {"unread", "saved"}
-READING_OPEN = {"unread", "saved"}
+READING_ACTIVE = {"unread", "saved", "in_progress"}
+READING_OPEN = {"unread", "saved", "in_progress"}
 READING_RESOLVED = {"read", "dismissed", "promoted"}
 READING_ACTIONS = {
     "mark_read": "read",
     "keep": "saved",
     "dismiss": "dismissed",
     "promote": "promoted",
+    "start": "in_progress",
+    "reopen": "unread",
 }
 
 TESTING_DEFAULT = "needs_testing"
@@ -55,6 +58,7 @@ SIGNAL_ALERT_LABELS = {"open": "New", "confirmed": "Confirmed", "dismissed": "Di
 
 READING_LABELS = {
     "unread": "Unread",
+    "in_progress": "In progress",
     "saved": "Saved",
     "read": "Read",
     "dismissed": "Dismissed",
@@ -151,7 +155,7 @@ def load_state(inbox_dir: Path) -> dict[str, dict[str, dict[str, Any]]]:
 def save_state(inbox_dir: Path, state: dict[str, dict[str, dict[str, Any]]]) -> None:
     path = state_path(inbox_dir)
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
+    atomic_json(path, state)
 
 
 def _now() -> str:
@@ -228,6 +232,7 @@ def pending_position_proposals(
     return [record for record in recommendations if is_pending_proposal(record, state)]
 
 
+@serialized_write
 def apply_action(
     inbox_dir: Path,
     *,
@@ -242,6 +247,7 @@ def apply_action(
     reason_category: str | None = None,
     supporting_ids: tuple[str, ...] = (),
     origin_href: str = "",
+    reading_priority: str | None = None,
 ) -> str:
     """Record an analyst decision. Returns the resulting workflow state.
 
@@ -251,9 +257,14 @@ def apply_action(
 
     state = load_state(inbox_dir)
     if dimension == "reading":
+        if action == "set_priority":
+            if reading_priority not in {"high", "medium", "low", "none"}:
+                raise ValueError("Unknown reading priority")
+            next_state = reading_state(item_id, state)
+        else:
+            next_state = READING_ACTIONS.get("mark_read" if action == "bulk_read" else action)
         if action == "bulk_read":
             action = "mark_read"
-        next_state = READING_ACTIONS.get(action)
         if not next_state:
             raise ValueError(f"Unknown reading action: {action}")
         bucket = "reading"
@@ -301,6 +312,8 @@ def apply_action(
     unchanged = (
         prior_state == next_state and current_entry.get("action") == action and current_entry.get("reviewer", "") == reviewer
     )
+    if dimension == "reading" and action == "set_priority":
+        unchanged = unchanged and current_entry.get("priority") == reading_priority
     if unchanged and dimension == "derived_review":
         # Notes/reason are the point of a re-submission here (e.g. an
         # analyst correcting or extending a dispute note) -- the other six
@@ -329,16 +342,20 @@ def apply_action(
             action=action, prior_state=prior_state, new_state=next_state, actor=reviewer,
             subject=subject, source=source,
             reason_category=reason_category if dimension == "derived_review" else None,
-            notes=notes or None if dimension == "derived_review" else None,
+            notes=(f"Reading priority: {current_entry.get('priority', 'record default')} → {reading_priority}"
+                   if dimension == "reading" and action == "set_priority" else notes or None if dimension == "derived_review" else None),
             supporting_ids=list(supporting_ids) if dimension == "derived_review" and supporting_ids else None,
             origin_href=origin_href or None if dimension == "derived_review" else None,
         )
     payload: dict[str, Any] = {
+        **(current_entry if dimension == "reading" else {}),
         "state": next_state,
         "updated_at": event_result.event["occurred_at"] if event_result else _now(),
         "reviewer": reviewer,
         "action": action,
     }
+    if dimension == "reading" and action == "set_priority":
+        payload["priority"] = reading_priority
     if dimension == "monitoring" and action in {"snooze", "pause"}:
         days = 7 if action == "snooze" else 1
         payload["snooze_until"] = (date.today() + timedelta(days=days)).isoformat()

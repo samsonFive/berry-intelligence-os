@@ -914,7 +914,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     """Nav action counts for HTML pages. Overlay fragments skip nav work entirely."""
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    if str(getattr(request.url, "path", "") or "").startswith("/api/") or request.url.path == "/today":
+    if str(getattr(request.url, "path", "") or "").startswith("/api/") or request.url.path in {"/today", "/digest", "/saved"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -4106,30 +4106,8 @@ def following_page(request: Request) -> HTMLResponse:
 
 @app.get("/saved", response_class=HTMLResponse)
 def saved_page(request: Request) -> HTMLResponse:
-    from app.services.feed_first import saved_items
-    from app.services.feed_first_live import cached_live_records
-    from app.services.people_watchlist import discover_people
-
-    world = _feed_first_world()
-    people = discover_people(world["existing"])
-    cards = saved_items(
-        evidence=cached_live_records(INBOX_DIR),
-        entities=world["entities"],
-        state=world["state"],
-        people=people,
-    )
-    return templates.TemplateResponse(
-        request=request,
-        name="feed_first_saved.html",
-        context={
-            "cards": cards,
-            "counts": world["counts"],
-            "nav": world["nav"],
-            "active_href": "/saved",
-            "authoring_mode": AUTHORING_MODE,
-            "static_build": False,
-        },
-    )
+    from urllib.parse import urlencode
+    return RedirectResponse("/digest?" + urlencode({**dict(request.query_params), "origin": "saved", "status": "all"}), status_code=303)
 
 
 @app.get("/statements", response_class=HTMLResponse)
@@ -6458,6 +6436,12 @@ def _intelligence_page_context(
 @app.get("/intelligence/{item_id}", response_class=HTMLResponse)
 def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
     record = _load_intelligence_record(item_id)
+    if request.query_params.get("personal") == "1" or record is None:
+        from app.personal_digest_routes import reader_context
+        from app.services.personal_digest import source_records
+        personal_record = source_records(published_evidence(), INBOX_DIR).get(item_id)
+        if personal_record is not None:
+            return templates.TemplateResponse(request=request, name="personal_reader_page.html", context=reader_context(request, personal_record))
     if record is None:
         raise HTTPException(status_code=404, detail="Intelligence item not found")
     return templates.TemplateResponse(
@@ -6470,6 +6454,12 @@ def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
 @app.get("/api/intelligence/{item_id}/reader", response_class=HTMLResponse)
 def intelligence_reader_fragment(request: Request, item_id: str) -> HTMLResponse:
     record = _load_intelligence_record(item_id)
+    if request.query_params.get("personal") == "1" or record is None:
+        from app.personal_digest_routes import reader_context
+        from app.services.personal_digest import source_records
+        personal_record = source_records(published_evidence(), INBOX_DIR).get(item_id)
+        if personal_record is not None:
+            return templates.TemplateResponse(request=request, name="_personal_reader.html", context=reader_context(request, personal_record))
     if record is None:
         raise HTTPException(status_code=404, detail="Intelligence item not found")
     return templates.TemplateResponse(
@@ -10137,3 +10127,7 @@ def api_global_search(
         limit_per_group=cap,
         sort=sort_mode,
     )
+
+# Consolidated private reading workspace; legacy queue routes remain compatible.
+from app.personal_digest_routes import router as personal_digest_router
+app.include_router(personal_digest_router)
