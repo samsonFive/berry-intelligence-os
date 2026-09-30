@@ -1860,7 +1860,7 @@ Do not dump older Phase 2B attachment/UoW fixes here; they are already shipped.
 | Severity | Medium |
 | Area | Global Explorer / geographic coverage |
 | Date discovered | 2026-09-29 |
-| Evidence | Explorer uses stored country ISO metadata and explicit Evidence geography/berry tags. Some boundaries lack canonical entities; unsupported production/growing-region/seasonality overlays remain unavailable. |
+| Evidence | Explorer uses stored country ISO metadata and explicit Evidence geography/berry tags. Some boundaries use empty ISO selectors because they lack canonical entities; unsupported production/growing-region/seasonality overlays remain unavailable. |
 | Impact | Map coverage and record counts are not production scale or exhaustive recall; untagged relevant Evidence can be absent from a scoped query. |
 | Workaround | Explicit unavailable previews, evidence/source links, global scope, and visible coverage caveats. Never infer country from company HQ or a title. |
 | Recommended resolution | Extend canonical public-data geography/tagging coverage and add provenance-bearing GeographicLayer providers through the shared IntelligenceQuery. |

@@ -100,6 +100,8 @@ def render_report_pdf(
         scope_lines.append(f"Berry: {scope['berry_id']}")
     if scope.get("geography_ids"):
         scope_lines.append(f"Geographies: {', '.join(scope['geography_ids'])}")
+    if scope.get("country_codes"):
+        scope_lines.append(f"Countries without canonical geography records (ISO): {', '.join(scope['country_codes'])}")
     if scope.get("company_ids"):
         company_names = {r["id"]: r.get("name") or r["id"] for r in packet.get("companies") or [] if r.get("id")}
         scope_lines.append(f"Companies: {', '.join(company_names.get(cid, cid) for cid in scope['company_ids'])}")

@@ -42,8 +42,8 @@ live-only; navigation links are omitted from public static output.
 
 ## Deliberate limits
 
-Country boundaries without a canonical ISO-linked Geography show an unavailable
-preview rather than guessing an entity ID. Growing-region/production metrics,
+Country boundaries without a canonical ISO-linked Geography retain an ISO country
+selector and show an explicit empty scope. They do not create or guess Entity IDs. Growing-region/production metrics,
 seasonality overlays and PowerPoint export remain deferred. Reports are sourced
 inventories requiring analyst interpretation, not automatic market assessments.
 Snapshots are URL-composed and re-resolved against current published evidence;

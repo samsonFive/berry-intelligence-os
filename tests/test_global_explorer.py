@@ -79,3 +79,17 @@ def test_remote_session_boundary(monkeypatch):
         response=client.get(path,follow_redirects=False)
         assert response.status_code in {302,303,307}
         assert '/login' in response.headers['location']
+
+
+def test_unavailable_country_is_explicit_empty_scope():
+    query=IntelligenceQuery.parse('iso:KW','berry-blueberry',ENTITIES,BERRIES)
+    assert query.country_codes==('KW',)
+    assert query.retrieve(RECORDS,REL)==[]
+    model=snapshot_model(query,RECORDS,ENTITIES,REL,BERRIES,['developments'])
+    assert model['selected'][0]['name']=='Kuwait'
+    assert model['report']['scope']['country_codes']==['KW']
+    assert model['packet']['source_trace']==[]
+    combined=IntelligenceQuery.parse('iso:KW,geography-peru','berry-blueberry',ENTITIES,BERRIES)
+    assert {r['id'] for r in combined.retrieve(RECORDS,REL)}=={'pe','lima'}
+    # ISO selection resolves a stored canonical entity where one actually exists.
+    assert IntelligenceQuery.parse('iso:PE','',ENTITIES,BERRIES).geography_ids==('geography-peru',)

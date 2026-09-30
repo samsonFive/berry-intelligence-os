@@ -28,6 +28,7 @@
         document.dispatchEvent(new Event('bios:intelligence-updated'));
         const fresh = JSON.parse(doc.getElementById('gx-data').textContent);
         fresh.forEach(c => { byISO.set(c.iso,c); byID.set(c.id,c); });
+        group.querySelectorAll('[data-country]').forEach(el => { const c = byID.get(el.dataset.country); el.setAttribute('aria-label', c.name + ', ' + c.count + ' published records'); });
         document.querySelectorAll('.gx-country-list input').forEach(el => { el.parentElement.querySelector('small').textContent = byID.get(el.value).count + ' records'; });
         if (previewID) preview(byID.get(previewID));
         history.replaceState(null, '', '/explorer?' + params);
@@ -42,6 +43,7 @@
     function add(tag, text) { const el = document.createElement(tag); el.textContent = text; panel.append(el); return el; }
     add('h2', country ? country.name : name);
     if (!country) { add('p', 'No canonical country record is available. This boundary cannot yet scope evidence.'); return; }
+    if (country.unavailable) add('p', 'No canonical Geography or published evidence is available for this country. You can select it to preserve an explicit empty scope.');
     add('p', `${country.count} published records · ${country.berries.join(', ') || 'No berry tags available'}`);
     add('p', country.companies.length ? 'Companies mentioned: ' + country.companies.slice(0, 8).join(', ') : 'No companies linked to this evidence.');
     if (!country.recent.length) add('p', 'No published intelligence for this country and berry. Production and growing-region metrics are unavailable.');
@@ -59,6 +61,7 @@
     selected.forEach(id => { const b = document.createElement('button'); b.type = 'button'; b.className = 'gx-chip'; b.textContent = (byID.get(id)?.name || id) + ' ×'; b.setAttribute('aria-label', 'Deselect ' + (byID.get(id)?.name || id)); b.onclick = () => toggle(id); chips.append(b); });
     const params = new URLSearchParams({countries:field.value, berry:document.getElementById('gx-berry').value});
     document.querySelector('.gx .sh-header > a').href = '/explorer/snapshot?' + params;
+    document.querySelector('[data-clear-countries]').href = '/explorer?' + new URLSearchParams({berry:document.getElementById('gx-berry').value});
     status.textContent = `${selected.size} countries selected.`;
   }
   function toggle(id) { selected.has(id) ? selected.delete(id) : selected.add(id); sync(); refresh(); }

@@ -18,6 +18,7 @@ with sync_playwright() as p:
     page.locator('#gx-berry').select_option('berry-blueberry')
     page.wait_for_function("location.search.includes('berry-blueberry') && document.getElementById('gx-map-status').textContent.includes('updated')")
     assert page.locator('.gx-chip').count()==3
+    assert 'berry-blueberry' in page.locator('[data-clear-countries]').get_attribute('href')
     assert page.locator('path.is-selected').count()>=3
     page.screenshot(path='artifacts/global-explorer/desktop.png',full_page=False)
     first = page.locator('[data-intel-card] [data-open-reader]').first
@@ -58,6 +59,10 @@ with sync_playwright() as p:
     tablet.locator('#gx-boundaries path').first.wait_for()
     assert tablet.evaluate('document.documentElement.scrollWidth <= window.innerWidth')
     tablet.screenshot(path='artifacts/global-explorer/tablet.png',full_page=False)
+    empty=browser.new_page()
+    empty.goto('http://127.0.0.1:18321/explorer?countries=iso:KW&berry=berry-blueberry')
+    empty.get_by_text('No published evidence in this scope').wait_for()
+    assert empty.locator('.gx-chip').count()==1
     fallback=browser.new_page()
     fallback.route('**/countries.geojson', lambda route: route.abort())
     fallback.goto('http://127.0.0.1:18321/explorer')
