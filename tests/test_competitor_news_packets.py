@@ -222,3 +222,14 @@ def test_historical_receipt_retry_does_not_move_last_generated_backwards(tmp_pat
     history = packets.export_history(tmp_path)
     assert history["last_generated"]["list-test"] == "2026-10-01T09:00:00Z"
     assert len(history["exports"]) == 2
+
+
+def test_manual_capture_reports_real_health_without_creating_drafts(tmp_path):
+    from app.services.pipeline_health import build_pipeline_health
+    created = job(tmp_path)
+    packets.capture_job(tmp_path, created["id"], ENTITIES, [], MemoryProvider(hits=[live_hit()]))
+    root = Path(__file__).resolve().parents[1]
+    health = build_pipeline_health(data_dir=root / "data", inbox_dir=tmp_path, config_path=root / "data/configuration/collection_pipelines.json")
+    report = next(row for row in health["pipelines"] if row["pipeline"] == "competitor_news_export")
+    assert report["outcome"] == "SUCCESS" and report["last_attempt"] and report["last_success"]
+    assert not report["scheduled"] and report["drafts_created"] == 0 and report["items_discovered"] == 1

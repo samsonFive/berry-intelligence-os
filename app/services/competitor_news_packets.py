@@ -322,6 +322,14 @@ def capture_job(inbox_dir: Path, job_id: str, entities: dict, stored: list[dict]
         job["capture"]["errors"].append({"message": "Capture could not finish. Another collector may be running; retry when it finishes."})
     job["history"].append({"at": stamp(), "action": "capture_" + job["status"]})
     atomic_json(path_for(inbox_dir, job_id), job)
+    failures = job["capture"]["errors"] + job["validation"]["errors"]
+    run = {"pipeline": "competitor_news_export", "batch_id": job_id,
+           "started_at": job["capture"]["started_at"], "completed_at": job["capture"].get("completed_at") or stamp(),
+           "outcome": "SUCCESS" if job["status"] == "ready" else "FAILED",
+           "failure_count": len(failures), "failure_sample": failures[:5],
+           "counts": {"items_new": len(fresh), "publication_drafts_created": 0}, "discovered": len(discovered)}
+    run_name = job["created_at"].replace(":", "").replace("-", "") + "-" + job_id + ".json"
+    atomic_json(inbox_dir / "operations" / "pipelines" / "competitor_news_export" / "runs" / run_name, run)
 
 
 def export_history(inbox_dir):
