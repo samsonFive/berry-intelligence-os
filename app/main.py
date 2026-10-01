@@ -3487,8 +3487,9 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "aliases": list((trusted or {}).get("aliases") or (seed or {}).get("aliases") or []),
             "description": (trusted or {}).get("description") or (seed or {}).get("parent_or_successor") or "",
             "status": (trusted or {}).get("status") or (seed or {}).get("status") or "unverified",
-            "verification_label": (seed or {}).get("verification_label")
-            or ("Trusted catalog record" if trusted else "Unverified"),
+            "verification_label": "Unverified" if (trusted or {}).get("status") == "unverified" else (
+                (seed or {}).get("verification_label") or ("Trusted catalog record" if trusted else "Unverified")
+            ),
             "candidate": bool((seed or {}).get("candidate")) or (trusted or {}).get("status") == "unverified",
             "is_registry": bool((seed or {}).get("is_registry")),
             "crops": (seed or {}).get("crops")

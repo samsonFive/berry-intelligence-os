@@ -64,3 +64,11 @@ def test_seed_routes_are_pure_on_get_and_guard_import(tmp_path, monkeypatch):
     assert response.status_code == 200 and "ABZ Seeds" in response.text and "Review identity" in response.text
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
     assert client.post("/variety-seeds/import").status_code == 403
+
+
+def test_provisional_registry_company_profile_does_not_claim_trust(tmp_path, monkeypatch):
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
+    page = TestClient(main.app).get("/entities/company/company-genetics-uruguay")
+    assert page.status_code == 200
+    assert "Unverified" in page.text and "Trusted catalog record" not in page.text
+    assert "Registry varieties" in page.text and "company-genetics-uruguay" in page.text
