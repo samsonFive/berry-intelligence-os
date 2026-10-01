@@ -9,14 +9,14 @@ from __future__ import annotations
 import hashlib
 import ipaddress
 import json
-import os
 import re
-import shutil
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
+
+from app.services.analyst_state_io import atomic_json, serialized_write
 
 SUBDIR = "entity_logos"
 INDEX_NAME = "overrides.json"
@@ -62,10 +62,12 @@ def load_logo_overrides(inbox_dir: Path) -> dict[str, dict[str, Any]]:
 def _save(inbox_dir: Path, payload: dict[str, dict[str, Any]]) -> None:
     root = _root(inbox_dir)
     root.mkdir(parents=True, exist_ok=True)
-    target = _index_path(inbox_dir)
-    temporary = target.with_suffix(".tmp")
-    temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    os.replace(temporary, target)
+    path = _index_path(inbox_dir)
+    if path.exists():
+        previous = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(previous, dict):
+            raise LogoOverrideError("Logo history cannot be read; restore it before editing")
+    atomic_json(path, payload)
 
 
 def validate_logo_url(raw: str) -> str:
@@ -97,6 +99,7 @@ def _image_type(data: bytes) -> tuple[str, str]:
     raise LogoOverrideError("logo must be PNG, JPEG, GIF, or WebP")
 
 
+@serialized_write
 def set_logo_url(inbox_dir: Path, entity_id: str, url: str) -> dict[str, Any]:
     entity_id = safe_entity_id(entity_id)
     url = validate_logo_url(url)
@@ -111,6 +114,7 @@ def set_logo_url(inbox_dir: Path, entity_id: str, url: str) -> dict[str, Any]:
     return row
 
 
+@serialized_write
 def set_logo_upload(inbox_dir: Path, entity_id: str, data: bytes) -> dict[str, Any]:
     entity_id = safe_entity_id(entity_id)
     if not data:
@@ -137,14 +141,13 @@ def set_logo_upload(inbox_dir: Path, entity_id: str, data: bytes) -> dict[str, A
     return row
 
 
+@serialized_write
 def clear_logo_override(inbox_dir: Path, entity_id: str) -> None:
     entity_id = safe_entity_id(entity_id)
     payload = load_logo_overrides(inbox_dir)
     payload.pop(entity_id, None)
     _save(inbox_dir, payload)
-    entity_dir = _root(inbox_dir) / entity_id
-    if entity_dir.exists():
-        shutil.rmtree(entity_dir)
+    # Preserve previous uploads for recovery; only the current presentation mark is cleared.
 
 
 def logo_override_url(inbox_dir: Path, entity_id: str) -> str:

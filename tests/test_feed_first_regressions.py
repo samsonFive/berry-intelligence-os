@@ -19,7 +19,7 @@ ROUTES = (
     ("/landscapes?view=feed", "data-feed-first-landscapes"),
     ("/research-ops", "data-feed-first-ops"),
     ("/settings", "data-feed-first-settings"),
-    ("/entities/company/company-fall-creek-farm-and-nursery", "data-feed-first-company"),
+    ("/entities/company/company-fall-creek-farm-and-nursery?view=dossier", "data-feed-first-company"),
 )
 
 
@@ -81,12 +81,15 @@ def test_research_ops_health_has_no_secret_values():
     assert "catchall_api_key" not in lowered
 
 
-def test_default_company_stays_berry_os_and_legacy_is_opt_in():
+def test_default_company_uses_glasshouse_and_dossiers_remain_available():
     client = TestClient(app)
     default = client.get("/entities/company/company-fall-creek-farm-and-nursery")
-    assert "data-feed-first-company" in default.text
+    assert "data-company-profile" in default.text
+    assert "/static/company_workspace.css" in default.text
     assert "Create 90-day report" not in default.text
-    assert "Learner context" in default.text
+    dossier = client.get("/entities/company/company-fall-creek-farm-and-nursery?view=dossier")
+    assert "Learner context" in dossier.text
+    assert "data-feed-first-company" in dossier.text
     assert 'href="/learn"' in default.text
     legacy = client.get("/entities/company/company-fall-creek-farm-and-nursery?view=legacy")
     assert "data-feed-first-company" not in legacy.text

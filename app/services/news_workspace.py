@@ -39,7 +39,7 @@ def escalations(facts):
 def parameters(params):
     """Retain bookmarked feed/map scope, while normalizing to one News vocabulary."""
     values = {key: str(params.get(key) or "").strip() for key in
-              ("q", "view", "berry", "countries", "company", "list", "tier", "window", "start", "end", "tz")}
+              ("q", "view", "berry", "countries", "company", "list", "tier", "favorites", "window", "start", "end", "tz")}
     values["view"] = values["view"] or "unreviewed"
     if values["view"] not in {"trusted", "unreviewed"}:
         raise ValueError("Choose Trusted or Unreviewed")
@@ -54,6 +54,8 @@ def parameters(params):
         raise ValueError("Choose a supported date range")
     if values["tier"] not in {"", "tier1", "tier2", "tier3", "untiered", "watch", "muted"}:
         raise ValueError("Choose a supported company tier")
+    if values["favorites"] not in {"", "1"}:
+        raise ValueError("Choose a supported favorites filter")
     return values
 
 
@@ -125,6 +127,8 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
         if (query.country_codes and not scope) or (scope and not scope.intersection(record_geography_ids(record))):
             continue
         linked = set(record.get("entity_ids") or []) | set(record.get("company_ids") or [])
+        if filters["favorites"] == "1" and not any((state.get("entity_favorites") or {}).get(key) for key in linked):
+            continue
         if filters["company"] and filters["company"] not in linked:
             continue
         if selected_list and not linked.intersection(selected_list.get("company_ids") or []):

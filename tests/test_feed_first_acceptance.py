@@ -142,13 +142,13 @@ def test_p0_reader_keyboard_help_and_research_ops_are_not_home():
 
 
 def test_p1_feed_first_company_profile_is_berry_os():
-    page = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery")
+    page = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=dossier")
     assert page.status_code == 200
     assert "data-feed-first-company" in page.text
     assert "Living entity dossier" in page.text
     assert "Only in-reader confirmation enters this dossier" in page.text
     assert "Create 90-day report" not in page.text
-    explicit = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=feed")
+    explicit = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=dossier")
     assert "data-feed-first-company" in explicit.text
     legacy = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=legacy")
     assert legacy.status_code == 200
@@ -464,7 +464,7 @@ def test_p1_watch_coverage_and_ops_health_are_inspectable():
 
 
 def test_p1_entity_click_opens_profile_with_coverage_and_statements():
-    page = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery")
+    page = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=dossier")
     assert page.status_code == 200
     assert "data-feed-first-company" in page.text
     assert "data-feed-first-entity" in page.text

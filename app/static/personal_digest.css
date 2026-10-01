@@ -20,3 +20,5 @@
 .seed-alphabet{display:flex;flex-wrap:wrap;gap:4px;margin:12px 0}.seed-alphabet a{padding:3px 7px;border:1px solid var(--line);border-radius:4px;text-decoration:none;font-size:12px}.seed-alphabet [aria-current]{background:#dceccc;font-weight:750;box-shadow:0 2px #428353}
 
 .digest-filters>label{min-width:0;grid-template-columns:minmax(0,1fr)}.news-filters select{width:100%;min-width:0}
+
+.glass-more:not([open])>.glass-menu{display:none}

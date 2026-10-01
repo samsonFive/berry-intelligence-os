@@ -78,7 +78,7 @@ def catalog(entities, relationships, records, private=None):
     return result
 
 
-def scoped(rows, query, relationships, state, *, kind, company="", list_id="", tier="", status="", activity="", entity_id="", as_of=""):
+def scoped(rows, query, relationships, state, *, kind, company="", list_id="", tier="", favorites="", status="", activity="", entity_id="", as_of=""):
     scope = set()
     for key in query.geography_ids:
         scope.update(resolve_geography_scope(key, relationships=relationships).all_ids)
@@ -107,6 +107,8 @@ def scoped(rows, query, relationships, state, *, kind, company="", list_id="", t
         if company and company not in actors or group and not actors.intersection(group.get("company_ids", [])):
             continue
         if tier and not any((state.get("entity_tiers", {}).get(key) or "untiered") == tier for key in actors):
+            continue
+        if favorites == "1" and not any((state.get("entity_favorites") or {}).get(key) for key in actors):
             continue
         result.append(row)
     return sorted(result, key=lambda row: (row["name"].casefold(), row["country"].casefold(), row["id"]))

@@ -2733,6 +2733,9 @@ def entity_list(
         (e for e in living_catalog() if e.get("entity_type") == entity_type),
         key=lambda e: e.get("name", ""),
     )
+    if entity_type == "company" and view != "legacy":
+        from app.company_routes import company_directory_page
+        return company_directory_page(request)
     if not all_of_type:
         raise HTTPException(status_code=404, detail=f"No entities found for type '{entity_type}'")
 
@@ -3433,7 +3436,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     from app.services.operator_variety_seed import company_seed_count
 
     world = _feed_first_world()
-    logo_overrides = load_logo_overrides(INBOX_DIR)
+    logo_overrides = load_logo_overrides(INBOX_DIR) if AUTHORING_MODE else {}
     trusted = next(
         (
             entity
@@ -3445,6 +3448,9 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     seed = seed_profile(entity_id, world["existing"], logo_overrides=logo_overrides)
     if trusted is None and seed is None:
         return None
+    if seed and seed.get("id") != entity_id and trusted is None:
+        target = seed["profile_url"].split("?")[0]
+        return RedirectResponse(target + ("?" + urlencode(dict(request.query_params)) if request.query_params else ""), status_code=303)
     linked_people = [row for row in discover_people(world["existing"]) if entity_id in row.get("entity_ids", [])]
     name = (trusted or {}).get("name") or (seed or {}).get("canonical_name") or entity_id
     entity_rows = all_entities()
@@ -3477,10 +3483,13 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
         people=linked_people,
         backbone=backbone,
     )
+    from app.company_routes import profile_context
+    company_ui = profile_context(request, entity_id, world["existing"])
     return templates.TemplateResponse(
         request=request,
-        name="feed_first_company.html",
+        name="feed_first_company_legacy.html" if request.query_params.get("view") == "dossier" else "feed_first_company.html",
         context={
+            **company_ui,
             "entity": trusted or {},
             "profile": seed,
             "name": name,
@@ -3505,7 +3514,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "dossier": dossier,
             "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
             "monogram": (seed or {}).get("monogram") or name[:2].upper(),
-            "logo_url": logo_override_url(INBOX_DIR, entity_id) or (seed or {}).get("logo_url") or "",
+            "logo_url": (logo_override_url(INBOX_DIR, entity_id) if AUTHORING_MODE else "") or (seed or {}).get("logo_url") or "",
             "logo_override": logo_overrides.get(entity_id) or {},
             "logo_status": str(request.query_params.get("logo_status") or ""),
             "logo_error": str(request.query_params.get("logo_error") or ""),
@@ -3524,6 +3533,8 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
 def entity_logo_asset(entity_id: str, filename: str) -> FileResponse:
     from app.services.entity_logo_overrides import LogoOverrideError, logo_file
 
+    if not AUTHORING_MODE:
+        raise HTTPException(404, "Logo not found")
     try:
         path, media_type = logo_file(INBOX_DIR, entity_id, filename)
     except LogoOverrideError as exc:
@@ -3533,11 +3544,14 @@ def entity_logo_asset(entity_id: str, filename: str) -> FileResponse:
 
 @app.post("/entities/company/{entity_id}/logo")
 async def update_company_logo(
+    request: Request,
     entity_id: str,
     action: str = Form("save"),
     logo_url: str = Form(""),
     logo_file_upload: UploadFile | None = File(None),
 ) -> RedirectResponse:
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     from app.services.entity_logo_overrides import (
         LogoOverrideError,
         MAX_LOGO_BYTES,
@@ -3570,7 +3584,7 @@ async def update_company_logo(
     except LogoOverrideError as exc:
         target = f"/entities/company/{quote(entity_id)}?logo_error={quote(str(exc))}"
         return RedirectResponse(target, status_code=303)
-    target = f"/entities/company/{quote(entity_id)}?logo_status={quote(status)}"
+    target = f"/entities/company/{quote(entity_id)}?tab=details&logo_status={quote(status)}"
     return RedirectResponse(target, status_code=303)
 
 
@@ -3578,15 +3592,16 @@ async def update_company_logo(
 def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLResponse:
     if entity_type == "geography":
         return RedirectResponse(url=f"/geographies/{entity_id}", status_code=303)
-    if entity_type in {"company", "brand", "breeding_program"} and _wants_feed_first_profile(request):
-        feed_first = _feed_first_company_response(request, entity_id)
-        if feed_first is not None:
-            return feed_first
     survivor_id = canonical_entity_id(entity_id, entities=entity_index(), redirects=identity_redirects())
     if survivor_id and survivor_id != entity_id:
         survivor = entity_index().get(survivor_id)
         dest_type = survivor.get("entity_type") if survivor else entity_type
-        return RedirectResponse(url=f"/entities/{dest_type}/{survivor_id}", status_code=303)
+        query = "?" + request.url.query if request.url.query else ""
+        return RedirectResponse(url=f"/entities/{dest_type}/{survivor_id}{query}", status_code=303)
+    if entity_type in {"company", "brand", "breeding_program"} and _wants_feed_first_profile(request):
+        feed_first = _feed_first_company_response(request, entity_id)
+        if feed_first is not None:
+            return feed_first
     for entity in all_entities():
         if entity.get("id") == entity_id and entity.get("entity_type") == entity_type:
             entities = entity_index()
@@ -7542,7 +7557,7 @@ def _explorer_context(request, countries, berry, sections=None):
     except ValueError:
         return_parts = urlsplit("")
     origin = dict(parse_qsl(return_parts.query)) if not return_parts.scheme and not return_parts.netloc and return_parts.path in {"/today", "/news"} else {}
-    origin = {key: value for key, value in origin.items() if key in {"q", "company", "list", "tier", "window", "start", "end", "tz"}}
+    origin = {key: value for key, value in origin.items() if key in {"q", "company", "list", "tier", "favorites", "window", "start", "end", "tz"}}
     if sections is None:
         from app.services.map_workspace import model as map_model
         params = {**origin, **dict(request.query_params)}
@@ -7551,7 +7566,7 @@ def _explorer_context(request, countries, berry, sections=None):
                               facts=trust["facts"], state=trust["state"], params=params, inbox_dir=INBOX_DIR, authoring=AUTHORING_MODE)
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
-        origin = {key: model["filters"][key] for key in ("q", "company", "list", "tier", "window", "start", "end", "tz") if model["filters"][key]}
+        origin = {key: model["filters"][key] for key in ("q", "company", "list", "tier", "favorites", "window", "start", "end", "tz") if model["filters"][key]}
         values = {**model["filters"], "layer": model["layer"], "region_status": model["region_status"], "activity": model["activity"], "region_entity": model["region_entity"], "region_asof": model["region_asof"]}
         model["review_urls"] = {view: "/explorer?" + urlencode({**values, "view": view}) for view in ("trusted", "unreviewed")}
         model["pagination"] = {number: "/explorer?" + urlencode({**values, "page": number}) for number in (model["page"]-1, model["page"]+1)}
@@ -10169,3 +10184,5 @@ app.include_router(news_workspace_router)
 
 from app.map_region_routes import router as map_region_router
 app.include_router(map_region_router)
+from app.company_routes import router as company_router
+app.include_router(company_router)

@@ -52,13 +52,14 @@ _TOPIC_WORDS = {
     "fruit",
 }
 
-TIERS = ("tier1", "tier2", "tier3", "watch", "muted")
+TIERS = ("tier1", "tier2", "tier3", "watch", "muted", "untiered")
 TIER_LABELS = {
     "tier1": "Tier 1 · Priority",
     "tier2": "Tier 2 · Core",
     "tier3": "Tier 3 · Peripheral",
     "watch": "Watch · Exploratory",
     "muted": "Muted",
+    "untiered": "Untiered",
 }
 DEFAULT_TIER = "tier2"
 
@@ -157,6 +158,8 @@ def empty_state() -> dict[str, Any]:
         "decisions": {},
         "reaction_events": [],
         "entity_tiers": {},
+        "entity_favorites": {},
+        "entity_mark_history": [],
         "company_lists": {},
         "digest_subscriptions": [],
         "statements": {},
@@ -449,8 +452,8 @@ def safe_image_url(record: dict[str, Any]) -> str:
 
 
 def entity_tier(entity_id: str, state: dict[str, Any]) -> str:
-    value = str((state.get("entity_tiers") or {}).get(entity_id) or DEFAULT_TIER)
-    return value if value in TIERS else DEFAULT_TIER
+    value = str((state.get("entity_tiers") or {}).get(entity_id) or "untiered")
+    return value if value in TIERS else "untiered"
 
 
 def decision_for(item_id: str, state: dict[str, Any]) -> dict[str, Any]:
@@ -488,6 +491,7 @@ def present_entities(
                 "name": name,
                 "entity_type": entity_type,
                 "tier": entity_tier(str(entity_id), state),
+                "favorite": bool((state.get("entity_favorites") or {}).get(str(entity_id))),
                 "verification_status": entity.get("verification_status")
                 or entity.get("status")
                 or "unknown",

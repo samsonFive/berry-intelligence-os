@@ -587,3 +587,6 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **2026-10-01 Map review checkpoint:** The redesigned local Explorer adds geographic news scope parity, private editable region annotations and six USDA production/area reference values across three U.S. berry categories. This is partial manually checked context, not an operational national-statistics collector or a recall improvement. Trade context reuses reviewed trade_observation records; unreviewed region annotations and reference context do not promote canonical intelligence or enter public snapshots. Existing coverage classifications/counts remain authoritative. Broader provider coverage and refresh/revision jobs remain open; see MISSION-04-MAP-EXPLORER.md.
+
+
+**2026-10-01 Company workspace checkpoint:** Directory/profile organization, manual links/logos/contacts and shared personal filters change presentation and analyst working state only. No collector, canonical identity/relationship/Fact/Evidence, evidence-class count, coverage maturity or recall claim changes. Provisional contacts and photo associations remain distinguishable from reviewed intelligence. See MISSION-05-COMPANIES.md.
