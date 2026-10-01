@@ -12,6 +12,7 @@
   <div class="bos-shell bos-dossier-shell">
     {% include "_feed_first_rail.html" %}
     <main class="bos-dossier-canvas">
+{% if not static_build %}<p class="sh-actions"><a class="sh-btn" href="/profiles/{{ entity_id }}/regions">Operating regions · view / edit</a></p>{% endif %}
       <header class="bos-dossier-header">
         <div class="bos-entity-lockup">
           <div class="bos-entity-logo-frame">

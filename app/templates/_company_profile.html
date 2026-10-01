@@ -50,6 +50,7 @@
   {% if feed_first_statements %}<a href="#feed-first-intelligence">Feed statements</a>{% endif %}
 </nav>
 
+{% if not static_build %}<p class="sh-actions"><a class="sh-btn" href="/profiles/{{ entity.id }}/regions">Operating regions · view / edit</a></p>{% endif %}
 {% include "_competitor_profile_concerns.html" %}
 {% include "_feed_first_entity_statements.html" %}
 

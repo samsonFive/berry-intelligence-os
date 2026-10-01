@@ -26,5 +26,7 @@
     "rel-costa-operates-in-zimbabwe",
     "rel-zimbabwe-part-of-africa"
   ],
-  "attributes": {}
+  "attributes": {
+    "iso_3166_1_alpha_2": "ZW"
+  }
 }

@@ -23,5 +23,7 @@
     "rel-hortifrut-operates-in-colombia",
     "rel-colombia-part-of-americas"
   ],
-  "attributes": {}
+  "attributes": {
+    "iso_3166_1_alpha_2": "CO"
+  }
 }
