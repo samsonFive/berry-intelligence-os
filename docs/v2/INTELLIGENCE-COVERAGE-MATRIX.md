@@ -590,3 +590,6 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **2026-10-01 Company workspace checkpoint:** Directory/profile organization, manual links/logos/contacts and shared personal filters change presentation and analyst working state only. No collector, canonical identity/relationship/Fact/Evidence, evidence-class count, coverage maturity or recall claim changes. Provisional contacts and photo associations remain distinguishable from reviewed intelligence. See MISSION-05-COMPANIES.md.
+
+
+**2026-10-01 Variety workspace checkpoint:** Presentation/navigation and existing private annotations change only; no canonical Variety, role, Evidence, Fact, evidence-class count, coverage maturity or recall claim is added. Photo candidates remain separate from the catalog. Growing-location labels are not inferred from retail markets or rights territories. See MISSION-06-VARIETIES.md.

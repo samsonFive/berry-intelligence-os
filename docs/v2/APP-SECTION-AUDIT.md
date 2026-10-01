@@ -262,3 +262,6 @@ The 44 individual More links have been replaced with eight workspace entries and
 
 
 **2026-10-01 consolidation checkpoint:** Companies now has an alphabetical table and tabbed profile; People is embedded per company. Favorites/tiers/lists reuse existing stores and filter News/Map/Digest. Intelligence, portfolio and region workflows remain linked; previous dossiers/catalogs stay available. This implements the Companies portion of the audit, not completion of Reports/Meeting Prep, configurable Landscape, visual Learn or Monitor/Operations. See [MISSION-05-COMPANIES.md](MISSION-05-COMPANIES.md).
+
+
+**2026-10-01 Variety consolidation checkpoint:** Directory, profile, Competition and Retail observations share the Varieties workspace; Photo imports and Identity review are its candidate subworkflow. Compact A–Z rows and progressive disclosure replace repeated profile-sized candidate blocks. Tests prove catalog preservation and one growing edit appearing in Directory/profile/Map without trust promotion. Compare/Coverage remain linked specialist tools. Directory-only company marks are explicitly distinguished from the retained competition/retail scopes. Remaining identity reconciliation, source-assisted geography and specialist migration are open, not silently retired. See [MISSION-06-VARIETIES.md](MISSION-06-VARIETIES.md).

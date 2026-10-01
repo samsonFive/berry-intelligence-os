@@ -509,7 +509,7 @@ def test_company_page_relationship_direction_reads_naturally() -> None:
 def test_variety_page_shows_trait_profile_and_claim_badges() -> None:
     response = client.get("/entities/variety/variety-blue-manila")
     assert response.status_code == 200
-    assert "Trait profile" in response.text
+    assert "Reported traits" in response.text
     assert "OWNER/MARKETER CLAIM" in response.text
     assert "Owner-published fruit-quality figures sit consistently above" in response.text  # the linked Signal
 

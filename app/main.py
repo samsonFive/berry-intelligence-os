@@ -914,7 +914,8 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     """Nav action counts for HTML pages. Overlay fragments skip nav work entirely."""
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    if str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds")) or request.url.path in {"/today", "/digest", "/saved"}:
+    variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates"
+    if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds")) or request.url.path in {"/today", "/digest", "/saved"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -2785,7 +2786,7 @@ def entity_list(
     }
     if entity_type == "variety":
         variety_view = view if view in VARIETY_VIEWS else "index"
-        drafts = list_pending_drafts()
+        drafts = [row for row in list_drafts_metadata() if row.get("status", "draft") != "rejected"] if AUTHORING_MODE else []
         geographies = sorted(
             ({"id": e["id"], "name": e["name"]} for e in entities_idx.values() if e.get("entity_type") == "geography"),
             key=lambda row: row["name"],
@@ -2809,7 +2810,7 @@ def entity_list(
                 berry_labels=BERRIES,
                 inbox_drafts=drafts,
                 signals=all_signals(),
-                candidates=load_candidates(INBOX_DIR) if INBOX_DIR else [],
+                candidates=load_candidates(INBOX_DIR) if AUTHORING_MODE and INBOX_DIR else [],
                 facts=all_facts(),
                 filters={
                     "has_rights": has_rights or "",
@@ -2840,9 +2841,28 @@ def entity_list(
                 berry_labels=BERRIES,
                 ip_and_observation=ip_and_observation in {"1", "true", "yes", "on"},
             )
+    template_name = "entity_list.html"
+    if entity_type == "variety" and view != "legacy":
+        from app.services import variety_navigation, feed_first
+        context["companies"] = sorted(
+            ({"id": row["id"], "name": row["name"]} for row in living_catalog() if row.get("entity_type") in {"company", "brand", "breeding_program"}),
+            key=lambda row: row["name"].casefold(),
+        )
+        region_rows = variety_navigation.region_rows(entities_idx, relationships, evidence, INBOX_DIR, AUTHORING_MODE)
+        state = feed_first.load_state(INBOX_DIR) if AUTHORING_MODE else feed_first.empty_state()
+        try:
+            context.update(variety_navigation.directory(
+                context["variety_cards"], params={**dict(request.query_params), **context["filters"]}, state=state,
+                entities=entities_idx, relationships=relationships, regions=region_rows,
+            ))
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+        context["growing_geographies"] = sorted({row["geography_id"]: row["country"] for row in region_rows if row["kind"] == "variety"}.items(), key=lambda row: row[1].casefold())
+        context["static_build"] = False
+        template_name = "variety_directory.html"
     response = templates.TemplateResponse(
         request=request,
-        name="entity_list.html",
+        name=template_name,
         context=context,
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -3255,12 +3275,18 @@ def variety_candidates_page(request: Request) -> HTMLResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Variety candidates are authoring-only")
     _varieties, candidates, _report = variety_candidate_universe()
+    from app.services.variety_navigation import candidate_queue
+    try:
+        queue = candidate_queue(candidates, dict(request.query_params))
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
         name="variety_candidates.html",
         context={
-            "candidates": candidates,
+            **queue,
+            "candidate_entities": entity_index(),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,
@@ -3617,8 +3643,8 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                 INBOX_DIR,
                 evidence_by_id=_evidence_index(),
                 entities=entities,
-            )
-            synthesis = entity_synthesis_context(entity, entities, linked_evidence=linked_evidence)
+            ) if AUTHORING_MODE or entity_type != "variety" else []
+            synthesis = entity_synthesis_context(entity, entities, linked_evidence=linked_evidence, include_pending=AUTHORING_MODE or entity_type != "variety")
             open_signals = open_signals_for_entity(entity_id, presented_candidates)
             ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
             if entity.get("entity_type") in ("company", "variety"):
@@ -3663,9 +3689,10 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                         grouped_relationships=synthesis["grouped_relationships"],
                         recent_intelligence=synthesis["recent_intelligence"],
                         berry_labels=BERRIES,
-                        inbox_drafts=list_pending_drafts(),
+                        inbox_drafts=[row for row in list_drafts_metadata() if row.get("status", "draft") != "rejected"] if AUTHORING_MODE else [],
                         story_threads=story_threads,
                         signals=all_signals(),
+                        include_candidates=AUTHORING_MODE,
                         facts=entity_facts,
                         evidence_by_id=evidence_idx,
                         identity_issues=identity_issues_for_variety(
@@ -3711,9 +3738,14 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     published=published_evidence(),
                     inbox_dir=INBOX_DIR,
                 )
+            template_name = "entity.html"
+            if entity_type == "variety" and request.query_params.get("view") != "legacy":
+                from app.services.variety_navigation import region_rows
+                synthesis["growing_regions"] = [row for row in region_rows(entities, all_relationships(), published_evidence(), INBOX_DIR, AUTHORING_MODE) if row["entity_id"] == entity_id]
+                template_name = "variety_profile.html"
             response = templates.TemplateResponse(
                 request=request,
-                name="entity.html",
+                name=template_name,
                 context={
                     "entity": entity,
                     "linked_evidence": linked_evidence,
@@ -3727,7 +3759,7 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     "authoring_mode": AUTHORING_MODE,
                     "is_watched": is_watched(INBOX_DIR, entity_type, entity_id) if entity_type in WATCH_TYPES else False,
                     "competitor_profile": competitor_profile,
-                    "feed_first_statements": _feed_first_entity_statements(entity_id),
+                    "feed_first_statements": _feed_first_entity_statements(entity_id) if AUTHORING_MODE or entity_type != "variety" else [],
                     **synthesis,
                 },
             )

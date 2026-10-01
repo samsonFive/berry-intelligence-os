@@ -1,11 +1,11 @@
 {% extends "glasshouse_base.html" %}
-{% block title %}Variety registry seeds · Berry Intelligence{% endblock %}
+{% block title %}Photo imports · Varieties{% endblock %}
 {% block content %}
-<header class="digest-heading"><div><p class="eyebrow">Varieties · your registry</p><h1>Variety seeds</h1><p>{{ total }} candidate names across {{ associations }} company associations. {{ installed }} added for review.</p></div><a class="outline-button" href="/entities/variety">Variety index</a></header>
+<header class="digest-heading"><div><p class="eyebrow">Varieties · photo imports</p><h1>Photo imports</h1><p>{{ total }} candidate names across {{ associations }} company associations. {{ installed }} added for review.</p></div><a class="outline-button" href="/entities/variety">Variety directory</a></header>
 <section class="packet-panel">
   <h2>Company matches from your photos</h2>
   <p>These are provisional transcriptions. A company appearing beside a variety does not establish breeder, owner or licensee status. Existing name matches still need identity review.</p>
-  {% if authoring_mode and installed < total %}<form method="post" action="/variety-seeds/import"><button class="green-button">Add seed candidates for review</button></form>{% endif %}
+  {% if authoring_mode and installed < total %}<form method="post" action="/variety-seeds/import"><button class="green-button">Add candidates for review</button></form>{% endif %}
   <form class="packet-form" method="get" action="/variety-seeds">
     <label>Company<select name="company"><option value="">All companies</option>{% for id, name in company_choices %}<option value="{{ id }}"{% if filters.company == id %} selected{% endif %}>{{ name }}</option>{% endfor %}</select></label>
     <label>Berry<select name="berry"><option value="">All berries</option>{% for id, name in berry_choices %}<option value="{{ id }}"{% if filters.berry == id %} selected{% endif %}>{{ name }}</option>{% endfor %}</select></label>

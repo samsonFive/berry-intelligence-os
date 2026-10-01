@@ -197,8 +197,8 @@ def test_publication_and_atomic_and_variety_explanations() -> None:
     assert 'href="/collection-ops"' in atomic.text
     variety = client.get("/varieties/candidates")
     assert variety.status_code == 200
-    assert "CANDIDATE, not a trusted Variety" in variety.text
-    assert "does not create a new trusted Variety" in variety.text
+    assert "proposed names, not confirmed catalog varieties" in variety.text
+    assert "does not create a catalog variety" in variety.text
     assert 'href="/varieties/coverage"' in variety.text
 
 
@@ -232,7 +232,8 @@ def test_contextual_help_on_major_pages() -> None:
         page = client.get(path)
         assert page.status_code == 200, path
         assert "data-workspace-help" in page.text, path
-        assert "About this workspace" in page.text, path
+        help_heading = "How identity decisions work" if path == "/varieties/candidates" else "About this workspace"
+        assert help_heading in page.text, path
 
 
 def test_queue_count_semantics_in_sidebar() -> None:
