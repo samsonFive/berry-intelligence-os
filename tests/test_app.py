@@ -30,9 +30,9 @@ def test_home_opens_news_without_fictional_seed_reporting(monkeypatch) -> None:
     response = client.get("/")
     assert response.status_code == 200
     assert response.url.path == "/today"
-    assert "data-feed-first-today" in response.text
+    assert "data-news-workspace" in response.text
     assert "Example breeder announces" not in response.text
-    assert "industry entities watched" in response.text
+    assert "newest publication first" in response.text
     assert "not a live multi-lane poll" not in response.text
     briefing = client.get("/today?view=briefing")
     assert "Daily Intelligence Briefing" in briefing.text

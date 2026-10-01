@@ -73,7 +73,7 @@ class IntelligenceQuery:
             scope.update(resolve_geography_scope(eid, relationships=relationships).all_ids)
         if self.country_codes and not scope:
             return []
-        return sorted((r for r in records if r.get('status') == 'published'
+        return sorted((r for r in records if (r.get('status') == 'published' or (self.view == 'unreviewed' and r.get('status') == 'unreviewed'))
             and 'structural' not in (r.get('tags') or [])
             and (not scope or bool(record_geography_ids(r) & scope))
             and (not self.commodities() or bool(set(self.commodities()) & set(r.get('berry_ids') or [])))),

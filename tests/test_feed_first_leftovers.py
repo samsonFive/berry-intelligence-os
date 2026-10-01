@@ -1,3 +1,4 @@
+# The previous News workspace remains at /today?view=legacy; core defaults are covered in test_news_workspace.py.
 """P1 leftovers that do not need Johnny: muted, PDF, gallery, cascade, corroboration."""
 
 from datetime import date, datetime, timezone
@@ -333,7 +334,7 @@ def test_empty_copy_follows_selected_window():
 
 
 def test_today_and_ops_expose_leftover_contracts():
-    today = TestClient(app).get("/today")
+    today = TestClient(app).get("/today?view=legacy")
     assert today.status_code == 200
     assert 'href="#today-feed"' in today.text
     assert "bos-skip" in today.text

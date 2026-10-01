@@ -105,6 +105,9 @@
       }).catch(function (error) { announce(error.message, activeReader); }).finally(function () { if (capture.isConnected) { capture.disabled = false; capture.textContent = "Load available article text"; } });
     }
     if (!event.target.closest(".glass-more")) { var more = document.querySelector(".glass-more"); if (more) more.open = false; }
+    document.querySelectorAll(".filter-multi[open]").forEach(function (details) {
+      if (!details.contains(event.target)) details.open = false;
+    });
   });
   document.addEventListener("change", function (event) {
     if (event.target.matches("[data-digest-window]")) document.querySelector(".custom-dates").hidden = event.target.value !== "custom";
@@ -156,6 +159,20 @@
   }, true);
   document.addEventListener("pointerout", function (event) { var button = event.target.closest(".icon-action"); if (button && !button.contains(event.relatedTarget)) delete button.dataset.tooltipDismissed; });
   document.addEventListener("focusout", function (event) { var button = event.target.closest(".icon-action"); if (button) delete button.dataset.tooltipDismissed; });
+  document.addEventListener("focusin", function (event) {
+    document.querySelectorAll(".filter-multi[open]").forEach(function (details) { if (!details.contains(event.target)) details.open = false; });
+  });
+  document.addEventListener("toggle", function (event) {
+    var details = event.target;
+    if (!details.matches || !details.matches(".filter-multi") || !details.open) return;
+    var panel = details.querySelector("div");
+    if (!panel) return;
+    panel.style.transform = "";
+    var bounds = panel.getBoundingClientRect();
+    var width = document.documentElement.clientWidth;
+    var shift = bounds.right > width - 12 ? width - 12 - bounds.right : bounds.left < 12 ? 12 - bounds.left : 0;
+    if (shift) panel.style.transform = "translateX(" + shift + "px)";
+  }, true);
   setupReader();
   document.addEventListener("error", function (event) {
     var image = event.target;
