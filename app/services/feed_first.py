@@ -19,6 +19,7 @@ from app.services.berries.landscape import SEED_FIXTURE_EVIDENCE_IDS
 from app.services.clock import utc_today
 from app.services.html_text import decode_html_text
 from app.services.source_body import classify_source_body, reader_content
+from app.services.analyst_state_io import serialized_write
 
 STATE_FILENAME = "feed_first_state.json"
 BACKUP_SUBDIR = "feed_first_backups"
@@ -113,7 +114,7 @@ BODY_TO_AVAILABILITY = {
 NAV = (
     ("News", "/today"),
     ("Following", "/following"),
-    ("Saved", "/saved"),
+    ("Personal Digest", "/digest"),
     ("Entities", "/entities"),
     ("Variety Database", "/entities/variety"),
     ("People", "/people"),
@@ -156,6 +157,8 @@ def empty_state() -> dict[str, Any]:
         "decisions": {},
         "reaction_events": [],
         "entity_tiers": {},
+        "company_lists": {},
+        "digest_subscriptions": [],
         "statements": {},
         "research_runs": {},
         "research_proposals": {},
@@ -181,11 +184,12 @@ def load_state(inbox_dir: Path) -> dict[str, Any]:
 
 
 def save_state(inbox_dir: Path, state: dict[str, Any]) -> None:
+    from app.services.analyst_state_io import atomic_json
     path = state_path(inbox_dir)
     path.parent.mkdir(parents=True, exist_ok=True)
     state = dict(state)
     state["updated_at"] = datetime.now(UTC).isoformat(timespec="seconds")
-    path.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
+    atomic_json(path, state)
 
 
 def snapshot_state(inbox_dir: Path) -> Path:
@@ -210,6 +214,7 @@ def latest_snapshot(inbox_dir: Path) -> Path | None:
     return snapshots[-1] if snapshots else None
 
 
+@serialized_write
 def restore_state(inbox_dir: Path, snapshot: Path | None = None) -> dict[str, Any]:
     """Replace working state from a snapshot. Does not touch data/evidence."""
     path = snapshot or latest_snapshot(inbox_dir)
@@ -1012,6 +1017,7 @@ def build_feed(
     }
 
 
+@serialized_write
 def apply_decision(
     inbox_dir: Path,
     *,
@@ -1302,6 +1308,7 @@ def _support_locators(record: dict[str, Any], excerpt: str) -> list[dict[str, An
     return []
 
 
+@serialized_write
 def mutate_statement(
     inbox_dir: Path,
     *,
@@ -1455,6 +1462,7 @@ def statement_by_id(state: dict[str, Any], statement_id: str) -> dict[str, Any] 
     return None
 
 
+@serialized_write
 def set_entity_tier(inbox_dir: Path, *, entity_id: str, tier: str) -> str:
     if tier not in TIERS:
         raise ValueError("invalid tier")

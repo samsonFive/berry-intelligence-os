@@ -305,3 +305,7 @@ The user authorized building and pushing a reviewable design checkpoint on Septe
 ## Consolidated navigation checkpoint
 
 The preview now demonstrates the agreed workspace hierarchy rather than exposing the legacy 44-link list. Eight More destinations open 20 nested views; Personal Digest absorbs Reading Queue access, Monitor absorbs separate watch/alert entries, Reports & Briefings groups brief creation/library and Meeting Prep, and Operations groups collection/review/quality. Existing tools remain available within their new home. Continue with concrete workflow prototypes and durable integration; do not treat explanatory workspace tabs as completed merged features.
+
+## Mission 1 implementation checkpoint
+
+Personal Digest now has a real private `/digest` workspace and persistent save/reading/list-subscription integration, using the existing analyst stores and shared overlay Reader. `/saved` redirects compatibly; Reading Queue history and specialist actions remain available inside Digest. The isolated review is an application implementation, with sample personal state and labeled illustrative images. It is not a deployment or a claim that other page families have migrated. The preservation map, acceptance evidence and remaining work are in [MISSION-01-PERSONAL-DIGEST.md](MISSION-01-PERSONAL-DIGEST.md). Update the visual guide's status alongside each following family.

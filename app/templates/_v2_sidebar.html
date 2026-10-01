@@ -86,10 +86,16 @@
     {{ nav_icon('review') }}<span class="v2-nav-text">Review Operations</span>
   </a>
   {% endif %}
+  {% if not static_build %}
+  <a href="/digest" class="v2-nav-link{% if path in ['/digest', '/saved', '/queues/reading'] %} is-active{% endif %}" title="Personal Digest" aria-label="Personal Digest">
+    {{ nav_icon('reading') }}<span class="v2-nav-text">Personal Digest</span>
+  </a>
+  {% else %}
   <a href="/queues/reading" class="v2-nav-link{% if path == '/queues/reading' %} is-active{% endif %}" title="Reading Queue" aria-label="Reading Queue{{ count_label(nav_work_counts.reading_action) }}">
     {{ nav_icon('reading') }}<span class="v2-nav-text">Reading Queue</span>
     {{ count_badge(nav_work_counts.reading_action, labels.reading_action or (nav_work_counts.reading_action ~ ' items remaining in the Reading Queue')) }}
   </a>
+  {% endif %}
 
   <p class="v2-nav-group">Decide</p>
   {% if not static_build %}

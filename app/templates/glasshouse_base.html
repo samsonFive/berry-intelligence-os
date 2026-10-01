@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Berry Intelligence{% endblock %}</title>
+  <link rel="icon" href="/static/berry-intelligence-icon.png">
+  <link rel="stylesheet" href="/static/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/personal_digest.css">
+</head>
+<body class="glasshouse" data-personal-digest>
+  <a class="skip-link" href="#digest-main">Skip to content</a>
+  <header class="glass-header">
+    <a class="glass-brand" href="/today"><img src="/static/berry-intelligence-icon.png" width="36" height="36" alt=""><span><b>berry</b> intelligence<small>YOUR INDUSTRY, IN VIEW</small></span></a>
+    <nav class="glass-primary" aria-label="Primary"><a href="/today">News</a><a href="/explorer">Map Explorer</a><a href="/entities/company">Companies</a><a href="/learn">Learn</a><a href="/digest" aria-current="page">Personal Digest</a></nav>
+    <details class="glass-more"><summary>More</summary><div class="glass-menu">
+      <div class="glass-workspaces">
+        <section><h2>Your workspace</h2><a href="/digest"><b>Personal Digest</b><small>Saved stories, reading and subscribed lists</small></a><a href="/landscapes"><b>Landscape</b><small>The competitive picture</small></a><a href="/entities/variety"><b>Varieties</b><small>Genetics and growing context</small></a></section>
+        <section><h2>Analysis & action</h2><a href="/statements"><b>Intelligence</b><small>Statements and supporting evidence</small></a><a href="/queues/monitoring"><b>Monitor</b><small>Watches, changes and alerts</small></a><a href="/brief-packs"><b>Reports & Briefings</b><small>Briefs, reports and meeting preparation</small></a></section>
+        <section><h2>Workspace support</h2><a href="/review-ops"><b>Operations</b><small>Collection, review and quality</small></a><a href="/guide"><b>Help</b><small>How to work with your intelligence</small></a></section>
+      </div>
+      <details class="existing-navigation"><summary>All existing tools</summary><p>Specialist tools remain available as their workspaces are combined.</p>{% include "_v2_sidebar.html" %}</details>
+    </div></details>
+  </header>
+  <main id="digest-main" tabindex="-1">{% if request.app.state.digest_preview|default(false) %}<p class="digest-notice">Isolated review workspace · sample personal state and illustrative images. Changes here do not affect your existing workspace.</p>{% endif %}{% block content %}{% endblock %}</main>
+  {% with personal_reader_shell=true %}{% include "_v2_reader_offcanvas.html" %}{% endwith %}
+  <script src="/static/vendor/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="/static/v2.js"></script>
+  <script src="/static/personal_digest.js"></script>
+</body>
+</html>
