@@ -49,9 +49,10 @@ def personal_digest_page(request: Request):
     query.pop("story", None)
     model["return_to"] = "/digest" + ("?" + urlencode(query) if query else "")
     model["pagination"] = {number: "/digest?" + urlencode({**query, "page": number}) for number in (model["page"] - 1, model["page"] + 1)}
+    retained_members = {key for row in model["lists"] for key in row.get("company_ids", [])}
     return main.templates.TemplateResponse(request=request, name="personal_digest.html", context={
         **model, "authoring_mode": main.AUTHORING_MODE, "static_build": False,
-        "companies": sorted([row for row in entities.values() if row.get("entity_type") == "company"], key=lambda row: row.get("name", "").casefold()),
+        "companies": sorted([row for row in entities.values() if row.get("entity_type") == "company" or row.get("id") in retained_members], key=lambda row: row.get("name", "").casefold()),
         "berry_choices": feed_first.CROP_LABELS,
         "countries": sorted([row for row in entities.values() if row.get("entity_type") == "geography"], key=lambda row: row.get("name", "")),
     })
@@ -60,12 +61,13 @@ def personal_digest_page(request: Request):
 @router.post("/digest/lists")
 async def digest_lists(request: Request):
     require_edit(request)
-    main, _, _, entities = world()
+    main, context, _, entities = world()
     form = await request.form()
+    retained_members = {member for group in context["state"].get("company_lists", {}).values() for member in group.get("company_ids", [])}
     try:
         digest.edit_list(main.INBOX_DIR, action=str(form.get("action") or ""), list_id=str(form.get("list_id") or ""),
                          name=str(form.get("name") or ""), company_ids=[str(value) for value in form.getlist("company_ids")],
-                         allowed_companies={key for key, row in entities.items() if row.get("entity_type") == "company"})
+                         allowed_companies={key for key, row in entities.items() if row.get("entity_type") == "company" or key in retained_members})
     except ValueError as exc:
         raise HTTPException(400, str(exc)) from exc
     return RedirectResponse(return_path(str(form.get("return_to") or "")) + "#subscriptions", status_code=303)

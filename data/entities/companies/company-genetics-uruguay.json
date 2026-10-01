@@ -1,0 +1,7 @@
+{
+  "id": "company-genetics-uruguay", "record_type": "entity", "entity_type": "company",
+  "name": "Genetics Uruguay", "aliases": [], "status": "unverified",
+  "description": "Provisional registry entry supplied by the user on 2026-09-30. The exact organization behind this label remains unresolved; no ownership, website or operating-region claims are asserted.",
+  "roles": [], "berry_ids": [], "evidence_ids": [], "fact_ids": [], "relationship_ids": [],
+  "attributes": {"identity_review_required": true, "operator_registry_2026_09_30": {"label": "Genetics Uruguay", "source": "operator-provided competitor registry image", "review_state": "pending"}}
+}

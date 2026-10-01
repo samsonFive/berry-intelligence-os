@@ -2,6 +2,14 @@
   "_comment": "V2 Phase 1B (BL-019, docs/v2/10-BACKLOG.md). Every id below was verified directly against live data/entities/ (2026-08-14), not copied from docs/v2/04-DOMAIN-PACK-SPEC.md's own illustrative 'Berries example', which listed traits (ownership, headquarters_country, region, filing_date, expiry_date) that do not exist as real trait entities in data/entities/traits/ -- corrected here to match verified data instead of that earlier, unverified example. live_count fields were re-verified and updated 2026-08-20 for the multi-berry portability audit (company/breeding_program/trait/berry counts changed; see each entry's own note).",
   "entity_types": [
     {
+      "id": "person",
+      "label": "Person",
+      "plural_label": "People",
+      "traits": [],
+      "live_count": 1,
+      "_comment": "2026-09-30 operator registry: Mario Aguas-Alvarado is represented as a provisional person, not an invented company. Person already exists in the generic entity schema and JSON repository. This declaration does not establish employer, role, biography or verified intelligence."
+    },
+    {
       "id": "company",
       "label": "Company",
       "plural_label": "Companies",

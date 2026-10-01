@@ -579,3 +579,5 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **2026-09-30 section-review follow-up:** Visual Learn and selection-triggered Perplexity deep research are accepted requirements only. No provider call, new educational content, media acquisition, published Evidence or coverage-maturity change occurred in this planning update.
+
+**2026-09-30 Mission 2 checkpoint:** The first 77-subject registry group reuses existing identities plus two provisional subjects. A private RSS canary completed all searches and exported 13 dated September stories after qualification. Search success is not exhaustive or reviewed coverage. Four photos seed 143 private variety candidates from 144 company associations, with 15 possible canonical matches and 32 unclear cells. No canonical Evidence, approved variety identity, source onboarding, evidence-class count or maturity rating is changed. See [MISSION-02-COMPETITOR-NEWS-PACKETS.md](MISSION-02-COMPETITOR-NEWS-PACKETS.md).

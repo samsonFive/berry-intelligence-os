@@ -26,7 +26,8 @@ PROGRESS_LABELS = {
 def retained_news(inbox_dir: Path) -> list[dict[str, Any]]:
     """Read retained daily caches, newest version per exact ID; never fetch."""
     records: dict[str, dict[str, Any]] = {}
-    for path in sorted((Path(inbox_dir) / CACHE_SUBDIR).glob("????-??-??.json")):
+    paths = list((Path(inbox_dir) / CACHE_SUBDIR).glob("????-??-??.json")) + list((Path(inbox_dir) / "news_packets" / "captures").glob("packet-*.json"))
+    for path in sorted(paths, key=lambda path: path.stat().st_mtime):
         try:
             payload = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, ValueError):
