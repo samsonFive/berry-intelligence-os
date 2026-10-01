@@ -1,3 +1,4 @@
+# The previous News workspace remains at /today?view=legacy; core defaults are covered in test_news_workspace.py.
 """Feed-first golden-path regressions across the Berry OS shell."""
 
 from pathlib import Path
@@ -8,7 +9,7 @@ from app.main import app
 
 
 ROUTES = (
-    ("/today", "data-feed-first-today"),
+    ("/today?view=legacy", "data-feed-first-today"),
     ("/following", "data-feed-first-following"),
     ("/people", "data-feed-first-people"),
     ("/saved", "data-personal-digest"),
@@ -37,7 +38,7 @@ def test_golden_path_routes_render_berry_os_shell():
 
 
 def test_today_filter_query_restores_selected_controls():
-    page = TestClient(app).get("/today?tier=tier1&crop=blueberry&state=unread&window=30d")
+    page = TestClient(app).get("/today?view=legacy&tier=tier1&crop=blueberry&state=unread&window=30d")
     assert page.status_code == 200
     assert "data-feed-first-today" in page.text
     assert 'value="tier1" selected' in page.text
@@ -93,7 +94,7 @@ def test_default_company_stays_berry_os_and_legacy_is_opt_in():
 
 def test_feed_nav_restores_full_landscape_and_learner_entry_points():
     client = TestClient(app)
-    today = client.get("/today")
+    today = client.get("/today?view=legacy")
     assert 'href="/landscapes"' in today.text
     assert 'href="/learn"' in today.text
     assert 'href="/landscapes?view=feed"' not in today.text

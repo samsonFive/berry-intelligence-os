@@ -148,8 +148,13 @@
   }
   function loadReaderById(id, trigger, cardIndex, fromHistory) {
     if (!id || !overlay || !overlayBody) return;
+    if (typeof cardIndex !== "number") {
+      var found = cards.findIndex(function (card) { return itemIdFromCard(card) === id; });
+      if (found >= 0) cardIndex = found;
+    }
     if (typeof cardIndex === "number") selectCard(cardIndex, { skipFocus: true, preserveScroll: document.body.hasAttribute("data-personal-digest") });
-    lastTrigger = trigger || lastTrigger;
+    var selected = typeof cardIndex === "number" ? cards[cardIndex] : null;
+    lastTrigger = trigger || (selected && selected.querySelector("[data-open-reader]")) || document.getElementById("digest-main") || lastTrigger;
     if (!fromHistory) {
       var url = new URL(window.location.href);
       var replacing = url.searchParams.has("story");

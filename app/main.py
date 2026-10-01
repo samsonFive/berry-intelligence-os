@@ -4069,10 +4069,13 @@ def _feed_first_today(request: Request) -> HTMLResponse:
 
 @app.get("/today", response_class=HTMLResponse)
 def today_page(request: Request) -> HTMLResponse:
-    """Feed-first Today. Legacy briefing remains at ?view=briefing."""
+    """Core News; preceding feed and briefing remain explicitly addressable."""
     if str(request.query_params.get("view") or "") == "briefing":
         return _legacy_briefing_today(request)
-    return _feed_first_today(request)
+    if str(request.query_params.get("view") or "") == "legacy":
+        return _feed_first_today(request)
+    from app.news_workspace_routes import news_page
+    return news_page(request)
 
 
 @app.get("/following", response_class=HTMLResponse)
@@ -4580,6 +4583,9 @@ async def feed_first_tier(request: Request) -> JSONResponse:
 @app.get("/news", response_class=HTMLResponse)
 def news_edition_page(request: Request) -> HTMLResponse:
     """Retained archive/news edition. Canonical daily entry remains /today."""
+    if request.query_params.get("view") != "archive" and not request.query_params.get("date"):
+        from app.news_workspace_routes import news_page
+        return news_page(request)
     from app.services.news_edition import select_edition
 
     entities = all_entities()
@@ -7512,14 +7518,14 @@ def _explorer_context(request, countries, berry, sections=None):
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     from dataclasses import replace
     from app.services.feed_first import load_state
-    from app.services.feed_first_live import cached_live_records, merge_decision_records
+    from app.services.personal_digest import source_records
     view = request.query_params.get("view", "trusted")
     if view not in {"trusted", "unreviewed"}:
         raise HTTPException(status_code=422, detail="Unknown intelligence view")
     query = replace(query, view=view)
     records = published_evidence()
     if view == "unreviewed" and sections is None:
-        records = merge_decision_records(records, cached_live_records(INBOX_DIR))
+        records = list(source_records(records, INBOX_DIR).values())
     args = (query, records, entities, all_relationships(), BERRIES)
     trust = {"facts": all_facts(), "state": load_state(INBOX_DIR)}
     if sections is None:
@@ -7528,6 +7534,17 @@ def _explorer_context(request, countries, berry, sections=None):
         included = [key for key in sections.split(',') if key in SECTIONS]
         model = snapshot_model(*args, included, **trust)
     from app.services.feed_first import NAV
+    # Keep the originating News filters on return; map geography/berries win.
+    from urllib.parse import parse_qsl
+    return_value = str(request.query_params.get("news_return") or "")
+    try:
+        return_parts = urlsplit(return_value)
+    except ValueError:
+        return_parts = urlsplit("")
+    origin = dict(parse_qsl(return_parts.query)) if not return_parts.scheme and not return_parts.netloc and return_parts.path in {"/today", "/news"} else {}
+    origin = {key: value for key, value in origin.items() if key in {"q", "company", "list", "tier", "window", "start", "end", "tz"}}
+    model["news_href"] = "/today?" + urlencode({**origin, **query.params()})
+    model["news_return"] = "/today?" + urlencode(origin) if origin else ""
     return model | {"ui_context": read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR),
                     "nav": NAV, "active_href": "/explorer"}
 
@@ -10138,3 +10155,5 @@ from app.news_packet_routes import router as news_packet_router
 app.include_router(news_packet_router)
 from app.variety_seed_routes import router as variety_seed_router
 app.include_router(variety_seed_router)
+from app.news_workspace_routes import router as news_workspace_router
+app.include_router(news_workspace_router)

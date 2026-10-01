@@ -120,6 +120,16 @@
       "runner": "POST /news-packets/capture",
       "state": "news_packets/jobs",
       "notes": "Explicit bounded Google News RSS capture for a chosen watchlist and publication date range. Shared collection lease; no API credits, auto-review, trusted publication or scheduled polling. Failed or stale captures cannot generate a new export."
+    },
+    {
+      "id": "news_workspace_refresh",
+      "enabled": true,
+      "scheduled": false,
+      "schedule_entrypoint": false,
+      "cadence_seconds": null,
+      "runner": "POST /api/news/refresh",
+      "state": "operations/pipelines/news_workspace_refresh/runs",
+      "notes": "Explicit refresh of existing bounded public News discovery lanes, with paid providers disabled. Shared collection lease, metadata previews only, no human-review bypass, canonical writes or scheduled polling."
     }
   ]
 }

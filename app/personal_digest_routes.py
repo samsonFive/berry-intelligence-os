@@ -133,10 +133,12 @@ def reader_context(request: Request, record: dict):
     from app.services.feed_first_reader import load_capture, merge_capture, display_reader_passages, is_public_http_url
     from app.services.intelligence_feed import article_paragraphs
     from app.services.source_body import reader_content
+    from app.services.news_workspace import source_reviewed, escalations
     record = merge_capture(record, load_capture(main.INBOX_DIR, str(record["id"])))
     context = main._feed_first_world()
     entities = {str(row["id"]): row for row in context["entities"] if row.get("id")}
     card = feed_first.present_item(record, entities_by_id=entities, state=context["state"], filters=feed_first.parse_filters({}))
+    card["entities"] = [row for row in card["entities"] if (entities.get(row["id"]) or {}).get("entity_type") in {"company", "brand", "research_program"}]
     content = reader_content(record)
     paragraphs = [] if content["contaminated"] else display_reader_passages([row["text"] for row in article_paragraphs(record)])
     if paragraphs == [content["summary"]]:
@@ -145,7 +147,8 @@ def reader_context(request: Request, record: dict):
     entry = (analyst_queue.load_state(main.INBOX_DIR).get("reading") or {}).get(str(record["id"])) or {}
     return {"personal_reader": True, "card": card, "record": record, "article_text": paragraphs,
             "article_available": bool(paragraphs), "reading_entry": entry, "summary": content["summary"],
-            "trusted": record.get("status") == "published", "authoring_mode": main.AUTHORING_MODE, "static_build": False}
+            "trusted": source_reviewed(record), "escalated_statements": escalations(main.all_facts()).get(str(record["id"]), []),
+            "authoring_mode": main.AUTHORING_MODE, "static_build": False}
 
 
 @router.post("/api/digest/{item_id}/capture", response_class=HTMLResponse)
