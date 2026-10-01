@@ -38,6 +38,7 @@
     <dt>Source</dt><dd>{% if row.source_url %}<a href="{{ row.source_url }}">{{ row.source_url }}</a>{% else %}{{ row.source_id }}{% endif %}</dd>
     <dt>Denomination / code</dt><dd>{{ row.denomination or "—" }} {% if row.breeder_code %}· {{ row.breeder_code }}{% endif %}</dd>
     <dt>Applicant / breeder</dt><dd>{{ row.breeder_owner or row.applicant or "—" }}</dd>
+    {% if row.knowledge.company_associations %}<dt>Companies in your registry</dt><dd>{% for item in row.knowledge.company_associations %}<a href="/entities/{{ item.entity_type }}/{{ item.entity_id }}">{{ item.name }}</a>{% if not loop.last %} &middot; {% endif %}{% endfor %}<br>Association supplied in your photos; role and spelling still need confirmation.</dd>{% endif %}
     <dt>Registration</dt>
     <dd>
       {{ row.registration.application_number or "—" }}

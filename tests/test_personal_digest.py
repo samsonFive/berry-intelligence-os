@@ -281,3 +281,16 @@ def test_digest_preview_does_not_hydrate_article_or_transcript_body(tmp_path):
     card = model(tmp_path, [row])["cards"][0]
     assert card["passages"] == [row["summary"]]
     assert "paragraphs" not in card["record"]["article"] and "transcript" not in card["record"]
+
+
+def test_registry_list_edit_preserves_brand_and_person_members(workspace):
+    client, repos = workspace
+    for key, entity_type in [("brand-roster", "brand"), ("person-roster", "person")]:
+        repos.entities.create({"id": key, "record_type": "entity", "entity_type": entity_type, "name": key, "status": "unverified"})
+    members = ["company-digest", "brand-roster", "person-roster"]
+    list_id = digest.edit_list(main.INBOX_DIR, action="create", name="Registry", company_ids=members, allowed_companies=set(members))
+    page = client.get("/digest").text
+    assert 'value="brand-roster"' in page and 'value="person-roster"' in page
+    response = client.post("/digest/lists", data={"action": "edit", "list_id": list_id, "name": "Registry updated", "company_ids": members}, follow_redirects=False)
+    assert response.status_code == 303
+    assert set(feed.load_state(main.INBOX_DIR)["company_lists"][list_id]["company_ids"]) == set(members)

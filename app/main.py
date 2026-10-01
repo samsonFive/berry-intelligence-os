@@ -914,7 +914,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     """Nav action counts for HTML pages. Overlay fragments skip nav work entirely."""
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    if str(getattr(request.url, "path", "") or "").startswith("/api/") or request.url.path in {"/today", "/digest", "/saved"}:
+    if str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds")) or request.url.path in {"/today", "/digest", "/saved"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -3430,6 +3430,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     from app.services.entity_logo_overrides import load_logo_overrides, logo_override_url
     from app.services.people_watchlist import discover_people
     from app.services.seed_roster import seed_profile
+    from app.services.operator_variety_seed import company_seed_count
 
     world = _feed_first_world()
     logo_overrides = load_logo_overrides(INBOX_DIR)
@@ -3486,8 +3487,9 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "aliases": list((trusted or {}).get("aliases") or (seed or {}).get("aliases") or []),
             "description": (trusted or {}).get("description") or (seed or {}).get("parent_or_successor") or "",
             "status": (trusted or {}).get("status") or (seed or {}).get("status") or "unverified",
-            "verification_label": (seed or {}).get("verification_label")
-            or ("Trusted catalog record" if trusted else "Unverified"),
+            "verification_label": "Unverified" if (trusted or {}).get("status") == "unverified" else (
+                (seed or {}).get("verification_label") or ("Trusted catalog record" if trusted else "Unverified")
+            ),
             "candidate": bool((seed or {}).get("candidate")) or (trusted or {}).get("status") == "unverified",
             "is_registry": bool((seed or {}).get("is_registry")),
             "crops": (seed or {}).get("crops")
@@ -3508,6 +3510,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "logo_status": str(request.query_params.get("logo_status") or ""),
             "logo_error": str(request.query_params.get("logo_error") or ""),
             "entity_id": entity_id,
+            "registry_seed_count": company_seed_count(DATA_DIR, entity_id),
             "nav": world["nav"],
             "active_href": "/entities",
             "counts": world["counts"],
@@ -10131,3 +10134,7 @@ def api_global_search(
 # Consolidated private reading workspace; legacy queue routes remain compatible.
 from app.personal_digest_routes import router as personal_digest_router
 app.include_router(personal_digest_router)
+from app.news_packet_routes import router as news_packet_router
+app.include_router(news_packet_router)
+from app.variety_seed_routes import router as variety_seed_router
+app.include_router(variety_seed_router)

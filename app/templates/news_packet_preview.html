@@ -1,0 +1,20 @@
+{% extends "glasshouse_base.html" %}
+{% block title %}Packet preview · Berry Intelligence<script src="/static/news_packets.js?v=2"></script>
+{% endblock %}
+{% block content %}
+{% if job.status in ['queued', 'capturing'] %}<meta http-equiv="refresh" content="5">{% endif %}
+<section class="digest-heading"><div><p class="eyebrow">NEWS PACKET · {{ job.scope.review|capitalize }}</p><h1>{{ job.scope.list_name }}</h1><p>{{ job.scope.start }} through {{ job.scope.end }}</p></div><a href="/news-packets">Choose dates / capture again →</a></section>
+<section class="packet-panel"><h2>{% if job.status in ['queued','capturing'] %}Capturing fresh news…{% elif job.status == 'ready' %}Ready to export{% elif job.status == 'exported' %}Packet generated{% else %}Capture needs attention{% endif %}</h2>
+<p>{{ job.capture.queries_done }} / {{ job.capture.queries_total }} subject searches completed. {{ stories }} stories · {{ job.records|length }} export rows.</p>
+{% if job.capture.completed_at %}<p>Last captured: <b><time datetime="{{ job.capture.completed_at }}" data-packet-time>{{ job.capture.completed_at }}</time></b></p>{% endif %}
+{% if job.generated_at %}<p>Last generated: <b><time datetime="{{ job.generated_at }}" data-packet-time>{{ job.generated_at }}</time></b></p>{% endif %}
+{% if job.status == 'ready' %}<form method="post" action="/news-packets/{{ job.id }}/export"><button {% if not authoring_mode %}disabled{% endif %}>Generate & download JSON</button></form>{% elif job.status == 'exported' %}<a class="packet-download" href="/news-packets/{{ job.id }}/download.json">Download this JSON packet ↗</a>{% elif job.status == 'failed' %}<p class="packet-error">The packet cannot be exported until capture and validation succeed. Retry from the date selection page.</p>{% endif %}
+<p class="packet-note">Each competitor and related entity gets a separate row with the same source ID. Source summaries remain distinct from verified facts. Landscape publication is off; the receiving app must review its import.</p>
+{% if job.validation.errors or job.capture.errors %}<h3>Needs attention</h3>{% for issue in job.validation.errors + job.capture.errors %}<p class="packet-error">{{ issue.message }} {{ issue.subject_id|default('') }}</p>{% endfor %}{% endif %}
+{% if job.validation.warnings %}<details><summary>{{ job.validation.warnings|length }} review notes & duplicate warnings</summary>{% for issue in job.validation.warnings %}<p>{{ issue.message }} · {{ issue.record_id }}</p>{% endfor %}</details>{% endif %}
+<a href="/news-packets/{{ job.id }}/exceptions.csv">Download validation / exception report ↗</a>
+</section>
+{% if job.records %}<section class="packet-panel"><h2>News preview</h2><div class="packet-table"><table><thead><tr><th>Date / source</th><th>Headline & summary</th><th>Competitor</th><th>Related mention</th><th>Review</th></tr></thead><tbody>{% for row in job.records[:120] %}<tr><td>{{ row.published_date }}<small>{{ row.source_name }}</small></td><td><a href="{{ row.source_url }}" target="_blank" rel="noopener">{{ row.headline }}</a><p>{{ row.summary }}</p></td><td>{{ row.competitor_name }}</td><td>{{ row.related_entity_name or '—' }}</td><td>{{ 'Reviewed source' if row.record_status == 'approved' else 'Unreviewed' }}</td></tr>{% endfor %}</tbody></table></div>{% if job.records|length > 120 %}<p>First 120 rows shown. The download includes all {{ job.records|length }} rows.</p>{% endif %}</section>{% endif %}
+{% if missing %}<section class="packet-panel"><details><summary>{{ missing|length }} watched subjects with no matching stories in this packet</summary><p>Search execution does not prove coverage. Reviewed only can exclude fresh discoveries.</p><p>{% for entity in missing %}{{ entity.name }}{% if not loop.last %} · {% endif %}{% endfor %}</p></details></section>{% endif %}
+<script src="/static/news_packets.js?v=2"></script>
+{% endblock %}

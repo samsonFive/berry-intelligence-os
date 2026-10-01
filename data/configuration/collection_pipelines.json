@@ -89,7 +89,7 @@
       "cadence_seconds": 21600,
       "runner": "scripts/catchall_recall.py --json",
       "state": "operations/catchall_recall/cache.json",
-      "notes": "Background NewsCatcher CatchAll recall. Base mode is 10-15 minutes and must never run on request-time /week. This job writes normalized hits to inbox/operations/catchall_recall/cache.json; /week consumes already-fetched rows. Without NEWSCATCHER_API_KEY or CATCHALL_API_KEY the runner succeeds as awaiting_key — SET the env var and the next scheduled run becomes live. No Publication drafts. No Evidence writes."
+      "notes": "Background NewsCatcher CatchAll recall. Base mode is 10-15 minutes and must never run on request-time /week. This job writes normalized hits to inbox/operations/catchall_recall/cache.json; /week consumes already-fetched rows. Without NEWSCATCHER_API_KEY or CATCHALL_API_KEY the runner succeeds as awaiting_key \u00e2\u20ac\u201d SET the env var and the next scheduled run becomes live. No Publication drafts. No Evidence writes."
     },
     {
       "id": "usda_pvpo",
@@ -110,6 +110,16 @@
       "runner": "scripts/emerging_radar_refresh.py --json",
       "state": "operations/radar/cache.json",
       "notes": "Background Emerging Developments Radar refresh. Bounded Google + specialist RSS + Exa semantic themes (not Pulse 32, not APITube, never a live CatchAll submit). Writes inbox/operations/radar/cache.json so /radar is instant. LIVE / UNREVIEWED only. No Evidence writes."
+    },
+    {
+      "id": "competitor_news_export",
+      "enabled": true,
+      "scheduled": false,
+      "schedule_entrypoint": false,
+      "cadence_seconds": null,
+      "runner": "POST /news-packets/capture",
+      "state": "news_packets/jobs",
+      "notes": "Explicit bounded Google News RSS capture for a chosen watchlist and publication date range. Shared collection lease; no API credits, auto-review, trusted publication or scheduled polling. Failed or stale captures cannot generate a new export."
     }
   ]
 }

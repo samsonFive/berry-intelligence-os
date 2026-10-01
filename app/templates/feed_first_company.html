@@ -28,6 +28,7 @@
         <div class="bos-actions">
           <a class="bos-btn is-primary" href="/today?entity={{ entity.id if entity.id else profile.id }}">Open entity feed</a>
           {% if legacy_href %}<a class="bos-btn" href="{{ legacy_href }}">Catalog profile</a>{% endif %}
+          {% if registry_seed_count %}<a class="bos-btn" href="/variety-seeds?company={{ entity_id }}">Registry varieties · {{ registry_seed_count }}</a>{% endif %}
         </div>
       </header>
 
