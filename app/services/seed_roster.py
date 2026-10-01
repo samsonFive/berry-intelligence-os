@@ -611,7 +611,7 @@ def following_model(
     presented = []
     tiers = entity_tiers or {}
     for row in rows:
-        tier = str(tiers.get(row["id"]) or row.get("monitoring_tier") or "tier2")
+        tier = str(tiers.get(row["id"]) or "untiered")
         presented.append(
             {
                 **row,
@@ -622,6 +622,7 @@ def following_model(
                 "watch_labels": [watch["kind"].replace("_", " ") for watch in row["watches"]],
                 "social_channels": official_social_channels(row),
                 "related_entities": related_from_seed_note(row, roster),
+                "legacy_monitoring_tier": row.get("monitoring_tier"),
                 "monitoring_tier": tier,
                 "muted": tier == "muted",
             }

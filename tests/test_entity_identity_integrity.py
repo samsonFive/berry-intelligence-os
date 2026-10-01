@@ -344,7 +344,7 @@ def test_old_planasa_href_redirects_on_live_catalog():
     client = TestClient(app)
     response = client.get("/entities/company/company-planasa-2?view=legacy", follow_redirects=False)
     assert response.status_code == 303
-    assert response.headers["location"] == "/entities/company/company-planasa"
+    assert response.headers["location"] == "/entities/company/company-planasa?view=legacy"
 
 
 def test_canonical_redirects_file_maps_planasa_duplicate():

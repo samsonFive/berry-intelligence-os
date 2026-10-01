@@ -75,10 +75,10 @@ def model(*, query, records, entities, relationships, berries, facts, state, par
     catalog = map_regions.catalog(entities, relationships, records, private)
     kind = "variety" if layer == "varieties" else "company"
     rows = map_regions.scoped(catalog, query, relationships, state, kind=kind, company=news["filters"]["company"],
-                             list_id=news["filters"]["list"], tier=news["filters"]["tier"], status=status, activity=activity, entity_id=region_entity, as_of=as_of)
+                             list_id=news["filters"]["list"], tier=news["filters"]["tier"], favorites=news["filters"]["favorites"], status=status, activity=activity, entity_id=region_entity, as_of=as_of)
     # Counts are over the whole scope; A–Z/search only hide table rows in the browser.
     country_rows = map_regions.scoped(catalog, global_explorer.IntelligenceQuery(berry_ids=query.commodities()), relationships, state,
-                                     kind=kind, company=news["filters"]["company"], list_id=news["filters"]["list"], tier=news["filters"]["tier"], status=status, activity=activity, entity_id=region_entity, as_of=as_of)
+                                     kind=kind, company=news["filters"]["company"], list_id=news["filters"]["list"], tier=news["filters"]["tier"], favorites=news["filters"]["favorites"], status=status, activity=activity, entity_id=region_entity, as_of=as_of)
     for country in result["countries"]:
         country_scope = resolve_geography_scope(country["id"], relationships=relationships).all_ids if not country.get("unavailable") else ()
         located = [row for row in country_rows if row["geography_id"] in country_scope]

@@ -71,4 +71,4 @@ def test_provisional_registry_company_profile_does_not_claim_trust(tmp_path, mon
     page = TestClient(main.app).get("/entities/company/company-genetics-uruguay")
     assert page.status_code == 200
     assert "Unverified" in page.text and "Trusted catalog record" not in page.text
-    assert "Registry varieties" in page.text and "company-genetics-uruguay" in page.text
+    assert "Imported variety associations" in page.text and "company-genetics-uruguay" in page.text

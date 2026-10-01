@@ -5,14 +5,14 @@
   <title>{% block title %}Berry Intelligence{% endblock %}</title>
   <link rel="icon" href="/static/berry-intelligence-icon.png">
   <link rel="stylesheet" href="/static/vendor/bootstrap/bootstrap.min.css">
-  <link rel="stylesheet" href="/static/personal_digest.css?v=3">
+  <link rel="stylesheet" href="/static/personal_digest.css?v=4">
   {% block head_extra %}{% endblock %}
 </head>
 <body class="glasshouse" data-personal-digest>
   <a class="skip-link" href="#digest-main">Skip to content</a>
   <header class="glass-header">
     <a class="glass-brand" href="/today"><img src="/static/berry-intelligence-icon.png" width="36" height="36" alt=""><span><b>berry</b> intelligence<small>YOUR INDUSTRY, IN VIEW</small></span></a>
-    <nav class="glass-primary" aria-label="Primary"><a href="/today" {% if request.url.path in ["/today", "/news"] %}aria-current="page"{% endif %}>News</a><a href="/explorer" {% if request.url.path.startswith("/explorer") %}aria-current="page"{% endif %}>Map Explorer</a><a href="/entities/company">Companies</a><a href="/learn">Learn</a><a href="/digest" {% if request.url.path == "/digest" %}aria-current="page"{% endif %}>Personal Digest</a></nav>
+    <nav class="glass-primary" aria-label="Primary"><a href="/today" {% if request.url.path in ["/today", "/news"] %}aria-current="page"{% endif %}>News</a><a href="/explorer" {% if request.url.path.startswith("/explorer") %}aria-current="page"{% endif %}>Map Explorer</a><a href="/entities/company" {% if request.url.path.startswith("/entities/company") or request.url.path.startswith("/companies") %}aria-current="page"{% endif %}>Companies</a><a href="/learn">Learn</a><a href="/digest" {% if request.url.path == "/digest" %}aria-current="page"{% endif %}>Personal Digest</a></nav>
     <details class="glass-more"><summary>More</summary><div class="glass-menu">
       <div class="glass-workspaces">
         <section><h2>Your workspace</h2><a href="/digest"><b>Personal Digest</b><small>Saved stories, reading and subscribed lists</small></a><a href="/landscapes"><b>Landscape</b><small>The competitive picture</small></a><a href="/entities/variety"><b>Varieties</b><small>Genetics and growing context</small></a></section>

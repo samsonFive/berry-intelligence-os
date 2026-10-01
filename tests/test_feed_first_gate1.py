@@ -461,10 +461,11 @@ def test_entities_roster_and_seed_only_profile():
     seed_only = next(row for row in roster if not row.get("trusted_entity_id") and row["competitor"])
     profile = TestClient(app).get(f"/entities/company/{seed_only['id']}")
     assert profile.status_code == 200
-    assert "data-feed-first-entity" in profile.text
+    assert "data-company-profile" in profile.text
     assert seed_only["canonical_name"] in profile.text
-    if seed_only["candidate"]:
-        assert "Candidate-review" in profile.text or "unverified" in profile.text
+    resolved = __import__("app.services.seed_roster", fromlist=["seed_profile"]).seed_profile(seed_only["id"], __import__("app.main", fromlist=["living_catalog"]).living_catalog())
+    if resolved and not resolved.get("trusted_entity_id") and resolved["candidate"]:
+        assert "Provisional identity" in profile.text or "unverified" in profile.text
     trusted = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery")
     assert trusted.status_code == 200
     assert "From Today thumbs-up" in trusted.text or "Fall Creek" in trusted.text

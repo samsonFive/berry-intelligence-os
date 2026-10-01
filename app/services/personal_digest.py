@@ -126,7 +126,10 @@ def digest_model(*, records: dict[str, dict[str, Any]], entities: dict[str, dict
                  state: dict[str, Any], reading: dict[str, Any], params: dict[str, str],
                  today: date | None = None) -> dict[str, Any]:
     today = today or date.today()
-    filters = {key: str(params.get(key) or "") for key in ("q", "status", "origin", "berry", "country", "window", "start", "end", "priority")}
+    filters = {key: str(params.get(key) or "") for key in ("q", "status", "origin", "berry", "country", "window", "start", "end", "priority", "tier", "favorites", "list")}
+    from app.services.company_directory import matches_marks, TIERS
+    if filters["favorites"] not in {"", "1"} or filters["tier"] and filters["tier"] not in TIERS:
+        raise ValueError("Choose supported company filters")
     filters["status"] = filters["status"] or "active"
     starts = {"7d": today - timedelta(days=6), "30d": today - timedelta(days=29), "ytd": today.replace(month=1, day=1)}
     start = starts.get(filters["window"])
@@ -187,6 +190,10 @@ def digest_model(*, records: dict[str, dict[str, Any]], entities: dict[str, dict
         if start and (not stamp or stamp < start.isoformat()):
             continue
         if end and (not stamp or stamp > end.isoformat()):
+            continue
+        source = universe.get(card["id"]) or {}
+        linked = set(source.get("entity_ids") or []) | set(source.get("company_ids") or [])
+        if not matches_marks(linked, state, favorites=filters["favorites"], tier=filters["tier"], list_id=filters["list"]):
             continue
         cards.append(card)
     cards.sort(key=lambda row: (row["published_at"] or "", row["id"]), reverse=True)

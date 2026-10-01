@@ -243,7 +243,7 @@ def test_plants_sold_research_returns_no_evidence_for_pbr_record(tmp_path: Path)
 
 
 def test_company_route_renders_wide_living_dossier():
-    page = TestClient(app).get(f"/entities/company/{ENTITY_ID}")
+    page = TestClient(app).get(f"/entities/company/{ENTITY_ID}?tab=intelligence")
     assert page.status_code == 200
     assert "data-entity-dossier" in page.text
     assert "Identity & footprint" in page.text
@@ -251,7 +251,7 @@ def test_company_route_renders_wide_living_dossier():
     assert "Competitive posture" in page.text
     assert "Vulnerabilities" in page.text
     assert "What changed" in page.text
-    assert "No 151×75 sweep" in page.text
+    assert "Inspect the questions, supporting sources" in page.text
     assert "bos-entity-logo" in page.text
     assert "data-archetype=\"specialist_breeder_nursery\"" in page.text
 
@@ -361,9 +361,9 @@ def test_gate2_real_archetype_routes_are_queryable_and_distinct():
     assert 'id="competitive-assessment"' not in registry.text
     assert "Competitive posture" not in registry.text
     assert "Vulnerabilities" not in registry.text
-    university = client.get("/entities/company/company-university-of-florida")
+    university = client.get("/entities/company/company-university-of-florida?tab=intelligence")
     assert 'id="scale-performance"' not in university.text
-    hortifrut = client.get("/entities/company/company-hortifrut")
+    hortifrut = client.get("/entities/company/company-hortifrut?tab=intelligence")
     assert 'id="genetics-cultivars"' not in hortifrut.text
     assert 'id="scale-performance"' in hortifrut.text
 
@@ -643,7 +643,7 @@ def test_company_route_renders_canonical_backbone_for_real_planasa_data():
     """Real committed production data (company-planasa), not a fixture --
     proves the wiring reaches app/main.py's actual route, not just the
     service function in isolation."""
-    page = TestClient(app).get("/entities/company/company-planasa")
+    page = TestClient(app).get("/entities/company/company-planasa?tab=intelligence")
     assert page.status_code == 200
     assert "Canonical portfolio" in page.text
     assert "Blue Manila" in page.text
