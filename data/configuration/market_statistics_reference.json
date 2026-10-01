@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "purpose": "Manually checked public reference context; not canonical Facts or a live provider feed. Trade figures use existing trade_observation records instead.",
+  "groups": [
+    {
+      "country_id": "geography-united-states",
+      "country": "United States",
+      "berry_id": "berry-blueberry",
+      "commodity": "Cultivated blueberries · fresh and processed",
+      "period": "2025 crop year",
+      "source": "USDA NASS",
+      "source_url": "https://esmis.nal.usda.gov/sites/default/release-files/795891/ncit0526.pdf#page=75",
+      "locator": "Noncitrus Fruits and Nuts 2025 Summary · page 75",
+      "published_date": "2026-05-01",
+      "accessed_date": "2026-10-01",
+      "status": "USDA estimates, published May 2026",
+      "basis": "Cultivated only; excludes wild blueberries. Utilized production combines fresh and processed fruit, excluding harvested but not sold. Source units and rounding are retained.",
+      "metrics": [
+        {
+          "label": "Utilized production",
+          "value": 761,
+          "unit": "million lb"
+        },
+        {
+          "label": "Harvested area",
+          "value": 104700,
+          "unit": "acres"
+        }
+      ]
+    },
+    {
+      "country_id": "geography-united-states",
+      "country": "United States",
+      "berry_id": "berry-raspberry",
+      "commodity": "Raspberry · fresh and processed",
+      "period": "2025 crop year",
+      "source": "USDA NASS",
+      "source_url": "https://esmis.nal.usda.gov/sites/default/release-files/795891/ncit0526.pdf#page=77",
+      "locator": "Noncitrus Fruits and Nuts 2025 Summary · page 77",
+      "published_date": "2026-05-01",
+      "accessed_date": "2026-10-01",
+      "status": "USDA estimates, published May 2026",
+      "basis": "USDA survey coverage; fresh and processed utilized production, excluding harvested but not sold. Source units and rounding retained.",
+      "metrics": [
+        {
+          "label": "Utilized production",
+          "value": 188,
+          "unit": "million lb"
+        },
+        {
+          "label": "Harvested area",
+          "value": 15900,
+          "unit": "acres"
+        }
+      ]
+    },
+    {
+      "country_id": "geography-united-states",
+      "country": "United States",
+      "berry_id": "berry-strawberry",
+      "commodity": "Strawberry · fresh and processed",
+      "period": "2025 crop year",
+      "source": "USDA NASS",
+      "source_url": "https://esmis.nal.usda.gov/sites/default/release-files/795891/ncit0526.pdf#page=77",
+      "locator": "Noncitrus Fruits and Nuts 2025 Summary · page 77",
+      "published_date": "2026-05-01",
+      "accessed_date": "2026-10-01",
+      "status": "USDA estimates, published May 2026",
+      "basis": "USDA survey coverage; fresh and processed utilized production, excluding harvested but not sold. Source units and rounding retained. cwt means U.S. hundredweight (100 lb); no unit conversion is applied.",
+      "metrics": [
+        {
+          "label": "Utilized production",
+          "value": 31.2,
+          "unit": "million cwt"
+        },
+        {
+          "label": "Harvested area",
+          "value": 62800,
+          "unit": "acres"
+        }
+      ]
+    }
+  ]
+}

@@ -38,6 +38,7 @@
   </div>
 </section>
 
+{% if not static_build %}<p class="sh-actions"><a class="sh-btn" href="/profiles/{{ entity.id }}/regions">Growing regions · view / edit</a></p>{% endif %}
 {% if entity.description %}
   <p class="sh-lede v2-company-lede">{{ entity.description|truncate(360) }}</p>
 {% endif %}

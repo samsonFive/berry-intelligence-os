@@ -162,5 +162,5 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
         card.update(trusted=trusted, source_reviewed=source_reviewed(record), escalated_count=len(support.get(card["id"], [])))
         card["entities"] = [row for row in card["entities"] if (entities.get(row["id"]) or {}).get("entity_type") in {"company", "brand", "research_program"}]
         cards.append(card)
-    return {"cards": cards, "matching": len(matched), "counts": counts, "filters": filters,
+    return {"cards": cards, "matching": len(matched), "matching_ids": [r[0]["id"] for r in matched], "counts": counts, "filters": filters,
             "page": page, "pages": pages, "lists": lists, "query": query}

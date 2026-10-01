@@ -23,5 +23,7 @@
     "rel-ew-group-operates-in-germany",
     "rel-germany-part-of-europe"
   ],
-  "attributes": {}
+  "attributes": {
+    "iso_3166_1_alpha_2": "DE"
+  }
 }

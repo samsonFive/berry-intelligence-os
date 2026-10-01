@@ -32,5 +32,7 @@
     "rel-cfia-operates-in-canada",
     "rel-canada-part-of-north-america"
   ],
-  "attributes": {}
+  "attributes": {
+    "iso_3166_1_alpha_2": "CA"
+  }
 }

@@ -21,5 +21,7 @@
     "rel-united-exports-operates-in-zambia",
     "rel-zambia-part-of-africa"
   ],
-  "attributes": {}
+  "attributes": {
+    "iso_3166_1_alpha_2": "ZM"
+  }
 }

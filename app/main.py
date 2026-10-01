@@ -7508,7 +7508,7 @@ def reports_index_page(request: Request, status: str = "draft") -> HTMLResponse:
 
 
 def _explorer_context(request, countries, berry, sections=None):
-    from app.services.global_explorer import IntelligenceQuery, explorer_model, snapshot_model, SECTIONS
+    from app.services.global_explorer import IntelligenceQuery, snapshot_model, SECTIONS
     entities = entity_index()
     # Native checkbox forms send repeated berry values; URLs may use CSV.
     berry = ','.join(request.query_params.getlist('berry')) or berry
@@ -7529,7 +7529,7 @@ def _explorer_context(request, countries, berry, sections=None):
     args = (query, records, entities, all_relationships(), BERRIES)
     trust = {"facts": all_facts(), "state": load_state(INBOX_DIR)}
     if sections is None:
-        model = explorer_model(*args, **trust)
+        model = {}
     else:
         included = [key for key in sections.split(',') if key in SECTIONS]
         model = snapshot_model(*args, included, **trust)
@@ -7543,6 +7543,18 @@ def _explorer_context(request, countries, berry, sections=None):
         return_parts = urlsplit("")
     origin = dict(parse_qsl(return_parts.query)) if not return_parts.scheme and not return_parts.netloc and return_parts.path in {"/today", "/news"} else {}
     origin = {key: value for key, value in origin.items() if key in {"q", "company", "list", "tier", "window", "start", "end", "tz"}}
+    if sections is None:
+        from app.services.map_workspace import model as map_model
+        params = {**origin, **dict(request.query_params)}
+        try:
+            model = map_model(query=query, records=records, entities=entities, relationships=args[3], berries=BERRIES,
+                              facts=trust["facts"], state=trust["state"], params=params, inbox_dir=INBOX_DIR, authoring=AUTHORING_MODE)
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+        origin = {key: model["filters"][key] for key in ("q", "company", "list", "tier", "window", "start", "end", "tz") if model["filters"][key]}
+        values = {**model["filters"], "layer": model["layer"], "region_status": model["region_status"], "activity": model["activity"], "region_entity": model["region_entity"], "region_asof": model["region_asof"]}
+        model["review_urls"] = {view: "/explorer?" + urlencode({**values, "view": view}) for view in ("trusted", "unreviewed")}
+        model["pagination"] = {number: "/explorer?" + urlencode({**values, "page": number}) for number in (model["page"]-1, model["page"]+1)}
     model["news_href"] = "/today?" + urlencode({**origin, **query.params()})
     model["news_return"] = "/today?" + urlencode(origin) if origin else ""
     return model | {"ui_context": read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR),
@@ -7552,9 +7564,6 @@ def _explorer_context(request, countries, berry, sections=None):
 @app.get("/explorer", response_class=HTMLResponse)
 def global_explorer_page(request: Request, countries: str = "", berry: str = "", page: int = 1):
     model = _explorer_context(request, countries, berry)
-    pages = max(1, (model["total"] + 47) // 48)
-    page = min(max(1, page), pages)
-    model.update(page=page, pages=pages, entries=model["entries"][(page-1)*48:page*48])
     return templates.TemplateResponse(request=request, name="global_explorer.html", context=model)
 
 
@@ -10157,3 +10166,6 @@ from app.variety_seed_routes import router as variety_seed_router
 app.include_router(variety_seed_router)
 from app.news_workspace_routes import router as news_workspace_router
 app.include_router(news_workspace_router)
+
+from app.map_region_routes import router as map_region_router
+app.include_router(map_region_router)

@@ -108,7 +108,7 @@ def test_multiple_berries_compose_with_countries_and_snapshot():
     assert peru['count']==3
 
 
-def test_multi_berry_native_form_and_blue_shell(monkeypatch):
+def test_multi_berry_native_form_and_glasshouse_shell(monkeypatch):
     import app.main as main
     monkeypatch.setattr(main,'entity_index',lambda:ENTITIES)
     monkeypatch.setattr(main,'published_evidence',lambda:RECORDS)
@@ -117,9 +117,10 @@ def test_multi_berry_native_form_and_blue_shell(monkeypatch):
     client=TestClient(app)
     response=client.get('/explorer?countries=geography-peru&berry=berry-blueberry&berry=berry-strawberry')
     assert response.status_code==200
-    assert 'gx-workspace' in response.text and '/static/berry_os.css' in response.text
+    assert 'gx-workspace' in response.text and '/static/map_workspace.css' in response.text
     assert '/static/stakeholder.css' not in response.text
-    assert '3 trusted records' in response.text
+    assert 'Trusted' in response.text
+    assert 'glasshouse' in response.text
     pdf=client.get('/explorer/snapshot.pdf?countries=geography-peru&berry=berry-blueberry,berry-strawberry')
     assert pdf.status_code==200 and pdf.content.startswith(b'%PDF')
 

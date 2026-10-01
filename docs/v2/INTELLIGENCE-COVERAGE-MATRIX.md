@@ -584,3 +584,6 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **2026-10-01 Mission 3 checkpoint:** Core News consolidates retained public-news discovery and reviewed publications for scanning/reading; manual refresh reuses existing public discovery lanes with paid lanes disabled. No source onboarding, canonical Evidence/Fact writes, new coverage-class counts or maturity changes are introduced. Raw news includes private discovery metadata; trusted news requires active canonical Fact support and source review. Preview image/body gaps are disclosed, not replaced by synthetic production content. See [MISSION-03-NEWS-READER.md](MISSION-03-NEWS-READER.md).
+
+
+**2026-10-01 Map review checkpoint:** The redesigned local Explorer adds geographic news scope parity, private editable region annotations and six USDA production/area reference values across three U.S. berry categories. This is partial manually checked context, not an operational national-statistics collector or a recall improvement. Trade context reuses reviewed trade_observation records; unreviewed region annotations and reference context do not promote canonical intelligence or enter public snapshots. Existing coverage classifications/counts remain authoritative. Broader provider coverage and refresh/revision jobs remain open; see MISSION-04-MAP-EXPLORER.md.

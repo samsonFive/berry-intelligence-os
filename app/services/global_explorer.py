@@ -94,7 +94,7 @@ SECTIONS = {'overview': 'Market overview', 'developments': 'Recent developments'
 GAPS = ['Production volumes and growing-region metrics are not populated by this explorer. '
         'Evidence counts reflect stored coverage, not market size or source independence.']
 
-def explorer_model(query, records, entities, relationships, berries, facts=None, state=None):
+def explorer_model(query, records, entities, relationships, berries, facts=None, state=None, present_entries=True):
     from app.services.feed_first import safe_image_url, decision_for
     escalations = {}
     for fact in facts or []:
@@ -103,9 +103,10 @@ def explorer_model(query, records, entities, relationships, berries, facts=None,
         for eid in fact.get("evidence_ids") or []:
             escalations.setdefault(eid, []).append(fact)
     if facts is not None and query.view == "trusted":
-        records = [r for r in records if r.get("id") in escalations]
+        from app.services.news_workspace import source_reviewed
+        records = [r for r in records if r.get("id") in escalations and source_reviewed(r)]
     selected = query.retrieve(records, relationships)
-    entries = [present_feed_item(r, entities=entities, berry_labels=berries) for r in selected]
+    entries = [present_feed_item(r, entities=entities, berry_labels=berries) for r in selected] if present_entries else []
     by_id = {r['id']: r for r in selected}
     for item in entries:
         record = by_id[item['id']]
@@ -118,7 +119,7 @@ def explorer_model(query, records, entities, relationships, berries, facts=None,
     for e in entities.values():
         iso = (e.get('attributes') or {}).get('iso_3166_1_alpha_2')
         if e.get('entity_type') != 'geography' or not iso: continue
-        rows = IntelligenceQuery((e['id'],), berry_ids=query.commodities()).retrieve(records, relationships)
+        rows = IntelligenceQuery((e['id'],), berry_ids=query.commodities(), view=query.view).retrieve(records, relationships)
         countries.append({'id': e['id'], 'name': e['name'], 'iso': iso,
                           'count': len(rows), 'recent': [{'title': r.get('title') or r['id'],
                           'href': '/intelligence/'+r['id'], 'date': r.get('published_date') or 'Date unknown'} for r in rows[:3]],
