@@ -286,7 +286,7 @@ def test_identity_issues_surface_on_live_profile(tmp_path: Path, monkeypatch) ->
     assert issues
     page = TestClient(app).get("/entities/variety/variety-last-call")
     assert page.status_code == 200
-    assert "Unresolved identity issues" in page.text
+    assert "Names needing review" in page.text
 
 
 def test_historical_vs_current_deployment_unknown_is_explicit() -> None:

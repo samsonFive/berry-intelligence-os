@@ -1,30 +1,30 @@
-{% extends "base.html" %}
+{% extends "glasshouse_base.html" %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=5"><link rel="stylesheet" href="/static/variety_workspace.css?v=6">{% endblock %}
 {% block title %}Variety identity review — Berry Intelligence OS{% endblock %}
 {% block content %}
-<div class="v2-page">
-<section class="page-heading v2-page-header">
+<div class="company-workspace variety-workspace">
+<header class="digest-heading">
   <div>
-    <p class="eyebrow">VARIETY UNIVERSE</p>
+    <p class="eyebrow">VARIETIES · REVIEW</p>
     <h1>Variety identity review</h1>
-    <p class="context-limit">Inbox and corpus-discovered candidates. Exact name/code/registration matches are possible aliases, not automatic merges. GET does not change identity state. Candidate names are not trusted Varieties. Candidate count is never trusted Variety count.</p>
+    <p class="context-limit">Check discovered names against their source and possible matches before confirming an identity. Photo company associations remain provisional.</p>
   </div>
-  <div class="v2-company-actions">
-    <a class="v2-btn v2-btn-quiet" href="/varieties/coverage">Coverage</a>
-    <a class="v2-btn v2-btn-quiet" href="/entities/variety">Variety index</a>
+  <div class="company-socials">
+    <a class="v2-btn v2-btn-quiet" href="#candidate-results">Focus review queue</a><a class="v2-btn v2-btn-quiet" href="/varieties/coverage">Coverage</a>
+    <a class="v2-btn v2-btn-quiet" href="/entities/variety">Variety directory</a>
   </div>
-</section>
+</header>
 
-{% with help_what="Public cultivar identities DISCOVERED from registries or the trusted corpus. Each row is a CANDIDATE, not a trusted Variety.", help_why="The Variety index stays canonical-only. Identity review decides whether a discovered name is DISTINCT, a POSSIBLE ALIAS of an existing Variety, UNKNOWN, or (human only) CONFIRMED SAME.", help_do="Read the source and any canonical match. Keep as needs review (POSSIBLE ALIAS), leave unresolved (UNKNOWN), mark DISTINCT, confirm same when you are sure, or reject junk.", help_after="A decision records identity state only. Confirming same links a candidate to an existing trusted Variety. Marking DISTINCT does not create a new trusted Variety. Rejecting removes the candidate from the waiting queue and does not delete trusted records.", help_note="GET never changes identity. CONFIRMED SAME is human-only." %}
-  {% include "_workspace_help.html" %}
-{% endwith %}
-
+<form class="digest-filters" method="get" aria-label="Filter identity review"><label>Search<input type="search" name="q" value="{{ filters.q }}" placeholder="Variety, code or company"></label><label>Berry<select name="berry"><option value="">All berries</option>{% for key,label in berries.items() %}<option value="{{ key }}" {% if filters.berry == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label><label>Photo company<select name="company"><option value="">All companies</option>{% for key,label in candidate_companies %}<option value="{{ key }}" {% if filters.company == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label><label>Identity status<select name="status"><option value="">All statuses</option>{% for value in candidate_statuses %}<option value="{{ value }}" {% if filters.status == value %}selected{% endif %}>{{ value|replace('_',' ')|capitalize }}</option>{% endfor %}</select></label><button class="green-button">Apply filters</button><a href="/varieties/candidates">Reset</a></form>
+<div id="candidate-results"><nav class="company-alphabet" aria-label="Candidate alphabetical navigation"><a href="{{ letter_urls[''] }}" {% if not filters.letter %}aria-current="page"{% endif %}>All</a>{% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#' %}{% if letter in letters %}<a href="{{ letter_urls[letter] }}" {% if filters.letter == letter %}aria-current="page"{% endif %}>{{ letter }}</a>{% else %}<span>{{ letter }}</span>{% endif %}{% endfor %}</nav><p class="company-muted">{{ candidates|length }} of {{ candidate_total }} candidate names. Review decisions do not create new catalog varieties or approve company roles.</p>
+<details class="variety-context"><summary>How identity decisions work</summary><p>A possible alias needs further review. Confirm same links the candidate to the named existing variety. Mark distinct keeps a separate candidate; it does not create a catalog variety. Reject removes a name from the waiting queue without deleting catalog records.</p></details>
 {% if not candidates %}
   <p class="empty-state">No Variety candidates are waiting for identity review. Trusted Varieties stay on the Variety index. <a href="/varieties/coverage">Variety coverage</a> shows trusted vs candidate counts. <a href="/entities/variety">Trusted Variety index</a></p>
 {% endif %}
 
 {% for row in candidates %}
-<section class="v2-company-section" id="{{ row.id }}">
-  <h2>{{ row.candidate_name }}</h2>
+<details class="variety-candidate" id="{{ row.id }}">
+  <summary><b>{{ row.candidate_name }}</b><span>{{ row.berry_id.removeprefix('berry-')|capitalize if row.berry_id else 'Berry not recorded' }}</span><span>{{ {'distinct':'Separate candidate','possible_alias':'Needs identity review','unknown':'Unresolved','confirmed_same':'Matched to existing variety','rejected':'Rejected'}.get(row.identity_state, row.identity_label|humanize_label) }}</span><small>{{ row.source_label }}</small></summary><div class="variety-section-body">
   <p class="v2-company-meta">
     <span class="badge">{{ row.identity_label }}</span>
     <span class="badge">Candidate (untrusted)</span>
@@ -35,7 +35,7 @@
     <span class="v2-meta">{{ row.source_label }}</span>
   </p>
   <dl class="v2-role-list">
-    <dt>Source</dt><dd>{% if row.source_url %}<a href="{{ row.source_url }}">{{ row.source_url }}</a>{% else %}{{ row.source_id }}{% endif %}</dd>
+    <dt>Source</dt><dd>{% if row.source_url %}<a href="{{ row.source_url }}">{{ row.source_url }}</a>{% else %}{{ row.source_label or "Source not recorded" }}{% endif %}</dd>
     <dt>Denomination / code</dt><dd>{{ row.denomination or "—" }} {% if row.breeder_code %}· {{ row.breeder_code }}{% endif %}</dd>
     <dt>Applicant / breeder</dt><dd>{{ row.breeder_owner or row.applicant or "—" }}</dd>
     {% if row.knowledge.company_associations %}<dt>Companies in your registry</dt><dd>{% for item in row.knowledge.company_associations %}<a href="/entities/{{ item.entity_type }}/{{ item.entity_id }}">{{ item.name }}</a>{% if not loop.last %} &middot; {% endif %}{% endfor %}<br>Association supplied in your photos; role and spelling still need confirmation.</dd>{% endif %}
@@ -45,13 +45,13 @@
       {% if row.registration.grant_number %} · grant {{ row.registration.grant_number }}{% endif %}
       {% if row.registration.status %} · {{ row.registration.status }}{% endif %}
     </dd>
-    <dt>Canonical match</dt>
+    <dt>Possible existing variety</dt>
     <dd>
       {% if row.candidate_canonical_match %}
-        <a href="/entities/variety/{{ row.candidate_canonical_match }}">{{ row.candidate_canonical_match }}</a>
-        · {{ row.match_reason }}
+        <a href="/entities/variety/{{ row.candidate_canonical_match }}">{{ candidate_entities.get(row.candidate_canonical_match, {}).get("name") or row.candidate_canonical_match }}</a>
+        · {{ 'Exact name match; confirmation needed' if row.match_reason == 'exact_identity_string' else row.match_reason|humanize_label }}
       {% else %}
-        {{ row.match_reason }}
+        {{ 'Exact name match; confirmation needed' if row.match_reason == 'exact_identity_string' else row.match_reason|humanize_label }}
       {% endif %}
     </dd>
   </dl>
@@ -68,7 +68,9 @@
     <button class="v2-btn v2-btn-quiet" type="submit" name="decision" value="rejected">Reject</button>
   </form>
   {% endif %}
-</section>
+</div></details>
 {% endfor %}
-</div>
+</div></div>
 {% endblock %}
+
+{% block scripts %}<script src="/static/variety_workspace.js?v=6"></script>{% endblock %}
