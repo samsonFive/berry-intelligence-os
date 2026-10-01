@@ -51,6 +51,7 @@ def catalog(entities, *, logos=None, profiles=None, state=None):
             if field in override:
                 row[field] = override[field]
         row["logo_url"] = (logos or {}).get(key, {}).get("url") or row.get("logo_url") or ""
+        row["canonical"] = key in entities
         row["favorite"] = bool((state.get("entity_favorites") or {}).get(key))
         row["tier"] = (state.get("entity_tiers") or {}).get(key) or "untiered"
         row["tier_label"] = TIERS.get(row["tier"], "Unrecognized legacy tier")

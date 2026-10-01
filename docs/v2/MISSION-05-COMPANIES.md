@@ -24,9 +24,9 @@ Private notes, contacts, marks and logos are excluded from read-only runtime pre
 
 ## Verification
 
-- 178 focused Company, News, Map, Digest, seed, dossier, logo and compatibility checks pass. Coverage includes independent marks/subscriptions, concurrent saves, corrupt-state preservation, stale edits, safe URLs, contact hide/restore, retained person list members, per-story Digest filtering and read-only boundaries.
+- 178 focused Company, News, Map, Digest, seed, dossier, logo and compatibility checks pass; an additional 87 Company compare/portfolio, identity, photo-seed and directory checks pass after restoring compatibility shortcuts. Coverage includes independent marks/subscriptions, concurrent saves, corrupt-state preservation, stale edits, safe URLs, contact hide/restore, retained person list members, per-story Digest filtering and read-only boundaries.
 - Browser review in the isolated local workspace: directory alphabet navigation; favorite/tier persistence into a profile; custom list join and Digest subscription; profile link save; highlighted contact add/hide/restore; Map favorite/tier/list scope; shared Reader content and focus return. Sample contact remains hidden and sample list/state is labeled as review-only.
-- Directory Focus shows eight complete rows in the normal desktop viewport. At 390px, directory and profile remain within the viewport; wide table columns scroll inside their container. Keyboard labels, visible focus and delayed icon tooltips remain available.
+- Directory Focus shows nine complete rows in the normal desktop viewport. At 390px, directory and profile remain within the viewport; wide table columns scroll inside their container. Keyboard labels, visible focus and delayed icon tooltips remain available.
 - Records validation passes. Static build produces 1,755 pages with no unpublished draft ids/titles. Full-suite exact-head CI is recorded in the draft PR after push.
 - Review images: [Directory](../../artifacts/design-sprint/company-directory-live.png), [Company profile](../../artifacts/design-sprint/company-profile-live.png).
 
