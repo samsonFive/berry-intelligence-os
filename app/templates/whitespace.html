@@ -1,15 +1,15 @@
-{% extends "base_stakeholder.html" %}
-{% block title %}Strategic Whitespace — Berry Intelligence{% endblock %}
-{% block content %}
+{% extends "intelligence_workspace_base.html" %}
+{% block title %}Coverage &amp; concentration — Berry Intelligence{% endblock %}
+{% block intelligence_content %}
 <div class="sh-page ws-page">
   <header class="sh-header ws-header">
     <div>
       <p class="sh-kicker">Strategic landscape · observed activity, not opportunity</p>
-      <h1>{{ landscape.berry_label }} concentration vs whitespace</h1>
+      <h1>{{ landscape.berry_label }} coverage &amp; concentration</h1>
       <p class="sh-lede">
         Where competitors are visibly concentrating activity — and where Berry OS currently
         observes little activity, or cannot say because coverage is thin.
-        Low coverage is never opportunity.
+        Low coverage is never opportunity. This view counts observed records, not market share.
       </p>
     </div>
     {% if not static_build %}
@@ -50,12 +50,9 @@
         <option value="30"{% if landscape.window_days == 30 %} selected{% endif %}>30 days</option>
       </select>
     </label>
-    <label class="ws-grow">Companies
-      <input name="companies" value="{{ landscape.companies|map(attribute='id')|join(',') }}" spellcheck="false">
-    </label>
-    <label class="ws-grow">Geographies
-      <input name="geographies" value="{{ landscape.geographies|map(attribute='id')|join(',') }}" spellcheck="false">
-    </label>
+    {% for field,label,options,selected in [('companies','Companies',scope_companies,landscape.companies),('geographies','Geographies',scope_geographies,landscape.geographies)] %}
+    <details class="scope-selector"><summary>{{ label }} · {{ selected|length }}</summary><input type="hidden" name="{{ field }}" value=""><fieldset><legend>Choose {{ label|lower }}</legend>{% set selected_ids = selected|map(attribute='id')|list %}{% for option in options %}<label><input type="checkbox" name="{{ field }}" value="{{ option.id }}" {% if option.id in selected_ids %}checked{% endif %}>{{ option.name }}</label>{% endfor %}</fieldset></details>
+    {% endfor %}
     <button class="sh-btn sh-btn-primary" type="submit">Update landscape</button>
   </form>
 

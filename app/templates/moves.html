@@ -1,20 +1,20 @@
-{% extends "base_stakeholder.html" %}
+{% extends "intelligence_workspace_base.html" %}
 {% block title %}Competitive moves — Berry Intelligence{% endblock %}
-{% block content %}
+{% block intelligence_content %}
 <div class="sh-page moves-page">
   <header class="sh-header">
     <div>
-      <p class="sh-kicker">Competitive moves · {{ board.trust_label if board else "LIVE / UNREVIEWED MOVE" }}</p>
-      <h1>Who is moving.</h1>
+      <p class="sh-kicker">Intelligence · Unreviewed interpretations</p>
+      <h1>Company moves</h1>
       <p class="sh-lede">
-        Competitive moves derived from Radar Developments — expansion, genetics, partnerships, market entry, leadership, and IP.
-        Not a wall of articles. Live public discovery stays unreviewed. Trusted Evidence, when it exists, stays distinct.
+        Who is moving, where, and how. Explore captured expansion, genetics, partnerships, leadership and rights activity.
+        Each move links back to the development and its supporting sources; a repeated pattern does not prove a company strategy.
       </p>
     </div>
     {% if not static_build %}
     <div class="sh-actions">
       <a class="sh-btn" href="/radar">Emerging developments</a>
-      <a class="sh-btn" href="/radar/live">Refresh Radar</a>
+      <a class="sh-btn" href="/radar/live">Refresh developments</a><small class="sh-note">Starts fresh public research</small>
     </div>
     {% endif %}
   </header>
@@ -22,7 +22,7 @@
   {% if board %}
     {% include "_moves_board.html" %}
   {% else %}
-    <p class="sh-empty">No Radar cache. <a class="sh-btn sh-btn-primary" href="/radar/live">Load emerging developments</a> then return here.</p>
+    <p class="sh-empty">No developments have been captured yet. {% if not static_build %}<a class="sh-btn sh-btn-primary" href="/radar/live">Load emerging developments</a> then return here.{% endif %}</p>
   {% endif %}
 </div>
 {% endblock %}

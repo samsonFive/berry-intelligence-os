@@ -541,7 +541,7 @@ def compose_whitespace_landscape(
     ]
 
     brief_notes = [
-        f"Strategic whitespace landscape for {berry_label}.",
+        f"Coverage and concentration for {berry_label}.",
         "Observed concentration, low observed activity, and low coverage are distinct.",
     ]
     if overlap:

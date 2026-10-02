@@ -963,6 +963,8 @@ def pending_review_count_value() -> int:
 templates.env.globals["pending_review_count"] = pending_review_count_value
 from app.services.source_body import safe_source_record
 templates.env.globals["safe_source_record"] = safe_source_record
+from app.services.map_regions import public_source_url
+templates.env.globals["public_source_url"] = public_source_url
 templates.env.globals["queue_counts"] = lambda: queue_counts()
 templates.env.globals["learn_href_for_trait"] = learn_href_for_trait_id
 templates.env.globals["learn_glossary_hits"] = learn_glossary_hits_for_text
@@ -5715,12 +5717,26 @@ def whitespace_page(
 ) -> HTMLResponse:
     """Observed competitive concentration vs coverage — not opportunity."""
     demo = default_demo_scope()
-    berry_id = berry or demo["berry_id"]
+    berry_id = demo["berry_id"] if berry is None else berry
     if berry_id not in BERRIES:
-        berry_id = demo["berry_id"]
-    window_days = 7 if int(window or 30) <= 7 else 30
-    company_ids = parse_id_list(companies, demo["company_ids"])
-    geography_ids = parse_id_list(geographies, demo["geography_ids"])
+        raise HTTPException(422, "Choose a berry from the available options")
+    if window not in {7, 30}:
+        raise HTTPException(422, "Choose a 7-day or 30-day coverage window")
+    window_days = window
+    scope_entities = entity_index()
+    scope_companies = sorted((row for row in scope_entities.values() if row.get("entity_type") == "company"), key=lambda row: row["name"].casefold())
+    scope_geographies = sorted((row for row in scope_entities.values() if row.get("entity_type") == "geography"), key=lambda row: row["name"].casefold())
+
+    def selected_scope(field: str, fallback: list[str], choices: list[dict]) -> list[str]:
+        if field not in request.query_params:
+            return fallback
+        selected = list(dict.fromkeys(key.strip() for value in request.query_params.getlist(field) for key in value.split(",") if key.strip()))
+        if not selected or any(key not in {row["id"] for row in choices} for key in selected):
+            raise HTTPException(422, f"Choose at least one known {'company' if field == 'companies' else 'geography'}")
+        return selected
+
+    company_ids = selected_scope("companies", demo["company_ids"], scope_companies)
+    geography_ids = selected_scope("geographies", demo["geography_ids"], scope_geographies)
     landscape = _cached_whitespace_landscape(
         berry_id=berry_id,
         company_ids=company_ids,
@@ -5733,6 +5749,8 @@ def whitespace_page(
         name="whitespace.html",
         context={
             "landscape": landscape,
+            "scope_companies": scope_companies,
+            "scope_geographies": scope_geographies,
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,

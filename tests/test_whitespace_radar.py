@@ -182,7 +182,7 @@ def test_market_context_stays_separate_and_unallocated() -> None:
 def test_ask_and_brief_handoffs() -> None:
     page = _landscape()
     assert page["company_geo"][0]["ask_href"].startswith("/research?")
-    assert "Strategic whitespace landscape" in page["brief_focus_notes"]
+    assert "Coverage and concentration" in page["brief_focus_notes"]
     blob = str(page).casefold()
     for phrase in FORBIDDEN_CLAIMS:
         assert phrase not in blob
@@ -223,10 +223,49 @@ def test_whitespace_page_renders(monkeypatch) -> None:
     )
     assert response.status_code == 200
     html = response.text
-    assert "concentration vs whitespace" in html
+    assert "coverage &amp; concentration" in html
     assert "LOW COVERAGE / UNKNOWN" in html
     assert "Create leadership brief" in html
     assert "Ask Berry OS about this" in html
-    assert "Whitespace" in html
+    assert "Coverage &amp; concentration" in html
     for phrase in FORBIDDEN_CLAIMS:
         assert phrase not in html.casefold()
+
+
+def test_coverage_named_scope_preserves_repeated_and_csv_bookmarks(monkeypatch) -> None:
+    from app import main
+
+    captured = []
+
+    def view(**kwargs):
+        captured.append(kwargs)
+        return _landscape(**kwargs)
+
+    monkeypatch.setattr(main, "entity_index", lambda: ENTITIES)
+    monkeypatch.setattr(main, "_cached_whitespace_landscape", view)
+    client = TestClient(app)
+    page = client.get("/whitespace?companies=&companies=company-planasa&companies=company-hortifrut&geographies=&geographies=geography-peru&window=7")
+    assert page.status_code == 200
+    assert captured[-1]["company_ids"] == ["company-planasa", "company-hortifrut"]
+    assert captured[-1]["geography_ids"] == ["geography-peru"]
+    assert captured[-1]["window_days"] == 7
+    assert 'type="checkbox" name="companies" value="company-planasa" checked' in page.text
+    assert 'name="company_ids" value="company-planasa,company-hortifrut"' in page.text
+    assert 'name="geography_ids" value="geography-peru"' in page.text
+    legacy = client.get("/whitespace?companies=company-planasa,company-hortifrut&geographies=geography-peru&window=7")
+    assert legacy.status_code == 200
+    assert captured[-1] == captured[-2]
+
+
+def test_coverage_rejects_unknown_or_empty_scope_without_broadening(monkeypatch) -> None:
+    from app import main
+
+    monkeypatch.setattr(main, "entity_index", lambda: ENTITIES)
+
+    def forbidden(**kwargs):
+        raise AssertionError("invalid selectors must not be silently broadened")
+
+    monkeypatch.setattr(main, "_cached_whitespace_landscape", forbidden)
+    client = TestClient(app)
+    for query in ("companies=", "geographies=", "companies=missing", "companies=geography-peru", "geographies=company-planasa", "berry=unknown", "berry=", "window=90"):
+        assert client.get("/whitespace?" + query).status_code == 422

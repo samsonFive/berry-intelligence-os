@@ -1,8 +1,8 @@
 <article class="radar-card">
   <p class="sh-story-meta">
-    <span class="sh-trust sh-trust-proposed">{{ item.trust_state }}</span>
-    <span>{{ item.event_type | replace("_", " ") }}</span>
-    <span>{{ item.corroboration }}</span>
+    <span class="sh-trust sh-trust-proposed">{{ item.trust_state | lower | capitalize if intelligence_workspace else item.trust_state }}</span>
+    <span>{{ item.event_type | lower | replace("_", " ") | capitalize if intelligence_workspace else item.event_type | replace("_", " ") }}</span>
+    <span>{{ item.corroboration | lower | capitalize if intelligence_workspace else item.corroboration }}</span>
     {% if item.weak_signal_label %}<span>{{ item.weak_signal_label }}</span>{% endif %}
   </p>
   <h3 class="sh-story-title"><a href="/radar/{{ item.id }}">{{ item.title }}</a></h3>
@@ -17,8 +17,8 @@
     {% if item.berry_labels %}<span>{{ item.berry_labels | join(", ") }}</span>{% endif %}
   </p>
   <p class="sh-story-meta">
-    <span>First seen {{ item.first_seen }}</span>
-    <span>Latest update {{ item.latest_update }}</span>
+    <span>First seen {{ item.first_seen[:10] | us_date if intelligence_workspace else item.first_seen }}</span>
+    <span>Latest update {{ item.latest_update[:10] | us_date if intelligence_workspace else item.latest_update }}</span>
     <span>{{ item.independent_source_count }} independent / {{ item.source_count }} source{{ "s" if item.source_count != 1 else "" }}</span>
   </p>
   {% if item.market_context and item.market_context.rows %}

@@ -12,7 +12,9 @@ from app.main import app
 from app.services.emerging_radar.cache import (
     append_watch_events,
     cache_is_fresh,
+    cache_path,
     edition_from_cache,
+    write_cache,
 )
 from app.services.emerging_radar.cluster import (
     classify_event_type,
@@ -500,11 +502,16 @@ def test_radar_shell_does_not_fetch(monkeypatch, tmp_path: Path) -> None:
     assert page.status_code == 200
     html = page.text
     assert "Emerging developments" in html
-    assert "LIVE / UNREVIEWED DEVELOPMENT" in html
-    assert ">Radar<" in html
-    assert "stakeholder.css" in html
+    assert "Unreviewed developments" in html
+    assert 'aria-label="Intelligence views"' in html
+    assert "intelligence_workspace.css" in html
     assert "Publication Review" not in html
     assert "/radar/live" in html
+    # Server-only tests previously missed the browser script that automatically
+    # started paid discovery on a stale/empty cache. Refresh must be deliberate.
+    assert "data-radar-live" not in html
+    assert "fetch(root.dataset.radarLive" not in html
+    assert "Choose Load emerging developments to start public research" in html
 
 
 def test_radar_live_renders_development_cards(monkeypatch, tmp_path: Path) -> None:
@@ -515,8 +522,36 @@ def test_radar_live_renders_development_cards(monkeypatch, tmp_path: Path) -> No
     assert page.status_code == 200
     html = page.text
     assert "Why this is on your radar" in html
-    assert "LIVE / UNREVIEWED DEVELOPMENT" in html
+    assert "Live / unreviewed development" in html
     assert "Pairwise" in html
     detail = TestClient(app).get(f"/radar/{edition.developments[0].id}")
     assert detail.status_code == 200
     assert "How this story evolved" in detail.text
+
+
+def test_cached_development_without_sections_is_visible_and_browse_preserves_cache(monkeypatch, tmp_path: Path) -> None:
+    edition = _stub_edition(tmp_path)
+    edition.sections = []
+    edition.developments[0].sources[0].url = "javascript:alert('unsafe')"
+    write_cache(edition, inbox_dir=tmp_path)
+    original = cache_path(tmp_path).read_bytes()
+
+    def forbidden(**kwargs):
+        raise AssertionError("reading a captured development must not collect research")
+
+    monkeypatch.setattr("app.main.INBOX_DIR", tmp_path)
+    monkeypatch.setattr("app.main.run_radar_intelligence", forbidden)
+    client = TestClient(app)
+    board = client.get("/radar")
+    assert board.status_code == 200
+    assert "Captured developments" in board.text
+    assert "older capture — refresh explicitly" in board.text
+    assert "refresh in progress" not in board.text
+    assert edition.developments[0].title in board.text
+    detail = client.get(f"/radar/{edition.developments[0].id}")
+    assert detail.status_code == 200
+    assert "Source link unavailable" in detail.text
+    assert 'href="javascript:' not in detail.text
+    assert 'action="/derived-review/radar_development/' in detail.text
+    assert "not the underlying evidence" in detail.text
+    assert cache_path(tmp_path).read_bytes() == original

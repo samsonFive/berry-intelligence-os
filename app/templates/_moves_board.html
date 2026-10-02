@@ -1,5 +1,5 @@
 <div class="radar-fresh">
-  <p class="sh-note">{{ board.freshness_label }} · {{ board.trust_label }} · {{ board.stats.moves }} moves · {{ board.stats.companies }} companies · {{ board.stats.patterns }} patterns</p>
+  <p class="sh-note">{{ board.freshness_label }} · {{ board.trust_label | lower | capitalize if intelligence_workspace else board.trust_label }} · {{ board.stats.moves }} moves · {{ board.stats.companies }} companies · {{ board.stats.patterns }} patterns</p>
 </div>
 
 {% if board.patterns %}
@@ -33,7 +33,7 @@
           <a href="{{ item.href }}"><strong>{{ item.company_name }}</strong></a>
           <span>{{ item.move_count }} move{{ "s" if item.move_count != 1 else "" }}</span>
           <span>{{ item.move_type_labels | join(" · ") }}</span>
-          <span>Latest {{ item.latest_update }}</span>
+          <span>Latest {{ item.latest_update[:10] | us_date if intelligence_workspace else item.latest_update }}</span>
           {% if item.geographies %}<span>{{ item.geographies | join(", ") }}</span>{% endif %}
         </li>
       {% endfor %}
@@ -47,29 +47,29 @@
   {% endif %}
 </section>
 {% else %}
-<p class="sh-empty">No competitive moves yet. Radar cache is empty or no canonical company was named. Refresh <a href="/radar">Emerging developments</a> first.</p>
+<p class="sh-empty">No company moves are available from the captured developments. A company must be linked to the existing directory before its moves appear. Inspect <a href="/radar">Emerging developments</a> or refresh deliberately.</p>
 {% endfor %}
 
 {% if board.featured_timeline and board.featured_timeline.rows %}
 <section class="sh-section" id="timeline">
   <h2>Move timeline — {{ board.featured_timeline.company_name }}</h2>
   <p class="sh-note">Chronology reused from supporting Developments. <a href="{{ board.featured_timeline.entity_href }}">Company page</a> · <a href="{{ board.featured_timeline.href }}">All moves</a></p>
-  <table class="move-timeline">
+  <div class="intelligence-table-wrap" tabindex="0" role="region" aria-label="Move timeline"><table class="move-timeline">
     <thead>
       <tr><th>Date</th><th>Move</th><th>Source</th><th>Geography</th><th>Variety / berry</th><th>Trust</th></tr>
     </thead>
     <tbody>
       {% for row in board.featured_timeline.rows %}
       <tr>
-        <td>{{ row.date }}</td>
+        <td>{{ row.date[:10] | us_date if intelligence_workspace else row.date }}</td>
         <td><a href="{{ row.href }}">{{ row.what_happened }}</a></td>
         <td>{{ row.source }}</td>
         <td>{{ row.geography }}</td>
         <td>{{ row.variety_or_berry }}</td>
-        <td>{{ row.trust_state }}</td>
+        <td>{{ row.trust_state | lower | capitalize if intelligence_workspace else row.trust_state }}</td>
       </tr>
       {% endfor %}
     </tbody>
-  </table>
+  </table></div>
 </section>
 {% endif %}
