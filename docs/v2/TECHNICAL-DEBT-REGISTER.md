@@ -1900,3 +1900,6 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 
 **Mission 8 saved-selection layer:** Configurable Landscape reuses existing cached per-berry aggregation and canonical role/geography relationships. Selector-only private views use atomic serialized writes, revision checks and history; damaged data and stale identities fail without overwrite. Existing cold aggregation latency, workspace-wide private-state account isolation and multi-worker concurrency remain release concerns. No new source/claim trust or coverage metric is inferred. Report reading/editing are separated in the UI; original export/storage semantics remain.
+
+
+**Mission 9 Learn expansion:** Private educational research now has durable reservations, source aliases, revision/history preservation, explicit retrieval/cancellation/recovery and separate updated drafts. Process-local locks and a workspace-wide store still require per-account/multi-worker assessment. An accepted provider run interrupted before its ID is stored cannot be safely resubmitted; explicit recovery is available. Broader verified visual coverage and static Learn/legacy-media rights presentation remain. No resolved UI debt is reopened; no canonical trust objects are changed. See MISSION-09-VISUAL-LEARN.md.

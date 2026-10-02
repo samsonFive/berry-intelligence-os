@@ -7,6 +7,7 @@
     {{ action_icon(card, 'clear_feedback' if card.decision.reaction == 'down' else 'not_relevant', 'Not relevant', 'down', card.decision.reaction == 'down') }}
     {{ action_icon(card, 'unsave' if card.decision.saved else 'save', 'Remove saved mark' if card.decision.saved else 'Save story', 'save', card.decision.saved) }}
     {% if card.source_url %}<a class="icon-action" href="{{ card.source_url }}" target="_blank" rel="noopener noreferrer" aria-label="Read original at publisher (new tab)">{{ icon('newspaper') }}<span class="action-tooltip" role="tooltip">Read original at publisher</span></a>{% endif %}
+    {% if authoring_mode %}<button type="button" class="icon-action" data-learn-reader-topic aria-label="Research & add to Learn">{{ icon('learn') }}<span class="action-tooltip" role="tooltip">Research & add to Learn</span></button>{% endif %}
     <div class="reader-mode-switch" role="group" aria-label="Reader view"><button type="button" data-personal-mode="article" aria-pressed="true">Article</button><button type="button" data-personal-mode="brief" aria-pressed="false">Brief</button></div>
   </div>
   <section data-personal-pane="article" aria-label="Original article">

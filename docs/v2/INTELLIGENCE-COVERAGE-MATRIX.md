@@ -598,3 +598,6 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **Mission 8 coverage boundary:** Configurable Landscape is a projection of existing captured intelligence. Company/variety tables use active stored role and geographic relationships; source-country mentions and private annotations do not prove operations or growing. Publication date filters affect sources only. Missing/undated coverage is explicit; no dataset, canonical counts, maturity rating, collector onboarding or recall claim changed.
+
+
+**Mission 9 educational capability:** Existing 27 concepts/five pillars now have live Glasshouse presentation and an explicit private deep-research-to-lesson workflow. A public cane-biology probe returned 42 source URLs and a detailed editable draft; one concept has a sourced interactive diagram, attributed photo and linked extension video. This is educational coverage, not intelligence acquisition, collector maturity or recall evidence. No Evidence/Fact/Signal counts or maturity classifications change; broader media coverage remains incomplete.

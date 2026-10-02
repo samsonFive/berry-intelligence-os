@@ -120,13 +120,13 @@ def test_feed_nav_restores_full_landscape_and_learner_entry_points():
 def test_restored_surfaces_use_berry_os_shell_and_dense_collections():
     client = TestClient(app)
     learn = client.get("/learn")
-    assert "data-berry-os-learn" in learn.text
-    assert "bos-shell" in learn.text
-    assert "balanced-card-grid" in learn.text
+    assert "data-learn-workspace" in learn.text
+    assert "data-personal-digest" in learn.text
+    assert "learn-card-grid" in learn.text
 
     concept = client.get("/learn/firmness")
-    assert "data-berry-os-learn" in concept.text
-    assert "v2-learn-concept" in concept.text
+    assert "data-learn-workspace" in concept.text
+    assert "learn-lesson-grid" in concept.text
     assert "When you see this in intelligence" in concept.text
 
     landscape = client.get("/landscapes")
