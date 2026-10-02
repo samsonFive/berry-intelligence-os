@@ -32,6 +32,11 @@ def test_golden_path_routes_render_berry_os_shell():
         if path in {"/saved", "/digest"}:
             assert "Personal Digest · Berry Intelligence" in page.text
             assert "/static/personal_digest.css" in page.text
+        elif path == "/statements":
+            assert "Statements — Berry Intelligence" in page.text
+            assert "/static/personal_digest.css" in page.text
+            assert "/static/intelligence_workspace.css" in page.text
+            assert "statement-workspace" in page.text
         else:
             assert "Berry Intelligence OS" in page.text
             assert "data-feed-first" in page.text
@@ -139,12 +144,18 @@ def test_restored_surfaces_use_berry_os_shell_and_dense_collections():
     assert "landscape-quick-nav" in blueberry.text
 
     for template in (
-        "feed_first_statements.html",
         "feed_first_week.html",
         "feed_first_landscapes.html",
     ):
         source = Path("app/templates", template).read_text(encoding="utf-8")
         assert "bos-dense-grid" in source
+
+    statements = Path("app/templates/feed_first_statements.html").read_text(encoding="utf-8")
+    assert "extends 'intelligence_workspace_base.html'" in statements
+    assert "data-feed-first-statements" in statements
+    assert "statement-grid" in statements
+    assert "bos-shell" not in statements
+    assert ".statement-grid" in client.get("/static/intelligence_workspace.css").text
 
     css = client.get("/static/berry_os.css").text
     assert ".bos-dense-grid" in css
