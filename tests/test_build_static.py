@@ -247,6 +247,12 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     guide_html = (output_dir / "guide" / "index.html").read_text(encoding="utf-8")
     assert "How Berry Intelligence Works" in guide_html
     assert "Trusted intelligence lifecycle" in guide_html
+    assert "workflow_guide.css" in guide_html
+    assert "Your analyst workflow" in guide_html
+    assert "Choose the output you need" in guide_html
+    assert '/reports/new' not in guide_html
+    assert '/news-packets' not in guide_html
+    assert '/war-room' not in guide_html
     assert "/pending" not in guide_html
     assert "/review?kind=atomic" not in guide_html
     assert "/collection-ops" not in guide_html

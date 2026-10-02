@@ -171,12 +171,17 @@ def test_guide_is_read_only_orientation(monkeypatch, tmp_path: Path) -> None:
     assert "How Berry Intelligence Works" in html
     assert "Trusted intelligence lifecycle" in html
     assert "Variety identity" in html
-    assert "DISCOVERED" in html
-    assert "REVIEW REQUIRED" in html
-    assert "TRUSTED" in html
-    assert "CANDIDATE" in html
-    assert "POSSIBLE ALIAS" in html
-    assert "OPERATOR ACTION" in html
+    assert "Discovered" in html
+    assert "Review required" in html
+    assert "Trusted / reviewed publication" in html
+    assert "Candidate / possible alias" in html
+    assert "Operator action" in html
+    assert "Your analyst workflow" in html
+    assert "Choose the output you need" in html
+    assert "reviewing the article does not verify every assertion" in html
+    assert "Reopened briefs resolve current records" in html
+    assert "PDF captures the report at export time" in html
+    assert 'href="/today"' in html
     assert "name=\"decision\"" not in html
     assert "<form" not in html or 'action="/login"' not in html
     assert list(inbox.iterdir()) == []

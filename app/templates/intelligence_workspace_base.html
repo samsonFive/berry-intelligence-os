@@ -1,0 +1,16 @@
+{% extends 'glasshouse_base.html' %}
+{% set intelligence_workspace = true %}
+{% block head_extra %}<link rel="stylesheet" href="/static/intelligence_workspace.css?v=1">{% endblock %}
+{% block content %}
+<div class="intelligence-workspace">
+  <nav class="intelligence-tabs" aria-label="Intelligence views">
+    <a href="/statements" {% if request.url.path.startswith('/statements') %}aria-current="page"{% endif %}>Statements</a>
+    <a href="/radar" {% if request.url.path.startswith('/radar') %}aria-current="page"{% endif %}>Developments</a>
+    <a href="/moves" {% if request.url.path.startswith('/moves') %}aria-current="page"{% endif %}>Company moves</a>
+    <a href="/signals">Signals</a><a href="/assessments">Assessments</a><a href="/strategic-questions">Questions</a>
+    <a href="/whitespace" {% if request.url.path == '/whitespace' %}aria-current="page"{% endif %}>Coverage &amp; concentration</a>
+  </nav>
+  {% block intelligence_content %}{% endblock %}
+</div>
+{% endblock %}
+{% block scripts %}<script src="/static/intelligence_workspace.js?v=1"></script>{% endblock %}

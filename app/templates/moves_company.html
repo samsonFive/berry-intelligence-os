@@ -1,8 +1,8 @@
-{% extends "base_stakeholder.html" %}
+{% extends "intelligence_workspace_base.html" %}
 {% block title %}{{ company_name }} — Competitive moves{% endblock %}
-{% block content %}
+{% block intelligence_content %}
 <div class="sh-page moves-page">
-  <p class="sh-kicker"><a href="/moves">Competitive moves</a> · {{ trust_label }}</p>
+  <p class="sh-kicker"><a href="/moves">Company moves</a> · {{ trust_label | lower }}</p>
   <h1>{{ company_name }}</h1>
   <p class="sh-lede">Recent competitive moves derived from Radar Developments. <a href="/entities/company/{{ company_id }}">Company page</a></p>
 
@@ -16,23 +16,23 @@
   {% if timeline %}
   <section class="sh-section">
     <h2>Move timeline</h2>
-    <table class="move-timeline">
+    <div class="intelligence-table-wrap" tabindex="0" role="region" aria-label="Company move timeline"><table class="move-timeline">
       <thead>
         <tr><th>Date</th><th>Move</th><th>Source</th><th>Geography</th><th>Variety / berry</th><th>Trust</th></tr>
       </thead>
       <tbody>
         {% for row in timeline %}
         <tr>
-          <td>{{ row.date }}</td>
+          <td>{{ row.date[:10] | us_date }}</td>
           <td><a href="{{ row.href }}">{{ row.what_happened }}</a></td>
           <td>{{ row.source }}</td>
           <td>{{ row.geography }}</td>
           <td>{{ row.variety_or_berry }}</td>
-          <td>{{ row.trust_state }}</td>
+          <td>{{ row.trust_state | lower | capitalize }}</td>
         </tr>
         {% endfor %}
       </tbody>
-    </table>
+    </table></div>
   </section>
   {% endif %}
 

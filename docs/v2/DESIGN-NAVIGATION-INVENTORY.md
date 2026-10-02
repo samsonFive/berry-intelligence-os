@@ -91,6 +91,6 @@ Company/variety comparisons, company portfolio, geographic and entity details, S
 | Monitor | `/monitor` has Watches, Alerts and Monitoring plans; shared marks/list/multi-berry scope | Deep interpretation layouts and event notification grouping; existing Following remains distinct |
 | Operations | `/operations` organizes Collect, Review, Data quality, Coverage & health; three core tools share its shell | Deep specialist tools, real capture/retry/provider acceptance |
 | Reports & Briefings | `/briefings` groups briefs, working reports, market snapshots and Meeting Prep | Provider/print/integrated release acceptance |
-| Help/Intelligence | Existing `/guide`, Radar/Moves/Statements/Signals/Assessments/Questions/Research remain available | Mission 11 presentation and visual explainer work; original review semantics stay |
+| Help/Intelligence | Native visual `/guide`; shared Glasshouse Radar/Moves/detail and Coverage & concentration | Mission 11 first slice; Statements/Signals/Assessments/Questions/Recommendations/Research and combined acceptance remain |
 
 Shared More navigation exposes consolidated family homes. Its All existing tools disclosure preserves specialist access while parity is checked. These draft implementations do not authorize removing unreplaced routes or merging/deploying. See REDESIGN-REQUIREMENTS-CHECKLIST.md for exact-head verification and remaining requirements.
