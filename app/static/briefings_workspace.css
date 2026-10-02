@@ -1,4 +1,8 @@
 .briefings-workspace { color:var(--ink); max-width:1600px; margin:auto; font-size:14px; line-height:1.6; }
+.report-reading-text { white-space:pre-wrap; overflow-wrap:anywhere; font-size:16px; line-height:1.65; max-width:1000px; }
+.report-takeaway .report-reading-text { font-size:19px; font-weight:550; }
+.report-edit-text { margin-top:12px; font-size:12px; color:#45624c; }
+.report-edit-text summary { cursor:pointer; margin-bottom:8px; }
 .briefings-workspace * { box-sizing:border-box; }
 .briefings-tabs { display:flex; flex-wrap:wrap; gap:5px; margin:0 0 16px; padding:8px; background:#f7fbf1e8; border:1px solid var(--line); border-radius:10px; }
 .briefings-tabs a { padding:5px 10px; text-decoration:none; border-radius:6px; font-size:12px; color:#315c3c; }

@@ -927,7 +927,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates"
-    if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout"}:
+    if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -7148,6 +7148,9 @@ def landscape_all(request: Request) -> HTMLResponse:
     never risks being swallowed by or swallowing the existing per-berry
     route."""
     view = str(request.query_params.get("view") or "").strip().lower()
+    if view not in {"feed", "legacy"}:
+        from app.landscape_routes import landscape_page
+        return landscape_page(request)
     if view == "feed":
         from app.services.feed_first import landscapes_model
         from app.services.feed_first_live import cached_live_records
@@ -7741,6 +7744,7 @@ def report_new_page(request: Request) -> HTMLResponse:
             "handoff_company_ids_csv": str(request.query_params.get("company_ids") or ""),
             "handoff_variety_ids_csv": str(request.query_params.get("variety_ids") or ""),
             "handoff_report_type": handoff_report_type,
+            "handoff_origin": str(request.query_params.get("origin") or ""),
             "handoff_focus_notes": handoff_focus_notes,
             "handoff_date_window_days": handoff_date_window_days,
             "handoff_company_names": [entity_index()[cid]["name"] for cid in str(request.query_params.get("company_ids") or "").split(",")
@@ -10287,3 +10291,5 @@ from app.map_region_routes import router as map_region_router
 app.include_router(map_region_router)
 from app.company_routes import router as company_router
 app.include_router(company_router)
+from app.landscape_routes import router as landscape_router
+app.include_router(landscape_router)

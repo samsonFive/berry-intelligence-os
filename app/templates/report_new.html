@@ -11,7 +11,7 @@
 </section>
 
 {% if step == 'start' %}
-{% if not handoff_company_names %}
+{% if not handoff_company_names and handoff_origin != 'landscape' %}
 <form class="sh-search-form filters" method="post" action="/reports/new">
   <input type="hidden" name="step" value="interpret">
   <div class="sh-field sh-field-grow filter-field">
@@ -30,10 +30,12 @@
 {% endif %}
 <form id="manual-scope" class="filters" method="post" action="/reports/new">
   <input type="hidden" name="step" value="preview">
-  {% if handoff_geography_ids_csv or handoff_company_ids_csv or handoff_variety_ids_csv %}
-    <p class="v2-meta">{% if handoff_company_names %}<strong>{{ handoff_company_names|join(', ') }}</strong> · Published in the last {{ handoff_date_window_days }} days. Preview the captured reporting before generating a draft.{% elif handoff_report_type == 'decision_memo' %}Prefilled from Meeting Prep.{% else %}Prefilled from Today's top stories.{% endif %}</p>
+  {% if handoff_origin == 'landscape' or handoff_geography_ids_csv or handoff_company_ids_csv or handoff_variety_ids_csv %}
+    <p class="v2-meta">{% if handoff_origin == 'landscape' %}Prefilled from your Landscape. Confirm the scope below before generating a draft.{% elif handoff_company_names %}<strong>{{ handoff_company_names|join(', ') }}</strong> · Published in the last {{ handoff_date_window_days }} days. Preview the captured reporting before generating a draft.{% elif handoff_report_type == 'decision_memo' %}Prefilled from Meeting Prep.{% else %}Prefilled from Today's top stories.{% endif %}</p>
   {% endif %}
-  {% if handoff_focus_notes %}<input type="hidden" name="focus_notes" value="{{ handoff_focus_notes }}">{% endif %}
+  {% if handoff_origin == 'landscape' %}
+  <div class="filter-field"><label for="landscape-focus">Landscape scope and research focus</label><textarea id="landscape-focus" name="focus_notes" rows="3">{{ handoff_focus_notes }}</textarea></div>
+  {% elif handoff_focus_notes %}<input type="hidden" name="focus_notes" value="{{ handoff_focus_notes }}">{% endif %}
   {% if handoff_date_window_days %}<input type="hidden" name="date_window_days" value="{{ handoff_date_window_days }}">{% endif %}
   <div class="filter-field">
     <label for="report-type">Report type</label>
