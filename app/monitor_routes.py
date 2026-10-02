@@ -4,6 +4,7 @@ from fastapi import APIRouter, HTTPException, Request
 from app.services import company_directory, feed_first, personal_digest, variety_navigation, watchlist
 from app.services.watchtower.compose import compose_watchtower
 from app.services.watchtower.present import present_watchtower
+from app.services.map_regions import public_source_url
 
 router = APIRouter()
 VIEWS = {"watches": "Watches", "alerts": "Alerts", "activity": "Monitoring plans"}
@@ -72,6 +73,7 @@ def monitor_home(request: Request):
             for row in context["alerts"]:
                 row["review_label"] = {"LIVE / UNREVIEWED DEVELOPMENT": "Unreviewed development", "LIVE / UNREVIEWED MOVE": "Unreviewed move", "REVIEWED EVIDENCE": "Reviewed source", "MARKET REALITY": "Market observation"}.get(row.get("trust_state"), row.get("trust_state") or "Review status not recorded")
                 row["display_date"] = str(row.get("event_at") or "")[:10]
+                row["display_sources"] = [{**source, "display_url": public_source_url(source.get("url"))} for source in row.get("sources") or []]
             context["alert_freshness"] = page["radar_freshness_label"]
             context["cache_status"] = page["cache_status"]
         else:

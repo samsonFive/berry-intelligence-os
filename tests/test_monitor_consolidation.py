@@ -110,6 +110,18 @@ def test_monitor_multi_berry_scope_survives_tabs(workspace):
     assert "berry-blueberry%2Cberry-raspberry" in page.text
 
 
+def test_untrusted_alert_source_cannot_become_a_script_link(workspace, monkeypatch):
+    _, client = workspace
+    row = {"id":"alert-ui", "subject_type":"company", "subject_id":"company-planasa", "subject_label":"Planasa", "title":"Captured change", "state":"open", "trust_state":"LIVE / UNREVIEWED DEVELOPMENT", "sources":[{"publisher":"Unsafe source", "url":"javascript:alert(1)"}, {"publisher":"Public source", "url":"https://example.com/original?x=1"}]}
+    monkeypatch.setattr("app.monitor_routes.compose_watchtower", lambda **_: {"alerts":[row]})
+    monkeypatch.setattr("app.monitor_routes.present_watchtower", lambda _: {"radar_freshness_label":"Fixture", "cache_status":"fresh"})
+    page = client.get("/monitor?view=alerts")
+    assert page.status_code == 200 and "Unreviewed development" in page.text
+    assert 'href="javascript:' not in page.text
+    assert 'href="https://example.com/original?x=1"' in page.text
+    assert row["sources"][0]["url"] == "javascript:alert(1)"
+
+
 def test_malformed_alert_history_is_retained(tmp_path):
     path = tmp_path / STATE_RELATIVE
     path.parent.mkdir(parents=True)
