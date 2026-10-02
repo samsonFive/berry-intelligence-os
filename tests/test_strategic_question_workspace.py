@@ -276,7 +276,8 @@ def test_detail_route_data_rich_question():
     assert "What we don&#39;t know" in page.text or "What we don't know" in page.text
     assert "What would change our view" in page.text
     assert "Recommendations" in page.text
-    assert "Source trace" in page.text
+    assert "Supporting source index" in page.text
+    assert 'id="sq-source-trace"' in page.text
 
 
 def test_detail_route_sparse_question_honest_gaps():
@@ -373,3 +374,21 @@ def test_global_search_discovers_strategic_questions():
     sq_group = next((g for g in data.get("groups", []) if g["id"] == "strategic_questions"), None)
     assert sq_group is not None
     assert sq_group["in_context"] or sq_group["also_global"]
+
+
+def test_question_source_dates_distinguish_capture_from_publication():
+    rows = [
+        _evidence(id="ev-published", strategic_question_ids=["sq-test"], published_date="2026-01-01", captured_date="2026-02-01"),
+        _evidence(id="ev-captured", strategic_question_ids=["sq-test"], published_date=None, captured_date="2026-02-02"),
+        _evidence(id="ev-undated", strategic_question_ids=["sq-test"], published_date=None, captured_date=None),
+    ]
+    detail = _detail(published_evidence=rows)
+    for group in ("source_trace", "recent_evidence"):
+        by_id = {row["id"]: row for row in detail[group]}
+        assert by_id["ev-published"]["date_is_capture"] is False
+        assert by_id["ev-captured"]["date_is_capture"] is True
+        assert by_id["ev-undated"]["date_is_capture"] is False
+        field = "published_date" if group == "source_trace" else "date"
+        assert by_id["ev-published"][field] == "2026-01-01"
+        assert by_id["ev-captured"][field] == "2026-02-02"
+        assert by_id["ev-undated"][field] is None

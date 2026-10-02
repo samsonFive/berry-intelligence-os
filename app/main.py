@@ -8481,7 +8481,7 @@ def signal_detail(request: Request, signal_id: str) -> HTMLResponse:
             "citing_assessments": lineage.resolve_assessments_citing_signal(signal_id),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
-            "alert_state": signal_alert_state(signal_id, load_analyst_queue_state(INBOX_DIR)),
+            "alert_state": signal_alert_state(signal_id, load_analyst_queue_state(INBOX_DIR)) if AUTHORING_MODE else None,
         },
     )
 
@@ -8798,10 +8798,8 @@ def assessment_detail(request: Request, assessment_id: str) -> HTMLResponse:
             "linked_strategic_questions": lineage.resolve_linked_strategic_questions(
                 assessment.get("strategic_question_ids")
             ),
-            # counterevidence_ids may reference a fact id or an evidence id
-            # (see the create route's validation) but this view has only
-            # ever resolved the fact half -- preserved exactly, not fixed.
             "counterevidence": lineage.resolve_linked_facts(assessment.get("counterevidence_ids")),
+            "counterevidence_sources": lineage.resolve_linked_evidence(assessment.get("counterevidence_ids")),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
         },
@@ -8995,7 +8993,7 @@ def recommendation_detail(request: Request, recommendation_id: str) -> HTMLRespo
                 recommendation.get("strategic_question_ids")
             ),
             "authoring_mode": AUTHORING_MODE,
-            "proposal_state": proposal_state(recommendation_id, load_analyst_queue_state(INBOX_DIR)),
+            "proposal_state": proposal_state(recommendation_id, load_analyst_queue_state(INBOX_DIR)) if AUTHORING_MODE else None,
         },
     )
 
