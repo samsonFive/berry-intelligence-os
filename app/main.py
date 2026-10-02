@@ -5161,7 +5161,7 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
     signals = all_signals()
     assessments = all_assessments()
     market_repo = get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations
-    moves_board = compose_moves_board(inbox_dir=INBOX_DIR)
+    moves_board = compose_moves_board(inbox_dir=INBOX_DIR) if AUTHORING_MODE else None
     packet = assemble_research_packet(
         scope,
         entities=entities,
@@ -5171,10 +5171,10 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
         signals=signals,
         assessments=assessments,
         market_context_provider=lambda s: market_context_for_research_scope(market_repo, s),
-        developments_provider=_radar_developments_for_scope,
-        competitive_moves_provider=lambda s: _research_competitive_moves(s, moves_board),
+        developments_provider=_radar_developments_for_scope if AUTHORING_MODE else None,
+        competitive_moves_provider=(lambda s: _research_competitive_moves(s, moves_board)) if AUTHORING_MODE else None,
     )
-    packet["move_patterns"] = _research_move_patterns(scope, packet.get("competitive_moves") or [], moves_board)
+    packet["move_patterns"] = _research_move_patterns(scope, packet.get("competitive_moves") or [], moves_board) if AUTHORING_MODE else []
     comparison_ids = comparison_candidate_ids(
         scope, packet=packet, entities=entities, relationships=relationships
     ) if (scope.comparison or scope.company_ids) else []
@@ -5265,12 +5265,16 @@ def research_desk_submit(
 
 @app.post("/api/research/live", response_class=HTMLResponse)
 async def research_desk_live(request: Request) -> HTMLResponse:
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     started = time.monotonic()
     payload = await request.json()
     raw_scope = payload.get("scope") if isinstance(payload, dict) else None
     if not isinstance(raw_scope, dict):
         raise HTTPException(status_code=422, detail="A structured research scope is required")
     scope = ResearchScope.from_dict(raw_scope)
+    if not scope.question.strip():
+        raise HTTPException(status_code=422, detail="Enter a research question before checking live sources")
     entities = entity_index()
     # Browser-carried state is selection state only. Unknown/wrong-type IDs
     # are discarded before any packet or provider query is constructed.
@@ -5299,6 +5303,10 @@ async def research_desk_live(request: Request) -> HTMLResponse:
         sources=load_sources(),
         background_hits=week_background_hits(inbox_dir=INBOX_DIR),
     )
+    queried = [row for row in (live.get("telemetry") or {}).values() if row.get("queries", 0) > 0]
+    errors = sum(row.get("errors", 0) for row in queried)
+    successes = sum(row.get("queries", 0) - row.get("errors", 0) for row in queried)
+    live_status = "partial" if errors and successes else "failed" if errors else "complete" if successes else "unavailable"
     if scope.comparison and not scope.company_ids:
         comparison_ids = comparison_candidate_ids(
             scope,
@@ -5329,6 +5337,8 @@ async def research_desk_live(request: Request) -> HTMLResponse:
             "decision_support": decision_support,
             "brief_focus_notes": _research_brief_notes(scope, decision_support),
             "phase": "complete",
+            "live_status": live_status,
+            "authoring_mode": AUTHORING_MODE,
             "first_content_ms": first_content_ms,
             "complete_ms": complete_ms,
             "static_build": False,

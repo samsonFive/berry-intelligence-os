@@ -45,3 +45,7 @@ Date: 2026-09-01
 - Market Reality has a clean optional `market_context_provider` seam and can join the packet without redesign.
 - Counts are labeled as coverage, never performance or confidence scores.
 - “No result” means no result in the configured bounded sources, never proof of absence.
+
+## 2026-10-02 reading-workspace follow-up
+
+Mission 15 supersedes the original automatic live-completion UI behavior: saved questions render without web/model work, and **Check latest sources** explicitly starts the existing bounded search in authoring mode. Query telemetry distinguishes complete/partial/failed/unavailable; caches alone never establish freshness. Public reading excludes private move/development caches. Findings retain actual fact/claim classification, numbered source references and literal qualifications; report preview minimizes supporting preparation notes without rewriting its payload. See MISSION-15-RESEARCH-READING-WORKSPACE.md for tests, isolated browser proof and remaining provider/release acceptance. Historical completion statements above describe the original mission, not final canonical integration or deployment of this follow-up.

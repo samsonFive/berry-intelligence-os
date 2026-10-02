@@ -1,5 +1,14 @@
 (function () {
   "use strict";
+  var tabBar = document.querySelector('.intelligence-tabs');
+  var currentTab = tabBar && tabBar.querySelector('[aria-current]');
+  function showCurrentTab() {
+    if (currentTab && tabBar.scrollWidth > tabBar.clientWidth) {
+      tabBar.scrollLeft += currentTab.getBoundingClientRect().left - tabBar.getBoundingClientRect().left - (tabBar.clientWidth - currentTab.clientWidth) / 2;
+    }
+  }
+  showCurrentTab();
+  window.addEventListener('resize', showCurrentTab);
   var selectors = Array.from(document.querySelectorAll(".scope-selector"));
   document.addEventListener("click", function (event) {
     selectors.forEach(function (details) { if (!details.contains(event.target)) details.open = false; });

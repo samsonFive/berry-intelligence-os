@@ -552,8 +552,9 @@ def assemble_research_packet(
         if not citations:
             continue
         fact_rows.append({
-            "id": row.get("id"), "statement": row.get("statement") or "", "classification": row.get("classification") or "fact",
-            "date": _record_date(row), "source_ids": citations, "trust_class": "TRUSTED FACT",
+            "id": row.get("id"), "statement": row.get("statement") or "", "classification": row.get("classification") or "",
+            "date": _record_date(row), "source_ids": citations,
+            "trust_class": "TRUSTED FACT" if row.get("classification") == "fact" else "CLAIM" if row.get("classification") == "claim" else "UNCLASSIFIED STATEMENT",
         })
     fact_rows = fact_rows[:12]
 
@@ -993,7 +994,8 @@ def compose_research_answer(
         if rights_ids and "rights_ip" in set((packet.get("scope") or {}).get("topics") or []) and not rights_ids.intersection(ids):
             continue
         if row.get("statement") and ids:
-            findings.append({"text": row["statement"], "source_ids": ids, "kind": "FACT"})
+            kind = "FACT" if row.get("classification") == "fact" else "CLAIM" if row.get("classification") == "claim" else "UNCLASSIFIED STATEMENT"
+            findings.append({"text": row["statement"], "source_ids": ids, "kind": kind})
     packet_developments = [
         *(packet.get("competitive_moves") or []),
         *(packet.get("radar_developments") or []),
