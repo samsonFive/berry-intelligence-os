@@ -28,4 +28,6 @@ Screenshots under `artifacts/design-sprint/`: Assessment selection desktop/mobil
 
 ## Remaining work
 
+Initial draft #290 head `05a12af9128f097b920da7975e10253df6912d48` passed Change scope, Repository integrity and Static public safety. Python tests run `37065661356` had 3,601 passed / one failed / 11 skipped / two warnings in 253.18 seconds. The failure was another stale visible-caption assertion in the decision-workflow regression. Its expectation now uses Supporting statements while explicitly checking the unchanged `fact_ids` field and minimum-statement hint. A fresh exact-head check set is required; this result is not treated as a green release.
+
 These forms close the everyday internal-ID authoring interface, not the entire specialist/static layout audit. Wider licensed learning visuals, manual-logo acceptance/protected enrichment, region/source suggestions, public market statistics, fresh news/article/media acquisition, packet compatibility, account/inter-process persistence and canonical/active-PR reconciliation remain on the checklist. Current canonical-targeting PRs #255, #270 and #271 are still open alongside the redesign stack and require deliberate reconciliation before release. Prepare a tested combined release/rollback review; do not merge/deploy without final human approval.
