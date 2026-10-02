@@ -505,6 +505,11 @@ def test_radar_shell_does_not_fetch(monkeypatch, tmp_path: Path) -> None:
     assert "stakeholder.css" in html
     assert "Publication Review" not in html
     assert "/radar/live" in html
+    # Server-only tests previously missed the browser script that automatically
+    # started paid discovery on a stale/empty cache. Refresh must be deliberate.
+    assert "data-radar-live" not in html
+    assert "fetch(root.dataset.radarLive" not in html
+    assert "Choose Load emerging developments to start public research" in html
 
 
 def test_radar_live_renders_development_cards(monkeypatch, tmp_path: Path) -> None:

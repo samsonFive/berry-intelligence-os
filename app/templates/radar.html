@@ -20,38 +20,15 @@
   </header>
 
   {% if not live %}
-    <p class="sh-note" id="radar-status">{% if edition %}Showing last refresh while a newer edition loads…{% else %}Searching public berry developments the analyst did not have to query for…{% endif %}</p>
-    <p class="sh-empty" id="radar-noscript">
+    <p class="sh-note" id="radar-status">{% if edition %}Showing the last captured version. Choose Refresh now to check for newer developments.{% else %}No developments have been captured in this workspace yet. Choose Load emerging developments to start public research.{% endif %}</p>
+    {% if not static_build %}<p class="sh-empty" id="radar-noscript">
       <a class="sh-btn sh-btn-primary" href="/radar/live">Load emerging developments</a>
-    </p>
+    </p>{% endif %}
   {% endif %}
-  <div id="radar-live-root"{% if not live %} data-radar-live="/radar/live?fragment=1"{% endif %}>
+  <div id="radar-live-root">
     {% if edition %}
       {% include "_radar_edition.html" %}
     {% endif %}
   </div>
 </div>
-{% endblock %}
-{% block scripts %}
-{% if not live %}
-<script>
-(function () {
-  var root = document.getElementById("radar-live-root");
-  if (!root || !root.dataset.radarLive) return;
-  var status = document.getElementById("radar-status");
-  var noscript = document.getElementById("radar-noscript");
-  if (noscript) noscript.hidden = true;
-  fetch(root.dataset.radarLive, { headers: { "Accept": "text/html" } })
-    .then(function (response) { return response.text(); })
-    .then(function (html) {
-      if (html && html.trim()) root.innerHTML = html;
-      if (status) status.remove();
-    })
-    .catch(function () {
-      if (status) status.textContent = "Live radar did not finish. Use Load emerging developments.";
-      if (noscript) noscript.hidden = false;
-    });
-})();
-</script>
-{% endif %}
 {% endblock %}
