@@ -347,6 +347,7 @@ from app.services.report_builder.coverage import report_coverage
 from app.services.report_builder.decision_memo import build_decision_memo_packet, generate_decision_memo_sections
 from app.services.report_builder.packet import build_report_packet
 from app.services.report_builder.pdf_export import render_report_pdf
+from app.services.report_builder.presentation import section_text as report_section_text
 from app.services.report_builder.perplexity_gap_research import PublicQueryContext, research_public_gaps
 from app.services.report_builder.research_evidence_draft import build_perplexity_research_draft
 from app.services.report_builder.reports_store import (
@@ -594,6 +595,17 @@ app = FastAPI(title="Berry Intelligence OS", version="0.1.0", lifespan=lifespan)
 app.middleware("http")(remote_auth_middleware)
 app.add_middleware(EnvSessionMiddleware)
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
+
+
+@app.middleware("http")
+async def private_briefings_middleware(request: Request, call_next):
+    """Private reporting stores/actions must not open in published-only mode."""
+    path = request.url.path.rstrip("/")
+    private_home = path in {"/briefings", "/brief-pack", "/brief-packs", "/war-room", "/reports"}
+    private_detail = path.startswith(("/reports/", "/brief-packs/", "/war-room/"))
+    if not AUTHORING_MODE and (private_home or private_detail):
+        return HTMLResponse("Reports and meeting preparation are available in the private authoring workspace.", status_code=403)
+    return await call_next(request)
 
 
 @app.middleware("http")
@@ -915,7 +927,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates"
-    if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds")) or request.url.path in {"/today", "/digest", "/saved"}:
+    if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -5787,8 +5799,10 @@ def watchtower_alert_action(alert_id: str, action: str = Form(...), return_to: s
 def _war_room_scope_from_params(request: Request) -> WarRoomScope:
     berry = (request.query_params.get("berry") or "").strip()
     berry_id = berry if not berry or berry.startswith("berry-") else f"berry-{berry}"
-    geography_ids = tuple(v.strip() for v in (request.query_params.get("geography_ids") or "").split(",") if v.strip())
-    company_ids = tuple(v.strip() for v in (request.query_params.get("company_ids") or "").split(",") if v.strip())
+    def selected_ids(key: str) -> tuple[str, ...]:
+        return tuple(dict.fromkeys(v.strip() for raw in request.query_params.getlist(key) for v in raw.split(",") if v.strip()))
+    geography_ids = selected_ids("geography_ids")
+    company_ids = selected_ids("company_ids")
     try:
         window_days = int(request.query_params.get("days") or 30)
     except ValueError:
@@ -5797,7 +5811,7 @@ def _war_room_scope_from_params(request: Request) -> WarRoomScope:
     return WarRoomScope(berry_id=berry_id or None, geography_ids=geography_ids, company_ids=company_ids, window_days=window_days)
 
 
-def _compose_war_room_for_request(scope: WarRoomScope) -> dict[str, Any]:
+def _compose_war_room_for_request(scope: WarRoomScope, *, generate_questions: bool = False) -> dict[str, Any]:
     return compose_war_room(
         scope,
         inbox_dir=INBOX_DIR,
@@ -5811,7 +5825,7 @@ def _compose_war_room_for_request(scope: WarRoomScope) -> dict[str, Any]:
         berry_labels=BERRIES,
         identity_redirects=identity_redirects(),
         market_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
-        completer=maybe_untrusted_completer(),
+        completer=maybe_untrusted_completer() if generate_questions else None,
     )
 
 
@@ -5823,8 +5837,11 @@ def war_room_page(request: Request) -> HTMLResponse:
     Reality store / trusted Evidence for the requested scope. Never
     fetches a live provider itself; refresh /radar/live first (or use
     /war-room/live) if the underlying cache is stale."""
-    scope = _war_room_scope_from_params(request)
-    session = _compose_war_room_for_request(scope) if not scope.is_empty else None
+    return _meeting_prep_response(request, _war_room_scope_from_params(request))
+
+
+def _meeting_prep_response(request: Request, scope: WarRoomScope, *, generate_questions: bool = False) -> HTMLResponse:
+    session = _compose_war_room_for_request(scope, generate_questions=generate_questions) if not scope.is_empty else None
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
@@ -5844,11 +5861,23 @@ def war_room_page(request: Request) -> HTMLResponse:
     return response
 
 
+@app.post("/war-room/questions", response_class=HTMLResponse)
+def meeting_questions_submit(request: Request) -> HTMLResponse:
+    scope = _war_room_scope_from_params(request)
+    if scope.is_empty:
+        raise HTTPException(422, "Choose a meeting scope first")
+    return _meeting_prep_response(request, scope, generate_questions=True)
+
+
 @app.get("/war-room/live", response_class=HTMLResponse)
 def war_room_live_page(request: Request) -> HTMLResponse:
-    """Explicit live refresh: run the bounded Radar stack first, then
-    compose the same way /war-room does. Mission section 13 -- default
-    load stays cache-only; this is the opt-in."""
+    """Old refresh links now require an explicit POST before provider work."""
+    return templates.TemplateResponse(request=request, name="meeting_refresh.html", context={"berries": BERRIES})
+
+
+@app.post("/war-room/live")
+def war_room_live_submit(request: Request) -> RedirectResponse:
+    """Deliberate bounded feed refresh; default browsing never calls it."""
     scope = _war_room_scope_from_params(request)
     if not scope.is_empty:
         _radar_edition_live()
@@ -7450,19 +7479,23 @@ def _scope_from_form(
     *,
     report_type: str,
     berry: str,
-    geography_ids: str,
-    company_ids: str,
-    variety_ids: str,
+    geography_ids: str | list[str],
+    company_ids: str | list[str],
+    variety_ids: str | list[str],
     strategic_question_id: str,
     date_window_days: str,
     focus_notes: str,
 ) -> ResolvedScope:
+    def selections(value: str | list[str]) -> tuple[str, ...]:
+        values = [value] if isinstance(value, str) else value
+        return tuple(dict.fromkeys(item for raw in values for item in _csv_ids(raw)))
+
     return ResolvedScope(
         report_type=report_type if report_type in REPORT_TYPES else "market_landscape",
         berry_id=berry or None,
-        geography_ids=tuple(_csv_ids(geography_ids)),
-        company_ids=tuple(_csv_ids(company_ids)),
-        variety_ids=tuple(_csv_ids(variety_ids)),
+        geography_ids=selections(geography_ids),
+        company_ids=selections(company_ids),
+        variety_ids=selections(variety_ids),
         strategic_question_id=strategic_question_id or None,
         date_window_days=int(date_window_days) if str(date_window_days).strip().isdigit() else None,
         focus_notes=focus_notes or "",
@@ -7485,6 +7518,15 @@ def _decision_memo_coverage(packet: dict[str, Any]) -> dict[str, Any]:
     return {"counts": counts, "gaps": gaps, "dimensions": []}
 
 
+def _report_display_packet(packet: dict[str, Any]) -> dict[str, Any]:
+    names = {row["id"]: row.get("name") or row["id"] for row in living_catalog()}
+    records = {row["id"]: row for row in published_evidence()}
+    return {**packet, "display_names": {**names, **BERRIES}, "source_trace": [
+        {**row, "source_url": row.get("source_url") or records.get(row["id"], {}).get("source_url") or ""}
+        for row in packet.get("source_trace") or []
+    ]}
+
+
 def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], dict[str, Any]]:
     if scope.report_type == "decision_memo":
         packet = build_decision_memo_packet(
@@ -7500,9 +7542,9 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
             berry_labels=BERRIES,
             identity_redirects=identity_redirects(),
             market_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
-            completer=maybe_untrusted_completer(),
+            completer=None,
         )
-        return packet, _decision_memo_coverage(packet)
+        return _report_display_packet(packet), _decision_memo_coverage(packet)
     entities = entity_index()
     _varieties, visible_candidates, _corpus_report = variety_candidate_universe()
     packet = build_report_packet(
@@ -7526,7 +7568,7 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
             entities[g]["name"] for g in scope.geography_ids if g in entities and entities[g].get("name")
         ),
     )
-    return packet, coverage
+    return _report_display_packet(packet), coverage
 
 
 def _generate_sections_for(scope: ResolvedScope, packet: dict[str, Any], *, completer: Any) -> list[Any]:
@@ -7536,8 +7578,11 @@ def _generate_sections_for(scope: ResolvedScope, packet: dict[str, Any], *, comp
 
 
 @app.get("/reports", response_class=HTMLResponse)
-def reports_index_page(request: Request, status: str = "draft") -> HTMLResponse:
-    rows = [present_report_row(r) for r in list_reports(INBOX_DIR, status=status if status != "all" else None)]
+def reports_index_page(request: Request, status: str = "working") -> HTMLResponse:
+    if status not in {"working", "draft", "active", "archived", "all"}:
+        raise HTTPException(422, "Unknown report status")
+    records = list_reports(INBOX_DIR, status=None if status in {"working", "all"} else status)
+    rows = [present_report_row(r) for r in records if status != "working" or r.get("status", "draft") != "archived"]
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
@@ -7552,6 +7597,11 @@ def reports_index_page(request: Request, status: str = "draft") -> HTMLResponse:
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
     return response
+
+
+@app.get("/briefings", response_class=HTMLResponse)
+def briefings_home(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(request=request, name="briefings_home.html", context={"berries": BERRIES, "authoring_mode": AUTHORING_MODE})
 
 
 def _explorer_context(request, countries, berry, sections=None):
@@ -7630,6 +7680,19 @@ def global_snapshot_pdf(request: Request, countries: str = "", berry: str = "",
         headers={"Content-Disposition": 'attachment; filename="market-snapshot.pdf"'})
 
 
+def _report_scope_choices() -> dict[str, list[dict[str, str]]]:
+    """Named catalog choices; selections still use the original stable IDs."""
+    catalog = living_catalog()
+    return {
+        field: sorted(
+            [{"id": row["id"], "name": row.get("name") or row["id"]}
+             for row in catalog if row.get("entity_type") == kind],
+            key=lambda row: row["name"].casefold(),
+        )
+        for field, kind in (("company_ids", "company"), ("geography_ids", "geography"), ("variety_ids", "variety"))
+    }
+
+
 @app.get("/reports/new", response_class=HTMLResponse)
 def report_new_page(request: Request) -> HTMLResponse:
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
@@ -7672,6 +7735,7 @@ def report_new_page(request: Request) -> HTMLResponse:
             "ui_context": ui,
             "example_request": example_request,
             "report_examples": REPORT_EXAMPLE_PROMPTS,
+            "scope_choices": _report_scope_choices(),
             "handoff_berry_id": handoff_berry_id,
             "handoff_geography_ids_csv": str(request.query_params.get("geography_ids") or ""),
             "handoff_company_ids_csv": str(request.query_params.get("company_ids") or ""),
@@ -7694,9 +7758,9 @@ def report_new_submit(
     request_text: str = Form(""),
     report_type: str = Form("market_landscape"),
     berry: str = Form(""),
-    geography_ids: str = Form(""),
-    company_ids: str = Form(""),
-    variety_ids: str = Form(""),
+    geography_ids: list[str] = Form([]),
+    company_ids: list[str] = Form([]),
+    variety_ids: list[str] = Form([]),
     strategic_question_id: str = Form(""),
     date_window_days: str = Form(""),
     focus_notes: str = Form(""),
@@ -7767,6 +7831,7 @@ def report_new_submit(
         name="report_new.html",
         context={
             "step": "confirm",
+            "scope_choices": _report_scope_choices(),
             "scope": scope,
             "request_text": request_text,
             "packet": packet,
@@ -7817,6 +7882,8 @@ def report_workspace_page(request: Request, report_id: str) -> HTMLResponse:
         name="report_workspace.html",
         context={
             "report": record,
+            "display_sections": [{**section, "display_text": report_section_text(section, packet)} for section in record.get("sections") or []],
+            "reference_labels": {row["id"]: f"Source {index + 1}" for index, row in enumerate(packet.get("source_trace") or [])},
             "packet": packet,
             "coverage": coverage,
             "report_type_labels": REPORT_TYPE_LABELS,
@@ -7838,12 +7905,14 @@ def report_save_route(
 ) -> RedirectResponse:
     record = _load_report_or_404(report_id)
     edited_by_id = dict(zip(section_ids, section_texts))
+    packet, _coverage = _build_packet_and_coverage(_scope_from_record(record))
     sections = record.get("sections") or []
     for section in sections:
         sid = section.get("section_id")
         if sid in edited_by_id:
             new_text = edited_by_id[sid]
-            section["edited_prose"] = new_text if new_text.strip() else None
+            if new_text != report_section_text(section, packet):
+                section["edited_prose"] = new_text
     save_report_edits(INBOX_DIR, report_id, title=title, sections=sections, status="active")
     return RedirectResponse(url=f"/reports/{report_id}", status_code=303)
 

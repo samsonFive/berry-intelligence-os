@@ -123,7 +123,7 @@ NAV = (
     ("Landscapes", "/landscapes"),
     ("This week", "/week"),
     ("Learn", "/learn"),
-    ("War Room", "/war-room"),
+    ("Meeting Prep", "/war-room"),
     ("Watchtower", "/watchtower"),
     ("Research Ops", "/research-ops"),
     ("Settings", "/settings"),

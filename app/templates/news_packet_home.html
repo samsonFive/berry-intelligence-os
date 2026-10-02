@@ -1,6 +1,6 @@
-{% extends "glasshouse_base.html" %}
+{% extends "briefings_base.html" %}
 {% block title %}Competitor news packets · Berry Intelligence{% endblock %}
-{% block content %}
+{% block briefing_content %}
 <section class="digest-heading"><div><p class="eyebrow">REPORTS & BRIEFINGS</p><h1>Competitor news packets</h1><p>Fresh capture, a clear preview and a source-linked JSON download.</p></div><a href="/digest#subscriptions">Manage watchlists →</a></section>
 <section class="packet-panel"><h2>Generate a packet</h2><p>Choose your list and publication dates. Every new packet runs a fresh news search before you export it. A failed search must be retried.</p>
 {% if registry_list_id not in lists|map(attribute='id')|list %}<form method="post" action="/news-packets/setup"><button {% if not authoring_mode %}disabled{% endif %}>Create competitor registry watchlist</button></form>{% endif %}

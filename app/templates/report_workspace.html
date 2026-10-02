@@ -1,6 +1,6 @@
-{% extends "base_stakeholder.html" %}
+{% extends "briefings_base.html" %}
 {% block title %}{{ report.title }} — Berry Intelligence{% endblock %}
-{% block content %}
+{% block briefing_content %}
 <div class="sh-page v2-page">
 <section class="sh-header page-heading v2-page-header">
   <div>
@@ -14,7 +14,7 @@
   </div>
 </section>
 
-<section class="v2-card" style="margin-bottom:16px">
+<details class="v2-card" style="margin-bottom:16px"><summary>Coverage and known gaps</summary>
   <p class="card-kicker">INTELLIGENCE COVERAGE</p>
   <ul class="stat-list">
     {% for key, value in coverage.counts.items() %}
@@ -38,33 +38,36 @@
       {% endfor %}
     </ul>
   {% endif %}
-</section>
+</details>
 
 <form method="post" action="/reports/{{ report.id }}/save">
-  <div class="filter-field" style="max-width:480px;margin-bottom:16px">
+  <details style="max-width:480px;margin-bottom:16px"><summary>Edit report title</summary><div class="filter-field">
     <label for="title-field">Title</label>
     <input id="title-field" type="text" name="title" value="{{ report.title }}">
-  </div>
+  </div></details>
 
-  {% for section in report.sections %}
-  <section class="v2-card" style="margin-bottom:16px">
-    <p class="card-kicker">
-      {{ section.title }}
-      {% if section.status == 'ai_draft' %}<span class="badge badge-ai-proposed">AI DRAFT</span>
-      {% elif section.status == 'structured' %}<span class="badge badge-muted">STRUCTURED</span>
+  {% for section in display_sections %}
+  {% set minimized = (section.status in ['unavailable', 'unsupported'] and section.edited_prose is none) or section.section_id in ['sources', 'evidence_appendix', 'scope_method', 'known_gaps'] %}
+  {% if minimized %}<details class="v2-card report-editor-section"><summary>{% else %}<section class="v2-card report-editor-section {% if section.section_id in ['executive_summary', 'executive_takeaway'] %}report-takeaway{% endif %}">{% endif %}
+    <h2 id="section-{{ section.section_id }}">{{ section.title }}</h2>
+    {% if minimized %}</summary>{% endif %}
+    <p class="v2-meta">
+      {% if section.edited_prose is not none %}<span class="badge">Analyst edited · review required</span>
+      {% elif section.status == 'ai_draft' %}<span class="badge badge-ai-proposed">AI DRAFT</span>
+      {% elif section.status == 'structured' %}<span class="badge badge-muted">From saved records</span>
       {% elif section.status == 'unsupported' %}<span class="badge badge-muted">UNSUPPORTED</span>
       {% elif section.status == 'unavailable' %}<span class="badge badge-muted">AI UNAVAILABLE</span>
       {% endif %}
     </p>
     <input type="hidden" name="section_ids" value="{{ section.section_id }}">
-    <textarea name="section_texts" rows="6" style="width:100%">{{ section.edited_prose if section.edited_prose is not none else section.generated_prose }}</textarea>
+    <textarea name="section_texts" aria-labelledby="section-{{ section.section_id }}" rows="{{ 3 if section.section_id in ['executive_summary', 'executive_takeaway'] else 6 }}" style="width:100%">{{ section.display_text }}</textarea>
     {% if section.citation_ids %}
-      <p class="v2-meta">Sources: {% for cid in section.citation_ids %}<a href="#src-{{ cid }}">{{ cid }}</a>{{ ", " if not loop.last }}{% endfor %}</p>
+      <p class="v2-meta">Sources: {% for cid in section.citation_ids %}<a href="#src-{{ cid }}">{{ reference_labels.get(cid, 'Supporting record') }}</a>{{ ", " if not loop.last }}{% endfor %}</p>
     {% endif %}
     {% if section.status in ('ai_draft', 'unsupported', 'unavailable') %}
       <button type="submit" formaction="/reports/{{ report.id }}/section/{{ section.section_id }}/regenerate" formmethod="post" class="v2-btn v2-btn-quiet">Regenerate this section</button>
     {% endif %}
-  </section>
+  {% if minimized %}</details>{% else %}</section>{% endif %}
   {% endfor %}
 
   <button type="submit" class="v2-btn">Save edits</button>
@@ -83,8 +86,8 @@
 {% endif %}
 
 {% include "_report_source_inventory.html" %}
-<section class="v2-card" style="margin:16px 0">
-  <p class="card-kicker">RESEARCH MISSING PUBLIC INFORMATION (OPTIONAL)</p>
+<details class="v2-card" style="margin:16px 0">
+  <summary>Research missing public information</summary>
   <p class="v2-meta">Sends only the report's public berry/geography/company/variety labels plus the fixed question shown for each gap you select below -- never Evidence, Assessment, Signal content, or report text. Nothing is sent until you pick at least one gap and submit. Findings return as <strong>unreviewed external research</strong>, never as citable grounding for report prose.</p>
   {% set researchable_gaps = coverage.dimensions | selectattr('researchable') | selectattr('research_question') | list %}
   {% if researchable_gaps %}
@@ -125,7 +128,7 @@
       {% for row in report.external_research_appendix %}
         <li>
           <span class="badge badge-ai-proposed">EXTERNAL PUBLIC RESEARCH — UNREVIEWED</span>
-          {% if row.gap_label %}<span class="v2-meta">[{{ row.gap_label }}]</span>{% endif %}
+          {% if row.gap_label %}<span class="v2-meta">{{ row.gap_label }}</span>{% endif %}
           <a href="{{ row.url }}" target="_blank" rel="noopener">{{ row.title }}</a>
           <span class="v2-meta">{{ row.provider }}{% if row.retrieved_at %}, retrieved {{ row.retrieved_at }}{% endif %}</span>
           <form method="post" action="/reports/{{ report.id }}/research/{{ row.id }}/state" class="v2-inline-form">
@@ -149,15 +152,15 @@
       {% endfor %}
     </ul>
   {% endif %}
-</section>
+</details>
 
 <section class="v2-card" id="sources">
-  <p class="card-kicker">SOURCES</p>
-  <ul>
+  <h2>Sources</h2>
+  <ol class="report-source-list">
     {% for row in (packet.source_trace or (packet.strategic_question or {}).get('source_trace') or []) %}
-      <li id="src-{{ row.id }}"><a href="{{ row.href }}">{{ row.title }}</a> — {{ row.source_name }} ({{ row.date or 'date unknown' }})</li>
+      <li id="src-{{ row.id }}"><a href="{{ row.href }}" data-open-reader data-item-id="{{ row.id }}">{{ row.title }}</a><p class="v2-meta">{{ row.source_name }} · {{ row.date|us_date if row.date else 'Date unavailable' }}</p></li>
     {% endfor %}
-  </ul>
+  </ol>
 </section>
 </div>
 {% endblock %}

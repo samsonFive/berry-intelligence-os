@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "briefings_static_base.html" if static_build|default(false) else "briefings_base.html" %}
 {% block title %}Executive Readout — Berry Intelligence OS{% endblock %}
-{% block content %}
+{% block briefing_content %}
 <div class="v2-page v2-readout-page">
 <section class="page-heading">
   <div>

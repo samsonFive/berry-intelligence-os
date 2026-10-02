@@ -593,3 +593,5 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **2026-10-01 Variety workspace checkpoint:** Presentation/navigation and existing private annotations change only; no canonical Variety, role, Evidence, Fact, evidence-class count, coverage maturity or recall claim is added. Photo candidates remain separate from the catalog. Growing-location labels are not inferred from retail markets or rights territories. See MISSION-06-VARIETIES.md.
+
+**Mission 7 reporting review:** Shared task navigation, working-report persistence fixes and readable PDF/source presentation use existing records only. Isolated review disables external AI; missing narratives remain visibly undrafted. No canonical records, collector onboarding, coverage-class counts, maturity ratings or recall claims change. Report creation/editing/export does not approve any underlying claim or source.

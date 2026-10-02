@@ -1,0 +1,13 @@
+{% extends "briefings_base.html" %}
+{% block title %}Reports & Briefings · Berry Intelligence{% endblock %}
+{% block briefing_content %}
+<header class="digest-heading"><div><p class="eyebrow">COMMUNICATE THE FINDINGS</p><h1>Reports & Briefings</h1><p>Choose the output that fits your task. Every view keeps its sources and classifications.</p></div></header>
+<div class="briefing-goals">
+  <a class="briefing-goal" href="/war-room"><span class="eyebrow">SCOPED DISCUSSION</span><h2>Prepare a meeting</h2><p>Choose companies and markets. Review changes, questions and saved takeaways.</p><strong>Open Meeting Prep →</strong></a>
+  <a class="briefing-goal" href="/brief-pack"><span class="eyebrow">LIVE PRESENTATION</span><h2>Build a brief</h2><p>Choose companies, varieties and intelligence to present. Save the selection and reopen it with current data.</p><strong>Choose the contents →</strong></a>
+  <a class="briefing-goal" href="/reports/new"><span class="eyebrow">EDITABLE DRAFT</span><h2>Write a report</h2><p>Confirm a question and scope, inspect coverage, then generate and edit a sourced draft. Download a PDF.</p><strong>Start a report →</strong></a>
+  <a class="briefing-goal" href="/explorer"><span class="eyebrow">DATED EXPORT</span><h2>Create a market snapshot</h2><p>Select countries and berries in Map Explorer, choose the sections and export the source-linked inventory.</p><strong>Choose the market scope →</strong></a>
+</div>
+<section class="briefing-revisit"><h2>Continue or share</h2><div class="briefing-goals compact"><a class="briefing-goal" href="/brief-packs"><h3>Saved briefs</h3><p>Your saved selections, resolved against current intelligence.</p></a><a class="briefing-goal" href="/reports"><h3>Working reports</h3><p>Drafts and edited reports, with archived work kept separately.</p></a><a class="briefing-goal" href="/readout"><h3>Executive view</h3><p>Present existing trusted developments and analyst interpretations.</p></a><a class="briefing-goal" href="/news-packets"><h3>Competitor news packets</h3><p>Capture fresh watchlist news, preview it and export source-linked JSON.</p></a></div></section>
+<details class="workspace-help" data-workspace-help><summary>Which output should I use?</summary><p>A saved brief retains your selection and shows current records when reopened. A report retains generated and edited wording; its source inventory resolves current records. A downloaded PDF captures the page at export time. Saving or generating any output does not approve its underlying news or statements.</p></details>
+{% endblock %}

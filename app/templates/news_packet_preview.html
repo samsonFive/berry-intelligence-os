@@ -1,7 +1,7 @@
-{% extends "glasshouse_base.html" %}
-{% block title %}Packet preview · Berry Intelligence<script src="/static/news_packets.js?v=2"></script>
-{% endblock %}
-{% block content %}
+{% extends "briefings_base.html" %}
+{% block title %}Packet preview · Berry Intelligence{% endblock %}
+{% block briefing_head %}<script src="/static/news_packets.js?v=2" defer></script>{% endblock %}
+{% block briefing_content %}
 {% if job.status in ['queued', 'capturing'] %}<meta http-equiv="refresh" content="5">{% endif %}
 <section class="digest-heading"><div><p class="eyebrow">NEWS PACKET · {{ job.scope.review|capitalize }}</p><h1>{{ job.scope.list_name }}</h1><p>{{ job.scope.start }} through {{ job.scope.end }}</p></div><a href="/news-packets">Choose dates / capture again →</a></section>
 <section class="packet-panel"><h2>{% if job.status in ['queued','capturing'] %}Capturing fresh news…{% elif job.status == 'ready' %}Ready to export{% elif job.status == 'exported' %}Packet generated{% else %}Capture needs attention{% endif %}</h2>
