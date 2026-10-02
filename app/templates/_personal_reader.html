@@ -25,5 +25,6 @@
     <details class="reader-secondary"><summary>Source details & review</summary><p>{{ card.source_name }}{% if card.published_at %} · {{ card.published_at|us_date }}{% endif %}</p><p>{{ 'This source was reviewed for publication. Its individual claims retain their own review status.' if trusted else 'This source has not been reviewed. Feedback and saving do not confirm its claims.' }}</p>{% if trusted %}<a href="/intelligence/{{ card.id }}">Open source review & evidence details ↗</a>{% endif %}</details>
   </section>
   {% if authoring_mode %}<div class="reader-completion"><button type="button" class="outline-button" data-personal-action="start" data-item-id="{{ card.id }}">In progress</button><button type="button" class="green-button" data-personal-action="mark_read" data-item-id="{{ card.id }}">{{ icon('check') }} Complete reading</button></div>{% endif %}
+  {% if authoring_mode and statement_reviews %}{% include '_statement_reader_review.html' %}{% endif %}
   <p class="reader-action-status" role="status" aria-live="polite"></p>
 </article>

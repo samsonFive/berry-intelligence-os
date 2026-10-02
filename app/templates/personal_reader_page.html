@@ -1,3 +1,3 @@
 {% extends "glasshouse_base.html" %}
 {% block title %}{{ card.headline }} · Berry Intelligence{% endblock %}
-{% block content %}<div class="full-personal-reader"><a href="/digest">← Personal Digest</a>{% include "_personal_reader.html" %}</div>{% endblock %}
+{% block content %}<div class="full-personal-reader"><a href="{{ reader_return_to }}">← {{ 'Statements' if reader_return_to.startswith('/statements') else 'Personal Digest' }}</a>{% include "_personal_reader.html" %}</div>{% endblock %}

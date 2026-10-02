@@ -1,102 +1,26 @@
-{% extends "base.html" %}
-{% block title %}Statements — Berry Intelligence OS{% endblock %}
-{% block head_extra %}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/static/berry_os.css">
-{% endblock %}
-{% block content %}
-<div class="berry-os" data-feed-first data-feed-first-statements>
-  <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
-    {% include "_feed_first_rail.html" %}
-    <main class="bos-canvas">
-      <p class="bos-kicker">Human Gate / Statements</p>
-      <h1 class="bos-title">Review extracted intelligence</h1>
-      <p class="bos-lede">Approve statements that are useful as written. Edit imprecise language. Demote trivia. Remove fragments, boilerplate, or unrelated claims.</p>
-
-      <section class="bos-gate-progress" data-gate-progress>
-        <div>
-          <p class="bos-kicker">Gate 3 progress</p>
-          <p><strong data-reviewed-count>{{ reviewed_count }}</strong> reviewed · <strong data-remaining-count>{{ remaining_count }}</strong> remaining · {{ statement_count }} total</p>
-        </div>
-        <progress value="{{ reviewed_count }}" max="{{ statement_count or 1 }}" aria-label="Statement review progress">{{ reviewed_count }} / {{ statement_count }}</progress>
-      </section>
-
-      <form class="bos-filters" method="get" action="/statements" aria-label="Statement review filters">
-        <label>Review state
-          <select name="review">
-            <option value="unreviewed"{% if review_filter == 'unreviewed' %} selected{% endif %}>Unreviewed</option>
-            <option value="reviewed"{% if review_filter == 'reviewed' %} selected{% endif %}>Reviewed</option>
-            <option value="all"{% if review_filter == 'all' %} selected{% endif %}>All statements</option>
-          </select>
-        </label>
-        <button class="bos-btn is-primary" type="submit">Apply</button>
-      </form>
-      <p class="bos-note">{{ visible_statement_count }} showing · edits retain the original extraction and exact supporting passage.</p>
-      {% if statements %}
-      <ul class="bos-dense-grid">
-        {% for row in statements %}
-        <li class="bos-people-card bos-review-card" data-statement-id="{{ row.id }}" data-statement-state="{{ row.statement_state }}" data-importance="{{ row.importance_state }}" data-reviewed="{{ 'true' if row.human_reviewed else 'false' }}">
-          <p class="bos-kicker">
-            <span data-review-label>{{ 'Reviewed' if row.human_reviewed else 'Needs review' }}</span>
-            · {{ row.confidence or 'confidence unknown' }}
-          </p>
-          <h2>{{ row.article_title }}</h2>
-          <p class="bos-note">{{ row.article_source }}{% if row.article_date %} · {{ row.article_date }}{% endif %}</p>
-
-          <form data-statement-edit="{{ row.id }}">
-            <label class="bos-review-text">
-              Atomic statement
-              <textarea name="text" rows="5">{{ row.statement_text }}</textarea>
-            </label>
-            <div class="bos-actions">
-              <button class="bos-btn is-primary" type="button" data-statement-action="approve">Approve</button>
-              <button class="bos-btn" type="submit">Save edit</button>
-              <button class="bos-btn" type="button" data-statement-action="important">Important</button>
-              <button class="bos-btn" type="button" data-statement-action="demote">Demote</button>
-              {% if row.statement_state == 'removed' %}
-              <button class="bos-btn" type="button" data-statement-action="restore">Restore</button>
-              {% else %}
-              <button class="bos-btn is-danger" type="button" data-statement-action="remove">Remove</button>
-              {% endif %}
-            </div>
-            <p class="bos-note" data-statement-status>
-              {{ row.statement_state }} · {{ row.importance_state }}
-              {% if row.analyst_edit_history %} · {{ row.analyst_edit_history|length }} edit(s){% endif %}
-            </p>
-          </form>
-
-          <details>
-            <summary>Evidence and provenance</summary>
-            <p>{{ row.supporting_passages[0] if row.supporting_passages else 'No supporting passage retained.' }}</p>
-            <p class="bos-note">Original: {{ row.original_extraction_text }} · {{ row.extraction_model }}</p>
-          </details>
-          <p class="bos-actions">
-            {% for entity_id in row.entity_ids %}
-            <a class="bos-chip" href="/entities/company/{{ entity_id }}">{{ entity_id }}</a>
-            {% endfor %}
-            {% if row.feed_item_id %}
-            <a class="bos-chip" href="/today?window=30d&item={{ row.feed_item_id }}">Open article in Today</a>
-            {% endif %}
-          </p>
-        </li>
-        {% endfor %}
-      </ul>
-      {% else %}
-      <div class="bos-empty">
-        {% if statement_count and review_filter == 'unreviewed' %}
-        <h2>Human gate complete</h2>
-        <p>Every extracted statement has a persisted analyst decision. Open Reviewed to inspect the labeled set.</p>
-        {% elif statement_count and review_filter == 'reviewed' %}
-        <p>No reviewed statements yet. Switch to Unreviewed and start with Approve, Edit, Demote, or Remove.</p>
-        {% else %}
-        <p>No statements yet. Thumbs-up a relevant Today item to extract a review batch.</p>
-        {% endif %}
-      </div>
-      {% endif %}
-    </main>
-  </div>
+{% extends 'intelligence_workspace_base.html' %}
+{% block title %}Statements — Berry Intelligence{% endblock %}
+{% block intelligence_content %}
+<div class="statement-workspace" data-feed-first data-feed-first-statements>
+  <header class="sh-header"><div><p class="sh-kicker">Intelligence / Statement triage</p><h1>Review extracted statements</h1><p class="sh-lede">Keep useful wording, edit it, or set its priority. Confirm a statement individually in the article reader after checking its source.</p></div><a class="sh-btn" href="/today">Back to News →</a></header>
+  <section class="statement-progress" data-gate-progress aria-label="Statement triage progress"><div><strong data-remaining-count>{{ remaining_count }}</strong><span>need triage</span></div><div><strong data-reviewed-count>{{ reviewed_count }}</strong><span>triaged</span></div><div><strong>{{ statement_count }}</strong><span>total statements</span></div><progress value="{{ reviewed_count }}" max="{{ statement_count or 1 }}" aria-label="Statement triage progress">{{ reviewed_count }} / {{ statement_count }}</progress></section>
+  <form class="ws-filters" method="get" action="/statements" aria-label="Statement review filters"><label>Triage state<select name="review"><option value="unreviewed"{% if review_filter == 'unreviewed' %} selected{% endif %}>Unreviewed</option><option value="reviewed"{% if review_filter == 'reviewed' %} selected{% endif %}>Reviewed</option><option value="all"{% if review_filter == 'all' %} selected{% endif %}>All statements</option></select></label><button class="sh-btn sh-btn-primary" type="submit">Apply</button><span class="sh-note">{{ visible_statement_count }} showing · triage does not confirm a statement.</span></form>
+  {% if statements %}<ul class="statement-grid">
+  {% for row in statements %}
+    <li class="statement-card" data-statement-id="{{ row.id }}" data-statement-state="{{ row.statement_state }}" data-importance="{{ row.importance_state }}" data-reviewed="{{ 'true' if row.human_reviewed else 'false' }}">
+      <div class="statement-labels"><span class="statement-state" data-confirmation-label>{{ row.state_label }}</span><span data-review-label>{{ 'Triaged' if row.human_reviewed else 'Needs triage' }}</span></div>
+      <h2 data-statement-text>{{ row.statement_text }}</h2>
+      <p class="statement-source">{{ row.article_source }} · {% if row.article_date %}Published {{ row.article_date[:10]|us_date }}{% else %}Publication date unavailable{% endif %}</p>
+      <h3 class="statement-article">{% if row.reader_url %}<a data-open-reader href="{{ row.reader_url }}">{{ row.article_title }}</a>{% else %}{{ row.article_title }}{% endif %}</h3>
+      <div class="sh-actions statement-actions"><button class="sh-btn sh-btn-primary" type="button" data-statement-action="approve">Keep wording</button><button class="sh-btn" type="button" data-statement-action="important">Mark important</button><button class="sh-btn" type="button" data-statement-action="demote">Lower priority</button><button class="sh-btn" type="button" data-statement-action="{{ 'restore' if row.statement_state == 'removed' else 'remove' }}" data-remove-restore>{{ 'Restore' if row.statement_state == 'removed' else 'Remove' }}</button></div>
+      <p class="statement-status" data-statement-status role="status" aria-live="polite">{{ row.importance_label }}{% if row.analyst_edit_history %} · {{ row.analyst_edit_history|length }} saved edits{% endif %}</p>
+      <details class="statement-edit"><summary>Edit wording</summary><form data-statement-edit="{{ row.id }}"><label for="statement-text-{{ loop.index }}">Statement wording</label><textarea id="statement-text-{{ loop.index }}" name="text" rows="4">{{ row.statement_text }}</textarea><button class="sh-btn" type="submit">Save edit</button></form></details>
+      <details class="statement-support"><summary>Supporting source &amp; review history</summary><h3>Exact source wording</h3>{% for passage in row.supporting_passages %}<blockquote>{{ passage }}</blockquote>{% else %}<p>No supporting passage was retained. Check the original source before confirming.</p>{% endfor %}<h3>Original extraction</h3><p>{{ row.original_extraction_text or 'Original wording unavailable.' }}</p>{% if row.analyst_edit_history %}<h3>Saved edits</h3>{% for edit in row.analyst_edit_history %}<p><time>{{ edit.at[:10]|us_date }}</time> · {{ edit.from }} → {{ edit.to }}</p>{% endfor %}{% endif %}{% if row.decision_history %}<h3>Statement decisions</h3>{% for decision in row.decision_history %}<p>{{ decision.action|replace('_', ' ')|capitalize }} · <time>{{ decision.at[:10]|us_date }}</time></p>{% endfor %}{% endif %}<details><summary>Technical reference</summary><p>Statement: {{ row.id }}</p><p>Recorded confidence: {{ row.confidence or 'Not recorded' }} · Extraction model: {{ row.extraction_model or 'Not recorded' }}</p></details></details>
+      {% if row.subjects %}<div class="statement-subjects">{% for subject in row.subjects %}{% if subject.href %}<a href="{{ subject.href }}">{{ subject.name }}</a>{% else %}<span>{{ subject.name }}</span>{% endif %}{% endfor %}</div>{% endif %}
+      <footer class="statement-footer">{% if row.reader_url %}<a data-open-reader href="{{ row.reader_url }}">Read article &amp; review statement ↗</a>{% else %}<span>Article unavailable in this workspace</span>{% endif %}{% if row.source_url %}<a href="{{ row.source_url }}" target="_blank" rel="noopener noreferrer">Original source ↗</a>{% endif %}</footer>
+    </li>
+  {% endfor %}</ul>
+  {% else %}<div class="sh-empty">{% if statement_count and review_filter == 'unreviewed' %}<h2>Triage complete</h2><p>Every extracted statement has a saved triage decision. Reviewed shows the results. Confirmation is still a separate source-based decision in the reader.</p>{% elif statement_count and review_filter == 'reviewed' %}<h2>No triaged statements yet</h2><p>Choose Unreviewed to keep wording, edit, change priority or remove a statement.</p>{% else %}<h2>No statements to review</h2><p>Statements appear when a source has been extracted. Open Operations to inspect source and statement review.</p><a class="sh-btn" href="/operations">Open Operations →</a>{% endif %}</div>{% endif %}
 </div>
-<script src="/static/feed_first.js"></script>
 {% endblock %}
+{% block scripts %}{{ super() }}<script src="/static/feed_first.js?v=statement-triage-1"></script>{% endblock %}

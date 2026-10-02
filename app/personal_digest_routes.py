@@ -134,8 +134,10 @@ def reader_context(request: Request, record: dict):
     from app.services.intelligence_feed import article_paragraphs
     from app.services.source_body import reader_content
     from app.services.news_workspace import source_reviewed, escalations
-    record = merge_capture(record, load_capture(main.INBOX_DIR, str(record["id"])))
-    context = main._feed_first_world()
+    from app.services.statement_workspace import present_statements
+    if main.AUTHORING_MODE:
+        record = merge_capture(record, load_capture(main.INBOX_DIR, str(record["id"])))
+    context = main._feed_first_world() if main.AUTHORING_MODE else {"entities": main.all_entities(), "state": feed_first.empty_state()}
     entities = {str(row["id"]): row for row in context["entities"] if row.get("id")}
     card = feed_first.present_item(record, entities_by_id=entities, state=context["state"], filters=feed_first.parse_filters({}))
     card["entities"] = [row for row in card["entities"] if (entities.get(row["id"]) or {}).get("entity_type") in {"company", "brand", "research_program"}]
@@ -144,10 +146,14 @@ def reader_context(request: Request, record: dict):
     if paragraphs == [content["summary"]]:
         paragraphs = []  # A syndicated synopsis is not the original article.
     card["source_url"] = card["source_url"] if is_public_http_url(card["source_url"]) else ""
-    entry = (analyst_queue.load_state(main.INBOX_DIR).get("reading") or {}).get(str(record["id"])) or {}
+    entry = ((analyst_queue.load_state(main.INBOX_DIR).get("reading") or {}).get(str(record["id"])) or {}) if main.AUTHORING_MODE else {}
+    statement_reviews = present_statements(card["statements"], {str(record["id"]): record}, context["entities"], return_to="/statements") if main.AUTHORING_MODE else []
+    return_to = request.query_params.get("return_to") or "/digest"
+    return_to = return_to if urlsplit(return_to).path == "/statements" and not urlsplit(return_to).netloc and not urlsplit(return_to).scheme else "/digest"
     return {"personal_reader": True, "card": card, "record": record, "article_text": paragraphs,
             "article_available": bool(paragraphs), "reading_entry": entry, "summary": content["summary"],
             "trusted": source_reviewed(record), "escalated_statements": escalations(main.all_facts()).get(str(record["id"]), []),
+            "statement_reviews": statement_reviews, "reader_return_to": return_to,
             "authoring_mode": main.AUTHORING_MODE, "static_build": False}
 
 
