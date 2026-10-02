@@ -173,8 +173,9 @@ def test_p1_people_saved_landscapes_and_reader_help_are_in_the_shell():
     full_landscape = TestClient(app).get("/landscapes")
     assert full_landscape.status_code == 200
     assert "Competitive Landscape" in full_landscape.text
-    assert "Executive readout" in full_landscape.text
-    assert "Open live landscape briefs" in full_landscape.text
+    assert "Include sections" in full_landscape.text
+    assert 'href="/landscapes?view=legacy"' in full_landscape.text
+    assert 'href="/landscapes?view=feed"' in full_landscape.text
     ops = TestClient(app).get("/research-ops")
     assert "Reader bake-off" in ops.text
     assert "Official social" in ops.text

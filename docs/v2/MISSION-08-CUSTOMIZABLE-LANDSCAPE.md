@@ -29,3 +29,5 @@ Report-image follow-up also separates reading from editing: report text is visib
 ## Remaining release work
 
 Required CI must pass on the pushed head. Combined release review must recheck retained specialist handoffs, private account isolation and multi-worker saved-state behavior. Geography annotations remain unreviewed; later source-assisted suggestions cannot bypass their human gate. Learn, Monitor/Operations, live-data readiness and final workflow explainer continue under the ongoing requirements checklist. A locally verified mission is not a deployed release.
+
+**First complete CI follow-up:** head `8bb0802` passed Change scope, Repository integrity and Static public safety; Python tests found four failures among 3,473 passing checks. One exposed a missing direct portfolio shortcut, restored in the company rows. Three asserted the replaced shell/heading; their replacements verify the new workspace and preserved legacy overview/feed entry points. The affected company/feed/Landscape suite passes 83 checks locally. Fresh exact-head CI is required on the correction.
