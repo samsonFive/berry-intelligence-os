@@ -1,0 +1,8 @@
+{% macro reference(field, label, value, hint='') %}
+<section class="authoring-reference" data-reference-field="{{ field }}" aria-labelledby="{{ field }}-heading">
+  <h3 id="{{ field }}-heading">{{ label }}</h3>{% if hint %}<p class="authoring-hint">{{ hint }}</p>{% endif %}
+  <div class="reference-selected" aria-label="Selected {{ label|lower }}" hidden></div>
+  <details class="reference-choices" hidden><summary>Choose {{ label|lower }}</summary><label for="{{ field }}-search">Search by name or wording</label><input id="{{ field }}-search" type="search" autocomplete="off"><p class="reference-count" role="status"></p><div class="reference-results"></div></details>
+  <details class="reference-manual"><summary>Reference IDs</summary><label for="{{ field }}">{{ label }} references</label><p class="authoring-hint">Existing references are preserved. Use comma-separated IDs if you need to enter them directly.</p><input id="{{ field }}" name="{{ field }}" type="text" value="{{ value }}"></details>
+</section>
+{% endmacro %}

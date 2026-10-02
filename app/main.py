@@ -8318,6 +8318,20 @@ def signal_candidate_decision(
     return RedirectResponse(url=target, status_code=303)
 
 
+def intelligence_reference_catalog() -> dict[str, Any]:
+    if not AUTHORING_MODE:
+        return {}
+    from app.services.intelligence_authoring import reference_catalog
+    return reference_catalog(
+        evidence=published_evidence(), facts=all_facts(), signals=all_signals(),
+        assessments=all_assessments(), entities=entity_index().values(),
+        questions=load_strategic_questions(),
+    )
+
+
+templates.env.globals["intelligence_reference_catalog"] = intelligence_reference_catalog
+
+
 def _default_signal_values() -> dict[str, Any]:
     return {
         "title": "",
@@ -8371,6 +8385,8 @@ def signal_create(
 ) -> HTMLResponse | RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Creating signals is only available in authoring mode")
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
 
     values = {
         "title": title,
@@ -8687,6 +8703,8 @@ def assessment_create(
 ) -> HTMLResponse | RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Creating assessments is only available in authoring mode")
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
 
     values = {
         "title": title,
@@ -8748,6 +8766,8 @@ def assessment_update(
 ) -> HTMLResponse | RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Editing assessments is only available in authoring mode")
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     existing = assessment_by_id(assessment_id)
     if existing is None:
         raise HTTPException(status_code=404, detail="Assessment not found")
@@ -8881,6 +8901,8 @@ def recommendation_create(
 ) -> HTMLResponse | RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Creating recommendations is only available in authoring mode")
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
 
     values = {
         "title": title,

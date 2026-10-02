@@ -723,7 +723,8 @@ def test_signal_list_and_new_form_render() -> None:
 
     form_response = client.get("/signals/new")
     assert form_response.status_code == 200
-    assert "Supporting evidence ids" in form_response.text
+    assert "Supporting sources" in form_response.text
+    assert 'name="evidence_ids"' in form_response.text
 
 
 def test_signal_create_requires_known_evidence_id(monkeypatch, tmp_path) -> None:

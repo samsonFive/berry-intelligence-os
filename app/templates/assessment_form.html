@@ -1,9 +1,12 @@
-{% extends "base.html" %}
+{% extends "intelligence_workspace_base.html" %}
+{% from "_authoring_reference.html" import reference %}
+{% block head_extra %}{{ super() }}<link rel="stylesheet" href="/static/intelligence_authoring.css?v=1">{% endblock %}
 {% block title %}{{ form_title|default('New Assessment') }} — Berry Intelligence OS{% endblock %}
-{% block content %}
+{% block intelligence_content %}
+<div class="intelligence-authoring">
 <section class="page-heading">
   <div>
-    <p class="eyebrow">RECORD A HUMAN INTERPRETATION OF EXISTING FACTS</p>
+    <p class="eyebrow">INTERPRET EXISTING INTELLIGENCE</p>
     <h1>{{ form_title|default('New Assessment') }}</h1>
   </div>
 </section>
@@ -12,6 +15,7 @@
   <p class="empty-state" role="alert">Creating assessments is disabled. This deployment is running in read-only mode.</p>
 {% else %}
 
+{% set reference_catalog = intelligence_reference_catalog() %}
 {% if error %}
   <div class="banner banner-error" role="alert">{{ error }}</div>
 {% endif %}
@@ -48,7 +52,7 @@
 
   <fieldset class="form-fieldset">
     <legend>Berry scope</legend>
-    <p class="brief-window">Optional. Leave all unchecked for company-wide / unscoped. Stored as <code>market_ids</code> only — never inferred from the title, rationale, or company names.</p>
+    <p class="brief-window">Optional. Leave all unchecked for a company-wide interpretation. Choose scope explicitly; it is not inferred from your text.</p>
     {% for berry_id, label in berries.items() %}
       <label class="checkbox-label">
         <input type="checkbox" name="market_ids" value="{{ berry_id }}" {% if berry_id in values.market_ids %}checked{% endif %}>
@@ -57,35 +61,17 @@
     {% endfor %}
   </fieldset>
 
-  <div class="form-field">
-    <label for="fact_ids">Supporting fact ids *</label>
-    <input id="fact_ids" name="fact_ids" type="text" placeholder="Comma-separated, e.g. fact-sample-id" value="{{ values.fact_ids }}">
-  </div>
+  {{ reference("fact_ids", "Supporting statements", values.fact_ids, "Choose at least one stored statement. Its wording and classification remain unchanged; claims remain claims.") }}
 
-  <div class="form-field">
-    <label for="signal_ids">Supporting signal ids <small>A corroborated Signal this assessment interprets, if any.</small></label>
-    <input id="signal_ids" name="signal_ids" type="text" placeholder="Comma-separated" value="{{ values.signal_ids }}">
-  </div>
+  {{ reference("signal_ids", "Linked Signals", values.signal_ids, "Choose the existing patterns this interpretation or action draws on.") }}
 
-  <div class="form-field">
-    <label for="evidence_ids">Supporting evidence ids</label>
-    <input id="evidence_ids" name="evidence_ids" type="text" placeholder="Comma-separated" value="{{ values.evidence_ids }}">
-  </div>
+  {{ reference("evidence_ids", "Supporting sources", values.evidence_ids, "Choose published sources. Selecting a source does not approve its statements.") }}
 
-  <div class="form-field">
-    <label for="counterevidence_ids">Counterevidence ids <small>Facts or evidence that push against this interpretation, where relevant.</small></label>
-    <input id="counterevidence_ids" name="counterevidence_ids" type="text" placeholder="Comma-separated" value="{{ values.counterevidence_ids }}">
-  </div>
+  {{ reference("counterevidence_ids", "Contradicting statements or sources", values.counterevidence_ids, "Keep evidence that challenges the interpretation visible.") }}
 
-  <div class="form-field">
-    <label for="entity_ids">Affected entity ids</label>
-    <input id="entity_ids" name="entity_ids" type="text" placeholder="Comma-separated" value="{{ values.entity_ids }}">
-  </div>
+  {{ reference("entity_ids", "Affected subjects", values.entity_ids, "Companies, varieties, places and other existing subjects.") }}
 
-  <div class="form-field">
-    <label for="strategic_question_ids">Linked strategic questions (existing id or title)</label>
-    <input id="strategic_question_ids" name="strategic_question_ids" type="text" placeholder="Comma-separated" value="{{ values.strategic_question_ids }}">
-  </div>
+  {{ reference("strategic_question_ids", "Linked questions", values.strategic_question_ids, "Connect this work to existing strategic questions.") }}
 
   <div class="form-field">
     <label for="reviewer">Reviewer *</label>
@@ -96,5 +82,9 @@
     <button type="submit">Save assessment</button>
   </div>
 </form>
+<script id="authoring-reference-catalog" type="application/json">{{ reference_catalog|tojson }}</script>
 {% endif %}
+</div>
 {% endblock %}
+
+{% block scripts %}{{ super() }}<script src="/static/intelligence_authoring.js?v=2"></script>{% endblock %}
