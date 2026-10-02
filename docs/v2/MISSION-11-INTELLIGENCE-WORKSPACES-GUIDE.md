@@ -1,6 +1,6 @@
 # Mission 11 — Intelligence workspaces and the visual guide
 
-Follow the accepted section audit and approved Glasshouse design. Mission 10 draft #283 is pushed; its repaired head is awaiting all four required checks. Canonical was freshly fetched on October 2 and remains `916b8f09f9ce2a1847335d7990ea80ff921f1cec`. Other open canonical-targeting PRs #255 (Learn), #270 (Varieties) and #271 (executive/mobile) need overlap reconciliation before the combined release. Do not merge, close them or deploy during this slice.
+Follow the accepted section audit and approved Glasshouse design. Mission 10 draft #283 is pushed; its repaired head cf6798888d2daea1dc33e8c6d983726e695593d8 passed all four required checks (3,527 passed / 11 skipped / two warnings). Canonical was freshly fetched on October 2 and remains `916b8f09f9ce2a1847335d7990ea80ff921f1cec`. Other open canonical-targeting PRs #255 (Learn), #270 (Varieties) and #271 (executive/mobile) need overlap reconciliation before the combined release. Do not merge, close them or deploy during this slice.
 
 ## Purpose and boundaries
 
