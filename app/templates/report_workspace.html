@@ -54,7 +54,7 @@
     <p class="v2-meta">
       {% if section.edited_prose is not none %}<span class="badge">Analyst edited · review required</span>
       {% elif section.status == 'ai_draft' %}<span class="badge badge-ai-proposed">AI DRAFT</span>
-      {% elif section.status == 'structured' %}<span class="badge badge-muted">STRUCTURED</span>
+      {% elif section.status == 'structured' %}<span class="badge badge-muted">From saved records</span>
       {% elif section.status == 'unsupported' %}<span class="badge badge-muted">UNSUPPORTED</span>
       {% elif section.status == 'unavailable' %}<span class="badge badge-muted">AI UNAVAILABLE</span>
       {% endif %}
@@ -86,8 +86,8 @@
 {% endif %}
 
 {% include "_report_source_inventory.html" %}
-<section class="v2-card" style="margin:16px 0">
-  <p class="card-kicker">RESEARCH MISSING PUBLIC INFORMATION (OPTIONAL)</p>
+<details class="v2-card" style="margin:16px 0">
+  <summary>Research missing public information</summary>
   <p class="v2-meta">Sends only the report's public berry/geography/company/variety labels plus the fixed question shown for each gap you select below -- never Evidence, Assessment, Signal content, or report text. Nothing is sent until you pick at least one gap and submit. Findings return as <strong>unreviewed external research</strong>, never as citable grounding for report prose.</p>
   {% set researchable_gaps = coverage.dimensions | selectattr('researchable') | selectattr('research_question') | list %}
   {% if researchable_gaps %}
@@ -128,7 +128,7 @@
       {% for row in report.external_research_appendix %}
         <li>
           <span class="badge badge-ai-proposed">EXTERNAL PUBLIC RESEARCH — UNREVIEWED</span>
-          {% if row.gap_label %}<span class="v2-meta">[{{ row.gap_label }}]</span>{% endif %}
+          {% if row.gap_label %}<span class="v2-meta">{{ row.gap_label }}</span>{% endif %}
           <a href="{{ row.url }}" target="_blank" rel="noopener">{{ row.title }}</a>
           <span class="v2-meta">{{ row.provider }}{% if row.retrieved_at %}, retrieved {{ row.retrieved_at }}{% endif %}</span>
           <form method="post" action="/reports/{{ report.id }}/research/{{ row.id }}/state" class="v2-inline-form">
@@ -152,15 +152,15 @@
       {% endfor %}
     </ul>
   {% endif %}
-</section>
+</details>
 
 <section class="v2-card" id="sources">
-  <p class="card-kicker">SOURCES</p>
-  <ul>
+  <h2>Sources</h2>
+  <ol class="report-source-list">
     {% for row in (packet.source_trace or (packet.strategic_question or {}).get('source_trace') or []) %}
-      <li id="src-{{ row.id }}"><a href="{{ row.href }}">{{ row.title }}</a> — {{ row.source_name }} ({{ row.date or 'date unknown' }})</li>
+      <li id="src-{{ row.id }}"><a href="{{ row.href }}" data-open-reader data-item-id="{{ row.id }}">{{ row.title }}</a><p class="v2-meta">{{ row.source_name }} · {{ row.date|us_date if row.date else 'Date unavailable' }}</p></li>
     {% endfor %}
-  </ul>
+  </ol>
 </section>
 </div>
 {% endblock %}
