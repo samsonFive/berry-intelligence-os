@@ -60,7 +60,10 @@
       {% endif %}
     </p>
     <input type="hidden" name="section_ids" value="{{ section.section_id }}">
+    <div class="report-reading-text">{{ section.display_text }}</div>
+    <details class="report-edit-text"><summary>Edit section text</summary>
     <textarea name="section_texts" aria-labelledby="section-{{ section.section_id }}" rows="{{ 3 if section.section_id in ['executive_summary', 'executive_takeaway'] else 6 }}" style="width:100%">{{ section.display_text }}</textarea>
+    </details>
     {% if section.citation_ids %}
       <p class="v2-meta">Sources: {% for cid in section.citation_ids %}<a href="#src-{{ cid }}">{{ reference_labels.get(cid, 'Supporting record') }}</a>{{ ", " if not loop.last }}{% endfor %}</p>
     {% endif %}

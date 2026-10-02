@@ -104,8 +104,12 @@ def test_feed_nav_restores_full_landscape_and_learner_entry_points():
 
     full = client.get("/landscapes")
     assert full.status_code == 200
-    assert "Executive readout" in full.text
-    assert "Actors to watch" in full.text
+    assert "Include sections" in full.text
+    assert "Latest sources" in full.text
+    legacy = client.get("/landscapes?view=legacy")
+    assert legacy.status_code == 200
+    assert "Executive readout" in legacy.text
+    assert "Actors to watch" in legacy.text
     assert 'href="/landscapes?view=feed"' in full.text
 
     briefs = client.get("/landscapes?view=feed")
@@ -126,8 +130,10 @@ def test_restored_surfaces_use_berry_os_shell_and_dense_collections():
     assert "When you see this in intelligence" in concept.text
 
     landscape = client.get("/landscapes")
-    assert "data-berry-os-landscape" in landscape.text
-    assert "balanced-card-grid" in landscape.text
+    assert "data-landscape-workspace" in landscape.text
+    assert "data-personal-digest" in landscape.text
+    assert "landscape-table-wrap" in landscape.text
+    assert "/static/landscape_workspace.css" in landscape.text
     blueberry = client.get("/landscapes/berries/blueberry")
     assert "data-berry-os-landscape" in blueberry.text
     assert "landscape-quick-nav" in blueberry.text
