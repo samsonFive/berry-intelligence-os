@@ -116,7 +116,15 @@ def profile_context(request, entity_id, existing):
     tab = str(request.query_params.get("tab") or "overview")
     if tab not in {"overview", "news", "intelligence", "varieties", "regions", "people", "details"}:
         tab = "overview"
+    watched, watch_error = False, ""
+    if main.AUTHORING_MODE and company.get("canonical") and company.get("entity_type") == "company":
+        from app.services.watchlist import is_watched
+        try:
+            watched = is_watched(main.INBOX_DIR, "company", entity_id)
+        except ValueError as exc:
+            watch_error = str(exc)
     return {"company": company, "profile_override": override, "company_people": people, "company_rows": rows,
+            "is_subject_watched": watched, "subject_watch_error": watch_error,
             "profile_history": [h for h in private["history"] if h["entity_id"] == entity_id][-30:][::-1],
             "profile_regions": [r for r in map_regions.catalog(entities, relations, list(records.values()), map_regions.load(main.INBOX_DIR) if main.AUTHORING_MODE else None) if r["entity_id"] == entity_id],
             "company_news_model": news, "tiers": directory.TIERS, "lists": personal_digest.company_lists(state), "tab": tab,

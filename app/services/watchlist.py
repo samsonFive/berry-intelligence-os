@@ -21,6 +21,7 @@ from typing import Any
 
 from app.services.company_workspace import _humanize_source_type
 from app.services.variety_workspace import _party
+from app.services.analyst_state_io import atomic_json, serialized_write
 
 STATE_FILENAME = "watchlist_state.json"
 WATCH_TYPES = ("company", "variety", "geography", "berry", "strategic_question", "move_type")
@@ -41,23 +42,20 @@ def _read(inbox_dir: Path) -> list[dict[str, Any]]:
         return []
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return []
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError("Saved watches cannot be read. They have been left unchanged.") from exc
     watches = payload.get("watches") if isinstance(payload, dict) else None
     if not isinstance(watches, list):
-        return []
-    return [row for row in watches if isinstance(row, dict) and row.get("watch_type") and row.get("object_id")]
+        raise ValueError("Saved watches cannot be read. They have been left unchanged.")
+    if any(not isinstance(row, dict) or not isinstance(row.get("watch_type"), str) or not row["watch_type"] or not isinstance(row.get("object_id"), str) or not row["object_id"] for row in watches):
+        raise ValueError("Saved watches cannot be read. They have been left unchanged.")
+    return watches
 
 
 def _write(inbox_dir: Path, watches: list[dict[str, Any]]) -> None:
     path = state_path(inbox_dir)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(".tmp")
-    temporary.write_text(
-        json.dumps({"watches": watches}, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
-    temporary.replace(path)
+    payload = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    atomic_json(path, {**payload, "watches": watches})
 
 
 def load_watches(inbox_dir: Path) -> list[dict[str, Any]]:
@@ -71,6 +69,7 @@ def is_watched(inbox_dir: Path, watch_type: str, object_id: str) -> bool:
     )
 
 
+@serialized_write
 def add_watch(inbox_dir: Path, watch_type: str, object_id: str) -> list[dict[str, Any]]:
     if watch_type not in WATCH_TYPES or not object_id:
         raise ValueError("unsupported watch type or missing object id")
@@ -82,6 +81,7 @@ def add_watch(inbox_dir: Path, watch_type: str, object_id: str) -> list[dict[str
     return watches
 
 
+@serialized_write
 def remove_watch(inbox_dir: Path, watch_type: str, object_id: str) -> list[dict[str, Any]]:
     watches = [
         row for row in _read(inbox_dir)
@@ -91,6 +91,7 @@ def remove_watch(inbox_dir: Path, watch_type: str, object_id: str) -> list[dict[
     return watches
 
 
+@serialized_write
 def mark_watch_seen(inbox_dir: Path, watch_type: str, object_id: str) -> list[dict[str, Any]]:
     """Explicit only -- called when the analyst actually opens the watched
     object's canonical page from the Watchlist, never merely because the

@@ -26,6 +26,7 @@ from pathlib import Path
 from typing import Any
 
 from app.services.watchtower.models import ALERT_ACTIONS, ALERT_STATE_OPEN, Alert
+from app.services.analyst_state_io import atomic_json, serialized_write
 
 ALERTS_RELATIVE = Path("watchtower") / "alerts.json"
 STATE_RELATIVE = Path("watchtower") / "alert_state.json"
@@ -48,28 +49,30 @@ def _read_json(path: Path) -> dict[str, Any]:
         return {}
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return {}
-    return payload if isinstance(payload, dict) else {}
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError("Saved alerts cannot be read. They have been left unchanged.") from exc
+    if not isinstance(payload, dict):
+        raise ValueError("Saved alerts cannot be read. They have been left unchanged.")
+    return payload
 
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_suffix(".tmp")
-    temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    temporary.replace(path)
+    atomic_json(path, {**_read_json(path), **payload})
 
 
 def _read_alerts(inbox_dir: Path) -> dict[str, dict[str, Any]]:
     payload = _read_json(_alerts_path(inbox_dir))
     rows = payload.get("alerts")
-    return rows if isinstance(rows, dict) else {}
+    if "alerts" in payload and (not isinstance(rows, dict) or any(not isinstance(row, dict) or row.get("id") != key for key, row in rows.items())):
+        raise ValueError("Saved alerts cannot be read. They have been left unchanged.")
+    return rows or {}
 
 
 def load_alerts(inbox_dir: Path) -> list[dict[str, Any]]:
     return list(_read_alerts(inbox_dir).values())
 
 
+@serialized_write
 def persist_alerts(inbox_dir: Path, alerts: list[Alert], *, now: str | None = None) -> list[dict[str, Any]]:
     existing = _read_alerts(inbox_dir)
     merged: dict[str, dict[str, Any]] = {}
@@ -86,7 +89,9 @@ def persist_alerts(inbox_dir: Path, alerts: list[Alert], *, now: str | None = No
 def load_alert_state(inbox_dir: Path) -> dict[str, dict[str, Any]]:
     payload = _read_json(_state_path(inbox_dir))
     rows = payload.get("state")
-    return rows if isinstance(rows, dict) else {}
+    if "state" in payload and (not isinstance(rows, dict) or any(not isinstance(row, dict) for row in rows.values())):
+        raise ValueError("Saved alert decisions cannot be read. They have been left unchanged.")
+    return rows or {}
 
 
 def alert_state_for(alert_id: str, state_map: dict[str, dict[str, Any]]) -> str:
@@ -95,6 +100,7 @@ def alert_state_for(alert_id: str, state_map: dict[str, dict[str, Any]]) -> str:
     return value
 
 
+@serialized_write
 def apply_alert_action(inbox_dir: Path, alert_id: str, action: str) -> dict[str, dict[str, Any]]:
     """Explicit-only, same discipline as `watchlist.mark_watch_seen`:
     called by a real user action, never as a side effect of rendering the
@@ -103,7 +109,13 @@ def apply_alert_action(inbox_dir: Path, alert_id: str, action: str) -> dict[str,
     if action not in ALERT_ACTIONS:
         raise ValueError(f"unsupported alert action: {action!r}")
     state = load_alert_state(inbox_dir)
-    state[alert_id] = {"state": ALERT_ACTIONS[action], "updated_at": _now()}
+    prior = state.get(alert_id) or {}
+    if "history" in prior and (not isinstance(prior["history"], list) or any(not isinstance(row, dict) for row in prior["history"])):
+        raise ValueError("Saved alert history cannot be read. It has been left unchanged.")
+    history = list(prior.get("history") or [])
+    if prior:
+        history.append({key: value for key, value in prior.items() if key != "history"})
+    state[alert_id] = {**prior, "state": ALERT_ACTIONS[action], "updated_at": _now(), "history": history}
     _write_json(_state_path(inbox_dir), {"state": state})
     return state
 

@@ -1,24 +1,22 @@
-{% extends "base.html" %}
+{% extends "operations_workspace_base.html" %}
 {% block title %}Collection Operations — Berry Intelligence OS{% endblock %}
 {% block head_extra %}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/static/pvs_tokens.css">
 <link rel="stylesheet" href="/static/ops_pvs.css">
+{{ super() }}
 {% endblock %}
-{% block content %}
+{% block operations_content %}
 <div class="v2-page pvs-slice-3" id="collection-ops" data-pvs-slice="3">
 <a class="skip-link" href="#collection-recurring">Skip to collection status</a>
 <section class="page-heading v2-page-header">
   <div>
     <p class="eyebrow">COLLECTION OPERATIONS</p>
     <h1>Collection operations</h1>
-    <p class="also-known-as">Read-only status from the existing collection runner, plus one explicit, bounded manual trigger. Viewing this page never starts a run, retries anything, or clears a lock.</p>
+    <p class="also-known-as">Check scheduled capture, inspect failures or start a bounded collection run.</p>
   </div>
 </section>
 
-{% with help_what="Status of scheduled collection: last run, last success, degraded Sources, retries, and OPERATOR ACTION items.", help_why="Fresh public material has to be collected before it can enter Publication Review. If Sources are failing, Today cannot honestly claim to be current.", help_do="Read last run and degraded Sources. Open a failing Source on Source Health to check or pause it. Use the manual trigger only when you intend to start a bounded run.", help_after="A successful run stages newly discovered Publications for review. Viewing this page does not publish, approve, or clear any queue." %}
+{% with help_what="Status of scheduled collection: last run, last success, degraded Sources, retries, and items requiring attention.", help_why="Fresh public material has to be collected before it can enter Publication Review. If Sources are failing, Today cannot honestly claim to be current.", help_do="Read last run and degraded Sources. Open a failing Source on Source Health to check or pause it. Use the manual trigger only when you intend to start a bounded run.", help_after="A successful run stages newly discovered Publications for review. Viewing this page does not publish, approve, or clear any queue." %}
   {% include "_workspace_help.html" %}
 {% endwith %}
 
@@ -42,6 +40,8 @@
 
 <section class="v2-company-section ops-section" id="collection-recurring">
   <h2>Recurring collection</h2>
+  <p class="v2-card-line"><strong>Recommended next action</strong> {{ report.recommended_next_action or "None" }}</p>
+  <details class="workspace-secondary"><summary>Schedule & polling details</summary>
   <p class="context-limit">
     The recurring collector runs as a separate scheduled process (a systemd timer), not inside this web application -- this app has no runtime visibility into whether that timer is currently enabled on the host, so this page never guesses. Enabling or disabling it is a deployment action, not a UI toggle.
   </p>
@@ -50,7 +50,7 @@
     <span class="badge {{ 'badge-fact' if polling_enabled else 'badge-muted' }}">{{ 'ENABLED' if polling_enabled else 'DISABLED' }}</span>
     (<code>ENABLE_SOURCE_POLLING</code> -- a separate, older per-source check loop, distinct from the scheduled collector below)
   </p>
-  <p class="v2-card-line"><span class="v2-meta">Recommended next action</span> {{ report.recommended_next_action or "None" }}</p>
+  </details>
 </section>
 
 <section class="v2-company-section ops-section" id="collection-lock">

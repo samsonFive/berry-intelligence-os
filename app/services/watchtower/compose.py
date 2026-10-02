@@ -20,7 +20,7 @@ from app.services.emerging_radar.cache import edition_from_cache
 from app.services.watchlist import load_watches
 from app.services.watchtower.digest import build_digest
 from app.services.watchtower.generate import generate_alerts
-from app.services.watchtower.store import load_alert_state, persist_alerts, with_state
+from app.services.watchtower.store import load_alert_state, load_alerts, persist_alerts, with_state
 
 
 def compose_watchtower(
@@ -32,6 +32,7 @@ def compose_watchtower(
     berry_labels: dict[str, str],
     market_repo: Any | None = None,
     now: datetime | None = None,
+    persist: bool = True,
 ) -> dict[str, Any]:
     watches = load_watches(inbox_dir)
     edition = edition_from_cache(inbox_dir=inbox_dir)
@@ -48,7 +49,16 @@ def compose_watchtower(
         berry_labels=berry_labels,
         now=now,
     )
-    stored = persist_alerts(inbox_dir, alerts)
+    if persist:
+        stored = persist_alerts(inbox_dir, alerts)
+    else:
+        existing = {row["id"]: row for row in load_alerts(inbox_dir)}
+        stored = []
+        for alert in alerts:
+            row = alert.as_dict()
+            if existing.get(row["id"], {}).get("first_generated_at"):
+                row["first_generated_at"] = existing[row["id"]]["first_generated_at"]
+            stored.append(row)
     stored = with_state(stored, load_alert_state(inbox_dir))
     return {
         "alerts": stored,
