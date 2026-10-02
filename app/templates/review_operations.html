@@ -1,16 +1,16 @@
-{% extends "base.html" %}
+{% extends "operations_workspace_base.html" %}
 {% block title %}Review Operations — Berry Intelligence OS{% endblock %}
-{% block content %}
+{% block operations_content %}
 <div class="v2-page review-ops">
 <section class="page-heading v2-page-header">
   <div>
     <p class="eyebrow">WORK</p>
-    <h1>Review Operations</h1>
-    <p class="also-known-as">What needs a human review decision. This cockpit does not publish, affirm, approve, or reject.</p>
+    <h1>Review</h1>
+    <p class="also-known-as">Choose the material to review. Publication, source authenticity and individual statements have separate decisions.</p>
   </div>
 </section>
 
-<p class="brief-window"><a href="/review-ops/publications">Publication review queue (read-only)</a> — the durable review-state backlog behind this cockpit's publication workload, with per-item decision and correction history. No decision controls; viewing it changes nothing.</p>
+<p class="brief-window"><a href="/review-ops/publications">Publication history</a> · Browse prior decisions and corrections.</p>
 
 <form class="workbench-filters review-ops-filters" method="get" action="/review-ops">
   <label>Berry
@@ -31,7 +31,7 @@
   <a class="v2-btn v2-btn-quiet" href="/review-ops">Clear</a>
 </form>
 
-<p class="brief-window">Workload: {{ ops.workload.publications }} publications · {{ ops.workload.source_fidelity }} source fidelity · {{ ops.workload.atomic }}</p>
+<p class="brief-window">Workload: {{ ops.workload.publications }} publications · {{ ops.workload.source_fidelity }} source authenticity checks · {{ ops.workload.atomic }}</p>
 
 {% if active_session and active_session.status == 'active' %}
 <section class="review-session-resume card">
@@ -65,14 +65,14 @@
 
 <section class="card review-session-start" id="start-review-session">
   <p class="eyebrow">START REVIEW SESSION</p>
-  <h2>Bounded review session</h2>
+  <h2>Start a review session</h2>
   <p>Choose one queue and a session size. Trust decisions stay on the existing review pages.</p>
   <form method="post" action="/review-ops/session" class="workbench-filters review-session-form">
     <label>Queue
       <select name="queue" required>
         <option value="publication">Publication review</option>
-        <option value="source_fidelity" selected>Source fidelity review</option>
-        <option value="atomic">Atomic review</option>
+        <option value="source_fidelity" selected>Source authenticity</option>
+        <option value="atomic">Individual statements</option>
       </select>
     </label>
     <label>Size
@@ -91,11 +91,11 @@
     <label>Completeness
       <select name="completeness">
         <option value="">All</option>
-        <option value="FULL_ARTICLE">FULL ARTICLE</option>
-        <option value="FULL_TRANSCRIPT">FULL TRANSCRIPT</option>
-        <option value="STRUCTURED_REGISTRY">STRUCTURED SOURCE</option>
-        <option value="THIN_DESCRIPTION">THIN DESCRIPTION</option>
-        <option value="NO_CONTENT">NO CONTENT</option>
+        <option value="FULL_ARTICLE">Full article</option>
+        <option value="FULL_TRANSCRIPT">Full transcript</option>
+        <option value="STRUCTURED_REGISTRY">Structured source</option>
+        <option value="THIN_DESCRIPTION">Brief description</option>
+        <option value="NO_CONTENT">No source text</option>
       </select>
     </label>
     <label>Review bucket
@@ -118,43 +118,43 @@
     <h2>{{ ops.publication.pending }} pending</h2>
     <p class="context-limit">{{ ops.publication.review_now }} review now · health: {{ ops.publication.health }}</p>
     {% if ops.publication.oldest %}<p>Oldest: {{ ops.publication.oldest.age_days }} days</p>{% endif %}
-    <ul class="review-ops-ages">{% for row in ops.publication.age_buckets %}<li>{{ row.label }} {{ row.count }}</li>{% endfor %}</ul>
-    {% if ops.publication.reasons %}<p class="brief-why">{{ ops.publication.reasons|join(' · ') }}</p>{% endif %}
+    <details class="workspace-secondary"><summary>Age & review notes</summary><ul class="review-ops-ages">{% for row in ops.publication.age_buckets %}<li>{{ row.label }} {{ row.count }}</li>{% endfor %}</ul>
+    {% if ops.publication.reasons %}<p class="brief-why">{{ ops.publication.reasons|join(' · ') }}</p>{% endif %}</details>
     <p><a class="action-button action-approve" href="{{ ops.publication.next_href }}">Review next publication</a>
        <a class="action-button" href="{{ ops.publication.queue_href }}">Open queue</a>
-       <a class="action-button" href="/review-ops/publications">Read-only review workspace</a></p>
-    <p class="context-limit">Read-only Slice 1 workspace shows queue + provenance without connecting decision mutations.</p>
+       <a class="action-button" href="/review-ops/publications">Browse history</a></p>
+    <p class="context-limit">History retains each publication’s prior decisions and corrections.</p>
   </section>
 
   <section class="review-ops-card" id="source-fidelity-review">
-    <p class="eyebrow">SOURCE FIDELITY REVIEW</p>
+    <p class="eyebrow">SOURCE AUTHENTICITY</p>
     <h2>{{ ops.source_fidelity.pending }} pending</h2>
     <p class="context-limit">Needs investigation {{ ops.source_fidelity.needs_investigation }} · Affirmed {{ ops.source_fidelity.affirmed }} · Rejected {{ ops.source_fidelity.rejected }}</p>
     {% if ops.source_fidelity.oldest %}<p>Oldest: {{ ops.source_fidelity.oldest.age_days }} days</p>{% endif %}
-    <ul class="review-ops-ages">{% for row in ops.source_fidelity.age_buckets %}<li>{{ row.label }} {{ row.count }}</li>{% endfor %}</ul>
-    {% if ops.source_fidelity.reasons %}<p class="brief-why">{{ ops.source_fidelity.reasons|join(' · ') }}</p>{% endif %}
-    <p><a class="action-button action-approve" href="{{ ops.source_fidelity.next_href }}">Review next source fidelity item</a>
+    <details class="workspace-secondary"><summary>Age & review notes</summary><ul class="review-ops-ages">{% for row in ops.source_fidelity.age_buckets %}<li>{{ row.label }} {{ row.count }}</li>{% endfor %}</ul>
+    {% if ops.source_fidelity.reasons %}<p class="brief-why">{{ ops.source_fidelity.reasons|join(' · ') }}</p>{% endif %}</details>
+    <p><a class="action-button action-approve" href="{{ ops.source_fidelity.next_href }}">Check next recovered source</a>
        <a class="action-button" href="{{ ops.source_fidelity.queue_href }}">Open queue</a></p>
   </section>
 
   <section class="review-ops-card" id="atomic-evidence-review">
-    <p class="eyebrow">ATOMIC EVIDENCE REVIEW</p>
+    <p class="eyebrow">INDIVIDUAL STATEMENTS</p>
     <h2>{{ ops.atomic.pending }} pending</h2>
     <p class="context-limit">{{ ops.atomic.pending }} propositions across {{ ops.atomic.batches }} source batches · Approved {{ ops.atomic.approved }} · Rejected {{ ops.atomic.rejected }}</p>
-    {% if ops.atomic.extraction_disabled %}<p class="banner banner-warning">ATOMIC EXTRACTION DISABLED — no new proposals expected.</p>{% endif %}
+    {% if ops.atomic.extraction_disabled %}<p class="banner banner-warning">New statement extraction is disabled. Existing proposals can still be reviewed.</p>{% endif %}
     {% if ops.atomic.oldest %}<p>Oldest: {{ ops.atomic.oldest.age_days }} days</p>{% endif %}
-    <ul class="review-ops-ages">{% for row in ops.atomic.age_buckets %}<li>{{ row.label }} {{ row.count }}</li>{% endfor %}</ul>
-    {% if ops.atomic.reasons %}<p class="brief-why">{{ ops.atomic.reasons|join(' · ') }}</p>{% endif %}
-    <p><a class="action-button action-approve" href="{{ ops.atomic.next_href }}">Review next atomic batch</a>
+    <details class="workspace-secondary"><summary>Age & review notes</summary><ul class="review-ops-ages">{% for row in ops.atomic.age_buckets %}<li>{{ row.label }} {{ row.count }}</li>{% endfor %}</ul>
+    {% if ops.atomic.reasons %}<p class="brief-why">{{ ops.atomic.reasons|join(' · ') }}</p>{% endif %}</details>
+    <p><a class="action-button action-approve" href="{{ ops.atomic.next_href }}">Review next statement batch</a>
        <a class="action-button" href="{{ ops.atomic.queue_href }}">Open queue</a></p>
   </section>
 </div>
 
 {% if ops.blocked %}
-<section class="brief-section">
-  <h2>Blocked / empty states</h2>
+<details class="workspace-secondary">
+  <summary>Review diagnostics & availability</summary>
   <ul>{% for row in ops.blocked %}<li><strong>{{ row.code }}</strong> — {{ row.detail }}</li>{% endfor %}</ul>
-</section>
+</details>
 {% endif %}
 
 <section class="brief-section">

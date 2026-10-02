@@ -601,10 +601,10 @@ app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="s
 async def private_briefings_middleware(request: Request, call_next):
     """Private reporting stores/actions must not open in published-only mode."""
     path = request.url.path.rstrip("/")
-    private_home = path in {"/briefings", "/brief-pack", "/brief-packs", "/war-room", "/reports"}
-    private_detail = path.startswith(("/reports/", "/brief-packs/", "/war-room/"))
+    private_home = path in {"/briefings", "/brief-pack", "/brief-packs", "/war-room", "/reports", "/monitor", "/operations", "/watches", "/watchtower", "/queues/monitoring", "/review-ops", "/collection-ops", "/research-ops", "/coverage-assurance"}
+    private_detail = path.startswith(("/reports/", "/brief-packs/", "/war-room/", "/watches/", "/watchtower/", "/review-ops/", "/collection-ops/"))
     if not AUTHORING_MODE and (private_home or private_detail):
-        return HTMLResponse("Reports and meeting preparation are available in the private authoring workspace.", status_code=403)
+        return HTMLResponse("This personal or operator workspace requires private authoring access.", status_code=403)
     return await call_next(request)
 
 
@@ -927,7 +927,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates"
-    if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes"}:
+    if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -5798,16 +5798,21 @@ def watchtower_page(request: Request) -> HTMLResponse:
 
 
 @app.post("/watchtower/{alert_id}/action")
-def watchtower_alert_action(alert_id: str, action: str = Form(...), return_to: str = Form("/watchtower")) -> RedirectResponse:
+def watchtower_alert_action(request: Request, alert_id: str, action: str = Form(...), return_to: str = Form("/watchtower")) -> RedirectResponse:
     """Explicit, user-initiated only -- never fired by rendering the page.
     Alert state is a notification-review flag, never a trust mutation: it
     never touches Evidence/Signal/Assessment/Development/Move (mission
     section 11)."""
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     try:
         apply_alert_action(INBOX_DIR, alert_id, action)
-    except ValueError:
-        raise HTTPException(status_code=400, detail=f"unsupported alert action: {action!r}")
-    safe_target = return_to if return_to.startswith("/") and not return_to.startswith("//") else "/watchtower"
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    safe_target = safe_next_path(return_to)
+    if safe_target != return_to:
+        safe_target = "/watchtower"
+    _WATCHTOWER_CACHE["value"] = None
     return RedirectResponse(url=safe_target, status_code=303)
 
 
@@ -6194,20 +6199,23 @@ def watchlist_page(
     Strategic Question records. Not a second review queue: no route under
     /watches renders or accepts a publish/affirm/approve/reject/confirm-
     signal control."""
-    cards = watchlist_index(
-        inbox_dir=INBOX_DIR,
-        entities=entity_index(),
-        published_evidence=published_evidence(),
-        signals=all_signals(),
-        assessments=all_assessments(),
-        recommendations=all_recommendations(),
-        strategic_questions=load_strategic_questions(),
-        sources=load_sources(),
-        berry_labels=BERRIES,
-        watch_type_filter=type,
-        has_new_only=bool(new),
-        sort=sort,
-    )
+    try:
+        cards = watchlist_index(
+            inbox_dir=INBOX_DIR,
+            entities=entity_index(),
+            published_evidence=published_evidence(),
+            signals=all_signals(),
+            assessments=all_assessments(),
+            recommendations=all_recommendations(),
+            strategic_questions=load_strategic_questions(),
+            sources=load_sources(),
+            berry_labels=BERRIES,
+            watch_type_filter=type,
+            has_new_only=bool(new),
+            sort=sort,
+        )
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
@@ -6228,12 +6236,17 @@ def watchlist_page(
 
 @app.post("/watches/toggle")
 def toggle_watch(
+    request: Request,
     watch_type: str = Form(...),
     object_id: str = Form(...),
     action: str = Form(...),
     return_to: str = Form(""),
 ) -> RedirectResponse:
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     try:
+        if action not in {"add", "remove"}:
+            raise ValueError("Choose Add watch or Remove watch")
         if action == "remove":
             remove_watch(INBOX_DIR, watch_type, object_id)
         else:
@@ -6241,24 +6254,45 @@ def toggle_watch(
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     destination = safe_next_path(return_to) or "/watches"
+    _WATCHTOWER_CACHE["value"] = None
     return RedirectResponse(url=destination, status_code=303)
 
 
 @app.get("/watches/open")
-def open_watch(watch_type: str, object_id: str) -> RedirectResponse:
+def open_watch(request: Request, watch_type: str, object_id: str) -> RedirectResponse:
     """Marks a watch seen only on this explicit open -- never merely
     because /watches itself rendered (mission Section 17)."""
     if watch_type not in WATCH_TYPES:
         raise HTTPException(status_code=400, detail="unsupported watch type")
-    mark_watch_seen(INBOX_DIR, watch_type, object_id)
+    if not AUTHORING_MODE:
+        raise HTTPException(403, "Watches are private to the analyst workspace")
+    known = entity_index().get(object_id)
+    if watch_type in {"company", "variety", "geography"} and (not known or known.get("entity_type") != watch_type):
+        raise HTTPException(404, "The watched subject is unavailable; your watch has been retained")
     if watch_type == "company":
         destination = f"/entities/company/{object_id}"
     elif watch_type == "variety":
         destination = f"/entities/variety/{object_id}"
     elif watch_type == "geography":
         destination = f"/geographies/{object_id}"
+    elif watch_type == "berry":
+        if object_id not in BERRIES:
+            raise HTTPException(404, "The watched berry is unavailable")
+        destination = "/today?" + urlencode({"berry": object_id})
+    elif watch_type == "move_type":
+        from app.services.competitive_moves.models import MOVE_LABELS
+        if object_id not in MOVE_LABELS:
+            raise HTTPException(404, "The watched move type is unavailable")
+        destination = "/moves"
     else:
+        if not any(row.get("id") == object_id for row in load_strategic_questions()):
+            raise HTTPException(404, "The watched question is unavailable; your watch has been retained")
         destination = f"/strategic-questions/{object_id}"
+    try:
+        mark_watch_seen(INBOX_DIR, watch_type, object_id)
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    _WATCHTOWER_CACHE["value"] = None
     return RedirectResponse(url=destination, status_code=303)
 
 
@@ -6881,6 +6915,8 @@ def queue_item_action(
         raise HTTPException(status_code=404, detail="Unknown queue workflow")
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Queue actions are only available in authoring mode")
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     allowed = {record["id"]: record for record in queue_items(dimension) if record.get("id")}
     if item_id not in allowed:
         raise HTTPException(status_code=404, detail="Item is not in this queue")
@@ -6899,7 +6935,8 @@ def queue_item_action(
     if dimension == "reading" and action == "promote":
         return RedirectResponse(url=f"/intelligence/{item_id}", status_code=303)
     destination = safe_next_path(return_to) if return_to else ""
-    if destination and destination not in {"/brief"} and not destination.startswith("/queues/"):
+    monitor_return = dimension == "monitoring" and (destination == "/monitor" or destination.startswith("/monitor?"))
+    if destination and destination not in {"/brief"} and not destination.startswith("/queues/") and not monitor_return:
         destination = ""
     if destination:
         return RedirectResponse(url=destination, status_code=303)
@@ -10310,3 +10347,5 @@ from app.landscape_routes import router as landscape_router
 app.include_router(landscape_router)
 from app.learn_routes import router as learn_router
 app.include_router(learn_router)
+from app.monitor_routes import router as monitor_router
+app.include_router(monitor_router)
