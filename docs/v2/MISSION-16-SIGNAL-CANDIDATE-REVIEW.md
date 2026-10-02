@@ -24,4 +24,6 @@ At 390px, the page measured 375px; the 530px source table scrolled inside a 349p
 
 ## Remaining work
 
+Draft #289 exact head `b7be3e352a4e3e47878c0ea713112ba4309fb967` passed all four required checks, run 37063979566: **3,585 passed / 11 skipped / two warnings in 285.04 seconds**. This verifies the review slice, not canonical integration or deployment.
+
 Named selection and hierarchy in authoring forms, deeper specialist/public-static consistency and final cross-family acceptance remain. Broader source/body/media/provider readiness, learning visuals, protected enrichment/regions, market statistics, packet compatibility, per-account/inter-process state and canonical/active-PR reconciliation stay on the durable checklist. This is a tested review presentation slice, not completion of the ongoing goal or approval to merge/deploy.

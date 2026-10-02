@@ -1,6 +1,9 @@
-{% extends "base.html" %}
+{% extends "intelligence_workspace_base.html" %}
+{% from "_authoring_reference.html" import reference %}
+{% block head_extra %}{{ super() }}<link rel="stylesheet" href="/static/intelligence_authoring.css?v=1">{% endblock %}
 {% block title %}New Recommendation — Berry Intelligence OS{% endblock %}
-{% block content %}
+{% block intelligence_content %}
+<div class="intelligence-authoring">
 <section class="page-heading">
   <div>
     <p class="eyebrow">PROPOSE AN ACTION OR DECISION</p>
@@ -12,6 +15,7 @@
   <p class="empty-state" role="alert">Creating recommendations is disabled. This deployment is running in read-only mode.</p>
 {% else %}
 
+{% set reference_catalog = intelligence_reference_catalog() %}
 {% if error %}
   <div class="banner banner-error" role="alert">{{ error }}</div>
 {% endif %}
@@ -28,7 +32,7 @@
   </div>
 
   <div class="form-field">
-    <label for="action_type">Action type * <small>Free text, e.g. escalate_to_commercial_review, monitor_for_confirmation, pursue_licensing_discussion.</small></label>
+    <label for="action_type">Action type * <small>Describe the action, such as discuss licensing, monitor for confirmation, or escalate for commercial review.</small></label>
     <input id="action_type" name="action_type" type="text" required value="{{ values.action_type }}">
   </div>
 
@@ -51,35 +55,17 @@
     </div>
   </div>
 
-  <div class="form-field">
-    <label for="assessment_ids">Linked assessment ids <small>At least one assessment id or signal id is required.</small></label>
-    <input id="assessment_ids" name="assessment_ids" type="text" placeholder="Comma-separated" value="{{ values.assessment_ids }}">
-  </div>
+  {{ reference("assessment_ids", "Linked Assessments", values.assessment_ids, "Choose at least one Assessment or Signal for a recommendation.") }}
 
-  <div class="form-field">
-    <label for="signal_ids">Linked signal ids</label>
-    <input id="signal_ids" name="signal_ids" type="text" placeholder="Comma-separated" value="{{ values.signal_ids }}">
-  </div>
+  {{ reference("signal_ids", "Linked Signals", values.signal_ids, "Choose the existing patterns this interpretation or action draws on.") }}
 
-  <div class="form-field">
-    <label for="fact_ids">Downstream fact ids</label>
-    <input id="fact_ids" name="fact_ids" type="text" placeholder="Comma-separated" value="{{ values.fact_ids }}">
-  </div>
+  {{ reference("fact_ids", "Supporting statements", values.fact_ids, "Use the stored wording and classification; claims remain claims.") }}
 
-  <div class="form-field">
-    <label for="evidence_ids">Downstream evidence ids</label>
-    <input id="evidence_ids" name="evidence_ids" type="text" placeholder="Comma-separated" value="{{ values.evidence_ids }}">
-  </div>
+  {{ reference("evidence_ids", "Supporting sources", values.evidence_ids, "Choose published sources. Selecting a source does not approve its statements.") }}
 
-  <div class="form-field">
-    <label for="entity_ids">Affected entity ids</label>
-    <input id="entity_ids" name="entity_ids" type="text" placeholder="Comma-separated" value="{{ values.entity_ids }}">
-  </div>
+  {{ reference("entity_ids", "Affected subjects", values.entity_ids, "Companies, varieties, places and other existing subjects.") }}
 
-  <div class="form-field">
-    <label for="strategic_question_ids">Linked strategic questions (existing id or title)</label>
-    <input id="strategic_question_ids" name="strategic_question_ids" type="text" placeholder="Comma-separated" value="{{ values.strategic_question_ids }}">
-  </div>
+  {{ reference("strategic_question_ids", "Linked questions", values.strategic_question_ids, "Connect this work to existing strategic questions.") }}
 
   <div class="form-field">
     <label for="reviewer">Reviewer *</label>
@@ -90,5 +76,9 @@
     <button type="submit">Save recommendation</button>
   </div>
 </form>
+<script id="authoring-reference-catalog" type="application/json">{{ reference_catalog|tojson }}</script>
 {% endif %}
+</div>
 {% endblock %}
+
+{% block scripts %}{{ super() }}<script src="/static/intelligence_authoring.js?v=2"></script>{% endblock %}
