@@ -927,7 +927,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates"
-    if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes"}:
+    if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -3184,10 +3184,22 @@ def learn_home(request: Request, q: str = "", view: str = "") -> HTMLResponse:
     search_results = learn_search_concepts(q) if q.strip() else None
     stale_view = view.strip().lower() == "stale" and search_results is None
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    world = _feed_first_world()
+    from app.services import learn_research
+    learning_error = ""
+    try:
+        learning = learn_research.load(INBOX_DIR) if AUTHORING_MODE else {"lessons": {}, "jobs": {}}
+    except ValueError:
+        learning = {"lessons": {}, "jobs": {}}
+        learning_error = "Your saved research could not be opened. It has been left unchanged; the learning library is still available."
+    learning_lessons = list(learning["lessons"].values())
+    learning_jobs = [row for row in learning["jobs"].values() if not row.get("lesson_id")]
+    if q.strip():
+        needle = q.strip().casefold()
+        learning_lessons = [row for row in learning_lessons if needle in (row["title"] + " " + row["request"]["topic"]).casefold()]
+        learning_jobs = [row for row in learning_jobs if needle in row["request"]["topic"].casefold()]
     response = templates.TemplateResponse(
         request=request,
-        name="learn_home.html",
+        name="learn_workspace_home.html",
         context={
             "pillars": learn_concepts_by_pillar(),
             "concept_count": len(learn_all_concepts()),
@@ -3198,9 +3210,11 @@ def learn_home(request: Request, q: str = "", view: str = "") -> HTMLResponse:
             "static_build": False,
             "ui_context": ui,
             "berries": BERRIES,
-            "nav": world["nav"],
+            "authoring_mode": AUTHORING_MODE,
+            "learning_error": learning_error,
+            "learning_lessons": sorted(learning_lessons, key=lambda row: row["updated_at"], reverse=True),
+            "learning_jobs": sorted(learning_jobs, key=lambda row: row["created_at"], reverse=True),
             "active_href": "/learn",
-            "counts": world["counts"],
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -3224,21 +3238,22 @@ def learn_concept_detail(request: Request, slug: str) -> HTMLResponse:
         evidence_by_id={r["id"]: r for r in all_evidence() if r.get("id")},
     )
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    world = _feed_first_world()
+    from app.services.learner_visuals import presentation
+    from app.services.learn_research import return_path as learn_return_path
     response = templates.TemplateResponse(
         request=request,
-        name="learn_concept.html",
+        name="learn_workspace_concept.html",
         context={
-            "concept": concept,
+            "concept": presentation(concept),
+            "return_to": learn_return_path(request.query_params.get("return_to")),
             "related": learn_related_concepts(concept),
             "related_intelligence": related_intel,
             "berry_notes": learn_berry_notes_for_display(concept, ui["berry"]),
             "static_build": False,
             "ui_context": ui,
             "berries": BERRIES,
-            "nav": world["nav"],
+            "authoring_mode": AUTHORING_MODE,
             "active_href": "/learn",
-            "counts": world["counts"],
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -10293,3 +10308,5 @@ from app.company_routes import router as company_router
 app.include_router(company_router)
 from app.landscape_routes import router as landscape_router
 app.include_router(landscape_router)
+from app.learn_routes import router as learn_router
+app.include_router(learn_router)

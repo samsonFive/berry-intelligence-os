@@ -469,12 +469,16 @@ def test_teaching_figure_embeds_publisher_image_not_a_cms():
     client = TestClient(app)
     page = client.get("/learn/primocane-floricane")
     assert page.status_code == 200
-    assert 'class="v2-learn-figure"' in page.text
+    assert 'class="learn-photo"' in page.text
     assert "Special:FilePath/Raspberry.jpg" in page.text
-    assert "educational citation, not Evidence" in page.text
+    assert "CC BY 2.5" in page.text
+    assert "Steffen Flor (Pro2)" in page.text
+    assert "does not establish cane age" in page.text
     visual = client.get("/learn/visual-learning-aids")
     assert visual.status_code == 200
-    assert "Special:FilePath/Blueberries.jpg" in visual.text
+    # Unverified legacy license wording does not authorize a live embed.
+    assert "commons.wikimedia.org/wiki/File:Blueberries.jpg" in visual.text
+    assert "Special:FilePath/Blueberries.jpg" not in visual.text
 
 
 def test_review_cadence_list_is_not_a_trust_queue_and_foundational_is_not_stale():
@@ -494,7 +498,8 @@ def test_review_cadence_list_is_not_a_trust_queue_and_foundational_is_not_stale(
     page = client.get("/learn", params={"view": "stale"})
     assert page.status_code == 200
     assert "Review cadence" in page.text
-    assert "not a trust queue" in page.text
+    assert "Time-sensitive guidance needs a fresh source check" in page.text
+    assert "Saving a lesson never approves a statement" in page.text
     assert "Approve" not in page.text
 
 
