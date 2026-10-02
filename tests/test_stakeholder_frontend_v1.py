@@ -37,7 +37,7 @@ def test_today_uses_the_product_visual_system_briefing_shell() -> None:
     assert 'class="v2-sidebar"' in html
     assert ">Today</span>" in html
     assert ">This week</span>" in html
-    assert ">War Room</span>" in html
+    assert ">Meeting Prep</span>" in html
     assert ">Watchtower</span>" in html
     assert ">Companies</span>" in html
     assert ">Reports</span>" in html

@@ -1,0 +1,20 @@
+{% extends "glasshouse_base.html" %}
+{% block head_extra %}<link rel="stylesheet" href="/static/briefings_workspace.css?v=8">{% block briefing_head %}{% endblock %}{% endblock %}
+{% block content %}
+<div class="briefings-workspace">
+  {% if not presentation_mode|default(false) %}
+  <nav class="briefings-tabs" aria-label="Reports and Briefings">
+    {% set path = request.url.path %}
+    <a href="/briefings" {% if path == '/briefings' %}aria-current="page"{% endif %}>Reports & Briefings</a>
+    <a href="/war-room" {% if path.startswith('/war-room') %}aria-current="page"{% endif %}>Meeting Prep</a>
+    <a href="/brief-pack" {% if path == '/brief-pack' %}aria-current="page"{% endif %}>Build a brief</a>
+    <a href="/brief-packs" {% if path.startswith('/brief-packs') %}aria-current="page"{% endif %}>Saved briefs</a>
+    <a href="/reports" {% if path.startswith('/reports') %}aria-current="page"{% endif %}>Reports</a>
+    <a href="/readout" {% if path == '/readout' %}aria-current="page"{% endif %}>Executive view</a>
+    <a href="{% if path.startswith('/explorer/snapshot') %}{{ request.url.path }}?{{ request.url.query }}{% else %}/explorer{% endif %}" {% if path.startswith('/explorer/snapshot') %}aria-current="page"{% endif %}>Market snapshot</a>
+    <a href="/news-packets" {% if path.startswith('/news-packets') %}aria-current="page"{% endif %}>News packets</a>
+  </nav>
+  {% endif %}
+  {% block briefing_content %}{% endblock %}
+</div>
+{% endblock %}

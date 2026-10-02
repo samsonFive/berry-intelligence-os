@@ -1,6 +1,6 @@
-{% extends "base_stakeholder.html" %}
+{% extends "briefings_base.html" %}
 {% block title %}{{ report.title }} — Berry Intelligence{% endblock %}
-{% block content %}
+{% block briefing_content %}
 <div class="sh-page v2-page">
 <section class="sh-header page-heading v2-page-header">
   <div>
@@ -14,7 +14,7 @@
   </div>
 </section>
 
-<section class="v2-card" style="margin-bottom:16px">
+<details class="v2-card" style="margin-bottom:16px"><summary>Coverage and known gaps</summary>
   <p class="card-kicker">INTELLIGENCE COVERAGE</p>
   <ul class="stat-list">
     {% for key, value in coverage.counts.items() %}
@@ -38,33 +38,36 @@
       {% endfor %}
     </ul>
   {% endif %}
-</section>
+</details>
 
 <form method="post" action="/reports/{{ report.id }}/save">
-  <div class="filter-field" style="max-width:480px;margin-bottom:16px">
+  <details style="max-width:480px;margin-bottom:16px"><summary>Edit report title</summary><div class="filter-field">
     <label for="title-field">Title</label>
     <input id="title-field" type="text" name="title" value="{{ report.title }}">
-  </div>
+  </div></details>
 
-  {% for section in report.sections %}
-  <section class="v2-card" style="margin-bottom:16px">
-    <p class="card-kicker">
-      {{ section.title }}
-      {% if section.status == 'ai_draft' %}<span class="badge badge-ai-proposed">AI DRAFT</span>
+  {% for section in display_sections %}
+  {% set minimized = (section.status in ['unavailable', 'unsupported'] and section.edited_prose is none) or section.section_id in ['sources', 'evidence_appendix', 'scope_method', 'known_gaps'] %}
+  {% if minimized %}<details class="v2-card report-editor-section"><summary>{% else %}<section class="v2-card report-editor-section {% if section.section_id in ['executive_summary', 'executive_takeaway'] %}report-takeaway{% endif %}">{% endif %}
+    <h2 id="section-{{ section.section_id }}">{{ section.title }}</h2>
+    {% if minimized %}</summary>{% endif %}
+    <p class="v2-meta">
+      {% if section.edited_prose is not none %}<span class="badge">Analyst edited · review required</span>
+      {% elif section.status == 'ai_draft' %}<span class="badge badge-ai-proposed">AI DRAFT</span>
       {% elif section.status == 'structured' %}<span class="badge badge-muted">STRUCTURED</span>
       {% elif section.status == 'unsupported' %}<span class="badge badge-muted">UNSUPPORTED</span>
       {% elif section.status == 'unavailable' %}<span class="badge badge-muted">AI UNAVAILABLE</span>
       {% endif %}
     </p>
     <input type="hidden" name="section_ids" value="{{ section.section_id }}">
-    <textarea name="section_texts" rows="6" style="width:100%">{{ section.edited_prose if section.edited_prose is not none else section.generated_prose }}</textarea>
+    <textarea name="section_texts" aria-labelledby="section-{{ section.section_id }}" rows="{{ 3 if section.section_id in ['executive_summary', 'executive_takeaway'] else 6 }}" style="width:100%">{{ section.display_text }}</textarea>
     {% if section.citation_ids %}
-      <p class="v2-meta">Sources: {% for cid in section.citation_ids %}<a href="#src-{{ cid }}">{{ cid }}</a>{{ ", " if not loop.last }}{% endfor %}</p>
+      <p class="v2-meta">Sources: {% for cid in section.citation_ids %}<a href="#src-{{ cid }}">{{ reference_labels.get(cid, 'Supporting record') }}</a>{{ ", " if not loop.last }}{% endfor %}</p>
     {% endif %}
     {% if section.status in ('ai_draft', 'unsupported', 'unavailable') %}
       <button type="submit" formaction="/reports/{{ report.id }}/section/{{ section.section_id }}/regenerate" formmethod="post" class="v2-btn v2-btn-quiet">Regenerate this section</button>
     {% endif %}
-  </section>
+  {% if minimized %}</details>{% else %}</section>{% endif %}
   {% endfor %}
 
   <button type="submit" class="v2-btn">Save edits</button>

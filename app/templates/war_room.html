@@ -1,26 +1,26 @@
-{% extends "base_stakeholder.html" %}
-{% block title %}War Room — Berry Intelligence{% endblock %}
-{% block content %}
+{% extends "briefings_base.html" %}
+{% block title %}Meeting Prep — Berry Intelligence{% endblock %}
+{% block briefing_content %}
 <div class="sh-page war-room-page">
   <header class="sh-header">
     <div>
-      <p class="sh-kicker">Strategy War Room</p>
+      <p class="sh-kicker">Meeting Prep</p>
       <h1>{% if session %}{{ session.scope_label }}{% else %}Prepare for the meeting{% endif %}</h1>
       <p class="sh-lede">
         {% if session %}
-          A working session, not a homepage — composed from what's already trusted and live for this scope.
-          {{ session.radar_freshness_label }}
+          Review the stored changes and questions for this scope, then save your meeting takeaways.
         {% else %}
           Pick a berry, geography, and up to a few companies — the session composes What Changed, Who Is Moving,
           Needs Attention, Market Reality, Genetics/IP, and open questions, all from real, already-collected intelligence.
         {% endif %}
       </p>
+      {% if session %}<details><summary>Feed freshness</summary><p class="sh-note">{{ session.radar_freshness_label|replace('No Radar cache yet — open /radar to load emerging developments, then return here.', 'No saved feed capture is available for emerging developments. Use Refresh saved feeds to collect an update.') }}</p></details>{% endif %}
     </div>
     {% if session and not static_build %}
     <div class="sh-header-actions">
       <a class="sh-btn sh-btn-primary" href="{{ session.create_decision_memo_href }}">Create decision memo</a>
       <a class="sh-btn" href="{{ session.ask_berry_os_href }}">Ask Berry OS about this</a>
-      <a class="sh-btn" href="/war-room/live?{{ request.url.query }}">Refresh live</a>
+      <a class="sh-btn" href="/war-room/live?{{ request.url.query }}">Refresh saved feeds</a>
       <a class="sh-btn" href="{{ session.create_meeting_brief_href }}">Create meeting brief</a>
     </div>
     {% endif %}
@@ -232,6 +232,7 @@
     <ul class="wr-questions">
       {% for q in session.questions_for_team.questions %}<li>{{ q }}</li>{% endfor %}
     </ul>
+    <details><summary>Additional question options</summary><p class="sh-note">Optional AI suggestions use the configured provider and the public names and stored move/market descriptions in this scope. They remain discussion prompts. Reloading returns to the standard questions; saved takeaways stay separate.</p><form method="post" action="/war-room/questions?{{ request.url.query }}"><button class="sh-btn">Suggest questions with AI</button></form></details>
   </section>
 
   {% if session.strategic_questions %}

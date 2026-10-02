@@ -263,7 +263,9 @@ def _structured_prose(packet: dict[str, Any], coverage: dict[str, Any], section_
         return "\n".join(f"{r.get('name')} — {r.get('evidence_count', 0)} Evidence, {r.get('signal_count', 0)} Signals" for r in rows) or "No Companies resolved for this comparison."
 
     if section_id == "comparison_scope" or section_id == "scope_method":
-        return f"Report type: {packet.get('report_type')}. Berry: {packet.get('berry_id') or 'not scoped'}."
+        report_label = str(packet.get('report_type') or '').replace('_', ' ').title()
+        berry_label = str(packet.get('berry_id') or '').removeprefix('berry-').replace('-', ' ').title() or 'All berries'
+        return f"Report type: {report_label}. Berry: {berry_label}."
 
     return ""
 

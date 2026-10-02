@@ -1,7 +1,7 @@
-{% extends "glasshouse_base.html" %}
+{% extends "briefings_base.html" %}
 {% block title %}Market Snapshot — Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/map_workspace.css?v=3">{% endblock %}
-{% block content %}
+{% block briefing_head %}<link rel="stylesheet" href="/static/map_workspace.css?v=3">{% endblock %}
+{% block briefing_content %}
 <div class="gx-workspace gx"><header class="gx-header"><div><p class="bos-kicker">Build → Export</p><h1 class="bos-title">{{ report.title }}</h1><p>Source-backed inventory · analyst review required</p></div><a class="bos-btn" href="{{ query.url() }}">Back to explorer</a></header>
 <form method="get" action="/explorer/snapshot" id="gx-composition"><input type="hidden" name="countries" value="{{ query.params()['countries'] }}"><input type="hidden" name="berry" value="{{ query.params()['berry'] }}"><input type="hidden" name="sections" id="gx-sections" value="{{ included|join(',') }}"><fieldset><legend>Include sections</legend>{% for id,label in section_options.items() %}<label class="gx-section-option"><input type="checkbox" data-section="{{ id }}"{% if id in included %} checked{% endif %}> {{ label }}</label>{% endfor %}</fieldset><button type="submit" class="bos-btn">Update composition</button><button type="submit" class="bos-btn bos-btn-primary" formaction="/explorer/snapshot.pdf">Export PDF</button></form>
 {% for gap in gaps %}<p class="gx-gap">{{ gap }}</p>{% endfor %}

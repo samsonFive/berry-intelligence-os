@@ -243,6 +243,12 @@ Acceptance: a new user can locate the six representative jobs without rememberin
 
 The current guide is a first audit edition, not evidence that this gate passed. Low usage and empty test queues do not establish abandonment.
 
+## Mission 7 implementation evidence
+
+The Reports & Briefings family now has a task-based `/briefings` home and shared Glasshouse navigation across Meeting Prep, selected briefs, saved briefs, reports, Executive view, Market Snapshot and News packets. Existing URLs and persistence services remain intact. Native Meeting Prep multi-selection preserves repeated and CSV scope. Saved report edits remain visible in the default Working library. Normal Meeting Prep and Decision Memo reads do not initialize AI; feed refresh and optional question generation require explicit POST actions.
+
+Isolated browser review demonstrated company selection → brief save → presentation, two-company/two-country Meeting Prep → saved takeaway, and named report scope → structured fallback draft → saved edit → Working library → downloaded PDF. The three-page PDF contains the saved edit; its first two pages were rendered for visual review. Narrow-screen reporting home/report containment passed at 390px. This is local workflow evidence, not deployed behavior or live AI-provider acceptance. See `MISSION-07-REPORTS-BRIEFINGS.md` and the ongoing `REDESIGN-REQUIREMENTS-CHECKLIST.md`.
+
 ## Implementation source references
 
 - Navigation: `app/services/feed_first.py::NAV`, `app/templates/_v2_sidebar.html`, `app/templates/_stakeholder_nav.html`; [updated inventory](DESIGN-NAVIGATION-INVENTORY.md).
