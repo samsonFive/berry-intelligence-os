@@ -1,6 +1,6 @@
 # Navigation preservation inventory
 
-Status: design proposal; no production sections removed. Originally audited the feed-first NAV and V2 sidebar; the section audit adds the stakeholder navigation and other entry points. The complete route registry and disposition recommendations are in `APP-SECTION-AUDIT.md`. No production navigation has been consolidated yet.
+Status: historical proposal baseline plus delivery notes below; no production sections removed. Originally audited the feed-first NAV and V2 sidebar; the section audit adds the stakeholder navigation and other entry points. The complete route registry and disposition recommendations are in `APP-SECTION-AUDIT.md`. The original table records the September 30 prototype disposition; current implementation evidence is recorded below and in the requirements checklist.
 
 Current prototype navigation: News, Map Explorer, Companies, Learn and More. More now has **eight consolidated entries across four groups**: Personal Digest, Landscape, Varieties, Intelligence, Monitor, Reports & Briefings, Operations and Help. Each opens an in-preview workspace with nested views. Existing tools are accessible inside a collapsed disclosure within their new home; the old 44-link menu has been removed. `workspace-navigation.js` defines this review-only navigation. Production routes, permissions and state are unchanged.
 
@@ -78,3 +78,19 @@ These were absent from the original 50-entry inventory. They are mapped into the
 | Design System | `/design-system` | Developer-only | Component gallery; not product navigation |
 
 Company/variety comparisons, company portfolio, geographic and entity details, Story Threads, publication-review migration views, report builders/exports and alternate views are also covered in `APP-SECTION-AUDIT.md`. Action/API endpoints are listed in `artifacts/design-sprint/route-audit-inventory.json` and are not counted as independent menu sections.
+
+## October 2 delivery map — draft branch, not deployed
+
+| Family | Delivered entry and mechanism | Remaining work |
+| --- | --- | --- |
+| News and Reader | `/today` is newest-first scoped News; shared right-side Article/Brief Reader and personal icons | Actual article-body/image coverage, final integration and retained alternate lenses |
+| Personal Digest | `/digest` combines user saves, reading state and subscribed company lists | Account isolation and migration/integrated acceptance |
+| Companies and Varieties | Shared marks, profiles, region annotations, directory/candidate review; People only inside Companies | Source-assisted enrichment, photo human decisions and specialist competition/coverage lenses |
+| Landscape | `/landscapes` supports what/where/dates/sections and saved selector views | Broader source/maturity gaps, release and retained concentration lens |
+| Learn | `/learn` is top-level; real detailed lesson/media slice and explicit cited private research lifecycle | Broader verified visuals, static consistency and account/multi-worker release |
+| Monitor | `/monitor` has Watches, Alerts and Monitoring plans; shared marks/list/multi-berry scope | Deep interpretation layouts and event notification grouping; existing Following remains distinct |
+| Operations | `/operations` organizes Collect, Review, Data quality, Coverage & health; three core tools share its shell | Deep specialist tools, real capture/retry/provider acceptance |
+| Reports & Briefings | `/briefings` groups briefs, working reports, market snapshots and Meeting Prep | Provider/print/integrated release acceptance |
+| Help/Intelligence | Existing `/guide`, Radar/Moves/Statements/Signals/Assessments/Questions/Research remain available | Mission 11 presentation and visual explainer work; original review semantics stay |
+
+Shared More navigation exposes consolidated family homes. Its All existing tools disclosure preserves specialist access while parity is checked. These draft implementations do not authorize removing unreplaced routes or merging/deploying. See REDESIGN-REQUIREMENTS-CHECKLIST.md for exact-head verification and remaining requirements.
