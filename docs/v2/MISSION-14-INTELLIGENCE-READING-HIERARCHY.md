@@ -31,3 +31,7 @@ No human trust/proposal/alert decision, canonical edit or provider research was 
 ## Remaining work and release boundary
 
 Research/Ask Berry, candidate-review and authoring forms still need their controlled presentation pass. The shared static navigation, deeper specialist layouts, broader sourced Learn visuals, source/body/media acquisition, editable enrichment/region suggestions, public-statistics freshness, packet compatibility, account/multi-worker persistence and canonical/active-PR reconciliation remain on the durable checklist. This slice does not close those requirements. Continue the ongoing goal; prepare the combined tested release and rollback plan for final human review. No merge or deployment.
+
+## Final exact-head CI
+
+Draft #287 exact head `d6aeadc51096a398d61abfab4d51f368c5e9ebdf` passed all four required checks, run 37057383167: 3,562 passed / 11 skipped / two warnings in 342.24 seconds. This verifies the intelligence reading slice, not the combined canonical release.

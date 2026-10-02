@@ -113,9 +113,12 @@ def _source_ids(rows: Iterable[Mapping[str, Any]], known_ids: set[str]) -> list[
 
 
 def _item(row: Mapping[str, Any], *, fallback_kind: str = "STRUCTURED") -> dict[str, Any]:
+    relationship_title = ""
+    if row.get("subject_name") and row.get("object_name") and row.get("predicate"):
+        relationship_title = f"{row['subject_name']} {str(row['predicate']).replace('_', ' ')} {row['object_name']}"
     return {
         "id": row.get("id"),
-        "title": row.get("title") or row.get("name") or row.get("statement") or row.get("id"),
+        "title": row.get("title") or row.get("name") or row.get("statement") or relationship_title or row.get("id"),
         "href": row.get("href") or row.get("url") or "",
         "kind": row.get("move_type") or row.get("event_type") or row.get("structured_kind") or row.get("trust_class") or fallback_kind,
         "date": row.get("date") or row.get("published_date") or row.get("latest_update") or "",

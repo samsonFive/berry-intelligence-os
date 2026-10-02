@@ -107,10 +107,11 @@
 </section>
 
 <section class="v2-card" style="margin-bottom:16px">
-  <p class="card-kicker">INTELLIGENCE COVERAGE</p>
   {% if scope.focus_notes %}
-    <p><strong>Research question:</strong> {{ scope.focus_notes }}</p>
+    <p class="card-kicker">Research question:</p>
+    <h2 class="report-question">{{ scope.focus_notes.splitlines()[0] }}</h2>
   {% endif %}
+  <p class="card-kicker">INTELLIGENCE COVERAGE</p>
   {% if scope.report_type == 'decision_memo' %}
     <ul class="stat-list">
       <li>{{ coverage.counts.what_changed_count }} recent changes</li>
@@ -142,6 +143,7 @@
       {% for gap in coverage.gaps %}<li>{{ gap }}</li>{% endfor %}
     </ul>
   {% endif %}
+  {% if scope.focus_notes and scope.focus_notes.splitlines()|length > 1 %}<details class="report-preparation-notes"><summary>Supporting preparation notes</summary><p style="white-space:pre-wrap">{{ scope.focus_notes }}</p></details>{% endif %}
   {% if scope.report_type != 'decision_memo' and (scope.focus_notes or packet.recent_developments) %}
     <p class="card-kicker">PRESELECTED SOURCE-BACKED FINDINGS</p>
     {% if packet.recent_developments %}
