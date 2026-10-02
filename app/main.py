@@ -4194,22 +4194,22 @@ def saved_page(request: Request) -> HTMLResponse:
 
 @app.get("/statements", response_class=HTMLResponse)
 def statements_page(request: Request, review: str = "unreviewed") -> HTMLResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(403, "Statement review is available in the analyst workspace")
+    if review not in {"unreviewed", "reviewed", "all"}:
+        raise HTTPException(422, "Choose Unreviewed, Reviewed or All statements")
     from app.services.feed_first import statements_review_index
-    from app.services.feed_first_live import cached_live_records
+    from app.services.feed_first_live import cached_live_records, merge_decision_records
+    from app.services.statement_workspace import present_statements
 
     world = _feed_first_world()
     rows = statements_review_index(world["state"])
     records = {
         str(row.get("id")): row
-        for row in cached_live_records(INBOX_DIR)
+        for row in merge_decision_records(published_evidence(), cached_live_records(INBOX_DIR))
         if row.get("id")
     }
-    for row in rows:
-        record = records.get(str(row.get("feed_item_id") or "")) or {}
-        row["article_title"] = str(record.get("title") or row.get("feed_item_id") or "Unknown article")
-        row["article_source"] = str(record.get("source_name") or "Source unavailable")
-        row["article_date"] = str(record.get("published_date") or "")
-    review = review if review in {"unreviewed", "reviewed", "all"} else "unreviewed"
+    rows = present_statements(rows, records, world["entities"], return_to="/statements?" + urlencode({"review": review}))
     reviewed_count = sum(bool(row.get("human_reviewed")) for row in rows)
     if review == "unreviewed":
         statements = [row for row in rows if not row.get("human_reviewed")]
@@ -4464,6 +4464,8 @@ async def feed_first_react(request: Request) -> JSONResponse:
 
 @app.post("/api/feed-first/statement")
 async def feed_first_statement(request: Request) -> JSONResponse:
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     from app.services.feed_first import (
         load_state,
         mutate_statement,
@@ -4471,10 +4473,12 @@ async def feed_first_statement(request: Request) -> JSONResponse:
         statement_by_id,
     )
     from app.services.feed_first_live import cached_live_records, merge_decision_records
-    from app.services.feed_first_trust import confirm_feed_statement
+    from app.services.feed_first_trust import confirm_feed_statement, _canonical_evidence_id
 
     payload = await request.json()
     try:
+        if not isinstance(payload, dict) or not isinstance(payload.get("statement_ids", []), list):
+            raise ValueError("Choose individual statements")
         statement_ids = [
             str(value) for value in (payload.get("statement_ids") or []) if str(value)
         ]
@@ -4483,8 +4487,8 @@ async def feed_first_statement(request: Request) -> JSONResponse:
         ids_to_confirm = statement_ids or ([single_id] if single_id else [])
         canonical_fact_ids: dict[str, str] = {}
         if action == "confirm":
-            if not AUTHORING_MODE:
-                raise ValueError("canonical confirmation requires authoring mode")
+            if len(ids_to_confirm) != 1:
+                raise ValueError("Confirm one statement at a time after reviewing its source")
             state = load_state(INBOX_DIR)
             records = {
                 str(row.get("id")): row
@@ -4499,11 +4503,17 @@ async def feed_first_statement(request: Request) -> JSONResponse:
                 candidate = statement_by_id(state, statement_id)
                 if candidate is None:
                     raise ValueError("statement not found")
+                if candidate.get("statement_state") not in {"pending_confirmation", "proposed"}:
+                    raise ValueError("statement is not awaiting confirmation")
                 record = records.get(
                     str(candidate.get("feed_item_id") or "")
                 ) or candidate.get("source_context")
                 if record is None:
                     raise ValueError("source Feed Item not found")
+                from app.services.news_workspace import source_reviewed
+                publication = repos.evidence.get(_canonical_evidence_id(record))
+                if not publication or not source_reviewed(publication):
+                    raise ValueError("Review this source for publication before confirming its statements")
                 canonical_fact_ids[statement_id] = confirm_feed_statement(
                     service=_review_publish_service(),
                     repositories=repos,
@@ -6392,7 +6402,7 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
 
 
 def _load_intelligence_record(item_id: str) -> dict[str, Any] | None:
-    draft = get_draft(item_id)
+    draft = get_draft(item_id) if AUTHORING_MODE else None
     if draft is not None and draft.get("status") != "rejected":
         return draft
     record = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.get(item_id)
@@ -6591,7 +6601,7 @@ def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
     if request.query_params.get("personal") == "1" or record is None:
         from app.personal_digest_routes import reader_context
         from app.services.personal_digest import source_records
-        personal_record = source_records(published_evidence(), INBOX_DIR).get(item_id)
+        personal_record = source_records(published_evidence(), INBOX_DIR, include_private=AUTHORING_MODE).get(item_id)
         if personal_record is not None:
             return templates.TemplateResponse(request=request, name="personal_reader_page.html", context=reader_context(request, personal_record))
     if record is None:
@@ -6609,7 +6619,7 @@ def intelligence_reader_fragment(request: Request, item_id: str) -> HTMLResponse
     if request.query_params.get("personal") == "1" or record is None:
         from app.personal_digest_routes import reader_context
         from app.services.personal_digest import source_records
-        personal_record = source_records(published_evidence(), INBOX_DIR).get(item_id)
+        personal_record = source_records(published_evidence(), INBOX_DIR, include_private=AUTHORING_MODE).get(item_id)
         if personal_record is not None:
             return templates.TemplateResponse(request=request, name="_personal_reader.html", context=reader_context(request, personal_record))
     if record is None:

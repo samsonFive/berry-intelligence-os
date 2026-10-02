@@ -252,6 +252,8 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert "Choose the output you need" in guide_html
     assert '/reports/new' not in guide_html
     assert '/news-packets' not in guide_html
+    assert 'href="/statements"' not in guide_html
+    assert 'href="../signals/index.html"' in guide_html
     assert '/war-room' not in guide_html
     assert "/pending" not in guide_html
     assert "/review?kind=atomic" not in guide_html

@@ -43,4 +43,6 @@ Remaining sourced visual Learn coverage, source-assisted editable profile/region
 
 ### Next work in the same mission
 
+**Final first-slice verification:** Draft #284, head `dea2170323206a98f22cfa6222bd3c167e862363`, passed Change scope, Repository integrity, Static public safety and Python tests (run 37024739505): 3,530 passed / 11 skipped / two warnings in 318.20 seconds. Continue the remaining judgments/research group in MISSION-12-STATEMENT-TRIAGE-READER.md; this is not combined release proof.
+
 Statements/Signals/Assessments/Recommendations/Questions/Ask Berry retain their existing pages and semantics but are not yet claimed visually migrated. Coverage-selector Escape/outside closure and guide keyboard/mobile anchor focus were verified. The initial native guide anchor changed its hash without scrolling on mobile; explicit focus/instant scrolling repaired it and the target then sat at 140px, focused, inside the 375px page. A 310px geography menu stayed between x=26 and x=336; Escape closed it and returned focus to its summary; outside click closed company selection. Full combined accessibility and public/private route acceptance also remain. Continue these, then the remaining cross-family/source/account/integration requirements; pushing this slice is not a routine stop or a completed ongoing goal.

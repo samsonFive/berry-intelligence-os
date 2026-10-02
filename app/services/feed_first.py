@@ -1445,6 +1445,8 @@ def mutate_statements(
 ) -> list[dict[str, Any]]:
     if action not in {"confirm", "reject"}:
         raise ValueError("invalid batch action")
+    if action == "confirm" and len(statement_ids) != 1:
+        raise ValueError("Confirm one statement at a time after reviewing its source")
     results: list[dict[str, Any]] = []
     for statement_id in dict.fromkeys(str(value) for value in statement_ids if value):
         updated = mutate_statement(

@@ -44,8 +44,8 @@ def retained_news(inbox_dir: Path) -> list[dict[str, Any]]:
     return list(records.values())
 
 
-def source_records(published: list[dict[str, Any]], inbox_dir: Path) -> dict[str, dict[str, Any]]:
-    records = {str(row["id"]): row for row in retained_news(inbox_dir)}
+def source_records(published: list[dict[str, Any]], inbox_dir: Path, *, include_private: bool = True) -> dict[str, dict[str, Any]]:
+    records = {str(row["id"]): row for row in retained_news(inbox_dir)} if include_private else {}
     for row in published:
         if not row.get("id") or row.get("status") != "published":
             continue
