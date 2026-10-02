@@ -14,10 +14,14 @@ The earlier generated-prefix formatter still hides only recognized internal pref
 
 An isolated source-backed design sample was exported without any provider call. All five rendered pages were inspected after the final pagination changes. There are no orphan section headings, split small coverage table, clipped text or raw generated identifier prefixes in this sample. The original saved report was not edited. The sample's explicit design-review takeaway is not a finished intelligence conclusion. Saved evidence: `artifacts/design-sprint/report-export-refined.pdf`, its first-page PNG, and workspace/item screenshots.
 
-Browser inspection confirmed separate findings and real computed 16px reading text, 21px expanded section headings and 35px title. The shared shell remained intact. At 390px the page scroll width was 375px and reading lists stayed x=27 with width 321px; temporary viewport override was reset. No saved report edit, provider research, publication or statement confirmation was performed. Final exact-head CI is required after push; the combined release remains open.
+Browser inspection confirmed separate findings and real computed 16px reading text, 21px expanded section headings and 35px title. The shared shell remained intact. At 390px the page scroll width was 375px and reading lists stayed x=27 with width 321px; temporary viewport override was reset. No saved report edit, provider research, publication or statement confirmation was performed. All four final-head checks passed; the combined release remains open.
 
 Canonical validation passed and the static build completed with 1,755 pages, with no unpublished draft IDs or titles. The isolated preview was restarted with the current PDF renderer; its visible Export PDF control downloaded the revised document. The browser download was unexpectedly slow; subsequent downloads should use a bounded action. It did not change a report or launch research.
 
 ## Remaining work
 
 This is a bounded readability correction. Remaining intelligence/research workspaces, source/media acquisition, broader visual Learn lessons, enrichment/regions/statistics, account and multi-worker persistence, canonical/active-PR reconciliation and final release/rollback acceptance remain on the durable requirements checklist. Continue without routine user checkpoints. Merge and deployment require the user's final release approval.
+
+## Final exact-head CI
+
+Draft #286 head `4dd928cca2f859f25542064b30ea492a005f5ba4` passed Change scope, Repository integrity, Static public safety and Python tests, run 37051961517: 3,549 passed / 11 skipped / two warnings in 326.38 seconds. This verifies the report slice, not canonical release integration.

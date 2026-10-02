@@ -1,11 +1,11 @@
-{% extends "base.html" %}
+{% extends "intelligence_workspace_base.html" %}
 {% block title %}Signals — Berry Intelligence OS{% endblock %}
-{% block content %}
+{% block intelligence_content %}
 <section class="page-heading">
   <div>
     <p class="eyebrow">WHAT PATTERN MAY BE EMERGING, AND WHAT SUPPORTS IT</p>
     <h1>Signals</h1>
-    <p class="also-known-as">This list is the trusted signal catalog. Untrusted candidates are reviewed separately so they cannot be mistaken for published Signals.</p>
+    <p class="also-known-as">Recorded patterns and their supporting sources. Proposed patterns remain labeled; incoming candidates are reviewed separately.</p>
   </div>
   {% if authoring_mode %}
     <div class="queue-actions">
@@ -15,7 +15,7 @@
   {% endif %}
 </section>
 
-{% with help_what="A Signal is a pattern that may be emerging, supported by Evidence. This catalog is TRUSTED Signals only.", help_why="Signals sit between Evidence and Assessments. They are not news items and not a Watchlist.", help_do="Read a Signal to see what supports it. Review AI PROPOSED candidates separately so they cannot be mistaken for published Signals.", help_after="Confirming or rejecting a candidate is a review action on that candidate only. It does not create an Assessment or resolve a Strategic Question." %}
+{% with help_what="A Signal is a pattern that may be emerging, supported by recorded sources. Each record retains its proposed or confirmed status.", help_why="Use patterns to connect developments before writing an assessment of what they mean.", help_do="Open a pattern to inspect its sources and decision test. Incoming candidate review is a separate step.", help_after="A candidate decision does not create an Assessment or resolve a Strategic Question." %}
   {% include "_workspace_help.html" %}
 {% endwith %}
 

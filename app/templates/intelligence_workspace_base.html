@@ -1,14 +1,16 @@
-{% extends 'glasshouse_base.html' %}
+{% extends 'base.html' if static_build|default(false) else 'glasshouse_base.html' %}
 {% set intelligence_workspace = true %}
-{% block head_extra %}<link rel="stylesheet" href="/static/intelligence_workspace.css?v=1">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/intelligence_workspace.css?v=14">{% endblock %}
 {% block content %}
 <div class="intelligence-workspace">
   <nav class="intelligence-tabs" aria-label="Intelligence views">
+    {% if authoring_mode %}
     <a href="/statements" {% if request.url.path.startswith('/statements') %}aria-current="page"{% endif %}>Statements</a>
     <a href="/radar" {% if request.url.path.startswith('/radar') %}aria-current="page"{% endif %}>Developments</a>
     <a href="/moves" {% if request.url.path.startswith('/moves') %}aria-current="page"{% endif %}>Company moves</a>
-    <a href="/signals">Signals</a><a href="/assessments">Assessments</a><a href="/strategic-questions">Questions</a>
     <a href="/whitespace" {% if request.url.path == '/whitespace' %}aria-current="page"{% endif %}>Coverage &amp; concentration</a>
+    {% endif %}
+    <a href="/signals" {% if request.url.path.startswith('/signals') %}aria-current="page"{% endif %}>Signals</a><a href="/assessments" {% if request.url.path.startswith('/assessments') %}aria-current="page"{% endif %}>Assessments</a><a href="/strategic-questions" {% if request.url.path.startswith('/strategic-questions') %}aria-current="page"{% endif %}>Questions</a><a href="/recommendations" {% if request.url.path.startswith('/recommendations') %}aria-current="page"{% endif %}>Recommendations</a>
   </nav>
   {% block intelligence_content %}{% endblock %}
 </div>

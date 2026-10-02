@@ -1,12 +1,12 @@
-{% extends "base.html" %}
+{% extends "intelligence_workspace_base.html" %}
 {% block title %}Assessments — Berry Intelligence OS{% endblock %}
-{% block content %}
+{% block intelligence_content %}
 <div class="v2-page">
 <section class="page-heading v2-page-header">
   <div>
     <p class="eyebrow">DECIDE</p>
     <h1>Assessments</h1>
-    <p class="also-known-as">Analyst interpretation of Facts. Not a Signal, not a Signal candidate, and never auto-created from Signal confirmation.</p>
+    <p class="also-known-as">Analyst interpretation, with supporting facts and what would change the view. AI proposals remain labeled until reviewed.</p>
   </div>
   {% if authoring_mode %}
     <a class="button-link" href="/assessments/new">New Assessment</a>
@@ -17,7 +17,7 @@
   {% include "_workspace_help.html" %}
 {% endwith %}
 
-<p class="brief-window">Berry scope is stored <code>market_ids</code> only. Absent <code>market_ids</code> means company-wide / unscoped — not “every berry.” Lineage always requires at least one Fact.</p>
+<details class="judgment-meta"><summary>How berry scope works</summary><p>A recorded berry scope names the berries this assessment covers. Without one, the assessment is company-wide / unscoped; it does not cover every berry. Each assessment must cite at least one Fact.</p></details>
 
 {% if assessments %}
   <ul class="v2-assessment-list">

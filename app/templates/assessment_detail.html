@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "intelligence_workspace_base.html" %}
 {% block title %}{{ assessment.title }} — Berry Intelligence OS{% endblock %}
-{% block content %}
+{% block intelligence_content %}
 <div class="v2-page">
 <section class="page-heading v2-page-header">
   <div>
@@ -9,7 +9,6 @@
     <p class="also-known-as">
       <span class="badge {{ 'badge-ai-proposed' if assessment.ai_proposed else 'badge-assessment' }}">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span>
       {% if berry_scope %}<span class="v2-mark v2-mark-scope v2-mark-scope-{{ berry_scope.kind }}">{{ berry_scope.label }}</span>{% endif %}
-      Signal confirmation does not create this record.
     </p>
     {% if not static_build %}<p class="v2-card-line"><a href="/brief-pack?assessments={{ assessment.id }}">Add to Brief Pack</a></p>{% endif %}
   </div>
@@ -21,20 +20,19 @@
 {% set compact = false %}
 {% include "_learn_glossary_hits.html" %}
 <article class="detail-card v2-assessment-detail">
-  <dl data-pagefind-ignore>
-    <dt>Confidence</dt><dd>{{ assessment.confidence|upper }}</dd>
-    <dt>Reviewer</dt><dd>{{ assessment.reviewer }}</dd>
-    <dt>Created</dt><dd>{{ assessment.created_at|us_date }}</dd>
-    {% if berry_scope %}<dt>Berry scope</dt><dd>{{ berry_scope.label }}{% if berry_scope.berry_names %} · {{ berry_scope.berry_names|join(', ') }}{% endif %}</dd>{% endif %}
-  </dl>
 
+
+  <section class="judgment-takeaway">
   <h2>Bottom line</h2>
   {% set rationale_lines = assessment.rationale|as_bullets %}
   {% if rationale_lines|length > 1 %}
-    <ul class="bullet-list">{% for line in rationale_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+    <p>{{ rationale_lines[0] }}</p>
   {% else %}
     <p>{{ assessment.rationale }}</p>
   {% endif %}
+
+  </section>
+  {% if rationale_lines|length > 1 %}<section class="judgment-rationale"><h2>Rationale and qualifications</h2><ul class="bullet-list">{% for line in rationale_lines[1:] %}<li>{{ line }}</li>{% endfor %}</ul></section>{% endif %}
 
   {% if assessment.why_it_matters %}
     <h2>Why it matters</h2>
@@ -50,9 +48,58 @@
   {% if assessment.would_change_our_view %}
     <p>{{ assessment.would_change_our_view }}</p>
   {% else %}
-    <p class="empty-state">Not yet articulated. Absence is not unfalsifiability.</p>
+    <p class="empty-state">No conditions recorded yet. An analyst can add what would change this view.</p>
   {% endif %}
 
+  <h2>Supporting facts</h2>
+  {% if linked_facts %}
+    <ul class="fact-list">
+      {% for fact in linked_facts %}
+        <li>
+          <span class="badge badge-{{ 'fact' if fact.classification == 'fact' else 'claim' }}">{{ fact.classification|upper }}</span>
+          <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
+          {% set statement_lines = fact.statement|as_bullets %}
+          {% if statement_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in statement_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ fact.statement }}</p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No facts linked.</p>
+  {% endif %}
+
+  <h2>Supporting evidence</h2>
+  {% if linked_evidence %}
+    {% include "_evidence_link_table.html" %}
+  {% else %}
+    <p class="empty-state">No evidence linked.</p>
+  {% endif %}
+
+  <h2>Counterevidence</h2>
+  {% if counterevidence or counterevidence_sources %}
+    {% if counterevidence %}
+    <ul class="fact-list">
+      {% for fact in counterevidence %}
+        <li>
+          <span class="badge badge-counterevidence">COUNTEREVIDENCE</span>
+          {% set statement_lines = fact.statement|as_bullets %}
+          {% if statement_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in statement_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ fact.statement }}</p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if counterevidence_sources %}{% with linked_evidence=counterevidence_sources %}{% include "_evidence_link_table.html" %}{% endwith %}{% endif %}
+  {% else %}
+    <p class="empty-state">No counterevidence recorded.</p>
+  {% endif %}
+<details class="judgment-related"><summary>Related questions, entities and signals</summary>
   <h2>Linked strategic questions</h2>
   {% if linked_strategic_questions %}
     <ul class="entity-links">
@@ -86,51 +133,16 @@
     <p class="empty-state">No signals linked.</p>
   {% endif %}
 
-  <h2>Supporting facts</h2>
-  {% if linked_facts %}
-    <ul class="fact-list">
-      {% for fact in linked_facts %}
-        <li>
-          <span class="badge badge-{{ 'fact' if fact.classification == 'fact' else 'claim' }}">{{ fact.classification|upper }}</span>
-          <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
-          {% set statement_lines = fact.statement|as_bullets %}
-          {% if statement_lines|length > 1 %}
-            <ul class="bullet-list">{% for line in statement_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-          {% else %}
-            <p>{{ fact.statement }}</p>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p class="empty-state">No facts linked.</p>
-  {% endif %}
-
-  <h2>Supporting evidence</h2>
-  {% if linked_evidence %}
-    {% include "_evidence_link_table.html" %}
-  {% else %}
-    <p class="empty-state">No evidence linked.</p>
-  {% endif %}
-
-  <h2>Counterevidence</h2>
-  {% if counterevidence %}
-    <ul class="fact-list">
-      {% for fact in counterevidence %}
-        <li>
-          <span class="badge badge-counterevidence">COUNTEREVIDENCE</span>
-          {% set statement_lines = fact.statement|as_bullets %}
-          {% if statement_lines|length > 1 %}
-            <ul class="bullet-list">{% for line in statement_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-          {% else %}
-            <p>{{ fact.statement }}</p>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p class="empty-state">No counterevidence recorded.</p>
-  {% endif %}
+</details>
+<details class="judgment-meta"><summary>Review details</summary>
+  <p class="context-limit">Signal confirmation does not create this record.</p>
+  <dl data-pagefind-ignore>
+    <dt>Confidence</dt><dd>{{ assessment.confidence|upper }}</dd>
+    <dt>Reviewer</dt><dd>{{ assessment.reviewer }}</dd>
+    <dt>Created</dt><dd>{{ assessment.created_at|us_date }}</dd>
+    {% if berry_scope %}<dt>Berry scope</dt><dd>{{ berry_scope.label }}{% if berry_scope.berry_names %} · {{ berry_scope.berry_names|join(', ') }}{% endif %}</dd>{% endif %}
+  </dl>
+</details>
 </article>
 </div>
 {% endblock %}

@@ -813,6 +813,9 @@ def build() -> list[Path]:
                     "counterevidence": [
                         fact_idx[cid] for cid in (assessment.get("counterevidence_ids") or []) if cid in fact_idx
                     ],
+                    "counterevidence_sources": [
+                        row for row in evidence if row["id"] in (assessment.get("counterevidence_ids") or [])
+                    ],
                     "authoring_mode": False,
                 },
             )

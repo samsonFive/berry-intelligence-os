@@ -1,12 +1,27 @@
-{% extends "base.html" %}
+{% extends "intelligence_workspace_base.html" %}
 {% block title %}{{ recommendation.title }} — Berry Intelligence OS{% endblock %}
-{% block content %}
+{% block intelligence_content %}
 <section class="page-heading">
   <div>
-    <p class="eyebrow">RECOMMENDATION — {{ recommendation.status|upper }} · PROPOSED ACTION, NOT EVIDENCE TRIAGE</p>
+    <p class="eyebrow">RECOMMENDATION — {{ recommendation.status|upper }} · PROPOSED ACTION</p>
     <h1>{{ recommendation.title }}</h1>
   </div>
 </section>
+<article class="detail-card">
+
+
+  <section class="judgment-takeaway">
+  <h2>Action rationale</h2>
+  {% set rationale_lines = recommendation.rationale|as_bullets %}
+  {% if rationale_lines|length > 1 %}
+    <p>{{ rationale_lines[0] }}</p>
+  {% else %}
+    <p>{{ recommendation.rationale }}</p>
+  {% endif %}
+
+  </section>
+  {% if rationale_lines|length > 1 %}<section class="judgment-rationale"><h2>Supporting rationale</h2><ul class="bullet-list">{% for line in rationale_lines[1:] %}<li>{{ line }}</li>{% endfor %}</ul></section>{% endif %}
+
 {% if authoring_mode and proposal_state == 'open' and (recommendation.ai_proposed or 'pending' in (recommendation.reviewer or '')|lower) %}
   <div class="banner">
     <p>This is a position proposal awaiting a human decision. Accept or reject does not delete the recommendation record.</p>
@@ -15,25 +30,10 @@
       <form action="/recommendations/{{ recommendation.id }}/proposal-decision" method="post"><input type="hidden" name="action" value="reject"><button class="action-button action-reject" type="submit">Reject</button></form>
     </div>
   </div>
-{% elif proposal_state and proposal_state != 'open' %}
+{% elif authoring_mode and proposal_state and proposal_state != 'open' %}
   <p class="context-limit">Proposal decision: {{ proposal_state }}. The recommendation record is unchanged.</p>
 {% endif %}
-<article class="detail-card">
-  <dl data-pagefind-ignore>
-    <dt>Action type</dt><dd>{{ recommendation.action_type|replace('_',' ')|title }}</dd>
-    {% if recommendation.priority %}<dt>Priority</dt><dd>{{ recommendation.priority|upper }}</dd>{% endif %}
-    <dt>Reviewer</dt><dd>{{ recommendation.reviewer }}</dd>
-    <dt>Created</dt><dd>{{ recommendation.created_at|us_date }}</dd>
-    {% if recommendation.updated_at %}<dt>Updated</dt><dd>{{ recommendation.updated_at|us_date }}</dd>{% endif %}
-  </dl>
 
-  <h2>Action rationale</h2>
-  {% set rationale_lines = recommendation.rationale|as_bullets %}
-  {% if rationale_lines|length > 1 %}
-    <ul class="bullet-list">{% for line in rationale_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-  {% else %}
-    <p>{{ recommendation.rationale }}</p>
-  {% endif %}
 
   <h2>Linked assessments</h2>
   {% if linked_assessments %}
@@ -46,6 +46,33 @@
     <p class="empty-state">No assessments linked.</p>
   {% endif %}
 
+  <h2>Supporting facts</h2>
+  {% if linked_facts %}
+    <ul class="fact-list">
+      {% for fact in linked_facts %}
+        <li>
+          <span class="badge badge-{{ 'fact' if fact.classification == 'fact' else 'claim' }}">{{ fact.classification|upper }}</span>
+          <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
+          {% set statement_lines = fact.statement|as_bullets %}
+          {% if statement_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in statement_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ fact.statement }}</p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No facts linked directly. Linked assessments and signals may have their own supporting facts.</p>
+  {% endif %}
+
+  <h2>Supporting evidence</h2>
+  {% if linked_evidence %}
+    {% include "_evidence_link_table.html" %}
+  {% else %}
+    <p class="empty-state">No sources linked directly. Linked assessments and signals may have their own supporting sources.</p>
+  {% endif %}
+<details class="judgment-related"><summary>Related signals, questions and entities</summary>
   <h2>Linked signals</h2>
   {% if linked_signals %}
     <ul class="entity-links">
@@ -79,31 +106,15 @@
     <p class="empty-state">No entities linked.</p>
   {% endif %}
 
-  <h2>Downstream facts</h2>
-  {% if linked_facts %}
-    <ul class="fact-list">
-      {% for fact in linked_facts %}
-        <li>
-          <span class="badge badge-{{ 'fact' if fact.classification == 'fact' else 'claim' }}">{{ fact.classification|upper }}</span>
-          <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
-          {% set statement_lines = fact.statement|as_bullets %}
-          {% if statement_lines|length > 1 %}
-            <ul class="bullet-list">{% for line in statement_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-          {% else %}
-            <p>{{ fact.statement }}</p>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p class="empty-state">No facts linked directly (see linked assessments/signals for their own fact lineage).</p>
-  {% endif %}
-
-  <h2>Downstream evidence</h2>
-  {% if linked_evidence %}
-    {% include "_evidence_link_table.html" %}
-  {% else %}
-    <p class="empty-state">No evidence linked directly (see linked assessments/signals for their own evidence lineage).</p>
-  {% endif %}
+</details>
+<details class="judgment-meta"><summary>Review details</summary>
+  <dl data-pagefind-ignore>
+    <dt>Action type</dt><dd>{{ recommendation.action_type|replace('_',' ')|title }}</dd>
+    {% if recommendation.priority %}<dt>Priority</dt><dd>{{ recommendation.priority|upper }}</dd>{% endif %}
+    <dt>Reviewer</dt><dd>{{ recommendation.reviewer }}</dd>
+    <dt>Created</dt><dd>{{ recommendation.created_at|us_date }}</dd>
+    {% if recommendation.updated_at %}<dt>Updated</dt><dd>{{ recommendation.updated_at|us_date }}</dd>{% endif %}
+  </dl>
+</details>
 </article>
 {% endblock %}
