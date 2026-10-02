@@ -8216,6 +8216,8 @@ def signal_list(request: Request) -> HTMLResponse:
 
 @app.get("/signals/review", response_class=HTMLResponse)
 def signal_candidate_review(request: Request) -> HTMLResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Signal review requires the analyst workspace")
     presented = present_candidates(
         INBOX_DIR,
         evidence_by_id=_evidence_index(),
@@ -8237,6 +8239,8 @@ def signal_candidate_review(request: Request) -> HTMLResponse:
 
 @app.get("/signals/candidates/{candidate_id}", response_class=HTMLResponse)
 def signal_candidate_page(request: Request, candidate_id: str) -> HTMLResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Signal review requires the analyst workspace")
     candidate, location = lookup_candidate(INBOX_DIR, candidate_id)
     if candidate is None:
         raise HTTPException(status_code=404, detail="Signal candidate not found")
@@ -8285,6 +8289,8 @@ def signal_candidate_decision(
 ) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Signal-candidate decisions are only available in authoring mode")
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     candidate = candidate_by_id(INBOX_DIR, candidate_id)
     if candidate is None:
         _archived, location = lookup_candidate(INBOX_DIR, candidate_id)

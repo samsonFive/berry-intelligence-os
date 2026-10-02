@@ -26,6 +26,10 @@ At a 390px viewport, the page measured 375px with the comparison matrix scrollin
 
 No canonical edit, trust/identity decision, report generation or real provider capture was performed in this browser review. Reader progress affected only isolated personal state. The preview's provider override is ignored local test configuration, not a production change.
 
+## Exact-head CI
+
+Draft #288 head `c2be282f8f770780c1012e68e5ca75352a209ea3` passed Change scope, Repository integrity, Static public safety and Python tests, run 37062117468: **3,578 passed / 11 skipped / two warnings in 341.81 seconds**. Static leakage fixtures also passed (16 tests). This verifies this stacked slice, not canonical integration or deployment.
+
 ## Remaining work
 
 Candidate review and authoring forms, global static navigation and retained specialist consistency remain open. Actual provider recall/retry, source publication chronology/body/media availability, wider licensed Learn visuals, protected company/region enrichment, market-statistics coverage, packet receiving compatibility, per-account/inter-process persistence and canonical/active-PR reconciliation remain on the durable checklist. The Research answer is still an ephemeral reading result, not a new trusted store. No merge/deployment; the combined tested release and rollback packet require final human review.

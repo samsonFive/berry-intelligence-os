@@ -1,16 +1,15 @@
-{% extends "base.html" %}
+{% extends "intelligence_workspace_base.html" %}
 {% block title %}Signal candidate no longer live{% endblock %}
-{% block content %}
+{% block intelligence_content %}
 <section class="page-heading">
   <div>
     <p class="eyebrow">SIGNAL CANDIDATE — AUDIT RECORD</p>
     <h1>This candidate is no longer in the live review set</h1>
-    <p class="also-known-as"><code>{{ candidate_id }}</code></p>
   </div>
   <a class="button-link" href="/signals/review">Back to signal review</a>
 </section>
 
-<p class="brief-window">Generation semantics changed, so this opaque candidate id is not in the current persisted set. The analyst decision was preserved as an audit record and was not applied to any regenerated candidate.</p>
+<p class="also-known-as">The candidate set changed. Your prior decision is preserved and was not applied to any regenerated candidate.</p>
 
 <article class="detail-card">
   <dl>
@@ -20,6 +19,7 @@
       <dt>Review notes</dt><dd>{{ review_notes }}</dd>
     {% endif %}
   </dl>
-  <p class="context-limit">Decisions cannot be submitted against this id. Review the current live candidate instead.</p>
+  <p class="context-limit">This record cannot receive another decision. Review the current live candidate instead.</p>
+  <details class="judgment-meta"><summary>Record reference</summary><code>{{ candidate_id }}</code></details>
 </article>
 {% endblock %}
