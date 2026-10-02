@@ -17,6 +17,7 @@ from io import BytesIO
 from typing import Any
 from xml.sax.saxutils import escape
 from app.services.report_builder.presentation import section_text
+from app.services.map_regions import public_source_url
 
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import LETTER
@@ -44,7 +45,9 @@ def _styles() -> dict[str, ParagraphStyle]:
         "title": ParagraphStyle("ReportTitle", parent=base["Title"], alignment=0, fontSize=27, leading=31, textColor=colors.HexColor("#183e2b"), spaceAfter=12),
         "meta": ParagraphStyle("ReportMeta", parent=base["Normal"], fontSize=8.5, leading=12, textColor=colors.HexColor("#526459"), spaceAfter=5),
         "kicker": ParagraphStyle("ReportKicker", parent=base["Normal"], fontName="Helvetica-Bold", fontSize=9, leading=12, textColor=colors.HexColor("#347147"), spaceAfter=13),
-        "h2": ParagraphStyle("ReportH2", parent=base["Heading2"], fontSize=16, leading=20, textColor=colors.HexColor("#214c35"), spaceBefore=19, spaceAfter=9),
+        "h2": ParagraphStyle("ReportH2", parent=base["Heading2"], fontSize=16, leading=20, textColor=colors.HexColor("#214c35"), spaceBefore=19, spaceAfter=9, keepWithNext=True),
+        "section_meta": ParagraphStyle("ReportSectionMeta", parent=base["Normal"], fontSize=8.5, leading=12, textColor=colors.HexColor("#526459"), spaceAfter=5, keepWithNext=True),
+        "item": ParagraphStyle("ReportItem", parent=base["BodyText"], fontSize=10, leading=15, textColor=colors.HexColor("#273c30"), leftIndent=12, bulletIndent=0, spaceAfter=9),
         "body": ParagraphStyle("ReportBody", parent=base["BodyText"], fontSize=10, leading=15, textColor=colors.HexColor("#273c30"), spaceAfter=9),
         "takeaway": ParagraphStyle("ReportTakeaway", parent=base["BodyText"], fontSize=12, leading=18, textColor=colors.HexColor("#21432e"), backColor=colors.HexColor("#edf5e6"), borderPadding=12, spaceBefore=8, spaceAfter=15),
         "unsupported": ParagraphStyle(
@@ -80,6 +83,13 @@ def _cutoff_date(packet: dict[str, Any]) -> str:
     return max(dates) if dates else "Unknown (no dated Evidence in packet)"
 
 
+def _readable_date(value: Any) -> str:
+    try:
+        return date.fromisoformat(str(value)[:10]).strftime("%b %d, %Y").replace(" 0", " ")
+    except (ValueError, TypeError):
+        return "Date not recorded"
+
+
 def render_report_pdf(
     report: dict[str, Any],
     packet: dict[str, Any],
@@ -97,18 +107,23 @@ def render_report_pdf(
     story: list[Any] = [NextPageTemplate("report")]
     story.append(Paragraph("BERRY INTELLIGENCE  /  RESEARCH BRIEF", styles["kicker"]))
     story.append(Paragraph(escape(report.get("title") or "Untitled report"), styles["title"]))
-    story.append(Paragraph(f"Exported {date.today().isoformat()}  |  Latest dated source in scope: {_cutoff_date(packet)}", styles["meta"]))
+    story.append(Paragraph(f"Exported {_readable_date(date.today())}  |  Latest dated source in scope: {_readable_date(_cutoff_date(packet))}", styles["meta"]))
     story.append(Paragraph(f"{escape(confidentiality)}  |  {PROVENANCE_MARKER}", styles["meta"]))
     source_trace = packet.get("source_trace") or (packet.get("strategic_question") or {}).get("source_trace") or []
     reference_names = {row["id"]: f"Source {index + 1}" for index, row in enumerate(source_trace) if row.get("id")}
+    pending_sections = [section for section in report.get("sections") or [] if section.get("edited_prose") is None and section.get("status") in {"unavailable", "unsupported"}]
+    if pending_sections:
+        story.append(Paragraph(f"Incomplete working report: {len(pending_sections)} sections still to prepare.", styles["unsupported"]))
 
     def render_section(section: dict[str, Any], *, takeaway: bool = False) -> None:
+        if section in pending_sections:
+            return  # Retain these together in the preparation checklist below.
         story.append(Paragraph(escape(section.get("title") or section.get("section_id") or ""), styles["h2"]))
         edited = section.get("edited_prose") is not None
         status = section.get("status") or ""
         label = "Analyst edited - review before sharing" if edited else {"ai_draft": "AI draft - analyst review required", "structured": "From stored records - classifications retained", "unavailable": "Drafting unavailable", "unsupported": "Insufficient sourced information"}.get(status, "Working draft")
         if status != "structured" or edited:
-            story.append(Paragraph(label, styles["meta"]))
+            story.append(Paragraph(label, styles["section_meta"]))
         text = section_text(section, packet)
         if not edited and status == "unavailable":
             text = "This section has not been drafted. Add analyst commentary before sharing."
@@ -116,10 +131,15 @@ def render_report_pdf(
             story.append(Paragraph("No content in this section.", styles["unsupported"]))
             return
         style = styles["unsupported"] if not edited and status in ("unsupported", "unavailable") else styles["takeaway"] if takeaway else styles["body"]
-        paragraphs = text.splitlines() if status == "structured" and not edited and section.get("section_id") in {"signals", "assessments", "what_we_know", "implications", "comparison_table"} else text.split("\n\n")
+        line_items = section.get("section_id") in {"signals", "assessments", "what_we_know", "implications", "comparison_table", "sources", "evidence_appendix"}
+        paragraphs = text.splitlines() if line_items else text.split("\n\n")
         for paragraph in paragraphs:
             if paragraph.strip():
-                story.append(Paragraph(escape(paragraph.strip()).replace("\n", "<br/>"), style))
+                if line_items:
+                    item_style = styles["source"] if section.get("section_id") in {"sources", "evidence_appendix"} else styles["item"]
+                    story.append(Paragraph(escape(paragraph.strip()), item_style, bulletText="-" if item_style is styles["item"] else None))
+                else:
+                    story.append(Paragraph(escape(paragraph.strip()).replace("\n", "<br/>"), style))
         citations = [reference_names.get(cid, "Supporting record") for cid in section.get("citation_ids") or []]
         if citations:
             story.append(Paragraph("References: " + ", ".join(dict.fromkeys(citations)), styles["source"]))
@@ -157,7 +177,7 @@ def render_report_pdf(
         coverage_story.append(Paragraph("Coverage notes", styles["h2"]))
         coverage_story.append(Paragraph("Record counts describe captured material, not market size or complete coverage.", styles["meta"]))
         rows = [[key.removesuffix("_count").replace("_", " ").title(), str(value)] for key, value in counts.items()]
-        table = Table([["Category", "Count"], *rows], colWidths=[3.2 * inch, 1.2 * inch])
+        table = Table([["Category", "Count"], *rows], colWidths=[3.2 * inch, 1.2 * inch], repeatRows=1)
         table.setStyle(
             TableStyle(
                 [
@@ -210,17 +230,30 @@ def render_report_pdf(
         if undated:
             story.append(Paragraph(f"{len(undated)} additional sources need date verification and are excluded from current coverage.", styles["meta"]))
 
-    story.extend(coverage_story)
+    if counts and len(counts) <= 12 and not gaps:
+        story.append(KeepTogether(coverage_story))
+    else:
+        story.extend(coverage_story)
+    if pending_sections:
+        story.append(Paragraph("Still to prepare", styles["h2"]))
+        story.append(Paragraph("These sections are retained in your working report. Add commentary or supporting material before sharing.", styles["meta"]))
+        rows = [[Paragraph("<b>Section</b>", styles["source"]), Paragraph("<b>What is needed</b>", styles["source"])]]
+        for section in pending_sections:
+            need = "Not drafted" if section.get("status") == "unavailable" else section_text(section, packet) or "More sourced information"
+            rows.append([Paragraph(escape(section.get("title") or "Untitled section"), styles["body"]), Paragraph(escape(need), styles["source"])])
+        table = Table(rows, colWidths=[doc.width * .54, doc.width * .46], repeatRows=1, splitInRow=1)
+        table.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#f3ecd9")), ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.HexColor("#faf8ef"), colors.white]), ("LINEBELOW", (0, 0), (-1, -1), .4, colors.HexColor("#d6d4c1")), ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8), ("VALIGN", (0, 0), (-1, -1), "TOP")]))
+        story.append(table)
     if source_trace:
         story.append(Paragraph("Source appendix", styles["h2"]))
         for index, row in enumerate(source_trace):
             label = row.get("title") or "Source title not recorded"
-            date_text = row.get("date") or row.get("published_date") or ""
+            date_text = _readable_date(row.get("date") or row.get("published_date"))
             source_name = row.get("source_name") or ""
             entry = [Paragraph(f"<b>{index + 1}. {escape(label)}</b>", styles["body"]),
                      Paragraph(escape(f"{source_name} | {date_text or 'Date not recorded'}"), styles["source"])]
-            url = str(row.get("source_url") or "")
-            if url.startswith(("https://", "http://")):
+            url = public_source_url(row.get("source_url"))
+            if url:
                 safe_url = escape(url, {'"': '&quot;'})
                 entry.append(Paragraph(f'<link href="{safe_url}" color="#286643">Open original source</link>', styles["source"]))
             else:
@@ -229,25 +262,32 @@ def render_report_pdf(
 
     included = [row for row in (report.get("external_research_appendix") or []) if row.get("included_in_report")]
     if included:
-        story.append(Paragraph("External Public Research — Unreviewed", styles["h2"]))
+        story.append(Paragraph("External public research", styles["h2"]))
         story.append(
             Paragraph(
-                "These findings were NOT sourced from this system's trusted intelligence, were not "
-                "reviewed for accuracy, and are not canonical Evidence. An analyst selected them for "
-                "inclusion as external context only.",
+                "An analyst selected these findings as external context. Their review status is shown "
+                "below. They remain separate from reviewed evidence and do not confirm this report's conclusions.",
                 styles["unsupported"],
             )
         )
         for row in included:
-            gap = f" [{row['gap_label']}]" if row.get("gap_label") else ""
-            retrieved = f", retrieved {row['retrieved_at']}" if row.get("retrieved_at") else ""
-            provider = f" via {row['provider']}" if row.get("provider") else ""
-            story.append(
-                Paragraph(
-                    f"• {row.get('title') or row.get('url') or ''}{gap} — {row.get('url') or ''}{provider}{retrieved}",
-                    styles["source"],
-                )
-            )
+            story.append(Paragraph(escape(str(row.get("title") or "External research finding")), styles["body"]))
+            story.append(Paragraph("Analyst marked reviewed - external context only" if row.get("reviewed") else "Unreviewed external finding", styles["source"]))
+            if row.get("gap_label"):
+                story.append(Paragraph("Research topic: " + escape(str(row["gap_label"])), styles["source"]))
+            metadata = []
+            if row.get("retrieved_at"):
+                metadata.append("Retrieved " + _readable_date(row["retrieved_at"]))
+            if row.get("provider"):
+                metadata.append("Research provider: " + str(row["provider"]))
+            if metadata:
+                story.append(Paragraph(escape(" | ".join(metadata)), styles["source"]))
+            url = public_source_url(row.get("url"))
+            if url:
+                safe_url = escape(url, {'"': '&quot;'})
+                story.append(Paragraph(f'<link href="{safe_url}" color="#286643">Open original source</link>', styles["source"]))
+            else:
+                story.append(Paragraph("Original URL unavailable", styles["source"]))
 
     doc.build(story)
     return buffer.getvalue()

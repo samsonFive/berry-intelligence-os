@@ -55,12 +55,14 @@
       {% if section.edited_prose is not none %}<span class="badge">Analyst edited · review required</span>
       {% elif section.status == 'ai_draft' %}<span class="badge badge-ai-proposed">AI DRAFT</span>
       {% elif section.status == 'structured' %}<span class="badge badge-muted">From saved records</span>
-      {% elif section.status == 'unsupported' %}<span class="badge badge-muted">UNSUPPORTED</span>
-      {% elif section.status == 'unavailable' %}<span class="badge badge-muted">AI UNAVAILABLE</span>
+      {% elif section.status == 'unsupported' %}<span class="badge badge-muted">Needs more sources</span>
+      {% elif section.status == 'unavailable' %}<span class="badge badge-muted">Not drafted yet</span>
       {% endif %}
     </p>
     <input type="hidden" name="section_ids" value="{{ section.section_id }}">
-    <div class="report-reading-text">{{ section.display_text }}</div>
+    {% if section.section_id in ['signals', 'assessments', 'what_we_know', 'implications', 'comparison_table', 'sources', 'evidence_appendix'] and section.display_text %}
+    <ul class="report-reading-items">{% for line in section.display_text.splitlines() %}{% if line.strip() %}<li>{{ line }}</li>{% endif %}{% endfor %}</ul>
+    {% else %}<div class="report-reading-text">{{ section.display_text }}</div>{% endif %}
     <details class="report-edit-text"><summary>Edit section text</summary>
     <textarea name="section_texts" aria-labelledby="section-{{ section.section_id }}" rows="{{ 3 if section.section_id in ['executive_summary', 'executive_takeaway'] else 6 }}" style="width:100%">{{ section.display_text }}</textarea>
     </details>
@@ -126,13 +128,13 @@
   {% endif %}
 
   {% if report.external_research_appendix %}
-    <p class="card-kicker">EXTERNAL PUBLIC RESEARCH — UNREVIEWED</p>
+    <p class="card-kicker">EXTERNAL PUBLIC RESEARCH</p>
     <ul class="research-finding-list">
       {% for row in report.external_research_appendix %}
         <li>
-          <span class="badge badge-ai-proposed">EXTERNAL PUBLIC RESEARCH — UNREVIEWED</span>
+          <span class="badge badge-ai-proposed">{{ 'External context · marked reviewed' if row.reviewed else 'Unreviewed external research' }}</span>
           {% if row.gap_label %}<span class="v2-meta">{{ row.gap_label }}</span>{% endif %}
-          <a href="{{ row.url }}" target="_blank" rel="noopener">{{ row.title }}</a>
+          {% set research_url = public_source_url(row.url) %}{% if research_url %}<a href="{{ research_url }}" target="_blank" rel="noopener noreferrer">{{ row.title }}</a>{% else %}<span>{{ row.title }}</span>{% endif %}
           <span class="v2-meta">{{ row.provider }}{% if row.retrieved_at %}, retrieved {{ row.retrieved_at }}{% endif %}</span>
           <form method="post" action="/reports/{{ report.id }}/research/{{ row.id }}/state" class="v2-inline-form">
             <input type="hidden" name="reviewed" value="{{ 'false' if row.reviewed else 'true' }}">

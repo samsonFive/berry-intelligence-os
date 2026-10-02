@@ -25,3 +25,5 @@ Signals, Assessments, Recommendations, Strategic Questions and Ask Berry still r
 Static build completed: 1,755 pages; no unpublished draft IDs/titles in output. Final source/history and Guide follow-up tests are included in the push validation. Combined canonical release remains open.
 
 First draft-head CI on e74a021 failed two older presentation assertions expecting the retired Statements shell (3,541 passed, two failed, 11 skipped, two warnings; run 37030449938). The regression expectations now verify the shared Glasshouse shell and dense Statements collection, including the valid empty state, while retaining legacy-surface and trust checks. A fresh exact-head full run is required.
+
+Final draft #285 head `34406acd8d72d1799b689b16e9c114ee9775ed32` passed all four checks, run 37032353982: 3,543 passed, 11 skipped, two warnings in 228.19 seconds. The focused shell/statement/trust repair run passed 38 tests. The combined canonical release remains open.
