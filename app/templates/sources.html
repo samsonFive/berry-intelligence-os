@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "public_library_base.html" if static_build else "base.html" %}
 {% set health_groups = health_groups if health_groups is defined else [] %}
 {% block title %}Source Health — Berry Intelligence OS{% endblock %}
 {% block head_extra %}

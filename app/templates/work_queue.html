@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "public_library_base.html" if static_build else "base.html" %}
 {% block title %}Live Intelligence — Berry Intelligence OS{% endblock %}
 {% block content %}
 <div class="v2-page">

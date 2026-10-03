@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "public_library_base.html" if static_build else "base.html" %}
 {% block title %}{{ portfolio.company.name }} — Variety portfolio{% endblock %}
 {% block content %}
 {% set portfolio = portfolio if portfolio is defined else {} %}

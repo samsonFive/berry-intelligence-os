@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "public_library_base.html" if static_build else "base.html" %}
 {% block title %}{{ berry_label }} Landscape — Berry Intelligence OS{% endblock %}
 {% block head_extra %}
 <link rel="preconnect" href="https://fonts.googleapis.com">

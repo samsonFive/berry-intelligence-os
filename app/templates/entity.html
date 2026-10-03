@@ -1,4 +1,4 @@
-{% extends "base_stakeholder.html" %}
+{% extends "public_library_base.html" if static_build else "base_stakeholder.html" %}
 {% block title %}{{ entity.name }}{% endblock %}
 {% block head_extra %}
 {% if entity.entity_type in ['company', 'brand', 'breeding_program'] %}

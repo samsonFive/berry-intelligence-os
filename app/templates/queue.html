@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "public_library_base.html" if static_build else "base.html" %}
 {% block title %}{{ label }} — Berry Intelligence OS{% endblock %}
 {% block head_extra %}
 {% if dimension in ('monitoring', 'reading') %}

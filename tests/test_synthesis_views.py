@@ -373,8 +373,8 @@ def test_landscape_static_and_live_rendering_share_one_context_pipeline() -> Non
     (unlike feed.html) has no {% if static_build %} branching around the
     assessment-narrative section -- so the live route's rendered output is
     also what the static build produces, verified two ways: the narrative
-    text appears in the live render, and the template has no static-only
-    branch that could diverge from it."""
+    text appears in the live render, and the content has no static-only
+    branch that could diverge from it. Public navigation uses its own shell."""
     context = main.landscape_context("berry-blueberry")
     live_text = client.get("/landscapes/berries/blueberry").text
     documented = [a for a in context["executive_assessments"] if a.get("why_it_matters")]
@@ -383,7 +383,9 @@ def test_landscape_static_and_live_rendering_share_one_context_pipeline() -> Non
         assert assessment["why_it_matters"] in live_text
         assert assessment["would_change_our_view"] in live_text
     template_source = (main.BASE_DIR / "app" / "templates" / "landscape.html").read_text(encoding="utf-8")
-    assert "static_build" not in template_source
+    shell, content = template_source.split("\n", 1)
+    assert shell == '{% extends "public_library_base.html" if static_build else "base.html" %}'
+    assert "static_build" not in content
 
 
 def test_regional_attention_uses_region_attributed_cited_evidence() -> None:
