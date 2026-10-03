@@ -1,0 +1,33 @@
+{% macro teaching_icon(kind) %}
+<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+{% if kind == 'search' %}<circle cx="27" cy="27" r="15"/><path d="m38 38 15 15M19 27h16M27 19v16"/>
+{% elif kind == 'eye' %}<path d="M5 32q27-32 54 0-27 32-54 0Z"/><circle cx="32" cy="32" r="9"/>
+{% elif kind == 'leaf' %}<path d="M14 51C5 18 32 9 52 12c0 26-13 43-38 39Zm0 0 30-30"/>
+{% elif kind == 'branch' %}<path d="M32 55V29M32 29 14 12M32 29l18-17M8 19V8h11M45 8h11v11"/><circle cx="32" cy="43" r="5"/>
+{% elif kind == 'tools' %}<path d="m13 52 31-31M40 8c-3 13 1 18 15 17M49 8l6 6M12 13l37 37M8 11l5-5 12 9-7 7Z"/>
+{% elif kind == 'loop' %}<path d="M51 23A21 21 0 1 0 52 42M51 10v14H37"/>
+{% elif kind == 'drop' %}<path d="M32 6C24 18 13 29 13 39a19 19 0 0 0 38 0C51 29 40 18 32 6Z"/><path d="M22 40q0 8 9 9"/>
+{% elif kind == 'air' %}<path d="M8 22h31q16 0 10-12M8 33h42q13 0 8 12M8 44h23q11 0 7 11"/>
+{% elif kind == 'berry' %}<circle cx="32" cy="34" r="19"/><path d="M25 14q-1-9 7-10 7 0 8 10M21 29h1M33 26h1M44 32h1M25 41h1M37 44h1"/>
+{% elif kind == 'shield' %}<path d="M32 6 52 14v18q0 16-20 26-20-10-20-26V14Z"/><path d="m22 31 7 7 15-16"/>
+{% else %}<path d="m10 20 22-12 22 12v26L32 58 10 46ZM10 20l22 12 22-12M32 32v26"/>{% endif %}
+</svg>
+{% endmacro %}
+{% set visual = concept.teaching_diagram %}
+<section class="learn-teaching-visual" id="visual-explanation" data-teaching-explorer aria-labelledby="teaching-title">
+  <p class="learn-kicker">ILLUSTRATIVE TEACHING DIAGRAM</p>
+  <h2 id="teaching-title">{{ visual.title }}</h2>
+  <p class="learn-teaching-intro">{{ visual.intro }}</p>
+  <div class="learn-teaching-steps" role="group" aria-label="Explore the explanation">
+  {% for step in visual.steps %}<article class="learn-teaching-step">
+    <span class="learn-teaching-number" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span>
+    {{ teaching_icon(step.icon) }}
+    <h3><button type="button" data-teaching-select="{{ loop.index0 }}" aria-pressed="{{ 'true' if loop.first else 'false' }}" aria-controls="teaching-detail-{{ loop.index0 }}">{{ step.title }}</button></h3>
+    <p>{{ step.caption }}</p>
+  </article>{% endfor %}
+  </div>
+  <div class="learn-teaching-notes" aria-live="polite" aria-atomic="true">{% for step in visual.steps %}<article id="teaching-detail-{{ loop.index0 }}" data-teaching-detail="{{ loop.index0 }}"><h3>{{ step.title }}</h3><p>{{ step.detail }}</p></article>{% endfor %}</div>
+  <noscript><p>All explanations are shown; interactive selection requires JavaScript.</p></noscript>
+  <p class="learn-teaching-limit">{{ visual.limit }}</p>
+  <footer><small>Original schematic by Berry Intelligence. Sources checked October 2, 2026; no publisher graphics copied.</small>{% for source in visual.sources %}<a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }} ↗</a>{% endfor %}</footer>
+</section>

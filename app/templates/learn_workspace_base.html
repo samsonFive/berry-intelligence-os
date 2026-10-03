@@ -1,4 +1,4 @@
 {% extends "glasshouse_base.html" %}
-{% block head_extra %}<link rel="stylesheet" href="/static/learn_workspace.css?v=1">{% endblock %}
-{% block content %}<div class="learn-workspace" data-learn-workspace>{% block learn_content %}{% endblock %}</div>{% endblock %}
-{% block scripts %}<script src="/static/learn_workspace.js?v=1"></script>{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/learn_workspace.css?v=2">{% endblock %}
+{% block content %}<div class="learn-workspace" data-learn-workspace{% if static_build %} data-pagefind-body{% endif %}>{% block learn_content %}{% endblock %}</div>{% endblock %}
+{% block scripts %}<script src="/static/learn_workspace.js?v=2"></script>{% endblock %}
