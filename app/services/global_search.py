@@ -55,6 +55,17 @@ STATE_LABELS = {
     "story": "Story",
     "emerging_signal": "Emerging signal",
     "confirmed_signal": "Confirmed signal",
+    "proposed_signal": "Proposed signal",
+    "active_signal": "Active signal",
+    "watch_signal": "Signal being watched",
+    "monitoring_signal": "Signal being monitored",
+    "resolved_signal": "Resolved signal",
+    "refuted_signal": "Refuted signal",
+    "retired_signal": "Retired signal",
+    "disputed_signal": "Disputed signal",
+    "deferred_signal": "Deferred signal",
+    "dismissed_signal": "Dismissed signal",
+    "signal": "Signal · review status not recorded",
     "assessment": "Assessment",
     "educational_knowledge": "Educational knowledge",
 }
@@ -62,6 +73,7 @@ STATE_LABELS = {
 STATE_RANK = {
     "trusted": 0,
     "confirmed_signal": 1,
+    **{state: 1 for state in STATE_LABELS if state.endswith("_signal") or state == "signal"},
     "assessment": 1,
     "story": 2,
     "educational_knowledge": 2,
@@ -293,9 +305,8 @@ def _signal_state(record: dict[str, Any], *, emerging: bool) -> str:
     if emerging:
         return "emerging_signal"
     status = str(record.get("status") or "").strip().lower()
-    if status in {"proposed"}:
-        return "confirmed_signal"
-    return "confirmed_signal"
+    state = status + "_signal"
+    return state if state in STATE_LABELS and state != "emerging_signal" else "signal"
 
 
 def build_search_documents(pools: SearchPools, *, include_private: bool) -> list[SearchDoc]:
@@ -505,7 +516,7 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
                 date=signal_date,
                 date_basis=signal_date_basis,
                 is_fallback_date=signal_is_fallback,
-                subtitle=str(signal.get("status") or "Signal"),
+                subtitle=("Unrecognized status: " + str(signal["status"])) if signal.get("status") and _signal_state(signal, emerging=False) == "signal" else "",
                 kind_label="Signal",
                 haystack=haystack,
                 folded_canonical=_fold(title),

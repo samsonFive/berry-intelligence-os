@@ -1,14 +1,13 @@
-{% extends "base_stakeholder.html" %}
+{% extends "glasshouse_base.html" %}
 {% block title %}Search — Berry Intelligence{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/search_workspace.css?v=1">{% endblock %}
 {% block content %}
-<div class="sh-page">
+<div class="sh-page search-workspace">
 <section class="sh-header page-heading">
   <div>
     <p class="sh-kicker eyebrow">Search</p>
     <h1 id="search-heading">{% if search_query %}Results for “{{ search_query }}”{% else %}Search{% endif %}</h1>
-    {% if not static_build %}
-    <p class="sh-lede also-known-as">Find a company, variety, market, or source. Search does not change review status.</p>
-    {% endif %}
+    <p class="sh-lede also-known-as">Find stories, companies, varieties, markets and learning topics.</p>
   </div>
 </section>
 
@@ -23,7 +22,7 @@
   </div>
 </form>
 
-<p class="result-count" id="search-status">Type to search published intelligence only.</p>
+<p class="result-count" id="search-status" role="status">Search reviewed intelligence and public learning lessons.</p>
 
 <section class="feed" id="search-results"></section>
 
@@ -53,12 +52,15 @@
 
   function cardHtml(data) {
     const title = data.meta && data.meta.title ? data.meta.title : data.url;
-    const type = data.meta && data.meta.type ? String(data.meta.type) : "page";
+    const type = (data.filters && data.filters.type && data.filters.type[0]) || (data.meta && data.meta.type) || "";
+    const typeLabel = {learn:"Learning lesson",entity:"Company, variety or market",evidence:"Reviewed story"}[type] || "Public library";
+    const description = data.meta && data.meta.description ? String(data.meta.description) : "";
     return (
       '<article class="card">' +
-      '<p class="eyebrow">' + escapeHtml(type) + "</p>" +
+      '<p class="eyebrow">' + escapeHtml(typeLabel) + "</p>" +
       '<h2><a href="' + data.url + '">' + escapeHtml(title) + "</a></h2>" +
-      "<p>" + (data.excerpt || "") + "</p>" +
+      "<p>" + (description ? escapeHtml(description) : (data.excerpt || "")) + "</p>" +
+      (description && data.excerpt ? "<details class=\"search-matched-passage\"><summary>Matched passage</summary><p>" + data.excerpt + "</p></details>" : "") +
       "</article>"
     );
   }
@@ -94,7 +96,7 @@
     shown = 0;
     currentResults = [];
     if (!term) {
-      status.textContent = "Type to search published intelligence only.";
+      status.textContent = "Search reviewed intelligence and public learning lessons.";
       loadMoreWrap.style.display = "none";
       heading.textContent = "Search";
       return;
@@ -104,8 +106,8 @@
     const pf = await ensurePagefind();
     currentResults = await searchCore.mergedSearch(pf, term);
     status.textContent = currentResults.length
-      ? currentResults.length + " published result" + (currentResults.length === 1 ? "" : "s")
-      : "No published results found.";
+      ? currentResults.length + " public result" + (currentResults.length === 1 ? "" : "s")
+      : "No matching results. Try another name or topic.";
     renderMore();
   }
 

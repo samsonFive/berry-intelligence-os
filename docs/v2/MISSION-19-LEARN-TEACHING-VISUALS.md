@@ -31,6 +31,8 @@ Browser review covered IPM's Check results by keyboard, Robotics' Collect by cli
 
 ## Still open
 
+Draft #292 exact head `2610648ea13349f0e2013702c6fd014459f38b5d` passed all four required checks, run `37083812686`: 3,620 passed / 11 skipped / two warnings in 386.97 seconds. This verifies the teaching slice, not canonical release integration.
+
 Canonical record validation and JavaScript syntax checks passed. Final public build wrote **1,755 pages** and found no unpublished IDs/titles. Browser verified the generated IPM diagram's Prevent selection and relative Back to Learn/Search navigation; after the rebuild, IPM search returned nine results with the IPM lesson first. `learn-public-ipm-visual.png` records the public lesson. Static shell links to unavailable interactive routes and the old global Search styling remain known follow-up work, not claimed complete here. Exact pushed-head checks remain required.
 
 This supplies representative diagrams across all pillars, not verified photographs and custom interactions for every lesson. Some retained curriculum wording still uses internal terminology; a plain-language editorial pass must preserve the substantive source limits. Broader static navigation and specialist layouts, real source/body/media capture and packet readiness, market statistics, region suggestions, protected profile enrichment, account/multi-worker persistence, cross-family walkthrough and canonical/release reconciliation remain in the requirements ledger. No merge or deployment without the final user review.

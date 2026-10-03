@@ -3,7 +3,7 @@
 {% block learn_content %}
 {% if return_to != '/learn' %}<a class="learn-return" href="{{ return_to }}">← Back to where you were</a>{% endif %}
 <header class="learn-heading" data-pagefind-filter="type:learn"><div><p class="learn-kicker"><a href="/learn">LEARN</a> / {{ concept.pillar_label }}</p><h1>{{ concept.name }}</h1><div class="learn-labels"><span>EDUCATIONAL KNOWLEDGE</span><span>{{ concept.knowledge_class_label }}</span></div></div>{% if authoring_mode %}<a class="outline-button" href="/learn/research/new?topic={{ concept.name|urlencode }}&concept_id={{ concept.id }}&return_to={{ (return_to if return_to != '/learn' else request.url.path)|urlencode }}">Research & expand this lesson</a>{% endif %}</header>
-<p class="learn-answer">{{ concept.summary }}</p>
+<p class="learn-answer" data-pagefind-meta="description">{{ concept.summary }}</p>
 {% if concept.is_stale %}<p class="learn-warning">This lesson is past its review date. Check current sources before using its technical guidance.</p>{% endif %}
 <nav class="learn-jumps" aria-label="Lesson sections"><a href="#what-is-it">The idea</a>{% if concept.cane_diagram %}<a href="#cane-calendar">Visual explanation</a>{% elif concept.teaching_diagram %}<a href="#visual-explanation">Visual explanation</a>{% endif %}<a href="#how-evaluated">How to recognize it</a>{% if berry_notes.has_any %}<a href="#crop-notes">By crop</a>{% endif %}<a href="#sources">Sources</a></nav>
 {% if concept.cane_diagram %}{% include "_learn_cane_diagram.html" %}{% endif %}

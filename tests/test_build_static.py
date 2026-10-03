@@ -204,6 +204,7 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     visual_html = (output_dir / "learn" / "visual-learning-aids" / "index.html").read_text(encoding="utf-8")
     assert "data-teaching-explorer" in visual_html
     assert "data-pagefind-body" in visual_html  # Pagefind indexes only marked bodies across this site.
+    assert 'data-pagefind-meta="description"' in visual_html  # The original summary leads Search previews.
     assert "learn_workspace.js?v=2" in visual_html
     assert "Special:FilePath/Blueberries.jpg" not in visual_html
     assert "File:Blueberries.jpg" in visual_html  # Unverified reuse is a source link only.
@@ -216,6 +217,51 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert 'id="pagefind-js-path"' in search_html
     assert 'href="../pagefind/pagefind.js"' in search_html
     assert 'id="search-results"' in search_html
+
+    # Shared public navigation must resolve inside the generated snapshot,
+    # including when a core directory has no published entities yet.
+    from html.parser import HTMLParser
+    from urllib.parse import urlsplit
+
+    class PublicHeaderLinks(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.in_header = False
+            self.links = []
+
+        def handle_starttag(self, tag, attrs):
+            values = dict(attrs)
+            if tag == "header" and "glass-header" in values.get("class", "").split():
+                self.in_header = True
+            if self.in_header and tag == "a" and values.get("href"):
+                self.links.append(values["href"])
+
+        def handle_endtag(self, tag):
+            if tag == "header":
+                self.in_header = False
+
+    for html_file in output_dir.rglob("*.html"):
+        page = html_file.read_text(encoding="utf-8")
+        parser = PublicHeaderLinks()
+        parser.feed(page)
+        for href in parser.links:
+            parsed = urlsplit(href)
+            assert not parsed.scheme and not parsed.netloc
+            destination = (html_file.parent / parsed.path).resolve()
+            assert destination.is_relative_to(output_dir.resolve())
+            assert destination.is_file(), f"Public navigation missing {href} in {html_file}"
+        if parser.links:
+            assert "Personal Digest</a>" not in page.split("</header>", 1)[0]
+            assert "All existing tools" not in page.split("</header>", 1)[0]
+    guide_html = (output_dir / "guide" / "index.html").read_text(encoding="utf-8")
+    assert 'class="glass-header"' in guide_html and "data-pagefind-body" in guide_html
+    assert "Build a brief →" not in guide_html
+    assert "Brief pack" in guide_html and "live workspace" in guide_html
+    assert guide_html.count('class="guide-workspace guide-accent-') == 11
+    assert guide_html.count('class="guide-availability"') == 11
+    assert "Public view available" in guide_html
+    for output in ("Meeting Prep", "Brief pack", "Sourced report", "Market snapshot", "Competitor news packet"):
+        assert f"<h3>{output}</h3>" in guide_html
 
     landscape_html = (
         output_dir / "landscapes" / "berries" / "blueberry" / "index.html"
