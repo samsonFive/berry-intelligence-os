@@ -1,4 +1,4 @@
-{% extends "base_stakeholder.html" %}
+{% extends "public_library_base.html" if static_build else "base_stakeholder.html" %}
 {% block title %}Markets{% endblock %}
 {% block content %}
 {% set geographies = geographies if geographies is defined else [] %}

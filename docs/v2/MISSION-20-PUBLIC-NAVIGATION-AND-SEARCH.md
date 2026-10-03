@@ -27,3 +27,8 @@ Final public build wrote **1,755 pages**, with no unpublished draft IDs or title
 ## Still open
 
 Other static templates still use older base/stakeholder shells and need their own consistent navigation/layout pass. Live specialist workflows, source/body/media acquisition, fresh packet readiness, market metrics, region suggestions, protected enrichment, account/multi-worker persistence, larger curriculum visuals and canonical integration remain in the requirements ledger. Canonical/public status eligibility must be audited separately from truthful display labels; this change does not infer review from a record's location. Preserve the canonical guide and final release/rollback review. No merge or deployment without approval.
+
+
+## Final exact-head CI
+
+Draft #293 exact head `f6ff1b8e84e3cc297c0f4beb315fe648934f77d2` passed Change scope, Repository integrity, Static public safety and Python tests, run `37086165073`: 3,636 passed / 11 skipped / two warnings in 304.61 seconds. This verifies the slice, not canonical release integration.

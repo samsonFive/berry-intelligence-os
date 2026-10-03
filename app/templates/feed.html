@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "public_library_base.html" if static_build else "base.html" %}
 {% block title %}Newsfeed — Berry Intelligence OS{% endblock %}
 {% block content %}
 <section class="page-heading">
   <div>
-    <p class="eyebrow">CONTINUOUSLY UPDATED INTELLIGENCE</p>
+    <p class="eyebrow">{{ 'PUBLISHED INTELLIGENCE SNAPSHOT' if static_build else 'CONTINUOUSLY UPDATED INTELLIGENCE' }}</p>
     <h1>Newsfeed</h1>
   </div>
   {% if authoring_mode %}

@@ -5,9 +5,11 @@
   <title>{% block title %}Berry Intelligence{% endblock %}</title>
   <link rel="icon" href="/static/berry-intelligence-icon.png">
   <link rel="stylesheet" href="/static/vendor/bootstrap/bootstrap.min.css">
+  {% block legacy_content_styles %}{% endblock %}
   <link rel="stylesheet" href="/static/personal_digest.css?v=5">
   {% if authoring_mode %}<link rel="stylesheet" href="/static/learn_context.css?v=1">{% endif %}
   {% block head_extra %}{% endblock %}
+  {% block workspace_styles %}{% endblock %}
 </head>
 <body class="glasshouse" data-personal-digest>
   <a class="skip-link" href="#digest-main">Skip to content</a>
@@ -29,7 +31,7 @@
       {% endif %}
     </div></details>
   </header>
-  <main id="digest-main" tabindex="-1">{% if static_build %}<p class="public-workspace-note" data-pagefind-ignore>Public library · published intelligence and educational lessons. Saving, research and review tools are available in the live workspace.</p>{% elif request.app is defined and request.app.state.digest_preview|default(false) %}<p class="digest-notice">Isolated review workspace · sample personal state and illustrative images. Changes here do not affect your existing workspace.</p>{% endif %}{% block content %}{% endblock %}</main>
+  <main id="digest-main" tabindex="-1"{% if public_library_shell %} class="public-library v2-canvas sh-canvas" data-pagefind-body{% endif %}>{% if static_build %}<p class="public-workspace-note" data-pagefind-ignore>Public library · published intelligence and educational lessons. Saving, research and review tools are available in the live workspace.</p>{% elif request.app is defined and request.app.state.digest_preview|default(false) %}<p class="digest-notice">Isolated review workspace · sample personal state and illustrative images. Changes here do not affect your existing workspace.</p>{% endif %}{% block content %}{% endblock %}</main>
   {% with personal_reader_shell=true %}{% include "_v2_reader_offcanvas.html" %}{% endwith %}
   <script src="/static/vendor/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="/static/v2.js?v=news-1"></script>

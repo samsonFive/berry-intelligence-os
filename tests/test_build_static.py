@@ -17,6 +17,7 @@ PUBLISHED_RECORD = {
     "title": "Static build published item",
     "captured_date": "2026-08-04",
     "summary": "Should appear in the static build.",
+    "why_it_matters": "Analyst context [limited scope] must remain literal.",
     "submitted_by": "tester",
     "berry_ids": [],
     "entity_ids": [],
@@ -174,6 +175,14 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert 'href="https://example.invalid/original-article"' in evidence_html
     assert "Static Test Publisher" in evidence_html
     assert "<h2>Provenance</h2>" not in evidence_html
+    assert evidence_html.index("Source summary</h2>") < evidence_html.index("Source details</summary>")
+    assert 'Read original source ↗</a>' in evidence_html
+    assert "Publication date not recorded" in evidence_html
+    assert "Analyst context [limited scope] must remain literal." in evidence_html
+    assert '<details class="public-source-details"><summary>Analysis &amp; context</summary>' in evidence_html
+    assert '<details class="public-source-details" open' not in evidence_html
+    assert "PUBLISHED INTELLIGENCE SNAPSHOT" in index_html
+    assert "CONTINUOUSLY UPDATED INTELLIGENCE" not in index_html
 
     css = (output_dir / "static" / "app.css").read_text(encoding="utf-8")
     assert css
@@ -244,6 +253,12 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
         page = html_file.read_text(encoding="utf-8")
         parser = PublicHeaderLinks()
         parser.feed(page)
+        assert parser.links, f"Public page missing shared navigation: {html_file}"
+        # Search is an application result view, not a document to index itself.
+        if html_file != output_dir / "search" / "index.html":
+            assert "data-pagefind-body" in page
+        assert 'id="v2DesktopSidebar"' not in page
+        assert 'class="sh-topbar"' not in page
         for href in parser.links:
             parsed = urlsplit(href)
             assert not parsed.scheme and not parsed.netloc
