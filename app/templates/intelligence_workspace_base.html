@@ -1,8 +1,8 @@
-{% extends 'base.html' if static_build|default(false) else 'glasshouse_base.html' %}
+{% extends 'glasshouse_base.html' %}
 {% set intelligence_workspace = true %}
 {% block head_extra %}<link rel="stylesheet" href="/static/intelligence_workspace.css?v=16">{% endblock %}
 {% block content %}
-<div class="intelligence-workspace">
+<div class="intelligence-workspace"{% if static_build %} data-pagefind-body{% endif %}>
   <nav class="intelligence-tabs" aria-label="Intelligence views">
     {% if authoring_mode %}
     <a href="/statements" {% if request.url.path.startswith('/statements') %}aria-current="page"{% endif %}>Statements</a>

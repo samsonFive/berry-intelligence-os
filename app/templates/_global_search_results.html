@@ -5,7 +5,7 @@
   {% set query = search_query if search_query is defined else "" %}
 {% endif %}
 {% if query and empty %}
-  <p class="empty-state">No objects matched “{{ query }}”. Search is deterministic name/title/alias matching, not a question-answering model.</p>
+  <p class="empty-state">No matches for “{{ query }}”. Try another name or title.</p>
 {% elif query %}
   {% if ambiguous %}
     <p class="banner banner-warning" role="status">More than one canonical object matches this name. Nothing was auto-selected.</p>

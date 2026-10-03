@@ -297,7 +297,8 @@ def build() -> list[Path]:
                     shutil.copy2(attachment_file, dest_dir / attachment_file.name)
 
     # Entity listings + detail pages.
-    entity_types = sorted({e.get("entity_type") for e in all_entities() if e.get("entity_type")})
+    # Core directories remain navigable in a sparse published snapshot.
+    entity_types = sorted({"company", "variety"} | {e.get("entity_type") for e in all_entities() if e.get("entity_type")})
     for entity_type in entity_types:
         type_entities = sorted(
             (e for e in all_entities() if e.get("entity_type") == entity_type),

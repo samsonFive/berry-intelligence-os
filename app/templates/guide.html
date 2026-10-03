@@ -1,8 +1,8 @@
-{% extends 'base.html' if static_build else 'glasshouse_base.html' %}
+{% extends 'glasshouse_base.html' %}
 {% block title %}How Berry Intelligence Works — Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/workflow_guide.css?v=1">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/workflow_guide.css?v=2">{% endblock %}
 {% block content %}
-<div class="workflow-guide">
+<div class="workflow-guide"{% if static_build %} data-pagefind-body{% endif %}>
 <header class="guide-masthead"><div><p class="guide-eyebrow">YOUR INDUSTRY, IN VIEW</p><h1>How Berry Intelligence Works</h1><p>Read the news. Investigate what matters. Share a clear, sourced picture.</p></div>{% if not static_build %}<a class="guide-button" href="/today">Start with News →</a>{% endif %}</header>
 {% if static_build %}<p class="guide-boundary">This published snapshot contains reviewed intelligence. Personal lists, fresh research, review queues and editable reports are available in the live workspace.</p>{% endif %}
 <nav class="guide-jump" aria-label="Guide sections"><a href="#site-sections">Site sections</a><a href="#analyst-workflow">Analyst workflow</a><a href="#reporting">Reports & exports</a><a href="#review-decisions">Review decisions</a></nav>
@@ -10,7 +10,7 @@
 <div class="guide-section-heading"><span class="guide-step-number">01</span><div><h2>Find the right workspace</h2><p>Each section answers a different question. Company marks and lists are shared; each view explains the filters it supports.</p></div></div>
 <div class="guide-workspaces">
 {% for name,job,description,route,color in [
-('News','What just happened?','Read newest-first stories in the grid or slide-out reader. Choose dates, berries and companies, and switch between reviewed news and the unreviewed feed.','/today','green'),
+('News','What just happened?','Read newest-first stories in the grid or slide-out reader. Choose dates, berries and companies, and switch between reviewed news and the unreviewed feed.','/' if static_build else '/today','green'),
 ('Map Explorer','Where is it happening?','Select countries and berries to inspect news, companies, growing regions and sourced market statistics. Return to the same scope in News.','/explorer','teal'),
 ('Companies','Who matters to me?','Browse A–Z, favorite a company, set its tier or add it to custom lists. Open its profile for contacts, people, intelligence and operating regions.','/entities/company','purple'),
 ('Varieties','Which genetics—and where?','Explore identities, recorded company roles, rights and growing locations. Candidate names and photo imports remain separate until human review.','/entities/variety','berry'),
@@ -22,7 +22,8 @@
 ('Operations','What needs collecting or reviewing?','Inspect collection, publication and statement review, identity quality and coverage. Opening the overview does not start collection or approve anything.','/operations','berry'),
 ('Reports & Briefings','What should I share or discuss?','Prepare a meeting, assemble a brief, edit a sourced report or export a market snapshot or competitor news packet.','/briefings','green')
 ] %}
-<article class="guide-workspace guide-accent-{{ color }}"><span class="guide-workspace-marker" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span><div><h3>{% if not static_build or route in ['/entities/company','/entities/variety','/learn','/signals'] %}<a href="{{ route }}">{{ name }}</a>{% else %}{{ name }}{% endif %}</h3><p class="guide-job">{{ job }}</p><p>{{ description }}</p></div></article>
+{% set public_view = route in ['/','/entities/company','/entities/variety','/learn','/landscapes','/signals'] %}
+<article class="guide-workspace guide-accent-{{ color }}"><span class="guide-workspace-marker" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span><div><h3>{% if not static_build or public_view %}<a href="{{ route }}">{{ name }}</a>{% else %}{{ name }}{% endif %}</h3><p class="guide-job">{{ job }}</p><p>{{ description }}</p>{% if static_build %}<small class="guide-availability">{{ 'Public view available · full workflow in live workspace' if public_view else 'Live workspace' }}</small>{% endif %}</div></article>
 {% endfor %}</div>
 <details class="guide-detail"><summary>Where did the older sections go?</summary><p>Saved stories and Reading Queue belong to Personal Digest. Meeting Prep, saved briefs, reports and Executive View belong to Reports & Briefings. Watches, Watchtower alerts and monitoring activity belong to Monitor. Collection and review tools sit under Operations. Existing bookmarks and specialist tools remain available through “All existing tools” in the More menu.</p></details>
 </section>
@@ -40,7 +41,7 @@
 <div class="guide-section-heading"><span class="guide-step-number">03</span><div><h2>Choose the output you need</h2><p>A current view, a saved selection and a downloaded file behave differently.</p></div></div>
 <div class="guide-output-grid">
 <article class="guide-output"><span class="guide-output-type">DISCUSS</span><h3>Meeting Prep</h3><p>Scope companies and markets; review changes, questions and saved takeaways for a conversation.</p><div class="guide-output-foot"><strong>Current workspace</strong><span>Reopen to continue preparing.</span></div>{% if not static_build %}<a href="/war-room">Prepare a meeting →</a>{% endif %}</article>
-<article class="guide-output"><span class="guide-output-type">PRESENT</span><h3>Brief pack</h3><p>Select companies, varieties and intelligence. Save the selection and present it with sources.</p><div class="guide-output-foot"><strong>Saved selection</strong><span>Reopened briefs resolve current records.</span></div><a href="/brief-pack">Build a brief →</a></article>
+<article class="guide-output"><span class="guide-output-type">PRESENT</span><h3>Brief pack</h3><p>Select companies, varieties and intelligence. Save the selection and present it with sources.</p><div class="guide-output-foot"><strong>Saved selection</strong><span>Reopened briefs resolve current records.</span></div>{% if not static_build %}<a href="/brief-pack">Build a brief →</a>{% endif %}</article>
 <article class="guide-output"><span class="guide-output-type">WRITE</span><h3>Sourced report</h3><p>Confirm the question and scope, inspect coverage, then generate and edit a private working draft.</p><div class="guide-output-foot"><strong>Editable draft → PDF</strong><span>The downloaded PDF captures the report at export time.</span></div>{% if not static_build %}<a href="/reports/new">Start a report →</a>{% endif %}</article>
 <article class="guide-output"><span class="guide-output-type">COMPARE</span><h3>Market snapshot</h3><p>Choose countries, berries and sections in Map Explorer; inspect the source-linked inventory.</p><div class="guide-output-foot"><strong>Dated snapshot export</strong><span>Scope and available source coverage matter.</span></div>{% if not static_build %}<a href="/explorer">Choose the market →</a>{% endif %}</article>
 <article class="guide-output"><span class="guide-output-type">TRANSFER</span><h3>Competitor news packet</h3><p>Choose a company list and dates, capture fresh news, then preview reviewed-only or all-news rows.</p><div class="guide-output-foot"><strong>JSON packet</strong><span>Separate company relationships retain stable IDs, original URLs and review status.</span></div>{% if not static_build %}<a href="/news-packets">Prepare a packet →</a>{% endif %}</article>
