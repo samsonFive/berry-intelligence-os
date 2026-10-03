@@ -10,7 +10,16 @@ from app.services.analyst_state_io import atomic_json, serialized_write
 from app.services.map_regions import public_source_url
 
 TIERS = {"untiered": "Untiered", "tier1": "Tier 1", "tier2": "Tier 2", "tier3": "Tier 3", "watch": "Legacy watch", "muted": "Muted"}
+CURRENT_TIERS = {key: TIERS[key] for key in ("untiered", "tier1", "tier2", "tier3")}
 PROFILE_FILE = "company_profile_overrides.json"
+
+
+def assignment_tiers(current):
+    """Offer current tiers while retaining this organization's stored legacy value."""
+    choices = dict(CURRENT_TIERS)
+    if current and current not in choices:
+        choices[current] = f"{TIERS[current]} (existing)" if current in TIERS else "Existing tier — choose a current tier to change"
+    return choices
 
 
 def load_profiles(inbox_dir):
@@ -55,6 +64,7 @@ def catalog(entities, *, logos=None, profiles=None, state=None):
         row["favorite"] = bool((state.get("entity_favorites") or {}).get(key))
         row["tier"] = (state.get("entity_tiers") or {}).get(key) or "untiered"
         row["tier_label"] = TIERS.get(row["tier"], "Unrecognized legacy tier")
+        row["tier_choices"] = assignment_tiers(row["tier"])
         row["lists"] = [group for group in lists if key in group.get("company_ids", [])]
         row["edited"] = any(field in override for field in ("website", "linkedin", "socials"))
         row["website"] = public_source_url(row.get("website"))

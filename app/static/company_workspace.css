@@ -7,3 +7,5 @@
 .company-tier-form{position:relative}
 
 .company-table td:last-child>a{display:inline-block;margin-right:6px}.company-extra-links{font-size:.78rem}.company-extra-links a{display:block}
+
+@media(max-width:800px){.company-tracking button,.company-tracking select{min-height:44px;min-width:44px}.company-tracking .company-star{min-width:44px}.company-membership>summary{display:flex;align-items:center;min-height:44px;min-width:44px}}
