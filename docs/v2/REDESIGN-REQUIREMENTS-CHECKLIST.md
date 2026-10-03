@@ -107,3 +107,6 @@ Routine checkpoint completion does not end the ongoing goal. A genuine input/acc
 
 
 **Mission 21 working evidence:** All generated template families share public Glasshouse navigation; source summaries lead and supporting metadata/interpretation start closed, retaining literal records and original links. Public snapshot copy avoids implying live freshness; balanced collections render as compact responsive grids. 69 focused tests passed; canonical records validated; 1,755-page build passed unpublished-content safety. Desktop/phone/keyboard article, menu, Markets and Executive View were inspected. See MISSION-21-PUBLIC-LIBRARY-SHELL.md. Pushed-head checks and status/source/production/release work remain open.
+
+
+**Mission 21 CI follow-up:** Draft #294 initial db7e75d had three green checks; full tests had 3,634 passed / two old shell-invariant assertions failed / 11 skipped / two warnings, run 37087628404. Regression checks now explicitly allow only the public/live parent-shell choice and keep the narrative/context parity checks. Final follow-up local Landscape/synthesis/static run: 67 passed / one warning. Fresh exact-head checks remain required. No review gate was changed.

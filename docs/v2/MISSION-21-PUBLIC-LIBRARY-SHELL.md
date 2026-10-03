@@ -19,3 +19,10 @@ The production build wrote 1,755 pages and its unpublished-ID/title check passed
 ## Remaining work
 
 This completes the shared navigation pass for generated template families, not every specialist layout or source-quality problem. Public/canonical Signal and Assessment eligibility and inherited “trusted” captions still need a separate status audit; no stored record is made reviewed by this change. Wider content/plain-language refinement, live specialist routes, sources/body/images, metrics, protected enrichment, regions, production persistence and canonical/active-PR reconciliation remain in the requirements ledger. Preserve the canonical expansion guide, human identity/publication/statement/model gates and production runtime. Exact pushed-head CI and combined release/rollback review remain required. No merge or deployment without final approval.
+
+## Initial full-suite follow-up
+
+Draft #294 initial head `db7e75d980ecf3ca166608495337e479edd666d9` passed three checks. Python tests run `37087628404` had 3,634 passed / two failed / 11 skipped / two warnings in 337.13 seconds. Both assertions prohibited even a different parent shell for public navigation. They now explicitly require the intended public/live parent selection while retaining the ban on any static-only narrative branch and the actual shared-context narrative checks. The content pipeline and review rules are unchanged. A final full production build plus a separate header audit verified all 1,755 pages have shared navigation and every header destination resolves within the snapshot. Fresh exact-head checks remain required.
+
+
+Final follow-up local run: **67 passed / one existing reportlab warning in 63.92 seconds** across Landscape narrative, synthesis and full static/private-sentinel checks. The public/live shell distinction is explicit; source interpretation and shared narrative remain unchanged.
