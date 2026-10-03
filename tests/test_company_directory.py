@@ -33,6 +33,59 @@ def test_catalog_defaults_and_directory_scope_are_not_auto_tiers():
         service.directory(rows, {}, {"letter": "AB"})
 
 
+@pytest.mark.parametrize("tier", ["untiered", "tier2", "watch", "muted", "previous-custom-tier"])
+def test_assignment_choices_preserve_current_legacy_without_offering_other_watch_states(tier):
+    state = {"entity_tiers": {"company-a": tier}}
+    rows = service.catalog(ENTITIES, state=state)
+    choices = rows["company-a"]["tier_choices"]
+    assert list(choices)[:4] == ["untiered", "tier1", "tier2", "tier3"]
+    assert tier in choices and rows["company-a"]["tier"] == tier
+    assert set(choices) == set(service.CURRENT_TIERS) | {tier}
+    assert state == {"entity_tiers": {"company-a": tier}}
+    assert service.directory(rows, state, {"tier": "watch"})["tiers"] == service.TIERS
+
+
+def test_tracking_template_selects_legacy_tier_without_implicit_reassignment():
+    from html.parser import HTMLParser
+
+    class TrackingParser(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.options = []
+            self.inputs = []
+
+        def handle_starttag(self, tag, attrs):
+            if tag == "option":
+                self.options.append(dict(attrs))
+            elif tag == "input":
+                self.inputs.append(dict(attrs))
+
+    row = service.catalog(ENTITIES, state={"entity_tiers": {"company-a": "watch"}})["company-a"]
+    template = main.templates.env.get_template("_company_controls.html")
+    module = template.make_module({"authoring_mode": True, "lists": []})
+    rendered = str(module.tracking(row, "/entities/company"))
+    parser = TrackingParser()
+    parser.feed(rendered)
+    assert [option["value"] for option in parser.options] == ["untiered", "tier1", "tier2", "tier3", "watch"]
+    assert [option["value"] for option in parser.options if "selected" in option] == ["watch"]
+    assert any(field.get("name") == "action" and field.get("value") == "favorite" for field in parser.inputs)
+    assert "Lists" in rendered
+
+
+def test_legacy_tier_can_be_retained_or_changed_without_losing_personal_state(tmp_path):
+    group = personal_digest.edit_list(tmp_path, action="create", name="Watch", company_ids=["company-a"], allowed_companies={"company-a"})
+    service.mark(tmp_path, entity_id="company-a", action="favorite", value="1", allowed={"company-a"})
+    service.mark(tmp_path, entity_id="company-a", action="tier", value="watch", allowed={"company-a"})
+    service.mark(tmp_path, entity_id="company-a", action="tier", value="watch", allowed={"company-a"})
+    assert feed_first.load_state(tmp_path)["entity_tiers"]["company-a"] == "watch"
+    service.mark(tmp_path, entity_id="company-a", action="tier", value="tier2", allowed={"company-a"})
+    state = feed_first.load_state(tmp_path)
+    assert state["entity_tiers"]["company-a"] == "tier2"
+    assert state["entity_favorites"]["company-a"]
+    assert state["company_lists"][group]["company_ids"] == ["company-a"]
+    assert state["entity_mark_history"][-1]["before"]["tier"] == "watch"
+
+
 def test_marks_lists_subscriptions_and_reading_are_independent(tmp_path):
     allowed = {"company-a", "company-b"}
     group = personal_digest.edit_list(tmp_path, action="create", name="Watch", company_ids=["company-b"], allowed_companies=allowed)
