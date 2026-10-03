@@ -372,7 +372,7 @@ class BerriesLandscapeService:
                         "signal_count": len(row["signals"]),
                         "variety_count": len(row["varieties"]),
                         "why_shown": (
-                            f"Recent trusted activity in {label}: {len(row['signals'])} linked "
+                            f"Recorded activity in {label}: {len(row['signals'])} linked "
                             f"signal{'s' if len(row['signals']) != 1 else ''}, {row['evidence_count']} "
                             "evidence records."
                         ),

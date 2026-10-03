@@ -72,6 +72,38 @@ def test_what_changed_preserves_distinct_kinds():
     assert kinds == {"evidence", "signal", "assessment"}
 
 
+def test_recent_updates_keep_review_state_and_actual_date_basis():
+    from copy import deepcopy
+    from datetime import date
+    today = date.today().isoformat()
+    evidence = [_evidence(id="published", published_date=today), _evidence(id="captured", published_date=None, captured_date=today)]
+    signals = [_signal(id="proposed", status="proposed", first_seen=today),
+               _signal(id="confirmed", status="confirmed", last_updated=today),
+               _signal(id="legacy", status="watch", first_seen=today)]
+    assessments = [_assessment(id="draft", ai_proposed=True, created_at=today),
+                   _assessment(id="reviewed", ai_proposed=False, created_at=today),
+                   _assessment(id="legacy-human", reviewer="SamsonFive", created_at=today)]
+    before = deepcopy((evidence, signals, assessments))
+    rows = {r["id"]: r for r in what_changed(published_evidence=evidence, signals=signals, assessments=assessments)["rows"]}
+    assert rows["published"]["date_label"] == "Published"
+    assert rows["captured"]["date_label"] == "Captured"
+    assert (rows["proposed"]["review_label"], rows["proposed"]["date_label"]) == ("Proposed", "First seen")
+    assert (rows["confirmed"]["review_label"], rows["confirmed"]["date_label"]) == ("Confirmed", "Updated")
+    assert rows["legacy"]["review_label"] == "Watch"
+    assert rows["draft"]["review_label"] == "AI draft"
+    assert rows["reviewed"]["review_label"] == "Reviewed"
+    assert rows["legacy-human"]["review_label"] == "Reviewed"
+    assert (evidence, signals, assessments) == before
+
+
+def test_legacy_human_assessment_retains_schema_review_state_without_ai_marker():
+    records = [_assessment(id="ai", ai_proposed=True), _assessment(id="reviewed", ai_proposed=False), _assessment(id="legacy-human", reviewer="SamsonFive")]
+    result = {row["id"]: row for row in top_assessments(records, [])}
+    assert result["legacy-human"]["review_label"] == "Reviewed"
+    assert result["ai"]["review_label"] == "AI draft" and result["reviewed"]["review_label"] == "Reviewed"
+    assert "ai_proposed" not in records[-1]
+
+
 def test_what_changed_sorted_newest_first_and_bounded():
     from datetime import date, timedelta
 
@@ -168,7 +200,7 @@ def test_readout_shows_real_sections():
         "What changed",
         "Who / what matters",
         "What do we actually know",
-        "What do our analyst assessments say",
+        "What the assessments say",
         "Signals",
         "What to be cautious about",
     ):
@@ -189,6 +221,26 @@ def test_readout_trust_classes_stay_distinct():
     # assessment itself is still present and correctly badged elsewhere.
     assert "badge-assessment" in page.text or "AI PROPOSED" in page.text or "REVIEWED" in page.text
     assert "SIGNAL" in page.text
+
+
+def test_readout_mixed_collection_does_not_claim_every_record_is_trusted():
+    from html.parser import HTMLParser
+    class Text(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.values = []
+        def handle_data(self, value):
+            self.values.append(value)
+    response = TestClient(app).get('/readout')
+    assert response.status_code == 200
+    parser = Text()
+    parser.feed(response.text)
+    visible = " ".join(parser.values)
+    assert "Proposed patterns and AI drafts still need review" in visible
+    assert "Trusted Evidence, Signals, and Assessments" not in visible
+    assert "most important trusted developments" not in visible
+    assert "Proposed" in visible and "AI draft" in visible
+    assert "does not approve an AI draft" in visible
 
 
 def test_readout_reuses_landscape_actors_to_watch_no_duplicate_logic():

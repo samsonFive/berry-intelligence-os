@@ -916,8 +916,9 @@ def build() -> list[Path]:
         )
     )
 
-    # Executive Intelligence Readout V1 -- trusted-only cross-corpus
-    # synthesis, same static-safety story as Landscape above.
+    # Executive Readout uses the canonical public corpus, never inbox drafts.
+    # Stored proposed patterns / AI interpretations keep their review labels;
+    # inclusion in this snapshot is not an approval or confirmation.
     _readout_evidence = published_evidence()
     _readout_signals = all_signals()
     _readout_assessments = all_assessments()

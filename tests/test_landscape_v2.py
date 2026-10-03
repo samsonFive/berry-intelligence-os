@@ -39,7 +39,8 @@ def test_all_berries_actors_have_honest_why_shown_copy():
     context = _all_context()
     for row in context["actors_to_watch"]:
         assert "why_shown" in row
-        assert "Recent trusted activity" in row["why_shown"]
+        assert "Recorded activity" in row["why_shown"]
+        assert "trusted activity" not in row["why_shown"]
         assert "top competitor" not in row["why_shown"].lower()
 
 

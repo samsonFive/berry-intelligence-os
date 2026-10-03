@@ -1,12 +1,13 @@
 {% extends "briefings_static_base.html" if static_build|default(false) else "briefings_base.html" %}
 {% block title %}Executive Readout — Berry Intelligence OS{% endblock %}
+{% block head_extra %}{{ super() }}<link rel="stylesheet" href="/static/readout_workspace.css?v=1">{% endblock %}
 {% block briefing_content %}
 <div class="v2-page v2-readout-page">
 <section class="page-heading">
   <div>
     <p class="eyebrow">EXECUTIVE READOUT</p>
     <h1>Executive Intelligence Readout</h1>
-    <p class="also-known-as">The most important trusted developments and analyst interpretations to communicate upward -- distinct from Morning Brief (what to inspect today) and Landscape (what the captured competitive environment looks like).</p>
+    <p class="also-known-as">Developments and interpretations to prepare for a briefing. Proposed patterns and AI drafts still need review.</p><details class="readout-context"><summary>How this view fits</summary><p>This is distinct from Morning Brief (what to inspect today) and Landscape (the captured competitive environment).</p></details>
     {% if not static_build %}
       <p class="v2-card-line">
         {% if presentation_mode %}<a href="/readout">Exit presentation mode</a>{% else %}<a href="/readout?present=1">Presentation mode</a>{% endif %}
@@ -27,29 +28,30 @@
 
 <section class="v2-company-section" id="what-changed">
   <h2>What changed</h2>
-  <p class="context-limit">Trusted Evidence, Signals, and Assessments dated in the last {{ what_changed.window_days }} days -- captured/ingestion dates, not necessarily real-world event dates.</p>
+  <p class="context-limit">Source publications and analysis updates from the last {{ what_changed.window_days }} days. Each date shows what it refers to; it may differ from the event date.</p>
   {% if what_changed.has_any %}
     <ul class="entity-links">
       {% for item in what_changed.rows %}
         <li>
           {% if item.kind == 'evidence' %}<span class="badge badge-muted">EVIDENCE</span>{% elif item.kind == 'signal' %}<span class="badge badge-signal">SIGNAL</span>{% else %}<span class="badge badge-assessment">ASSESSMENT</span>{% endif %}
+          <span class="badge badge-muted">{{ item.review_label }}</span>
           {% if item.kind == 'evidence' and not static_build %}
             <a href="{{ item.reader_href }}" data-open-reader data-item-id="{{ item.id }}">{{ item.title }}</a>
           {% else %}
             <a href="{{ item.href }}">{{ item.title }}</a>
           {% endif %}
-          <span class="draft-meta"> · {{ item.date|us_date }}</span>
+          <span class="draft-meta"> · {{ item.date_label }} {{ item.date|us_date }}</span>
         </li>
       {% endfor %}
     </ul>
   {% else %}
-    <p class="empty-state">No trusted developments captured in the last {{ what_changed.window_days }} days.</p>
+    <p class="empty-state">No dated source or analysis updates in the last {{ what_changed.window_days }} days.</p>
   {% endif %}
 </section>
 
 <section class="v2-company-section" id="who-matters">
   <h2>Who / what matters</h2>
-  <p class="context-limit">Shown because of recent trusted activity -- not a competitive-strength ranking. Reuses the same Actors to Watch already shown on Landscape.</p>
+  <p class="context-limit">Companies with recorded activity — not a competitive-strength ranking. The same companies appear under Actors to Watch in Landscape.</p>
   <div class="balanced-card-grid">
     {% for row in who_matters.actors_to_watch %}
       <article class="card entity-card">
@@ -58,7 +60,7 @@
         <p>{{ row.why_shown }}</p>
       </article>
     {% else %}
-      <p class="empty-state">No trusted competitor-role activity captured yet.</p>
+      <p class="empty-state">No competitor-role activity recorded yet.</p>
     {% endfor %}
   </div>
 </section>
@@ -85,12 +87,14 @@
 </section>
 
 <section class="v2-company-section" id="assessments">
-  <h2>What do our analyst assessments say</h2>
+  <h2>What the assessments say</h2>
+  <p class="context-limit">Interpretations retain their review state. A stated confidence level does not approve an AI draft.</p>
   {% if assessments %}
-    <div class="table-wrap"><table class="brief-table assessment-brief-table"><thead><tr><th>View</th><th>Rationale</th><th>Support</th><th>Would change our view</th></tr></thead><tbody>
+    <p class="readout-table-hint">Scroll across the table for rationale, support and what would change the assessment.</p>
+    <div class="table-wrap" tabindex="0" aria-label="Assessments; scroll across for rationale and support"><table class="brief-table assessment-brief-table"><thead><tr><th>View</th><th>Rationale</th><th>Support</th><th>Would change our view</th></tr></thead><tbody>
       {% for assessment in assessments %}
         <tr>
-          <td><a href="/assessments/{{ assessment.id }}"><strong>{{ assessment.title }}</strong></a><br><span class="badge badge-assessment">ASSESSMENT</span> <span class="badge {{ 'badge-ai-proposed' if assessment.ai_proposed else 'badge-assessment' }}">{{ 'AI PROPOSED' if assessment.ai_proposed else 'REVIEWED' }}</span> <span class="badge badge-muted">{{ assessment.confidence|upper if assessment.confidence else 'UNSTATED' }}</span></td>
+          <td><a href="/assessments/{{ assessment.id }}"><strong>{{ assessment.title }}</strong></a><br><span class="badge badge-assessment">ASSESSMENT</span> <span class="badge {{ 'badge-ai-proposed' if assessment.ai_proposed else 'badge-muted' }}">{{ assessment.review_label }}</span> <span class="badge badge-muted">{{ assessment.confidence|upper if assessment.confidence else 'UNSTATED' }}</span></td>
           <td>{{ assessment.rationale|truncate(260) if assessment.rationale else "Not yet documented for this assessment." }}</td>
           <td>{{ assessment.supporting_fact_count }} facts<br>{{ assessment.supporting_evidence_count }} evidence</td>
           <td>{{ assessment.would_change_our_view if assessment.would_change_our_view else "Not yet documented for this assessment." }}{% if assessment.strategic_question_ids %}<br><a href="/strategic-questions/{{ assessment.strategic_question_ids[0] }}">View strategic question</a>{% endif %}</td>
@@ -107,7 +111,7 @@
   {% if signals %}
     <ul class="entity-links">
       {% for signal in signals %}
-        <li><span class="badge badge-signal">SIGNAL</span> <a href="/signals/{{ signal.id }}">{{ signal.title }}</a> <span class="draft-meta">· {{ signal.strength|upper if signal.strength else 'UNSTATED' }} · {{ signal.supporting_evidence_count }} evidence</span>{% if signal.strategic_question_ids %} <a href="/strategic-questions/{{ signal.strategic_question_ids[0] }}">View strategic question</a>{% endif %}</li>
+        <li><div class="readout-item-state"><span class="badge badge-signal">SIGNAL</span> <span class="badge badge-muted">{{ (signal.status or 'Status not recorded')|replace('_',' ')|capitalize }}</span></div><a class="readout-item-title" href="/signals/{{ signal.id }}">{{ signal.title }}</a><div class="readout-item-meta"><span>{{ signal.strength|capitalize if signal.strength else 'Strength not recorded' }} · {{ signal.supporting_evidence_count }} supporting sources</span>{% if signal.strategic_question_ids %}<a href="/strategic-questions/{{ signal.strategic_question_ids[0] }}">View strategic question</a>{% endif %}</div></li>
       {% endfor %}
     </ul>
   {% else %}
