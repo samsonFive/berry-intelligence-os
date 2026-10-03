@@ -1926,3 +1926,6 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 
 **Mission 21 public-library parity:** Generated legacy template families now share the public-only Glasshouse shell without changing live inheritance or record eligibility. Source summaries lead; literal context and metadata remain in closed disclosures. Public snapshot freshness wording and missing grid display are corrected. Canonical/public status eligibility and inherited trusted captions, deeper specialist content, source/body/media quality, market/region/enrichment/account persistence and canonical release integration remain open. No canonical guide, schema or human gate changed. See MISSION-21-PUBLIC-LIBRARY-SHELL.md.
+
+
+**Mission 22 release-parity correction:** Pending metadata reuse now includes a bounded streaming content digest and version 6 invalidation, retaining source bodies outside the projection and preserving all decisions/source files. Same-size edits with preserved timestamps no longer reuse a stale row. Synthetic cache timings are local evidence only. Multi-process writes and broader open-PR/source/production/release acceptance remain unresolved. Canonical guide and trust gates unchanged. See MISSION-22-RELEASE-PARITY-AUDIT.md.
