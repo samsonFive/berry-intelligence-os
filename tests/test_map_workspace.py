@@ -157,3 +157,94 @@ def test_statement_support_and_observed_by_do_not_promote_region(tmp_path):
 def test_live_published_metadata_cannot_enter_trusted_snapshot():
     snapshot = snapshot_model(IntelligenceQuery(), [{**RECORDS[0], "live": True}], ENTITIES, REL, BERRIES, ["developments"], facts=FACTS)
     assert snapshot["packet"]["source_trace"] == []
+
+
+def test_source_preparation_retains_literal_text_and_never_infers_a_region(tmp_path):
+    from copy import deepcopy
+    records = [{**RECORDS[0], "summary": "A [limited trial] in Lima; sales elsewhere do not imply planting.",
+                "article": {"text": "Rich body must not travel through the source picker"}, "transcript": "Private transcript"}]
+    before = deepcopy((ENTITIES, REL, records))
+    prepared = map_regions.prepare_from_source("variety-one", source_id="ev-berry-news", entities=ENTITIES,
+                                               records=records, relationships=REL)
+    assert prepared["source"]["summary"] == records[0]["summary"]
+    assert "article" not in prepared["source"] and "transcript" not in prepared["source"]
+    assert prepared["draft"]["source_date"] == "2026-08-01"
+    assert prepared["draft"]["source_url"] == records[0]["source_url"]
+    assert [row["id"] for row in prepared["places"]] == ["geography-lima"]
+    assert all(prepared["draft"][field] == "" for field in ("activity", "geography_id", "observed_on", "locality"))
+    assert prepared["draft"]["status"] == "proposed"
+    assert (ENTITIES, REL, records) == before
+    assert not list(tmp_path.iterdir())
+    assert not [row for row in map_regions.catalog(ENTITIES, REL, records) if row["kind"] == "variety"]
+
+
+def test_statement_preparation_uses_its_actual_source_without_promoting_location(tmp_path):
+    fact = {**FACTS[0], "entity_ids": ["variety-one", "geography-peru"], "statement": "Trial reported in Peru [specific site]."}
+    records = [{**RECORDS[0], "entity_ids": [], "geography_ids": []}]
+    prepared = map_regions.prepare_from_source("variety-one", fact_id="fact-news", entities=ENTITIES,
+                                               records=records, relationships=[], facts=[fact])
+    assert prepared["statement"]["statement"] == fact["statement"]
+    assert prepared["draft"]["source_id"] == "ev-berry-news"
+    assert [row["id"] for row in prepared["places"]] == ["geography-peru"]
+    with pytest.raises(ValueError, match="reviewed statement"):
+        map_regions.prepare_from_source("company-other", fact_id="fact-news", entities=ENTITIES, records=records, relationships=[], facts=[fact])
+    with pytest.raises(ValueError, match="reviewed statement"):
+        map_regions.prepare_from_source("variety-one", fact_id="fact-news", entities=ENTITIES, records=records, relationships=[], facts=[{**fact, "status": "draft"}])
+    saved = map_regions.edit(tmp_path, payload={**prepared["draft"], **payload(), "source_id": "ev-berry-news", "fact_id": "fact-news"},
+                             entities=ENTITIES, records=records, relationships=[], facts=[fact])
+    assert saved["status"] == "proposed" and not saved["observed_on"]
+    assert "not reviewed" in map_regions.catalog(ENTITIES, [], records, map_regions.load(tmp_path))[0]["basis"]
+    assert fact["status"] == "active" and records[0]["status"] == "published"
+
+
+@pytest.mark.parametrize("published,url", [("", "https://example.org/source"), ("2026-08-01T12:00:00Z", "http://127.0.0.1/private"), ("tomorrow", "https://user:secret@example.org")])
+def test_source_preparation_does_not_guess_dates_or_revive_unsafe_urls(published, url):
+    prepared = map_regions.prepare_from_source("variety-one", source_id="ev-berry-news", entities=ENTITIES,
+        records=[{**RECORDS[0], "published_date": published, "source_url": url}], relationships=REL)
+    assert prepared["draft"]["source_date"] == ""
+    assert prepared["draft"]["source_url"] == (url if url == "https://example.org/source" else "")
+
+
+def test_preparation_routes_are_pure_scoped_and_preserve_manual_edits(client, tmp_path, monkeypatch):
+    from html.parser import HTMLParser
+    class Fields(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.inputs = {}
+        def handle_starttag(self, tag, attrs):
+            item = dict(attrs)
+            if tag == "input" and item.get("name"):
+                self.inputs[item["name"]] = item.get("value", "")
+    response = client.get('/profiles/variety-one/regions?from_source=ev-berry-news')
+    assert response.status_code == 200
+    assert "Article summary" in response.text and "Nothing has been saved" in response.text
+    assert 'data-open-reader' in response.text and 'Choose the activity supported by this source' in response.text
+    fields = Fields()
+    fields.feed(response.text)
+    assert fields.inputs["source_date"] == "2026-08-01" and fields.inputs["observed_on"] == ""
+    assert not (tmp_path / map_regions.FILENAME).exists()
+    assert client.get('/profiles/company-other/regions?from_source=ev-berry-news').status_code == 400
+    assert client.get('/profiles/variety-one/regions?from_source=missing').status_code == 400
+    saved = map_regions.edit(tmp_path, payload=payload(), entities=ENTITIES, relationships=REL, records=RECORDS)
+    before = (tmp_path / map_regions.FILENAME).read_bytes()
+    assert client.get(f'/profiles/variety-one/regions?edit={saved["id"]}&from_source=ev-berry-news').status_code == 409
+    assert (tmp_path / map_regions.FILENAME).read_bytes() == before
+    monkeypatch.setattr(main, "AUTHORING_MODE", False)
+    assert client.get('/profiles/variety-one/regions?from_source=ev-berry-news').status_code == 403
+    ordinary = client.get('/profiles/variety-one/regions').text
+    assert 'Start from an article' not in ordinary and 'Manual trial note' not in ordinary
+
+
+def test_reviewed_statement_route_keeps_literal_qualifications_and_source_pair(client, monkeypatch, tmp_path):
+    fact = {**FACTS[0], "entity_ids": ["variety-one", "geography-peru"], "statement": "Trial yield [one site only], not a general variety trait."}
+    monkeypatch.setattr(main, "all_facts", lambda: [fact])
+    response = client.get('/profiles/variety-one/regions?from_statement=fact-news')
+    assert response.status_code == 200
+    assert fact["statement"] in response.text and 'Places mentioned:' in response.text
+    assert 'name="observed_on" value=""' in response.text
+    assert 'name="source_date" value="2026-08-01"' in response.text
+    assert 'href="/intelligence/ev-berry-news?personal=1"' in response.text
+    assert not (tmp_path / map_regions.FILENAME).exists()
+    other = {**RECORDS[0], "id": "ev-unrelated-to-statement"}
+    monkeypatch.setattr(main, "published_evidence", lambda: [*RECORDS, other])
+    assert client.get('/profiles/variety-one/regions?from_statement=fact-news&from_source=ev-unrelated-to-statement').status_code == 400

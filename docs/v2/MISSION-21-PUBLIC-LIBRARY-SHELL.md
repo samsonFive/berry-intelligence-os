@@ -26,3 +26,5 @@ Draft #294 initial head `db7e75d980ecf3ca166608495337e479edd666d9` passed three 
 
 
 Final follow-up local run: **67 passed / one existing reportlab warning in 63.92 seconds** across Landscape narrative, synthesis and full static/private-sentinel checks. The public/live shell distinction is explicit; source interpretation and shared narrative remain unchanged.
+
+Final exact-head CI: draft #294 head `27ed8cc7b7137cfaab4df4147cf7df07370a07a4` passed Change scope, Repository integrity, Static public safety and Python tests, run `37088365423`: **3,636 passed / 11 skipped / two warnings in 320.51 seconds**. Earlier failures remain recorded above; canonical integration remains open.
