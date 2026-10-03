@@ -6,7 +6,7 @@ both Morning Brief and Landscape:
 - Landscape (`/landscapes`) = "what does the captured competitive
   environment look like?" -- coverage/actors/moves per berry.
 - Executive Readout (`/readout`, this module) = "what are the most
-  important trusted developments and analyst interpretations I would
+  important source developments and explicitly labeled interpretations I would
   communicate upward?" -- a corpus-wide, not per-analyst, not per-berry,
   read-only synthesis.
 
@@ -39,6 +39,12 @@ def _strength_rank(value: str | None) -> int:
     return {"strong": 0, "moderate": 1, "weak": 2}.get(value, 3)
 
 
+def assessment_review_label(record: dict[str, Any]) -> str:
+    # The canonical schema explicitly defines absent/false as human-authored
+    # or already approved. Do not reclassify older human decisions as unknown.
+    return "AI draft" if record.get("ai_proposed") else "Reviewed"
+
+
 def what_changed(
     *,
     published_evidence: list[dict[str, Any]],
@@ -66,6 +72,8 @@ def what_changed(
                     "date": record_date,
                     "href": f"/evidence/{record['id']}",
                     "reader_href": f"/intelligence/{record['id']}",
+                    "review_label": "Reviewed source",
+                    "date_label": "Published" if record.get("published_date") else "Captured",
                 }
             )
     for record in signals:
@@ -79,6 +87,8 @@ def what_changed(
                     "title": record.get("title") or record["id"],
                     "date": record_date,
                     "href": f"/signals/{record['id']}",
+                    "review_label": str(record.get("status") or "Status not recorded").replace("_", " ").capitalize(),
+                    "date_label": "First seen" if record.get("first_seen") else "Updated",
                 }
             )
     for record in assessments:
@@ -92,6 +102,8 @@ def what_changed(
                     "title": record.get("title") or record["id"],
                     "date": record_date,
                     "href": f"/assessments/{record['id']}",
+                    "review_label": assessment_review_label(record),
+                    "date_label": "Created",
                 }
             )
     rows.sort(key=lambda r: r["date"], reverse=True)
@@ -135,6 +147,7 @@ def top_assessments(
         result.append(
             {
                 **assessment,
+                "review_label": assessment_review_label(assessment),
                 "supporting_evidence_count": len(assessment.get("evidence_ids") or []),
                 "supporting_fact_count": len(assessment.get("fact_ids") or []),
                 "linked_recommendations": recommendation_by_assessment[assessment["id"]],
