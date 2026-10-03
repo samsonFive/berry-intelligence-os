@@ -24,6 +24,8 @@ Canonical validation passed. Static build wrote **1,755 pages** with no unpublis
 
 ## Still open
 
+Draft #291 exact head `2d3218736d37cecd99da4b583d40294dd5471834` passed all four required checks, run `37081601872`: 3,610 passed / 11 skipped / two warnings in 341.97 seconds. This verifies the slice, not the combined canonical release.
+
 Final phone measurement after the width corrections: page 375px at a 390px viewport; star, Save and Lists targets 44×44px, tier select 83×44px. The final mobile screenshot reflects those measurements.
 
 Browser file upload remains unverified because of the picker failure. This does not establish production persistence, per-account isolation, logo-history recovery UI or protected source-assisted profile/contact enrichment. Wider learning visuals, market statistics, geographic suggestions, source/body/media acquisition, fresh packet/receiving compatibility, specialist/static consistency and canonical integration remain in the durable requirements ledger. Prepare the tested release/rollback review; no merge/deployment without final approval.

@@ -201,6 +201,17 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert "not a trust queue" in stale_html
     assert "Approve" not in stale_html
 
+    visual_html = (output_dir / "learn" / "visual-learning-aids" / "index.html").read_text(encoding="utf-8")
+    assert "data-teaching-explorer" in visual_html
+    assert "data-pagefind-body" in visual_html  # Pagefind indexes only marked bodies across this site.
+    assert "learn_workspace.js?v=2" in visual_html
+    assert "Special:FilePath/Blueberries.jpg" not in visual_html
+    assert "File:Blueberries.jpg" in visual_html  # Unverified reuse is a source link only.
+    assert "Research &amp; expand" not in visual_html
+    assert "data-bs-target=\"#v2ReaderOffcanvas\"" not in visual_html
+    cane_html = (output_dir / "learn" / "primocane-floricane" / "index.html").read_text(encoding="utf-8")
+    assert "Steffen Flor" in cane_html and "CC BY 2.5" in cane_html
+
     search_html = (output_dir / "search" / "index.html").read_text(encoding="utf-8")
     assert 'id="pagefind-js-path"' in search_html
     assert 'href="../pagefind/pagefind.js"' in search_html

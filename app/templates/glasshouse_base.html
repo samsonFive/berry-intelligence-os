@@ -23,7 +23,7 @@
       <details class="existing-navigation"><summary>All existing tools</summary><p>Specialist tools remain available as their workspaces are combined.</p>{% with nav_work_counts={"review_now": 0} %}{% include "_v2_sidebar.html" %}{% endwith %}</details>
     </div></details>
   </header>
-  <main id="digest-main" tabindex="-1">{% if request.app.state.digest_preview|default(false) %}<p class="digest-notice">Isolated review workspace · sample personal state and illustrative images. Changes here do not affect your existing workspace.</p>{% endif %}{% block content %}{% endblock %}</main>
+  <main id="digest-main" tabindex="-1">{% if not static_build and request.app is defined and request.app.state.digest_preview|default(false) %}<p class="digest-notice">Isolated review workspace · sample personal state and illustrative images. Changes here do not affect your existing workspace.</p>{% endif %}{% block content %}{% endblock %}</main>
   {% with personal_reader_shell=true %}{% include "_v2_reader_offcanvas.html" %}{% endwith %}
   <script src="/static/vendor/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="/static/v2.js?v=news-1"></script>

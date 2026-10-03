@@ -114,7 +114,8 @@ def _load_all() -> tuple[dict[str, Any], ...]:
         row["review_by"] = review_by
         row["needs_review_cadence"] = knowledge_class in FRESHNESS_CLASSES
         row["is_stale"] = bool(review_by) and review_by < date.today().isoformat()
-        rows.append(row)
+        from app.services.learner_visuals import presentation
+        rows.append(presentation(row))
     rows.sort(key=lambda row: str(row.get("name") or ""))
     return tuple(rows)
 

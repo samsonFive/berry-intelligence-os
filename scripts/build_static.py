@@ -977,14 +977,14 @@ def build() -> list[Path]:
     }
     written.append(
         write_page(
-            "learn_home.html",
+            "learn_workspace_home.html",
             "/learn",
             {**_learn_home_ctx, "stale_view": False},
         )
     )
     written.append(
         write_page(
-            "learn_home.html",
+            "learn_workspace_home.html",
             "/learn/stale",
             {**_learn_home_ctx, "stale_view": True},
         )
@@ -998,10 +998,11 @@ def build() -> list[Path]:
         )
         written.append(
             write_page(
-                "learn_concept.html",
+                "learn_workspace_concept.html",
                 f"/learn/{concept['slug']}",
                 {
                     "concept": concept,
+                    "return_to": "/learn",
                     "related": learn_related_concepts(concept),
                     "related_intelligence": related_intel,
                     "berry_notes": learn_berry_notes_for_display(concept, "global"),
