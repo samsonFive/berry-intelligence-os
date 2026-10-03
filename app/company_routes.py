@@ -88,7 +88,7 @@ async def company_profile_edit(request: Request, entity_id: str):
                                reviewer=main.session_username(request) or main.review_username() or "")
     except ValueError as exc:
         raise HTTPException(409 if "changed in another" in str(exc) else 400, str(exc)) from exc
-    tab = "people" if form.get("action") in {"person", "hide_person", "restore_person"} else "details"
+    tab = "people" if form.get("action") in {"person", "hide_person", "restore_person", "restore_contact_version"} else "details"
     return RedirectResponse(rows[entity_id]["profile_url"].split("?")[0] + "?tab=" + tab + "&saved=1", status_code=303)
 
 
@@ -125,7 +125,7 @@ def profile_context(request, entity_id, existing):
             watch_error = str(exc)
     return {"company": company, "profile_override": override, "company_people": people, "company_rows": rows,
             "is_subject_watched": watched, "subject_watch_error": watch_error,
-            "profile_history": [h for h in private["history"] if h["entity_id"] == entity_id][-30:][::-1],
+            "profile_history": directory.profile_history_rows(private["history"], entity_id),
             "profile_regions": [r for r in map_regions.catalog(entities, relations, list(records.values()), map_regions.load(main.INBOX_DIR) if main.AUTHORING_MODE else None) if r["entity_id"] == entity_id],
             "company_news_model": news, "tiers": directory.TIERS, "lists": personal_digest.company_lists(state), "tab": tab,
             "return_to": company["profile_url"].split("?")[0] + "?tab=" + tab}

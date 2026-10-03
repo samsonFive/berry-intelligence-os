@@ -138,6 +138,91 @@ def test_profile_override_precedence_reset_stale_history_and_url_validation(tmp_
     assert not Path(tmp_path / 'analyst_queue_state.json').exists()
 
 
+def test_restoring_link_version_preserves_other_contacts_and_full_history(tmp_path):
+    from copy import deepcopy
+    first = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 0, "website": "https://example.org/original", "linkedin": "", "socials": "X | @first |"})
+    contact = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 1, "action": "person", "name": "Jane", "role": "Research"})
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 2, "website": "https://example.org/corrected", "linkedin": "https://linkedin.com/company/example", "socials": ""})
+    old_history = deepcopy(service.load_profiles(tmp_path)["history"])
+    restored = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 3, "action": "restore_links", "restore_revision": first["revision"]})
+    assert restored["website"] == first["website"] and restored["linkedin"] == "" and restored["socials"] == first["socials"]
+    assert restored["people"] == contact["people"] and restored["revision"] == 4
+    store = service.load_profiles(tmp_path)
+    assert store["history"][:-1] == old_history
+    assert store["history"][-1]["before"]["website"] == "https://example.org/corrected"
+    with pytest.raises(ValueError, match="changed in another"):
+        service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 3, "action": "restore_links", "restore_revision": 1})
+
+
+def test_contact_restore_is_scoped_to_one_person_and_company(tmp_path):
+    jane = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 0, "action": "person", "name": "Jane", "role": "Original role", "highlighted": "1"})
+    key = next(iter(jane["people"]))
+    other = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 1, "action": "person", "name": "John", "role": "Other contact"})
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 2, "action": "person", "person_id": key, "name": "Jane edited", "role": "New role"})
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 3, "website": "https://example.org/keep", "socials": ""})
+    restored = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 4, "action": "restore_contact_version", "person_id": key, "restore_revision": 1})
+    assert restored["people"][key] == jane["people"][key] and restored["people"][key]["highlighted"]
+    assert restored["website"] == "https://example.org/keep"
+    assert {k: v for k, v in restored["people"].items() if k != key} == {k: v for k, v in other["people"].items() if k != key}
+    before = (tmp_path / service.PROFILE_FILE).read_bytes()
+    with pytest.raises(ValueError, match="unavailable"):
+        service.edit_profile(tmp_path, entity_id="company-b", payload={"revision": 0, "action": "restore_contact_version", "person_id": key, "restore_revision": 1})
+    with pytest.raises(ValueError, match="not present"):
+        service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 5, "action": "restore_contact_version", "person_id": "missing", "restore_revision": 1})
+    assert (tmp_path / service.PROFILE_FILE).read_bytes() == before
+
+
+def test_restore_reset_version_retains_collected_fallback_and_manual_blank(tmp_path):
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 0, "website": "", "linkedin": "", "socials": ""})
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 1, "action": "reset"})
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 2, "website": "https://example.org/edited"})
+    restored = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 3, "action": "restore_links", "restore_revision": 2})
+    assert all(key not in restored for key in ("website", "linkedin", "socials"))
+    blank = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 4, "action": "restore_links", "restore_revision": 1})
+    assert blank["website"] == "" and blank["socials"] == []
+
+
+def test_history_restore_routes_retain_gates_and_private_visibility(tmp_path, monkeypatch):
+    monkeypatch.undo()  # Use the real canonical/seed company route, as in the tab acceptance test.
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
+    monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    client = TestClient(main.app)
+    endpoint = '/companies/company-planasa/profile'
+    service.edit_profile(tmp_path, entity_id="company-planasa", payload={"revision": 0, "website": "https://example.org/private-old"})
+    service.edit_profile(tmp_path, entity_id="company-planasa", payload={"revision": 1, "website": "https://example.org/private-new"})
+    request = {"revision": 2, "action": "restore_links", "restore_revision": 1}
+    before = (tmp_path / service.PROFILE_FILE).read_bytes()
+    assert client.post(endpoint, data=request, headers={"sec-fetch-site": "cross-site"}).status_code == 403
+    assert (tmp_path / service.PROFILE_FILE).read_bytes() == before
+    response = client.post(endpoint, data=request, follow_redirects=False)
+    assert response.status_code == 303 and response.headers['location'].endswith('?tab=details&saved=1')
+    page = client.get('/entities/company/company-planasa?tab=details').text
+    assert 'Restore these links' in page and 'Version 1' in page
+    assert 'private-old' in page and 'private-new' in page
+    assert client.post(endpoint, data=request, follow_redirects=False).status_code == 409
+    monkeypatch.setattr(main, "AUTHORING_MODE", False)
+    assert client.post(endpoint, data={**request, "revision": 3}).status_code == 403
+    readonly = client.get('/entities/company/company-planasa?tab=details').text
+    assert 'private-old' not in readonly and 'Restore these links' not in readonly
+
+
+def test_unsafe_history_cannot_restore_or_overwrite_current_work(tmp_path):
+    import json
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 0, "website": "https://example.org/current"})
+    path = tmp_path / service.PROFILE_FILE
+    state = service.load_profiles(tmp_path)
+    state["history"][0]["after"]["website"] = "http://127.0.0.1/private"
+    state["history"][0]["at"] = "old unknown timestamp"
+    path.write_text(json.dumps(state), encoding="utf-8")
+    before = path.read_bytes()
+    with pytest.raises(ValueError, match="no longer supported"):
+        service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 1, "action": "restore_links", "restore_revision": 1})
+    assert path.read_bytes() == before
+    rows = service.profile_history_rows(state["history"], "company-a")
+    assert rows[0]["at_label"] == "Date not recorded"
+    assert not service.profile_history_rows(state["history"], "company-b")
+
+
 def test_people_highlight_hide_restore_and_affiliation_boundaries(tmp_path):
     saved = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": "0", "action": "person", "name": "Jane Berry", "role": "Research contact", "linkedin": "https://www.linkedin.com/in/jane-berry/", "socials": "X | @jane |", "highlighted": "1"})
     key = next(iter(saved["people"]))

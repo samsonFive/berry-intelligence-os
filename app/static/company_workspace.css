@@ -9,3 +9,5 @@
 .company-table td:last-child>a{display:inline-block;margin-right:6px}.company-extra-links{font-size:.78rem}.company-extra-links a{display:block}
 
 @media(max-width:800px){.company-tracking button,.company-tracking select{min-height:44px;min-width:44px}.company-tracking .company-star{min-width:44px}.company-membership>summary{display:flex;align-items:center;min-height:44px;min-width:44px}}
+
+.company-history-entry{border-top:1px solid #c6d5bf;padding:15px 0;overflow-wrap:anywhere}.company-history-entry h3{margin:0 0 5px}.company-history-entry dl{display:grid;grid-template-columns:90px minmax(0,1fr);gap:7px;font-size:.85rem;margin:12px 0}.company-history-entry dt{font-weight:700}.company-history-entry dd{margin:0}.company-history-entry dd span{display:block}.company-history-entry button{min-height:44px;border:1px solid #87a57e;border-radius:7px;padding:7px 12px;background:#edf5e6;color:#254b32}.company-history-contact{padding:10px 0}.company-history-contact h4{font-size:1rem;margin:0 0 5px}.company-history-contact p{font-size:.85rem;margin:4px 0}.company-history>summary{cursor:pointer;min-height:32px}

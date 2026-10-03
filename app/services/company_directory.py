@@ -1,5 +1,6 @@
 """Organization presentation and personal marks; no canonical intelligence writes."""
 import json
+from copy import deepcopy
 import unicodedata
 from datetime import UTC, datetime
 from pathlib import Path
@@ -193,6 +194,32 @@ def edit_profile(inbox_dir, *, entity_id, payload, known_people=(), reviewer="")
                 raise ValueError("Use complete public http or https profile links")
             row[field] = value
         row["socials"] = links(payload.get("socials"))
+    elif action in {"restore_links", "restore_contact_version"}:
+        version = str(payload.get("restore_revision") or "")
+        snapshot = next((change.get("after") for change in state["history"]
+                         if change.get("entity_id") == entity_id and str((change.get("after") or {}).get("revision")) == version), None)
+        if not snapshot:
+            raise ValueError("That saved profile version is unavailable; reload the history")
+        if action == "restore_links":
+            for field in ("website", "linkedin", "socials"):
+                if field in snapshot:
+                    row[field] = deepcopy(snapshot[field])
+                else:
+                    row.pop(field, None)
+        else:
+            key = str(payload.get("person_id") or "")
+            contact = (snapshot.get("people") or {}).get(key)
+            if not contact:
+                raise ValueError("That contact is not present in the selected company version")
+            row["people"][key] = deepcopy(contact)
+        # Never revive an unsafe historical link. Preserve the history itself.
+        restored = row if action == "restore_links" else row["people"][key]
+        for field in ("website", "linkedin"):
+            if restored.get(field) and not public_source_url(restored[field]):
+                raise ValueError("This saved version contains a link that is no longer supported; edit it manually")
+        for link in restored.get("socials") or []:
+            if link.get("url") and not public_source_url(link["url"]):
+                raise ValueError("This saved version contains a social link that is no longer supported; edit it manually")
     elif action in {"person", "hide_person", "restore_person"}:
         key = str(payload.get("person_id") or "")
         if key and key not in row["people"] and key not in known_people:
@@ -219,6 +246,26 @@ def edit_profile(inbox_dir, *, entity_id, payload, known_people=(), reviewer="")
     state["profiles"][entity_id] = row
     atomic_json(Path(inbox_dir) / PROFILE_FILE, state)
     return row
+
+
+def profile_history_rows(history, entity_id):
+    """Readable, scoped recovery choices; contact restoration stays per person."""
+    result = []
+    for change in history:
+        if change.get("entity_id") != entity_id:
+            continue
+        before, after = change.get("before") or {}, change.get("after") or {}
+        contacts = [{"id": key, **value} for key, value in (after.get("people") or {}).items()
+                    if value != (before.get("people") or {}).get(key)]
+        try:
+            stamp = datetime.fromisoformat(change.get("at") or "")
+            at_label = stamp.astimezone(UTC).strftime("%b %d, %Y · %H:%M UTC") if stamp.tzinfo else "Date not recorded"
+        except (ValueError, TypeError):
+            at_label = "Date not recorded"
+        result.append({**change, "at_label": at_label, "contacts": contacts,
+                       "can_restore_links": any(before.get(key) != after.get(key) or (key in before) != (key in after)
+                                                for key in ("website", "linkedin", "socials"))})
+    return result[-30:][::-1]
 
 
 def people_for(entity_id, entities, relationships, discovered, overrides):

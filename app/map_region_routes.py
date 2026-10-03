@@ -23,14 +23,28 @@ def context(entity_id):
 
 @router.get("/profiles/{entity_id}/regions", response_class=HTMLResponse)
 def profile_regions(request: Request, entity_id: str):
-    main, actor, entities, records, _, private, rows = context(entity_id)
+    from app import main
+    source_id, fact_id = request.query_params.get("from_source", ""), request.query_params.get("from_statement", "")
+    if (source_id or fact_id) and not main.AUTHORING_MODE:
+        raise HTTPException(403, "Preparing a region requires the analyst workspace")
+    main, actor, entities, records, relationships, private, rows = context(entity_id)
     editing = next((row for row in rows if row["id"] == request.query_params.get("edit")), {})
-    support_ids = {key for row in rows for key in row.get("evidence_ids", [])}
+    statements = [f for f in main.all_facts() if f.get("status") == "active" and entity_id in (f.get("entity_ids") or [])]
+    prepared = {}
+    if source_id or fact_id:
+        if request.query_params.get("edit"):
+            raise HTTPException(409, "Finish the current edit before starting a new region from a source")
+        try:
+            prepared = map_regions.prepare_from_source(entity_id, source_id=source_id, fact_id=fact_id,
+                entities=entities, records=records, relationships=relationships, facts=statements)
+        except ValueError as exc:
+            raise HTTPException(400, str(exc)) from exc
     return main.templates.TemplateResponse(request=request, name="profile_regions.html", context={
-        "entity": actor, "rows": rows, "editing": editing, "activities": map_regions.ACTIVITIES[actor["entity_type"]],
+        "entity": actor, "rows": rows, "editing": editing, "prepared": prepared,
+        "form_values": prepared.get("draft") or editing, "activities": map_regions.ACTIVITIES[actor["entity_type"]],
         "geographies": sorted([e for e in entities.values() if e.get("entity_type") == "geography"], key=lambda e: e["name"]),
-        "sources": sorted([r for r in records if r.get("id") in support_ids or entity_id in (r.get("entity_ids") or []) or entity_id in (r.get("company_ids") or [])], key=lambda r: r.get("published_date") or "", reverse=True),
-        "statements": [f for f in main.all_facts() if f.get("status") == "active" and entity_id in (f.get("entity_ids") or [])],
+        "sources": map_regions.supporting_sources(entity_id, records, relationships, statements),
+        "statements": statements,
         "history": [row for row in (private or {}).get("history", []) if row["after"]["entity_id"] == entity_id][-30:][::-1],
         "authoring_mode": main.AUTHORING_MODE,
     })

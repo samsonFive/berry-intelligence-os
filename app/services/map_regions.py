@@ -40,6 +40,56 @@ def load(inbox_dir):
     return value
 
 
+def supporting_sources(entity_id, records, relationships, facts=()):
+    """Metadata only. A linked source is a reading aid, never a location edge."""
+    support = {key for rel in relationships if rel.get("subject_id") == entity_id
+               for key in rel.get("evidence_ids", [])}
+    support.update(key for fact in facts if fact.get("status") == "active" and entity_id in (fact.get("entity_ids") or [])
+                   for key in fact.get("evidence_ids", []))
+    fields = ("id", "title", "status", "summary", "published_date", "source_name", "source_url", "entity_ids", "company_ids", "geography_ids")
+    return sorted([{key: row[key] for key in fields if key in row} for row in records if row.get("id") in support
+                   or entity_id in (row.get("entity_ids") or []) or entity_id in (row.get("company_ids") or [])],
+                  key=lambda row: (row.get("published_date") or "", row.get("id") or ""), reverse=True)
+
+
+def prepare_from_source(entity_id, *, source_id="", fact_id="", entities, records, relationships, facts=()):
+    """Prepare a new unsaved annotation, preserving the source's literal summary.
+
+    Place mentions are offered as choices only: company offices, sale markets,
+    patent territories and co-mentions cannot establish growing/operating scope.
+    Neither publication date nor an active Fact becomes a location effective date.
+    """
+    statements = {f["id"]: f for f in facts if f.get("status") == "active" and entity_id in (f.get("entity_ids") or [])}
+    fact = statements.get(fact_id) if fact_id else None
+    if fact_id and not fact:
+        raise ValueError("Choose a reviewed statement linked to this profile")
+    sources = {r["id"]: r for r in supporting_sources(entity_id, records, relationships, facts)}
+    if fact and not source_id:
+        source_id = next((key for key in fact.get("evidence_ids", []) if key in sources), "")
+    source = sources.get(source_id) if source_id else None
+    if source_id and (not source or fact and source_id not in fact.get("evidence_ids", [])):
+        raise ValueError("Choose a source linked to this profile and statement")
+    if not source and not fact:
+        raise ValueError("Choose a linked article or reviewed statement")
+    source = source or {}
+    mentioned = set(source.get("geography_ids") or []) | set(source.get("entity_ids") or [])
+    if fact:
+        mentioned.update(fact.get("entity_ids") or [])
+        mentioned.update(fact.get("geography_ids") or [])
+    places = sorted([entities[key] for key in mentioned if entities.get(key, {}).get("entity_type") == "geography"],
+                    key=lambda row: row["name"].casefold())
+    published = source.get("published_date") or ""
+    # Keep dates exact; do not guess a date from a headline, capture or timestamp.
+    try:
+        source_date = published if date.fromisoformat(published).isoformat() == published else ""
+    except (ValueError, TypeError):
+        source_date = ""
+    return {"source": source, "statement": fact or {}, "places": places,
+            "draft": {"source_id": source_id, "fact_id": fact_id, "source_date": source_date,
+                      "source_url": public_source_url(source.get("source_url")), "status": "proposed",
+                      "activity": "", "geography_id": "", "observed_on": "", "locality": "", "notes": ""}}
+
+
 def catalog(entities, relationships, records, private=None):
     records = {r["id"]: r for r in records if r.get("id")}
     rows = {}
