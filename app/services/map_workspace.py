@@ -1,10 +1,38 @@
-"""Map workspace projections. Private annotations never enter Market Snapshots."""
+"""Map workspace projections; snapshot annotations require explicit selection."""
 import json
 from pathlib import Path
 
 from app.services import global_explorer, map_regions, news_workspace
 from app.services.geography_hierarchy import resolve_geography_scope
 from app.services.market_statistics_reference import identified_groups, flag_label
+
+SNAPSHOT_SCOPE_KEYS = ("view", "layer", "company", "list", "tier", "favorites", "region_status", "activity", "region_entity", "region_asof", "q", "window", "start", "end", "tz")
+
+
+def snapshot_regions(query, entities, relationships, records, state, params, *, inbox_dir=None, authoring=False):
+    """Reuse shared region scope without starting research or exposing its raw store."""
+    filters = news_workspace.parameters(params)
+    layer = str(params.get("layer") or "news")
+    status, activity = str(params.get("region_status") or ""), str(params.get("activity") or "")
+    entity_id, as_of = str(params.get("region_entity") or ""), str(params.get("region_asof") or "")
+    if layer not in {"news", "companies", "varieties"} or status not in {"", "proposed", "active", "historical", "disputed"}:
+        raise ValueError("Choose a supported map layer and location status")
+    if activity and activity not in sum(map_regions.ACTIVITIES.values(), ()):
+        raise ValueError("Choose a supported activity")
+    if entity_id and entities.get(entity_id, {}).get("entity_type") != ("variety" if layer == "varieties" else "company"):
+        raise ValueError("Choose a profile for this map layer")
+    if as_of:
+        from datetime import date
+        if date.fromisoformat(as_of).isoformat() != as_of:
+            raise ValueError("Use an observed-by date in YYYY-MM-DD format")
+    private = map_regions.load(inbox_dir) if authoring and inbox_dir else None
+    rows = map_regions.catalog(entities, relationships, records, private)
+    kinds = ("company", "variety") if layer == "news" else ("variety",) if layer == "varieties" else ("company",)
+    sources = {r['id']: r for r in records if r.get('id')}
+    return [{**row, 'source_date': row.get('source_date') or sources.get(row.get('source_id'), {}).get('published_date') or ''}
+            for kind in kinds for row in map_regions.scoped(rows, query, relationships, state, kind=kind,
+            company=filters["company"], list_id=filters["list"], tier=filters["tier"], favorites=filters["favorites"],
+            status=status, activity=activity, entity_id=entity_id, as_of=as_of)]
 
 
 def statistics(query, entities, records, relationships=()):

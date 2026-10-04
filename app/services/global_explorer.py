@@ -90,7 +90,7 @@ class GeographicLayer(Protocol):
     def features(self, query: IntelligenceQuery) -> list[GeographicLayerFeature]: ...
 
 SECTIONS = {'overview': 'Market overview', 'developments': 'Recent developments',
-            'companies': 'Company activity', 'varieties': 'Variety activity', 'statistics': 'Market statistics'}
+            'companies': 'Company activity', 'varieties': 'Variety activity', 'statistics': 'Market statistics', 'locations': 'Selected locations'}
 GAPS = ['Production volumes and growing-region metrics are not populated by this explorer. '
         'Evidence counts reflect stored coverage, not market size or source independence.']
 
@@ -138,7 +138,8 @@ def explorer_model(query, records, entities, relationships, berries, facts=None,
             'selected': selected_countries, 'berries': berries,
             'total': len(entries), 'gaps': GAPS}
 
-def snapshot_model(query, records, entities, relationships, berries, included, facts=None, state=None, metric_ids=None):
+def snapshot_model(query, records, entities, relationships, berries, included, facts=None, state=None, metric_ids=None,
+                   location_options=(), location_ids=()):
     from dataclasses import replace
     query = replace(query, view="trusted")
     model = explorer_model(query, records, entities, relationships, berries, facts=facts, state=state)
@@ -151,9 +152,17 @@ def snapshot_model(query, records, entities, relationships, berries, included, f
         raise ValueError('A selected market figure is no longer available in this scope; review the composition')
     selected_groups = [{**g, 'metrics': [m for m in g['metrics'] if m['id'] in selected_metrics]} for g in reference['groups']]
     selected_groups = [g for g in selected_groups if g['metrics']]
+    selected_locations = set(location_ids)
+    if not selected_locations.issubset({row['id'] for row in location_options}):
+        raise ValueError('A selected location is no longer available in this scope; review the composition')
+    locations = [row for row in location_options if row['id'] in selected_locations] if 'locations' in included else []
     sections = []
     for key, title in SECTIONS.items():
         if key not in included: continue
+        if key == 'locations':
+            sections.append({'section_id': key, 'title': title, 'generated_prose': 'No locations selected.' if not locations else '',
+                             'location_rows': locations, 'citation_ids': [], 'status': 'structured'})
+            continue
         if key == 'statistics':
             text = '\n\n'.join(f"{g['country']} · {g['commodity']} · {g['period']}\n" + '\n'.join(f"{m['label']}: {m['value']:,} {m['unit']}" for m in g['metrics']) + '\n' + g['basis'] for g in selected_groups)
             sections.append({'section_id': key, 'title': title, 'generated_prose': text or 'No market figures selected for this scope.',
@@ -177,15 +186,30 @@ def snapshot_model(query, records, entities, relationships, berries, included, f
     if 'statistics' in included:
         trace.extend({'id': g['id'], 'title': f"{g['country']} · {g['commodity']} · {g['period']}",
                       'source_name': g['source'], 'date': g['published_date'] if g['published_date'] != 'Not supplied' else '',
+                      'published_date': g['published_date'] if g['published_date'] != 'Not supplied' else '',
                       'date_label': 'Source updated ' + g['source_updated_at'][:10] if g.get('source_updated_at') else 'Published ' + g['published_date'],
                       'source_url': g['source_url'], 'href': g['source_url']} for g in selected_groups)
-    packet = {'recent_developments':entries, 'source_trace':trace}
-    inventory_included = any(key != 'statistics' for key in included)
-    gaps = ['Evidence counts reflect stored coverage, not market size or source independence. Private region notes are excluded.'] if inventory_included else []
+    trace.extend({'id': 'location-source-' + row['id'], 'title': row['name'] + ' / ' + row['activity'] + ' / supporting location source',
+                  'source_name': 'Location entry supporting source', 'date': row.get('source_date') or '',
+                  'published_date': row.get('source_date') or '', 'source_url': row['source_url'], 'href': row['source_url']}
+                 for row in locations if row.get('source_url'))
+    for section in sections:
+        if section['section_id'] == 'locations':
+            section['citation_ids'] = ['location-source-' + row['id'] for row in locations if row.get('source_url')]
+    packet = {'recent_developments': [row for row in entries if row['id'] in cited], 'source_trace':trace}
+    inventory_included = any(key not in {'statistics', 'locations'} for key in included)
+    gaps = ['Evidence counts reflect stored coverage, not market size or source independence.',
+            'News sections use trusted country and berry coverage, rather than the map news date or company/list filters.'] if inventory_included else []
+    if locations:
+        gaps.append('Selected locations retain their saved status and source limitations. User annotations are unreviewed; source links do not confirm growing or operations. Unknown dates remain unknown.')
+    else:
+        gaps.append('Private location annotations are excluded unless individually selected in the composition.')
     if 'statistics' in included:
         gaps += reference['gaps']
     else:
         gaps += ['Market statistics are excluded unless selected in the composition.']
     coverage = {'counts':{'evidence_count':len(entries)} if inventory_included else {},'gaps':gaps}
     return model | {'report':report, 'packet':packet, 'coverage':coverage, 'gaps':gaps, 'section_options':SECTIONS, 'included':included,
-                    'statistics': {**reference, 'groups': selected_groups}, 'metric_options': reference['groups'], 'selected_metrics': selected_metrics}
+                    'statistics': {**reference, 'groups': selected_groups}, 'metric_options': reference['groups'], 'selected_metrics': selected_metrics,
+                    'location_options': location_options, 'selected_locations': selected_locations, 'selected_location_rows': locations,
+                    'has_private_locations': any(row['basis'] == 'User annotation · not reviewed' for row in locations)}

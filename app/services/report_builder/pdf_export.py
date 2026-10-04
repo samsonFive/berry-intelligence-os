@@ -52,6 +52,7 @@ def _styles() -> dict[str, ParagraphStyle]:
         "h3": ParagraphStyle("ReportH3", parent=base["Heading3"], fontSize=12, leading=16, textColor=colors.HexColor("#41624b"), spaceBefore=13, spaceAfter=7, keepWithNext=True),
         "source_title": ParagraphStyle("SourceTitle", parent=base["Normal"], fontName="Helvetica-Bold", fontSize=10, leading=14, textColor=colors.HexColor("#214c35"), spaceAfter=5),
         "market_group": ParagraphStyle("MarketGroup", parent=base["BodyText"], fontName="Helvetica-Bold", fontSize=11, leading=15, textColor=colors.HexColor("#214c35"), spaceBefore=10, spaceAfter=7),
+        "location_value": ParagraphStyle("LocationValue", parent=base["BodyText"], fontSize=10, leading=14, textColor=colors.HexColor("#273c30"), spaceAfter=0),
         "body": ParagraphStyle("ReportBody", parent=base["BodyText"], fontSize=10, leading=15, textColor=colors.HexColor("#273c30"), spaceAfter=9),
         "takeaway": ParagraphStyle("ReportTakeaway", parent=base["BodyText"], fontSize=13, leading=19, textColor=colors.HexColor("#173c26"), spaceAfter=0),
         "unsupported": ParagraphStyle(
@@ -116,7 +117,7 @@ def render_report_pdf(
     doc.addPageTemplates([template])
 
     story: list[Any] = [NextPageTemplate("report")]
-    story.append(Paragraph("BERRY INTELLIGENCE  /  RESEARCH BRIEF", styles["kicker"]))
+    story.append(Paragraph("BERRY INTELLIGENCE  /  " + ("MARKET SNAPSHOT" if report.get("report_type") == "market_snapshot" else "RESEARCH BRIEF"), styles["kicker"]))
     story.append(Paragraph(escape(report.get("title") or "Untitled report"), styles["title"]))
     story.append(Paragraph(f"Exported {_readable_date(date.today())}  |  Latest dated source in scope: {_readable_date(_cutoff_date(packet))}", styles["meta"]))
     story.append(Paragraph(f"{escape(confidentiality)}  |  {PROVENANCE_MARKER}", styles["meta"]))
@@ -135,6 +136,31 @@ def render_report_pdf(
         label = "Analyst edited - review before sharing" if edited else {"ai_draft": "AI draft - review required", "structured": "From saved records", "unavailable": "Not drafted yet", "unsupported": "Needs more sources"}.get(status, "Working draft")
         if status != "structured" or edited:
             story.append(Paragraph(label, styles["section_meta"]))
+        if not edited and section.get("section_id") == "locations" and section.get("location_rows"):
+            story.append(Paragraph("Recorded entries, not acreage or precise farm boundaries. User annotations remain unreviewed; source links do not confirm growing or operations.", styles["body"]))
+            for row in section["location_rows"]:
+                block = []
+                heading = Paragraph(escape(row["name"] + " / " + row["kind"].title()), styles["h3"])
+                place = row["country"] + (" / " + row["locality"] if row.get("locality") else "")
+                values = [("Place / activity", place + "\n" + row["activity"]),
+                          ("Status / observed", row["status"].title() + "\nObserved / effective: " + (row.get("observed_on") or "Unknown")),
+                          ("Basis / source date", row["basis"] + "\nSource published: " + (row.get("source_date") or "Unknown"))]
+                cells = [[Paragraph(escape(label), styles["source"]), Paragraph(escape(value).replace("\n", "<br/>"), styles["location_value"])] for label, value in values]
+                table = Table(cells, colWidths=[doc.width * .28, doc.width * .72], splitInRow=1)
+                table.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"),
+                    ("BACKGROUND", (0, 0), (0, -1), colors.HexColor("#edf5e6")),
+                    ("BOX", (0, 0), (-1, -1), .4, colors.HexColor("#ceddc7")),
+                    ("LEFTPADDING", (0, 0), (-1, -1), 8), ("RIGHTPADDING", (0, 0), (-1, -1), 8)]))
+                block.extend([heading, table, Spacer(1, 6)])
+                if row.get("scope_note"):
+                    block.append(Paragraph(escape(row["scope_note"]), styles["unsupported"]))
+                if row.get("notes"):
+                    block.append(Paragraph("Saved notes and limitations", styles["source_title"]))
+                    block.append(Paragraph(escape(row["notes"]).replace("\n", "<br/>"), styles["body"]))
+                url = public_source_url(row.get("source_url"))
+                block.append(Paragraph('<a href="' + escape(url, {'"': '&quot;'}) + '">Supporting source: ' + escape(url) + '</a>' if url else "No supporting source link recorded.", styles["source"]))
+                story.append(KeepTogether(block))
+            return
         if not edited and section.get("section_id") == "statistics" and section.get("statistics_groups"):
             story.append(Paragraph("Public reference figures; separate from reviewed statements. Countries, categories and source units are not added together.", styles["body"]))
             for group in section["statistics_groups"]:
