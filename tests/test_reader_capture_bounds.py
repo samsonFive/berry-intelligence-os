@@ -101,3 +101,8 @@ def test_access_restrictions_and_errors_are_not_parsed_as_article(status, conten
         result = reader.fetch_public_article(URL, client=client)
     assert result['availability'] == ('error' if status == 500 else 'blocked') and not result['ok']
     assert result['passages'] == [] and result['status_code'] == status
+
+
+@pytest.mark.parametrize('host', ['localhost.', '127.0.0.1.', '2130706433.', 'printer.local.', 'metadata.google.internal.'])
+def test_trailing_dns_dot_does_not_bypass_private_destination_checks(host):
+    assert not reader.is_public_http_url('http://' + host + '/article')

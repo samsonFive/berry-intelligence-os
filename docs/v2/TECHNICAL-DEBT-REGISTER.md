@@ -1955,3 +1955,6 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 
 **Mission 31 Reader bounds/density:** Explicit public capture now preflights every redirect before its request, streams only bounded article/preview content, limits redirect count and checks the existing deadline. Restricted/error HTML and PDF responses stay unavailable; numeric/private/malformed destinations fail safely. This does not add DNS/peer pinning or universal publisher extraction. Phone filters collapse without losing any scope; explicit timezone survives Apply. 180 focused tests passed; browser density/keyboard containment checked. Market refresh, older preview migration and combined release remain. See MISSION-31-COMPACT-NEWS-AND-CAPTURE-BOUNDS.md.
+
+
+**Mission 32 official-reference workflow:** The manual-only Eurostat reference refresh now has an explicit native capture/compare/select/save path. Original captures, older overlay values and saved history are retained; stale/older review, failed acquisition and corrupt state cannot replace current references silently. Source trust/canonical records and public output remain separate. Four-country strawberry coverage is explicit; wider population and distributed runtime remain open. See MISSION-32-OFFICIAL-STATISTICS-REFRESH-REVIEW.md.

@@ -624,3 +624,6 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **October 4 bounded Reader follow-up:** The same explicitly requested public Produce Report article returned HTTP 200, nine paragraphs and eight image references under the bounded redirect/streaming implementation. No canonical records or acquisition/recall maturity counts changed. One source succeeds; wider accessibility/extraction coverage remains source-dependent. See MISSION-31-COMPACT-NEWS-AND-CAPTURE-BOUNDS.md.
+
+
+**October 4 in-app agency refresh:** An explicit Eurostat check returned the same four-country/eight-figure 2025 strawberry area/production reference scope, preserving original units, flags, source update and check dates. Its country references are human-selected private context, never canonical Facts or recall/coverage maturity changes. USDA references and unsupported country/crop gaps remain untouched; broader FAOSTAT/national/research population is still partial. See MISSION-32-OFFICIAL-STATISTICS-REFRESH-REVIEW.md.

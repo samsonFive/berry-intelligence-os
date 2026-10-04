@@ -139,7 +139,7 @@ def explorer_model(query, records, entities, relationships, berries, facts=None,
             'total': len(entries), 'gaps': GAPS}
 
 def snapshot_model(query, records, entities, relationships, berries, included, facts=None, state=None, metric_ids=None,
-                   location_options=(), location_ids=(), news_params=None, now=None):
+                   location_options=(), location_ids=(), news_params=None, now=None, inbox_dir=None, authoring=False):
     from dataclasses import replace
     query = replace(query, view="trusted")
     news_scope = []
@@ -177,7 +177,7 @@ def snapshot_model(query, records, entities, relationships, berries, included, f
         model['entries'].sort(key=lambda row: order[row['id']])
     entries = model['entries']
     from app.services.map_workspace import statistics
-    reference = statistics(query, entities, records, relationships)
+    reference = statistics(query, entities, records, relationships, inbox_dir=inbox_dir, authoring=authoring)
     available = {m['id'] for g in reference['groups'] for m in g['metrics']}
     selected_metrics = available if metric_ids is None else set(metric_ids)
     if not selected_metrics.issubset(available):
