@@ -47,3 +47,6 @@ The plan is now reviewed and accepted (with the revisions recorded in `08-DECISI
 
 
 - [Mission 30 — Captured article previews and explicit retries](MISSION-30-READER-PREVIEW-CONTINUITY.md): exact-source private image metadata across cards, original reading proof and remaining release checks.
+
+
+- [Mission 31 — Compact News filters and bounded article capture](MISSION-31-COMPACT-NEWS-AND-CAPTURE-BOUNDS.md): complete native scope disclosure, explicit timezone retention and deterministic HTTP bounds.

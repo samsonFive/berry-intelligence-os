@@ -166,5 +166,29 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
         card.update(trusted=trusted, source_reviewed=source_reviewed(record), escalated_count=len(support.get(card["id"], [])))
         card["entities"] = [row for row in card["entities"] if (entities.get(row["id"]) or {}).get("entity_type") in {"company", "brand", "research_program"}]
         cards.append(card)
+    date_label = {'': 'All dated news', 'today': 'Today', '7d': 'Past 7 days', '30d': 'Past 30 days',
+                  'ytd': 'Year to date', 'undated': 'Publication date unavailable'}.get(filters['window'])
+    if filters['window'] == 'custom':
+        date_label = (filters['start'] or 'Earliest recorded') + ' through ' + (filters['end'] or 'Today')
+    filter_summary = [date_label + ' / ' + filters['tz']]
+    if filters['company']:
+        filter_summary.append(entities[filters['company']].get('name') or 'Selected company')
+    if filters['berry']:
+        filter_summary.append(', '.join(feed_first.CROP_LABELS[key.removeprefix('berry-')] for key in query.commodities()))
+    if query.geography_ids:
+        filter_summary.append(', '.join(entities[key].get('name') or 'Selected country' for key in query.geography_ids))
+    if query.country_codes:
+        from app.services.global_explorer import boundary_countries
+        filter_summary.append(', '.join(boundary_countries()[code] for code in query.country_codes))
+    if filters['list']:
+        filter_summary.append(next(row.get('name') or 'Selected list' for row in lists if row['id'] == filters['list']))
+    if filters['tier']:
+        from app.services.company_directory import TIERS
+        filter_summary.append(TIERS[filters['tier']])
+    if filters['favorites']:
+        filter_summary.append('Favorite companies')
+    if filters['q']:
+        filter_summary.append('Search: ' + filters['q'])
     return {"cards": cards, "matching": len(matched), "matching_ids": [r[0]["id"] for r in matched], "counts": counts, "filters": filters,
+            "filter_summary": filter_summary,
             "page": page, "pages": pages, "lists": lists, "query": query}

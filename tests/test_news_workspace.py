@@ -38,6 +38,27 @@ def ids(model):
     return [card['id'] for card in model['cards']]
 
 
+def test_compact_filter_summary_retains_named_scope_and_explicit_timezone():
+    state = feed_first.empty_state()
+    state['company_lists']['list-watch'] = {'name': 'Breeders to watch', 'company_ids': ['company-grower']}
+    state['entity_tiers']['company-grower'] = 'tier1'
+    state['entity_favorites']['company-grower'] = True
+    before = deepcopy(state)
+    params = {'company': 'company-grower', 'list': 'list-watch', 'tier': 'tier1', 'favorites': '1',
+              'berry': 'blueberry,strawberry', 'countries': 'geography-peru', 'q': 'nursery',
+              'window': 'custom', 'start': '2026-01-01', 'end': '2026-09-30', 'tz': 'America/Los_Angeles'}
+    model = project([article()], params, state=state)
+    assert model['filter_summary'] == ['2026-01-01 through 2026-09-30 / America/Los_Angeles',
+        'Grower', 'Blueberry, Strawberry', 'Peru', 'Breeders to watch', 'Tier 1', 'Favorite companies', 'Search: nursery']
+    assert model['filters']['tz'] == params['tz'] and ids(model) == ['ev-news']
+    assert state == before
+
+
+def test_compact_filter_summary_names_uncatalogued_country_and_undated_scope():
+    model = project([], {'countries': 'iso:DE', 'window': 'undated'})
+    assert model['filter_summary'] == ['Publication date unavailable / UTC', 'Germany']
+
+
 def test_newest_publication_always_first_not_priority_or_capture():
     rows = [article('ev-old', published_date='2026-08-15', captured_date='2026-10-01'),
             article('ev-new', published_date='2026-09-30', entity_ids=['company-other']),

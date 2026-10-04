@@ -4,8 +4,23 @@
   if (!root) return;
   var zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   var tz = document.querySelector('[data-news-timezone]');
-  if (tz && zone) tz.value = zone;
   var url = new URL(window.location.href);
+  if (tz && zone && !url.searchParams.has('tz')) tz.value = zone;
+  var filterDisclosure = document.querySelector('[data-news-filter-disclosure]');
+  if (filterDisclosure && window.matchMedia('(max-width:750px)').matches) filterDisclosure.open = false;
+  var filterForm = document.querySelector('.news-filters');
+  if (filterForm) {
+    var start = filterForm.querySelector('[name=start]'), end = filterForm.querySelector('[name=end]');
+    function validateDates() {
+      end.setCustomValidity(start.value && end.value && start.value > end.value ? 'Choose an end date on or after the start date.' : '');
+    }
+    start.addEventListener('input', validateDates);
+    end.addEventListener('input', validateDates);
+    filterForm.addEventListener('submit', function (event) {
+      validateDates();
+      if (!filterForm.reportValidity()) event.preventDefault();
+    });
+  }
   // Legacy item bookmarks open the shared reader, without collection on GET.
   if (root.dataset.initialStory && !url.searchParams.has('story')) {
     url.searchParams.set('story', root.dataset.initialStory);

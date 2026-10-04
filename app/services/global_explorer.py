@@ -160,7 +160,8 @@ def snapshot_model(query, records, entities, relationships, berries, included, f
         if news_filters['favorites'] == '1':
             news_scope.append('Favorite companies')
         if news_filters['tier']:
-            news_scope.append(feed_first.TIER_LABELS[news_filters['tier']])
+            from app.services.company_directory import TIERS
+            news_scope.append(TIERS[news_filters['tier']])
         if news_filters['q']:
             news_scope.append('Search: ' + news_filters['q'])
         window = {'today': 'Today', '7d': 'Past 7 days', '30d': 'Past 30 days', 'ytd': 'Year to date',

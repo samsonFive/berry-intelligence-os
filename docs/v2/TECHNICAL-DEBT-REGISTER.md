@@ -1952,3 +1952,6 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 
 **Mission 30 source quality:** Newly captured exact-source preview images now reach News/Digest/Map through private bounded metadata, without body hydration on cards, canonical mutation or public leakage. Explicit failed capture retries and neutral transport wording are corrected. One real article proves the reading path; wider availability and extraction accuracy remain source-dependent. Older capture metadata migration, direct HTTP redirect/response bound hardening, phone filter density and combined release acceptance remain open. See MISSION-30-READER-PREVIEW-CONTINUITY.md.
+
+
+**Mission 31 Reader bounds/density:** Explicit public capture now preflights every redirect before its request, streams only bounded article/preview content, limits redirect count and checks the existing deadline. Restricted/error HTML and PDF responses stay unavailable; numeric/private/malformed destinations fail safely. This does not add DNS/peer pinning or universal publisher extraction. Phone filters collapse without losing any scope; explicit timezone survives Apply. 180 focused tests passed; browser density/keyboard containment checked. Market refresh, older preview migration and combined release remain. See MISSION-31-COMPACT-NEWS-AND-CAPTURE-BOUNDS.md.
