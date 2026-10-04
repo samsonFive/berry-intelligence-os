@@ -34,3 +34,9 @@ Broader FAOSTAT/national production/area/yield coverage, supported national trad
 
 
 Final focused acceptance after source reproducibility and appendix pagination: **131 passed / one existing warning in 35.58 seconds**. Record validation passed. Both final sample PDF pages and the actual single-figure browser export were rendered and inspected. The source appendix now stays with its first source. Draft-head required CI remains the release gate.
+
+
+The live/public visual Guide now describes the optional individual-figure capability. Draft #298 is pushed and attached; required exact-head checks are tracked in GitHub. Canonical was freshly fetched and remains `916b8f09f9ce2a1847335d7990ea80ff921f1cec`; the expansion guide has no diff. No merge or deployment.
+
+
+Market-code head `b8a29039ea35a9623c9c5c964a307cf5410498f2` passed all four required checks, run `37212137821`: **3,666 passed / 11 skipped / two warnings in 244.73 seconds**. The subsequent Guide wording follow-up passed 18 focused Guide/static tests; its pushed head requires fresh checks. This is not canonical release sign-off.
