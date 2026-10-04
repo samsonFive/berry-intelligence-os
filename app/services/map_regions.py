@@ -4,6 +4,7 @@ This is analyst working state, never a second published relationship/trust store
 An annotation cannot approve a relationship. Automated collection never writes it.
 """
 import json
+from copy import deepcopy
 from datetime import UTC, date, datetime
 from pathlib import Path
 from uuid import uuid4
@@ -169,6 +170,26 @@ def edit(inbox_dir, *, payload, entities, relationships, records, facts=(), revi
     state = load(inbox_dir)
     rows = {row["id"]: row for row in catalog(entities, relationships, records, state)}
     key = str(payload.get("id") or "")
+    research_origin = None
+    if payload.get("research_job") or payload.get("research_proposal"):
+        if key or payload.get("action") == "remove":
+            raise ValueError("A source suggestion prepares a new entry; it cannot replace an existing edit")
+        from app.services.region_source_research import get_proposal
+        job, proposal, prepared = get_proposal(inbox_dir, str(payload.get("entity_id") or ""), str(payload.get("research_job") or ""),
+                                               str(payload.get("research_proposal") or ""), entities=entities, records=records,
+                                               relationships=relationships, facts=facts)
+        suggestion_key = "region-suggestion-" + proposal["id"]
+        if suggestion_key in state["entries"]:
+            existing = state["entries"][suggestion_key]
+            if existing.get("removed"):
+                raise ValueError("This suggestion was already used and removed. Inspect its history or add a new manual entry")
+            return existing  # response-loss replay cannot overwrite later edits
+        research_origin = {"job_id": job["id"], "proposal_id": proposal["id"], "proposal": deepcopy(proposal),
+                           "source_url": job["source"]["url"], "captured_at": job["updated_at"], "model": job.get("model") or ""}
+        # The analyst may correct place/activity/date/notes, but cannot attach the
+        # proposal's provenance to an unrelated source or reviewed statement.
+        payload = {**payload, "source_id": prepared["draft"]["source_id"], "fact_id": prepared["draft"]["fact_id"],
+                   "source_url": prepared["draft"]["source_url"], "source_date": prepared["draft"]["source_date"]}
     old = rows.get(key)
     if key and old is None:
         raise ValueError("Region no longer exists; reload before editing")
@@ -177,7 +198,7 @@ def edit(inbox_dir, *, payload, entities, relationships, records, facts=(), revi
     action = str(payload.get("action") or "save")
     if action not in {"save", "remove"} or action == "remove" and not old:
         raise ValueError("Choose a valid region action")
-    key = key or "region-" + uuid4().hex
+    key = key or (suggestion_key if research_origin else "region-" + uuid4().hex)
     if action == "remove":
         row = {**old, "removed": True}
     else:
@@ -218,9 +239,14 @@ def edit(inbox_dir, *, payload, entities, relationships, records, facts=(), revi
             raise ValueError("Use a complete public http or https source link")
         if linked and not source_url:
             source_url = public_source_url(linked.get("source_url"))
+        notes = str(payload.get("notes") or "").strip()
+        if len(notes) > 4000:
+            raise ValueError("Keep location notes within 4,000 characters; nothing has been saved")
         row = {"id": key, "entity_id": entity_id, "geography_id": geo_id, "activity": activity, "status": status,
                "source_id": source_id, "fact_id": fact_id, "source_url": source_url, "evidence_ids": [source_id] if source_id else [],
-               "locality": str(payload.get("locality") or "").strip()[:120], "notes": str(payload.get("notes") or "").strip()[:2000], **dates}
+               "locality": str(payload.get("locality") or "").strip()[:120], "notes": notes, **dates}
+        if research_origin or (old or {}).get("research_origin"):
+            row["research_origin"] = research_origin or deepcopy(old["research_origin"])
     row["revision"] = (old or {}).get("revision", 0) + 1
     row["updated_at"] = datetime.now(UTC).isoformat(timespec="seconds")
     state["history"].append({"action": action, "before": old, "after": row.copy(), "reviewer": reviewer, "at": row["updated_at"]})

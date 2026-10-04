@@ -60,6 +60,7 @@ PRIVATE_SENTINELS = {
     "private-digest-subscription",
     "private-company-research-response",
     "private-company-research-contact",
+    "private-location-research-passage",
 }
 
 
@@ -112,6 +113,7 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
         encoding="utf-8",
     )
     private_files = {
+        inbox_dir / "region_source_research.json": {"version": 1, "jobs": {"private-region-run": {"text": "private-location-research-passage"}}},
         inbox_dir / "company_profile_research.json": {
             "version": 1, "jobs": {"private-research-run": {"text": "private-company-research-response"}},
         },
