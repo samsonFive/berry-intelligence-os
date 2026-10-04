@@ -1,7 +1,7 @@
 {% extends "glasshouse_base.html" %}
 {% from "_personal_icons.html" import icon, action_icon with context %}
 {% block title %}Map Explorer — Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/news_workspace.css"><link rel="stylesheet" href="/static/map_workspace.css?v=3">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/news_workspace.css"><link rel="stylesheet" href="/static/map_workspace.css?v=5">{% endblock %}
 {% block content %}
 <div class="gx-workspace gx">
 <header class="digest-heading gx-header"><div><p class="eyebrow">YOUR INDUSTRY, IN VIEW</p><h1>Map Explorer</h1><p>Explore news coverage and recorded locations across the berry industry.</p></div><div class="gx-toolbar"><a class="outline-button" href="{{ news_href }}" data-news-link>View this scope in News ↗</a><a class="green-button" href="{{ query.url('/explorer/snapshot') }}" data-snapshot>Create Market Snapshot</a></div></header>
@@ -20,7 +20,7 @@
 {% else %}{% include "_map_region_table.html" %}{% endif %}
 </div>
 {% include "_map_statistics.html" %}
-<details class="gx-panel"><summary>Map scope & source notes</summary><p>Country and berry selections apply to all layers. Company, watchlist and tier selections use stored assignments. Variety company filters use recorded ownership, development, licensing, growing, trial, marketing or distribution roles.</p><p>News dates and news review status do not remove long-lived region entries or annual statistics. Observed-by dates exclude later observations and retain undated entries as unknown. Location status describes the activity; a user entry remains unreviewed even when marked active. Missing information is unknown, not zero. Subregions remain labeled notes until boundaries are available. Boundaries are contextual, not a statement of sovereignty.</p><p>Market Snapshots include reviewed, escalated source inventory. Private region annotations and public-reference statistics are not automatically added to that export.</p></details>
+<details class="gx-panel"><summary>Map scope & source notes</summary><p>Country and berry selections apply to all layers. Company, watchlist and tier selections use stored assignments. Variety company filters use recorded ownership, development, licensing, growing, trial, marketing or distribution roles.</p><p>News dates and news review status do not remove long-lived region entries or annual statistics. Observed-by dates exclude later observations and retain undated entries as unknown. Location status describes the activity; a user entry remains unreviewed even when marked active. Missing information is unknown, not zero. Subregions remain labeled notes until boundaries are available. Boundaries are contextual, not a statement of sovereignty.</p><p>Market Snapshots include reviewed, escalated source inventory. Market figures can be selected separately in the snapshot composition; their periods, definitions and sources stay attached. Private region notes remain excluded.</p></details>
 </div><p class="digest-status" role="status" aria-live="polite"></p><script type="application/json" id="gx-data">{{ countries|tojson }}</script>
 {% endblock %}
 {% block scripts %}<script src="/static/global-explorer.js?v=map-1" defer></script><script src="/static/map_workspace.js?v=3" defer></script>{% endblock %}
