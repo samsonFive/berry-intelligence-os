@@ -286,4 +286,12 @@ def people_for(entity_id, entities, relationships, discovered, overrides):
                      **rows.get(key, {}), **value, "basis": "User-edited contact · not reviewed"}
         rows[key]["linkedin"] = public_source_url(rows[key].get("linkedin"))
         rows[key]["socials"] = [{**link, "url": public_source_url(link.get("url"))} for link in rows[key].get("socials") or []]
+        if rows[key].get("research_source"):
+            rows[key]["research_source"] = {**rows[key]["research_source"], "source_url": public_source_url(rows[key]["research_source"].get("source_url"))}
+            from app.services.company_profile_research import readable_note
+            provenance = rows[key]["research_source"]
+            source_refs = [{"reference_ids": provenance.get("reference_ids", [])}]
+            provenance["source_note_display"], provenance["unresolved_reference"] = readable_note(provenance.get("source_note"), source_refs)
+            if rows[key]["role"] == (provenance.get("value") or {}).get("role"):
+                rows[key]["role"], _ = readable_note(rows[key]["role"], source_refs)
     return sorted(rows.values(), key=lambda row: (not row["highlighted"], row.get("name", "").casefold()))

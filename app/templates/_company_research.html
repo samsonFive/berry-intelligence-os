@@ -1,0 +1,47 @@
+{% if authoring_mode %}
+<div id="company-research" class="company-research-anchor" aria-hidden="true"></div>
+<section class="company-panel company-research" aria-labelledby="company-research-heading">
+  <div class="digest-toolbar"><div><p class="eyebrow">PUBLIC COMPANY DETAILS</p><h2 id="company-research-heading">Find company details</h2></div>
+  {% if not profile_research_error %}<form method="post" action="/companies/{{ entity_id }}/research/start"><input type="hidden" name="token" value="{{ profile_research_token }}"><input type="hidden" name="tab" value="{{ tab }}"><button class="green-button">Research public details</button></form>{% endif %}</div>
+  <p>Find website, social profiles and professional contacts with Perplexity. Review the source before adding each suggestion.</p>
+  {% set notice = {'requested':'Research request saved. Your profile is unchanged.', 'accept':'Suggestion saved in your profile. You can edit it at any time.', 'dismiss':'Suggestion dismissed. Your profile is unchanged.', 'resume':'Saved request resumed.', 'cancel':'Stop requested. Check the run status below.', 'recover':'Existing research run reconnected.', 'check':'Research status updated.'}.get(request.query_params.get('research_notice')) %}{% if notice %}<p class="digest-notice" role="status">{{ notice }}</p>{% endif %}
+  <p class="company-muted">Uses your public company identity only. Your saved edits, contacts and notes stay private; even saved blanks are protected.</p>
+  {% if profile_research_error %}<p role="alert" class="digest-notice">{{ profile_research_error }}</p>{% endif %}
+  {% for job in profile_research_jobs %}
+  {% if not loop.first %}<details class="company-research-previous"><summary>Earlier research · {{ job.created_at[:10] }} · {{ job.status_label }}</summary>{% endif %}
+  <article class="company-research-run">
+    <div class="digest-toolbar"><h3>{{ job.status_label }}</h3><span class="company-muted">{{ job.created_at[:10] }}</span></div>
+    {% if job.error %}<p role="alert" class="digest-notice">{{ job.error }}</p>{% endif %}
+    {% if job.provider_id and job.status in ['running','cancelling','submitting','submission_uncertain'] %}
+    <p>Your profile stays unchanged while research runs. Check for results when ready.</p><div class="company-research-actions">{% for action,label in [('check','Check results'),('cancel','Stop research')] %}<form method="post" action="/companies/{{ entity_id }}/research/{{ job.id }}/{{ action }}"><input type="hidden" name="tab" value="{{ tab }}"><button>{{ label }}</button></form>{% endfor %}</div>
+    {% elif job.status == 'requested' %}
+    <p>This saved request has not been submitted. Resume it if the app restarted while starting research.</p><div class="company-research-actions">{% for action,label in [('resume','Resume saved request'),('cancel','Cancel saved request')] %}<form method="post" action="/companies/{{ entity_id }}/research/{{ job.id }}/{{ action }}"><input type="hidden" name="tab" value="{{ tab }}"><input type="hidden" name="job_revision" value="{{ job.revision }}"><button>{{ label }}</button></form>{% endfor %}</div>
+    {% elif job.status in ['submitting','submission_uncertain'] %}
+    <p>Confirm the existing run before starting another; this avoids paying twice for the same request.</p>
+    <details><summary>Reconnect an existing research run</summary><form method="post" action="/companies/{{ entity_id }}/research/{{ job.id }}/recover" class="company-editor"><label>Research reference<input name="provider_id" required maxlength="180"></label><label class="company-check"><input type="checkbox" name="confirm_run" value="yes" required> This run belongs to {{ company.name }}</label><input type="hidden" name="tab" value="{{ tab }}"><button>Retrieve existing run</button></form></details>
+    {% endif %}
+    {% for warning in job.warnings %}<p class="digest-notice">{{ warning }}</p>{% endfor %}
+    {% if job.status == 'partial' %}<p class="digest-notice">Research ended before it was complete. These suggestions may omit important qualifications.</p>{% endif %}
+    <div class="company-proposals">{% for proposal in job.proposals if not proposal.accepted and not proposal.dismissed %}
+      <article class="company-proposal"><p class="eyebrow">UNREVIEWED SUGGESTION</p>
+        <h4>{{ 'Professional contact' if proposal.kind == 'person' else 'Social profile' if proposal.kind == 'social' else 'LinkedIn' if proposal.kind == 'linkedin' else 'Website' }}</h4>
+        {% if proposal.kind == 'person' %}<p class="company-proposed-value">{{ proposal.value.name }}</p><p>{{ proposal.role_display or proposal.value.role or 'Role not supplied' }}</p>{% if proposal.value.linkedin %}<a href="{{ proposal.value.linkedin }}" target="_blank" rel="noopener noreferrer">Proposed LinkedIn ↗</a>{% endif %}{% for social in proposal.value.socials %}<p>{% if social.url %}<a href="{{ social.url }}" target="_blank" rel="noopener noreferrer">{{ social.platform }} {{ social.handle }} ↗</a>{% else %}{{ social.platform }} {{ social.handle }}{% endif %}</p>{% endfor %}
+        {% elif proposal.kind == 'social' %}<p class="company-proposed-value">{{ proposal.value.platform }} {{ proposal.value.handle }}</p><a href="{{ proposal.value.url }}" target="_blank" rel="noopener noreferrer">Proposed social profile ↗</a>
+        {% else %}<p class="company-proposed-value"><a href="{{ proposal.value }}" target="_blank" rel="noopener noreferrer">{{ proposal.value }} ↗</a></p><p class="company-muted">Current: {{ company[proposal.kind] or 'No link' }}</p>{% endif %}
+        <div class="company-proposal-source"><p>{{ (proposal.source_note_display if proposal.source_note_display is defined else proposal.source_note) or 'Check the linked source for details.' }}</p><a href="{{ proposal.source_url }}" target="_blank" rel="noopener noreferrer">{{ proposal.source_title }} ↗</a>{% if proposal.unresolved_reference %}<p class="company-muted">An additional source reference could not be matched. Check the linked source before using this suggestion.</p>{% endif %}</div>
+        {% if proposal.duplicate_contact %}<p class="digest-notice">This name is already recorded. Use Edit contact above to update the existing person.</p>{% else %}
+        <form method="post" action="/companies/{{ entity_id }}/research/{{ job.id }}/accept"><input type="hidden" name="proposal_id" value="{{ proposal.id }}"><input type="hidden" name="revision" value="{{ profile_override.revision }}"><input type="hidden" name="tab" value="{{ tab }}">
+          {% if proposal.requires_replace %}<label class="company-check company-muted"><input type="checkbox" name="replace" value="yes" required> {{ 'Add to my saved social links' if proposal.kind == 'social' else 'Replace my saved LinkedIn' if proposal.kind == 'linkedin' else 'Replace my saved website' }}</label>{% endif %}
+          <button class="green-button">{{ 'Add contact' if proposal.kind == 'person' else 'Add social link' if proposal.kind == 'social' else 'Use this link' }}</button>
+        </form>{% endif %}
+        <form method="post" action="/companies/{{ entity_id }}/research/{{ job.id }}/dismiss"><input type="hidden" name="proposal_id" value="{{ proposal.id }}"><input type="hidden" name="job_revision" value="{{ job.revision }}"><input type="hidden" name="tab" value="{{ tab }}"><button>Dismiss suggestion</button></form>
+      </article>{% endfor %}</div>
+    <details class="company-research-details"><summary>Research sources and review history</summary><p class="company-muted">Source links support your review; they do not guarantee the generated suggestion is correct. Accepted contacts remain editable profile notes.</p>
+      {% for proposal in job.proposals if proposal.accepted or proposal.dismissed %}<p>{{ 'Added to profile' if proposal.accepted else 'Dismissed' }} · {{ proposal.value.name if proposal.kind == 'person' else proposal.value.platform if proposal.kind == 'social' else proposal.value }} · <a href="{{ proposal.source_url }}" target="_blank" rel="noopener noreferrer">Source ↗</a></p>{% endfor %}
+      <ul>{% for source in job.citations %}<li><a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }} ↗</a></li>{% else %}<li>No cited sources returned.</li>{% endfor %}</ul>
+      <p class="company-muted">{{ job.config.provider|capitalize }} · {{ job.model or 'Model not returned' }} · {{ job.updated_at[:10] }}</p>
+      {% if job.text %}<details><summary>Original research response</summary><pre>{{ job.text }}</pre></details>{% endif %}
+    </details>
+  </article>{% if not loop.first %}</details>{% endif %}{% else %}<p class="company-muted">No company-detail research yet. You can always add or edit details manually.</p>{% endfor %}
+</section>
+{% endif %}

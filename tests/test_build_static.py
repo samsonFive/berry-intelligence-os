@@ -58,6 +58,8 @@ PRIVATE_SENTINELS = {
     "private-variety-universe-candidate",
     "private-company-list-name",
     "private-digest-subscription",
+    "private-company-research-response",
+    "private-company-research-contact",
 }
 
 
@@ -110,6 +112,12 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
         encoding="utf-8",
     )
     private_files = {
+        inbox_dir / "company_profile_research.json": {
+            "version": 1, "jobs": {"private-research-run": {"text": "private-company-research-response"}},
+        },
+        inbox_dir / "company_profile_overrides.json": {
+            "version": 1, "profiles": {"company-static-test": {"revision": 1, "people": {"private-contact": {"name": "private-company-research-contact"}}}}, "history": [],
+        },
         inbox_dir / "feed_first_state.json": {
             "company_lists": {"private-digest-subscription": {"name": "private-company-list-name", "company_ids": ["company-static-test"]}},
             "digest_subscriptions": ["private-digest-subscription"],

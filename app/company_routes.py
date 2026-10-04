@@ -1,7 +1,9 @@
 """Glasshouse company directory and analyst-managed profile presentation."""
 from urllib.parse import urlencode, urlsplit
+from uuid import uuid4
 
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, BackgroundTasks, HTTPException, Request
+from starlette.concurrency import run_in_threadpool
 from fastapi.responses import RedirectResponse
 
 from app.personal_digest_routes import require_edit
@@ -126,6 +128,109 @@ def profile_context(request, entity_id, existing):
     return {"company": company, "profile_override": override, "company_people": people, "company_rows": rows,
             "is_subject_watched": watched, "subject_watch_error": watch_error,
             "profile_history": directory.profile_history_rows(private["history"], entity_id),
+            **research_context(main, entity_id, override, people, tab),
             "profile_regions": [r for r in map_regions.catalog(entities, relations, list(records.values()), map_regions.load(main.INBOX_DIR) if main.AUTHORING_MODE else None) if r["entity_id"] == entity_id],
             "company_news_model": news, "tiers": directory.TIERS, "lists": personal_digest.company_lists(state), "tab": tab,
             "return_to": company["profile_url"].split("?")[0] + "?tab=" + tab}
+
+
+def research_context(main, entity_id, override, people, tab):
+    # Public pages and unrelated company tabs never touch private research.
+    if not main.AUTHORING_MODE or tab not in {"details", "people"}:
+        return {}
+    from app.services import company_profile_research as research
+    try:
+        jobs = [research.view(j, override, known_people=people) for j in research.load(main.INBOX_DIR)["jobs"].values()
+                if j["company"]["id"] == entity_id]
+        jobs.sort(key=lambda j: j["created_at"], reverse=True)
+        return {"profile_research_jobs": jobs, "profile_research_token": uuid4().hex, "profile_research_error": ""}
+    except ValueError as exc:
+        return {"profile_research_jobs": [], "profile_research_error": str(exc)}
+
+
+def profile_research_client():
+    from app.services.ai_gateway.credentials import MissingCredentialError, resolve_perplexity_api_key
+    from app.services.ai_gateway.perplexity_deep_research import DeepResearchClient, ResearchError
+    try:
+        return DeepResearchClient(resolve_perplexity_api_key())
+    except MissingCredentialError as exc:
+        raise ResearchError("Company research is not connected in this workspace. No provider request was sent.") from exc
+
+
+def research_redirect(rows, entity_id, form, notice=""):
+    tab = "people" if form.get("tab") == "people" else "details"
+    return RedirectResponse(rows[entity_id]["profile_url"].split("?")[0] + "?tab=" + tab + ("&research_notice=" + notice if notice else "") + "#company-research", status_code=303)
+
+
+@router.post("/companies/{entity_id}/research/start")
+async def company_research_start(request: Request, entity_id: str, background_tasks: BackgroundTasks):
+    require_edit(request)
+    main, entities, _, private, rows = context()
+    if entity_id not in rows:
+        raise HTTPException(404, "Company not found")
+    form = dict(await request.form())
+    from app.services import company_profile_research as research
+    # Fresh PUBLIC projection: the private website, contacts and annotations
+    # are deliberately excluded from what is sent to the research service.
+    public_company = directory.catalog(entities)[entity_id]
+    try:
+        job, created = research.reserve(main.INBOX_DIR, public_company, str(form.get("token") or ""),
+                                        profile_revision=(private["profiles"].get(entity_id) or {}).get("revision", 0))
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    if created:
+        background_tasks.add_task(research.submit, main.INBOX_DIR, job["id"], profile_research_client)
+    return research_redirect(rows, entity_id, form, "requested")
+
+
+@router.post("/companies/{entity_id}/research/{key}/{action}")
+async def company_research_action(request: Request, entity_id: str, key: str, action: str, background_tasks: BackgroundTasks):
+    require_edit(request)
+    from app.services import company_profile_research as research
+    from app.services.ai_gateway.perplexity_deep_research import ResearchError
+    main, entities, _, private, rows = context()
+    if entity_id not in rows:
+        raise HTTPException(404, "Company not found")
+    form = dict(await request.form())
+    try:
+        job = research.load(main.INBOX_DIR)["jobs"].get(key)
+        if not job or job["company"]["id"] != entity_id:
+            raise HTTPException(404, "This company research run is unavailable")
+        if action == "resume":
+            if job["status"] != "requested":
+                raise ValueError("This request has already started; check or reconnect the existing run")
+            background_tasks.add_task(research.submit, main.INBOX_DIR, key, profile_research_client)
+        elif action == "cancel" and job["status"] == "requested":
+            research.stop_unsubmitted(main.INBOX_DIR, key, revision=form.get("job_revision"))
+        elif action in {"check", "cancel", "recover"}:
+            if action == "recover":
+                if job["provider_id"] or job["status"] not in {"requested", "submitting", "submission_uncertain"}:
+                    raise ValueError("This run already has a research reference")
+                if form.get("confirm_run") != "yes":
+                    raise ValueError("Confirm that this research reference belongs to this company")
+                result = await run_in_threadpool(lambda: profile_research_client().check(str(form.get("provider_id") or "").strip()))
+                research.apply_result(main.INBOX_DIR, key, result, revision=job["revision"])
+            elif job["status"] not in research.TERMINAL and job["provider_id"]:
+                try:
+                    client = profile_research_client()
+                    result = await run_in_threadpool(client.check if action == "check" else client.cancel, job["provider_id"])
+                    research.apply_result(main.INBOX_DIR, key, result, revision=job["revision"])
+                except ResearchError as exc:
+                    research.failure(main.INBOX_DIR, key, exc, revision=job["revision"])
+            else:
+                raise ValueError("This run has no active research reference to check or stop")
+        elif action == "dismiss":
+            research.dismiss(main.INBOX_DIR, key, str(form.get("proposal_id") or ""), revision=form.get("job_revision"),
+                             reviewer=main.session_username(request) or main.review_username() or "")
+        elif action == "accept":
+            from app.services.people_watchlist import discover_people
+            people = directory.people_for(entity_id, entities, main.all_relationships(), discover_people(entities.values()),
+                                          private["profiles"].get(entity_id) or {})
+            research.accept(main.INBOX_DIR, key, str(form.get("proposal_id") or ""), profile_revision=form.get("revision"),
+                            replace=form.get("replace") == "yes", current_socials=rows[entity_id]["socials"], known_people=people,
+                            reviewer=main.session_username(request) or main.review_username() or "")
+        else:
+            raise HTTPException(404, "This research action is unavailable")
+    except ValueError as exc:
+        raise HTTPException(409 if "changed in another" in str(exc) else 422, str(exc)) from exc
+    return research_redirect(rows, entity_id, form, action)
