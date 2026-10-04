@@ -7709,17 +7709,17 @@ def _explorer_context(request, countries, berry, sections=None):
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     from dataclasses import replace
-    from app.services.feed_first import load_state
+    from app.services.feed_first import load_state, empty_state
     from app.services.personal_digest import source_records
     view = request.query_params.get("view", "trusted")
     if view not in {"trusted", "unreviewed"}:
         raise HTTPException(status_code=422, detail="Unknown intelligence view")
     query = replace(query, view=view)
     records = published_evidence()
-    if view == "unreviewed" and sections is None:
+    if view == "unreviewed" and sections is None and AUTHORING_MODE:
         records = list(source_records(records, INBOX_DIR).values())
     args = (query, records, entities, all_relationships(), BERRIES)
-    trust = {"facts": all_facts(), "state": load_state(INBOX_DIR)}
+    trust = {"facts": all_facts(), "state": load_state(INBOX_DIR) if AUTHORING_MODE else empty_state()}
     if sections is None:
         model = {}
     else:
@@ -7730,7 +7730,8 @@ def _explorer_context(request, countries, berry, sections=None):
             location_options = snapshot_regions(query, entities, args[3], records, trust["state"], request.query_params,
                                                  inbox_dir=INBOX_DIR, authoring=AUTHORING_MODE)
             model = snapshot_model(*args, included, **trust, metric_ids=None if metric_ids is None else [key for key in metric_ids.split(',') if key],
-                                   location_options=location_options, location_ids=[key for key in request.query_params.get("locations", "").split(',') if key])
+                                   location_options=location_options, location_ids=[key for key in request.query_params.get("locations", "").split(',') if key],
+                                   news_params=dict(request.query_params))
             model["snapshot_scope"] = {key: request.query_params.get(key, "") for key in SNAPSHOT_SCOPE_KEYS if request.query_params.get(key)}
             model["explorer_href"] = "/explorer?" + urlencode({**query.params(), **model["snapshot_scope"]})
         except ValueError as exc:

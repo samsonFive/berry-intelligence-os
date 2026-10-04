@@ -615,3 +615,6 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **October 4 selected-location export:** Optional explicitly selected recorded Company/Variety locations are a report presentation feature. The export sample uses fictional annotations in an isolated runtime; it does not add verified footprints, intelligence acquisition, canonical records or recall/maturity evidence. Existing counts/classes remain authoritative. See MISSION-28-SELECTED-LOCATION-SNAPSHOTS.md.
+
+
+**October 4 snapshot News parity:** Shared filter selection and timestamp ordering change report presentation only. The sample uses one existing reviewed news source; it does not collect fresh intelligence, add canonical records, change review eligibility or alter coverage maturity/recall counts. Separate annual figure and location periods stay intact. See MISSION-29-SNAPSHOT-NEWS-SCOPE.md.

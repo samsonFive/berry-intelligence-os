@@ -31,7 +31,8 @@ def test_empty_and_snapshot_provenance():
     assert {r['id'] for r in m['packet']['source_trace']}=={'pe','lima'}
     assert all(r['source_url'].startswith('https://') for r in m['packet']['source_trace'])
     empty=snapshot_model(query,[],ENTITIES,REL,BERRIES,['varieties'])
-    assert empty['report']['sections'][0]['status']=='unavailable'
+    assert empty['report']['sections'][0]['status']=='structured'
+    assert empty['report']['sections'][0]['generated_prose']=='No sources match the selected filters for this section.'
     assert empty['packet']['source_trace']==[]
 
 def test_global_and_invalid_queries():
@@ -43,7 +44,7 @@ def test_global_and_invalid_queries():
 def test_routes_and_pdf(monkeypatch):
     import app.main as main
     monkeypatch.setattr(main,'entity_index',lambda:ENTITIES)
-    monkeypatch.setattr(main,'published_evidence',lambda:RECORDS)
+    monkeypatch.setattr(main,'published_evidence',lambda:[{**r, 'title':'Grower announces blueberry nursery expansion in ' + r['title'], 'summary':'Blueberry genetics and commercial growing.', 'source_type':'trade_press', 'published_date':'2026-08-01'} for r in RECORDS])
     monkeypatch.setattr(main,'all_relationships',lambda:REL)
     monkeypatch.setattr(main,'all_facts',lambda:[{'id':'fact-'+r['id'],'status':'active','statement':'Confirmed claim '+r['id'],'evidence_ids':[r['id']]} for r in RECORDS])
     client=TestClient(app)

@@ -92,7 +92,10 @@ def _cutoff_date(packet: dict[str, Any]) -> str:
     for row in report_sources(packet):
         if row.get("published_date"):
             dates.append(str(row["published_date"]))
-    return max(dates) if dates else "Unknown (no dated Evidence in packet)"
+    from app.services.chronology import parse_stamp
+    dated = [(parse_stamp(str(value)), str(value)) for value in dates]
+    dated = [(stamp, value) for stamp, value in dated if stamp is not None]
+    return max(dated, key=lambda row: row[0])[1] if dated else "Unknown (no dated Evidence in packet)"
 
 
 def _readable_date(value: Any) -> str:
@@ -228,6 +231,8 @@ def render_report_pdf(
     scope = report.get("scope") or {}
     names = packet.get("display_names") or {}
     scope_lines = [f"Report type: {report.get('report_type', '').replace('_', ' ').title()}"]
+    if packet.get("news_scope"):
+        scope_lines.append("News selection: " + " · ".join(packet["news_scope"]))
     if len(scope.get("berry_ids") or []) > 1:
         scope_lines.append(f"Berries: {', '.join(value.removeprefix('berry-').replace('-', ' ').title() for value in scope['berry_ids'])}")
     if scope.get("berry_id"):

@@ -139,10 +139,41 @@ def explorer_model(query, records, entities, relationships, berries, facts=None,
             'total': len(entries), 'gaps': GAPS}
 
 def snapshot_model(query, records, entities, relationships, berries, included, facts=None, state=None, metric_ids=None,
-                   location_options=(), location_ids=()):
+                   location_options=(), location_ids=(), news_params=None, now=None):
     from dataclasses import replace
     query = replace(query, view="trusted")
-    model = explorer_model(query, records, entities, relationships, berries, facts=facts, state=state)
+    news_scope = []
+    news_filters = {}
+    news_ids = None
+    if news_params is not None:
+        from app.services import news_workspace, feed_first
+        news = news_workspace.model(records={r['id']: r for r in records}, entities=entities,
+            relationships=relationships, facts=facts or [], state=state or {},
+            params={**news_params, **query.params(), 'view': 'trusted'}, now=now)
+        news_filters, news_ids = news['filters'], news['matching_ids']
+        company = entities.get(news_filters['company'])
+        if company:
+            news_scope.append('Company: ' + company['name'])
+        selected_list = next((row for row in news['lists'] if row['id'] == news_filters['list']), None)
+        if selected_list:
+            news_scope.append('Company list: ' + selected_list['name'])
+        if news_filters['favorites'] == '1':
+            news_scope.append('Favorite companies')
+        if news_filters['tier']:
+            news_scope.append(feed_first.TIER_LABELS[news_filters['tier']])
+        if news_filters['q']:
+            news_scope.append('Search: ' + news_filters['q'])
+        window = {'today': 'Today', '7d': 'Past 7 days', '30d': 'Past 30 days', 'ytd': 'Year to date',
+                  'undated': 'Publication date unknown'}.get(news_filters['window'], 'All publication dates')
+        if news_filters['window'] == 'custom':
+            window = 'Publication dates: ' + (news_filters['start'] or 'earliest recorded') + ' through ' + (news_filters['end'] or 'today')
+        news_scope.append(window + ' / ' + news_filters['tz'])
+    allowed_news = None if news_ids is None else set(news_ids)
+    model = explorer_model(query, records if allowed_news is None else [r for r in records if r['id'] in allowed_news],
+                           entities, relationships, berries, facts=facts, state=state)
+    if news_ids is not None:
+        order = {key: index for index, key in enumerate(news_ids)}
+        model['entries'].sort(key=lambda row: order[row['id']])
     entries = model['entries']
     from app.services.map_workspace import statistics
     reference = statistics(query, entities, records, relationships)
@@ -171,11 +202,12 @@ def snapshot_model(query, records, entities, relationships, berries, included, f
         rows = entries if key in {'overview', 'developments'} else [r for r in entries if any(
             e['entity_type'] == ('company' if key == 'companies' else 'variety') for e in r['entities'])]
         if key == 'overview':
-            text = f"{len(entries)} published evidence records match this scope. This is a source inventory, not a verified market conclusion."
+            source_label = 'reviewed news source' if news_params is not None else 'published source'
+            text = f"{len(entries)} {source_label}{'' if len(entries) == 1 else 's'} {'matches' if len(entries) == 1 else 'match'} the selected filters. Read the supporting sources before drawing market conclusions."
         else:
-            text = '\n\n'.join(escape(f"[{r['id']}] {r['title']} — {r['source_name']} ({r['date'] or 'date unknown'}). Source: {r['source_url'] or 'URL unavailable'}") for r in rows) or 'No published evidence is available for this section.'
+            text = '\n\n'.join(escape(f"{r['title']}\n{r['source_name']} · Published {r['date'] or 'date unknown'}") for r in rows) or 'No sources match the selected filters for this section.'
         sections.append({'section_id':key,'title':title,'generated_prose':text,
-                         'citation_ids':[r['id'] for r in rows], 'status':'supported' if rows else 'unavailable'})
+                         'citation_ids':[r['id'] for r in rows], 'status':'structured'})
     scope = {'geography_ids':list(query.geography_ids), 'berry_id':query.berry_id,
              'country_codes': list(query.country_codes), 'berry_ids': list(query.commodities())}
     report = {'title':'Market Snapshot — '+(', '.join(e['name'] for e in model['selected']) or 'Global')+' / '+(', '.join(berries[bid] for bid in query.commodities()) or 'All Berries'),
@@ -196,10 +228,11 @@ def snapshot_model(query, records, entities, relationships, berries, included, f
     for section in sections:
         if section['section_id'] == 'locations':
             section['citation_ids'] = ['location-source-' + row['id'] for row in locations if row.get('source_url')]
-    packet = {'recent_developments': [row for row in entries if row['id'] in cited], 'source_trace':trace}
+    packet = {'recent_developments': [row for row in entries if row['id'] in cited], 'source_trace':trace,
+              'display_names': {key: row['name'] for key, row in entities.items()},
+              'news_scope': news_scope if any(key not in {'statistics', 'locations'} for key in included) else []}
     inventory_included = any(key not in {'statistics', 'locations'} for key in included)
-    gaps = ['Evidence counts reflect stored coverage, not market size or source independence.',
-            'News sections use trusted country and berry coverage, rather than the map news date or company/list filters.'] if inventory_included else []
+    gaps = ['Evidence counts reflect stored coverage, not market size or source independence.'] if inventory_included else []
     if locations:
         gaps.append('Selected locations retain their saved status and source limitations. User annotations are unreviewed; source links do not confirm growing or operations. Unknown dates remain unknown.')
     else:
@@ -212,4 +245,5 @@ def snapshot_model(query, records, entities, relationships, berries, included, f
     return model | {'report':report, 'packet':packet, 'coverage':coverage, 'gaps':gaps, 'section_options':SECTIONS, 'included':included,
                     'statistics': {**reference, 'groups': selected_groups}, 'metric_options': reference['groups'], 'selected_metrics': selected_metrics,
                     'location_options': location_options, 'selected_locations': selected_locations, 'selected_location_rows': locations,
-                    'has_private_locations': any(row['basis'] == 'User annotation · not reviewed' for row in locations)}
+                    'has_private_locations': any(row['basis'] == 'User annotation · not reviewed' for row in locations),
+                    'news_scope': news_scope, 'news_filters': news_filters}

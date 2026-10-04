@@ -1946,3 +1946,6 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 
 **Mission 28 snapshot composition:** Explicit selected location annotations now export with activity/status, effective versus source dates, full saved qualifications and original URLs; confidential unreviewed labels and public/private isolation are retained. Map script scope loss and long-note phone column expansion are corrected. Remaining snapshot debt: trusted news sections still use country/berry rather than News date/company/list scope (disclosed), and Trade composition remains absent. Broader source/market/account/worker and combined release acceptance stay open. See MISSION-28-SELECTED-LOCATION-SNAPSHOTS.md.
+
+
+**Mission 29 snapshot parity:** Trusted news sections now reuse the shared News selector with all company/list/mark/search/date filters and true timestamp ordering; read-only routes do not hydrate private tracking state. Annual statistics and selected locations retain independent dates. Native control activation no longer triggers feed shortcuts. This closes the disclosed news-scope mismatch from Mission 28; Trade composition, wider public-source/refresh and real body/media availability, account/worker persistence and combined release remain open. See MISSION-29-SNAPSHOT-NEWS-SCOPE.md.
