@@ -601,3 +601,6 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **Mission 9 educational capability:** Existing 27 concepts/five pillars now have live Glasshouse presentation and an explicit private deep-research-to-lesson workflow. A public cane-biology probe returned 42 source URLs and a detailed editable draft; one concept has a sourced interactive diagram, attributed photo and linked extension video. This is educational coverage, not intelligence acquisition, collector maturity or recall evidence. No Evidence/Fact/Signal counts or maturity classifications change; broader media coverage remains incomplete.
+
+
+**2026-10-03 Map reference coverage:** Bounded Eurostat `apro_cpsh1` public capture adds eight 2025 strawberry production/area references for Germany, Spain, Netherlands and Portugal to the existing six USDA context figures. Values reproduce the retained official response; missing yield/2026 cells are unknown and no country/unit sums are inferred. This is Map reference context, not new canonical Evidence/Facts, an automatic collector, or a recall/maturity reclassification. Wider FAOSTAT/national and Trade coverage remains open. See MISSION-25-MARKET-REFERENCES-SNAPSHOTS.md.

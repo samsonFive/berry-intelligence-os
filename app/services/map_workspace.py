@@ -4,6 +4,7 @@ from pathlib import Path
 
 from app.services import global_explorer, map_regions, news_workspace
 from app.services.geography_hierarchy import resolve_geography_scope
+from app.services.market_statistics_reference import identified_groups, flag_label
 
 
 def statistics(query, entities, records, relationships=()):
@@ -13,11 +14,12 @@ def statistics(query, entities, records, relationships=()):
     for key in query.geography_ids:
         scope.update(resolve_geography_scope(key, relationships=relationships).all_ids)
     groups = []
-    for group in json.loads(source.read_text(encoding="utf-8"))["groups"]:
+    for group in identified_groups(json.loads(source.read_text(encoding="utf-8"))["groups"]):
         if query.geography_ids and group["country_id"] not in scope or query.country_codes and not scope:
             continue
         if query.commodities() and group["berry_id"] not in query.commodities():
             continue
+        group["metrics"] = [{**metric, "status_label": flag_label(metric["source_flag"])} if "source_flag" in metric else metric for metric in group["metrics"]]
         groups.append(group)
     trades = []
     for record in records:

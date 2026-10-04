@@ -7722,7 +7722,11 @@ def _explorer_context(request, countries, berry, sections=None):
         model = {}
     else:
         included = [key for key in sections.split(',') if key in SECTIONS]
-        model = snapshot_model(*args, included, **trust)
+        metric_ids = request.query_params.get("metrics")
+        try:
+            model = snapshot_model(*args, included, **trust, metric_ids=None if metric_ids is None else [key for key in metric_ids.split(',') if key])
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
     from app.services.feed_first import NAV
     # Keep the originating News filters on return; map geography/berries win.
     from urllib.parse import parse_qsl

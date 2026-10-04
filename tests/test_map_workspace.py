@@ -95,7 +95,8 @@ def test_statistics_keep_country_units_gaps_and_existing_mixed_trade_semantics()
     trade = {**RECORDS[0], "id": "ev-trade", "trade_observation": {"reporter_geography_id": "geography-peru", "flow": "export", "hs_code": "081040", "berry_code_purity": "multi_berry_combined", "series": [{"period": "2025-11", "quantity": None}, {"period": "2025-12", "quantity": 0, "quantity_unit": "kg", "value_basis": "unspecified"}]}}
     result = map_workspace.statistics(query, ENTITIES, [trade])
     assert len(result["groups"]) == 2
-    assert result["groups"][0]["metrics"][1] == {"label": "Harvested area", "value": 104700, "unit": "acres"}
+    area = result["groups"][0]["metrics"][1]
+    assert {key: area[key] for key in ("label", "value", "unit")} == {"label": "Harvested area", "value": 104700, "unit": "acres"}
     assert len(result["gaps"]) == 2
     assert result["trades"][0]["latest"]["quantity"] == 0
     assert result["trades"][0]["observation"]["berry_code_purity"] == "multi_berry_combined"

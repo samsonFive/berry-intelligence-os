@@ -48,6 +48,7 @@ def _styles() -> dict[str, ParagraphStyle]:
         "h2": ParagraphStyle("ReportH2", parent=base["Heading2"], fontSize=16, leading=20, textColor=colors.HexColor("#214c35"), spaceBefore=19, spaceAfter=9, keepWithNext=True),
         "section_meta": ParagraphStyle("ReportSectionMeta", parent=base["Normal"], fontSize=8.5, leading=12, textColor=colors.HexColor("#526459"), spaceAfter=5, keepWithNext=True),
         "item": ParagraphStyle("ReportItem", parent=base["BodyText"], fontSize=10, leading=15, textColor=colors.HexColor("#273c30"), leftIndent=12, bulletIndent=0, spaceAfter=9),
+        "market_group": ParagraphStyle("MarketGroup", parent=base["BodyText"], fontName="Helvetica-Bold", fontSize=11, leading=15, textColor=colors.HexColor("#214c35"), spaceBefore=10, spaceAfter=7),
         "body": ParagraphStyle("ReportBody", parent=base["BodyText"], fontSize=10, leading=15, textColor=colors.HexColor("#273c30"), spaceAfter=9),
         "takeaway": ParagraphStyle("ReportTakeaway", parent=base["BodyText"], fontSize=12, leading=18, textColor=colors.HexColor("#21432e"), backColor=colors.HexColor("#edf5e6"), borderPadding=12, spaceBefore=8, spaceAfter=15),
         "unsupported": ParagraphStyle(
@@ -124,6 +125,24 @@ def render_report_pdf(
         label = "Analyst edited - review before sharing" if edited else {"ai_draft": "AI draft - analyst review required", "structured": "From stored records - classifications retained", "unavailable": "Drafting unavailable", "unsupported": "Insufficient sourced information"}.get(status, "Working draft")
         if status != "structured" or edited:
             story.append(Paragraph(label, styles["section_meta"]))
+        if not edited and section.get("section_id") == "statistics" and section.get("statistics_groups"):
+            story.append(Paragraph("Public reference figures; separate from reviewed statements. Countries, categories and source units are not added together.", styles["body"]))
+            for group in section["statistics_groups"]:
+                heading = Paragraph(escape(f"{group['country']} / {group['commodity']} / {group['period']}"), styles["market_group"])
+                cells = [[Paragraph(escape(str(v)), styles["source"]) for v in ("Measure", "Value", "Unit / status")]]
+                cells += [[Paragraph(escape(str(v)), styles["body"]) for v in
+                           (m["label"], f"{m['value']:,}", m["unit"] + (" / " + m["status_label"] if m.get("source_flag") else ""))] for m in group["metrics"]]
+                table = Table(cells, colWidths=[doc.width * .38, doc.width * .20, doc.width * .42], repeatRows=1)
+                table.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#edf5e6")),
+                                          ("LINEBELOW", (0, 0), (-1, 0), .7, colors.HexColor("#90aa8f")), ("LINEBELOW", (0, 1), (-1, -1), .3, colors.HexColor("#d8e4d3")),
+                                          ("LEFTPADDING", (0, 0), (-1, -1), 8), ("RIGHTPADDING", (0, 0), (-1, -1), 8)]))
+                story.append(KeepTogether([heading, table]))
+                story.append(Paragraph(escape(group["basis"]), styles["source"]))
+                if all("source_flag" in m and not m["source_flag"] for m in group["metrics"]):
+                    story.append(Paragraph("No estimate/provisional flags supplied; figures remain subject to source revisions.", styles["source"]))
+                timing = "Source updated " + group["source_updated_at"][:10] if group.get("source_updated_at") else "Published " + group["published_date"]
+                story.append(Paragraph(escape(f"{group['source']} / {group['locator']} / {timing} / checked {group['accessed_date']} / " + reference_names.get(group["id"], "Supporting source")), styles["source"]))
+            return
         text = section_text(section, packet)
         if not edited and status == "unavailable":
             text = "This section has not been drafted. Add analyst commentary before sharing."
@@ -245,13 +264,14 @@ def render_report_pdf(
         table.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#f3ecd9")), ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.HexColor("#faf8ef"), colors.white]), ("LINEBELOW", (0, 0), (-1, -1), .4, colors.HexColor("#d6d4c1")), ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8), ("VALIGN", (0, 0), (-1, -1), "TOP")]))
         story.append(table)
     if source_trace:
-        story.append(Paragraph("Source appendix", styles["h2"]))
         for index, row in enumerate(source_trace):
             label = row.get("title") or "Source title not recorded"
             date_text = _readable_date(row.get("date") or row.get("published_date"))
             source_name = row.get("source_name") or ""
             entry = [Paragraph(f"<b>{index + 1}. {escape(label)}</b>", styles["body"]),
-                     Paragraph(escape(f"{source_name} | {date_text or 'Date not recorded'}"), styles["source"])]
+                     Paragraph(escape(f"{source_name} | {row.get('date_label') or date_text or 'Date not recorded'}"), styles["source"])]
+            if index == 0:
+                entry.insert(0, Paragraph("Source appendix", styles["h2"]))
             url = public_source_url(row.get("source_url"))
             if url:
                 safe_url = escape(url, {'"': '&quot;'})

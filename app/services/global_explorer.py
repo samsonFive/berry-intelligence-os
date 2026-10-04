@@ -90,7 +90,7 @@ class GeographicLayer(Protocol):
     def features(self, query: IntelligenceQuery) -> list[GeographicLayerFeature]: ...
 
 SECTIONS = {'overview': 'Market overview', 'developments': 'Recent developments',
-            'companies': 'Company activity', 'varieties': 'Variety activity'}
+            'companies': 'Company activity', 'varieties': 'Variety activity', 'statistics': 'Market statistics'}
 GAPS = ['Production volumes and growing-region metrics are not populated by this explorer. '
         'Evidence counts reflect stored coverage, not market size or source independence.']
 
@@ -138,14 +138,27 @@ def explorer_model(query, records, entities, relationships, berries, facts=None,
             'selected': selected_countries, 'berries': berries,
             'total': len(entries), 'gaps': GAPS}
 
-def snapshot_model(query, records, entities, relationships, berries, included, facts=None, state=None):
+def snapshot_model(query, records, entities, relationships, berries, included, facts=None, state=None, metric_ids=None):
     from dataclasses import replace
     query = replace(query, view="trusted")
     model = explorer_model(query, records, entities, relationships, berries, facts=facts, state=state)
     entries = model['entries']
+    from app.services.map_workspace import statistics
+    reference = statistics(query, entities, records, relationships)
+    available = {m['id'] for g in reference['groups'] for m in g['metrics']}
+    selected_metrics = available if metric_ids is None else set(metric_ids)
+    if not selected_metrics.issubset(available):
+        raise ValueError('A selected market figure is no longer available in this scope; review the composition')
+    selected_groups = [{**g, 'metrics': [m for m in g['metrics'] if m['id'] in selected_metrics]} for g in reference['groups']]
+    selected_groups = [g for g in selected_groups if g['metrics']]
     sections = []
     for key, title in SECTIONS.items():
         if key not in included: continue
+        if key == 'statistics':
+            text = '\n\n'.join(f"{g['country']} · {g['commodity']} · {g['period']}\n" + '\n'.join(f"{m['label']}: {m['value']:,} {m['unit']}" for m in g['metrics']) + '\n' + g['basis'] for g in selected_groups)
+            sections.append({'section_id': key, 'title': title, 'generated_prose': text or 'No market figures selected for this scope.',
+                             'statistics_groups': selected_groups, 'citation_ids': [g['id'] for g in selected_groups], 'status': 'structured'})
+            continue
         rows = entries if key in {'overview', 'developments'} else [r for r in entries if any(
             e['entity_type'] == ('company' if key == 'companies' else 'variety') for e in r['entities'])]
         if key == 'overview':
@@ -161,6 +174,18 @@ def snapshot_model(query, records, entities, relationships, berries, included, f
     cited = {eid for s in sections for eid in s['citation_ids']}
     trace = [{'id':r['id'], 'title':escape(r['title']), 'source_name':escape(r['source_name']),
               'date':r['date'], 'source_url':r['source_url'], 'href':r['href']} for r in entries if r['id'] in cited]
+    if 'statistics' in included:
+        trace.extend({'id': g['id'], 'title': f"{g['country']} · {g['commodity']} · {g['period']}",
+                      'source_name': g['source'], 'date': g['published_date'] if g['published_date'] != 'Not supplied' else '',
+                      'date_label': 'Source updated ' + g['source_updated_at'][:10] if g.get('source_updated_at') else 'Published ' + g['published_date'],
+                      'source_url': g['source_url'], 'href': g['source_url']} for g in selected_groups)
     packet = {'recent_developments':entries, 'source_trace':trace}
-    coverage = {'counts':{'evidence_count':len(entries)},'gaps':GAPS}
-    return model | {'report':report, 'packet':packet, 'coverage':coverage, 'section_options':SECTIONS, 'included':included}
+    inventory_included = any(key != 'statistics' for key in included)
+    gaps = ['Evidence counts reflect stored coverage, not market size or source independence. Private region notes are excluded.'] if inventory_included else []
+    if 'statistics' in included:
+        gaps += reference['gaps']
+    else:
+        gaps += ['Market statistics are excluded unless selected in the composition.']
+    coverage = {'counts':{'evidence_count':len(entries)} if inventory_included else {},'gaps':gaps}
+    return model | {'report':report, 'packet':packet, 'coverage':coverage, 'gaps':gaps, 'section_options':SECTIONS, 'included':included,
+                    'statistics': {**reference, 'groups': selected_groups}, 'metric_options': reference['groups'], 'selected_metrics': selected_metrics}
