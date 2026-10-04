@@ -50,3 +50,6 @@ The plan is now reviewed and accepted (with the revisions recorded in `08-DECISI
 
 
 - [Mission 31 — Compact News filters and bounded article capture](MISSION-31-COMPACT-NEWS-AND-CAPTURE-BOUNDS.md): complete native scope disclosure, explicit timezone retention and deterministic HTTP bounds.
+
+
+- [Mission 32 — Official statistics refresh and review](MISSION-32-OFFICIAL-STATISTICS-REFRESH-REVIEW.md): native explicit agency capture, paired values, human selection, retained history and Map/snapshot parity.

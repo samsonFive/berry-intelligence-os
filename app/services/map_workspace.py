@@ -35,14 +35,16 @@ def snapshot_regions(query, entities, relationships, records, state, params, *, 
             status=status, activity=activity, entity_id=entity_id, as_of=as_of)]
 
 
-def statistics(query, entities, records, relationships=()):
+def statistics(query, entities, records, relationships=(), *, inbox_dir=None, authoring=False):
     """Public reference context and existing published Trade observations, no sums."""
     source = Path(__file__).resolve().parents[2] / "data" / "configuration" / "market_statistics_reference.json"
     scope = set()
     for key in query.geography_ids:
         scope.update(resolve_geography_scope(key, relationships=relationships).all_ids)
     groups = []
-    for group in identified_groups(json.loads(source.read_text(encoding="utf-8"))["groups"]):
+    from app.services.map_statistics_refresh import references
+    reference_groups = references(json.loads(source.read_text(encoding="utf-8"))["groups"], inbox_dir, authoring)
+    for group in identified_groups(reference_groups):
         if query.geography_ids and group["country_id"] not in scope or query.country_codes and not scope:
             continue
         if query.commodities() and group["berry_id"] not in query.commodities():
@@ -119,5 +121,5 @@ def model(*, query, records, entities, relationships, berries, facts, state, par
     return {**result, **news, "total": news["matching"], "entries": [], "layer": layer, "region_rows": rows,
             "region_entities": sorted([e for e in entities.values() if e.get("entity_type") == kind], key=lambda e: e["name"].casefold()),
             "region_status": status, "activity": activity, "region_entity": region_entity, "region_asof": as_of, "activities": map_regions.ACTIVITIES[kind],
-            "authoring_mode": authoring, "statistics": statistics(query, entities, records, relationships),
+            "authoring_mode": authoring, "statistics": statistics(query, entities, records, relationships, inbox_dir=inbox_dir, authoring=authoring),
             "companies": sorted([e for e in entities.values() if e.get("entity_type") == "company"], key=lambda e: e["name"].casefold())}

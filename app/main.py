@@ -7734,7 +7734,7 @@ def _explorer_context(request, countries, berry, sections=None):
                                                  inbox_dir=INBOX_DIR, authoring=AUTHORING_MODE)
             model = snapshot_model(*args, included, **trust, metric_ids=None if metric_ids is None else [key for key in metric_ids.split(',') if key],
                                    location_options=location_options, location_ids=[key for key in request.query_params.get("locations", "").split(',') if key],
-                                   news_params=dict(request.query_params))
+                                   news_params=dict(request.query_params), inbox_dir=INBOX_DIR, authoring=AUTHORING_MODE)
             model["snapshot_scope"] = {key: request.query_params.get(key, "") for key in SNAPSHOT_SCOPE_KEYS if request.query_params.get(key)}
             model["explorer_href"] = "/explorer?" + urlencode({**query.params(), **model["snapshot_scope"]})
         except ValueError as exc:
@@ -7764,6 +7764,7 @@ def _explorer_context(request, countries, berry, sections=None):
         model["pagination"] = {number: "/explorer?" + urlencode({**values, "page": number}) for number in (model["page"]-1, model["page"]+1)}
     model["news_href"] = "/today?" + urlencode({**origin, **query.params()})
     model["news_return"] = "/today?" + urlencode(origin) if origin else ""
+    model["statistics_review_href"] = "/explorer/statistics?" + urlencode({"return_to": request.url.path + ("?" + request.url.query if request.url.query else "")})
     return model | {"ui_context": read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR),
                     "nav": NAV, "active_href": "/explorer"}
 
@@ -10421,6 +10422,8 @@ from app.variety_seed_routes import router as variety_seed_router
 app.include_router(variety_seed_router)
 from app.news_workspace_routes import router as news_workspace_router
 app.include_router(news_workspace_router)
+from app.map_statistics_routes import router as map_statistics_router
+app.include_router(map_statistics_router)
 
 from app.map_region_routes import router as map_region_router
 app.include_router(map_region_router)
