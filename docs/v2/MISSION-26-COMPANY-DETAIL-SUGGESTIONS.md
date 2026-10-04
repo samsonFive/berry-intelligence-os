@@ -33,4 +33,4 @@ The actual live suggestions were inspected in the company panel; default visible
 Source-assisted location/activity proposals and conflict reconciliation, subnational map/snapshot layers, wider country/statistics coverage, article-body/media availability, logo browser-upload/history acceptance, per-account/inter-process persistence, older-PR parity and combined canonical release remain open. Final release review precedes merge or deployment. Completing this slice does not complete the ongoing goal.
 
 
-Final anchor/threadpool/static follow-up: **53 passed / one existing warning in 76.69 seconds**. No private research entered the static fixture. Required checks on the pushed draft head remain the next gate.
+Final anchor/threadpool/static follow-up: **53 passed / one existing warning in 76.69 seconds**. No private research entered the static fixture. Draft #299 head `044b4b9853669034c2146935ce7e40413df9e72a` passed Change scope, Repository integrity, Static public safety and Python tests, run `37222193634`: **3,689 passed / 11 skipped / two warnings in 360.37 seconds**. Combined canonical release remains open.

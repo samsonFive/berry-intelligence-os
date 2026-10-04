@@ -347,7 +347,7 @@ from app.services.report_builder.coverage import report_coverage
 from app.services.report_builder.decision_memo import build_decision_memo_packet, generate_decision_memo_sections
 from app.services.report_builder.packet import build_report_packet
 from app.services.report_builder.pdf_export import render_report_pdf
-from app.services.report_builder.presentation import section_text as report_section_text
+from app.services.report_builder.presentation import section_text as report_section_text, display_sections as report_display_sections, report_sources
 from app.services.report_builder.perplexity_gap_research import PublicQueryContext, research_public_gaps
 from app.services.report_builder.research_evidence_draft import build_perplexity_research_draft
 from app.services.report_builder.reports_store import (
@@ -7615,7 +7615,9 @@ def _report_display_packet(packet: dict[str, Any]) -> dict[str, Any]:
     names = {row["id"]: row.get("name") or row["id"] for row in living_catalog()}
     records = {row["id"]: row for row in published_evidence()}
     return {**packet, "display_names": {**names, **BERRIES}, "source_trace": [
-        {**row, "source_url": row.get("source_url") or records.get(row["id"], {}).get("source_url") or ""}
+        {**row, "source_url": row.get("source_url") or records.get(row["id"], {}).get("source_url") or "",
+         **({"published_date": records[row["id"]].get("published_date") or "",
+             "date_label": dated_label(records[row["id"]])} if row["id"] in records else {})}
         for row in packet.get("source_trace") or []
     ]}
 
@@ -7980,8 +7982,9 @@ def report_workspace_page(request: Request, report_id: str) -> HTMLResponse:
         name="report_workspace.html",
         context={
             "report": record,
-            "display_sections": [{**section, "display_text": report_section_text(section, packet)} for section in record.get("sections") or []],
-            "reference_labels": {row["id"]: f"Source {index + 1}" for index, row in enumerate(packet.get("source_trace") or [])},
+            "display_sections": report_display_sections(record, packet),
+            "reference_labels": {row["id"]: f"Source {index + 1}" for index, row in enumerate(report_sources(packet)) if row.get("id")},
+            "report_sources": report_sources(packet),
             "packet": packet,
             "coverage": coverage,
             "report_type_labels": REPORT_TYPE_LABELS,
