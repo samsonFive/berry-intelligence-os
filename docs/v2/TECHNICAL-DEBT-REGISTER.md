@@ -1958,3 +1958,6 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 
 **Mission 32 official-reference workflow:** The manual-only Eurostat reference refresh now has an explicit native capture/compare/select/save path. Original captures, older overlay values and saved history are retained; stale/older review, failed acquisition and corrupt state cannot replace current references silently. Source trust/canonical records and public output remain separate. Four-country strawberry coverage is explicit; wider population and distributed runtime remain open. See MISSION-32-OFFICIAL-STATISTICS-REFRESH-REVIEW.md.
+
+
+**Mission 33 runtime paths:** Repository-only reference reads would fail in the deployed seed/persistent-data layout. Map/snapshot and review now share the configured runtime reference loader, with no seed/runtime writes, no missing-data fabrication and no overwrite on malformed data. Existing startup sync is unchanged. 107 focused checks passed; actual container/combined release acceptance remains. Legacy specialist chrome and route parity remain. See MISSION-33-RUNTIME-REFERENCE-PARITY.md.

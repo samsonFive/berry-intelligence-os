@@ -53,3 +53,6 @@ The plan is now reviewed and accepted (with the revisions recorded in `08-DECISI
 
 
 - [Mission 32 — Official statistics refresh and review](MISSION-32-OFFICIAL-STATISTICS-REFRESH-REVIEW.md): native explicit agency capture, paired values, human selection, retained history and Map/snapshot parity.
+
+
+- [Mission 33 — Persistent runtime reference parity](MISSION-33-RUNTIME-REFERENCE-PARITY.md): deployed data-directory compatibility, operator-edit preservation and remaining specialist/release acceptance.
