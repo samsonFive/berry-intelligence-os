@@ -612,3 +612,6 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **October 4 source-location review:** The new explicit research-to-location editor is private analyst working state. Native citations make proposals reviewable, not verified. The browser fixture used fictional passages; no live capture or canonical location/Evidence/Fact was created. Existing coverage classes/counts and maturity remain authoritative. See MISSION-27-SOURCE-LOCATION-SUGGESTIONS.md.
+
+
+**October 4 selected-location export:** Optional explicitly selected recorded Company/Variety locations are a report presentation feature. The export sample uses fictional annotations in an isolated runtime; it does not add verified footprints, intelligence acquisition, canonical records or recall/maturity evidence. Existing counts/classes remain authoritative. See MISSION-28-SELECTED-LOCATION-SNAPSHOTS.md.

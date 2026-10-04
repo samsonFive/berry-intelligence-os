@@ -1943,3 +1943,6 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 
 **Mission 27 location workflow:** Exact-source, native-cited private proposals, country/subregion comparison, human correction and protected annotation history/replay are delivered. Uncertain submission/recovery, invalid store preservation and long date/source qualifications are covered. This closes the location-proposal implementation gap without claiming verified footprints. Distributed/account worker persistence, subnational boundary/snapshot composition, source/body/media coverage and combined release remain. No trust or domain-schema change. See MISSION-27-SOURCE-LOCATION-SUGGESTIONS.md.
+
+
+**Mission 28 snapshot composition:** Explicit selected location annotations now export with activity/status, effective versus source dates, full saved qualifications and original URLs; confidential unreviewed labels and public/private isolation are retained. Map script scope loss and long-note phone column expansion are corrected. Remaining snapshot debt: trusted news sections still use country/berry rather than News date/company/list scope (disclosed), and Trade composition remains absent. Broader source/market/account/worker and combined release acceptance stay open. See MISSION-28-SELECTED-LOCATION-SNAPSHOTS.md.

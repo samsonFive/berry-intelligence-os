@@ -155,3 +155,6 @@ Verification: all eight workspace entries and all 20 nested views rendered with 
 
 
 **Mission 27 location review:** `region-source-suggestions.png` shows source-bound review cards; `region-source-unsupported.png` and `region-source-mobile.png` show a fictional patent-territory growing claim visibly unsupported. `region-variety-map.png` shows the saved, human-corrected fictional trial in the shared Map table. All locations/passages used for these actions are labeled design fixtures in an ignored, isolated runtime; these images do not establish real growing locations. Desktop and 390px containment and keyboard history were checked. See docs/v2/MISSION-27-SOURCE-LOCATION-SUGGESTIONS.md.
+
+
+**Mission 28 selected-location snapshot:** `map-locations-snapshot.pdf` and `map-locations-snapshot.png` show the actual compact location export, with named sources and unchanged qualifications; both PDF pages were inspected. `map-locations-snapshot-browser.png` and `map-locations-snapshot-mobile.png` show explicit variety selection, unreviewed status, unknown dates and saved limitations in the delivered composer. All entries/passages are explicitly fictional design fixtures in an ignored isolated runtime, not real geographic evidence. No provider call or canonical/private user data change occurred. See docs/v2/MISSION-28-SELECTED-LOCATION-SNAPSHOTS.md.

@@ -70,7 +70,7 @@
     if (!selected.size) chips.textContent = 'Global scope · select countries to focus';
     selected.forEach(id => { const b = document.createElement('button'); b.type = 'button'; b.className = 'gx-chip'; b.textContent = (byID.get(id)?.name || id) + ' ×'; b.setAttribute('aria-label', 'Deselect ' + (byID.get(id)?.name || id)); b.onclick = () => toggle(id); chips.append(b); });
     const queryParams = params();
-    document.querySelector('[data-snapshot]').href = '/explorer/snapshot?' + new URLSearchParams({countries:field.value, berry:berryValue()});
+    document.querySelector('[data-snapshot]').href = '/explorer/snapshot?' + queryParams;
     queryParams.set('countries',''); document.querySelector('[data-clear-countries]').href='/explorer?'+queryParams;
     document.querySelector('[data-all-berries]').setAttribute('aria-pressed', String(!berryValue()));
     status.textContent = `${selected.size} countries selected.`;

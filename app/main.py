@@ -7726,7 +7726,13 @@ def _explorer_context(request, countries, berry, sections=None):
         included = [key for key in sections.split(',') if key in SECTIONS]
         metric_ids = request.query_params.get("metrics")
         try:
-            model = snapshot_model(*args, included, **trust, metric_ids=None if metric_ids is None else [key for key in metric_ids.split(',') if key])
+            from app.services.map_workspace import snapshot_regions, SNAPSHOT_SCOPE_KEYS
+            location_options = snapshot_regions(query, entities, args[3], records, trust["state"], request.query_params,
+                                                 inbox_dir=INBOX_DIR, authoring=AUTHORING_MODE)
+            model = snapshot_model(*args, included, **trust, metric_ids=None if metric_ids is None else [key for key in metric_ids.split(',') if key],
+                                   location_options=location_options, location_ids=[key for key in request.query_params.get("locations", "").split(',') if key])
+            model["snapshot_scope"] = {key: request.query_params.get(key, "") for key in SNAPSHOT_SCOPE_KEYS if request.query_params.get(key)}
+            model["explorer_href"] = "/explorer?" + urlencode({**query.params(), **model["snapshot_scope"]})
         except ValueError as exc:
             raise HTTPException(status_code=422, detail=str(exc)) from exc
     from app.services.feed_first import NAV
@@ -7749,6 +7755,7 @@ def _explorer_context(request, countries, berry, sections=None):
             raise HTTPException(422, str(exc)) from exc
         origin = {key: model["filters"][key] for key in ("q", "company", "list", "tier", "favorites", "window", "start", "end", "tz") if model["filters"][key]}
         values = {**model["filters"], "layer": model["layer"], "region_status": model["region_status"], "activity": model["activity"], "region_entity": model["region_entity"], "region_asof": model["region_asof"]}
+        model["snapshot_href"] = "/explorer/snapshot?" + urlencode(values)
         model["review_urls"] = {view: "/explorer?" + urlencode({**values, "view": view}) for view in ("trusted", "unreviewed")}
         model["pagination"] = {number: "/explorer?" + urlencode({**values, "page": number}) for number in (model["page"]-1, model["page"]+1)}
     model["news_href"] = "/today?" + urlencode({**origin, **query.params()})
@@ -7774,7 +7781,8 @@ def global_snapshot_page(request: Request, countries: str = "", berry: str = "",
 def global_snapshot_pdf(request: Request, countries: str = "", berry: str = "",
                         sections: str = "overview,developments,companies,varieties"):
     model = _explorer_context(request, countries, berry, sections)
-    content = render_report_pdf(model["report"], model["packet"], model["coverage"], confidentiality="Public-source intelligence")
+    content = render_report_pdf(model["report"], model["packet"], model["coverage"],
+                                confidentiality="Internal / Confidential · includes unreviewed annotations" if model["has_private_locations"] else "Public-source intelligence")
     return Response(content=content, media_type="application/pdf",
         headers={"Content-Disposition": 'attachment; filename="market-snapshot.pdf"'})
 
