@@ -40,3 +40,6 @@ The live/public visual Guide now describes the optional individual-figure capabi
 
 
 Market-code head `b8a29039ea35a9623c9c5c964a307cf5410498f2` passed all four required checks, run `37212137821`: **3,666 passed / 11 skipped / two warnings in 244.73 seconds**. The subsequent Guide wording follow-up passed 18 focused Guide/static tests; its pushed head requires fresh checks. This is not canonical release sign-off.
+
+
+Final Guide head `21db634f24e75dd289c4dd38cda7a8da15128360` passed all four required checks, run `37212618775`: **3,666 passed / 11 skipped / two warnings in 341.70 seconds**. This supersedes the pending follow-up check, not the separate canonical release gate.
