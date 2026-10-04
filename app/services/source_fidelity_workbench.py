@@ -25,6 +25,25 @@ IDENTITY_PROOF_LABELS = {
     "historic_body_hash_match": "Historic body-hash match",
 }
 
+# Presentation labels only; stored matching and decision vocabularies are unchanged.
+SOURCE_MATCH_LABELS = {
+    "EXACT_IDENTITY_MATCH": "Same publication record",
+    "EXACT_CANONICAL_URL": "Same source URL",
+    "EXACT_URL_MATCH": "Same source URL",
+    "LINEAGE_MATCH": "Linked capture history",
+    "EXACT_TITLE_SOURCE_DATE_ONLY": "Same title, source and date — check the text",
+    "REUSED_BODY_HASH_ACROSS_DISTINCT_PUBLICATIONS": "Same text on different publications",
+    "REACQUIRED_CURRENT_SOURCE": "Captured from the current web page",
+    "canonical_url_match": "Same source URL",
+    "title_match": "Same title",
+    "publication_date_match": "Same publication date",
+    "historic_body_hash_match": "Same text as the earlier saved copy",
+}
+
+
+def source_match_label(code: str) -> str:
+    return SOURCE_MATCH_LABELS.get(code, "Other matching details — inspect the source")
+
 QUEUE_META_KEYS = (
     "source_fidelity_artifact_schema_version",
     "source_artifact_id",
@@ -121,7 +140,11 @@ def identity_proof_items(artifact: dict[str, Any]) -> list[dict[str, str]]:
         if code in seen:
             continue
         seen.add(code)
-        items.append({"code": code, "label": IDENTITY_PROOF_LABELS.get(code, code.replace("_", " ").title())})
+        items.append({
+            "code": code,
+            "label": IDENTITY_PROOF_LABELS.get(code, code.replace("_", " ").title()),
+            "display_label": source_match_label(code),
+        })
     return items
 
 
@@ -321,6 +344,7 @@ def build_queue_rows(
             "entities": named_ids(list(trusted.get("entity_ids") or []), entities),
             "staged_at": staged_at(artifact),
             "match_class": artifact.get("match_class") or "",
+            "match_label": source_match_label(str(artifact.get("match_class") or "")),
             "artifact_type": artifact.get("artifact_type") or "",
             "source_name": trusted.get("source_name") or artifact.get("source_name") or "",
         }

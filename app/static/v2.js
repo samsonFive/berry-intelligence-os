@@ -343,18 +343,18 @@
     if (!searchResults || !searchStatus) return;
     searchIndex = -1;
     if (!payload || !payload.q) {
-      searchStatus.textContent = "Type to search across objects.";
+      searchStatus.textContent = "Type a company, variety or article title.";
       searchResults.innerHTML = "";
       return;
     }
     if (payload.empty) {
-      searchStatus.textContent = "No objects matched “" + payload.q + "”. This is name/title/alias navigation, not Q&A.";
+      searchStatus.textContent = "No results for “" + payload.q + "”. Try a company, variety or article title.";
       searchResults.innerHTML = "";
       return;
     }
     var html = "";
     if (payload.ambiguous) {
-      html += '<p class="banner banner-warning">More than one canonical object matches. Nothing was auto-selected.</p>';
+      html += '<p class="banner banner-warning">More than one record matches. Choose the record you need.</p>';
     }
     (payload.groups || []).forEach(function (group) {
       html += '<section class="v2-search-group" data-search-group="' + escapeHtml(group.id) + '"><h2>' + escapeHtml(group.label) + "</h2>";
@@ -367,8 +367,7 @@
       }
       html += "</section>";
     });
-    searchStatus.textContent = payload.result_count + " grouped result" + (payload.result_count === 1 ? "" : "s") +
-      (payload.elapsed_ms != null ? " · " + payload.elapsed_ms + " ms" : "");
+    searchStatus.textContent = payload.result_count + " result" + (payload.result_count === 1 ? "" : "s");
     searchResults.innerHTML = html;
     searchResults.querySelectorAll("[data-open-reader]").forEach(bindStandaloneReaderLink);
   }
