@@ -445,6 +445,7 @@
   }
 
   document.addEventListener("keydown", function (event) {
+    if (event.defaultPrevented) return;
     if (inFormField(event.target) && event.target !== topbarInput) {
       if (searchOpen && event.key === "Escape") {
         event.preventDefault();
@@ -471,6 +472,10 @@
       return;
     }
     if (searchOpen) return;
+    // Native links, disclosure headings and buttons keep their own activation.
+    // Feed shortcuts apply to the card/background, not the focused control.
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    if (event.target && event.target.closest && event.target.closest("a, button, summary, [role='button'], [role='link']")) return;
     if (!cards.length) return;
     if (event.key === "j") {
       event.preventDefault();

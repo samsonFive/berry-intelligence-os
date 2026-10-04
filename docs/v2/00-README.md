@@ -41,3 +41,6 @@ Everything here is organized around one distinction, stated fully in `01-PRODUCT
 ## Recommended next step
 
 The plan is now reviewed and accepted (with the revisions recorded in `08-DECISION-LOG.md`). The concrete first action is Phase 0 (`07-IMPLEMENTATION-ROADMAP.md`): tag the current V1 commit as the reference baseline (`BL-001`, `10-BACKLOG.md`) — a trivial, reversible, zero-risk action that unblocks every subsequent phase without touching anything currently running. **Not started as part of this review pass** — see `PROJECT-STATUS.md`.
+
+
+- [Mission 29 — News filters in Market Snapshot](MISSION-29-SNAPSHOT-NEWS-SCOPE.md): shared News scope, readable export selection and native keyboard activation; separate annual/location periods and remaining release acceptance.
