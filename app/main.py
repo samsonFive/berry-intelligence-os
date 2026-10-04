@@ -1089,6 +1089,7 @@ def source_fidelity_detail(request: Request, evidence_id: str) -> HTMLResponse:
         context={
             "trusted": trusted,
             "artifact": artifact,
+            "match_label": identity_proof_items(artifact)[0]["display_label"] if identity_proof_items(artifact) else "No matching details recorded",
             "reviewer": session_username(request) or review_username() or "",
             "review_state": review_status(artifact),
             "review_state": review_status(artifact),
@@ -1099,7 +1100,7 @@ def source_fidelity_detail(request: Request, evidence_id: str) -> HTMLResponse:
             "warnings": warning_codes(artifact, trusted),
             "consequences": consequence_preview(trusted, artifact),
             "reader": reader_payload(artifact),
-            "berries": berry_labels(trusted),
+            "source_berries": berry_labels(trusted),
             "entities": named_ids(list(trusted.get("entity_ids") or []), entities),
             "geographies": named_ids(list(trusted.get("geography_ids") or trusted.get("region_ids") or []), entities),
             "previous_id": previous_id,
@@ -1138,6 +1139,14 @@ def source_fidelity_decision(
             status_code=303,
         )
     before = json.loads(path.read_text(encoding="utf-8"))
+    # Resolve the next item before this decision removes the current item from
+    # a pending/rejected/etc. filtered queue. Never mutate a second source.
+    next_target = ""
+    if advance == "1":
+        nav_filters = dict(filters)
+        if not nav_filters.get("state"):
+            nav_filters["state"] = "pending"
+        _previous_id, next_target = neighbor_ids(_source_fidelity_queue_rows(nav_filters), evidence_id)
     actor = session_username(request) or reviewer.strip() or review_username() or ""
     prior_state = str((before.get("review") or {}).get("status") or "pending")
     event = None
@@ -1166,14 +1175,7 @@ def source_fidelity_decision(
     session_return = _safe_review_return(return_to, fallback="")
     if is_session_return(session_return):
         return RedirectResponse(url=session_return, status_code=303)
-    target = evidence_id
-    if advance == "1":
-        nav_filters = dict(filters)
-        if not nav_filters.get("state"):
-            nav_filters["state"] = "pending"
-        _previous_id, next_id = neighbor_ids(_source_fidelity_queue_rows(nav_filters), evidence_id)
-        if next_id:
-            target = next_id
+    target = next_target or evidence_id
     return RedirectResponse(url=f"/source-fidelity/{target}{suffix}", status_code=303)
 
 

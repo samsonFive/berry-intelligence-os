@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 import json
+import re
 
 import pytest
 from fastapi.testclient import TestClient
@@ -210,8 +211,8 @@ def test_private_source_fidelity_queue_and_decision_are_separate_and_audited(mon
 
     queue = client.get("/source-fidelity")
     detail = client.get(f"/source-fidelity/{trusted['id']}")
-    assert queue.status_code == 200 and "PRIVATE OPERATIONAL REVIEW" in queue.text
-    assert detail.status_code == 200 and "NOT PUBLICATION REVIEW" in detail.text
+    assert queue.status_code == 200 and "Source authenticity" in queue.text
+    assert detail.status_code == 200 and "Accepting a copy does not approve its statements" in detail.text
     assert "Paragraph 0" in detail.text and "historic_inbox" in detail.text
 
     response = client.post(
@@ -328,3 +329,85 @@ def test_no_bulk_affirm_control_on_queue(monkeypatch, tmp_path):
     html = TestClient(app).get("/source-fidelity").text
     assert "affirm all" not in html.casefold()
     assert 'name="decision" value="affirmed"' not in html
+
+
+@pytest.mark.parametrize("decision", ["affirmed", "rejected", "needs_investigation"])
+def test_review_and_next_preserves_filter_and_only_decides_current_source(monkeypatch, tmp_path, decision):
+    from app.services.source_fidelity_workbench import build_queue_rows
+
+    trusted = [_trusted(f"ev-source-next-{index:02d}") for index in range(3)]
+    artifacts = [build_recovery_artifact(match_recoveries([row], [_candidate(_rich(row["id"]))])[0], row) for row in trusted]
+    paths = [_stage(monkeypatch, tmp_path, row, artifact) for row, artifact in zip(trusted, artifacts)]
+    rows = build_queue_rows(artifacts, {row["id"]: row for row in trusted})
+    current, next_id = rows[0]["trusted"]["id"], rows[0]["next_id"]
+    client = TestClient(app)
+    url = f"/source-fidelity/{current}?state=pending&berry=berry-raspberry"
+    before = [path.read_bytes() for path in paths]
+    html = client.get(url).text
+    next_form_match = re.search(r'<form[^>]*class="inline-advance"[^>]*>(.*?)</form>', html, re.S)
+    assert next_form_match is not None
+    next_form = next_form_match.group(1)
+    assert '<input type="hidden" name="advance" value="1">' in next_form
+    assert 'name="confirm_affirm"' in next_form
+    assert set(re.findall(r'<button name="decision" value="([^"]+)"', next_form)) == {"affirmed", "rejected", "needs_investigation"}
+    assert [path.read_bytes() for path in paths] == before
+    response = client.post(url.replace("?", "/decision?"), data={"decision": decision, "reviewer": "fixture-reviewer", "advance": "1", "confirm_affirm": "1"}, follow_redirects=False)
+    assert response.status_code == 303
+    assert response.headers["location"] == f"/source-fidelity/{next_id}?state=pending&berry=berry-raspberry"
+    current_index = next(index for index, row in enumerate(trusted) if row["id"] == current)
+    assert json.loads(paths[current_index].read_text())["review"]["status"] == decision
+    assert all(path.read_bytes() == before[index] for index, path in enumerate(paths) if index != current_index)
+    assert all(main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR).evidence.get(row["id"]) == row for row in trusted)
+    events = load_review_events(main.INBOX_DIR, workflow="source_fidelity_review")
+    assert [(event["object_id"], event["action"]) for event in events] == [(current, decision)]
+    history = client.get("/source-fidelity?state=all").text
+    assert "Captured 2026-08-01T00:00:00Z" in history
+    assert "Reviewed " in history and "by fixture-reviewer" in history
+
+
+def test_authenticity_layout_retains_body_search_and_separate_confirmation(monkeypatch, tmp_path):
+    trusted = _trusted()
+    artifact = build_recovery_artifact(match_recoveries([trusted], [_candidate(_rich())])[0], trusted)
+    path = _stage(monkeypatch, tmp_path, trusted, artifact)
+    before = path.read_bytes()
+    client = TestClient(app)
+    detail = client.get(f"/source-fidelity/{trusted['id']}").text
+    queue = client.get("/source-fidelity").text
+    assert 'class="glass-header"' in detail
+    assert 'id="v2DesktopSidebar"' not in detail
+    assert 'id="v2SearchOffcanvas"' in detail
+    assert 'id="v2ReaderOffcanvas"' in detail
+    assert "Same publication record" in queue
+    assert "EXACT IDENTITY MATCH" not in queue
+    reader = re.search(r'<div class="fidelity-reader"[^>]*>(.*?)</div>', detail, re.S).group(1)
+    assert reader.count('<p>') == 5
+    assert "paragraph 0" in reader
+    assert '<dt>Berries</dt><dd>Raspberry</dd>' in detail
+    assert '</details>\n    <div class="fidelity-reader"' in detail
+    for css in ("fidelity-identity", "fidelity-consequences"):
+        tag = re.search(r'<details[^>]*class="' + css + r'"[^>]*>', detail).group(0)
+        assert "open" not in tag
+    assert path.read_bytes() == before
+    response = client.post(f"/source-fidelity/{trusted['id']}/decision", data={"decision": "affirmed", "advance": "1"}, follow_redirects=False)
+    assert response.status_code == 303 and "confirm_error=1" in response.headers["location"]
+    assert path.read_bytes() == before
+    assert load_review_events(main.INBOX_DIR, workflow="source_fidelity_review") == []
+
+
+def test_local_review_has_required_reviewer_when_session_identity_is_absent(monkeypatch, tmp_path):
+    trusted = _trusted()
+    artifact = build_recovery_artifact(match_recoveries([trusted], [_candidate(_rich())])[0], trusted)
+    path = _stage(monkeypatch, tmp_path, trusted, artifact)
+    monkeypatch.setattr(main, "session_username", lambda request: "")
+    monkeypatch.setattr(main, "review_username", lambda: "")
+    client = TestClient(app)
+    html = client.get(f"/source-fidelity/{trusted['id']}").text
+    assert 'name="reviewer" autocomplete="name" required' in html
+    before = path.read_bytes()
+    response = client.post(f"/source-fidelity/{trusted['id']}/decision", data={"decision": "affirmed", "confirm_affirm": "1"}, follow_redirects=False)
+    assert response.status_code == 409
+    assert path.read_bytes() == before
+    monkeypatch.setattr(main, "session_username", lambda request: "signed-in-analyst")
+    html = client.get(f"/source-fidelity/{trusted['id']}").text
+    assert '<input type="hidden" name="reviewer" value="signed-in-analyst">' in html
+    assert 'name="reviewer" autocomplete="name" required' not in html
