@@ -20,6 +20,8 @@ The real browser workflow made one explicit agency capture, which returned four 
 
 Canonical records validated; the governing expansion guide is unchanged. Deterministic tests use fixtures and never call the live agency or paid provider. Original source payload and isolated accepted overlay remain ignored.
 
+Final source-boundary review also normalized a trailing DNS dot before the existing Reader host qualification, so `localhost.` and private numeric/internal-name variants cannot bypass the same checks. Reader/private-preview/statistics acceptance for that correction had **81 passed / one existing warning in 7.13 seconds**. This does not add DNS/peer pinning or change source URLs stored for identity.
+
 ## Remaining release work
 
 Wider national/FAOSTAT and other-berry coverage and research-assisted population remain visible work. This slice delivers reviewable refresh for the supported official dataset without manufacturing broader coverage. Retained-route/older-PR parity, deeper specialist consistency and combined canonical release/backup/rollback acceptance remain. No merge or deployment before final human review.
