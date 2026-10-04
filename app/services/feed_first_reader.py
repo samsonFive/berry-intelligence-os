@@ -415,10 +415,43 @@ def load_capture(inbox_dir: Path, item_id: str) -> dict[str, Any] | None:
 
 
 def save_capture(inbox_dir: Path, item_id: str, capture: dict[str, Any]) -> Path:
+    from app.services.analyst_state_io import atomic_json
     path = capture_path(inbox_dir, item_id)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(capture, indent=2) + "\n", encoding="utf-8")
+    atomic_json(path, capture)
+    # Feed browsing reads only this bounded image projection, never article text.
+    from app.services.feed_first import safe_image_url
+    image = safe_image_url(merge_capture({}, capture))
+    if not is_public_http_url(image):
+        image = ""
+    source_url = str(capture.get("requested_url") or capture.get("url") or "")
+    atomic_json(path.parent / "previews" / path.name, {
+        "item_id": item_id, "source_url": source_url if len(source_url) <= 4096 else "",
+        "image_url": image if len(image) <= 2048 else "",
+    })
     return path
+
+
+def attach_capture_previews(records: dict[str, dict[str, Any]], inbox_dir: Path) -> dict[str, dict[str, Any]]:
+    """Exact-source private image metadata only; no fetch or original-text reads."""
+    from app.services.feed_first import safe_image_url
+    output = dict(records)
+    for key, record in records.items():
+        if safe_image_url(record):
+            continue
+        path = capture_path(inbox_dir, key)
+        preview = path.parent / "previews" / path.name
+        try:
+            if preview.stat().st_size > 8192:
+                continue
+            value = json.loads(preview.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if not isinstance(value, dict) or value.get("item_id") != key or value.get("source_url") != record.get("source_url"):
+            continue
+        image = safe_image_url({"image_url": value.get("image_url")})
+        if image and is_public_http_url(image):
+            output[key] = {**record, "image_url": image}
+    return output
 
 
 def load_captures(inbox_dir: Path) -> dict[str, dict[str, Any]]:
@@ -446,11 +479,12 @@ def capture_item(
     item_id = str(record.get("id") or "")
     if item_id and not refresh:
         existing = load_capture(inbox_dir, item_id)
-        if existing:
+        if existing and existing.get("ok") and existing.get("requested_url", str(record.get("source_url") or "")) == str(record.get("source_url") or ""):
             return existing
     url = str(record.get("source_url") or "")
     capture = fetch_public_article(url, client=client)
     capture["item_id"] = item_id
+    capture["requested_url"] = url
     if item_id:
         save_capture(inbox_dir, item_id, capture)
     return capture
@@ -537,6 +571,8 @@ def attach_source_preview_images(
 def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dict[str, Any]:
     """Copy captured passages onto the live record without writing Evidence."""
     if not capture:
+        return record
+    if record.get("source_url") and capture.get("requested_url") and capture["requested_url"] != record["source_url"]:
         return record
     merged = dict(record)
     passages = display_reader_passages([str(row) for row in (capture.get("passages") or []) if str(row).strip()])

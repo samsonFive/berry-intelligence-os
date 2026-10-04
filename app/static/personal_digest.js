@@ -101,7 +101,7 @@
         // A late capture must never replace the next story the user opened.
         if (reader !== activeReader || !activeReader.isConnected) return;
         activeReader.outerHTML = html; setupReader(); applyMode("article");
-        if (!reader.querySelector(".article-prose")) announce("The publisher did not provide readable article text. Read at the publisher or use the Brief.", reader);
+        if (!reader.querySelector(".article-prose")) announce("Article text could not be loaded here. Try again, read at the publisher or use the Brief.", reader);
       }).catch(function (error) { announce(error.message, activeReader); }).finally(function () { if (capture.isConnected) { capture.disabled = false; capture.textContent = "Load available article text"; } });
     }
     if (!event.target.closest(".glass-more")) { var more = document.querySelector(".glass-more"); if (more) more.open = false; }

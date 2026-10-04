@@ -1949,3 +1949,6 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 
 **Mission 29 snapshot parity:** Trusted news sections now reuse the shared News selector with all company/list/mark/search/date filters and true timestamp ordering; read-only routes do not hydrate private tracking state. Annual statistics and selected locations retain independent dates. Native control activation no longer triggers feed shortcuts. This closes the disclosed news-scope mismatch from Mission 28; Trade composition, wider public-source/refresh and real body/media availability, account/worker persistence and combined release remain open. See MISSION-29-SNAPSHOT-NEWS-SCOPE.md.
+
+
+**Mission 30 source quality:** Newly captured exact-source preview images now reach News/Digest/Map through private bounded metadata, without body hydration on cards, canonical mutation or public leakage. Explicit failed capture retries and neutral transport wording are corrected. One real article proves the reading path; wider availability and extraction accuracy remain source-dependent. Older capture metadata migration, direct HTTP redirect/response bound hardening, phone filter density and combined release acceptance remain open. See MISSION-30-READER-PREVIEW-CONTINUITY.md.

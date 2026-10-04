@@ -44,3 +44,6 @@ The plan is now reviewed and accepted (with the revisions recorded in `08-DECISI
 
 
 - [Mission 29 — News filters in Market Snapshot](MISSION-29-SNAPSHOT-NEWS-SCOPE.md): shared News scope, readable export selection and native keyboard activation; separate annual/location periods and remaining release acceptance.
+
+
+- [Mission 30 — Captured article previews and explicit retries](MISSION-30-READER-PREVIEW-CONTINUITY.md): exact-source private image metadata across cards, original reading proof and remaining release checks.

@@ -57,6 +57,9 @@ def source_records(published: list[dict[str, Any]], inbox_dir: Path, *, include_
         if image and not feed_first.safe_image_url(row):
             row = {**row, "article": {**(row.get("article") or {}), "image_url": image}}
         records[item_id] = row
+    if include_private:
+        from app.services.feed_first_reader import attach_capture_previews
+        records = attach_capture_previews(records, inbox_dir)
     return records
 
 

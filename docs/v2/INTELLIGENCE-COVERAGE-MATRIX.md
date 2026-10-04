@@ -618,3 +618,6 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **October 4 snapshot News parity:** Shared filter selection and timestamp ordering change report presentation only. The sample uses one existing reviewed news source; it does not collect fresh intelligence, add canonical records, change review eligibility or alter coverage maturity/recall counts. Separate annual figure and location periods stay intact. See MISSION-29-SNAPSHOT-NEWS-SCOPE.md.
+
+
+**October 4 Reader capture proof:** An explicitly requested existing Produce Report source returned nine readable paragraphs and eight image references in isolated ignored Reader state. Its preview now carries across private card views. This does not create canonical Evidence/Facts, approve claims, establish full publisher coverage or change acquisition/recall maturity counts. See MISSION-30-READER-PREVIEW-CONTINUITY.md.

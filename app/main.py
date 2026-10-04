@@ -7718,6 +7718,9 @@ def _explorer_context(request, countries, berry, sections=None):
     records = published_evidence()
     if view == "unreviewed" and sections is None and AUTHORING_MODE:
         records = list(source_records(records, INBOX_DIR).values())
+    elif sections is None and AUTHORING_MODE:
+        from app.services.feed_first_reader import attach_capture_previews
+        records = list(attach_capture_previews({row['id']: row for row in records}, INBOX_DIR).values())
     args = (query, records, entities, all_relationships(), BERRIES)
     trust = {"facts": all_facts(), "state": load_state(INBOX_DIR) if AUTHORING_MODE else empty_state()}
     if sections is None:
