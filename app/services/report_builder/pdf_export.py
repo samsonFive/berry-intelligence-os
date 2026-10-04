@@ -16,7 +16,7 @@ from datetime import date
 from io import BytesIO
 from typing import Any
 from xml.sax.saxutils import escape
-from app.services.report_builder.presentation import section_text
+from app.services.report_builder.presentation import section_text, section_title, report_sources
 from app.services.map_regions import public_source_url
 
 from reportlab.lib import colors
@@ -42,15 +42,18 @@ PROVENANCE_MARKER = "Working report; analyst review required"
 def _styles() -> dict[str, ParagraphStyle]:
     base = getSampleStyleSheet()
     return {
-        "title": ParagraphStyle("ReportTitle", parent=base["Title"], alignment=0, fontSize=27, leading=31, textColor=colors.HexColor("#183e2b"), spaceAfter=12),
+        "title": ParagraphStyle("ReportTitle", parent=base["Title"], alignment=0, fontName="Helvetica-Bold", fontSize=29, leading=33, textColor=colors.HexColor("#183e2b"), spaceAfter=12),
         "meta": ParagraphStyle("ReportMeta", parent=base["Normal"], fontSize=8.5, leading=12, textColor=colors.HexColor("#526459"), spaceAfter=5),
         "kicker": ParagraphStyle("ReportKicker", parent=base["Normal"], fontName="Helvetica-Bold", fontSize=9, leading=12, textColor=colors.HexColor("#347147"), spaceAfter=13),
         "h2": ParagraphStyle("ReportH2", parent=base["Heading2"], fontSize=16, leading=20, textColor=colors.HexColor("#214c35"), spaceBefore=19, spaceAfter=9, keepWithNext=True),
         "section_meta": ParagraphStyle("ReportSectionMeta", parent=base["Normal"], fontSize=8.5, leading=12, textColor=colors.HexColor("#526459"), spaceAfter=5, keepWithNext=True),
-        "item": ParagraphStyle("ReportItem", parent=base["BodyText"], fontSize=10, leading=15, textColor=colors.HexColor("#273c30"), leftIndent=12, bulletIndent=0, spaceAfter=9),
+        "item": ParagraphStyle("ReportItem", parent=base["BodyText"], fontSize=10.5, leading=15.5, textColor=colors.HexColor("#273c30"), spaceAfter=0),
+        "number": ParagraphStyle("FindingNumber", parent=base["Normal"], fontName="Helvetica-Bold", fontSize=13, leading=17, textColor=colors.HexColor("#367247")),
+        "h3": ParagraphStyle("ReportH3", parent=base["Heading3"], fontSize=12, leading=16, textColor=colors.HexColor("#41624b"), spaceBefore=13, spaceAfter=7, keepWithNext=True),
+        "source_title": ParagraphStyle("SourceTitle", parent=base["Normal"], fontName="Helvetica-Bold", fontSize=10, leading=14, textColor=colors.HexColor("#214c35"), spaceAfter=5),
         "market_group": ParagraphStyle("MarketGroup", parent=base["BodyText"], fontName="Helvetica-Bold", fontSize=11, leading=15, textColor=colors.HexColor("#214c35"), spaceBefore=10, spaceAfter=7),
         "body": ParagraphStyle("ReportBody", parent=base["BodyText"], fontSize=10, leading=15, textColor=colors.HexColor("#273c30"), spaceAfter=9),
-        "takeaway": ParagraphStyle("ReportTakeaway", parent=base["BodyText"], fontSize=12, leading=18, textColor=colors.HexColor("#21432e"), backColor=colors.HexColor("#edf5e6"), borderPadding=12, spaceBefore=8, spaceAfter=15),
+        "takeaway": ParagraphStyle("ReportTakeaway", parent=base["BodyText"], fontSize=13, leading=19, textColor=colors.HexColor("#173c26"), spaceAfter=0),
         "unsupported": ParagraphStyle(
             "ReportUnsupported", parent=base["BodyText"], fontSize=10, leading=15, textColor=colors.HexColor("#75601e"), spaceAfter=9
         ),
@@ -61,6 +64,10 @@ def _styles() -> dict[str, ParagraphStyle]:
 
 def _footer(canvas, doc, *, confidentiality: str) -> None:
     canvas.saveState()
+    canvas.setFillColor(colors.HexColor("#388144"))
+    canvas.rect(0.75 * inch, LETTER[1] - .55 * inch, 42, 4, fill=1, stroke=0)
+    canvas.setFillColor(colors.HexColor("#dce8d5"))
+    canvas.rect(0.75 * inch + 42, LETTER[1] - .55 * inch, LETTER[0] - 1.5 * inch - 42, 4, fill=1, stroke=0)
     canvas.setStrokeColor(colors.HexColor("#aac29e"))
     canvas.line(0.75 * inch, 0.69 * inch, LETTER[0] - 0.75 * inch, 0.69 * inch)
     canvas.setFont("Helvetica", 7.5)
@@ -81,6 +88,9 @@ def _cutoff_date(packet: dict[str, Any]) -> str:
     for row in (packet.get("strategic_question") or {}).get("recent_evidence") or []:
         if row.get("date"):
             dates.append(str(row["date"]))
+    for row in report_sources(packet):
+        if row.get("published_date"):
+            dates.append(str(row["published_date"]))
     return max(dates) if dates else "Unknown (no dated Evidence in packet)"
 
 
@@ -110,7 +120,7 @@ def render_report_pdf(
     story.append(Paragraph(escape(report.get("title") or "Untitled report"), styles["title"]))
     story.append(Paragraph(f"Exported {_readable_date(date.today())}  |  Latest dated source in scope: {_readable_date(_cutoff_date(packet))}", styles["meta"]))
     story.append(Paragraph(f"{escape(confidentiality)}  |  {PROVENANCE_MARKER}", styles["meta"]))
-    source_trace = packet.get("source_trace") or (packet.get("strategic_question") or {}).get("source_trace") or []
+    source_trace = report_sources(packet)
     reference_names = {row["id"]: f"Source {index + 1}" for index, row in enumerate(source_trace) if row.get("id")}
     pending_sections = [section for section in report.get("sections") or [] if section.get("edited_prose") is None and section.get("status") in {"unavailable", "unsupported"}]
     if pending_sections:
@@ -119,10 +129,10 @@ def render_report_pdf(
     def render_section(section: dict[str, Any], *, takeaway: bool = False) -> None:
         if section in pending_sections:
             return  # Retain these together in the preparation checklist below.
-        story.append(Paragraph(escape(section.get("title") or section.get("section_id") or ""), styles["h2"]))
+        story.append(Paragraph(escape(section_title(section)), styles["h2"]))
         edited = section.get("edited_prose") is not None
         status = section.get("status") or ""
-        label = "Analyst edited - review before sharing" if edited else {"ai_draft": "AI draft - analyst review required", "structured": "From stored records - classifications retained", "unavailable": "Drafting unavailable", "unsupported": "Insufficient sourced information"}.get(status, "Working draft")
+        label = "Analyst edited - review before sharing" if edited else {"ai_draft": "AI draft - review required", "structured": "From saved records", "unavailable": "Not drafted yet", "unsupported": "Needs more sources"}.get(status, "Working draft")
         if status != "structured" or edited:
             story.append(Paragraph(label, styles["section_meta"]))
         if not edited and section.get("section_id") == "statistics" and section.get("statistics_groups"):
@@ -152,13 +162,35 @@ def render_report_pdf(
         style = styles["unsupported"] if not edited and status in ("unsupported", "unavailable") else styles["takeaway"] if takeaway else styles["body"]
         line_items = section.get("section_id") in {"signals", "assessments", "what_we_know", "implications", "comparison_table", "sources", "evidence_appendix"}
         paragraphs = text.splitlines() if line_items else text.split("\n\n")
+        item_number = 0
         for paragraph in paragraphs:
             if paragraph.strip():
                 if line_items:
                     item_style = styles["source"] if section.get("section_id") in {"sources", "evidence_appendix"} else styles["item"]
-                    story.append(Paragraph(escape(paragraph.strip()), item_style, bulletText="-" if item_style is styles["item"] else None))
+                    content = Paragraph(escape(paragraph.strip()), item_style)
+                    if item_style is styles["item"]:
+                        item_number += 1
+                        card = Table([[Paragraph(f"{item_number:02d}", styles["number"]), content]], colWidths=[36, doc.width - 36], splitInRow=1)
+                        card.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"),
+                            ("BACKGROUND", (0, 0), (0, -1), colors.HexColor("#e7f1df")),
+                            ("BACKGROUND", (1, 0), (1, -1), colors.HexColor("#f6f9f3")),
+                            ("BOX", (0, 0), (-1, -1), .4, colors.HexColor("#ceddc7")),
+                            ("LEFTPADDING", (0, 0), (-1, -1), 10), ("RIGHTPADDING", (0, 0), (-1, -1), 10),
+                            ("TOPPADDING", (0, 0), (-1, -1), 10), ("BOTTOMPADDING", (0, 0), (-1, -1), 10)]))
+                        story.extend([card, Spacer(1, 6)])
+                    else:
+                        story.append(content)
                 else:
-                    story.append(Paragraph(escape(paragraph.strip()).replace("\n", "<br/>"), style))
+                    content = Paragraph(escape(paragraph.strip()).replace("\n", "<br/>"), style)
+                    if takeaway:
+                        card = Table([[content]], colWidths=[doc.width], splitInRow=1)
+                        card.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#e7f1df")),
+                            ("LINEBEFORE", (0, 0), (0, -1), 3, colors.HexColor("#388144")),
+                            ("LEFTPADDING", (0, 0), (-1, -1), 13), ("RIGHTPADDING", (0, 0), (-1, -1), 13),
+                            ("TOPPADDING", (0, 0), (-1, -1), 13), ("BOTTOMPADDING", (0, 0), (-1, -1), 13)]))
+                        story.extend([card, Spacer(1, 9)])
+                    else:
+                        story.append(content)
         citations = [reference_names.get(cid, "Supporting record") for cid in section.get("citation_ids") or []]
         if citations:
             story.append(Paragraph("References: " + ", ".join(dict.fromkeys(citations)), styles["source"]))
@@ -186,9 +218,16 @@ def render_report_pdf(
     if scope.get("variety_ids"):
         varieties = {r['id']: r.get('name') or r['id'] for r in packet.get('varieties') or [] if r.get('id')}
         scope_lines.append(f"Varieties: {', '.join(names.get(id) or varieties.get(id) or id.removeprefix('variety-').replace('-', ' ').title() for id in scope['variety_ids'])}")
-    story.append(Paragraph("What this report covers", styles["h2"]))
-    for line in scope_lines:
-        story.append(Paragraph(escape(line), styles["meta"]))
+    story.append(Paragraph("What this report covers", styles["h3"]))
+    scope_cells = [Paragraph(escape(line), styles["meta"]) for line in scope_lines]
+    if len(scope_cells) % 2:
+        scope_cells.append("")
+    scope_table = Table([scope_cells[index:index + 2] for index in range(0, len(scope_cells), 2)], colWidths=[doc.width * .5] * 2, splitInRow=1)
+    scope_table.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#f3f6ef")),
+        ("LEFTPADDING", (0, 0), (-1, -1), 9), ("RIGHTPADDING", (0, 0), (-1, -1), 9),
+        ("TOPPADDING", (0, 0), (-1, -1), 7), ("BOTTOMPADDING", (0, 0), (-1, -1), 5)]))
+    story.append(scope_table)
 
     coverage_story: list[Any] = []
     counts = coverage.get("counts") or {}
@@ -268,7 +307,7 @@ def render_report_pdf(
             label = row.get("title") or "Source title not recorded"
             date_text = _readable_date(row.get("date") or row.get("published_date"))
             source_name = row.get("source_name") or ""
-            entry = [Paragraph(f"<b>{index + 1}. {escape(label)}</b>", styles["body"]),
+            entry = [Paragraph(f"{index + 1:02d} / {escape(label)}", styles["source_title"]),
                      Paragraph(escape(f"{source_name} | {row.get('date_label') or date_text or 'Date not recorded'}"), styles["source"])]
             if index == 0:
                 entry.insert(0, Paragraph("Source appendix", styles["h2"]))

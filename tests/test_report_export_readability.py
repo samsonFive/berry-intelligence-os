@@ -97,6 +97,65 @@ def test_workspace_chunks_edited_items_and_keeps_form_text_and_external_status(m
     record = create_report(tmp_path, title="Edited brief", report_type="company_brief", scope={}, sections=[{"section_id": "signals", "title": "Signals", "status": "structured", "generated_prose": "Original draft", "edited_prose": "[Analyst qualifier] First observation\nSecond observation - proposed", "citation_ids": []}])
     page = TestClient(main.app).get(f"/reports/{record['id']}")
     assert page.status_code == 200
-    assert '<ul class="report-reading-items"><li>[Analyst qualifier] First observation</li><li>Second observation - proposed</li></ul>' in page.text
+    assert '<ol class="report-reading-items"><li>[Analyst qualifier] First observation</li><li>Second observation - proposed</li></ol>' in page.text
+    assert '>Emerging patterns</h2>' in page.text
     assert '[Analyst qualifier] First observation\nSecond observation - proposed</textarea>' in page.text
     assert load_report(tmp_path, record["id"]) == record
+
+
+def test_generated_ai_references_are_readable_without_mutating_originals(monkeypatch):
+    from app.services.report_builder.presentation import section_text
+    rendered = capture(monkeypatch)
+    report = {"title": "Cited draft", "sections": [{"section_id": "market_context", "title": "Market context", "status": "ai_draft", "generated_prose": "A source-backed observation [ev-source]. Missing lookup [web:35]. [limited scope] is a qualification.", "citation_ids": ["ev-source"]}]}
+    packet = {"source_trace": [{"id": "ev-source", "title": "Named article", "source_url": "https://example.test/article"}]}
+    before = deepcopy((report, packet))
+    assert pdf_export.render_report_pdf(report, packet, {}).startswith(b"%PDF")
+    texts = [text for text, _ in rendered]
+    assert any("observation Source 1" in text and "(reference unavailable)" in text for text in texts)
+    assert not any("[web:35]" in text or "[ev-source]" in text for text in texts)
+    assert any("[limited scope]" in text for text in texts)
+    assert "References: Source 1" in texts
+    assert (report, packet) == before
+    edited = {**report["sections"][0], "edited_prose": "[Analyst qualifier] Literal edit [web:35]."}
+    assert section_text(edited, packet) == edited["edited_prose"]
+
+
+def test_long_numbered_finding_flows_without_layout_failure():
+    report = {"title": "Long finding", "sections": [{"section_id": "signals", "title": "Signals", "status": "structured", "edited_prose": "A long retained finding. " * 900}]}
+    assert pdf_export.render_report_pdf(report, {}, {}).startswith(b"%PDF")
+
+
+def test_reading_order_and_source_numbers_are_stable_without_editing_records():
+    from app.services.report_builder.presentation import display_sections, report_sources, section_text
+    report = {"sections": [
+        {"section_id": "scope_method", "title": "Scope & Method", "status": "structured"},
+        {"section_id": "market", "title": "Pending context", "status": "unavailable"},
+        {"section_id": "signals", "title": "My custom finding title", "status": "structured", "edited_prose": "Literal finding - proposed"},
+        {"section_id": "executive_summary", "title": "Summary", "edited_prose": "Literal takeaway"},
+    ]}
+    packet = {"source_trace": [{"id": "ev-z", "title": "Zulu"}, {"id": "ev-a", "title": "Alpha"}]}
+    before = deepcopy((report, packet))
+    assert [row["section_id"] for row in display_sections(report, packet)] == ["executive_summary", "signals", "scope_method", "market"]
+    assert display_sections(report, packet)[1]["display_title"] == "My custom finding title"
+    assert [row["id"] for row in report_sources(packet)] == ["ev-a", "ev-z"]
+    draft = {"status": "ai_draft", "generated_prose": "See [ev-z] and [ev-a]."}
+    assert section_text(draft, packet) == "See Source 2 and Source 1."
+    assert section_text(draft, {"strategic_question": {"source_trace": list(reversed(packet["source_trace"]))}}) == "See Source 2 and Source 1."
+    assert (report, packet) == before
+
+
+def test_source_dates_distinguish_capture_and_publication(monkeypatch):
+    from app import main
+    monkeypatch.setattr(main, "living_catalog", lambda: [])
+    monkeypatch.setattr(main, "published_evidence", lambda: [
+        {"id": "ev-captured", "captured_date": "2026-10-03"},
+        {"id": "ev-published", "published_date": "2026-09-20", "captured_date": "2026-10-03"},
+    ])
+    packet = {"source_trace": [{"id": "ev-captured", "date": "2026-10-03"}, {"id": "ev-published", "date": "2026-09-20"}]}
+    before = deepcopy(packet)
+    display = main._report_display_packet(packet)
+    assert display["source_trace"][0]["date_label"] == "Captured 10/3/2026"
+    assert display["source_trace"][1]["date_label"] == "Published 9/20/2026"
+    assert pdf_export._cutoff_date(display) == "2026-09-20"
+    assert pdf_export._cutoff_date({"source_trace": [display["source_trace"][0]]}).startswith("Unknown")
+    assert packet == before

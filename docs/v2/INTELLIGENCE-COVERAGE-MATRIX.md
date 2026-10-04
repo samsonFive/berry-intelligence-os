@@ -607,3 +607,5 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **2026-10-04 Company enrichment boundary:** One explicit Planasa public-identity research run returned seven private unreviewed presentation suggestions and 56 native source URLs. No suggestion was applied to real profiles and no canonical Entity/Person/Relationship/Evidence/Fact or coverage maturity/count was created. Source-native citations enable human review; they do not verify generated role or identity claims. Protected editable profile suggestions are a presentation workflow, not intelligence acquisition or recall proof. See MISSION-26-COMPANY-DETAIL-SUGGESTIONS.md.
+
+**October 4 report presentation follow-up:** Takeaway/finding/source hierarchy and readable generated references change report presentation only. Captured dates are labeled separately from publication dates. No source onboarding, acquisition, canonical record counts, coverage maturity or recall evidence changes; no live model calls were used. See REPORT-READING-DESIGN-FOLLOWUP.md.

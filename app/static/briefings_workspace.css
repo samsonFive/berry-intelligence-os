@@ -1,8 +1,9 @@
 .briefings-workspace { color:var(--ink); max-width:1600px; margin:auto; font-size:14px; line-height:1.6; }
 .report-reading-text { white-space:pre-wrap; overflow-wrap:anywhere; font-size:16px; line-height:1.65; max-width:1000px; }
-.briefings-workspace .report-reading-items { margin:12px 0; padding-left:22px; max-width:1000px; font-size:16px; line-height:1.55; overflow-wrap:anywhere; }
-.briefings-workspace .report-reading-items li { padding-left:4px; margin:0 0 14px; font-size:inherit; line-height:inherit; }
-.report-takeaway .report-reading-text { font-size:19px; font-weight:550; }
+.briefings-workspace .report-reading-items { counter-reset:report-item; list-style:none; margin:14px 0; padding:0; max-width:1000px; display:grid; gap:8px; font-size:16px; line-height:1.55; overflow-wrap:anywhere; }
+.briefings-workspace .report-reading-items li { counter-increment:report-item; position:relative; padding:14px 16px 14px 58px; margin:0; border:1px solid #d1dfca; border-radius:8px; background:#fff; font-size:inherit; line-height:inherit; color:#203d2c; }
+.briefings-workspace .report-reading-items li::before { content:counter(report-item,decimal-leading-zero); position:absolute; top:14px; left:14px; font-size:12px; font-weight:750; color:#3c7449; background:#e6f0e1; border-radius:5px; padding:3px 5px; }
+.report-takeaway .report-reading-text { font-size:21px; font-weight:550; line-height:1.5; max-width:900px; color:#173b25; }
 .report-edit-text { margin-top:12px; font-size:12px; color:#45624c; }
 .report-edit-text summary { cursor:pointer; margin-bottom:8px; }
 .briefings-workspace * { box-sizing:border-box; }
@@ -63,7 +64,9 @@
 .report-scope-options label[hidden] { display:none; }
 .report-scope-options small { overflow-wrap:anywhere; }
 .report-editor-section summary h2 { display:inline; font-size:15px; }
-.report-takeaway { border-left:4px solid #52924f!important; background:#eef6e6!important; }
+.report-takeaway { border-left:5px solid #388144!important; background:linear-gradient(105deg,#e4f0d8,#f5faef)!important; padding:24px!important; }
+.briefings-workspace .report-editor-section > h2 { font-size:24px; color:#173f2a; letter-spacing:-.4px; }
+.briefings-workspace .report-editor-section > .v2-meta .badge { font-size:11px; font-weight:500; }
 .report-takeaway textarea { font-size:17px!important; background:#f8fcf2!important; min-height:130px; }
 .report-source-list { padding-left:24px; }
 .report-source-list li { padding:9px 7px; border-bottom:1px solid #dce6d4; }

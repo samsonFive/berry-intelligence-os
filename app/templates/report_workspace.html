@@ -6,39 +6,13 @@
   <div>
     <p class="sh-kicker eyebrow">{{ report_type_labels.get(report.report_type, report.report_type)|humanize_label }}</p>
     <h1>{{ report.title }}</h1>
-    <p class="also-known-as">Working report · {{ report.status|default('draft')|humanize_label }}. Generated text requires analyst review. Source publication and factual-claim approval remain separate.</p>
+    <p class="also-known-as">Working report · Review before sharing.</p>
   </div>
   <div class="v2-card-actions">
     <a class="v2-btn v2-btn-quiet" href="/reports/{{ report.id }}/export.pdf">Export PDF</a>
     <a class="v2-btn v2-btn-quiet" href="/reports">All reports</a>
   </div>
 </section>
-
-<details class="v2-card" style="margin-bottom:16px"><summary>Coverage and known gaps</summary>
-  <p class="card-kicker">INTELLIGENCE COVERAGE</p>
-  <ul class="stat-list">
-    {% for key, value in coverage.counts.items() %}
-      <li>{{ value }} {{ key.replace('_', ' ') }}</li>
-    {% endfor %}
-  </ul>
-  {% if coverage.gaps %}
-    <p class="card-kicker">KNOWN GAPS</p>
-    <ul>{% for gap in coverage.gaps %}<li>{{ gap }}</li>{% endfor %}</ul>
-  {% endif %}
-  {% if coverage.dimensions %}
-    <p class="card-kicker">COVERAGE BY DIMENSION</p>
-    <ul class="dimension-list">
-      {% for dim in coverage.dimensions %}
-        <li>
-          {% if dim.status == 'AVAILABLE' %}<span class="badge badge-status-active">AVAILABLE</span>
-          {% elif dim.status == 'PARTIAL' %}<span class="badge badge-status-unverified">PARTIAL</span>
-          {% else %}<span class="badge badge-muted">MISSING</span>{% endif %}
-          <strong>{{ dim.label }}</strong> — {{ dim.explanation }}
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-</details>
 
 <form method="post" action="/reports/{{ report.id }}/save">
   <details style="max-width:480px;margin-bottom:16px"><summary>Edit report title</summary><div class="filter-field">
@@ -49,7 +23,7 @@
   {% for section in display_sections %}
   {% set minimized = (section.status in ['unavailable', 'unsupported'] and section.edited_prose is none) or section.section_id in ['sources', 'evidence_appendix', 'scope_method', 'known_gaps'] %}
   {% if minimized %}<details class="v2-card report-editor-section"><summary>{% else %}<section class="v2-card report-editor-section {% if section.section_id in ['executive_summary', 'executive_takeaway'] %}report-takeaway{% endif %}">{% endif %}
-    <h2 id="section-{{ section.section_id }}">{{ section.title }}</h2>
+    <h2 id="section-{{ section.section_id }}">{{ section.display_title }}</h2>
     {% if minimized %}</summary>{% endif %}
     <p class="v2-meta">
       {% if section.edited_prose is not none %}<span class="badge">Analyst edited · review required</span>
@@ -61,7 +35,7 @@
     </p>
     <input type="hidden" name="section_ids" value="{{ section.section_id }}">
     {% if section.section_id in ['signals', 'assessments', 'what_we_know', 'implications', 'comparison_table', 'sources', 'evidence_appendix'] and section.display_text %}
-    <ul class="report-reading-items">{% for line in section.display_text.splitlines() %}{% if line.strip() %}<li>{{ line }}</li>{% endif %}{% endfor %}</ul>
+    <ol class="report-reading-items">{% for line in section.display_text.splitlines() %}{% if line.strip() %}<li>{{ line }}</li>{% endif %}{% endfor %}</ol>
     {% else %}<div class="report-reading-text">{{ section.display_text }}</div>{% endif %}
     <details class="report-edit-text"><summary>Edit section text</summary>
     <textarea name="section_texts" aria-labelledby="section-{{ section.section_id }}" rows="{{ 3 if section.section_id in ['executive_summary', 'executive_takeaway'] else 6 }}" style="width:100%">{{ section.display_text }}</textarea>
@@ -77,6 +51,32 @@
 
   <button type="submit" class="v2-btn">Save edits</button>
 </form>
+
+<details class="v2-card" style="margin:16px 0"><summary>Coverage and known gaps</summary>
+  <p class="v2-meta">These counts describe captured material, not market size or complete coverage.</p>
+  <ul class="stat-list">
+    {% for key, value in coverage.counts.items() %}
+      <li>{{ value }} {{ key.replace('_', ' ') }}</li>
+    {% endfor %}
+  </ul>
+  {% if coverage.gaps %}
+    <h3>Known gaps</h3>
+    <ul>{% for gap in coverage.gaps %}<li>{{ gap }}</li>{% endfor %}</ul>
+  {% endif %}
+  {% if coverage.dimensions %}
+    <h3>Coverage by topic</h3>
+    <ul class="dimension-list">
+      {% for dim in coverage.dimensions %}
+        <li>
+          {% if dim.status == 'AVAILABLE' %}<span class="badge badge-status-active">Available</span>
+          {% elif dim.status == 'PARTIAL' %}<span class="badge badge-status-unverified">Partial</span>
+          {% else %}<span class="badge badge-muted">Missing</span>{% endif %}
+          <strong>{{ dim.label }}</strong> — {{ dim.explanation }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</details>
 
 {% if report.report_type == 'decision_memo' %}
 <section class="v2-card" style="margin-bottom:16px">
@@ -162,8 +162,8 @@
 <section class="v2-card" id="sources">
   <h2>Sources</h2>
   <ol class="report-source-list">
-    {% for row in (packet.source_trace or (packet.strategic_question or {}).get('source_trace') or []) %}
-      <li id="src-{{ row.id }}"><a href="{{ row.href }}" data-open-reader data-item-id="{{ row.id }}">{{ row.title }}</a><p class="v2-meta">{{ row.source_name }} · {{ row.date|us_date if row.date else 'Date unavailable' }}</p></li>
+    {% for row in report_sources %}
+      <li id="src-{{ row.id }}"><a href="{{ row.href }}" data-open-reader data-item-id="{{ row.id }}">{{ row.title }}</a><p class="v2-meta">{{ row.source_name }} · {{ row.date_label or (row.date|us_date if row.date else 'Date unavailable') }}</p></li>
     {% endfor %}
   </ol>
 </section>
