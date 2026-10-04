@@ -1,6 +1,4 @@
 """Analyst review of explicitly captured official market references."""
-import json
-from pathlib import Path
 from urllib.parse import urlencode, urlsplit
 from uuid import uuid4
 
@@ -9,7 +7,7 @@ from fastapi.responses import RedirectResponse
 
 from app.personal_digest_routes import require_edit
 from app.services import map_statistics_refresh as refresh
-from app.services.market_statistics_reference import group_id
+from app.services.market_statistics_reference import group_id, reference_groups
 
 router = APIRouter()
 
@@ -35,7 +33,12 @@ def page(request, *, error='', status_code=200, return_to=None):
         state = refresh.empty()
         error = str(exc)
         status_code = 409
-    baseline = json.loads((Path(__file__).resolve().parents[1] / 'data/configuration/market_statistics_reference.json').read_text(encoding='utf-8'))['groups']
+    try:
+        baseline = reference_groups(main.DATA_DIR)
+    except ValueError as exc:
+        baseline = []
+        error = str(exc)
+        status_code = 409
     current = refresh.merge(baseline, state['approved'])
     current_by_category = {refresh.category(group): group for group in current}
     jobs = sorted(state['jobs'].values(), key=lambda job: (job['created_at'], job['id']), reverse=True)
@@ -61,6 +64,7 @@ async def check(request: Request, tasks: BackgroundTasks):
     from app import main
     form = await request.form()
     try:
+        reference_groups(main.DATA_DIR)
         job, start = refresh.reserve(main.INBOX_DIR, str(form.get('token') or ''))
     except ValueError as exc:
         return page(request, error=str(exc), status_code=409, return_to=str(form.get('return_to') or ''))
@@ -78,6 +82,7 @@ async def apply(request: Request):
     if not revision.isdecimal() or len(revision) > 12:
         return page(request, error='Reload before saving reviewed figures.', status_code=409, return_to=str(form.get('return_to') or ''))
     try:
+        reference_groups(main.DATA_DIR)
         refresh.apply(main.INBOX_DIR, str(form.get('job_id') or ''), [str(value) for value in form.getlist('group')],
                       int(revision), main.session_username(request) or main.review_username() or 'Analyst')
     except ValueError as exc:

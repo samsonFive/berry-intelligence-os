@@ -6,6 +6,8 @@ The existing Eurostat collector supplies the original JSON-stat response.
 import hashlib
 import math
 from datetime import datetime
+import json
+from pathlib import Path
 from urllib.parse import urlencode
 
 from app.services.market_reality.eurostat_apro import EUROSTAT_APRO_URL, decode_jsonstat
@@ -18,6 +20,34 @@ INDICATORS = {
     "YLD_HUMD_EU_T_HA": ("Yield", "t/ha"),
 }
 METHODOLOGY = "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm"
+
+
+def reference_groups(data_dir=None):
+    """Use persistent operator data; absence is unknown and never a seed write."""
+    from app.runtime_config import resolve_data_dir
+    source = Path(data_dir or resolve_data_dir()) / 'configuration/market_statistics_reference.json'
+    if not source.exists():
+        return []
+    try:
+        document = json.loads(source.read_text(encoding='utf-8'))
+        if document.get('version') != 1 or not isinstance(document.get('groups'), list):
+            raise ValueError()
+        from app.services.feed_first_reader import is_public_http_url
+        for group in document['groups']:
+            if not isinstance(group, dict) or any(not isinstance(group.get(key), str) or not group[key] for key in
+                    ('country_id', 'country', 'berry_id', 'commodity', 'period', 'source', 'source_url', 'locator', 'accessed_date', 'status', 'basis')):
+                raise ValueError()
+            if not is_public_http_url(group['source_url']) or not isinstance(group.get('metrics'), list) or not group['metrics']:
+                raise ValueError()
+            for metric in group['metrics']:
+                if not isinstance(metric, dict) or any(not isinstance(metric.get(key), str) or not metric[key] for key in ('label', 'unit')):
+                    raise ValueError()
+                value = metric.get('value')
+                if type(value) not in {int, float} or not math.isfinite(value) or value < 0:
+                    raise ValueError()
+        return document['groups']
+    except (OSError, ValueError, TypeError, AttributeError, OverflowError) as exc:
+        raise ValueError('Market references cannot be read. Restore the reference file before changing figures.') from exc
 
 
 def group_id(group):

@@ -1,10 +1,7 @@
 """Map workspace projections; snapshot annotations require explicit selection."""
-import json
-from pathlib import Path
-
 from app.services import global_explorer, map_regions, news_workspace
 from app.services.geography_hierarchy import resolve_geography_scope
-from app.services.market_statistics_reference import identified_groups, flag_label
+from app.services.market_statistics_reference import identified_groups, flag_label, reference_groups
 
 SNAPSHOT_SCOPE_KEYS = ("view", "layer", "company", "list", "tier", "favorites", "region_status", "activity", "region_entity", "region_asof", "q", "window", "start", "end", "tz")
 
@@ -37,14 +34,13 @@ def snapshot_regions(query, entities, relationships, records, state, params, *, 
 
 def statistics(query, entities, records, relationships=(), *, inbox_dir=None, authoring=False):
     """Public reference context and existing published Trade observations, no sums."""
-    source = Path(__file__).resolve().parents[2] / "data" / "configuration" / "market_statistics_reference.json"
     scope = set()
     for key in query.geography_ids:
         scope.update(resolve_geography_scope(key, relationships=relationships).all_ids)
     groups = []
     from app.services.map_statistics_refresh import references
-    reference_groups = references(json.loads(source.read_text(encoding="utf-8"))["groups"], inbox_dir, authoring)
-    for group in identified_groups(reference_groups):
+    groups_for_scope = references(reference_groups(), inbox_dir, authoring)
+    for group in identified_groups(groups_for_scope):
         if query.geography_ids and group["country_id"] not in scope or query.country_codes and not scope:
             continue
         if query.commodities() and group["berry_id"] not in query.commodities():
