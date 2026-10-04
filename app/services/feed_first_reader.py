@@ -11,6 +11,7 @@ from __future__ import annotations
 import ipaddress
 import json
 import re
+from time import monotonic
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -25,6 +26,7 @@ from app.services.source_body import looks_like_interstitial
 CAPTURE_SUBDIR = "feed_first_reader"
 MAX_BYTES = 800_000
 FETCH_TIMEOUT = 4.0
+MAX_REDIRECTS = 5
 USER_AGENT = "BerryIntelligenceOS-Reader/1.0 (+https://github.com/samsonFive/berry-intelligence-os)"
 _SKIP_PREVIEW_HOSTS = {
     "example.test",
@@ -120,8 +122,12 @@ def capture_path(inbox_dir: Path, item_id: str) -> Path:
 
 
 def is_public_http_url(url: str) -> bool:
-    parsed = urlparse(str(url or "").strip())
-    if parsed.scheme not in {"http", "https"}:
+    try:
+        parsed = urlparse(str(url or "").strip())
+        parsed.port  # Validate malformed/out-of-range ports before requesting.
+    except ValueError:
+        return False
+    if parsed.scheme not in {"http", "https"} or parsed.username or parsed.password:
         return False
     host = (parsed.hostname or "").lower()
     if not host or host in _BLOCKED_HOSTS:
@@ -131,7 +137,8 @@ def is_public_http_url(url: str) -> bool:
     try:
         ip = ipaddress.ip_address(host)
     except ValueError:
-        return True
+        # Noncanonical numeric hosts may be interpreted as private IPs by DNS.
+        return not bool(re.fullmatch(r"(?:0x[0-9a-f]+|\d+)(?:\.(?:0x[0-9a-f]+|\d+))*", host))
     return bool(ip.is_global)
 
 
@@ -286,14 +293,16 @@ def fetch_publisher_home_preview(home_url: str, title: str, *, client: httpx.Cli
     closer = None
     http = client
     if http is None:
-        http = httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=True, headers={"User-Agent": USER_AGENT})
+        http = httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=False, headers={"User-Agent": USER_AGENT})
         closer = http
     try:
-        response = http.get(home_url)
-        final = str(response.url)
-        if not is_public_http_url(final):
+        final, raw, _, encoding, status_code, _ = _bounded_public_response(home_url, http, limit=400_000)
+        if status_code >= 400:
             return ""
-        html = response.text[:400_000]
+        try:
+            html = raw.decode(encoding, errors="replace")
+        except LookupError:
+            html = raw.decode("utf-8", errors="replace")
         return preview_image_from_publisher_home(html, final, title)
     except Exception:  # noqa: BLE001
         return ""
@@ -335,21 +344,53 @@ def empty_capture(url: str, *, reason: str) -> dict[str, Any]:
     }
 
 
+def _bounded_public_response(url: str, http: httpx.Client, *, limit: int):
+    """Preflight each redirect; stream only a bounded response for parsing."""
+    current = url
+    deadline = monotonic() + FETCH_TIMEOUT
+    for hop in range(MAX_REDIRECTS + 1):
+        if not is_public_http_url(current):
+            raise ValueError("redirect-not-public")
+        remaining = deadline - monotonic()
+        if remaining <= 0:
+            raise ValueError("capture-timeout")
+        with http.stream("GET", current, follow_redirects=False, timeout=remaining) as response:
+            if response.is_redirect:
+                location = response.headers.get("location")
+                if not location:
+                    raise ValueError("redirect-location-unavailable")
+                if hop == MAX_REDIRECTS:
+                    raise ValueError("redirect-limit")
+                current = urljoin(str(response.url), location)
+                continue
+            parts, size, limited = [], 0, False
+            for chunk in response.iter_bytes(chunk_size=64_000):
+                if monotonic() >= deadline:
+                    raise ValueError("capture-timeout")
+                room = limit - size
+                parts.append(chunk[:room])
+                size += min(len(chunk), room)
+                if len(chunk) > room:
+                    limited = True
+                    break
+            return str(response.url), b"".join(parts), dict(response.headers), response.encoding or "utf-8", response.status_code, limited
+    raise ValueError("redirect-limit")
+
+
 def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dict[str, Any]:
     if not is_public_http_url(url):
         return empty_capture(url, reason="url-not-public")
     closer = None
     http = client
     if http is None:
-        http = httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=True, headers={"User-Agent": USER_AGENT})
+        http = httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=False, headers={"User-Agent": USER_AGENT})
         closer = http
     try:
-        response = http.get(url)
-        final = str(response.url)
-        if not is_public_http_url(final):
-            return empty_capture(url, reason="redirect-not-public")
-        raw = response.content[:MAX_BYTES]
-        headers = {k: v for k, v in response.headers.items()}
+        final, raw, headers, encoding, status_code, limited = _bounded_public_response(url, http, limit=MAX_BYTES)
+        if status_code >= 400:
+            capture = empty_capture(final, reason="blocked" if status_code in {401, 403, 451} else f"http-{status_code}")
+            capture["status_code"] = status_code
+            return capture
         content_type = str(headers.get("content-type") or headers.get("Content-Type") or "")
         if looks_like_pdf(final, content_type=content_type, body=raw):
             passages = extract_pdf_text(raw)
@@ -358,7 +399,8 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
                 "url": final,
                 "ok": bool(passages),
                 "availability": availability,
-                "reason": "" if passages else "pdf-text-unavailable",
+                "reason": "response-size-limit" if limited else "" if passages else "pdf-text-unavailable",
+                "truncated": limited,
                 "headline": "",
                 "passages": passages,
                 "images": [],
@@ -367,15 +409,20 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
                 "reader_modes": ["structured_fallback"],
                 "method": "direct_http_pdf",
                 "retrieved_at": datetime.now(UTC).isoformat(timespec="seconds"),
-                "status_code": response.status_code,
+                "status_code": status_code,
             }
-        html = raw.decode(response.encoding or "utf-8", errors="replace")
+        try:
+            html = raw.decode(encoding, errors="replace")
+        except LookupError:
+            html = raw.decode("utf-8", errors="replace")
         title_match = _TITLE_RE.search(html)
         headline = decode_html_text(title_match.group(1)) if title_match else ""
         passages = _paragraphs_from_html(html)
         images = extract_article_images(html)
         allowed = frame_allowed(headers)
-        availability = classify_capture(passages, status_code=response.status_code)
+        availability = classify_capture(passages, status_code=status_code)
+        if limited and availability == "full":
+            availability = "partial"
         modes = ["structured_fallback"]
         if availability in {"full", "partial", "excerpt_only"}:
             modes.insert(0, "native")
@@ -385,7 +432,8 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             "url": final,
             "ok": availability in {"full", "partial", "excerpt_only"},
             "availability": availability,
-            "reason": "" if availability != "error" else f"http-{response.status_code}",
+            "reason": "response-size-limit" if limited else "" if availability != "error" else f"http-{status_code}",
+            "truncated": limited,
             "headline": headline,
             "passages": passages,
             "images": images,
@@ -394,8 +442,10 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             "reader_modes": modes,
             "method": "direct_http",
             "retrieved_at": datetime.now(UTC).isoformat(timespec="seconds"),
-            "status_code": response.status_code,
+            "status_code": status_code,
         }
+    except ValueError as exc:
+        return empty_capture(url, reason=str(exc))
     except httpx.HTTPError as exc:
         return empty_capture(url, reason=f"{type(exc).__name__}")
     finally:
@@ -505,14 +555,16 @@ def fetch_source_preview_image(url: str, *, client: httpx.Client | None = None) 
     closer = None
     http = client
     if http is None:
-        http = httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=True, headers={"User-Agent": USER_AGENT})
+        http = httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=False, headers={"User-Agent": USER_AGENT})
         closer = http
     try:
-        response = http.get(url)
-        final = str(response.url)
-        if not is_public_http_url(final):
+        final, raw, _, encoding, status_code, _ = _bounded_public_response(url, http, limit=80_000)
+        if status_code >= 400:
             return ""
-        html = response.text[:80_000]
+        try:
+            html = raw.decode(encoding, errors="replace")
+        except LookupError:
+            html = raw.decode("utf-8", errors="replace")
         return preview_image_from_html(html, final)
     except Exception:  # noqa: BLE001 — a missing preview must not abort Today
         return ""

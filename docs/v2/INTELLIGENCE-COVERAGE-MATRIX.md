@@ -621,3 +621,6 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **October 4 Reader capture proof:** An explicitly requested existing Produce Report source returned nine readable paragraphs and eight image references in isolated ignored Reader state. Its preview now carries across private card views. This does not create canonical Evidence/Facts, approve claims, establish full publisher coverage or change acquisition/recall maturity counts. See MISSION-30-READER-PREVIEW-CONTINUITY.md.
+
+
+**October 4 bounded Reader follow-up:** The same explicitly requested public Produce Report article returned HTTP 200, nine paragraphs and eight image references under the bounded redirect/streaming implementation. No canonical records or acquisition/recall maturity counts changed. One source succeeds; wider accessibility/extraction coverage remains source-dependent. See MISSION-31-COMPACT-NEWS-AND-CAPTURE-BOUNDS.md.
