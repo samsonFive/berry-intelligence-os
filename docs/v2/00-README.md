@@ -58,3 +58,5 @@ The plan is now reviewed and accepted (with the revisions recorded in `08-DECISI
 - [Mission 33 — Persistent runtime reference parity](MISSION-33-RUNTIME-REFERENCE-PARITY.md): deployed data-directory compatibility, operator-edit preservation and remaining specialist/release acceptance.
 
 - [Mission 34: Source authenticity in Operations](MISSION-34-SOURCE-AUTHENTICITY-WORKSPACE.md) — retained source comparison, native review-and-next repair, private gates, phone/keyboard/search proof.
+
+- [Mission 35: Retained workflow shell](MISSION-35-RETAINED-WORKSPACE-SHELL.md) — shared navigation, preserved native controls, readable comparisons, claim/history panels and phone containment.
