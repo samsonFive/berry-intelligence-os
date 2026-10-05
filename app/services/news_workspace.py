@@ -9,6 +9,8 @@ from app.services.global_explorer import IntelligenceQuery
 from app.services.berries.landscape import SEED_FIXTURE_EVIDENCE_IDS
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.industry_pulse.qualify import QualificationIndex, qualify_hit
+from app.services import company_source_scope
+from app.services.company_source_scope import source_reviewed
 
 NEWS_TYPES = {
     "news_search", "trade_press", "web_article", "company_press_release", "company_website",
@@ -17,13 +19,6 @@ NEWS_TYPES = {
     "news_article", "newsletter", "industry_report",
 }
 PAGE_SIZE = 36
-
-
-def source_reviewed(record):
-    # Live discovery historically used status=published. It is never human review.
-    return (record.get("status") == "published" and not record.get("live")
-            and record.get("trust_state") != "LIVE"
-            and (record.get("submitted_by") != "auto" or record.get("review_state") == "validated"))
 
 
 def escalations(facts):
@@ -93,6 +88,7 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
         raise ValueError("Company list is unavailable")
     if filters["company"] and filters["company"] not in entities:
         raise ValueError("Company is unavailable")
+    subjects = company_source_scope.candidates(entities, state, filters)
     support = escalations(facts)
     qualification = QualificationIndex.compile(
         company_names=[name for row in entities.values() if row.get("entity_type") == "company"
@@ -126,7 +122,7 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
             continue
         if (query.country_codes and not scope) or (scope and not scope.intersection(record_geography_ids(record))):
             continue
-        linked = set(record.get("entity_ids") or []) | set(record.get("company_ids") or [])
+        linked, mentions = company_source_scope.links(record, subjects)
         if filters["favorites"] == "1" and not any((state.get("entity_favorites") or {}).get(key) for key in linked):
             continue
         if filters["company"] and filters["company"] not in linked:
@@ -147,7 +143,7 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
         counts["trusted"] += int(trusted)
         if filters["view"] == "trusted" and not trusted:
             continue
-        matched.append((record, stamp, trusted))
+        matched.append((record, stamp, trusted, mentions))
     matched.sort(key=lambda row: (row[1] or datetime.min.replace(tzinfo=UTC), row[0]["id"]), reverse=True)
     pages = max(1, (len(matched) + PAGE_SIZE - 1) // PAGE_SIZE)
     try:
@@ -156,7 +152,7 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
         page = 1
     cards = []
     # Only metadata is presented; the selected Reader alone hydrates capture text.
-    for record, _, trusted in matched[(page - 1) * PAGE_SIZE:page * PAGE_SIZE]:
+    for record, _, trusted, mentions in matched[(page - 1) * PAGE_SIZE:page * PAGE_SIZE]:
         preview = {key: value for key, value in record.items() if key not in
                    {"article", "transcript", "transcript_excerpt", "images", "reader_capture"}}
         preview["article"] = {"image_url": feed_first.safe_image_url(record)}
@@ -164,6 +160,7 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
         from app.services.feed_first_reader import is_public_http_url
         card["source_url"] = card["source_url"] if is_public_http_url(card["source_url"]) else ""
         card.update(trusted=trusted, source_reviewed=source_reviewed(record), escalated_count=len(support.get(card["id"], [])))
+        card["company_mentions"] = mentions
         card["entities"] = [row for row in card["entities"] if (entities.get(row["id"]) or {}).get("entity_type") in {"company", "brand", "research_program"}]
         cards.append(card)
     date_label = {'': 'All dated news', 'today': 'Today', '7d': 'Past 7 days', '30d': 'Past 30 days',
