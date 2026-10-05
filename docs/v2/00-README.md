@@ -64,3 +64,5 @@ The plan is now reviewed and accepted (with the revisions recorded in `08-DECISI
 - [Mission 36: Public market research and figure review](MISSION-36-MARKET-REFERENCE-RESEARCH.md) — bounded country/berry research, source passages, private review/history and Map/snapshot/PDF parity.
 
 - [Mission 37: Consolidation parity and current requirements](MISSION-37-CONSOLIDATION-RELEASE-AUDIT.md) — older-PR intent, reviewed company mentions across scoped News/Digest, truthful source labels and the finite combined release boundary.
+
+- [Mission 38: Combined release rehearsal](MISSION-38-RELEASE-REHEARSAL.md) — authenticated isolated container, byte-verified packaging, persistent edits, verified backup/empty restore, prior-image rollback and final guide/upload evidence.

@@ -35,6 +35,8 @@ Remaining release work is combined authenticated/container persistence and recov
 
 ## Verification
 
+Final draft #311 head `8be0d39614f3c867f8a93dbcf2da216c191de617` passed all four required checks, run `37338997850`: **3,893 passed / 11 skipped / two existing warnings / 380.29 seconds**. Combined container and final release evidence is recorded separately in MISSION-38-RELEASE-REHEARSAL.md.
+
 Initial source-scope/News/Digest/alias/snapshot/Map suite: 101 passed, one existing warning, 30.94 seconds. Final broader parity, company/variety, guide, backup and packet suite: **177 passed**, one existing warning, 183.89 seconds. Real canonical SanLucar recall verifies original file bytes remain unchanged. Regressions cover subscriptions, provisional identities, live/raw exclusion, body-free cards, dates/crops/order and source-versus-statement review. Record validation passed.
 
 Native review uses canonical records read-only with isolated personal state at port 18331. Company News and full News show the same five real SanLucar stories newest first with visible mention labels. Native Digest list filtering retains the same five with separate unread/origin/review labels. No feedback, approval or reading-state action was taken. A new tab stalled; an existing responsive tab was reused. Map handoff reached HTTP 200 but browser controls stalled; this is not claimed as native Map acceptance. Automated scope checks pass; combined final Map review remains. An exact Playwright label lookup failed; the native dropdown succeeded. Saved evidence: `artifacts/design-sprint/release-audit-digest-mentions.png`.
