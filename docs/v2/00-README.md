@@ -62,3 +62,5 @@ The plan is now reviewed and accepted (with the revisions recorded in `08-DECISI
 - [Mission 35: Retained workflow shell](MISSION-35-RETAINED-WORKSPACE-SHELL.md) — shared navigation, preserved native controls, readable comparisons, claim/history panels and phone containment.
 
 - [Mission 36: Public market research and figure review](MISSION-36-MARKET-REFERENCE-RESEARCH.md) — bounded country/berry research, source passages, private review/history and Map/snapshot/PDF parity.
+
+- [Mission 37: Consolidation parity and current requirements](MISSION-37-CONSOLIDATION-RELEASE-AUDIT.md) — older-PR intent, reviewed company mentions across scoped News/Digest, truthful source labels and the finite combined release boundary.

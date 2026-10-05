@@ -1,5 +1,7 @@
 # Mission 36 — Public market research and figure review
 
+Final exact-head CI: #310 head `a421a77ea7b21634dbdcdb7b07cc87a6463630d3` passed all four required checks, run `37332287901`: 3,877 passed / 11 skipped / two warnings in 229.96 seconds. The real public proposal remains unreviewed and unapplied; no merge or deployment.
+
 MAP-02 now has an explicit research path beyond the four-country strawberry agency refresh. The new country/berry workspace is reached from Check & review market figures. It requests recent national area, harvested production and reported yield from Perplexity, then presents source passages and current versus proposed references for deliberate analyst selection. It never fetches on browse or silently fills missing statistics.
 
 ## Source and review boundaries

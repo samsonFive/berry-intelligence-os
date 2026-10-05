@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 from uuid import uuid4
 
-from app.services import analyst_queue, feed_first
+from app.services import analyst_queue, feed_first, company_source_scope
 from app.services.feed_first_live import CACHE_SUBDIR
 from app.services.analyst_state_io import serialized_write
 
@@ -107,7 +107,7 @@ def edit_list(inbox_dir: Path, *, action: str, list_id: str = "", name: str = ""
     return list_id
 
 
-def inclusion(record: dict[str, Any], state: dict[str, Any], reading: dict[str, Any]) -> list[dict[str, str]]:
+def inclusion(record: dict[str, Any], state: dict[str, Any], reading: dict[str, Any], *, linked_companies=None) -> list[dict[str, str]]:
     item_id = str(record.get("id") or "")
     origins = []
     if feed_first.decision_for(item_id, state)["saved"]:
@@ -118,7 +118,8 @@ def inclusion(record: dict[str, Any], state: dict[str, Any], reading: dict[str, 
     explicit_reading = bool(entry) and ("state" in entry or "action" in entry or "reader_positions" not in entry)
     if priority in {"high", "medium", "low"} or explicit_reading:
         origins.append({"key": "queue", "label": "Reading queue"})
-    companies = set(record.get("entity_ids") or []) | set(record.get("company_ids") or [])
+    companies = (linked_companies if linked_companies is not None else
+                 set(record.get("entity_ids") or []) | set(record.get("company_ids") or []))
     for row in company_lists(state):
         if row["subscribed"] and companies.intersection(row.get("company_ids") or []):
             origins.append({"key": row["id"], "label": row["name"]})
@@ -148,15 +149,19 @@ def digest_model(*, records: dict[str, dict[str, Any]], entities: dict[str, dict
     berries = set(filter(None, filters["berry"].split(",")))
     countries = set(filter(None, filters["country"].split(",")))
     universe = dict(records)
+    subjects = company_source_scope.candidates(entities, state, filters, subscribed=True)
+    source_links = {}
     # Keep the personal marks visible even if a source cache has been removed.
     for item_id in set(state.get("decisions", {})) | set(reading.get("reading", {})):
         if item_id not in universe and inclusion({"id": item_id}, state, reading):
             universe[item_id] = {"id": item_id, "title": "Source no longer available", "missing_source": True}
     all_cards = []
     for item_id, record in universe.items():
-        origins = inclusion(record, state, reading)
+        linked, mentions = company_source_scope.links(record, subjects)
+        origins = inclusion(record, state, reading, linked_companies=linked)
         if not origins:
             continue
+        source_links[item_id] = linked
         preview = {key: value for key, value in record.items() if key not in {"article", "transcript", "transcript_excerpt", "images", "reader_capture"}}
         preview["article"] = {"image_url": feed_first.safe_image_url(record)}
         card = feed_first.present_item(preview, entities_by_id=entities, state=state, filters=feed_first.parse_filters({}))
@@ -166,8 +171,9 @@ def digest_model(*, records: dict[str, dict[str, Any]], entities: dict[str, dict
         progress = analyst_queue.reading_state(item_id, reading)
         priority = entry.get("priority", ((record.get("priority") or {}).get("reading") or {}).get("level", "none"))
         card.update(origins=origins, progress=progress, progress_label=PROGRESS_LABELS[progress],
+                    company_mentions=mentions,
                     reading_priority=priority if priority in PRIORITIES else "none",
-                    trusted=record.get("status") == "published", missing_source=bool(record.get("missing_source")))
+                    trusted=company_source_scope.source_reviewed(record), missing_source=bool(record.get("missing_source")))
         all_cards.append(card)
     counts = {"total": len(all_cards), "active": sum(c["progress"] in analyst_queue.READING_ACTIVE for c in all_cards),
               "completed": sum(c["progress"] in {"read", "promoted"} for c in all_cards)}
@@ -194,8 +200,7 @@ def digest_model(*, records: dict[str, dict[str, Any]], entities: dict[str, dict
             continue
         if end and (not stamp or stamp > end.isoformat()):
             continue
-        source = universe.get(card["id"]) or {}
-        linked = set(source.get("entity_ids") or []) | set(source.get("company_ids") or [])
+        linked = source_links[card["id"]]
         if not matches_marks(linked, state, favorites=filters["favorites"], tier=filters["tier"], list_id=filters["list"]):
             continue
         cards.append(card)
