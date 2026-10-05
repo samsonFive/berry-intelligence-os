@@ -196,4 +196,7 @@ def apply(inbox_dir, job_id, selected, revision, actor):
 
 
 def references(baseline, inbox_dir=None, authoring=False):
-    return merge(baseline, load(inbox_dir)['approved']) if authoring and inbox_dir else deepcopy(baseline)
+    if not authoring or not inbox_dir:
+        return deepcopy(baseline)
+    from app.services.market_reference_research import references as researched_references
+    return researched_references(merge(baseline, load(inbox_dir)['approved']), inbox_dir)
