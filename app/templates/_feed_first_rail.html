@@ -1,3 +1,6 @@
+{% if retained_workspace_shell|default(false) %}
+{% if counts %}<details class="retained-catalog-context"><summary>Directory coverage</summary><p>{{ counts.tracked_industry_entities }} industry entities tracked · {{ counts.companies }} companies · {{ counts.other_industry_entities }} other industry entities · {{ counts.candidates }} candidates. Registries are excluded from competitor counts.</p></details>{% endif %}
+{% else %}
 <aside class="bos-rail" aria-label="Feed navigation">
   <p class="bos-brand">Berry Intelligence OS<span>Feed-first reader</span></p>
   <nav class="bos-nav" aria-label="Primary product">
@@ -11,3 +14,4 @@
   <p class="bos-note">{{ counts.tracked_industry_entities }} industry entities tracked · {{ counts.companies }} companies · {{ counts.other_industry_entities }} other industry entities · {{ counts.candidates }} candidates · {{ counts.registries }} registries excluded from competitor counts</p>
   {% endif %}
 </aside>
+{% endif %}

@@ -13,15 +13,14 @@
 
 <p class="brief-window">{{ item.scope_label }}. Trial or geography-specific evidence stays scoped to what is stored on the record.</p>
 
-<section class="brief-section">
+<section class="brief-section retained-claim">
   <h2>Claim</h2>
   <p class="v2-card-kicker"><span class="v2-mark">Source claim</span><span class="v2-meta">{{ item.workflow_label }}</span></p>
-  <h3 class="v2-card-title">{{ item.normalized_claim }}</h3>
   {% if item.exact_wording %}
-    <p><span class="v2-meta">Exact wording</span><br>{{ item.exact_wording }}</p>
+    <p class="retained-claim-wording"><span class="v2-meta">Exact wording</span><br>{{ item.exact_wording }}</p>
   {% endif %}
   <p><span class="v2-meta">Claimant / publication</span> {{ item.claimant }}{% if item.source_type %} · {{ item.source_type|replace('_',' ') }}{% endif %}</p>
-  {% if item.source_url %}<p><a href="{{ item.source_url }}" rel="noreferrer">Original publication</a></p>{% endif %}
+  <p><a href="{{ item.href }}" data-open-reader data-item-id="{{ item.id }}">Open in Reader</a>{% if item.source_url %} · <a href="{{ item.source_url }}" rel="noreferrer">Original publication</a>{% endif %}</p>
   <p><span class="v2-meta">Scope</span> {{ item.scope_label }}</p>
   <div class="v2-card-chips">
     {% for chip in item.berries %}<span class="v2-chip v2-chip-berry">{{ chip.name }}</span>{% endfor %}
@@ -43,7 +42,7 @@
 
 <section class="brief-section">
   <h2>Supporting evidence</h2>
-  <p class="context-limit">Only stored <code>corroborates</code> links. Repeated reprints are not extra confirmation.</p>
+  <p class="context-limit">Sources recorded as supporting this claim. Repeated reprints are not extra confirmation.</p>
   {% if item.supporting_evidence %}
     <ul class="simple-list">
       {% for row in item.supporting_evidence %}
@@ -60,7 +59,7 @@
 
 <section class="brief-section">
   <h2>Contradicting evidence</h2>
-  <p class="context-limit">Only stored <code>contradicts</code> links. Absence of a contradiction is not proof.</p>
+  <p class="context-limit">Sources recorded as contradicting this claim. Absence of a contradiction is not proof.</p>
   {% if item.contradicting_evidence %}
     <ul class="simple-list">
       {% for row in item.contradicting_evidence %}
@@ -121,14 +120,15 @@
 </section>
 
 <section class="brief-section">
-  <h2>Provenance / review history</h2>
-  <p>Trusted Evidence id <code>{{ item.id }}</code>. Workflow overlay is runtime-only.</p>
-  {% if item.updated_at %}<p>Last overlay update: {{ item.updated_at }}{% if item.reviewer %} by {{ item.reviewer }}{% endif %}</p>{% else %}<p>No overlay decision recorded yet (defaults to needs testing).</p>{% endif %}
+  <details class="public-source-details"><summary>Review history and source reference</summary>
+  <p>Source reference <code>{{ item.id }}</code>.</p>
+  {% if item.updated_at %}<p>Last decision: {{ item.updated_at }}{% if item.reviewer %} by {{ item.reviewer }}{% endif %}</p>{% else %}<p>No testing decision recorded yet.</p>{% endif %}
   <p>
     <a href="{{ item.href }}" data-open-reader data-item-id="{{ item.id }}">Open in Reader</a>
     · <a href="{{ item.evidence_href }}">Full evidence page</a>
     · <a href="{{ item.search_claimant_href }}">Search claimant</a>
   </p>
+  </details>
 </section>
 
 {% if item.citing_facts %}
@@ -143,6 +143,6 @@
 </section>
 {% endif %}
 
-<p class="context-limit">Learner Mode (Workstream K) is unbuilt. This page does not explain agronomy, flavor science, or production systems.</p>
+<p class="context-limit">For visual explanations of agronomy, plant biology and production systems, open <a href="/learn">Learn</a>. Lessons explain concepts; claim testing records decisions about a specific source statement.</p>
 </div>
 {% endblock %}

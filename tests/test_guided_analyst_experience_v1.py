@@ -241,10 +241,13 @@ def test_contextual_help_on_major_pages() -> None:
         assert help_heading in page.text, path
 
 
-def test_queue_count_semantics_in_sidebar() -> None:
+def test_review_and_help_destinations_remain_in_shared_navigation() -> None:
     html = TestClient(main.app).get("/brief").text
-    assert "Pending Review" in html
-    assert "How it works" in html
+    assert 'href="/pending"' in html
+    assert ">Publication review</b>" in html
+    assert 'href="/review?kind=atomic"' in html
+    assert ">Statement review</b>" in html
+    assert ">Help</b>" in html
     assert 'href="/guide"' in html
 
 

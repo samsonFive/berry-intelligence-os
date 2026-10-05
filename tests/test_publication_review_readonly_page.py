@@ -61,7 +61,7 @@ def test_page_renders_with_empty_durable_store(tmp_path: Path, monkeypatch) -> N
 
     assert resp.status_code == 200
     assert "read-only" in resp.text.lower() or "read only" in resp.text.lower()
-    assert "never invents backlog" in resp.text
+    assert "No captured sources match this filter" in resp.text
 
 
 def test_page_renders_queue_and_detail_for_a_seeded_draft(tmp_path: Path, monkeypatch) -> None:

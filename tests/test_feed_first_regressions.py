@@ -58,13 +58,20 @@ def test_today_filter_query_restores_selected_controls():
     assert "data-clear-filter" in page.text
 
 
-def test_settings_stays_in_berry_os_and_keeps_legacy_guide():
+def test_settings_describes_current_news_and_digest_controls():
     client = TestClient(app)
     settings = client.get("/settings")
     assert settings.status_code == 200
     assert "data-feed-first-settings" in settings.text
-    assert "Research Ops" in settings.text
-    assert "Secret values are never shown" in settings.text
+    assert 'class="glass-header"' in settings.text
+    assert "newest publication first" in settings.text
+    assert "Past 7 days" in settings.text
+    assert "Year to date" in settings.text
+    assert 'href="/digest"' in settings.text
+    assert 'href="/operations"' in settings.text
+    assert 'href="/guide"' in settings.text
+    assert "Sort: rank" not in settings.text
+    assert "Only thumbs-up extracts" not in settings.text
     guide = client.get("/guide")
     assert guide.status_code == 200
     assert "data-feed-first-settings" not in guide.text
