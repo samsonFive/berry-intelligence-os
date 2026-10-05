@@ -10426,6 +10426,8 @@ from app.news_workspace_routes import router as news_workspace_router
 app.include_router(news_workspace_router)
 from app.map_statistics_routes import router as map_statistics_router
 app.include_router(map_statistics_router)
+from app.map_market_research_routes import router as map_market_research_router
+app.include_router(map_market_research_router)
 
 from app.map_region_routes import router as map_region_router
 app.include_router(map_region_router)

@@ -39,7 +39,12 @@ def page(request, *, error='', status_code=200, return_to=None):
         baseline = []
         error = str(exc)
         status_code = 409
-    current = refresh.merge(baseline, state['approved'])
+    try:
+        current = refresh.references(baseline, main.INBOX_DIR, True)
+    except ValueError as exc:
+        current = []
+        error = str(exc)
+        status_code = 409
     current_by_category = {refresh.category(group): group for group in current}
     jobs = sorted(state['jobs'].values(), key=lambda job: (job['created_at'], job['id']), reverse=True)
     job = jobs[0] if jobs else None
@@ -50,6 +55,7 @@ def page(request, *, error='', status_code=200, return_to=None):
         'comparisons': comparisons, 'current': current, 'revision': state['revision'], 'token': uuid4().hex,
         'history': list(reversed(state['history'])), 'return_to': return_to,
         'review_href': '/explorer/statistics?' + urlencode({'return_to': return_to}),
+        'research_href': '/explorer/statistics/research?' + urlencode({'return_to': return_to}),
     })
 
 

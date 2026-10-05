@@ -40,3 +40,7 @@ All 198 tests in the nine affected workflow files passed locally (one existing R
 No publication, statement, identity or extraction gate is changed. Pass/Fail/Defer remains the original private claim-testing workflow and does not create facts. Original source prose, analyst edits, dates, role distinctions and unknown coverage remain intact. There is no new acquisition, provider request, recurring job activation, merge or deployment. Public builds retain the published-only navigation and data boundary.
 
 Broader selected-country/berry market-reference population, older open-PR parity, final combined guide and authenticated container/release/backup/rollback acceptance remain. This draft must pass its own four exact-head checks; local proof does not replace them. The user reviews the tested release before merge/deployment.
+
+## Final required checks
+
+Final #309 head `7a82b7bd52e3967fd383a04b97536bf6ec15ea62` passed all four required checks, run `37247720206`: 3,838 passed / 11 skipped / two warnings / 360.68 seconds. The initial twelve outdated navigation expectations were corrected to the actual consolidated homes while retaining specialist access and pending counts; 198 affected-workflow tests passed before final CI. No implementation, trust or data change in that test repair. The combined release is still separate.

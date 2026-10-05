@@ -170,16 +170,18 @@ def render_report_pdf(
                 heading = Paragraph(escape(f"{group['country']} / {group['commodity']} / {group['period']}"), styles["market_group"])
                 cells = [[Paragraph(escape(str(v)), styles["source"]) for v in ("Measure", "Value", "Unit / status")]]
                 cells += [[Paragraph(escape(str(v)), styles["body"]) for v in
-                           (m["label"], f"{m['value']:,}", m["unit"] + (" / " + m["status_label"] if m.get("source_flag") else ""))] for m in group["metrics"]]
+                           (m["label"], f"{m['value']:,}", m["unit"] + (" / " + m['classification'] if m.get('classification') else " / " + m["status_label"] if m.get("source_flag") else ""))] for m in group["metrics"]]
                 table = Table(cells, colWidths=[doc.width * .38, doc.width * .20, doc.width * .42], repeatRows=1)
                 table.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#edf5e6")),
                                           ("LINEBELOW", (0, 0), (-1, 0), .7, colors.HexColor("#90aa8f")), ("LINEBELOW", (0, 1), (-1, -1), .3, colors.HexColor("#d8e4d3")),
                                           ("LEFTPADDING", (0, 0), (-1, -1), 8), ("RIGHTPADDING", (0, 0), (-1, -1), 8)]))
                 story.append(KeepTogether([heading, table]))
+                if group.get('date_note'):
+                    story.append(Paragraph(escape(group['date_note']), styles['source']))
                 story.append(Paragraph(escape(group["basis"]), styles["source"]))
                 if all("source_flag" in m and not m["source_flag"] for m in group["metrics"]):
                     story.append(Paragraph("No estimate/provisional flags supplied; figures remain subject to source revisions.", styles["source"]))
-                timing = "Source updated " + group["source_updated_at"][:10] if group.get("source_updated_at") else "Published " + group["published_date"]
+                timing = "Source updated " + group["source_updated_at"][:10] if group.get("source_updated_at") else "Published " + (group["published_date"] or 'Unknown')
                 story.append(Paragraph(escape(f"{group['source']} / {group['locator']} / {timing} / checked {group['accessed_date']} / " + reference_names.get(group["id"], "Supporting source")), styles["source"]))
             return
         text = section_text(section, packet)
