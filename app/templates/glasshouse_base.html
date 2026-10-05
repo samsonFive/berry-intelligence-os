@@ -6,7 +6,7 @@
   <link rel="icon" href="/static/berry-intelligence-icon.png">
   <link rel="stylesheet" href="/static/vendor/bootstrap/bootstrap.min.css">
   {% block legacy_content_styles %}{% endblock %}
-  <link rel="stylesheet" href="/static/personal_digest.css?v=5">
+  <link rel="stylesheet" href="/static/personal_digest.css?v=7">
   {% if authoring_mode %}<link rel="stylesheet" href="/static/learn_context.css?v=1">{% endif %}
   {% block head_extra %}{% endblock %}
   {% block workspace_styles %}{% endblock %}
@@ -32,7 +32,7 @@
       {% endif %}
     </div></details>
   </header>
-  <main id="digest-main" tabindex="-1"{% if public_library_shell or retained_workspace_shell %} class="public-library v2-canvas sh-canvas{% if retained_workspace_shell %} retained-workspace{% endif %}" data-pagefind-body{% endif %}>{% if static_build %}<p class="public-workspace-note" data-pagefind-ignore>Public library · published intelligence and educational lessons. Saving, research and review tools are available in the live workspace.</p>{% elif request.app is defined and request.app.state.digest_preview|default(false) %}<p class="digest-notice">Isolated review workspace · sample personal state and illustrative images. Changes here do not affect your existing workspace.</p>{% endif %}{% block workspace_tools %}{% endblock %}{% block content %}{% endblock %}</main>
+  <main id="digest-main" tabindex="-1"{% if public_library_shell or retained_workspace_shell %} class="public-library v2-canvas sh-canvas{% if retained_workspace_shell %} retained-workspace{% endif %}" data-pagefind-body{% endif %}>{% if static_build %}<p class="public-workspace-note" data-pagefind-ignore>Public library Â· published intelligence and educational lessons. Saving, research and review tools are available in the live workspace.</p>{% elif request.app is defined and request.app.state.digest_preview|default(false) %}<p class="digest-notice">Isolated review workspace Â· sample personal state and illustrative images. Changes here do not affect your existing workspace.</p>{% endif %}{% block workspace_tools %}{% endblock %}{% block content %}{% endblock %}</main>
   {% with personal_reader_shell=true %}{% include "_v2_reader_offcanvas.html" %}{% endwith %}
   {% block shared_overlays %}{% endblock %}
   <script src="/static/vendor/bootstrap/bootstrap.bundle.min.js"></script>
