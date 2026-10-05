@@ -351,7 +351,11 @@ def test_war_room_notes_route_rejects_open_redirect(monkeypatch, tmp_path: Path)
 def test_war_room_nav_entry_present() -> None:
     page = TestClient(app).get("/today")
     assert page.status_code == 200
-    assert 'href="/war-room"' in page.text
+    assert 'href="/briefings"' in page.text
+    home = TestClient(app).get("/briefings")
+    assert home.status_code == 200
+    assert 'href="/war-room"' in home.text
+    assert "Open Meeting Prep" in home.text
 
 
 def test_whitespace_excludes_moves_outside_session_window(monkeypatch, tmp_path: Path) -> None:

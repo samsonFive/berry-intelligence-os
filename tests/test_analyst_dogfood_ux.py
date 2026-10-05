@@ -68,7 +68,7 @@ def test_today_is_a_morning_console_with_source_problems_and_next_work(monkeypat
     assert "Daily Intelligence Briefing" in page.text
     assert "Publication date drives recency" in page.text
     assert "Needs Attention" in page.text
-    assert 'href="/watches"' in page.text
+    assert 'href="/monitor"' in page.text
     assert "Publication Review" not in page.text
     assert "name=\"decision\"" not in page.text
 
@@ -87,17 +87,20 @@ def test_today_get_does_not_mark_watchlist_seen_or_write_review_events(monkeypat
     assert not (inbox / "review_events").exists()
 
 
-def test_sidebar_puts_strategic_questions_in_decide_and_renames_monitoring_queue() -> None:
+def test_shared_navigation_consolidates_questions_and_monitoring() -> None:
     page = TestClient(app).get("/brief")
     assert page.status_code == 200
     html = page.text
-    decide_at = html.find(">Decide<")
-    system_at = html.find(">System<")
-    sq_at = html.find(">Strategic Questions</span>")
-    assert decide_at != -1 and system_at != -1 and sq_at != -1
-    assert decide_at < sq_at < system_at
-    assert ">Monitoring queue</span>" in html
-    assert 'aria-label="Watches' not in html
+    assert 'class="glass-header"' in html
+    assert 'href="/statements"' in html
+    assert 'href="/monitor"' in html
+    assert 'class="v2-sidebar' not in html
+    questions = TestClient(app).get("/statements")
+    assert questions.status_code == 200
+    assert 'href="/strategic-questions"' in questions.text
+    monitor = TestClient(app).get("/monitor?view=activity")
+    assert monitor.status_code == 200
+    assert 'href="/queues/monitoring"' in monitor.text
 
 
 def test_company_profile_watch_control_is_watchlist_not_monitoring_queue() -> None:

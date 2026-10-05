@@ -514,14 +514,17 @@ def test_news_keeps_watchtower_access_without_loading_alert_panel(monkeypatch) -
     })
     page = TestClient(app).get("/today")
     assert page.status_code == 200
-    assert 'href="/watchtower"' in page.text
+    assert 'href="/monitor"' in page.text
     assert "needs-your-attention" not in page.text
 
 
 def test_watchtower_nav_entry_present() -> None:
     page = TestClient(app).get("/watches")
     assert page.status_code == 200
-    assert 'href="/watchtower"' in page.text
+    assert 'href="/monitor"' in page.text
+    monitor = TestClient(app).get("/monitor?view=alerts")
+    assert monitor.status_code == 200
+    assert 'href="/watchtower"' in monitor.text
 
 
 def test_new_watch_types_are_accepted_end_to_end(monkeypatch, tmp_path: Path) -> None:

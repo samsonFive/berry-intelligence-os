@@ -29,6 +29,12 @@ Actual reviewed screenshots:
 - [Phone intake detail](../../artifacts/design-sprint/retained-intake-mobile.png)
 - [Phone settings](../../artifacts/design-sprint/retained-settings-mobile.png)
 
+### Full-suite navigation follow-up
+
+The initial pushed head passed Change scope, Repository integrity and Static public safety, but Python tests found twelve assertions tied to the superseded sidebar, stakeholder header or separate navigation names (3,826 passed, 11 skipped, two warnings; run 37246603593). These assertions now verify the approved shared navigation and follow its actual consolidated destinations: Monitor retains watches/alerts/plans; Intelligence retains Questions; Reports & Briefings retains Meeting Prep, brief construction and Executive view. The legacy weekly shell still tests that browse cannot start discovery. Review counters now assert actual pending action counts rather than old CSS classes or inventory labels. No implementation, decision controls or data changed in this repair.
+
+All 198 tests in the nine affected workflow files passed locally (one existing ReportLab warning, 108.15 seconds). The repaired pushed head requires a fresh complete check set; the initial failed result is retained as evidence rather than described as a passing release.
+
 ## Release boundaries
 
 No publication, statement, identity or extraction gate is changed. Pass/Fail/Defer remains the original private claim-testing workflow and does not create facts. Original source prose, analyst edits, dates, role distinctions and unknown coverage remain intact. There is no new acquisition, provider request, recurring job activation, merge or deployment. Public builds retain the published-only navigation and data boundary.

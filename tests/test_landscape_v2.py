@@ -153,7 +153,7 @@ def test_landscape_nav_link_points_to_all_berries_when_global():
     client = TestClient(app)
     page = client.get("/brief")
     assert page.status_code == 200
-    assert 'href="/landscapes" class="v2-nav-link" title="Landscape"' in page.text
+    assert 'href="/landscapes"><b>Landscape</b>' in page.text
 
 
 def test_landscape_variety_compare_deep_link_uses_real_ids():

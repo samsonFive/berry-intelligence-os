@@ -291,7 +291,10 @@ def test_readout_nav_link_present():
     client = TestClient(app)
     page = client.get("/brief")
     assert page.status_code == 200
-    assert 'href="/readout"' in page.text
+    assert 'href="/briefings"' in page.text
+    home = client.get("/briefings")
+    assert home.status_code == 200
+    assert 'href="/readout"' in home.text
 
 
 def test_readout_warm_request_is_fast():
