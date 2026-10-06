@@ -117,6 +117,10 @@ def _caveat(row):
         return "Registered office · growing not established"
     if "test station" in lower or "teststation" in lower or "test-station" in lower:
         return "Test station · variety presence not established"
+    if "inferred only" in lower or "breeding origin is not stated" in lower:
+        return "Limited support · verify the stated role"
+    if "substituted predicate" in lower:
+        return "Legacy role mapping · verify the source"
     return ""
 
 
@@ -259,6 +263,8 @@ def build_bundle(entities, relationships, evidence, params, *, today=None):
         warnings.insert(0, "No direct variety or breeding-program location relationships are recorded in this selected scope.")
     if provisional := sum(bool(row["identity_note"]) for row in node_rows):
         warnings.append(f"{provisional} identities in this scope are provisional and still need identity review. Recorded links do not approve their names.")
+    if any(edge["caveat"].startswith(("Limited support", "Legacy role mapping")) for edge in edges):
+        warnings.append("Some legacy records contain inferred or substituted roles. Their caveats and original notes remain visible; a stored edge is not independent confirmation.")
     if any(edge["unavailable_evidence_count"] for edge in edges):
         warnings.append("Some relationship references are unavailable under the selected review policy; only visible sources are cited.")
     bundle = {"contract": ENGINE_VERSION, "version": fingerprint[:16], "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -319,7 +325,9 @@ def validate_phrasing(proposal, bundle):
     expected = {row["id"]: row for row in bundle["explanation"]["findings"]}
     if len(proposal["findings"]) != len(expected):
         return bundle["explanation"]
+    seen = set()
     for row in proposal["findings"]:
-        if not isinstance(row, dict) or row != expected.get(row.get("id")):
+        if not isinstance(row, dict) or row != expected.get(row.get("id")) or row["id"] in seen:
             return bundle["explanation"]
+        seen.add(row["id"])
     return {**bundle["explanation"], "findings": deepcopy(proposal["findings"])}

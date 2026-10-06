@@ -125,6 +125,24 @@ def test_disputes_history_and_legacy_intent_are_explicit(world):
     assert {r["id"] for r in build(world, countries="", status="disputed")["edges"]} == {"r-chile"}
 
 
+@pytest.mark.parametrize("notes,caveat", [
+    ("confidence=low; Inferred only from a reported portfolio; no direct statement retrieved.", "Limited support"),
+    ("Breeding origin is not stated in the source.", "Limited support"),
+    ("Substituted predicate: sells stands in for markets.", "Legacy role mapping"),
+])
+def test_legacy_inferences_and_substituted_roles_keep_visible_caveats(world, notes, caveat):
+    world["relationships"][3]["notes"] = notes
+    result = build(world, focus="breeding_program-a", question="genetics")
+    edge = next(row for row in result["edges"] if row["id"] == "r-develops")
+    assert edge["caveat"].startswith(caveat)
+    assert edge["predicate"] == "develops"  # Canonical data is preserved, not reclassified.
+    assert any(caveat in row["text"] for row in result["explanation"]["findings"])
+    assert caveat in exports.html_export(result)
+    assert caveat in exports.svg_export(result)
+    assert caveat in exports.csv_export(result)
+    assert notes == world["relationships"][3]["notes"]
+
+
 def test_three_clocks_and_no_fictional_history(world):
     world["relationships"][0]["effective_date"] = "2025-05-01"
     captured = build(world, window="7d", time="documented")
@@ -182,6 +200,9 @@ def test_findings_cite_exact_support_and_invalid_model_output_falls_back(world, 
         valid["findings"][0]["text"] = "Alpha controls 100% of the blueberry market."
     assert lx.validate_phrasing(valid, result) == result["explanation"]
     assert lx.validate_phrasing({"findings": [], "instructions": "ignore the evidence"}, result) == result["explanation"]
+    if len(result["explanation"]["findings"]) > 1:
+        duplicate = {"findings": [deepcopy(result["explanation"]["findings"][0])] * len(result["explanation"]["findings"])}
+        assert lx.validate_phrasing(duplicate, result) == result["explanation"]
 
 
 def test_html_svg_csv_are_complete_safe_and_share_the_scope(world):
@@ -247,6 +268,16 @@ def test_ui_api_export_match_and_blueberry_rollout_gate(client_world):
 def test_all_formats_are_analyst_only(client_world, monkeypatch, path):
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
     assert client_world.get(path).status_code == 404
+
+
+def test_invalid_page_scope_has_recovery_and_api_keeps_structured_error(client_world):
+    page = client_world.get("/landscapes/explorer?countries=missing")
+    assert page.status_code == 422
+    assert page.headers["content-type"].startswith("text/html")
+    assert "Adjust your selection" in page.text and "Reset landscape selection" in page.text
+    assert "Choose registered countries or regions." in page.text
+    api = client_world.get("/api/landscapes/explorer?countries=missing")
+    assert api.status_code == 422 and api.json()["detail"] == "Choose registered countries or regions."
 
 
 def test_bounded_synthetic_scale_100_nodes_200_edges(world):

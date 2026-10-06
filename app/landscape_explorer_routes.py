@@ -29,7 +29,15 @@ def context(request):
 
 @router.get("/landscapes/explorer", response_class=HTMLResponse)
 def page(request: Request):
-    main, entities, bundle = context(request)
+    try:
+        main, entities, bundle = context(request)
+    except HTTPException as exc:
+        if exc.status_code != 422:
+            raise
+        from app import main
+        return main.templates.TemplateResponse(request, "landscape_explorer_error.html", {
+            "authoring_mode": main.AUTHORING_MODE, "message": exc.detail,
+        }, status_code=422, headers={"Cache-Control": "private, no-store"})
     choices = sorted([row for row in entities.values() if row.get("entity_type") == "geography"], key=lambda row: row.get("name", row["id"]))
     source_lookup = {row["id"]: row for row in bundle["sources"]}
     focus_edges = [row for row in bundle["edges"] if bundle["filters"]["focus"] in {row["subject_id"], row["object_id"]}]

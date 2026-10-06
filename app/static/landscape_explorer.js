@@ -13,7 +13,7 @@
       if (a.dataset.focus || a.dataset.resetFocus !== undefined) return;
       const url = new URL(a.href); url.searchParams.set('focus', bundle.filters.focus || ''); url.searchParams.set('edge', bundle.filters.edge || ''); a.href = url.pathname + url.search;
     });
-    root.querySelectorAll('a[href*="/landscapes/explorer/export/"]').forEach(a => {
+    root.querySelectorAll('a[href*="/landscapes/explorer/export/"], a[href*="/landscapes/explorer/briefing?"]').forEach(a => {
       const url = new URL(a.href); url.searchParams.set('focus', bundle.filters.focus || ''); url.searchParams.set('edge', bundle.filters.edge || ''); a.href = url.pathname + url.search;
     });
   }
@@ -49,13 +49,13 @@
     root.querySelectorAll('[data-node]').forEach(card => { card.classList.toggle('is-focused', card.dataset.node === id); card.classList.toggle('is-neighbor', neighbors.has(card.dataset.node)); });
     root.querySelectorAll('[data-focus]').forEach(a => { if (a.dataset.focus === id) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
     root.querySelectorAll('[data-relationship]').forEach(row => row.classList.toggle('is-neighbor', row.dataset.subject === id || row.dataset.object === id));
-    const section = root.querySelector('.lx-focus'); section.hidden = false;
+    const section = root.querySelector('.lx-focus'); section.hidden = bundle.filters.view === 'explain';
     root.querySelector('[data-focus-title]').textContent = node.label;
     const diagram = root.querySelector('[data-focus-diagram]'); diagram.replaceChildren();
     related.slice(0, showAll ? related.length : 6).forEach(edge => {
       const row = el('div', null, 'lx-connection');
       [edge.subject_id, edge.object_id].forEach((key, index) => {
-        if (index) { const button = el('button', edge.role + ' →', 'lx-edge'); button.type = 'button'; button.dataset.edge = edge.id; button.append(el('small', edge.status_label)); row.append(button); }
+        if (index) { const button = el('button', edge.role + ' →', 'lx-edge'); button.type = 'button'; button.dataset.edge = edge.id; button.append(el('small', edge.status_label)); if (edge.caveat) button.append(el('small', edge.caveat)); row.append(button); }
         if (bundle.nodes[key].type === 'geography') { row.append(el('span', bundle.nodes[key].label)); return; }
         const a = el('a', bundle.nodes[key].label); const url = new URL(location.href); url.searchParams.set('focus', key); url.searchParams.set('edge', ''); a.href = url.pathname + url.search; a.dataset.focus = key; row.append(a);
       }); diagram.append(row);
@@ -68,7 +68,7 @@
   root.addEventListener('click', event => {
     const expand = event.target.closest('[data-expand-focus]'); if (expand) { selectFocus(expand.dataset.expandFocus, true); return; }
     const edgeButton = event.target.closest('[data-edge]'); if (edgeButton) { selectEdge(edgeButton.dataset.edge); return; }
-    const focusLink = event.target.closest('[data-focus]'); if (focusLink && !event.ctrlKey && !event.metaKey) { event.preventDefault(); selectFocus(focusLink.dataset.focus); root.querySelector('.lx-focus').scrollIntoView({behavior:'smooth', block:'nearest'}); return; }
+    const focusLink = event.target.closest('[data-focus]'); if (focusLink && !event.ctrlKey && !event.metaKey && bundle.filters.view !== 'explain') { event.preventDefault(); selectFocus(focusLink.dataset.focus); root.querySelector('.lx-focus').scrollIntoView({behavior:'smooth', block:'nearest'}); return; }
     const source = event.target.closest('[data-source-link]'); if (source) { const details = root.querySelector('.lx-source-index'); details.open = true; }
     if (event.target.closest('[data-clear-edge]')) { setURL('edge', ''); content.replaceChildren(el('p', 'Select a connection to inspect its sources.', 'lx-lead')); root.querySelectorAll('.is-selected').forEach(row => row.classList.remove('is-selected')); }
   });

@@ -4,13 +4,19 @@ from datetime import datetime, timezone
 from html import escape
 from io import StringIO
 import textwrap
+from app.services.landscape_explorer import ROLE_LABELS
 
 
 def _meta(bundle):
     f = bundle["filters"]
     countries = ", ".join(lane["label"] for lane in bundle["lanes"]) or "All recorded countries"
     focus = bundle["nodes"].get(f["focus"], {}).get("label", f["focus"]) or "No focus"
-    return f"{countries} · {focus} · {f['evidence']} sources · {f['status']} statuses · {f['predicate'] or 'all roles'} · Search: {f['q'] or 'none'} · {f['time']} dates: {f['start'] or 'all'} — {f['end'] or 'all'}"
+    policy = "Reviewed sources" if f["evidence"] == "reviewed" else "Includes unreviewed sources"
+    status = {"all": "All statuses, including disputes/history", "active": "Documented current", "historical": "Historical", "disputed": "Disputed / review required"}[f["status"]]
+    role = ROLE_LABELS.get(f["predicate"], "All roles")
+    clock = {"documented": "First captured / newly documented", "published": "Source publication", "event": "Recorded event / effective date"}[f["time"]]
+    window = f"{f['start']} to {f['end']}" if f["start"] else "All recorded dates"
+    return f"{countries} · {focus} · {policy} · {status} · {role} · Search: {f['q'] or 'none'} · {clock}: {window}"
 
 
 def csv_export(bundle):
@@ -79,6 +85,7 @@ def svg_export(bundle):
         content, y = lines(f"[{source['number']}] {source['title']} · {source['id']} · {source['review']}", 30, y, width=130); parts.append(content)
         content, y = lines(f"Published {source['published'] or 'unknown'} · Captured {source['captured'] or 'unknown'} · {source['url'] or 'URL not recorded'}", 30, y, width=135)
         parts.append(f'<a href="{escape(source["url"], quote=True)}">{content}</a>' if source["url"] else content)
+        content, y = lines(f"Locator: {source['locator']} · Origin: {source['origin']}", 30, y, width=135); parts.append(content)
         y += 12
     parts.append(text("Interpretation: connection counts show captured coverage, not company scale. Missing information is not inactivity.", 30, y)); y += 28
     content, y = lines("Return to refreshed view: " + bundle["url"], 30, y, width=130); parts.append(content)
