@@ -327,7 +327,7 @@ def validate_phrasing(proposal, bundle):
         return bundle["explanation"]
     seen = set()
     for row in proposal["findings"]:
-        if not isinstance(row, dict) or row != expected.get(row.get("id")) or row["id"] in seen:
+        if not isinstance(row, dict) or not isinstance(row.get("id"), str) or row != expected.get(row["id"]) or row["id"] in seen:
             return bundle["explanation"]
         seen.add(row["id"])
     return {**bundle["explanation"], "findings": deepcopy(proposal["findings"])}

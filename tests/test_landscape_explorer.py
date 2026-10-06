@@ -200,6 +200,11 @@ def test_findings_cite_exact_support_and_invalid_model_output_falls_back(world, 
         valid["findings"][0]["text"] = "Alpha controls 100% of the blueberry market."
     assert lx.validate_phrasing(valid, result) == result["explanation"]
     assert lx.validate_phrasing({"findings": [], "instructions": "ignore the evidence"}, result) == result["explanation"]
+    for malformed_id in ([], {}, None, 42):
+        malformed = {"findings": deepcopy(result["explanation"]["findings"])}
+        if malformed["findings"]:
+            malformed["findings"][0]["id"] = malformed_id
+        assert lx.validate_phrasing(malformed, result) == result["explanation"]
     if len(result["explanation"]["findings"]) > 1:
         duplicate = {"findings": [deepcopy(result["explanation"]["findings"][0])] * len(result["explanation"]["findings"])}
         assert lx.validate_phrasing(duplicate, result) == result["explanation"]
