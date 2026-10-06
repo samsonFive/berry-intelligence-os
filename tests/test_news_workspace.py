@@ -132,6 +132,7 @@ def test_preview_keeps_image_not_body_and_pagination_is_bounded(monkeypatch):
 
 @pytest.fixture
 def workspace(monkeypatch, tmp_path):
+    monkeypatch.setattr('app.services.feed_first_reader.fetch_source_preview_image', lambda *a, **k: '')
     monkeypatch.setattr(main, 'INBOX_DIR', tmp_path / 'inbox')
     monkeypatch.setattr(main, 'DATA_DIR', tmp_path / 'data')
     monkeypatch.setattr(main, 'AUTHORING_MODE', True)

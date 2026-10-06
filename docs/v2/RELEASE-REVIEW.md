@@ -2,6 +2,12 @@
 
 The approved redesign and consolidation is implemented in one canonical-base draft: [PR #312](https://github.com/samsonFive/berry-intelligence-os/pull/312). This is the release for review before merge or deployment. Production has not been changed. The final PR head must have all four required checks green; the PR records the exact final head and run without a self-referential documentation commit.
 
+## News imagery correction after desktop review
+
+The retained first news page originally had no collected thumbnails. News, Personal Digest and both Reader modes now share publisher-first visuals with the four approved crop illustrations as explicitly labeled fallbacks, including failed image loads. Illustrations are display-only; they never become source metadata or evidence. WebP delivery reduces the four fallback assets from about 10.3 MB to 0.89 MB without changing their composition or dimensions. **Load article images** checks at most the 36 stories in the current scope; explicit news refresh also fills missing images for newly captured stories. Browsing remains read-only, and captured image metadata is bound to the original source ID/URL.
+
+The isolated native first-page check completed: 36 checked, two publisher thumbnails found; a real FreshFruitPortal photograph loaded in both the feed and Reader. Opaque Google News wrappers and unavailable publisher photos retain labeled illustrations. Existing source records, trust decisions and user edits were not changed. A Windows reader/file-lock failure was reproduced and corrected with a bounded atomic-write retry; persistent failure preserves the original file. Required current-head CI still gates merge/deployment.
+
 ## What to review
 
 Start with News and its right-side Reader, then Companies, Map Explorer and Personal Digest. The agricultural Glasshouse shell, contained More menu and shared marks/lists are the accepted direction. Review the takeaway-first report below and open **How it works** in More for the visual section/workflow/reporting guide. This is a working report sample, not a verified market conclusion.

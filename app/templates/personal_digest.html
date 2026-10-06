@@ -1,3 +1,4 @@
+{% from "_article_visual.html" import article_visual %}
 {% extends "glasshouse_base.html" %}
 {% from "_personal_icons.html" import icon, action_icon with context %}
 {% block title %}Personal Digest · Berry Intelligence{% endblock %}
@@ -23,7 +24,7 @@
 <section class="digest-grid" aria-label="Digest stories">
 {% for card in cards %}
 <article class="digest-card" tabindex="-1" data-intel-card data-item-id="{{ card.id }}" data-pending="false">
-  {% if card.image_url %}<img class="digest-image" src="{{ card.image_url }}" alt="" loading="lazy" referrerpolicy="no-referrer">{% endif %}
+  {{ article_visual(card) }}
   <div class="digest-card-body"><div class="card-meta"><span>{{ card.source_name }}</span>{% if card.published_at %}<time>{{ card.published_at|us_date }}</time>{% else %}<span>Date unavailable</span>{% endif %}</div>
   <h2>{% if not card.missing_source %}<a data-open-reader href="/intelligence/{{ card.id }}?personal=1">{{ card.headline }}</a>{% else %}{{ card.headline }}{% endif %}</h2>
   <div class="card-labels"><span class="trust-label{% if card.trusted %} trusted{% endif %}">{{ 'Source reviewed' if card.trusted else 'Unreviewed' }}</span><span>{{ card.progress_label }}</span>{% if card.reading_priority != 'none' %}<span class="priority-{{ card.reading_priority }}">{{ card.reading_priority|capitalize }} priority</span>{% endif %}{% for crop in card.crop_labels %}<span>{{ crop }}</span>{% endfor %}</div>

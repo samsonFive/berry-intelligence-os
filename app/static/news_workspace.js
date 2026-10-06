@@ -59,5 +59,31 @@
       poll();
     }).catch(function (error) { button.disabled = false; status.textContent = error.message; });
   });
-  window.addEventListener('pagehide', function () { clearTimeout(timer); });
+  var imagesButton = document.querySelector('[data-news-images]'), imagesTimer;
+  function pollImages() {
+    fetch('/api/news/images', {credentials: 'same-origin'}).then(function (response) {
+      if (!response.ok) throw new Error('Could not check article images.');
+      return response.json();
+    }).then(function (state) {
+      if (state.status === 'queued' || state.status === 'running') {
+        imagesTimer = setTimeout(pollImages, 2500);
+      } else {
+        imagesButton.disabled = false;
+        status.textContent = state.message || 'Article images checked.';
+        if (state.status === 'ready') {
+          // Updating the grid through a reload would discard the open Reader.
+          var link = document.createElement('a'); link.href = window.location.href;
+          link.textContent = ' Show updated images'; status.appendChild(link);
+        }
+      }
+    }).catch(function (error) { imagesButton.disabled = false; status.textContent = error.message; });
+  }
+  if (imagesButton) imagesButton.addEventListener('click', function () {
+    imagesButton.disabled = true; status.textContent = 'Checking article images…';
+    fetch('/api/news/images' + window.location.search, {method: 'POST', credentials: 'same-origin'}).then(function (response) {
+      if (!response.ok) throw new Error('Article images could not be checked. Try again.');
+      pollImages();
+    }).catch(function (error) { imagesButton.disabled = false; status.textContent = error.message; });
+  });
+  window.addEventListener('pagehide', function () { clearTimeout(timer); clearTimeout(imagesTimer); });
 })();

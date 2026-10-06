@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import tempfile
+from time import sleep
 from threading import Lock, RLock
 
 _guard = Lock()
@@ -31,6 +32,15 @@ def atomic_json(path: Path, payload):
             stream.write("\n")
             stream.flush()
             os.fsync(stream.fileno())
-        temporary.replace(path)
+        # Windows may briefly deny replacement while a concurrent reader or
+        # scanner holds the destination. Keep the old file intact until success.
+        for attempt in range(4):
+            try:
+                temporary.replace(path)
+                break
+            except PermissionError as exc:
+                if getattr(exc, 'winerror', None) not in {5, 32} or attempt == 3:
+                    raise
+                sleep(0.025 * (attempt + 1))
     finally:
         temporary.unlink(missing_ok=True)

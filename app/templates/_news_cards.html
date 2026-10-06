@@ -1,6 +1,7 @@
+{% from "_article_visual.html" import article_visual %}
 <section class="news-grid" aria-label="News stories">
 {% for card in cards %}<article class="digest-card news-card" tabindex="-1" data-intel-card data-item-id="{{ card.id }}" data-pending="false">
-{% if card.image_url %}<img class="digest-image" src="{{ card.image_url }}" alt="" loading="lazy" referrerpolicy="no-referrer">{% endif %}
+{{ article_visual(card) }}
 <div class="digest-card-body"><p class="card-meta"><span>{{ card.source_name }}</span><time>{{ card.published_at|us_date if card.published_at else 'Date unavailable' }}</time></p>
 <h2><a data-open-reader href="/intelligence/{{ card.id }}?personal=1">{{ card.headline }}</a></h2>
 <div class="card-labels"><span class="trust-label{% if card.trusted %} trusted{% endif %}">{{ 'Escalated' if card.trusted else 'Source reviewed' if card.source_reviewed else 'Unreviewed' }}</span>{% for crop in card.crop_labels %}<span>{{ crop }}</span>{% endfor %}</div>

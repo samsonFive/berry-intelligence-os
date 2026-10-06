@@ -8,7 +8,7 @@ from fastapi import APIRouter, BackgroundTasks, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 
 from app.personal_digest_routes import require_edit, world
-from app.services import feed_first, news_workspace
+from app.services import feed_first, news_workspace, news_images
 from app.services.analyst_state_io import atomic_json, serialized_write
 from app.services.pipeline_lock import pipeline_lock
 
@@ -72,6 +72,8 @@ def run_refresh(inbox_dir, context, sources):
                                       official_host_map=context["official_host_map"], muted_ids=context["muted_entity_ids"],
                                       enrich_lead=False, enable_perplexity=False, enable_exa=False, enable_apitube=False)
             errors = bundle.get("lane_errors") or []
+            # Explicit news capture includes bounded thumbnail acquisition too.
+            news_images.collect(inbox_dir, bundle.get("records") or [])
             result.update(status="partial" if errors else "ready", story_count=len(bundle.get("records") or []),
                           error_count=len(errors), message="Some sources could not be checked." if errors else "News capture completed.")
     except Exception:
@@ -113,3 +115,34 @@ def refresh_news_status():
     from app import main
     state = refresh_state(main.INBOX_DIR)
     return {key: state.get(key) for key in ("status", "completed_at", "story_count", "error_count", "message")}
+
+
+@router.post("/api/news/images")
+def capture_news_images(request: Request, tasks: BackgroundTasks):
+    require_edit(request)
+    main, context, records, entities = world()
+    try:
+        selected = news_workspace.model(records=records, entities=entities,
+            relationships=main.all_relationships(), facts=main.all_facts(),
+            state=context['state'], params=dict(request.query_params))
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    queue_images(main.INBOX_DIR, tasks, [records[card['id']] for card in selected['cards']])
+    return JSONResponse({'status': 'queued'}, status_code=202)
+
+
+@serialized_write
+def queue_images(inbox_dir, tasks, records):
+    current = news_images.state(inbox_dir)
+    from app.services.chronology import parse_stamp
+    started = parse_stamp(current.get('started_at'))
+    if current.get('status') in {'queued', 'running'} and started and (datetime.now(UTC) - started).total_seconds() < 600:
+        return
+    atomic_json(news_images.state_path(inbox_dir), {'status': 'queued', 'started_at': datetime.now(UTC).isoformat()})
+    tasks.add_task(news_images.run, inbox_dir, records)
+
+
+@router.get("/api/news/images")
+def news_image_status():
+    from app import main
+    return news_images.state(main.INBOX_DIR)

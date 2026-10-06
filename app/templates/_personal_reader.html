@@ -1,3 +1,4 @@
+{% from "_article_visual.html" import article_visual %}
 {% from "_personal_icons.html" import icon, action_icon with context %}
 <article class="personal-reader" data-personal-reader data-item-id="{{ card.id }}" data-authoring="{{ 'true' if authoring_mode else 'false' }}">
   <script type="application/json" data-reading-location>{{ {'mode': reading_entry.get('reader_mode', 'article'), 'positions': reading_entry.get('reader_positions', {})}|tojson }}</script>
@@ -11,13 +12,13 @@
     <div class="reader-mode-switch" role="group" aria-label="Reader view"><button type="button" data-personal-mode="article" aria-pressed="true">Article</button><button type="button" data-personal-mode="brief" aria-pressed="false">Brief</button></div>
   </div>
   <section data-personal-pane="article" aria-label="Original article">
-    {% if card.image_url %}<img class="reader-image" src="{{ card.image_url }}" alt="" referrerpolicy="no-referrer">{% endif %}
+    {{ article_visual(card, reader=true) }}
     {% if article_text %}<p class="article-availability">Available publisher text · may be partial</p><div class="article-prose">{% for paragraph in article_text %}<p>{{ paragraph }}</p>{% endfor %}</div>
     {% else %}<div class="article-unavailable"><h3>Article text isn’t available here yet</h3><p>The Brief has a summary. The original article may require reading at the publisher.</p>{% if authoring_mode and card.source_url %}<button type="button" class="green-button" data-personal-capture>Load available article text</button>{% endif %}{% if card.source_url %}<a href="{{ card.source_url }}" target="_blank" rel="noopener noreferrer">Read at publisher ↗</a>{% endif %}</div>{% endif %}
   </section>
   <section data-personal-pane="brief" aria-label="Story brief" hidden>
     <section class="reader-summary"><h3>Article summary</h3><p>{{ summary or 'No summary is available for this story.' }}</p></section>
-    {% if card.image_url %}<img class="reader-image" src="{{ card.image_url }}" alt="" referrerpolicy="no-referrer">{% endif %}
+    {{ article_visual(card, reader=true) }}
     {% if escalated_statements %}<section class="reader-section"><h3>Escalated information</h3>{% for fact in escalated_statements %}<div class="reader-statement"><span>Reviewed fact · this source supports the recorded statement</span><p>{{ fact.statement }}</p></div>{% endfor %}</section>{% endif %}
     {% if card.statements %}<section class="reader-section"><h3>Statements from this source</h3>{% for statement in card.statements %}<div class="reader-statement"><span>{{ statement.statement_type|default('Statement', true)|replace('_', ' ')|capitalize }} · {{ 'Linked to a reviewed fact' if statement.canonical_fact_id else 'Needs review' }}</span><p>{{ statement.statement_text or statement.text }}</p></div>{% endfor %}</section>{% endif %}
     {% if card.entities %}<section class="reader-section"><h3>Companies in this story</h3><div class="reader-companies">{% for company in card.entities %}<a href="{{ company.profile_url }}">{{ company.name }} ↗</a>{% endfor %}</div></section>{% endif %}
