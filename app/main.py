@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import difflib
 import json
+import mimetypes
 import os
 import re
 import secrets
@@ -594,6 +595,8 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Berry Intelligence OS", version="0.1.0", lifespan=lifespan)
 app.middleware("http")(remote_auth_middleware)
 app.add_middleware(EnvSessionMiddleware)
+# Minimal Linux images may lack the system MIME database for WebP.
+mimetypes.add_type("image/webp", ".webp")
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
 
 
