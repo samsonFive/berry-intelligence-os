@@ -1,0 +1,48 @@
+# Mission 11 — Intelligence workspaces and the visual guide
+
+Follow the accepted section audit and approved Glasshouse design. Mission 10 draft #283 is pushed; its repaired head cf6798888d2daea1dc33e8c6d983726e695593d8 passed all four required checks (3,527 passed / 11 skipped / two warnings). Canonical was freshly fetched on October 2 and remains `916b8f09f9ce2a1847335d7990ea80ff921f1cec`. Other open canonical-targeting PRs #255 (Learn), #270 (Varieties) and #271 (executive/mobile) need overlap reconciliation before the combined release. Do not merge, close them or deploy during this slice.
+
+## Purpose and boundaries
+
+Bring investigation and help pages into the existing shared navigation and readable hierarchy. The goal is source → meaning → analyst decision, with actual object status and return scope visible. Keep original routes, forms, stores, original source text and source links. Retain every human publication/proposition/identity gate. Company contacts stay inside company profiles. Do not migrate Sources configuration admin, add a second review model, create Facts from interpretation, or change Variety/Trade/Weather schemas.
+
+## First controlled groups
+
+1. Developments and company moves: `/radar`, its selected cached detail, `/moves` and company detail. These are captured interpretations, not source articles or confirmed claims. Their provider refresh is explicit; the existing Radar page currently has a separate script/refresh seam that must be audited before reuse. Raw trust codes, timestamps and provenance belong in readable labels and collapsed source context. Keep cached/stale/empty states honest; merely browsing cannot become acquisition.
+2. Landscape concentration/coverage: `/whitespace` retains compatibility but receives a plain-language coverage-and-concentration label. Missing observation is not a business opportunity or market-share metric. Carry only supported scope into Reports/Meeting Prep.
+3. Judgments and research: Statements, Signals, Assessments, Recommendations and Strategic Questions retain their different decisions. Reuse existing selectors/Reader; inspect their action/private/static boundaries before changing entry points. Ask Berry research keeps explicit provider/data-export scope.
+4. Help and the visual explainer: update `/guide` around delivered News, Map, Companies, Learn, Digest, Landscape, Monitor, Operations and Reports & Briefings. Teach a real analyst reading/review/reporting loop with pictures/diagrams and accessible progressive detail. Use accurate output distinctions: current view, private working draft, dated saved file and export. Never imply that a future feature or isolated fixture is deployed functionality.
+
+## Acceptance
+
+- A selected cached change → supporting source/Reader or company → original context; no automatic provider call or review promotion.
+- A pattern/proposition/assessment retains its own status and actionable authoritative route; collapsed detail cannot hide core article content.
+- Plain-language dates and labels, compact full-width layout, clear headlines/answers, contrast, contained More menu/tables and mobile/keyboard return.
+- Existing deep bookmarks and scoped handoffs stay usable; unsupported selectors are disclosed rather than ignored.
+- No private review state or pending/provider material enters a static snapshot. Account/multi-worker review remains a release gate.
+- Update the durable checklist, audit purpose/mechanism/proof/disposition notes and visual explainer. Test meaningful action and preservation boundaries; push a draft and verify all four exact-head checks.
+
+## Subsequent required work stays in scope
+
+Remaining sourced visual Learn coverage, source-assisted editable profile/region suggestions, broader sourced market statistics and refresh/revision paths, real news body/image/capture readiness, account/multi-worker assessment and migration, active-PR/canonical integration, final route/mobile/export walkthrough and release/rollback review. None is closed merely by styling the investigation pages. Photo identities and source/statement publication continue to require human review rather than simulated approval.
+
+**Initial inspection finding:** `radar.html` currently fetches `/radar/live?fragment=1` automatically whenever its cache is missing/stale. That can invoke the provider on ordinary page entry, despite the intended explicit-refresh boundary. Before any empty-cache browser walkthrough, replace this automatic fetch with a visible deliberate refresh action, retain cached/stale/empty content honestly and cover the no-acquisition-on-browse boundary. The cached synthetic detail rehearsal in Mission 10 had a fresh edition and did not invoke this path.
+
+**First implementation:** Radar’s automatic stale/empty-cache fetch was removed. Existing Refresh/Load links remain deliberate actions, existing cached detail/status remains and static output hides the live Load link. The existing backend-only no-fetch test now also guards against the automatic browser hook. 31 Radar/Moves tests passed; this is the refresh boundary repair, not completion of the Glasshouse investigation migration.
+
+## First reviewable implementation slice
+
+- Radar, captured detail, company Moves and the company timeline now use Glasshouse navigation, compact source-led cards, readable dates and contained tables. Legacy/shared company-card trust codes stay compatible; only these workspaces humanize display labels. Original interpretations, source text, review object IDs and forms are retained. Empty retained source lists disclose the gap. Capture/evolution details start collapsed; interpretation review remains explicit and separate from evidence approval.
+- No automatic provider acquisition on browse. Older captures honestly request a deliberate refresh rather than pretending a job is in progress. Captured developments lacking prebuilt sections still appear. Rendered source links accept safe public HTTP URLs; invalid links do not change stored cache bytes.
+- `/whitespace` remains bookmarked but is titled Coverage & concentration. Named company/geography checkboxes replace editable internal-code strings. Existing CSV and repeated query links are supported. Unsupported or empty scope returns 422 before aggregation rather than defaulting broadly; report preview receives selected companies/geographies and 7/30-day window. No market-share or opportunity score is invented.
+- Native `/guide` supplies eleven purpose cards, a four-step analyst diagram, an example investigation, five output cards and a separate human-review lifecycle. It distinguishes current Meeting Prep, saved brief selections, editable reports/PDF, dated market snapshots and JSON packets. The static edition retains safe catalog links and describes live-only tools without linking private actions. Existing audit artifact continues to distinguish delivered work and future requirements.
+
+### Verification to date
+
+77 focused Radar/Moves/Coverage/derived-review/guide/static tests passed (one existing Starlette warning). A final follow-up of 18 scope/static tests passed after the new handoff title and public navigation assertions. Canonical records validated and static build wrote 1,755 pages with no unpublished IDs/titles. Browser at the isolated localhost workspace verified guide section anchors, cached-development detail and accessible review fields, Moves → company timeline and Coverage → named scope update → report preview retaining two companies and seven days. At a 390px viewport, page width was 375px; a 720px company timeline stayed in a 323px container, and Coverage grids scrolled inside 323px. The mobile guide contained all eleven cards. All browser data remains ignored preview state; the development is explicitly synthetic. No research provider or production mutation was triggered. Desktop evidence: `workflow-guide-live.png`, `reporting-guide-live.png` under `artifacts/design-sprint/`. Final draft-head CI is still required.
+
+### Next work in the same mission
+
+**Final first-slice verification:** Draft #284, head `dea2170323206a98f22cfa6222bd3c167e862363`, passed Change scope, Repository integrity, Static public safety and Python tests (run 37024739505): 3,530 passed / 11 skipped / two warnings in 318.20 seconds. Continue the remaining judgments/research group in MISSION-12-STATEMENT-TRIAGE-READER.md; this is not combined release proof.
+
+Statements/Signals/Assessments/Recommendations/Questions/Ask Berry retain their existing pages and semantics but are not yet claimed visually migrated. Coverage-selector Escape/outside closure and guide keyboard/mobile anchor focus were verified. The initial native guide anchor changed its hash without scrolling on mobile; explicit focus/instant scrolling repaired it and the target then sat at 140px, focused, inside the 375px page. A 310px geography menu stayed between x=26 and x=336; Escape closed it and returned focus to its summary; outside click closed company selection. Full combined accessibility and public/private route acceptance also remain. Continue these, then the remaining cross-family/source/account/integration requirements; pushing this slice is not a routine stop or a completed ongoing goal.

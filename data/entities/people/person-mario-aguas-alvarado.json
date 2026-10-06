@@ -1,0 +1,7 @@
+{
+  "id": "person-mario-aguas-alvarado", "record_type": "entity", "entity_type": "person",
+  "name": "Mario Aguas-Alvarado", "aliases": [], "status": "unverified",
+  "description": "Provisional person named in the user's 2026-09-30 registry image. Kept as a person rather than inventing a competitor company or employer association.",
+  "roles": [], "berry_ids": [], "evidence_ids": [], "fact_ids": [], "relationship_ids": [],
+  "attributes": {"identity_review_required": true, "operator_registry_2026_09_30": {"label": "Mario Aguas-Alvarado", "source": "operator-provided competitor registry image", "review_state": "pending"}}
+}

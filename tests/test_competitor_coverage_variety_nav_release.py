@@ -164,11 +164,11 @@ def test_variety_database_nav_is_shared_exact_and_active() -> None:
         response = client.get(route)
         assert response.status_code == 200, route
         assert 'href="/entities/variety"' in response.text
-        assert "Variety Database" in response.text
+        assert '<b>Varieties</b>' in response.text
     variety = client.get("/entities/variety")
     assert variety.status_code == 200
-    assert "Variety Database" in variety.text
-    assert 'aria-current="page"' in variety.text
+    assert '<b>Varieties</b>' in variety.text
+    assert 'href="/entities/variety" aria-current="page"' in variety.text
 
 
 def test_nav_sources_use_one_existing_destination() -> None:

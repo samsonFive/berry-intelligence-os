@@ -1,5 +1,14 @@
-{% extends "base_stakeholder.html" %}
+{% extends "public_library_base.html" if static_build else "base_stakeholder.html" %}
 {% set record = safe_source_record(record) %}
+{% macro source_summary() %}
+  <h2>Source summary</h2>
+  {% set summary_lines = record.summary|as_bullets %}
+  {% if summary_lines|length > 1 %}
+    <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+  {% else %}
+    <p>{{ record.summary }}</p>
+  {% endif %}
+{% endmacro %}
 {% block title %}{{ record.title }}{% endblock %}
 {% block content %}
 <div class="sh-page">
@@ -16,6 +25,11 @@
   </div>
 {% endif %}
 <article class="detail-card">
+  {% if static_build %}
+    <p class="public-source-line" data-pagefind-ignore>{% if record.source_url %}<a href="{{ record.source_url }}" target="_blank" rel="noopener">Read original source ↗</a>{% else %}{{ record.source_name or "Source not recorded" }}{% endif %} · {% if record.published_date %}Published {{ record.published_date|us_date }}{% else %}Publication date not recorded{% endif %}</p>
+    {{ source_summary() }}
+    <details class="public-source-details" data-pagefind-ignore><summary>Source details</summary>
+  {% endif %}
   <dl data-pagefind-ignore>
     <dt>Source</dt>
     <dd>
@@ -58,13 +72,9 @@
     <dt>Berries</dt><dd>{% for b in record.berry_ids %}{{ berry_label(b) }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
     <dt>Geography</dt><dd>{% set geographies = linked_entities|selectattr('entity_type', 'equalto', 'geography')|list %}{% if geographies %}{% for g in geographies %}<a href="{{ entity_path(g.entity_type, g.id) }}">{{ g.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% else %}—{% endif %}</dd>
   </dl>
-
-  <h2>Source summary</h2>
-  {% set summary_lines = record.summary|as_bullets %}
-  {% if summary_lines|length > 1 %}
-    <ul class="bullet-list">{% for line in summary_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+  {% if static_build %}</details>
   {% else %}
-    <p>{{ record.summary }}</p>
+    {{ source_summary() }}
   {% endif %}
 
   {% if record.transcript_excerpt %}
@@ -72,14 +82,16 @@
     <p>{{ record.transcript_excerpt }}</p>
   {% endif %}
 
-  {% if record.why_it_matters %}<h2>Recorded interpretation</h2>
+  {% if record.why_it_matters %}
+  {% if static_build %}<details class="public-source-details"><summary>Analysis &amp; context</summary>{% endif %}
+  <h2>Recorded interpretation</h2>
   {% set why_lines = record.why_it_matters|as_bullets %}
   {% if why_lines|length > 1 %}
     <ul class="bullet-list">{% for line in why_lines %}<li>{{ line }}</li>{% endfor %}</ul>
   {% else %}
     <p>{{ record.why_it_matters }}</p>
   {% endif %}
-
+  {% if static_build %}</details>{% endif %}
   {% endif %}
   <details class="sh-evidence-metadata"><summary>Evidence links and analyst metadata</summary>
   <h2>Priorities</h2>

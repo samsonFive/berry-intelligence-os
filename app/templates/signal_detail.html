@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "intelligence_workspace_base.html" %}
 {% block title %}{{ signal.title }} — Berry Intelligence OS{% endblock %}
-{% block content %}
+{% block intelligence_content %}
 <section class="page-heading">
   <div>
     <p class="eyebrow">SIGNAL — {{ signal.status|upper }} · A PATTERN ACROSS EVIDENCE, NOT A CONFIRMED FACT</p>
@@ -11,37 +11,34 @@
 {% set hits = learn_glossary_hits(signal.title, signal.description or signal.observation or '', signal.why_it_might_matter or '') %}
 {% set compact = false %}
 {% include "_learn_glossary_hits.html" %}
-{% if authoring_mode and signal.status == 'proposed' and alert_state == 'open' %}
-  <div class="banner">
-    <p>New proposed signal. Confirm or dismiss this alert. The underlying signal record stays in history.</p>
-    <div class="queue-actions">
-      <form action="/signals/{{ signal.id }}/alert-decision" method="post"><input type="hidden" name="action" value="confirm"><button class="action-button action-approve" type="submit">Confirm</button></form>
-      <form action="/signals/{{ signal.id }}/alert-decision" method="post"><input type="hidden" name="action" value="dismiss"><button class="action-button action-reject" type="submit">Dismiss</button></form>
-    </div>
-  </div>
-{% elif alert_state and alert_state != 'open' %}
-  <p class="context-limit">Alert decision: {{ alert_state }}. The signal record is unchanged.</p>
-{% endif %}
 <article class="detail-card">
-  <dl data-pagefind-ignore>
-    {% if signal.direction %}<dt>Direction</dt><dd>{{ signal.direction }}</dd>{% endif %}
-    <dt>Strength</dt><dd>{{ signal.strength }}</dd>
-    {% if signal.confidence %}<dt>Confidence</dt><dd>{{ signal.confidence }}</dd>{% endif %}
-    {% if signal.first_seen %}<dt>First seen</dt><dd>{{ signal.first_seen }}</dd>{% endif %}
-    {% if signal.last_updated %}<dt>Last updated</dt><dd>{{ signal.last_updated|us_date }}</dd>{% endif %}
-    {% if signal.proposed_at %}<dt>Proposed</dt><dd>{{ signal.proposed_at|us_date }}</dd>{% endif %}
-    {% if signal.proposed_by %}<dt>Proposed by</dt><dd>{{ signal.proposed_by }}</dd>{% endif %}
-    <dt>Reviewer</dt><dd>{{ signal.reviewer or "Not yet reviewed" }}</dd>
-  </dl>
 
+
+  <section class="judgment-takeaway">
   {% set description_text = signal.description or signal.observation %}
   {% set description_lines = description_text|as_bullets %}
   {% if description_lines|length > 1 %}
     <h2>Bottom line</h2>
-    <ul class="bullet-list">{% for line in description_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+    <p>{{ description_lines[0] }}</p>
   {% elif description_text %}
     <h2>Bottom line</h2><p>{{ description_text }}</p>
   {% endif %}
+
+  </section>
+  {% if description_lines|length > 1 %}<section class="judgment-rationale"><h2>Supporting observations</h2><ul class="bullet-list">{% for line in description_lines[1:] %}<li>{{ line }}</li>{% endfor %}</ul></section>{% endif %}
+
+{% if authoring_mode and signal.status == 'proposed' and alert_state == 'open' %}
+  <div class="banner">
+    <p>This alert needs your attention. Confirm or dismiss the alert; the underlying signal record stays unchanged.</p>
+    <div class="queue-actions">
+      <form action="/signals/{{ signal.id }}/alert-decision" method="post"><input type="hidden" name="action" value="confirm"><button class="action-button action-approve" type="submit">Confirm alert</button></form>
+      <form action="/signals/{{ signal.id }}/alert-decision" method="post"><input type="hidden" name="action" value="dismiss"><button class="action-button action-reject" type="submit">Dismiss</button></form>
+    </div>
+  </div>
+{% elif authoring_mode and alert_state and alert_state != 'open' %}
+  <p class="context-limit">Alert decision: {{ alert_state }}. The signal record is unchanged.</p>
+{% endif %}
+
 
   {% if signal.why_it_might_matter %}
     <h2>Why it might matter</h2>
@@ -55,6 +52,33 @@
 
   {% if signal.what_would_confirm_it or signal.what_would_falsify_it %}<h2>Decision test</h2><table class="brief-table decision-test"><tbody>{% if signal.what_would_confirm_it %}<tr><th>Confirm</th><td>{{ signal.what_would_confirm_it }}</td></tr>{% endif %}{% if signal.what_would_falsify_it %}<tr><th>Weaken</th><td>{{ signal.what_would_falsify_it }}</td></tr>{% endif %}</tbody></table>{% endif %}
 
+  <h2>Supporting facts</h2>
+  {% if linked_facts %}
+    <ul class="fact-list">
+      {% for fact in linked_facts %}
+        <li>
+          <span class="badge badge-{{ 'fact' if fact.classification == 'fact' else 'claim' }}">{{ fact.classification|upper }}</span>
+          <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
+          {% set statement_lines = fact.statement|as_bullets %}
+          {% if statement_lines|length > 1 %}
+            <ul class="bullet-list">{% for line in statement_lines %}<li>{{ line }}</li>{% endfor %}</ul>
+          {% else %}
+            <p>{{ fact.statement }}</p>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty-state">No facts linked.</p>
+  {% endif %}
+
+  <h2>Supporting evidence</h2>
+  {% if linked_evidence %}
+    {% include "_evidence_link_table.html" %}
+  {% else %}
+    <p class="empty-state">No evidence linked.</p>
+  {% endif %}
+<details class="judgment-related"><summary>Related assessments, questions and entities</summary>
   <h2>What analysts think this means</h2>
   {% if citing_assessments %}
     <ul class="entity-links">
@@ -91,31 +115,18 @@
     <p class="empty-state">No entities linked.</p>
   {% endif %}
 
-  <h2>Supporting facts</h2>
-  {% if linked_facts %}
-    <ul class="fact-list">
-      {% for fact in linked_facts %}
-        <li>
-          <span class="badge badge-{{ 'fact' if fact.classification == 'fact' else 'claim' }}">{{ fact.classification|upper }}</span>
-          <span class="badge badge-muted">{{ fact.confidence|upper }} CONFIDENCE</span>
-          {% set statement_lines = fact.statement|as_bullets %}
-          {% if statement_lines|length > 1 %}
-            <ul class="bullet-list">{% for line in statement_lines %}<li>{{ line }}</li>{% endfor %}</ul>
-          {% else %}
-            <p>{{ fact.statement }}</p>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p class="empty-state">No facts linked.</p>
-  {% endif %}
-
-  <h2>Supporting evidence</h2>
-  {% if linked_evidence %}
-    {% include "_evidence_link_table.html" %}
-  {% else %}
-    <p class="empty-state">No evidence linked.</p>
-  {% endif %}
+</details>
+<details class="judgment-meta"><summary>Review details</summary>
+  <dl data-pagefind-ignore>
+    {% if signal.direction %}<dt>Direction</dt><dd>{{ signal.direction }}</dd>{% endif %}
+    <dt>Strength</dt><dd>{{ signal.strength }}</dd>
+    {% if signal.confidence %}<dt>Confidence</dt><dd>{{ signal.confidence }}</dd>{% endif %}
+    {% if signal.first_seen %}<dt>First seen</dt><dd>{{ signal.first_seen|us_date }}</dd>{% endif %}
+    {% if signal.last_updated %}<dt>Last updated</dt><dd>{{ signal.last_updated|us_date }}</dd>{% endif %}
+    {% if signal.proposed_at %}<dt>Proposed</dt><dd>{{ signal.proposed_at|us_date }}</dd>{% endif %}
+    {% if signal.proposed_by %}<dt>Proposed by</dt><dd>{{ signal.proposed_by }}</dd>{% endif %}
+    <dt>Reviewer</dt><dd>{{ signal.reviewer or "Not yet reviewed" }}</dd>
+  </dl>
+</details>
 </article>
 {% endblock %}

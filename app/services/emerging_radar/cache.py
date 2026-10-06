@@ -114,7 +114,7 @@ def edition_from_cache(payload: dict[str, Any] | None = None, *, inbox_dir: Path
     generated = raw.get("generated_at") or row.get("generated_at") or ""
     freshness = f"Refreshed {str(generated).replace('T', ' ')[:16]} UTC"
     if not fresh:
-        freshness += " · cache stale — refresh in progress or overdue"
+        freshness += " · older capture — refresh explicitly to check for updates"
     return Edition(
         generated_at=str(generated),
         window=str(raw.get("window") or "30d"),

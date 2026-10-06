@@ -1,9 +1,9 @@
-{% extends "base.html" %}
+{% extends "intelligence_workspace_base.html" %}
 {% block title %}Recommendations — Berry Intelligence OS{% endblock %}
-{% block content %}
+{% block intelligence_content %}
 <section class="page-heading">
   <div>
-    <p class="eyebrow">A PROPOSED ACTION OR DECISION — NOT EVIDENCE TRIAGE</p>
+    <p class="eyebrow">A PROPOSED ACTION OR DECISION</p>
     <h1>Recommendations</h1>
   </div>
   {% if authoring_mode %}
@@ -14,7 +14,7 @@
 {% if recommendations %}
   <div class="table-wrap public-index-table"><table class="brief-table"><thead><tr><th>Recommendation</th><th>Priority</th><th>Rationale</th><th>Owner / date</th></tr></thead><tbody>
     {% for rec in recommendations %}
-      <tr><td><a href="/recommendations/{{ rec.id }}"><strong>{{ rec.title }}</strong></a><br><small>{{ rec.action_type|replace('_',' ') }}</small></td><td><span class="badge badge-recommendation">{{ rec.priority|upper if rec.priority else rec.status|upper }}</span></td><td>{{ rec.rationale|truncate(240) }}</td><td>{{ rec.reviewer }}<br>{{ rec.created_at|us_date }}</td></tr>
+      <tr><td><a href="/recommendations/{{ rec.id }}"><strong>{{ rec.title }}</strong></a><br><small>{{ rec.action_type|replace('_',' ') }}</small><br><span class="badge badge-muted">{{ rec.status|humanize_label }}</span>{% if rec.ai_proposed %} <span class="badge badge-ai-proposed">AI proposed</span>{% endif %}</td><td><span class="badge badge-recommendation">{{ rec.priority|humanize_label if rec.priority else 'Not set' }}</span></td><td>{{ rec.rationale|truncate(240) }}</td><td>{{ rec.reviewer or 'Not recorded' }}<br>{{ rec.created_at|us_date }}</td></tr>
     {% endfor %}
   </tbody></table></div>
 {% else %}

@@ -1,0 +1,10 @@
+{% extends 'operations_workspace_base.html' %}
+{% block head_extra %}{{ super() }}<link rel="stylesheet" href="/static/source_review.css?v=1">{% endblock %}
+{% block operations_content %}
+<div class="source-review-workspace">
+  <div class="source-review-tools"><a href="/operations#data-quality">← Data quality</a><form id="v2TopbarSearch" action="/search" method="get" role="search"><label class="visually-hidden" for="global-search">Search your workspace</label><input id="global-search" type="search" name="q" placeholder="Search your workspace" data-open-search><button type="submit">Search</button></form>{% if analyst_display_name %}<span>{{ analyst_display_name }}</span><form action="/logout" method="post"><button type="submit">Sign out</button></form>{% endif %}</div>
+  {% block source_review_content %}{% endblock %}
+</div>
+{% include '_v2_search_overlay.html' %}
+{% endblock %}
+{% block scripts %}<script src="/static/source_review.js?v=1"></script>{% endblock %}

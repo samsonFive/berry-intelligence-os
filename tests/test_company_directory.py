@@ -1,0 +1,325 @@
+from concurrent.futures import ThreadPoolExecutor
+from datetime import UTC, datetime
+from pathlib import Path
+
+import pytest
+from fastapi.testclient import TestClient
+
+from app import main
+from app.services import company_directory as service, feed_first, map_regions, news_workspace, personal_digest
+from app.services.global_explorer import IntelligenceQuery
+
+
+ENTITIES = {
+    "company-a": {"id": "company-a", "name": "Ágro Berries", "entity_type": "company", "status": "active", "berry_ids": ["berry-blueberry"]},
+    "company-b": {"id": "company-b", "name": "Beta Berry", "entity_type": "company", "status": "unverified", "berry_ids": []},
+    "geography-portugal": {"id": "geography-portugal", "name": "Portugal", "entity_type": "geography", "attributes": {"iso_3166_1_alpha_2": "PT"}},
+    "berry-blueberry": {"id": "berry-blueberry", "name": "Blueberry", "entity_type": "berry"},
+}
+
+
+@pytest.fixture(autouse=True)
+def no_seed(monkeypatch):
+    monkeypatch.setattr(service.seed_roster, "build_roster", lambda existing: [])
+
+
+def test_catalog_defaults_and_directory_scope_are_not_auto_tiers():
+    rows = service.catalog(ENTITIES)
+    assert all(row["tier"] == "untiered" and not row["favorite"] for row in rows.values())
+    assert service.directory(rows, {}, {"letter": "A"})["rows"][0]["id"] == "company-a"
+    assert service.directory(rows, {}, {"berry": "berry-blueberry"})["matching"] == 1
+    assert service.directory(rows, {}, {"favorites": "1"})["matching"] == 0
+    with pytest.raises(ValueError):
+        service.directory(rows, {}, {"letter": "AB"})
+
+
+@pytest.mark.parametrize("tier", ["untiered", "tier2", "watch", "muted", "previous-custom-tier"])
+def test_assignment_choices_preserve_current_legacy_without_offering_other_watch_states(tier):
+    state = {"entity_tiers": {"company-a": tier}}
+    rows = service.catalog(ENTITIES, state=state)
+    choices = rows["company-a"]["tier_choices"]
+    assert list(choices)[:4] == ["untiered", "tier1", "tier2", "tier3"]
+    assert tier in choices and rows["company-a"]["tier"] == tier
+    assert set(choices) == set(service.CURRENT_TIERS) | {tier}
+    assert state == {"entity_tiers": {"company-a": tier}}
+    assert service.directory(rows, state, {"tier": "watch"})["tiers"] == service.TIERS
+
+
+def test_tracking_template_selects_legacy_tier_without_implicit_reassignment():
+    from html.parser import HTMLParser
+
+    class TrackingParser(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.options = []
+            self.inputs = []
+
+        def handle_starttag(self, tag, attrs):
+            if tag == "option":
+                self.options.append(dict(attrs))
+            elif tag == "input":
+                self.inputs.append(dict(attrs))
+
+    row = service.catalog(ENTITIES, state={"entity_tiers": {"company-a": "watch"}})["company-a"]
+    template = main.templates.env.get_template("_company_controls.html")
+    module = template.make_module({"authoring_mode": True, "lists": []})
+    rendered = str(module.tracking(row, "/entities/company"))
+    parser = TrackingParser()
+    parser.feed(rendered)
+    assert [option["value"] for option in parser.options] == ["untiered", "tier1", "tier2", "tier3", "watch"]
+    assert [option["value"] for option in parser.options if "selected" in option] == ["watch"]
+    assert any(field.get("name") == "action" and field.get("value") == "favorite" for field in parser.inputs)
+    assert "Lists" in rendered
+
+
+def test_legacy_tier_can_be_retained_or_changed_without_losing_personal_state(tmp_path):
+    group = personal_digest.edit_list(tmp_path, action="create", name="Watch", company_ids=["company-a"], allowed_companies={"company-a"})
+    service.mark(tmp_path, entity_id="company-a", action="favorite", value="1", allowed={"company-a"})
+    service.mark(tmp_path, entity_id="company-a", action="tier", value="watch", allowed={"company-a"})
+    service.mark(tmp_path, entity_id="company-a", action="tier", value="watch", allowed={"company-a"})
+    assert feed_first.load_state(tmp_path)["entity_tiers"]["company-a"] == "watch"
+    service.mark(tmp_path, entity_id="company-a", action="tier", value="tier2", allowed={"company-a"})
+    state = feed_first.load_state(tmp_path)
+    assert state["entity_tiers"]["company-a"] == "tier2"
+    assert state["entity_favorites"]["company-a"]
+    assert state["company_lists"][group]["company_ids"] == ["company-a"]
+    assert state["entity_mark_history"][-1]["before"]["tier"] == "watch"
+
+
+def test_marks_lists_subscriptions_and_reading_are_independent(tmp_path):
+    allowed = {"company-a", "company-b"}
+    group = personal_digest.edit_list(tmp_path, action="create", name="Watch", company_ids=["company-b"], allowed_companies=allowed)
+    personal_digest.edit_list(tmp_path, action="subscribe", list_id=group, allowed_companies=allowed)
+    service.mark(tmp_path, entity_id="company-a", action="favorite", value="1", allowed=allowed)
+    service.mark(tmp_path, entity_id="company-a", action="tier", value="tier1", allowed=allowed)
+    service.mark(tmp_path, entity_id="company-a", action="join", value=group, allowed=allowed)
+    state = feed_first.load_state(tmp_path)
+    assert state["entity_favorites"]["company-a"]
+    assert state["entity_tiers"] == {"company-a": "tier1"}
+    assert state["company_lists"][group]["company_ids"] == ["company-a", "company-b"]
+    assert state["digest_subscriptions"] == [group]
+    assert not state["decisions"] and not state["statements"]
+    service.mark(tmp_path, entity_id="company-a", action="tier", value="untiered", allowed=allowed)
+    service.mark(tmp_path, entity_id="company-a", action="leave", value=group, allowed=allowed)
+    state = feed_first.load_state(tmp_path)
+    assert state["entity_favorites"]["company-a"] and "company-a" not in state["entity_tiers"]
+    assert state["digest_subscriptions"] == [group] and len(state["entity_mark_history"]) == 5
+    with pytest.raises(ValueError):
+        service.mark(tmp_path, entity_id="missing", action="favorite", value="1", allowed=allowed)
+
+
+def test_concurrent_membership_keeps_members_and_corrupt_state_is_not_overwritten(tmp_path):
+    allowed = {"company-a", "company-b"}
+    group = personal_digest.edit_list(tmp_path, action="create", name="Watch", allowed_companies=allowed)
+    with ThreadPoolExecutor(2) as pool:
+        list(pool.map(lambda key: service.mark(tmp_path, entity_id=key, action="join", value=group, allowed=allowed), sorted(allowed)))
+    assert set(feed_first.load_state(tmp_path)["company_lists"][group]["company_ids"]) == allowed
+    path = feed_first.state_path(tmp_path)
+    path.write_text('{broken', encoding="utf-8")
+    with pytest.raises(ValueError):
+        service.mark(tmp_path, entity_id="company-a", action="favorite", value="1", allowed=allowed)
+    assert path.read_text(encoding="utf-8") == '{broken'
+
+
+def test_profile_override_precedence_reset_stale_history_and_url_validation(tmp_path):
+    payload = {"revision": "0", "website": "https://example.com/company", "linkedin": "https://www.linkedin.com/company/berry/", "socials": "Instagram | @berry | https://www.instagram.com/berry/"}
+    saved = service.edit_profile(tmp_path, entity_id="company-a", payload=payload)
+    profiles = service.load_profiles(tmp_path)
+    rows = service.catalog(ENTITIES, profiles=profiles["profiles"])
+    assert rows["company-a"]["website"] == payload["website"] and rows["company-a"]["edited"]
+    with pytest.raises(ValueError, match="changed"):
+        service.edit_profile(tmp_path, entity_id="company-a", payload=payload)
+    with pytest.raises(ValueError):
+        service.edit_profile(tmp_path, entity_id="company-a", payload={**payload, "revision": "1", "website": "http://127.0.0.1/private"})
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": saved["revision"], "action": "reset"})
+    state = service.load_profiles(tmp_path)
+    assert "website" not in state["profiles"]["company-a"] and len(state["history"]) == 2
+    assert state["history"][1]["before"]["website"] == payload["website"]
+    assert not Path(tmp_path / 'analyst_queue_state.json').exists()
+
+
+def test_restoring_link_version_preserves_other_contacts_and_full_history(tmp_path):
+    from copy import deepcopy
+    first = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 0, "website": "https://example.org/original", "linkedin": "", "socials": "X | @first |"})
+    contact = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 1, "action": "person", "name": "Jane", "role": "Research"})
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 2, "website": "https://example.org/corrected", "linkedin": "https://linkedin.com/company/example", "socials": ""})
+    old_history = deepcopy(service.load_profiles(tmp_path)["history"])
+    restored = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 3, "action": "restore_links", "restore_revision": first["revision"]})
+    assert restored["website"] == first["website"] and restored["linkedin"] == "" and restored["socials"] == first["socials"]
+    assert restored["people"] == contact["people"] and restored["revision"] == 4
+    store = service.load_profiles(tmp_path)
+    assert store["history"][:-1] == old_history
+    assert store["history"][-1]["before"]["website"] == "https://example.org/corrected"
+    with pytest.raises(ValueError, match="changed in another"):
+        service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 3, "action": "restore_links", "restore_revision": 1})
+
+
+def test_contact_restore_is_scoped_to_one_person_and_company(tmp_path):
+    jane = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 0, "action": "person", "name": "Jane", "role": "Original role", "highlighted": "1"})
+    key = next(iter(jane["people"]))
+    other = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 1, "action": "person", "name": "John", "role": "Other contact"})
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 2, "action": "person", "person_id": key, "name": "Jane edited", "role": "New role"})
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 3, "website": "https://example.org/keep", "socials": ""})
+    restored = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 4, "action": "restore_contact_version", "person_id": key, "restore_revision": 1})
+    assert restored["people"][key] == jane["people"][key] and restored["people"][key]["highlighted"]
+    assert restored["website"] == "https://example.org/keep"
+    assert {k: v for k, v in restored["people"].items() if k != key} == {k: v for k, v in other["people"].items() if k != key}
+    before = (tmp_path / service.PROFILE_FILE).read_bytes()
+    with pytest.raises(ValueError, match="unavailable"):
+        service.edit_profile(tmp_path, entity_id="company-b", payload={"revision": 0, "action": "restore_contact_version", "person_id": key, "restore_revision": 1})
+    with pytest.raises(ValueError, match="not present"):
+        service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 5, "action": "restore_contact_version", "person_id": "missing", "restore_revision": 1})
+    assert (tmp_path / service.PROFILE_FILE).read_bytes() == before
+
+
+def test_restore_reset_version_retains_collected_fallback_and_manual_blank(tmp_path):
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 0, "website": "", "linkedin": "", "socials": ""})
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 1, "action": "reset"})
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 2, "website": "https://example.org/edited"})
+    restored = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 3, "action": "restore_links", "restore_revision": 2})
+    assert all(key not in restored for key in ("website", "linkedin", "socials"))
+    blank = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 4, "action": "restore_links", "restore_revision": 1})
+    assert blank["website"] == "" and blank["socials"] == []
+
+
+def test_history_restore_routes_retain_gates_and_private_visibility(tmp_path, monkeypatch):
+    monkeypatch.undo()  # Use the real canonical/seed company route, as in the tab acceptance test.
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
+    monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    client = TestClient(main.app)
+    endpoint = '/companies/company-planasa/profile'
+    service.edit_profile(tmp_path, entity_id="company-planasa", payload={"revision": 0, "website": "https://example.org/private-old"})
+    service.edit_profile(tmp_path, entity_id="company-planasa", payload={"revision": 1, "website": "https://example.org/private-new"})
+    request = {"revision": 2, "action": "restore_links", "restore_revision": 1}
+    before = (tmp_path / service.PROFILE_FILE).read_bytes()
+    assert client.post(endpoint, data=request, headers={"sec-fetch-site": "cross-site"}).status_code == 403
+    assert (tmp_path / service.PROFILE_FILE).read_bytes() == before
+    response = client.post(endpoint, data=request, follow_redirects=False)
+    assert response.status_code == 303 and response.headers['location'].endswith('?tab=details&saved=1')
+    page = client.get('/entities/company/company-planasa?tab=details').text
+    assert 'Restore these links' in page and 'Version 1' in page
+    assert 'private-old' in page and 'private-new' in page
+    assert client.post(endpoint, data=request, follow_redirects=False).status_code == 409
+    monkeypatch.setattr(main, "AUTHORING_MODE", False)
+    assert client.post(endpoint, data={**request, "revision": 3}).status_code == 403
+    readonly = client.get('/entities/company/company-planasa?tab=details').text
+    assert 'private-old' not in readonly and 'Restore these links' not in readonly
+
+
+def test_unsafe_history_cannot_restore_or_overwrite_current_work(tmp_path):
+    import json
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 0, "website": "https://example.org/current"})
+    path = tmp_path / service.PROFILE_FILE
+    state = service.load_profiles(tmp_path)
+    state["history"][0]["after"]["website"] = "http://127.0.0.1/private"
+    state["history"][0]["at"] = "old unknown timestamp"
+    path.write_text(json.dumps(state), encoding="utf-8")
+    before = path.read_bytes()
+    with pytest.raises(ValueError, match="no longer supported"):
+        service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": 1, "action": "restore_links", "restore_revision": 1})
+    assert path.read_bytes() == before
+    rows = service.profile_history_rows(state["history"], "company-a")
+    assert rows[0]["at_label"] == "Date not recorded"
+    assert not service.profile_history_rows(state["history"], "company-b")
+
+
+def test_people_highlight_hide_restore_and_affiliation_boundaries(tmp_path):
+    saved = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": "0", "action": "person", "name": "Jane Berry", "role": "Research contact", "linkedin": "https://www.linkedin.com/in/jane-berry/", "socials": "X | @jane |", "highlighted": "1"})
+    key = next(iter(saved["people"]))
+    people = service.people_for("company-a", ENTITIES, [], [], saved)
+    assert people[0]["highlighted"] and people[0]["socials"][0]["handle"] == "@jane"
+    assert service.people_for("company-b", ENTITIES, [], [], {}) == []
+    saved = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": "1", "action": "hide_person", "person_id": key})
+    assert service.people_for("company-a", ENTITIES, [], [], saved)[0]["hidden"]
+    saved = service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": "2", "action": "restore_person", "person_id": key})
+    assert not saved["people"][key]["hidden"]
+    with pytest.raises(ValueError):
+        service.edit_profile(tmp_path, entity_id="company-b", payload={"revision": "0", "action": "person", "person_id": key, "name": "Wrong company"})
+
+
+def test_selected_favorites_are_the_same_in_news_map_and_digest(tmp_path):
+    service.mark(tmp_path, entity_id="company-a", action="favorite", value="1", allowed={"company-a"})
+    service.mark(tmp_path, entity_id="company-a", action="tier", value="tier1", allowed={"company-a"})
+    state = feed_first.load_state(tmp_path)
+    records = {"ev-a": {"id": "ev-a", "title": "Agro Berries launches a new blueberry variety", "summary": "New blueberry genetics", "status": "published", "source_type": "trade_press", "source_name": "Trade", "published_date": "2026-09-30", "entity_ids": ["company-a"], "berry_ids": ["berry-blueberry"], "source_url": "https://example.com/a"}}
+    personal_digest.set_personal_decision(tmp_path, "ev-a", "save")
+    state = feed_first.load_state(tmp_path)
+    news = news_workspace.model(records=records, entities=ENTITIES, relationships=[], facts=[], state=state, params={"favorites": "1", "tier": "tier1"}, now=datetime(2026,10,1,tzinfo=UTC))
+    assert news["matching"] == 1
+    digest = personal_digest.digest_model(records=records, entities=ENTITIES, state=state, reading={}, params={"favorites": "1", "tier": "tier1"})
+    assert digest["matching"] == 1
+    rows = [{"id": "rel-a", "entity_id": "company-a", "kind": "company", "geography_id": "geography-portugal", "berry_ids": ["berry-blueberry"], "name": "Agro", "country": "Portugal", "status": "active", "activity": "Operations (unspecified)"}]
+    assert len(map_regions.scoped(rows, IntelligenceQuery(), [], state, kind="company", favorites="1", tier="tier1")) == 1
+    service.mark(tmp_path, entity_id="company-a", action="favorite", value="0", allowed={"company-a"})
+    state = feed_first.load_state(tmp_path)
+    assert not map_regions.scoped(rows, IntelligenceQuery(), [], state, kind="company", favorites="1")
+
+
+def test_routes_pure_get_authoring_origin_and_private_read_only(tmp_path, monkeypatch):
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
+    monkeypatch.setattr(main, "living_catalog", lambda: list(ENTITIES.values()))
+    monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    client = TestClient(main.app)
+    assert client.get('/entities/company').status_code == 200
+    assert not list(tmp_path.iterdir())
+    assert client.post('/companies/company-a/marks', data={"action": "favorite", "value": "1"}, headers={"origin": "https://other.example"}).status_code == 403
+    result = client.post('/companies/company-a/marks', data={"action": "favorite", "value": "1", "return_to": "https://other.example"}, follow_redirects=False)
+    assert result.status_code == 303 and result.headers['location'] == '/entities/company'
+    service.edit_profile(tmp_path, entity_id="company-a", payload={"revision": "0", "website": "https://private-note.example/company", "socials": ""})
+    assert 'private-note.example' in client.get('/entities/company').text
+    monkeypatch.setattr(main, "AUTHORING_MODE", False)
+    assert client.post('/companies/company-a/marks', data={"action": "favorite", "value": "0"}).status_code == 403
+    assert 'private-note.example' not in client.get('/entities/company').text
+    assert client.get('/entity-logos/company-a/logo-1234567890abcdef.png').status_code == 404
+
+
+def test_logo_writes_require_authoring_and_same_origin(tmp_path, monkeypatch):
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
+    client = TestClient(main.app)
+    monkeypatch.setattr(main, "AUTHORING_MODE", False)
+    assert client.post('/entities/company/company-a/logo', data={"logo_url": "https://example.com/logo.png"}).status_code == 403
+    monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    assert client.post('/entities/company/company-a/logo', data={"logo_url": "https://example.com/logo.png"}, headers={"sec-fetch-site": "cross-site"}).status_code == 403
+
+
+def test_profile_tabs_preserve_backbone_and_shared_reader(tmp_path, monkeypatch):
+    # Use real canonical data/seed matching for this integration proof.
+    monkeypatch.undo()
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
+    monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    client = TestClient(main.app)
+    base = '/entities/company/company-planasa'
+    overview = client.get(base)
+    assert overview.status_code == 200 and 'company_workspace.css' in overview.text
+    assert 'Company sections' in overview.text and 'Profile &amp; links' in overview.text
+    intelligence = client.get(base+'?tab=intelligence')
+    assert 'Canonical portfolio' in intelligence.text and 'Canonical corporate relationships' in intelligence.text
+    assert 'Blue Manila' in client.get(base+'?tab=varieties').text
+    assert 'Map Explorer' in client.get(base+'?tab=regions').text
+    assert 'Add a person' in client.get(base+'?tab=people').text
+    assert 'Save logo' in client.get(base+'?tab=details').text
+    assert 'v2ReaderOffcanvas' in client.get(base+'?tab=news').text
+    assert not list(tmp_path.iterdir())
+
+
+def test_directory_list_rename_retains_existing_person_member(tmp_path, monkeypatch):
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
+    monkeypatch.setattr(main, "living_catalog", lambda: list(ENTITIES.values()))
+    monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    group = personal_digest.edit_list(tmp_path, action="create", name="Registry", company_ids=["company-a", "person-a"], allowed_companies={"company-a", "person-a"})
+    result = TestClient(main.app).post("/companies/lists", data={"action": "edit", "list_id": group, "name": "Renamed registry", "company_ids": ["company-a", "person-a"]}, follow_redirects=False)
+    assert result.status_code == 303
+    assert feed_first.load_state(tmp_path)["company_lists"][group]["company_ids"] == ["company-a", "person-a"]
+    assert TestClient(main.app).post("/companies/lists", data={"action": "edit", "list_id": group, "name": "Other", "company_ids": ["unknown-person"]}, follow_redirects=False).status_code == 400
+
+
+def test_digest_marks_filter_each_story_not_last_source(tmp_path):
+    records = {key: {"id": key, "title": key, "entity_ids": [company], "published_date": "2026-09-30"} for key, company in [("ev-a", "company-a"), ("ev-b", "company-b")]}
+    group = personal_digest.edit_list(tmp_path, action="create", name="A only", company_ids=["company-a"], allowed_companies={"company-a"})
+    personal_digest.edit_list(tmp_path, action="subscribe", list_id=group, allowed_companies=set())
+    personal_digest.set_personal_decision(tmp_path, "ev-b", "save")
+    service.mark(tmp_path, entity_id="company-a", action="favorite", value="1", allowed={"company-a"})
+    state = feed_first.load_state(tmp_path)
+    for filters in ({"list": group}, {"favorites": "1"}):
+        result = personal_digest.digest_model(records=records, entities=ENTITIES, state=state, reading={}, params=filters)
+        assert [r["id"] for r in result["cards"]] == ["ev-a"]

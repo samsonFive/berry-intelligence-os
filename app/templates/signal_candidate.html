@@ -1,6 +1,7 @@
-{% extends "base.html" %}
+{% extends "intelligence_workspace_base.html" %}
 {% block title %}{{ review.label }} — Signal candidate{% endblock %}
-{% block content %}
+{% block intelligence_content %}
+<div class="signal-candidate-workspace">
 <section class="page-heading">
   <div>
     <p class="eyebrow">SIGNAL CANDIDATE — NOT A TRUSTED SIGNAL</p>
@@ -10,10 +11,42 @@
   <a class="button-link" href="/brief#emerging-signals">Back to brief</a>
 </section>
 
-<p class="brief-window">This is an untrusted Signal candidate. A developing story groups related coverage of one event. An emerging signal is a broader evidence-backed pattern. A story thread may support a signal; a story thread is not itself a signal. Nothing here becomes trusted automatically.</p>
+<p class="candidate-review-boundary">Review this proposed pattern against its sources and limits. Confirming it records your decision; it does not publish a trusted Signal.</p>
 
 <article class="detail-card">
-  <dl>
+
+
+  <div class="judgment-takeaway"><h2>Why this may matter</h2>
+  {% if review.why_it_may_matter %}
+    <p>{{ review.why_it_may_matter }}</p>
+  {% else %}
+    <p class="empty-state">No stored rationale on this candidate.</p>
+  {% endif %}</div>
+
+  {% if review.evidence_quality %}
+    <div class="evidence-quality {% if review.limited_evidence %}evidence-quality-limited{% else %}evidence-quality-full{% endif %}">
+      <p class="evidence-quality-kicker">{{ review.evidence_quality.headline }}</p>
+      <p>{{ review.evidence_quality.detail }}</p>
+      {% if review.limited_evidence %}
+        <p class="context-limit">Limited source evidence is not equivalent to verified source content.</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="does-not-prove does-not-prove-prominent">
+    <p class="does-not-prove-kicker">This does not prove</p>
+    {% if review.does_not_prove %}
+      <ul>
+        {% for bound in review.does_not_prove %}
+          <li>{{ bound }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No stored boundaries on this candidate.</p>
+    {% endif %}
+    <p class="context-limit">Read this before Confirm. Confirming the candidate does not create a trusted Signal record.</p>
+  </div>
+  <details class="judgment-meta"><summary>Review history and metadata</summary><dl>
     <dt>Status</dt><dd><span class="badge">{{ review.status_label }}</span></dd>
     <dt>Confidence</dt><dd>{{ review.confidence_label }}</dd>
     <dt>Support</dt><dd>{{ review.support_label }}</dd>
@@ -27,40 +60,7 @@
     {% if review.review_notes %}
       <dt>Review notes</dt><dd>{{ review.review_notes }}</dd>
     {% endif %}
-  </dl>
-
-  {% if review.evidence_quality %}
-    <div class="evidence-quality {% if review.limited_evidence %}evidence-quality-limited{% else %}evidence-quality-full{% endif %}">
-      <p class="evidence-quality-kicker">{{ review.evidence_quality.headline }}</p>
-      <p>{{ review.evidence_quality.detail }}</p>
-      {% if review.limited_evidence %}
-        <p class="context-limit">Limited source evidence is not equivalent to verified source content.</p>
-      {% endif %}
-    </div>
-  {% endif %}
-
-  <h2>Why this may matter</h2>
-  {% if review.why_it_may_matter %}
-    <p>{{ review.why_it_may_matter }}</p>
-  {% else %}
-    <p class="empty-state">No stored rationale on this candidate.</p>
-  {% endif %}
-
-  <div class="does-not-prove does-not-prove-prominent">
-    <p class="does-not-prove-kicker">This may suggest</p>
-    <p>{{ review.why_it_may_matter or review.pattern_label }}</p>
-    <p class="does-not-prove-kicker">This does not prove</p>
-    {% if review.does_not_prove %}
-      <ul>
-        {% for bound in review.does_not_prove %}
-          <li>{{ bound }}</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No stored boundaries on this candidate.</p>
-    {% endif %}
-    <p class="context-limit">Read this before Confirm. Confirming the candidate does not create a trusted Signal record.</p>
-  </div>
+  </dl></details>
 </article>
 
 <section class="brief-section">
@@ -102,12 +102,12 @@
       <tbody>
         {% for item in review.supporting_evidence %}
           <tr>
-            <td><a href="{{ item.href }}"><strong>{{ item.title }}</strong></a></td>
+            <td><a href="{{ item.href }}" data-open-reader data-item-id="{{ item.id }}"><strong>{{ item.title }}</strong></a></td>
             <td>{{ item.source_name or "—" }}</td>
             <td>{{ item.date|us_date if item.date else "—" }}</td>
             <td><span class="badge intel-trust-{{ item.trust }}">{{ item.trust_label }}</span></td>
             <td>{{ item.source_authority or "—" }}</td>
-            <td>{% if item.source_url %}<a href="{{ item.source_url }}" rel="noreferrer">Original source</a>{% else %}—{% endif %}</td>
+            <td>{% set original_url = public_source_url(item.source_url) %}{% if original_url %}<a href="{{ original_url }}" target="_blank" rel="noopener noreferrer">Original source</a>{% else %}Link unavailable{% endif %}</td>
             <td>
               {% if item.story_thread %}
                 <a href="{{ item.story_thread.href }}">{{ item.story_thread.title }}</a>
@@ -148,7 +148,7 @@
 
 <section class="brief-section">
   <h2>Corroboration / contradiction</h2>
-  <p class="context-limit">Stored evidence_links only. The reviewer does not infer new relationships.</p>
+  <p class="context-limit">Existing source relationships only. This view does not infer new connections.</p>
   {% if review.relationships %}
     <ul class="simple-list">
       {% for link in review.relationships %}
@@ -170,14 +170,14 @@
 {% if authoring_mode and not static_build %}
 <section class="brief-section" id="human-decision">
   <h2>Human decision</h2>
-  <p class="context-limit">These actions use the existing Signal-candidate review service. Confirm does not write a trusted Signal. Nothing confirms automatically.</p>
+  <p class="context-limit">Decide on this candidate individually. Confirm records your review; it does not publish a trusted Signal.</p>
   <form class="signal-review-notes" action="/signals/candidates/{{ review.id }}/decision" method="post">
     <input type="hidden" name="reviewer" value="{{ reviewer }}">
     <input type="hidden" name="return_to" value="{{ return_to }}">
     <label for="review-notes">Notes (required for Edit; optional otherwise)</label>
     <textarea id="review-notes" name="notes" rows="3" placeholder="Correction, caveat, or why this is deferred/disputed">{{ review.review_notes or '' }}</textarea>
     <div class="queue-actions">
-      <button class="action-button action-approve" type="submit" name="decision" value="confirm">Confirm</button>
+      <button class="action-button action-approve" type="submit" name="decision" value="confirm">Confirm candidate</button>
       <button class="action-button" type="submit" name="decision" value="edit">Edit</button>
       <button class="action-button" type="submit" name="decision" value="defer">Defer</button>
       <button class="action-button action-reject" type="submit" name="decision" value="dismiss">Dismiss</button>
@@ -186,4 +186,5 @@
   </form>
 </section>
 {% endif %}
+</div>
 {% endblock %}

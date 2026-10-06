@@ -1,0 +1,19 @@
+{% extends 'glasshouse_base.html' %}
+{% set intelligence_workspace = true %}
+{% block head_extra %}<link rel="stylesheet" href="/static/intelligence_workspace.css?v=16">{% endblock %}
+{% block content %}
+<div class="intelligence-workspace"{% if static_build %} data-pagefind-body{% endif %}>
+  <nav class="intelligence-tabs" aria-label="Intelligence views">
+    {% if authoring_mode %}
+    <a href="/statements" {% if request.url.path.startswith('/statements') %}aria-current="page"{% endif %}>Statements</a>
+    <a href="/radar" {% if request.url.path.startswith('/radar') %}aria-current="page"{% endif %}>Developments</a>
+    <a href="/moves" {% if request.url.path.startswith('/moves') %}aria-current="page"{% endif %}>Company moves</a>
+    <a href="/whitespace" {% if request.url.path == '/whitespace' %}aria-current="page"{% endif %}>Coverage &amp; concentration</a>
+    {% endif %}
+    <a href="/signals" {% if request.url.path.startswith('/signals') %}aria-current="page"{% endif %}>Signals</a><a href="/assessments" {% if request.url.path.startswith('/assessments') %}aria-current="page"{% endif %}>Assessments</a><a href="/strategic-questions" {% if request.url.path.startswith('/strategic-questions') %}aria-current="page"{% endif %}>Questions</a><a href="/recommendations" {% if request.url.path.startswith('/recommendations') %}aria-current="page"{% endif %}>Recommendations</a>
+    {% if not static_build|default(false) %}<a href="/research" {% if request.url.path == '/research' %}aria-current="page"{% endif %}>Research</a>{% endif %}
+  </nav>
+  {% block intelligence_content %}{% endblock %}
+</div>
+{% endblock %}
+{% block scripts %}<script src="/static/intelligence_workspace.js?v=2"></script>{% endblock %}

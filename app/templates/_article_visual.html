@@ -1,0 +1,9 @@
+{% macro article_visual(card, reader=false) %}
+{% set illustrations = {'blueberry':'blueberry-orchard', 'blackberry':'blackberry-quality', 'raspberry':'raspberry-harvest', 'strawberry':'strawberry-growing'} %}
+{% set crop = (card.crops|default([])|first)|default('blueberry') %}
+{% set fallback = '/static/news-images/' ~ illustrations.get(crop, 'blueberry-orchard') ~ '.webp' %}
+<figure class="article-visual{% if reader %} article-visual-reader{% endif %}" data-article-visual>
+{% if card.image_url %}<img class="{{ 'reader-image' if reader else 'digest-image' }}" src="{{ card.image_url }}" alt="Article image from {{ card.source_name }}" loading="{{ 'eager' if reader else 'lazy' }}" decoding="async" referrerpolicy="no-referrer" data-publisher-image>{% endif %}
+<div data-image-fallback{% if card.image_url %} hidden{% endif %}><img class="{{ 'reader-image' if reader else 'digest-image' }}" {% if card.image_url %}data-fallback-src{% else %}src{% endif %}="{{ fallback }}" alt="Illustration of {{ crop }} agriculture, not a photograph from this article" loading="lazy" decoding="async"><figcaption title="AI-generated agricultural illustration; not a photograph from this article">Illustration{% if reader %} · not an article photograph{% endif %}</figcaption></div>
+</figure>
+{% endmacro %}

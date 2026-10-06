@@ -73,8 +73,8 @@
     {{ nav_icon('feed') }}<span class="v2-nav-text">Live Intelligence</span>
   </a>
   {% if not static_build %}
-  <a href="/war-room" class="v2-nav-link{% if path.startswith('/war-room') %} is-active{% endif %}" title="War Room" aria-label="War Room"{% if path.startswith('/war-room') %} aria-current="page"{% endif %}>
-    {{ nav_icon('signals') }}<span class="v2-nav-text">War Room</span>
+  <a href="/war-room" class="v2-nav-link{% if path.startswith('/war-room') %} is-active{% endif %}" title="Meeting Prep" aria-label="Meeting Prep"{% if path.startswith('/war-room') %} aria-current="page"{% endif %}>
+    {{ nav_icon('signals') }}<span class="v2-nav-text">Meeting Prep</span>
   </a>
   <a href="/watchtower" class="v2-nav-link{% if path.startswith('/watchtower') %} is-active{% endif %}" title="Watchtower" aria-label="Watchtower"{% if path.startswith('/watchtower') %} aria-current="page"{% endif %}>
     {{ nav_icon('watch') }}<span class="v2-nav-text">Watchtower</span>
@@ -86,10 +86,16 @@
     {{ nav_icon('review') }}<span class="v2-nav-text">Review Operations</span>
   </a>
   {% endif %}
+  {% if not static_build %}
+  <a href="/digest" class="v2-nav-link{% if path in ['/digest', '/saved', '/queues/reading'] %} is-active{% endif %}" title="Personal Digest" aria-label="Personal Digest">
+    {{ nav_icon('reading') }}<span class="v2-nav-text">Personal Digest</span>
+  </a>
+  {% else %}
   <a href="/queues/reading" class="v2-nav-link{% if path == '/queues/reading' %} is-active{% endif %}" title="Reading Queue" aria-label="Reading Queue{{ count_label(nav_work_counts.reading_action) }}">
     {{ nav_icon('reading') }}<span class="v2-nav-text">Reading Queue</span>
     {{ count_badge(nav_work_counts.reading_action, labels.reading_action or (nav_work_counts.reading_action ~ ' items remaining in the Reading Queue')) }}
   </a>
+  {% endif %}
 
   <p class="v2-nav-group">Decide</p>
   {% if not static_build %}
@@ -131,6 +137,7 @@
   <a href="/varieties/candidates" class="v2-nav-link{% if path.startswith('/varieties/candidates') %} is-active{% endif %}" title="Variety identity review" aria-label="Variety identity review{{ count_label(nav_work_counts.variety_identity) }}">{{ nav_icon('review') }}<span class="v2-nav-text">Variety identity</span>{{ count_badge(nav_work_counts.variety_identity, labels.variety_identity or (nav_work_counts.variety_identity ~ ' Variety identities awaiting review')) }}</a>
   <a href="/entities/identity" class="v2-nav-link{% if path.startswith('/entities/identity') %} is-active{% endif %}" title="Entity identity integrity" aria-label="Entity identity integrity">{{ nav_icon('review') }}<span class="v2-nav-text">Entity identity</span></a>
   {% endif %}
+  {% if not static_build %}<a href="/explorer" class="v2-nav-link{% if path.startswith('/explorer') %} is-active{% endif %}" title="Global Intelligence Explorer">{{ nav_icon('geo') }}<span class="v2-nav-text">Global Explorer</span></a>{% endif %}
   <a href="/geographies" class="v2-nav-link{% if path.startswith('/geographies') or path.startswith('/entities/geography') %} is-active{% endif %}" title="Geographies" aria-label="Geographies">{{ nav_icon('geo') }}<span class="v2-nav-text">Geographies</span></a>
   <a href="{{ ui.landscape_href }}" class="v2-nav-link{% if path.startswith('/landscapes') or path.startswith('/entities/berry') %} is-active{% endif %}" title="Landscape" aria-label="Landscape">{{ nav_icon('landscape') }}<span class="v2-nav-text">Landscape</span></a>
   <a href="/competitors" class="v2-nav-link{% if path.startswith('/competitors') %} is-active{% endif %}" title="Competitor Landscape" aria-label="Competitor Landscape"{% if path.startswith('/competitors') %} aria-current="page"{% endif %}>{{ nav_icon('company') }}<span class="v2-nav-text">Competitors</span></a>

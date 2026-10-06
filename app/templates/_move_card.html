@@ -1,29 +1,32 @@
 <article class="move-card">
   <p class="sh-story-meta">
-    <span class="sh-trust sh-trust-proposed">{{ item.trust_state }}</span>
+    <span class="sh-trust sh-trust-proposed">{{ item.trust_state | lower | capitalize if intelligence_workspace else item.trust_state }}</span>
     <span>{{ item.move_label }}</span>
-    <span>{{ item.corroboration }}</span>
+    <span>{{ item.corroboration | lower | capitalize if intelligence_workspace else item.corroboration }}</span>
   </p>
   <h3 class="sh-story-title">
     <a href="/entities/company/{{ item.company_id }}">{{ item.company_name }}</a>
     <span class="move-did">{{ item.move_label | lower }}</span>
   </h3>
   <p class="radar-happened">{{ item.what_happened }}</p>
+  {% if intelligence_workspace %}<details class="move-rationale"><summary>Why this move appears</summary><ul>{% for reason in item.why_move %}<li>{{ reason }}</li>{% endfor %}</ul></details>{% else %}
   <p class="radar-why">
     <span>Why it matters to watch</span>
     {{ item.why_move | join(" · ") }}
   </p>
+  {% endif %}
   <p class="sh-story-meta">
     {% if item.geography_labels %}<span>{{ item.geography_labels | join(", ") }}</span>{% endif %}
     {% if item.berry_labels %}<span>{{ item.berry_labels | join(", ") }}</span>{% endif %}
     {% if item.variety_names %}<span>{{ item.variety_names | join(", ") }}</span>{% endif %}
-    <span>First seen {{ item.first_seen }}</span>
-    <span>Latest {{ item.latest_update }}</span>
+    <span>First seen {{ item.first_seen[:10] | us_date if intelligence_workspace else item.first_seen }}</span>
+    <span>Latest {{ item.latest_update[:10] | us_date if intelligence_workspace else item.latest_update }}</span>
   </p>
   {% if item.supporting_sources %}
   <p class="sh-story-meta">
     {% for source in item.supporting_sources[:3] %}
-      <a href="{{ source.url }}" rel="noreferrer" target="_blank">{{ source.publisher or source.title }}</a>{% if not loop.last %} · {% endif %}
+      {% set source_href = public_source_url(source.url) %}
+      {% if source_href %}<a href="{{ source_href }}" rel="noopener noreferrer" target="_blank">{{ source.publisher or source.title }}</a>{% else %}<span>{{ source.publisher or source.title }}</span>{% endif %}{% if not loop.last %} · {% endif %}
     {% endfor %}
     {% if item.supporting_development_ids %}
       · <a href="/radar/{{ item.supporting_development_ids[0] }}">Development</a>

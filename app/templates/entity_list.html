@@ -1,4 +1,4 @@
-{% extends "base_stakeholder.html" %}
+{% extends "public_library_base.html" if static_build else "base_stakeholder.html" %}
 {% block title %}{% if entity_type == 'variety' %}Variety Intelligence{% else %}{{ entity_type|replace('_',' ')|title }} records{% endif %} — Berry Intelligence OS{% endblock %}
 {% block content %}
 {% if entity_type == 'variety' %}

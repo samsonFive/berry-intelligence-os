@@ -292,9 +292,9 @@ def test_moves_page_uses_radar_cache_not_fetch(monkeypatch, tmp_path: Path) -> N
     assert page.status_code == 200
     html = page.text
     assert "Who is moving" in html
-    assert "LIVE / UNREVIEWED MOVE" in html
+    assert "Live / unreviewed move" in html
     assert "Hortifrut" in html
-    assert ">Moves<" in html
+    assert ">Company moves<" in html
 
 
 def test_company_page_shows_recent_competitive_moves(monkeypatch) -> None:

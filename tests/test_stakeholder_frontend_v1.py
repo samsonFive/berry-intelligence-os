@@ -34,13 +34,13 @@ def test_today_uses_the_product_visual_system_briefing_shell() -> None:
     page = TestClient(app).get("/today?view=briefing")
     assert page.status_code == 200
     html = page.text
-    assert 'class="v2-sidebar"' in html
-    assert ">Today</span>" in html
-    assert ">This week</span>" in html
-    assert ">War Room</span>" in html
-    assert ">Watchtower</span>" in html
-    assert ">Companies</span>" in html
-    assert ">Reports</span>" in html
+    assert 'class="glass-header"' in html
+    assert 'class="v2-sidebar"' not in html
+    assert ">News</a>" in html
+    assert ">Companies</a>" in html
+    assert 'href="/briefings"' in html
+    assert ">Reports & Briefings</b>" in html
+    assert 'href="/monitor"' in html
     assert "daily_briefing.css" in html
     assert 'data-pvs-slice="1"' in html
     assert "Coverage Pulse" in html
@@ -135,8 +135,11 @@ def test_reports_new_without_handoff_params_shows_no_prefill_note() -> None:
     assert "Prefilled from Today" not in page.text
 
 
-def test_analyst_shell_still_has_work_nav() -> None:
+def test_analyst_shell_retains_specialist_work_destinations() -> None:
     page = TestClient(app).get("/brief")
     assert page.status_code == 200
-    assert 'class="v2-nav-group">Work</p>' in page.text
-    assert "Live Intelligence" in page.text
+    assert 'class="glass-header"' in page.text
+    assert 'href="/operations"' in page.text
+    assert 'href="/intake"' in page.text
+    assert 'href="/queues/testing"' in page.text
+    assert 'href="/review-ops/publications"' in page.text

@@ -1,6 +1,6 @@
 <details class="dr-review">
   <summary class="dr-review-summary">
-    <span class="sh-trust">{{ derived_review.label }}</span>
+    <span class="sh-trust">{{ derived_review.label | lower | capitalize if intelligence_workspace else derived_review.label }}</span>
     <span>Analyst review</span>
     {% if derived_review.reviewer %}<span class="sh-story-meta">{{ derived_review.reviewer }}{% if derived_review.updated_at %} · {{ derived_review.updated_at }}{% endif %}</span>{% endif %}
   </summary>
@@ -9,8 +9,8 @@
   {% endif %}
   <form method="post" action="/derived-review/{{ derived_review.object_type }}/{{ derived_review.item_id }}" class="dr-review-form">
     <input type="hidden" name="return_to" value="{{ derived_review.return_to }}">
-    <textarea name="review_notes" placeholder="Notes (optional)" rows="2">{{ derived_review.review_notes }}</textarea>
-    <select name="reason_category">
+    <textarea name="review_notes" aria-label="Interpretation review notes" placeholder="Notes (optional)" rows="2">{{ derived_review.review_notes }}</textarea>
+    <select name="reason_category" aria-label="Interpretation review reason">
       <option value="">Reason (optional — mainly for Dispute)</option>
       {% for value, label in derived_review.dispute_reasons %}
       <option value="{{ value }}"{% if derived_review.reason_category == value %} selected{% endif %}>{{ label }}</option>

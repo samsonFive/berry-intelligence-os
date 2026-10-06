@@ -41,6 +41,7 @@
     <p class="v2-card-line"><span class="v2-meta">Last development</span> {{ item.last_development }}{% if item.last_development_at %} · {{ item.last_development_at|us_date }}{% endif %}</p>
   {% endif %}
   {% if item.recent_activity %}
+    {% if view == 'activity' %}<details class="workspace-secondary"><summary>{{ item.recent_activity|length }} recent articles</summary>{% endif %}
     <p class="v2-meta">Recent intelligence</p>
     <ul class="intel-card-list v2-card-list v2-feed-compact v2-watch-activity">
       {% for activity_item in item.recent_activity %}
@@ -49,6 +50,7 @@
         {% endwith %}
       {% endfor %}
     </ul>
+    {% if view == 'activity' %}</details>{% endif %}
   {% endif %}
   {% if item.open_candidates %}
     <p class="v2-meta">Open signal candidates — review there; a Watch does not confirm.</p>
@@ -68,13 +70,13 @@
     {% endif %}
     {% if authoring_mode and not static_build %}
       {% if item.workflow_state == 'active' %}
-        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="pause"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="v2-btn v2-btn-quiet" type="submit">Pause 1d</button></form>
-        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="stop"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="v2-btn v2-btn-quiet" type="submit">Remove watch</button></form>
+        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="pause"><input type="hidden" name="reviewer" value="{{ reviewer }}">{% if return_to %}<input type="hidden" name="return_to" value="{{ return_to }}">{% endif %}<button class="v2-btn v2-btn-quiet" type="submit">Pause 1d</button></form>
+        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="stop"><input type="hidden" name="reviewer" value="{{ reviewer }}">{% if return_to %}<input type="hidden" name="return_to" value="{{ return_to }}">{% endif %}<button class="v2-btn v2-btn-quiet" type="submit">Remove watch</button></form>
       {% elif item.workflow_state == 'snoozed' %}
-        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="resume"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="v2-btn v2-btn-quiet" type="submit">Resume</button></form>
-        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="stop"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="v2-btn v2-btn-quiet" type="submit">Remove watch</button></form>
+        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="resume"><input type="hidden" name="reviewer" value="{{ reviewer }}">{% if return_to %}<input type="hidden" name="return_to" value="{{ return_to }}">{% endif %}<button class="v2-btn v2-btn-quiet" type="submit">Resume</button></form>
+        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="stop"><input type="hidden" name="reviewer" value="{{ reviewer }}">{% if return_to %}<input type="hidden" name="return_to" value="{{ return_to }}">{% endif %}<button class="v2-btn v2-btn-quiet" type="submit">Remove watch</button></form>
       {% else %}
-        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="resume"><input type="hidden" name="reviewer" value="{{ reviewer }}"><button class="v2-btn v2-btn-quiet" type="submit">Resume</button></form>
+        <form action="/queues/monitoring/{{ item.id }}" method="post"><input type="hidden" name="action" value="resume"><input type="hidden" name="reviewer" value="{{ reviewer }}">{% if return_to %}<input type="hidden" name="return_to" value="{{ return_to }}">{% endif %}<button class="v2-btn v2-btn-quiet" type="submit">Resume</button></form>
       {% endif %}
     {% endif %}
   </div>

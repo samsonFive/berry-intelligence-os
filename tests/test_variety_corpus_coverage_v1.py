@@ -372,12 +372,12 @@ def test_get_does_not_persist_corpus_candidates(tmp_path: Path, monkeypatch) -> 
 def test_variety_index_keeps_canonical_list_and_shows_universe_counts() -> None:
     page = TestClient(app).get("/entities/variety")
     assert page.status_code == 200
-    assert "Trusted Varieties:" in page.text
-    assert "Discovered Candidates:" in page.text
-    assert "Unresolved identities:" in page.text
+    assert "catalog varieties" in page.text
+    assert "candidates" in page.text
+    assert "unresolved identities" in page.text
     assert "Last Call" in page.text
     assert 'id="variety-variety-roberto"' not in page.text
-    assert "not a completeness score" in page.text.lower()
+    assert "not completeness or market share" in page.text.lower()
 
 
 def test_coverage_counts_include_corpus_candidates() -> None:

@@ -8,13 +8,13 @@
   <div>
     <p class="eyebrow">COMPANY COMPARE</p>
     <h1>Compare companies</h1>
-    <p class="also-known-as">Side-by-side trusted intelligence, not a competitive score. Up to {{ compare_max }} companies; the URL is the entire comparison state — reload or share it freely.</p>
+    <p class="also-known-as">Compare portfolios, locations and supporting intelligence for up to {{ compare_max }} companies. Bookmark this page to keep your selection. Coverage is not a competitive score.</p>
   </div>
 </section>
 
 <section class="v2-company-section" id="compare-selection">
   <h2>Selection</h2>
-  <p class="context-limit">Search reuses Global Search — no separate search engine. Selecting a result adds it to the comparison URL and reloads.</p>
+  <p class="context-limit">Search by company name or alias, then select a result to add it.</p>
   {% if not static_build %}
   <div class="v2-compare-picker" data-compare-picker data-ids="{{ ids_param }}" data-max="{{ compare_max }}" data-compare-group="companies">
     <div class="filter-field">

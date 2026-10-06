@@ -290,9 +290,9 @@ def test_index_route_does_not_call_footprint_or_compete(monkeypatch) -> None:
     assert page.status_code == 200
     assert calls["footprint"] == 0
     assert calls["compete"] == 0
-    assert "Variety Intelligence" in page.text
-    assert "not a cultivar catalog" in page.text.casefold()
-    assert "v2-variety-card" in page.text
+    assert "<h1>Varieties</h1>" in page.text
+    assert "catalog varieties" in page.text
+    assert "variety-table" in page.text
     assert "Zara" in page.text
     assert "Victoria" in page.text
     assert "DrisBlueSeventeen" in page.text
@@ -316,8 +316,8 @@ def test_detail_calls_footprint_once() -> None:
     assert "Marketer" in html
     assert "Licensee" in html
     assert html.count("Driscoll") >= 2
-    assert "Who is involved" in html
-    assert "Commercial footprint" in html
+    assert "Company roles" in html
+    assert "Retail markets &amp; observations" in html or "Retail markets & observations" in html
     assert "id=\"v2ReaderOffcanvas\"" in html
     assert "data-open-reader" in html
     assert "variety-specific reader" not in html.casefold()
@@ -333,13 +333,13 @@ def test_zara_and_victoria_are_named_pilot_cases() -> None:
     assert "UK retail pilot named-variety case" in victoria.text
     assert "Driscoll" in zara.text
     assert "Zara" in zara.text
-    assert "Aliases:" in zara.text
+    assert "Also known as:" in zara.text
     assert "Victoria" in victoria.text
-    assert "Aliases:" in victoria.text
+    assert "Also known as:" in victoria.text
     assert "Marketer" in zara.text
     assert "Do not create separate pages" not in zara.text
     assert "Victoria" in victoria.text
-    assert "Aliases:" in victoria.text
+    assert "Also known as:" in victoria.text
 
 
 def test_observations_runtime_without_inbox_is_honest(monkeypatch, tmp_path: Path) -> None:
@@ -362,7 +362,7 @@ def test_competition_needs_a_berry_and_blackberry_thin_is_count_driven() -> None
     global_page = client.get("/entities/variety?view=compete")
     assert global_page.status_code == 200
     assert "Select a berry" in global_page.text
-    assert "No competitive-intensity score" in global_page.text or "No competitive-intensity score" in global_page.text.replace("—", "-")
+    assert "recorded breeder, owner and marketer roles" in global_page.text
     blueberry = client.get("/entities/variety", params={"view": "compete", "berry": "berry-blueberry"})
     assert blueberry.status_code == 200
     assert "Driscoll" in blueberry.text
@@ -386,7 +386,7 @@ def test_competition_needs_a_berry_and_blackberry_thin_is_count_driven() -> None
         params={"view": "compete", "berry": "berry-blueberry", "ip_and_observation": "1"},
     )
     assert overlap.status_code == 200
-    assert "TD-023" in overlap.text or "No variety currently has both IP activity" in overlap.text
+    assert "No variety matches both recorded rights and a retail observation" in overlap.text
 
 
 def test_context_bar_filters_variety_index() -> None:
@@ -656,7 +656,7 @@ def test_detail_route_shows_variety_intelligence_for_real_data() -> None:
     client = TestClient(app)
     page = client.get("/entities/variety/variety-sekoya-grande")
     assert page.status_code == 200
-    assert "Variety intelligence" in page.text
+    assert "Performance &amp; production evidence" in page.text or "Performance & production evidence" in page.text
     assert "POSTHARVEST / QUALITY" in page.text.upper()
     assert "FACT" in page.text
     assert "CLAIM" in page.text

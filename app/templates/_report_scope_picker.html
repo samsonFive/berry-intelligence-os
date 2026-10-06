@@ -1,0 +1,17 @@
+<div class="report-scope-pickers">
+{% for field, label in [('company_ids', 'Companies'), ('geography_ids', 'Countries and regions'), ('variety_ids', 'Varieties')] %}
+  {% set selected = scope[field] if step != 'start' else (handoff_company_ids_csv if field == 'company_ids' else handoff_geography_ids_csv if field == 'geography_ids' else handoff_variety_ids_csv).split(',') %}
+  <details class="report-scope-picker" data-scope-picker>
+    <summary>{{ label }} · {{ selected|reject('equalto', '')|list|length }} selected</summary>
+    <label>Find {{ label|lower }}<input type="search" data-scope-search placeholder="Search by name" autocomplete="off"></label>
+    <div class="report-scope-options">
+    {% for choice in scope_choices[field] %}
+      <label data-scope-option><input type="checkbox" name="{{ field }}" value="{{ choice.id }}" {% if choice.id in selected %}checked{% endif %}> {{ choice.name }}</label>
+    {% endfor %}
+    {% for id in selected if id and id not in scope_choices[field]|map(attribute='id')|list %}
+      <label data-scope-option><input type="checkbox" name="{{ field }}" value="{{ id }}" checked> Saved selection — record unavailable <small>{{ id }}</small></label>
+    {% endfor %}
+    </div>
+  </details>
+{% endfor %}
+</div>

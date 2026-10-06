@@ -373,8 +373,9 @@ def test_week_shell_does_not_fetch_and_matches_stakeholder_chrome(monkeypatch):
     assert "LIVE / UNREVIEWED" in html
     assert "This week" in html
     assert "stakeholder.css" in html
-    assert 'class="sh-nav' in html
-    assert "industry-pulse" not in html
+    assert 'class="glass-header"' in html
+    assert 'class="sh-nav' not in html
+    assert 'href="/today"' in html
     assert "elapsed_ms" not in html
     assert "Publication Review" not in html
     assert "Coverage Assurance" not in html
@@ -464,11 +465,12 @@ def test_send_to_review_uses_publication_intake_only(monkeypatch):
     assert captured["hits"][0].url == "https://example.com/a"
 
 
-def test_today_and_nav_point_at_this_week():
+def test_legacy_briefing_uses_shared_news_navigation():
     page = TestClient(app).get("/today?view=briefing")
     assert page.status_code == 200
-    assert ">This week<" in page.text
-    assert 'href="/week"' in page.text
+    assert 'href="/today"' in page.text
+    assert 'href="/digest"' in page.text
+    assert 'class="glass-header"' in page.text
     assert "daily_briefing.css" in page.text
 
 

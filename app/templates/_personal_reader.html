@@ -1,0 +1,31 @@
+{% from "_article_visual.html" import article_visual %}
+{% from "_personal_icons.html" import icon, action_icon with context %}
+<article class="personal-reader" data-personal-reader data-item-id="{{ card.id }}" data-authoring="{{ 'true' if authoring_mode else 'false' }}">
+  <script type="application/json" data-reading-location>{{ {'mode': reading_entry.get('reader_mode', 'article'), 'positions': reading_entry.get('reader_positions', {})}|tojson }}</script>
+  <header><p class="card-meta"><span>{{ card.source_name }}</span>{% if card.published_at %}<time>{{ card.published_at|us_date }}</time>{% else %}<span>Publication date unavailable</span>{% endif %}</p><h2 class="v2-reader-title">{{ card.headline }}</h2><div class="card-labels"><span class="trust-label{% if trusted %} trusted{% endif %}">{{ 'Source reviewed' if trusted else 'Unreviewed' }}</span>{% for label in card.crop_labels %}<span>{{ label }}</span>{% endfor %}</div></header>
+  <div class="personal-reader-toolbar" aria-label="Story actions">
+    {{ action_icon(card, 'clear_feedback' if card.decision.reaction == 'up' else 'useful', 'Useful', 'up', card.decision.reaction == 'up') }}
+    {{ action_icon(card, 'clear_feedback' if card.decision.reaction == 'down' else 'not_relevant', 'Not relevant', 'down', card.decision.reaction == 'down') }}
+    {{ action_icon(card, 'unsave' if card.decision.saved else 'save', 'Remove saved mark' if card.decision.saved else 'Save story', 'save', card.decision.saved) }}
+    {% if card.source_url %}<a class="icon-action" href="{{ card.source_url }}" target="_blank" rel="noopener noreferrer" aria-label="Read original at publisher (new tab)">{{ icon('newspaper') }}<span class="action-tooltip" role="tooltip">Read original at publisher</span></a>{% endif %}
+    {% if authoring_mode %}<button type="button" class="icon-action" data-learn-reader-topic aria-label="Research & add to Learn">{{ icon('learn') }}<span class="action-tooltip" role="tooltip">Research & add to Learn</span></button>{% endif %}
+    <div class="reader-mode-switch" role="group" aria-label="Reader view"><button type="button" data-personal-mode="article" aria-pressed="true">Article</button><button type="button" data-personal-mode="brief" aria-pressed="false">Brief</button></div>
+  </div>
+  <section data-personal-pane="article" aria-label="Original article">
+    {{ article_visual(card, reader=true) }}
+    {% if article_text %}<p class="article-availability">Available publisher text · may be partial</p><div class="article-prose">{% for paragraph in article_text %}<p>{{ paragraph }}</p>{% endfor %}</div>
+    {% else %}<div class="article-unavailable"><h3>Article text isn’t available here yet</h3><p>The Brief has a summary. The original article may require reading at the publisher.</p>{% if authoring_mode and card.source_url %}<button type="button" class="green-button" data-personal-capture>Load available article text</button>{% endif %}{% if card.source_url %}<a href="{{ card.source_url }}" target="_blank" rel="noopener noreferrer">Read at publisher ↗</a>{% endif %}</div>{% endif %}
+  </section>
+  <section data-personal-pane="brief" aria-label="Story brief" hidden>
+    <section class="reader-summary"><h3>Article summary</h3><p>{{ summary or 'No summary is available for this story.' }}</p></section>
+    {{ article_visual(card, reader=true) }}
+    {% if escalated_statements %}<section class="reader-section"><h3>Escalated information</h3>{% for fact in escalated_statements %}<div class="reader-statement"><span>Reviewed fact · this source supports the recorded statement</span><p>{{ fact.statement }}</p></div>{% endfor %}</section>{% endif %}
+    {% if card.statements %}<section class="reader-section"><h3>Statements from this source</h3>{% for statement in card.statements %}<div class="reader-statement"><span>{{ statement.statement_type|default('Statement', true)|replace('_', ' ')|capitalize }} · {{ 'Linked to a reviewed fact' if statement.canonical_fact_id else 'Needs review' }}</span><p>{{ statement.statement_text or statement.text }}</p></div>{% endfor %}</section>{% endif %}
+    {% if card.entities %}<section class="reader-section"><h3>Companies in this story</h3><div class="reader-companies">{% for company in card.entities %}<a href="{{ company.profile_url }}">{{ company.name }} ↗</a>{% endfor %}</div></section>{% endif %}
+    {% if record.why_it_matters %}<details class="reader-secondary"><summary>About this coverage</summary><p>{{ record.why_it_matters }}</p></details>{% endif %}
+    <details class="reader-secondary"><summary>Source details & review</summary><p>{{ card.source_name }}{% if card.published_at %} · {{ card.published_at|us_date }}{% endif %}</p><p>{{ 'This source was reviewed for publication. Its individual claims retain their own review status.' if trusted else 'This source has not been reviewed. Feedback and saving do not confirm its claims.' }}</p>{% if trusted %}<a href="/intelligence/{{ card.id }}">Open source review & evidence details ↗</a>{% endif %}</details>
+  </section>
+  {% if authoring_mode %}<div class="reader-completion"><button type="button" class="outline-button" data-personal-action="start" data-item-id="{{ card.id }}">In progress</button><button type="button" class="green-button" data-personal-action="mark_read" data-item-id="{{ card.id }}">{{ icon('check') }} Complete reading</button></div>{% endif %}
+  {% if authoring_mode and statement_reviews %}{% include '_statement_reader_review.html' %}{% endif %}
+  <p class="reader-action-status" role="status" aria-live="polite"></p>
+</article>

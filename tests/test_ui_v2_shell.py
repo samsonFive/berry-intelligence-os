@@ -50,25 +50,31 @@ def test_matches_berry_context_uses_record_ids() -> None:
     assert not matches_berry_context(item, "berry-blueberry")
 
 
-def test_shell_nav_groups_and_offcanvas(monkeypatch, tmp_path: Path) -> None:
+def test_retained_shell_has_shared_navigation_search_and_reader(monkeypatch, tmp_path: Path) -> None:
     _isolate(monkeypatch, tmp_path)
     client = TestClient(app)
     page = client.get("/brief")
     assert page.status_code == 200
     html = page.text
-    assert 'class="v2-nav-group">Work</p>' in html
-    assert ">Decide<" in html
-    assert ">Monitor<" in html
-    assert ">Library<" in html
-    assert "v2-nav-disclosure" in html
+    assert 'class="glass-header"' in html
+    assert 'aria-label="Primary"' in html
+    assert ">News</a>" in html
+    assert ">Map Explorer</a>" in html
+    assert ">Learn</a>" in html
+    assert ">Personal Digest</a>" in html
+    assert ">Your workspace</h2>" in html
+    assert ">Analysis & action</h2>" in html
+    assert ">Workspace support</h2>" in html
+    assert ">Specialist tools</summary>" in html
+    assert 'id="v2SearchOffcanvas"' in html
+    assert 'id="v2ReaderOffcanvas"' in html
+    assert 'class="v2-sidebar"' not in html
+    assert 'id="v2NavOffcanvas"' not in html
     assert "Blueberry Landscape" not in html
-    assert "Live Intelligence" in html
-    assert 'id="v2NavOffcanvas"' in html
     assert 'id="v2-berry"' in html
     assert "Strawberry" in html
     assert "Blackberry" in html
-    assert "All companies — coming later" in html
-    assert "All geographies — coming later" in html
+    assert "coming later" not in html
     assert "/static/vendor/bootstrap/bootstrap.min.css" in html
     assert "/static/v2.css" in html
 
@@ -136,16 +142,16 @@ def test_reader_overlay_endpoint_is_not_a_full_page(monkeypatch, tmp_path: Path)
     assert missing.status_code == 404
 
 
-def test_collapsed_sidebar_is_an_icon_rail(monkeypatch, tmp_path: Path) -> None:
+def test_retained_shell_routes_specialist_tools_without_duplicate_sidebars(monkeypatch, tmp_path: Path) -> None:
     _isolate(monkeypatch, tmp_path)
     client = TestClient(app)
     page = client.get("/brief")
-    assert 'class="v2-nav-icon"' in page.text
-    assert 'aria-label="Morning Brief"' in page.text
-    assert 'title="Morning Brief"' in page.text
-    css = (Path(__file__).resolve().parents[1] / "app" / "static" / "v2.css").read_text(encoding="utf-8")
-    assert "grid-template-columns: 4.5rem minmax(0, 1fr)" in css
-    assert "grid-template-columns: 0 minmax(0, 1fr)" not in css
+    assert 'href="/briefings"' in page.text
+    assert 'href="/entities/company/compare"' in page.text
+    assert 'href="/queues/testing"' in page.text
+    assert 'href="/settings"' in page.text
+    assert 'href="/people"' not in page.text
+    assert 'class="v2-nav-icon"' not in page.text
 
 
 def test_compact_feed_hides_browsing_chrome() -> None:

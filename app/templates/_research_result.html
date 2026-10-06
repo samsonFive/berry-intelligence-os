@@ -1,10 +1,11 @@
+{% macro citations(ids) %}{% for source_id in ids %}{% set match = namespace(found=false) %}{% for source in answer.sources %}{% if source.id == source_id %}<a href="#rd-source-{{ source_id }}" aria-label="Source {{ loop.index }}: {{ source.title }}">Source {{ loop.index }}</a>{% set match.found = true %}{% endif %}{% endfor %}{% if not match.found %}<span>Citation unavailable</span>{% endif %}{% endfor %}{% endmacro %}
+{% macro source_link(row) %}{% if row.url %}{% set href = public_source_url(row.url) %}{% if href %}<a href="{{ href }}" target="_blank" rel="noopener noreferrer">{{ row.title }}</a>{% else %}<span>{{ row.title }} · link unavailable</span>{% endif %}{% elif authoring_mode and row.href and row.href.startswith("/evidence/") %}<a href="/intelligence/{{ row.id }}" data-open-reader data-item-id="{{ row.id }}">{{ row.title }}</a>{% else %}<a href="{{ row.href }}">{{ row.title }}</a>{% endif %}{% endmacro %}
 <div class="rd-layout">
   <article class="rd-brief">
     <section class="rd-section rd-lead-section">
-      <div class="rd-section-title">
-        <p>What you need to know</p>
-        {% if phase == 'trusted' %}<span id="rd-live-status" class="rd-progress"><i></i> Checking live sources</span>
-        {% else %}<span class="rd-complete">Research complete · {{ answer.latency_seconds }}s live</span>{% endif %}
+      <div class="rd-section-title"><h2>What you need to know</h2>
+        {% if phase == 'trusted' %}<span id="rd-live-status">Saved intelligence ready</span>
+        {% else %}<span class="rd-complete" data-live-status="{{ live_status }}">{% if live_status == 'complete' %}Source check complete{% elif live_status == 'partial' %}Partial results · some source checks failed{% elif live_status == 'failed' %}Source checks failed · saved intelligence retained{% else %}Fresh source check unavailable · no web provider ran{% endif %}</span>{% endif %}
       </div>
       {% if answer.findings %}
       <ol class="rd-findings">
@@ -12,29 +13,31 @@
         <li>
           <span class="rd-claim-kind">{{ row.kind }}</span>
           <p>{{ row.text }}</p>
-          <span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span>
+          <span class="rd-citations">{{ citations(row.source_ids) }}</span>
         </li>
         {% endfor %}
       </ol>
       {% else %}
-      <p class="rd-empty">The current packet does not support a substantive answer yet. The gaps below say exactly what is missing.</p>
+      <p class="rd-empty">The saved material does not yet support a substantive answer. The gaps below show what is missing.</p>
       {% endif %}
     </section>
 
     <section class="rd-section">
-      <div class="rd-section-title"><p>What's happening now</p><span>LIVE / UNREVIEWED</span></div>
+      <div class="rd-section-title"><h2>What's happening now</h2><span>LIVE / UNREVIEWED</span></div>
       {% if answer.current_developments %}
       <div class="rd-source-cards">
         {% for row in answer.current_developments[:8] %}
         <article>
           <div><span>LIVE / UNREVIEWED</span><time>{{ row.date or 'date unknown' }}</time></div>
-          <h3><a href="{{ row.url }}" target="_blank" rel="noopener">{{ row.title }}</a></h3>
+          <h3>{{ source_link(row) }}</h3>
           <p>{{ row.source_name }}{% if row.snippet %} · {{ row.snippet|truncate(210) }}{% endif %}</p>
         </article>
         {% endfor %}
       </div>
       {% elif phase == 'trusted' %}
-      <p class="rd-empty">Live providers are being checked. Trusted material is already available in the rest of this brief.</p>
+      <p class="rd-empty">Fresh sources have not been checked for this question. Your saved intelligence is available below.</p>
+      {% elif live_status != 'complete' %}
+      <p class="rd-empty">Fresh coverage is incomplete or unavailable. The saved material remains available; this does not establish that nothing happened.</p>
       {% else %}
       <p class="rd-empty">No qualifying current development was found in this window. This is a measured gap, not a claim that nothing happened.</p>
       {% endif %}
@@ -43,7 +46,7 @@
     {% set cs = answer.change_scenario %}
     {% if cs and (cs.changes or cs.scenarios or cs.timeline or 'what changed' in (scope.question or '')|lower or 'scenario' in (scope.question or '')|lower or 'shifted' in (scope.question or '')|lower or 'competitive position' in (scope.question or '')|lower) %}
     <section class="rd-section rd-change-scenario" id="rd-what-changed">
-      <div class="rd-section-title"><p>What changed</p><span>BEFORE → NOW · NOT A FORECAST</span></div>
+      <div class="rd-section-title"><h2>What changed</h2><span>BEFORE → NOW · NOT A FORECAST</span></div>
       <p class="rd-change-window">Earlier window {{ cs.before_period }} · Later window {{ cs.after_period }} · {{ cs.window_days }} days</p>
       {% if cs.changes %}
       <div class="rd-change-cards">
@@ -57,7 +60,7 @@
           </dl>
           <p class="rd-change-basis">{{ row.evidence_basis }}</p>
           {% if row.coverage_notes %}<p class="rd-change-note">{{ row.coverage_notes }}</p>{% endif %}
-          {% if row.supporting_ids %}<span class="rd-citations">{% for source_id in row.supporting_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span>{% endif %}
+          {% if row.supporting_ids %}<span class="rd-citations">{{ citations(row.supporting_ids) }}</span>{% endif %}
         </article>
         {% endfor %}
       </div>
@@ -80,7 +83,7 @@
               <div><dt>Would refute</dt><dd>{{ row.would_refute }}</dd></div>
               <div><dt>Watch</dt><dd>{{ row.watch }}</dd></div>
             </dl>
-            <span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span>
+            <span class="rd-citations">{{ citations(row.source_ids) }}</span>
           </li>
           {% endfor %}
         </ol>
@@ -88,7 +91,7 @@
         {% if cs.competitor_next %}
         <ul class="rd-next-moves">
           {% for row in cs.competitor_next %}
-          <li><span>{{ row.kind }}</span><p>{{ row.text }}</p><span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>
+          <li><span>{{ row.kind }}</span><p>{{ row.text }}</p><span class="rd-citations">{{ citations(row.source_ids) }}</span></li>
           {% endfor %}
         </ul>
         {% endif %}
@@ -97,7 +100,7 @@
       {% if cs.questions %}
       <div class="rd-change-block">
         <h3>AI-generated strategic questions</h3>
-        <p class="rd-positioning-note">These are not saved as canonical Strategic Questions unless you explicitly save them.</p>
+        <p class="rd-positioning-note">These questions are suggestions. They are not saved until you choose to save them.</p>
         <ul class="rd-generated-questions">{% for row in cs.questions %}<li><span>{{ row.kind }}</span>{{ row.text }}</li>{% endfor %}</ul>
       </div>
       {% endif %}
@@ -110,7 +113,7 @@
             <time>{{ row.date }}</time>
             <div>
               <strong>{% if row.href %}<a href="{{ row.href }}">{{ row.title }}</a>{% else %}{{ row.title }}{% endif %}</strong>
-              <small>{{ row.kind|replace('_', ' ') }}{% if row.geography %} · {{ row.geography }}{% endif %}{% if row.relationship %} · {{ row.relationship }}{% endif %} · {{ row.source }} · {{ row.trust_state }}{% if row.coverage_artifact %} · coverage artifact{% endif %}</small>
+              <small>{{ row.kind|replace('_', ' ') }}{% if row.geography %} · {{ row.geography }}{% endif %}{% if row.relationship %} · {{ row.relationship }}{% endif %}{% if row.source and row.source != row.id %} · {{ row.source }}{% endif %} · {{ row.trust_state }}{% if row.coverage_artifact %} · coverage artifact{% endif %}</small>
             </div>
           </li>
           {% endfor %}
@@ -215,15 +218,15 @@
       </div>
       {% endif %}
       {% endif %}
-      <p class="rd-method-note">{{ cs.method_note }}</p>
+      <details class="rd-method-note"><summary>How changes are compared</summary><p>{{ cs.method_note }}</p></details>
     </section>
     {% endif %}
 
     <section class="rd-section">
-      <div class="rd-section-title"><p>Why it matters</p><span>{% if answer.ai_synthesis %}AI SYNTHESIS · NOT YET REVIEWED{% else %}REVIEWED ASSESSMENTS{% endif %}</span></div>
+      <div class="rd-section-title"><h2>Why it matters</h2><span>{% if answer.ai_synthesis %}AI SYNTHESIS · NOT YET REVIEWED{% else %}REVIEWED ASSESSMENTS{% endif %}</span></div>
       {% if answer.implications %}
       <ul class="rd-implications">
-        {% for row in answer.implications %}<li>{{ row.text }} <span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>{% endfor %}
+        {% for row in answer.implications %}<li>{{ row.text }} <span class="rd-citations">{{ citations(row.source_ids) }}</span></li>{% endfor %}
       </ul>
       {% endif %}
       {% if answer.assessments %}
@@ -237,8 +240,7 @@
 
     {% if decision_support %}
     <section class="rd-section rd-decision-support">
-      <div class="rd-section-title">
-        <p>{% if decision_support.mode == 'comparison' %}Strategic comparison{% else %}Company deep-dive{% endif %}</p>
+      <div class="rd-section-title"><h2>{% if decision_support.mode == 'comparison' %}Strategic comparison{% else %}Company deep-dive{% endif %}</h2>
         <span>SOURCED DECISION SUPPORT</span>
       </div>
       <div class="rd-executive-takeaway">
@@ -282,7 +284,7 @@
         <h3>Key differences</h3>
         <ol class="rd-difference-list">
           {% for row in decision_support.key_differences %}
-          <li><p>{{ row.text }}</p><span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>
+          <li><p>{{ row.text }}</p><span class="rd-citations">{{ citations(row.source_ids) }}</span></li>
           {% endfor %}
         </ol>
       </div>
@@ -293,7 +295,7 @@
         <p class="rd-positioning-note">Temporal dimension only — later window versus earlier window, not a score.</p>
         <ol class="rd-difference-list">
           {% for row in decision_support.temporal_differences %}
-          <li><p>{{ row.text }}</p><span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>
+          <li><p>{{ row.text }}</p><span class="rd-citations">{{ citations(row.source_ids) }}</span></li>
           {% endfor %}
         </ol>
       </div>
@@ -335,19 +337,19 @@
       {% if decision_support.interpretation %}
       <div class="rd-comparison-subsection">
         <h3>What this may mean <span>AI/SYSTEM SYNTHESIS · NOT YET REVIEWED</span></h3>
-        <ul class="rd-interpretation-list">{% for row in decision_support.interpretation %}<li>{{ row.text }} <span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>{% endfor %}</ul>
+        <ul class="rd-interpretation-list">{% for row in decision_support.interpretation %}<li>{{ row.text }} <span class="rd-citations">{{ citations(row.source_ids) }}</span></li>{% endfor %}</ul>
       </div>
       {% endif %}
       <div class="rd-comparison-subsection rd-watch-next">
         <h3>What should a strategy team watch next?</h3>
-        {% if decision_support.watch_next %}<ol>{% for row in decision_support.watch_next %}<li>{{ row.text }} <span class="rd-citations">{% for source_id in row.source_ids %}<a href="#rd-source-{{ source_id }}">{{ source_id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></li>{% endfor %}</ol>
+        {% if decision_support.watch_next %}<ol>{% for row in decision_support.watch_next %}<li>{{ row.text }} <span class="rd-citations">{{ citations(row.source_ids) }}</span></li>{% endfor %}</ol>
         {% else %}<p class="rd-empty">This packet does not support a concrete sourced monitoring priority yet.</p>{% endif %}
       </div>
       <p class="rd-method-note">Only dimensions with captured data are shown. Absence of a captured record is not evidence of absence. Counts describe visible source coverage, never company performance, market share, or a winner.</p>
     </section>
     {% elif comparison and comparison.companies %}
     <section class="rd-section">
-      <div class="rd-section-title"><p>Competitive comparison</p><span>COVERAGE, NOT PERFORMANCE</span></div>
+      <div class="rd-section-title"><h2>Competitive comparison</h2><span>COVERAGE, NOT PERFORMANCE</span></div>
       <div class="rd-compare-wrap">
         <table class="rd-compare">
           <thead><tr><th>Dimension</th>{% for company in comparison.companies %}<th><a href="{{ company.href }}">{{ company.name }}</a></th>{% endfor %}</tr></thead>
@@ -366,7 +368,7 @@
 
     <section class="rd-section rd-two-column">
       <div>
-        <div class="rd-section-title"><p>Competitive context</p><span>STRUCTURED INTELLIGENCE</span></div>
+        <div class="rd-section-title"><h2>Competitive context</h2><span>STRUCTURED INTELLIGENCE</span></div>
         {% if answer.competitive_context.relationships %}
         <ul class="rd-relations">
           {% for row in answer.competitive_context.relationships[:12] %}<li><strong>{{ row.subject_name }}</strong> {{ row.predicate|replace('_', ' ') }} <strong>{{ row.object_name }}</strong></li>{% endfor %}
@@ -374,7 +376,7 @@
         {% else %}<p class="rd-empty">No scoped company relationship was captured.</p>{% endif %}
       </div>
       <div>
-        <div class="rd-section-title"><p>IP / genetics</p><span>STRUCTURED INTELLIGENCE</span></div>
+        <div class="rd-section-title"><h2>IP / genetics</h2><span>STRUCTURED INTELLIGENCE</span></div>
         {% if answer.rights_ip %}
         <ul class="rd-compact-sources">{% for row in answer.rights_ip[:8] %}<li><span>{{ row.structured_kind }}</span><a href="{{ row.href }}">{{ row.title }}</a><small>{{ row.date or 'date unknown' }}</small></li>{% endfor %}</ul>
         {% else %}<p class="rd-empty">No matching PBR/PVP or patent record in this packet.</p>{% endif %}
@@ -383,38 +385,38 @@
 
     {% if answer.market_context and not decision_support %}
     <section class="rd-section">
-      <div class="rd-section-title"><p>Market context</p><span>STRUCTURED INTELLIGENCE</span></div>
+      <div class="rd-section-title"><h2>Market context</h2><span>STRUCTURED INTELLIGENCE</span></div>
       <ul class="rd-compact-sources">{% for row in answer.market_context[:8] %}<li><span>{{ row.structured_kind or row.trust_class }}</span><a href="{{ row.href or '#' }}">{{ row.title }}</a><small>{{ row.date or 'date unknown' }}</small></li>{% endfor %}</ul>
     </section>
     {% endif %}
 
     {% if answer.radar_developments %}
     <section class="rd-section">
-      <div class="rd-section-title"><p>Emerging developments</p><span>LIVE / UNREVIEWED</span></div>
+      <div class="rd-section-title"><h2>Emerging developments</h2><span>LIVE / UNREVIEWED</span></div>
       <ul class="rd-compact-sources">{% for row in answer.radar_developments[:6] %}<li><span>{{ row.event_type|replace('_', ' ')|title }}</span><a href="{{ row.href }}">{{ row.title }}</a><small>{{ row.date or 'date unknown' }}</small></li>{% endfor %}</ul>
     </section>
     {% endif %}
 
     <section class="rd-section rd-two-column">
       <div>
-        <div class="rd-section-title"><p>Weak signals / things to watch</p><span>RELATED / EMERGING</span></div>
+        <div class="rd-section-title"><h2>Weak signals / things to watch</h2><span>RELATED / EMERGING</span></div>
         {% if answer.weak_signals %}
-        <ul class="rd-watch-list">{% for row in answer.weak_signals[:8] %}<li>{% if row.url %}<a href="{{ row.url }}" target="_blank" rel="noopener">{{ row.title }}</a>{% else %}<a href="{{ row.href }}">{{ row.title }}</a>{% endif %}</li>{% endfor %}</ul>
-        {% else %}<p class="rd-empty">No bounded semantic expansion result or emerging Signal was found.</p>{% endif %}
+        <ul class="rd-watch-list">{% for row in answer.weak_signals[:8] %}<li>{{ source_link(row) }}</li>{% endfor %}</ul>
+        {% else %}<p class="rd-empty">No related source or emerging pattern was found in this scope.</p>{% endif %}
       </div>
       <div>
-        <div class="rd-section-title"><p>What we don't know</p><span>COVERAGE GAPS</span></div>
-        {% if answer.gaps %}<ul class="rd-gap-list">{% for gap in answer.gaps %}<li>{{ gap }}</li>{% endfor %}</ul>{% else %}<p class="rd-empty">No structural packet gap was detected; this does not imply complete recall.</p>{% endif %}
+        <div class="rd-section-title"><h2>What we don't know</h2><span>COVERAGE GAPS</span></div>
+        {% if answer.gaps %}<ul class="rd-gap-list">{% for gap in answer.gaps %}<li>{{ gap }}</li>{% endfor %}</ul>{% else %}<p class="rd-empty">No missing layer was identified in this selection. This does not mean the research is exhaustive.</p>{% endif %}
       </div>
     </section>
 
     <section class="rd-section" id="rd-sources">
-      <div class="rd-section-title"><p>Sources</p><span>{{ answer.sources|length }} TRACEABLE RECORDS</span></div>
+      <div class="rd-section-title"><h2>Sources</h2><span>{{ answer.sources|length }} TRACEABLE RECORDS</span></div>
       <ol class="rd-sources">
         {% for row in answer.sources %}
         <li id="rd-source-{{ row.id }}">
-          <span>{{ row.trust_class }}</span>
-          {% if row.url %}<a href="{{ row.url }}" target="_blank" rel="noopener">{{ row.title }}</a>{% else %}<a href="{{ row.href }}">{{ row.title }}</a>{% endif %}
+          <span>Source {{ loop.index }} · {{ row.trust_class }}</span>
+          {{ source_link(row) }}
           <small>{{ row.source_name }}{% if row.date %} · {{ row.date }}{% endif %}</small>
         </li>
         {% endfor %}
@@ -423,8 +425,7 @@
   </article>
 
   <aside class="rd-rail">
-    <div class="rd-rail-card">
-      <p>Research packet</p>
+    <details class="rd-rail-card"><summary>Sources and scope counts</summary>
       <dl>
         <div><dt>Trusted / approved</dt><dd>{{ packet.evidence|length }}</dd></div>
         <div><dt>Live results</dt><dd>{{ answer.current_developments|length + answer.weak_signals|selectattr('url')|list|length }}</dd></div>
@@ -435,8 +436,8 @@
       </dl>
       <p class="rd-layer-label">Layers requested</p>
       <p class="rd-layer-list">{{ packet.requested_layers|join(' · ') }}</p>
-    </div>
-    <form class="rd-create-brief" method="post" action="/reports/new">
+    </details>
+    {% if authoring_mode %}<form class="rd-create-brief" method="post" action="/reports/new">
       <input type="hidden" name="step" value="preview">
       <input type="hidden" name="report_type" value="{{ 'competitor_comparison' if scope.comparison else 'competitive_landscape' }}">
       <input type="hidden" name="berry" value="{{ scope.berry_id or '' }}">
@@ -447,12 +448,12 @@
       <input type="hidden" name="focus_notes" value="{{ brief_focus_notes or scope.question }}">
       <button type="submit">Create leadership brief</button>
       <span>Review scope and sources before anything is saved.</span>
-    </form>
+    </form>{% endif %}
     {% if phase == 'complete' %}
-    <div class="rd-latency">
+    <details><summary>Timing details</summary><div class="rd-latency">
       <span>Time to first content</span><strong>{{ first_content_ms }} ms</strong>
       <span>Complete answer</span><strong>{{ complete_ms }} ms</strong>
-    </div>
+    </div></details>
     {% endif %}
   </aside>
 </div>

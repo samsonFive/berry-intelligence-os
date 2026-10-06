@@ -1,0 +1,241 @@
+{
+  "captured_at": "2026-10-03T03:05:37+00:00",
+  "payload": {
+    "version": "2.0",
+    "class": "dataset",
+    "label": "Crop production in EU standard humidity",
+    "source": "ESTAT",
+    "updated": "2026-09-28T23:00:00+0200",
+    "value": {
+      "0": 11.37,
+      "1": 10.52,
+      "2": 10.14,
+      "4": 7.31,
+      "5": 7.0,
+      "6": 7.04,
+      "8": 1.42,
+      "9": 1.43,
+      "10": 1.34,
+      "12": 0.59,
+      "13": 0.32,
+      "14": 0.39,
+      "16": 130.65,
+      "17": 120.35,
+      "18": 128.41,
+      "20": 329.28,
+      "21": 323.54,
+      "22": 332.05,
+      "24": 79.07,
+      "25": 86.4,
+      "26": 91.14,
+      "28": 19.29,
+      "29": 8.8,
+      "30": 10.83
+    },
+    "status": {
+      "12": "p",
+      "13": "p",
+      "28": "p",
+      "29": "p"
+    },
+    "id": [
+      "freq",
+      "crops",
+      "strucpro",
+      "geo",
+      "time"
+    ],
+    "size": [
+      1,
+      1,
+      3,
+      4,
+      4
+    ],
+    "dimension": {
+      "freq": {
+        "label": "Time frequency",
+        "category": {
+          "index": {
+            "A": 0
+          },
+          "label": {
+            "A": "Annual"
+          }
+        }
+      },
+      "crops": {
+        "label": "Crops",
+        "category": {
+          "index": {
+            "S0000": 0
+          },
+          "label": {
+            "S0000": "Strawberries"
+          }
+        }
+      },
+      "strucpro": {
+        "label": "Structure of production",
+        "category": {
+          "index": {
+            "AR_THS_HA": 0,
+            "HPRD_HUMD_EU_THS_T": 1,
+            "YLD_HUMD_EU_T_HA": 2
+          },
+          "label": {
+            "AR_THS_HA": "Area (sown/harvested/production) - thousand hectares",
+            "HPRD_HUMD_EU_THS_T": "Harvested production in EU standard humidity - thousand tonnes",
+            "YLD_HUMD_EU_T_HA": "Yield in EU standard humidity - tonnes per hectare"
+          }
+        }
+      },
+      "geo": {
+        "label": "Geopolitical entity (reporting)",
+        "category": {
+          "index": {
+            "DE": 0,
+            "ES": 1,
+            "NL": 2,
+            "PT": 3
+          },
+          "label": {
+            "DE": "Germany",
+            "ES": "Spain",
+            "NL": "Netherlands",
+            "PT": "Portugal"
+          }
+        }
+      },
+      "time": {
+        "label": "Time",
+        "category": {
+          "index": {
+            "2023": 0,
+            "2024": 1,
+            "2025": 2,
+            "2026": 3
+          },
+          "label": {
+            "2023": "2023",
+            "2024": "2024",
+            "2025": "2025",
+            "2026": "2026"
+          }
+        }
+      }
+    },
+    "extension": {
+      "lang": "EN",
+      "id": "APRO_CPSH1",
+      "agencyId": "ESTAT",
+      "version": "1.0",
+      "datastructure": {
+        "id": "APRO_CPSH1",
+        "agencyId": "ESTAT",
+        "version": "52.0"
+      },
+      "annotation": [
+        {
+          "type": "CREATED",
+          "date": "2018-02-21T16:55:56+0100"
+        },
+        {
+          "type": "DISSEMINATION_DOI_XML",
+          "title": "<adms:identifier xmlns:adms=\"http://www.w3.org/ns/adms#\" xmlns:skos=\"http://www.w3.org/2004/02/skos/core.html\" xmlns:dct=\"http://purl.org/dc/terms/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"><adms:Identifier rdf:about=\"https://doi.org/10.2908/APRO_CPSH1\"><skos:notation rdf:datatype=\"http://purl.org/spar/datacite/doi\">10.2908/APRO_CPSH1</skos:notation><dct:creator rdf:resource=\"http://publications.europa.eu/resource/authority/corporate-body/ESTAT\"/><dct:issued rdf:datatype=\"http://www.w3.org/2001/XMLSchema#date\">2023-01-23</dct:issued></adms:Identifier></adms:identifier>"
+        },
+        {
+          "type": "DISSEMINATION_EXPLANATORY_LINK",
+          "title": "text-category",
+          "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_APRO_CROPS_20260331.pdf",
+          "text": "Information note"
+        },
+        {
+          "type": "DISSEMINATION_EXPLANATORY_LINK",
+          "title": "text-category",
+          "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_APRO_CROPS_20260331.pdf"
+        },
+        {
+          "type": "DISSEMINATION_EXPLANATORY_LINK",
+          "title": "text-category",
+          "href": "https://ec.europa.eu/eurostat/databrowser-backend/api/public/explanatory-notes/get/Info_note_APRO_CROPS_20260331.pdf"
+        },
+        {
+          "type": "DISSEMINATION_OBJECT_TYPE",
+          "title": "DATASET"
+        },
+        {
+          "type": "DISSEMINATION_TIMESTAMP_DATA",
+          "date": "2026-09-28T23:00:00+0200"
+        },
+        {
+          "type": "DISSEMINATION_TIMESTAMP_GLOBAL",
+          "date": "2026-09-28T23:00:00+0200"
+        },
+        {
+          "type": "DISSEMINATION_TIMESTAMP_PLANNED",
+          "date": "2026-09-28T23:00:00+0200"
+        },
+        {
+          "type": "ESMS_HTML",
+          "title": "Explanatory texts (metadata)",
+          "href": "https://ec.europa.eu/eurostat/cache/metadata/en/apro_cp_esms.htm"
+        },
+        {
+          "type": "ESMS_SDMX",
+          "title": "Explanatory texts (metadata)",
+          "href": "https://ec.europa.eu/eurostat/api/dissemination/files?file=metadata/apro_cp_esms.sdmx.zip"
+        },
+        {
+          "type": "FOOTNOTE",
+          "title": "Footnote (metadata)",
+          "href": "https://ec.europa.eu/eurostat/cache/metadata/Annexes/apro_cp_esms_an_footnotes.xlsx"
+        },
+        {
+          "type": "OBS_COUNT",
+          "title": "387079"
+        },
+        {
+          "type": "OBS_PERIOD_OVERALL_LATEST",
+          "title": "2026"
+        },
+        {
+          "type": "OBS_PERIOD_OVERALL_OLDEST",
+          "title": "2000"
+        },
+        {
+          "type": "SOURCE_INSTITUTIONS",
+          "text": "Eurostat"
+        },
+        {
+          "type": "UPDATE_DATA",
+          "date": "2026-09-28T23:00:00+0200"
+        },
+        {
+          "type": "UPDATE_FOOTNOTES",
+          "date": "2026-09-24T15:45:03Z"
+        },
+        {
+          "type": "UPDATE_STRUCTURE",
+          "date": "2026-05-19T23:00:00+0200"
+        }
+      ],
+      "status": {
+        "label": {
+          "p": "provisional"
+        }
+      },
+      "positions-with-no-data": {
+        "freq": [],
+        "crops": [],
+        "strucpro": [
+          2
+        ],
+        "geo": [],
+        "time": [
+          3
+        ]
+      }
+    }
+  }
+}

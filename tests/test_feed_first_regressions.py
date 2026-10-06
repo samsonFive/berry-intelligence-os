@@ -1,3 +1,4 @@
+# The previous News workspace remains at /today?view=legacy; core defaults are covered in test_news_workspace.py.
 """Feed-first golden-path regressions across the Berry OS shell."""
 
 from pathlib import Path
@@ -8,16 +9,17 @@ from app.main import app
 
 
 ROUTES = (
-    ("/today", "data-feed-first-today"),
+    ("/today?view=legacy", "data-feed-first-today"),
     ("/following", "data-feed-first-following"),
     ("/people", "data-feed-first-people"),
-    ("/saved", "data-feed-first-saved"),
+    ("/saved", "data-personal-digest"),
+    ("/digest", "data-personal-digest"),
     ("/statements", "data-feed-first-statements"),
     ("/week?view=feed", "data-feed-first-week"),
     ("/landscapes?view=feed", "data-feed-first-landscapes"),
     ("/research-ops", "data-feed-first-ops"),
     ("/settings", "data-feed-first-settings"),
-    ("/entities/company/company-fall-creek-farm-and-nursery", "data-feed-first-company"),
+    ("/entities/company/company-fall-creek-farm-and-nursery?view=dossier", "data-feed-first-company"),
 )
 
 
@@ -27,12 +29,21 @@ def test_golden_path_routes_render_berry_os_shell():
         page = client.get(path)
         assert page.status_code == 200, path
         assert marker in page.text, path
-        assert "Berry Intelligence OS" in page.text
-        assert "data-feed-first" in page.text
+        if path in {"/saved", "/digest"}:
+            assert "Personal Digest · Berry Intelligence" in page.text
+            assert "/static/personal_digest.css" in page.text
+        elif path == "/statements":
+            assert "Statements — Berry Intelligence" in page.text
+            assert "/static/personal_digest.css" in page.text
+            assert "/static/intelligence_workspace.css" in page.text
+            assert "statement-workspace" in page.text
+        else:
+            assert "Berry Intelligence OS" in page.text
+            assert "data-feed-first" in page.text
 
 
 def test_today_filter_query_restores_selected_controls():
-    page = TestClient(app).get("/today?tier=tier1&crop=blueberry&state=unread&window=30d")
+    page = TestClient(app).get("/today?view=legacy&tier=tier1&crop=blueberry&state=unread&window=30d")
     assert page.status_code == 200
     assert "data-feed-first-today" in page.text
     assert 'value="tier1" selected' in page.text
@@ -47,13 +58,20 @@ def test_today_filter_query_restores_selected_controls():
     assert "data-clear-filter" in page.text
 
 
-def test_settings_stays_in_berry_os_and_keeps_legacy_guide():
+def test_settings_describes_current_news_and_digest_controls():
     client = TestClient(app)
     settings = client.get("/settings")
     assert settings.status_code == 200
     assert "data-feed-first-settings" in settings.text
-    assert "Research Ops" in settings.text
-    assert "Secret values are never shown" in settings.text
+    assert 'class="glass-header"' in settings.text
+    assert "newest publication first" in settings.text
+    assert "Past 7 days" in settings.text
+    assert "Year to date" in settings.text
+    assert 'href="/digest"' in settings.text
+    assert 'href="/operations"' in settings.text
+    assert 'href="/guide"' in settings.text
+    assert "Sort: rank" not in settings.text
+    assert "Only thumbs-up extracts" not in settings.text
     guide = client.get("/guide")
     assert guide.status_code == 200
     assert "data-feed-first-settings" not in guide.text
@@ -75,12 +93,15 @@ def test_research_ops_health_has_no_secret_values():
     assert "catchall_api_key" not in lowered
 
 
-def test_default_company_stays_berry_os_and_legacy_is_opt_in():
+def test_default_company_uses_glasshouse_and_dossiers_remain_available():
     client = TestClient(app)
     default = client.get("/entities/company/company-fall-creek-farm-and-nursery")
-    assert "data-feed-first-company" in default.text
+    assert "data-company-profile" in default.text
+    assert "/static/company_workspace.css" in default.text
     assert "Create 90-day report" not in default.text
-    assert "Learner context" in default.text
+    dossier = client.get("/entities/company/company-fall-creek-farm-and-nursery?view=dossier")
+    assert "Learner context" in dossier.text
+    assert "data-feed-first-company" in dossier.text
     assert 'href="/learn"' in default.text
     legacy = client.get("/entities/company/company-fall-creek-farm-and-nursery?view=legacy")
     assert "data-feed-first-company" not in legacy.text
@@ -88,15 +109,19 @@ def test_default_company_stays_berry_os_and_legacy_is_opt_in():
 
 def test_feed_nav_restores_full_landscape_and_learner_entry_points():
     client = TestClient(app)
-    today = client.get("/today")
+    today = client.get("/today?view=legacy")
     assert 'href="/landscapes"' in today.text
     assert 'href="/learn"' in today.text
     assert 'href="/landscapes?view=feed"' not in today.text
 
     full = client.get("/landscapes")
     assert full.status_code == 200
-    assert "Executive readout" in full.text
-    assert "Actors to watch" in full.text
+    assert "Include sections" in full.text
+    assert "Latest sources" in full.text
+    legacy = client.get("/landscapes?view=legacy")
+    assert legacy.status_code == 200
+    assert "Executive readout" in legacy.text
+    assert "Actors to watch" in legacy.text
     assert 'href="/landscapes?view=feed"' in full.text
 
     briefs = client.get("/landscapes?view=feed")
@@ -107,29 +132,37 @@ def test_feed_nav_restores_full_landscape_and_learner_entry_points():
 def test_restored_surfaces_use_berry_os_shell_and_dense_collections():
     client = TestClient(app)
     learn = client.get("/learn")
-    assert "data-berry-os-learn" in learn.text
-    assert "bos-shell" in learn.text
-    assert "balanced-card-grid" in learn.text
+    assert "data-learn-workspace" in learn.text
+    assert "data-personal-digest" in learn.text
+    assert "learn-card-grid" in learn.text
 
     concept = client.get("/learn/firmness")
-    assert "data-berry-os-learn" in concept.text
-    assert "v2-learn-concept" in concept.text
+    assert "data-learn-workspace" in concept.text
+    assert "learn-lesson-grid" in concept.text
     assert "When you see this in intelligence" in concept.text
 
     landscape = client.get("/landscapes")
-    assert "data-berry-os-landscape" in landscape.text
-    assert "balanced-card-grid" in landscape.text
+    assert "data-landscape-workspace" in landscape.text
+    assert "data-personal-digest" in landscape.text
+    assert "landscape-table-wrap" in landscape.text
+    assert "/static/landscape_workspace.css" in landscape.text
     blueberry = client.get("/landscapes/berries/blueberry")
     assert "data-berry-os-landscape" in blueberry.text
     assert "landscape-quick-nav" in blueberry.text
 
     for template in (
-        "feed_first_statements.html",
         "feed_first_week.html",
         "feed_first_landscapes.html",
     ):
         source = Path("app/templates", template).read_text(encoding="utf-8")
         assert "bos-dense-grid" in source
+
+    statements = Path("app/templates/feed_first_statements.html").read_text(encoding="utf-8")
+    assert "extends 'intelligence_workspace_base.html'" in statements
+    assert "data-feed-first-statements" in statements
+    assert "statement-grid" in statements
+    assert "bos-shell" not in statements
+    assert ".statement-grid" in client.get("/static/intelligence_workspace.css").text
 
     css = client.get("/static/berry_os.css").text
     assert ".bos-dense-grid" in css

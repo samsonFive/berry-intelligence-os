@@ -3,6 +3,7 @@
   <div class="offcanvas-header">
     <h2 class="offcanvas-title" id="v2ReaderTitle">Reader</h2>
     <div class="v2-reader-nav">
+      {% if personal_reader_shell %}<button type="button" data-personal-wide aria-pressed="false" aria-label="Wider reading view">Wider</button>{% endif %}
       <button type="button" class="v2-btn v2-btn-quiet" id="v2ReaderPrev" aria-label="Previous item">Previous</button>
       <button type="button" class="v2-btn v2-btn-quiet" id="v2ReaderNext" aria-label="Next item">Next</button>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close reader"></button>

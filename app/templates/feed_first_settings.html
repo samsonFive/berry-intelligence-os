@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Settings — Berry Intelligence OS{% endblock %}
 {% block head_extra %}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,550;650&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/static/berry_os.css">
 {% endblock %}
 {% block content %}
@@ -12,27 +9,28 @@
     {% include "_feed_first_rail.html" %}
     <main class="bos-canvas">
       <p class="bos-kicker">Settings</p>
-      <h1 class="bos-title">Reader preferences and honest coverage</h1>
-      <p class="bos-lede">This page does not collect licensed social, Firecrawl, or Jina. Secret values are never shown.</p>
+      <h1 class="bos-title">Reader settings</h1>
+      <p class="bos-lede">Find the controls for your news, saved reading and workspace coverage.</p>
 
       <section>
-        <h2 class="bos-title" style="font-size:1.4rem">Today defaults</h2>
+        <h2 class="bos-title" style="font-size:1.4rem">News and saved reading</h2>
         <ul>
-          <li>Window: same UTC calendar day. Use Window=7d for the last seven UTC days.</li>
-          <li>Sort: rank unless you choose newest first.</li>
-          <li>Save is a board. Only thumbs-up extracts statements.</li>
+          <li><a href="/today">News</a> shows the newest publication first. Dates are available for Today, Past 7 days, Past 30 days, Year to date and custom ranges.</li>
+          <li>Filter News by berries, countries, companies, favorites, tiers and lists. Trusted and Unreviewed keep review status visible.</li>
+          <li>Saved stories, your reading queue and subscribed company lists come together in <a href="/digest">Personal Digest</a>.</li>
+          <li>Useful and Not relevant record your feedback. Source publication and statement approval remain separate human decisions.</li>
         </ul>
       </section>
 
       <section>
         <h2 class="bos-title" style="font-size:1.4rem">Keyboard</h2>
-        <p class="bos-note">j / → next · k / ← previous · Esc close reader · u thumbs-up · d thumbs-down.</p>
+        <p class="bos-note">Escape closes the reader. In legacy card queues, j / k move between items and Enter opens the selected story. Shortcuts stay inactive while you type or use a form control.</p>
       </section>
 
       <section>
         <h2 class="bos-title" style="font-size:1.4rem">Coverage</h2>
         <p>{{ counts.tracked_industry_entities }} industry entities tracked · {{ counts.companies }} companies · {{ counts.other_industry_entities }} other industry entities · {{ counts.candidates }} candidates · {{ counts.registries }} registries excluded.</p>
-        <p class="bos-note">Lane health, watch coverage, and error classes live on <a href="/research-ops">Research Ops</a>. The legacy how-it-works page remains at <a href="/guide">/guide</a>.</p>
+        <p class="bos-note">Collection health and review queues are in <a href="/operations">Operations</a>. <a href="/guide">Help</a> explains site sections, the analyst workflow and reporting.</p>
       </section>
     </main>
   </div>

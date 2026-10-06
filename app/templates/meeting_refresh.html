@@ -1,0 +1,6 @@
+{% extends "briefings_base.html" %}
+{% block title %}Refresh meeting feeds · Berry Intelligence{% endblock %}
+{% block briefing_content %}
+<header class="digest-heading"><div><p class="eyebrow">MEETING PREP</p><h1>Refresh the saved feeds?</h1><p>This runs the existing bounded live collection for the feed cache. It can use configured external providers. Opening Meeting Prep reads stored intelligence.</p></div></header>
+<form method="post" action="/war-room/live?{{ request.url.query }}"><button class="green-button">Refresh feeds</button> <a href="/war-room?{{ request.url.query }}">Return without refreshing</a></form>
+{% endblock %}

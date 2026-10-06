@@ -121,6 +121,7 @@ def compose_war_room(
             geography=list(geo_ids) or None,
             timeframe=_timeframe_for(scope.window_days),
             moves=board.moves,
+            today=instant.date(),
         )
         whitespace = compose_whitespace_landscape(
             berry_id=scope.berry_id,

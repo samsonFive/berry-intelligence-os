@@ -1,0 +1,11 @@
+<div class="gx-stat-grid">
+{% for group in statistics.groups %}<article class="gx-stat-card">
+  <h3>{{ group.country }} · {{ group.commodity }}</h3>
+  <p class="gx-stat-period">{{ group.period }}</p>
+  {% if group.date_note %}<p class="gx-stat-basis">{{ group.date_note }}</p>{% endif %}
+  <dl>{% for metric in group.metrics %}<div><dt>{{ metric.label }}</dt><dd>{{ '{:,}'.format(metric.value) }} <small>{{ metric.unit }}</small></dd>{% if metric.classification %}<small>{{ metric.classification }}</small>{% elif metric.source_flag %}<small>{{ metric.status_label }}</small>{% endif %}</div>{% endfor %}</dl>
+  <p class="gx-stat-source"><a href="{{ group.source_url }}" target="_blank" rel="noopener noreferrer">{{ group.source }} · original figures ↗</a></p>
+  <small>{% if group.source_updated_at %}Source updated {{ group.source_updated_at[:10] }}{% else %}Published {{ group.published_date or 'Unknown' }}{% endif %} · checked {{ group.accessed_date }}</small>
+  <details><summary>Definitions & source notes</summary><p>{{ group.status }} · reference context, not a reviewed statement.</p><p class="gx-stat-basis">{{ group.basis }}</p><p>{{ group.locator }}</p>{% if group.source_updated_at %}<p>Original source update time: {{ group.source_updated_at }}</p>{% endif %}{% if group.methodology_url %}<p><a href="{{ group.methodology_url }}" target="_blank" rel="noopener noreferrer">Source methodology ↗</a> · Publication date {{ (group.published_date or 'Unknown')|lower }}</p>{% endif %}{% for metric in group.metrics %}{% if metric.definition %}<p>{{ metric.label }}: {{ metric.definition }}</p>{% elif metric.source_code %}<p>{{ metric.label }}: {{ metric.source_label }} · {{ metric.source_code }} · {{ metric.status_label }}{% if metric.source_flag %} · original flag {{ metric.source_flag }}{% endif %}</p>{% endif %}{% endfor %}</details>
+</article>{% else %}<p>No production figures are selected for this scope.</p>{% endfor %}
+</div>

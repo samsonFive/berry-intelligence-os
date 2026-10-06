@@ -1,0 +1,34 @@
+# Mission 20 — Public navigation and readable Search
+
+Continues from draft #292 exact head `2610648ea13349f0e2013702c6fd014459f38b5d`, all four required checks passed, run `37083812686`: 3,620 passed / 11 skipped / two warnings in 386.97 seconds. This is a bounded public/live presentation and status-label correction, not canonical release approval.
+
+## Purpose and retained workflows
+
+The public Glasshouse header no longer points News at the missing `/today` output, or offers private Digest, Map Explorer, collection/review and report-editing routes as public links. News opens the generated root feed. Companies, Varieties, Learn and Search remain primary; the grouped More menu offers existing Markets, Landscape, intelligence catalogs, Morning Brief, Executive View and Help. It explains that personal and analyst tools remain in the live workspace. No live route, section, bookmark or private workflow was removed; the live header and All existing tools remain.
+
+Search, Help and the published intelligence catalog/detail family now share Glasshouse navigation. Help continues to describe all eleven sections, the analyst workflow, five output types and separate review decisions. Its unavailable Build a brief link is hidden on the public snapshot while the brief-pack explanation remains. Static Help and intelligence content retain their search-index marking. Core company/variety directories are emitted even in a sparse snapshot so the public navigation does not strand visitors on missing files.
+
+Search leads with its title, query controls and result count. Compact bordered result groups/cards have distinct headings, descriptions, status labels and visible keyboard focus. Live scope/sort controls, aliases, dated results, Pulse links and existing Reader handoffs remain. Public result types use understandable categories. For a learning lesson, the original summary is the lead preview; its matched passage is a closed disclosure. The underlying records, search query and sources are unchanged. Metadata uses [Pagefind's documented element capture](https://pagefind.app/docs/metadata/), not generated summaries. Empty search copy no longer explains implementation mechanics to the reader.
+
+## Correct review labels
+
+Actual live browser review exposed a pre-existing bug: every canonical Signal was classified as Confirmed signal in global search, including records explicitly marked proposed. Search now maps all existing schema statuses to their actual presentation label. Only `status=confirmed` gets Confirmed signal. Unknown or absent statuses remain visibly unrecorded, with any unknown literal value retained as a correction hint. Existing search ordering and record eligibility are unchanged; no status, reviewer, source or human decision is written.
+
+A reviewed candidate card now says Reviewed pattern; its existing Confirm does not publish a trusted Signal boundary remains. Confirmed candidates remain private opt-in search documents, with candidate IDs/routes, and never become trusted Signals merely because they were judged. This fixes presentation, not canonical/public eligibility rules or review policy.
+
+## Verification
+
+Final focused tests: **102 passed / one existing reportlab warning in 30.32 seconds**. Tests cover all eleven Signal statuses plus absent/unknown status, immutable records, a confirmed candidate's separate private state/card, existing global Search/read-only behavior, Morning Brief, guide/navigation and full static private-sentinel safety. Generated Glasshouse header links are parsed with the standard library and checked to resolve to files inside the output, including empty core directories. Public Guide retains all eleven sections, four workflow steps and five output explanations without private action links. The public Search module passed JavaScript syntax checking; canonical records validated.
+
+The isolated live Search returned 38 Planasa results, showed four actual proposed Signals as Proposed signal, and retained the query/all-berry scope while changing sort to newest. The shared Reader opened Planasa About us, reported its unavailable article text honestly and closed back to the exact original search URL/query/scope/sort. A selector timeout during loading was caused by the dialog title changing from Reader to Story reader; the loaded dialog and return were then verified. No text recovery, provider, feedback or review action was invoked.
+
+Final public build wrote **1,755 pages**, with no unpublished draft IDs or titles. Actual public IPM search returned nine results, labeled Learning lesson, with the unchanged lesson summary leading the card and Matched passage closed. Opening that disclosure retained the exact indexed passage. Public More opened by Enter on a 390px viewport; bounds were left 12, right 363, top 112 and bottom 736 within the 844px screen. Public/live Search and Guide had 375px page width; Search input/buttons were 44px high. Public Help contained eleven section cards, four workflow steps and five outputs, with no private brief-pack link. The desktop workflow, mobile guide/menu and summary-first result cards were visually inspected. Initial screenshots immediately after viewport changes captured a stale frame; they were replaced after the responsive layout settled. Viewport overrides are reset. Proof: `search-live-status-hierarchy.png`, `search-live-mobile.png`, `search-public-hierarchy.png`, `public-navigation-mobile.png`, `public-guide-mobile.png`, `public-guide-workflow.png`. Exact pushed-head checks remain required.
+
+## Still open
+
+Other static templates still use older base/stakeholder shells and need their own consistent navigation/layout pass. Live specialist workflows, source/body/media acquisition, fresh packet readiness, market metrics, region suggestions, protected enrichment, account/multi-worker persistence, larger curriculum visuals and canonical integration remain in the requirements ledger. Canonical/public status eligibility must be audited separately from truthful display labels; this change does not infer review from a record's location. Preserve the canonical guide and final release/rollback review. No merge or deployment without approval.
+
+
+## Final exact-head CI
+
+Draft #293 exact head `f6ff1b8e84e3cc297c0f4beb315fe648934f77d2` passed Change scope, Repository integrity, Static public safety and Python tests, run `37086165073`: 3,636 passed / 11 skipped / two warnings in 304.61 seconds. This verifies the slice, not canonical release integration.

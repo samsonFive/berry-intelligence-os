@@ -1,0 +1,21 @@
+{% extends "glasshouse_base.html" %}
+{% block title %}Photo imports · Varieties{% endblock %}
+{% block content %}
+<header class="digest-heading"><div><p class="eyebrow">Varieties · photo imports</p><h1>Photo imports</h1><p>{{ total }} candidate names across {{ associations }} company associations. {{ installed }} added for review.</p></div><a class="outline-button" href="/entities/variety">Variety directory</a></header>
+<section class="packet-panel">
+  <h2>Company matches from your photos</h2>
+  <p>These are provisional transcriptions. A company appearing beside a variety does not establish breeder, owner or licensee status. Existing name matches still need identity review.</p>
+  {% if authoring_mode and installed < total %}<form method="post" action="/variety-seeds/import"><button class="green-button">Add candidates for review</button></form>{% endif %}
+  <form class="packet-form" method="get" action="/variety-seeds">
+    <label>Company<select name="company"><option value="">All companies</option>{% for id, name in company_choices %}<option value="{{ id }}"{% if filters.company == id %} selected{% endif %}>{{ name }}</option>{% endfor %}</select></label>
+    <label>Berry<select name="berry"><option value="">All berries</option>{% for id, name in berry_choices %}<option value="{{ id }}"{% if filters.berry == id %} selected{% endif %}>{{ name }}</option>{% endfor %}</select></label>
+    <label>Search<input type="search" name="q" value="{{ filters.q }}" placeholder="Variety or company"></label><button class="outline-button">Apply filters</button><a href="/variety-seeds">Reset</a>
+  </form>
+  <nav class="seed-alphabet" aria-label="Variety name initial"><a href="/variety-seeds?company={{ filters.company|urlencode }}&berry={{ filters.berry|urlencode }}&q={{ filters.q|urlencode }}"{% if not filters.letter %} aria-current="page"{% endif %}>All</a>{% for initial in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}<a href="/variety-seeds?letter={{ initial }}&company={{ filters.company|urlencode }}&berry={{ filters.berry|urlencode }}&q={{ filters.q|urlencode }}"{% if filters.letter == initial %} aria-current="page"{% endif %}>{{ initial }}</a>{% endfor %}</nav>
+  <p class="packet-note">{{ rows|length }} shown · Company association and spelling pending confirmation. <a href="/varieties/candidates">Open identity review</a></p>
+  <div class="packet-table"><table><thead><tr><th>Variety</th><th>Berry</th><th>Company named in registry</th><th>Existing match / review</th><th>Photo</th></tr></thead><tbody>
+  {% for row in rows %}<tr><td><strong>{{ row.candidate_name }}</strong></td><td>{{ row.berry_id.removeprefix('berry-')|title }}</td><td>{% for item in row.knowledge.company_associations %}<div><a href="/entities/{{ item.entity_type }}/{{ item.entity_id }}">{{ item.name }}</a></div>{% endfor %}</td><td>{% if row.candidate_canonical_match %}<a href="/entities/variety/{{ row.candidate_canonical_match }}">Existing variety</a> · {% endif %}{{ row.identity_label if row.human_gated else ("Possible existing match" if row.candidate_canonical_match else "Needs identity review") }}{% if row.persisted and authoring_mode %}<div><a href="/varieties/candidates#{{ row.id }}">Review identity</a></div>{% endif %}</td><td>{% for item in row.knowledge.photo_mentions %}{{ item.image_number }}{% if not loop.last %}, {% endif %}{% endfor %}</td></tr>{% else %}<tr><td colspan="5">No seeds match these filters.</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+<section class="packet-panel"><h2>Cells still needing clarification</h2><p>Unclear names, codes and row placements are held here rather than guessed into the variety list.</p><details><summary>{{ exceptions|length }} cells to review</summary><div class="packet-table"><table><thead><tr><th>Company</th><th>Berry</th><th>Visible text</th><th>Needs clarification</th><th>Photo</th></tr></thead><tbody>{% for row in exceptions %}<tr><td>{{ row.company_label }}</td><td>{{ row.berry }}</td><td>{{ row.visible_text }}</td><td>{{ row.reason }}</td><td>{{ row.image_number }}</td></tr>{% endfor %}</tbody></table></div></details></section>
+{% endblock %}

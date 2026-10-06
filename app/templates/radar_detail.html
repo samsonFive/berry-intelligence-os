@@ -1,16 +1,16 @@
-{% extends "base_stakeholder.html" %}
+{% extends "intelligence_workspace_base.html" %}
 {% block title %}{{ development.title }} — Emerging developments{% endblock %}
-{% block content %}
+{% block intelligence_content %}
 <div class="sh-page radar-detail">
-  <p class="sh-kicker"><a href="/radar">Emerging developments</a> · {{ development.trust_state }}</p>
+  <p class="sh-kicker"><a href="/radar">Emerging developments</a> · {{ development.trust_state | lower | replace('_', ' ') }}</p>
   <h1>{{ development.title }}</h1>
   <p class="sh-lede">{{ development.what_happened }}</p>
   <p class="sh-story-meta">
-    <span>{{ development.event_type | replace("_", " ") }}</span>
-    <span>{{ development.corroboration }}</span>
+    <span>{{ development.event_type | lower | replace("_", " ") | capitalize }}</span>
+    <span>{{ development.corroboration | lower | capitalize }}</span>
     {% if development.weak_signal_label %}<span>{{ development.weak_signal_label }}</span>{% endif %}
   </p>
-  <p class="radar-why"><span>Why this is on your radar</span> {{ development.radar_reasons | join(" · ") }}</p>
+  {% if development.radar_reasons %}<p class="radar-why"><span>Why this is on your radar</span> {{ development.radar_reasons | join(" · ") }}</p>{% endif %}
   {% if not static_build %}
   <p class="sh-actions"><a class="sh-btn sh-btn-primary" href="{{ ask_berry_os_href }}">Ask Berry OS about this</a></p>
   {% include "_derived_review.html" %}
@@ -20,9 +20,7 @@
     {% if development.variety_names %}<span>{{ development.variety_names | join(", ") }}</span>{% endif %}
     {% if development.geography_labels %}<span>{{ development.geography_labels | join(", ") }}</span>{% endif %}
     {% if development.berry_labels %}<span>{{ development.berry_labels | join(", ") }}</span>{% endif %}
-    <span>First seen {{ development.first_seen }}</span>
-    <span>Latest update {{ development.latest_update }}</span>
-    {% if development.event_date %}<span>Event date {{ development.event_date }}</span>{% endif %}
+    {% if development.event_date %}<span>Event date {{ development.event_date[:10] | us_date }}</span>{% endif %}
   </p>
 
   {% if development.market_context and development.market_context.rows %}
@@ -50,35 +48,37 @@
   {% endif %}
 
   <section class="sh-section">
-    <h2>Sources</h2>
+    <h2>Supporting sources</h2>
     <ul class="sh-story-list">
       {% for source in development.sources %}
         <li>
-          <a href="{{ source.url }}" rel="noreferrer" target="_blank">{{ source.title }}</a>
+          {% set source_href = public_source_url(source.url) %}
+          {% if source_href %}<a href="{{ source_href }}" rel="noopener noreferrer" target="_blank">{{ source.title }}</a>{% else %}<span>{{ source.title }}</span><small> · Source link unavailable</small>{% endif %}
           <p class="sh-story-meta">
             <span>{{ source.publisher }}</span>
-            {% if source.published_date %}<span>{{ source.published_date }}</span>{% endif %}
-            <span>via {{ source.provider }}</span>
-            {% if source.social %}<span>COMMUNITY / CHATTER — UNVERIFIED</span>{% endif %}
+            {% if source.published_date %}<span>Published {{ source.published_date[:10] | us_date }}</span>{% endif %}
+            {% if source.social %}<span>Community report · Unverified</span>{% endif %}
             {% if source.syndicated %}<span>Syndicated copy — not independent</span>{% endif %}
           </p>
         </li>
+      {% else %}
+        <li>No supporting source links were retained for this capture. Investigate before relying on the interpretation.</li>
       {% endfor %}
     </ul>
   </section>
 
   {% if development.evolution %}
-  <section class="sh-section">
-    <h2>How this story evolved</h2>
+  <details class="sh-section">
+    <summary>How this story evolved</summary>
     <ul class="sh-story-list">
       {% for event in development.evolution %}
         <li>
-          <p class="sh-story-meta"><span>{{ event.kind | replace("_", " ") }}</span> <span>{{ event.at }}</span></p>
+          <p class="sh-story-meta"><span>{{ event.kind | lower | replace("_", " ") | capitalize }}</span> <span>{{ event.at[:10] | us_date }}</span></p>
           <p>{{ event.detail }}</p>
         </li>
       {% endfor %}
     </ul>
-  </section>
+  </details>
   {% endif %}
 
   {% if development.proposed_related_ids %}
@@ -93,6 +93,10 @@
   </section>
   {% endif %}
 
-  <p class="sh-note">Provenance: {{ development.provenance | join(", ") }}. {% if development.google_stack_would_find %}A Google/specialist stack could have reached at least one source.{% else %}Existing Google-only coverage would not have surfaced this on its own.{% endif %}</p>
+  <details class="sh-section"><summary>Capture details</summary>
+    <p class="sh-note">First seen {{ development.first_seen }} · Latest update {{ development.latest_update }}</p>
+    <p class="sh-note">Discovery providers: {{ development.provenance | join(", ") }}.</p>
+    <p class="sh-note">{% if development.google_stack_would_find %}At least one source was reachable through Google or specialist sources.{% else %}This capture includes sources outside the Google-only search results.{% endif %}</p>
+  </details>
 </div>
 {% endblock %}

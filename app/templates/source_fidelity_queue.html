@@ -1,40 +1,38 @@
-{% extends "base.html" %}
-{% block title %}Source Fidelity Review — Berry Intelligence OS{% endblock %}
-{% block content %}
+{% extends "source_review_base.html" %}
+{% block title %}Source Authenticity — Berry Intelligence{% endblock %}
+{% block source_review_content %}
 <section class="page-heading">
   <div>
-    <p class="eyebrow">PRIVATE OPERATIONAL REVIEW</p>
-    <h1>Source fidelity review</h1>
-    <p>Decide whether a recovered or reacquired source artifact is the source behind already-published Evidence. This does not re-review claims, rewrite summaries, create Facts, or run extraction.</p>
-    {% with help_what="A fidelity check: is this recovered page or transcript the same source already behind published Evidence?", help_why="Reacquisition can look like new news. Fidelity review keeps chronology honest without re-litigating claims.", help_do="Affirm when the artifact matches the published Evidence source. Reject or mark needs investigation when it does not.", help_after="Fidelity review does not change claim text, rewrite summaries, create Facts, approve Atomic Evidence, or run extraction. It does not publish or unpublish Evidence." %}
-      {% include "_workspace_help.html" %}
-    {% endwith %}
+    <p class="eyebrow">OPERATIONS · PRIVATE REVIEW</p>
+    <h1>Source authenticity</h1>
+    <p>Check whether a recovered article or transcript matches the original published source. Review the differences before accepting the recovered copy. Statements still need their own review.</p>
+    <details><summary>How this review works</summary><p>Compare the original title, URL and publication date with the recovered text. Accept a matching copy, reject a mismatch, or leave it for investigation. This records your source decision; it does not publish or unpublish news, approve statements, create verified facts or start extraction.</p></details>
   </div>
   <p class="v2-count v2-count-action" aria-label="{{ pending_count }} pending">{{ pending_count }} pending</p>
 </section>
 
 <form class="filters workbench-filters fidelity-filters" method="get" action="/source-fidelity">
-  <label>State
+  <label>Review status
     <select name="state">
       <option value="pending"{% if filters.state == 'pending' %} selected{% endif %}>Pending</option>
-      <option value="affirmed"{% if filters.state == 'affirmed' %} selected{% endif %}>Affirmed</option>
+      <option value="affirmed"{% if filters.state == 'affirmed' %} selected{% endif %}>Accepted</option>
       <option value="rejected"{% if filters.state == 'rejected' %} selected{% endif %}>Rejected</option>
       <option value="needs_investigation"{% if filters.state == 'needs_investigation' %} selected{% endif %}>Needs investigation</option>
-      <option value="all"{% if filters.state == 'all' %} selected{% endif %}>All / audit</option>
+      <option value="all"{% if filters.state == 'all' %} selected{% endif %}>All history</option>
     </select>
   </label>
-  <label>Artifact
+  <label>Content
     <select name="artifact_type">
       <option value="">Any</option>
       <option value="article"{% if filters.artifact_type == 'article' %} selected{% endif %}>Article</option>
       <option value="transcript"{% if filters.artifact_type == 'transcript' %} selected{% endif %}>Transcript</option>
     </select>
   </label>
-  <label>Recovery
+  <label>Recovered copy
     <select name="recovery_kind">
       <option value="">Any</option>
-      <option value="historic_recovery"{% if filters.recovery_kind == 'historic_recovery' %} selected{% endif %}>Historic recovery</option>
-      <option value="reacquired_current"{% if filters.recovery_kind == 'reacquired_current' %} selected{% endif %}>Reacquired current page</option>
+      <option value="historic_recovery"{% if filters.recovery_kind == 'historic_recovery' %} selected{% endif %}>Earlier saved copy</option>
+      <option value="reacquired_current"{% if filters.recovery_kind == 'reacquired_current' %} selected{% endif %}>Current web page</option>
     </select>
   </label>
   <label>Berry
@@ -50,10 +48,10 @@
   <label>Match
     <select name="match_class">
       <option value="">Any</option>
-      <option value="EXACT_IDENTITY_MATCH"{% if filters.match_class == 'EXACT_IDENTITY_MATCH' %} selected{% endif %}>Exact Evidence ID</option>
+      <option value="EXACT_IDENTITY_MATCH"{% if filters.match_class == 'EXACT_IDENTITY_MATCH' %} selected{% endif %}>Same publication record</option>
       <option value="EXACT_URL_MATCH"{% if filters.match_class == 'EXACT_URL_MATCH' %} selected{% endif %}>Exact URL</option>
-      <option value="LINEAGE_MATCH"{% if filters.match_class == 'LINEAGE_MATCH' %} selected{% endif %}>Lineage</option>
-      <option value="REACQUIRED_CURRENT_SOURCE"{% if filters.match_class == 'REACQUIRED_CURRENT_SOURCE' %} selected{% endif %}>Reacquired current</option>
+      <option value="LINEAGE_MATCH"{% if filters.match_class == 'LINEAGE_MATCH' %} selected{% endif %}>Linked capture history</option>
+      <option value="REACQUIRED_CURRENT_SOURCE"{% if filters.match_class == 'REACQUIRED_CURRENT_SOURCE' %} selected{% endif %}>Current web page</option>
     </select>
   </label>
   <label>Warning
@@ -62,7 +60,7 @@
       <option value="REACQUIRED_LATER"{% if filters.warning == 'REACQUIRED_LATER' %} selected{% endif %}>Reacquired later</option>
       <option value="FINAL_URL_DIFFERS"{% if filters.warning == 'FINAL_URL_DIFFERS' %} selected{% endif %}>Final URL differs</option>
       <option value="TITLE_CHANGED"{% if filters.warning == 'TITLE_CHANGED' %} selected{% endif %}>Title changed</option>
-      <option value="CONTENT_HASH_CONFLICT"{% if filters.warning == 'CONTENT_HASH_CONFLICT' %} selected{% endif %}>Content hash conflict</option>
+      <option value="CONTENT_HASH_CONFLICT"{% if filters.warning == 'CONTENT_HASH_CONFLICT' %} selected{% endif %}>Content changed</option>
       <option value="GOOGLE_NEWS_WRAPPER"{% if filters.warning == 'GOOGLE_NEWS_WRAPPER' %} selected{% endif %}>Google News wrapper</option>
       <option value="AMBIGUOUS_IDENTITY"{% if filters.warning == 'AMBIGUOUS_IDENTITY' %} selected{% endif %}>Ambiguous identity</option>
     </select>
@@ -75,13 +73,16 @@
 {% for row in rows %}
   <article class="fidelity-queue-row">
     <p class="eyebrow">
-      {% if row.recovery_kind == 'reacquired_current' %}<span class="badge badge-warning">Reacquired current page</span>{% else %}<span class="badge badge-status-active">Historic recovery</span>{% endif %}
+      {% if row.recovery_kind == 'reacquired_current' %}<span class="badge badge-warning">Current web page</span>{% else %}<span class="badge badge-status-active">Earlier saved copy</span>{% endif %}
       <span class="badge badge-muted">{{ row.artifact_type|replace('_',' ')|upper }}</span>
-      <span class="badge badge-muted">{{ row.match_class|replace('_',' ') }}</span>
-      <span class="badge {% if row.review_state == 'pending' %}badge-claim{% else %}badge-muted{% endif %}">{{ row.review_state|replace('_',' ')|upper }}</span>
+      <span class="badge badge-muted">{{ row.match_label }}</span>
+      <span class="badge {% if row.review_state == 'pending' %}badge-claim{% else %}badge-muted{% endif %}">{{ 'Accepted' if row.review_state == 'affirmed' else row.review_state|replace('_',' ')|title }}</span>
     </p>
     <h2><a href="/source-fidelity/{{ row.trusted.id }}{% if filter_query %}?{{ filter_query }}{% endif %}">{{ row.trusted.title }}</a></h2>
-    <p>{{ row.source_name }} · {{ row.berries|join(', ') or 'Berry undeclared' }} · staged {{ row.staged_at or 'date unavailable' }}</p>
+    {% set acquisition = row.artifact.get('acquisition') or {} %}
+    {% set origin = row.artifact.get('recovered_from') or {} %}
+    <p>{{ row.source_name }} · {{ row.berries|join(', ') or 'Berry undeclared' }} · Captured {{ row.artifact.get('reacquired_at') or acquisition.get('fetched_at') or acquisition.get('transcribed_at') or origin.get('recovered_at') or 'date unavailable' }}</p>
+    {% if row.artifact.review.reviewed_at %}<p>Reviewed {{ row.artifact.review.reviewed_at }}{% if row.artifact.review.reviewed_by %} by {{ row.artifact.review.reviewed_by }}{% endif %}</p>{% endif %}
     {% if row.primary_warning %}<p class="fidelity-warning">{{ row.primary_warning }}</p>{% endif %}
     {% if row.priority_reasons %}<p class="fidelity-priority">{{ row.priority_reasons|join(' · ') }}</p>{% endif %}
   </article>
@@ -89,8 +90,8 @@
 </div>
 {% else %}
 <div class="empty-state fidelity-empty">
-  <h2>No source-fidelity artifacts match these filters</h2>
-  <p>Nothing is invented for an empty inbox. Historic recoveries and Codex reacquisition pilots appear here only after they are staged privately. Opening this page does not create a review decision.</p>
+  <h2>No recovered sources to review</h2>
+  <p>Recovered copies appear here when they are ready for an authenticity check. Try All history to see earlier decisions, or reset the filters.</p>
 </div>
 {% endif %}
 {% endblock %}

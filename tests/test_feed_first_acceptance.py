@@ -1,3 +1,4 @@
+# The previous News workspace remains at /today?view=legacy; core defaults are covered in test_news_workspace.py.
 """P0 acceptance matrix for the feed-first path. Not a Gate 5 release."""
 
 from datetime import date
@@ -48,7 +49,7 @@ def _record(**overrides):
 
 
 def test_p0_today_is_front_door_and_not_review_ops():
-    page = TestClient(app).get("/today")
+    page = TestClient(app).get("/today?view=legacy")
     assert page.status_code == 200
     assert "data-feed-first-today" in page.text
     assert "Publication Review" not in page.text
@@ -132,7 +133,7 @@ def test_p0_seed_not_bulk_trusted_and_registries_excluded():
 
 
 def test_p0_reader_keyboard_help_and_research_ops_are_not_home():
-    today = TestClient(app).get("/today")
+    today = TestClient(app).get("/today?view=legacy")
     assert "data-keyboard-help" in today.text
     ops = TestClient(app).get("/research-ops")
     assert ops.status_code == 200
@@ -141,13 +142,13 @@ def test_p0_reader_keyboard_help_and_research_ops_are_not_home():
 
 
 def test_p1_feed_first_company_profile_is_berry_os():
-    page = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery")
+    page = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=dossier")
     assert page.status_code == 200
     assert "data-feed-first-company" in page.text
     assert "Living entity dossier" in page.text
     assert "Only in-reader confirmation enters this dossier" in page.text
     assert "Create 90-day report" not in page.text
-    explicit = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=feed")
+    explicit = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=dossier")
     assert "data-feed-first-company" in explicit.text
     legacy = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=legacy")
     assert legacy.status_code == 200
@@ -162,8 +163,9 @@ def test_p1_people_saved_landscapes_and_reader_help_are_in_the_shell():
     assert "/people/person-" in people.text
     saved = TestClient(app).get("/saved")
     assert saved.status_code == 200
-    assert "data-feed-first-saved" in saved.text
-    assert "Save is a board, not trust" in saved.text
+    assert "data-personal-digest" in saved.text
+    assert "Personal Digest" in saved.text
+    assert "Saving and feedback do not change a story’s review status" in saved.text
     landscapes = TestClient(app).get("/landscapes?view=feed")
     assert landscapes.status_code == 200
     assert "data-feed-first-landscapes" in landscapes.text
@@ -171,12 +173,13 @@ def test_p1_people_saved_landscapes_and_reader_help_are_in_the_shell():
     full_landscape = TestClient(app).get("/landscapes")
     assert full_landscape.status_code == 200
     assert "Competitive Landscape" in full_landscape.text
-    assert "Executive readout" in full_landscape.text
-    assert "Open live landscape briefs" in full_landscape.text
+    assert "Include sections" in full_landscape.text
+    assert 'href="/landscapes?view=legacy"' in full_landscape.text
+    assert 'href="/landscapes?view=feed"' in full_landscape.text
     ops = TestClient(app).get("/research-ops")
     assert "Reader bake-off" in ops.text
     assert "Official social" in ops.text
-    today = TestClient(app).get("/today")
+    today = TestClient(app).get("/today?view=legacy")
     assert "data-viewport-shell" in today.text
     css = TestClient(app).get("/static/berry_os.css")
     assert "@media (min-width: 2560px)" in css.text
@@ -195,7 +198,7 @@ def test_p1_people_saved_landscapes_and_reader_help_are_in_the_shell():
     assert "data-feed-first-week" not in legacy_week.text
     ops = TestClient(app).get("/research-ops")
     assert "Rollback rehearsal" in ops.text
-    today = TestClient(app).get("/today")
+    today = TestClient(app).get("/today?view=legacy")
     assert 'href="/statements"' in today.text
     assert 'href="/week"' in today.text
     assert 'href="/landscapes"' in today.text
@@ -255,7 +258,7 @@ def test_p0_filter_tier1_crop_unread_30d_restores_url_and_facets(tmp_path):
     assert restored["crop"] == "blueberry"
     assert restored["state"] == "unread"
     assert restored["window"] == "30d"
-    page = TestClient(app).get("/today?tier=tier1&crop=blueberry&state=unread&window=30d")
+    page = TestClient(app).get("/today?view=legacy&tier=tier1&crop=blueberry&state=unread&window=30d")
     assert page.status_code == 200
     assert 'name="tier"' in page.text
     assert "value=\"tier1\" selected" in page.text or "value='tier1' selected" in page.text
@@ -346,7 +349,7 @@ def test_p0_one_story_once_keeps_cluster_on_the_card():
     card = feed["cards"][0]
     assert card["cluster_size"] == 2
     assert card["cluster_sources"] == ["perishablenews.example"]
-    today = TestClient(app).get("/today")
+    today = TestClient(app).get("/today?view=legacy")
     assert "cluster ×" in today.text or "Also seen via" in today.text or "data-feed-first-today" in today.text
 
 
@@ -462,14 +465,14 @@ def test_p1_watch_coverage_and_ops_health_are_inspectable():
 
 
 def test_p1_entity_click_opens_profile_with_coverage_and_statements():
-    page = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery")
+    page = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery?view=dossier")
     assert page.status_code == 200
     assert "data-feed-first-company" in page.text
     assert "data-feed-first-entity" in page.text
     assert "Living entity dossier" in page.text
     assert "Watchpoints" in page.text
     assert 'href="/today?entity=' in page.text
-    today = TestClient(app).get("/today")
+    today = TestClient(app).get("/today?view=legacy")
     assert "data-feed-first-today" in today.text
 
 
@@ -515,8 +518,8 @@ def test_p1_board_save_surfaces_statements_without_trust(tmp_path):
     assert cards[0]["statements"]
     saved = TestClient(app).get("/saved")
     assert saved.status_code == 200
-    assert "Save is a board, not trust" in saved.text
-    assert "data-feed-first-saved" in saved.text
+    assert "Saving and feedback do not change a story’s review status" in saved.text
+    assert "data-personal-digest" in saved.text
 
 
 def test_p1_geography_filter_restores_url_state():
@@ -528,7 +531,7 @@ def test_p1_geography_filter_restores_url_state():
     restored = parse_filters(dict(parse_qsl(filters_query(filters))))
     assert restored["geography"] == "geography-morocco"
     assert restored["window"] == "7d"
-    page = TestClient(app).get("/today?window=7d&geography=geography-morocco")
+    page = TestClient(app).get("/today?view=legacy&window=7d&geography=geography-morocco")
     assert page.status_code == 200
     assert 'name="geography"' in page.text
     assert "data-feed-first-today" in page.text
@@ -672,7 +675,7 @@ def test_p1_undo_clears_landscapes_and_week(tmp_path):
 
 
 def test_p1_keyboard_help_and_js_complete_golden_path():
-    today = TestClient(app).get("/today")
+    today = TestClient(app).get("/today?view=legacy")
     help_copy = today.text
     assert "data-keyboard-help" in help_copy
     assert "s save" in help_copy
@@ -729,4 +732,4 @@ def test_p1_landscape_brief_links_match_entity_type():
     assert client.get(by_id["company-wish-farms"]["profile_url"]).status_code == 200
     assert client.get(by_id["berry-blueberry"]["profile_url"]).status_code == 200
     assert client.get(by_id["geography-morocco"]["profile_url"]).status_code == 200
-    assert client.get("/today").status_code == 200
+    assert client.get("/today?view=legacy").status_code == 200

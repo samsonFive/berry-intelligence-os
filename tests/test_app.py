@@ -30,9 +30,9 @@ def test_home_opens_news_without_fictional_seed_reporting(monkeypatch) -> None:
     response = client.get("/")
     assert response.status_code == 200
     assert response.url.path == "/today"
-    assert "data-feed-first-today" in response.text
+    assert "data-news-workspace" in response.text
     assert "Example breeder announces" not in response.text
-    assert "industry entities watched" in response.text
+    assert "newest publication first" in response.text
     assert "not a live multi-lane poll" not in response.text
     briefing = client.get("/today?view=briefing")
     assert "Daily Intelligence Briefing" in briefing.text
@@ -71,7 +71,10 @@ def test_public_intelligence_pages_use_compact_bluf_tables() -> None:
     assert "DECIDE" in assessments
     assert "never auto-created from Signal confirmation" in assessments
 
-    for path in ["/entities/company", "/signals", "/strategic-questions"]:
+    directory = client.get("/entities/company").text
+    assert 'class="company-table"' in directory
+    assert "Company alphabetical navigation" in directory
+    for path in ["/signals", "/strategic-questions"]:
         text = client.get(path).text
         assert 'class="entity-list balanced-card-grid public-card-index"' in text
         assert 'class="card entity-card"' in text
@@ -720,7 +723,8 @@ def test_signal_list_and_new_form_render() -> None:
 
     form_response = client.get("/signals/new")
     assert form_response.status_code == 200
-    assert "Supporting evidence ids" in form_response.text
+    assert "Supporting sources" in form_response.text
+    assert 'name="evidence_ids"' in form_response.text
 
 
 def test_signal_create_requires_known_evidence_id(monkeypatch, tmp_path) -> None:

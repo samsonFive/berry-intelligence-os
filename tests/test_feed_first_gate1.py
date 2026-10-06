@@ -1,3 +1,4 @@
+# The previous News workspace remains at /today?view=legacy; core defaults are covered in test_news_workspace.py.
 """Gate A / Gate 1 feed-first golden path."""
 
 from __future__ import annotations
@@ -148,7 +149,7 @@ def test_today_is_feed_first_front_door(monkeypatch):
     monkeypatch.setattr("app.services.clock.utc_now", lambda: datetime(2026, 9, 21, 12, 0, tzinfo=timezone.utc))
     page = TestClient(app).get("/")
     assert page.status_code in {200, 307}
-    today = TestClient(app).get("/today")
+    today = TestClient(app).get("/today?view=legacy")
     assert today.status_code == 200
     assert "data-feed-first-today" in today.text
     assert 'data-freshness="' in today.text
@@ -188,7 +189,7 @@ def test_today_cache_miss_is_offline_until_explicit_refresh(tmp_path: Path, monk
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
     monkeypatch.setattr(feed_first_live, "collect_same_day_hits", injected_acquisition)
 
-    ordinary = TestClient(main.app).get("/today")
+    ordinary = TestClient(main.app).get("/today?view=legacy")
 
     assert ordinary.status_code == 200
     assert acquisition_calls == []
@@ -201,7 +202,7 @@ def test_today_cache_miss_is_offline_until_explicit_refresh(tmp_path: Path, monk
     assert ">Fetch live stories</a>" in ordinary.text
     assert not (tmp_path / "feed_first_live").exists()
 
-    refreshed = TestClient(main.app).get("/today?refresh=1")
+    refreshed = TestClient(main.app).get("/today?view=legacy&refresh=1")
 
     assert refreshed.status_code == 200
     assert acquisition_calls == [True]
@@ -405,10 +406,10 @@ def test_human_gate_workspace_reviews_statement_in_place(tmp_path, monkeypatch):
 
     page = client.get("/statements?review=unreviewed")
     assert page.status_code == 200
-    assert "Review extracted intelligence" in page.text
+    assert "Review extracted statements" in page.text
     assert 'data-statement-action="approve"' in page.text
     assert 'data-statement-edit="' + statement_id + '"' in page.text
-    assert "Gate 3 progress" in page.text
+    assert "Statement triage progress" in page.text
 
     for statement in applied["statements"]:
         reviewed = client.post(
@@ -419,7 +420,7 @@ def test_human_gate_workspace_reviews_statement_in_place(tmp_path, monkeypatch):
         assert reviewed.json()["statement"]["review_state"] == "reviewed"
 
     remaining = client.get("/statements?review=unreviewed")
-    assert "Human gate complete" in remaining.text
+    assert "Triage complete" in remaining.text
     labeled = client.get("/statements?review=reviewed")
     assert statement_id in labeled.text
 
@@ -460,10 +461,11 @@ def test_entities_roster_and_seed_only_profile():
     seed_only = next(row for row in roster if not row.get("trusted_entity_id") and row["competitor"])
     profile = TestClient(app).get(f"/entities/company/{seed_only['id']}")
     assert profile.status_code == 200
-    assert "data-feed-first-entity" in profile.text
+    assert "data-company-profile" in profile.text
     assert seed_only["canonical_name"] in profile.text
-    if seed_only["candidate"]:
-        assert "Candidate-review" in profile.text or "unverified" in profile.text
+    resolved = __import__("app.services.seed_roster", fromlist=["seed_profile"]).seed_profile(seed_only["id"], __import__("app.main", fromlist=["living_catalog"]).living_catalog())
+    if resolved and not resolved.get("trusted_entity_id") and resolved["candidate"]:
+        assert "Provisional identity" in profile.text or "unverified" in profile.text
     trusted = TestClient(app).get("/entities/company/company-fall-creek-farm-and-nursery")
     assert trusted.status_code == 200
     assert "From Today thumbs-up" in trusted.text or "Fall Creek" in trusted.text
@@ -475,7 +477,7 @@ def test_playground_fixtures_are_not_the_today_corpus(monkeypatch):
     monkeypatch.setattr(feed_first_live, "live_feed_bundle", lambda **kwargs: _stub_live_bundle())
     ids = {row["id"] for row in playground_fixtures()}
     assert all(item_id.startswith("fixture-") for item_id in ids)
-    today = TestClient(app).get("/today")
+    today = TestClient(app).get("/today?view=legacy")
     assert "fixture-lead-article" not in today.text
     assert "14 million blueberry plants after 10 years" not in today.text
 
@@ -850,7 +852,7 @@ def test_today_http_does_not_read_stored_evidence(monkeypatch):
     monkeypatch.setattr(main, "published_evidence", _boom)
     monkeypatch.setattr(feed_first_live, "live_feed_bundle", lambda **kwargs: _stub_live_bundle())
     monkeypatch.setattr("app.services.clock.utc_now", lambda: datetime(2026, 9, 21, 12, 0, tzinfo=timezone.utc))
-    page = TestClient(main.app).get("/today")
+    page = TestClient(main.app).get("/today?view=legacy")
     assert page.status_code == 200
     assert "Fall Creek expands blueberry nursery harvest" in page.text
     assert "14 million blueberry plants after 10 years" not in page.text

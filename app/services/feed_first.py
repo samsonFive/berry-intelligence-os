@@ -19,6 +19,7 @@ from app.services.berries.landscape import SEED_FIXTURE_EVIDENCE_IDS
 from app.services.clock import utc_today
 from app.services.html_text import decode_html_text
 from app.services.source_body import classify_source_body, reader_content
+from app.services.analyst_state_io import serialized_write
 
 STATE_FILENAME = "feed_first_state.json"
 BACKUP_SUBDIR = "feed_first_backups"
@@ -51,13 +52,14 @@ _TOPIC_WORDS = {
     "fruit",
 }
 
-TIERS = ("tier1", "tier2", "tier3", "watch", "muted")
+TIERS = ("tier1", "tier2", "tier3", "watch", "muted", "untiered")
 TIER_LABELS = {
     "tier1": "Tier 1 · Priority",
     "tier2": "Tier 2 · Core",
     "tier3": "Tier 3 · Peripheral",
     "watch": "Watch · Exploratory",
     "muted": "Muted",
+    "untiered": "Untiered",
 }
 DEFAULT_TIER = "tier2"
 
@@ -113,7 +115,7 @@ BODY_TO_AVAILABILITY = {
 NAV = (
     ("News", "/today"),
     ("Following", "/following"),
-    ("Saved", "/saved"),
+    ("Personal Digest", "/digest"),
     ("Entities", "/entities"),
     ("Variety Database", "/entities/variety"),
     ("People", "/people"),
@@ -121,7 +123,7 @@ NAV = (
     ("Landscapes", "/landscapes"),
     ("This week", "/week"),
     ("Learn", "/learn"),
-    ("War Room", "/war-room"),
+    ("Meeting Prep", "/war-room"),
     ("Watchtower", "/watchtower"),
     ("Research Ops", "/research-ops"),
     ("Settings", "/settings"),
@@ -156,6 +158,10 @@ def empty_state() -> dict[str, Any]:
         "decisions": {},
         "reaction_events": [],
         "entity_tiers": {},
+        "entity_favorites": {},
+        "entity_mark_history": [],
+        "company_lists": {},
+        "digest_subscriptions": [],
         "statements": {},
         "research_runs": {},
         "research_proposals": {},
@@ -181,11 +187,12 @@ def load_state(inbox_dir: Path) -> dict[str, Any]:
 
 
 def save_state(inbox_dir: Path, state: dict[str, Any]) -> None:
+    from app.services.analyst_state_io import atomic_json
     path = state_path(inbox_dir)
     path.parent.mkdir(parents=True, exist_ok=True)
     state = dict(state)
     state["updated_at"] = datetime.now(UTC).isoformat(timespec="seconds")
-    path.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
+    atomic_json(path, state)
 
 
 def snapshot_state(inbox_dir: Path) -> Path:
@@ -210,6 +217,7 @@ def latest_snapshot(inbox_dir: Path) -> Path | None:
     return snapshots[-1] if snapshots else None
 
 
+@serialized_write
 def restore_state(inbox_dir: Path, snapshot: Path | None = None) -> dict[str, Any]:
     """Replace working state from a snapshot. Does not touch data/evidence."""
     path = snapshot or latest_snapshot(inbox_dir)
@@ -444,8 +452,8 @@ def safe_image_url(record: dict[str, Any]) -> str:
 
 
 def entity_tier(entity_id: str, state: dict[str, Any]) -> str:
-    value = str((state.get("entity_tiers") or {}).get(entity_id) or DEFAULT_TIER)
-    return value if value in TIERS else DEFAULT_TIER
+    value = str((state.get("entity_tiers") or {}).get(entity_id) or "untiered")
+    return value if value in TIERS else "untiered"
 
 
 def decision_for(item_id: str, state: dict[str, Any]) -> dict[str, Any]:
@@ -483,6 +491,7 @@ def present_entities(
                 "name": name,
                 "entity_type": entity_type,
                 "tier": entity_tier(str(entity_id), state),
+                "favorite": bool((state.get("entity_favorites") or {}).get(str(entity_id))),
                 "verification_status": entity.get("verification_status")
                 or entity.get("status")
                 or "unknown",
@@ -1012,6 +1021,7 @@ def build_feed(
     }
 
 
+@serialized_write
 def apply_decision(
     inbox_dir: Path,
     *,
@@ -1302,6 +1312,7 @@ def _support_locators(record: dict[str, Any], excerpt: str) -> list[dict[str, An
     return []
 
 
+@serialized_write
 def mutate_statement(
     inbox_dir: Path,
     *,
@@ -1434,6 +1445,8 @@ def mutate_statements(
 ) -> list[dict[str, Any]]:
     if action not in {"confirm", "reject"}:
         raise ValueError("invalid batch action")
+    if action == "confirm" and len(statement_ids) != 1:
+        raise ValueError("Confirm one statement at a time after reviewing its source")
     results: list[dict[str, Any]] = []
     for statement_id in dict.fromkeys(str(value) for value in statement_ids if value):
         updated = mutate_statement(
@@ -1455,6 +1468,7 @@ def statement_by_id(state: dict[str, Any], statement_id: str) -> dict[str, Any] 
     return None
 
 
+@serialized_write
 def set_entity_tier(inbox_dir: Path, *, entity_id: str, tier: str) -> str:
     if tier not in TIERS:
         raise ValueError("invalid tier")

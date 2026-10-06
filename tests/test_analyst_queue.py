@@ -235,7 +235,9 @@ def test_nav_uses_action_badges_not_raw_inventory_for_review(monkeypatch, tmp_pa
     _seed(repos, [])
     client = TestClient(app)
     home = client.get("/brief")
-    assert "need review" in home.text or "Publications" in home.text
+    assert 'href="/pending"' in home.text
+    assert "Sources awaiting review · 0" in home.text
     assert "Reading Queue (124)" not in home.text
-    assert "nav-action" in home.text or "Publications" in home.text
+    assert "Statements awaiting review · 0" in home.text
+    assert 'class="specialist-count"' in home.text
     assert load_state(main.INBOX_DIR)["reading"] == {}

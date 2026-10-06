@@ -103,15 +103,22 @@
     article.setAttribute("data-statement-state", statement.statement_state || "");
     article.setAttribute("data-importance", statement.importance_state || "");
     const label = article.querySelector("[data-review-label]");
-    if (label) label.textContent = "Reviewed";
+    if (label) label.textContent = root.hasAttribute("data-feed-first-statements") ? "Triaged" : "Reviewed";
+    const stateLabels = {pending_confirmation: "Awaiting confirmation", proposed: "Awaiting confirmation", trusted_analyst: "Confirmed statement", conflicting: "Conflicting statement", superseded: "Superseded statement", rejected: "Rejected statement", removed: "Removed statement"};
+    const stateLabel = article.querySelector("[data-confirmation-label]");
+    if (stateLabel) stateLabel.textContent = stateLabels[statement.statement_state] || "Status unavailable";
+    const wording = article.querySelector("[data-statement-text]");
+    if (wording) wording.textContent = statement.statement_text || "";
+    const removal = article.querySelector("[data-remove-restore]");
+    if (removal) {
+      removal.dataset.statementAction = statement.statement_state === "removed" ? "restore" : "remove";
+      removal.textContent = statement.statement_state === "removed" ? "Restore" : "Remove";
+    }
     const status = article.querySelector("[data-statement-status]");
     if (status) {
       const edits = (statement.analyst_edit_history || []).length;
-      status.textContent =
-        (statement.statement_state || "") +
-        " · " +
-        (statement.importance_state || "normal") +
-        (edits ? " · " + edits + " edit(s)" : "");
+      const priorityLabels = {normal: "Normal priority", important: "Important", demoted: "Lower priority"};
+      status.textContent = (root.hasAttribute("data-feed-first-statements") ? "Saved · " + (priorityLabels[statement.importance_state] || "Priority unavailable") : (stateLabels[statement.statement_state] || "Status unavailable") + " · " + (priorityLabels[statement.importance_state] || "Priority unavailable")) + (edits ? " · " + edits + " saved edits" : "");
     }
     if (!wasReviewed) {
       const reviewed = root.querySelector("[data-reviewed-count]");
@@ -119,7 +126,7 @@
       const progress = root.querySelector("[data-gate-progress] progress");
       if (reviewed) reviewed.textContent = String(Number(reviewed.textContent || 0) + 1);
       if (remaining) remaining.textContent = String(Math.max(0, Number(remaining.textContent || 0) - 1));
-      if (progress) progress.value = Number(progress.value || 0) + 1;
+      if (progress) progress.setAttribute("value", String(Number(progress.value || 0) + 1));
     }
   }
 
@@ -153,6 +160,13 @@
       });
     });
   }
+
+  document.addEventListener("bios:statement-updated", function (event) {
+    const statement = event.detail;
+    if (!statement || !root.hasAttribute("data-feed-first-statements")) return;
+    const card = root.querySelector('[data-statement-id="' + CSS.escape(statement.id) + '"]');
+    markStatementReviewed(card, statement);
+  });
 
   function focusClaim(statementId) {
     root.querySelectorAll(".bos-evidence-highlight").forEach(function (mark) {
@@ -255,33 +269,26 @@
     }
 
     const claimCard = event.target.closest("[data-statement-id]");
-    if (claimCard && !event.target.closest("button, textarea, input, a")) {
+    if (claimCard && !event.target.closest("button, textarea, input, a, summary, label, details")) {
       focusClaim(claimCard.dataset.statementId || "");
       return;
     }
 
-    const batchAction =
-      event.target.closest("[data-confirm-selected]") ||
-      event.target.closest("[data-reject-selected]") ||
-      event.target.closest("[data-confirm-all]");
+    const batchAction = event.target.closest("[data-reject-selected]");
     if (batchAction) {
       let cards = Array.prototype.slice.call(
         root.querySelectorAll('[data-statement-state="pending_confirmation"]')
       );
-      if (!batchAction.matches("[data-confirm-all]")) {
-        cards = cards.filter(function (card) {
-          const checkbox = card.querySelector("[data-claim-select]");
-          return checkbox && checkbox.checked;
-        });
-      } else if (!window.confirm("Confirm every pending claim in this reader?")) {
-        return;
-      }
-      const action = batchAction.matches("[data-reject-selected]") ? "reject" : "confirm";
+      cards = cards.filter(function (card) {
+        const checkbox = card.querySelector("[data-claim-select]");
+        return checkbox && checkbox.checked;
+      });
+      if (!cards.length) return;
       postJSON("/api/feed-first/statement", {
         statement_ids: cards.map(function (card) {
           return card.dataset.statementId;
         }),
-        action: action,
+        action: "reject",
       }).then(function () {
         window.location.reload();
       });

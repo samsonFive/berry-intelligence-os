@@ -1,93 +1,60 @@
-{% extends "base.html" %}
-{% block title %}How Berry Intelligence Works — Berry Intelligence OS{% endblock %}
+{% extends 'glasshouse_base.html' %}
+{% block title %}How Berry Intelligence Works — Berry Intelligence{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/workflow_guide.css?v=2">{% endblock %}
 {% block content %}
-<div class="v2-page guide-page">
-<section class="page-heading v2-page-header">
-  <div>
-    <p class="eyebrow">ORIENTATION</p>
-    <h1>How Berry Intelligence Works</h1>
-    <p class="also-known-as">A short map of the workbench. Nothing on this page publishes, reviews, or clears a queue.</p>
-  </div>
-  {% if not static_build %}
-    <a class="button-link" href="/today">Start on Today</a>
-  {% endif %}
+<div class="workflow-guide"{% if static_build %} data-pagefind-body{% endif %}>
+<header class="guide-masthead"><div><p class="guide-eyebrow">YOUR INDUSTRY, IN VIEW</p><h1>How Berry Intelligence Works</h1><p>Read the news. Investigate what matters. Share a clear, sourced picture.</p></div>{% if not static_build %}<a class="guide-button" href="/today">Start with News →</a>{% endif %}</header>
+{% if static_build %}<p class="guide-boundary">This published snapshot contains reviewed intelligence. Personal lists, fresh research, review queues and editable reports are available in the live workspace.</p>{% endif %}
+<nav class="guide-jump" aria-label="Guide sections"><a href="#site-sections">Site sections</a><a href="#analyst-workflow">Analyst workflow</a><a href="#reporting">Reports & exports</a><a href="#review-decisions">Review decisions</a></nav>
+<section class="guide-section" id="site-sections" tabindex="-1">
+<div class="guide-section-heading"><span class="guide-step-number">01</span><div><h2>Find the right workspace</h2><p>Each section answers a different question. Company marks and lists are shared; each view explains the filters it supports.</p></div></div>
+<div class="guide-workspaces">
+{% for name,job,description,route,color in [
+('News','What just happened?','Read newest-first stories in the grid or slide-out reader. Choose dates, berries and companies, and switch between reviewed news and the unreviewed feed.','/' if static_build else '/today','green'),
+('Map Explorer','Where is it happening?','Select countries and berries to inspect news, companies, growing regions and sourced market statistics. Return to the same scope in News.','/explorer','teal'),
+('Companies','Who matters to me?','Browse A–Z, favorite a company, set its tier or add it to custom lists. Open its profile for contacts, people, intelligence and operating regions.','/entities/company','purple'),
+('Varieties','Which genetics—and where?','Explore identities, recorded company roles, rights and growing locations. Candidate names and photo imports remain separate until human review.','/entities/variety','berry'),
+('Learn','Help me understand this.','Explore detailed lessons across five knowledge areas, with teaching visuals where available. Explicitly research a selected topic to create an editable, cited educational draft.','/learn','gold'),
+('Personal Digest','What do I want to revisit?','Keep saved stories, your reading queue and news from subscribed company lists together. Reading progress and subscriptions do not change review status.','/digest','green'),
+('Landscape','What is the competitive picture?','Choose companies, berries, geographies, dates and sections. Compare captured activity, rights and analyst interpretations, with gaps and source limits visible.','/landscapes','teal'),
+('Intelligence','What does the evidence support?','Inspect statements, developments, company moves, signals and assessments. Follow supporting material and keep each type of analyst decision distinct.','/signals' if static_build else '/statements','purple'),
+('Monitor','What changed in what I watch?','Manage subject watches, inspect captured changes and handle alerts or monitoring activity. Notifications and monitoring plans have separate controls.','/monitor','gold'),
+('Operations','What needs collecting or reviewing?','Inspect collection, publication and statement review, identity quality and coverage. Opening the overview does not start collection or approve anything.','/operations','berry'),
+('Reports & Briefings','What should I share or discuss?','Prepare a meeting, assemble a brief, edit a sourced report or export a market snapshot or competitor news packet.','/briefings','green')
+] %}
+{% set public_view = route in ['/','/entities/company','/entities/variety','/learn','/landscapes','/signals'] %}
+<article class="guide-workspace guide-accent-{{ color }}"><span class="guide-workspace-marker" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span><div><h3>{% if not static_build or public_view %}<a href="{{ route }}">{{ name }}</a>{% else %}{{ name }}{% endif %}</h3><p class="guide-job">{{ job }}</p><p>{{ description }}</p>{% if static_build %}<small class="guide-availability">{{ 'Public view available · full workflow in live workspace' if public_view else 'Live workspace' }}</small>{% endif %}</div></article>
+{% endfor %}</div>
+<details class="guide-detail"><summary>Where did the older sections go?</summary><p>Saved stories and Reading Queue belong to Personal Digest. Meeting Prep, saved briefs, reports and Executive View belong to Reports & Briefings. Watches, Watchtower alerts and monitoring activity belong to Monitor. Collection and review tools sit under Operations. Existing bookmarks and specialist tools remain available through “All existing tools” in the More menu.</p></details>
 </section>
-
-<section class="v2-company-section" id="start-here">
-  <h2>Where to start</h2>
-  <p>{% if not static_build %}<a href="/today">Today</a> is the morning console:{% else %}On the live workbench, Today is the morning console:{% endif %} what happened recently, what needs a human decision, whether collection is healthy, and what to do next.</p>
+<section class="guide-section" id="analyst-workflow" tabindex="-1">
+<div class="guide-section-heading"><span class="guide-step-number">02</span><div><h2>Your analyst workflow</h2><p>Start with a question you can act on. Follow the sources before forming a conclusion.</p></div></div>
+<ol class="guide-flow" aria-label="Read, focus, investigate and communicate">
+<li><span class="guide-flow-number">1</span><h3>Read</h3><p>Open News, choose a date range and read the article. Check its publisher, date and review label.</p><span class="guide-flow-output">A story worth following</span></li>
+<li><span class="guide-flow-number">2</span><h3>Focus</h3><p>Save to your Digest. Add companies to a list, subscribe to that list or create a subject watch.</p><span class="guide-flow-output">Your scope & reading queue</span></li>
+<li><span class="guide-flow-number">3</span><h3>Investigate</h3><p>Open the company, variety or Map. Inspect linked statements, independent sources, conditions and gaps. Use Learn for unfamiliar concepts.</p><span class="guide-flow-output">A supported interpretation</span></li>
+<li><span class="guide-flow-number">4</span><h3>Communicate</h3><p>Prepare a meeting or report. Verify the scope, source inventory, dates and unresolved questions before sharing.</p><span class="guide-flow-output">A brief, draft or dated export</span></li>
+</ol>
+<div class="guide-example"><span class="guide-eyebrow">EXAMPLE INVESTIGATION</span><h3>A competitor announces a new blueberry partnership.</h3><div class="guide-example-path"><p><strong>Read the announcement</strong><span>What was announced, by whom, on what date?</span></p><p><strong>Inspect the company and variety</strong><span>Does the source name a license, planting, territory or only an intention?</span></p><p><strong>Check corroboration</strong><span>A press reprint of the announcement is still the same underlying source.</span></p><p><strong>Brief the implication</strong><span>Describe the announced scope and the unanswered questions. A claim stays a claim.</span></p></div></div>
 </section>
-
-<section class="v2-company-section" id="lifecycle">
-  <h2>Trusted intelligence lifecycle</h2>
-  <ol class="guide-lifecycle">
-    <li><strong>Sources</strong> — places we watch for public material (company sites, registries, trade press).</li>
-    <li><strong>Publications</strong> — individual articles, filings, or pages DISCOVERED from those Sources.</li>
-    <li><strong>Publication Review</strong> — REVIEW REQUIRED. A human decides whether a Publication may enter the trusted workflow. Rejecting it does not erase the Source.</li>
-    <li><strong>Evidence</strong> — TRUSTED published material after review. This is the corpus later work cites.</li>
-    <li><strong>Signals</strong> — a pattern that may be emerging, supported by Evidence. AI PROPOSED candidates stay untrusted until reviewed.</li>
-    <li><strong>Assessments</strong> — analyst interpretation of Facts. Never auto-created from a Signal.</li>
-    <li><strong>Strategic Questions</strong> — enduring questions you maintain. The system organizes trusted material against them; it does not answer them.</li>
-    <li><strong>Brief Packs</strong> — a presentation composed from existing trusted intelligence. Not a new trust object.{% if not static_build %} Reports, when available, are the same idea: an output, not a review action.{% endif %}</li>
-  </ol>
+<section class="guide-section" id="reporting" tabindex="-1">
+<div class="guide-section-heading"><span class="guide-step-number">03</span><div><h2>Choose the output you need</h2><p>A current view, a saved selection and a downloaded file behave differently.</p></div></div>
+<div class="guide-output-grid">
+<article class="guide-output"><span class="guide-output-type">DISCUSS</span><h3>Meeting Prep</h3><p>Scope companies and markets; review changes, questions and saved takeaways for a conversation.</p><div class="guide-output-foot"><strong>Current workspace</strong><span>Reopen to continue preparing.</span></div>{% if not static_build %}<a href="/war-room">Prepare a meeting →</a>{% endif %}</article>
+<article class="guide-output"><span class="guide-output-type">PRESENT</span><h3>Brief pack</h3><p>Select companies, varieties and intelligence. Save the selection and present it with sources.</p><div class="guide-output-foot"><strong>Saved selection</strong><span>Reopened briefs resolve current records.</span></div>{% if not static_build %}<a href="/brief-pack">Build a brief →</a>{% endif %}</article>
+<article class="guide-output"><span class="guide-output-type">WRITE</span><h3>Sourced report</h3><p>Confirm the question and scope, inspect coverage, then generate and edit a private working draft.</p><div class="guide-output-foot"><strong>Editable draft → PDF</strong><span>The downloaded PDF captures the report at export time.</span></div>{% if not static_build %}<a href="/reports/new">Start a report →</a>{% endif %}</article>
+<article class="guide-output"><span class="guide-output-type">COMPARE</span><h3>Market snapshot</h3><p>Choose countries, berries and sections in Map Explorer. Include reviewed news and select individual market figures{% if not static_build %} or recorded company and variety locations. News follows your company, list and publication-date filters; annual figures and locations keep their own date scope{% endif %}.</p><div class="guide-output-foot"><strong>Dated snapshot export</strong><span>Dates, units, qualifications and source links stay with the export.{% if not static_build %} Selected location notes stay attached; private annotations remain labeled unreviewed.{% endif %}</span></div>{% if not static_build %}<a href="/explorer">Choose the market →</a>{% endif %}</article>
+<article class="guide-output"><span class="guide-output-type">TRANSFER</span><h3>Competitor news packet</h3><p>Choose a company list and dates, capture fresh news, then preview reviewed-only or all-news rows.</p><div class="guide-output-foot"><strong>JSON packet</strong><span>Separate company relationships retain stable IDs, original URLs and review status.</span></div>{% if not static_build %}<a href="/news-packets">Prepare a packet →</a>{% endif %}</article>
+</div><p class="guide-boundary"><strong>Before sharing:</strong> check the date range, source links, unavailable content and review labels. Saving, generating or exporting an output does not approve the news or individual statements it contains.</p>
 </section>
-
-<section class="v2-company-section" id="variety-path">
-  <h2>Variety identity (separate from trusted Varieties)</h2>
-  <ol class="guide-lifecycle">
-    <li><strong>Variety discovery</strong> — a public cultivar name appears in a registry import or trusted corpus mention.</li>
-    <li><strong>Candidate</strong> — CANDIDATE. Not a trusted Variety. The Variety index never treats this count as coverage.</li>
-    <li><strong>Identity Review</strong> — decide DISTINCT, POSSIBLE ALIAS, UNKNOWN, or (human only) CONFIRMED SAME.</li>
-    <li><strong>Trusted Variety</strong> — only an existing canonical Variety record. Reviewing a candidate never auto-creates one.</li>
-  </ol>
+<section class="guide-section" id="review-decisions" tabindex="-1">
+<div class="guide-section-heading"><span class="guide-step-number">04</span><div><h2>Trusted intelligence lifecycle</h2><p>Review the source and its individual claims as separate decisions.</p></div></div>
+<ol class="guide-review-flow"><li><h3>Collect</h3><p>An article, filing or page is discovered, with its source and capture history available for triage.</p></li><li><h3>Review the publication</h3><p>A human decides whether the material belongs in the published corpus. Rejection retains the original source history.</p></li><li><h3>Review its statements</h3><p>Compare each proposed claim with the exact source wording. Decide each proposition separately; reviewing the article does not verify every assertion.</p></li><li><h3>Interpret</h3><p>Use supported statements and sources to assess patterns. Signals, assessments and educational research keep their distinct purposes.</p></li></ol>
+<div class="guide-decision-grid"><article><h3>Reading & relevance</h3><p>Useful, not relevant, saved and read are personal triage decisions.</p></article><article><h3>Statement triage</h3><p>Keeping wording, editing and setting priority prepare a statement for review. Confirm it individually against its source after publication review.</p></article><article><h3>Interpretation review</h3><p>Confirming a captured development records your judgment on that interpretation. It does not publish its underlying claims.</p></article><article><h3>Variety identity</h3><p>A candidate may be distinct, an alias or unresolved. Reviewing a candidate does not automatically create a canonical variety or establish a breeder role.</p></article></div>
+<details class="guide-detail"><summary>What do the status labels mean?</summary><dl class="guide-glossary"><dt>Discovered</dt><dd>Collected material awaiting review.</dd><dt>Review required</dt><dd>A human decision is still needed.</dd><dt>Trusted / reviewed publication</dt><dd>Accepted published material; its individual claims may still need review.</dd><dt>AI proposed</dt><dd>A machine suggestion, with its sources and limitations retained.</dd><dt>Candidate / possible alias</dt><dd>A proposed identity or match, pending a human decision.</dd><dt>Operator action</dt><dd>A collection or source problem, separate from intelligence review.</dd></dl></details>
+{% if not static_build %}<div class="guide-next"><a href="/operations">Open Operations →</a><a href="/review?kind=atomic">Review individual statements →</a><a href="/varieties/candidates">Review variety identities →</a></div>{% endif %}
 </section>
-
-<section class="v2-company-section" id="collection-path">
-  <h2>Collection</h2>
-  <ol class="guide-lifecycle">
-    <li><strong>Collection Ops</strong> — status of the scheduled collector. Viewing it never starts a run.</li>
-    <li><strong>Fresh public material</strong> — newly seen pages and filings staged from Sources.</li>
-    <li><strong>Review queue</strong> — those Publications wait in Publication Review until a human decides.</li>
-  </ol>
-</section>
-
-<section class="v2-company-section" id="words">
-  <h2>Words this workbench reuses</h2>
-  <dl class="v2-role-list">
-    <dt>DISCOVERED</dt><dd>Found by collection. Not yet trusted.</dd>
-    <dt>REVIEW REQUIRED</dt><dd>Waiting for a human decision.</dd>
-    <dt>TRUSTED</dt><dd>Accepted into the published intelligence corpus.</dd>
-    <dt>AI PROPOSED</dt><dd>A machine suggestion. Untrusted until reviewed.</dd>
-    <dt>REVIEWED</dt><dd>A human has recorded a decision.</dd>
-    <dt>CANDIDATE</dt><dd>Proposed identity or pattern. Not the trusted object.</dd>
-    <dt>POSSIBLE ALIAS</dt><dd>May be the same Variety as an existing record. Human must decide.</dd>
-    <dt>OPERATOR ACTION</dt><dd>A collection/Source problem for an operator, not a trust decision.</dd>
-  </dl>
-</section>
-
-{% if not static_build %}
-<nav class="guide-links" aria-label="Open a workspace">
-  <a href="/today">Today</a>
-  <a href="/pending">Publication Review</a>
-  <a href="/review?kind=atomic">Atomic Review</a>
-  <a href="/signals">Signals</a>
-  <a href="/assessments">Assessments</a>
-  <a href="/strategic-questions">Strategic Questions</a>
-  <a href="/varieties/coverage">Variety coverage</a>
-  <a href="/watches">Watchlists</a>
-  <a href="/collection-ops">Collection Ops</a>
-  <a href="/brief-packs">Brief Packs</a>
-</nav>
-{% else %}
-<p class="context-limit">Review queues, collection controls, and Today stay on the live Intelligence OS. This public snapshot shows trusted published intelligence only.</p>
-<nav class="guide-links" aria-label="Open a trusted catalog">
-  <a href="/signals">Signals</a>
-  <a href="/assessments">Assessments</a>
-  <a href="/strategic-questions">Strategic Questions</a>
-  <a href="/entities/variety">Trusted Varieties</a>
-  <a href="/brief-pack">Brief Packs</a>
-  <a href="/learn">Learn</a>
-</nav>
-{% endif %}
+<footer class="guide-footer">This guide explains available workflows. Freshness, source coverage, missing article text and available teaching visuals are disclosed in their respective views. Further research and visual enrichment remain explicit work.</footer>
 </div>
 {% endblock %}
+{% block scripts %}<script src="/static/workflow_guide.js?v=1"></script>{% endblock %}

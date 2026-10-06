@@ -574,3 +574,56 @@ The canonical company and aliases now support discovery in the app. The two exis
 Re-count committed `data/evidence/*.json` by stored `source_type` /
 `media_format` and explicit `berry_ids`. Do not hand-edit a cell without
 re-running the inventory. Inbox drafts stay out of the class table.
+
+**2026-09-30 design-only market/geography preview:** Four public-source annual statistics (US cultivated blueberries and Peru fresh-blueberry exports) were added under `artifacts/design-sprint/`, together with a region editor over committed public entities/relationships. These are preview context, not newly published Evidence. No evidence-class counts, maturity ratings or canonical growing-region claims change. Production expansion requires original-source validation and existing review gates; details are in `IMMERSIVE-DESIGN-MISSION.md`.
+
+
+**2026-09-30 section-review follow-up:** Visual Learn and selection-triggered Perplexity deep research are accepted requirements only. No provider call, new educational content, media acquisition, published Evidence or coverage-maturity change occurred in this planning update.
+
+**2026-09-30 Mission 2 checkpoint:** The first 77-subject registry group reuses existing identities plus two provisional subjects. A private RSS canary completed all searches and exported 13 dated September stories after qualification. Search success is not exhaustive or reviewed coverage. Four photos seed 143 private variety candidates from 144 company associations, with 15 possible canonical matches and 32 unclear cells. No canonical Evidence, approved variety identity, source onboarding, evidence-class count or maturity rating is changed. See [MISSION-02-COMPETITOR-NEWS-PACKETS.md](MISSION-02-COMPETITOR-NEWS-PACKETS.md).
+
+
+**2026-10-01 Mission 3 checkpoint:** Core News consolidates retained public-news discovery and reviewed publications for scanning/reading; manual refresh reuses existing public discovery lanes with paid lanes disabled. No source onboarding, canonical Evidence/Fact writes, new coverage-class counts or maturity changes are introduced. Raw news includes private discovery metadata; trusted news requires active canonical Fact support and source review. Preview image/body gaps are disclosed, not replaced by synthetic production content. See [MISSION-03-NEWS-READER.md](MISSION-03-NEWS-READER.md).
+
+
+**2026-10-01 Map review checkpoint:** The redesigned local Explorer adds geographic news scope parity, private editable region annotations and six USDA production/area reference values across three U.S. berry categories. This is partial manually checked context, not an operational national-statistics collector or a recall improvement. Trade context reuses reviewed trade_observation records; unreviewed region annotations and reference context do not promote canonical intelligence or enter public snapshots. Existing coverage classifications/counts remain authoritative. Broader provider coverage and refresh/revision jobs remain open; see MISSION-04-MAP-EXPLORER.md.
+
+
+**2026-10-01 Company workspace checkpoint:** Directory/profile organization, manual links/logos/contacts and shared personal filters change presentation and analyst working state only. No collector, canonical identity/relationship/Fact/Evidence, evidence-class count, coverage maturity or recall claim changes. Provisional contacts and photo associations remain distinguishable from reviewed intelligence. See MISSION-05-COMPANIES.md.
+
+
+**2026-10-01 Variety workspace checkpoint:** Presentation/navigation and existing private annotations change only; no canonical Variety, role, Evidence, Fact, evidence-class count, coverage maturity or recall claim is added. Photo candidates remain separate from the catalog. Growing-location labels are not inferred from retail markets or rights territories. See MISSION-06-VARIETIES.md.
+
+**Mission 7 reporting review:** Shared task navigation, working-report persistence fixes and readable PDF/source presentation use existing records only. Isolated review disables external AI; missing narratives remain visibly undrafted. No canonical records, collector onboarding, coverage-class counts, maturity ratings or recall claims change. Report creation/editing/export does not approve any underlying claim or source.
+
+
+**Mission 8 coverage boundary:** Configurable Landscape is a projection of existing captured intelligence. Company/variety tables use active stored role and geographic relationships; source-country mentions and private annotations do not prove operations or growing. Publication date filters affect sources only. Missing/undated coverage is explicit; no dataset, canonical counts, maturity rating, collector onboarding or recall claim changed.
+
+
+**Mission 9 educational capability:** Existing 27 concepts/five pillars now have live Glasshouse presentation and an explicit private deep-research-to-lesson workflow. A public cane-biology probe returned 42 source URLs and a detailed editable draft; one concept has a sourced interactive diagram, attributed photo and linked extension video. This is educational coverage, not intelligence acquisition, collector maturity or recall evidence. No Evidence/Fact/Signal counts or maturity classifications change; broader media coverage remains incomplete.
+
+
+**2026-10-03 Map reference coverage:** Bounded Eurostat `apro_cpsh1` public capture adds eight 2025 strawberry production/area references for Germany, Spain, Netherlands and Portugal to the existing six USDA context figures. Values reproduce the retained official response; missing yield/2026 cells are unknown and no country/unit sums are inferred. This is Map reference context, not new canonical Evidence/Facts, an automatic collector, or a recall/maturity reclassification. Wider FAOSTAT/national and Trade coverage remains open. See MISSION-25-MARKET-REFERENCES-SNAPSHOTS.md.
+
+
+**2026-10-04 Company enrichment boundary:** One explicit Planasa public-identity research run returned seven private unreviewed presentation suggestions and 56 native source URLs. No suggestion was applied to real profiles and no canonical Entity/Person/Relationship/Evidence/Fact or coverage maturity/count was created. Source-native citations enable human review; they do not verify generated role or identity claims. Protected editable profile suggestions are a presentation workflow, not intelligence acquisition or recall proof. See MISSION-26-COMPANY-DETAIL-SUGGESTIONS.md.
+
+**October 4 report presentation follow-up:** Takeaway/finding/source hierarchy and readable generated references change report presentation only. Captured dates are labeled separately from publication dates. No source onboarding, acquisition, canonical record counts, coverage maturity or recall evidence changes; no live model calls were used. See REPORT-READING-DESIGN-FOLLOWUP.md.
+
+
+**October 4 source-location review:** The new explicit research-to-location editor is private analyst working state. Native citations make proposals reviewable, not verified. The browser fixture used fictional passages; no live capture or canonical location/Evidence/Fact was created. Existing coverage classes/counts and maturity remain authoritative. See MISSION-27-SOURCE-LOCATION-SUGGESTIONS.md.
+
+
+**October 4 selected-location export:** Optional explicitly selected recorded Company/Variety locations are a report presentation feature. The export sample uses fictional annotations in an isolated runtime; it does not add verified footprints, intelligence acquisition, canonical records or recall/maturity evidence. Existing counts/classes remain authoritative. See MISSION-28-SELECTED-LOCATION-SNAPSHOTS.md.
+
+
+**October 4 snapshot News parity:** Shared filter selection and timestamp ordering change report presentation only. The sample uses one existing reviewed news source; it does not collect fresh intelligence, add canonical records, change review eligibility or alter coverage maturity/recall counts. Separate annual figure and location periods stay intact. See MISSION-29-SNAPSHOT-NEWS-SCOPE.md.
+
+
+**October 4 Reader capture proof:** An explicitly requested existing Produce Report source returned nine readable paragraphs and eight image references in isolated ignored Reader state. Its preview now carries across private card views. This does not create canonical Evidence/Facts, approve claims, establish full publisher coverage or change acquisition/recall maturity counts. See MISSION-30-READER-PREVIEW-CONTINUITY.md.
+
+
+**October 4 bounded Reader follow-up:** The same explicitly requested public Produce Report article returned HTTP 200, nine paragraphs and eight image references under the bounded redirect/streaming implementation. No canonical records or acquisition/recall maturity counts changed. One source succeeds; wider accessibility/extraction coverage remains source-dependent. See MISSION-31-COMPACT-NEWS-AND-CAPTURE-BOUNDS.md.
+
+
+**October 4 in-app agency refresh:** An explicit Eurostat check returned the same four-country/eight-figure 2025 strawberry area/production reference scope, preserving original units, flags, source update and check dates. Its country references are human-selected private context, never canonical Facts or recall/coverage maturity changes. USDA references and unsupported country/crop gaps remain untouched; broader FAOSTAT/national/research population is still partial. See MISSION-32-OFFICIAL-STATISTICS-REFRESH-REVIEW.md.

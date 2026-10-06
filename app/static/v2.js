@@ -93,7 +93,7 @@
     if (!opts || !opts.skipFocus) {
       cards[active].focus({ preventScroll: true });
     }
-    cards[active].scrollIntoView({ block: "nearest" });
+    if (!opts || !opts.preserveScroll) cards[active].scrollIntoView({ block: "nearest" });
   }
   function current() { return cards[active]; }
   function submitAction(name) {
@@ -119,7 +119,7 @@
     var heading = overlayBody && overlayBody.querySelector(".v2-reader-title");
     if (!heading) return;
     heading.setAttribute("tabindex", "-1");
-    heading.focus();
+    heading.focus({ preventScroll: true });
   }
   function ensureOverlay() {
     if (!overlay || !window.bootstrap) return null;
@@ -148,8 +148,13 @@
   }
   function loadReaderById(id, trigger, cardIndex, fromHistory) {
     if (!id || !overlay || !overlayBody) return;
-    if (typeof cardIndex === "number") selectCard(cardIndex, { skipFocus: true });
-    lastTrigger = trigger || lastTrigger;
+    if (typeof cardIndex !== "number") {
+      var found = cards.findIndex(function (card) { return itemIdFromCard(card) === id; });
+      if (found >= 0) cardIndex = found;
+    }
+    if (typeof cardIndex === "number") selectCard(cardIndex, { skipFocus: true, preserveScroll: document.body.hasAttribute("data-personal-digest") });
+    var selected = typeof cardIndex === "number" ? cards[cardIndex] : null;
+    lastTrigger = trigger || (selected && selected.querySelector("[data-open-reader]")) || document.getElementById("digest-main") || lastTrigger;
     if (!fromHistory) {
       var url = new URL(window.location.href);
       var replacing = url.searchParams.has("story");
@@ -159,11 +164,12 @@
       window.history[replacing ? "replaceState" : "pushState"](state, "", url);
     }
     var gen = ++loadGen;
+    document.dispatchEvent(new CustomEvent("bios:reader-unloading"));
     overlayBody.innerHTML = "<p class=\"empty-state\">Loading…</p>";
     overlayBody.setAttribute("aria-busy", "true");
     var instance = ensureOverlay();
     if (instance) instance.show();
-    fetch("/api/intelligence/" + encodeURIComponent(id) + "/reader", { credentials: "same-origin" })
+    fetch("/api/intelligence/" + encodeURIComponent(id) + "/reader" + (document.body.hasAttribute("data-personal-digest") ? "?personal=1" : ""), { credentials: "same-origin" })
       .then(function (res) {
         if (!res.ok) throw new Error("Reader unavailable");
         return res.text();
@@ -172,6 +178,7 @@
         if (gen !== loadGen) return;
         overlayBody.innerHTML = html;
         overlayBody.removeAttribute("aria-busy");
+        document.dispatchEvent(new CustomEvent("bios:reader-loaded"));
         overlayBody.querySelectorAll("form").forEach(function (form) {
           form.addEventListener("submit", function () { copyReviewer(form); });
         });
@@ -192,9 +199,12 @@
     loadReaderById(itemIdFromCard(card), card.querySelector("[data-open-reader]") || card, index);
   }
 
+  function bindIntelligenceCards() {
+    cards = Array.prototype.slice.call(document.querySelectorAll("[data-intel-card]"));
+    active = 0;
   cards.forEach(function (card, index) {
     card.addEventListener("click", function (event) {
-      selectCard(index);
+      selectCard(index, { preserveScroll: document.body.hasAttribute("data-personal-digest") });
       if (event.target.closest("form, button, .v2-chip, a:not([data-open-reader])")) return;
       if (event.target.closest("[data-open-reader]") && overlay) {
         event.preventDefault();
@@ -207,11 +217,15 @@
         if (!overlay || event.metaKey || event.ctrlKey) return;
         event.preventDefault();
         event.stopPropagation();
-        selectCard(index);
+        selectCard(index, { preserveScroll: document.body.hasAttribute("data-personal-digest") });
         loadReader(index);
       });
     });
   });
+  }
+  bindIntelligenceCards();
+  // Query interfaces may replace feed cards while preserving the shared Reader.
+  document.addEventListener("bios:intelligence-updated", bindIntelligenceCards);
   function bindStandaloneReaderLink(link) {
     if (!link || link.dataset.readerBound === "1" || link.closest("[data-intel-card]")) return;
     link.dataset.readerBound = "1";
@@ -329,18 +343,18 @@
     if (!searchResults || !searchStatus) return;
     searchIndex = -1;
     if (!payload || !payload.q) {
-      searchStatus.textContent = "Type to search across objects.";
+      searchStatus.textContent = "Type a company, variety or article title.";
       searchResults.innerHTML = "";
       return;
     }
     if (payload.empty) {
-      searchStatus.textContent = "No objects matched “" + payload.q + "”. This is name/title/alias navigation, not Q&A.";
+      searchStatus.textContent = "No results for “" + payload.q + "”. Try a company, variety or article title.";
       searchResults.innerHTML = "";
       return;
     }
     var html = "";
     if (payload.ambiguous) {
-      html += '<p class="banner banner-warning">More than one canonical object matches. Nothing was auto-selected.</p>';
+      html += '<p class="banner banner-warning">More than one record matches. Choose the record you need.</p>';
     }
     (payload.groups || []).forEach(function (group) {
       html += '<section class="v2-search-group" data-search-group="' + escapeHtml(group.id) + '"><h2>' + escapeHtml(group.label) + "</h2>";
@@ -353,8 +367,7 @@
       }
       html += "</section>";
     });
-    searchStatus.textContent = payload.result_count + " grouped result" + (payload.result_count === 1 ? "" : "s") +
-      (payload.elapsed_ms != null ? " · " + payload.elapsed_ms + " ms" : "");
+    searchStatus.textContent = payload.result_count + " result" + (payload.result_count === 1 ? "" : "s");
     searchResults.innerHTML = html;
     searchResults.querySelectorAll("[data-open-reader]").forEach(bindStandaloneReaderLink);
   }
@@ -431,6 +444,7 @@
   }
 
   document.addEventListener("keydown", function (event) {
+    if (event.defaultPrevented) return;
     if (inFormField(event.target) && event.target !== topbarInput) {
       if (searchOpen && event.key === "Escape") {
         event.preventDefault();
@@ -457,6 +471,10 @@
       return;
     }
     if (searchOpen) return;
+    // Native links, disclosure headings and buttons keep their own activation.
+    // Feed shortcuts apply to the card/background, not the focused control.
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    if (event.target && event.target.closest && event.target.closest("a, button, summary, [role='button'], [role='link']")) return;
     if (!cards.length) return;
     if (event.key === "j") {
       event.preventDefault();

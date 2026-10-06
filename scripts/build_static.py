@@ -297,7 +297,8 @@ def build() -> list[Path]:
                     shutil.copy2(attachment_file, dest_dir / attachment_file.name)
 
     # Entity listings + detail pages.
-    entity_types = sorted({e.get("entity_type") for e in all_entities() if e.get("entity_type")})
+    # Core directories remain navigable in a sparse published snapshot.
+    entity_types = sorted({"company", "variety"} | {e.get("entity_type") for e in all_entities() if e.get("entity_type")})
     for entity_type in entity_types:
         type_entities = sorted(
             (e for e in all_entities() if e.get("entity_type") == entity_type),
@@ -813,6 +814,9 @@ def build() -> list[Path]:
                     "counterevidence": [
                         fact_idx[cid] for cid in (assessment.get("counterevidence_ids") or []) if cid in fact_idx
                     ],
+                    "counterevidence_sources": [
+                        row for row in evidence if row["id"] in (assessment.get("counterevidence_ids") or [])
+                    ],
                     "authoring_mode": False,
                 },
             )
@@ -912,8 +916,9 @@ def build() -> list[Path]:
         )
     )
 
-    # Executive Intelligence Readout V1 -- trusted-only cross-corpus
-    # synthesis, same static-safety story as Landscape above.
+    # Executive Readout uses the canonical public corpus, never inbox drafts.
+    # Stored proposed patterns / AI interpretations keep their review labels;
+    # inclusion in this snapshot is not an approval or confirmation.
     _readout_evidence = published_evidence()
     _readout_signals = all_signals()
     _readout_assessments = all_assessments()
@@ -974,14 +979,14 @@ def build() -> list[Path]:
     }
     written.append(
         write_page(
-            "learn_home.html",
+            "learn_workspace_home.html",
             "/learn",
             {**_learn_home_ctx, "stale_view": False},
         )
     )
     written.append(
         write_page(
-            "learn_home.html",
+            "learn_workspace_home.html",
             "/learn/stale",
             {**_learn_home_ctx, "stale_view": True},
         )
@@ -995,10 +1000,11 @@ def build() -> list[Path]:
         )
         written.append(
             write_page(
-                "learn_concept.html",
+                "learn_workspace_concept.html",
                 f"/learn/{concept['slug']}",
                 {
                     "concept": concept,
+                    "return_to": "/learn",
                     "related": learn_related_concepts(concept),
                     "related_intelligence": related_intel,
                     "berry_notes": learn_berry_notes_for_display(concept, "global"),

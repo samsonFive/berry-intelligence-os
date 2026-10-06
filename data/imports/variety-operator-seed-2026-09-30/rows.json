@@ -1,0 +1,1837 @@
+{
+  "snapshot_date": "2026-09-30",
+  "source": "four operator-provided spreadsheet photos",
+  "source_files": [
+    "codex-clipboard-9fadee68-d5be-4694-8499-d47dd867cd9c.jpg",
+    "codex-clipboard-9379cdfa-7461-4e2d-8799-69069de5c674.jpg",
+    "codex-clipboard-fec0fefa-ac3f-45a0-8f95-6f688b59f4e3.jpg",
+    "codex-clipboard-e206d207-7ca5-4ad3-a79f-f3f4843527e9.jpg"
+  ],
+  "transcription_status": "partial; every readable association still pending review",
+  "does_not_prove": [
+    "breeder",
+    "owner",
+    "licensee",
+    "growing region",
+    "cultivar identity equivalence"
+  ],
+  "rows": [
+    {
+      "candidate_name": "Delizzimo",
+      "berry_id": "berry-strawberry",
+      "company_label": "ABZ Seeds",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Soraya",
+      "berry_id": "berry-strawberry",
+      "company_label": "ABZ Seeds",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Kwanza",
+      "berry_id": "berry-raspberry",
+      "company_label": "Advanced Berry Breeding",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Kweli",
+      "berry_id": "berry-raspberry",
+      "company_label": "Advanced Berry Breeding",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Sweet Eve 2",
+      "berry_id": "berry-strawberry",
+      "company_label": "AgroBerries / BerryWorld",
+      "company_ids": [
+        "company-agroberries",
+        "company-berryworld"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Eve's Delight 2",
+      "berry_id": "berry-strawberry",
+      "company_label": "AgroBerries / BerryWorld",
+      "company_ids": [
+        "company-agroberries",
+        "company-berryworld"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Verity",
+      "berry_id": "berry-strawberry",
+      "company_label": "AgroBerries / BerryWorld",
+      "company_ids": [
+        "company-agroberries",
+        "company-berryworld"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Bee Honest",
+      "berry_id": "berry-strawberry",
+      "company_label": "AgroBerries / BerryWorld",
+      "company_ids": [
+        "company-agroberries",
+        "company-berryworld"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Eve's Joy",
+      "berry_id": "berry-strawberry",
+      "company_label": "AgroBerries / BerryWorld",
+      "company_ids": [
+        "company-agroberries",
+        "company-berryworld"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Bee Loved",
+      "berry_id": "berry-strawberry",
+      "company_label": "AgroBerries / BerryWorld",
+      "company_ids": [
+        "company-agroberries",
+        "company-berryworld"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Jewel",
+      "berry_id": "berry-raspberry",
+      "company_label": "Angus Soft Fruits",
+      "company_ids": [
+        "company-angus-soft-fruits"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Sapphire",
+      "berry_id": "berry-raspberry",
+      "company_label": "Angus Soft Fruits",
+      "company_ids": [
+        "company-angus-soft-fruits"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Diamond Jubilee",
+      "berry_id": "berry-raspberry",
+      "company_label": "Angus Soft Fruits",
+      "company_ids": [
+        "company-angus-soft-fruits"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Ruby",
+      "berry_id": "berry-raspberry",
+      "company_label": "Angus Soft Fruits",
+      "company_ids": [
+        "company-angus-soft-fruits"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Midnight",
+      "berry_id": "berry-blackberry",
+      "company_label": "Angus Soft Fruits",
+      "company_ids": [
+        "company-angus-soft-fruits"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Centenary",
+      "berry_id": "berry-strawberry",
+      "company_label": "Bayer",
+      "company_ids": [
+        "company-bayer"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Alure",
+      "berry_id": "berry-strawberry",
+      "company_label": "Bayer",
+      "company_ids": [
+        "company-bayer"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Verity",
+      "berry_id": "berry-strawberry",
+      "company_label": "Bayer",
+      "company_ids": [
+        "company-bayer"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Arwen",
+      "berry_id": "berry-strawberry",
+      "company_label": "Berries del Oeste",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Shani",
+      "berry_id": "berry-raspberry",
+      "company_label": "Berryum",
+      "company_ids": [
+        "brand-berryum"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Amira",
+      "berry_id": "berry-raspberry",
+      "company_label": "Berryum",
+      "company_ids": [
+        "brand-berryum"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Regina",
+      "berry_id": "berry-raspberry",
+      "company_label": "Berryum",
+      "company_ids": [
+        "brand-berryum"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Eros",
+      "berry_id": "berry-raspberry",
+      "company_label": "Berryum",
+      "company_ids": [
+        "brand-berryum"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Clarita",
+      "berry_id": "berry-raspberry",
+      "company_label": "Berryum",
+      "company_ids": [
+        "brand-berryum"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Amalia Rossa",
+      "berry_id": "berry-raspberry",
+      "company_label": "Berryum",
+      "company_ids": [
+        "brand-berryum"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Adelanto",
+      "berry_id": "berry-strawberry",
+      "company_label": "California Berry Cultivars",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Belvedere",
+      "berry_id": "berry-strawberry",
+      "company_label": "California Berry Cultivars",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Alturas",
+      "berry_id": "berry-strawberry",
+      "company_label": "California Berry Cultivars",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Brisbane",
+      "berry_id": "berry-strawberry",
+      "company_label": "California Berry Cultivars",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "image_number": 1,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Aura",
+      "berry_id": "berry-blueberry",
+      "company_label": "Fall Creek",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Jupiter",
+      "berry_id": "berry-blueberry",
+      "company_label": "Fall Creek",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Atlas",
+      "berry_id": "berry-blueberry",
+      "company_label": "Fall Creek",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Dupree",
+      "berry_id": "berry-blueberry",
+      "company_label": "Fall Creek",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Sekoya Beauty",
+      "berry_id": "berry-blueberry",
+      "company_label": "Fall Creek",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Crunch",
+      "berry_id": "berry-blueberry",
+      "company_label": "Fall Creek",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Grande",
+      "berry_id": "berry-blueberry",
+      "company_label": "Fall Creek",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Pop",
+      "berry_id": "berry-blueberry",
+      "company_label": "Fall Creek",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Top Shelf",
+      "berry_id": "berry-blueberry",
+      "company_label": "Fall Creek",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Last Call",
+      "berry_id": "berry-blueberry",
+      "company_label": "Fall Creek",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Daniela",
+      "berry_id": "berry-raspberry",
+      "company_label": "Expoberries",
+      "company_ids": [
+        "company-expoberries"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Sweet Karoline",
+      "berry_id": "berry-blackberry",
+      "company_label": "Expoberries",
+      "company_ids": [
+        "company-expoberries"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Emma",
+      "berry_id": "berry-blackberry",
+      "company_label": "Expoberries",
+      "company_ids": [
+        "company-expoberries"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Favori",
+      "berry_id": "berry-strawberry",
+      "company_label": "Flevo Berry",
+      "company_ids": [
+        "company-flevo-berry"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Sonsation",
+      "berry_id": "berry-strawberry",
+      "company_label": "Flevo Berry",
+      "company_ids": [
+        "company-flevo-berry"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Magnus",
+      "berry_id": "berry-strawberry",
+      "company_label": "Flevo Berry",
+      "company_ids": [
+        "company-flevo-berry"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Magma",
+      "berry_id": "berry-strawberry",
+      "company_label": "Flevo Berry",
+      "company_ids": [
+        "company-flevo-berry"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Florice",
+      "berry_id": "berry-strawberry",
+      "company_label": "Flevo Berry",
+      "company_ids": [
+        "company-flevo-berry"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Calinda",
+      "berry_id": "berry-strawberry",
+      "company_label": "Fresh Forward",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Allegro",
+      "berry_id": "berry-strawberry",
+      "company_label": "Fresh Forward",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Sonata",
+      "berry_id": "berry-strawberry",
+      "company_label": "Fresh Forward",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Vivaldi",
+      "berry_id": "berry-strawberry",
+      "company_label": "Fresh Forward",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Lambada",
+      "berry_id": "berry-strawberry",
+      "company_label": "Fresh Forward",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Twist",
+      "berry_id": "berry-strawberry",
+      "company_label": "Fresh Forward",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Yolo",
+      "berry_id": "berry-strawberry",
+      "company_label": "Fresh Forward",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Rumba",
+      "berry_id": "berry-strawberry",
+      "company_label": "Fresh Forward",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Salsa",
+      "berry_id": "berry-strawberry",
+      "company_label": "Fresh Forward",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Polka",
+      "berry_id": "berry-strawberry",
+      "company_label": "Fresh Forward",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "FE2132",
+      "berry_id": "berry-strawberry",
+      "company_label": "Fresh Forward",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "FE2134",
+      "berry_id": "berry-strawberry",
+      "company_label": "Fresh Forward",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Kat",
+      "berry_id": "berry-blackberry",
+      "company_label": "Fruitist",
+      "company_ids": [
+        "company-agrovision"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Jenny",
+      "berry_id": "berry-blueberry",
+      "company_label": "G Berries",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Blue Candy",
+      "berry_id": "berry-blueberry",
+      "company_label": "G Berries",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Enrosadira",
+      "berry_id": "berry-raspberry",
+      "company_label": "Gem-Pack Berries",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Castion",
+      "berry_id": "berry-raspberry",
+      "company_label": "Gem-Pack Berries",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Dorotea",
+      "berry_id": "berry-raspberry",
+      "company_label": "Gem-Pack Berries",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Easy Star",
+      "berry_id": "berry-raspberry",
+      "company_label": "Gem-Pack Berries",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Easy Rock",
+      "berry_id": "berry-raspberry",
+      "company_label": "Gem-Pack Berries",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Isabella",
+      "berry_id": "berry-blackberry",
+      "company_label": "Genetics Uruguay",
+      "company_ids": [
+        "company-genetics-uruguay"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Nayeli",
+      "berry_id": "berry-blackberry",
+      "company_label": "Hansa Bred",
+      "company_ids": [
+        "company-hansabred"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Futura",
+      "berry_id": "berry-blueberry",
+      "company_label": "Inkas Berries",
+      "company_ids": [
+        "company-inkas-berries"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Glen Mor",
+      "berry_id": "berry-raspberry",
+      "company_label": "James Hutton Institute",
+      "company_ids": [
+        "company-james-hutton-institute"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Luisa",
+      "berry_id": "berry-raspberry",
+      "company_label": "James Hutton Institute",
+      "company_ids": [
+        "company-james-hutton-institute"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Skye",
+      "berry_id": "berry-raspberry",
+      "company_label": "James Hutton Institute",
+      "company_ids": [
+        "company-james-hutton-institute"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Glen Carron",
+      "berry_id": "berry-raspberry",
+      "company_label": "James Hutton Institute",
+      "company_ids": [
+        "company-james-hutton-institute"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "0458C5",
+      "berry_id": "berry-raspberry",
+      "company_label": "James Hutton Institute",
+      "company_ids": [
+        "company-james-hutton-institute"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Glen Eden",
+      "berry_id": "berry-raspberry",
+      "company_label": "James Hutton Institute",
+      "company_ids": [
+        "company-james-hutton-institute"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Versailles",
+      "berry_id": "berry-raspberry",
+      "company_label": "Marionnet",
+      "company_ids": [
+        "company-marionnet"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Paris",
+      "berry_id": "berry-raspberry",
+      "company_label": "Marionnet",
+      "company_ids": [
+        "company-marionnet"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Pandora",
+      "berry_id": "berry-raspberry",
+      "company_label": "Marionnet",
+      "company_ids": [
+        "company-marionnet"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Gala",
+      "berry_id": "berry-raspberry",
+      "company_label": "Marionnet",
+      "company_ids": [
+        "company-marionnet"
+      ],
+      "image_number": 2,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Palmeritas",
+      "berry_id": "berry-strawberry",
+      "company_label": "Masia Ciscar",
+      "company_ids": [
+        "company-masia-ciscar"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Leya",
+      "berry_id": "berry-strawberry",
+      "company_label": "Masia Ciscar",
+      "company_ids": [
+        "company-masia-ciscar"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Leticia",
+      "berry_id": "berry-strawberry",
+      "company_label": "Masia Ciscar",
+      "company_ids": [
+        "company-masia-ciscar"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Shyra",
+      "berry_id": "berry-strawberry",
+      "company_label": "Masia Ciscar",
+      "company_ids": [
+        "company-masia-ciscar"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Chelsea",
+      "berry_id": "berry-strawberry",
+      "company_label": "Masia Ciscar",
+      "company_ids": [
+        "company-masia-ciscar"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Karima",
+      "berry_id": "berry-strawberry",
+      "company_label": "Mattivi",
+      "company_ids": [
+        "company-mattivi-group"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Agro Serena",
+      "berry_id": "berry-raspberry",
+      "company_label": "Miyoshi Group",
+      "company_ids": [
+        "company-miyoshi-group"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Eureka Sunrise",
+      "berry_id": "berry-blueberry",
+      "company_label": "Mountain Blue Orchards / The Berry Collective",
+      "company_ids": [
+        "company-mountain-blue-orchards",
+        "company-the-berry-collective"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Vita",
+      "berry_id": "berry-raspberry",
+      "company_label": "NIWA",
+      "company_ids": [
+        "company-niwa-berry-breeding"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Charm",
+      "berry_id": "berry-raspberry",
+      "company_label": "NIWA",
+      "company_ids": [
+        "company-niwa-berry-breeding"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Marimbella",
+      "berry_id": "berry-strawberry",
+      "company_label": "Novisiri Genetics",
+      "company_ids": [
+        "company-nova-siri-genetics"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Eve",
+      "berry_id": "berry-blueberry",
+      "company_label": "Ozblu",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Magica",
+      "berry_id": "berry-blueberry",
+      "company_label": "Ozblu",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Elaina",
+      "berry_id": "berry-blueberry",
+      "company_label": "Ozblu",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Savana",
+      "berry_id": "berry-strawberry",
+      "company_label": "Planasa",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "La Nina",
+      "berry_id": "berry-strawberry",
+      "company_label": "Planasa",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Santa Maria",
+      "berry_id": "berry-strawberry",
+      "company_label": "Planasa",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "La Playa",
+      "berry_id": "berry-strawberry",
+      "company_label": "Planasa",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Adelita",
+      "berry_id": "berry-raspberry",
+      "company_label": "Planasa",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Commitment",
+      "berry_id": "berry-strawberry",
+      "company_label": "Plant Sciences",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Confidence",
+      "berry_id": "berry-strawberry",
+      "company_label": "Plant Sciences",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Honor",
+      "berry_id": "berry-strawberry",
+      "company_label": "Plant Sciences",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Purpose",
+      "berry_id": "berry-strawberry",
+      "company_label": "Plant Sciences",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Victory",
+      "berry_id": "berry-strawberry",
+      "company_label": "Plant Sciences",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Passion",
+      "berry_id": "berry-strawberry",
+      "company_label": "Plant Sciences",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Pioneer",
+      "berry_id": "berry-strawberry",
+      "company_label": "Plant Sciences",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Pace",
+      "berry_id": "berry-strawberry",
+      "company_label": "Plant Sciences",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Sundrench",
+      "berry_id": "berry-strawberry",
+      "company_label": "Queensland Government",
+      "company_ids": [
+        "company-queensland-government"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Red Rhapsody",
+      "berry_id": "berry-strawberry",
+      "company_label": "Queensland Government",
+      "company_ids": [
+        "company-queensland-government"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Blue Aroma",
+      "berry_id": "berry-blueberry",
+      "company_label": "Royal Berries",
+      "company_ids": [
+        "breeding_program-atlantic-blue-royal-berries"
+      ],
+      "image_number": 3,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Malu",
+      "berry_id": "berry-raspberry",
+      "company_label": "SunBelle",
+      "company_ids": [
+        "company-sunbelle"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Alexa",
+      "berry_id": "berry-raspberry",
+      "company_label": "SunBelle",
+      "company_ids": [
+        "company-sunbelle"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Maya",
+      "berry_id": "berry-raspberry",
+      "company_label": "SunBelle",
+      "company_ids": [
+        "company-sunbelle"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Warrior",
+      "berry_id": "berry-strawberry",
+      "company_label": "UC Davis",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Victor",
+      "berry_id": "berry-strawberry",
+      "company_label": "UC Davis",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Valiant",
+      "berry_id": "berry-strawberry",
+      "company_label": "UC Davis",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Moxie",
+      "berry_id": "berry-strawberry",
+      "company_label": "UC Davis",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Royal Royce",
+      "berry_id": "berry-strawberry",
+      "company_label": "UC Davis",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Monterey",
+      "berry_id": "berry-strawberry",
+      "company_label": "UC Davis",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Portola",
+      "berry_id": "berry-strawberry",
+      "company_label": "UC Davis",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Eclipse",
+      "berry_id": "berry-strawberry",
+      "company_label": "UC Davis",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Golden Gate",
+      "berry_id": "berry-strawberry",
+      "company_label": "UC Davis",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Keystone",
+      "berry_id": "berry-strawberry",
+      "company_label": "UC Davis",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Monarch",
+      "berry_id": "berry-strawberry",
+      "company_label": "UC Davis",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Surfline",
+      "berry_id": "berry-strawberry",
+      "company_label": "UC Davis",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Prime-Ark 45",
+      "berry_id": "berry-blackberry",
+      "company_label": "University of Arkansas",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Prime-Ark Horizon",
+      "berry_id": "berry-blackberry",
+      "company_label": "University of Arkansas",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "APF-122",
+      "berry_id": "berry-blackberry",
+      "company_label": "University of Arkansas",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Ponca",
+      "berry_id": "berry-blackberry",
+      "company_label": "University of Arkansas",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Caddo",
+      "berry_id": "berry-blackberry",
+      "company_label": "University of Arkansas",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Southern Grace",
+      "berry_id": "berry-blackberry",
+      "company_label": "University of Arkansas",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Sweet-Ark Immaculate",
+      "berry_id": "berry-blackberry",
+      "company_label": "University of Arkansas",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Danna",
+      "berry_id": "berry-blackberry",
+      "company_label": "University of Arkansas",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Fortuna",
+      "berry_id": "berry-strawberry",
+      "company_label": "University of Florida",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Pearl",
+      "berry_id": "berry-strawberry",
+      "company_label": "University of Florida",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Sensation",
+      "berry_id": "berry-strawberry",
+      "company_label": "University of Florida",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Brilliance",
+      "berry_id": "berry-strawberry",
+      "company_label": "University of Florida",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Jewel",
+      "berry_id": "berry-blueberry",
+      "company_label": "University of Florida",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Emerald",
+      "berry_id": "berry-blueberry",
+      "company_label": "University of Florida",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Snowchaser",
+      "berry_id": "berry-blueberry",
+      "company_label": "University of Florida",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Arcadia",
+      "berry_id": "berry-blueberry",
+      "company_label": "University of Florida",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Sentinel",
+      "berry_id": "berry-blueberry",
+      "company_label": "University of Florida",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Colossus",
+      "berry_id": "berry-blueberry",
+      "company_label": "University of Florida",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    },
+    {
+      "candidate_name": "Orla",
+      "berry_id": "berry-blackberry",
+      "company_label": "Well-Pict",
+      "company_ids": [
+        "company-well-pict"
+      ],
+      "image_number": 4,
+      "review_state": "pending",
+      "relationship_role": "unspecified"
+    }
+  ],
+  "exceptions": [
+    {
+      "image_number": 1,
+      "company_label": "Angus Soft Fruits",
+      "berry": "blueberry",
+      "visible_text": "Orb",
+      "reason": "Short name and row placement need confirmation"
+    },
+    {
+      "image_number": 1,
+      "company_label": "Berryum",
+      "berry": "raspberry",
+      "visible_text": "First name before Shani",
+      "reason": "First token unclear"
+    },
+    {
+      "image_number": 1,
+      "company_label": "Berryum",
+      "berry": "blackberry",
+      "visible_text": "Pre-commercial blackberry variety",
+      "reason": "Unnamed variety; not an identity to create"
+    },
+    {
+      "image_number": 1,
+      "company_label": "Biogea",
+      "berry": "blackberry",
+      "visible_text": "Multiple names including Furia, Indra and Aster",
+      "reason": "Complete spelling and cell alignment need confirmation"
+    },
+    {
+      "image_number": 1,
+      "company_label": "Black Venture Farm",
+      "berry": "blackberry",
+      "visible_text": "Multiple names",
+      "reason": "Complete spelling and row association unclear"
+    },
+    {
+      "image_number": 1,
+      "company_label": "CIV",
+      "berry": "strawberry",
+      "visible_text": "Murino / Murano",
+      "reason": "Do not guess spelling or merge with a known cultivar"
+    },
+    {
+      "image_number": 2,
+      "company_label": "FNM",
+      "berry": "raspberry",
+      "visible_text": "Nobita / Novita",
+      "reason": "Spelling unclear"
+    },
+    {
+      "image_number": 2,
+      "company_label": "Fresh Forward",
+      "berry": "strawberry",
+      "visible_text": "FE2134 (Cadenza)",
+      "reason": "Code/name relationship needs identity review; code retained without automatic alias assertion"
+    },
+    {
+      "image_number": 2,
+      "company_label": "G Berries",
+      "berry": "blueberry",
+      "visible_text": "Token between Jenny and Blue Candy",
+      "reason": "Unreadable token"
+    },
+    {
+      "image_number": 2,
+      "company_label": "Hortifrut Genetica",
+      "berry": "blueberry",
+      "visible_text": "Rocio and another name",
+      "reason": "Full spelling unclear"
+    },
+    {
+      "image_number": 2,
+      "company_label": "Inkas Berries",
+      "berry": "blueberry",
+      "visible_text": "Sekoya",
+      "reason": "Platform/brand label is not automatically an individual cultivar"
+    },
+    {
+      "image_number": 2,
+      "company_label": "Inkas Berries",
+      "berry": "raspberry",
+      "visible_text": "Multiple names",
+      "reason": "Full spelling and row placement unclear"
+    },
+    {
+      "image_number": 2,
+      "company_label": "Inkas Berries",
+      "berry": "blackberry",
+      "visible_text": "Multiple names",
+      "reason": "Full spelling and row placement unclear"
+    },
+    {
+      "image_number": 2,
+      "company_label": "IQ Berries",
+      "berry": "blueberry",
+      "visible_text": "Multiple names",
+      "reason": "Full spelling unclear"
+    },
+    {
+      "image_number": 2,
+      "company_label": "Limgroup",
+      "berry": "strawberry",
+      "visible_text": "Lima...",
+      "reason": "Full name unreadable"
+    },
+    {
+      "image_number": 2,
+      "company_label": "James Hutton Institute",
+      "berry": "blackberry",
+      "visible_text": "Loch Ness, Loch Tay, Loch Katrine",
+      "reason": "Row placement needs confirmation before association import"
+    },
+    {
+      "image_number": 2,
+      "company_label": "Marionnet",
+      "berry": "blackberry",
+      "visible_text": "NM01 and another name",
+      "reason": "Code and spelling unclear"
+    },
+    {
+      "image_number": 3,
+      "company_label": "Mattivi",
+      "berry": "strawberry",
+      "visible_text": "Murina / Murano",
+      "reason": "Spelling unclear"
+    },
+    {
+      "image_number": 3,
+      "company_label": "Miyoshi Group",
+      "berry": "raspberry",
+      "visible_text": "Dulcinea / Dolcinea",
+      "reason": "Spelling unclear"
+    },
+    {
+      "image_number": 3,
+      "company_label": "Mountain Blue Orchards / The Berry Collective",
+      "berry": "blueberry",
+      "visible_text": "Additional Eureka and selection labels",
+      "reason": "Full strings and platform/selection distinction unclear"
+    },
+    {
+      "image_number": 3,
+      "company_label": "Ozblu",
+      "berry": "blueberry",
+      "visible_text": "Additional names and codes",
+      "reason": "Full spelling unclear"
+    },
+    {
+      "image_number": 3,
+      "company_label": "Planasa",
+      "berry": "strawberry",
+      "visible_text": "Additional names after La Playa",
+      "reason": "Full spelling unclear"
+    },
+    {
+      "image_number": 3,
+      "company_label": "Planasa",
+      "berry": "blueberry",
+      "visible_text": "Multiple names",
+      "reason": "Full spelling unclear"
+    },
+    {
+      "image_number": 3,
+      "company_label": "Planasa",
+      "berry": "raspberry",
+      "visible_text": "Additional codes and names",
+      "reason": "Full strings unclear"
+    },
+    {
+      "image_number": 3,
+      "company_label": "Plant Sciences",
+      "berry": "raspberry",
+      "visible_text": "Multiple names including Majesty",
+      "reason": "Full spelling and row placement unclear"
+    },
+    {
+      "image_number": 3,
+      "company_label": "Plant Sciences",
+      "berry": "blackberry",
+      "visible_text": "Sultana",
+      "reason": "Spelling and row placement need confirmation"
+    },
+    {
+      "image_number": 3,
+      "company_label": "Queensland Government",
+      "berry": "blackberry",
+      "visible_text": "Rosica / Ros...",
+      "reason": "Full spelling and row placement unclear"
+    },
+    {
+      "image_number": 3,
+      "company_label": "Sant Orsola",
+      "berry": "raspberry",
+      "visible_text": "Royal names",
+      "reason": "Full names unclear"
+    },
+    {
+      "image_number": 3,
+      "company_label": "Splendor Produce",
+      "berry": "raspberry",
+      "visible_text": "Paz, Hera and another token",
+      "reason": "Full names and row placement need confirmation"
+    },
+    {
+      "image_number": 3,
+      "company_label": "Splendor Produce",
+      "berry": "blackberry",
+      "visible_text": "Multiple names",
+      "reason": "Full strings unclear"
+    },
+    {
+      "image_number": 4,
+      "company_label": "University of Florida",
+      "berry": "blueberry",
+      "visible_text": "FL17-141 / FL19-006",
+      "reason": "Selection code transcription needs confirmation"
+    },
+    {
+      "image_number": 4,
+      "company_label": "University of Arkansas",
+      "berry": "blackberry",
+      "visible_text": "APF-122 (Mary Carmen & Madeline)",
+      "reason": "Reported trade-name equivalence retained as a note, not automatic alias merge"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 <div class="radar-fresh">
-  <p class="sh-note">{{ edition.freshness_label }} · {{ edition.trust_label }} · {{ edition.stats.board or edition.developments|length }} on the board{% if edition.stats.catalog and edition.stats.catalog > (edition.stats.board or 0) %} · {{ edition.stats.catalog }} in the catalog{% endif %}</p>
+  <p class="sh-note">{{ edition.freshness_label }} · {{ edition.trust_label | lower | capitalize if intelligence_workspace else edition.trust_label }} · {{ edition.stats.board or edition.developments|length }} on the board{% if edition.stats.catalog and edition.stats.catalog > (edition.stats.board or 0) %} · {{ edition.stats.catalog }} in the catalog{% endif %}</p>
 </div>
 
 {% for section in edition.sections %}
@@ -13,5 +13,9 @@
   </ul>
 </section>
 {% else %}
-<p class="sh-empty">No qualifying developments in this refresh. Radar searches themes an analyst did not have to type — an empty board means the bounded live stack returned nothing that passed qualification.</p>
+{% if edition.developments %}
+<section class="sh-section"><h2>Captured developments</h2><ul class="sh-story-list">{% for item in edition.developments %}<li>{% include '_radar_card.html' %}</li>{% endfor %}</ul></section>
+{% else %}
+<p class="sh-empty">No qualifying developments were captured in this refresh. This reflects the available searches and sources; it does not mean nothing happened.</p>
+{% endif %}
 {% endfor %}

@@ -41,3 +41,30 @@ Everything here is organized around one distinction, stated fully in `01-PRODUCT
 ## Recommended next step
 
 The plan is now reviewed and accepted (with the revisions recorded in `08-DECISION-LOG.md`). The concrete first action is Phase 0 (`07-IMPLEMENTATION-ROADMAP.md`): tag the current V1 commit as the reference baseline (`BL-001`, `10-BACKLOG.md`) — a trivial, reversible, zero-risk action that unblocks every subsequent phase without touching anything currently running. **Not started as part of this review pass** — see `PROJECT-STATUS.md`.
+
+
+- [Mission 29 — News filters in Market Snapshot](MISSION-29-SNAPSHOT-NEWS-SCOPE.md): shared News scope, readable export selection and native keyboard activation; separate annual/location periods and remaining release acceptance.
+
+
+- [Mission 30 — Captured article previews and explicit retries](MISSION-30-READER-PREVIEW-CONTINUITY.md): exact-source private image metadata across cards, original reading proof and remaining release checks.
+
+
+- [Mission 31 — Compact News filters and bounded article capture](MISSION-31-COMPACT-NEWS-AND-CAPTURE-BOUNDS.md): complete native scope disclosure, explicit timezone retention and deterministic HTTP bounds.
+
+
+- [Mission 32 — Official statistics refresh and review](MISSION-32-OFFICIAL-STATISTICS-REFRESH-REVIEW.md): native explicit agency capture, paired values, human selection, retained history and Map/snapshot parity.
+
+
+- [Mission 33 — Persistent runtime reference parity](MISSION-33-RUNTIME-REFERENCE-PARITY.md): deployed data-directory compatibility, operator-edit preservation and remaining specialist/release acceptance.
+
+- [Mission 34: Source authenticity in Operations](MISSION-34-SOURCE-AUTHENTICITY-WORKSPACE.md) — retained source comparison, native review-and-next repair, private gates, phone/keyboard/search proof.
+
+- [Mission 35: Retained workflow shell](MISSION-35-RETAINED-WORKSPACE-SHELL.md) — shared navigation, preserved native controls, readable comparisons, claim/history panels and phone containment.
+
+- [Mission 36: Public market research and figure review](MISSION-36-MARKET-REFERENCE-RESEARCH.md) — bounded country/berry research, source passages, private review/history and Map/snapshot/PDF parity.
+
+- [Mission 37: Consolidation parity and current requirements](MISSION-37-CONSOLIDATION-RELEASE-AUDIT.md) — older-PR intent, reviewed company mentions across scoped News/Digest, truthful source labels and the finite combined release boundary.
+
+- [Mission 38: Combined release rehearsal](MISSION-38-RELEASE-REHEARSAL.md) — authenticated isolated container, byte-verified packaging, persistent edits, verified backup/empty restore, prior-image rollback and final guide/upload evidence.
+
+**Approved redesign release review:** [RELEASE-REVIEW.md](RELEASE-REVIEW.md) contains the visual report/workflow/reporting examples, all 28 accepted requirements, actual native capture/export/recovery evidence and final approval/deployment limits. Combined draft [#312](https://github.com/samsonFive/berry-intelligence-os/pull/312) targets canonical without merging historical drafts.

@@ -89,6 +89,10 @@ def test_comparison_emits_only_populated_dimensions_and_no_score() -> None:
     assert {"current", "moves", "geographies", "varieties", "partnerships", "trusted"}.issubset(keys)
     assert "signals" not in keys
     assert "score" not in str(model).casefold()
+    partnerships = next(row for row in model["dimensions"] if row["key"] == "partnerships")
+    relationship = partnerships["cells"][0]["items"][0]
+    assert relationship["title"] == "Company A partners with Partner"
+    assert relationship["id"] == "rel-a"
 
 
 def test_differences_are_coverage_cautious_and_cited() -> None:

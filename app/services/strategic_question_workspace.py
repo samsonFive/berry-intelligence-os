@@ -341,6 +341,7 @@ def strategic_question_detail(
             "title": evidence_by_id[eid].get("title"),
             "source_name": evidence_by_id[eid].get("source_name"),
             "published_date": evidence_by_id[eid].get("published_date") or evidence_by_id[eid].get("captured_date"),
+            "date_is_capture": not evidence_by_id[eid].get("published_date") and bool(evidence_by_id[eid].get("captured_date")),
             "href": f"/evidence/{eid}",
         }
         for eid in source_evidence_ids
@@ -358,6 +359,7 @@ def strategic_question_detail(
             "id": e["id"],
             "title": e.get("title"),
             "date": e.get("published_date") or e.get("captured_date"),
+            "date_is_capture": not e.get("published_date") and bool(e.get("captured_date")),
             "source_name": e.get("source_name"),
             "reader_href": f"/intelligence/{e['id']}",
             "href": f"/evidence/{e['id']}",

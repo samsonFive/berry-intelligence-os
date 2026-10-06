@@ -1,17 +1,17 @@
-{% extends "base.html" %}
+{% extends "intelligence_workspace_base.html" %}
 {% block title %}Signal candidate review — Berry Intelligence OS{% endblock %}
-{% block content %}
-<div class="v2-page">
+{% block intelligence_content %}
+<div class="v2-page signal-candidate-workspace">
 <section class="page-heading v2-page-header">
   <div>
     <p class="eyebrow">DECIDE</p>
     <h1>Signal review</h1>
-    <p class="also-known-as">Untrusted candidates only. This is not the trusted Signal catalog and not a developing-story queue.</p>
+    <p class="also-known-as">Review proposed patterns, check their sources and decide what deserves attention. These candidates are not trusted Signals.</p>
   </div>
   <a class="button-link" href="/signals">Trusted catalog</a>
 </section>
 
-<p class="brief-window">Review Now is the bounded attention set. Same-origin reprints stay in Same-origin / weak even when the document count looks large. Limited source evidence stays visible and is not treated as equivalent to verified source content. Confirm never creates a trusted Signal by itself. Counts come from the current live candidate set, not a frozen snapshot.</p>
+<p class="candidate-review-boundary">Confirming a candidate records your decision; it does not publish a trusted Signal. Limited source text and reprints are labeled below.</p>
 
 <ul class="brief-delta-strip">
   {% for group in triage.buckets %}
@@ -25,10 +25,11 @@
     <strong>{{ triage.counts.limited_evidence }}</strong>
   </li>
 </ul>
+<details class="candidate-method"><summary>How candidates are grouped</summary><p>Review Now is the bounded attention set. Same-origin reprints stay in Same-origin / weak even when the document count looks large. Limited source evidence stays visible and is not treated as equivalent to verified source content. Counts come from the current live candidate set, not a frozen snapshot.</p></details>
 
-{% for group in triage.buckets %}
-  <section class="brief-section" id="triage-{{ group.key }}">
-    <h2>{{ group.label }} — {{ group.count }}</h2>
+{% for group in (triage.buckets|selectattr('entries')|list) + (triage.buckets|rejectattr('entries')|list) %}
+  {% if group.entries %}<section class="brief-section" id="triage-{{ group.key }}"><h2>{{ group.label }} — {{ group.count }}</h2>
+  {% else %}<details class="candidate-empty-group" id="triage-{{ group.key }}"><summary>{{ group.label }} · {{ group.count }}</summary>{% endif %}
     {% if group.key == 'review_now' %}
       <p class="context-limit">Independent origins, berry-direct or watched subject, recent, or an explicit contradiction. Worth analyst attention.</p>
     {% elif group.key == 'review_soon' %}
@@ -47,11 +48,11 @@
     {% else %}
       <p class="empty-state">Nothing in this bucket.</p>
     {% endif %}
-  </section>
+  {% if group.entries %}</section>{% else %}</details>{% endif %}
 {% endfor %}
 
-<section class="brief-section" id="triage-limited-evidence">
-  <h2>Limited evidence — {{ triage.counts.limited_evidence }}</h2>
+{% if triage.limited_evidence %}<section class="brief-section" id="triage-limited-evidence"><h2>Limited evidence — {{ triage.counts.limited_evidence }}</h2>
+{% else %}<details class="candidate-empty-group" id="triage-limited-evidence"><summary>Limited evidence · {{ triage.counts.limited_evidence }}</summary>{% endif %}
   <p class="context-limit">Overlay, not a replacement bucket. These candidates remain in Review now / soon / weak / low confidence. They currently lack verified source content such as a transcript.</p>
   {% if triage.limited_evidence %}
     {% for item in triage.limited_evidence %}
@@ -60,6 +61,6 @@
   {% else %}
     <p class="empty-state">No limited-evidence candidates in the live set.</p>
   {% endif %}
-</section>
+{% if triage.limited_evidence %}</section>{% else %}</details>{% endif %}
 </div>
 {% endblock %}

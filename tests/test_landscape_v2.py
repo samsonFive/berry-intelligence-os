@@ -39,7 +39,8 @@ def test_all_berries_actors_have_honest_why_shown_copy():
     context = _all_context()
     for row in context["actors_to_watch"]:
         assert "why_shown" in row
-        assert "Recent trusted activity" in row["why_shown"]
+        assert "Recorded activity" in row["why_shown"]
+        assert "trusted activity" not in row["why_shown"]
         assert "top competitor" not in row["why_shown"].lower()
 
 
@@ -152,7 +153,7 @@ def test_landscape_nav_link_points_to_all_berries_when_global():
     client = TestClient(app)
     page = client.get("/brief")
     assert page.status_code == 200
-    assert 'href="/landscapes" class="v2-nav-link" title="Landscape"' in page.text
+    assert 'href="/landscapes"><b>Landscape</b>' in page.text
 
 
 def test_landscape_variety_compare_deep_link_uses_real_ids():
@@ -163,16 +164,15 @@ def test_landscape_variety_compare_deep_link_uses_real_ids():
 
 
 def test_landscape_per_berry_template_never_diverges_static_from_live():
-    """landscape.html's own tested architectural invariant (see
-    tests/test_synthesis_views.py) is that it never branches on
-    static_build at all, so live and static rendering always match
-    byte-for-byte for narrative content. New Landscape V2 additions to
-    this specific template (Evidence Coverage caveat, theme Explain-this
-    links, Variety Compare deep-link) must preserve that invariant --
-    unlike the brand-new landscape_all.html, which has no such constraint
-    and does use static_build for its Reader integration."""
+    """Public navigation may differ; narrative content must not branch.
+
+    Coverage caveats, themes, comparisons and assessment wording still use
+    the same pipeline in both modes. Only the selected parent shell differs.
+    """
     template_source = (main.BASE_DIR / "app" / "templates" / "landscape.html").read_text(encoding="utf-8")
-    assert "static_build" not in template_source
+    shell, content = template_source.split("\n", 1)
+    assert shell == '{% extends "public_library_base.html" if static_build else "base.html" %}'
+    assert "static_build" not in content
 
 
 def test_landscape_all_reader_integration_present_when_moves_exist():

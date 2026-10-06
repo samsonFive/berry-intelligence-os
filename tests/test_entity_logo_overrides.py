@@ -84,3 +84,32 @@ def test_company_logo_url_and_upload_flow_updates_profile_and_roster(tmp_path: P
     )
     assert cleared.status_code == 303
     assert entity_id not in load_logo_overrides(tmp_path)
+
+
+def test_uploaded_logo_carries_into_new_company_directory_and_reset_preserves_canonical(tmp_path: Path, monkeypatch):
+    from app import main
+
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
+    monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    entity_id = "company-planasa"
+    canonical_path = main.DATA_DIR / "entities" / "companies" / f"{entity_id}.json"
+    canonical = canonical_path.read_bytes()
+    client = TestClient(app)
+    result = client.post(
+        f"/entities/company/{entity_id}/logo",
+        data={"action": "save"},
+        files={"logo_file_upload": ("sample.png", PNG_1X1, "image/png")},
+        follow_redirects=False,
+    )
+    assert result.status_code == 303
+    override = load_logo_overrides(tmp_path)[entity_id]
+    assert override["url"] in client.get("/entities/company?q=Planasa").text
+    profile = client.get(f"/entities/company/{entity_id}?tab=details")
+    assert override["url"] in profile.text and "Use collected logo" in profile.text
+    assert client.get(override["url"]).content == PNG_1X1
+    result = client.post(f"/entities/company/{entity_id}/logo", data={"action": "clear"}, follow_redirects=False)
+    assert result.status_code == 303
+    assert "Use collected logo" not in client.get(f"/entities/company/{entity_id}?tab=details").text
+    assert override["url"] not in client.get("/entities/company?q=Planasa").text
+    assert canonical_path.read_bytes() == canonical
+    assert (tmp_path / "entity_logos" / entity_id / override["filename"]).read_bytes() == PNG_1X1

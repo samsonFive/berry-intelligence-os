@@ -9,12 +9,7 @@
     {% for option in ui.options %}
       <option value="{{ option.id }}" {% if ui.berry == option.id %}selected{% endif %}>{{ option.label }}</option>
     {% endfor %}
-    <optgroup label="Company">
-      <option disabled>All companies — coming later</option>
-    </optgroup>
-    <optgroup label="Geography">
-      <option disabled>All geographies — coming later</option>
-    </optgroup>
+
   </select>
   <input type="hidden" name="view" value="{{ ui.feed_view }}">
 </form>

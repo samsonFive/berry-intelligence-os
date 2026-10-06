@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import difflib
 import json
+import mimetypes
 import os
 import re
 import secrets
@@ -347,6 +348,7 @@ from app.services.report_builder.coverage import report_coverage
 from app.services.report_builder.decision_memo import build_decision_memo_packet, generate_decision_memo_sections
 from app.services.report_builder.packet import build_report_packet
 from app.services.report_builder.pdf_export import render_report_pdf
+from app.services.report_builder.presentation import section_text as report_section_text, display_sections as report_display_sections, report_sources
 from app.services.report_builder.perplexity_gap_research import PublicQueryContext, research_public_gaps
 from app.services.report_builder.research_evidence_draft import build_perplexity_research_draft
 from app.services.report_builder.reports_store import (
@@ -593,7 +595,20 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Berry Intelligence OS", version="0.1.0", lifespan=lifespan)
 app.middleware("http")(remote_auth_middleware)
 app.add_middleware(EnvSessionMiddleware)
+# Minimal Linux images may lack the system MIME database for WebP.
+mimetypes.add_type("image/webp", ".webp")
 app.mount("/static", StaticFiles(directory=BASE_DIR / "app" / "static"), name="static")
+
+
+@app.middleware("http")
+async def private_briefings_middleware(request: Request, call_next):
+    """Private reporting stores/actions must not open in published-only mode."""
+    path = request.url.path.rstrip("/")
+    private_home = path in {"/briefings", "/brief-pack", "/brief-packs", "/war-room", "/reports", "/monitor", "/operations", "/watches", "/watchtower", "/queues/monitoring", "/review-ops", "/collection-ops", "/research-ops", "/coverage-assurance"}
+    private_detail = path.startswith(("/reports/", "/brief-packs/", "/war-room/", "/watches/", "/watchtower/", "/review-ops/", "/collection-ops/"))
+    if not AUTHORING_MODE and (private_home or private_detail):
+        return HTMLResponse("This personal or operator workspace requires private authoring access.", status_code=403)
+    return await call_next(request)
 
 
 @app.middleware("http")
@@ -914,7 +929,8 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     """Nav action counts for HTML pages. Overlay fragments skip nav work entirely."""
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    if str(getattr(request.url, "path", "") or "").startswith("/api/") or request.url.path == "/today":
+    variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates"
+    if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -950,6 +966,8 @@ def pending_review_count_value() -> int:
 templates.env.globals["pending_review_count"] = pending_review_count_value
 from app.services.source_body import safe_source_record
 templates.env.globals["safe_source_record"] = safe_source_record
+from app.services.map_regions import public_source_url
+templates.env.globals["public_source_url"] = public_source_url
 templates.env.globals["queue_counts"] = lambda: queue_counts()
 templates.env.globals["learn_href_for_trait"] = learn_href_for_trait_id
 templates.env.globals["learn_glossary_hits"] = learn_glossary_hits_for_text
@@ -1074,6 +1092,7 @@ def source_fidelity_detail(request: Request, evidence_id: str) -> HTMLResponse:
         context={
             "trusted": trusted,
             "artifact": artifact,
+            "match_label": identity_proof_items(artifact)[0]["display_label"] if identity_proof_items(artifact) else "No matching details recorded",
             "reviewer": session_username(request) or review_username() or "",
             "review_state": review_status(artifact),
             "review_state": review_status(artifact),
@@ -1084,7 +1103,7 @@ def source_fidelity_detail(request: Request, evidence_id: str) -> HTMLResponse:
             "warnings": warning_codes(artifact, trusted),
             "consequences": consequence_preview(trusted, artifact),
             "reader": reader_payload(artifact),
-            "berries": berry_labels(trusted),
+            "source_berries": berry_labels(trusted),
             "entities": named_ids(list(trusted.get("entity_ids") or []), entities),
             "geographies": named_ids(list(trusted.get("geography_ids") or trusted.get("region_ids") or []), entities),
             "previous_id": previous_id,
@@ -1123,6 +1142,14 @@ def source_fidelity_decision(
             status_code=303,
         )
     before = json.loads(path.read_text(encoding="utf-8"))
+    # Resolve the next item before this decision removes the current item from
+    # a pending/rejected/etc. filtered queue. Never mutate a second source.
+    next_target = ""
+    if advance == "1":
+        nav_filters = dict(filters)
+        if not nav_filters.get("state"):
+            nav_filters["state"] = "pending"
+        _previous_id, next_target = neighbor_ids(_source_fidelity_queue_rows(nav_filters), evidence_id)
     actor = session_username(request) or reviewer.strip() or review_username() or ""
     prior_state = str((before.get("review") or {}).get("status") or "pending")
     event = None
@@ -1151,14 +1178,7 @@ def source_fidelity_decision(
     session_return = _safe_review_return(return_to, fallback="")
     if is_session_return(session_return):
         return RedirectResponse(url=session_return, status_code=303)
-    target = evidence_id
-    if advance == "1":
-        nav_filters = dict(filters)
-        if not nav_filters.get("state"):
-            nav_filters["state"] = "pending"
-        _previous_id, next_id = neighbor_ids(_source_fidelity_queue_rows(nav_filters), evidence_id)
-        if next_id:
-            target = next_id
+    target = next_target or evidence_id
     return RedirectResponse(url=f"/source-fidelity/{target}{suffix}", status_code=303)
 
 
@@ -2733,6 +2753,9 @@ def entity_list(
         (e for e in living_catalog() if e.get("entity_type") == entity_type),
         key=lambda e: e.get("name", ""),
     )
+    if entity_type == "company" and view != "legacy":
+        from app.company_routes import company_directory_page
+        return company_directory_page(request)
     if not all_of_type:
         raise HTTPException(status_code=404, detail=f"No entities found for type '{entity_type}'")
 
@@ -2782,7 +2805,7 @@ def entity_list(
     }
     if entity_type == "variety":
         variety_view = view if view in VARIETY_VIEWS else "index"
-        drafts = list_pending_drafts()
+        drafts = [row for row in list_drafts_metadata() if row.get("status", "draft") != "rejected"] if AUTHORING_MODE else []
         geographies = sorted(
             ({"id": e["id"], "name": e["name"]} for e in entities_idx.values() if e.get("entity_type") == "geography"),
             key=lambda row: row["name"],
@@ -2806,7 +2829,7 @@ def entity_list(
                 berry_labels=BERRIES,
                 inbox_drafts=drafts,
                 signals=all_signals(),
-                candidates=load_candidates(INBOX_DIR) if INBOX_DIR else [],
+                candidates=load_candidates(INBOX_DIR) if AUTHORING_MODE and INBOX_DIR else [],
                 facts=all_facts(),
                 filters={
                     "has_rights": has_rights or "",
@@ -2837,9 +2860,28 @@ def entity_list(
                 berry_labels=BERRIES,
                 ip_and_observation=ip_and_observation in {"1", "true", "yes", "on"},
             )
+    template_name = "entity_list.html"
+    if entity_type == "variety" and view != "legacy":
+        from app.services import variety_navigation, feed_first
+        context["companies"] = sorted(
+            ({"id": row["id"], "name": row["name"]} for row in living_catalog() if row.get("entity_type") in {"company", "brand", "breeding_program"}),
+            key=lambda row: row["name"].casefold(),
+        )
+        region_rows = variety_navigation.region_rows(entities_idx, relationships, evidence, INBOX_DIR, AUTHORING_MODE)
+        state = feed_first.load_state(INBOX_DIR) if AUTHORING_MODE else feed_first.empty_state()
+        try:
+            context.update(variety_navigation.directory(
+                context["variety_cards"], params={**dict(request.query_params), **context["filters"]}, state=state,
+                entities=entities_idx, relationships=relationships, regions=region_rows,
+            ))
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+        context["growing_geographies"] = sorted({row["geography_id"]: row["country"] for row in region_rows if row["kind"] == "variety"}.items(), key=lambda row: row[1].casefold())
+        context["static_build"] = False
+        template_name = "variety_directory.html"
     response = templates.TemplateResponse(
         request=request,
-        name="entity_list.html",
+        name=template_name,
         context=context,
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -3149,10 +3191,22 @@ def learn_home(request: Request, q: str = "", view: str = "") -> HTMLResponse:
     search_results = learn_search_concepts(q) if q.strip() else None
     stale_view = view.strip().lower() == "stale" and search_results is None
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    world = _feed_first_world()
+    from app.services import learn_research
+    learning_error = ""
+    try:
+        learning = learn_research.load(INBOX_DIR) if AUTHORING_MODE else {"lessons": {}, "jobs": {}}
+    except ValueError:
+        learning = {"lessons": {}, "jobs": {}}
+        learning_error = "Your saved research could not be opened. It has been left unchanged; the learning library is still available."
+    learning_lessons = list(learning["lessons"].values())
+    learning_jobs = [row for row in learning["jobs"].values() if not row.get("lesson_id")]
+    if q.strip():
+        needle = q.strip().casefold()
+        learning_lessons = [row for row in learning_lessons if needle in (row["title"] + " " + row["request"]["topic"]).casefold()]
+        learning_jobs = [row for row in learning_jobs if needle in row["request"]["topic"].casefold()]
     response = templates.TemplateResponse(
         request=request,
-        name="learn_home.html",
+        name="learn_workspace_home.html",
         context={
             "pillars": learn_concepts_by_pillar(),
             "concept_count": len(learn_all_concepts()),
@@ -3163,9 +3217,11 @@ def learn_home(request: Request, q: str = "", view: str = "") -> HTMLResponse:
             "static_build": False,
             "ui_context": ui,
             "berries": BERRIES,
-            "nav": world["nav"],
+            "authoring_mode": AUTHORING_MODE,
+            "learning_error": learning_error,
+            "learning_lessons": sorted(learning_lessons, key=lambda row: row["updated_at"], reverse=True),
+            "learning_jobs": sorted(learning_jobs, key=lambda row: row["created_at"], reverse=True),
             "active_href": "/learn",
-            "counts": world["counts"],
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -3189,21 +3245,22 @@ def learn_concept_detail(request: Request, slug: str) -> HTMLResponse:
         evidence_by_id={r["id"]: r for r in all_evidence() if r.get("id")},
     )
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    world = _feed_first_world()
+    from app.services.learner_visuals import presentation
+    from app.services.learn_research import return_path as learn_return_path
     response = templates.TemplateResponse(
         request=request,
-        name="learn_concept.html",
+        name="learn_workspace_concept.html",
         context={
-            "concept": concept,
+            "concept": presentation(concept),
+            "return_to": learn_return_path(request.query_params.get("return_to")),
             "related": learn_related_concepts(concept),
             "related_intelligence": related_intel,
             "berry_notes": learn_berry_notes_for_display(concept, ui["berry"]),
             "static_build": False,
             "ui_context": ui,
             "berries": BERRIES,
-            "nav": world["nav"],
+            "authoring_mode": AUTHORING_MODE,
             "active_href": "/learn",
-            "counts": world["counts"],
         },
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
@@ -3252,12 +3309,18 @@ def variety_candidates_page(request: Request) -> HTMLResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Variety candidates are authoring-only")
     _varieties, candidates, _report = variety_candidate_universe()
+    from app.services.variety_navigation import candidate_queue
+    try:
+        queue = candidate_queue(candidates, dict(request.query_params))
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
         name="variety_candidates.html",
         context={
-            "candidates": candidates,
+            **queue,
+            "candidate_entities": entity_index(),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,
@@ -3430,9 +3493,10 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     from app.services.entity_logo_overrides import load_logo_overrides, logo_override_url
     from app.services.people_watchlist import discover_people
     from app.services.seed_roster import seed_profile
+    from app.services.operator_variety_seed import company_seed_count
 
     world = _feed_first_world()
-    logo_overrides = load_logo_overrides(INBOX_DIR)
+    logo_overrides = load_logo_overrides(INBOX_DIR) if AUTHORING_MODE else {}
     trusted = next(
         (
             entity
@@ -3444,6 +3508,9 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     seed = seed_profile(entity_id, world["existing"], logo_overrides=logo_overrides)
     if trusted is None and seed is None:
         return None
+    if seed and seed.get("id") != entity_id and trusted is None:
+        target = seed["profile_url"].split("?")[0]
+        return RedirectResponse(target + ("?" + urlencode(dict(request.query_params)) if request.query_params else ""), status_code=303)
     linked_people = [row for row in discover_people(world["existing"]) if entity_id in row.get("entity_ids", [])]
     name = (trusted or {}).get("name") or (seed or {}).get("canonical_name") or entity_id
     entity_rows = all_entities()
@@ -3476,18 +3543,22 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
         people=linked_people,
         backbone=backbone,
     )
+    from app.company_routes import profile_context
+    company_ui = profile_context(request, entity_id, world["existing"])
     return templates.TemplateResponse(
         request=request,
-        name="feed_first_company.html",
+        name="feed_first_company_legacy.html" if request.query_params.get("view") == "dossier" else "feed_first_company.html",
         context={
+            **company_ui,
             "entity": trusted or {},
             "profile": seed,
             "name": name,
             "aliases": list((trusted or {}).get("aliases") or (seed or {}).get("aliases") or []),
             "description": (trusted or {}).get("description") or (seed or {}).get("parent_or_successor") or "",
             "status": (trusted or {}).get("status") or (seed or {}).get("status") or "unverified",
-            "verification_label": (seed or {}).get("verification_label")
-            or ("Trusted catalog record" if trusted else "Unverified"),
+            "verification_label": "Unverified" if (trusted or {}).get("status") == "unverified" else (
+                (seed or {}).get("verification_label") or ("Trusted catalog record" if trusted else "Unverified")
+            ),
             "candidate": bool((seed or {}).get("candidate")) or (trusted or {}).get("status") == "unverified",
             "is_registry": bool((seed or {}).get("is_registry")),
             "crops": (seed or {}).get("crops")
@@ -3503,11 +3574,12 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "dossier": dossier,
             "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
             "monogram": (seed or {}).get("monogram") or name[:2].upper(),
-            "logo_url": logo_override_url(INBOX_DIR, entity_id) or (seed or {}).get("logo_url") or "",
+            "logo_url": (logo_override_url(INBOX_DIR, entity_id) if AUTHORING_MODE else "") or (seed or {}).get("logo_url") or "",
             "logo_override": logo_overrides.get(entity_id) or {},
             "logo_status": str(request.query_params.get("logo_status") or ""),
             "logo_error": str(request.query_params.get("logo_error") or ""),
             "entity_id": entity_id,
+            "registry_seed_count": company_seed_count(DATA_DIR, entity_id),
             "nav": world["nav"],
             "active_href": "/entities",
             "counts": world["counts"],
@@ -3521,6 +3593,8 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
 def entity_logo_asset(entity_id: str, filename: str) -> FileResponse:
     from app.services.entity_logo_overrides import LogoOverrideError, logo_file
 
+    if not AUTHORING_MODE:
+        raise HTTPException(404, "Logo not found")
     try:
         path, media_type = logo_file(INBOX_DIR, entity_id, filename)
     except LogoOverrideError as exc:
@@ -3530,11 +3604,14 @@ def entity_logo_asset(entity_id: str, filename: str) -> FileResponse:
 
 @app.post("/entities/company/{entity_id}/logo")
 async def update_company_logo(
+    request: Request,
     entity_id: str,
     action: str = Form("save"),
     logo_url: str = Form(""),
     logo_file_upload: UploadFile | None = File(None),
 ) -> RedirectResponse:
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     from app.services.entity_logo_overrides import (
         LogoOverrideError,
         MAX_LOGO_BYTES,
@@ -3567,7 +3644,7 @@ async def update_company_logo(
     except LogoOverrideError as exc:
         target = f"/entities/company/{quote(entity_id)}?logo_error={quote(str(exc))}"
         return RedirectResponse(target, status_code=303)
-    target = f"/entities/company/{quote(entity_id)}?logo_status={quote(status)}"
+    target = f"/entities/company/{quote(entity_id)}?tab=details&logo_status={quote(status)}"
     return RedirectResponse(target, status_code=303)
 
 
@@ -3575,15 +3652,16 @@ async def update_company_logo(
 def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLResponse:
     if entity_type == "geography":
         return RedirectResponse(url=f"/geographies/{entity_id}", status_code=303)
-    if entity_type in {"company", "brand", "breeding_program"} and _wants_feed_first_profile(request):
-        feed_first = _feed_first_company_response(request, entity_id)
-        if feed_first is not None:
-            return feed_first
     survivor_id = canonical_entity_id(entity_id, entities=entity_index(), redirects=identity_redirects())
     if survivor_id and survivor_id != entity_id:
         survivor = entity_index().get(survivor_id)
         dest_type = survivor.get("entity_type") if survivor else entity_type
-        return RedirectResponse(url=f"/entities/{dest_type}/{survivor_id}", status_code=303)
+        query = "?" + request.url.query if request.url.query else ""
+        return RedirectResponse(url=f"/entities/{dest_type}/{survivor_id}{query}", status_code=303)
+    if entity_type in {"company", "brand", "breeding_program"} and _wants_feed_first_profile(request):
+        feed_first = _feed_first_company_response(request, entity_id)
+        if feed_first is not None:
+            return feed_first
     for entity in all_entities():
         if entity.get("id") == entity_id and entity.get("entity_type") == entity_type:
             entities = entity_index()
@@ -3599,8 +3677,8 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                 INBOX_DIR,
                 evidence_by_id=_evidence_index(),
                 entities=entities,
-            )
-            synthesis = entity_synthesis_context(entity, entities, linked_evidence=linked_evidence)
+            ) if AUTHORING_MODE or entity_type != "variety" else []
+            synthesis = entity_synthesis_context(entity, entities, linked_evidence=linked_evidence, include_pending=AUTHORING_MODE or entity_type != "variety")
             open_signals = open_signals_for_entity(entity_id, presented_candidates)
             ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
             if entity.get("entity_type") in ("company", "variety"):
@@ -3645,9 +3723,10 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                         grouped_relationships=synthesis["grouped_relationships"],
                         recent_intelligence=synthesis["recent_intelligence"],
                         berry_labels=BERRIES,
-                        inbox_drafts=list_pending_drafts(),
+                        inbox_drafts=[row for row in list_drafts_metadata() if row.get("status", "draft") != "rejected"] if AUTHORING_MODE else [],
                         story_threads=story_threads,
                         signals=all_signals(),
+                        include_candidates=AUTHORING_MODE,
                         facts=entity_facts,
                         evidence_by_id=evidence_idx,
                         identity_issues=identity_issues_for_variety(
@@ -3693,9 +3772,14 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     published=published_evidence(),
                     inbox_dir=INBOX_DIR,
                 )
+            template_name = "entity.html"
+            if entity_type == "variety" and request.query_params.get("view") != "legacy":
+                from app.services.variety_navigation import region_rows
+                synthesis["growing_regions"] = [row for row in region_rows(entities, all_relationships(), published_evidence(), INBOX_DIR, AUTHORING_MODE) if row["entity_id"] == entity_id]
+                template_name = "variety_profile.html"
             response = templates.TemplateResponse(
                 request=request,
-                name="entity.html",
+                name=template_name,
                 context={
                     "entity": entity,
                     "linked_evidence": linked_evidence,
@@ -3709,7 +3793,7 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     "authoring_mode": AUTHORING_MODE,
                     "is_watched": is_watched(INBOX_DIR, entity_type, entity_id) if entity_type in WATCH_TYPES else False,
                     "competitor_profile": competitor_profile,
-                    "feed_first_statements": _feed_first_entity_statements(entity_id),
+                    "feed_first_statements": _feed_first_entity_statements(entity_id) if AUTHORING_MODE or entity_type != "variety" else [],
                     **synthesis,
                 },
             )
@@ -4066,10 +4150,13 @@ def _feed_first_today(request: Request) -> HTMLResponse:
 
 @app.get("/today", response_class=HTMLResponse)
 def today_page(request: Request) -> HTMLResponse:
-    """Feed-first Today. Legacy briefing remains at ?view=briefing."""
+    """Core News; preceding feed and briefing remain explicitly addressable."""
     if str(request.query_params.get("view") or "") == "briefing":
         return _legacy_briefing_today(request)
-    return _feed_first_today(request)
+    if str(request.query_params.get("view") or "") == "legacy":
+        return _feed_first_today(request)
+    from app.news_workspace_routes import news_page
+    return news_page(request)
 
 
 @app.get("/following", response_class=HTMLResponse)
@@ -4106,50 +4193,28 @@ def following_page(request: Request) -> HTMLResponse:
 
 @app.get("/saved", response_class=HTMLResponse)
 def saved_page(request: Request) -> HTMLResponse:
-    from app.services.feed_first import saved_items
-    from app.services.feed_first_live import cached_live_records
-    from app.services.people_watchlist import discover_people
-
-    world = _feed_first_world()
-    people = discover_people(world["existing"])
-    cards = saved_items(
-        evidence=cached_live_records(INBOX_DIR),
-        entities=world["entities"],
-        state=world["state"],
-        people=people,
-    )
-    return templates.TemplateResponse(
-        request=request,
-        name="feed_first_saved.html",
-        context={
-            "cards": cards,
-            "counts": world["counts"],
-            "nav": world["nav"],
-            "active_href": "/saved",
-            "authoring_mode": AUTHORING_MODE,
-            "static_build": False,
-        },
-    )
+    from urllib.parse import urlencode
+    return RedirectResponse("/digest?" + urlencode({**dict(request.query_params), "origin": "saved", "status": "all"}), status_code=303)
 
 
 @app.get("/statements", response_class=HTMLResponse)
 def statements_page(request: Request, review: str = "unreviewed") -> HTMLResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(403, "Statement review is available in the analyst workspace")
+    if review not in {"unreviewed", "reviewed", "all"}:
+        raise HTTPException(422, "Choose Unreviewed, Reviewed or All statements")
     from app.services.feed_first import statements_review_index
-    from app.services.feed_first_live import cached_live_records
+    from app.services.feed_first_live import cached_live_records, merge_decision_records
+    from app.services.statement_workspace import present_statements
 
     world = _feed_first_world()
     rows = statements_review_index(world["state"])
     records = {
         str(row.get("id")): row
-        for row in cached_live_records(INBOX_DIR)
+        for row in merge_decision_records(published_evidence(), cached_live_records(INBOX_DIR))
         if row.get("id")
     }
-    for row in rows:
-        record = records.get(str(row.get("feed_item_id") or "")) or {}
-        row["article_title"] = str(record.get("title") or row.get("feed_item_id") or "Unknown article")
-        row["article_source"] = str(record.get("source_name") or "Source unavailable")
-        row["article_date"] = str(record.get("published_date") or "")
-    review = review if review in {"unreviewed", "reviewed", "all"} else "unreviewed"
+    rows = present_statements(rows, records, world["entities"], return_to="/statements?" + urlencode({"review": review}))
     reviewed_count = sum(bool(row.get("human_reviewed")) for row in rows)
     if review == "unreviewed":
         statements = [row for row in rows if not row.get("human_reviewed")]
@@ -4404,6 +4469,8 @@ async def feed_first_react(request: Request) -> JSONResponse:
 
 @app.post("/api/feed-first/statement")
 async def feed_first_statement(request: Request) -> JSONResponse:
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     from app.services.feed_first import (
         load_state,
         mutate_statement,
@@ -4411,10 +4478,12 @@ async def feed_first_statement(request: Request) -> JSONResponse:
         statement_by_id,
     )
     from app.services.feed_first_live import cached_live_records, merge_decision_records
-    from app.services.feed_first_trust import confirm_feed_statement
+    from app.services.feed_first_trust import confirm_feed_statement, _canonical_evidence_id
 
     payload = await request.json()
     try:
+        if not isinstance(payload, dict) or not isinstance(payload.get("statement_ids", []), list):
+            raise ValueError("Choose individual statements")
         statement_ids = [
             str(value) for value in (payload.get("statement_ids") or []) if str(value)
         ]
@@ -4423,8 +4492,8 @@ async def feed_first_statement(request: Request) -> JSONResponse:
         ids_to_confirm = statement_ids or ([single_id] if single_id else [])
         canonical_fact_ids: dict[str, str] = {}
         if action == "confirm":
-            if not AUTHORING_MODE:
-                raise ValueError("canonical confirmation requires authoring mode")
+            if len(ids_to_confirm) != 1:
+                raise ValueError("Confirm one statement at a time after reviewing its source")
             state = load_state(INBOX_DIR)
             records = {
                 str(row.get("id")): row
@@ -4439,11 +4508,17 @@ async def feed_first_statement(request: Request) -> JSONResponse:
                 candidate = statement_by_id(state, statement_id)
                 if candidate is None:
                     raise ValueError("statement not found")
+                if candidate.get("statement_state") not in {"pending_confirmation", "proposed"}:
+                    raise ValueError("statement is not awaiting confirmation")
                 record = records.get(
                     str(candidate.get("feed_item_id") or "")
                 ) or candidate.get("source_context")
                 if record is None:
                     raise ValueError("source Feed Item not found")
+                from app.services.news_workspace import source_reviewed
+                publication = repos.evidence.get(_canonical_evidence_id(record))
+                if not publication or not source_reviewed(publication):
+                    raise ValueError("Review this source for publication before confirming its statements")
                 canonical_fact_ids[statement_id] = confirm_feed_statement(
                     service=_review_publish_service(),
                     repositories=repos,
@@ -4599,6 +4674,9 @@ async def feed_first_tier(request: Request) -> JSONResponse:
 @app.get("/news", response_class=HTMLResponse)
 def news_edition_page(request: Request) -> HTMLResponse:
     """Retained archive/news edition. Canonical daily entry remains /today."""
+    if request.query_params.get("view") != "archive" and not request.query_params.get("date"):
+        from app.news_workspace_routes import news_page
+        return news_page(request)
     from app.services.news_edition import select_edition
 
     entities = all_entities()
@@ -5088,7 +5166,7 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
     signals = all_signals()
     assessments = all_assessments()
     market_repo = get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations
-    moves_board = compose_moves_board(inbox_dir=INBOX_DIR)
+    moves_board = compose_moves_board(inbox_dir=INBOX_DIR) if AUTHORING_MODE else None
     packet = assemble_research_packet(
         scope,
         entities=entities,
@@ -5098,10 +5176,10 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
         signals=signals,
         assessments=assessments,
         market_context_provider=lambda s: market_context_for_research_scope(market_repo, s),
-        developments_provider=_radar_developments_for_scope,
-        competitive_moves_provider=lambda s: _research_competitive_moves(s, moves_board),
+        developments_provider=_radar_developments_for_scope if AUTHORING_MODE else None,
+        competitive_moves_provider=(lambda s: _research_competitive_moves(s, moves_board)) if AUTHORING_MODE else None,
     )
-    packet["move_patterns"] = _research_move_patterns(scope, packet.get("competitive_moves") or [], moves_board)
+    packet["move_patterns"] = _research_move_patterns(scope, packet.get("competitive_moves") or [], moves_board) if AUTHORING_MODE else []
     comparison_ids = comparison_candidate_ids(
         scope, packet=packet, entities=entities, relationships=relationships
     ) if (scope.comparison or scope.company_ids) else []
@@ -5192,12 +5270,16 @@ def research_desk_submit(
 
 @app.post("/api/research/live", response_class=HTMLResponse)
 async def research_desk_live(request: Request) -> HTMLResponse:
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     started = time.monotonic()
     payload = await request.json()
     raw_scope = payload.get("scope") if isinstance(payload, dict) else None
     if not isinstance(raw_scope, dict):
         raise HTTPException(status_code=422, detail="A structured research scope is required")
     scope = ResearchScope.from_dict(raw_scope)
+    if not scope.question.strip():
+        raise HTTPException(status_code=422, detail="Enter a research question before checking live sources")
     entities = entity_index()
     # Browser-carried state is selection state only. Unknown/wrong-type IDs
     # are discarded before any packet or provider query is constructed.
@@ -5226,6 +5308,10 @@ async def research_desk_live(request: Request) -> HTMLResponse:
         sources=load_sources(),
         background_hits=week_background_hits(inbox_dir=INBOX_DIR),
     )
+    queried = [row for row in (live.get("telemetry") or {}).values() if row.get("queries", 0) > 0]
+    errors = sum(row.get("errors", 0) for row in queried)
+    successes = sum(row.get("queries", 0) - row.get("errors", 0) for row in queried)
+    live_status = "partial" if errors and successes else "failed" if errors else "complete" if successes else "unavailable"
     if scope.comparison and not scope.company_ids:
         comparison_ids = comparison_candidate_ids(
             scope,
@@ -5256,6 +5342,8 @@ async def research_desk_live(request: Request) -> HTMLResponse:
             "decision_support": decision_support,
             "brief_focus_notes": _research_brief_notes(scope, decision_support),
             "phase": "complete",
+            "live_status": live_status,
+            "authoring_mode": AUTHORING_MODE,
             "first_content_ms": first_content_ms,
             "complete_ms": complete_ms,
             "static_build": False,
@@ -5654,12 +5742,26 @@ def whitespace_page(
 ) -> HTMLResponse:
     """Observed competitive concentration vs coverage — not opportunity."""
     demo = default_demo_scope()
-    berry_id = berry or demo["berry_id"]
+    berry_id = demo["berry_id"] if berry is None else berry
     if berry_id not in BERRIES:
-        berry_id = demo["berry_id"]
-    window_days = 7 if int(window or 30) <= 7 else 30
-    company_ids = parse_id_list(companies, demo["company_ids"])
-    geography_ids = parse_id_list(geographies, demo["geography_ids"])
+        raise HTTPException(422, "Choose a berry from the available options")
+    if window not in {7, 30}:
+        raise HTTPException(422, "Choose a 7-day or 30-day coverage window")
+    window_days = window
+    scope_entities = entity_index()
+    scope_companies = sorted((row for row in scope_entities.values() if row.get("entity_type") == "company"), key=lambda row: row["name"].casefold())
+    scope_geographies = sorted((row for row in scope_entities.values() if row.get("entity_type") == "geography"), key=lambda row: row["name"].casefold())
+
+    def selected_scope(field: str, fallback: list[str], choices: list[dict]) -> list[str]:
+        if field not in request.query_params:
+            return fallback
+        selected = list(dict.fromkeys(key.strip() for value in request.query_params.getlist(field) for key in value.split(",") if key.strip()))
+        if not selected or any(key not in {row["id"] for row in choices} for key in selected):
+            raise HTTPException(422, f"Choose at least one known {'company' if field == 'companies' else 'geography'}")
+        return selected
+
+    company_ids = selected_scope("companies", demo["company_ids"], scope_companies)
+    geography_ids = selected_scope("geographies", demo["geography_ids"], scope_geographies)
     landscape = _cached_whitespace_landscape(
         berry_id=berry_id,
         company_ids=company_ids,
@@ -5672,6 +5774,8 @@ def whitespace_page(
         name="whitespace.html",
         context={
             "landscape": landscape,
+            "scope_companies": scope_companies,
+            "scope_geographies": scope_geographies,
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
             "ui_context": ui,
@@ -5737,24 +5841,31 @@ def watchtower_page(request: Request) -> HTMLResponse:
 
 
 @app.post("/watchtower/{alert_id}/action")
-def watchtower_alert_action(alert_id: str, action: str = Form(...), return_to: str = Form("/watchtower")) -> RedirectResponse:
+def watchtower_alert_action(request: Request, alert_id: str, action: str = Form(...), return_to: str = Form("/watchtower")) -> RedirectResponse:
     """Explicit, user-initiated only -- never fired by rendering the page.
     Alert state is a notification-review flag, never a trust mutation: it
     never touches Evidence/Signal/Assessment/Development/Move (mission
     section 11)."""
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     try:
         apply_alert_action(INBOX_DIR, alert_id, action)
-    except ValueError:
-        raise HTTPException(status_code=400, detail=f"unsupported alert action: {action!r}")
-    safe_target = return_to if return_to.startswith("/") and not return_to.startswith("//") else "/watchtower"
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    safe_target = safe_next_path(return_to)
+    if safe_target != return_to:
+        safe_target = "/watchtower"
+    _WATCHTOWER_CACHE["value"] = None
     return RedirectResponse(url=safe_target, status_code=303)
 
 
 def _war_room_scope_from_params(request: Request) -> WarRoomScope:
     berry = (request.query_params.get("berry") or "").strip()
     berry_id = berry if not berry or berry.startswith("berry-") else f"berry-{berry}"
-    geography_ids = tuple(v.strip() for v in (request.query_params.get("geography_ids") or "").split(",") if v.strip())
-    company_ids = tuple(v.strip() for v in (request.query_params.get("company_ids") or "").split(",") if v.strip())
+    def selected_ids(key: str) -> tuple[str, ...]:
+        return tuple(dict.fromkeys(v.strip() for raw in request.query_params.getlist(key) for v in raw.split(",") if v.strip()))
+    geography_ids = selected_ids("geography_ids")
+    company_ids = selected_ids("company_ids")
     try:
         window_days = int(request.query_params.get("days") or 30)
     except ValueError:
@@ -5763,7 +5874,7 @@ def _war_room_scope_from_params(request: Request) -> WarRoomScope:
     return WarRoomScope(berry_id=berry_id or None, geography_ids=geography_ids, company_ids=company_ids, window_days=window_days)
 
 
-def _compose_war_room_for_request(scope: WarRoomScope) -> dict[str, Any]:
+def _compose_war_room_for_request(scope: WarRoomScope, *, generate_questions: bool = False) -> dict[str, Any]:
     return compose_war_room(
         scope,
         inbox_dir=INBOX_DIR,
@@ -5777,7 +5888,7 @@ def _compose_war_room_for_request(scope: WarRoomScope) -> dict[str, Any]:
         berry_labels=BERRIES,
         identity_redirects=identity_redirects(),
         market_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
-        completer=maybe_untrusted_completer(),
+        completer=maybe_untrusted_completer() if generate_questions else None,
     )
 
 
@@ -5789,8 +5900,11 @@ def war_room_page(request: Request) -> HTMLResponse:
     Reality store / trusted Evidence for the requested scope. Never
     fetches a live provider itself; refresh /radar/live first (or use
     /war-room/live) if the underlying cache is stale."""
-    scope = _war_room_scope_from_params(request)
-    session = _compose_war_room_for_request(scope) if not scope.is_empty else None
+    return _meeting_prep_response(request, _war_room_scope_from_params(request))
+
+
+def _meeting_prep_response(request: Request, scope: WarRoomScope, *, generate_questions: bool = False) -> HTMLResponse:
+    session = _compose_war_room_for_request(scope, generate_questions=generate_questions) if not scope.is_empty else None
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
@@ -5810,11 +5924,23 @@ def war_room_page(request: Request) -> HTMLResponse:
     return response
 
 
+@app.post("/war-room/questions", response_class=HTMLResponse)
+def meeting_questions_submit(request: Request) -> HTMLResponse:
+    scope = _war_room_scope_from_params(request)
+    if scope.is_empty:
+        raise HTTPException(422, "Choose a meeting scope first")
+    return _meeting_prep_response(request, scope, generate_questions=True)
+
+
 @app.get("/war-room/live", response_class=HTMLResponse)
 def war_room_live_page(request: Request) -> HTMLResponse:
-    """Explicit live refresh: run the bounded Radar stack first, then
-    compose the same way /war-room does. Mission section 13 -- default
-    load stays cache-only; this is the opt-in."""
+    """Old refresh links now require an explicit POST before provider work."""
+    return templates.TemplateResponse(request=request, name="meeting_refresh.html", context={"berries": BERRIES})
+
+
+@app.post("/war-room/live")
+def war_room_live_submit(request: Request) -> RedirectResponse:
+    """Deliberate bounded feed refresh; default browsing never calls it."""
     scope = _war_room_scope_from_params(request)
     if not scope.is_empty:
         _radar_edition_live()
@@ -6116,20 +6242,23 @@ def watchlist_page(
     Strategic Question records. Not a second review queue: no route under
     /watches renders or accepts a publish/affirm/approve/reject/confirm-
     signal control."""
-    cards = watchlist_index(
-        inbox_dir=INBOX_DIR,
-        entities=entity_index(),
-        published_evidence=published_evidence(),
-        signals=all_signals(),
-        assessments=all_assessments(),
-        recommendations=all_recommendations(),
-        strategic_questions=load_strategic_questions(),
-        sources=load_sources(),
-        berry_labels=BERRIES,
-        watch_type_filter=type,
-        has_new_only=bool(new),
-        sort=sort,
-    )
+    try:
+        cards = watchlist_index(
+            inbox_dir=INBOX_DIR,
+            entities=entity_index(),
+            published_evidence=published_evidence(),
+            signals=all_signals(),
+            assessments=all_assessments(),
+            recommendations=all_recommendations(),
+            strategic_questions=load_strategic_questions(),
+            sources=load_sources(),
+            berry_labels=BERRIES,
+            watch_type_filter=type,
+            has_new_only=bool(new),
+            sort=sort,
+        )
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
@@ -6150,12 +6279,17 @@ def watchlist_page(
 
 @app.post("/watches/toggle")
 def toggle_watch(
+    request: Request,
     watch_type: str = Form(...),
     object_id: str = Form(...),
     action: str = Form(...),
     return_to: str = Form(""),
 ) -> RedirectResponse:
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     try:
+        if action not in {"add", "remove"}:
+            raise ValueError("Choose Add watch or Remove watch")
         if action == "remove":
             remove_watch(INBOX_DIR, watch_type, object_id)
         else:
@@ -6163,24 +6297,45 @@ def toggle_watch(
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     destination = safe_next_path(return_to) or "/watches"
+    _WATCHTOWER_CACHE["value"] = None
     return RedirectResponse(url=destination, status_code=303)
 
 
 @app.get("/watches/open")
-def open_watch(watch_type: str, object_id: str) -> RedirectResponse:
+def open_watch(request: Request, watch_type: str, object_id: str) -> RedirectResponse:
     """Marks a watch seen only on this explicit open -- never merely
     because /watches itself rendered (mission Section 17)."""
     if watch_type not in WATCH_TYPES:
         raise HTTPException(status_code=400, detail="unsupported watch type")
-    mark_watch_seen(INBOX_DIR, watch_type, object_id)
+    if not AUTHORING_MODE:
+        raise HTTPException(403, "Watches are private to the analyst workspace")
+    known = entity_index().get(object_id)
+    if watch_type in {"company", "variety", "geography"} and (not known or known.get("entity_type") != watch_type):
+        raise HTTPException(404, "The watched subject is unavailable; your watch has been retained")
     if watch_type == "company":
         destination = f"/entities/company/{object_id}"
     elif watch_type == "variety":
         destination = f"/entities/variety/{object_id}"
     elif watch_type == "geography":
         destination = f"/geographies/{object_id}"
+    elif watch_type == "berry":
+        if object_id not in BERRIES:
+            raise HTTPException(404, "The watched berry is unavailable")
+        destination = "/today?" + urlencode({"berry": object_id})
+    elif watch_type == "move_type":
+        from app.services.competitive_moves.models import MOVE_LABELS
+        if object_id not in MOVE_LABELS:
+            raise HTTPException(404, "The watched move type is unavailable")
+        destination = "/moves"
     else:
+        if not any(row.get("id") == object_id for row in load_strategic_questions()):
+            raise HTTPException(404, "The watched question is unavailable; your watch has been retained")
         destination = f"/strategic-questions/{object_id}"
+    try:
+        mark_watch_seen(INBOX_DIR, watch_type, object_id)
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    _WATCHTOWER_CACHE["value"] = None
     return RedirectResponse(url=destination, status_code=303)
 
 
@@ -6262,7 +6417,7 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
 
 
 def _load_intelligence_record(item_id: str) -> dict[str, Any] | None:
-    draft = get_draft(item_id)
+    draft = get_draft(item_id) if AUTHORING_MODE else None
     if draft is not None and draft.get("status") != "rejected":
         return draft
     record = get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.get(item_id)
@@ -6458,6 +6613,12 @@ def _intelligence_page_context(
 @app.get("/intelligence/{item_id}", response_class=HTMLResponse)
 def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
     record = _load_intelligence_record(item_id)
+    if request.query_params.get("personal") == "1" or record is None:
+        from app.personal_digest_routes import reader_context
+        from app.services.personal_digest import source_records
+        personal_record = source_records(published_evidence(), INBOX_DIR, include_private=AUTHORING_MODE).get(item_id)
+        if personal_record is not None:
+            return templates.TemplateResponse(request=request, name="personal_reader_page.html", context=reader_context(request, personal_record))
     if record is None:
         raise HTTPException(status_code=404, detail="Intelligence item not found")
     return templates.TemplateResponse(
@@ -6470,6 +6631,12 @@ def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
 @app.get("/api/intelligence/{item_id}/reader", response_class=HTMLResponse)
 def intelligence_reader_fragment(request: Request, item_id: str) -> HTMLResponse:
     record = _load_intelligence_record(item_id)
+    if request.query_params.get("personal") == "1" or record is None:
+        from app.personal_digest_routes import reader_context
+        from app.services.personal_digest import source_records
+        personal_record = source_records(published_evidence(), INBOX_DIR, include_private=AUTHORING_MODE).get(item_id)
+        if personal_record is not None:
+            return templates.TemplateResponse(request=request, name="_personal_reader.html", context=reader_context(request, personal_record))
     if record is None:
         raise HTTPException(status_code=404, detail="Intelligence item not found")
     return templates.TemplateResponse(
@@ -6791,6 +6958,8 @@ def queue_item_action(
         raise HTTPException(status_code=404, detail="Unknown queue workflow")
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Queue actions are only available in authoring mode")
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     allowed = {record["id"]: record for record in queue_items(dimension) if record.get("id")}
     if item_id not in allowed:
         raise HTTPException(status_code=404, detail="Item is not in this queue")
@@ -6809,7 +6978,8 @@ def queue_item_action(
     if dimension == "reading" and action == "promote":
         return RedirectResponse(url=f"/intelligence/{item_id}", status_code=303)
     destination = safe_next_path(return_to) if return_to else ""
-    if destination and destination not in {"/brief"} and not destination.startswith("/queues/"):
+    monitor_return = dimension == "monitoring" and (destination == "/monitor" or destination.startswith("/monitor?"))
+    if destination and destination not in {"/brief"} and not destination.startswith("/queues/") and not monitor_return:
         destination = ""
     if destination:
         return RedirectResponse(url=destination, status_code=303)
@@ -7073,6 +7243,9 @@ def landscape_all(request: Request) -> HTMLResponse:
     never risks being swallowed by or swallowing the existing per-berry
     route."""
     view = str(request.query_params.get("view") or "").strip().lower()
+    if view not in {"feed", "legacy"}:
+        from app.landscape_routes import landscape_page
+        return landscape_page(request)
     if view == "feed":
         from app.services.feed_first import landscapes_model
         from app.services.feed_first_live import cached_live_records
@@ -7404,19 +7577,23 @@ def _scope_from_form(
     *,
     report_type: str,
     berry: str,
-    geography_ids: str,
-    company_ids: str,
-    variety_ids: str,
+    geography_ids: str | list[str],
+    company_ids: str | list[str],
+    variety_ids: str | list[str],
     strategic_question_id: str,
     date_window_days: str,
     focus_notes: str,
 ) -> ResolvedScope:
+    def selections(value: str | list[str]) -> tuple[str, ...]:
+        values = [value] if isinstance(value, str) else value
+        return tuple(dict.fromkeys(item for raw in values for item in _csv_ids(raw)))
+
     return ResolvedScope(
         report_type=report_type if report_type in REPORT_TYPES else "market_landscape",
         berry_id=berry or None,
-        geography_ids=tuple(_csv_ids(geography_ids)),
-        company_ids=tuple(_csv_ids(company_ids)),
-        variety_ids=tuple(_csv_ids(variety_ids)),
+        geography_ids=selections(geography_ids),
+        company_ids=selections(company_ids),
+        variety_ids=selections(variety_ids),
         strategic_question_id=strategic_question_id or None,
         date_window_days=int(date_window_days) if str(date_window_days).strip().isdigit() else None,
         focus_notes=focus_notes or "",
@@ -7439,6 +7616,17 @@ def _decision_memo_coverage(packet: dict[str, Any]) -> dict[str, Any]:
     return {"counts": counts, "gaps": gaps, "dimensions": []}
 
 
+def _report_display_packet(packet: dict[str, Any]) -> dict[str, Any]:
+    names = {row["id"]: row.get("name") or row["id"] for row in living_catalog()}
+    records = {row["id"]: row for row in published_evidence()}
+    return {**packet, "display_names": {**names, **BERRIES}, "source_trace": [
+        {**row, "source_url": row.get("source_url") or records.get(row["id"], {}).get("source_url") or "",
+         **({"published_date": records[row["id"]].get("published_date") or "",
+             "date_label": dated_label(records[row["id"]])} if row["id"] in records else {})}
+        for row in packet.get("source_trace") or []
+    ]}
+
+
 def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], dict[str, Any]]:
     if scope.report_type == "decision_memo":
         packet = build_decision_memo_packet(
@@ -7454,9 +7642,9 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
             berry_labels=BERRIES,
             identity_redirects=identity_redirects(),
             market_repo=get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations,
-            completer=maybe_untrusted_completer(),
+            completer=None,
         )
-        return packet, _decision_memo_coverage(packet)
+        return _report_display_packet(packet), _decision_memo_coverage(packet)
     entities = entity_index()
     _varieties, visible_candidates, _corpus_report = variety_candidate_universe()
     packet = build_report_packet(
@@ -7480,7 +7668,7 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
             entities[g]["name"] for g in scope.geography_ids if g in entities and entities[g].get("name")
         ),
     )
-    return packet, coverage
+    return _report_display_packet(packet), coverage
 
 
 def _generate_sections_for(scope: ResolvedScope, packet: dict[str, Any], *, completer: Any) -> list[Any]:
@@ -7490,8 +7678,11 @@ def _generate_sections_for(scope: ResolvedScope, packet: dict[str, Any], *, comp
 
 
 @app.get("/reports", response_class=HTMLResponse)
-def reports_index_page(request: Request, status: str = "draft") -> HTMLResponse:
-    rows = [present_report_row(r) for r in list_reports(INBOX_DIR, status=status if status != "all" else None)]
+def reports_index_page(request: Request, status: str = "working") -> HTMLResponse:
+    if status not in {"working", "draft", "active", "archived", "all"}:
+        raise HTTPException(422, "Unknown report status")
+    records = list_reports(INBOX_DIR, status=None if status in {"working", "all"} else status)
+    rows = [present_report_row(r) for r in records if status != "working" or r.get("status", "draft") != "archived"]
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
@@ -7506,6 +7697,117 @@ def reports_index_page(request: Request, status: str = "draft") -> HTMLResponse:
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
     return response
+
+
+@app.get("/briefings", response_class=HTMLResponse)
+def briefings_home(request: Request) -> HTMLResponse:
+    return templates.TemplateResponse(request=request, name="briefings_home.html", context={"berries": BERRIES, "authoring_mode": AUTHORING_MODE})
+
+
+def _explorer_context(request, countries, berry, sections=None):
+    from app.services.global_explorer import IntelligenceQuery, snapshot_model, SECTIONS
+    entities = entity_index()
+    # Native checkbox forms send repeated berry values; URLs may use CSV.
+    berry = ','.join(request.query_params.getlist('berry')) or berry
+    try:
+        query = IntelligenceQuery.parse(countries, berry, entities, BERRIES)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+    from dataclasses import replace
+    from app.services.feed_first import load_state, empty_state
+    from app.services.personal_digest import source_records
+    view = request.query_params.get("view", "trusted")
+    if view not in {"trusted", "unreviewed"}:
+        raise HTTPException(status_code=422, detail="Unknown intelligence view")
+    query = replace(query, view=view)
+    records = published_evidence()
+    if view == "unreviewed" and sections is None and AUTHORING_MODE:
+        records = list(source_records(records, INBOX_DIR).values())
+    elif sections is None and AUTHORING_MODE:
+        from app.services.feed_first_reader import attach_capture_previews
+        records = list(attach_capture_previews({row['id']: row for row in records}, INBOX_DIR).values())
+    args = (query, records, entities, all_relationships(), BERRIES)
+    trust = {"facts": all_facts(), "state": load_state(INBOX_DIR) if AUTHORING_MODE else empty_state()}
+    if sections is None:
+        model = {}
+    else:
+        included = [key for key in sections.split(',') if key in SECTIONS]
+        metric_ids = request.query_params.get("metrics")
+        try:
+            from app.services.map_workspace import snapshot_regions, SNAPSHOT_SCOPE_KEYS
+            location_options = snapshot_regions(query, entities, args[3], records, trust["state"], request.query_params,
+                                                 inbox_dir=INBOX_DIR, authoring=AUTHORING_MODE)
+            model = snapshot_model(*args, included, **trust, metric_ids=None if metric_ids is None else [key for key in metric_ids.split(',') if key],
+                                   location_options=location_options, location_ids=[key for key in request.query_params.get("locations", "").split(',') if key],
+                                   news_params=dict(request.query_params), inbox_dir=INBOX_DIR, authoring=AUTHORING_MODE)
+            model["snapshot_scope"] = {key: request.query_params.get(key, "") for key in SNAPSHOT_SCOPE_KEYS if request.query_params.get(key)}
+            model["explorer_href"] = "/explorer?" + urlencode({**query.params(), **model["snapshot_scope"]})
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+    from app.services.feed_first import NAV
+    # Keep the originating News filters on return; map geography/berries win.
+    from urllib.parse import parse_qsl
+    return_value = str(request.query_params.get("news_return") or "")
+    try:
+        return_parts = urlsplit(return_value)
+    except ValueError:
+        return_parts = urlsplit("")
+    origin = dict(parse_qsl(return_parts.query)) if not return_parts.scheme and not return_parts.netloc and return_parts.path in {"/today", "/news"} else {}
+    origin = {key: value for key, value in origin.items() if key in {"q", "company", "list", "tier", "favorites", "window", "start", "end", "tz"}}
+    if sections is None:
+        from app.services.map_workspace import model as map_model
+        params = {**origin, **dict(request.query_params)}
+        try:
+            model = map_model(query=query, records=records, entities=entities, relationships=args[3], berries=BERRIES,
+                              facts=trust["facts"], state=trust["state"], params=params, inbox_dir=INBOX_DIR, authoring=AUTHORING_MODE)
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+        origin = {key: model["filters"][key] for key in ("q", "company", "list", "tier", "favorites", "window", "start", "end", "tz") if model["filters"][key]}
+        values = {**model["filters"], "layer": model["layer"], "region_status": model["region_status"], "activity": model["activity"], "region_entity": model["region_entity"], "region_asof": model["region_asof"]}
+        model["snapshot_href"] = "/explorer/snapshot?" + urlencode(values)
+        model["review_urls"] = {view: "/explorer?" + urlencode({**values, "view": view}) for view in ("trusted", "unreviewed")}
+        model["pagination"] = {number: "/explorer?" + urlencode({**values, "page": number}) for number in (model["page"]-1, model["page"]+1)}
+    model["news_href"] = "/today?" + urlencode({**origin, **query.params()})
+    model["news_return"] = "/today?" + urlencode(origin) if origin else ""
+    model["statistics_review_href"] = "/explorer/statistics?" + urlencode({"return_to": request.url.path + ("?" + request.url.query if request.url.query else "")})
+    return model | {"ui_context": read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR),
+                    "nav": NAV, "active_href": "/explorer"}
+
+
+@app.get("/explorer", response_class=HTMLResponse)
+def global_explorer_page(request: Request, countries: str = "", berry: str = "", page: int = 1):
+    model = _explorer_context(request, countries, berry)
+    return templates.TemplateResponse(request=request, name="global_explorer.html", context=model)
+
+
+@app.get("/explorer/snapshot", response_class=HTMLResponse)
+def global_snapshot_page(request: Request, countries: str = "", berry: str = "",
+                         sections: str = "overview,developments,companies,varieties"):
+    return templates.TemplateResponse(request=request, name="global_snapshot.html",
+        context=_explorer_context(request, countries, berry, sections))
+
+
+@app.get("/explorer/snapshot.pdf")
+def global_snapshot_pdf(request: Request, countries: str = "", berry: str = "",
+                        sections: str = "overview,developments,companies,varieties"):
+    model = _explorer_context(request, countries, berry, sections)
+    content = render_report_pdf(model["report"], model["packet"], model["coverage"],
+                                confidentiality="Internal / Confidential · includes unreviewed annotations" if model["has_private_locations"] else "Public-source intelligence")
+    return Response(content=content, media_type="application/pdf",
+        headers={"Content-Disposition": 'attachment; filename="market-snapshot.pdf"'})
+
+
+def _report_scope_choices() -> dict[str, list[dict[str, str]]]:
+    """Named catalog choices; selections still use the original stable IDs."""
+    catalog = living_catalog()
+    return {
+        field: sorted(
+            [{"id": row["id"], "name": row.get("name") or row["id"]}
+             for row in catalog if row.get("entity_type") == kind],
+            key=lambda row: row["name"].casefold(),
+        )
+        for field, kind in (("company_ids", "company"), ("geography_ids", "geography"), ("variety_ids", "variety"))
+    }
 
 
 @app.get("/reports/new", response_class=HTMLResponse)
@@ -7550,11 +7852,13 @@ def report_new_page(request: Request) -> HTMLResponse:
             "ui_context": ui,
             "example_request": example_request,
             "report_examples": REPORT_EXAMPLE_PROMPTS,
+            "scope_choices": _report_scope_choices(),
             "handoff_berry_id": handoff_berry_id,
             "handoff_geography_ids_csv": str(request.query_params.get("geography_ids") or ""),
             "handoff_company_ids_csv": str(request.query_params.get("company_ids") or ""),
             "handoff_variety_ids_csv": str(request.query_params.get("variety_ids") or ""),
             "handoff_report_type": handoff_report_type,
+            "handoff_origin": str(request.query_params.get("origin") or ""),
             "handoff_focus_notes": handoff_focus_notes,
             "handoff_date_window_days": handoff_date_window_days,
             "handoff_company_names": [entity_index()[cid]["name"] for cid in str(request.query_params.get("company_ids") or "").split(",")
@@ -7572,9 +7876,9 @@ def report_new_submit(
     request_text: str = Form(""),
     report_type: str = Form("market_landscape"),
     berry: str = Form(""),
-    geography_ids: str = Form(""),
-    company_ids: str = Form(""),
-    variety_ids: str = Form(""),
+    geography_ids: list[str] = Form([]),
+    company_ids: list[str] = Form([]),
+    variety_ids: list[str] = Form([]),
     strategic_question_id: str = Form(""),
     date_window_days: str = Form(""),
     focus_notes: str = Form(""),
@@ -7645,6 +7949,7 @@ def report_new_submit(
         name="report_new.html",
         context={
             "step": "confirm",
+            "scope_choices": _report_scope_choices(),
             "scope": scope,
             "request_text": request_text,
             "packet": packet,
@@ -7695,6 +8000,9 @@ def report_workspace_page(request: Request, report_id: str) -> HTMLResponse:
         name="report_workspace.html",
         context={
             "report": record,
+            "display_sections": report_display_sections(record, packet),
+            "reference_labels": {row["id"]: f"Source {index + 1}" for index, row in enumerate(report_sources(packet)) if row.get("id")},
+            "report_sources": report_sources(packet),
             "packet": packet,
             "coverage": coverage,
             "report_type_labels": REPORT_TYPE_LABELS,
@@ -7716,12 +8024,14 @@ def report_save_route(
 ) -> RedirectResponse:
     record = _load_report_or_404(report_id)
     edited_by_id = dict(zip(section_ids, section_texts))
+    packet, _coverage = _build_packet_and_coverage(_scope_from_record(record))
     sections = record.get("sections") or []
     for section in sections:
         sid = section.get("section_id")
         if sid in edited_by_id:
             new_text = edited_by_id[sid]
-            section["edited_prose"] = new_text if new_text.strip() else None
+            if new_text != report_section_text(section, packet):
+                section["edited_prose"] = new_text
     save_report_edits(INBOX_DIR, report_id, title=title, sections=sections, status="active")
     return RedirectResponse(url=f"/reports/{report_id}", status_code=303)
 
@@ -7931,6 +8241,8 @@ def signal_list(request: Request) -> HTMLResponse:
 
 @app.get("/signals/review", response_class=HTMLResponse)
 def signal_candidate_review(request: Request) -> HTMLResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Signal review requires the analyst workspace")
     presented = present_candidates(
         INBOX_DIR,
         evidence_by_id=_evidence_index(),
@@ -7952,6 +8264,8 @@ def signal_candidate_review(request: Request) -> HTMLResponse:
 
 @app.get("/signals/candidates/{candidate_id}", response_class=HTMLResponse)
 def signal_candidate_page(request: Request, candidate_id: str) -> HTMLResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Signal review requires the analyst workspace")
     candidate, location = lookup_candidate(INBOX_DIR, candidate_id)
     if candidate is None:
         raise HTTPException(status_code=404, detail="Signal candidate not found")
@@ -8000,6 +8314,8 @@ def signal_candidate_decision(
 ) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Signal-candidate decisions are only available in authoring mode")
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     candidate = candidate_by_id(INBOX_DIR, candidate_id)
     if candidate is None:
         _archived, location = lookup_candidate(INBOX_DIR, candidate_id)
@@ -8025,6 +8341,20 @@ def signal_candidate_decision(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     target = safe_next_path(return_to)
     return RedirectResponse(url=target, status_code=303)
+
+
+def intelligence_reference_catalog() -> dict[str, Any]:
+    if not AUTHORING_MODE:
+        return {}
+    from app.services.intelligence_authoring import reference_catalog
+    return reference_catalog(
+        evidence=published_evidence(), facts=all_facts(), signals=all_signals(),
+        assessments=all_assessments(), entities=entity_index().values(),
+        questions=load_strategic_questions(),
+    )
+
+
+templates.env.globals["intelligence_reference_catalog"] = intelligence_reference_catalog
 
 
 def _default_signal_values() -> dict[str, Any]:
@@ -8080,6 +8410,8 @@ def signal_create(
 ) -> HTMLResponse | RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Creating signals is only available in authoring mode")
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
 
     values = {
         "title": title,
@@ -8206,7 +8538,7 @@ def signal_detail(request: Request, signal_id: str) -> HTMLResponse:
             "citing_assessments": lineage.resolve_assessments_citing_signal(signal_id),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
-            "alert_state": signal_alert_state(signal_id, load_analyst_queue_state(INBOX_DIR)),
+            "alert_state": signal_alert_state(signal_id, load_analyst_queue_state(INBOX_DIR)) if AUTHORING_MODE else None,
         },
     )
 
@@ -8396,6 +8728,8 @@ def assessment_create(
 ) -> HTMLResponse | RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Creating assessments is only available in authoring mode")
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
 
     values = {
         "title": title,
@@ -8457,6 +8791,8 @@ def assessment_update(
 ) -> HTMLResponse | RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Editing assessments is only available in authoring mode")
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     existing = assessment_by_id(assessment_id)
     if existing is None:
         raise HTTPException(status_code=404, detail="Assessment not found")
@@ -8523,10 +8859,8 @@ def assessment_detail(request: Request, assessment_id: str) -> HTMLResponse:
             "linked_strategic_questions": lineage.resolve_linked_strategic_questions(
                 assessment.get("strategic_question_ids")
             ),
-            # counterevidence_ids may reference a fact id or an evidence id
-            # (see the create route's validation) but this view has only
-            # ever resolved the fact half -- preserved exactly, not fixed.
             "counterevidence": lineage.resolve_linked_facts(assessment.get("counterevidence_ids")),
+            "counterevidence_sources": lineage.resolve_linked_evidence(assessment.get("counterevidence_ids")),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
         },
@@ -8592,6 +8926,8 @@ def recommendation_create(
 ) -> HTMLResponse | RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Creating recommendations is only available in authoring mode")
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
 
     values = {
         "title": title,
@@ -8720,7 +9056,7 @@ def recommendation_detail(request: Request, recommendation_id: str) -> HTMLRespo
                 recommendation.get("strategic_question_ids")
             ),
             "authoring_mode": AUTHORING_MODE,
-            "proposal_state": proposal_state(recommendation_id, load_analyst_queue_state(INBOX_DIR)),
+            "proposal_state": proposal_state(recommendation_id, load_analyst_queue_state(INBOX_DIR)) if AUTHORING_MODE else None,
         },
     )
 
@@ -10081,3 +10417,28 @@ def api_global_search(
         limit_per_group=cap,
         sort=sort_mode,
     )
+
+# Consolidated private reading workspace; legacy queue routes remain compatible.
+from app.personal_digest_routes import router as personal_digest_router
+app.include_router(personal_digest_router)
+from app.news_packet_routes import router as news_packet_router
+app.include_router(news_packet_router)
+from app.variety_seed_routes import router as variety_seed_router
+app.include_router(variety_seed_router)
+from app.news_workspace_routes import router as news_workspace_router
+app.include_router(news_workspace_router)
+from app.map_statistics_routes import router as map_statistics_router
+app.include_router(map_statistics_router)
+from app.map_market_research_routes import router as map_market_research_router
+app.include_router(map_market_research_router)
+
+from app.map_region_routes import router as map_region_router
+app.include_router(map_region_router)
+from app.company_routes import router as company_router
+app.include_router(company_router)
+from app.landscape_routes import router as landscape_router
+app.include_router(landscape_router)
+from app.learn_routes import router as learn_router
+app.include_router(learn_router)
+from app.monitor_routes import router as monitor_router
+app.include_router(monitor_router)

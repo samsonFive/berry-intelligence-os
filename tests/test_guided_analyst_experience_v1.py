@@ -171,12 +171,17 @@ def test_guide_is_read_only_orientation(monkeypatch, tmp_path: Path) -> None:
     assert "How Berry Intelligence Works" in html
     assert "Trusted intelligence lifecycle" in html
     assert "Variety identity" in html
-    assert "DISCOVERED" in html
-    assert "REVIEW REQUIRED" in html
-    assert "TRUSTED" in html
-    assert "CANDIDATE" in html
-    assert "POSSIBLE ALIAS" in html
-    assert "OPERATOR ACTION" in html
+    assert "Discovered" in html
+    assert "Review required" in html
+    assert "Trusted / reviewed publication" in html
+    assert "Candidate / possible alias" in html
+    assert "Operator action" in html
+    assert "Your analyst workflow" in html
+    assert "Choose the output you need" in html
+    assert "reviewing the article does not verify every assertion" in html
+    assert "Reopened briefs resolve current records" in html
+    assert "PDF captures the report at export time" in html
+    assert 'href="/today"' in html
     assert "name=\"decision\"" not in html
     assert "<form" not in html or 'action="/login"' not in html
     assert list(inbox.iterdir()) == []
@@ -197,8 +202,8 @@ def test_publication_and_atomic_and_variety_explanations() -> None:
     assert 'href="/collection-ops"' in atomic.text
     variety = client.get("/varieties/candidates")
     assert variety.status_code == 200
-    assert "CANDIDATE, not a trusted Variety" in variety.text
-    assert "does not create a new trusted Variety" in variety.text
+    assert "proposed names, not confirmed catalog varieties" in variety.text
+    assert "does not create a catalog variety" in variety.text
     assert 'href="/varieties/coverage"' in variety.text
 
 
@@ -232,13 +237,17 @@ def test_contextual_help_on_major_pages() -> None:
         page = client.get(path)
         assert page.status_code == 200, path
         assert "data-workspace-help" in page.text, path
-        assert "About this workspace" in page.text, path
+        help_heading = "How identity decisions work" if path == "/varieties/candidates" else "About this workspace"
+        assert help_heading in page.text, path
 
 
-def test_queue_count_semantics_in_sidebar() -> None:
+def test_review_and_help_destinations_remain_in_shared_navigation() -> None:
     html = TestClient(main.app).get("/brief").text
-    assert "Pending Review" in html
-    assert "How it works" in html
+    assert 'href="/pending"' in html
+    assert ">Publication review</b>" in html
+    assert 'href="/review?kind=atomic"' in html
+    assert ">Statement review</b>" in html
+    assert ">Help</b>" in html
     assert 'href="/guide"' in html
 
 

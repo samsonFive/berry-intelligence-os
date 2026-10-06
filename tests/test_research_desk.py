@@ -224,7 +224,7 @@ def test_research_desk_stakeholder_surface_and_brief_handoff() -> None:
     client = TestClient(app)
     landing = client.get("/research")
     assert landing.status_code == 200
-    assert "Ask Berry OS" in landing.text
+    assert "<h1>Ask Berry</h1>" in landing.text
     assert "chat" not in landing.text.casefold()
     page = client.post("/research", data={"question": "Compare Planasa and Fall Creek."})
     assert page.status_code == 200
@@ -265,7 +265,8 @@ def test_live_endpoint_uses_structured_selection_state(monkeypatch) -> None:
     payload = {"scope": _scope().as_dict(), "first_content_ms": 25}
     response = TestClient(app).post("/api/research/live", json=payload)
     assert response.status_code == 200
-    assert "Research complete" in response.text
+    assert "Fresh source check unavailable" in response.text
+    assert 'data-live-status="unavailable"' in response.text
     assert "Time to first content" in response.text
 
 

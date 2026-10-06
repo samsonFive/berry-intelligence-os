@@ -204,11 +204,11 @@ def test_review_ops_route_has_no_trust_actions(monkeypatch, tmp_path: Path) -> N
     page = TestClient(main.app).get("/review-ops")
     assert page.status_code == 200
     assert "PUBLICATION REVIEW" in page.text
-    assert "SOURCE FIDELITY REVIEW" in page.text
-    assert "ATOMIC EVIDENCE REVIEW" in page.text
+    assert "SOURCE AUTHENTICITY" in page.text
+    assert "INDIVIDUAL STATEMENTS" in page.text
     assert "Review next publication" in page.text
-    assert "Review next source fidelity item" in page.text
-    assert "Review next atomic batch" in page.text
+    assert "Check next recovered source" in page.text
+    assert "Review next statement batch" in page.text
     assert 'name="decision"' not in page.text
     assert "confirm_affirm" not in page.text
     assert 'action="/review/' not in page.text

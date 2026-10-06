@@ -1,0 +1,62 @@
+{% if variety_view == 'observations' %}
+  {% set pilot = observation_workspace.uk_pilot %}
+  <details class="variety-section" id="uk-pilot"><summary>UK retail pilot coverage</summary><div class="variety-section-body">
+    <h2>UK retail observation pilot</h2>
+    <p class="context-limit">{{ pilot.honest_copy }}</p>
+    <p class="result-count">Expected 18 observations · 2 named (Zara, Victoria) · 16 with no cultivar name. Runtime: {{ pilot.runtime_total }} loaded · {{ pilot.runtime_named }} named · {{ pilot.runtime_unnamed }} unnamed.</p>
+    <p class="v2-card-line">
+      Named variety entities:
+      {% for party in pilot.named_varieties %}
+        {% if party %}<a href="{{ party.href }}">{{ party.name }}</a>{% if not loop.last %} · {% endif %}{% endif %}
+      {% endfor %}
+    </p>
+  </div></details>
+  <p class="result-count">{{ observation_workspace.named_count }} named-variety observations · {{ observation_workspace.unnamed_count }} listings with no named variety. Drafts are pending review and are not Facts.</p>
+  {% if observation_workspace.observation_rows %}
+    <div class="v2-observation-list">
+      {% for obs in observation_workspace.observation_rows %}
+        {% include "_commercial_observation.html" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty-state">No retail observations are recorded in this workspace. The sample listing is illustrative and is not the UK pilot.</p>
+  {% endif %}
+{% elif variety_view == 'compete' %}
+  <section class="v2-variety-section" id="competition">
+    <h2>Variety competition</h2>
+    <p class="context-limit">Compare companies using recorded breeder, owner and marketer roles. Choose one berry to begin.</p>
+    {% if competition.needs_berry %}
+      <p class="empty-state">Select a berry to compare competing varieties.</p>
+    {% else %}
+      {% if competition.blackberry_thin %}
+        <p class="brief-window">Few blackberry varieties are recorded in this scope. Coverage is incomplete.</p>
+      {% endif %}
+      {% if competition.ip_overlap_empty %}
+        <p class="context-limit">No variety matches both recorded rights and a retail observation under this scope.</p>
+      {% endif %}
+      <h3>Companies with competing {{ competition.berry_label }} varieties</h3>
+      {% if competition.groups %}
+        <ul class="v2-compete-groups">
+          {% for group in competition.groups %}
+            <li class="v2-card">
+              <h4 class="v2-card-title"><a href="/entities/company/{{ group.company_id }}">{{ group.company_name }}</a></h4>
+              <p class="v2-card-line">{{ group.varieties|join(', ') }}</p>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="empty-state">No competing-company groups for this berry/market filter.</p>
+      {% endif %}
+      <h3>Variety comparison</h3>
+      {% if competition.variety_rows %}
+        <div class="v2-variety-list v2-variety-compare">
+          {% for card in competition.variety_rows %}
+            {% include "_variety_card.html" %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="empty-state">No varieties to compare under this filter.</p>
+      {% endif %}
+    {% endif %}
+  </section>
+{% endif %}

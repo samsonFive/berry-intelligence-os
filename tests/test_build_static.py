@@ -17,6 +17,7 @@ PUBLISHED_RECORD = {
     "title": "Static build published item",
     "captured_date": "2026-08-04",
     "summary": "Should appear in the static build.",
+    "why_it_matters": "Analyst context [limited scope] must remain literal.",
     "submitted_by": "tester",
     "berry_ids": [],
     "entity_ids": [],
@@ -55,6 +56,11 @@ PRIVATE_SENTINELS = {
     "private-source-fidelity-reviewer",
     "private-atomic-proposal-excerpt",
     "private-variety-universe-candidate",
+    "private-company-list-name",
+    "private-digest-subscription",
+    "private-company-research-response",
+    "private-company-research-contact",
+    "private-location-research-passage",
 }
 
 
@@ -107,13 +113,25 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
         encoding="utf-8",
     )
     private_files = {
+        inbox_dir / "region_source_research.json": {"version": 1, "jobs": {"private-region-run": {"text": "private-location-research-passage"}}},
+        inbox_dir / "company_profile_research.json": {
+            "version": 1, "jobs": {"private-research-run": {"text": "private-company-research-response"}},
+        },
+        inbox_dir / "company_profile_overrides.json": {
+            "version": 1, "profiles": {"company-static-test": {"revision": 1, "people": {"private-contact": {"name": "private-company-research-contact"}}}}, "history": [],
+        },
+        inbox_dir / "feed_first_state.json": {
+            "company_lists": {"private-digest-subscription": {"name": "private-company-list-name", "company_ids": ["company-static-test"]}},
+            "digest_subscriptions": ["private-digest-subscription"],
+            "decisions": {"ev-static-test": {"saved": True, "reaction": "up"}},
+        },
         inbox_dir / "review_events" / "private-review-event-id.json": {
             "id": "private-review-event-id",
             "record_type": "review_event",
             "actor": "private-reviewer-name",
         },
         inbox_dir / "analyst_queue_state.json": {
-            "reading": {"ev-static-test": {"note": "private-analyst-queue-note"}},
+            "reading": {"ev-static-test": {"note": "private-analyst-queue-note", "state": "in_progress", "reader_mode": "brief", "reader_positions": {"article": 642}, "priority": "high"}},
             "proposals": {"rec-private": {"note": "private-unpublished-proposal-note"}},
         },
         inbox_dir / "signal_candidates" / "candidate-private.json": {
@@ -167,6 +185,14 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert 'href="https://example.invalid/original-article"' in evidence_html
     assert "Static Test Publisher" in evidence_html
     assert "<h2>Provenance</h2>" not in evidence_html
+    assert evidence_html.index("Source summary</h2>") < evidence_html.index("Source details</summary>")
+    assert 'Read original source ↗</a>' in evidence_html
+    assert "Publication date not recorded" in evidence_html
+    assert "Analyst context [limited scope] must remain literal." in evidence_html
+    assert '<details class="public-source-details"><summary>Analysis &amp; context</summary>' in evidence_html
+    assert '<details class="public-source-details" open' not in evidence_html
+    assert "PUBLISHED INTELLIGENCE SNAPSHOT" in index_html
+    assert "CONTINUOUSLY UPDATED INTELLIGENCE" not in index_html
 
     css = (output_dir / "static" / "app.css").read_text(encoding="utf-8")
     assert css
@@ -194,10 +220,73 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert "not a trust queue" in stale_html
     assert "Approve" not in stale_html
 
+    visual_html = (output_dir / "learn" / "visual-learning-aids" / "index.html").read_text(encoding="utf-8")
+    assert "data-teaching-explorer" in visual_html
+    assert "data-pagefind-body" in visual_html  # Pagefind indexes only marked bodies across this site.
+    assert 'data-pagefind-meta="description"' in visual_html  # The original summary leads Search previews.
+    assert "learn_workspace.js?v=2" in visual_html
+    assert "Special:FilePath/Blueberries.jpg" not in visual_html
+    assert "File:Blueberries.jpg" in visual_html  # Unverified reuse is a source link only.
+    assert "Research &amp; expand" not in visual_html
+    assert "data-bs-target=\"#v2ReaderOffcanvas\"" not in visual_html
+    cane_html = (output_dir / "learn" / "primocane-floricane" / "index.html").read_text(encoding="utf-8")
+    assert "Steffen Flor" in cane_html and "CC BY 2.5" in cane_html
+
     search_html = (output_dir / "search" / "index.html").read_text(encoding="utf-8")
     assert 'id="pagefind-js-path"' in search_html
     assert 'href="../pagefind/pagefind.js"' in search_html
     assert 'id="search-results"' in search_html
+
+    # Shared public navigation must resolve inside the generated snapshot,
+    # including when a core directory has no published entities yet.
+    from html.parser import HTMLParser
+    from urllib.parse import urlsplit
+
+    class PublicHeaderLinks(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.in_header = False
+            self.links = []
+
+        def handle_starttag(self, tag, attrs):
+            values = dict(attrs)
+            if tag == "header" and "glass-header" in values.get("class", "").split():
+                self.in_header = True
+            if self.in_header and tag == "a" and values.get("href"):
+                self.links.append(values["href"])
+
+        def handle_endtag(self, tag):
+            if tag == "header":
+                self.in_header = False
+
+    for html_file in output_dir.rglob("*.html"):
+        page = html_file.read_text(encoding="utf-8")
+        parser = PublicHeaderLinks()
+        parser.feed(page)
+        assert parser.links, f"Public page missing shared navigation: {html_file}"
+        # Search is an application result view, not a document to index itself.
+        if html_file != output_dir / "search" / "index.html":
+            assert "data-pagefind-body" in page
+        assert 'id="v2DesktopSidebar"' not in page
+        assert 'class="sh-topbar"' not in page
+        for href in parser.links:
+            parsed = urlsplit(href)
+            assert not parsed.scheme and not parsed.netloc
+            destination = (html_file.parent / parsed.path).resolve()
+            assert destination.is_relative_to(output_dir.resolve())
+            assert destination.is_file(), f"Public navigation missing {href} in {html_file}"
+        if parser.links:
+            assert "Personal Digest</a>" not in page.split("</header>", 1)[0]
+            assert "All existing tools" not in page.split("</header>", 1)[0]
+    guide_html = (output_dir / "guide" / "index.html").read_text(encoding="utf-8")
+    assert 'class="glass-header"' in guide_html and "data-pagefind-body" in guide_html
+    assert "Build a brief →" not in guide_html
+    assert "Brief pack" in guide_html and "live workspace" in guide_html
+    assert guide_html.count('class="guide-workspace guide-accent-') == 11
+    assert guide_html.count('class="guide-availability"') == 11
+    assert "Public view available" in guide_html
+    for output in ("Meeting Prep", "Brief pack", "Sourced report", "Market snapshot", "Competitor news packet"):
+        assert f"<h3>{output}</h3>" in guide_html
 
     landscape_html = (
         output_dir / "landscapes" / "berries" / "blueberry" / "index.html"
@@ -240,6 +329,14 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     guide_html = (output_dir / "guide" / "index.html").read_text(encoding="utf-8")
     assert "How Berry Intelligence Works" in guide_html
     assert "Trusted intelligence lifecycle" in guide_html
+    assert "workflow_guide.css" in guide_html
+    assert "Your analyst workflow" in guide_html
+    assert "Choose the output you need" in guide_html
+    assert '/reports/new' not in guide_html
+    assert '/news-packets' not in guide_html
+    assert 'href="/statements"' not in guide_html
+    assert 'href="../signals/index.html"' in guide_html
+    assert '/war-room' not in guide_html
     assert "/pending" not in guide_html
     assert "/review?kind=atomic" not in guide_html
     assert "/collection-ops" not in guide_html

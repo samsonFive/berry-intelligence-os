@@ -10,7 +10,8 @@
   <div class="sh-more-panel">
     <p class="sh-more-kicker">Explore intelligence</p>
 {% if not static_build %}
-<a href="/war-room" class="{% if path.startswith('/war-room') %}is-active{% endif %}"{% if path.startswith('/war-room') %} aria-current="page"{% endif %}>War Room</a>
+<a href="/explorer"{% if path.startswith("/explorer") %} class="is-active"{% endif %}>Global Explorer</a>
+<a href="/war-room" class="{% if path.startswith('/war-room') %}is-active{% endif %}"{% if path.startswith('/war-room') %} aria-current="page"{% endif %}>Meeting Prep</a>
 <a href="/research" class="{% if path.startswith('/research') %}is-active{% endif %}"{% if path.startswith('/research') %} aria-current="page"{% endif %}>Ask Berry</a>
 <a href="/radar" class="{% if path.startswith('/radar') %}is-active{% endif %}"{% if path.startswith('/radar') %} aria-current="page"{% endif %}>Radar</a>
 <a href="/moves" class="{% if path.startswith('/moves') %}is-active{% endif %}"{% if path.startswith('/moves') %} aria-current="page"{% endif %}>Moves</a>
