@@ -81,12 +81,60 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 275
-    assert report["summary"]["registry_entries_checked"] == 11
+    assert report["summary"]["names"] == 381
+    assert report["summary"]["registry_entries_checked"] == 15
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 123, "berry-strawberry": 89, "berry-raspberry": 34, "berry-blackberry": 29}
+        "berry-blueberry": 128, "berry-strawberry": 169, "berry-raspberry": 51, "berry-blackberry": 33}
     assert "visible_candidates" not in report
     assert all("review_notes" not in str(r) for r in report["subjects"])
+    abz = next(s for s in report["subjects"] if s["name"] == "ABZ Seeds")
+    assert abz["starting_url"] == "https://www.abzseeds.com/high-tech-greenhouse"
+    assert abz["starting_label"] == "Checked page ↗"
+    assert any(s["id"] == "portfolio-abz-booklet" and s["capture_status"] == "unreadable" for s in report["sources"])
+
+
+def test_source_plan_prefers_readable_then_partial_then_site_without_erasing_failed_capture(tmp_path):
+    folder = tmp_path / "imports/competitor-coverage-registry-2026-09-21"
+    folder.mkdir(parents=True)
+    (folder / "reconciliation-matrix.json").write_text(json.dumps({"rows": [{
+        "input_registry_name": "Alpha", "canonical_entity_ids": ["company-a"],
+        "website": "https://example.test/", "resolution_status": "matched"}]}))
+    failed = source([], id="failed", url="https://example.test/unreadable.pdf", capture_status="unreadable")
+    partial = source([], id="partial", url="https://example.test/partial", capture_status="partial")
+    readable = source([], id="readable", url="https://example.test/current")
+    original = deepcopy([failed, partial, readable])
+    def plan(rows):
+        result = portfolio_coverage(data_dir=tmp_path, sources=rows, varieties=[], entities=ENTITIES, candidates=[])
+        assert result["sources"][0]["capture_status"] == "unreadable"
+        return result["subjects"][0]
+    assert plan(original)["starting_url"] == readable["url"]
+    assert plan(original[:2])["starting_label"] == "Partial page ↗"
+    assert plan(original[:1])["starting_url"] == "https://example.test/"
+    assert original == [failed, partial, readable]
+
+
+def test_real_program_pages_keep_species_clone_scope_and_nursery_roles_explicit():
+    sources = load_portfolio_observations(Path(__file__).resolve().parents[1] / "data")
+    rows, candidates = reconcile(sources)
+    niwa = next(r for r in rows if r["id"] == "portfolio-niwa-varieties")
+    black_raspberries = [n for n in niwa["names"] if n["trade_name"] in {"Megan", "Selena"}]
+    assert len(black_raspberries) == 2
+    assert all(n["berry_id"] == "berry-raspberry" and "release" in n["portfolio_context"] for n in black_raspberries)
+    clones = next(r for r in rows if r["id"] == "portfolio-niwa-clones")
+    assert len(clones["names"]) == 7 and clones["accounting_view"]["accounted_items"] == 10
+    assert len(clones["accounting_view"]["exclusions"]) == 3 and not clones["accounting_view"]["issues"]
+    assert not any(c["candidate_name"] in {"NL 180106", "NL 183601", "NL 180122"} for c in candidates)
+    shared_code = next(c for c in candidates if c["candidate_name"] == "NR 1849002")
+    assert {p["id"] for p in shared_code["portfolio_sources"]} == {"portfolio-niwa-varieties", "portfolio-niwa-clones"}
+    assert not shared_code["auto_confirmed"] and not shared_code["human_gated"]
+    assert {p["trade_name"] for p in shared_code["portfolio_sources"]} == {"Baron", ""}
+    nursery = next(c for c in candidates if c["source_id"] == "portfolio-vissers-strawberry")
+    assert nursery["source_tier"] == "tier_2_nursery_catalog" and not nursery["breeder_owner"]
+    assert not nursery["proposed_relationships"] and not nursery["deployment"]
+    abz = [r for r in rows if r["id"].startswith("portfolio-abz-") and r["capture_status"] == "names_enumerated"]
+    assert len(abz) == 9 and sum(len(r["names"]) for r in abz) == 21
+    assert all(n["candidate_name"].endswith("F1") and n["product_url"] for r in abz for n in r["names"])
+    assert not {"Patio Pleasure", "Home Harvest", "Early & Compact", "Semi-Double"} & {c["candidate_name"] for c in candidates}
 
 
 def test_real_mixed_catalog_accounting_preserves_exclusions_and_uncertain_pairs():

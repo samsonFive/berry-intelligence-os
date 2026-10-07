@@ -1,5 +1,25 @@
 # Project Status
 
+## Variety program and nursery portfolios (2026-10-07)
+
+`feature/variety-program-portfolios` adds 106 current primary-page name occurrences
+from NIWA Varieties/Clones, Vissers strawberries/raspberries, Limgroup clonal/hybrid
+strawberries and all nine ABZ fresh-market/garden-patio pages. Combined scope is
+381 occurrences / 25 catalog matches / 356 review needs in 32 sections, with 341
+candidate keys before private state. Fifteen of 77 registry rows have some checked
+pages; 62 need initial primary checks. The approved catalog remains 64.
+
+Three species-ambiguous NIWA clone cards are accounted for and excluded. Clone
+context, shared-code provenance, nursery sourcing and literal F1 labels remain
+explicit. Cached/live Vissers differences are not withdrawals or deletions. ABZ's
+historical unreadable PDF remains separate from the current readable pages.
+40 final focused coverage/navigation checks passed; records validated. Source-plan
+links now prefer checked pages over older failed captures without hiding history.
+Desktop/390px filters, exclusions, candidate provenance and keyboard source-plan
+disclosure were reviewed. Exact-head CI,
+human identity/canonical decisions, remaining source/profile/benchmark work and
+release approval remain. See docs/v2/VARIETY-PROGRAM-PORTFOLIOS-REVIEW.md.
+
 ## Variety registry species correction (2026-10-07)
 
 Primary portfolio preparation found a verified correctness blocker: the CPVO

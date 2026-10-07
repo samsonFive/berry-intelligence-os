@@ -58,6 +58,15 @@ saved Commission website is flagged without overwrite. This remains manual,
 bounded enumeration; global completeness, historic coverage and recall scoring
 are unfinished. See [expanded review](VARIETY-PORTFOLIO-EXPANSION-REVIEW.md).
 
+October 7 program/nursery follow-up adds 106 occurrences from NIWA, Vissers,
+Limgroup and all nine current ABZ assortment pages. Combined scope is 381
+occurrences / 25 catalog matches / 356 review needs in 32 dated sections. Existing
+discovery derives 341 candidate keys before private state (68 stored-source plus
+273 additional primary-source keys). Fifteen registry rows have some checked pages;
+62 need initial primary checks. Three species-ambiguous clone cards are excluded,
+and experimental/nursery/F1 contexts stay explicit. Current ABZ pages do not resolve
+its unreadable historical PDF. See [program portfolio review](VARIETY-PROGRAM-PORTFOLIOS-REVIEW.md).
+
 - [ ] Build a per-company/per-berry source manifest from the approved competitor
   list, with primary breeder portfolios, university releases, trial reports,
   nursery catalogs and official registry coverage. Preserve institutions and

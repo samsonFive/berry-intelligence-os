@@ -208,10 +208,22 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
         linked = [source for source in source_rows if set(source.get("company_ids", [])) & set(ids)]
         websites = [row.get("website", "")] + [str((index.get(cid, {}).get("attributes") or {}).get("website") or "") for cid in ids]
         website = next((url for url in websites if _public_url(url)), "")
+        preferred = next((s for s in linked if s["capture_status"] == "names_enumerated"), None)
+        partial = next((s for s in linked if s["capture_status"] == "partial"), None)
+        if preferred:
+            starting_url, starting_label = preferred["url"], "Checked page ↗"
+        elif partial:
+            starting_url, starting_label = partial["url"], "Partial page ↗"
+        elif website:
+            starting_url, starting_label = website, "Website ↗"
+        else:
+            starting_url = linked[0]["url"] if linked else ""
+            starting_label = "Attempted source ↗"
         scope = sorted({berry for cid in ids for berry in index.get(cid, {}).get("berry_ids", []) if berry in BERRY_ORDER}
                        | {berry for source in linked for berry in source.get("berry_ids", [])}
                        | {photo["berry_id"] for photo in photo_rows if set(photo.get("company_ids", [])) & set(ids)})
         subjects.append({"name": row["input_registry_name"], "entity_ids": ids, "website": website,
+                         "starting_url": starting_url, "starting_label": starting_label,
                          "site_notes": [s["company_site_note"] for s in linked if s.get("company_site_note")],
                          "berry_ids": scope, "berries": ", ".join(BERRY_LABELS[berry] for berry in scope) or "Scope needs checking",
                          "resolution": row["resolution_status"], "sources": linked,
