@@ -214,4 +214,3 @@ def test_prompt_injection_is_data_and_no_registry_mutation(tmp_path):
 def test_invalid_filters_and_date_ranges():
     for p in ({'mode':'all'},{'source':'imaginary'},{'view':'network'},{'start':'tomorrow'},{'start':'2026-10-07','end':'2026-10-01'}):
         with pytest.raises(ValueError):bundle([],[],p)
-

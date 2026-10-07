@@ -77,4 +77,3 @@ def test_media_api_retrieves_comment_and_removal_invalidation(client,tmp_path):
     store.remove(row['id'],media_id=mid,state='restricted')
     assert client.get(path).status_code==410
     assert 'Literal label' not in client.get('/api/social/'+row['id']+'/reader').text
-
