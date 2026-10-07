@@ -61,7 +61,9 @@ CPVO_SPECIES_TO_BERRY: dict[str, str] = {
     "Rubus idaeus L.": "berry-raspberry",
     "Rubus idaeus L. x R. parvifolius L.": "berry-raspberry",
     "Rubus subg. Rubus": "berry-blackberry",
-    "Rubus occidentalis L.": "berry-blackberry",
+    # Black raspberry belongs in the raspberry context; dark fruit is not
+    # a blackberry identity. See USDA nomenclature and berry-raspberry.json.
+    "Rubus occidentalis L.": "berry-raspberry",
 }
 
 CPVO_DOES_NOT_PROVE = (

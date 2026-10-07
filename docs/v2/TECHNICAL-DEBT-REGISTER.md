@@ -1994,6 +1994,13 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 correctness follow-up: primary portfolio work found that the CPVO
+species map misclassified black raspberry (`Rubus occidentalis L.`). The narrow
+correction follows USDA and the existing raspberry entity, affects new draft
+context only, and preserves operator edits and existing filings. Older private
+tags, if affected, require explicit review. This does not widen registry queries
+or close portfolio completeness debt. See VARIETY-REGISTRY-SPECIES-CORRECTION.md.
+
 | Field | Value |
 |---|---|
 | Status | Open; immediate stored-summary recall and visibility repaired |
