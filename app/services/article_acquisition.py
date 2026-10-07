@@ -18,19 +18,21 @@ what make that discipline possible.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 import hashlib
 from html.parser import HTMLParser
+import json
 import re
 from typing import Any
 from urllib.parse import urlparse, urljoin
 
 import httpx
+from lxml import etree, html as html_parser
 import trafilatura
 
 from app.services.google_news_url import resolve_google_news_url
 
-ARTICLE_ACQUISITION_VERSION = "article-acquisition-v1"
+ARTICLE_ACQUISITION_VERSION = "article-acquisition-v2"
 ARTICLE_FETCH_TIMEOUT_SECONDS = 20
 ARTICLE_FETCH_USER_AGENT = "berry-intelligence-os-article-acquisition/1.0"
 MIN_BODY_CHARS = 200
@@ -111,6 +113,7 @@ class ArticleBody:
     published_date: str | None = None
     language: str | None = None
     image_url: str | None = None
+    published_date_basis: str | None = None
 
     @property
     def full_text(self) -> str:
@@ -129,7 +132,7 @@ class ArticleBody:
             "language": self.language,
             "image_url": self.image_url,
             "image_source_url": (self.final_url or self.source_url) if self.image_url else None,
-            "published_date_basis": "publisher_metadata" if self.published_date else "unknown",
+            "published_date_basis": (self.published_date_basis or "publisher_metadata") if self.published_date else "unknown",
             "acquisition": {
                 "method": "readable_text_extraction",
                 "extractor": self.extractor,
@@ -142,6 +145,107 @@ class ArticleBody:
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def _publication_date(value: Any) -> str | None:
+    """Only complete, calendar-valid dates; never infer a year or use today."""
+    if not isinstance(value, str):
+        return None
+    value = value.strip()
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}(?:[T ].*)?", value):
+        try:
+            if len(value) > 10:
+                datetime.fromisoformat(value.replace("Z", "+00:00"))
+            return date.fromisoformat(value[:10]).isoformat()
+        except ValueError:
+            return None
+    value = re.sub(r"^(?:published|posted)(?:\s+on)?\s*:?\s*", "", value, flags=re.I)
+    for pattern in ("%B %d, %Y", "%b %d, %Y", "%d %B %Y", "%d %b %Y"):
+        try:
+            return datetime.strptime(value, pattern).date().isoformat()
+        except ValueError:
+            continue
+    return None
+
+
+def publisher_publication_date(html: str, page_url: str) -> tuple[str | None, str]:
+    """Bind dates to explicit publication metadata or the article's date block.
+
+    Page-wide heuristics can choose a latest-news/sidebar date. Modified dates,
+    copyright years, arbitrary body dates and unrelated structured articles are
+    therefore not publication evidence. Conflicting dates within a tier remain
+    unknown. An unknown result leaves the existing discovery-feed fallback intact.
+    """
+    try:
+        tree = html_parser.fromstring(html)
+    except (ValueError, etree.ParserError):
+        return None, "unknown"
+
+    def unique(values, basis):
+        dates = {parsed for value in values if (parsed := _publication_date(value))}
+        return (next(iter(dates)), basis) if len(dates) == 1 else (None, "unknown")
+
+    metadata_keys = {"article:published_time", "og:published_time", "datepublished",
+                     "pubdate", "publish-date", "publication_date", "dc.date.issued",
+                     "dcterms.issued"}
+    values = [node.get("content") for node in tree.iter("meta")
+              if (node.get("property") or node.get("name") or "").casefold() in metadata_keys]
+    if any(_publication_date(value) for value in values):
+        return unique(values, "publisher_metadata")
+
+    structured = []
+    article_types = {"Article", "NewsArticle", "BlogPosting"}
+    for node in tree.xpath("//script[@type='application/ld+json']"):
+        try:
+            payload = json.loads(node.text or "")
+        except (ValueError, TypeError):
+            continue
+        nodes = payload if isinstance(payload, list) else [payload]
+        for item in nodes:
+            if isinstance(item, dict) and isinstance(item.get("@graph"), list):
+                structured.extend(item["@graph"])
+            else:
+                structured.append(item)
+    values = []
+    for item in structured:
+        if not isinstance(item, dict):
+            continue
+        types = item.get("@type", [])
+        types = [types] if isinstance(types, str) else types
+        if not isinstance(types, list) or not article_types.intersection(
+            value.rsplit("/", 1)[-1] for value in types if isinstance(value, str)
+        ):
+            continue
+        identity = item.get("url") or item.get("mainEntityOfPage") or item.get("@id")
+        if isinstance(identity, dict):
+            identity = identity.get("@id") or identity.get("url")
+        if identity:
+            if not isinstance(identity, str):
+                continue
+            try:
+                expected = urlparse(page_url)._replace(fragment="").geturl().rstrip("/")
+                actual = urlparse(urljoin(page_url, identity))._replace(fragment="").geturl().rstrip("/")
+            except ValueError:
+                continue
+            if actual != expected:
+                continue
+        values.append(item.get("datePublished"))
+    if any(_publication_date(value) for value in values):
+        return unique(values, "publisher_metadata")
+
+    values = []
+    for node in tree.xpath("//time | //*[@itemprop='datePublished'] | //*[contains(concat(' ',normalize-space(@class),' '),' pane-node-created ')]"):
+        ancestors = list(node.iterancestors())
+        if any(parent.tag in {"aside", "nav", "footer"} for parent in ancestors):
+            continue
+        classes = set((node.get("class") or "").split())
+        scoped = any(parent.tag in {"article", "main"} or parent.get("role") == "main" for parent in ancestors)
+        publication_marker = (node.get("itemprop") == "datePublished" or "pubdate" in node.attrib
+                              or bool(classes & {"published", "publication-date", "entry-date", "pane-node-created"}))
+        if "pane-node-created" not in classes and not (scoped and publication_marker):
+            continue
+        values.append(node.get("datetime") or node.get("content") or " ".join(node.itertext()).strip())
+    return unique(values, "publisher_display_date")
 
 
 def publisher_image(html: str, page_url: str) -> str | None:
@@ -332,6 +436,7 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
     content_sha256 = hashlib.sha256(body_text.encode("utf-8")).hexdigest()
 
     final = str(response.url)
+    published_date, published_date_basis = publisher_publication_date(html, final)
     return ArticleBody(
         source_url=requested,
         final_url=final if final != requested else None,
@@ -343,7 +448,8 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
         extractor_version=trafilatura.__version__,
         author=extracted.get("author") or None,
         title=extracted.get("title") or None,
-        published_date=extracted.get("date") or None,
+        published_date=published_date,
+        published_date_basis=published_date_basis,
         language=extracted.get("language") or None,
         image_url=publisher_image(html, str(response.url)),
     )
