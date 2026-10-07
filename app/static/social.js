@@ -6,7 +6,7 @@
     const selection=new Set(ids);
     records.forEach(r=>{r.hidden=!clear && !selection.has(r.dataset.socialRecord);});
     root.querySelector('[data-drill-title]').textContent=label+' · '+(clear?records.length:ids.length)+' records';
-    if(save){const u=new URL(location.href); if(ids.length)u.searchParams.set('drill',ids.join(','));else u.searchParams.delete('drill');history.replaceState(history.state,'',u);}
+    if(save){const u=new URL(location.href); if(!clear)u.searchParams.set('drill',ids.length?ids.join(','):'none');else u.searchParams.delete('drill');history.replaceState(history.state,'',u);}
   }
   root.querySelectorAll('[data-social-drill]').forEach(button=>button.addEventListener('click',()=>{
     const ids=JSON.parse(button.dataset.socialDrill);drill(ids,button.textContent.trim());
