@@ -1,5 +1,5 @@
 {% extends "glasshouse_base.html" %}
-{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=8"><link rel="stylesheet" href="/static/variety_coverage.css?v=1">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=8"><link rel="stylesheet" href="/static/variety_coverage.css?v=2">{% endblock %}
 {% block title %}Variety coverage — Berry Intelligence OS{% endblock %}
 {% block content %}
 <div class="company-workspace variety-workspace">
@@ -20,15 +20,14 @@
 {% if coverage.portfolios and authoring_mode and not static_build %}{% include "_variety_portfolio_coverage.html" %}{% endif %}
 <details class="portfolio-plan"><summary>Existing catalog detail · {{ coverage.totals.canonical_varieties }} varieties</summary>
 
-{% with help_what="Raw counts of trusted Varieties versus untrusted CANDIDATE identities. This is not a completeness score.", help_why="A named cultivar in Evidence is not automatically a trusted Variety. Coverage shows what is actually recorded.", help_do="Use the Variety index for TRUSTED records. Open Identity review for CANDIDATE rows that still need DISTINCT / POSSIBLE ALIAS / UNKNOWN / CONFIRMED SAME.", help_after="Nothing on this page changes identity or trust. Reviewing a candidate never auto-creates a trusted Variety." %}
+{% with help_what="Compare catalog entries with discovered names needing review. This is not a completeness score.", help_why="Being named in a source does not verify a variety's identity, traits or company roles.", help_do="Open a catalog profile to check its status and sources. Use identity review to resolve newly discovered names.", help_after="Identity, source and claim reviews are separate decisions. These counts do not approve any record." %}
   {% include "_workspace_help.html" %}
 {% endwith %}
 
 <section class="v2-company-section">
   <h2>Totals</h2>
   <dl class="v2-role-list">
-    <dt>Canonical varieties</dt><dd>{{ coverage.totals.canonical_varieties }}</dd>
-    <dt>Trusted Varieties</dt><dd>{{ coverage.universe.trusted_varieties }}</dd>
+    <dt>Catalog varieties</dt><dd>{{ coverage.totals.canonical_varieties }}</dd>
     <dt>Discovered Candidates (untrusted)</dt><dd>{{ coverage.universe.discovered_candidates }}</dd>
     <dt>Unresolved identities</dt><dd>{{ coverage.universe.unresolved_identities }}</dd>
     <dt>Candidates (inbox + corpus, untrusted)</dt><dd>{{ coverage.totals.candidates }}</dd>
@@ -38,6 +37,7 @@
     <dt>With agronomic/product knowledge</dt><dd>{{ coverage.totals.agronomic_product_knowledge }}</dd>
     <dt>Unresolved alias candidates</dt><dd>{{ coverage.totals.unresolved_aliases }}</dd>
   </dl>
+  <p class="context-limit">Catalog entries include active, unverified and historical records. Check each profile's status and sources.</p>
 </section>
 
 <section class="v2-company-section">
@@ -47,7 +47,7 @@
       <thead>
         <tr>
           <th>Berry</th>
-          <th>Canonical</th>
+          <th>Catalog</th>
           <th>Candidates</th>
           <th>Breeder/owner</th>
           <th>Registration evidence</th>

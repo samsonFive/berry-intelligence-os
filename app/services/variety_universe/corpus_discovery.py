@@ -139,15 +139,16 @@ LAUNCH_TITLE_SOURCE_TYPES = {
     "company_press_release",
 }
 _LAUNCH_TITLE_RE = re.compile(
-    r"(?i)\b(?:launches?|introduces?|unveils?|releases?)\s+"
-    r"(?:the\s+|its\s+|a\s+|an\s+)?"
-    r"([A-Z][A-Za-z0-9'’\-]+(?:\s+[A-Z][A-Za-z0-9'’\-]+){0,3})\s+"
-    r"(?:blueberry|strawberry|raspberry|blackberry)\s+variet"
+    r"(?i:\b(?:launches?|introduces?|unveils?|releases?)\s+"
+    r"(?:(?:the|its|a|an)\s+)?)"
+    r"(?:new\s+)?"
+    r"([A-ZÀ-ÖØ-Þ][\w'’+\-]*(?:\s+[A-ZÀ-ÖØ-Þ][\w'’+\-]*){0,7})\s+"
+    r"(?i:blueberry|strawberry|raspberry|blackberry)\s+(?i:variet)"
 )
 _NEW_NAMED_VARIETY_TITLE_RE = re.compile(
-    r"(?i)\bnew\s+(?:blueberry|strawberry|raspberry|blackberry)\s+"
-    r"(?:variety|cultivar)\s+"
-    r"([A-Z][A-Za-z0-9'’\-]+(?:\s+[A-Z][A-Za-z0-9'’\-]+){0,3})"
+    r"(?i:\bnew\s+(?:blueberry|strawberry|raspberry|blackberry)\s+"
+    r"(?:variety|cultivar)\s+)"
+    rf"({_NAMED_TOKEN})"
 )
 _TITLE_STOP_FOLDS = {
     "two",
@@ -160,6 +161,10 @@ _TITLE_STOP_FOLDS = {
     "several",
     "multiple",
 }
+# Title Case alone is not a name: count and connective phrases remain prose.
+# These guards apply only to title guessing, never explicit source declarations.
+_TITLE_PROSE_WORDS = {"with", "from", "onto", "into"}
+_TITLE_COUNT_PHRASE_RE = re.compile(r"^(?:one|two|three|four|five|six|seven|eight|nine|ten) new$")
 
 
 def _active_facts(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -438,7 +443,8 @@ def _extract_launch_titles(
             if not cleaned or folded in seen:
                 continue
             seen.add(folded)
-            if folded in _TITLE_STOP_FOLDS or _is_stop_name(cleaned, blocked):
+            if (folded in _TITLE_STOP_FOLDS or _is_stop_name(cleaned, blocked)
+                    or set(folded.split()) & _TITLE_PROSE_WORDS or _TITLE_COUNT_PHRASE_RE.fullmatch(folded)):
                 exclusions.append({"name": cleaned, "reason": "not_a_variety", "kind": kind})
                 continue
             if _looks_like_parentage_code(cleaned):

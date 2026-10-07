@@ -1,5 +1,24 @@
 # Project Status
 
+## Variety title precision correction (2026-10-07)
+
+Five actual headline mistakes led to scoped discovery fixes without deleting
+saved reviews. Stored audit now shows 95 observations / 32 matches / 63 candidate
+observations across 1,269 sources; 336 combined candidate keys before private
+state. Catalog 64 and primary portfolio 381/25/356 counts are unchanged.
+Targeted 14-case diagnostic improves 3/6 expected names plus ten unexpected to
+5/6 plus zero unexpected, retaining one F1 miss. The original 24-case diagnostic
+still misses 14 names. No global completeness, independent human verification
+or model qualification. Coverage labels distinguish catalog status from trust;
+native phone review found and fixed table overflow. 100 related checks pass.
+See docs/v2/VARIETY-TITLE-PRECISION-REVIEW.md. CAT-01/CAT-02/TD-116 and the
+blueberry Landscape checkpoint remain open; no canonical edits, merge or deploy.
+
+Parent draft #320 exact head 8dbebe527b857f145afbb8c1e3a4c50cd122933a passed all
+four required checks, run 37610037362: 4,016 passed / 11 skipped / two warnings
+in 449.94 seconds. Human candidate-to-existing-source/claim review delivery is
+verified; no real identity decision or catalog growth is implied.
+
 ## Variety-name recall diagnostic (2026-10-07)
 
 24 curated offline cases across all berries expose unsupported formats. Spaced

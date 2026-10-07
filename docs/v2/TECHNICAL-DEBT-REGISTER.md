@@ -1994,12 +1994,24 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 title precision follow-up: five real headline mistakes are repaired
+without deleting saved decisions. Stored-source audit: 95 observations / 32
+catalog matches / 63 candidates; 336 combined candidate keys before private
+state. Catalog and primary portfolio counts are unchanged. Targeted 14-case
+diagnostic passes 13 cases with one F1 miss; original diagnostic retains 14
+table/multilingual/body misses. Catalog totals no longer imply blanket trust.
+Observed phone table overflow is fixed. Independent scoring, 62 initial primary
+checks, historical coverage, rights/aliases and rich profiles remain open.
+See VARIETY-TITLE-PRECISION-REVIEW.md; prior counts below are historical.
+
 October 7 diagnostic: 24 curated synthetic four-berry cases improve from 46/64
 expected names plus one unexpected name to 50/64 and zero unexpected names after
 spaced-code/long-F1 summary repairs. Tables, Spanish, Polish and body-only text
 still miss 14 names. This is not independently human-verified or qualification.
-Canonical authoring remains open: distinct is not catalog creation, and publication
-approval is not an entity-create shortcut. See VARIETY-NAME-RECALL-DIAGNOSTIC-V1.md.
+Actual canonical additions remain open: distinct is not catalog creation.
+#320 connects explicit identity decisions to existing human source review,
+which can create an unverified entity; statements remain separately reviewed.
+See VARIETY-NAME-RECALL-DIAGNOSTIC-V1.md and VARIETY-CATALOG-REVIEW-HANDOFF.md.
 
 October 7 correctness follow-up: primary portfolio work found that the CPVO
 species map misclassified black raspberry (`Rubus occidentalis L.`). The narrow
