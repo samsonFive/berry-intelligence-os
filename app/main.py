@@ -3349,6 +3349,7 @@ def variety_candidates_page(request: Request) -> HTMLResponse:
         name="variety_candidates.html",
         context={
             **queue,
+            "catalog_handoffs": {row["id"]: _variety_catalog_handoff(row, _varieties) for row in queue["candidates"]},
             "portfolio_error": _report.get("portfolio_error"),
             "candidate_entities": entity_index(),
             "authoring_mode": AUTHORING_MODE,
@@ -3370,16 +3371,18 @@ def variety_candidate_decision(
     decision: str = Form(...),
     reviewer: str = Form(""),
     notes: str = Form(""),
+    return_to: str = Form(""),
 ) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Variety-candidate decisions are only available in authoring mode")
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
     candidate = candidate_by_id(INBOX_DIR, candidate_id)
     if candidate is None:
         _varieties, visible, _report = variety_candidate_universe()
         candidate = next((row for row in visible if row.get("id") == candidate_id), None)
         if candidate is None:
             raise HTTPException(status_code=404, detail="Variety candidate not found")
-        persist_variety_candidates([candidate], inbox_dir=INBOX_DIR, overwrite=False)
     try:
         updated = apply_identity_decision(
             candidate,
@@ -3390,7 +3393,29 @@ def variety_candidate_decision(
     except VarietyCandidateError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     persist_variety_candidates([updated], inbox_dir=INBOX_DIR, overwrite=True)
-    return RedirectResponse(url="/varieties/candidates", status_code=303)
+    from urllib.parse import urlsplit
+    try:
+        parts = urlsplit(return_to)
+        safe = not parts.scheme and not parts.netloc and parts.path == "/varieties/candidates" and "\\" not in return_to and not any(ord(c) < 32 for c in return_to)
+    except ValueError:
+        safe = False
+    target = return_to if safe else "/varieties/candidates"
+    return RedirectResponse(url=target, status_code=303)
+
+
+def _variety_catalog_handoff(candidate, varieties):
+    from app.services.variety_catalog_handoff import catalog_handoff
+    return catalog_handoff(candidate, varieties)
+
+
+def _catalog_intake_candidate(candidate_id: str):
+    if not AUTHORING_MODE:
+        raise HTTPException(403, "Catalog preparation requires the analyst workspace")
+    varieties, visible, _report = variety_candidate_universe()
+    candidate = next((row for row in visible if row.get("id") == candidate_id), None)
+    if candidate is None:
+        raise HTTPException(404, "Variety candidate not found")
+    return candidate, varieties
 
 
 @app.get("/entities/variety/compare", response_class=HTMLResponse)
@@ -9336,9 +9361,25 @@ def intake_form(
     request: Request,
     type: str = "article_or_url",
     created: str | None = None,
+    catalog_candidate: str = "",
 ) -> HTMLResponse:
     if type not in INTAKE_TYPES:
         type = "article_or_url"
+    preparation = None
+    form_values = None
+    if catalog_candidate:
+        candidate, varieties = _catalog_intake_candidate(catalog_candidate)
+        plan = _variety_catalog_handoff(candidate, varieties)
+        if not plan["ready"]:
+            raise HTTPException(409, plan["reason"])
+        type = "article_or_url"
+        preparation = {"candidate": candidate, **plan}
+        form_values = {"title": f"Catalog source review: {candidate['candidate_name']}",
+                       "source_url": plan["source_choices"][0]["url"] if plan["source_choices"] else "",
+                       "source_name": candidate.get("source_label") or "", "summary": "",
+                       "published_date": "", "suggested_varieties": candidate["candidate_name"],
+                       "suggested_competitors": "", "why_it_matters": "",
+                       "submitted_by": session_username(request) or review_username() or ""}
     return templates.TemplateResponse(
         request=request,
         name="intake.html",
@@ -9348,7 +9389,8 @@ def intake_form(
             "drafts": list_drafts(),
             "created_id": created,
             "error": None,
-            "form_values": None,
+            "form_values": form_values,
+            "catalog_preparation": preparation,
             "authoring_mode": AUTHORING_MODE,
         },
     )
@@ -9368,10 +9410,29 @@ def intake_submit(
     submitted_by: str = Form(""),
     suggested_competitors: str = Form(""),
     suggested_varieties: str = Form(""),
+    catalog_candidate: str = Form(""),
+    catalog_decision_digest: str = Form(""),
     attachment: UploadFile | None = File(None),
 ) -> HTMLResponse | RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Intake is only available in authoring mode")
+
+    preparation = None
+    if catalog_candidate:
+        from app.personal_digest_routes import require_edit
+        from app.services.variety_catalog_handoff import validate_handoff
+        require_edit(request)
+        candidate, varieties = _catalog_intake_candidate(catalog_candidate)
+        try:
+            plan = validate_handoff(candidate, varieties, catalog_decision_digest)
+        except ValueError as exc:
+            raise HTTPException(409, str(exc)) from exc
+        preparation = {"candidate": candidate, **plan}
+        if intake_type != "article_or_url" or split_list(suggested_varieties) != [candidate["candidate_name"]]:
+            raise HTTPException(400, "Keep this source review scoped to the reviewed variety name")
+        from app.services.map_regions import public_source_url
+        if not public_source_url(source_url):
+            raise HTTPException(400, "Provide a public source URL for this variety")
 
     if intake_type not in INTAKE_TYPES:
         intake_type = "article_or_url"
@@ -9399,6 +9460,7 @@ def intake_submit(
                 "created_id": None,
                 "error": " ".join(errors),
                 "authoring_mode": AUTHORING_MODE,
+                "catalog_preparation": preparation,
                 "form_values": {
                     "title": title,
                     "source_url": source_url,
@@ -9409,6 +9471,7 @@ def intake_submit(
                     "submitted_by": submitted_by,
                     "suggested_competitors": suggested_competitors,
                     "suggested_varieties": suggested_varieties,
+                    "why_it_matters": why_it_matters,
                 },
             },
             status_code=400,
@@ -9444,7 +9507,12 @@ def intake_submit(
         "tags": [],
         "priority": None,
     }
+    if preparation:
+        record.update({"evidence_role": "publication_artifact", "berry_ids": [candidate["berry_id"]],
+                       "catalog_handoff": {"candidate_id": catalog_candidate, "decision_digest": catalog_decision_digest}})
     save_draft(record)
+    if preparation:
+        return RedirectResponse(url=f"/review/{draft_id}", status_code=303)
     return RedirectResponse(url=f"/intake?type={intake_type}&created={draft_id}", status_code=303)
 
 
@@ -9768,6 +9836,17 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
 
     form = await request.form()
 
+    if draft.get("catalog_handoff"):
+        from app.personal_digest_routes import require_edit
+        from app.services.variety_catalog_handoff import validate_handoff
+        require_edit(request)
+        handoff = draft["catalog_handoff"]
+        candidate, varieties_current = _catalog_intake_candidate(handoff["candidate_id"])
+        try:
+            validate_handoff(candidate, varieties_current, handoff["decision_digest"])
+        except ValueError as exc:
+            raise HTTPException(409, str(exc)) from exc
+
     def field(name: str, default: str = "") -> str:
         value = form.get(name, default)
         return value if isinstance(value, str) else default
@@ -9789,6 +9868,12 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
     reviewer = field("reviewer").strip()
     return_to = _safe_review_return(field("return_to"), fallback="")
     selected_berries = [b for b in form.getlist("berries") if isinstance(b, str)]
+    if draft.get("catalog_handoff"):
+        from app.services.map_regions import public_source_url
+        if varieties != [candidate["candidate_name"]] or selected_berries != [candidate["berry_id"]]:
+            raise HTTPException(400, "Keep this review scoped to the checked variety name and berry. Return to identity review to change them.")
+        if not public_source_url(source_url):
+            raise HTTPException(400, "Provide a public source URL for this variety")
     if draft.get("evidence_role") == "atomic_evidence" and summary:
         title = summary[:160]
         # Reviewers may edit the proposed statement and supported links, but

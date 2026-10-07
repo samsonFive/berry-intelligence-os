@@ -415,3 +415,8 @@ Accepted (`docs/v2/00-README.md` through `10-BACKLOG.md`, 2026-08-13). `docs/v2/
 - D-012 (explicit analytical scope, separate from provenance) — **ACCEPTED**, schema-level implemented (Phase 2A); query-level `ScopeQueryService.explicit_scope()`/`records_by_entity_intersection()`/`scope_disagreements()` implemented and tested (Phase 2B.2), but not yet wired into any live route filter — Landscape's Assessment/Recommendation branch still uses the legacy derived-intersection rule only, preserving its exact existing behavior
 
 No decisions remain open. No PostgreSQL or write-migration work has begun. AI-assisted transcript extraction is implemented only as an untrusted proposal boundary; it does not alter the human trust model.
+
+
+## October 7 — reviewed variety catalog handoff
+
+Human-reviewed distinct candidates can prepare an existing intake/source review with name, berry and original URL carried forward. Source approval can add an unverified variety; explicit claim review remains separate. No new canonical writer/schema, real identity decisions, data edits, automatic aliases/roles/traits, merge or deployment. Browser acceptance used isolated fictional fixtures, including a full source/claim journey and a 390-pixel keyboard disclosure. Current decisions and catalog name/alias matches are rechecked before writes; filters and private review notes survive. See docs/v2/VARIETY-CATALOG-REVIEW-HANDOFF.md. All broader CAT-01/CAT-02/TD-116 coverage obligations and the blueberry Landscape gate remain open.

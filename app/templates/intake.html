@@ -3,8 +3,8 @@
 {% block content %}
 <section class="page-heading">
   <div>
-    <p class="eyebrow">CAPTURE ANYTHING, FROM ANYWHERE</p>
-    <h1>Add Intelligence</h1>
+    <p class="eyebrow">{{ 'VARIETIES · SOURCE REVIEW' if catalog_preparation else 'CAPTURE ANYTHING, FROM ANYWHERE' }}</p>
+    <h1>{{ 'Prepare variety source review' if catalog_preparation else 'Add Intelligence' }}</h1>
   </div>
 </section>
 
@@ -23,14 +23,33 @@
   <div class="banner banner-error" role="alert">{{ error }}</div>
 {% endif %}
 
+{% if catalog_preparation %}
+<section class="card" aria-label="Variety review steps">
+  <h2>{{ catalog_preparation.candidate.candidate_name }}</h2>
+  <p><strong>Identity checked → Source review → Claim review</strong></p>
+  <p>Add what the source actually says. Source approval can add an <strong>unverified</strong> catalog entry; traits and company roles still need their own review.</p>
+  <details><summary>Identity decision and supporting links</summary>
+    <p>Marked distinct by {{ catalog_preparation.candidate.reviewer }} · {{ catalog_preparation.candidate.reviewed_at[:10]|us_date }}</p>
+    {% if catalog_preparation.candidate.review_notes %}<p>{{ catalog_preparation.candidate.review_notes }}</p>{% endif %}
+    <ul>{% for source in catalog_preparation.source_choices %}<li><a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.label }} ↗</a>{% if source.checked_on %} · checked {{ source.checked_on|us_date }}{% endif %}</li>{% endfor %}</ul>
+    <p>A checked date is not a publication date. Keep names, codes and company roles distinct.</p>
+  </details>
+  <a href="/varieties/candidates#{{ catalog_preparation.candidate.id }}">Back to identity review</a>
+</section>
+{% else %}
 <nav class="intake-tabs" aria-label="Intelligence type">
   {% for key, label in intake_types.items() %}
     <a href="/intake?type={{ key }}" class="{% if key == active_type %}active{% endif %}" {% if key == active_type %}aria-current="page"{% endif %}>{{ label }}</a>
   {% endfor %}
 </nav>
+{% endif %}
 
 <form class="intake-form" action="/intake" method="post" enctype="multipart/form-data">
   <input type="hidden" name="intake_type" value="{{ active_type }}">
+  {% if catalog_preparation %}
+  <input type="hidden" name="catalog_candidate" value="{{ catalog_preparation.candidate.id }}">
+  <input type="hidden" name="catalog_decision_digest" value="{{ catalog_preparation.decision_digest }}">
+  {% endif %}
 
   {% if active_type == 'article_or_url' %}
     <div class="form-field">
@@ -56,7 +75,7 @@
   </div>
 
   <div class="form-field">
-    <label for="summary">{% if active_type == 'standalone_fact' %}Supporting context *{% else %}Your summary / notes *{% endif %}</label>
+    <label for="summary">{% if catalog_preparation %}What does this source say about the variety? *{% elif active_type == 'standalone_fact' %}Supporting context *{% else %}Your summary / notes *{% endif %}</label>
     <textarea id="summary" name="summary" rows="4" required>{{ form_values.summary if form_values else '' }}</textarea>
   </div>
 
@@ -72,7 +91,7 @@
     </div>
     <div class="form-field">
       <label for="suggested_varieties">Suggested varieties</label>
-      <input id="suggested_varieties" name="suggested_varieties" type="text" placeholder="Comma-separated" value="{{ form_values.suggested_varieties if form_values else '' }}">
+      <input id="suggested_varieties" name="suggested_varieties" type="text" placeholder="Comma-separated" value="{{ form_values.suggested_varieties if form_values else '' }}" {% if catalog_preparation %}readonly{% endif %}>
     </div>
   </div>
 
@@ -87,7 +106,7 @@
   </div>
 
   <div class="form-actions">
-    <button type="submit">Save to Intake</button>
+    <button type="submit">{{ 'Save draft and review source' if catalog_preparation else 'Save to Intake' }}</button>
   </div>
 </form>
 {% endif %}
