@@ -1992,6 +1992,8 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 | Proof | `tests/test_landscape_explorer.py`; `docs/v2/LANDSCAPE-EXPLORER-MISSION.md`; review packet. |
 # TD-117 — Social live access, published removal and multilingual validation
 
+Bake-off addendum2026-10-07:93unique actual news titles and two saved Bluesky stream connections without blueberry matches are isolated tests, not consumer-monitor proof. Vendor free-account/billing/build verification, independent reference/field review, comment images, China capabilities and redisplay permissions remain blocked. Apify launch/poll/dataset normalization and vendor history/deletion remain unfinished. See `SOCIAL-MONITORING-BAKEOFF.md`; these measurements do not close the debt below.
+
 Status: open; severity: High; owner: acquisition/product. Blueberry pilot has no live records (Bluesky403, missing YouTube key). Private tombstones invalidate derived observations/media/pending drafts, but published summaries and dependent trusted records require audited retraction. Automatic provider deletion polling, OCR/vision, translation and independent language evaluation are absent. Collectors remain disabled. Five synthetic negation errors are reported, not hidden. Proof and ordered remediation: `SOCIAL-BLUEBERRY-REVIEW.md`, `tests/test_social_intelligence.py`, `tests/test_social_routes.py`, dated access matrix.
 
 

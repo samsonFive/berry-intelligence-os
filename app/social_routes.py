@@ -38,7 +38,8 @@ def page(request:Request):
     from app.services.landscape_explorer_map import overview
     # Existing geography boundary contract, no second geocoder or explorer.
     map_locator=overview({'lanes':[]})
-    return main.templates.TemplateResponse(request,'social.html',{'authoring_mode':True,'bundle':b,'href':href,'views':VIEWS,'platforms':PLATFORMS,'map_locator':map_locator},headers={'Cache-Control':'private, no-store'})
+    entities=sorted((e for e in main.all_entities() if e.get('entity_type') in ('company','variety')),key=lambda e:e.get('name',e['id']).casefold())
+    return main.templates.TemplateResponse(request,'social.html',{'authoring_mode':True,'bundle':b,'href':href,'views':VIEWS,'platforms':PLATFORMS,'map_locator':map_locator,'social_entities':entities},headers={'Cache-Control':'private, no-store'})
 
 @router.get('/api/social')
 def api(request:Request):

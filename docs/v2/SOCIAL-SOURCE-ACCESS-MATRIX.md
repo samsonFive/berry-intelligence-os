@@ -1,5 +1,7 @@
 # Social source-access matrix — 2026-10-07
 
+The [zero-spend vendor comparison](SOCIAL-MONITORING-BAKEOFF.md) adds current Apify Actor/SociaVault/enterprise feasibility, official setup links and isolated test measurements. Two saved public Bluesky Jetstream samples connected but yielded no blueberry posts; keyword search remains HTTP403-blocked. News RSS returned93unique titles, not consumer-social evidence. These tests do not upgrade the15platform production-coverage statuses below or establish vendor permission.
+
 No subscriptions, paid collection, trials or access applications were activated. Only Bluesky and YouTube have implemented automated paths. Imported/manual samples never count as live access. Primary-page fetch failures remain visible.
 
 ## instagram — stale

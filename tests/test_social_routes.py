@@ -27,18 +27,27 @@ def client(tmp_path,monkeypatch):
     Store(tmp_path).ingest(FIXTURE['records'],main.all_entities())
     return TestClient(main.app)
 
-@pytest.mark.parametrize('view',['phrases','heatmap','atlas','momentum','coverage'])
+@pytest.mark.parametrize('view',['posts','phrases','heatmap','atlas','momentum','coverage'])
 def test_views_same_bundle_filters_safe_render_and_drawer(client,view):
     api=client.get('/api/social?mode=fixture&language=es&view='+view).json()
     page=client.get('/social?mode=fixture&language=es&view='+view)
-    assert page.status_code==200 and 'SYNTHETIC DEMO' in page.text
+    assert page.status_code==200 and 'Sample posts' in page.text
     assert api['version'] in page.text and 'v2ReaderOffcanvas' in page.text
     assert all(r['language']=='es' and r['mode']=='fixture' for r in api['records'])
     key=api['records'][0]['id'];reader=client.get('/api/social/'+key+'/reader')
-    assert reader.status_code==200 and 'UNREVIEWED SOCIAL OBSERVATION' in reader.text
-    assert 'Translation' in reader.text and 'Purchase market' in reader.text
+    assert reader.status_code==200 and 'Not reviewed' in reader.text
+    assert 'Translation' in reader.text and 'Purchased in' in reader.text
     assert client.get('/social/briefing?mode=fixture&language=es').status_code==200
     assert client.get('/social/export?mode=fixture&language=es').json()['count']==api['count']
+
+def test_dense_post_sheet_full_original_translation_dates_and_roles(client):
+    page=client.get('/social?mode=fixture&language=es&role=consumer').text
+    assert 'social-post-grid' in page and '10/01/26' in page
+    assert 'data-sort-value="2026-10-' in page
+    assert 'Encontré arándanos en Costco; grande y crujiente pero insípido.' in page
+    assert 'EN translation' in page and 'Purchased in' in page
+    assert 'value="consumer" selected' in page
+    assert 'Inspect this cell' not in page and '>FIXTURE<' not in page
 
 def test_manual_import_provenance_csrf_and_schema(client):
     headers={'Origin':'http://testserver'}
@@ -58,7 +67,7 @@ def test_manual_import_provenance_csrf_and_schema(client):
     assert client.post('/api/social/import',content='a'*1000001,headers=headers).status_code==413
 
 def test_error_empty_and_blueberry_gate(client):
-    page=client.get('/social?mode=live');assert page.status_code==200 and 'No relevant observations' in page.text
+    page=client.get('/social?mode=live');assert page.status_code==200 and 'No posts in this selection' in page.text
     assert client.get('/social?berry=berry-strawberry').status_code==422
     assert 'Reset Social Listening' in client.get('/social?view=fiction').text
     assert client.get('/api/social/missing/reader').status_code==410

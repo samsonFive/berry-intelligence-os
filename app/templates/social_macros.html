@@ -1,0 +1,6 @@
+{% macro mode_label(mode) -%}{{ {'fixture':'Sample posts','live':'Live collection','imported':'Uploaded data','manual':'Saved by you'}.get(mode,mode) }}{%- endmacro %}
+{% macro short_date(value) -%}{% if value %}{{ value[5:7] }}/{{ value[8:10] }}/{{ value[2:4] }}{% else %}Unknown{% endif %}{%- endmacro %}
+{% macro retailer_label(value) -%}{{ {'found-at':'Found at','bought-at':'Bought at','wishes-stocked-by':'Wants stocked at','unavailable-at':'Unavailable at','sold-by':'Sold by','compared-with':'Compared with','uncertain':'Unclear'}.get(value,value|replace('-',' ')) }}{%- endmacro %}
+{% macro phrase_label(value) -%}{% if ' · ' in value %}{{ value.split(' · ')[0] }} · {{ retailer_label(value.split(' · ')[1]) }}{% else %}{{ value|capitalize }}{% endif %}{%- endmacro %}
+{% macro entity_label(value,entities) -%}{% set matched=entities|selectattr('id','equalto',value)|first %}{{ matched.name if matched else 'Unresolved name' }}{%- endmacro %}
+{% macro status_label(value) -%}{{ {'setup-required':'Needs setup','access-pending':'Access blocked','unsupported':'Not available','fixture-only':'Sample data only','stale':'Out of date','live':'Connected','partial':'Limited coverage','failed':'Failed','running':'Collecting'}.get(value,value|replace('-',' ')) }}{%- endmacro %}

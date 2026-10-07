@@ -1,8 +1,20 @@
 # Blueberry social intelligence review — 2026-10-07
 
+## Updated review: compact UI and $0 bake-off
+
+The [bake-off report](SOCIAL-MONITORING-BAKEOFF.md) supersedes the initial collection snapshot below:93unique actual news-feed titles were ingested in a separate evaluation store; zero live consumer-social records were obtained. Two saved Bluesky live-tail connections succeeded without blueberry matches; keyword search remains403-blocked and YouTube key absent. No purchase, merge, deployment or scheduled collection occurred. Live social-image/retailer/comment proof and independent multilingual acceptance remain unmet.
+
+Current UI: **Sample posts** means made-up examples, explained in the header. Posts is the default compact sheet, showing full original text, available translation, images, aspects, retailer relations and separate purchase/origin/author fields together. Routine dates use MM/DD/YY, raw timestamps remain in source details/tooltips and sorting uses ISO values. English originals do not repeat a same-language synthetic gloss. Language/name/type filters use friendly labels and preserve original query values. Coverage groups15platforms instead of75repeated rows, with country-specific details accessible. Visual selection/shareability and the shared drawer remain intact.
+
+Current screenshots: `artifacts/social-blueberry/dense-posts.jpg`, `dense-drawer.jpg`, `dense-phrases.jpg`, `dense-heatmap.jpg`, `dense-atlas.jpg`, `dense-momentum.jpg`, `dense-coverage.jpg`, `dense-mobile.jpg`. The actual news-only screenshot is private at `inbox/social-bakeoff/news-combined-2026-10-07/preview-news.jpg` and in the delivered local outputs; source titles are not redistributed in public git. Older screenshots below show the previous UI. Default preview remains localhost18343; the separate news-only evaluation is localhost18344 via `scripts/preview_social_bakeoff.py`. News is labeled as a title-only feed, not consumer conversation.
+
+Updated five-minute review: minute1read/sort Posts with full wording and translations; minute2select a phrase or attribute and open Details; minute3compare Costco Found at/Kroger Wants stocked at and text/packaging cultivar bases; minute4check unknown geography, qualified momentum and grouped country health; minute5review the bake-off counts/unmet targets and prioritized free-account checklist. Initial implementation/migration notes below remain applicable. Recent validation results are recorded with the PR review receipt; historical counts below describe the original checkpoint, not the new exact HEAD.
+
+Updated local checks:71social service/route/bake-off tests passed (55.82s); after the final vendor guard/title-repair,36route/bake-off checks passed (31.50s). Canonical record validation, both JavaScript syntax checks and whitespace checks passed. Browser checks verified chronological date sorting, five-post phrase drilldown/shareable IDs, drawer,15grouped platform rows and390pxmobile containment (page375px;1080pxsheet scrolls internally). A broad run overlapping edits reported4,031passed/9skipped/2failed in870.90s because it loaded old vendor tests before their new guard inputs/URL requirements were added; the final targeted suite passes. Exact committed-HEAD PR CI is authoritative and is recorded in the delivered receipt.
+
 ## Review outcome
 
-Implemented a private, reviewable blueberry vertical slice. **The gate is presented for feedback, not certified complete.** Two real adapter paths are tested, but zero live records were collected: public Bluesky search returned HTTP 403, and `BIOS_SOCIAL_YOUTUBE_KEY` is absent. No subscription, paid collection, access application, merge or deployment was performed.
+Initial checkpoint: implemented a private, reviewable blueberry vertical slice. **The gate is presented for feedback, not certified complete.** Two real adapter paths were tested, but zero live records were collected at that checkpoint: public Bluesky search returned HTTP403, and `BIOS_SOCIAL_YOUTUBE_KEY` was absent. See the updated bake-off above. No subscription, paid collection, access application, merge or deployment was performed.
 
 Canonical branch is `v2/intelligence-os` at `7962ac04dd05855985f51596f3f8070f19990a75`; GitHub's default `master` is not canonical. This change is stacked on related Landscape Explorer PR #313, branch `feature/landscape-explorer`, base `bd6b4a390e73582aad317eaec12bd5c27c6fad7a`. The branch is `feature/social-blueberry-review`. Landscape boundaries, canonical identities, Glasshouse navigation and the shared evidence drawer are reused. No parallel trusted graph or registry is created. The isolated checkout had no unrelated modifications.
 
@@ -91,7 +103,7 @@ Before future rollout, back up persistent inbox/data using a SQLite consistent b
 
 Decisions needed: accept the stacked Landscape dependency and private fixture preview; choose authorized access owners and collection budgets; prioritize published-removal safety and multilingual/vision providers; agree which partial checks must close before live operation. **Stop here for blueberry feedback; do not merge or deploy.**
 
-## Local validation results
+## Initial checkpoint validation history
 
 Final focused social tests: **48 passed** (40.40s). Existing Landscape focused tests: **44 passed**. Canonical record validation and JavaScript syntax checks passed. Static build: **1,755 pages**, private-draft leakage validation passed. A broad run made during final edits reported 3,998 passed / 9 skipped / 2 failed: the existing clean-working-tree assertion saw the intended uncommitted pipeline configuration, and a loaded old aggregation module encountered the newly edited momentum template. Final focused tests pass; exact committed-HEAD CI remains the authoritative full-suite result. No merge/deploy follows those checks.
 

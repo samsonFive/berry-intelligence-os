@@ -7,12 +7,12 @@ from urllib.parse import urlencode
 from .model import PLATFORMS, MODES
 from .extraction import ASPECTS, VOCAB
 
-VIEWS=('phrases','heatmap','atlas','momentum','coverage')
+VIEWS=('posts','phrases','heatmap','atlas','momentum','coverage')
 MIN_SAMPLE=5
 
 def selection(params):
     f={k:str(params.get(k,'') or '') for k in ('source','language','market','entity','role','start','end','q')}
-    f.update(mode=str(params.get('mode','live')),view=str(params.get('view','phrases')),berry=str(params.get('berry','berry-blueberry')))
+    f.update(mode=str(params.get('mode','live')),view=str(params.get('view','posts')),berry=str(params.get('berry','berry-blueberry')))
     if f['mode'] not in MODES or f['view'] not in VIEWS or f['berry'] not in VOCAB or f['source'] and f['source'] not in PLATFORMS:
         raise ValueError('Invalid social selection')
     for k in ('start','end'):
