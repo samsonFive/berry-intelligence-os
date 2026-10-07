@@ -1,5 +1,15 @@
 # Intelligence Coverage Matrix
 
+**October 7 UC Davis/source-content follow-up:** 45 additional occurrences in
+two bounded current/historical sections, plus two explicit ambiguous exclusions.
+Combined primary scope 456/33/423 in 39 sections; 17 registry rows have some
+checks, 60 need initial checks. Candidate keys before private state: 383.
+Canonical/stored-discovery counts unchanged. Source-plan websites reuse existing
+Company resolution and retain analyst edits/clears. Older published-source body
+availability is 1,198 unavailable / 71 access screens / zero readable bodies,
+excluding pending news. Availability is not recall. No maturity increase or
+source onboarding. See VARIETY-SOURCE-COVERAGE-REVIEW.md; earlier counts are historical.
+
 **October 7 university/historical follow-up:** Cornell and newer Arkansas
 sections add 30 occurrences; the existing 18-name Arkansas scope is refreshed
 without counting it again. Primary total: 411 occurrences / 33 matches / 378

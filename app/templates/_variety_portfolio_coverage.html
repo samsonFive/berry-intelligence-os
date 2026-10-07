@@ -13,6 +13,12 @@
     <button class="green-button">Apply filters</button><a href="/varieties/coverage">Reset</a>
   </form>
   <div class="portfolio-berry-summary" aria-label="Catalog matches out of source name occurrences">{% for row in portfolios.by_berry %}{% if not portfolios.filters.berry or portfolios.filters.berry == row.id %}<span><b>{{ row.label }}</b> {{ row.matched }} / {{ row.names }} matched</span>{% endif %}{% endfor %}</div>
+  {% if portfolios.source_content %}{% set content = portfolios.source_content %}
+  <details class="portfolio-plan portfolio-source-content"><summary>Article text coverage · all scopes · {{ content.readable_sources }} of {{ content.published_sources }} saved sources readable</summary>
+    <p>Across all berries: {{ content.full_articles }} complete articles · {{ content.partial_articles }} partial articles · {{ content.transcripts }} transcripts. {{ content.access_screens }} saved sources contain access-screen text; {{ content.body_unavailable + content.descriptions_only + content.access_limited }} lack readable article text.</p>
+    <p>These are saved published records, excluding pending news and the portfolio pages below. A summary can name varieties, but cannot account for everything in the original article. Readable content is not an identity or claim approval.</p>
+    <a href="/source-fidelity">Review recovered article text →</a>
+  </details>{% endif %}
   <h2>Which portfolios have we checked?</h2>
   <div class="portfolio-table-scroll"><table class="portfolio-table">
     <thead><tr><th>Primary source & scope</th><th>Names</th><th>Catalog matches</th><th>Needs review</th><th>Checked</th></tr></thead>

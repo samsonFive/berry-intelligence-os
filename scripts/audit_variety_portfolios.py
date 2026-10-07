@@ -6,7 +6,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from app.services.variety_portfolio_coverage import load_portfolio_observations, portfolio_coverage
+from app.services.variety_portfolio_coverage import load_portfolio_observations, portfolio_coverage, source_content_coverage
 from app.services.variety_universe.corpus_discovery import build_discovered_candidates, merge_visible_candidates
 
 
@@ -15,12 +15,14 @@ def audit(data_dir):
         return [json.loads(path.read_text(encoding="utf-8")) for path in sorted((data_dir / folder).rglob("*.json"))]
     entities = records("entities")
     varieties = [row for row in entities if row.get("entity_type") == "variety"]
+    published = [row for row in records("evidence") if row.get("status") == "published"]
     report = build_discovered_candidates(varieties=varieties, entities=entities,
-        published_evidence=[row for row in records("evidence") if row.get("status") == "published"], facts=records("facts"))
+        published_evidence=published, facts=records("facts"))
     corpus_candidates = merge_visible_candidates([], report["candidates"])
     coverage = portfolio_coverage(data_dir=data_dir, sources=load_portfolio_observations(data_dir), varieties=varieties,
         entities=entities, candidates=corpus_candidates)
     visible = coverage.pop("visible_candidates")
+    coverage["source_content"] = source_content_coverage(published)
     coverage["candidate_counts"] = {"stored_source_candidates": len(corpus_candidates), "combined_candidates": len(visible),
                                     "additional_primary_portfolio_candidates": len(visible) - len(corpus_candidates)}
     coverage["subjects"] = [{**row, "sources": [source["id"] for source in row["sources"]]} for row in coverage["subjects"]]

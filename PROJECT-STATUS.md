@@ -1,5 +1,22 @@
 # Project Status
 
+## University history, source-plan links and article-text gaps (2026-10-07)
+
+UC Davis current/historical listings add 45 occurrences with two ambiguous labels
+retained as exclusions. Combined primary scope: 456/33/423 in 39 sections; 17 of
+77 registry rows have some checks, 60 need initial checks; combined candidate keys
+before private state 383. Catalog 64 and stored discovery 95/32/63 are unchanged.
+Source-plan links reuse existing Company resolution and preserve analyst edit/clear.
+Body-free accounting separates acquisition from recall: older published records
+have 1,198 unavailable bodies and 71 access screens, excluding pending news.
+The minimized all-scopes disclosure links to existing source fidelity review.
+79 related tests and final 29 coverage/navigation checks pass; desktop/390px review passed without
+POSTs. See docs/v2/VARIETY-SOURCE-COVERAGE-REVIEW.md. CAT-01/CAT-02/TD-116 remain
+open; no trust decisions, merge, deploy or other-berry Landscape rollout.
+
+Parent #322 exact head 4bf8efbc6858b35e68223a7afef0e9863641ddd8 passed all four
+checks, run 37617471618: 4,026 passed / 11 skipped / two warnings / 321.96 seconds.
+
 ## University and historical variety reconciliation (2026-10-07)
 
 Cornell current headings, historical chart and dated release plus Arkansas
