@@ -1990,6 +1990,16 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 | Mitigation | Read-only adapter preserves predicates, identities, disputes and source gates; labels company context separately, makes caveats and unknown dates explicit, identifies missing locators, and does not promote private annotations. No fabricated cross-country genetics path or historical ending. Generic supported geography paths are covered by test-only fixtures. |
 | Still required | Human-reviewed, explicit genetics geography associations and richer dated provenance via existing acquisition/review workflows; each remaining berry needs its own sufficiency audit after the blueberry gate. No schema rewrite authorized by this debt entry. |
 | Proof | `tests/test_landscape_explorer.py`; `docs/v2/LANDSCAPE-EXPLORER-MISSION.md`; review packet. |
-# TD-116 — Social live access, published removal and multilingual validation
+# TD-117 — Social live access, published removal and multilingual validation
 
 Status: open; severity: High; owner: acquisition/product. Blueberry pilot has no live records (Bluesky403, missing YouTube key). Private tombstones invalidate derived observations/media/pending drafts, but published summaries and dependent trusted records require audited retraction. Automatic provider deletion polling, OCR/vision, translation and independent language evaluation are absent. Collectors remain disabled. Five synthetic negation errors are reported, not hidden. Proof and ordered remediation: `SOCIAL-BLUEBERRY-REVIEW.md`, `tests/test_social_intelligence.py`, `tests/test_social_routes.py`, dated access matrix.
+
+
+### TD-116 — Variety catalog recall is not portfolio-complete
+
+| Field | Value |
+|---|---|
+| Status | Open; immediate stored-summary recall and visibility repaired |
+| Evidence | October 7 corpus audit: 64 canonical varieties, 1,269 published sources, 99 explicit named identities, 31 exact catalog matches and 68 candidate names before private inbox state. Hortifrut's 11 names and MBG's 16 code/name pairs were largely absent from discovery. Shared explicit-list parsing and existing candidate workflow now account for them; this does not approve new identities or roles. |
+| Risk | A visible source portfolio can exceed catalog coverage, misleading users about competitors' genetics. Other berries, tables, multilingual catalogs, truncated text and aliases remain under-reconciled. Generic descriptors and brand/code combinations can produce false positives without a benchmark. |
+| Next | Complete per-breeder/per-berry portfolio reconciliation, authoritative-source freshness manifest, manually verified recall benchmark and human canonical-authoring handoff. Use existing intake/qualified extraction; preserve operator decisions and data. See VARIETY-CATALOG-COMPREHENSIVENESS-MISSION.md and the repeatable audit artifact. |

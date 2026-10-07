@@ -61,3 +61,26 @@ After explicit feedback approving continuation, resume this branch/draft PR and 
 Feature is additive: remove the explorer router registration and its live navigation/dossier links (or revert feature commits) to disable it. No database migration, data rollback or provider cleanup is needed. Old `/landscapes`, existing saved views, News, Map Explorer and dossiers remain operational. Keep `INTELLIGENCE-EXPANSION-BUILD-GUIDE.md` verbatim. Do not disable authentication to publish the preview.
 
 At delivery, Milestone A is the tested blueberry review checkpoint in draft PR #313; final exact-head checks are recorded there. Remaining berries and cross-berry completion await feedback; the full mission remains open.
+
+## Blueberry feedback revision, October 6–7
+
+The user rejected sparse repeated cards, system-oriented language and missing
+varieties named in source excerpts. Replace the portrait with a compact company
+by country matrix and grouped program/variety portfolios. Put cited takeaways
+first; show offices, breeding tests, plans and IP enforcement in plain language.
+Evidence opens when selected, releasing its unused column when closed. Keep
+complete relationships, dates and technical references behind disclosure.
+
+Repair the shared source-to-catalog discovery failure, not a Hortifrut-only list.
+The eleven Hortifrut names and sixteen MBG code/name pairs now appear beside
+sources and in the existing identity-review workflow. Additional candidate names
+appear beside directory searches without changing canonical identities or roles.
+See [the comprehensive catalog mission](VARIETY-CATALOG-COMPREHENSIVENESS-MISSION.md)
+and its repeatable stored-source audit. This necessary read-model fix changes no
+Variety schemas, CPVO backends or trusted records. Human decisions win on replay.
+
+- [x] Shared discovery repair and repeatable corpus audit.
+- [x] Denser comparison, grouped portfolios and cited overview questions.
+- [x] Source-linked candidate visibility in evidence, directory and review queue.
+- [x] Final revised desktop/mobile/theme review and local regression. Exact-head GitHub check results are recorded in draft PR #313 at delivery.
+- [ ] User review of the revised blueberry checkpoint before other-berry rollout.

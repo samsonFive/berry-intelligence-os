@@ -21,18 +21,26 @@
   function sourceLink(source) { if (!source.url) return el('small', 'Original URL not recorded.'); const a = el('a', 'Read original source ↗'); a.href = source.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; return a; }
   function selectEdge(id, focusPanel = true) {
     const edge = edges.get(id); if (!edge) return;
+    panel.hidden = false; root.setAttribute('data-evidence-open', '');
     setURL('edge', id);
     root.querySelectorAll('[data-relationship]').forEach(row => row.classList.toggle('is-selected', row.dataset.relationship === id));
     content.replaceChildren(el('h3', edge.label), el('span', edge.status_label, 'lx-status ' + edge.status));
     if (edge.caveat) content.append(el('p', edge.caveat, 'lx-lead'));
-    content.append(el('p', edge.scope_kind), el('p', edge.review, 'lx-muted'));
+    content.append(el('p', edge.review, 'lx-muted'));
     [edge.subject_id, edge.object_id].forEach(key => { if (bundle.nodes[key].identity_note) content.append(el('p', `${bundle.nodes[key].label}: ${bundle.nodes[key].identity_note}`, 'lx-muted')); });
     const dates = el('dl');
     [['Effective', edge.effective || 'Not recorded'], ['Published', edge.published.join(' · ') || 'Not recorded'], ['First captured', edge.first_seen || 'Not recorded']].forEach(([key, value]) => dates.append(el('dt', key), el('dd', value)));
-    content.append(dates, el('h4', 'Supporting sources'));
+    const dateDetails = el('details'); dateDetails.append(el('summary', 'Dates & connection details'), el('p', edge.scope_kind), dates); content.append(dateDetails, el('h4', 'Supporting sources'));
     edge.evidence_ids.forEach(sid => {
       const source = sources.get(sid); const article = el('article');
-      article.append(el('h4', `[${source.number}] ${source.title}`), el('p', source.review, 'lx-muted'), el('p', source.summary, 'lx-source-summary'), sourceLink(source));
+      article.append(el('h4', source.title), el('small', `Source ${source.number} · ${source.review}`), el('p', source.summary, 'lx-source-summary'), sourceLink(source));
+      if (source.varieties?.length) {
+        const names = el('section', null, 'lx-source-varieties'); names.append(el('h4', 'Varieties named in this source'));
+        const chips = el('div', null, 'lx-variety-chips');
+        source.varieties.forEach(row => { const a = el('a', row.name + (row.catalog_id ? '' : ' · review')); a.href = row.href; a.title = row.label; if (!row.catalog_id) a.className = 'provisional'; chips.append(a); });
+        names.append(chips, el('small', 'Catalog links and names awaiting identity review. A mention does not approve breeder, owner or growing-region claims.')); article.append(names);
+      }
+      if (source.significance) { const why = el('details'); why.append(el('summary', 'Why this source was flagged'), el('p', source.significance)); article.append(why); }
       const details = el('details'); details.append(el('summary', 'Source details & locator'), el('p', source.locator), el('small', `Published: ${source.published || 'unknown'} · Captured: ${source.captured || 'unknown'}`), el('small', `Origin: ${source.origin}`), el('small', source.id)); article.append(details); content.append(article);
     });
     const provenance = el('details'); provenance.append(el('summary', 'Relationship notes & registry reference'), el('p', edge.notes), el('small', edge.id), el('small', `Stored confidence: ${edge.confidence}. Source review is separate from claim verification.`)); content.append(provenance);
@@ -70,7 +78,7 @@
     const edgeButton = event.target.closest('[data-edge]'); if (edgeButton) { selectEdge(edgeButton.dataset.edge); return; }
     const focusLink = event.target.closest('[data-focus]'); if (focusLink && !event.ctrlKey && !event.metaKey && bundle.filters.view !== 'explain') { event.preventDefault(); selectFocus(focusLink.dataset.focus); root.querySelector('.lx-focus').scrollIntoView({behavior:'smooth', block:'nearest'}); return; }
     const source = event.target.closest('[data-source-link]'); if (source) { const details = root.querySelector('.lx-source-index'); details.open = true; }
-    if (event.target.closest('[data-clear-edge]')) { setURL('edge', ''); content.replaceChildren(el('p', 'Select a connection to inspect its sources.', 'lx-lead')); root.querySelectorAll('.is-selected').forEach(row => row.classList.remove('is-selected')); }
+    if (event.target.closest('[data-clear-edge]')) { setURL('edge', ''); panel.hidden = true; root.removeAttribute('data-evidence-open'); content.replaceChildren(el('p', 'Select a connection to inspect its sources.', 'lx-lead')); root.querySelectorAll('.is-selected').forEach(row => row.classList.remove('is-selected')); }
   });
   root.addEventListener('keydown', event => { if (event.key === 'Escape') root.querySelector('[data-clear-edge]').click(); });
   const windowControl = root.querySelector('[name=window]');

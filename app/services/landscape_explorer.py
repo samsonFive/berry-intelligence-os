@@ -17,8 +17,9 @@ from urllib.parse import urlencode, urlsplit
 
 from app.services.geography_hierarchy import geography_descendants
 from app.services.source_independence import independence_report
+from app.services.variety_universe.corpus_discovery import discover_corpus_variety_mentions, source_catalog_coverage
 
-ENGINE_VERSION = "landscape-1"
+ENGINE_VERSION = "landscape-2"
 GENETIC_TYPES = {"variety", "breeding_program"}
 ACTOR_TYPES = {"company", "breeding_program", "variety"}
 ROLE_LABELS = {"develops": "Breeder / developer", "owns": "Owner / rights holder",
@@ -26,7 +27,7 @@ ROLE_LABELS = {"develops": "Breeder / developer", "owns": "Owner / rights holder
                "distributes": "Distributor", "trials": "Trial participant",
                "sells": "Seller", "partners_with": "Partner", "operates_in": "Location relationship"}
 QUESTIONS = {"markets": "What connects these selected markets?",
-             "genetics": "Where is this program or variety documented?",
+             "genetics": "Who develops or controls these genetics?",
              "changes": "What changed in this window?"}
 _CACHE: OrderedDict = OrderedDict()
 _CACHE_LOCK = RLock()
@@ -102,6 +103,7 @@ def _source(row):
             "review": "Reviewed source · claims retain their own review" if row.get("status") == "published" else "Unreviewed source",
             "published": _day(row.get("published_date")), "captured": _day(row.get("captured_date")),
             "summary": row.get("summary") or "No source summary recorded.",
+            "significance": row.get("why_it_matters") or "",
             "locator": row.get("supporting_excerpt") or row.get("excerpt") or row.get("source_locator") or "No verbatim excerpt recorded; inspect the relationship notes and original source.",
             "origin": row.get("submitted_by") or row.get("source_system") or "Registry record; extraction version not recorded"}
 
@@ -122,6 +124,23 @@ def _caveat(row):
     if "substituted predicate" in lower:
         return "Legacy role mapping · verify the source"
     return ""
+
+
+def _location_label(row):
+    caveat = _caveat(row)
+    labels = {"Intent only": "Planned market entry", "Rights enforcement": "IP rights enforcement",
+              "Registered office": "Registered office", "Test station": "Breeding test site"}
+    for prefix, label in labels.items():
+        if caveat.startswith(prefix):
+            return label
+    notes = str(row.get("notes") or "").lower()
+    for phrase, label in [("self-reported production", "Company-reported production"),
+                          ("variety validation programme", "Variety validation programme"),
+                          ("growing country and licensing", "Growing & licensing region"),
+                          ("operations at", "Local operations")]:
+        if phrase in notes:
+            return label
+    return "Location reported · check source"
 
 
 def build_bundle(entities, relationships, evidence, params, *, today=None):
@@ -183,6 +202,7 @@ def build_bundle(entities, relationships, evidence, params, *, today=None):
                            "review": "Includes unreviewed source" if any(r.get("status") != "published" for r in source_rows) else "Reviewed sources",
                            "evidence_ids": source_ids, "unavailable_evidence_count": len(row.get("evidence_ids", [])) - len(source_ids),
                            "notes": row.get("notes") or "No relationship notes recorded.", "caveat": _caveat(row),
+                           "location_label": _location_label(row),
                            "confidence": row.get("confidence") or (match.group(1) if (match := re.search(r"\bconfidence=(low|medium|high)\b", str(row.get("notes") or ""))) else "Not recorded"), "effective": effective,
                            "published": publication, "first_seen": captured[0] if captured else None,
                            "in_window": in_window, "time_dates": selected_dates,
@@ -230,7 +250,10 @@ def build_bundle(entities, relationships, evidence, params, *, today=None):
     # Independence is an origin count, never a confidence score or fact approval.
     independence = independence_report([records[row["id"]] for row in sources])
     for edge in edges:
-        edge["label"] = f"{nodes[edge['subject_id']]['label']} → {edge['predicate'].replace('_', ' ')} → {nodes[edge['object_id']]['label']}"
+        verbs = {"partners_with": "partners with", "operates_in": "has a location record in", "develops": "develops",
+                 "owns": "owns", "licenses": "licenses", "grows": "grows", "markets": "markets",
+                 "distributes": "distributes", "trials": "trials", "sells": "sells"}
+        edge["label"] = f"{nodes[edge['subject_id']]['label']} {verbs[edge['predicate']]} {nodes[edge['object_id']]['label']}"
         edge["href"] = href(filters, edge=edge["id"])
     visible = edges[:filters["limit"] * 2]
     visible_ids = set()
@@ -248,6 +271,7 @@ def build_bundle(entities, relationships, evidence, params, *, today=None):
         lane_edges = [edge for edge in visible_edges if {edge["subject_id"], edge["object_id"]} & scoped]
         actor_ids = {key for edge in lane_edges for key in (edge["subject_id"], edge["object_id"]) if key not in scoped}
         lanes.append({"id": geography, "label": entities[geography].get("name", geography), "edges": lane_edges,
+                      "all_edges": [edge for edge in edges if {edge["subject_id"], edge["object_id"]} & scoped],
                       "actors": [row for row in visible_nodes if row["id"] in actor_ids],
                       "all_actors": [row for row in node_rows if row["id"] not in scoped and any(row["id"] in {edge["subject_id"], edge["object_id"]} and {edge["subject_id"], edge["object_id"]} & scoped for edge in edges)],
                       "iso": (entities[geography].get("attributes") or {}).get("iso_3166_1_alpha_2", "")})
@@ -282,11 +306,78 @@ def build_bundle(entities, relationships, evidence, params, *, today=None):
                            "truncated_display": len(edges) != len(visible_edges), "complete_export": True,
                            "excluded": excluded, "partial": True}}
     bundle["explanation"] = explain(bundle)
+    add_portrait_context(bundle, entities, records)
     with _CACHE_LOCK:
         _CACHE[cache_key] = deepcopy(bundle)
         while len(_CACHE) > 12:
             _CACHE.popitem(last=False)
     return bundle
+
+
+def add_portrait_context(bundle, entities, records):
+    """Compact comparisons and cited questions, never inferred deployment."""
+    nodes, edges = bundle["nodes"], bundle["edges"]
+    company_rows = []
+    portfolios = []
+    for node in sorted(nodes.values(), key=lambda row: (row["label"].casefold(), row["id"])):
+        if node["type"] != "company":
+            continue
+        linked = [edge for edge in edges if node["id"] in {edge["subject_id"], edge["object_id"]}]
+        programs = {key for edge in linked for key in (edge["subject_id"], edge["object_id"])
+                    if nodes[key]["type"] == "breeding_program"}
+        portfolio_edges = [edge for edge in edges if {edge["subject_id"], edge["object_id"]} & (programs | {node["id"]})
+                           and any(nodes[key]["type"] == "variety" for key in (edge["subject_id"], edge["object_id"]))]
+        variety_ids = {key for edge in portfolio_edges for key in (edge["subject_id"], edge["object_id"]) if nodes[key]["type"] == "variety"}
+        row = {"actor": node, "programs": [nodes[key] for key in sorted(programs)],
+               "varieties": sorted([nodes[key] for key in variety_ids], key=lambda row: row["label"].casefold()),
+               "edges": [edge for edge in linked if not edge["company_geography"]],
+               "portfolio_edges": portfolio_edges,
+               "markets": [{"country": lane["label"], "edges": [edge for edge in lane["all_edges"] if node["id"] in {edge["subject_id"], edge["object_id"]}]} for lane in bundle["lanes"]]}
+        if any(market["edges"] for market in row["markets"]):
+            company_rows.append(row)
+        if programs or variety_ids:
+            portfolios.append(row)
+    report = discover_corpus_variety_mentions(varieties=[e for e in entities.values() if e.get("entity_type") == "variety"],
+        entities=list(entities.values()), published_evidence=[records[source["id"]] for source in bundle["sources"]], facts=[])
+    source_mentions = source_catalog_coverage(report)
+    for source in bundle["sources"]:
+        source["varieties"] = source_mentions.get(source["id"], [])
+    gaps = [row for row in report["mentions"] if not row.get("canonical_variety_id") and row.get("berry_id") == bundle["filters"]["berry"]]
+    insights = []
+    def insight(title, text, next_step, selected):
+        insights.append({"title": title, "text": text, "next_step": next_step,
+                         "relationship_ids": [edge["id"] for edge in selected],
+                         "evidence_ids": sorted({sid for edge in selected for sid in edge["evidence_ids"]})})
+    shared = sorted([row for row in company_rows if sum(bool(m["edges"]) for m in row["markets"]) > 1],
+                    key=lambda row: -sum(bool(m["edges"]) for m in row["markets"]))
+    if shared:
+        row = shared[0]
+        markets = [m for m in row["markets"] if m["edges"]]
+        insight("Across these markets", row["actor"]["label"] + ": " + "; ".join(m["country"] + " — " + ", ".join(edge["location_label"].lower() for edge in m["edges"]) for m in markets) + ".",
+                "Distinguish the R&D network from commercial production before comparing market reach.", [edge for m in markets for edge in m["edges"]])
+    elif company_rows:
+        insight("Market picture", f"{len(company_rows)} companies have sourced location records in this selection.",
+                "Open a country cell to see what presence actually means.", [edge for row in company_rows for m in row["markets"] for edge in m["edges"]])
+    disputed = [edge for edge in edges if edge["status"] == "disputed"]
+    if disputed:
+        owners = [edge for edge in disputed if edge["predicate"] == "owns"]
+        objects = {edge["object_id"] for edge in owners}
+        if len(objects) == 1 and len({edge["subject_id"] for edge in owners}) > 1:
+            text = " and ".join(nodes[key]["label"] for key in sorted({edge["subject_id"] for edge in owners})) + " give conflicting ownership accounts for " + nodes[next(iter(objects))]["label"] + "."
+        else:
+            text = "Conflicting records: " + "; ".join(edge["label"] for edge in disputed[:2]) + "."
+        insight("Control needs checking", text,
+                "Check the accounts before assigning sole control.", disputed[:2])
+    if gaps:
+        names = ", ".join(row["candidate_name"] for row in gaps[:5])
+        insights.append({"title": "Portfolio coverage gap", "text": f"{len(gaps)} source-named varieties need catalog review, including {names}.",
+            "next_step": "Review source names before assigning company roles or growing regions.",
+            "relationship_ids": [], "evidence_ids": sorted({sid for row in gaps for sid in row["evidence_ids"]})})
+    if not insights:
+        insight("What this selection shows", f"{len(edges)} sourced connections match the selected scope.",
+                "Broaden the scope if it is empty. Missing records do not establish inactivity.", [])
+    bundle["market_rows"], bundle["portfolios"], bundle["insights"] = company_rows, portfolios, insights
+    bundle["catalog_gaps"] = [{"name": row["candidate_name"], "evidence_ids": row["evidence_ids"]} for row in gaps]
 
 
 def explain(bundle):
@@ -310,7 +401,9 @@ def explain(bundle):
         findings.append({"id": "finding-" + edge["id"], "text": text, "relationship_ids": [edge["id"]], "evidence_ids": edge["evidence_ids"]})
     return {"question": QUESTIONS[filters["question"]], "findings": findings,
             "changes": f"{len(bundle['changes'])} relationships have supporting dates in this window; {bundle['coverage']['undated_for_window']} have no date for the chosen clock.",
-            "implications": ["Analyst interpretation: use these sourced connections to choose the next dossier or evidence record to review. Connection counts describe coverage, not commercial scale."],
+            "implications": [{"markets": "Separate production from R&D sites, offices, planned entry and rights enforcement before comparing market reach. Review variety growing-region evidence before drawing an adoption map.",
+                              "genetics": "Check breeder, owner and licensee roles separately. Resolve disputed control and provisional names before treating the connected records as an available commercial portfolio.",
+                              "changes": "Use the chosen clock to distinguish an event from a later publication or discovery. Check undated connections before concluding that a company has stopped expanding."}[filters["question"]]],
             "unknowns": bundle["warnings"], "method": "Deterministic registry explanation · no model or research call"}
 
 

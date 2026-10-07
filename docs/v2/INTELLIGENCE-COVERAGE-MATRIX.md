@@ -8,6 +8,8 @@ records and `data/configuration/sources.json`. This is not marketing.
 If a class is blueberry-only with a live pipeline elsewhere, write `PILOT`.
 Update this file when sources, entities, or trusted evidence change.
 
+**October 7, 2026 recall audit:** The Landscape review uncovered a source-to-catalog gap. The repeatable published-corpus audit accounts for 99 explicit named identities (31 catalog matches, 68 candidates) against 64 canonical varieties. Human approval and canonical coverage are unchanged. Hortifrut/MBG and other portfolio lists now reach the existing discovery queue; this does not raise any trusted evidence maturity classification. See `VARIETY-CATALOG-COMPREHENSIVENESS-MISSION.md` and `artifacts/landscape-explorer-blueberry/variety-catalog-audit.json`. Full portfolio and multi-berry recall remain open (TD-116).
+
 **As-of:** 2026-09-21 · published Evidence `1,272` · Sources `205` · inbox
 drafts are runtime-only and noted separately. Source-path counts were refreshed
 by Direct Source Upgrade + Coverage Gap Closure V1; trusted Evidence maturity

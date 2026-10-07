@@ -4,7 +4,7 @@
 
 Implemented a private, reviewable blueberry vertical slice. **The gate is presented for feedback, not certified complete.** Two real adapter paths are tested, but zero live records were collected: public Bluesky search returned HTTP 403, and `BIOS_SOCIAL_YOUTUBE_KEY` is absent. No subscription, paid collection, access application, merge or deployment was performed.
 
-Canonical branch is `v2/intelligence-os` at `7962ac04dd05855985f51596f3f8070f19990a75`; GitHub's default `master` is not canonical. This change is stacked on related Landscape Explorer PR #313, branch `feature/landscape-explorer`, base `fa6c666a0958fa0939bb271fbacf3a6fa2d9105d`. The branch is `feature/social-blueberry-review`. Landscape boundaries, canonical identities, Glasshouse navigation and the shared evidence drawer are reused. No parallel trusted graph or registry is created. The isolated checkout had no unrelated modifications.
+Canonical branch is `v2/intelligence-os` at `7962ac04dd05855985f51596f3f8070f19990a75`; GitHub's default `master` is not canonical. This change is stacked on related Landscape Explorer PR #313, branch `feature/landscape-explorer`, base `bd6b4a390e73582aad317eaec12bd5c27c6fad7a`. The branch is `feature/social-blueberry-review`. Landscape boundaries, canonical identities, Glasshouse navigation and the shared evidence drawer are reused. No parallel trusted graph or registry is created. The isolated checkout had no unrelated modifications.
 
 ## Changed areas and contracts
 
@@ -94,3 +94,5 @@ Decisions needed: accept the stacked Landscape dependency and private fixture pr
 ## Local validation results
 
 Final focused social tests: **48 passed** (40.40s). Existing Landscape focused tests: **44 passed**. Canonical record validation and JavaScript syntax checks passed. Static build: **1,755 pages**, private-draft leakage validation passed. A broad run made during final edits reported 3,998 passed / 9 skipped / 2 failed: the existing clean-working-tree assertion saw the intended uncommitted pipeline configuration, and a loaded old aggregation module encountered the newly edited momentum template. Final focused tests pass; exact committed-HEAD CI remains the authoritative full-suite result. No merge/deploy follows those checks.
+
+The advanced Landscape dependency was incorporated locally with both debt entries preserved (social is TD-117). After committing the intended configuration, the clean-state guard plus all social route tests passed: **16 passed**. Final focused social suite remains48 passed.
