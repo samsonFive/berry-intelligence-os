@@ -109,6 +109,11 @@ def test_custom_photo_restore_and_concurrent_edit_preserve_other_profile_fields(
     photos.edit(tmp_path, target=variety(), payload={**photo(), "action": "save", "revision": "1"})
     state = company_directory.load_profiles(tmp_path)
     key = next(iter(state["profiles"][variety()["id"]]["variety_photo_overrides"]))
+    before = (tmp_path / company_directory.PROFILE_FILE).read_bytes()
+    with pytest.raises(ValueError, match="no source version"):
+        photos.edit(tmp_path, target=variety(), payload={"action": "reset", "photo_id": key, "revision": "2"})
+    assert (tmp_path / company_directory.PROFILE_FILE).read_bytes() == before
+    assert not photos.gallery(variety(), profile=state["profiles"][variety()["id"]], authoring=True)[0]["has_source"]
     with pytest.raises(ValueError, match="changed in another"):
         photos.edit(tmp_path, target=variety(), payload={"action": "remove", "photo_id": key, "revision": "1"})
     photos.edit(tmp_path, target=variety(), payload={"action": "remove", "photo_id": key, "revision": "2"})

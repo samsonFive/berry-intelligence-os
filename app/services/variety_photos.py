@@ -111,7 +111,7 @@ def gallery(target, *, sourced=(), profile=None, authoring=False):
         if not compatible(row, target, candidate=bool(target.get("candidate_name"))):
             continue
         result.append({**row, "display_image": row["reuse"] != "unknown", "reuse_label": REUSE[row["reuse"]],
-                       "kind_label": KINDS[row["kind"]]})
+                       "kind_label": KINDS[row["kind"]], "has_source": row["id"] in {p["id"] for p in sourced}})
     return result
 
 
@@ -151,6 +151,8 @@ def edit(inbox_dir, *, target, payload, sourced=(), reviewer=""):
         else:
             overrides.pop(photo_id, None)
     else:
+        if photo_id not in {photo["id"] for photo in sourced}:
+            raise ValueError("This photo has no source version to reset to; hide it to keep a restorable copy")
         overrides.pop(photo_id, None)
     row["revision"] = old["revision"] + 1
     state["profiles"][key] = row
