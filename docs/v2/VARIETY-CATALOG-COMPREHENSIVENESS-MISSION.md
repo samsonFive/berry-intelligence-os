@@ -48,6 +48,16 @@ manifest/reconciliation/freshness work below; those global tasks remain incomple
 See [first portfolio review](VARIETY-PORTFOLIO-COVERAGE-REVIEW.md) and its body-free
 audit. Other-berry Landscape rollout stays behind the blueberry gate.
 
+October 7 expansion adds 182 observations from seven further page sections.
+Combined primary scope: 275 occurrences / 25 catalog matches / 250 review needs;
+239 combined candidates before private state, including 171 additional primary
+names. Eleven registry rows have some checks; 66 need initial primary checks.
+Accounting includes 31 excluded product cards and explicit shared-code/label
+warnings. Oregon nursery pagination was exhausted at 36 visible entries, and its
+saved Commission website is flagged without overwrite. This remains manual,
+bounded enumeration; global completeness, historic coverage and recall scoring
+are unfinished. See [expanded review](VARIETY-PORTFOLIO-EXPANSION-REVIEW.md).
+
 - [ ] Build a per-company/per-berry source manifest from the approved competitor
   list, with primary breeder portfolios, university releases, trial reports,
   nursery catalogs and official registry coverage. Preserve institutions and

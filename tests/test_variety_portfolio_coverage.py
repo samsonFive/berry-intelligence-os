@@ -81,11 +81,65 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 93
+    assert report["summary"]["names"] == 275
+    assert report["summary"]["registry_entries_checked"] == 11
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 37, "berry-strawberry": 14, "berry-raspberry": 19, "berry-blackberry": 23}
+        "berry-blueberry": 123, "berry-strawberry": 89, "berry-raspberry": 34, "berry-blackberry": 29}
     assert "visible_candidates" not in report
     assert all("review_notes" not in str(r) for r in report["subjects"])
+
+
+def test_real_mixed_catalog_accounting_preserves_exclusions_and_uncertain_pairs():
+    sources = load_portfolio_observations(Path(__file__).resolve().parents[1] / "data")
+    rows, candidates = reconcile(sources)
+    us = next(r for r in rows if r["id"] == "portfolio-planasa-us-products")
+    es = next(r for r in rows if r["id"] == "portfolio-planasa-es-products")
+    assert us["accounting_view"]["accounted_items"] == 53 and len(us["names"]) == 38
+    assert es["accounting_view"]["accounted_items"] == 54 and len(es["names"]) == 38
+    assert not us["accounting_view"]["issues"] and not es["accounting_view"]["issues"]
+    assert {r["label"] for r in us["accounting_view"]["exclusions"]} >= {"Darbella", "Darzilla", "White Endive", "Garpek"}
+    assert any(r["label"] == "Demoiselle" and "Species" in r["reason"] for r in es["accounting_view"]["exclusions"])
+    assert not any(c.get("trade_name") in {"Darbella", "Darzilla", "Demoiselle"} for c in candidates)
+    rainier = next(n for n in us["names"] if n["trade_name"] == "Black Rainier")
+    assert any("Plablack 1737" in message for message in rainier["identity_notes"])
+    assert any("Black Sultana" in message for message in rainier["identity_notes"])
+
+
+def test_conflicting_pairs_do_not_get_automatic_catalog_match_but_human_decision_wins():
+    names = [{"candidate_name": "CODE-1", "denomination": "CODE-1", "trade_name": label, "berry_id": "berry-strawberry"}
+             for label in ("First", "Second")]
+    varieties = [{"id": "v1", "name": "CODE-1", "entity_type": "variety", "berry_ids": ["berry-strawberry"]}]
+    rows, candidates = reconcile([source(names)], varieties)
+    assert rows[0]["matched"] == 0 and len(candidates) == 1
+    assert len(candidates[0]["portfolio_sources"]) == 2 and candidates[0]["portfolio_identity_notes"]
+    human = {**candidates[0], "human_gated": True, "identity_state": "confirmed_same", "candidate_canonical_match": "v1"}
+    rows, candidates = reconcile([source(names)], varieties, [human])
+    assert rows[0]["matched"] == 2 and candidates[0]["human_gated"]
+
+
+def test_accounting_shortfall_is_visible_and_mixed_berry_filter_is_honest(tmp_path):
+    names = [{"candidate_name": "Straw", "berry_id": "berry-strawberry"},
+             {"candidate_name": "Blue", "berry_id": "berry-blueberry"}]
+    mixed = source(names, berry_ids=["berry-strawberry", "berry-blueberry"],
+                   accounting={"observed_items": 3, "reported_items": 5, "exclusions": []})
+    result = portfolio_coverage(data_dir=tmp_path, sources=[mixed], varieties=[], entities=ENTITIES, candidates=[],
+                                filters={"berry": "berry-blueberry"})
+    assert result["summary"]["names"] == 1 and result["summary"]["needs_review"] == 1
+    assert [r["candidate_name"] for r in result["sources"][0]["names"]] == ["Blue"]
+    assert result["sources"][0]["accounting_view"]["accounted_items"] == 2
+    assert len(result["sources"][0]["accounting_view"]["issues"]) == 2
+
+
+@pytest.mark.parametrize("payload", [[], {"kind": "unreviewed_portfolio_name_observations", "sources": [1]},
+    {"kind": "unreviewed_portfolio_name_observations", "sources": [source([1])]},
+    {"kind": "unreviewed_portfolio_name_observations", "sources": [source([], accounting={"observed_items": True, "exclusions": []})]},
+    {"kind": "unreviewed_portfolio_name_observations", "sources": [source([], accounting={"observed_items": 1, "exclusions": [{"label": "Apple"}]})]}])
+def test_malformed_observation_shapes_raise_the_recoverable_validation_error(tmp_path, payload):
+    folder = tmp_path / "imports/variety-portfolio-observations-bad"
+    folder.mkdir(parents=True)
+    (folder / "observations.json").write_text(json.dumps(payload))
+    with pytest.raises(ValueError):
+        load_portfolio_observations(tmp_path)
 
 
 def test_primary_candidates_render_only_in_authoring_and_get_never_persists(monkeypatch, tmp_path):
