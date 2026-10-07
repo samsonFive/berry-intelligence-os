@@ -1,5 +1,14 @@
 # Project Status
 
+October 7 attributed-photo scope: named-variety photographs, proper credits and
+source/reuse references are explicit open requirements for profiles and compact
+directory/review previews. Actual photo reuse and catalog association still
+need source verification; no gallery or asset was published in this update.
+See docs/v2/VARIETY-ATTRIBUTED-PHOTO-COVERAGE.md. Previous draft #330 passes all
+four checks on head 8aa8de732388d392031dfcb1975ca2ecd3d9f83d, run 37690588963:
+4,106 passed / 11 skipped / two warnings. Photo implementation and existing
+CAT-01/CAT-02 work continue; no missing user input for independent source review.
+
 October 7 candidate-review navigation: the alphabet stays below the measured
 shared header while scrolling, with List top / Filters shortcuts and a compact
 phone letter picker. Existing query, berry, company, status and source scope

@@ -4,6 +4,20 @@ Ongoing goal activated October 1, 2026. This checklist is the completion ledger 
 
 ## Checkpoints and completion standard
 
+October 7 attributed variety-photo requirement: include photos wherever useful
+on variety profiles and in review/directory surfaces when the source identifies
+the named variety and the image can be reused with recorded attribution. Keep
+photographer/publisher credit, original source link, reuse terms, caption and
+identity confidence attached. Distinguish trial plants, fruit samples and
+patent drawings; candidate photos remain unreviewed and do not approve an alias,
+trait, rights holder or growing region. Keep dense tables and the long review
+queue compact, with larger photos in profile/expanded detail. This is OPEN,
+not shipped. Existing portfolio PDF/website images have not yet been cleared
+for reuse or matched into a photo gallery. See
+VARIETY-ATTRIBUTED-PHOTO-COVERAGE.md; CAT-02 includes this explicit requirement.
+The previous navigation/rights-reference draft #330 has four green exact-head
+checks: 4,106 passed / 11 skipped / two warnings, run 37690588963.
+
 October 7 candidate-review follow-up: keep the alphabet available while deep in
 the list; use a compact phone picker and List top / Filters shortcuts. Existing
 scope survives letter selection and hash targets clear the shared header. This

@@ -1994,6 +1994,13 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 named-photo follow-up: properly attributed photographs of the actual
+variety are an explicit part of rich profiles, with compact directory/review
+previews and larger expanded views. Source photos need a recorded caption,
+credit, reuse basis and identity association; collected article illustrations
+do not establish named-variety photo coverage. This remains open; no new assets
+or trusted associations were created. See VARIETY-ATTRIBUTED-PHOTO-COVERAGE.md.
+
 October 7 review usability/rights follow-up: floating alphabet, phone picker
 and List top / Filters address the long candidate queue without changing its
 decisions or identity store. Candidate details retain recorded dates and link

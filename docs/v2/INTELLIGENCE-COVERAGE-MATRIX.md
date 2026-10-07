@@ -1,5 +1,13 @@
 # Intelligence Coverage Matrix
 
+October 7 photo follow-up: the user explicitly requires properly attributed
+images of named varieties in profiles and compact review/directory previews
+where available. Existing source images are leads, not cleared gallery assets;
+no variety-photo coverage increase is claimed. Attribution, reuse references,
+identity confidence and private/public review boundaries remain required.
+See VARIETY-ATTRIBUTED-PHOTO-COVERAGE.md. Previous navigation draft #330 passes
+all four exact-head gates (4,106 passed / 11 skipped / two warnings).
+
 October 7 candidate navigation/rights references: sticky alphabet and phone
 picker retain the existing review scope and return to the results, while List
 top / Filters remain reachable deep in the queue. Stored tier-1 patent/PVR and
