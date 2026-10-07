@@ -1,0 +1,1149 @@
+{
+  "scope": "Published stored sources only; exact identity strings, explicit declarations; not internet completeness",
+  "catalog_count": 64,
+  "reviewed_sources_scanned": 1269,
+  "source_named_identities": 99,
+  "catalog_matches": 31,
+  "names_awaiting_review": 68,
+  "per_berry": {
+    "berry-blueberry": {
+      "catalog": 41,
+      "source_named": 90,
+      "awaiting_review": 66
+    },
+    "berry-strawberry": {
+      "catalog": 6,
+      "source_named": 0,
+      "awaiting_review": 0
+    },
+    "berry-raspberry": {
+      "catalog": 12,
+      "source_named": 9,
+      "awaiting_review": 2
+    },
+    "berry-blackberry": {
+      "catalog": 5,
+      "source_named": 0,
+      "awaiting_review": 0
+    }
+  },
+  "sources": [
+    {
+      "id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie",
+      "title": "Cornell releases two new raspberry varieties - Cornell Chronicle",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQS0J0VEJfbHNwR0VfTDVQRTdpME9yNzNKRGpJcnNzeUJoTEZZUU02TUZmenZNYW94OGtYenExVlk5U0RlWDczTzd6aVJTOUJ4UFEySWY3UjZnOTNMb3Iya3lQMnNiVEpXMndjZ0NpRGZNa08teXg3RWZQd1lhNHhtWXh2TW0zT3pOSk84YkFR?oc=5",
+      "captured_date": "2026-08-06",
+      "names": [
+        {
+          "name": "two new",
+          "berry_id": "berry-raspberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-",
+      "title": "UF/IFAS releases new Sentinel blueberry variety - Fruit Growers News",
+      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQTUJrSUo1ejF5bXpxMHpRZEtSZHRpMVpTVHQ2UkdtRDcyZnpTSkhXTGo4aGJiOW5FMUpnUmZFVWdMSW9TbjF2Tm5sRU1uaWFmcjctVm96WnhicHF6YlVKNkFLWlYxVnJxUndHcHNQcUxOWjRQeUJlb3BmdnZYYzJybWs5WXhsMnJ3ekE?oc=5",
+      "captured_date": "2026-08-06",
+      "names": [
+        {
+          "name": "new Sentinel",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-20260806173840-ac08-table-grape-and-cherry-breeder-expands-i",
+      "title": "Table grape and cherry breeder expands into blueberries - FreshPlaza",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNaHFkV1JKamdMTERjcFY2cE43MmlrVG14TE5vU1ZDYXFuZVJDQUV1aHRsTW10Qy1jUmRKQ0RfX1hpakNCTUthcktTUXpQWGkzSXZjbWJXVnRVUW5xN2FNdjMzU1Nndzh4WmM2bTJzYkREZVFmdUIyRnlWQnFMLUh2a0R3N2xsdkszTDExdGllNTg4UzhwYU04bE1YaU9tZXR0S3M4em1aaHM2Y04zczJ1SDM5UQ?oc=5",
+      "captured_date": "2026-08-06",
+      "names": [
+        {
+          "name": "Abril Blue+",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc",
+      "title": "New blueberry variety bursts onto the scene: High calibers, extreme hardiness, and over 55 days of post-harvest shelf life - Hortidaily",
+      "url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNN3puNnpKNnc3bnBOUnpDenhlbTZhZUJHOWtDcUJhWkJGcUMzeUJaem8xVWxBaFdrZ0Nrb0dXS3puN0Y3dk9OQVNyczFzUExDRjk4VmIzalFzV2IyODNfdlR6RFdCX1Y0el81Zm45UWVJRzREQnhPQnNlYW1KZGtjVTBKQWtqSW5YcHU2c2RyX05ZZFYzSzhMTmNSd01rVzByLW5GZWdTRlVUdWp0S19zSTVaam1GR3pVOHVYdEVRTUsxTE9ob1J4eXJCNjhmVVB4bWJMNFNQSExoeVpGcEdMVEpIZjRyYVI3TENtM3ZhMjIzdmNQTEE?oc=5",
+      "captured_date": "2026-08-06",
+      "names": [
+        {
+          "name": "bursts onto the scene",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-20260806173901-31b8-fall-creek-expects-sekoya-varieties-to-r",
+      "title": "Fall Creek expects Sekoya varieties to reach 20 per cent of Peru blueberry exports - Fruitnet",
+      "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOOVFDY1ktSC1SaF9DU1pwdlN6UV9SX0NzZEZkSkxTT1gyVFFSbWRrWUV3M0pGVDBoTGtDSXZWdXpUSWc0MGYxU3B0MzJfQkN1OEVHb1VPSnZ4QmxodjlIbHdGdE5pV3dxMUFoQnRBQUo2MEhZUjg4UnM3alVUNWh3UWpMVGRydVVJcEMtOXIyUUg5SmoxbXg0MWNwQ0RMYkw5M0QwOHphT05QaF9uM3RTRFlGVEI0SGdzQXdLcHdRWFRFVDRiUEhfcjQ0RW4?oc=5",
+      "captured_date": "2026-08-06",
+      "names": [
+        {
+          "name": "ArabellaBlue",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "FC14-062"
+        },
+        {
+          "name": "FCM14-057",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-20260806173901-d4fc-fall-creek-launches-apex-blueberry-varie",
+      "title": "Fall Creek launches Apex blueberry variety - Fruitnet",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQUmlDMWJyc25Vc09fTFNCOC1vNXhyR0RPZURZaVZqNXVaOG1GOWw4ZW93d3NCTUxlNk5FSFhMM2k2TDZfTmgwWW12YWoxdFpRa3U3X0pQMklpQnB4YkJVTjBqcS1PcS1lQk9IU2NzQkpTUzNHaXZGa0ZEMjdIdk1lVWJVVm5IZnpRYlJSa05hcnBYWWZVMGJR?oc=5",
+      "captured_date": "2026-08-06",
+      "names": [
+        {
+          "name": "Apex",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming",
+      "title": "New raspberry variety from Mexico coming next month - FreshPlaza",
+      "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOY1B0b0JoZUdXeVFCTEd4WXUtN244amFodl9hTS1vcWV2TU94WTZpcF9ickc0ZnlPM2s5YW11U0taeHlEeUlFcXZBU19vQ3ppN255M0lZazF4TTVlRWs0cFdYODB2N3h6Y0dNMDR5RWM0X0lwVU1QcFIyOUdoMV9QYnJIMk1TOW15MWZKMzNoSHJGcE5QR1Q0aWVzeHFod0RnQmoxcHJtUWJHaTd6Snc?oc=5",
+      "captured_date": "2026-08-06",
+      "names": [
+        {
+          "name": "from Mexico coming next",
+          "berry_id": "berry-raspberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-abb-varieties",
+      "title": "Advanced Berry Breeding - Varieties",
+      "url": "https://www.abbreeding.nl/varieties/",
+      "captured_date": "2026-08-04",
+      "names": [
+        {
+          "name": "Zawadi",
+          "berry_id": "berry-raspberry",
+          "catalog_id": "variety-zawadi",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "Sarafina",
+          "berry_id": "berry-raspberry",
+          "catalog_id": "variety-sarafina",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "Rafiki",
+          "berry_id": "berry-raspberry",
+          "catalog_id": "variety-rafiki",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "Baridi",
+          "berry_id": "berry-raspberry",
+          "catalog_id": "variety-baridi",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "Shani",
+          "berry_id": "berry-raspberry",
+          "catalog_id": "variety-shani",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "Malaika",
+          "berry_id": "berry-raspberry",
+          "catalog_id": "variety-malaika",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "Kwanza",
+          "berry_id": "berry-raspberry",
+          "catalog_id": "variety-kwanza",
+          "disposition": "already_canonical",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-cfia-blueberry-index",
+      "title": "Plant Breeders' Rights - blueberry variety index",
+      "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/ble.shtml",
+      "captured_date": "2026-08-04",
+      "names": [
+        {
+          "name": "Kimberley",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-drisbluetwentyone",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "Rosita",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-drisbluetwentythree",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "Regina",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Carlotta",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-drisblueseventeen",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "Corrina",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Caldonia",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Cecilia",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Roberto",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Barbara Ann",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Rosie Rooke",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Sweet Jane",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Stella Blue",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-cfia-pbr-drisblueseventeen",
+      "title": "Canada PBR certificate 7097 - 'DrisBlueSeventeen' (Carlotta)",
+      "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011322e.shtml",
+      "captured_date": "2026-08-04",
+      "names": [
+        {
+          "name": "Carlotta",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-drisblueseventeen",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "DrisBlueSeventeen",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-drisblueseventeen",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "DrisBlueFifteen",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "DrisBlueFive",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-cfia-pbr-drisbluetwentythree",
+      "title": "Canada PBR certificate 7211 - 'DrisBlueTwentyThree' (Rosita)",
+      "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011977e.shtml",
+      "captured_date": "2026-08-04",
+      "names": [
+        {
+          "name": "Rosita",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-drisbluetwentythree",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "DrisBlueTwentyThree",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-drisbluetwentythree",
+          "disposition": "already_canonical",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-cfia-pbr-fc11-164",
+      "title": "Plant Breeders' Rights record - Fc11 164",
+      "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00012759e.shtml",
+      "captured_date": "2026-08-03",
+      "names": [
+        {
+          "name": "FC11-164",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-fc11-164",
+          "disposition": "already_canonical",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-cfia-pbr-sekoya-grande",
+      "title": "Plant Breeders' Rights record - Sekoya Grande",
+      "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011182e.shtml",
+      "captured_date": "2026-08-03",
+      "names": [
+        {
+          "name": "FC13-122",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-sekoya-grande",
+          "disposition": "already_canonical",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-hortifrut-genetic-development",
+      "title": "Hortifrut - Genetic Development",
+      "url": "https://www.hortifrut.com/innovation/genetic-development/",
+      "captured_date": "2026-08-04",
+      "names": [
+        {
+          "name": "Prelude",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB06-540FL-12"
+        },
+        {
+          "name": "Daybreak",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB07-210FL-18"
+        },
+        {
+          "name": "Stellar",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB06-50FL-1"
+        },
+        {
+          "name": "Candycrunch",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Apolo",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Bliss",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB05-185GA"
+        },
+        {
+          "name": "Temptation",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB05-61GA-61"
+        },
+        {
+          "name": "Robust",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB05-58GA-1"
+        },
+        {
+          "name": "Envy",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Keepsake",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-keepsake",
+          "disposition": "already_canonical",
+          "selection_code": "BB05-251MI-14"
+        },
+        {
+          "name": "Sensation",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB05-274MI-139"
+        },
+        {
+          "name": "Rocio",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Corona",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Draper",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Aurora",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Liberty",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Osorno",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-ipaustralia-pvj-33-4",
+      "title": "Plant Varieties Journal, Volume 33 Number 4",
+      "url": "https://www.ipaustralia.gov.au/tools-and-research/professional-resources/ip-rights-journals/~/-/media/Project/IPA/IPAustralia/PDF/PBR-Journals/Volume-33-Number-4.pdf?rev=a440897af4f5455e9ca3eb491a170803",
+      "captured_date": "2026-08-04",
+      "names": [
+        {
+          "name": "DrisBlueThirteen",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "DrisBlueEighteen",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-mbg-berry-blue-varieties",
+      "title": "Proprietary berry varieties - Berry Blue, LLC",
+      "url": "https://www.blueberries.com/proprietary-berry-varieties-berry-blue-llc/",
+      "captured_date": "2026-08-04",
+      "names": [
+        {
+          "name": "Prelude",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB06-540FL-12"
+        },
+        {
+          "name": "Daybreak",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB07-210FL-18"
+        },
+        {
+          "name": "Stellar",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB06-50FL-1"
+        },
+        {
+          "name": "Bliss",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB05-185GA"
+        },
+        {
+          "name": "Temptation",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB05-61GA-61"
+        },
+        {
+          "name": "Robust",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB05-58GA-1"
+        },
+        {
+          "name": "Keepsake",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-keepsake",
+          "disposition": "already_canonical",
+          "selection_code": "BB05-251MI-14"
+        },
+        {
+          "name": "Sensation",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB05-274MI-139"
+        },
+        {
+          "name": "Presto",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB07-7FL-4"
+        },
+        {
+          "name": "Envoy",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB06-507MI-52"
+        },
+        {
+          "name": "Alpha",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB05-35FL-10"
+        },
+        {
+          "name": "Affection",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB06-426MI-84"
+        },
+        {
+          "name": "Charisma",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB06-343MI-16"
+        },
+        {
+          "name": "Medallion",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-medallion",
+          "disposition": "already_canonical",
+          "selection_code": "BB05-259MI-15"
+        },
+        {
+          "name": "Intrepid",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB05-268MI-152"
+        },
+        {
+          "name": "Candy Crunch",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "BB07-249GA-3"
+        }
+      ]
+    },
+    {
+      "id": "ev-nda-za-variety-list-2025",
+      "title": "Berries South Africa blueberry variety list 2025",
+      "url": "https://www.nda.gov.za/images/Branches/AgricProducHealthFoodSafety/food-safety-and-quality-assurance/export-regulations-and-standards/other-minor-fruits-/berriesza-variety-list-2025.pdf",
+      "captured_date": "2026-08-03",
+      "names": [
+        {
+          "name": "Eureka",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-eureka",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "Eureka Sunrise",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-eureka-sunrise",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "Eureka Sunset",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Eureka Dawn",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Eureka Maxx",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Twilight",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-twilight",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "Sekoya Beauty",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-sekoya-beauty",
+          "disposition": "already_canonical",
+          "selection_code": "FCM12-097"
+        },
+        {
+          "name": "Sekoya Pop",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-sekoya-pop",
+          "disposition": "already_canonical",
+          "selection_code": "FCM14-052"
+        },
+        {
+          "name": "Sekoya Grande",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-sekoya-grande",
+          "disposition": "already_canonical",
+          "selection_code": "FC13-122"
+        },
+        {
+          "name": "Sekoya Crunch",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-sekoya-crunch",
+          "disposition": "already_canonical",
+          "selection_code": "FC13-083"
+        },
+        {
+          "name": "Sekoya Fiesta",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-sekoya-fiesta",
+          "disposition": "already_canonical",
+          "selection_code": "FC13-113"
+        },
+        {
+          "name": "ArabellaBlue",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "FC14-062"
+        },
+        {
+          "name": "AtlasBlue",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "FCM12-045"
+        },
+        {
+          "name": "AzraBlue",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "FCM14-031"
+        },
+        {
+          "name": "BiancaBlue",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "FCM12-087"
+        },
+        {
+          "name": "JupiterBlue",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "FCM12-131"
+        },
+        {
+          "name": "KeplerBlue",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "FCM12-038"
+        },
+        {
+          "name": "LoretoBlue",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "FC11-118"
+        },
+        {
+          "name": "LunaBlue",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "FC12-205"
+        },
+        {
+          "name": "PeachyBlue",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "ZF08-29"
+        },
+        {
+          "name": "ValentinaBlue",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "FF03-015"
+        },
+        {
+          "name": "OlympusBlue",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": "TH-1008"
+        }
+      ]
+    },
+    {
+      "id": "ev-producereport-blugenix-2026",
+      "title": "Costa launches BluGenix with five blueberry varieties suited to Yunnan",
+      "url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+      "captured_date": "2026-08-04",
+      "names": [
+        {
+          "name": "BluGenix with five",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Bounty",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Breeze",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Cascade",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Delight",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        },
+        {
+          "name": "Eterna",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-eterna",
+          "disposition": "already_canonical",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-sekoya-story",
+      "title": "Story",
+      "url": "https://sekoyafruit.com/story/",
+      "captured_date": "2026-08-03",
+      "names": [
+        {
+          "name": "Beauty",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "possible_alias",
+          "selection_code": "FCM12-097"
+        },
+        {
+          "name": "Pop",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "possible_alias",
+          "selection_code": "FCM14-052"
+        },
+        {
+          "name": "Grande",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "possible_alias",
+          "selection_code": "FC13-122"
+        },
+        {
+          "name": "Crunch",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "possible_alias",
+          "selection_code": "FC13-083"
+        },
+        {
+          "name": "Fiesta",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "possible_alias",
+          "selection_code": "FC13-113"
+        }
+      ]
+    },
+    {
+      "id": "ev-uf-ifas-hs1245",
+      "title": "Blueberry Cultivars for Florida (HS1245)",
+      "url": "https://ask.ifas.ufl.edu/publication/HS1245",
+      "captured_date": "2026-08-03",
+      "names": [
+        {
+          "name": "FL01-173",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-meadowlark",
+          "disposition": "already_canonical",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-uspp023572-ridley-1111",
+      "title": "USPP023572P3 - 'Ridley 1111' (Opi)",
+      "url": "https://fruitplantsvariation.blogspot.com/2018/07/opi-ridley-1111-blueberry.html",
+      "captured_date": "2026-08-03",
+      "names": [
+        {
+          "name": "Ridley 1111",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-opi",
+          "disposition": "already_canonical",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-uspp025358-aglaonema",
+      "title": "USPP025358P3 - Aglaonema plant named 'KKAG201303'",
+      "url": "https://patents.google.com/patent/USPP25358P3/en",
+      "captured_date": "2026-08-04",
+      "names": [
+        {
+          "name": "KKAG201303",
+          "berry_id": "berry-blueberry",
+          "catalog_id": null,
+          "disposition": "new_candidate",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-uspp025432-ridley-1403",
+      "title": "USPP025432P3 - 'Ridley 1403'",
+      "url": "https://patents.google.com/patent/USPP25432P3/en",
+      "captured_date": "2026-08-03",
+      "names": [
+        {
+          "name": "Ridley 1403",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-eureka",
+          "disposition": "already_canonical",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-uspp028437-sekoya-beauty",
+      "title": "USPP028437P3 - SEKOYA Beauty 'FCM12-097'",
+      "url": "https://www.lens.org/lens/patent/004-752-018-959-306",
+      "captured_date": "2026-08-03",
+      "names": [
+        {
+          "name": "Sekoya Beauty",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-sekoya-beauty",
+          "disposition": "already_canonical",
+          "selection_code": "FCM12-097"
+        }
+      ]
+    },
+    {
+      "id": "ev-uspp031345-plablue-1545",
+      "title": "USPP031345P2 - 'Plablue 1545' (Blue Manila)",
+      "url": "https://patents.google.com/patent/USPP31345P2/en",
+      "captured_date": "2026-08-04",
+      "names": [
+        {
+          "name": "Plablue 1545",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-blue-manila",
+          "disposition": "already_canonical",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-uspp031605-ridley-1602",
+      "title": "USPP031605P3 - 'Ridley 1602' (Eureka Sunrise)",
+      "url": "https://patents.google.com/patent/USPP31605P3/en",
+      "captured_date": "2026-08-03",
+      "names": [
+        {
+          "name": "Ridley 1602",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-eureka-sunrise",
+          "disposition": "already_canonical",
+          "selection_code": null
+        }
+      ]
+    },
+    {
+      "id": "ev-uspp031822-sekoya-grande",
+      "title": "USPP031822P3 - SEKOYA Grande 'FC13-122'",
+      "url": "https://www.lens.org/lens/patent/139-742-711-781-653",
+      "captured_date": "2026-08-03",
+      "names": [
+        {
+          "name": "Sekoya Grande",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-sekoya-grande",
+          "disposition": "already_canonical",
+          "selection_code": "FC13-122"
+        }
+      ]
+    },
+    {
+      "id": "ev-uspp032186-sekoya-pop",
+      "title": "USPP032186P3 - SEKOYA Pop 'FCM14-052'",
+      "url": "https://www.lens.org/lens/patent/023-656-990-841-841",
+      "captured_date": "2026-08-03",
+      "names": [
+        {
+          "name": "Sekoya Pop",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-sekoya-pop",
+          "disposition": "already_canonical",
+          "selection_code": "FCM14-052"
+        }
+      ]
+    },
+    {
+      "id": "ev-uspp032267-drisbluetwentyone",
+      "title": "USPP032267P2 - 'DrisBlueTwentyOne' (Kimberley)",
+      "url": "https://patents.google.com/patent/USPP32267P2/en",
+      "captured_date": "2026-08-04",
+      "names": [
+        {
+          "name": "Kimberley",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-drisbluetwentyone",
+          "disposition": "already_canonical",
+          "selection_code": null
+        },
+        {
+          "name": "DrisBlueTwentyOne",
+          "berry_id": "berry-blueberry",
+          "catalog_id": "variety-drisbluetwentyone",
+          "disposition": "already_canonical",
+          "selection_code": null
+        }
+      ]
+    }
+  ],
+  "exclusions": [
+    {
+      "name": "Kimberley",
+      "reason": "parentage_context",
+      "kind": "trade_name"
+    },
+    {
+      "name": "OZblu",
+      "reason": "not_a_variety",
+      "kind": "registry_name_code_pair"
+    },
+    {
+      "name": "OZblu",
+      "reason": "not_a_variety",
+      "kind": "registry_name_code_pair"
+    },
+    {
+      "name": "Origin",
+      "reason": "parentage_context",
+      "kind": "registry_name_code_pair"
+    },
+    {
+      "name": "Parentage",
+      "reason": "not_a_variety",
+      "kind": "registry_name_code_pair"
+    },
+    {
+      "name": "Parentage",
+      "reason": "parentage_context",
+      "kind": "registry_name_code_pair"
+    },
+    {
+      "name": "Parentage",
+      "reason": "not_a_variety",
+      "kind": "registry_name_code_pair"
+    },
+    {
+      "name": "C13-051",
+      "reason": "parentage_or_selection_code",
+      "kind": "registry_application_denomination"
+    },
+    {
+      "name": "C14-409",
+      "reason": "parentage_or_selection_code",
+      "kind": "registry_application_denomination"
+    },
+    {
+      "name": "C15-143",
+      "reason": "parentage_or_selection_code",
+      "kind": "registry_application_denomination"
+    },
+    {
+      "name": "C14-771",
+      "reason": "parentage_or_selection_code",
+      "kind": "registry_application_denomination"
+    },
+    {
+      "name": "C15-270",
+      "reason": "parentage_or_selection_code",
+      "kind": "registry_application_denomination"
+    },
+    {
+      "name": "C15-268",
+      "reason": "parentage_or_selection_code",
+      "kind": "registry_application_denomination"
+    },
+    {
+      "name": "C12-122",
+      "reason": "parentage_or_selection_code",
+      "kind": "registry_application_denomination"
+    },
+    {
+      "name": "Florida",
+      "reason": "not_a_variety",
+      "kind": "registry_name_code_pair"
+    },
+    {
+      "name": "C99-42",
+      "reason": "parentage_or_selection_code",
+      "kind": "registry_application_denomination"
+    },
+    {
+      "name": "new",
+      "reason": "not_a_variety",
+      "kind": "launch_title"
+    }
+  ]
+}

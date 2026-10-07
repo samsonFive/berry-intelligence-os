@@ -1816,7 +1816,7 @@ def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, A
         facts=all_facts(),
         existing_candidates=inbox,
     )
-    visible = merge_visible_candidates(inbox, report["candidates"])
+    visible = merge_visible_candidates(inbox, report["candidates"], report=report)
     return varieties, visible, report
 
 
@@ -2874,6 +2874,14 @@ def entity_list(
                 context["variety_cards"], params={**dict(request.query_params), **context["filters"]}, state=state,
                 entities=entities_idx, relationships=relationships, regions=region_rows,
             ))
+            if AUTHORING_MODE:
+                name_queue = variety_navigation.candidate_queue(visible_candidates, {
+                    key: request.query_params.get(key, "") for key in ("q", "berry", "company", "letter")
+                })
+                context["discovered_names"] = name_queue["candidates"]
+                context["discovered_name_query"] = urlencode({
+                    key: request.query_params.get(key, "") for key in ("q", "berry", "company", "letter")
+                })
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
         context["growing_geographies"] = sorted({row["geography_id"]: row["country"] for row in region_rows if row["kind"] == "variety"}.items(), key=lambda row: row[1].casefold())

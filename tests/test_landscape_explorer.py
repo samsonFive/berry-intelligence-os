@@ -50,6 +50,31 @@ def test_real_role_trace_has_no_inferred_growing(world):
     assert world == before
 
 
+def test_compact_market_and_portfolio_context_preserves_exact_paths(world):
+    result = build(world)
+    row = next(row for row in result["market_rows"] if row["actor"]["id"] == "company-a")
+    assert {m["country"] for m in row["markets"] if m["edges"]} == {"Chile", "Peru"}
+    assert [v["id"] for v in row["varieties"]] == ["variety-a"]
+    assert [edge["id"] for edge in row["portfolio_edges"]] == ["r-develops"]
+    assert "r-program" in {edge["id"] for edge in row["edges"]}
+    assert result["coverage"]["genetic_location_links"] == 0
+    for insight in result["insights"]:
+        assert set(insight["relationship_ids"]) <= {edge["id"] for edge in result["edges"]}
+        assert set(insight["evidence_ids"]) <= {source["id"] for source in result["sources"]}
+
+
+def test_source_named_varieties_surface_as_review_links_not_graph_edges(world):
+    world["evidence"][0]["summary"] = "Blueberry varieties including Azure and Prelude."
+    result = build(world)
+    names = {row["name"]: row for row in result["sources"][0]["varieties"]}
+    assert names["Azure"]["catalog_id"] == "variety-a"
+    assert names["Prelude"]["href"].startswith("/varieties/candidates?")
+    assert [row["name"] for row in result["catalog_gaps"]] == ["Prelude"]
+    assert len(result["edges"]) == 5 and "variety-prelude" not in result["nodes"]
+    world["evidence"][0]["summary"] = "Company operations in Peru."
+    assert not build(world)["catalog_gaps"]
+
+
 def test_direct_genetics_links_across_countries_are_first_class(world):
     world["relationships"] += [{"id": "r-g-"+country, "subject_id": "variety-a", "object_id": "geography-"+country, "predicate": "operates_in", "status": "active", "evidence_ids": ["ev-a"]} for country in ["peru", "chile"]]
     result = build(world, focus="variety-a", question="genetics")
