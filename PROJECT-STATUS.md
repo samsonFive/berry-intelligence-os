@@ -1,5 +1,22 @@
 # Project Status
 
+## Independent public variety comparison (2026-10-07)
+
+A native GDR export independently exposes historical/selection coverage beyond
+the registry portfolio plan: 26,905 joined rows / 6,453 accession-organism keys /
+2,355 literal cultivar labels / 2,372 genus-name pairs. 2,267 pairs have no exact
+name match in the catalog/derived queue, 104 have queue matches and one has a
+catalog match before private state. Existing coverage UI adds searchable,
+paginated comparison and original identifiers, with existing review links.
+Raw export stays ignored; no identities, aliases, traits, roles, rights, growing
+regions or Sources are imported/approved. Canonical catalog remains 64 and
+primary coverage 495/33/462 in 45 sections; CAT-01/CAT-02/TD-116 remain open.
+50 focused tests and record validation pass. Parent #326 passed four exact-head
+gates at 2621f32a772a48eee810bf4062e942a3c40e74a8: 4,070 passed / 11 skipped /
+two warnings / 474.99 seconds, run 37635461138. See
+docs/v2/VARIETY-EXTERNAL-GERMPLASM-COVERAGE-REVIEW.md. Vaccinium baseline, remaining
+company checks, real cultivar authoring and cited profile depth are unfinished.
+
 ## Older variety releases and shared-name safeguards (2026-10-07)
 
 Hutton's six-entry legacy list and the USDA Lewis paper add 19 source

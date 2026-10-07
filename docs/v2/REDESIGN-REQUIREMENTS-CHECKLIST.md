@@ -4,6 +4,19 @@ Ongoing goal activated October 1, 2026. This checklist is the completion ledger 
 
 ## Checkpoints and completion standard
 
+October 7 independent germplasm comparison: GDR's native Fragaria/Rubus export
+accounts for 26,905 rows / 6,453 accession-organism keys / 2,355 literal labels /
+2,372 genus-name pairs. Before private state, 2,267 pairs have no exact catalog
+or queue name match, 104 have queue name matches and one has a catalog match.
+The existing coverage page exposes these gaps with search, source identifiers,
+50-row pagination and links to existing review. These are unreviewed research
+leads, not new approved varieties; raw export remains private. Catalog 64,
+primary 495/33/462, candidate keys 413, 57 initial checks and four source gaps
+are unchanged. 50 focused checks and record validation pass; parent #326 has
+four green gates (4,070 passed / 11 skipped). CAT-01/CAT-02 remain open. See
+VARIETY-EXTERNAL-GERMPLASM-COVERAGE-REVIEW.md. Blueberry baseline and profile depth
+remain outstanding, alongside individual human identity and claim decisions.
+
 October 7 historical identity follow-up: six Hutton legacy entries and thirteen
 USDA paper contexts add 19 observations and 14 candidate keys. Shared labels
 with differing/missing codes retain warnings and separate candidate keys until

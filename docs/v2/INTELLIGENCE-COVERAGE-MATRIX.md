@@ -1,5 +1,17 @@
 # Intelligence Coverage Matrix
 
+**October 7 independent GDR comparison:** 26,905 native-export rows reconcile
+to the public query's 6,453 accession-organism keys; 2,355 literal labels /
+2,372 genus-name pairs. Before private state, 2,267 lack exact catalog/queue
+name matches, 104 have queue name matches and one has a catalog match. This is
+an independent coverage test, not Source onboarding, a monitor, a completeness
+score or an approved cultivar import. Fragaria/Rubus only; blueberries excluded.
+Canonical catalog 64 and primary/queue/registry denominators are unchanged.
+Searchable coverage UI preserves original identifiers and human decisions.
+50 focused checks and record validation pass; parent #326 has four green gates
+(4,070 passed / 11 skipped). See VARIETY-EXTERNAL-GERMPLASM-COVERAGE-REVIEW.md.
+Vaccinium baseline, actual identity authoring and cited profile depth stay open.
+
 **October 7 historical identity follow-up:** nineteen occurrences from Hutton's
 legacy listing and the USDA Lewis release paper; names and identifying codes
 retain separate source contexts and unresolved cross-source pairings. Latest

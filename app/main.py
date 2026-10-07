@@ -3324,6 +3324,13 @@ def variety_coverage_page(request: Request) -> HTMLResponse:
             coverage["portfolios"]["source_content"] = source_content_coverage(published_evidence())
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
+    if AUTHORING_MODE:
+        from app.services.variety_external_coverage import load_external_baselines, external_coverage_view
+        try:
+            coverage["external"] = external_coverage_view(baselines=load_external_baselines(DATA_DIR),
+                varieties=varieties, candidates=candidates, filters=dict(request.query_params))
+        except (ValueError, KeyError, TypeError, OSError):
+            coverage["external_error"] = "The saved public comparison needs checking. Catalog and identity review remain available."
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,

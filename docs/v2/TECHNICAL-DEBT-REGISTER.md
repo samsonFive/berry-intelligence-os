@@ -1994,6 +1994,17 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 independent public comparison: a native GDR Fragaria/Rubus CSV has
+26,905 rows representing 6,453 collection keys and 2,372 genus/name pairs.
+2,267 lack exact catalog/queue name matches before private state. Existing
+coverage UI now exposes missing labels with search, pagination and source
+identifiers. This does not import or approve labels as released varieties;
+canonical 64 and primary 495/33/462 remain unchanged. Raw export is ignored.
+50 focused checks and record validation pass; parent #326 has four green gates
+(4,070 passed / 11 skipped). Vaccinium baseline, 57 initial registry checks,
+four source gaps, actual human identity authoring and cited profile depth remain.
+See VARIETY-EXTERNAL-GERMPLASM-COVERAGE-REVIEW.md; TD-116 is still open.
+
 October 7 historical identity follow-up: 495/33/462 primary occurrences in 45
 sections; 413 candidate keys before private state, catalog 64. Shared labels
 with differing/missing codes now expose unresolved source pairings and withhold

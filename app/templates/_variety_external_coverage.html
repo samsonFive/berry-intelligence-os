@@ -1,0 +1,30 @@
+{% set external = coverage.external %}
+<section class="external-coverage portfolio-coverage" id="external-coverage" aria-label="Independent public variety comparison">
+  <h2>Missing names in public collections</h2>
+  <p class="portfolio-note"><b>{{ external.counts.get('no_name_match', 0) }} labels have no exact name match</b> in our catalog or current review queue. These are research leads, including selections and historical material; they are not newly approved varieties.</p>
+  {% for report in external.reports %}
+  <p class="portfolio-note"><a href="{{ report.source_url }}" target="_blank" rel="noopener noreferrer">{{ report.source_title }} ↗</a> · checked {{ report.checked_on }} · strawberry and Rubus collections. <b>Blueberries are outside this comparison.</b></p>
+  {% endfor %}
+  <details class="portfolio-plan" {% if request.query_params.get('external_q') or request.query_params.get('external_genus') or request.query_params.get('external_page') or 'external_status' in request.query_params %}open{% endif %}>
+    <summary>Browse missing names and compare existing records · {{ external.counts.get('catalog_name_found', 0) }} catalog name matches · {{ external.counts.get('candidate_name_found', 0) }} queue name matches</summary>
+    <form class="digest-filters" method="get" action="/varieties/coverage#external-coverage" aria-label="Search external variety comparison">
+      <label>Name or accession<input name="external_q" type="search" value="{{ external.filters.q }}" placeholder="Cultivar, selection or PI number"></label>
+      <label>Crop group<select name="external_genus"><option value="">Strawberry and Rubus</option><option value="Fragaria" {% if external.filters.genus == 'Fragaria' %}selected{% endif %}>Strawberry · Fragaria</option><option value="Rubus" {% if external.filters.genus == 'Rubus' %}selected{% endif %}>Rubus · berry needs checking</option></select></label>
+      <label>Comparison<select name="external_status"><option value="no_name_match" {% if external.filters.status == 'no_name_match' %}selected{% endif %}>No name match</option><option value="candidate_name_found" {% if external.filters.status == 'candidate_name_found' %}selected{% endif %}>Name in review queue</option><option value="catalog_name_found" {% if external.filters.status == 'catalog_name_found' %}selected{% endif %}>Name in catalog</option><option value="" {% if not external.filters.status %}selected{% endif %}>All labels</option></select></label>
+      <button class="green-button">Search</button>
+    </form>
+    <p class="portfolio-note">{{ external.filtered_count }} crop-group/name pairs · page {{ external.page }} of {{ external.pages }}. Matching text suggests a record to compare; it does not resolve identity. Rubus can include raspberry, blackberry and hybrids.</p>
+    <div class="portfolio-table-scroll"><table class="portfolio-table external-table">
+      <thead><tr><th>Source cultivar label</th><th>Source records</th><th>In Berry Intelligence</th></tr></thead>
+      <tbody>{% for row in external.entries %}<tr>
+        <th>{{ row.name }}<small>{{ row.genus }}</small></th>
+        <td><details><summary>{{ row.references|length }} collection {{ 'record' if row.references|length == 1 else 'records' }}</summary>
+          {% for ref in row.references %}<p><b>{{ ref.unique_name }}</b> · {{ ref.organism }}{% if ref.accession %}<br>Accession: {{ ref.accession }}{% endif %}{% if ref.institutional_name %}<br>Institution reference: {{ ref.institutional_name }}{% endif %}{% if ref.other_cultivar_labels %}<br><strong>Same source key also labels: {{ ref.other_cultivar_labels|join(', ') }}. Check before combining.</strong>{% endif %}</p>{% endfor %}
+        </details></td>
+        <td>{% if row.catalog_matches %}{% for match in row.catalog_matches %}<a href="{{ match.href }}">{{ match.name }} →</a><br>{% endfor %}<small>Exact text; identity still needs checking</small>{% elif row.candidate_matches %}{% for match in row.candidate_matches %}<a href="{{ match.href }}">{{ match.name }} →</a><small>{{ 'Previously rejected lead' if match.status == 'rejected' else 'Existing identity review' }}</small>{% endfor %}{% else %}<b>No exact name match</b>{% endif %}</td>
+      </tr>{% else %}<tr><td colspan="3">No labels match this search.</td></tr>{% endfor %}</tbody>
+    </table></div>
+    <nav class="external-pagination" aria-label="External comparison pages">{% if external.previous_href %}<a href="{{ external.previous_href }}">← Previous 50</a>{% endif %}{% if external.next_href %}<a href="{{ external.next_href }}">Next 50 →</a>{% endif %}</nav>
+    <details><summary>Comparison scope and limits</summary>{% for report in external.reports %}<p>{{ report.totals.export_rows }} exported rows represent {{ report.totals.stock_organism_keys }} unique accession/organism keys and {{ report.totals.genus_label_keys }} crop-group/name pairs. There are {{ report.totals.distinct_cultivar_labels }} distinct literal labels; names shared by strawberry and Rubus stay in separate groups. Repeated dataset rows do not count as additional varieties.</p>{% endfor %}<p>Only the source’s Cultivar field supplies labels. Accession numbers, sample names, dataset rows and parents do not become variety names or aliases. A label may be an experimental selection or an uncertain identification. Existing human decisions and edits are preserved.</p><p>This comparison does not check release status, traits, rights, company roles, growing regions or image reuse rights. It does not import or approve records. Public collection coverage is one benchmark, not a worldwide completeness score.</p></details>
+  </details>
+</section>
