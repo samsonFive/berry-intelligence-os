@@ -46,6 +46,8 @@
     {% if row.jurisdiction %}<span class="v2-meta">{{ row.jurisdiction }}</span>{% endif %}
     <span class="v2-meta">{{ row.source_label }}</span>
   </p>
+  {% set photo_gallery = row.photos %}{% include "_variety_photo_gallery.html" %}
+  <p><a href="/varieties/photos/candidate/{{ row.id }}">{{ 'Edit photos' if row.photos else 'Add a credited photo' }} →</a></p>
   <dl class="v2-role-list">
     <dt>Source</dt><dd>{% if row.source_url %}<a href="{{ row.source_url }}">{{ row.source_url }}</a>{% else %}{{ row.source_label or "Source not recorded" }}{% endif %}</dd>
     {% if row.external_collection %}<dt>Public collection lead</dt><dd><b>{{ row.external_collection.source_name }}</b> · checked {{ row.external_collection.checked_on }}<br><small>{{ row.external_collection.limitations }}</small><details><summary>{{ row.external_collection.references|length }} source collection {{ 'record' if row.external_collection.references|length == 1 else 'records' }}</summary>{% for ref in row.external_collection.references %}<p>{{ ref.unique_name }} · {{ ref.organism }}{% if ref.institutional_name %} · {{ ref.institutional_name }}{% endif %}</p>{% endfor %}</details></dd>{% endif %}
@@ -102,4 +104,4 @@
 </div></div>
 {% endblock %}
 
-{% block scripts %}<script src="/static/variety_workspace.js?v=7"></script>{% endblock %}
+{% block scripts %}<script src="/static/variety_workspace.js?v=8"></script>{% endblock %}

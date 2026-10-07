@@ -1994,6 +1994,15 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 executable photo follow-up: private gallery/thumbnail/editor support
+and one correctly credited source-labeled Columbia Star photo are implemented.
+Corrections/removals survive source refreshes through existing profile history;
+same-name/different-berry and ambiguous associations are blocked. Unknown reuse
+stays link-only and all new associations stay out of readonly/static output.
+Broad photo population, public human publication, source completeness, verified
+catalog identities and rights/claims depth remain open; this does not resolve
+TD-116. See VARIETY-ATTRIBUTED-PHOTO-COVERAGE.md.
+
 October 7 named-photo follow-up: properly attributed photographs of the actual
 variety are an explicit part of rich profiles, with compact directory/review
 previews and larger expanded views. Source photos need a recorded caption,

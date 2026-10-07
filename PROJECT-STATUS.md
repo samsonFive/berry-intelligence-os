@@ -1,6 +1,19 @@
 # Project Status
 
-October 7 attributed-photo scope: named-variety photographs, proper credits and
+October 7 executable variety-photo follow-up: private galleries, dense directory
+thumbnails and expanded candidate photos now retain credit, source, exact
+name/berry, photo type, terms and check date. The real Columbia Star ARS photo
+loads on desktop/phone; original gallery downloads are unavailable, recorded
+alongside the magazine/gallery filename discrepancy. Photo editing reuses
+profile history and revision protection; corrections/hide/restore/reset survive
+source refreshes. Unknown reuse remains source-link only, and private associations
+are excluded from readonly/static output. Source population and public human
+publication remain open. Records/JavaScript/static build pass; executable CI
+is pending on the new draft head. Counts remain 64 / 506 / 46 / 423; no canonical
+additions, source/identity approvals, merge or deployment. See
+docs/v2/VARIETY-ATTRIBUTED-PHOTO-COVERAGE.md.
+
+Earlier October 7 attributed-photo scope checkpoint: named-variety photographs, proper credits and
 source/reuse references are explicit open requirements for profiles and compact
 directory/review previews. Actual photo reuse and catalog association still
 need source verification; no gallery or asset was published in this update.

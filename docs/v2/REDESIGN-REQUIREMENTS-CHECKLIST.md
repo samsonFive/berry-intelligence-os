@@ -11,8 +11,13 @@ photographer/publisher credit, original source link, reuse terms, caption and
 identity confidence attached. Distinguish trial plants, fruit samples and
 patent drawings; candidate photos remain unreviewed and do not approve an alias,
 trait, rights holder or growing region. Keep dense tables and the long review
-queue compact, with larger photos in profile/expanded detail. This is OPEN,
-not shipped. Existing portfolio PDF/website images have not yet been cleared
+queue compact, with larger photos in profile/expanded detail. The private
+gallery/editor/thumbnail slice and one source-labeled Columbia Star ARS photo
+are implemented and desktop/phone-reviewed in draft #331. Corrections, hiding,
+restoration and reset reuse existing profile history; name/berry compatibility
+is enforced. Readonly/static exclude new associations, and unknown reuse stays
+source-link only. Full source population and public human publication remain
+OPEN. Other existing portfolio PDF/website images have not yet been cleared
 for reuse or matched into a photo gallery. See
 VARIETY-ATTRIBUTED-PHOTO-COVERAGE.md; CAT-02 includes this explicit requirement.
 The previous navigation/rights-reference draft #330 has four green exact-head

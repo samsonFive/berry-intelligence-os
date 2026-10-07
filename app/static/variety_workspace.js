@@ -47,3 +47,14 @@
   window.addEventListener('hashchange', reveal);
   reveal();
 })();
+// Retain attribution and the original-source link when an image cannot load.
+(() => {
+  document.querySelectorAll('[data-variety-photo]').forEach(frame => {
+    const img = frame.querySelector('img');
+    const fallback = frame.querySelector('span');
+    if (!img || !fallback) return;
+    function unavailable() { img.hidden = true; fallback.hidden = false; }
+    img.addEventListener('error', unavailable);
+    if (img.complete && !img.naturalWidth) unavailable();
+  });
+})();

@@ -2884,6 +2884,16 @@ def entity_list(
                 entities=entities_idx, relationships=relationships, regions=region_rows,
             ))
             if AUTHORING_MODE:
+                from app.services import variety_photos, company_directory
+                from app.services.variety_portfolio_coverage import load_portfolio_observations
+                photo_sources = load_portfolio_observations(DATA_DIR)
+                photo_profiles = company_directory.load_profiles(INBOX_DIR)["profiles"]
+                for card in context["variety_rows"]:
+                    target = entities_idx.get(card["id"], {})
+                    card["photos"] = variety_photos.gallery(target, authoring=True,
+                        sourced=variety_photos.source_photos(target, sources=photo_sources, varieties=varieties_all),
+                        profile=photo_profiles.get(card["id"]))
+            if AUTHORING_MODE:
                 name_queue = variety_navigation.candidate_queue(visible_candidates, {
                     key: request.query_params.get(key, "") for key in ("q", "berry", "company", "letter")
                 })
@@ -3376,6 +3386,11 @@ def variety_candidates_page(request: Request) -> HTMLResponse:
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    from app.services import variety_photos, company_directory
+    profiles = company_directory.load_profiles(INBOX_DIR)["profiles"]
+    for row in queue["candidates"]:
+        row["photos"] = variety_photos.gallery(row, authoring=True,
+            sourced=variety_photos.source_photos(row, candidate=True), profile=profiles.get(row["id"]))
     response = templates.TemplateResponse(
         request=request,
         name="variety_candidates.html",
@@ -3863,6 +3878,13 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
             if entity_type == "variety" and request.query_params.get("view") != "legacy":
                 from app.services.variety_navigation import region_rows
                 synthesis["growing_regions"] = [row for row in region_rows(entities, all_relationships(), published_evidence(), INBOX_DIR, AUTHORING_MODE) if row["entity_id"] == entity_id]
+                if AUTHORING_MODE:
+                    from app.services import variety_photos, company_directory
+                    from app.services.variety_portfolio_coverage import load_portfolio_observations
+                    synthesis["photo_gallery"] = variety_photos.gallery(entity, authoring=True,
+                        sourced=variety_photos.source_photos(entity, sources=load_portfolio_observations(DATA_DIR),
+                            varieties=[row for row in entities.values() if row.get("entity_type") == "variety"]),
+                        profile=company_directory.load_profiles(INBOX_DIR)["profiles"].get(entity_id))
                 template_name = "variety_profile.html"
             response = templates.TemplateResponse(
                 request=request,
@@ -10583,6 +10605,8 @@ from app.map_region_routes import router as map_region_router
 app.include_router(map_region_router)
 from app.company_routes import router as company_router
 app.include_router(company_router)
+from app.variety_photo_routes import router as variety_photo_router
+app.include_router(variety_photo_router)
 from app.landscape_routes import router as landscape_router
 app.include_router(landscape_router)
 from app.landscape_explorer_routes import router as landscape_explorer_router

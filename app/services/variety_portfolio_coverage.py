@@ -74,6 +74,14 @@ def _load_portfolio_observations(data_dir: Path):
                    or (row.get("product_url") and not _public_url(row["product_url"])) for row in source["names"]):
                 raise ValueError("Portfolio names need an explicit berry and name")
             accounting = source.get("accounting")
+            from app.services.variety_photos import compatible, validate_photo
+            for name in source["names"]:
+                if "photos" in name:
+                    if not isinstance(name["photos"], list) or len(name["photos"]) > 12:
+                        raise ValueError("Keep at most 12 attributed photos per source name")
+                    for raw in name["photos"]:
+                        if not compatible(validate_photo(raw), name, candidate=True):
+                            raise ValueError("Photo caption identity must match the source name and berry")
             if accounting is not None:
                 if not isinstance(accounting, dict) or any(
                         type(accounting.get(key)) is not int or accounting[key] < 0

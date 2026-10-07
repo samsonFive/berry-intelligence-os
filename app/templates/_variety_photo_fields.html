@@ -1,0 +1,13 @@
+<div class="variety-photo-fields">
+<label>Image URL<input type="url" name="image_url" value="{{ photo.image_url or '' }}" required maxlength="2000"></label>
+<label>Source page URL<input type="url" name="source_url" value="{{ photo.source_url or '' }}" required maxlength="2000"></label>
+<label>Photo credit<input name="credit" value="{{ photo.credit or '' }}" required maxlength="2000" placeholder="Photographer · publisher"></label>
+<label>Exact variety name or code<input name="named_variety" value="{{ photo.named_variety or target.candidate_name or target.name }}" required maxlength="2000"></label>
+<label>Berry<select name="berry_id">{% for key,label in photo_berries.items() %}<option value="{{ key }}" {% if photo.berry_id == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+<label>Photo type<select name="kind">{% for key,label in photo_kinds.items() %}<option value="{{ key }}" {% if photo.kind == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+<label>Reuse basis<select name="reuse">{% for key,label in reuse_choices.items() %}<option value="{{ key }}" {% if photo.reuse == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+<label>Reuse terms URL<input type="url" name="license_url" value="{{ photo.license_url or '' }}" maxlength="2000"></label>
+<label>Source checked<input type="date" name="checked_on" value="{{ photo.checked_on or today }}" max="{{ today }}" required></label>
+<label>Caption<textarea name="caption" required maxlength="2000">{{ photo.caption or '' }}</textarea></label>
+<label>Why these reuse terms cover this image<textarea name="reuse_note" maxlength="2000">{{ photo.reuse_note or '' }}</textarea></label>
+</div>
