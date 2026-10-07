@@ -1994,6 +1994,25 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 company-portfolio crosschecks: four dated source sections add 25
+unreviewed name occurrences and 19 derived candidate keys. CBC has eleven
+individually checked strawberry products against its stated 12+ minimum;
+comparison labels remain outside its product scope. AVA has five strawberry
+and two raspberry labels. Dalicia and Alicia remain separate literal leads;
+carousel-only Dalacia stays a crop/identity exclusion, visibly retained.
+Company website suggestions preserve analyst edits. Partial readable sources
+now count as read, without claiming their portfolios are complete.
+
+Current primary totals: 531 occurrences / 33 catalog text matches / 498 review
+needs in 50 sections; 442 derived candidate keys before private state.
+Catalog remains 64. Of 77 registry rows, 21 have some enumerated page names;
+56 still need initial enumerated checks. Seven source sections need follow-up.
+One unreviewed source-labeled photo remains; no additional photo reuse or
+catalog identities are approved. Parent #331 head 39a0bf312e8876044a339fd45ac35c3b40296b39
+passes all four checks, run 37699877256 (4,129 passed / 11 skipped / two existing
+warnings). This source-data draft requires its own checks. No merge, deployment
+or other-berry Landscape rollout. See VARIETY-COMPANY-PORTFOLIO-CROSSCHECKS.md.
+
 October 7 executable photo follow-up: private gallery/thumbnail/editor support
 and one correctly credited source-labeled Columbia Star photo are implemented.
 Corrections/removals survive source refreshes through existing profile history;

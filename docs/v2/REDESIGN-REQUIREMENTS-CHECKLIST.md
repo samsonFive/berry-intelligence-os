@@ -4,6 +4,25 @@ Ongoing goal activated October 1, 2026. This checklist is the completion ledger 
 
 ## Checkpoints and completion standard
 
+October 7 company-portfolio crosschecks: four dated source sections add 25
+unreviewed name occurrences and 19 derived candidate keys. CBC has eleven
+individually checked strawberry products against its stated 12+ minimum;
+comparison labels remain outside its product scope. AVA has five strawberry
+and two raspberry labels. Dalicia and Alicia remain separate literal leads;
+carousel-only Dalacia stays a crop/identity exclusion, visibly retained.
+Company website suggestions preserve analyst edits. Partial readable sources
+now count as read, without claiming their portfolios are complete.
+
+Current primary totals: 531 occurrences / 33 catalog text matches / 498 review
+needs in 50 sections; 442 derived candidate keys before private state.
+Catalog remains 64. Of 77 registry rows, 21 have some enumerated page names;
+56 still need initial enumerated checks. Seven source sections need follow-up.
+One unreviewed source-labeled photo remains; no additional photo reuse or
+catalog identities are approved. Parent #331 head 39a0bf312e8876044a339fd45ac35c3b40296b39
+passes all four checks, run 37699877256 (4,129 passed / 11 skipped / two existing
+warnings). This source-data draft requires its own checks. No merge, deployment
+or other-berry Landscape rollout. See VARIETY-COMPANY-PORTFOLIO-CROSSCHECKS.md.
+
 October 7 attributed variety-photo requirement: include photos wherever useful
 on variety profiles and in review/directory surfaces when the source identifies
 the named variety and the image can be reused with recorded attribution. Keep
@@ -130,8 +149,8 @@ Completion means implementation plus appropriate source/data proof, browser revi
 
 | ID | Accepted requirement | Current evidence / state | Remaining verification or implementation |
 | --- | --- | --- | --- |
-| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Stored discovery audits 1,269 sources (95 observations / 32 matches / 63 candidate observations); combined candidate keys 423 before private state. Dates, URLs/codes/prefixes, historical exclusions and user edits survive. All 38 pages of the UGA presentation are visually accounted for; photo-only labels and experimental selections retain source scope. #320 connects human-reviewed distinct candidates to existing intake and separate source/claim review. Independent GRIN comparison now offers individual private identity-lead handoff without overwriting decisions. All-scopes source-content disclosure distinguishes acquisition gaps from recall. | Older published corpus has 1,198 unavailable bodies / 71 access screens, excluding pending news. Remaining acquisition/table/multilingual recall, independent review and actual identity/catalog additions remain. Original diagnostic misses 14 names; title diagnostic misses one F1 name. |
-| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | 77-row source plan; 46 dated sections / 506 source name occurrences across four berries, with four explicit source gaps. Independent GDR comparison has 2,372 genus/name pairs; GRIN has 148 scoped blueberry names plus 53 unresolved hybrid labels. Before private state, GRIN finds 132 missing exact names / 14 queued / two catalog matches. Existing profile websites and analyst edit/clear carry into the source plan. Canonical catalog remains 64. See VARIETY-HISTORICAL-BLUEBERRY-VISUAL-REVIEW.md. | 57 registry rows need initial primary checks; checked pages are not completed portfolios. Original release/rights verification, hybrid crop resolution, actual catalog authoring, cited traits/images/regions, refresh reconciliation and independently scored recall remain. External comparisons are scoped benchmarks; no global completeness or web-leading claim. |
+| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Stored discovery audits 1,269 sources (95 observations / 32 matches / 63 candidate observations); combined candidate keys 442 before private state. Dates, URLs/codes/prefixes, historical exclusions and user edits survive. All 38 pages of the UGA presentation are visually accounted for; photo-only labels and experimental selections retain source scope. #320 connects human-reviewed distinct candidates to existing intake and separate source/claim review. Independent GRIN comparison now offers individual private identity-lead handoff without overwriting decisions. All-scopes source-content disclosure distinguishes acquisition gaps from recall. | Older published corpus has 1,198 unavailable bodies / 71 access screens, excluding pending news. Remaining acquisition/table/multilingual recall, independent review and actual identity/catalog additions remain. Original diagnostic misses 14 names; title diagnostic misses one F1 name. |
+| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | 77-row source plan; 50 dated sections / 531 source name occurrences across four berries, with seven explicit source follow-ups. Independent GDR comparison has 2,372 genus/name pairs; GRIN has 148 scoped blueberry names plus 53 unresolved hybrid labels. Before private state, GRIN finds 132 missing exact names / 14 queued / two catalog matches. Existing profile websites and analyst edit/clear carry into the source plan. Canonical catalog remains 64. See VARIETY-HISTORICAL-BLUEBERRY-VISUAL-REVIEW.md. | 56 registry rows need initial enumerated primary checks; checked pages are not completed portfolios. Original release/rights verification, hybrid crop resolution, actual catalog authoring, cited traits/images/regions, refresh reconciliation and independently scored recall remain. External comparisons are scoped benchmarks; no global completeness or web-leading claim. |
 | UI-01 | Bright, colorful agricultural Glasshouse identity; first berry icon; subtle glass, stronger contrast and hierarchy | Approved Glasshouse identity and first icon across core, intelligence, authoring, public-library and retained shells (M1–21/34/35); source prose stays literal. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-02 | Immersive full-width workspace, compact top navigation, grouped More menu contained within the viewport | Full-width shared top header, contained grouped More, folded specialist destinations; live/private versus generated-public navigation tested (M20/21/35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-03 | Dense information with useful headlines, summaries, metadata and collapsed secondary context; plain language | Distinct heading/lead/body/metadata roles, compact cards/tables and secondary disclosures in News, dossiers, Reports, Landscape, Learn, research/review and retained tools (M3–35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
