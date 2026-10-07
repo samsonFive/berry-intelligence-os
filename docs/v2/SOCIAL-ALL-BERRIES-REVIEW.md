@@ -47,3 +47,7 @@ Continuation order: independent relevance/role/language review; curate corporate
 ## Validation receipt
 
 Focused social suite: 90 passed, one dependency deprecation warning (93.20 seconds). After adding English-translation search, the four affected berry-route tests passed (89.46 seconds); 91 distinct focused tests are covered. Added synthetic evaluation: 246/246 exact-field checks across 33 cases; original blueberry evaluation: 202/207, with five unresolved negation/sentiment cases. Offline replay adds zero duplicates. Browser inspection confirmed strawberry, raspberry and blackberry selection, corporate filtering and newest-first ordering; screenshots are retained privately. Required GitHub checks must be read on the final pushed head.
+
+## Acceptance-audit follow-up
+
+Private social context links now use the workspace's English-readable visibility, translation-first titles and shared publication/saved-date ordering. The optional ResearchScope provider filters requested company/variety IDs before its twenty-result limit, so unrelated posts cannot crowd out a matching observation. It still returns redacted navigation titles to the model packet. This fixes the existing hook; it does not enable automatic dossier/briefing/snapshot assembly or qualify geographic/time-window research scope. No source calls, spend, registry writes or promotion to trusted evidence. The requirement-by-requirement status is in [SOCIAL-ACCEPTANCE-AUDIT.md](SOCIAL-ACCEPTANCE-AUDIT.md).

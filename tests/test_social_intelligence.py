@@ -290,3 +290,37 @@ def test_cjk_adjacent_retailer_names_keep_sentence_relations(text):
 def test_other_berry_nonfruit_homonyms_are_excluded(text):
     assert analyze(sample(text=text),ENTITIES)['berry_ids']==[]
     assert analyze(sample(text='Raspberry fruit jam'),ENTITIES)['berry_ids']==['berry-raspberry']
+
+
+def test_context_links_use_english_visibility_translation_and_real_date_order(tmp_path):
+    from app.services.social_intelligence.integration import context_links
+    store=Store(tmp_path)
+    store.ingest([sample('manual',native_id='context-base')],ENTITIES)
+    base=store.records()[0]
+    old=deepcopy(base);old.update(id='old',published_at='2026-10-07T10:00:00+09:00',text='Old English source')
+    recent=deepcopy(base);recent.update(id='recent',published_at='2026-10-07T02:00:00Z',language='es',text='Arándanos originales',translation={'language':'en','text':'Translated blueberries','method':'human','version':'test-1','uncertainty':'Synthetic test assessment'})
+    saved=deepcopy(base);saved.update(id='saved',published_at=None,collected_at='2026-10-07T03:00:00Z',text='Saved English source')
+    unreadable=deepcopy(base);unreadable.update(id='hidden',language='und',translation=None)
+    fixture=deepcopy(recent);fixture.update(id='fixture',mode='fixture')
+    links=context_links([old,recent,saved,unreadable,fixture])
+    assert [r['id'] for r in links]==['saved','recent','old']
+    assert links[1]['title']=='Translated blueberries'
+    assert links[0]['date_basis']=='collection' and links[1]['date_basis']=='publication'
+    assert all(r['trust_class']=='UNREVIEWED SOCIAL OBSERVATION' for r in links)
+    assert 'Arándanos originales' not in str(links)
+
+
+def test_context_provider_filters_entity_before_twenty_result_limit(tmp_path):
+    from types import SimpleNamespace
+    from app.services.social_intelligence.integration import market_context_provider
+    store=Store(tmp_path);store.ingest([sample('manual',native_id='provider-base')],ENTITIES)
+    base=store.records()[0];rows=[]
+    for index in range(25):
+        row=deepcopy(base);row.update(id=f'row-{index:02}',text=f'Private caption {index}',published_at='2026-10-07T01:00:00Z')
+        row['analysis']['entity_links']=[{'entity_id':'company-driscolls' if index==0 else 'company-other'}]
+        rows.append(row)
+    provider=market_context_provider(SimpleNamespace(records=lambda:rows))
+    links=provider(SimpleNamespace(berry_id='berry-blueberry',company_ids=('company-driscolls',),variety_ids=()))
+    assert [r['id'] for r in links]==['row-00']
+    assert links[0]['title']=='Unreviewed social context; inspect in analyst workspace'
+    assert 'Private caption' not in str(links)

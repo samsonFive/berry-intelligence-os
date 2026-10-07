@@ -6,6 +6,7 @@ import json
 from urllib.parse import urlencode
 from .model import PLATFORMS, MODES
 from .extraction import ASPECTS, VOCAB
+from .presentation import newest_first_key
 
 VIEWS=('posts','phrases','heatmap','atlas','momentum','coverage')
 MIN_SAMPLE=5
@@ -41,7 +42,7 @@ def bundle(records,jobs,params, *, access=None):
         if f['perspective'] and perspective!=f['perspective']:continue
         rows.append(r)
     # Compare instants rather than ISO strings: source offsets can differ.
-    rows.sort(key=lambda r: (datetime.fromisoformat((r['published_at'] or r['collected_at']).replace('Z','+00:00')), r['id']), reverse=True)
+    rows.sort(key=newest_first_key, reverse=True)
     by_id={r['id']:r for r in rows}; total=len(rows)
     phrases=defaultdict(set); labels=defaultdict(set); heat=defaultdict(list); timeline=defaultdict(set); countries=defaultdict(set)
     fingerprints=Counter(r['analysis'].get('content_fingerprint') for r in rows)

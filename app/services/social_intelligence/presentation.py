@@ -1,5 +1,6 @@
 """Public platform players derived from validated post URLs, never supplied HTML."""
 import re
+from datetime import datetime
 from urllib.parse import urlsplit, parse_qs
 
 
@@ -39,3 +40,14 @@ def readable_in_english(row):
     """Unknown language is pending; never infer English from query or alphabet."""
     translation=row.get('translation') or {}
     return bool(row.get('text') and row.get('language')=='en' or translation.get('language')=='en' and translation.get('text','').strip())
+
+
+def display_text(row):
+    """Use an available English translation first; callers enforce readability."""
+    translation=row.get('translation') or {}
+    return translation['text'] if translation.get('language')=='en' and translation.get('text','').strip() else row['text']
+
+
+def newest_first_key(row):
+    """Shared publication/saved-date ordering across workspace and context links."""
+    return datetime.fromisoformat((row['published_at'] or row['collected_at']).replace('Z','+00:00')), row['id']
