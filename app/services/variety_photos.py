@@ -65,16 +65,25 @@ def compatible(photo, target, *, candidate=False):
 
 
 def source_photos(target, *, sources=(), candidate=False, varieties=()):
-    refs = target.get("portfolio_sources", []) if candidate else [
-        name for source in sources for name in source.get("names", [])]
+    refs = [(None, ref) for ref in target.get("portfolio_sources", [])] if candidate else [
+        (source, name) for source in sources for name in source.get("names", [])]
     rows = {}
-    for ref in refs:
+    pair_notes = None
+    for source, ref in refs:
         if ref.get("identity_notes"):
             continue
         for raw in ref.get("photos", []):
             photo = validate_photo(raw)
             if not compatible(photo, target, candidate=candidate):
                 continue
+            if not candidate:
+                # Honor the portfolio's existing code/label discrepancy gate,
+                # including when only one of those identities is in the catalog.
+                from app.services.variety_portfolio_coverage import _identity_pair_notes, _key
+                if pair_notes is None:
+                    pair_notes = _identity_pair_notes(sources)
+                if pair_notes.get((source["id"], _key(ref), ref.get("trade_name") or ref["candidate_name"]), []):
+                    continue
             if not candidate and varieties:
                 result = resolve_identity({"candidate_name": photo["named_variety"], "berry_id": photo["berry_id"]}, list(varieties))
                 ids = {row["variety_id"] for row in result["matches"] if row["reason"] == "exact_identity_string"}

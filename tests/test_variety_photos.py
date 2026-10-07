@@ -23,7 +23,7 @@ def variety(berry="berry-strawberry"):
 
 
 def source(value=None):
-    return [{"names": [{"candidate_name": "Keepsake", "berry_id": "berry-strawberry", "photos": [value or photo()]}]}]
+    return [{"id": "photo-source", "company_ids": [], "names": [{"candidate_name": "Keepsake", "berry_id": "berry-strawberry", "photos": [value or photo()]}]}]
 
 
 def test_same_name_different_berry_is_never_a_photo_match():
@@ -41,6 +41,14 @@ def test_ambiguous_catalog_match_does_not_choose_a_profile():
     second = {**variety(), "id": "variety-keepsake-2"}
     assert photos.source_photos(first, sources=source(), varieties=[first, second]) == []
     assert photos.source_photos(first, sources=source(), varieties=[first])
+
+
+def test_shared_source_label_with_different_codes_is_held_even_with_one_catalog_match():
+    sources = source()
+    sources[0]["names"][0].update(breeder_code="ABC123", trade_name="Keepsake")
+    sources.append({"id": "second-source", "company_ids": [], "names": [
+        {"candidate_name": "Keepsake", "trade_name": "Keepsake", "breeder_code": "XYZ456", "berry_id": "berry-strawberry"}]})
+    assert photos.source_photos(variety(), sources=sources, varieties=[variety()]) == []
 
 
 def test_private_gallery_is_read_only_and_never_public(monkeypatch, tmp_path):

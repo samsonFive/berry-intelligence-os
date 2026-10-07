@@ -34,7 +34,9 @@ trait, role, rights or growing-location record is changed.
 Photo observations extend the existing primary-source name observations. Matching
 reuses the existing identity resolver with an explicit berry: USDA's Keepsake
 strawberry must never appear on our Keepsake blueberry profile. Multiple catalog
-matches are held back. Candidate crop tags from a multi-crop parent source do not
+matches and the portfolio's existing shared-label/different-code discrepancies
+are held back, even when only one catalog variety matches the label.
+Candidate crop tags from a multi-crop parent source do not
 override the candidate's own berry. A source caption remains visibly unreviewed.
 
 The first populated example is Columbia Star blackberry, photographed by Chad
@@ -62,7 +64,7 @@ editor measures 360px/360px after its scrollbar, with only Blackberry offered.
 Normal viewport restored. Browser review makes no source/identity decisions or
 private photo edits. Screenshots are retained under ignored inbox storage.
 
-Sixty-eight focused photo/navigation/portfolio tests pass, including the
+Sixty-nine focused photo/navigation/portfolio tests pass, including the
 catalog-profile/directory integration case. Canonical record validation and
 JavaScript syntax pass; the static build writes 1,755 pages and passes its
 unpublished-content scan. This draft's full executable CI is required on its
