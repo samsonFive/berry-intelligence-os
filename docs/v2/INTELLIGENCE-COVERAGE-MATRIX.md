@@ -1,5 +1,15 @@
 # Intelligence Coverage Matrix
 
+**October 7 university/historical follow-up:** Cornell and newer Arkansas
+sections add 30 occurrences; the existing 18-name Arkansas scope is refreshed
+without counting it again. Primary total: 411 occurrences / 33 matches / 378
+review needs in 37 sections. Sixteen registry rows have some checks; 61 need
+initial checks. Candidate keys before private state: 355. Catalog 64 and stored
+corpus 95/32/63 are unchanged. Dates, crop groups, code/name suggestions and
+historical context remain explicit. No approved entities/claims, source
+onboarding, maturity increase, qualification or global completeness. See
+VARIETY-UNIVERSITY-PORTFOLIOS-REVIEW.md; earlier totals below are historical.
+
 **October 7 title precision follow-up:** Five observed headline mistakes led to
 scoped discovery repairs. Updated stored-source audit: 1,269 sources, 95
 source/name observations, 32 catalog matches, 63 candidate observations and

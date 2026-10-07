@@ -1,5 +1,15 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+**Latest measured state, October 7:** 64 catalog entries (57 active / six
+unverified / one historical); 1,269 stored sources yield 95 name observations /
+32 exact catalog matches / 63 candidate observations after title precision fixes.
+Primary reconciliation spans 37 sections with 411 occurrences / 33 matches / 378
+review needs. Sixteen of 77 registry rows have some checks; 61 need initial checks.
+Combined candidate keys before private state: 355. Human-reviewed distinct
+candidates now prepare existing intake/source review (#320); real identity and
+claim decisions remain open. See VARIETY-UNIVERSITY-PORTFOLIOS-REVIEW.md and
+VARIETY-TITLE-PRECISION-REVIEW.md. Earlier numbers below record prior slices.
+
 User direction, October 6–7, 2026: the Hortifrut omission is a warning about
 system-wide recall. Build toward the most comprehensive berry variety resource
 available, without confusing a discovered name with an approved identity or

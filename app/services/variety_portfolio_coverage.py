@@ -46,6 +46,8 @@ def _load_portfolio_observations(data_dir: Path):
                     not isinstance(berry, str) or berry not in BERRY_ORDER for berry in source["berry_ids"]):
                 raise ValueError("Portfolio source needs valid company and berry identifiers")
             checked = date.fromisoformat(source["checked_on"])
+            if source.get("published_date"):
+                date.fromisoformat(source["published_date"])
             url = urlsplit(source["url"])
             if url.scheme not in {"http", "https"} or not url.hostname or url.username or url.password:
                 raise ValueError("Portfolio source needs a public HTTP(S) URL")
@@ -125,7 +127,8 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
     pair_notes = _identity_pair_notes(sources)
     for source in sources:
         names = []
-        companies = [{"entity_id": cid, "name": entity_index[cid]["name"]}
+        companies = [{"entity_id": cid, "name": entity_index[cid]["name"],
+                      "href": "/entities/" + entity_index[cid]["entity_type"] + "/" + cid}
                      for cid in source.get("company_ids", []) if cid in entity_index]
         for observation in source.get("names", []):
             query = {k: observation.get(k, "") for k in ("candidate_name", "denomination", "breeder_code", "berry_id")}
@@ -149,6 +152,8 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
             reference = {"id": source["id"], "title": source["title"], "url": source["url"],
                          "checked_on": source["checked_on"], "companies": companies, **observation,
                          "identity_notes": identity_notes}
+            if source.get("published_date"):
+                reference["published_date"] = source["published_date"]
             provenance.setdefault(_key(observation), []).append(reference)
             if status == "needs_review" and candidate is None:
                 candidate = build_candidate({**observation, "source_id": source["id"], "source_url": source["url"],
