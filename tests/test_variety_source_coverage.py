@@ -165,5 +165,5 @@ def test_candidate_provenance_links_keep_portfolio_and_individual_page_separate(
     links = parser.links
     assert links["UC Davis — current strawberry release list ↗"] == "https://strawberry.ucdavis.edu/released-varieties"
     assert links["UC Davis — historical strawberry timeline ↗"] == "https://strawberry.ucdavis.edu/breeding-timeline"
-    assert links["Variety page ↗"] == "https://strawberry.ucdavis.edu/ucd-royal-royce"
+    assert links["Name reference ↗"] == "https://strawberry.ucdavis.edu/ucd-royal-royce"
     assert not list(tmp_path.rglob("*"))

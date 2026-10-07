@@ -1,6 +1,23 @@
 # Variety catalog: comprehensive, source-linked coverage
 
-**Independent public baseline, October 7:** GDR Fragaria/Rubus germplasm export
+October 7 visual historical-source follow-up: all 38 pages of a UGA public
+presentation are accounted for, including two handwritten photograph labels
+missed by extracted text. Eleven unreviewed name/code observations add ten
+candidate keys; Alapaha remains an explicit ambiguous-label exclusion. Three
+named blueberries and six experimental ornamental selections keep separate
+contexts; Premier and T-959 are photo-only leads, and T-959 is not an approved
+Titan alias. Primary totals are 506 occurrences / 33 catalog matches / 473
+review needs in 46 sections, with 423 derived candidate keys before private
+state. Canonical catalog remains 64; 57 initial registry checks and four source
+gaps remain. GRIN now has 132 missing exact names / 14 queued / two catalog
+matches before private state, because Premier has a primary-source lead.
+Portfolio-derived references no longer become official registry attribution;
+stored human records are preserved. 86 focused/static tests pass. Parent #328 passed
+all four exact-head gates (4,100 passed / 11 skipped / two warnings). This draft's
+CI is pending; no trust promotion, merge, deployment or Milestone B rollout.
+See VARIETY-HISTORICAL-BLUEBERRY-VISUAL-REVIEW.md.
+
+**Earlier GDR comparison slice, October 7:** GDR Fragaria/Rubus germplasm export
 accounts for 26,905 joined rows / 6,453 collection keys / 2,355 literal labels /
 2,372 genus-name pairs. Before private state, 2,267 pairs lack an exact catalog
 or candidate name match; 104 have queue matches and one has a catalog match.
@@ -12,7 +29,7 @@ comparison, not a global completeness score. Vaccinium/blueberry comparison,
 source verification and individual authoring are next. See
 VARIETY-EXTERNAL-GERMPLASM-COVERAGE-REVIEW.md; CAT-01/CAT-02 stay open.
 
-**Latest measured state, October 7:** 64 catalog entries (57 active / six
+**Measured state before the visual UGA follow-up, October 7:** 64 catalog entries (57 active / six
 unverified / one historical); 1,269 stored sources yield 95 name observations /
 32 exact catalog matches / 63 candidate observations. Primary reconciliation
 spans 45 sections with 495 occurrences / 33 matches / 462 review needs.
