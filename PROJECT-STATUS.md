@@ -1,5 +1,17 @@
 # Project Status
 
+## Variety registry species correction (2026-10-07)
+
+Primary portfolio preparation found a verified correctness blocker: the CPVO
+adapter classified black raspberry (`Rubus occidentalis L.`) as blackberry,
+contradicting USDA nomenclature and the existing canonical raspberry entity.
+One map entry is corrected for new unverified registry drafts. Deterministic
+monitor checks preserve operator notes, idempotence and canonical input bytes.
+No existing filing or private runtime is rewritten, and no provider call was
+made. Eight focused registry/acquisition checks passed. CAT-01/CAT-02 and TD-116
+remain open; exact-head CI, human review and release approval remain gates.
+See docs/v2/VARIETY-REGISTRY-SPECIES-CORRECTION.md.
+
 ## Variety portfolio expansion — mixed-crop accounting (2026-10-07)
 
 `feature/variety-portfolio-expansion` adds 182 name observations from Fall Creek,

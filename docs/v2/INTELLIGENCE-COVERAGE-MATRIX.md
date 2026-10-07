@@ -639,6 +639,12 @@ re-running the inventory. Inbox drafts stay out of the class table.
 **October 4 in-app agency refresh:** An explicit Eurostat check returned the same four-country/eight-figure 2025 strawberry area/production reference scope, preserving original units, flags, source update and check dates. Its country references are human-selected private context, never canonical Facts or recall/coverage maturity changes. USDA references and unsupported country/crop gaps remain untouched; broader FAOSTAT/national/research population is still partial. See MISSION-32-OFFICIAL-STATISTICS-REFRESH-REVIEW.md.
 
 
+**October 7 species correctness follow-up:** New CPVO drafts for black raspberry
+(`Rubus occidentalis L.`) now use raspberry context, matching USDA nomenclature
+and the existing berry entity. This corrects classification rather than adding
+coverage or trust. Existing records and private review state are not rewritten;
+older affected tags need explicit review. See VARIETY-REGISTRY-SPECIES-CORRECTION.md.
+
 **October 7 primary portfolio expansion:** Seventeen dated page sections now
 contain 275 manually enumerated source name occurrences across four berries.
 Twenty-five match catalog identities; 250 require review. The body-free audit
