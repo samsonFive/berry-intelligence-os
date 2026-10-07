@@ -1994,6 +1994,21 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 blueberry public comparison adds an independently counted GRIN
+baseline: 2,113 search results, 178 checked-species Cultivar records / 148 names,
+53 unresolved hybrid labels, and explicit other-taxon/material exclusions.
+133 scoped names have no exact catalog/queue match, 13 match queued names and
+two match catalog text before private state. An individual additive private
+identity-review handoff makes scoped missing names actionable; generic hybrids
+withhold crop/matching and existing human decisions/edits win. Catalog 64,
+primary 495/33/462, 413 derived candidate keys, 57 initial checks and four source
+gaps remain. 77 focused checks, record validation and desktop/phone review pass;
+draft CI is pending, parent #327 has four green gates (4,083 / 11 skipped).
+No Source onboarding or trust decisions. See
+VARIETY-BLUEBERRY-GERMPLASM-COVERAGE-REVIEW.md. Original release/rights checks,
+hybrid resolution, actual authoring, independent recall and rich profiles keep
+TD-116 open.
+
 October 7 independent public comparison: a native GDR Fragaria/Rubus CSV has
 26,905 rows representing 6,453 collection keys and 2,372 genus/name pairs.
 2,267 lack exact catalog/queue name matches before private state. Existing
