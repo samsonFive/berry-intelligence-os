@@ -673,3 +673,6 @@ Mixed-crop exclusions, paginated capture scope, literal code/name discrepancies
 and the Oregon nursery/Commission site mismatch remain reviewable. All 64
 canonical varieties and existing evidence/rights/role gates remain unchanged.
 See VARIETY-PORTFOLIO-EXPANSION-REVIEW.md.
+
+
+**October 7 reviewed catalog handoff:** Candidate identity review now links to existing source intake and human publication/claim decisions. This is workflow delivery, not a source acquisition or canonical coverage increase: 64 real existing catalog entries and 341 combined candidate keys before private state remain unchanged. Fictional browser additions exist only in an isolated ignored runtime. Remaining portfolios and rich/independently checked coverage stay open. See VARIETY-CATALOG-REVIEW-HANDOFF.md.

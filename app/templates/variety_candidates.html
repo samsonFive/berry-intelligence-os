@@ -20,7 +20,7 @@
 <div id="candidate-results"><nav class="company-alphabet" aria-label="Candidate alphabetical navigation"><a href="{{ letter_urls[''] }}" {% if not filters.letter %}aria-current="page"{% endif %}>All</a>{% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#' %}{% if letter in letters %}<a href="{{ letter_urls[letter] }}" {% if filters.letter == letter %}aria-current="page"{% endif %}>{{ letter }}</a>{% else %}<span>{{ letter }}</span>{% endif %}{% endfor %}</nav><p class="company-muted">{{ candidates|length }} of {{ candidate_total }} candidate names. Review decisions do not create new catalog varieties or approve company roles.</p>
 <details class="variety-context workspace-help" data-workspace-help><summary>How identity decisions work</summary><p>These are proposed names, not confirmed catalog varieties. Check the source and possible match before deciding. A possible alias needs further review. Confirm same links the candidate to the named existing variety. Mark distinct keeps a separate candidate; it does not create a catalog variety. Reject removes a name from the waiting queue without deleting catalog records.</p></details>
 {% if not candidates %}
-  <p class="empty-state">No Variety candidates are waiting for identity review. Trusted Varieties stay on the Variety index. <a href="/varieties/coverage">Variety coverage</a> shows trusted vs candidate counts. <a href="/entities/variety">Trusted Variety index</a></p>
+  <p class="empty-state">No variety candidates match this scope. <a href="/varieties/coverage">Variety coverage</a> shows catalog entries and names needing review. <a href="/entities/variety">Open variety catalog</a></p>
 {% endif %}
 
 {% for row in candidates %}
@@ -61,9 +61,16 @@
     </dd>
   </dl>
   {% if authoring_mode %}
+  {% set handoff = catalog_handoffs.get(row.id, {}) %}
+  <div class="variety-context">
+    {% if handoff.ready %}<p><strong>Ready for source review.</strong> Add the supporting source before creating an unverified catalog entry.</p><a class="v2-btn" href="{{ handoff.href }}">Prepare catalog review →</a>
+    {% elif handoff.catalog_entity %}<p>{{ handoff.reason }}</p><a class="v2-btn v2-btn-quiet" href="/entities/variety/{{ handoff.catalog_entity.id }}">Open catalog record →</a>
+    {% else %}<p>{{ handoff.reason }}</p>{% endif %}
+  </div>
   <form method="post" action="/varieties/candidates/{{ row.id }}/decision" class="v2-inline-form">
-    <input type="hidden" name="reviewer" value="{{ reviewer }}">
-    <label>Notes <input type="text" name="notes" value=""></label>
+    <label>Reviewer <input type="text" name="reviewer" value="{{ reviewer or row.reviewer or '' }}" required autocomplete="name"></label>
+    <input type="hidden" name="return_to" value="{{ request.url.path }}{% if request.url.query %}?{{ request.url.query }}{% endif %}#{{ row.id }}">
+    <label>Notes <input type="text" name="notes" value="{{ row.review_notes or '' }}"></label>
     <button class="v2-btn v2-btn-quiet" type="submit" name="decision" value="possible_alias">Keep as needs review</button>
     <button class="v2-btn v2-btn-quiet" type="submit" name="decision" value="unknown">Leave unresolved</button>
     <button class="v2-btn v2-btn-quiet" type="submit" name="decision" value="distinct">Mark distinct</button>

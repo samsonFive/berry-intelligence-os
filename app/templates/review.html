@@ -17,6 +17,13 @@
   <p class="empty-state" role="alert">Review and publishing are disabled. This deployment is running in read-only mode.</p>
 {% else %}
 
+{% if draft.catalog_handoff %}
+<div class="banner" role="note">
+  <strong>Variety catalog source review.</strong> Source approval can add an unverified entry. Review factual statements separately; identity approval alone does not verify traits or company roles.
+  <a href="/varieties/candidates#{{ draft.catalog_handoff.candidate_id }}">Return to identity review</a>
+</div>
+{% endif %}
+
 {% if publish_outcome == 'already_published' %}
   <div class="banner banner-success" role="status">
     This publication is already trusted.
