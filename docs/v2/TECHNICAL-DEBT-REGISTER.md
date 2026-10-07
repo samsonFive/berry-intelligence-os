@@ -1994,6 +1994,16 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 university/historical follow-up: 30 additional source occurrences and
+a nonduplicating 18-name Arkansas refresh. Primary total 411/33/378 in 37 sections;
+16 of 77 registry rows have some checks, 61 need initial checks. Candidate keys
+before private state: 355; canonical catalog and stored-source counts unchanged.
+Historic dates and selection-code/trade-name uncertainty remain explicit. Current
+pages do not account for all historical releases. No automatic aliases or human
+approval. Existing discovery still misses some Cornell summary names even where
+the catalog already has them; source reconciliation is not a general recall fix.
+See VARIETY-UNIVERSITY-PORTFOLIOS-REVIEW.md. Prior numbers below are historical.
+
 October 7 title precision follow-up: five real headline mistakes are repaired
 without deleting saved decisions. Stored-source audit: 95 observations / 32
 catalog matches / 63 candidates; 336 combined candidate keys before private

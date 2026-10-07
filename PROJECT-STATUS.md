@@ -1,5 +1,22 @@
 # Project Status
 
+## University and historical variety reconciliation (2026-10-07)
+
+Cornell current headings, historical chart and dated release plus Arkansas
+current name/code sections add 30 occurrences. The prior 18-name Arkansas
+extension scope is refreshed, not counted twice. Combined primary coverage:
+411 occurrences / 33 matches / 378 review needs, 37 sections; 16 of 77 registry
+rows have some checks, 61 need initial checks. Combined candidate keys before
+private state: 355. Canonical 64 and stored-source 95/32/63 counts are unchanged.
+Dates remain explicit; institution links retain entity type; codes/trade names
+remain human-reviewed suggestions. 98 related tests passed and desktop/390px
+review verified dates, source handoff and containment. See
+docs/v2/VARIETY-UNIVERSITY-PORTFOLIOS-REVIEW.md. CAT-01/CAT-02/TD-116 remain open;
+no source onboarding, qualification, identity approval, merge or deployment.
+
+Parent #321 exact head d8df470f8754ef82bfbc6f558edd5350651d7d4e passed all four
+checks, run 37613126355: 4,021 passed / 11 skipped / two warnings / 384.79 seconds.
+
 ## Variety title precision correction (2026-10-07)
 
 Five actual headline mistakes led to scoped discovery fixes without deleting
