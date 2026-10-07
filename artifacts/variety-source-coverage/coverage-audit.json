@@ -258,6 +258,7 @@
         }
       ],
       "accounting_view": null,
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -381,6 +382,7 @@
         }
       ],
       "accounting_view": null,
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -460,6 +462,7 @@
         }
       ],
       "accounting_view": null,
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -671,6 +674,7 @@
         }
       ],
       "accounting_view": null,
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -717,6 +721,7 @@
         }
       ],
       "accounting_view": null,
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -840,6 +845,7 @@
         }
       ],
       "accounting_view": null,
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -908,6 +914,7 @@
         }
       ],
       "accounting_view": null,
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -1097,6 +1104,7 @@
         }
       ],
       "accounting_view": null,
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -1390,6 +1398,7 @@
         "accounted_items": 18,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -1424,6 +1433,7 @@
         }
       ],
       "accounting_view": null,
+      "needs_follow_up": true,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Attempted recently",
@@ -1962,6 +1972,7 @@
         "accounted_items": 38,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -2203,6 +2214,7 @@
         "accounted_items": 15,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -2442,6 +2454,7 @@
         "accounted_items": 15,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -2514,6 +2527,7 @@
         "accounted_items": 2,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -3254,6 +3268,7 @@
         "accounted_items": 53,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [
         "This code appears with multiple labels: Black Rainier, Black Sultana. Check the pairing before accepting aliases.",
         "This code appears with multiple labels: Pink Hudson, Pink Hudson (WINTER). Check the pairing before accepting aliases.",
@@ -4007,6 +4022,7 @@
         "accounted_items": 54,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [
         "This code appears with multiple labels: Black Rainier, Black Sultana. Check the pairing before accepting aliases.",
         "This code appears with multiple labels: Pink Hudson, Pink Hudson (WINTER). Check the pairing before accepting aliases.",
@@ -4566,6 +4582,7 @@
         "accounted_items": 36,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -4882,6 +4899,7 @@
         "accounted_items": 18,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -5064,6 +5082,7 @@
         "accounted_items": 10,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -5843,6 +5862,7 @@
         "accounted_items": 49,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -5977,6 +5997,7 @@
         "accounted_items": 6,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -6066,6 +6087,7 @@
         "accounted_items": 3,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -6140,6 +6162,7 @@
         "accounted_items": 2,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -6200,6 +6223,7 @@
         "accounted_items": 1,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -6260,6 +6284,7 @@
         "accounted_items": 1,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -6320,6 +6345,7 @@
         "accounted_items": 1,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -6410,6 +6436,7 @@
         "accounted_items": 3,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -6485,6 +6512,7 @@
         "accounted_items": 2,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -6575,6 +6603,7 @@
         "accounted_items": 3,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -6680,6 +6709,7 @@
         "accounted_items": 4,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -6770,6 +6800,7 @@
         "accounted_items": 3,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -6860,11 +6891,519 @@
         "accounted_items": 3,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
       "matched": 0,
       "needs_review": 3,
+      "closed": 0,
+      "awaiting_catalog": 0
+    },
+    {
+      "id": "portfolio-hutton-raspberry-program-highlights",
+      "title": "James Hutton Institute — raspberry program highlights",
+      "url": "https://www.hutton.ac.uk/scientific-services/improving-crop-production/breeding/raspberry-breeding/",
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T13:30:41.969217Z",
+      "company_ids": [
+        "company-james-hutton-institute"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "breeder_program_report",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All nine cultivar names in the program overview. The page reports a lifetime portfolio of 23 cultivars, but does not enumerate that full portfolio.",
+      "limitations": "This overview leaves the lifetime portfolio incomplete. Current and historical release lists remain to be checked. No publication date is shown; release years, commercial status, traits, rights and company roles are not approved.",
+      "names": [
+        {
+          "candidate_name": "Glen Moy",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Program highlight · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Moy&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Glen Prosen",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Program highlight · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Prosen&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Glen Ample",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Program highlight · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Ample&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Glen Dee",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Program highlight · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Dee&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Glen Carron",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Program highlight · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Carron&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Glen Mor",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Program highlight · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Mor&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Glen Eden",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Program highlight · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Eden&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Skye",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Program highlight · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Skye&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Lewis",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Program highlight · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Lewis&berry=berry-raspberry"
+        }
+      ],
+      "accounting": {
+        "observed_items": 9,
+        "reported_items": 23,
+        "reported_scope": "lifetime raspberry cultivars",
+        "exclusions": []
+      },
+      "companies": [
+        {
+          "entity_id": "company-james-hutton-institute",
+          "name": "The James Hutton Institute",
+          "href": "/entities/company/company-james-hutton-institute"
+        }
+      ],
+      "accounting_view": {
+        "observed_items": 9,
+        "reported_items": 23,
+        "reported_scope": "lifetime raspberry cultivars",
+        "exclusions": [],
+        "accounted_items": 9,
+        "issues": [
+          "This page shows 9 items but reports 23 lifetime raspberry cultivars. Check the remaining lists and their scope before calling the portfolio complete."
+        ]
+      },
+      "needs_follow_up": true,
+      "identity_issues": [],
+      "age_days": 0,
+      "freshness": "Checked recently",
+      "matched": 0,
+      "needs_review": 9,
+      "closed": 0,
+      "awaiting_catalog": 0
+    },
+    {
+      "id": "portfolio-usda-corvallis-fy2022",
+      "title": "USDA ARS Corvallis — FY2022 berry program report",
+      "url": "https://www.ars.usda.gov/research/project?accnNo=434214&fy=2022",
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T13:30:41.969217Z",
+      "company_ids": [
+        "company-usda"
+      ],
+      "berry_ids": [
+        "berry-blackberry",
+        "berry-raspberry",
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_program_report",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All seven named cultivars in the main Progress Report and Accomplishments. Repeated names are counted once; linked publications are a separate research scope.",
+      "limitations": "A historical annual report, not a complete or current USDA portfolio. Zodiac, Celestial, Thunderhead and Finnberry are tentative names in the FY2022 progress section; later wording on the same page describes releases. Chester is a comparator and UCD Royal Royce a genome-research subject, not USDA release assignments. FY2022 and the 2026 page modification are not publication dates. No current patents, traits, growing regions or breeder roles are approved.",
+      "names": [
+        {
+          "candidate_name": "Columbia Star",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Earlier release discussed in FY2022 · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Columbia+Star&berry=berry-blackberry"
+        },
+        {
+          "candidate_name": "Zodiac",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Tentative name in FY2022 progress; release discussed later · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Zodiac&berry=berry-blackberry"
+        },
+        {
+          "candidate_name": "Celestial",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Tentative name in FY2022 progress; release discussed later · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Celestial&berry=berry-blackberry"
+        },
+        {
+          "candidate_name": "Thunderhead",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Tentative name in FY2022 progress; release discussed later · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Thunderhead&berry=berry-blackberry"
+        },
+        {
+          "candidate_name": "Finnberry",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Tentative name in FY2022 progress; release discussed later · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Finnberry&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Chester",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Yield comparator; not a USDA release assignment · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Chester&berry=berry-blackberry"
+        },
+        {
+          "candidate_name": "UCD Royal Royce",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Genome-research subject; not a USDA release assignment · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=UCD+Royal+Royce&berry=berry-strawberry"
+        }
+      ],
+      "accounting": {
+        "observed_items": 14,
+        "exclusions": [
+          {
+            "label": "FaRR1",
+            "reason": "Genome assembly name, not a cultivar denomination."
+          },
+          {
+            "label": "Rubus idaeus",
+            "reason": "Wild species taxon, not a named cultivar."
+          },
+          {
+            "label": "R. parvifolius",
+            "reason": "Wild species taxon, not a named cultivar."
+          },
+          {
+            "label": "R. coreanus",
+            "reason": "Wild species taxon, not a named cultivar."
+          },
+          {
+            "label": "R. innominatus",
+            "reason": "Wild species taxon, not a named cultivar."
+          },
+          {
+            "label": "R. georgicus",
+            "reason": "Wild species taxon, not a named cultivar."
+          },
+          {
+            "label": "R. caucasicus",
+            "reason": "Wild species taxon, not a named cultivar."
+          }
+        ]
+      },
+      "companies": [
+        {
+          "entity_id": "company-usda",
+          "name": "United States Department of Agriculture",
+          "href": "/entities/company/company-usda"
+        }
+      ],
+      "accounting_view": {
+        "observed_items": 14,
+        "exclusions": [
+          {
+            "label": "FaRR1",
+            "reason": "Genome assembly name, not a cultivar denomination."
+          },
+          {
+            "label": "Rubus idaeus",
+            "reason": "Wild species taxon, not a named cultivar."
+          },
+          {
+            "label": "R. parvifolius",
+            "reason": "Wild species taxon, not a named cultivar."
+          },
+          {
+            "label": "R. coreanus",
+            "reason": "Wild species taxon, not a named cultivar."
+          },
+          {
+            "label": "R. innominatus",
+            "reason": "Wild species taxon, not a named cultivar."
+          },
+          {
+            "label": "R. georgicus",
+            "reason": "Wild species taxon, not a named cultivar."
+          },
+          {
+            "label": "R. caucasicus",
+            "reason": "Wild species taxon, not a named cultivar."
+          }
+        ],
+        "accounted_items": 14,
+        "issues": []
+      },
+      "needs_follow_up": false,
+      "identity_issues": [],
+      "age_days": 0,
+      "freshness": "Checked recently",
+      "matched": 0,
+      "needs_review": 7,
+      "closed": 0,
+      "awaiting_catalog": 0
+    },
+    {
+      "id": "portfolio-uga-blueberry-program-history",
+      "title": "University of Georgia — blueberry breeding history",
+      "url": "https://plantbreeding.caes.uga.edu/about/cultivar-releases/uga-blueberry-breeding-program.html",
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T13:30:41.969217Z",
+      "company_ids": [
+        "breeding_program-university-of-georgia-blueberry"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "breeder_program_report",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 12 quoted cultivar or wild-selection labels in the main history: four release names and eight explicitly identified wild selections. Wild selections remain visible in exclusions, not imported as released cultivars.",
+      "limitations": "A program history, not a complete release list. The stated 39 cultivars refers specifically to NeSmith, not these four names or the full program lifetime. The linked licensing listing remains inaccessible. Historical years and photos are not a publication date or confirmed cultivar traits, acreage, current availability, rights or growing locations. Excluding wild selections from this release check does not reject them as germplasm or possible identities in other sources.",
+      "names": [
+        {
+          "candidate_name": "Tifblue",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Historical release · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Tifblue&berry=berry-blueberry"
+        },
+        {
+          "candidate_name": "Georgiagem",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Historical release · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Georgiagem&berry=berry-blueberry"
+        },
+        {
+          "candidate_name": "Brightwell",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Historical release · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Brightwell&berry=berry-blueberry"
+        },
+        {
+          "candidate_name": "Suziblue",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Historical release · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Suziblue&berry=berry-blueberry"
+        }
+      ],
+      "accounting": {
+        "observed_items": 12,
+        "exclusions": [
+          {
+            "label": "Ruby",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Black Giant",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Hagood",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Suwannee",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Clara",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Myers",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Ethel",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Walker",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          }
+        ]
+      },
+      "companies": [
+        {
+          "entity_id": "breeding_program-university-of-georgia-blueberry",
+          "name": "University of Georgia Blueberry Breeding Program",
+          "href": "/entities/breeding_program/breeding_program-university-of-georgia-blueberry"
+        }
+      ],
+      "accounting_view": {
+        "observed_items": 12,
+        "exclusions": [
+          {
+            "label": "Ruby",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Black Giant",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Hagood",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Suwannee",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Clara",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Myers",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Ethel",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          },
+          {
+            "label": "Walker",
+            "reason": "Identified as wild breeding material in this history, not a cultivar release here."
+          }
+        ],
+        "accounted_items": 12,
+        "issues": []
+      },
+      "needs_follow_up": false,
+      "identity_issues": [],
+      "age_days": 0,
+      "freshness": "Checked recently",
+      "matched": 0,
+      "needs_review": 4,
+      "closed": 0,
+      "awaiting_catalog": 0
+    },
+    {
+      "id": "portfolio-uga-blueberry-licensing-list-access-gap",
+      "title": "University of Georgia — linked blueberry licensing list",
+      "url": "https://georgiacultivars.com/cultivars/blueberries/",
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T13:30:41.969217Z",
+      "company_ids": [
+        "breeding_program-university-of-georgia-blueberry"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "breeder_program_report",
+      "capture_status": "unreadable",
+      "enumerated_scope": "No names captured. The official https://blueberrybreeding.uga.edu/varieties/ page links to this listing.",
+      "limitations": "On 2026-10-07 the web reader returned 502 and the native browser reported a certificate-name mismatch. No security warning was bypassed and no replacement URL was guessed. Accessible UGA history is recorded separately; it does not close this licensing-list gap.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "companies": [
+        {
+          "entity_id": "breeding_program-university-of-georgia-blueberry",
+          "name": "University of Georgia Blueberry Breeding Program",
+          "href": "/entities/breeding_program/breeding_program-university-of-georgia-blueberry"
+        }
+      ],
+      "accounting_view": {
+        "observed_items": 0,
+        "exclusions": [],
+        "accounted_items": 0,
+        "issues": []
+      },
+      "needs_follow_up": true,
+      "identity_issues": [],
+      "age_days": 0,
+      "freshness": "Attempted recently",
+      "matched": 0,
+      "needs_review": 0,
       "closed": 0,
       "awaiting_catalog": 0
     },
@@ -7035,6 +7574,7 @@
         "accounted_items": 12,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -7446,6 +7986,7 @@
         "accounted_items": 35,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -7581,6 +8122,7 @@
         }
       ],
       "accounting_view": null,
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -7688,6 +8230,7 @@
         }
       ],
       "accounting_view": null,
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -7780,6 +8323,7 @@
         }
       ],
       "accounting_view": null,
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -7948,6 +8492,7 @@
         "accounted_items": 9,
         "issues": []
       },
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -7995,6 +8540,7 @@
         }
       ],
       "accounting_view": null,
+      "needs_follow_up": false,
       "identity_issues": [],
       "age_days": 0,
       "freshness": "Checked recently",
@@ -8032,6 +8578,7 @@
         "portfolio-abz-9"
       ],
       "checked": true,
+      "has_source_gaps": true,
       "href": "/entities/company/company-abz-seeds"
     },
     {
@@ -8053,6 +8600,7 @@
         "portfolio-abb-other"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-advanced-berry-breeding"
     },
     {
@@ -8073,6 +8621,7 @@
       "resolution": "EXISTING_RELATIONSHIP",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-agroberries"
     },
     {
@@ -8094,6 +8643,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-angus-soft-fruits"
     },
     {
@@ -8110,6 +8660,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-australasian-plant-genetics"
     },
     {
@@ -8128,6 +8679,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-australian-strawberry-distributors"
     },
     {
@@ -8146,6 +8698,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-bayer"
     },
     {
@@ -8164,6 +8717,7 @@
       "resolution": "CONFIRMED_DUPLICATE",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-denning-blueberries"
     },
     {
@@ -8182,6 +8736,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-berries-del-oeste"
     },
     {
@@ -8205,6 +8760,7 @@
         "portfolio-fall-creek-blueberry"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-fall-creek-italia"
     },
     {
@@ -8224,6 +8780,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/brand/brand-berryum"
     },
     {
@@ -8243,6 +8800,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-biogea"
     },
     {
@@ -8263,6 +8821,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-black-venture-farm"
     },
     {
@@ -8281,6 +8840,7 @@
       "resolution": "EXISTING_ALIAS",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-california-berry-cultivars"
     },
     {
@@ -8302,6 +8862,7 @@
       "resolution": "EXISTING_ALIAS",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-california-giant-berry-farms"
     },
     {
@@ -8318,6 +8879,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-camposol"
     },
     {
@@ -8336,6 +8898,7 @@
       "resolution": "EXISTING_ALIAS",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-civ-italy"
     },
     {
@@ -8359,6 +8922,7 @@
         "portfolio-cornell-historical-release-2012"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/breeding_program/breeding_program-cornell-berry"
     },
     {
@@ -8377,6 +8941,7 @@
       "resolution": "EXISTING_ALIAS",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-costa-group-holdings"
     },
     {
@@ -8398,6 +8963,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-cuna-de-platero"
     },
     {
@@ -8419,6 +8985,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-eu-plants"
     },
     {
@@ -8439,6 +9006,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-expoberries"
     },
     {
@@ -8459,6 +9027,7 @@
         "portfolio-fall-creek-blueberry"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-fall-creek-farm-and-nursery"
     },
     {
@@ -8475,6 +9044,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-family-tree-farms"
     },
     {
@@ -8496,6 +9066,7 @@
         "portfolio-flevo-strawberry-older"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-flevo-berry"
     },
     {
@@ -8515,6 +9086,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-fresas-nuevos-materiales"
     },
     {
@@ -8535,6 +9107,7 @@
         "portfolio-fresh-forward-strawberry"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-fresh-forward"
     },
     {
@@ -8556,6 +9129,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-fresh-kampo"
     },
     {
@@ -8575,6 +9149,7 @@
       "resolution": "EXISTING_ALIAS",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-agrovision"
     },
     {
@@ -8594,6 +9169,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-g-berries"
     },
     {
@@ -8614,6 +9190,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-gem-pack-berries"
     },
     {
@@ -8628,6 +9205,7 @@
       "resolution": "EXCLUDED_WITH_REASON",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": ""
     },
     {
@@ -8649,6 +9227,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-grupo-heres"
     },
     {
@@ -8669,6 +9248,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-hansabred"
     },
     {
@@ -8693,6 +9273,7 @@
         "portfolio-hortifrut-blackberry"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-hortifrut"
     },
     {
@@ -8717,6 +9298,7 @@
         "portfolio-hortifrut-blackberry"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-hortifrut"
     },
     {
@@ -8735,6 +9317,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-inkas-berries"
     },
     {
@@ -8751,6 +9334,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-institute-of-botany-cas"
     },
     {
@@ -8769,6 +9353,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-iq-berries"
     },
     {
@@ -8777,8 +9362,8 @@
         "company-james-hutton-institute"
       ],
       "website": "https://www.hutton.ac.uk/",
-      "starting_url": "https://www.hutton.ac.uk/",
-      "starting_label": "Website ↗",
+      "starting_url": "https://www.hutton.ac.uk/scientific-services/improving-crop-production/breeding/raspberry-breeding/",
+      "starting_label": "Checked page ↗",
       "site_notes": [],
       "berry_ids": [
         "berry-blackberry",
@@ -8788,8 +9373,11 @@
       ],
       "berries": "Blackberry, Blueberry, Raspberry, Strawberry",
       "resolution": "ADDED_CANONICAL_ENTITY",
-      "sources": [],
-      "checked": false,
+      "sources": [
+        "portfolio-hutton-raspberry-program-highlights"
+      ],
+      "checked": true,
+      "has_source_gaps": true,
       "href": "/entities/company/company-james-hutton-institute"
     },
     {
@@ -8811,6 +9399,7 @@
         "portfolio-limgroup-hybrid"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-limgroup"
     },
     {
@@ -8825,6 +9414,7 @@
       "resolution": "EXCLUDED_WITH_REASON",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": ""
     },
     {
@@ -8844,6 +9434,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-marionnet"
     },
     {
@@ -8865,6 +9456,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-masia-ciscar"
     },
     {
@@ -8886,6 +9478,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-mattivi-group"
     },
     {
@@ -8904,6 +9497,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-miyoshi-group"
     },
     {
@@ -8923,6 +9517,7 @@
       "resolution": "EXISTING_RELATIONSHIP",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-mountain-blue-orchards"
     },
     {
@@ -8941,6 +9536,7 @@
       "resolution": "EXISTING_ALIAS",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-nc-state-university"
     },
     {
@@ -8957,6 +9553,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-niab"
     },
     {
@@ -8981,6 +9578,7 @@
         "portfolio-niwa-clones"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-niwa-berry-breeding"
     },
     {
@@ -8999,6 +9597,7 @@
       "resolution": "EXISTING_ALIAS",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-nova-siri-genetics"
     },
     {
@@ -9017,6 +9616,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-oishii"
     },
     {
@@ -9045,6 +9645,7 @@
         "portfolio-oregon-blueberry-products"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-oregon-blueberry"
     },
     {
@@ -9063,6 +9664,7 @@
       "resolution": "EXISTING_ALIAS",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/brand/brand-ozblu"
     },
     {
@@ -9084,6 +9686,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-pairwise"
     },
     {
@@ -9104,6 +9707,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-perfection-fresh"
     },
     {
@@ -9128,6 +9732,7 @@
         "portfolio-planasa-es-products"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-planasa"
     },
     {
@@ -9147,6 +9752,7 @@
       "resolution": "EXISTING_ALIAS",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-plant-sciences-genetics"
     },
     {
@@ -9165,6 +9771,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-queensland-government"
     },
     {
@@ -9186,6 +9793,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-rijk-zwaan"
     },
     {
@@ -9205,6 +9813,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-royakkers"
     },
     {
@@ -9223,6 +9832,7 @@
       "resolution": "EXISTING_ALIAS",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/breeding_program/breeding_program-atlantic-blue-royal-berries"
     },
     {
@@ -9244,6 +9854,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-sant-orsola"
     },
     {
@@ -9260,6 +9871,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-singrow"
     },
     {
@@ -9279,6 +9891,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-smart-berries"
     },
     {
@@ -9295,6 +9908,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-splendor-produce"
     },
     {
@@ -9314,6 +9928,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-sunbelle"
     },
     {
@@ -9330,6 +9945,7 @@
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-surexport"
     },
     {
@@ -9348,6 +9964,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-the-berry-collective"
     },
     {
@@ -9369,6 +9986,7 @@
         "portfolio-ucdavis-historical-timeline"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/breeding_program/breeding_program-uc-davis-strawberry"
     },
     {
@@ -9392,6 +10010,7 @@
         "portfolio-arkansas-current-blueberry"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-university-of-arkansas"
     },
     {
@@ -9413,6 +10032,7 @@
         "portfolio-uf-strawberry"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-university-of-florida"
     },
     {
@@ -9421,16 +10041,20 @@
         "breeding_program-university-of-georgia-blueberry"
       ],
       "website": "https://hort.caes.uga.edu/",
-      "starting_url": "https://hort.caes.uga.edu/",
-      "starting_label": "Website ↗",
+      "starting_url": "https://plantbreeding.caes.uga.edu/about/cultivar-releases/uga-blueberry-breeding-program.html",
+      "starting_label": "Checked page ↗",
       "site_notes": [],
       "berry_ids": [
         "berry-blueberry"
       ],
       "berries": "Blueberry",
       "resolution": "ADDED_CANONICAL_ENTITY",
-      "sources": [],
-      "checked": false,
+      "sources": [
+        "portfolio-uga-blueberry-program-history",
+        "portfolio-uga-blueberry-licensing-list-access-gap"
+      ],
+      "checked": true,
+      "has_source_gaps": true,
       "href": "/entities/breeding_program/breeding_program-university-of-georgia-blueberry"
     },
     {
@@ -9439,14 +10063,21 @@
         "company-usda"
       ],
       "website": "https://www.usda.gov/",
-      "starting_url": "https://www.usda.gov/",
-      "starting_label": "Website ↗",
+      "starting_url": "https://www.ars.usda.gov/research/project?accnNo=434214&fy=2022",
+      "starting_label": "Checked page ↗",
       "site_notes": [],
-      "berry_ids": [],
-      "berries": "Scope needs checking",
+      "berry_ids": [
+        "berry-blackberry",
+        "berry-raspberry",
+        "berry-strawberry"
+      ],
+      "berries": "Blackberry, Raspberry, Strawberry",
       "resolution": "ADDED_CANONICAL_ENTITY",
-      "sources": [],
-      "checked": false,
+      "sources": [
+        "portfolio-usda-corvallis-fy2022"
+      ],
+      "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-usda"
     },
     {
@@ -9469,6 +10100,7 @@
         "portfolio-vissers-raspberry"
       ],
       "checked": true,
+      "has_source_gaps": false,
       "href": "/entities/company/company-vissers-plant-innovators"
     },
     {
@@ -9487,6 +10119,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-well-pict"
     },
     {
@@ -9506,6 +10139,7 @@
       "resolution": "EXISTING_EXACT",
       "sources": [],
       "checked": false,
+      "has_source_gaps": false,
       "href": "/entities/company/company-wish-farms"
     }
   ],
@@ -9514,38 +10148,39 @@
     "q": ""
   },
   "summary": {
-    "source_sections": 39,
-    "readable_sections": 38,
-    "unreadable_sections": 1,
-    "names": 456,
+    "source_sections": 43,
+    "readable_sections": 41,
+    "unreadable_sections": 2,
+    "follow_up_sections": 3,
+    "names": 476,
     "catalog_matches": 33,
-    "needs_review": 423,
+    "needs_review": 443,
     "registry_entries": 77,
-    "registry_entries_checked": 17
+    "registry_entries_checked": 20
   },
   "by_berry": [
     {
       "id": "berry-blueberry",
       "label": "Blueberry",
-      "names": 129,
+      "names": 133,
       "matched": 17
     },
     {
       "id": "berry-strawberry",
       "label": "Strawberry",
-      "names": 219,
+      "names": 220,
       "matched": 0
     },
     {
       "id": "berry-raspberry",
       "label": "Raspberry",
-      "names": 66,
+      "names": 76,
       "matched": 15
     },
     {
       "id": "berry-blackberry",
       "label": "Blackberry",
-      "names": 42,
+      "names": 47,
       "matched": 1
     }
   ],
@@ -9562,8 +10197,8 @@
   },
   "candidate_counts": {
     "stored_source_candidates": 63,
-    "combined_candidates": 383,
-    "additional_primary_portfolio_candidates": 320
+    "combined_candidates": 399,
+    "additional_primary_portfolio_candidates": 336
   },
   "scope": "Stored primary-page name observations only. No private inbox or human review notes. No global completeness score."
 }
