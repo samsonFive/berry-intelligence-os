@@ -38,6 +38,15 @@
     event.preventDefault();try{status.textContent='Validating import…';const r=await post('/api/social/import',JSON.parse(new FormData(event.target).get('payload')));status.textContent='Uploaded '+r.ids.length+' posts. Choose Uploaded data to see them.';}catch(e){status.textContent=e.message;}
   });
   document.addEventListener('click',async event=>{
+    const imageButton=event.target.closest('[data-social-image]');
+    if(imageButton){
+      const image=document.createElement('img');image.alt='Original source '+(imageButton.dataset.kind||'image');
+      image.referrerPolicy='no-referrer';image.loading='lazy';
+      const status=document.createElement('small');status.setAttribute('role','status');status.textContent='Loading source image…';
+      image.addEventListener('load',()=>{status.textContent='Source image';imageButton.hidden=true;});
+      image.addEventListener('error',()=>{image.remove();status.textContent='Image unavailable · open Source';imageButton.disabled=true;});
+      imageButton.disabled=true;imageButton.after(image,status);image.src=imageButton.dataset.socialImage;return;
+    }
     const b=event.target.closest('[data-social-handoff]');if(!b)return;const s=b.parentElement.querySelector('[data-handoff-status]');
     try{const r=await post('/api/social/'+encodeURIComponent(b.dataset.socialHandoff)+'/handoff',{});const a=document.createElement('a');a.href=r.review_url;a.textContent='Open existing publication review →';s.replaceChildren(a);}catch(e){s.textContent=e.message;}
   });

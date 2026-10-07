@@ -1,0 +1,83 @@
+# SociaVault multi-platform trial — 2026-10-07
+
+**$0 cash; 24 of 50 one-time free credits consumed; 26 remaining. No proven global winner yet.** The user supplied an existing account key. No account was created, paid credits purchased, application submitted, vendor contacted, production deployment made, or collection scheduled. This is a bounded trial through the existing social pipeline, not a production connector or a guarantee of ongoing free monitoring.
+
+## Measured collection
+
+The [predeclared manifest](../../benchmarks/social-bakeoff/sociavault-manifest.json) assigns all 20 existing semantic cases once across seven platforms. The UTC interval is September 7–October 7, 2026, anchored before collection. Each request used one page, no retries, a two-megabyte response ceiling, ten retained posts or twenty retained comments. Some APIs return more than ten items; client intake is capped, not provider output. Instagram hashtag substitution loses retailer/phrase intent; Pinterest has no date filter; YouTube `this_month` and indexed Instagram/LinkedIn dates do not guarantee the exact interval. Unknown publication dates remain unknown. Known-URL enrichment is separately reported and may be older.
+
+| Search platform | Queries | Successful responses | Nonempty queries | Retained records before cross-query dedupe | What was actually demonstrated |
+|---|---:|---:|---:|---:|---|
+| Reddit | 3 | 3 | 2 | 14 | English and Spanish-target search returned English text; Japanese-target search returned zero |
+| TikTok | 3 | 1 | 1 | 10 | One English-target keyword response; Portuguese and Kroger-intent responses exceeded the byte ceiling |
+| X | 3 | 3 | 2 | 12 | Phone exclusion challenge and Chinese posts/replies; Spanish-target search returned zero |
+| Instagram | 3 | 3 | 3 | 24 | Public indexed hashtag results, including native IDs, captions and thumbnails; not general phrase search |
+| Pinterest | 3 | 3 | 3 | 28 | Keyword pins and original image references; many results older than the interval |
+| YouTube | 3 | 3 | 3 | 30 | Video/short metadata and some thumbnails; shorts often lack dates |
+| LinkedIn | 2 | 0 | 0 | 0 | Initial wrong route returned 404; corrected documented `/linkedin/search/posts` also returned 404. Blocked, not zero conversations |
+
+Across discovery: 16/20 successful responses, 14 nonempty queries, two successful zeros, four blockers. 118 retained rows become **117 unique discovery records: 114 posts and three replies**. Raw returned items and retained counts are separate in the [content-free measured summary](../../artifacts/social-blueberry/sociavault-trial-summary.json). 72 retained rows have dates in the interval, 25 are older and 21 are undated, before dedupe. This is not 117 relevant blueberry consumer opinions.
+
+Five additional endpoint probes used four distinct URLs: Instagram post detail and comments, YouTube comments, TikTok comments, Reddit comments. They retained 36 unique records (two contextual posts, 34 comments); overlap with discovery produces **152 unique records in the isolated store**. Platform totals: Reddit 30, TikTok 10, X 12, Instagram 38, Pinterest 28, YouTube 34. Instagram returned 15 comments, YouTube four, Reddit 15 including five replies; TikTok returned a successful zero. Comments shown by engagement counters need not be publicly retrievable. Native parent IDs are retained; no invented native identity is accepted.
+
+A real uncached second Reddit search preserved **7/7 native IDs**. Re-ingesting all collected records twice left 152 unique observations. This demonstrates one repeat and local restart/dedupe, not provider reliability across all sources.
+
+## Language, quality and reference limits
+
+| Query language | Assigned queries | Successful responses | Retained discovery rows | Original-language evidence |
+|---|---:|---:|---:|---|
+| EN | 8 | 6 | 55 | Includes phone/noise/cultivar/retailer challenges; one TikTok record tagged zh-Hans |
+| ES | 4 | 4 | 22 | Spanish-target Reddit returned English; captions can be empty; Spanish precision ungraded |
+| PT | 3 | 2 | 20 | TikTok byte blocker; Pinterest results old; one Portuguese source inspected for a draft translation |
+| ZH | 2 | 1 | 2 | X supplied two zh-tagged texts; one breakfast reply and one noisy fan text; LinkedIn blocked |
+| JA | 3 | 3 | 19 | YouTube Japanese titles and Instagram strawberry hashtag; Reddit zero; one Japanese title inspected |
+
+Query language, search market and provider language are different fields. Before local inspection the 117 unique discovery records had language tags en 19, und 95, zh 2 and zh-Hans 1. Three exact-source-hash-linked English translations were drafted locally in this session (ZH, JA, PT), at no additional API cost. Two unknown language tags were identified by assistant inspection. These translations are explicitly machine drafts, not independently reviewed translations or a five-language evaluation pass. Untranslated non-English posts remain labeled; unknown language is never assumed English. Original text and translation provenance remain available in the drawer.
+
+Field **presence**, not correctness, is 117/117 native IDs and canonical URLs, 96/117 publication dates, 110/117 nonempty texts. The measured JSON supplies Wilson intervals. A language tag of `und` does not establish completeness. Independent discovery precision is **0/0 reviewed, unavailable**; useful yield and weighted live score remain unavailable. The original synthetic evaluation remains separate: 31 invented cases, 202/207 checks, five known negation failures. No synthetic result proves this provider's accuracy.
+
+Live inspection exposed additional extraction errors: a mixed-food Chinese sentence assigns cashew crunch and banana softness to blueberry texture; a texture question can receive a positive assertion label; perfume, pastries and bagels can match blueberry words without useful fruit-quality evidence. These are qualitative failure examples, not a blind precision estimate. They block claiming the 80%-precision target, semantic fidelity or no known cross-entity/aspect fabrication. Geography stays unknown unless explicitly evidenced; no regional coverage is inferred from query targets.
+
+Only one independently located reference thread was fetched. It is a 2024 Costco Wildroots coastal berry trail-mix discussion, not fresh-blueberry cultivar evidence. The other enrichment URLs came from this provider's discoveries and cannot establish independent known-item discovery coverage. The required ≥10 applicable references / 90% fetch target remains unmet. Named cultivar on packaging, distinct purchase/origin countries, valid fresh-blueberry found-at versus wish comparisons and independent non-English regional coverage remain unproven live.
+
+## Original images and compact UI
+
+The sheet shows an available English translation first. Original wording appears on hover or keyboard focus, and expands on tap/Enter; long text is clamped to four lines with inline expansion. Routine dates use MM/DD/YY. Source images can be loaded explicitly inside the sheet or existing evidence drawer; their URLs are escaped, validated HTTPS references, loaded by the browser with no-referrer, and never fetched by an arbitrary server-side URL loader. Avatars are excluded. Existing unavailable/deleted states suppress loading; an image load failure says unavailable and keeps a source link.
+
+There are 77 discovery and two reference media references, **zero downloaded media-object bytes**, and no verified permanent storage permission. Four individually tested references rendered in-browser: Instagram reel thumbnail 720×1280, TikTok thumbnail 500×800, Pinterest source image 2048×2048, and an actual Reddit comment-attached image 960×804. This is **4/4 sampled rendering attempts**, not all-reference availability. The comment image's identity came from explicit comment `body_html` `<img>` markup, not an avatar or inferred parent image. It depicts the older trail-mix thread, not a fresh-blueberry retail finding. No full original-post screenshot endpoint was demonstrated. Thumbnails, attached photos and whole-page screenshots are distinct capabilities. Media expiry and provider deletion refresh remain untested live; local removal propagation remains tested separately.
+
+Screenshots containing real returned content remain private under local review outputs, not public git. The public `translation-first-demo.jpg` screenshot is invented sample content. The trial preview identifies real one-off collection and offers no ongoing-monitoring claim. Its 45 blueberry-keyword-selected records include noise, older posts and undated posts; all-time selection is deliberate for inspection.
+
+## Current primary-source access and costs
+
+SociaVault advertises 25+ supported platforms/services. The [official endpoint index](https://docs.sociavault.com/llms.txt) includes social, advertising, shopping and other services. This is broader than TikTok, but does not prove 25 equivalent keyword monitors. Its current index does not document Weibo, Douyin, RED or Bilibili. Chinese X text is not access to those platforms. The [15-platform direct-access matrix](SOCIAL-SOURCE-ACCESS-MATRIX.md) remains separate from this vendor-mediated access.
+
+All selected tasks authenticate using `X-API-Key` against `https://api.sociavault.com/v1`. Current endpoint documentation lists one credit per selected call; actual successful calls observed one credit. HTTP404 responses consumed zero; two oversized TikTok responses consumed credits without retained content. 26 reserved attempts consumed 24 credits. Account readback verified a free account and no purchased credit pack before metered calls. A durable pre-call ledger, 30-attempt ceiling, 20% initial-balance reserve, per-call balance checks, no retries and price-mismatch stop enforce the bounded trial.
+
+| Task / official documentation | Supported method and history | Trial status / blocker |
+|---|---|---|
+| [Reddit search](https://docs.sociavault.com/api-reference/reddit/search), [post comments](https://docs.sociavault.com/api-reference/reddit/post-comments) | Keyword timeframe/sort; known-URL comments and nested replies | Partial live-tested; one-page intake; image attached to one comment demonstrated |
+| [TikTok keyword search](https://docs.sociavault.com/api-reference/tiktok/search-keyword), [comments](https://docs.sociavault.com/api-reference/tiktok/comments) | Keyword/date/sort; known video comments | Partial live-tested; two oversized responses; comments sample zero |
+| [Instagram hashtag search](https://docs.sociavault.com/api-reference/instagram/search-hashtag), [post detail](https://docs.sociavault.com/api-reference/instagram/post-info), [comments](https://docs.sociavault.com/api-reference/instagram/comments) | Indexed hashtags/date; known post caption/media/comments | Partial live-tested; index age is not post age; no general phrase or completeness proof |
+| [X search](https://docs.sociavault.com/api-reference/twitter/search) | Native query operators/latest; text/replies/media metadata | Partial live-tested; sparse Chinese sample; no historical-completeness proof |
+| [YouTube search](https://docs.sociavault.com/api-reference/youtube/search), [comments](https://docs.sociavault.com/api-reference/youtube/video-comments) | Video/short/live metadata, approximate date filter, known video comments | Partial live-tested; some missing dates; not full transcripts or all comments |
+| [Pinterest search](https://docs.sociavault.com/api-reference/pinterest/search) | Keyword pins/image URLs; no date parameter | Partial live-tested; substantial stale results |
+| [LinkedIn search](https://docs.sociavault.com/api-reference/linkedin/search-posts) | Documented indexed public-post route; date filter | Access-pending: documented route returned404 |
+| [Facebook profile posts](https://docs.sociavault.com/api-reference/facebook/profile-posts) | Known public profile/page, documented up to three posts | Not tested; not general keyword monitoring |
+| [Threads post](https://docs.sociavault.com/api-reference/threads/post) | Known-URL public post | Not tested; no general phrase-search proof |
+
+Pricing rechecked October7: [official pricing](https://sociavault.com/pricing) and [account credits documentation](https://docs.sociavault.com/api-reference/credits) describe **one-time prepaid packs**, not monthly subscriptions: Starter $29/6,000 credits; Growth $79/20,000; Pro $199/75,000; Enterprise $399/200,000. Free50 is one-time, no card, not a recurring allowance. Endpoint/task costs and public-history coverage need rechecking before any future purchase. API access alone does not resolve source-specific retention, redisplay, deletion obligations or permitted use. These remain a hard gate for unattended operation.
+
+Optional scenario, not executed: assume ten discovered posts/query, 10% enriched (one known-post/comments call per selected post), up to twenty comments, all chosen endpoints one credit, no retries/media downloads/transcript AI. Twenty queries/day →40credits/day→1,200/month; 100/day→200/day→6,000/month. Starter replacement-credit value is approximately $5.80/month and $29/month respectively, but minimum purchase is the one-time $29 pack, not a $5.80 subscription. This trial's24credits have about $0.116 replacement value at that pack rate, versus **$0 paid**. Actual low yield, index gaps, repeated reads, extra parent/detail calls or more expensive tasks change these estimates. Storage, analysis, transfer and commercial rights are excluded, not assumed free at scale. There is no sustainable all-platform $0 service demonstrated.
+
+## Recommendation, setup and continuation
+
+Continue with the existing SociaVault account as a **bounded supplement** for Instagram/TikTok public discovery plus Reddit and YouTube URL enrichment; treat X as a small demonstrated sample and Pinterest as partly stale image discovery. No additional account is needed to inspect this saved trial. The remaining26credits are deliberately preserved. Do not buy yet. Direct YouTube still needs an enabled existing project/API key and verified free quota; Bluesky search remains403, its stream is present-time transport only; RSS remains supplementary news titles. Apify's free account is the next optional setup for selected unsupported/China tasks only after verifying balance, Actor build and task rates. Enterprise demos need a source-specific sample API/export and rights answer before a trial is useful; no vendor contact has occurred.
+
+Next review scope: independently label≥30 discovery results across sources/languages, assemble≥10 independently discovered applicable references, fix cross-food aspect attribution/questions/noise before scoring, inspect regional and packaging evidence, confirm source-specific use/redisplay/deletion conditions, then implement a bounded production connector behind the established job/health controls. Keep the vendor normalizer behind normalized evidence contracts to permit replacement. No production scheduling, graph parallelism or post-gate expansion is included.
+
+## Local replay, preview and rollback
+
+`python scripts/social_sociavault_bakeoff.py` writes/reads the offline plan only. Live calls require explicit `--live --key-file <private-file>`; never put the key value in command arguments. Existing failed attempts are not retried on restart. Do not rerun collection merely to reproduce the report. `python scripts/report_sociavault_bakeoff.py` replays private saved responses through the same ingestion/extraction path, then `python scripts/preview_social_sociavault.py` serves localhost18345 with polling disabled and the isolated trial store. Private responses and draft translations are deliberately absent from public git, so another checkout cannot fabricate this live preview. Without those files use the clearly labeled sample preview described in the gate report.
+
+Trial SQLite and raw responses are isolated under ignored `inbox/social-bakeoff/sociavault-multiplatform-2026-10-07/`. No canonical registry, landscape contracts, production database, service credentials or deployment config is migrated. Stop the localhost preview and revert this additive PR commit to roll back this increment; keep the earlier gate migration/rollback notes for the wider slice. Preserve/delete private trial content according to review/retention decisions rather than silently copying it into production. Existing dossier/briefing proposals still require review; automatic canonical assembly, published-briefing retraction and persisted watch profiles remain unmet as recorded in TD117. Stop at the blueberry gate for user feedback.

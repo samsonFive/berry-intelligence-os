@@ -198,3 +198,8 @@ No subscriptions, paid collection, trials or access applications were activated.
 - **Blocker:** No authorized target forum/retailer feed configured; discovery via search engine is supplementary only
 - **Verification:** read current primary documentation
 - **Official documentation:** [Source 1](https://docs.discourse.org/)
+
+
+## October 7 follow-up: translation-first UI and actual SociaVault trial
+
+The [multi-platform measured trial](SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md) supersedes earlier statements that no SociaVault key/account or live social sample was available. Actual bounded discovery returned content from six platforms; 24 one-time free credits consumed, 26 remaining, $0 paid. LinkedIn is blocked and two TikTok responses exceeded the byte ceiling. Original images can be loaded explicitly; translation-first text keeps original wording on hover/focus/tap. Production scheduling, source-specific retention/redisplay permission, independent accuracy/global coverage, automatic dossier/briefing assembly and published dependency retraction remain unproven or unmet. The isolated preview is localhost18345; public git contains counts/manifests and invented demo screenshots, not real raw posts. No merge/deployment occurred.

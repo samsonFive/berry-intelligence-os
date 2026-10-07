@@ -114,3 +114,8 @@ Updated Landscape plus canonical promotion tests: **61 passed** (45.65s). CI det
 Two additional targeted checks passed for fixture-excluded canonical dossier/context links and literal media-field locator/removal behavior. Total social coverage:48 earlier focused checks +2 new targeted checks; final CI covers all50 together.
 
 Final browser regression: a zero-count heatmap cell now encodes `drill=none`; reload preserves0 visible records instead of restoring all. JavaScript syntax passed after this correction.
+
+
+## October 7 follow-up: translation-first UI and actual SociaVault trial
+
+The [multi-platform measured trial](SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md) supersedes earlier statements that no SociaVault key/account or live social sample was available. Actual bounded discovery returned content from six platforms; 24 one-time free credits consumed, 26 remaining, $0 paid. LinkedIn is blocked and two TikTok responses exceeded the byte ceiling. Original images can be loaded explicitly; translation-first text keeps original wording on hover/focus/tap. Production scheduling, source-specific retention/redisplay permission, independent accuracy/global coverage, automatic dossier/briefing assembly and published dependency retraction remain unproven or unmet. The isolated preview is localhost18345; public git contains counts/manifests and invented demo screenshots, not real raw posts. No merge/deployment occurred.

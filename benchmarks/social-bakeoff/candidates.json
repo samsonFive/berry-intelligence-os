@@ -1,20 +1,144 @@
 {
-  "as_of":"2026-10-07", "claims_are_not_measurements":true,
-  "candidates":[
-    {"id":"bluesky-search","platform":"bluesky","task":"keyword search + thread","state":"blocked","official":"https://docs.bsky.app/docs/api/app-bsky-feed-search-posts","blocker":"Public search returned HTTP 403; no access bypass. Thread path implemented, not live-proven."},
-    {"id":"bluesky-jetstream","platform":"bluesky","task":"present-time tail","state":"live-tested","official":"https://bsky.network/docs/jetstream/","blocker":"Transport connected; initial 30-second sample yielded no blueberry events. Not 30-day search or useful-monitor proof."},
-    {"id":"youtube","platform":"youtube","task":"search/comments/replies","state":"blocked","official":"https://developers.google.com/youtube/v3/docs","blocker":"BIOS_SOCIAL_YOUTUBE_KEY absent. Existing project/API enablement, no billing activation, actual quota verification required."},
-    {"id":"google-news-rss","platform":"news","task":"supplementary title discovery","state":"not-tested","official":"https://news.google.com/","blocker":"Undocumented RSS service contract; best effort only, no social text/comments/media proof."},
-    {"id":"apify-instagram","actor":"apify/instagram-scraper","platform":"instagram","task":"hashtag/search/post/carousel","state":"documented","official":"https://apify.com/apify/instagram-scraper/input-schema","listed_starting_price":"$1.50/1000 results; task event rates/ancillary costs need account verification","blocker":"No APIFY_TOKEN or actual free-plan balance/billing evidence; input/build/rates must be pinned before launch."},
-    {"id":"apify-instagram-comments","actor":"apify/instagram-comment-scraper","platform":"instagram","task":"supplied-post comments","state":"documented","official":"https://apify.com/apify/instagram-comment-scraper","blocker":"No verified Apify free account. Post comments/replies claim is not attached-comment-image proof."},
-    {"id":"apify-tiktok","actor":"clockworks/tiktok-scraper","platform":"tiktok","task":"keyword/hashtag/post media","state":"documented","official":"https://apify.com/clockworks/tiktok-scraper/input-schema","blocker":"No verified free account; pay-per-event task rates must be read before capped launch."},
-    {"id":"sociavault","platform":"multi-Western","task":"keyword search + supplied post/comments/replies","state":"documented","official":"https://docs.sociavault.com/","listed_trial":"50 one-time credits, no card (vendor pricing claim)","blocker":"SOCIAVAULT_API_KEY absent; actual GET /v1/credits and no-card/free-only billing verification plus endpoint-specific maximum credits required. Published API index does not list China sources."},
-    {"id":"apify-weibo","actor":"atomus/weibo-scraper","platform":"weibo","task":"keyword/post/comments","state":"documented","official":"https://apify.com/atomus/weibo-scraper","listed_starting_price":"$16/1000 post records; per-mode minima apply","maintenance":"Community; modified 7 days before inspection; 6 monthly active users at inspection; no quality inference","blocker":"No verified free account; platform terms/redisplay rights and actual output not verified."},
-    {"id":"apify-douyin","actor":"atomus/douyin-scraper","platform":"douyin","task":"keyword/video/comments","state":"documented","official":"https://apify.com/atomus/douyin-scraper","listed_starting_price":"$5/1000 video search results; README contains differing $0.002 minimum, use task pricing not headline","maintenance":"Community; modified 7 days before inspection","blocker":"No verified free account; not TikTok access; media expiry/download/rights claims unproven."},
-    {"id":"apify-red","actor":"atomus/xiaohongshu-scraper","platform":"red","task":"keyword/note/comments","state":"documented","official":"https://apify.com/atomus/xiaohongshu-scraper","listed_starting_price":"$16/1000 notes; per-mode rates/minima need verification","maintenance":"Community; modified 7 days before inspection","blocker":"No verified free account; no-cookie claim does not establish permission or working keyword discovery."},
-    {"id":"apify-bilibili","actor":"atomus/bilibili-scraper","platform":"bilibili","task":"keyword/video/comments/danmaku","state":"documented","official":"https://apify.com/atomus/bilibili-scraper","listed_starting_price":"$8/1000 videos; per-mode rates need verification","maintenance":"Community; modified 5 days before inspection","blocker":"No verified free account; danmaku is not threaded comment imagery; platform rights need review."},
-    {"id":"talkwalker","platform":"multi","task":"enterprise search/export","state":"documented","official":"https://developer.talkwalker.com/docs/getting-started/api-restrictions","blocker":"No trial/API entitlement. Several social sources allow aggregates but not raw text export; X richer data paid entitlement. China raw export restricted."},
-    {"id":"brandwatch","platform":"multi","task":"enterprise consumer research export","state":"documented","official":"https://developers.brandwatch.com/docs/data-restrictions","blocker":"No trial/API entitlement. X rehydration required; LinkedIn text/snippets absent; news export excerpt limits. Confirm source-specific raw text/media permissions."},
-    {"id":"mention","platform":"multi","task":"enterprise monitoring/API","state":"documented","official":"https://mention.com/en/pricing/","blocker":"Current Company offer is demo-led; API and history paid add-ons, no verified no-card free API trial."}
+  "as_of": "2026-10-07",
+  "claims_are_not_measurements": true,
+  "candidates": [
+    {
+      "id": "bluesky-search",
+      "platform": "bluesky",
+      "task": "keyword search + thread",
+      "state": "blocked",
+      "official": "https://docs.bsky.app/docs/api/app-bsky-feed-search-posts",
+      "blocker": "Public search returned HTTP 403; no access bypass. Thread path implemented, not live-proven."
+    },
+    {
+      "id": "bluesky-jetstream",
+      "platform": "bluesky",
+      "task": "present-time tail",
+      "state": "live-tested",
+      "official": "https://bsky.network/docs/jetstream/",
+      "blocker": "Transport connected; initial 30-second sample yielded no blueberry events. Not 30-day search or useful-monitor proof."
+    },
+    {
+      "id": "youtube",
+      "platform": "youtube",
+      "task": "search/comments/replies",
+      "state": "blocked",
+      "official": "https://developers.google.com/youtube/v3/docs",
+      "blocker": "BIOS_SOCIAL_YOUTUBE_KEY absent. Existing project/API enablement, no billing activation, actual quota verification required."
+    },
+    {
+      "id": "google-news-rss",
+      "platform": "news",
+      "task": "supplementary title discovery",
+      "state": "not-tested",
+      "official": "https://news.google.com/",
+      "blocker": "Undocumented RSS service contract; best effort only, no social text/comments/media proof."
+    },
+    {
+      "id": "apify-instagram",
+      "actor": "apify/instagram-scraper",
+      "platform": "instagram",
+      "task": "hashtag/search/post/carousel",
+      "state": "documented",
+      "official": "https://apify.com/apify/instagram-scraper/input-schema",
+      "listed_starting_price": "$1.50/1000 results; task event rates/ancillary costs need account verification",
+      "blocker": "No APIFY_TOKEN or actual free-plan balance/billing evidence; input/build/rates must be pinned before launch."
+    },
+    {
+      "id": "apify-instagram-comments",
+      "actor": "apify/instagram-comment-scraper",
+      "platform": "instagram",
+      "task": "supplied-post comments",
+      "state": "documented",
+      "official": "https://apify.com/apify/instagram-comment-scraper",
+      "blocker": "No verified Apify free account. Post comments/replies claim is not attached-comment-image proof."
+    },
+    {
+      "id": "apify-tiktok",
+      "actor": "clockworks/tiktok-scraper",
+      "platform": "tiktok",
+      "task": "keyword/hashtag/post media",
+      "state": "documented",
+      "official": "https://apify.com/clockworks/tiktok-scraper/input-schema",
+      "blocker": "No verified free account; pay-per-event task rates must be read before capped launch."
+    },
+    {
+      "id": "sociavault",
+      "platform": "multi-Western",
+      "task": "six-platform discovery and known-post/comments trial",
+      "state": "partial-live-tested",
+      "official": "https://docs.sociavault.com/",
+      "listed_trial": "Actual existing free account: 50 initial credits, 24 consumed, 26 remaining; $0 cash",
+      "blocker": "LinkedIn documented route404; two TikTok byte-ceiling failures; independent precision/rights/deletion/global coverage gates unmet. One-time credits, no sustainable free claim.",
+      "report": "docs/v2/SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md"
+    },
+    {
+      "id": "apify-weibo",
+      "actor": "atomus/weibo-scraper",
+      "platform": "weibo",
+      "task": "keyword/post/comments",
+      "state": "documented",
+      "official": "https://apify.com/atomus/weibo-scraper",
+      "listed_starting_price": "$16/1000 post records; per-mode minima apply",
+      "maintenance": "Community; modified 7 days before inspection; 6 monthly active users at inspection; no quality inference",
+      "blocker": "No verified free account; platform terms/redisplay rights and actual output not verified."
+    },
+    {
+      "id": "apify-douyin",
+      "actor": "atomus/douyin-scraper",
+      "platform": "douyin",
+      "task": "keyword/video/comments",
+      "state": "documented",
+      "official": "https://apify.com/atomus/douyin-scraper",
+      "listed_starting_price": "$5/1000 video search results; README contains differing $0.002 minimum, use task pricing not headline",
+      "maintenance": "Community; modified 7 days before inspection",
+      "blocker": "No verified free account; not TikTok access; media expiry/download/rights claims unproven."
+    },
+    {
+      "id": "apify-red",
+      "actor": "atomus/xiaohongshu-scraper",
+      "platform": "red",
+      "task": "keyword/note/comments",
+      "state": "documented",
+      "official": "https://apify.com/atomus/xiaohongshu-scraper",
+      "listed_starting_price": "$16/1000 notes; per-mode rates/minima need verification",
+      "maintenance": "Community; modified 7 days before inspection",
+      "blocker": "No verified free account; no-cookie claim does not establish permission or working keyword discovery."
+    },
+    {
+      "id": "apify-bilibili",
+      "actor": "atomus/bilibili-scraper",
+      "platform": "bilibili",
+      "task": "keyword/video/comments/danmaku",
+      "state": "documented",
+      "official": "https://apify.com/atomus/bilibili-scraper",
+      "listed_starting_price": "$8/1000 videos; per-mode rates need verification",
+      "maintenance": "Community; modified 5 days before inspection",
+      "blocker": "No verified free account; danmaku is not threaded comment imagery; platform rights need review."
+    },
+    {
+      "id": "talkwalker",
+      "platform": "multi",
+      "task": "enterprise search/export",
+      "state": "documented",
+      "official": "https://developer.talkwalker.com/docs/getting-started/api-restrictions",
+      "blocker": "No trial/API entitlement. Several social sources allow aggregates but not raw text export; X richer data paid entitlement. China raw export restricted."
+    },
+    {
+      "id": "brandwatch",
+      "platform": "multi",
+      "task": "enterprise consumer research export",
+      "state": "documented",
+      "official": "https://developers.brandwatch.com/docs/data-restrictions",
+      "blocker": "No trial/API entitlement. X rehydration required; LinkedIn text/snippets absent; news export excerpt limits. Confirm source-specific raw text/media permissions."
+    },
+    {
+      "id": "mention",
+      "platform": "multi",
+      "task": "enterprise monitoring/API",
+      "state": "documented",
+      "official": "https://mention.com/en/pricing/",
+      "blocker": "Current Company offer is demo-led; API and history paid add-ons, no verified no-card free API trial."
+    }
   ]
 }

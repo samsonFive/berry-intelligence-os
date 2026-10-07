@@ -45,7 +45,8 @@ def test_dense_post_sheet_full_original_translation_dates_and_roles(client):
     assert 'social-post-grid' in page and '10/01/26' in page
     assert 'data-sort-value="2026-10-' in page
     assert 'Encontré arándanos en Costco; grande y crujiente pero insípido.' in page
-    assert 'EN translation' in page and 'Purchased in' in page
+    assert 'social-original-hover' in page and 'ES original' in page
+    assert 'Purchased in' in page
     assert 'value="consumer" selected' in page
     assert 'Inspect this cell' not in page and '>FIXTURE<' not in page
 

@@ -1,5 +1,6 @@
 """Analyst-only workspace. Reads never collect; mutations validate origin/size."""
 import json
+import os
 from pathlib import Path
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
@@ -39,7 +40,7 @@ def page(request:Request):
     # Existing geography boundary contract, no second geocoder or explorer.
     map_locator=overview({'lanes':[]})
     entities=sorted((e for e in main.all_entities() if e.get('entity_type') in ('company','variety')),key=lambda e:e.get('name',e['id']).casefold())
-    return main.templates.TemplateResponse(request,'social.html',{'authoring_mode':True,'bundle':b,'href':href,'views':VIEWS,'platforms':PLATFORMS,'map_locator':map_locator,'social_entities':entities},headers={'Cache-Control':'private, no-store'})
+    return main.templates.TemplateResponse(request,'social.html',{'authoring_mode':True,'bundle':b,'href':href,'views':VIEWS,'platforms':PLATFORMS,'map_locator':map_locator,'social_entities':entities,'trial_preview':os.environ.get('BIOS_SOCIAL_TRIAL_PREVIEW')=='true'},headers={'Cache-Control':'private, no-store'})
 
 @router.get('/api/social')
 def api(request:Request):
