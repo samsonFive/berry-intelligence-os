@@ -3,7 +3,7 @@
 {% block head_extra %}<link rel="stylesheet" href="/static/social.css?v=8">{% endblock %}
 {% block content %}
 {% set f=bundle.filters %}
-{% set berry_labels={'berry-blueberry':'Blueberries','berry-strawberry':'Strawberries','berry-raspberry':'Raspberries','berry-blackberry':'Blackberries'} %}
+{% set berry_labels={'all':'All berries','berry-blueberry':'Blueberries','berry-strawberry':'Strawberries','berry-raspberry':'Raspberries','berry-blackberry':'Blackberries'} %}
 {% from 'social_macros.html' import mode_label,short_date,retailer_label,status_label,phrase_label,entity_label,media_carousel %}
 {% macro drill(ids,label) %}<button type="button" data-social-drill='{{ ids|tojson }}'>{{ label }}</button>{% endmacro %}
 <div class="social-workspace" data-social>

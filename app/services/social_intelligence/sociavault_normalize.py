@@ -88,6 +88,7 @@ def normalize(payload,task,*,supplied_url=None,supplied_parent_id=None):
     elif platform=='youtube':items=values(data.get('comments')) if comments else sum((values(data.get(k)) for k in ('videos','shorts','lives')),[])
     elif task=='linkedin-post':items=[data]
     elif task=='instagram-post':items=[data.get('xdt_shortcode_media') or data.get('data',{}).get('xdt_shortcode_media',{})]
+    elif task=='reddit-post':items=[data.get('post',{})]
     elif platform=='facebook':items=values(data.get('posts'))
     else:
         if field not in data:raise AccessBlocked('Unrecognized platform schema; not zero volume')
@@ -104,11 +105,18 @@ def normalize(payload,task,*,supplied_url=None,supplied_parent_id=None):
                 if comments and not url and supplied_url:url=supplied_url.rstrip('/')+'/'+str(post.get('id',''))+'/'
                 text=post.get('body','') if comments else '\n'.join(filter(None,[post.get('title'),post.get('selftext')]))
                 row=_row(platform,native,url,text,post.get('created_at_iso') or post.get('created_utc'),parent=(post.get('parent_id') or supplied_parent_id) if comments else None)
-                for image in values(post.get('preview',{}).get('images')):media(row,image.get('source',{}).get('url'))
-                for attached in values(post.get('media_metadata')):media(row,attached.get('s',{}).get('u'))
-                if comments:
-                    parsed=CommentImages();parsed.feed(unescape(post.get('body_html') or '')[:100000])
-                    for url in parsed.urls[:30]:media(row,url)
+                # Search summaries may omit attachments; full post information
+                # can supply direct images, ordered galleries and inline photos.
+                for direct in (post.get('url_overridden_by_dest'),post.get('url')):
+                    if isinstance(direct,str) and urlsplit(direct).hostname=='i.redd.it':media(row,direct)
+                metadata=post.get('media_metadata') or {}
+                gallery=values((post.get('gallery_data') or {}).get('items'))
+                attached=[metadata.get(g.get('media_id'),{}) for g in gallery] if gallery else values(metadata)
+                for image in attached:media(row,image.get('s',{}).get('u') or image.get('s',{}).get('gif'))
+                if not row['media']:
+                    for image in values((post.get('preview') or {}).get('images')):media(row,image.get('source',{}).get('url'))
+                parsed=CommentImages();parsed.feed(unescape(post.get('body_html' if comments else 'selftext_html') or '')[:100000])
+                for url in parsed.urls[:30]:media(row,url)
                 media(row,post.get('thumbnail'),'thumbnail')
                 row['engagement']={k:v for k,v in {'likes':post.get('ups'),'comments':post.get('num_comments')}.items() if isinstance(v,int) and v>=0}
             elif platform=='tiktok':

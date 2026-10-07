@@ -324,3 +324,53 @@ def test_context_provider_filters_entity_before_twenty_result_limit(tmp_path):
     assert [r['id'] for r in links]==['row-00']
     assert links[0]['title']=='Unreviewed social context; inspect in analyst workspace'
     assert 'Private caption' not in str(links)
+
+
+@pytest.mark.parametrize('text',[
+    'BlackBerry vibes. Much later in this long post: a physical keyboard for a phone.',
+    'Old devices: Nokia, Sagem, BlackBerry 9700 and BlackBerry Passport.',
+    'Before modern smartphones, BlackBerry 850 delivered mobile email.',
+    'BlackBerry had millions of users when Apple launched the iPhone. People wanted bigger touchscreens.',
+    'BlackBerry Limited stock news: QNX and cybersecurity updates.',
+    'BlackBerry shares rallied today. $BB',
+])
+def test_blackberry_technology_screen_checks_whole_post(text):
+    result=analyze(sample(text=text),ENTITIES)
+    assert result['berry_ids']==[] and result['relevance']=='excluded-phone'
+
+
+@pytest.mark.parametrize('text',[
+    'Our patented blackberries and strawberries use innovative growing technology.',
+    'I photographed my blackberry jam on my phone.',
+    'I ate a blackberry while answering my phone.',
+    'My BlackBerry phone is beside a bowl of fresh blackberries.',
+])
+def test_blackberry_technology_screen_keeps_explicit_fruit(text):
+    assert 'berry-blackberry' in analyze(sample(text=text),ENTITIES)['berry_ids']
+
+
+def test_all_berries_default_unique_union_and_drilldown_counts(tmp_path):
+    store=Store(tmp_path)
+    for native,text in [('mixed','Strawberries and raspberries are sweet'),('black','Blackberries are bland'),('phone','BlackBerry Passport phone')]:
+        store.ingest([sample(native_id=native,text=text)],ENTITIES)
+    b=bundle(store.records(),[],{'mode':'fixture'})
+    assert b['filters']['berry']=='all' and b['count']==2
+    assert len({r['id'] for r in b['records']})==2
+    assert b['heatmap'][0]['count']==2
+    assert set(b['heatmap'][0]['evidence_ids'])==set(b['by_id'])
+    assert sum(d['count'] for d in b['timeline'])==2
+    assert bundle(store.records(),[],{'mode':'fixture','berry':'berry-raspberry'})['count']==1
+
+
+def test_full_post_media_survives_search_replay_and_removal(tmp_path):
+    from app.services.social_intelligence.sociavault_normalize import normalize
+    original={'success':True,'data':{'posts':[{'id':'photo','permalink':'/r/berries/comments/photo/sample/','title':'Blueberries','author':'sample'}]}}
+    detail={'success':True,'data':{'post':{'id':'photo','permalink':'/r/berries/comments/photo/sample/','title':'Blueberries','url':'https://i.redd.it/test-photo.jpg'}}}
+    rows=normalize(original,'reddit-search')['rows'];store=Store(tmp_path);key=store.ingest(rows,ENTITIES)[0]
+    row=normalize(detail,'reddit-post')['rows'][0];row['media'][0]['id']='detail-test-photo'
+    store.ingest([row],ENTITIES);store.ingest(rows,ENTITIES)
+    assert len(store.records()[0]['media'])==1
+    store.remove(key,media_id='detail-test-photo',state='restricted')
+    store.ingest(rows,ENTITIES);store.ingest([row],ENTITIES)
+    retained=store.records()[0]['media'][0]
+    assert retained['state']=='restricted' and retained['source_url'] is None

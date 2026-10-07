@@ -103,7 +103,12 @@ class MultiPlatformPilot:
         if any(a['id']==digest for a in self.ledger['attempts']):
             raise AccessBlocked('Previously attempted request is not retried')
         verification=self.balance()
-        spent=len(self.ledger['attempts']) # reserve even failures/zero-credit results
+        if len(self.ledger['attempts'])>=self.ceiling:
+            raise AccessBlocked('Cumulative request attempt ceiling reached')
+        # Keep the attempt limit separate from actual account consumption.
+        # Fresh authenticated balance includes failed/zero-credit requests and
+        # any other account usage; the 20% reserve and 80% credit cap still apply.
+        spent=verification['initial_verified_balance']-verification['balance']
         require_free_budget(verification,all_in_upper_bound=1,spent=spent,ceiling=self.ceiling)
         entry={'id':digest,'case_id':case_id,'task':task,'params':params,
                'at':verification['checked_at'],'balance_before':verification['balance'],

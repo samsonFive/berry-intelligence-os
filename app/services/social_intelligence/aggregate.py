@@ -13,8 +13,8 @@ MIN_SAMPLE=5
 
 def selection(params):
     f={k:str(params.get(k,'') or '') for k in ('source','language','market','entity','role','perspective','start','end','q')}
-    f.update(mode=str(params.get('mode','live')),view=str(params.get('view','posts')),berry=str(params.get('berry','berry-blueberry')))
-    if f['mode'] not in MODES or f['view'] not in VIEWS or f['berry'] not in VOCAB or f['source'] and f['source'] not in PLATFORMS:
+    f.update(mode=str(params.get('mode','live')),view=str(params.get('view','posts')),berry=str(params.get('berry') or 'all'))
+    if f['mode'] not in MODES or f['view'] not in VIEWS or f['berry'] not in (*VOCAB,'all') or f['source'] and f['source'] not in PLATFORMS:
         raise ValueError('Invalid social selection')
     if f['perspective'] not in ('','corporate','consumer','unclear'): raise ValueError('Invalid perspective')
     for k in ('start','end'):
@@ -31,7 +31,7 @@ def bundle(records,jobs,params, *, access=None):
     rows=[]
     for r in records:
         a=r['analysis']; day=(r['published_at'] or r['collected_at'])[:10]
-        if r['mode']!=f['mode'] or f['berry'] not in a.get('berry_ids',[]): continue
+        if r['mode']!=f['mode'] or not a.get('berry_ids') or f['berry']!='all' and f['berry'] not in a['berry_ids']: continue
         if any(f[k] and r[rk]!=f[k] for k,rk in (('source','source'),('language','language'),('role','content_role'))): continue
         if f['start'] and day<f['start'] or f['end'] and day>f['end']: continue
         if f['market'] and (r.get('purchase_market') or {}).get('value')!=f['market']: continue

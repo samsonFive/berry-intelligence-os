@@ -145,3 +145,20 @@ def test_rollout_search_matches_displayed_english_translation(client):
     result=client.get('/api/social',params={'berry':'berry-raspberry','mode':'fixture','language':'es','q':'raspberries'}).json()
     assert result['count']==2
     assert all('frambuesas' in r['text'] and 'raspberries' in r['translation']['text'] for r in result['records'])
+
+
+def test_all_berries_default_preserves_shareable_scope_and_unique_exports(client):
+    response=client.get('/social')
+    assert response.status_code==200 and '<option value="all" selected>All berries</option>' in response.text
+    store=Store(main.INBOX_DIR)
+    for native,text in [('all-mixed','Blueberries and strawberries are sweet'),('all-rasp','Raspberries are crunchy')]:
+        row=deepcopy(FIXTURE['records'][0])
+        row.update(mode='manual',native_id=native,text=text,language='en',translation=None)
+        store.ingest([row],main.all_entities(),mode='manual')
+    for view in ('posts','phrases','heatmap','atlas','momentum','coverage'):
+        page=client.get('/social',params={'mode':'manual','view':view})
+        assert page.status_code==200 and 'berry=all' in page.text
+    exported=client.get('/social/export',params={'mode':'manual'}).json()
+    assert exported['filters']['berry']=='all' and exported['count']==2
+    assert len({r['id'] for r in exported['records']})==2
+    assert 'All berries social observation briefing' in client.get('/social/briefing',params={'mode':'manual'}).text

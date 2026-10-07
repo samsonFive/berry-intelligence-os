@@ -53,6 +53,15 @@ class Store:
                     a=analyze(p,entities)
                 if existing:
                     old = json.loads(existing[0]); prior = json.loads(existing[1])
+                    # A search summary omitting pictures does not invalidate a
+                    # separately captured full-post reference. Explicit removal
+                    # tombstones still govern these durable supplements.
+                    incoming={m['id'] for m in p['media']}
+                    supplements=[m for m in old['media'] if m['id'].startswith('detail-') and m['id'] not in incoming]
+                    if supplements:
+                        p['media']+=supplements
+                        p=validate_intake(p)
+                        a=analyze(p,entities)
                     for media in p['media']:
                         retained=next((m for m in old['media'] if m['id']==media['id']),None)
                         if retained and retained.get('object_ref') and media['id'] not in tombstones:

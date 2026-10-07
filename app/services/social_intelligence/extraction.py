@@ -7,7 +7,7 @@ import re
 import hashlib
 from functools import lru_cache
 
-VERSION = 'social-literal-2'
+VERSION = 'social-literal-3'
 VOCAB = {
  'berry-blueberry': {'en':['blueberry','blueberries'], 'es':['arándano','arándanos'], 'pt':['mirtilo','mirtilos'], 'zh':['蓝莓','藍莓'], 'ja':['ブルーベリー']},
  'berry-strawberry': {'en':['strawberry','strawberries'], 'es':['fresa','fresas','frutilla','frutillas'], 'pt':['morango','morangos'], 'zh':['草莓'], 'ja':['イチゴ','いちご','苺']},
@@ -48,10 +48,17 @@ def spans(text, term):
 def analyze(item, entities):
     from .media_extraction import media_observations
     text = item['text']
-    excluded = bool(re.search(r'blackberry.{0,30}(phone|android|keyboard|smartphone)|(?:phone|smartphone).{0,30}blackberry', text, re.I))
+    # Technology posts often mention the device several sentences away from
+    # "BlackBerry". Match specific product/security context, not generic words
+    # like patents, price or technology that also occur in berry-industry posts.
+    blackberry_mentions=spans(text,'blackberry')
+    tech_context=bool(re.search(r'\b(?:smartphones?|phones?|iphones?|ios|touchscreens?|android|qwerty|keyboards?|bb10|cybersecurity|qnx|blackberry\s+(?:limited|passport|keyone|key2|z10|z30|bold|curve|stock|shares|\d{3,4}))\b|\$BB\b|\bNYSE\s*:\s*BB\b',text,re.I))
+    excluded=bool(blackberry_mentions and tech_context)
+    # Preserve an explicit plural fruit mention even in a mixed device/food post.
+    explicit_blackberries=bool(spans(text,'blackberries') or re.search(r'\bblackberry\s+(?:jam|bush|plant|fruit|cobbler|pie|harvest)\b|\b(?:picked|ate|eating|harvested)\s+(?:a\s+)?blackberry\b',text,re.I))
     nonfruit = bool(re.search(r'raspberry\s+pi\b|perfume that smells|need a perfume|(?:wine|coffee).{0,35}(?:notes of|notes:)', text, re.I))
     berries = sorted(b for b, packs in VOCAB.items() if any(spans(text,t) for terms in packs.values() for t in terms))
-    if excluded:
+    if excluded and not explicit_blackberries:
         berries = [b for b in berries if b != 'berry-blackberry']
     if nonfruit:
         berries = []

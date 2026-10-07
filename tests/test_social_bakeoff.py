@@ -168,3 +168,30 @@ def test_native_author_identity_is_preserved_without_search_target_inference():
     result=normalize({'success':True,'data':{'posts':[post]}},'facebook-posts')
     assert result['rows'][0]['author_name']=='Supplied Page'
     assert result['rows'][0]['author_handle'] is None
+
+
+def test_verified_consumption_and_attempt_cap_are_separate(tmp_path):
+    from app.services.social_intelligence.sociavault_pilot import MultiPlatformPilot
+    calls=[];balances=iter([12,11,11])
+    def handler(request):
+        if request.url.path=='/v1/credits':return httpx.Response(200,json={'credits':next(balances),'subscriptionStatus':'free','subscriptionId':None})
+        calls.append(request);return httpx.Response(200,json={'success':True,'data':{'comments':[]},'credits_used':1})
+    pilot=MultiPlatformPilot(tmp_path,enabled=True,key='synthetic-test-key',ceiling=41,client=httpx.Client(transport=httpx.MockTransport(handler)))
+    pilot.ledger={'initial_balance':50,'attempts':[{'id':str(i),'state':'provider-error'} for i in range(40)]}
+    pilot.fetch('reddit-comments',{'url':'https://www.reddit.com/r/berries/comments/photo/example/'},case_id='requested-picture')
+    assert len(calls)==1 and len(pilot.ledger['attempts'])==41 and pilot.ledger['attempts'][-1]['observed_credit_delta']==1
+    with pytest.raises(AccessBlocked,match='attempt ceiling'):
+        pilot.fetch('reddit-comments',{'url':'https://www.reddit.com/r/berries/comments/another/example/'},case_id='not-authorized')
+    assert len(calls)==1
+
+
+def test_reddit_direct_gallery_and_inline_photos_are_references():
+    from app.services.social_intelligence.sociavault_normalize import normalize
+    post={'id':'gallery','permalink':'/r/berries/comments/gallery/example/','title':'Strawberries',
+      'gallery_data':{'items':[{'media_id':'b'},{'media_id':'a'}]},
+      'media_metadata':{'a':{'s':{'u':'https://i.redd.it/a.jpg'}},'b':{'s':{'u':'https://i.redd.it/b.jpg'}}},
+      'selftext_html':'<img src="https://i.redd.it/inline.jpg"><script>alert(1)</script>'}
+    row=normalize({'success':True,'data':{'post':post}},'reddit-post')['rows'][0]
+    assert [m['source_url'] for m in row['media']]==['https://i.redd.it/b.jpg','https://i.redd.it/a.jpg','https://i.redd.it/inline.jpg']
+    assert all(m['parent_native_id']=='t3_gallery' and m['storage_permission']=='reference_only' for m in row['media'])
+    assert 'alert' not in row['text'] and not row['language']=='en'
