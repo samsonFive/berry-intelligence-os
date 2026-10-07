@@ -98,3 +98,5 @@ Final focused social tests: **48 passed** (40.40s). Existing Landscape focused t
 The advanced Landscape dependency was incorporated locally with both debt entries preserved (social is TD-117). After committing the intended configuration, the clean-state guard plus all social route tests passed: **16 passed**. Final focused social suite remains48 passed.
 
 Updated Landscape plus canonical promotion tests: **61 passed** (45.65s). CI detected trailing blank lines in new test files; corrected before final validation. Final commit/CI identifiers are recorded in the PR and delivered review receipt.
+
+Two additional targeted checks passed for fixture-excluded canonical dossier/context links and literal media-field locator/removal behavior. Total social coverage:48 earlier focused checks +2 new targeted checks; final CI covers all50 together.

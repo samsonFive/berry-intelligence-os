@@ -214,3 +214,28 @@ def test_prompt_injection_is_data_and_no_registry_mutation(tmp_path):
 def test_invalid_filters_and_date_ranges():
     for p in ({'mode':'all'},{'source':'imaginary'},{'view':'network'},{'start':'tomorrow'},{'start':'2026-10-07','end':'2026-10-01'}):
         with pytest.raises(ValueError):bundle([],[],p)
+
+
+def test_context_hooks_exclude_fixture_and_keep_canonical_scope(tmp_path):
+    from app.services.social_intelligence.integration import context_links
+    s = Store(tmp_path)
+    for mode in ('fixture', 'imported', 'manual'):
+        s.ingest([sample(mode, text='Blueberries SEKOYA Crunch', native_id='context')], ENTITIES)
+    links = context_links(s.records(), entity_id='variety-sekoya-crunch')
+    assert len(links) == 2 and {r['mode'] for r in links} == {'manual', 'imported'}
+    assert all(r['source_ids'] == [r['id']] and 'story=' + r['id'] in r['href'] for r in links)
+    assert all(r['trust_class'] == 'UNREVIEWED SOCIAL OBSERVATION' for r in links)
+    assert context_links(s.records(), entity_id='variety-not-in-source') == []
+    assert context_links(s.records(), market='Brazil') == []
+
+
+def test_media_field_proposals_keep_locator_and_hide_removed_labels():
+    from app.services.social_intelligence.media_extraction import media_observations
+    row = deepcopy(next(r for r in FIXTURE['records'] if r['native_id'] == 'demo-es-4'))
+    literal = row['media'][0]['literal'][0]
+    literal['text'] = 'Variety: SEKOYA Crunch; Origin: Peru; Price: 4.99; Barcode: 12345'
+    observation = media_observations(row)[0]
+    assert {r['field'] for r in observation['fields']} == {'variety', 'origin', 'price', 'barcode'}
+    assert all(r['locator'] == literal['locator'] and r['method'] == 'human_label' for r in observation['fields'])
+    row['media'][0]['state'] = 'deleted'
+    assert media_observations(row)[0]['fields'] == []
