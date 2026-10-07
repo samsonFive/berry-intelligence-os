@@ -30,26 +30,84 @@ def _load_portfolio_observations(data_dir: Path):
     latest = {}
     for path in sorted((data_dir / "imports").glob("variety-portfolio-observations-*/observations.json")):
         payload = json.loads(path.read_text(encoding="utf-8"))
-        if payload.get("kind") != "unreviewed_portfolio_name_observations":
+        if not isinstance(payload, dict) or payload.get("kind") != "unreviewed_portfolio_name_observations":
             raise ValueError("Unknown portfolio observation format")
+        if not isinstance(payload.get("sources"), list):
+            raise ValueError("Portfolio observations need a source list")
         for source in payload.get("sources", []):
+            if not isinstance(source, dict):
+                raise ValueError("Portfolio source must be an object")
             if any(not isinstance(source.get(key), str) or not source[key].strip()
                    for key in ("id", "title", "url", "checked_on", "source_type", "enumerated_scope", "limitations")):
                 raise ValueError("Portfolio source needs its identity, date and bounded page scope")
             if any(not isinstance(source.get(key), list) for key in ("company_ids", "berry_ids", "names")):
                 raise ValueError("Portfolio source needs explicit company, berry and name lists")
+            if any(not isinstance(cid, str) or not cid.strip() for cid in source["company_ids"]) or any(
+                    not isinstance(berry, str) or berry not in BERRY_ORDER for berry in source["berry_ids"]):
+                raise ValueError("Portfolio source needs valid company and berry identifiers")
             checked = date.fromisoformat(source["checked_on"])
             url = urlsplit(source["url"])
             if url.scheme not in {"http", "https"} or not url.hostname or url.username or url.password:
                 raise ValueError("Portfolio source needs a public HTTP(S) URL")
             if source["capture_status"] not in {"names_enumerated", "unreadable", "partial"}:
                 raise ValueError("Unknown portfolio capture status")
-            if any(row.get("berry_id") not in BERRY_ORDER or not row.get("candidate_name") for row in source.get("names", [])):
+            if any(not isinstance(row, dict) or row.get("berry_id") not in BERRY_ORDER
+                   or not isinstance(row.get("candidate_name"), str) or not row["candidate_name"].strip()
+                   or any(key in row and not isinstance(row[key], str) for key in
+                          ("denomination", "breeder_code", "trade_name", "display_label", "portfolio_context"))
+                   or (row.get("product_url") and not _public_url(row["product_url"])) for row in source["names"]):
                 raise ValueError("Portfolio names need an explicit berry and name")
+            accounting = source.get("accounting")
+            if accounting is not None:
+                if not isinstance(accounting, dict) or any(
+                        type(accounting.get(key)) is not int or accounting[key] < 0
+                        for key in ("observed_items",)) or (
+                        "reported_items" in accounting and (type(accounting["reported_items"]) is not int or accounting["reported_items"] < 0)):
+                    raise ValueError("Portfolio accounting needs nonnegative item counts")
+                if not isinstance(accounting.get("exclusions"), list) or any(
+                        not isinstance(row, dict) or not isinstance(row.get("label"), str) or not row["label"].strip()
+                        or not isinstance(row.get("reason"), str) or not row["reason"].strip()
+                        or (row.get("url") and not _public_url(row["url"])) for row in accounting["exclusions"]):
+                    raise ValueError("Excluded items need a label and reason")
+            note = source.get("company_site_note")
+            if note is not None and (not isinstance(note, dict) or not note.get("reason") or
+                    note.get("company_id") not in source["company_ids"] or any(
+                    not _public_url(note.get(key, "")) for key in ("stored_url", "suggested_url", "reference_url"))):
+                raise ValueError("Company site discrepancies need attributable public URLs")
             old = latest.get(source["id"])
             if old is None or checked >= date.fromisoformat(old["checked_on"]):
                 latest[source["id"]] = source
     return list(latest.values())
+
+
+def _identity_pair_notes(sources):
+    """Literal source pair discrepancies, not alias decisions or a new resolver."""
+    codes, labels = {}, {}
+    for source in sources:
+        companies = tuple(sorted(source.get("company_ids", [])))
+        for row in source["names"]:
+            code = row.get("denomination") or row.get("breeder_code")
+            label = row.get("trade_name")
+            if code and label:
+                scope = (companies, row["berry_id"])
+                codes.setdefault((*scope, fold_identity(code)), set()).add(label)
+                labels.setdefault((*scope, fold_identity(label)), set()).add(code)
+    notes = {}
+    for source in sources:
+        companies = tuple(sorted(source.get("company_ids", [])))
+        for row in source["names"]:
+            scope = (companies, row["berry_id"])
+            code = row.get("denomination") or row.get("breeder_code")
+            label = row.get("trade_name")
+            messages = []
+            paired_labels = codes.get((*scope, fold_identity(code or "")), set())
+            paired_codes = labels.get((*scope, fold_identity(label or "")), set())
+            if len(paired_labels) > 1:
+                messages.append("This code appears with multiple labels: " + ", ".join(sorted(paired_labels)) + ". Check the pairing before accepting aliases.")
+            if len(paired_codes) > 1:
+                messages.append("This label appears with multiple codes: " + ", ".join(sorted(paired_codes)) + ". Keep the identities unresolved until reviewed.")
+            notes[(source["id"], _key(row), label or "")] = messages
+    return notes
 
 
 def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None):
@@ -64,6 +122,7 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
     existing = {_key(row): row for row in candidates}
     source_rows, additions = [], []
     provenance = {}
+    pair_notes = _identity_pair_notes(sources)
     for source in sources:
         names = []
         companies = [{"entity_id": cid, "name": entity_index[cid]["name"]}
@@ -73,6 +132,9 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
             result = resolve_identity(query, varieties)
             exact_ids = {row["variety_id"] for row in result["matches"] if row["reason"] == "exact_identity_string"}
             catalog_id = next(iter(exact_ids)) if len(exact_ids) == 1 else None
+            identity_notes = pair_notes.get((source["id"], _key(observation), observation.get("trade_name") or ""), [])
+            if identity_notes:
+                catalog_id = None
             candidate = existing.get(_key(observation))
             if candidate and candidate.get("human_gated") and candidate.get("identity_state") == "confirmed_same":
                 match_id = candidate.get("candidate_canonical_match")
@@ -85,19 +147,21 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
             elif not catalog_id and candidate and candidate.get("human_gated") and candidate.get("identity_state") == "distinct":
                 status = "distinct_awaiting_catalog"
             reference = {"id": source["id"], "title": source["title"], "url": source["url"],
-                         "checked_on": source["checked_on"], "companies": companies, **observation}
+                         "checked_on": source["checked_on"], "companies": companies, **observation,
+                         "identity_notes": identity_notes}
             provenance.setdefault(_key(observation), []).append(reference)
             if status == "needs_review" and candidate is None:
                 candidate = build_candidate({**observation, "source_id": source["id"], "source_url": source["url"],
                     "source_label": source["title"], "source_type": source["source_type"],
-                    "source_tier": "tier_1_breeder_catalog", "knowledge": {"origin": "primary_portfolio_observation"}},
+                    "source_tier": "tier_2_nursery_catalog" if source["source_type"] == "nursery_catalog" else "tier_1_breeder_catalog",
+                    "knowledge": {"origin": "primary_portfolio_observation"}},
                     varieties=varieties, discovered_at=source.get("observed_at"))
                 candidate = {**candidate, "persisted": False, "discovered_from": "primary_portfolio"}
                 additions.append(candidate)
                 existing[_key(observation)] = candidate
             labels = {"catalog_match": "Catalog match", "needs_review": "Needs identity review",
                       "previously_rejected": "Previously rejected", "distinct_awaiting_catalog": "Distinct · catalog entry pending"}
-            names.append({**observation, "catalog_id": catalog_id, "status": status, "label": labels[status],
+            names.append({**observation, "identity_notes": identity_notes, "catalog_id": catalog_id, "status": status, "label": labels[status],
                           "href": "/entities/variety/" + catalog_id if catalog_id else
                                   "/varieties/candidates?" + urlencode({"q": observation["candidate_name"], "berry": observation["berry_id"]})})
         checked = date.fromisoformat(source["checked_on"])
@@ -105,13 +169,27 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
         freshness = "Check date in future" if age < 0 else "Recheck due" if age > 90 else "Checked recently"
         if source["capture_status"] == "unreadable" and age >= 0:
             freshness = "Retry due" if age > 90 else "Attempted recently"
+        accounting = source.get("accounting")
+        accounting_view = None
+        if accounting is not None:
+            accounted = len(names) + len(accounting["exclusions"])
+            issues = []
+            if accounted != accounting["observed_items"]:
+                issues.append("Captured names and exclusions do not account for every observed item.")
+            if accounting.get("reported_items") is not None and accounting["reported_items"] != accounting["observed_items"]:
+                issues.append("The source’s stated total differs from the captured item count; check pagination and scope.")
+            accounting_view = {**accounting, "accounted_items": accounted, "issues": issues}
         source_rows.append({**source, "names": names, "companies": companies,
+                            "accounting_view": accounting_view,
+                            "identity_issues": sorted({message for name in names for message in name["identity_notes"]}),
                             "age_days": age, "freshness": freshness,
                             "matched": sum(row["status"] == "catalog_match" for row in names),
                             "needs_review": sum(row["status"] == "needs_review" for row in names),
                             "closed": sum(row["status"] == "previously_rejected" for row in names),
                             "awaiting_catalog": sum(row["status"] == "distinct_awaiting_catalog" for row in names)})
-    visible = [{**row, "portfolio_sources": provenance.get(_key(row), [])} for row in [*candidates, *additions]]
+    visible = [{**row, "portfolio_sources": provenance.get(_key(row), []),
+                "portfolio_identity_notes": sorted({message for ref in provenance.get(_key(row), []) for message in ref["identity_notes"]})}
+               for row in [*candidates, *additions]]
     return source_rows, visible
 
 
@@ -134,6 +212,7 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
                        | {berry for source in linked for berry in source.get("berry_ids", [])}
                        | {photo["berry_id"] for photo in photo_rows if set(photo.get("company_ids", [])) & set(ids)})
         subjects.append({"name": row["input_registry_name"], "entity_ids": ids, "website": website,
+                         "site_notes": [s["company_site_note"] for s in linked if s.get("company_site_note")],
                          "berry_ids": scope, "berries": ", ".join(BERRY_LABELS[berry] for berry in scope) or "Scope needs checking",
                          "resolution": row["resolution_status"], "sources": linked,
                          "checked": bool(linked) and any(source["capture_status"] == "names_enumerated" for source in linked),
@@ -144,6 +223,13 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
     q = str(filters.get("q", "")).strip().casefold()
     selected = [row for row in source_rows if (not berry or berry in row.get("berry_ids", []) or any(name["berry_id"] == berry for name in row["names"]))
                 and (not q or q in " ".join([row["title"], *(c["name"] for c in row["companies"])]).casefold())]
+    if berry:
+        selected = [{**row, "names": [n for n in row["names"] if n["berry_id"] == berry],
+                     "identity_issues": sorted({message for n in row["names"] if n["berry_id"] == berry for message in n["identity_notes"]}),
+                     "matched": sum(n["status"] == "catalog_match" and n["berry_id"] == berry for n in row["names"]),
+                     "needs_review": sum(n["status"] == "needs_review" and n["berry_id"] == berry for n in row["names"]),
+                     "closed": sum(n["status"] == "previously_rejected" and n["berry_id"] == berry for n in row["names"]),
+                     "awaiting_catalog": sum(n["status"] == "distinct_awaiting_catalog" and n["berry_id"] == berry for n in row["names"])} for row in selected]
     selected_subjects = [row for row in subjects if (not berry or berry in row["berry_ids"] or not row["berry_ids"])
                          and (not q or q in row["name"].casefold())]
     all_names = [name for source in selected for name in source["names"]]

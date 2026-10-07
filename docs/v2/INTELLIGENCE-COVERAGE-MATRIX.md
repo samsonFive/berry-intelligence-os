@@ -637,3 +637,16 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **October 4 in-app agency refresh:** An explicit Eurostat check returned the same four-country/eight-figure 2025 strawberry area/production reference scope, preserving original units, flags, source update and check dates. Its country references are human-selected private context, never canonical Facts or recall/coverage maturity changes. USDA references and unsupported country/crop gaps remain untouched; broader FAOSTAT/national/research population is still partial. See MISSION-32-OFFICIAL-STATISTICS-REFRESH-REVIEW.md.
+
+
+**October 7 primary portfolio expansion:** Seventeen dated page sections now
+contain 275 manually enumerated source name occurrences across four berries.
+Twenty-five match catalog identities; 250 require review. The body-free audit
+derives 239 candidate keys (68 stored-source plus 171 additional primary names),
+before private inbox state. Eleven of 77 registry rows have some primary checks;
+66 still need checks. This is not a measured extraction recall score, completed
+global portfolio denominator, automatic collector or canonical maturity increase.
+Mixed-crop exclusions, paginated capture scope, literal code/name discrepancies
+and the Oregon nursery/Commission site mismatch remain reviewable. All 64
+canonical varieties and existing evidence/rights/role gates remain unchanged.
+See VARIETY-PORTFOLIO-EXPANSION-REVIEW.md.

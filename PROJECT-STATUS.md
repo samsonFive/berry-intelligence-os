@@ -1,5 +1,24 @@
 # Project Status
 
+## Variety portfolio expansion — mixed-crop accounting (2026-10-07)
+
+`feature/variety-portfolio-expansion` adds 182 name observations from Fall Creek,
+Fresh Forward, Flevo Berry, Planasa's US/Spanish catalogs and Oregon Blueberry
+nursery. Combined primary scope is 275 source occurrences in 17 sections (16
+readable, one unreadable), with 25 catalog matches and 250 review needs. The
+existing queue now derives 239 candidates before private state: 68 stored-source
+plus 171 additional primary-page candidates. Eleven of 77 registry rows have
+some page coverage; 66 still need primary checks. These are bounded discovery
+counts, not newly approved varieties or globally complete portfolios.
+
+Page accounting retains 31 excluded product cards, including asparagus, garlic,
+endive and one unresolved-species label. Shared codes/different labels and shared
+labels/different codes stay visible and await identity review. A saved Oregon
+Blueberry website points to the Commission instead of the nursery; the discrepancy
+is flagged without overwriting the company record. Mixed-berry filters scope name
+counts and handoffs correctly. Catalog, trust maturity and Landscape rollout gates
+are unchanged. See [review](docs/v2/VARIETY-PORTFOLIO-EXPANSION-REVIEW.md).
+
 ## Variety portfolio coverage — first reconciliation (2026-10-07)
 
 Independent `feature/variety-portfolio-coverage`, stacked on the revised blueberry
