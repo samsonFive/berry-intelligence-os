@@ -4,6 +4,21 @@ Ongoing goal activated October 1, 2026. This checklist is the completion ledger 
 
 ## Checkpoints and completion standard
 
+October 7 blueberry public comparison: GRIN's 2,113 search hits reconcile to
+315 source-classified Cultivar records; 178 records / 148 names are in four
+checked blueberry species, 57 records / 53 labels are generic hybrid crop
+questions and 80 cultivar records are outside the checked scope. The other
+1,798 material records are excluded. Query/synonym matches include 95 records
+from other genera. Before private state, 133 scoped names have no exact catalog
+or queue match, 13 have queue matches and two have catalog matches. Individual
+missing-name handoff now reuses private additive candidate review and preserves
+user edits/decisions; it does not approve identities or catalog entries. 77
+focused checks, record validation and desktop/phone review pass; draft CI is
+pending. Parent #327 has all four green gates (4,083 / 11 skipped). Catalog 64,
+primary 495/33/462, 413 candidate keys, 57 initial checks and four source gaps
+remain unchanged before private state. See VARIETY-BLUEBERRY-GERMPLASM-COVERAGE-REVIEW.md.
+CAT-01/CAT-02 remain open for verification, authoring, recall and profile depth.
+
 October 7 independent germplasm comparison: GDR's native Fragaria/Rubus export
 accounts for 26,905 rows / 6,453 accession-organism keys / 2,355 literal labels /
 2,372 genus-name pairs. Before private state, 2,267 pairs have no exact catalog
@@ -65,8 +80,8 @@ Completion means implementation plus appropriate source/data proof, browser revi
 
 | ID | Accepted requirement | Current evidence / state | Remaining verification or implementation |
 | --- | --- | --- | --- |
-| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Stored discovery audits 1,269 sources (95 observations / 32 matches / 63 candidate observations); combined candidate keys 399 before private state. Dates, URLs/codes/prefixes, historical exclusions and user edits survive. #320 connects human-reviewed distinct candidates to existing intake and separate source/claim review. All-scopes source-content disclosure distinguishes acquisition gaps from recall. | Older published corpus has 1,198 unavailable bodies / 71 access screens, excluding pending news. Remaining acquisition/table/multilingual recall, independent review and actual identity/catalog additions remain. Original diagnostic misses 14 names; title diagnostic misses one F1 name. |
-| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | 77-row source plan; 43 dated sections / 476 source name occurrences across four berries. Current/history/program observations retain scope, exclusions and three explicit source gaps. Existing profile websites and analyst edit/clear carry into source plan. Canonical catalog remains 64. See VARIETY-PUBLIC-PROGRAM-COVERAGE-REVIEW.md. | 57 registry rows need initial primary checks; checked pages are not completed portfolios. Full historical portfolios, rights/aliases, cited traits/images/regions, refresh reconciliation, independently scored recall and external comparison remain. No global completeness or web-leading claim. |
+| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Stored discovery audits 1,269 sources (95 observations / 32 matches / 63 candidate observations); combined candidate keys 413 before private state. Dates, URLs/codes/prefixes, historical exclusions and user edits survive. #320 connects human-reviewed distinct candidates to existing intake and separate source/claim review. Independent GRIN comparison now offers individual private identity-lead handoff without overwriting decisions. All-scopes source-content disclosure distinguishes acquisition gaps from recall. | Older published corpus has 1,198 unavailable bodies / 71 access screens, excluding pending news. Remaining acquisition/table/multilingual recall, independent review and actual identity/catalog additions remain. Original diagnostic misses 14 names; title diagnostic misses one F1 name. |
+| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | 77-row source plan; 45 dated sections / 495 source name occurrences across four berries, with four explicit source gaps. Independent GDR comparison has 2,372 genus/name pairs; GRIN has 148 scoped blueberry names plus 53 unresolved hybrid labels. Before private state, GRIN finds 133 missing exact names / 13 queued / two catalog matches. Existing profile websites and analyst edit/clear carry into the source plan. Canonical catalog remains 64. See VARIETY-BLUEBERRY-GERMPLASM-COVERAGE-REVIEW.md. | 57 registry rows need initial primary checks; checked pages are not completed portfolios. Original release/rights verification, hybrid crop resolution, actual catalog authoring, cited traits/images/regions, refresh reconciliation and independently scored recall remain. External comparisons are scoped benchmarks; no global completeness or web-leading claim. |
 | UI-01 | Bright, colorful agricultural Glasshouse identity; first berry icon; subtle glass, stronger contrast and hierarchy | Approved Glasshouse identity and first icon across core, intelligence, authoring, public-library and retained shells (M1–21/34/35); source prose stays literal. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-02 | Immersive full-width workspace, compact top navigation, grouped More menu contained within the viewport | Full-width shared top header, contained grouped More, folded specialist destinations; live/private versus generated-public navigation tested (M20/21/35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-03 | Dense information with useful headlines, summaries, metadata and collapsed secondary context; plain language | Distinct heading/lead/body/metadata roles, compact cards/tables and secondary disclosures in News, dossiers, Reports, Landscape, Learn, research/review and retained tools (M3–35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |

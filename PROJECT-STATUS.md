@@ -1,5 +1,21 @@
 # Project Status
 
+## Blueberry public-collection comparison and review handoff (2026-10-07)
+
+GRIN's 2,113 native search results reconcile to 315 source-classified Cultivar
+records: 178 in four checked blueberry species / 148 name pairs, 57 generic
+hybrids / 53 crop questions, and 80 other-taxon cultivars. 1,798 other-material
+records are excluded; 95 query results belong to other genera. Before private
+state, the blueberry subset has 133 missing exact names / 13 queue matches /
+two catalog matches. The existing coverage page adds scoped counts and an
+individual additive handoff to existing private identity review, preserving
+source identifiers and analyst decisions. Catalog stays 64; primary 495/33/462,
+413 candidate keys, 57 initial checks and four source gaps remain unchanged.
+77 focused checks, record validation and desktop/phone review pass; this draft's
+CI remains pending. Parent #327 passed four exact-head gates (4,083 / 11 skipped).
+See docs/v2/VARIETY-BLUEBERRY-GERMPLASM-COVERAGE-REVIEW.md. CAT-01/CAT-02/TD-116
+remain open; no trust promotion, source onboarding, merge or deployment.
+
 ## Independent public variety comparison (2026-10-07)
 
 A native GDR export independently exposes historical/selection coverage beyond

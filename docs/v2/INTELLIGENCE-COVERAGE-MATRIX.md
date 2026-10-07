@@ -1,5 +1,19 @@
 # Intelligence Coverage Matrix
 
+**October 7 blueberry public comparison:** GRIN's 2,113 native search results
+include 315 Cultivar-classified accessions. Four source-checked blueberry species
+account for 178 records / 148 names: 133 without exact catalog/queue match, 13
+queued and two catalog text matches before private state. Generic hybrids remain
+57 records / 53 unresolved crop labels; 80 other-taxon cultivars and 1,798 other
+material records are excluded. A synonym query also returns 95 other-genus
+records; it never assigns crop scope. Existing coverage/identity review supports
+an individual private, additive handoff. No Source onboarding, acquisition,
+trust promotion or maturity increase. Catalog 64 and primary/registry/derived
+queue denominators are unchanged. 77 focused checks, record validation and
+native desktop/phone review pass; this draft's CI is pending. Parent #327 has
+four green gates (4,083 / 11 skipped). See VARIETY-BLUEBERRY-GERMPLASM-COVERAGE-REVIEW.md;
+human identity authoring, fuller source coverage and cited profiles remain open.
+
 **October 7 independent GDR comparison:** 26,905 native-export rows reconcile
 to the public query's 6,453 accession-organism keys; 2,355 literal labels /
 2,372 genus-name pairs. Before private state, 2,267 lack exact catalog/queue

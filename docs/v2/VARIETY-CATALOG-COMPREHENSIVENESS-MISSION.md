@@ -151,6 +151,18 @@ See VARIETY-NAME-RECALL-DIAGNOSTIC-V1.md.
 - [ ] Compare against reference resources before making a public superlative.
   Report specific strengths and gaps; no invented global completeness percentage.
 
+October 7 blueberry comparison now accounts for the native GRIN Vaccinium
+name/synonym export: 2,113 accessions, including 95 other-genus hits; 315 are
+source-classified Cultivar. Four checked blueberry species supply 178 records /
+148 names, with 133 missing exact catalog/queue names, 13 queued and two catalog
+text matches before private state. The 53 generic hybrid labels remain crop
+questions; 80 other-taxon cultivars and 1,798 other-material records are excluded.
+An individual private handoff connects scoped missing names to existing identity
+review without approving identities or overwriting user state. Scope, original
+IDs, source capture date and exclusions remain visible. See
+VARIETY-BLUEBERRY-GERMPLASM-COVERAGE-REVIEW.md. This closes the missing blueberry
+reference comparison, not the worldwide comparison/completeness requirement.
+
 ## Primary reference sources checked for planning
 
 - [Hortifrut genetic development](https://www.hortifrut.com/innovation/genetic-development/):
