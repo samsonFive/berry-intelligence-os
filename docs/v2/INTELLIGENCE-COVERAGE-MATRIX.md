@@ -1,5 +1,15 @@
 # Intelligence Coverage Matrix
 
+**October 7 public-program follow-up:** Hutton, USDA ARS and UGA add 20
+occurrences across four bounded sections; lifetime counts, tentative/historical
+context, wild-material exclusions and inaccessible listing remain explicit.
+Latest primary scope 476/33/443 in 43 sections, 20 registry rows with some checks,
+57 initial checks remaining; combined candidate keys before private state 399.
+Three source sections still have accounting/access gaps. Canonical catalog and
+stored-source discovery remain 64 and 95/32/63. No maturity increase, Source
+onboarding or human trust decisions. Parent #324 has four green exact-head gates
+(4,056 passed / 11 skipped). See VARIETY-PUBLIC-PROGRAM-COVERAGE-REVIEW.md.
+
 **October 7 article-date follow-up:** bounded recovery retrieved two of four
 current public copies, with a thin trial-page failure and a 403. Native review
 found page-wide date contamination. Shared acquisition v2 now records the

@@ -1994,6 +1994,16 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 public-program follow-up: 476/33/443 primary occurrences in 43
+sections; 20 registry rows have some checks, 57 need initial checks. Combined
+candidate keys before private state 399; catalog stays 64. Three explicit source
+gaps stay visible, including a 23-cultivar lifetime claim with only nine names
+and UGA's inaccessible licensing list. Wild breeding material, genome names and
+species are not silently converted into released cultivars. 37 related checks
+pass; parent #324 has four green gates (4,056 passed / 11 skipped). Full portfolios,
+acquisition, independent recall, human authoring and cited profile depth remain
+open. See VARIETY-PUBLIC-PROGRAM-COVERAGE-REVIEW.md.
+
 October 7 acquisition follow-up: the guarded four-source pilot retrieved two
 pending current copies; the university trial returned no readable body and
 HortWeek blocked access. Native comparison caught an article date taken from

@@ -13,3 +13,6 @@
 .portfolio-plan .brief-table tbody tr:nth-child(even){background:#f1f6e9}
 .portfolio-plan .brief-table td:nth-child(n+2){font-variant-numeric:tabular-nums}
 .portfolio-plan .context-limit{overflow-wrap:anywhere;line-height:1.5}
+.portfolio-gaps{border-color:#c9b174;background:#fff4df;color:#584522}
+.portfolio-gaps ul{padding-left:18px;margin:8px 0;overflow-wrap:anywhere}
+.portfolio-gaps li{margin:6px 0;line-height:1.5}

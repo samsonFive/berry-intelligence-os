@@ -1,5 +1,20 @@
 # Project Status
 
+## Public breeding-program coverage and visible gaps (2026-10-07)
+
+Hutton, USDA ARS and UGA add 20 primary name observations in four sections.
+Latest reconciliation: 476/33/443 in 43 sections (41 readable / two inaccessible),
+20 registry rows with some page checks and 57 needing initial checks. Candidate
+keys before private state: 399; canonical catalog 64 and stored discovery
+95/32/63 remain unchanged. Hutton's nine named highlights do not close its stated
+23-cultivar lifetime portfolio. UGA's inaccessible licensing list remains a gap;
+wild breeding material and genome/taxon names remain separate exclusions.
+The coverage UI exposes three unfinished source checks and preserves filtered
+counts, whole-page accounting and human decisions. 37 related checks pass.
+See docs/v2/VARIETY-PUBLIC-PROGRAM-COVERAGE-REVIEW.md; CAT-01/CAT-02/TD-116 stay open.
+Parent #324 passed all four checks on 10d30525a60ad836bd6aec5d6ddf37069b7e9923,
+run 37625110871: 4,056 passed / 11 skipped / two warnings / 453.87 seconds.
+
 ## Article-date fidelity during variety source recovery (2026-10-07)
 
 The first bounded recovery retrieved two of four public copies; two failed

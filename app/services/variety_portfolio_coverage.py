@@ -73,6 +73,10 @@ def _load_portfolio_observations(data_dir: Path):
                         or not isinstance(row.get("reason"), str) or not row["reason"].strip()
                         or (row.get("url") and not _public_url(row["url"])) for row in accounting["exclusions"]):
                     raise ValueError("Excluded items need a label and reason")
+                if "reported_scope" in accounting and (
+                        "reported_items" not in accounting or not isinstance(accounting["reported_scope"], str)
+                        or not accounting["reported_scope"].strip()):
+                    raise ValueError("A stated total needs its nonempty scope label")
             note = source.get("company_site_note")
             if note is not None and (not isinstance(note, dict) or not note.get("reason") or
                     note.get("company_id") not in source["company_ids"] or any(
@@ -184,10 +188,16 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
             if accounted != accounting["observed_items"]:
                 issues.append("Captured names and exclusions do not account for every observed item.")
             if accounting.get("reported_items") is not None and accounting["reported_items"] != accounting["observed_items"]:
-                issues.append("The source’s stated total differs from the captured item count; check pagination and scope.")
+                if accounting.get("reported_scope"):
+                    issues.append(f"This page shows {accounting['observed_items']} items but reports "
+                                  f"{accounting['reported_items']} {accounting['reported_scope']}. "
+                                  "Check the remaining lists and their scope before calling the portfolio complete.")
+                else:
+                    issues.append("The source’s stated total differs from the captured item count; check pagination and scope.")
             accounting_view = {**accounting, "accounted_items": accounted, "issues": issues}
         source_rows.append({**source, "names": names, "companies": companies,
                             "accounting_view": accounting_view,
+                            "needs_follow_up": source["capture_status"] != "names_enumerated" or bool(accounting_view and accounting_view["issues"]),
                             "identity_issues": sorted({message for name in names for message in name["identity_notes"]}),
                             "age_days": age, "freshness": freshness,
                             "matched": sum(row["status"] == "catalog_match" for row in names),
@@ -268,6 +278,7 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
                          "berry_ids": scope, "berries": ", ".join(BERRY_LABELS[berry] for berry in scope) or "Scope needs checking",
                          "resolution": row["resolution_status"], "sources": linked,
                          "checked": bool(linked) and any(source["capture_status"] == "names_enumerated" for source in linked),
+                         "has_source_gaps": any(source["needs_follow_up"] for source in linked),
                          "href": "/entities/" + index[ids[0]]["entity_type"] + "/" + ids[0] if ids and ids[0] in index else ""})
     berry = filters.get("berry", "")
     if berry and berry not in BERRY_ORDER:
@@ -288,6 +299,7 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
     return {"sources": selected, "subjects": selected_subjects, "filters": {"berry": berry, "q": filters.get("q", "")},
             "summary": {"source_sections": len(selected), "readable_sections": sum(s["capture_status"] == "names_enumerated" for s in selected),
                         "unreadable_sections": sum(s["capture_status"] == "unreadable" for s in selected),
+                        "follow_up_sections": sum(s["needs_follow_up"] for s in selected),
                         "names": len(all_names), "catalog_matches": sum(n["status"] == "catalog_match" for n in all_names),
                         "needs_review": sum(n["status"] == "needs_review" for n in all_names),
                         "registry_entries": len(selected_subjects), "registry_entries_checked": sum(s["checked"] for s in selected_subjects)},
