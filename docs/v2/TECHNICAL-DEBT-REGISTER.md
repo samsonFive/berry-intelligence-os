@@ -1994,6 +1994,16 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 historical identity follow-up: 495/33/462 primary occurrences in 45
+sections; 413 candidate keys before private state, catalog 64. Shared labels
+with differing/missing codes now expose unresolved source pairings and withhold
+unconfirmed matches, preserving human decisions and edits. Six Hutton legacy
+entries do not close its 23-cultivar lifetime portfolio. The USDA Lewis PDF is
+partial pending visual pedigree accounting after direct retrieval returned 502.
+Four source gaps and 57 initial registry checks remain. Parent #325 passed four
+gates (4,063 passed / 11 skipped). Independent recall, actual catalog authoring
+and cited profile depth remain open. See VARIETY-HISTORICAL-IDENTITY-COVERAGE-REVIEW.md.
+
 October 7 public-program follow-up: 476/33/443 primary occurrences in 43
 sections; 20 registry rows have some checks, 57 need initial checks. Combined
 candidate keys before private state 399; catalog stays 64. Three explicit source

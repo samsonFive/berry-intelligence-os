@@ -3,18 +3,21 @@
 **Latest measured state, October 7:** 64 catalog entries (57 active / six
 unverified / one historical); 1,269 stored sources yield 95 name observations /
 32 exact catalog matches / 63 candidate observations. Primary reconciliation
-spans 43 sections with 476 occurrences / 33 matches / 443 review needs.
+spans 45 sections with 495 occurrences / 33 matches / 462 review needs.
 Twenty of 77 registry rows have some checks; 57 need initial checks.
-Combined candidate keys before private state: 399. UC Davis current/historical
+Combined candidate keys before private state: 413. UC Davis current/historical
 sections retain two ambiguous exclusions and original prefixes/links.
 Source plans now use existing public websites and analyst edit/clear.
 Older published sources have 1,198 unavailable bodies and 71 access screens,
 excluding private pending news: acquisition completeness and extraction recall
 remain separate requirements. Reviewed-distinct candidates prepare existing
 intake/source review (#320); real identity/claim decisions stay open. See
-VARIETY-PUBLIC-PROGRAM-COVERAGE-REVIEW.md and preceding review packets. Hutton's
+VARIETY-HISTORICAL-IDENTITY-COVERAGE-REVIEW.md and preceding review packets. Hutton's
 23-cultivar lifetime total with nine named highlights, UGA's inaccessible
-licensing list and the ABZ booklet remain three explicit source gaps. Wild
+licensing list, the ABZ booklet and the USDA paper's unaccounted pedigree remain
+four explicit source gaps. Six legacy Hutton entries extend its history without
+closing the lifetime total. Shared names with differing/missing codes expose
+unresolved source pairings; human identity decisions remain separate. Wild
 breeding material and genome/taxon labels are not automatically cultivar releases.
 Earlier numbers
 below record historical slices.

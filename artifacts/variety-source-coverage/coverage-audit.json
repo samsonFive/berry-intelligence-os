@@ -1205,7 +1205,9 @@
           "display_label": "Natchez",
           "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/Natchez.pdf",
           "portfolio_context": "University extension cultivar list; current rights and availability unreviewed",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -1233,7 +1235,9 @@
           "display_label": "Osage",
           "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/osage.pdf",
           "portfolio_context": "University extension cultivar list; current rights and availability unreviewed",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -1275,7 +1279,9 @@
           "display_label": "Prime-Ark® 45",
           "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/PrimeArk45.pdf",
           "portfolio_context": "University extension cultivar list; brand/code identity and current rights unreviewed",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -1289,7 +1295,9 @@
           "display_label": "Prime-Ark® Freedom",
           "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/Prime_Freedom.pdf",
           "portfolio_context": "University extension cultivar list; brand/code identity and current rights unreviewed",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -1303,7 +1311,9 @@
           "display_label": "Prime-Ark® Traveler",
           "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/2015_0204-Prime-Ark-Traveler-Blackberry-Popular-Description-Clark.pdf",
           "portfolio_context": "University extension cultivar list; brand/code identity and current rights unreviewed",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -1399,7 +1409,9 @@
         "issues": []
       },
       "needs_follow_up": false,
-      "identity_issues": [],
+      "identity_issues": [
+        "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+      ],
       "age_days": 0,
       "freshness": "Checked recently",
       "matched": 1,
@@ -1766,7 +1778,9 @@
           "trade_name": "",
           "breeder_code": "",
           "display_label": "Suziblue",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -1831,7 +1845,9 @@
           "trade_name": "",
           "breeder_code": "",
           "display_label": "Rebel",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -1973,7 +1989,9 @@
         "issues": []
       },
       "needs_follow_up": false,
-      "identity_issues": [],
+      "identity_issues": [
+        "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+      ],
       "age_days": 0,
       "freshness": "Checked recently",
       "matched": 7,
@@ -2699,7 +2717,8 @@
           "product_url": "https://planasa.com/us/variety/black-sultana-copy/",
           "identity_notes": [
             "This code appears with multiple labels: Black Rainier, Black Sultana. Check the pairing before accepting aliases.",
-            "This label appears with multiple codes: Plablack 15157, Plablack 1737. Keep the identities unresolved until reviewed."
+            "This label appears with multiple codes: Plablack 15157, Plablack 1737. Keep the identities unresolved until reviewed.",
+            "Different sources pair this name with different codes: Plablack 15157, Plablack 1737. Check the original records before accepting aliases."
           ],
           "catalog_id": null,
           "status": "needs_review",
@@ -3270,6 +3289,7 @@
       },
       "needs_follow_up": false,
       "identity_issues": [
+        "Different sources pair this name with different codes: Plablack 15157, Plablack 1737. Check the original records before accepting aliases.",
         "This code appears with multiple labels: Black Rainier, Black Sultana. Check the pairing before accepting aliases.",
         "This code appears with multiple labels: Pink Hudson, Pink Hudson (WINTER). Check the pairing before accepting aliases.",
         "This label appears with multiple codes: Plablack 15157, Plablack 1737. Keep the identities unresolved until reviewed."
@@ -3485,7 +3505,8 @@
           "display_label": "Black Rainier",
           "product_url": "https://planasa.com/es/variedad/black-rainier/",
           "identity_notes": [
-            "This label appears with multiple codes: Plablack 15157, Plablack 1737. Keep the identities unresolved until reviewed."
+            "This label appears with multiple codes: Plablack 15157, Plablack 1737. Keep the identities unresolved until reviewed.",
+            "Different sources pair this name with different codes: Plablack 15157, Plablack 1737. Check the original records before accepting aliases."
           ],
           "catalog_id": null,
           "status": "needs_review",
@@ -4024,6 +4045,7 @@
       },
       "needs_follow_up": false,
       "identity_issues": [
+        "Different sources pair this name with different codes: Plablack 15157, Plablack 1737. Check the original records before accepting aliases.",
         "This code appears with multiple labels: Black Rainier, Black Sultana. Check the pairing before accepting aliases.",
         "This code appears with multiple labels: Pink Hudson, Pink Hudson (WINTER). Check the pairing before accepting aliases.",
         "This label appears with multiple codes: Plablack 15157, Plablack 1737. Keep the identities unresolved until reviewed."
@@ -4495,7 +4517,9 @@
           "breeder_code": "TH-642",
           "display_label": "Rebel",
           "product_url": "https://www.oblueberry.com/variety/rebel/",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -4509,7 +4533,9 @@
           "breeder_code": "TH-730",
           "display_label": "Suziblue",
           "product_url": "https://www.oblueberry.com/variety/suziblue/",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -4583,11 +4609,329 @@
         "issues": []
       },
       "needs_follow_up": false,
-      "identity_issues": [],
+      "identity_issues": [
+        "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+      ],
       "age_days": 0,
       "freshness": "Checked recently",
       "matched": 3,
       "needs_review": 33,
+      "closed": 0,
+      "awaiting_catalog": 0
+    },
+    {
+      "id": "portfolio-hutton-legacy-raspberry-list",
+      "title": "James Hutton Institute — legacy raspberry listing",
+      "url": "https://fruitbreeding.hutton.ac.uk/raspberry/varieties",
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T14:01:06.636428Z",
+      "company_ids": [
+        "company-james-hutton-institute"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "breeder_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All six linked entries on the legacy raspberry listing. Product links retain the literal URLs published in this listing.",
+      "limitations": "A legacy six-entry list, not the full 23-cultivar lifetime portfolio. Linked profiles contain historical rights, trial and market wording that is not treated as current or approved. Names in linked profile bodies and pedigrees require separate accounting. No publication day is established.",
+      "names": [
+        {
+          "candidate_name": "Glen Ample",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://fruitbreeding.hutton.ac.uk/RaspberryGlenAmple.asp",
+          "portfolio_context": "Legacy listing entry · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Ample&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Glen Lyon",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://fruitbreeding.hutton.ac.uk/RaspberryGlenLyon.asp",
+          "portfolio_context": "Legacy listing entry · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Lyon&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Glen Magna",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://fruitbreeding.hutton.ac.uk/RaspberryGlenMagna.asp",
+          "portfolio_context": "Legacy listing entry · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Magna&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Glen Rosa",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://fruitbreeding.hutton.ac.uk/RaspberryGlenRosa.asp",
+          "portfolio_context": "Legacy listing entry · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Rosa&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Glen Shee",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://fruitbreeding.hutton.ac.uk/RaspberryGlenShee.asp",
+          "portfolio_context": "Legacy listing entry · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Shee&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Glen Doll",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://fruitbreeding.hutton.ac.uk/RaspberryGlenDoll.asp",
+          "portfolio_context": "Legacy listing entry · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Doll&berry=berry-raspberry"
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": []
+      },
+      "companies": [
+        {
+          "entity_id": "company-james-hutton-institute",
+          "name": "The James Hutton Institute",
+          "href": "/entities/company/company-james-hutton-institute"
+        }
+      ],
+      "accounting_view": {
+        "observed_items": 6,
+        "exclusions": [],
+        "accounted_items": 6,
+        "issues": []
+      },
+      "needs_follow_up": false,
+      "identity_issues": [],
+      "age_days": 0,
+      "freshness": "Checked recently",
+      "matched": 0,
+      "needs_review": 6,
+      "closed": 0,
+      "awaiting_catalog": 0
+    },
+    {
+      "id": "portfolio-usda-lewis-2001-paper",
+      "title": "USDA ARS — Lewis raspberry release paper (2001)",
+      "url": "https://www.ars.usda.gov/ARSUserFiles/1718/PDF/2001/Lewismanuscript.pdf",
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T14:01:06.636428Z",
+      "company_ids": [
+        "company-usda"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "breeder_release_record",
+      "capture_status": "partial",
+      "enumerated_scope": "Thirteen named cultivar/release/comparator contexts in the four-page paper text and tables; two parent codes and one bibliography-only cultivar title are excluded from this bounded scope.",
+      "limitations": "Partial source check: the pedigree diagram has not been visually accounted for. The web PDF reader returned text, but a direct public PDF retrieval returned HTTP 502, so no complete visual capture is claimed. Lewis is paired with ORUS 576-47 here; a current Hutton overview also names Lewis, and their identity remains unresolved. Comparators are not USDA breeder assignments. The printed year 2001 and acceptance dates do not establish a publication day. No traits, rights, current availability or growing regions are approved.",
+      "names": [
+        {
+          "candidate_name": "ORUS 576-47",
+          "breeder_code": "ORUS 576-47",
+          "trade_name": "Lewis",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Lewis release paper, 2001 · code/name pairing unreviewed",
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=ORUS+576-47&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Coho",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Related release mentioned in 2001 paper · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Coho&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Meeker",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Meeker&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Willamette",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Willamette&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Chilcotin",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Chilcotin&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Chilliwack",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Chilliwack&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Comox",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Comox&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Glen Ample",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Glen+Ample&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Tulameen",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Tulameen&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Qualicum",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Qualicum&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Southland",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Southland&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Fairview",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Fairview&berry=berry-raspberry"
+        },
+        {
+          "candidate_name": "Skeena",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed",
+          "identity_notes": [],
+          "catalog_id": null,
+          "status": "needs_review",
+          "label": "Needs identity review",
+          "href": "/varieties/candidates?q=Skeena&berry=berry-raspberry"
+        }
+      ],
+      "accounting": {
+        "observed_items": 16,
+        "exclusions": [
+          {
+            "label": "ORUS 1570",
+            "reason": "Parent selection code in the origin paragraph; pedigree-only material is outside this release/comparator scope."
+          },
+          {
+            "label": "ORUS 1748",
+            "reason": "Parent selection code in the origin paragraph; pedigree-only material is outside this release/comparator scope."
+          },
+          {
+            "label": "Centennial",
+            "reason": "Bibliography-only cultivar title; the referenced release paper remains a separate source check."
+          }
+        ]
+      },
+      "companies": [
+        {
+          "entity_id": "company-usda",
+          "name": "United States Department of Agriculture",
+          "href": "/entities/company/company-usda"
+        }
+      ],
+      "accounting_view": {
+        "observed_items": 16,
+        "exclusions": [
+          {
+            "label": "ORUS 1570",
+            "reason": "Parent selection code in the origin paragraph; pedigree-only material is outside this release/comparator scope."
+          },
+          {
+            "label": "ORUS 1748",
+            "reason": "Parent selection code in the origin paragraph; pedigree-only material is outside this release/comparator scope."
+          },
+          {
+            "label": "Centennial",
+            "reason": "Bibliography-only cultivar title; the referenced release paper remains a separate source check."
+          }
+        ],
+        "accounted_items": 16,
+        "issues": []
+      },
+      "needs_follow_up": true,
+      "identity_issues": [
+        "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+      ],
+      "age_days": 0,
+      "freshness": "Checked recently",
+      "matched": 0,
+      "needs_review": 13,
       "closed": 0,
       "awaiting_catalog": 0
     },
@@ -4650,7 +4994,9 @@
           "display_label": "Baron (NR 1849002)",
           "portfolio_context": "Code/name pairing · release unverified",
           "product_url": "https://en.niwabrzezna.pl/klony/maliny/nr-1849002/",
-          "identity_notes": [],
+          "identity_notes": [
+            "This code appears with multiple labels: Baron, NR 1849002. Check the pairing before accepting aliases."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -4900,7 +5246,9 @@
         "issues": []
       },
       "needs_follow_up": false,
-      "identity_issues": [],
+      "identity_issues": [
+        "This code appears with multiple labels: Baron, NR 1849002. Check the pairing before accepting aliases."
+      ],
       "age_days": 0,
       "freshness": "Checked recently",
       "matched": 0,
@@ -4936,7 +5284,9 @@
           "display_label": "NR 1849002",
           "portfolio_context": "Clone selection · release unverified",
           "product_url": "https://en.niwabrzezna.pl/clones/raspberries/nr-1849002/",
-          "identity_notes": [],
+          "identity_notes": [
+            "This code appears with multiple labels: Baron, NR 1849002. Check the pairing before accepting aliases."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -5083,7 +5433,9 @@
         "issues": []
       },
       "needs_follow_up": false,
-      "identity_issues": [],
+      "identity_issues": [
+        "This code appears with multiple labels: Baron, NR 1849002. Check the pairing before accepting aliases."
+      ],
       "age_days": 0,
       "freshness": "Checked recently",
       "matched": 0,
@@ -7001,7 +7353,9 @@
           "candidate_name": "Lewis",
           "berry_id": "berry-raspberry",
           "portfolio_context": "Program highlight · unreviewed",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -7032,7 +7386,9 @@
         ]
       },
       "needs_follow_up": true,
-      "identity_issues": [],
+      "identity_issues": [
+        "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+      ],
       "age_days": 0,
       "freshness": "Checked recently",
       "matched": 0,
@@ -7265,7 +7621,9 @@
           "candidate_name": "Suziblue",
           "berry_id": "berry-blueberry",
           "portfolio_context": "Historical release · unreviewed",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -7356,7 +7714,9 @@
         "issues": []
       },
       "needs_follow_up": false,
-      "identity_issues": [],
+      "identity_issues": [
+        "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+      ],
       "age_days": 0,
       "freshness": "Checked recently",
       "matched": 0,
@@ -8417,7 +8777,9 @@
           "display_label": "Prime-Ark® Traveler",
           "portfolio_context": "Code/name pair · unreviewed",
           "product_url": "https://journals.ashs.org/hortsci/abstract/journals/hortsci/51/10/article-p1287.xml",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -8431,7 +8793,9 @@
           "display_label": "Prime-Ark® Freedom",
           "portfolio_context": "Code/name pair · unreviewed",
           "product_url": "https://journals.ashs.org/hortsci/view/journals/hortsci/49/8/article-p1097.xml",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -8445,7 +8809,9 @@
           "display_label": "Osage",
           "portfolio_context": "Code/name pair · unreviewed",
           "product_url": "https://journals.ashs.org/hortsci/view/journals/hortsci/48/7/article-p909.xml",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -8459,7 +8825,9 @@
           "display_label": "Prime-Ark® 45",
           "portfolio_context": "Code/name pair · unreviewed",
           "product_url": "https://journals.ashs.org/hortsci/view/journals/hortsci/46/4/article-p670.xml",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -8472,7 +8840,9 @@
           "trade_name": "Natchez",
           "display_label": "Natchez",
           "portfolio_context": "Code/name pair · unreviewed",
-          "identity_notes": [],
+          "identity_notes": [
+            "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+          ],
           "catalog_id": null,
           "status": "needs_review",
           "label": "Needs identity review",
@@ -8493,7 +8863,9 @@
         "issues": []
       },
       "needs_follow_up": false,
-      "identity_issues": [],
+      "identity_issues": [
+        "This name appears with a code in one source and without it in another. Check whether they refer to the same variety before combining the records."
+      ],
       "age_days": 0,
       "freshness": "Checked recently",
       "matched": 0,
@@ -9362,7 +9734,7 @@
         "company-james-hutton-institute"
       ],
       "website": "https://www.hutton.ac.uk/",
-      "starting_url": "https://www.hutton.ac.uk/scientific-services/improving-crop-production/breeding/raspberry-breeding/",
+      "starting_url": "https://fruitbreeding.hutton.ac.uk/raspberry/varieties",
       "starting_label": "Checked page ↗",
       "site_notes": [],
       "berry_ids": [
@@ -9374,6 +9746,7 @@
       "berries": "Blackberry, Blueberry, Raspberry, Strawberry",
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [
+        "portfolio-hutton-legacy-raspberry-list",
         "portfolio-hutton-raspberry-program-highlights"
       ],
       "checked": true,
@@ -10074,10 +10447,11 @@
       "berries": "Blackberry, Raspberry, Strawberry",
       "resolution": "ADDED_CANONICAL_ENTITY",
       "sources": [
+        "portfolio-usda-lewis-2001-paper",
         "portfolio-usda-corvallis-fy2022"
       ],
       "checked": true,
-      "has_source_gaps": false,
+      "has_source_gaps": true,
       "href": "/entities/company/company-usda"
     },
     {
@@ -10148,13 +10522,13 @@
     "q": ""
   },
   "summary": {
-    "source_sections": 43,
-    "readable_sections": 41,
+    "source_sections": 45,
+    "readable_sections": 42,
     "unreadable_sections": 2,
-    "follow_up_sections": 3,
-    "names": 476,
+    "follow_up_sections": 4,
+    "names": 495,
     "catalog_matches": 33,
-    "needs_review": 443,
+    "needs_review": 462,
     "registry_entries": 77,
     "registry_entries_checked": 20
   },
@@ -10174,7 +10548,7 @@
     {
       "id": "berry-raspberry",
       "label": "Raspberry",
-      "names": 76,
+      "names": 95,
       "matched": 15
     },
     {
@@ -10197,8 +10571,8 @@
   },
   "candidate_counts": {
     "stored_source_candidates": 63,
-    "combined_candidates": 399,
-    "additional_primary_portfolio_candidates": 336
+    "combined_candidates": 413,
+    "additional_primary_portfolio_candidates": 350
   },
   "scope": "Stored primary-page name observations only. No private inbox or human review notes. No global completeness score."
 }
