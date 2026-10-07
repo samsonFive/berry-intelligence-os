@@ -139,7 +139,7 @@
       "cadence_seconds": 86400,
       "runner": "scripts/social_intelligence.py collect --source bluesky --query blueberries --language en --market US --max-pages 1 --enable",
       "state": "operations/pipelines/social_intelligence/runs",
-      "notes": "Blueberry review only. Disabled/unscheduled. Explicit enablement requires access/retention review; shared runtime lock and bounded request/page budgets. No paid provider."
+      "notes": "All-berry workspace approved after blueberry layout review on 2026-10-07. Disabled/unscheduled. Explicit enablement requires access/retention review; shared runtime lock and bounded request/page budgets. No paid activation. One-off free-credit trials are separate, predeclared and private."
     }
   ]
 }

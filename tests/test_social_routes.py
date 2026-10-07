@@ -67,9 +67,10 @@ def test_manual_import_provenance_csrf_and_schema(client):
     r['mode']='live';assert client.post('/api/social/import',json=[r],headers=headers).status_code==422
     assert client.post('/api/social/import',content='a'*1000001,headers=headers).status_code==413
 
-def test_error_empty_and_blueberry_gate(client):
+def test_error_empty_and_approved_berry_selection(client):
     page=client.get('/social?mode=live');assert page.status_code==200 and 'No posts in this selection' in page.text
-    assert client.get('/social?berry=berry-strawberry').status_code==422
+    assert client.get('/social?berry=berry-strawberry').status_code==200
+    assert client.get('/social?berry=berry-invalid').status_code==422
     assert 'Reset Social Listening' in client.get('/social?view=fiction').text
     assert client.get('/api/social/missing/reader').status_code==410
 
@@ -114,3 +115,33 @@ def test_perspectives_keep_corporate_and_consumer_separate(client):
         assert result['count']==1 and result['records'][0]['content_role']==role
         assert client.get('/social/export?mode=imported&perspective='+perspective).json()['count']==1
         assert 'perspective='+perspective in client.get('/social?mode=imported&perspective='+perspective).text
+
+
+@pytest.mark.parametrize('berry',['berry-strawberry','berry-raspberry','berry-blackberry'])
+def test_approved_berries_keep_scope_across_views_export_and_manual_capture(client,berry):
+    rows=json.loads((ROOT/'benchmarks/social-all-berries-fixtures.json').read_text(encoding='utf-8'))['records']
+    Store(main.INBOX_DIR).ingest(rows,main.all_entities())
+    for view in ('posts','phrases','heatmap','atlas','momentum','coverage'):
+        params={'berry':berry,'mode':'fixture','view':view,'perspective':'consumer','language':'es'}
+        page=client.get('/social',params=params)
+        assert page.status_code==200
+        assert f'value="{berry}" selected' in page.text
+        data=client.get('/api/social',params=params).json()
+        assert data['count']==1
+        assert all(berry in r['analysis']['berry_ids'] for r in data['records'])
+        assert client.get('/social/export',params=params).json()['records']==data['records']
+        assert client.get('/social/briefing',params=params).status_code==200
+        assert client.get('/api/social/'+data['records'][0]['id']+'/reader').status_code==200
+    imported=deepcopy(next(r for r in rows if berry in r['native_id'] and r['language']=='en'))
+    imported.update(mode='imported',native_id='approved-import-'+berry)
+    assert client.post('/api/social/import',json=[imported],headers={'Origin':'http://testserver'}).status_code==200
+    assert client.get('/api/social',params={'berry':berry,'mode':'imported'}).json()['count']==1
+    assert client.get('/api/social',params={'berry':'berry-blueberry','mode':'imported'}).json()['count']==0
+
+
+def test_rollout_search_matches_displayed_english_translation(client):
+    rows=json.loads((ROOT/'benchmarks/social-all-berries-fixtures.json').read_text(encoding='utf-8'))['records']
+    Store(main.INBOX_DIR).ingest(rows,main.all_entities())
+    result=client.get('/api/social',params={'berry':'berry-raspberry','mode':'fixture','language':'es','q':'raspberries'}).json()
+    assert result['count']==2
+    assert all('frambuesas' in r['text'] and 'raspberries' in r['translation']['text'] for r in result['records'])

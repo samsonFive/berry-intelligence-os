@@ -20,8 +20,6 @@ def context():
 
 def view_bundle(request):
     main,store=context()
-    if request.query_params.get('berry','berry-blueberry')!='berry-blueberry':
-        raise HTTPException(422,'Blueberry review gate; other berries await feedback')
     access=json.loads((ROOT/'docs/v2/social-source-access.json').read_text(encoding='utf-8'))['sources']
     try:
         b=bundle([r for r in store.records() if readable_in_english(r)],store.jobs(),request.query_params,access={r['source']:r for r in access})

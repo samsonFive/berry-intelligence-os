@@ -107,3 +107,8 @@ Rollback: no canonical data/schema migration; revert these UI/harness additions 
 ## October 7 follow-up: translation-first UI and actual SociaVault trial
 
 The [multi-platform measured trial](SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md) supersedes earlier statements that no SociaVault key/account or live social sample was available. Actual bounded discovery returned content from six platforms; 24 one-time free credits consumed, 26 remaining, $0 paid. LinkedIn is blocked and two TikTok responses exceeded the byte ceiling. Original images can be loaded explicitly; translation-first text keeps original wording on hover/focus/tap. Production scheduling, source-specific retention/redisplay permission, independent accuracy/global coverage, automatic dossier/briefing assembly and published dependency retraction remain unproven or unmet. The isolated preview is localhost18345; public git contains counts/manifests and invented demo screenshots, not real raw posts. No merge/deployment occurred.
+
+
+### All-berry rollout authorized — 2026-10-07
+
+The user approved the blueberry workspace and authorized strawberry, raspberry and blackberry expansion. See [all-berry review](SOCIAL-ALL-BERRIES-REVIEW.md), measured `artifacts/social-all-berries/trial-summary.json` and separate synthetic evaluation. Six additional X/Reddit probes returned HTTP200 at $0, six free credits consumed; 38 cumulative consumed, 12 remain. No ongoing collection, merge or deployment. Layout approval does not qualify independent relevance/role/language accuracy, redisplay/deletion rights, watch persistence or automatic downstream assembly. Historical blueberry-only gate statements above describe the earlier checkpoint. Landscape Explorer retains its separate scope.

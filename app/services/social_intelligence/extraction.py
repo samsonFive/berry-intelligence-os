@@ -5,13 +5,14 @@ retain exact original spans; unsupported language/context stays uncertain.
 """
 import re
 import hashlib
+from functools import lru_cache
 
-VERSION = 'social-literal-1'
+VERSION = 'social-literal-2'
 VOCAB = {
  'berry-blueberry': {'en':['blueberry','blueberries'], 'es':['arándano','arándanos'], 'pt':['mirtilo','mirtilos'], 'zh':['蓝莓','藍莓'], 'ja':['ブルーベリー']},
- 'berry-strawberry': {'en':['strawberry','strawberries'], 'es':['fresa','fresas'], 'pt':['morango','morangos'], 'zh':['草莓'], 'ja':['イチゴ','いちご']},
- 'berry-raspberry': {'en':['raspberry','raspberries'], 'es':['frambuesa'], 'pt':['framboesa'], 'zh':['树莓','覆盆子'], 'ja':['ラズベリー']},
- 'berry-blackberry': {'en':['blackberry','blackberries'], 'es':['mora'], 'pt':['amora'], 'zh':['黑莓'], 'ja':['ブラックベリー']},
+ 'berry-strawberry': {'en':['strawberry','strawberries'], 'es':['fresa','fresas','frutilla','frutillas'], 'pt':['morango','morangos'], 'zh':['草莓'], 'ja':['イチゴ','いちご','苺']},
+ 'berry-raspberry': {'en':['raspberry','raspberries'], 'es':['frambuesa','frambuesas'], 'pt':['framboesa','framboesas'], 'zh':['树莓','樹莓','覆盆子'], 'ja':['ラズベリー']},
+ 'berry-blackberry': {'en':['blackberry','blackberries'], 'es':['mora','moras','zarzamora','zarzamoras'], 'pt':['amora','amoras','amora-preta','amoras-pretas'], 'zh':['黑莓'], 'ja':['ブラックベリー']},
 }
 # Regional vocabulary is reviewable and intentionally small. Five-language QA
 # is a pilot, not an assertion of worldwide semantic coverage.
@@ -35,17 +36,24 @@ RELATIONS = {
  'compared-with':['compared','comparado','比較','相比'],
 }
 
-def spans(text, term):
+@lru_cache(maxsize=8192)
+def term_pattern(term):
     latin = bool(re.fullmatch(r'[\w\s-]+', term) and all(ord(c) < 1000 for c in term))
-    pattern = (r'(?<!\w)' + re.escape(term) + r'(?!\w)') if latin else re.escape(term)
-    return [{'start':m.start(), 'end':m.end(), 'text':m.group()} for m in re.finditer(pattern, text, re.I)]
+    pattern = (r'(?<![A-Za-zÀ-Ͽ0-9_])' + re.escape(term) + r'(?![A-Za-zÀ-Ͽ0-9_])') if latin else re.escape(term)
+    return re.compile(pattern,re.I)
+
+def spans(text, term):
+    return [{'start':m.start(), 'end':m.end(), 'text':m.group()} for m in term_pattern(term).finditer(text)]
 
 def analyze(item, entities):
     from .media_extraction import media_observations
     text = item['text']
     excluded = bool(re.search(r'blackberry.{0,30}(phone|android|keyboard|smartphone)|(?:phone|smartphone).{0,30}blackberry', text, re.I))
+    nonfruit = bool(re.search(r'raspberry\s+pi\b|perfume that smells|need a perfume|(?:wine|coffee).{0,35}(?:notes of|notes:)', text, re.I))
     berries = sorted(b for b, packs in VOCAB.items() if any(spans(text,t) for terms in packs.values() for t in terms))
     if excluded:
+        berries = [b for b in berries if b != 'berry-blackberry']
+    if nonfruit:
         berries = []
     aspects = []
     for aspect, polarities in ASPECTS.items():
@@ -62,8 +70,8 @@ def analyze(item, entities):
         for alias in aliases:
             for s in spans(text,alias):
                 # Clause context prevents a wish about Kroger becoming a Costco sighting.
-                start = max(text.rfind('.',0,s['start']), text.rfind(';',0,s['start']), text.rfind('!',0,s['start']))+1
-                stop = min([i for c in '.;!' if (i:=text.find(c,s['end']))>=0] or [len(text)])
+                start = max(text.rfind('.',0,s['start']), text.rfind(';',0,s['start']), text.rfind('!',0,s['start']),text.rfind('。',0,s['start']),text.rfind('；',0,s['start']),text.rfind('！',0,s['start']))+1
+                stop = min([i for c in '.;!。；！' if (i:=text.find(c,s['end']))>=0] or [len(text)])
                 clause = text[start:stop]
                 relation = next((r for r,terms in RELATIONS.items() if any(spans(clause,t) for t in terms)), 'uncertain-mention')
                 matches = [e['id'] for e in entities if e.get('name','').casefold() in [a.casefold() for a in aliases]]
@@ -94,7 +102,7 @@ def analyze(item, entities):
     # establish a brand observation or a brand→cultivar registry relationship.
     links=[link for link in links if not any(link is not other and link['basis']==other['basis'] and link['locator']==other['locator'] and link['span']['start']>=other['span']['start'] and link['span']['end']<=other['span']['end'] and len(link['name'])<len(other['name']) for other in links)]
     concepts = sorted({a['aspect'] for a in aspects})
-    return {'version':VERSION,'relevance':'excluded-phone' if excluded else 'relevant' if berries else 'needs-review',
+    return {'version':VERSION,'relevance':'relevant' if berries else 'excluded-phone' if excluded else 'excluded-nonfruit' if nonfruit else 'needs-review',
             'berry_ids':berries,'aspects':aspects,'retailers':retailers,'entity_links':links,'candidates':candidates,'concepts':concepts,
             'media_observations':media_observations(item),
             'content_fingerprint':hashlib.sha256(' '.join(text.casefold().split()).encode()).hexdigest(),

@@ -1,0 +1,1578 @@
+{
+  "label": "SYNTHETIC invented posts, handles and translations; not live or human-qualified",
+  "records": [
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-strawberry-en-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-strawberry-en-0",
+      "text": "Found strawberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+      "language": "en",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": null,
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-strawberry-en-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-strawberry-en-1",
+      "text": "These strawberries are sweet but sour and firm but mushy.",
+      "language": "en",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": null,
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-strawberry-es-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-strawberry-es-0",
+      "text": "Encontré frutillas en Costco; crujiente pero insípido. Ojalá Kroger las tenga.",
+      "language": "es",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found strawberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-strawberry-es-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-strawberry-es-1",
+      "text": "Estas frutillas son dulce pero insípido, crujiente pero blando.",
+      "language": "es",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "These strawberries are sweet but sour and firm but mushy.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-strawberry-pt-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-strawberry-pt-0",
+      "text": "Encontrei morangos no Costco; crocante mas sem sabor. Tomara Kroger venda.",
+      "language": "pt",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found strawberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-strawberry-pt-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-strawberry-pt-1",
+      "text": "Estas morangos são doce mas sem sabor, crocante mas mole.",
+      "language": "pt",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "These strawberries are sweet but sour and firm but mushy.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-strawberry-zh-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-strawberry-zh-0",
+      "text": "发现Costco的草莓，脆但是寡淡。希望Kroger有。",
+      "language": "zh",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found strawberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-strawberry-zh-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-strawberry-zh-1",
+      "text": "草莓甜但是寡淡，脆但是软。",
+      "language": "zh",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "These strawberries are sweet but sour and firm but mushy.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-strawberry-ja-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-strawberry-ja-0",
+      "text": "コストコで苺を見つけた。カリカリだが味が薄い。Krogerも扱ってほしい。",
+      "language": "ja",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found strawberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-strawberry-ja-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-strawberry-ja-1",
+      "text": "苺は甘いが味が薄い、カリカリだが柔らかすぎ。",
+      "language": "ja",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "These strawberries are sweet but sour and firm but mushy.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-raspberry-en-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-raspberry-en-0",
+      "text": "Found raspberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+      "language": "en",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": null,
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-raspberry-en-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-raspberry-en-1",
+      "text": "These raspberries are sweet but sour and firm but mushy.",
+      "language": "en",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": null,
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-raspberry-es-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-raspberry-es-0",
+      "text": "Encontré frambuesas en Costco; crujiente pero insípido. Ojalá Kroger las tenga.",
+      "language": "es",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found raspberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-raspberry-es-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-raspberry-es-1",
+      "text": "Estas frambuesas son dulce pero insípido, crujiente pero blando.",
+      "language": "es",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "These raspberries are sweet but sour and firm but mushy.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-raspberry-pt-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-raspberry-pt-0",
+      "text": "Encontrei framboesas no Costco; crocante mas sem sabor. Tomara Kroger venda.",
+      "language": "pt",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found raspberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-raspberry-pt-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-raspberry-pt-1",
+      "text": "Estas framboesas são doce mas sem sabor, crocante mas mole.",
+      "language": "pt",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "These raspberries are sweet but sour and firm but mushy.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-raspberry-zh-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-raspberry-zh-0",
+      "text": "发现Costco的樹莓，脆但是寡淡。希望Kroger有。",
+      "language": "zh",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found raspberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-raspberry-zh-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-raspberry-zh-1",
+      "text": "樹莓甜但是寡淡，脆但是软。",
+      "language": "zh",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "These raspberries are sweet but sour and firm but mushy.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-raspberry-ja-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-raspberry-ja-0",
+      "text": "コストコでラズベリーを見つけた。カリカリだが味が薄い。Krogerも扱ってほしい。",
+      "language": "ja",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found raspberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-raspberry-ja-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-raspberry-ja-1",
+      "text": "ラズベリーは甘いが味が薄い、カリカリだが柔らかすぎ。",
+      "language": "ja",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "These raspberries are sweet but sour and firm but mushy.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-blackberry-en-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-blackberry-en-0",
+      "text": "Found blackberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+      "language": "en",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": null,
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-blackberry-en-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-blackberry-en-1",
+      "text": "These blackberries are sweet but sour and firm but mushy.",
+      "language": "en",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": null,
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-blackberry-es-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-blackberry-es-0",
+      "text": "Encontré zarzamoras en Costco; crujiente pero insípido. Ojalá Kroger las tenga.",
+      "language": "es",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found blackberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-blackberry-es-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-blackberry-es-1",
+      "text": "Estas zarzamoras son dulce pero insípido, crujiente pero blando.",
+      "language": "es",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "These blackberries are sweet but sour and firm but mushy.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-blackberry-pt-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-blackberry-pt-0",
+      "text": "Encontrei amoras-pretas no Costco; crocante mas sem sabor. Tomara Kroger venda.",
+      "language": "pt",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found blackberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-blackberry-pt-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-blackberry-pt-1",
+      "text": "Estas amoras-pretas são doce mas sem sabor, crocante mas mole.",
+      "language": "pt",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "These blackberries are sweet but sour and firm but mushy.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-blackberry-zh-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-blackberry-zh-0",
+      "text": "发现Costco的黑莓，脆但是寡淡。希望Kroger有。",
+      "language": "zh",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found blackberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-blackberry-zh-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-blackberry-zh-1",
+      "text": "黑莓甜但是寡淡，脆但是软。",
+      "language": "zh",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "These blackberries are sweet but sour and firm but mushy.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-blackberry-ja-0",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-blackberry-ja-0",
+      "text": "コストコでブラックベリーを見つけた。カリカリだが味が薄い。Krogerも扱ってほしい。",
+      "language": "ja",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found blackberries at Costco; crunchy but bland. I wish Kroger stocked them.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-berry-blackberry-ja-1",
+      "canonical_url": "https://example.org/synthetic/all-berries-berry-blackberry-ja-1",
+      "text": "ブラックベリーは甘いが味が薄い、カリカリだが柔らかすぎ。",
+      "language": "ja",
+      "language_basis": "Synthetic authored example",
+      "published_at": null,
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "These blackberries are sweet but sour and firm but mushy.",
+        "language": "en",
+        "method": "synthetic",
+        "version": "all-berries-1",
+        "uncertainty": "Invented English translation for synthetic QA; not independently reviewed"
+      },
+      "content_role": "company_owned",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-company"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-phone",
+      "canonical_url": "https://example.org/synthetic/phone",
+      "text": "My BlackBerry smartphone has a keyboard.",
+      "language": "en",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": null,
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-mixed",
+      "canonical_url": "https://example.org/synthetic/mixed",
+      "text": "Strawberries are sweet; raspberries are sour.",
+      "language": "en",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": null,
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    },
+    {
+      "source": "reddit",
+      "native_id": "all-berries-fruit-phone",
+      "canonical_url": "https://example.org/synthetic/fruit-phone",
+      "text": "I bought strawberries while using a BlackBerry phone.",
+      "language": "en",
+      "language_basis": "Synthetic authored example",
+      "published_at": "2026-10-07T12:00:00Z",
+      "collected_at": "2026-10-07T13:00:00Z",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": null,
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": null,
+      "author_handle": "invented-consumer"
+    }
+  ],
+  "expected": [
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "aspects": {
+        "flavor": "negative",
+        "texture": "positive"
+      },
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ],
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "aspects": {
+        "flavor": "mixed",
+        "texture": "mixed"
+      },
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "excluded-phone",
+      "berry_ids": []
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-raspberry",
+        "berry-strawberry"
+      ]
+    },
+    {
+      "relevance": "relevant",
+      "berry_ids": [
+        "berry-strawberry"
+      ]
+    }
+  ]
+}

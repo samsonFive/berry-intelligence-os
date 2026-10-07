@@ -84,6 +84,7 @@ class Intake(Strict):
     language_basis: str = Field(min_length=1, max_length=120)
     translation: Translation | None = None
     content_role: Literal['consumer', 'recipe', 'company_owned', 'creator', 'disclosed_sponsorship', 'trade', 'news_repost', 'unknown'] = 'unknown'
+    content_role_basis: str = Field(default='Not classified', max_length=500)
     record_role: Literal['original', 'reply', 'repost'] = 'original'
     source_embed_urn: str | None = None
     author_handle: str | None = Field(default=None, max_length=500)

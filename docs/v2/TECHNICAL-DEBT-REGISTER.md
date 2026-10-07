@@ -2018,3 +2018,8 @@ See [the current reader/LinkedIn report](SOCIAL-VISUAL-READER-LINKEDIN.md): publ
 
 
 October7 Social continuation: Facebook public company pages and X company searches now demonstrated via bounded vendor follow-up (six Facebook posts,20 retained X posts;$0,18 free credits remain). Source language/translation controls hide unreadable records; Facebook groups/comments/general keyword search and independent qualification remain unmet. See [current measured report](SOCIAL-VISUAL-READER-LINKEDIN.md).
+
+
+### All-berry rollout authorized — 2026-10-07
+
+The user approved the blueberry workspace and authorized strawberry, raspberry and blackberry expansion. See [all-berry review](SOCIAL-ALL-BERRIES-REVIEW.md), measured `artifacts/social-all-berries/trial-summary.json` and separate synthetic evaluation. Six additional X/Reddit probes returned HTTP200 at $0, six free credits consumed; 38 cumulative consumed, 12 remain. No ongoing collection, merge or deployment. Layout approval does not qualify independent relevance/role/language accuracy, redisplay/deletion rights, watch persistence or automatic downstream assembly. Historical blueberry-only gate statements above describe the earlier checkpoint. Landscape Explorer retains its separate scope.

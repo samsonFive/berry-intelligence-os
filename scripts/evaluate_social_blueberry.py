@@ -28,7 +28,7 @@ def evaluate():
             else:report['errors'].append({'native_id':row['native_id'],'field':field,'expected':target,'actual':prediction[field]})
     return {'version':VERSION,'dataset':'Synthetic labeled blueberry pilot; not independent human gold or representative population',
         'by_language':{lang:{**r,'accuracy':round(r['correct']/r['checks'],4)} for lang,r in scores.items()},
-        'live_sample':{'cases':0,'performance':None,'reason':'Bluesky search HTTP 403; YouTube key not provisioned. No live extraction performance claim.'}}
+        'live_sample':{'cases':0,'performance':None,'reason':'No independently graded live cases. Trial collection exists separately; no live extraction performance claim.'}}
 
 if __name__=='__main__':
     result=evaluate();out=ROOT/'artifacts/social-blueberry/evaluation.json';out.parent.mkdir(parents=True,exist_ok=True)

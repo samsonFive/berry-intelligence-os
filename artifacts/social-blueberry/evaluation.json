@@ -1,5 +1,5 @@
 {
-  "version": "social-literal-1",
+  "version": "social-literal-2",
   "dataset": "Synthetic labeled blueberry pilot; not independent human gold or representative population",
   "by_language": {
     "en": {
@@ -96,6 +96,6 @@
   "live_sample": {
     "cases": 0,
     "performance": null,
-    "reason": "Bluesky search HTTP 403; YouTube key not provisioned. No live extraction performance claim."
+    "reason": "No independently graded live cases. Trial collection exists separately; no live extraction performance claim."
   }
 }

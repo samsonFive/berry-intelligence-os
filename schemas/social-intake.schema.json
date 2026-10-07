@@ -388,6 +388,12 @@
       "title": "Content Role",
       "type": "string"
     },
+    "content_role_basis": {
+      "default": "Not classified",
+      "maxLength": 500,
+      "title": "Content Role Basis",
+      "type": "string"
+    },
     "record_role": {
       "default": "original",
       "enum": [
@@ -397,6 +403,44 @@
       ],
       "title": "Record Role",
       "type": "string"
+    },
+    "source_embed_urn": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Embed Urn"
+    },
+    "author_handle": {
+      "anyOf": [
+        {
+          "maxLength": 500,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Author Handle"
+    },
+    "author_name": {
+      "anyOf": [
+        {
+          "maxLength": 500,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Author Name"
     },
     "attribution": {
       "maxLength": 500,

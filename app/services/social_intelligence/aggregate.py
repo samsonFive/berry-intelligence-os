@@ -35,7 +35,7 @@ def bundle(records,jobs,params, *, access=None):
         if f['start'] and day<f['start'] or f['end'] and day>f['end']: continue
         if f['market'] and (r.get('purchase_market') or {}).get('value')!=f['market']: continue
         if f['entity'] and f['entity'] not in {link['entity_id'] for link in a.get('entity_links',[])}: continue
-        if f['q'] and f['q'].casefold() not in r['text'].casefold(): continue
+        if f['q'] and not any(f['q'].casefold() in text.casefold() for text in (r['text'],(r.get('translation') or {}).get('text',''))): continue
         role=r.get('content_role','unknown')
         perspective='corporate' if role in ('company_owned','trade') else 'consumer' if role in ('consumer','recipe','creator','disclosed_sponsorship') else 'unclear'
         if f['perspective'] and perspective!=f['perspective']:continue
@@ -48,7 +48,9 @@ def bundle(records,jobs,params, *, access=None):
     for r in rows:
         a=r['analysis']; rid=r['id']
         for asp in a['aspects']:
-            heat[asp['aspect']].append((rid,asp['sentiment']))
+            # An unassigned aspect in a mixed-berry post is not berry-specific sentiment.
+            sign='uncertain' if asp.get('target') is None and len(a.get('berry_ids',[]))>1 else asp['sentiment']
+            heat[asp['aspect']].append((rid,sign))
             phrases[asp['aspect']].add(rid)
             labels[asp['aspect']].update(h['span']['text'] for h in asp['evidence'])
         for link in a['retailers']:

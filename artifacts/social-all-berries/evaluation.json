@@ -1,0 +1,42 @@
+{
+  "version": "social-literal-2",
+  "dataset": "SYNTHETIC invented posts, handles and translations; not live or human-qualified",
+  "by_language": {
+    "en": {
+      "cases": 9,
+      "checks": 54,
+      "correct": 54,
+      "errors": []
+    },
+    "es": {
+      "cases": 6,
+      "checks": 48,
+      "correct": 48,
+      "errors": []
+    },
+    "pt": {
+      "cases": 6,
+      "checks": 48,
+      "correct": 48,
+      "errors": []
+    },
+    "zh": {
+      "cases": 6,
+      "checks": 48,
+      "correct": 48,
+      "errors": []
+    },
+    "ja": {
+      "cases": 6,
+      "checks": 48,
+      "correct": 48,
+      "errors": []
+    }
+  },
+  "independent_live_accuracy": {
+    "graded_cases": 0,
+    "precision": null,
+    "recall": null,
+    "reason": "No independent human labels; source acquisition counts reported separately."
+  }
+}

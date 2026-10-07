@@ -124,3 +124,8 @@ The [multi-platform measured trial](SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md) su
 ## Visual reader and successful LinkedIn follow-up — October7
 
 See [the current reader/LinkedIn report](SOCIAL-VISUAL-READER-LINKEDIN.md): public company retrieval, two independently located named-variety posts and broader undated keyword search all succeeded.21 retained rows added19 unique records; total isolated records171. Four additional free credits used; total28 consumed,22 remaining,$0 paid. Earlier404 failures remain recorded with unresolved cause. Public native LinkedIn embedding rendered without a LinkedIn login. The reader now leads with native video players/photos and compact supporting detail. No ongoing collection, rights/accuracy qualification, merge or deploy.
+
+
+### All-berry rollout authorized — 2026-10-07
+
+The user approved the blueberry workspace and authorized strawberry, raspberry and blackberry expansion. See [all-berry review](SOCIAL-ALL-BERRIES-REVIEW.md), measured `artifacts/social-all-berries/trial-summary.json` and separate synthetic evaluation. Six additional X/Reddit probes returned HTTP200 at $0, six free credits consumed; 38 cumulative consumed, 12 remain. No ongoing collection, merge or deployment. Layout approval does not qualify independent relevance/role/language accuracy, redisplay/deletion rights, watch persistence or automatic downstream assembly. Historical blueberry-only gate statements above describe the earlier checkpoint. Landscape Explorer retains its separate scope.

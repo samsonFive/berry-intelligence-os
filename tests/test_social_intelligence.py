@@ -253,3 +253,40 @@ def test_default_newest_first_uses_publication_then_saved_date_and_real_instants
     assert [d['day'] for d in result['timeline']]==['2026-10-07','2026-10-06','2020-01-01']
     assert result['records'][0]['published_at'] is None
     assert result['count']==4
+
+
+@pytest.mark.parametrize('berry,terms',[('berry-strawberry',['frutillas','苺']),('berry-raspberry',['frambuesas','framboesas','樹莓']),('berry-blackberry',['zarzamoras','amoras-pretas'])])
+def test_rollout_regional_terms_and_mixed_phone_context(berry,terms):
+    for term in terms:
+        result=analyze(sample(text=term),ENTITIES)
+        assert result['berry_ids']==[berry]
+    mixed=analyze(sample(text='Strawberries beside my BlackBerry smartphone.'),ENTITIES)
+    assert mixed['berry_ids']==['berry-strawberry']
+    assert mixed['relevance']=='relevant'
+    assert analyze(sample(text='BlackBerry smartphone keyboard'),ENTITIES)['berry_ids']==[]
+
+def test_multi_berry_post_is_one_identity_and_never_cross_targets_sentiment(tmp_path):
+    store=Store(tmp_path);item=sample(text='Strawberries are sweet; raspberries are sour.')
+    store.ingest([item,item],ENTITIES)
+    records=Store(tmp_path).records()
+    assert len(records)==1
+    assert records[0]['analysis']['berry_ids']==['berry-raspberry','berry-strawberry']
+    assert all(a['target'] is None for a in records[0]['analysis']['aspects'])
+    for berry in records[0]['analysis']['berry_ids']:
+        selection=bundle(records,[],{'mode':'fixture','berry':berry})
+        assert selection['count']==1
+        assert next(c for c in selection['heatmap'] if c['aspect']=='flavor')['sentiment']=={'uncertain':1}
+    assert bundle(records,[],{'mode':'fixture','berry':'berry-blueberry'})['count']==0
+
+
+@pytest.mark.parametrize('text',['发现Costco的草莓，脆但是寡淡。希望Kroger有。','コストコで苺を見つけた。Krogerも扱ってほしい。'])
+def test_cjk_adjacent_retailer_names_keep_sentence_relations(text):
+    result=analyze(sample(text=text),ENTITIES)
+    assert {(r['name'],r['relation']) for r in result['retailers']}=={('Costco','found-at'),('Kroger','wishes-stocked-by')}
+    assert analyze(sample(text='Costcover strawberries'),ENTITIES)['retailers']==[]
+
+
+@pytest.mark.parametrize('text',['Raspberry Pi is a computer','I need a perfume that smells like frozen raspberry','Wine with notes of blackberry'])
+def test_other_berry_nonfruit_homonyms_are_excluded(text):
+    assert analyze(sample(text=text),ENTITIES)['berry_ids']==[]
+    assert analyze(sample(text='Raspberry fruit jam'),ENTITIES)['berry_ids']==['berry-raspberry']
