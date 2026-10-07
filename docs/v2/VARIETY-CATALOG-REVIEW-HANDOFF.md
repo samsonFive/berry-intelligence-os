@@ -22,6 +22,8 @@ flowchart LR
 
 - Candidate review preserves filters, the selected candidate, notes and reviewer.
   An explicit reviewer field also works in a local workspace without a login.
+  A pre-existing import-name collision is corrected: saved variety decisions
+  read the variety-candidate store, not signal candidates or rediscovery.
 - Reviewed distinct names show **Prepare catalog review**. Exact existing name
   or alias matches link the existing profile; ambiguous matches require identity
   resolution. No second matching policy or fuzzy automatic identity merge.
@@ -88,3 +90,5 @@ claim. Human identity/source/claim review remains required. Landscape remains
 at the blueberry checkpoint; no merge, deployment or other-berry rollout.
 
 Final focused follow-up: 56 passed / one existing warning in 22.13 seconds; the subsequent strict human-gate check passed all 23 handoff cases / one warning in 3.90 seconds. Record validation and diff whitespace checks passed. Canonical data, schemas and governing expansion guide are unchanged.
+
+Saved-variety lookup repair: 65 handoff/navigation/corpus checks passed / one warning in 45.52 seconds. The regression test forbids signal-candidate lookup and rediscovery when a saved variety record exists.

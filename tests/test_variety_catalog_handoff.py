@@ -215,6 +215,21 @@ def test_invalid_identity_decision_does_not_materialize_transient_candidate(work
     assert snapshot() == before
 
 
+def test_saved_variety_decisions_never_read_signal_candidates_or_rediscover(workspace, monkeypatch):
+    client, candidate, _ = workspace
+    def forbidden(*args, **kwargs):
+        raise AssertionError("A saved variety decision must use its private variety record")
+    monkeypatch.setattr(main, "candidate_by_id", forbidden)
+    monkeypatch.setattr(main, "variety_candidate_universe", forbidden)
+    response = client.post(f"/varieties/candidates/{candidate['id']}/decision", data={
+        "decision": "distinct", "reviewer": "fixture-identity-reviewer", "notes": "Keep saved variety provenance",
+    }, follow_redirects=False)
+    assert response.status_code == 303
+    saved, = load_variety_candidates(main.INBOX_DIR)
+    assert saved["source_url"] == candidate["source_url"] and saved["breeder_code"] == "TEST 001"
+    assert saved["review_notes"] == "Keep saved variety provenance"
+
+
 def test_filtered_return_and_notes_survive_identity_review(workspace):
     client, candidate, _ = workspace
     scope = "/varieties/candidates?berry=berry-blueberry&q=Fictional#" + candidate["id"]

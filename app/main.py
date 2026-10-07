@@ -286,7 +286,7 @@ from app.services.variety_workspace import (
 from app.services.variety_universe.candidates import (
     VarietyCandidateError,
     apply_identity_decision,
-    candidate_by_id,
+    candidate_by_id as variety_candidate_by_id,
     identity_issues_for_variety,
     load_variety_candidates,
     persist_variety_candidates,
@@ -3377,7 +3377,7 @@ def variety_candidate_decision(
         raise HTTPException(status_code=403, detail="Variety-candidate decisions are only available in authoring mode")
     from app.personal_digest_routes import require_edit
     require_edit(request)
-    candidate = candidate_by_id(INBOX_DIR, candidate_id)
+    candidate = variety_candidate_by_id(INBOX_DIR, candidate_id)
     if candidate is None:
         _varieties, visible, _report = variety_candidate_universe()
         candidate = next((row for row in visible if row.get("id") == candidate_id), None)
