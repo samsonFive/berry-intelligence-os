@@ -67,6 +67,15 @@ discovery derives 341 candidate keys before private state (68 stored-source plus
 and experimental/nursery/F1 contexts stay explicit. Current ABZ pages do not resolve
 its unreadable historical PDF. See [program portfolio review](VARIETY-PROGRAM-PORTFOLIOS-REVIEW.md).
 
+October 7 recall diagnostic adds 24 curated offline cases across all berries,
+codes, F1 labels, identity/provenance, tables, Spanish/Polish and body-only names.
+Source-based snippets are synthetic, not independently human-verified. Two
+summary defects are repaired: detection improves from 46/64 expected occurrences
+and one unexpected name to 50/64 and zero unexpected names. Four format cases
+still miss 14 names. Corpus/portfolio/catalog counts are unchanged. The benchmark
+task below remains open for independent review, real captures and qualification.
+See VARIETY-NAME-RECALL-DIAGNOSTIC-V1.md.
+
 - [ ] Build a per-company/per-berry source manifest from the approved competitor
   list, with primary breeder portfolios, university releases, trial reports,
   nursery catalogs and official registry coverage. Preserve institutions and

@@ -1,0 +1,18 @@
+{
+  "scope": "Stored primary-page name observations only. No private inbox or human review notes. No global completeness score.",
+  "summary": {
+    "source_sections": 32,
+    "readable_sections": 31,
+    "unreadable_sections": 1,
+    "names": 381,
+    "catalog_matches": 25,
+    "needs_review": 356,
+    "registry_entries": 77,
+    "registry_entries_checked": 15
+  },
+  "candidate_counts": {
+    "stored_source_candidates": 68,
+    "combined_candidates": 341,
+    "additional_primary_portfolio_candidates": 273
+  }
+}

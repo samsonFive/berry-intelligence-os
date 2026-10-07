@@ -1,5 +1,12 @@
 # Intelligence Coverage Matrix
 
+**October 7 recall diagnostic:** 24 curated offline cases retain table,
+Spanish/Polish and body-only failures. Spaced-code/long-F1 summary repairs improve
+detection from 46/64 expected occurrences plus one unexpected name to 50/64 with
+zero unexpected names. Four cases still miss 14 names. Synthetic snippets are
+not independently human-verified, live acquisition proof or model qualification.
+No maturity or source onboarding changes. See VARIETY-NAME-RECALL-DIAGNOSTIC-V1.md.
+
 **October 7 primary portfolio reconciliation:** Nine readable primary page/berry
 sections enumerate 93 source name occurrences (11 catalog matches / 82 review
 needs); one ABZ PDF is unreadable. A 77-row registry source plan exposes 72 rows

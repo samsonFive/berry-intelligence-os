@@ -1,5 +1,17 @@
 # Project Status
 
+## Variety-name recall diagnostic (2026-10-07)
+
+24 curated offline cases across all berries expose unsupported formats. Spaced
+quoted codes and long F1 labels are repaired in existing summary discovery.
+Actual detection improves from 46/64 expected occurrences with one unexpected
+name to 50/64 with zero unexpected names. Four retained table/Spanish/Polish/body
+cases still miss 14 occurrences. This synthetic diagnostic is not independently
+human-verified, extraction-qualified or a web completeness score. 89 focused
+tests passed / one warning / 73.62 seconds; records validated. Corpus/portfolio
+and catalog counts are unchanged. Canonical authoring, source checks and profiles
+remain open. See docs/v2/VARIETY-NAME-RECALL-DIAGNOSTIC-V1.md. No merge/deploy.
+
 ## Variety program and nursery portfolios (2026-10-07)
 
 `feature/variety-program-portfolios` adds 106 current primary-page name occurrences
@@ -7,7 +19,7 @@ from NIWA Varieties/Clones, Vissers strawberries/raspberries, Limgroup clonal/hy
 strawberries and all nine ABZ fresh-market/garden-patio pages. Combined scope is
 381 occurrences / 25 catalog matches / 356 review needs in 32 sections, with 341
 candidate keys before private state. Fifteen of 77 registry rows have some checked
-pages; 62 need initial primary checks. The approved catalog remains 64.
+pages; 62 need initial primary checks. The existing canonical catalog remains 64.
 
 Three species-ambiguous NIWA clone cards are accounted for and excluded. Clone
 context, shared-code provenance, nursery sourcing and literal F1 labels remain
@@ -16,8 +28,10 @@ historical unreadable PDF remains separate from the current readable pages.
 40 final focused coverage/navigation checks passed; records validated. Source-plan
 links now prefer checked pages over older failed captures without hiding history.
 Desktop/390px filters, exclusions, candidate provenance and keyboard source-plan
-disclosure were reviewed. Exact-head CI,
-human identity/canonical decisions, remaining source/profile/benchmark work and
+disclosure were reviewed. Draft #318 passed all four required checks on
+`a9eef0dba8d8a4f7ad9e5cc68aa9b7a81591f8d3`, run 37602901631:
+3,985 passed / 11 skipped / two warnings / 287.87 seconds.
+Human identity/canonical decisions, remaining source/profile/benchmark work and
 release approval remain. See docs/v2/VARIETY-PROGRAM-PORTFOLIOS-REVIEW.md.
 
 ## Variety registry species correction (2026-10-07)

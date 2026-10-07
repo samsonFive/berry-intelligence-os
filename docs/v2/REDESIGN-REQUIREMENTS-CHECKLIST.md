@@ -8,6 +8,14 @@ October 7 catalog expansion is an independent draft slice stacked on revised
 blueberry checkpoint #313, not merge/deployment or Landscape Milestone B rollout.
 The new catalog rows remain open beyond their delivered first slice.
 
+October 7 recall follow-up: CAT-01/CAT-02 retain a 24-case curated synthetic
+diagnostic, with actual detection improving from 46/64 to 50/64 after spaced-code
+and long-F1 repairs; unexpected names fall from one to zero. Table, Spanish,
+Polish and body-only failures still miss 14 occurrences. Independent human
+verification, real acquisition, canonical authoring and remaining portfolio
+coverage are open. See VARIETY-NAME-RECALL-DIAGNOSTIC-V1.md. No model qualification,
+catalog approval, merge or deployment is implied by a passing diagnostic command.
+
 Canonical freshly checked October 5, 2026: `origin/v2/intelligence-os` is `916b8f09f9ce2a1847335d7990ea80ff921f1cec`, an ancestor of the approved stack. The expansion guide has no diff. Drafts #272–311 remain unmerged. Historical #311 exact head `8be0d39614f3c867f8a93dbcf2da216c191de617` passed all four required checks, run `37338997850`: 3,893 passed / 11 skipped / two warnings / 380.29 seconds. M38 adds authenticated recovery, native guide/upload, real packet capture/download/receipt restart and Map/phone/PDF evidence. RELEASE-REVIEW.md reconciles every requirement. #312 head 60d6f0f passed all four checks (3,895 / 11 / two warnings, run 37349791854); the final acceptance/presentation update requires its own exact-head checks.
 
 Completion means implementation plus appropriate source/data proof, browser review, meaningful automated checks, exact-head required CI, preserved private/public and human-review boundaries, updated guide and a reviewable release. Unavailable source text, unresolved photo identities, absent geographic statistics and missing credentials must be reported honestly. Human confirmation must never be simulated to close a checklist item.

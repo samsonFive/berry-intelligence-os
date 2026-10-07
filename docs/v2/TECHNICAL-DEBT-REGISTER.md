@@ -1994,6 +1994,13 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 diagnostic: 24 curated synthetic four-berry cases improve from 46/64
+expected names plus one unexpected name to 50/64 and zero unexpected names after
+spaced-code/long-F1 summary repairs. Tables, Spanish, Polish and body-only text
+still miss 14 names. This is not independently human-verified or qualification.
+Canonical authoring remains open: distinct is not catalog creation, and publication
+approval is not an entity-create shortcut. See VARIETY-NAME-RECALL-DIAGNOSTIC-V1.md.
+
 October 7 correctness follow-up: primary portfolio work found that the CPVO
 species map misclassified black raspberry (`Rubus occidentalis L.`). The narrow
 correction follows USDA and the existing raspberry entity, affects new draft
