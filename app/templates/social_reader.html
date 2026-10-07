@@ -1,0 +1,21 @@
+<article class="social-evidence">
+<p class="social-kicker">{{ row.mode|upper }} · {{ row.source|upper }} · UNREVIEWED SOCIAL OBSERVATION</p>
+<h2 class="v2-reader-title" tabindex="-1">{{ row.text[:100] or 'URL captured without source text' }}</h2>
+<p>{{ row.record_role }} · {{ row.content_role }} · Published {{ row.published_at or 'unknown' }} · Collected {{ row.collected_at }}</p>
+<small>Native ID {{ row.native_id }} · Parent {{ row.parent_native_id or 'Original post' }}</small>
+<h3>Original · {{ row.language }}</h3><p lang="{{ row.language }}" class="social-original">{{ row.text }}</p>
+<small>Language basis: {{ row.language_basis }} · {{ row.permission_basis }}</small>
+{% if row.translation %}<h3>Translation · {{ row.translation.language }}</h3><p>{{ row.translation.text }}</p><p>{{ row.translation.method }} · {{ row.translation.version }} · {{ row.translation.uncertainty }}</p>{% else %}<p>Translation unavailable; original retained.</p>{% endif %}
+<h3>Media attached to this {{ row.record_role }}</h3>
+{% for m in row.media %}{% if m.object_ref and m.state=='available' %}<img src="/api/social/{{ row.id }}/media/{{ m.id|urlencode }}" alt="{{ row.mode }} retained {{ m.kind }} attachment; cultivar identification requires readable literal label" style="max-width:100%">{% endif %}{% endfor %}
+{% for m in row.media %}<figure><figcaption><b>{{ m.kind }} · {{ m.state }}</b> · {{ m.id }} · parent {{ m.parent_native_id }}<br>{{ m.attribution }} · {{ m.storage_permission }} · {{ m.retention }}</figcaption>{% if m.state == 'available' and m.source_url %}<a href="{{ m.source_url }}" target="_blank" rel="noopener noreferrer">Open original media reference ↗</a>{% else %}<p>Media {{ m.state }}; no visual analysis claimed.</p>{% endif %}{% for lit in m.literal %}<p>Literal label: “{{ lit.text }}” · {{ lit.method }} {{ lit.version }} · {{ lit.locator }} · confidence {{ lit.confidence }}</p>{% endfor %}</figure>{% else %}<p>No permitted media captured.</p>{% endfor %}
+<h3>Proposed observations</h3>{% for asp in row.analysis.aspects %}<p><b>{{ asp.aspect }} · {{ asp.sentiment }}</b>{% for ev in asp.evidence %} · “{{ ev.span.text }}” [{{ ev.span.start }}:{{ ev.span.end }}] {{ ev.basis }}{% endfor %}</p>{% endfor %}
+{% for retail in row.analysis.retailers %}<p>{{ retail.name }} · <b>{{ retail.relation }}</b> · {{ retail.review }} · source wording “{{ retail.span.text }}”</p>{% endfor %}
+{% for link in row.analysis.entity_links %}<p><a href="/entities/{{ 'variety' if link.entity_id.startswith('variety-') else 'company' }}/{{ link.entity_id }}">{{ link.name }}</a> · {{ link.basis }} · {{ link.review }} · {{ link.locator or link.span }}</p>{% endfor %}
+{% if row.analysis.candidates %}<p>Ambiguous identities await review: {{ row.analysis.candidates|map(attribute='name')|join(', ') }}</p>{% endif %}
+{% for media in row.analysis.media_observations or [] %}{% for field in media.fields %}<p>Package {{ field.field }}: “{{ field.literal }}” · {{ field.method }} · {{ field.locator }} · {{ field.review }}</p>{% endfor %}{% endfor %}
+<h3>Geography is separate</h3><dl>{% for key,label in [('purchase_market','Purchase market'),('fruit_origin','Fruit origin'),('author_geography','Author geography'),('conversation_market','Conversation market'),('search_market','Search target')] %}<dt>{{ label }}</dt><dd>{% if row[key] %}{{ row[key].value }} · {{ row[key].basis }} · confidence {{ row[key].confidence }} · {{ row[key].evidence_ref }}{% else %}Unknown{% endif %}</dd>{% endfor %}</dl>
+<h3>Thread context</h3>{% for related in thread %}<p>{{ related.record_role }} · {{ related.text[:180] }} · <a href="/social?mode={{ row.mode }}&amp;story={{ related.id }}">Inspect attached record</a></p>{% else %}<p>No additional retained thread records. This is not a complete platform thread.</p>{% endfor %}
+<p><a href="{{ row.canonical_url }}" target="_blank" rel="noopener noreferrer">Original source ↗</a></p><small>{{ row.id }} · Processing {{ row.analysis.version or 'removed output' }}. Social sightings do not verify registry relationships or national availability.</small>
+{% if row.mode != 'fixture' %}<button type="button" data-social-handoff="{{ row.id }}">Prepare existing publication review draft</button><p data-handoff-status role="status"></p>{% endif %}
+</article>

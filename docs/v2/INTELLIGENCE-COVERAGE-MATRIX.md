@@ -627,3 +627,6 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **October 4 in-app agency refresh:** An explicit Eurostat check returned the same four-country/eight-figure 2025 strawberry area/production reference scope, preserving original units, flags, source update and check dates. Its country references are human-selected private context, never canonical Facts or recall/coverage maturity changes. USDA references and unsupported country/crop gaps remain untouched; broader FAOSTAT/national/research population is still partial. See MISSION-32-OFFICIAL-STATISTICS-REFRESH-REVIEW.md.
+# Social blueberry pilot coverage — 2026-10-07
+
+Private fixture-only demonstration covers EN/ES/PT/ZH/JA and synthetic purchase examples in Spain/Brazil/China/Japan. No live sample or national/consumer representativeness claim. Bluesky search returned HTTP403; YouTube key absent. All 15 platform statuses, primary docs, eligibility/retention and setup blockers are in `SOCIAL-SOURCE-ACCESS-MATRIX.md`; acceptance is in `SOCIAL-BLUEBERRY-REVIEW.md`. Manual/import are separate modes and do not establish automated monitoring.

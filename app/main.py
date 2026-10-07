@@ -10440,6 +10440,8 @@ from app.landscape_routes import router as landscape_router
 app.include_router(landscape_router)
 from app.landscape_explorer_routes import router as landscape_explorer_router
 app.include_router(landscape_explorer_router)
+from app.social_routes import router as social_router
+app.include_router(social_router)
 from app.learn_routes import router as learn_router
 app.include_router(learn_router)
 from app.monitor_routes import router as monitor_router

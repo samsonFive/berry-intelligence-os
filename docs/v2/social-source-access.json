@@ -1,0 +1,264 @@
+{
+  "as_of": "2026-10-07",
+  "operator_context": "Independent personal-resources project; user is not paid for this work. Intended use determines eligibility, not employment/funding alone.",
+  "sources": [
+    {
+      "source": "instagram",
+      "status": "stale",
+      "implemented": false,
+      "methods": "Proposed official Instagram Platform account/hashtag methods; authorized exports/manual supported by common intake",
+      "auth": "Meta app, eligible professional account, access token and approved permissions; exact current scopes need revalidation",
+      "capabilities": "Current hashtag/search/comments/media limits unverified; do not claim broad consumer keyword listening",
+      "history": "Current historical limits unverified",
+      "quotas_costs": "No current quota/price assertion; developer console and accessible documentation required",
+      "retention_deletion": "Current Meta terms/deletion requirements must be reviewed before enabling storage",
+      "blocker": "No app/token/approved permissions provisioned; primary pages HTTP 429 during research",
+      "official_urls": [
+        "https://developers.facebook.com/docs/instagram-platform/",
+        "https://developers.facebook.com/docs/instagram-platform/instagram-api-with-facebook-login/hashtag-search/"
+      ],
+      "verification": "attempted current primary docs; blocked HTTP 429"
+    },
+    {
+      "source": "facebook",
+      "status": "stale",
+      "implemented": false,
+      "methods": "Proposed Pages API; authorized exports/manual",
+      "auth": "Meta app/page token and permission review required",
+      "capabilities": "Page posts/comments/media scope needs current review; private groups excluded",
+      "history": "No full-history or public-conversation coverage claimed",
+      "quotas_costs": "Quota/pricing not verified",
+      "retention_deletion": "Review Meta platform terms/deletion requirements before collection",
+      "blocker": "No page token/access review; documentation HTTP 429",
+      "official_urls": [
+        "https://developers.facebook.com/docs/pages-api/"
+      ],
+      "verification": "attempted current primary docs; blocked HTTP 429"
+    },
+    {
+      "source": "threads",
+      "status": "stale",
+      "implemented": false,
+      "methods": "Proposed Threads API keyword search; authorized exports/manual",
+      "auth": "Meta app, token and current approved scope required",
+      "capabilities": "Keyword search/replies/media access not established in this environment",
+      "history": "No historical completeness claimed",
+      "quotas_costs": "Quota/pricing not verified",
+      "retention_deletion": "Current platform terms/deletion obligations not verified",
+      "blocker": "No credentials; primary docs HTTP 429",
+      "official_urls": [
+        "https://developers.facebook.com/docs/threads/",
+        "https://developers.facebook.com/docs/threads/keyword-search/"
+      ],
+      "verification": "attempted current primary docs; blocked HTTP 429"
+    },
+    {
+      "source": "tiktok",
+      "status": "access-pending",
+      "implemented": false,
+      "methods": "Proposed Research API or specifically licensed authorized feed; Display API is not broad listening",
+      "auth": "Approved research project/client token with research.data.basic; personal funding alone does not confer eligibility",
+      "capabilities": "Research video query and comments; described archived search data; no image/video download permission inferred",
+      "history": "Search archive delays; new videos may take 48h, metrics longer",
+      "quotas_costs": "FAQ: 1000 requests / 100000 records per day; 100 records per video/comment request; no subscription activated",
+      "retention_deletion": "Research terms/security and compliance status checks need operator review before retention",
+      "blocker": "No approved project. User independently builds on personal resources; eligible affiliation/public-interest purpose unestablished",
+      "official_urls": [
+        "https://developers.tiktok.com/products/research-api/",
+        "https://developers.tiktok.com/docs/en/research-api-faq",
+        "https://developers.tiktok.com/docs/en/research-api-specs-query-video-comments"
+      ],
+      "verification": "read current primary documentation"
+    },
+    {
+      "source": "x",
+      "status": "setup-required",
+      "implemented": false,
+      "methods": "Proposed X API v2 search; authorized import/manual",
+      "auth": "Developer app bearer token and funded credits; paid use explicitly disabled",
+      "capabilities": "Post search with media expansions/conversation IDs; scope/history depends endpoint and entitlement",
+      "history": "Recent vs archive endpoint entitlements must be confirmed",
+      "quotas_costs": "Current public pricing: post read $0.005/resource, user read $0.010/resource; rates may change. No purchase or call made",
+      "retention_deletion": "Developer terms and deletion/compliance processing required before collection",
+      "blocker": "No token/approved paid collection budget. Do not activate credits or auto-recharge",
+      "official_urls": [
+        "https://docs.x.com/x-api/getting-started/pricing",
+        "https://docs.x.com/x-api/posts/search/introduction",
+        "https://developer.x.com/en/developer-terms/agreement-and-policy"
+      ],
+      "verification": "read current primary documentation"
+    },
+    {
+      "source": "reddit",
+      "status": "access-pending",
+      "implemented": false,
+      "methods": "Proposed approved Data API OAuth; authorized export/manual only",
+      "auth": "Reddit approval and permitted use agreement; OAuth app credential",
+      "capabilities": "Posts/search/comments and permitted attached media require approval; no scraping fallback",
+      "history": "Listing/search history is not complete archive",
+      "quotas_costs": "No current approved quota/price provisioned; separate agreement may be needed",
+      "retention_deletion": "Honor removal and termination deletion requirements; no model training permission inferred",
+      "blocker": "No approved app/use; commercial eligibility cannot be inferred from personal funding",
+      "official_urls": [
+        "https://redditinc.com/policies/developer-terms",
+        "https://redditinc.com/policies/data-api-terms"
+      ],
+      "verification": "read current primary documentation"
+    },
+    {
+      "source": "youtube",
+      "status": "setup-required",
+      "implemented": true,
+      "methods": "Implemented Data API v3 search.list + bounded commentThreads.list paths; mock transport verified",
+      "auth": "BIOS_SOCIAL_YOUTUBE_KEY in server environment; existing Google project with Data API enabled",
+      "capabilities": "Public video metadata/thumbnails, sampled comments/replies. Caption download needs authorization; no automatic transcripts/video bytes",
+      "history": "Published-date search/pages; not complete archive; commentThreads may omit replies",
+      "quotas_costs": "Current overview: default 100 search calls/day plus 10000 units/day for other endpoints; commentThreads.list 1 unit. Console authoritative; no paid collection",
+      "retention_deletion": "Refresh or delete stored API data within 30 days; no restricted media rehosting; privacy/YouTube terms requirements before live operation",
+      "blocker": "Key not provisioned; live criterion unmet; privacy/terms and retention operations must be accepted",
+      "official_urls": [
+        "https://developers.google.com/youtube/v3/getting-started",
+        "https://developers.google.com/youtube/v3/docs/commentThreads/list",
+        "https://developers.google.com/youtube/terms/developer-policies"
+      ],
+      "verification": "read current primary documentation"
+    },
+    {
+      "source": "bluesky",
+      "status": "access-pending",
+      "implemented": true,
+      "methods": "Implemented public AppView searchPosts + getPostThread paths; mock transport verified",
+      "auth": "Public AppView GET documented without credentials; actual service/network returned HTTP 403 here",
+      "capabilities": "Search post text, language tags, image references, reply thread images; video analysis unsupported",
+      "history": "Cursor/recent search; complete archive not guaranteed",
+      "quotas_costs": "AppView limits depend service; no universal numeric search quota/cost asserted; pilot ≤12 requests/run",
+      "retention_deletion": "References by default; configurable 30-day local expiry and deletion propagation; maintain applicable platform/content rights",
+      "blocker": "Bounded search probe HTTP 403 on 2026-10-07 UTC; cause/entitlement unestablished, no bypass attempted",
+      "official_urls": [
+        "https://docs.bsky.app/docs/api/app-bsky-feed-search-posts",
+        "https://github.com/bluesky-social/atproto/blob/main/lexicons/app/bsky/feed/searchPosts.json",
+        "https://docs.bsky.app/docs/advanced-guides/rate-limits"
+      ],
+      "verification": "read current primary documentation"
+    },
+    {
+      "source": "linkedin",
+      "status": "access-pending",
+      "implemented": false,
+      "methods": "Proposed Community Management; authorized export/manual",
+      "auth": "Vetted app, organization/page authorization, versioned access and restricted scopes",
+      "capabilities": "Authorized organization posts/comments and image/video asset references; no arbitrary public consumer keyword search established",
+      "history": "Authorized object history only; no global archive claim",
+      "quotas_costs": "Development overview reports 500 app / 100 member requests; exact applicable interval/console quotas need confirmation. No public subscription price asserted",
+      "retention_deletion": "Marketing API terms restrict member data; deletion/retention policy must be confirmed before enabled storage",
+      "blocker": "No vetted legal organization/business email/app authorization; independent personal project eligibility unestablished",
+      "official_urls": [
+        "https://learn.microsoft.com/en-us/linkedin/marketing/community-management/community-management-overview?view=li-lms-2026-06",
+        "https://learn.microsoft.com/en-us/linkedin/marketing/community-management-app-review?view=li-lms-2026-05",
+        "https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/comments-api?view=li-lms-2026-06"
+      ],
+      "verification": "read current primary documentation"
+    },
+    {
+      "source": "pinterest",
+      "status": "setup-required",
+      "implemented": false,
+      "methods": "Proposed authorized v5 pin/board APIs; authorized export/manual",
+      "auth": "OAuth app with trial then approved standard access",
+      "capabilities": "Authenticated pin/board data and media; broad keyword listening/comments access not established",
+      "history": "No global historical coverage claimed",
+      "quotas_costs": "Trial/standard rate limits differ; exact numeric quota and price not confirmed",
+      "retention_deletion": "Terms and pin deletion/retention obligations need review; no scraping/media rehosting",
+      "blocker": "No app/token or standard access; search-pins page inaccessible in research",
+      "official_urls": [
+        "https://developers.pinterest.com/docs/key-concepts/access-tiers/",
+        "https://developers.pinterest.com/docs/api/v5/pins-list/"
+      ],
+      "verification": "read current primary documentation"
+    },
+    {
+      "source": "weibo",
+      "status": "setup-required",
+      "implemented": false,
+      "methods": "Proposed official open-platform CLI/API; authorized import/manual. No CLI installed",
+      "auth": "Verified developer authentication and service entitlement/credits",
+      "capabilities": "Official CLI advertises search, comments and trends; exact read methods and media rights require provisioned entitlement",
+      "history": "Official guide warns page/cursor is not a snapshot; long text not guaranteed",
+      "quotas_costs": "Developer-certified 7-day trial described; production credit packs/service list in console. No activation, numeric rates not verified",
+      "retention_deletion": "Current service terms/retention and removal feed unverified; do not collect until resolved",
+      "blocker": "No verified account/token/entitlement. Trial activation and purchasing prohibited in this task",
+      "official_urls": [
+        "https://open.weibo.com/cli",
+        "https://open.weibo.com/cli/quickstart"
+      ],
+      "verification": "read current primary documentation"
+    },
+    {
+      "source": "douyin",
+      "status": "access-pending",
+      "implemented": false,
+      "methods": "Proposed Douyin Open Platform authorized interfaces; authorized export/manual",
+      "auth": "Approved application and scoped user authorization",
+      "capabilities": "Official catalog describes authorized account/video/comment capabilities; no general consumer keyword listening established",
+      "history": "Authorization-dependent; archive depth unverified",
+      "quotas_costs": "Exact quotas/costs depend interface and entitlement; no public numeric assertion",
+      "retention_deletion": "Current data-use/retention and deletion requirements need Chinese-language review before collection",
+      "blocker": "No approved app/scopes; authorized account API is not global listening",
+      "official_urls": [
+        "https://developer.open-douyin.com/docs/resource/zh-CN/dop/develop/openapi/list",
+        "https://developer.open-douyin.com/docs/resource/zh-CN/interaction/develop/server/live-room-scope/data-open/data-open-desc"
+      ],
+      "verification": "read current primary documentation"
+    },
+    {
+      "source": "red",
+      "status": "unsupported",
+      "implemented": false,
+      "methods": "Authorized exports/manual; no confirmed broad public listening API",
+      "auth": "Merchant/service partner authorization for documented commerce APIs",
+      "capabilities": "Official portal concerns commerce/services; public note search/comments/media listening not verified",
+      "history": "Not established",
+      "quotas_costs": "No quota/price invented",
+      "retention_deletion": "Retention rights and deletion obligations for any authorized export must be recorded",
+      "blocker": "No approved data feed or documented public listening method; primary documentation shell did not expose API detail",
+      "official_urls": [
+        "https://open.xiaohongshu.com/document/developer/file/1",
+        "https://open.xiaohongshu.com/document/api?apiId=29896&apiNavigationId=250&apiParentNavigationId=21&gatewayId=165&gatewayVersionId=2804&id=92"
+      ],
+      "verification": "read current primary documentation"
+    },
+    {
+      "source": "bilibili",
+      "status": "unsupported",
+      "implemented": false,
+      "methods": "Authorized exports/manual; proposed Open Platform only within approved scope",
+      "auth": "Verified identity/application plus user authorization and scoped permissions",
+      "capabilities": "Official documented creator archive capability; broad public video/comment/transcript search not established",
+      "history": "No historical listening claim",
+      "quotas_costs": "No applicable public quota/price confirmed",
+      "retention_deletion": "Confirm source/content rights and deletion constraints before storage",
+      "blocker": "No approved app; creator upload/edit capability does not prove read/listening rights",
+      "official_urls": [
+        "https://open.bilibili.com/doc/main",
+        "https://open.bilibili.com/doc/4/ddfbe54d-b4ab-340e-c698-933b9a3c619c"
+      ],
+      "verification": "read current primary documentation"
+    },
+    {
+      "source": "forums-retail",
+      "status": "setup-required",
+      "implemented": false,
+      "methods": "Authorized site-specific Discourse/RSS/API exports and manual URL capture",
+      "auth": "Per-site API key/permission or allowed public feed; none configured",
+      "capabilities": "Discourse topic/post JSON supports discussion and attachments; retailer reviews require their own permission, no blanket adapter",
+      "history": "Site-specific retention/archive",
+      "quotas_costs": "Site-specific quotas/licensing; no universal costs",
+      "retention_deletion": "Each publisher terms/removal policy required; common expiry does not establish permission",
+      "blocker": "No authorized target forum/retailer feed configured; discovery via search engine is supplementary only",
+      "official_urls": [
+        "https://docs.discourse.org/"
+      ],
+      "verification": "read current primary documentation"
+    }
+  ]
+}

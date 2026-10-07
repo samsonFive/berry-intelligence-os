@@ -1,0 +1,32 @@
+{
+  "state": "error",
+  "failed": [
+    {
+      "source": "youtube",
+      "reason": "BIOS_SOCIAL_YOUTUBE_KEY missing; enable YouTube Data API v3 in an existing authorized Google project"
+    }
+  ],
+  "job": {
+    "id": "youtube-a435f76c9af12483",
+    "source": "youtube",
+    "query": "blueberries",
+    "language": "en",
+    "market": "US",
+    "query_version": "social-query-1",
+    "status": "access-pending",
+    "started_at": "2026-10-07T07:22:29.987798+00:00",
+    "last_success": null,
+    "cursor": null,
+    "query_changed": true,
+    "observed_volume": null,
+    "calls": 0,
+    "cost_usd": 0,
+    "budget": {
+      "max_pages": 1,
+      "max_items": 40,
+      "max_requests": 12
+    },
+    "failure": "BIOS_SOCIAL_YOUTUBE_KEY missing; enable YouTube Data API v3 in an existing authorized Google project",
+    "failed_at": "2026-10-07T07:22:29.997080+00:00"
+  }
+}
