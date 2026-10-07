@@ -39,6 +39,15 @@ inbox; the isolated preview does not copy, replace or erase that state.
 
 ## Next acquisition and reconciliation work
 
+October 7 first portfolio slice: a 77-row registry source plan and ten dated primary
+page/berry sections now use the existing candidate workflow. Nine readable sections
+contain 93 name occurrences: 11 catalog matches and 82 review needs. They add 50
+candidates beyond the stored-source audit (118 combined before private inbox state).
+Five registry rows have some coverage; 72 need primary checks. This begins the
+manifest/reconciliation/freshness work below; those global tasks remain incomplete.
+See [first portfolio review](VARIETY-PORTFOLIO-COVERAGE-REVIEW.md) and its body-free
+audit. Other-berry Landscape rollout stays behind the blueberry gate.
+
 - [ ] Build a per-company/per-berry source manifest from the approved competitor
   list, with primary breeder portfolios, university releases, trial reports,
   nursery catalogs and official registry coverage. Preserve institutions and

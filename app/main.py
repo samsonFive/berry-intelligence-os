@@ -1817,6 +1817,15 @@ def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, A
         existing_candidates=inbox,
     )
     visible = merge_visible_candidates(inbox, report["candidates"], report=report)
+    if AUTHORING_MODE:
+        from app.services.variety_portfolio_coverage import load_portfolio_observations, reconcile_portfolios
+        try:
+            _portfolio_sources, visible = reconcile_portfolios(
+                sources=load_portfolio_observations(DATA_DIR), varieties=varieties,
+                entities=all_entities(), candidates=visible,
+            )
+        except ValueError as exc:
+            report["portfolio_error"] = str(exc)
     return varieties, visible, report
 
 
@@ -3296,6 +3305,18 @@ def variety_coverage_page(request: Request) -> HTMLResponse:
         "unresolved": len(corpus_report["unresolved"]),
         "exclusions": len(corpus_report["exclusions"]),
     }
+    if AUTHORING_MODE and corpus_report.get("portfolio_error"):
+        coverage["portfolio_error"] = corpus_report["portfolio_error"]
+    elif AUTHORING_MODE:
+        from app.services.variety_portfolio_coverage import load_portfolio_observations, portfolio_coverage
+        try:
+            coverage["portfolios"] = portfolio_coverage(
+                data_dir=DATA_DIR, sources=load_portfolio_observations(DATA_DIR),
+                varieties=varieties, entities=all_entities(), candidates=candidates,
+                filters=dict(request.query_params),
+            )
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
@@ -3328,6 +3349,7 @@ def variety_candidates_page(request: Request) -> HTMLResponse:
         name="variety_candidates.html",
         context={
             **queue,
+            "portfolio_error": _report.get("portfolio_error"),
             "candidate_entities": entity_index(),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,

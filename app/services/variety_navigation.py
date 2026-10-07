@@ -71,13 +71,15 @@ def candidate_queue(candidates, params):
     rows = []
     for row in candidates:
         knowledge = row.get("knowledge") or {}
-        companies = (knowledge.get("company_associations") or []) + (knowledge.get("source_companies") or [])
-        if filters["source"] and filters["source"] not in ((knowledge.get("evidence_ids") or []) + (row.get("corpus_evidence_ids") or [])) and filters["source"] != row.get("source_id"):
+        portfolios = row.get("portfolio_sources") or []
+        companies = (knowledge.get("company_associations") or []) + (knowledge.get("source_companies") or []) + [c for source in portfolios for c in source.get("companies", [])]
+        if filters["source"] and filters["source"] not in ((knowledge.get("evidence_ids") or []) + (row.get("corpus_evidence_ids") or []) + [source["id"] for source in portfolios]) and filters["source"] != row.get("source_id"):
             continue
         if row.get("status") == "rejected" and filters["status"] != "rejected":
             continue
         haystack = " ".join(str(row.get(key) or "") for key in ("candidate_name", "denomination", "breeder_code", "breeder_owner", "applicant"))
         haystack += " " + " ".join(item.get("name", "") for item in companies)
+        haystack += " " + " ".join(str(source.get(key) or "") for source in portfolios for key in ("breeder_code", "trade_name", "candidate_name"))
         if filters["q"] and filters["q"].casefold() not in haystack.casefold():
             continue
         if filters["berry"] and filters["berry"] != row.get("berry_id"):
@@ -92,7 +94,8 @@ def candidate_queue(candidates, params):
         rows = [row for row in rows if company_directory.initial(row["candidate_name"]) == filters["letter"]]
     companies = {item["entity_id"]: item["name"] for row in candidates for item in
                  ((row.get("knowledge") or {}).get("company_associations") or []) +
-                 ((row.get("knowledge") or {}).get("source_companies") or [])}
+                 ((row.get("knowledge") or {}).get("source_companies") or []) +
+                 [c for source in row.get("portfolio_sources") or [] for c in source.get("companies", [])]}
     return {"candidates": sorted(rows, key=lambda row: (row["candidate_name"].casefold(), row["id"])), "candidate_total": len(candidates),
             "filters": filters, "letters": letters, "candidate_companies": sorted(companies.items(), key=lambda row: row[1].casefold()),
             "candidate_statuses": sorted({row.get("identity_state", "unknown") for row in candidates}),

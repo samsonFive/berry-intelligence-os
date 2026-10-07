@@ -1,0 +1,35 @@
+{% set portfolios = coverage.portfolios %}
+<section class="portfolio-coverage" aria-label="Primary portfolio coverage">
+  <div class="portfolio-counts">
+    <div><strong>{{ portfolios.summary.names }}</strong><span>source name occurrences</span></div>
+    <div><strong>{{ portfolios.summary.catalog_matches }}</strong><span>catalog matches</span></div>
+    <div><strong>{{ portfolios.summary.needs_review }}</strong><span>need identity review</span></div>
+    <div><strong>{{ portfolios.summary.registry_entries - portfolios.summary.registry_entries_checked }}</strong><span>registry rows need source checks</span></div>
+  </div>
+  <p class="company-muted portfolio-note">{{ portfolios.summary.readable_sections }} page sections checked · {{ portfolios.summary.unreadable_sections }} unreadable. Names may repeat across sources. New names await review; company roles and traits are not approved by this check.</p>
+  <form class="digest-filters" method="get" aria-label="Filter portfolio coverage">
+    <label>Company or source<input name="q" type="search" value="{{ portfolios.filters.q }}" placeholder="Company or publisher"></label>
+    <label>Berry<select name="berry"><option value="">All berries</option>{% for row in portfolios.by_berry %}<option value="{{ row.id }}" {% if portfolios.filters.berry == row.id %}selected{% endif %}>{{ row.label }}</option>{% endfor %}</select></label>
+    <button class="green-button">Apply filters</button><a href="/varieties/coverage">Reset</a>
+  </form>
+  <div class="portfolio-berry-summary" aria-label="Catalog matches out of source name occurrences">{% for row in portfolios.by_berry %}{% if not portfolios.filters.berry or portfolios.filters.berry == row.id %}<span><b>{{ row.label }}</b> {{ row.matched }} / {{ row.names }} matched</span>{% endif %}{% endfor %}</div>
+  <h2>Which portfolios have we checked?</h2>
+  <div class="portfolio-table-scroll"><table class="portfolio-table">
+    <thead><tr><th>Primary source & scope</th><th>Names</th><th>Catalog matches</th><th>Needs review</th><th>Checked</th></tr></thead>
+    <tbody>{% for source in portfolios.sources %}<tr>
+      <td><details><summary><b>{{ source.title }}</b><span>{{ 'Could not read' if source.capture_status == 'unreadable' else 'Partial capture' if source.capture_status == 'partial' else 'Page names enumerated' }}</span></summary>
+        <div class="portfolio-source-body"><p><a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">Open primary source ↗</a>{% for company in source.companies %} · <a href="/entities/company/{{ company.entity_id }}">{{ company.name }}</a>{% endfor %}</p>
+        <p>{{ source.enumerated_scope }}</p><p class="portfolio-limit">{{ source.limitations }}</p>
+        {% if source.names %}<div class="portfolio-names">{% for name in source.names %}<a href="{{ name.href }}" data-status="{{ name.status }}"><b>{{ name.candidate_name }}</b>{% if name.trade_name %}<small>{{ name.trade_name }}</small>{% endif %}{% if name.breeder_code %}<small>{{ name.breeder_code }}</small>{% endif %}<small>{{ name.label }}</small></a>{% endfor %}</div>{% endif %}
+        {% if source.needs_review %}<a class="portfolio-review-link" href="/varieties/candidates?source={{ source.id }}">Review these source names →</a>{% endif %}
+        {% if source.closed %}<p>{{ source.closed }} observations were previously rejected. Their decisions are preserved.</p>{% endif %}
+        {% if source.awaiting_catalog %}<p>{{ source.awaiting_catalog }} names were marked distinct and still need a catalog entry.</p>{% endif %}
+        </div></details></td>
+      <td>{{ source.names|length if source.capture_status != 'unreadable' else '—' }}</td><td>{{ source.matched if source.capture_status != 'unreadable' else '—' }}</td><td>{{ source.needs_review if source.capture_status != 'unreadable' else '—' }}</td><td><time>{{ source.checked_on }}</time><small>{{ source.freshness }}</small></td>
+    </tr>{% else %}<tr><td colspan="5">No checked source sections match these filters.</td></tr>{% endfor %}</tbody>
+  </table></div>
+  <details class="portfolio-plan"><summary>Source plan · {{ portfolios.subjects|length }} registry entries in this view</summary>
+    <p>All 77 supplied registry rows are retained, including aliases and multi-company rows. Berry scope comes from existing catalog and photo records and needs primary-source confirmation. A website link is a research starting point, not a completed portfolio check.</p>
+    <div class="portfolio-table-scroll"><table class="portfolio-table"><thead><tr><th>Registry entry</th><th>Berry scope to check</th><th>Source work</th><th>Starting point</th></tr></thead><tbody>{% for subject in portfolios.subjects %}<tr><th>{% if subject.href %}<a href="{{ subject.href }}">{{ subject.name }}</a>{% else %}{{ subject.name }}{% endif %}</th><td>{{ subject.berries }}</td><td>{{ 'Some page names checked · portfolio review remains' if subject.checked else 'Source capture unavailable' if subject.sources else 'Primary portfolio check needed' }}</td><td>{% if subject.sources %}<a href="{{ subject.sources[0].url }}" target="_blank" rel="noopener noreferrer">Source page ↗</a>{% elif subject.website %}<a href="{{ subject.website }}" target="_blank" rel="noopener noreferrer">Website ↗</a>{% else %}Find primary source{% endif %}</td></tr>{% endfor %}</tbody></table></div>
+  </details>
+</section>
