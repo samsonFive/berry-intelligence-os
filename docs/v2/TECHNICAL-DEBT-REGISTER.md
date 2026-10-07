@@ -1994,6 +1994,18 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 acquisition follow-up: the guarded four-source pilot retrieved two
+pending current copies; the university trial returned no readable body and
+HortWeek blocked access. Native comparison caught an article date taken from
+latest-news chrome. Shared article acquisition v2 now accepts explicit
+publication metadata/marked article dates and leaves unsupported dates unknown.
+The fresh two-source run records June 8 for BluGenix and unknown for SEKOYA;
+zero trusted changes, analyst decisions or new readiness. 93 related tests
+pass. The date defect is repaired for new captures; old artifacts are retained,
+and human fidelity review, further acquisition, table/multilingual recall and
+the remaining 60 initial source checks stay open. See
+ARTICLE-PUBLICATION-DATE-FIDELITY-REVIEW.md.
+
 October 7 UC Davis/source-content follow-up: 456 occurrences / 33 matches /
 423 review needs in 39 sections; 17 registry rows have some checks, 60 need
 initial checks. Combined candidate keys before private state: 383. Two ambiguous

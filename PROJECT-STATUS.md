@@ -1,5 +1,20 @@
 # Project Status
 
+## Article-date fidelity during variety source recovery (2026-10-07)
+
+The first bounded recovery retrieved two of four public copies; two failed
+with no readable trial body and a 403. Browser review exposed a sidebar date
+incorrectly assigned to the BluGenix article. Shared acquisition now binds
+publication dates to explicit metadata/marked article dates, keeps ambiguity
+unknown and preserves the existing feed fallback. Acquisition provenance is v2;
+prior captures and canonical records are unchanged. A fresh two-source run at
+code e09bfd1c3df102e1b19d2669dddec4108a8b4f6a now records June 8 for Produce
+Report and unknown for SEKOYA; both are pending authenticity review, with zero
+trust decisions or readiness additions. 93 relevant tests pass. See
+docs/v2/ARTICLE-PUBLICATION-DATE-FIDELITY-REVIEW.md. CAT-01/CAT-02/TD-116 stay open.
+Parent #323 passed all four gates on 0c94f676eb275a920fe1c9bfbf87de70ff7c691a,
+run 37622240000: 4,033 passed / 11 skipped / two warnings / 461.13 seconds.
+
 ## University history, source-plan links and article-text gaps (2026-10-07)
 
 UC Davis current/historical listings add 45 occurrences with two ambiguous labels
