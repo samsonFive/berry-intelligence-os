@@ -1,5 +1,19 @@
 # Project Status
 
+October 7 candidate-review navigation: the alphabet stays below the measured
+shared header while scrolling, with List top / Filters shortcuts and a compact
+phone letter picker. Existing query, berry, company, status and source scope
+carry into letter links; candidate anchors clear both bars. Candidate review
+also exposes stored patent/PVR or registry source links and retained rights
+dates, explicitly awaiting identity/rights review. Breeder catalogs are not
+relabeled patent sources. Seventy focused tests, record validation and native
+desktop/phone checks pass; this draft's full CI is pending. Parent #329 passed
+all four exact-head checks (4,102 passed / 11 skipped / two warnings).
+Catalog remains 64, primary observations 506 and derived candidate keys 423.
+Rights-document coverage, claim-level provenance and CAT-01/CAT-02 remain open.
+No merge, deployment, human decisions or canonical additions occurred.
+See docs/v2/VARIETY-REVIEW-QUICK-NAVIGATION.md.
+
 October 7 visual historical-source follow-up: all 38 pages of a UGA public
 presentation are accounted for, including two handwritten photograph labels
 missed by extracted text. Eleven unreviewed name/code observations add ten

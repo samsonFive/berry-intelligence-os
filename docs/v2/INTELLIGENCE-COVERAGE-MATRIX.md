@@ -1,5 +1,17 @@
 # Intelligence Coverage Matrix
 
+October 7 candidate navigation/rights references: sticky alphabet and phone
+picker retain the existing review scope and return to the results, while List
+top / Filters remain reachable deep in the queue. Stored tier-1 patent/PVR and
+registry sources have explicit original-record links; existing dates remain
+recorded values awaiting review. A registry index can remain an index, not an
+individual patent. No rights retrieval or claim extraction was added, and no
+breeder-portfolio reference becomes patent proof. Counts remain 64 catalog /
+506 occurrences / 33 catalog text matches / 473 review needs / 46 source
+sections / 423 candidate keys before private state. Rights verification,
+claim-level coverage and independent identity review remain open under TD-116.
+See VARIETY-REVIEW-QUICK-NAVIGATION.md.
+
 October 7 visual historical-source follow-up: all 38 pages of a UGA public
 presentation are accounted for, including two handwritten photograph labels
 missed by extracted text. Eleven unreviewed name/code observations add ten

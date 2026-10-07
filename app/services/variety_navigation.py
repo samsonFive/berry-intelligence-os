@@ -99,4 +99,4 @@ def candidate_queue(candidates, params):
     return {"candidates": sorted(rows, key=lambda row: (row["candidate_name"].casefold(), row["id"])), "candidate_total": len(candidates),
             "filters": filters, "letters": letters, "candidate_companies": sorted(companies.items(), key=lambda row: row[1].casefold()),
             "candidate_statuses": sorted({row.get("identity_state", "unknown") for row in candidates}),
-            "letter_urls": {letter: "/varieties/candidates?" + urlencode({**filters, "letter": letter}) for letter in ["", *"ABCDEFGHIJKLMNOPQRSTUVWXYZ#"]}}
+            "letter_urls": {letter: "/varieties/candidates?" + urlencode({**filters, "letter": letter}) + "#candidate-results" for letter in ["", *"ABCDEFGHIJKLMNOPQRSTUVWXYZ#"]}}

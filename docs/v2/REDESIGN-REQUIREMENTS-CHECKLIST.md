@@ -4,6 +4,20 @@ Ongoing goal activated October 1, 2026. This checklist is the completion ledger 
 
 ## Checkpoints and completion standard
 
+October 7 candidate-review follow-up: keep the alphabet available while deep in
+the list; use a compact phone picker and List top / Filters shortcuts. Existing
+scope survives letter selection and hash targets clear the shared header. This
+UI requirement is implemented with 70 focused tests and native desktop/phone
+review; draft full CI is pending. User also asks for patent information and
+claims click-through: existing variety Rights / IP remains, and candidate
+review now explicitly links stored tier-1 patent/PVR and registry sources,
+retaining dates and unreviewed status. An index is not an individual patent.
+Full rights coverage, original-document/claim-level provenance and dated
+jurisdiction/status verification remain OPEN within CAT-02 / TD-116.
+Parent #329 has four green checks (4,102 passed / 11 skipped / two warnings).
+See VARIETY-REVIEW-QUICK-NAVIGATION.md. No new source observations or catalog
+entries, no human decisions, merge or deployment.
+
 October 7 visual historical-source follow-up: all 38 pages of a UGA public
 presentation are accounted for, including two handwritten photograph labels
 missed by extracted text. Eleven unreviewed name/code observations add ten
