@@ -114,7 +114,9 @@ _SPLIT_LIST_RE = re.compile(r"\s*(?:,|;|\band\b)\s*", re.IGNORECASE)
 # Restricted to explicit declarations, not arbitrary capitalized words. The
 # case-sensitive name grammar deliberately ends before prose such as "lists
 # breeding test stations". Species in the declaration overrides source tags.
-_NAMED_TOKEN = r"[A-ZÀ-ÖØ-Þ][\w'’+\-]*(?:\s+[A-ZÀ-ÖØ-Þ][\w'’+\-]*){0,3}"
+# Long commercial/F1 labels must remain whole. Refuse an over-limit prefix
+# rather than emitting a shortened identity and dropping the rest of the list.
+_NAMED_TOKEN = r"[A-ZÀ-ÖØ-Þ][\w'’+\-]*(?:\s+[A-ZÀ-ÖØ-Þ][\w'’+\-]*){0,7}(?![\w+\-]|\s+[A-ZÀ-ÖØ-Þ])"
 _NAMED_ITEM = rf"['‘’\"“”]?{_NAMED_TOKEN}['‘’\"“”]?"
 _EXPLICIT_LIST_RE = re.compile(
     rf"\b(?:(?P<species>(?i:blueberry|strawberry|raspberry|blackberry))\s+)?"
@@ -123,7 +125,7 @@ _EXPLICIT_LIST_RE = re.compile(
 )
 _DECLARED_CODE_PAIR_RE = re.compile(
     rf"(?:\bincluding\s+|[:,;]\s*(?:and\s+)?|\band\s+)(?P<name>{_NAMED_TOKEN})\s+"
-    r"['‘’\"“”](?P<code>[A-Za-z0-9][A-Za-z0-9.\-]*\d[A-Za-z0-9.\-]*)['‘’\"“”]"
+    r"['‘’\"“”](?P<code>[A-Za-z0-9][A-Za-z0-9. \-]*\d[A-Za-z0-9.\-]*)['‘’\"“”]"
 )
 _LICENSED_NAMES_RE = re.compile(r"\blicenses\s+['‘’\"“”].+?(?:\.|$)")
 _QUOTED_NAME_RE = re.compile(rf"['‘’\"“”]({_NAMED_TOKEN})['‘’\"“”]")
