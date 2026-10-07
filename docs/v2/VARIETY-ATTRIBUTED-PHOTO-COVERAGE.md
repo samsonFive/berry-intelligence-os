@@ -59,7 +59,11 @@ from readonly/static output. Public photo publication remains an existing
 human-review integration task; selecting a reuse label never publishes a photo.
 
 Native desktop and 375px phone review show the real Columbia Star photo and
-credit. The phone gallery measures 375px content/scroll width; the expanded
+credit. Expanded candidates place photos alongside source/identity details on
+wide screens, with human actions below; on phones the same content stacks.
+The full 423-name queue keeps the floating alphabet. Final phone candidate
+content/scroll widths are 360px/360px, with both content columns stacked at
+310px. The phone gallery editor measures 375px content/scroll width; the expanded
 editor measures 360px/360px after its scrollbar, with only Blackberry offered.
 Normal viewport restored. Browser review makes no source/identity decisions or
 private photo edits. Screenshots are retained under ignored inbox storage.
