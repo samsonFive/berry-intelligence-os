@@ -1,5 +1,17 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+**Independent public baseline, October 7:** GDR Fragaria/Rubus germplasm export
+accounts for 26,905 joined rows / 6,453 collection keys / 2,355 literal labels /
+2,372 genus-name pairs. Before private state, 2,267 pairs lack an exact catalog
+or candidate name match; 104 have queue matches and one has a catalog match.
+The coverage page now makes that gap searchable with references and existing
+review links. Labels include selections and historical material; they do not
+become approved cultivars automatically. Raw CSV remains private and primary
+portfolio/canonical counts are unchanged. This is a bounded independent
+comparison, not a global completeness score. Vaccinium/blueberry comparison,
+source verification and individual authoring are next. See
+VARIETY-EXTERNAL-GERMPLASM-COVERAGE-REVIEW.md; CAT-01/CAT-02 stay open.
+
 **Latest measured state, October 7:** 64 catalog entries (57 active / six
 unverified / one historical); 1,269 stored sources yield 95 name observations /
 32 exact catalog matches / 63 candidate observations. Primary reconciliation
