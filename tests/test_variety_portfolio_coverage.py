@@ -81,10 +81,10 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 495
+    assert report["summary"]["names"] == 506
     assert report["summary"]["registry_entries_checked"] == 20
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 133, "berry-strawberry": 220, "berry-raspberry": 95, "berry-blackberry": 47}
+        "berry-blueberry": 144, "berry-strawberry": 220, "berry-raspberry": 95, "berry-blackberry": 47}
     assert "visible_candidates" not in report
     assert all("review_notes" not in str(r) for r in report["subjects"])
     abz = next(s for s in report["subjects"] if s["name"] == "ABZ Seeds")
@@ -135,6 +135,45 @@ def test_real_program_pages_keep_species_clone_scope_and_nursery_roles_explicit(
     assert len(abz) == 9 and sum(len(r["names"]) for r in abz) == 21
     assert all(n["candidate_name"].endswith("F1") and n["product_url"] for r in abz for n in r["names"])
     assert not {"Patio Pleasure", "Home Harvest", "Early & Compact", "Semi-Double"} & {c["candidate_name"] for c in candidates}
+
+
+def test_visual_pdf_names_keep_photo_codes_separate_and_do_not_approve_traits_or_rights():
+    sources = load_portfolio_observations(Path(__file__).resolve().parents[1] / "data")
+    observed = next(r for r in sources if r["id"] == "portfolio-uga-blueberry-ornamental-presentation")
+    rows, candidates = reconcile([observed])
+    assert observed["capture_reference"]["visually_checked_pages"] == observed["capture_reference"]["pages"] == 38
+    assert rows[0]["accounting_view"]["accounted_items"] == 12
+    assert not rows[0]["accounting_view"]["issues"]
+    assert [r["label"] for r in rows[0]["accounting_view"]["exclusions"]] == ["Alapaha"]
+    named = {r["candidate_name"]: r for r in candidates}
+    assert {"Titan", "T-959", "Premier", "T-460", "T-1223", "TO-1398"} <= named.keys()
+    assert named["Titan"]["id"] != named["T-959"]["id"]
+    assert named["TO-1398"]["trade_name"] == "Gold Rush"
+    assert "Alapaha" not in named and "Gold Rush" not in named
+    assert "#page=20" in named["Premier"]["portfolio_sources"][0]["product_url"]
+    for candidate in candidates:
+        assert candidate["status"] == "proposed" and not candidate["human_gated"]
+        assert not candidate["auto_confirmed"] and not candidate["aliases"]
+        assert not candidate["breeder_owner"] and not candidate["deployment"]
+        assert not candidate["proposed_relationships"]
+        assert not candidate["registration"]["official_registry_source"]
+        assert not candidate["registration"]["grant_date"]
+        assert candidate["source_tier"] == "tier_3_conference"
+
+
+def test_nonregistry_portfolio_references_never_become_official_registration_and_stored_rows_win():
+    sources = [source([{"candidate_name": "Earlier", "berry_id": "berry-strawberry"}]),
+               source([{"candidate_name": "New", "berry_id": "berry-strawberry"}], id="portfolio-new")]
+    stored = {"id": "stored", "candidate_name": "Earlier", "berry_id": "berry-strawberry",
+              "status": "reviewed", "human_gated": True, "identity_state": "distinct",
+              "source_tier": "tier_1_registry", "registration": {"official_registry_source": "verified-registry"}}
+    original = deepcopy(stored)
+    _, candidates = reconcile(sources, candidates=[stored])
+    earlier = next(c for c in candidates if c["id"] == "stored")
+    new = next(c for c in candidates if c["candidate_name"] == "New")
+    assert earlier["registration"] == original["registration"] and stored == original
+    assert new["source_id"] == "portfolio-new" and not new["registration"]["official_registry_source"]
+    assert new["source_tier"] == "tier_1_breeder_catalog"
 
 
 def test_real_mixed_catalog_accounting_preserves_exclusions_and_uncertain_pairs():

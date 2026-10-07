@@ -1,5 +1,22 @@
 # Intelligence Coverage Matrix
 
+October 7 visual historical-source follow-up: all 38 pages of a UGA public
+presentation are accounted for, including two handwritten photograph labels
+missed by extracted text. Eleven unreviewed name/code observations add ten
+candidate keys; Alapaha remains an explicit ambiguous-label exclusion. Three
+named blueberries and six experimental ornamental selections keep separate
+contexts; Premier and T-959 are photo-only leads, and T-959 is not an approved
+Titan alias. Primary totals are 506 occurrences / 33 catalog matches / 473
+review needs in 46 sections, with 423 derived candidate keys before private
+state. Canonical catalog remains 64; 57 initial registry checks and four source
+gaps remain. GRIN now has 132 missing exact names / 14 queued / two catalog
+matches before private state, because Premier has a primary-source lead.
+Portfolio-derived references no longer become official registry attribution;
+stored human records are preserved. 86 focused/static tests pass. Parent #328 passed
+all four exact-head gates (4,100 passed / 11 skipped / two warnings). This draft's
+CI is pending; no trust promotion, merge, deployment or Milestone B rollout.
+See VARIETY-HISTORICAL-BLUEBERRY-VISUAL-REVIEW.md.
+
 **October 7 blueberry public comparison:** GRIN's 2,113 native search results
 include 315 Cultivar-classified accessions. Four source-checked blueberry species
 account for 178 records / 148 names: 133 without exact catalog/queue match, 13

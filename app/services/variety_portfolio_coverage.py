@@ -206,10 +206,18 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
                             "trade_name": observation.get("trade_name") or observation["candidate_name"]}
                 candidate = build_candidate({**lead, "source_id": source["id"], "source_url": source["url"],
                     "source_label": source["title"], "source_type": source["source_type"],
-                    "source_tier": "tier_2_nursery_catalog" if source["source_type"] == "nursery_catalog" else "tier_1_breeder_catalog",
+                    "source_tier": {"nursery_catalog": "tier_2_nursery_catalog",
+                                    "breeder_catalog": "tier_1_breeder_catalog",
+                                    "breeder_program_report": "tier_1_breeder_catalog",
+                                    "breeder_release_record": "tier_1_breeder_catalog",
+                                    "conference_presentation": "tier_3_conference"}.get(
+                                        source["source_type"], "weak_noncanonical_lead"),
                     "knowledge": {"origin": "primary_portfolio_observation"}},
                     varieties=varieties, discovered_at=source.get("observed_at"))
-                candidate = {**candidate, "persisted": False, "discovered_from": "primary_portfolio"}
+                # A portfolio reference is provenance, not an official registry.
+                # This is derived-only; never replace an operator's stored row.
+                candidate = {**candidate, "persisted": False, "discovered_from": "primary_portfolio",
+                             "registration": {**candidate["registration"], "official_registry_source": ""}}
                 additions.append(candidate)
                 existing[candidate_key(observation)] = candidate
             labels = {"catalog_match": "Catalog match", "needs_review": "Needs identity review",
