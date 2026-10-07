@@ -40,6 +40,8 @@ def bundle(records,jobs,params, *, access=None):
         perspective='corporate' if role in ('company_owned','trade') else 'consumer' if role in ('consumer','recipe','creator','disclosed_sponsorship') else 'unclear'
         if f['perspective'] and perspective!=f['perspective']:continue
         rows.append(r)
+    # Compare instants rather than ISO strings: source offsets can differ.
+    rows.sort(key=lambda r: (datetime.fromisoformat((r['published_at'] or r['collected_at']).replace('Z','+00:00')), r['id']), reverse=True)
     by_id={r['id']:r for r in rows}; total=len(rows)
     phrases=defaultdict(set); labels=defaultdict(set); heat=defaultdict(list); timeline=defaultdict(set); countries=defaultdict(set)
     fingerprints=Counter(r['analysis'].get('content_fingerprint') for r in rows)
@@ -91,7 +93,7 @@ def bundle(records,jobs,params, *, access=None):
       'filters':f,'url':href(f),'records':rows,'by_id':by_id,'count':total,'phrases':phrase_rows,'heatmap':cells,'countries':groups,'points':points,
       'timeline':[{'day':d,'count':len(ids),'evidence_ids':sorted(ids),'trend':'qualified / insufficient comparable evidence',
         'themes':{concept:sorted(i for i in ids if concept in by_id[i]['analysis']['concepts']) for concept in sorted({c for i in ids for c in by_id[i]['analysis']['concepts']})},
-        'entities':{entity:sorted(i for i in ids if any(l['entity_id']==entity for l in by_id[i]['analysis']['entity_links'])) for entity in sorted({l['entity_id'] for i in ids for l in by_id[i]['analysis']['entity_links']})}} for d,ids in sorted(timeline.items())],
+        'entities':{entity:sorted(i for i in ids if any(l['entity_id']==entity for l in by_id[i]['analysis']['entity_links'])) for entity in sorted({l['entity_id'] for i in ids for l in by_id[i]['analysis']['entity_links']})}} for d,ids in sorted(timeline.items(),reverse=True)],
       'health':health,'warnings':warnings,'role_counts':dict(Counter(r['record_role'] for r in rows)),
       'duplicate_content_groups':sum(n>1 for n in fingerprints.values()),
       'continuation':{'version':1,'node_ids':'canonical entity IDs; no social registry creation',

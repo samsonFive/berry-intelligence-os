@@ -18,7 +18,9 @@
   const saved=new URL(location.href).searchParams.get('drill'); if(saved)drill(saved.split(',').filter(id=>records.some(r=>r.dataset.socialRecord===id)),'Selected posts',false);
   root.querySelectorAll('[data-sort]').forEach(button=>button.addEventListener('click',()=>{
     const body=button.closest('table').querySelector('tbody'); const index=Number(button.dataset.sort);const asc=button.getAttribute('aria-sort')!=='ascending';
-    [...body.rows].sort((a,b)=>{const x=a.cells[index].dataset.sortValue||a.cells[index].textContent.trim(),y=b.cells[index].dataset.sortValue||b.cells[index].textContent.trim();return (button.hasAttribute('data-numeric')?Number(x)-Number(y):x.localeCompare(y))*(asc?1:-1);}).forEach(row=>body.appendChild(row));
+    [...body.rows].sort((a,b)=>{const x=a.cells[index].dataset.sortValue||a.cells[index].textContent.trim(),y=b.cells[index].dataset.sortValue||b.cells[index].textContent.trim();return (button.hasAttribute('data-date')?Date.parse(x)-Date.parse(y):button.hasAttribute('data-numeric')?Number(x)-Number(y):x.localeCompare(y))*(asc?1:-1);}).forEach(row=>body.appendChild(row));
+    button.closest('table').querySelectorAll('[aria-sort]').forEach(el=>el.removeAttribute('aria-sort'));
+    const dateButton=button.closest('table').querySelector('[data-date]');if(dateButton){dateButton.textContent=button===dateButton?(asc?'Date ↑':'Date ↓'):'Date ↕';dateButton.setAttribute('aria-label',button===dateButton?(asc?'Date, oldest first; sort newest first':'Date, newest first; sort oldest first'):'Sort by date, oldest first');}
     button.setAttribute('aria-sort',asc?'ascending':'descending');button.closest('th').setAttribute('aria-sort',asc?'ascending':'descending');
   }));
   const cloud=root.querySelector('[data-cloud-mode]');if(cloud)cloud.addEventListener('change',()=>{

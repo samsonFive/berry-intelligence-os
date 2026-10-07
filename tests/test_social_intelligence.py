@@ -239,3 +239,17 @@ def test_media_field_proposals_keep_locator_and_hide_removed_labels():
     assert all(r['locator'] == literal['locator'] and r['method'] == 'human_label' for r in observation['fields'])
     row['media'][0]['state'] = 'deleted'
     assert media_observations(row)[0]['fields'] == []
+
+
+def test_default_newest_first_uses_publication_then_saved_date_and_real_instants(tmp_path):
+    store=Store(tmp_path)
+    rows=[sample(native_id='old',published_at='2020-01-01T00:00:00Z',collected_at='2026-10-07T00:00:00Z'),
+          sample(native_id='offset',published_at='2026-10-07T00:30:00+02:00'),
+          sample(native_id='utc',published_at='2026-10-06T23:00:00Z'),
+          sample(native_id='undated',published_at=None,collected_at='2026-10-07T01:00:00Z')]
+    store.ingest(rows,ENTITIES)
+    result=bundle(list(reversed(store.records())),[],{'mode':'fixture'})
+    assert [r['native_id'] for r in result['records']]==['undated','utc','offset','old']
+    assert [d['day'] for d in result['timeline']]==['2026-10-07','2026-10-06','2020-01-01']
+    assert result['records'][0]['published_at'] is None
+    assert result['count']==4
