@@ -248,7 +248,7 @@ def coverage_matrix(
             "Counts are raw and explainable. There is no completeness score.",
             "Candidate registration identifiers are provenance on an untrusted candidate, not trusted Evidence.",
             "GET/render of this matrix does not approve, publish, or merge varieties.",
-            "Trusted Varieties are canonical entities. Discovered Candidates are untrusted until identity review.",
+            "Catalog entries may be active, unverified or historical. Discovered names still need human identity and source review.",
         ],
         "universe": universe_headcounts(varieties=varieties, candidates=candidates),
     }

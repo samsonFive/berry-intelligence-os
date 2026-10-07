@@ -1,0 +1,385 @@
+{
+  "schema_version": "variety-name-recall-v1",
+  "created_date": "2026-10-07",
+  "review_status": "Agent-curated diagnostic; not independently human-verified or model-qualified",
+  "scope": "Fourteen targeted title cases: five original stored counterexamples, four invented Title Case variants and five invented positive controls. Not a random sample, live extraction or global precision estimate. Names require human identity review.",
+  "cases": [
+    {
+      "id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "scope": "Original stored title only; summary/body intentionally omitted to isolate title parsing. No new source or independent verification.",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie",
+            "status": "published",
+            "source_type": "news_search",
+            "title": "Cornell releases two new raspberry varieties - Cornell Chronicle",
+            "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQS0J0VEJfbHNwR0VfTDVQRTdpME9yNzNKRGpJcnNzeUJoTEZZUU02TUZmenZNYW94OGtYenExVlk5U0RlWDczTzd6aVJTOUJ4UFEySWY3UjZnOTNMb3Iya3lQMnNiVEpXMndjZ0NpRGZNa08teXg3RWZQd1lhNHhtWXh2TW0zT3pOSk84YkFR?oc=5",
+            "berry_ids": [
+              "berry-raspberry"
+            ],
+            "summary": ""
+          }
+        ]
+      },
+      "expected": []
+    },
+    {
+      "id": "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "scope": "Original stored title only; summary/body intentionally omitted to isolate title parsing. No new source or independent verification.",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-",
+            "status": "published",
+            "source_type": "news_search",
+            "title": "UF/IFAS releases new Sentinel blueberry variety - Fruit Growers News",
+            "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQTUJrSUo1ejF5bXpxMHpRZEtSZHRpMVpTVHQ2UkdtRDcyZnpTSkhXTGo4aGJiOW5FMUpnUmZFVWdMSW9TbjF2Tm5sRU1uaWFmcjctVm96WnhicHF6YlVKNkFLWlYxVnJxUndHcHNQcUxOWjRQeUJlb3BmdnZYYzJybWs5WXhsMnJ3ekE?oc=5",
+            "berry_ids": [
+              "berry-blueberry"
+            ],
+            "summary": ""
+          }
+        ]
+      },
+      "expected": [
+        {
+          "name": "Sentinel",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-"
+          ],
+          "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQTUJrSUo1ejF5bXpxMHpRZEtSZHRpMVpTVHQ2UkdtRDcyZnpTSkhXTGo4aGJiOW5FMUpnUmZFVWdMSW9TbjF2Tm5sRU1uaWFmcjctVm96WnhicHF6YlVKNkFLWlYxVnJxUndHcHNQcUxOWjRQeUJlb3BmdnZYYzJybWs5WXhsMnJ3ekE?oc=5"
+        }
+      ]
+    },
+    {
+      "id": "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "scope": "Original stored title only; summary/body intentionally omitted to isolate title parsing. No new source or independent verification.",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc",
+            "status": "published",
+            "source_type": "news_search",
+            "title": "New blueberry variety bursts onto the scene: High calibers, extreme hardiness, and over 55 days of post-harvest shelf life - Hortidaily",
+            "source_url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNN3puNnpKNnc3bnBOUnpDenhlbTZhZUJHOWtDcUJhWkJGcUMzeUJaem8xVWxBaFdrZ0Nrb0dXS3puN0Y3dk9OQVNyczFzUExDRjk4VmIzalFzV2IyODNfdlR6RFdCX1Y0el81Zm45UWVJRzREQnhPQnNlYW1KZGtjVTBKQWtqSW5YcHU2c2RyX05ZZFYzSzhMTmNSd01rVzByLW5GZWdTRlVUdWp0S19zSTVaam1GR3pVOHVYdEVRTUsxTE9ob1J4eXJCNjhmVVB4bWJMNFNQSExoeVpGcEdMVEpIZjRyYVI3TENtM3ZhMjIzdmNQTEE?oc=5",
+            "berry_ids": [
+              "berry-blueberry"
+            ],
+            "summary": ""
+          }
+        ]
+      },
+      "expected": []
+    },
+    {
+      "id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "scope": "Original stored title only; summary/body intentionally omitted to isolate title parsing. No new source or independent verification.",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming",
+            "status": "published",
+            "source_type": "news_search",
+            "title": "New raspberry variety from Mexico coming next month - FreshPlaza",
+            "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOY1B0b0JoZUdXeVFCTEd4WXUtN244amFodl9hTS1vcWV2TU94WTZpcF9ickc0ZnlPM2s5YW11U0taeHlEeUlFcXZBU19vQ3ppN255M0lZazF4TTVlRWs0cFdYODB2N3h6Y0dNMDR5RWM0X0lwVU1QcFIyOUdoMV9QYnJIMk1TOW15MWZKMzNoSHJGcE5QR1Q0aWVzeHFod0RnQmoxcHJtUWJHaTd6Snc?oc=5",
+            "berry_ids": [
+              "berry-blueberry",
+              "berry-raspberry",
+              "berry-strawberry",
+              "berry-blackberry"
+            ],
+            "summary": ""
+          }
+        ]
+      },
+      "expected": []
+    },
+    {
+      "id": "ev-producereport-blugenix-2026",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "scope": "Original stored title only; summary/body intentionally omitted to isolate title parsing. No new source or independent verification.",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-producereport-blugenix-2026",
+            "status": "published",
+            "source_type": "trade_press",
+            "title": "Costa launches BluGenix with five blueberry varieties suited to Yunnan",
+            "source_url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+            "berry_ids": [
+              "berry-blueberry"
+            ],
+            "summary": ""
+          }
+        ]
+      },
+      "expected": []
+    },
+    {
+      "id": "caps-launch",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-fixture-caps-launch",
+            "status": "published",
+            "source_type": "trade_press",
+            "title": "Example RELEASES Nova Blue BLUEBERRY VARIETY",
+            "summary": "",
+            "source_url": "https://example.test/caps-launch?original=1",
+            "berry_ids": [
+              "berry-blueberry"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        {
+          "name": "Nova Blue",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-fixture-caps-launch"
+          ],
+          "source_url": "https://example.test/caps-launch?original=1"
+        }
+      ]
+    },
+    {
+      "id": "f1-launch",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-fixture-f1-launch",
+            "status": "published",
+            "source_type": "trade_press",
+            "title": "Example introduces Royal Ruby F1 strawberry variety",
+            "summary": "",
+            "source_url": "https://example.test/f1-launch?original=1",
+            "berry_ids": [
+              "berry-strawberry"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        {
+          "name": "Royal Ruby F1",
+          "berry_id": "berry-strawberry",
+          "evidence_ids": [
+            "ev-fixture-f1-launch"
+          ],
+          "source_url": "https://example.test/f1-launch?original=1"
+        }
+      ]
+    },
+    {
+      "id": "blackberry-launch",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-fixture-blackberry-launch",
+            "status": "published",
+            "source_type": "trade_press",
+            "title": "Example unveils Test Thornless blackberry variety",
+            "summary": "",
+            "source_url": "https://example.test/blackberry-launch?original=1",
+            "berry_ids": [
+              "berry-blackberry"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        {
+          "name": "Test Thornless",
+          "berry_id": "berry-blackberry",
+          "evidence_ids": [
+            "ev-fixture-blackberry-launch"
+          ],
+          "source_url": "https://example.test/blackberry-launch?original=1"
+        }
+      ]
+    },
+    {
+      "id": "named-raspberry",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-fixture-named-raspberry",
+            "status": "published",
+            "source_type": "trade_press",
+            "title": "New raspberry variety Crimson Plus enters trials",
+            "summary": "",
+            "source_url": "https://example.test/named-raspberry?original=1",
+            "berry_ids": [
+              "berry-raspberry"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        {
+          "name": "Crimson Plus",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-fixture-named-raspberry"
+          ],
+          "source_url": "https://example.test/named-raspberry?original=1"
+        }
+      ]
+    },
+    {
+      "id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie-titlecase",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_case_variant",
+      "scope": "Invented Title Case variant of the stored headline; not a new live source.",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie",
+            "status": "published",
+            "source_type": "news_search",
+            "title": "Cornell Releases Two New Raspberry Varieties - Cornell Chronicle",
+            "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQS0J0VEJfbHNwR0VfTDVQRTdpME9yNzNKRGpJcnNzeUJoTEZZUU02TUZmenZNYW94OGtYenExVlk5U0RlWDczTzd6aVJTOUJ4UFEySWY3UjZnOTNMb3Iya3lQMnNiVEpXMndjZ0NpRGZNa08teXg3RWZQd1lhNHhtWXh2TW0zT3pOSk84YkFR?oc=5",
+            "berry_ids": [
+              "berry-raspberry"
+            ],
+            "summary": ""
+          }
+        ]
+      },
+      "expected": []
+    },
+    {
+      "id": "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc-titlecase",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_case_variant",
+      "scope": "Invented Title Case variant of the stored headline; not a new live source.",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc",
+            "status": "published",
+            "source_type": "news_search",
+            "title": "New Blueberry Variety Bursts Onto The Scene: High Calibers, Extreme Hardiness, And Over 55 Days Of Post-Harvest Shelf Life - Hortidaily",
+            "source_url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNN3puNnpKNnc3bnBOUnpDenhlbTZhZUJHOWtDcUJhWkJGcUMzeUJaem8xVWxBaFdrZ0Nrb0dXS3puN0Y3dk9OQVNyczFzUExDRjk4VmIzalFzV2IyODNfdlR6RFdCX1Y0el81Zm45UWVJRzREQnhPQnNlYW1KZGtjVTBKQWtqSW5YcHU2c2RyX05ZZFYzSzhMTmNSd01rVzByLW5GZWdTRlVUdWp0S19zSTVaam1GR3pVOHVYdEVRTUsxTE9ob1J4eXJCNjhmVVB4bWJMNFNQSExoeVpGcEdMVEpIZjRyYVI3TENtM3ZhMjIzdmNQTEE?oc=5",
+            "berry_ids": [
+              "berry-blueberry"
+            ],
+            "summary": ""
+          }
+        ]
+      },
+      "expected": []
+    },
+    {
+      "id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming-titlecase",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_case_variant",
+      "scope": "Invented Title Case variant of the stored headline; not a new live source.",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming",
+            "status": "published",
+            "source_type": "news_search",
+            "title": "New Raspberry Variety From Mexico Coming Next Month - Freshplaza",
+            "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOY1B0b0JoZUdXeVFCTEd4WXUtN244amFodl9hTS1vcWV2TU94WTZpcF9ickc0ZnlPM2s5YW11U0taeHlEeUlFcXZBU19vQ3ppN255M0lZazF4TTVlRWs0cFdYODB2N3h6Y0dNMDR5RWM0X0lwVU1QcFIyOUdoMV9QYnJIMk1TOW15MWZKMzNoSHJGcE5QR1Q0aWVzeHFod0RnQmoxcHJtUWJHaTd6Snc?oc=5",
+            "berry_ids": [
+              "berry-blueberry",
+              "berry-raspberry",
+              "berry-strawberry",
+              "berry-blackberry"
+            ],
+            "summary": ""
+          }
+        ]
+      },
+      "expected": []
+    },
+    {
+      "id": "ev-producereport-blugenix-2026-titlecase",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_case_variant",
+      "scope": "Invented Title Case variant of the stored headline; not a new live source.",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-producereport-blugenix-2026",
+            "status": "published",
+            "source_type": "trade_press",
+            "title": "Costa Launches Blugenix With Five Blueberry Varieties Suited To Yunnan",
+            "source_url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+            "berry_ids": [
+              "berry-blueberry"
+            ],
+            "summary": ""
+          }
+        ]
+      },
+      "expected": []
+    },
+    {
+      "id": "capitalized-new-is-name",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-fixture-new-hanover",
+            "status": "published",
+            "source_type": "trade_press",
+            "title": "Example releases New Hanover blueberry variety",
+            "summary": "",
+            "source_url": "https://example.test/new-hanover",
+            "berry_ids": [
+              "berry-blueberry"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        {
+          "name": "New Hanover",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-fixture-new-hanover"
+          ],
+          "source_url": "https://example.test/new-hanover"
+        }
+      ]
+    }
+  ]
+}

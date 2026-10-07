@@ -1,5 +1,16 @@
 # Intelligence Coverage Matrix
 
+**October 7 title precision follow-up:** Five observed headline mistakes led to
+scoped discovery repairs. Updated stored-source audit: 1,269 sources, 95
+source/name observations, 32 catalog matches, 63 candidate observations and
+336 combined candidate keys before private state. Catalog 64 and primary
+portfolio 381/25/356 counts are unchanged. Saved human decisions survive.
+Targeted 14-case diagnostic improves 3/6 expected plus ten unexpected names
+to 5/6 plus zero unexpected; one F1 miss stays visible. The original 24-case
+diagnostic still misses 14 names. No global coverage, independently scored
+recall, trusted maturity increase or qualification is implied. See
+VARIETY-TITLE-PRECISION-REVIEW.md. Earlier counts below are historical.
+
 **October 7 recall diagnostic:** 24 curated offline cases retain table,
 Spanish/Polish and body-only failures. Spaced-code/long-F1 summary repairs improve
 detection from 46/64 expected occurrences plus one unexpected name to 50/64 with

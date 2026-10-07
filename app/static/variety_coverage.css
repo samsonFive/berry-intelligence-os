@@ -2,3 +2,14 @@
 .portfolio-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px!important}.portfolio-heading h1{font-size:1.65rem;margin:4px 0}.portfolio-heading .eyebrow{margin:0;font-size:.66rem}.portfolio-heading .context-limit{margin:4px 0;font-size:.82rem;line-height:1.4}.portfolio-heading .v2-company-actions{display:flex;gap:7px;flex-shrink:0;margin:0}.portfolio-counts{margin:8px 0;gap:8px}.portfolio-counts>div{padding:8px 12px}.portfolio-counts strong{font-size:1.55rem}.portfolio-note{font-size:.75rem;line-height:1.4;margin:7px 0}.portfolio-coverage .digest-filters{margin:8px 0;padding:8px 10px;gap:10px}.portfolio-coverage .digest-filters label{font-size:.74rem}.portfolio-berry-summary{margin:8px 0;gap:6px}.portfolio-berry-summary span{padding:4px 8px}.portfolio-coverage h2{margin:10px 0 7px}@media(max-width:700px){.portfolio-heading{align-items:flex-start;flex-wrap:wrap;gap:7px}.portfolio-heading .v2-company-actions{margin-bottom:4px}.portfolio-heading h1{font-size:1.5rem}}
 
 .portfolio-accounting{padding:8px 10px;background:#eaf0e2;border:1px solid #b4c5a5;border-radius:5px}.portfolio-accounting p{margin:4px 0}.portfolio-accounting ul{padding-left:18px}.portfolio-accounting li{margin:5px 0}.portfolio-pair-issues{padding:8px 10px;margin:8px 0;background:#fff3d5;border-left:3px solid #b08228;color:#584522}.portfolio-pair-issues>summary{font-weight:600}.portfolio-source-body{overflow-wrap:anywhere}
+
+/* Keep secondary catalog tables readable without widening the page on phones. */
+.portfolio-plan{min-width:0;max-width:100%;box-sizing:border-box}
+.portfolio-plan .v2-company-section{min-width:0}
+.portfolio-plan .table-wrap{max-width:100%;overflow-x:auto;border:1px solid #b4c6a9;border-radius:6px;background:#fbfff7}
+.portfolio-plan .brief-table{width:100%;min-width:620px;border-collapse:collapse}
+.portfolio-plan .brief-table th,.portfolio-plan .brief-table td{padding:7px 10px;text-align:left;vertical-align:top;border-bottom:1px solid #c6d5bc}
+.portfolio-plan .brief-table thead th{background:#e1ebd5;font-size:.75rem;color:#334e36}
+.portfolio-plan .brief-table tbody tr:nth-child(even){background:#f1f6e9}
+.portfolio-plan .brief-table td:nth-child(n+2){font-variant-numeric:tabular-nums}
+.portfolio-plan .context-limit{overflow-wrap:anywhere;line-height:1.5}

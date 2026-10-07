@@ -398,7 +398,9 @@ def test_coverage_counts_include_corpus_candidates() -> None:
     assert any(m["candidate_name"] == "Roberto" for m in report["new_mentions"])
     page = TestClient(app).get("/varieties/coverage")
     assert page.status_code == 200
-    assert "Trusted Varieties" in page.text
+    assert "Catalog varieties" in page.text
+    assert "Catalog entries include active, unverified and historical records" in page.text
+    assert "Trusted Varieties" not in page.text
     assert "Corpus reconciliation" in page.text
     assert "completeness score" in page.text.lower()
 
