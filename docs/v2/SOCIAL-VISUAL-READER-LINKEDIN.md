@@ -53,3 +53,27 @@ Post rows, retail gallery and reader share a bounded-height attachment carousel.
 Browser verification: original LinkedIn photos render in the compact row and 320px reader carousel; next attachment changes 1/3 to 2/3; one-click lightbox opens, next image works, Escape closes only the lightbox and retains the reader. Original screenshot evidence remains in the local review packet. Mobile swipe uses horizontal scroll snapping; full mobile/assistive-technology review remains pending.
 
 X is already live-tested via three search assignments: 12 retained records, including Chinese replies; sparse/noisy sample, not qualified broad coverage. Facebook public-profile/page collection is documented by the vendor but was not tested. The prior 30-attempt trial cap is exhausted; no additional calls were made. Facebook needs a bounded follow-up against named public industry pages, then independent relevance/media/retention checks, rather than treating unsupported general keyword/group access as proven. Cash spend remains $0.
+
+
+## English-readable mission follow-up — October 7, 2026
+
+Clarified user requirement: posts without English source text or an English translation are excluded from all Social Listening selections, counts, visual drilldowns, briefing/export and reader conversations. Unknown language stays pending rather than guessed from alphabet/query. Original records remain in the private acquisition index for translation/audit; they are not deleted. Direct reader access to a pending-English post returns409. English translations retain method/uncertainty/original provenance; translation availability does not establish accuracy. Links are underlined, buttons outlined, and clickable images carry an enlargement cue. No unavailable-translation message remains.
+
+A predeclared four-request continuation extended the prior30-attempt study to34, retaining the initial20% free-credit reserve, per-call actual free-account checks, one-credit upper bound, byte/time caps and no retries/pagination. Company source links were verified directly from https://www.fallcreeknursery.com/ and https://www.driscolls.com/.
+
+| Case | HTTP | Returned | Retained | Media references | Dates |
+|---|---:|---:|---:|---:|---:|
+| Facebook Fall Creek page |200|3|3|7|3|
+| Facebook Driscoll's page |200|3|3|7|3|
+| X FallCreekBlues blueberries |200|20|10|9|10|
+| X driscollsberry blueberries |200|20|10|10|10|
+
+26 new unique records;197 total private all-platform records, not197 readable blueberry matches. Facebook's six are mixed berries: two Fall Creek posts mention blueberries, other raspberry/blackberry/general-berry posts do not qualify as blueberry evidence. X retains the existing10-per-query cap; older company posts are not fresh30-day discovery. No independent relevance/accuracy grade. Facebook multiple images now dedupe and preserve all supplied references, engagement and video references without rehosting. Top-comment summaries did not establish comment retrieval and were not promoted into invented records.
+
+Facebook did not supply language. Six complete Facebook texts and ten previously displayed LinkedIn texts were inspected as English by the assistant; language_basis explicitly records this assistant assessment, separate from provider/human language qualification. Hash-bound private assessment metadata protects replay from applying an assessment to changed text. Unknown other records remain hidden pending translation/language assessment; no fabricated English translations.
+
+Cumulative cash$0;32 free credits consumed,18 remaining,34 reserved attempts. No ongoing collection. Official vendor docs: [Facebook public profile/page posts](https://docs.sociavault.com/api-reference/facebook/profile-posts), [X search](https://docs.sociavault.com/api-reference/twitter/search). Demonstrated access is vendor-mediated public content; direct Meta/X permission, private groups, keyword-wide Facebook search, deletion refresh and recurring costs remain unqualified. Replay with scripts/report_social_facebook_x_followup.py uses saved private responses only. Machine/source screenshots and raw content remain outside public git.
+
+Mission remains at the blueberry review boundary: resolve English translation/review workflow, independent relevance/language QA and rights/deletion before unattended monitoring or purchase. No merge/deploy or other-berry rollout.
+
+User mission focus:both corporate and consumer intelligence, shown separately. Perspective selection filters the same evidence bundle and preserves URLs across views/exports:corporate/trade,consumer/creator,unclassified/news. No unknown post is assumed consumer. Known follow-up company posts are labeled company_owned only when the returned canonical URL hostname/author handle matches the independently verified company watch handle; query text alone does not qualify identity. Classification is still pending independent review; sponsored creator content remains explicitly labeled.

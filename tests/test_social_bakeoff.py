@@ -148,3 +148,11 @@ def test_apify_cannot_launch_from_marketplace_claim():
     assert not plan['launch_enabled'] and plan['params']['maxTotalChargeUsd']==.25
     with pytest.raises(AccessBlocked):
         apify_launch_plan('atomus/weibo-scraper',build='latest',actor_input={},verification=v)
+
+def test_facebook_multiple_images_dedupe_and_engagement():
+    from app.services.social_intelligence.sociavault_normalize import normalize
+    result=normalize({'success':True,'data':{'posts':{'0':{'id':'123','url':'https://www.facebook.com/example/posts/123','text':'Blueberries','publishTime':1791370000,'image':'https://scontent.example.fbcdn.net/a.jpg?thumbnail=1','images':{'0':'https://scontent.example.fbcdn.net/a.jpg?full=1','1':'https://scontent.example.fbcdn.net/b.jpg'},'reactionCount':12,'commentCount':3,'videoDetails':{}}}}},'facebook-posts')
+    assert result['mapping_errors']==[]
+    assert len(result['rows'][0]['media'])==2
+    assert result['rows'][0]['engagement']=={'likes':12,'comments':3}
+    assert result['rows'][0]['language']=='und'

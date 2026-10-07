@@ -2015,3 +2015,6 @@ The [multi-platform measured trial](SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md) su
 ## Visual reader and successful LinkedIn follow-up — October7
 
 See [the current reader/LinkedIn report](SOCIAL-VISUAL-READER-LINKEDIN.md): public company retrieval, two independently located named-variety posts and broader undated keyword search all succeeded.21 retained rows added19 unique records; total isolated records171. Four additional free credits used; total28 consumed,22 remaining,$0 paid. Earlier404 failures remain recorded with unresolved cause. Public native LinkedIn embedding rendered without a LinkedIn login. The reader now leads with native video players/photos and compact supporting detail. No ongoing collection, rights/accuracy qualification, merge or deploy.
+
+
+October7 Social continuation: Facebook public company pages and X company searches now demonstrated via bounded vendor follow-up (six Facebook posts,20 retained X posts;$0,18 free credits remain). Source language/translation controls hide unreadable records; Facebook groups/comments/general keyword search and independent qualification remain unmet. See [current measured report](SOCIAL-VISUAL-READER-LINKEDIN.md).

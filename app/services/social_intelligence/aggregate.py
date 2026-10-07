@@ -11,10 +11,11 @@ VIEWS=('posts','phrases','heatmap','atlas','momentum','coverage')
 MIN_SAMPLE=5
 
 def selection(params):
-    f={k:str(params.get(k,'') or '') for k in ('source','language','market','entity','role','start','end','q')}
+    f={k:str(params.get(k,'') or '') for k in ('source','language','market','entity','role','perspective','start','end','q')}
     f.update(mode=str(params.get('mode','live')),view=str(params.get('view','posts')),berry=str(params.get('berry','berry-blueberry')))
     if f['mode'] not in MODES or f['view'] not in VIEWS or f['berry'] not in VOCAB or f['source'] and f['source'] not in PLATFORMS:
         raise ValueError('Invalid social selection')
+    if f['perspective'] not in ('','corporate','consumer','unclear'): raise ValueError('Invalid perspective')
     for k in ('start','end'):
         if f[k]: datetime.strptime(f[k],'%Y-%m-%d')
     if f['start'] and f['end'] and f['start']>f['end']: raise ValueError('Date range is reversed')
@@ -35,6 +36,9 @@ def bundle(records,jobs,params, *, access=None):
         if f['market'] and (r.get('purchase_market') or {}).get('value')!=f['market']: continue
         if f['entity'] and f['entity'] not in {link['entity_id'] for link in a.get('entity_links',[])}: continue
         if f['q'] and f['q'].casefold() not in r['text'].casefold(): continue
+        role=r.get('content_role','unknown')
+        perspective='corporate' if role in ('company_owned','trade') else 'consumer' if role in ('consumer','recipe','creator','disclosed_sponsorship') else 'unclear'
+        if f['perspective'] and perspective!=f['perspective']:continue
         rows.append(r)
     by_id={r['id']:r for r in rows}; total=len(rows)
     phrases=defaultdict(set); labels=defaultdict(set); heat=defaultdict(list); timeline=defaultdict(set); countries=defaultdict(set)

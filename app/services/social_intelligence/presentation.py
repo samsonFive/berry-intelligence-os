@@ -33,3 +33,9 @@ def player(row):
                 return None
             return {'url': 'https://www.linkedin.com/embed/feed/update/' + urn, 'label': 'LinkedIn public post', 'shape': 'post'}
     return None
+
+
+def readable_in_english(row):
+    """Unknown language is pending; never infer English from query or alphabet."""
+    translation=row.get('translation') or {}
+    return bool(row.get('text') and row.get('language')=='en' or translation.get('language')=='en' and translation.get('text','').strip())

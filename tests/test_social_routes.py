@@ -87,3 +87,30 @@ def test_media_api_retrieves_comment_and_removal_invalidation(client,tmp_path):
     store.remove(row['id'],media_id=mid,state='restricted')
     assert client.get(path).status_code==410
     assert 'Literal label' not in client.get('/api/social/'+row['id']+'/reader').text
+
+def test_english_visibility_covers_counts_reader_and_translation_arrival(client):
+    from copy import deepcopy
+    from app.services.social_intelligence.presentation import readable_in_english
+    assert not readable_in_english({'language':'ja','text':'ブルーベリー'})
+    assert not readable_in_english({'language':'und','text':'Looks English but unverified'})
+    r=deepcopy(FIXTURE['records'][0]);r.update(native_id='english-filter-test',mode='imported',language='es',text='Arándanos crujientes',translation=None)
+    store=Store(main.INBOX_DIR);key=store.ingest([r],main.all_entities(),mode='imported')[0]
+    assert client.get('/api/social?mode=imported').json()['count']==0
+    assert client.get('/social/export?mode=imported').json()['count']==0
+    assert client.get('/api/social/'+key+'/reader').status_code==409
+    assert len(store.records(mode='imported'))==1
+    r['translation']={'text':'Crunchy blueberries','language':'en','method':'machine','version':'test-double','uncertainty':'Deterministic test response; not a live translation'}
+    store.ingest([r],main.all_entities(),mode='imported')
+    assert client.get('/api/social?mode=imported').json()['count']==1
+    assert client.get('/api/social/'+key+'/reader').status_code==200
+
+def test_perspectives_keep_corporate_and_consumer_separate(client):
+    store=Store(main.INBOX_DIR)
+    for role in ('company_owned','consumer','unknown'):
+        r=deepcopy(FIXTURE['records'][0]);r.update(native_id='perspective-'+role,mode='imported',content_role=role,language='en',translation=None)
+        store.ingest([r],main.all_entities(),mode='imported')
+    for perspective,role in [('corporate','company_owned'),('consumer','consumer'),('unclear','unknown')]:
+        result=client.get('/api/social?mode=imported&perspective='+perspective).json()
+        assert result['count']==1 and result['records'][0]['content_role']==role
+        assert client.get('/social/export?mode=imported&perspective='+perspective).json()['count']==1
+        assert 'perspective='+perspective in client.get('/social?mode=imported&perspective='+perspective).text

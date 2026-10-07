@@ -7,7 +7,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from app.services.social_intelligence.store import Store, now
 from app.services.social_intelligence.aggregate import bundle, href, VIEWS
 from app.services.social_intelligence.model import PLATFORMS
-from app.services.social_intelligence.presentation import player
+from app.services.social_intelligence.presentation import player, readable_in_english
 
 router=APIRouter()
 ROOT=Path(__file__).resolve().parents[1]
@@ -24,7 +24,7 @@ def view_bundle(request):
         raise HTTPException(422,'Blueberry review gate; other berries await feedback')
     access=json.loads((ROOT/'docs/v2/social-source-access.json').read_text(encoding='utf-8'))['sources']
     try:
-        b=bundle(store.records(),store.jobs(),request.query_params,access={r['source']:r for r in access})
+        b=bundle([r for r in store.records() if readable_in_english(r)],store.jobs(),request.query_params,access={r['source']:r for r in access})
     except ValueError as exc:
         raise HTTPException(422,str(exc)) from exc
     return main,store,b
@@ -53,8 +53,8 @@ def reader(request:Request,key:str):
     main,store=context()
     row=next((r for r in store.records() if r['id']==key),None)
     if not row: raise HTTPException(410,'Observation unavailable or removed')
-    thread=[r for r in store.records(mode=row['mode']) if r['source']==row['source'] and (r['native_id']==row.get('parent_native_id') or r.get('parent_native_id')==row['native_id'])]
-    from app.services.social_intelligence.presentation import player
+    if not readable_in_english(row): raise HTTPException(409,'An English version is pending')
+    thread=[r for r in store.records(mode=row['mode']) if readable_in_english(r) and r['source']==row['source'] and (r['native_id']==row.get('parent_native_id') or r.get('parent_native_id')==row['native_id'])]
     return main.templates.TemplateResponse(request,'social_reader.html',{'row':row,'thread':thread,'player':player(row)},headers={'Cache-Control':'private, no-store'})
 
 @router.get('/api/social/{key}/media/{media_id}')

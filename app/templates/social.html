@@ -1,6 +1,6 @@
 {% extends "glasshouse_base.html" %}
 {% block title %}Social Listening · Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/social.css?v=5">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/social.css?v=6">{% endblock %}
 {% block content %}
 {% set f=bundle.filters %}
 {% from 'social_macros.html' import mode_label,short_date,retailer_label,status_label,phrase_label,entity_label,media_carousel %}
@@ -14,6 +14,7 @@
 <label>Language<select name="language"><option value="">All languages</option>{% for language,label in [('en','English'),('es','Español'),('pt','Português'),('zh','中文'),('ja','日本語'),('und','Unknown')] %}<option value="{{ language }}"{% if f.language==language %} selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
 <label>Purchased in<input name="market" value="{{ f.market }}" placeholder="Country, if known"></label>
 <label>Company / variety<select name="entity"><option value="">All names</option>{% for entity in social_entities %}<option value="{{ entity.id }}"{% if f.entity==entity.id %} selected{% endif %}>{{ entity.name }}</option>{% endfor %}</select></label>
+<label>Perspective<select name="perspective"><option value="">All perspectives</option><option value="corporate"{% if f.perspective=='corporate' %} selected{% endif %}>Corporate / trade</option><option value="consumer"{% if f.perspective=='consumer' %} selected{% endif %}>Consumer / creator</option><option value="unclear"{% if f.perspective=='unclear' %} selected{% endif %}>Unclassified / news</option></select></label>
 <label>Post type<select name="role"><option value="">All types</option>{% for role in ['consumer','recipe','company_owned','creator','disclosed_sponsorship','trade','news_repost','unknown'] %}<option value="{{ role }}"{% if f.role==role %} selected{% endif %}>{{ role|replace("_"," ")|title }}</option>{% endfor %}</select></label>
 <label>From<input type="date" name="start" value="{{ f.start }}"></label><label>Through<input type="date" name="end" value="{{ f.end }}"></label><label>Search posts<input type="search" name="q" value="{{ f.q }}"></label><div><button>Apply filters</button><a href="/social">Reset</a></div></form>
 <div class="social-boundary"><b>{{ bundle.count }} posts · {{ mode_label(f.mode) }}</b><span>Posts {{ bundle.role_counts.get('original',0) }} · Comments {{ bundle.role_counts.get('reply',0) }} · Reposts {{ bundle.role_counts.get('repost',0) }}</span><details><summary>About this sample</summary>{% for warning in bundle.warnings %}<p>{{ warning }}</p>{% endfor %}<p>{{ bundle.duplicate_content_groups }} groups of repeated wording. These are post counts, not sales or market share.</p></details></div>
@@ -36,4 +37,4 @@
 <details class="social-panel"><summary>Coming after blueberry review</summary><p>{{ bundle.continuation.rule }}</p><p>Planned views: {{ bundle.continuation.views|join(' · ') }}. A network will distinguish {{ bundle.continuation.edge_types|join(' / ') }} with inspectable evidence, using canonical node IDs. This is a design preview; collection and graph rollout await feedback.</p></details>
 <script type="application/json" id="social-bundle">{{ bundle|tojson }}</script>
 </div>{% endblock %}
-{% block scripts %}<script src="/static/social.js?v=5"></script>{% endblock %}
+{% block scripts %}<script src="/static/social.js?v=6"></script>{% endblock %}

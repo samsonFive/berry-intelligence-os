@@ -26,6 +26,8 @@ def media(row,url,kind='image'):
     try:safe_url(url)
     except ValueError:return
     if any(m['source_url']==url for m in row['media']):return
+    parts=urlsplit(url)
+    if row['source']=='facebook' and (parts.hostname or '').endswith('.fbcdn.net') and any(urlsplit(m['source_url']).path==parts.path for m in row['media']):return
     row['media'].append({'id':row['native_id'][:150]+f'-{kind}-{len(row["media"])}',
       'parent_native_id':row['native_id'],'kind':kind,'source_url':url,'mime':kind+'/reference',
       'state':'available','storage_permission':'reference_only','attribution':'Original '+row['source']+' media reference via SociaVault',
@@ -169,7 +171,11 @@ def normalize(payload,task,*,supplied_url=None,supplied_parent_id=None):
                 media(row,image.get('url'))
             elif platform=='facebook':
                 row=_row(platform,item.get('id'),item.get('url'),item.get('text'),item.get('publishTime'))
-                media(row,item.get('image'));media(row,item.get('videoDetails',{}).get('thumbnailUrl'),'thumbnail')
+                media(row,item.get('image'))
+                for image in values(item.get('images')):media(row,image if isinstance(image,str) else image.get('url'))
+                video=item.get('videoDetails') or {}
+                media(row,video.get('thumbnailUrl'),'thumbnail');media(row,video.get('hdUrl') or video.get('sdUrl'),'video')
+                row['engagement']={k:v for k,v in {'likes':item.get('reactionCount'),'comments':item.get('commentCount')}.items() if isinstance(v,int) and v>=0}
             else:raise ValueError('Mapping not implemented')
             rows.append(validate_intake(row))
         except (ValueError,TypeError,KeyError) as exc:

@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-07",
+  "cash_spend_usd": 0,
+  "remaining_free_credits": 18,
+  "total_consumed_free_credits": 32,
+  "followup_credits": 4,
+  "cumulative_attempts": 34,
+  "results": [
+    {
+      "case": "fb-fallcreek-followup",
+      "task": "facebook-posts",
+      "http": 200,
+      "state": "success",
+      "credit_delta": 1,
+      "returned_items": 3,
+      "mapped": 3,
+      "mapping_errors": [],
+      "images": 7,
+      "dates_present": 3,
+      "language_present_count": 3
+    },
+    {
+      "case": "fb-driscolls-followup",
+      "task": "facebook-posts",
+      "http": 200,
+      "state": "success",
+      "credit_delta": 1,
+      "returned_items": 3,
+      "mapped": 3,
+      "mapping_errors": [],
+      "images": 7,
+      "dates_present": 3,
+      "language_present_count": 3
+    },
+    {
+      "case": "x-fallcreek-followup",
+      "task": "x-search",
+      "http": 200,
+      "state": "success",
+      "credit_delta": 1,
+      "returned_items": 20,
+      "mapped": 10,
+      "mapping_errors": [],
+      "images": 9,
+      "dates_present": 10,
+      "language_present_count": 10
+    },
+    {
+      "case": "x-driscolls-followup",
+      "task": "x-search",
+      "http": 200,
+      "state": "success",
+      "credit_delta": 1,
+      "returned_items": 20,
+      "mapped": 10,
+      "mapping_errors": [],
+      "images": 10,
+      "dates_present": 10,
+      "language_present_count": 10
+    }
+  ],
+  "records_before": 171,
+  "records_after": 197,
+  "unique_new": 26,
+  "replay_added": 0,
+  "independent_accuracy_ungraded": true,
+  "no_fresh_discovery_score": true,
+  "no_comments_or_private_group_access_tested": true
+}
