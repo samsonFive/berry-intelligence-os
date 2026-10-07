@@ -1977,3 +1977,26 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 **Mission 38 release rehearsal:** Exact committed Linux package, authenticated twelve-route Docker smoke, persistent company marks/list/edit, verified 2,798-file empty restore and isolated previous-image rollback passed. Live container identity/start/image/mounts stayed unchanged. Windows Git archive EOL conversion is explicitly disabled and committed blob/executable modes are verified by the release packager. Native guide desktop/390px and chooser/upload/save/reset now passed; the earlier chooser limitation is resolved for this preview. Combined Map/snapshot, fresh packet/receipt, final requirements and final-head CI remain. No production backup, merge or deployment is claimed. See MISSION-38-RELEASE-REHEARSAL.md.
 
 **Final release acceptance (October 5):** M38 native Map/snapshot phone/PDF and real public-RSS packet All/Reviewed generation/download/receipt/restart checks are complete; the failed restricted-network capture remains failed. All 28 accepted requirements are reconciled in RELEASE-REVIEW.md. Packet columns reserve source/review reading space with contained phone scroll. Final exact-head CI and human release review remain gates; actual production backup must precede approved deployment. No new trust, account-isolation, distributed-worker or subnational-polygon claim.
+
+
+### TD-115 — Landscape genetics-location and historical provenance coverage
+
+| Field | Value |
+|---|---|
+| Status | limitation |
+| Owner | data / product |
+| Severity | Medium |
+| Evidence | Landscape Explorer blueberry audit on canonical `7962ac04dd05855985f51596f3f8070f19990a75`: Chile/China/Peru selected scope has 82 durable relationships, 10 company-location edges and zero direct Variety/BreedingProgram → Geography edges. Four variety identities remain provisional. Legacy `operates_in` includes explicit intent, test-station, office and rights-enforcement meanings; no source co-mention establishes a growing footprint. Only 16 selected relationships have effective dates; source capture is not a relationship creation ledger. Verbatim excerpts and extraction versions are frequently absent. |
+| Mitigation | Read-only adapter preserves predicates, identities, disputes and source gates; labels company context separately, makes caveats and unknown dates explicit, identifies missing locators, and does not promote private annotations. No fabricated cross-country genetics path or historical ending. Generic supported geography paths are covered by test-only fixtures. |
+| Still required | Human-reviewed, explicit genetics geography associations and richer dated provenance via existing acquisition/review workflows; each remaining berry needs its own sufficiency audit after the blueberry gate. No schema rewrite authorized by this debt entry. |
+| Proof | `tests/test_landscape_explorer.py`; `docs/v2/LANDSCAPE-EXPLORER-MISSION.md`; review packet. |
+
+
+### TD-116 — Variety catalog recall is not portfolio-complete
+
+| Field | Value |
+|---|---|
+| Status | Open; immediate stored-summary recall and visibility repaired |
+| Evidence | October 7 corpus audit: 64 canonical varieties, 1,269 published sources, 99 explicit named identities, 31 exact catalog matches and 68 candidate names before private inbox state. Hortifrut's 11 names and MBG's 16 code/name pairs were largely absent from discovery. Shared explicit-list parsing and existing candidate workflow now account for them; this does not approve new identities or roles. |
+| Risk | A visible source portfolio can exceed catalog coverage, misleading users about competitors' genetics. Other berries, tables, multilingual catalogs, truncated text and aliases remain under-reconciled. Generic descriptors and brand/code combinations can produce false positives without a benchmark. |
+| Next | Complete per-breeder/per-berry portfolio reconciliation, authoritative-source freshness manifest, manually verified recall benchmark and human canonical-authoring handoff. Use existing intake/qualified extraction; preserve operator decisions and data. See VARIETY-CATALOG-COMPREHENSIVENESS-MISSION.md and the repeatable audit artifact. |

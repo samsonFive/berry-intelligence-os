@@ -929,7 +929,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     """Nav action counts for HTML pages. Overlay fragments skip nav work entirely."""
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates"
+    variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates" or request.url.path.startswith("/landscapes/explorer")
     if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
             "nav_work_counts": {},
@@ -1816,7 +1816,7 @@ def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, A
         facts=all_facts(),
         existing_candidates=inbox,
     )
-    visible = merge_visible_candidates(inbox, report["candidates"])
+    visible = merge_visible_candidates(inbox, report["candidates"], report=report)
     return varieties, visible, report
 
 
@@ -2874,6 +2874,14 @@ def entity_list(
                 context["variety_cards"], params={**dict(request.query_params), **context["filters"]}, state=state,
                 entities=entities_idx, relationships=relationships, regions=region_rows,
             ))
+            if AUTHORING_MODE:
+                name_queue = variety_navigation.candidate_queue(visible_candidates, {
+                    key: request.query_params.get(key, "") for key in ("q", "berry", "company", "letter")
+                })
+                context["discovered_names"] = name_queue["candidates"]
+                context["discovered_name_query"] = urlencode({
+                    key: request.query_params.get(key, "") for key in ("q", "berry", "company", "letter")
+                })
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
         context["growing_geographies"] = sorted({row["geography_id"]: row["country"] for row in region_rows if row["kind"] == "variety"}.items(), key=lambda row: row[1].casefold())
@@ -10438,6 +10446,8 @@ from app.company_routes import router as company_router
 app.include_router(company_router)
 from app.landscape_routes import router as landscape_router
 app.include_router(landscape_router)
+from app.landscape_explorer_routes import router as landscape_explorer_router
+app.include_router(landscape_explorer_router)
 from app.learn_routes import router as learn_router
 app.include_router(learn_router)
 from app.monitor_routes import router as monitor_router
