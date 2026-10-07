@@ -1,5 +1,18 @@
 # Project Status
 
+## Older variety releases and shared-name safeguards (2026-10-07)
+
+Hutton's six-entry legacy list and the USDA Lewis paper add 19 source
+occurrences and 14 candidate keys. Shared names with different or missing codes
+remain unresolved across source contexts; summaries expose names beside codes
+and flag the check before expansion. Human decisions and canonical data persist.
+Latest primary scope: 495/33/462 in 45 sections, 413 candidate keys before private
+state, 20 registry rows with some checks and 57 needing initial checks. Catalog
+remains 64. Four source gaps remain, including the PDF's unaccounted pedigree.
+See docs/v2/VARIETY-HISTORICAL-IDENTITY-COVERAGE-REVIEW.md. CAT-01/CAT-02/TD-116 stay
+open. Parent #325 passed all four gates at 15e6f21b23db5d6194e57b613861bdf49dfaae8f,
+run 37629952002: 4,063 passed / 11 skipped / two warnings / 388.72 seconds.
+
 ## Public breeding-program coverage and visible gaps (2026-10-07)
 
 Hutton, USDA ARS and UGA add 20 primary name observations in four sections.

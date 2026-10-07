@@ -1,5 +1,15 @@
 # Intelligence Coverage Matrix
 
+**October 7 historical identity follow-up:** nineteen occurrences from Hutton's
+legacy listing and the USDA Lewis release paper; names and identifying codes
+retain separate source contexts and unresolved cross-source pairings. Latest
+scope 495/33/462 in 45 sections; 413 candidate keys before private state,
+20 registry rows with some checks and 57 initial checks remaining. The PDF
+pedigree is unaccounted and four source gaps remain. Catalog/stored discovery
+stay 64 and 95/32/63. No Source onboarding, maturity increase, model call or trust
+decision. Parent #325 passed four exact-head gates (4,063 passed / 11 skipped).
+See VARIETY-HISTORICAL-IDENTITY-COVERAGE-REVIEW.md; prior counts are historical.
+
 **October 7 public-program follow-up:** Hutton, USDA ARS and UGA add 20
 occurrences across four bounded sections; lifetime counts, tentative/historical
 context, wild-material exclusions and inaccessible listing remain explicit.

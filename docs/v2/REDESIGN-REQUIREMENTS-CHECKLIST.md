@@ -4,6 +4,17 @@ Ongoing goal activated October 1, 2026. This checklist is the completion ledger 
 
 ## Checkpoints and completion standard
 
+October 7 historical identity follow-up: six Hutton legacy entries and thirteen
+USDA paper contexts add 19 observations and 14 candidate keys. Shared labels
+with differing/missing codes retain warnings and separate candidate keys until
+human review; code/name pairs are visible in summaries. Primary scope is now
+495/33/462 in 45 sections; 413 keys before private state, catalog 64, 57 initial
+registry checks remaining. Four source gaps remain, including unread PDF
+pedigree material. Desktop and phone review preserve source links and human
+gates. Parent #325's four exact-head gates pass with 4,063 tests. CAT-01/CAT-02
+remain open. See VARIETY-HISTORICAL-IDENTITY-COVERAGE-REVIEW.md. Earlier numbers
+below record prior slices.
+
 October 7 public-program follow-up: Hutton, USDA ARS and UGA add 20 name
 observations. Latest primary scope is 476/33/443 in 43 sections; 20 registry
 rows have some checks and 57 need initial checks. Candidate keys before private

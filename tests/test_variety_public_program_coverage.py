@@ -13,8 +13,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def programs():
-    return [s for s in load_portfolio_observations(ROOT / 'data')
-            if s['id'].startswith(('portfolio-hutton-', 'portfolio-usda-', 'portfolio-uga-'))]
+    ids = {'portfolio-hutton-raspberry-program-highlights', 'portfolio-usda-corvallis-fy2022',
+           'portfolio-uga-blueberry-program-history', 'portfolio-uga-blueberry-licensing-list-access-gap'}
+    return [s for s in load_portfolio_observations(ROOT / 'data') if s['id'] in ids]
 
 
 def test_highlights_do_not_close_the_stated_lifetime_portfolio():

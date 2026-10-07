@@ -20,6 +20,18 @@ def _key(row):
     return fold_identity(row.get("candidate_name", "")), row.get("berry_id", "")
 
 
+def _coded_label_keys(sources):
+    """Labels tied to different literal codes cannot be one candidate key."""
+    labels = {}
+    for source in sources:
+        for row in source["names"]:
+            code = row.get("denomination") or row.get("breeder_code")
+            label = row.get("trade_name") or row["candidate_name"]
+            if code:
+                labels.setdefault((fold_identity(label), row["berry_id"]), set()).add(fold_identity(code))
+    return {key for key, codes in labels.items() if len(codes) > 1}
+
+
 def load_portfolio_observations(data_dir: Path):
     try:
         return _load_portfolio_observations(data_dir)
@@ -90,12 +102,15 @@ def _load_portfolio_observations(data_dir: Path):
 
 def _identity_pair_notes(sources):
     """Literal source pair discrepancies, not alias decisions or a new resolver."""
-    codes, labels = {}, {}
+    codes, labels, label_mentions = {}, {}, {}
     for source in sources:
         companies = tuple(sorted(source.get("company_ids", [])))
         for row in source["names"]:
             code = row.get("denomination") or row.get("breeder_code")
-            label = row.get("trade_name")
+            label = row.get("trade_name") or row["candidate_name"]
+            mention_label = label or row["candidate_name"]
+            label_mentions.setdefault((row["berry_id"], fold_identity(mention_label)), []).append(
+                (source["id"], _key(row), code))
             if code and label:
                 scope = (companies, row["berry_id"])
                 codes.setdefault((*scope, fold_identity(code)), set()).add(label)
@@ -106,14 +121,32 @@ def _identity_pair_notes(sources):
         for row in source["names"]:
             scope = (companies, row["berry_id"])
             code = row.get("denomination") or row.get("breeder_code")
-            label = row.get("trade_name")
+            label = row.get("trade_name") or row["candidate_name"]
             messages = []
             paired_labels = codes.get((*scope, fold_identity(code or "")), set())
             paired_codes = labels.get((*scope, fold_identity(label or "")), set())
-            if len(paired_labels) > 1:
+            if len({fold_identity(value) for value in paired_labels}) > 1:
                 messages.append("This code appears with multiple labels: " + ", ".join(sorted(paired_labels)) + ". Check the pairing before accepting aliases.")
-            if len(paired_codes) > 1:
+            if len({fold_identity(value) for value in paired_codes}) > 1:
                 messages.append("This label appears with multiple codes: " + ", ".join(sorted(paired_codes)) + ". Keep the identities unresolved until reviewed.")
+            # A code-bearing release and an uncoded name in another source are
+            # separate leads until a human resolves them. Different companies
+            # alone do not establish different identities or breeder roles.
+            mention_label = label or row["candidate_name"]
+            mentions = label_mentions.get((row["berry_id"], fold_identity(mention_label)), [])
+            other_mentions = [m for m in mentions if (m[0] != source["id"] or m[1] != _key(row)
+                              or (code and m[2] and fold_identity(code) != fold_identity(m[2])))
+                              and (m[1] != _key(row) or (code and m[2] and fold_identity(code) != fold_identity(m[2])))]
+            if (code and any(not m[2] for m in other_mentions)) or (
+                    not code and any(m[2] for m in other_mentions)):
+                messages.append("This name appears with a code in one source and without it in another. "
+                                "Check whether they refer to the same variety before combining the records.")
+            different_codes = {m[2] for m in other_mentions if code and m[2]
+                               and fold_identity(m[2]) != fold_identity(code)}
+            if different_codes:
+                messages.append("Different sources pair this name with different codes: " +
+                                ", ".join(sorted({code, *different_codes})) +
+                                ". Check the original records before accepting aliases.")
             notes[(source["id"], _key(row), label or "")] = messages
     return notes
 
@@ -127,7 +160,11 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
     today = today or date.today()
     entity_index = {row["id"]: row for row in entities}
     canonical_ids = {row["id"] for row in varieties}
-    existing = {_key(row): row for row in candidates}
+    coded_labels = _coded_label_keys(sources)
+    def candidate_key(row):
+        code = row.get("denomination") or row.get("breeder_code")
+        return (fold_identity(code), row["berry_id"]) if code and _key(row) in coded_labels else _key(row)
+    existing = {candidate_key(row): row for row in candidates}
     source_rows, additions = [], []
     provenance = {}
     pair_notes = _identity_pair_notes(sources)
@@ -141,10 +178,11 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
             result = resolve_identity(query, varieties)
             exact_ids = {row["variety_id"] for row in result["matches"] if row["reason"] == "exact_identity_string"}
             catalog_id = next(iter(exact_ids)) if len(exact_ids) == 1 else None
-            identity_notes = pair_notes.get((source["id"], _key(observation), observation.get("trade_name") or ""), [])
+            identity_notes = pair_notes.get((source["id"], _key(observation),
+                                            observation.get("trade_name") or observation["candidate_name"]), [])
             if identity_notes:
                 catalog_id = None
-            candidate = existing.get(_key(observation))
+            candidate = existing.get(candidate_key(observation))
             if candidate and candidate.get("human_gated") and candidate.get("identity_state") == "confirmed_same":
                 match_id = candidate.get("candidate_canonical_match")
                 compatible = any(row["id"] == match_id and observation["berry_id"] in row.get("berry_ids", []) for row in varieties)
@@ -160,16 +198,20 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
                          "identity_notes": identity_notes}
             if source.get("published_date"):
                 reference["published_date"] = source["published_date"]
-            provenance.setdefault(_key(observation), []).append(reference)
+            provenance.setdefault(candidate_key(observation), []).append(reference)
             if status == "needs_review" and candidate is None:
-                candidate = build_candidate({**observation, "source_id": source["id"], "source_url": source["url"],
+                lead = observation
+                if candidate_key(observation) != _key(observation):
+                    lead = {**observation, "candidate_name": observation.get("denomination") or observation["breeder_code"],
+                            "trade_name": observation.get("trade_name") or observation["candidate_name"]}
+                candidate = build_candidate({**lead, "source_id": source["id"], "source_url": source["url"],
                     "source_label": source["title"], "source_type": source["source_type"],
                     "source_tier": "tier_2_nursery_catalog" if source["source_type"] == "nursery_catalog" else "tier_1_breeder_catalog",
                     "knowledge": {"origin": "primary_portfolio_observation"}},
                     varieties=varieties, discovered_at=source.get("observed_at"))
                 candidate = {**candidate, "persisted": False, "discovered_from": "primary_portfolio"}
                 additions.append(candidate)
-                existing[_key(observation)] = candidate
+                existing[candidate_key(observation)] = candidate
             labels = {"catalog_match": "Catalog match", "needs_review": "Needs identity review",
                       "previously_rejected": "Previously rejected", "distinct_awaiting_catalog": "Distinct · catalog entry pending"}
             names.append({**observation, "identity_notes": identity_notes, "catalog_id": catalog_id, "status": status, "label": labels[status],
@@ -204,8 +246,8 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
                             "needs_review": sum(row["status"] == "needs_review" for row in names),
                             "closed": sum(row["status"] == "previously_rejected" for row in names),
                             "awaiting_catalog": sum(row["status"] == "distinct_awaiting_catalog" for row in names)})
-    visible = [{**row, "portfolio_sources": provenance.get(_key(row), []),
-                "portfolio_identity_notes": sorted({message for ref in provenance.get(_key(row), []) for message in ref["identity_notes"]})}
+    visible = [{**row, "portfolio_sources": provenance.get(candidate_key(row), []),
+                "portfolio_identity_notes": sorted({message for ref in provenance.get(candidate_key(row), []) for message in ref["identity_notes"]})}
                for row in [*candidates, *additions]]
     return source_rows, visible
 
