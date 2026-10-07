@@ -1994,6 +1994,16 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 UC Davis/source-content follow-up: 456 occurrences / 33 matches /
+423 review needs in 39 sections; 17 registry rows have some checks, 60 need
+initial checks. Combined candidate keys before private state: 383. Two ambiguous
+historical labels stay excluded with reasons. Existing websites and analyst
+edit/clear now carry into the source plan. Older canonical published records have
+1,198 unavailable bodies and 71 access screens; this excludes pending news.
+Full-text acquisition must be addressed separately from extraction recall via
+existing guarded workflows. No canonical additions or trust decisions.
+See VARIETY-SOURCE-COVERAGE-REVIEW.md. Prior numbers below are historical.
+
 October 7 university/historical follow-up: 30 additional source occurrences and
 a nonduplicating 18-name Arkansas refresh. Primary total 411/33/378 in 37 sections;
 16 of 77 registry rows have some checks, 61 need initial checks. Candidate keys

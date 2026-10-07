@@ -9,6 +9,8 @@ import json
 from pathlib import Path
 from urllib.parse import urlencode, urlsplit
 
+from app.services import company_directory
+from app.services.source_body import classify_source_body
 from app.services.variety_universe.coverage import BERRY_LABELS, BERRY_ORDER
 from app.services.variety_universe.identity import fold_identity, resolve_identity
 from app.services.variety_universe.registry_import import build_candidate
@@ -198,7 +200,34 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
     return source_rows, visible
 
 
-def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, filters=None, today=None):
+def source_content_coverage(records):
+    """Body-free availability counts; acquisition is separate from name recall.
+
+    Only stored published records count. Pending content and primary portfolio
+    snapshots have different populations and never enter this denominator.
+    The existing reader classifier rejects access screens and keeps partial
+    articles and transcripts distinct from complete article text.
+    """
+    states = {}
+    for record in records:
+        if record.get("status") != "published":
+            continue
+        state = classify_source_body(record)["state"]
+        states[state] = states.get(state, 0) + 1
+    return {
+        "published_sources": sum(states.values()),
+        "full_articles": states.get("body_available", 0),
+        "partial_articles": states.get("body_partial", 0),
+        "transcripts": states.get("transcript_available", 0),
+        "readable_sources": sum(states.get(key, 0) for key in ("body_available", "body_partial", "transcript_available")),
+        "access_screens": states.get("interstitial", 0),
+        "descriptions_only": states.get("description_only", 0),
+        "access_limited": states.get("access_limited", 0),
+        "body_unavailable": states.get("body_unavailable", 0),
+    }
+
+
+def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, filters=None, today=None, company_catalog=None):
     filters = filters or {}
     today = today or date.today()
     source_rows, visible = reconcile_portfolios(sources=sources, varieties=varieties, entities=entities, candidates=candidates, today=today)
@@ -207,11 +236,17 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
     photo_path = data_dir / "imports/variety-operator-seed-2026-09-30/rows.json"
     photo_rows = json.loads(photo_path.read_text(encoding="utf-8"))["rows"] if photo_path.is_file() else []
     index = {row["id"]: row for row in entities}
+    # Reuse directory resolution for official_website, top-level fields and the
+    # existing seed roster. The live caller supplies its analyst-edited catalog;
+    # the offline audit has only public fields and never loads private overrides.
+    company_catalog = company_directory.catalog(index) if company_catalog is None else company_catalog
     subjects = []
     for row in registry:
         ids = row.get("canonical_entity_ids") or []
         linked = [source for source in source_rows if set(source.get("company_ids", [])) & set(ids)]
-        websites = [row.get("website", "")] + [str((index.get(cid, {}).get("attributes") or {}).get("website") or "") for cid in ids]
+        profile_rows = [company_catalog[cid] for cid in ids if cid in company_catalog]
+        edited_websites = [profile["website"] for profile in profile_rows if profile.get("website_edited")]
+        websites = edited_websites if edited_websites else [row.get("website", "")] + [profile.get("website", "") for profile in profile_rows]
         website = next((url for url in websites if _public_url(url)), "")
         preferred = next((s for s in linked if s["capture_status"] == "names_enumerated"), None)
         partial = next((s for s in linked if s["capture_status"] == "partial"), None)

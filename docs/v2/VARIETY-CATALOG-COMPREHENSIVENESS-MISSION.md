@@ -2,13 +2,18 @@
 
 **Latest measured state, October 7:** 64 catalog entries (57 active / six
 unverified / one historical); 1,269 stored sources yield 95 name observations /
-32 exact catalog matches / 63 candidate observations after title precision fixes.
-Primary reconciliation spans 37 sections with 411 occurrences / 33 matches / 378
-review needs. Sixteen of 77 registry rows have some checks; 61 need initial checks.
-Combined candidate keys before private state: 355. Human-reviewed distinct
-candidates now prepare existing intake/source review (#320); real identity and
-claim decisions remain open. See VARIETY-UNIVERSITY-PORTFOLIOS-REVIEW.md and
-VARIETY-TITLE-PRECISION-REVIEW.md. Earlier numbers below record prior slices.
+32 exact catalog matches / 63 candidate observations. Primary reconciliation
+spans 39 sections with 456 occurrences / 33 matches / 423 review needs.
+Seventeen of 77 registry rows have some checks; 60 need initial checks.
+Combined candidate keys before private state: 383. UC Davis current/historical
+sections retain two ambiguous exclusions and original prefixes/links.
+Source plans now use existing public websites and analyst edit/clear.
+Older published sources have 1,198 unavailable bodies and 71 access screens,
+excluding private pending news: acquisition completeness and extraction recall
+remain separate requirements. Reviewed-distinct candidates prepare existing
+intake/source review (#320); real identity/claim decisions stay open. See
+VARIETY-SOURCE-COVERAGE-REVIEW.md and preceding review packets. Earlier numbers
+below record historical slices.
 
 User direction, October 6–7, 2026: the Hortifrut omission is a warning about
 system-wide recall. Build toward the most comprehensive berry variety resource

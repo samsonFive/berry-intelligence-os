@@ -3308,13 +3308,20 @@ def variety_coverage_page(request: Request) -> HTMLResponse:
     if AUTHORING_MODE and corpus_report.get("portfolio_error"):
         coverage["portfolio_error"] = corpus_report["portfolio_error"]
     elif AUTHORING_MODE:
-        from app.services.variety_portfolio_coverage import load_portfolio_observations, portfolio_coverage
+        from app.services.variety_portfolio_coverage import load_portfolio_observations, portfolio_coverage, source_content_coverage
+        from app.services import company_directory
         try:
+            entities = all_entities()
+            company_catalog = company_directory.catalog(
+                {row["id"]: row for row in entities},
+                profiles=company_directory.load_profiles(INBOX_DIR)["profiles"],
+            )
             coverage["portfolios"] = portfolio_coverage(
                 data_dir=DATA_DIR, sources=load_portfolio_observations(DATA_DIR),
-                varieties=varieties, entities=all_entities(), candidates=candidates,
-                filters=dict(request.query_params),
+                varieties=varieties, entities=entities, candidates=candidates,
+                filters=dict(request.query_params), company_catalog=company_catalog,
             )
+            coverage["portfolios"]["source_content"] = source_content_coverage(published_evidence())
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)

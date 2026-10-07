@@ -1,0 +1,317 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-ucdavis-current-releases",
+      "title": "UC Davis — current strawberry release list",
+      "url": "https://strawberry.ucdavis.edu/released-varieties",
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T12:10:42.203297Z",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 12 linked entries in the main article list. Sidebar navigation and three repeated image captions are not additional release entries.",
+      "limitations": "This list is not the full historical portfolio. The older licensing link returned 404 in the web reader. Literal UC/UCD prefixes and original product URLs are retained; the UC Eclipse main-list URL differs from the timeline link. No aliases, current commercial availability, rights, dates, traits or growing locations are approved.",
+      "accounting": {
+        "observed_items": 12,
+        "exclusions": []
+      },
+      "names": [
+        {
+          "candidate_name": "UC Golden Gate",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Current release list · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/uc-golden-gate"
+        },
+        {
+          "candidate_name": "UC Keystone",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Current release list · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/uc-keystone"
+        },
+        {
+          "candidate_name": "UC Monarch",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Current release list · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/uc-monarch"
+        },
+        {
+          "candidate_name": "UC Surfline",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Current release list · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/uc-surfline"
+        },
+        {
+          "candidate_name": "UC Eclipse",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Current release list · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-eclipse"
+        },
+        {
+          "candidate_name": "UCD Finn",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Current release list · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-finn"
+        },
+        {
+          "candidate_name": "UCD Mojo",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Current release list · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-mojo"
+        },
+        {
+          "candidate_name": "UCD Moxie",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Current release list · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-moxie"
+        },
+        {
+          "candidate_name": "UCD Royal Royce",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Current release list · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-royal-royce"
+        },
+        {
+          "candidate_name": "UCD Valiant",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Current release list · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-valiant"
+        },
+        {
+          "candidate_name": "UCD Victor",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Current release list · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-victor"
+        },
+        {
+          "candidate_name": "UCD Warrior",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Current release list · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-warrior"
+        }
+      ]
+    },
+    {
+      "id": "portfolio-ucdavis-historical-timeline",
+      "title": "UC Davis — historical strawberry timeline",
+      "url": "https://strawberry.ucdavis.edu/breeding-timeline",
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T12:10:42.203297Z",
+      "company_ids": [
+        "breeding_program-uc-davis-strawberry"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "35 visible name-label blocks: 33 explicit labels plus two ambiguous combined labels held below. Repeated sidebar/footer links, breeder/director headings and photo-credit links are excluded from the block count.",
+      "limitations": "The timeline includes historical predecessors as well as later program releases. Institution provenance does not establish breeder, owner or rights-holder roles for every name. Timeline years are not imported as verified release/publication dates; the page update date is not publication date. Selva Chandler and Marshall/Banner require separate checking; no split or alias is inferred. Images and performance/rights claims are not copied.",
+      "accounting": {
+        "observed_items": 35,
+        "exclusions": [
+          {
+            "label": "Selva Chandler",
+            "reason": "Ambiguous combined label: retain for separate source/identity checking; no inferred split or alias relationship."
+          },
+          {
+            "label": "Marshall/Banner",
+            "reason": "Ambiguous combined label: retain for separate source/identity checking; no inferred split or alias relationship."
+          }
+        ]
+      },
+      "names": [
+        {
+          "candidate_name": "UC Golden Gate",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/uc-golden-gate"
+        },
+        {
+          "candidate_name": "UC Keystone",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/uc-keystone"
+        },
+        {
+          "candidate_name": "UC Monarch",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/uc-monarch"
+        },
+        {
+          "candidate_name": "UC Surfline",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/uc-surfline"
+        },
+        {
+          "candidate_name": "UC Eclipse",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/uc-eclipse"
+        },
+        {
+          "candidate_name": "UCD Finn",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-finn"
+        },
+        {
+          "candidate_name": "UCD Mojo",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-mojo"
+        },
+        {
+          "candidate_name": "UCD Moxie",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-moxie"
+        },
+        {
+          "candidate_name": "UCD Valiant",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-valiant"
+        },
+        {
+          "candidate_name": "UCD Victor",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-victor"
+        },
+        {
+          "candidate_name": "UCD Warrior",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-warrior"
+        },
+        {
+          "candidate_name": "UCD Royal Royce",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ucd-royal-royce"
+        },
+        {
+          "candidate_name": "Fronteras",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/fronteras"
+        },
+        {
+          "candidate_name": "Monterey",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/monterey"
+        },
+        {
+          "candidate_name": "San Andreas",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/san-andreas"
+        },
+        {
+          "candidate_name": "Portola",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/portola"
+        },
+        {
+          "candidate_name": "Albion",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/albion"
+        },
+        {
+          "candidate_name": "Ventana",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/ventana"
+        },
+        {
+          "candidate_name": "Diamante",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/diamante"
+        },
+        {
+          "candidate_name": "Camarosa",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed",
+          "product_url": "https://strawberry.ucdavis.edu/camarosa"
+        },
+        {
+          "candidate_name": "Seascape",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed"
+        },
+        {
+          "candidate_name": "Oso Grande",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed"
+        },
+        {
+          "candidate_name": "Pajaro",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed"
+        },
+        {
+          "candidate_name": "Douglas",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed"
+        },
+        {
+          "candidate_name": "Aiko",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed"
+        },
+        {
+          "candidate_name": "Tufts",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed"
+        },
+        {
+          "candidate_name": "Fresno",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed"
+        },
+        {
+          "candidate_name": "Tioga",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed"
+        },
+        {
+          "candidate_name": "Solana",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed"
+        },
+        {
+          "candidate_name": "Lassen",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed"
+        },
+        {
+          "candidate_name": "Shasta",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed"
+        },
+        {
+          "candidate_name": "Klondike",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed"
+        },
+        {
+          "candidate_name": "Nich Ohmer",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical timeline · unreviewed"
+        }
+      ]
+    }
+  ]
+}
