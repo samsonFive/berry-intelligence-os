@@ -67,6 +67,46 @@ def test_candidates_filter_photo_company_without_becoming_roles():
     assert navigation.company_actors("vcand-a", RELATIONSHIPS, ENTITIES) == set()
 
 
+def test_candidate_letter_links_land_in_queue_and_preserve_every_filter():
+    from urllib.parse import parse_qs, urlsplit
+    params = {"company": "company-a", "q": "Alpha & Blue", "berry": "berry-blueberry",
+              "status": "unknown", "source": "source-with-#", "letter": "A"}
+    row = {"id": "vcand-a", "candidate_name": "Alpha & Blue", "berry_id": "berry-blueberry",
+           "identity_state": "unknown", "source_id": params["source"],
+           "knowledge": {"source_companies": [{"entity_id": "company-a", "name": "Alpha"}]}}
+    model = navigation.candidate_queue([row], params)
+    for letter in ("B", "", "#"):
+        target = urlsplit(model["letter_urls"][letter])
+        assert target.fragment == "candidate-results"
+        assert {key: values[0] for key, values in parse_qs(target.query, keep_blank_values=True).items()} == {**params, "letter": letter}
+    assert row["identity_state"] == "unknown"
+
+
+@pytest.mark.parametrize("tier,expected", [("tier_1_patent_pvr", "Open patent / rights record"),
+                                          ("tier_1_registry", "Open registry record"),
+                                          ("tier_1_breeder_catalog", None)])
+def test_candidate_rights_reference_keeps_unreviewed_dates_and_scope(monkeypatch, tmp_path, tier, expected):
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
+    monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    candidate = {"id": "vcand-rights", "candidate_name": "Sample", "identity_label": "Unresolved",
+                 "identity_state": "unknown", "berry_id": "berry-blueberry", "knowledge": {},
+                 "source_tier": tier, "source_url": "https://example.test/original-rights-record",
+                 "registration": {"application_number": "123", "grant_number": "456", "jurisdiction": "UK",
+                                  "application_date": "2020-01-02", "grant_date": "2021-02-03",
+                                  "expiry": "2030-04-05", "status": "expired"}}
+    monkeypatch.setattr(main, "variety_candidate_universe", lambda: ([], [candidate], {}))
+    page = TestClient(main.app).get("/varieties/candidates")
+    assert page.status_code == 200
+    assert "Candidate (untrusted)" in page.text and "expired" in page.text
+    for value in ("Applied", "Granted", "Recorded expiry", "2020-01-02", "2021-02-03", "2030-04-05"):
+        assert value in page.text
+    if expected:
+        assert expected in page.text and "identity and rights still need review" in page.text
+    else:
+        assert "Open registry record" not in page.text and "Open patent / rights record" not in page.text
+    assert not list(tmp_path.iterdir())
+
+
 def test_directory_preserves_catalog_ids_and_get_has_no_personal_writes(monkeypatch, tmp_path):
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
     monkeypatch.setattr(main, "AUTHORING_MODE", True)

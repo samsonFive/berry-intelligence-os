@@ -1994,6 +1994,16 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 review usability/rights follow-up: floating alphabet, phone picker
+and List top / Filters address the long candidate queue without changing its
+decisions or identity store. Candidate details retain recorded dates and link
+stored tier-1 patent/PVR or registry sources. Registry indexes remain indexes;
+portfolio sources are not relabeled legal records. Full patent/PVR coverage,
+original-document and claim-level provenance, dated jurisdiction/status checks,
+actual catalog authoring and independently scored recall remain open. No source
+observations or trusted records were added in this UI slice. See
+VARIETY-REVIEW-QUICK-NAVIGATION.md; TD-116 remains active.
+
 October 7 visual historical-source follow-up: all 38 pages of a UGA public
 presentation are accounted for, including two handwritten photograph labels
 missed by extracted text. Eleven unreviewed name/code observations add ten

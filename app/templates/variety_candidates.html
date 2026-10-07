@@ -1,8 +1,8 @@
 {% extends "glasshouse_base.html" %}
-{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=7">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=8">{% endblock %}
 {% block title %}Variety identity review — Berry Intelligence OS{% endblock %}
 {% block content %}
-<div class="company-workspace variety-workspace">
+<div class="company-workspace variety-workspace candidate-workspace">
 <header class="digest-heading">
   <div>
     <p class="eyebrow">VARIETIES · REVIEW</p>
@@ -16,8 +16,14 @@
 </header>
 {% if portfolio_error %}<p class="context-limit" role="alert">Primary portfolio checks are unavailable: {{ portfolio_error }}. Existing source and inbox candidates remain available.</p>{% endif %}
 
-<form class="digest-filters" method="get" aria-label="Filter identity review">{% if filters.source %}<input type="hidden" name="source" value="{{ filters.source }}">{% endif %}<label>Search<input type="search" name="q" value="{{ filters.q }}" placeholder="Variety, code or company"></label><label>Berry<select name="berry"><option value="">All berries</option>{% for key,label in berries.items() %}<option value="{{ key }}" {% if filters.berry == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label><label>Company in source / import<select name="company"><option value="">All companies</option>{% for key,label in candidate_companies %}<option value="{{ key }}" {% if filters.company == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label><label>Identity status<select name="status"><option value="">All statuses</option>{% for value in candidate_statuses %}<option value="{{ value }}" {% if filters.status == value %}selected{% endif %}>{{ value|replace('_',' ')|capitalize }}</option>{% endfor %}</select></label><button class="green-button">Apply filters</button><a href="/varieties/candidates">Reset</a></form>
-<div id="candidate-results"><nav class="company-alphabet" aria-label="Candidate alphabetical navigation"><a href="{{ letter_urls[''] }}" {% if not filters.letter %}aria-current="page"{% endif %}>All</a>{% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#' %}{% if letter in letters %}<a href="{{ letter_urls[letter] }}" {% if filters.letter == letter %}aria-current="page"{% endif %}>{{ letter }}</a>{% else %}<span>{{ letter }}</span>{% endif %}{% endfor %}</nav><p class="company-muted">{{ candidates|length }} of {{ candidate_total }} candidate names. Review decisions do not create new catalog varieties or approve company roles.</p>
+<form id="candidate-filters" class="digest-filters" method="get" aria-label="Filter identity review" tabindex="-1">{% if filters.source %}<input type="hidden" name="source" value="{{ filters.source }}">{% endif %}<label>Search<input type="search" name="q" value="{{ filters.q }}" placeholder="Variety, code or company"></label><label>Berry<select name="berry"><option value="">All berries</option>{% for key,label in berries.items() %}<option value="{{ key }}" {% if filters.berry == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label><label>Company in source / import<select name="company"><option value="">All companies</option>{% for key,label in candidate_companies %}<option value="{{ key }}" {% if filters.company == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label><label>Identity status<select name="status"><option value="">All statuses</option>{% for value in candidate_statuses %}<option value="{{ value }}" {% if filters.status == value %}selected{% endif %}>{{ value|replace('_',' ')|capitalize }}</option>{% endfor %}</select></label><button class="green-button">Apply filters</button><a href="/varieties/candidates">Reset</a></form>
+<div id="candidate-results">
+<div class="candidate-quick-nav" data-candidate-quick-nav>
+  <nav class="company-alphabet" aria-label="Candidate alphabetical navigation"><a href="{{ letter_urls[''] }}" {% if not filters.letter %}aria-current="page"{% endif %}>All</a>{% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#' %}{% if letter in letters %}<a href="{{ letter_urls[letter] }}" {% if filters.letter == letter %}aria-current="page"{% endif %} title="Show {{ letter }} names">{{ letter }}</a>{% else %}<span aria-disabled="true">{{ letter }}</span>{% endif %}{% endfor %}</nav>
+  <label class="candidate-letter-picker">Jump to<select aria-label="Jump to alphabetical group" data-candidate-letter-picker><option value="{{ letter_urls[''] }}" {% if not filters.letter %}selected{% endif %}>All names</option>{% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#' %}{% if letter in letters %}<option value="{{ letter_urls[letter] }}" {% if filters.letter == letter %}selected{% endif %}>{{ letter }}</option>{% endif %}{% endfor %}</select></label>
+  <nav class="candidate-quick-actions" aria-label="Candidate page shortcuts"><a href="#candidate-results">List top ↑</a><a href="#candidate-filters">Filters</a></nav>
+</div>
+<p class="company-muted">{{ candidates|length }} of {{ candidate_total }} candidate names. Review decisions do not create new catalog varieties or approve company roles.</p>
 <details class="variety-context workspace-help" data-workspace-help><summary>How identity decisions work</summary><p>These are proposed names, not confirmed catalog varieties. Check the source and possible match before deciding. A possible alias needs further review. Confirm same links the candidate to the named existing variety. Mark distinct keeps a separate candidate; it does not create a catalog variety. Reject removes a name from the waiting queue without deleting catalog records.</p></details>
 {% if not candidates %}
   <p class="empty-state">No variety candidates match this scope. <a href="/varieties/coverage">Variety coverage</a> shows catalog entries and names needing review. <a href="/entities/variety">Open variety catalog</a></p>
@@ -55,6 +61,11 @@
       {{ row.registration.application_number or "—" }}
       {% if row.registration.grant_number %} · grant {{ row.registration.grant_number }}{% endif %}
       {% if row.registration.status %} · {{ row.registration.status }}{% endif %}
+      {% if row.registration.jurisdiction %} · {{ row.registration.jurisdiction }}{% endif %}
+      {% if row.registration.application_date %}<br>Applied <time>{{ row.registration.application_date }}</time>{% endif %}
+      {% if row.registration.grant_date %}<br>Granted <time>{{ row.registration.grant_date }}</time>{% endif %}
+      {% if row.registration.expiry %}<br>Recorded expiry <time>{{ row.registration.expiry }}</time>{% endif %}
+      {% if row.source_url and row.source_url.startswith(('https://', 'http://')) and row.source_tier in ['tier_1_registry', 'tier_1_patent_pvr', 'tier_1_national_register'] %}<br><a href="{{ row.source_url }}" target="_blank" rel="noopener noreferrer">{{ 'Open patent / rights record' if row.source_tier == 'tier_1_patent_pvr' else 'Open registry record' }} ↗</a><small>Source record for this candidate; identity and rights still need review.</small>{% endif %}
     </dd>
     <dt>Possible existing variety</dt>
     <dd>
@@ -91,4 +102,4 @@
 </div></div>
 {% endblock %}
 
-{% block scripts %}<script src="/static/variety_workspace.js?v=6"></script>{% endblock %}
+{% block scripts %}<script src="/static/variety_workspace.js?v=7"></script>{% endblock %}

@@ -5,3 +5,23 @@
 .variety-workspace .v2-btn{display:inline-block;text-decoration:none}.variety-workspace .digest-heading .company-socials{justify-content:flex-end}#candidate-results{scroll-margin-top:90px}@media(max-width:800px){.variety-workspace button,.variety-workspace .v2-btn,.variety-workspace input,.variety-workspace select{min-height:44px}.variety-workspace .digest-heading .company-socials{justify-content:flex-start}}
 
 .variety-discovered-names{border:1px solid #c3aa70;border-left:4px solid #b48628;background:#fff8e8;padding:10px 13px;border-radius:8px;margin:8px 0;font-size:.8rem}.variety-discovered-names>div{display:flex;justify-content:space-between;gap:12px}.variety-discovered-names p{margin:5px 0;color:#665d44;max-width:110ch}.variety-discovered-names summary{cursor:pointer}.variety-discovery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:7px;margin-top:9px}.variety-discovery-grid>a{padding:5px 7px;border:1px solid #d7c9a6;background:#fffdf7;border-radius:5px;text-decoration:none}.variety-discovery-grid small{display:block;color:#635e4f;font-size:.7rem;margin-top:2px}
+
+.candidate-quick-nav{position:sticky;top:var(--candidate-header-height,90px);z-index:80;display:flex;align-items:center;gap:12px;padding:8px 10px;margin:12px 0;background:rgba(250,253,243,.97);border:1px solid #a5ba99;border-radius:9px;box-shadow:0 4px 12px #21432d18;backdrop-filter:blur(12px)}
+.candidate-quick-nav .company-alphabet{flex:1;min-width:0;margin:0}
+.candidate-quick-nav .company-alphabet a{background:#fff}
+.candidate-quick-nav .company-alphabet [aria-current]{background:#28774e;color:#fff}
+.candidate-quick-actions{display:flex;flex-shrink:0;gap:7px}
+.candidate-quick-actions a{display:grid;place-items:center;min-height:34px;padding:5px 8px;border:1px solid #a5ba99;border-radius:6px;background:#fff;text-decoration:none;font-size:.78rem;font-weight:600}
+.candidate-letter-picker{display:none}
+.candidate-workspace [id]{scroll-margin-top:var(--candidate-scroll-offset,160px)}
+.candidate-workspace #candidate-results,.candidate-workspace #candidate-filters{scroll-margin-top:calc(var(--candidate-header-height,90px) + 12px)}
+.candidate-quick-nav a:focus-visible,.candidate-letter-picker select:focus-visible{outline:3px solid #8270b6;outline-offset:2px}
+@media(max-width:800px){
+  .candidate-quick-nav{gap:8px;padding:7px 8px}
+  .candidate-quick-nav .company-alphabet{flex-wrap:nowrap;overflow-x:auto;min-width:0;overscroll-behavior-x:contain}
+  .candidate-quick-nav .company-alphabet a,.candidate-quick-nav .company-alphabet span{flex-shrink:0;min-width:44px;min-height:44px}
+  .candidate-quick-nav[data-enhanced] .company-alphabet{display:none}
+  .candidate-quick-nav[data-enhanced] .candidate-letter-picker{display:flex;align-items:center;gap:6px;flex:1;min-width:0;font-size:.76rem;font-weight:600}
+  .candidate-letter-picker select{width:100%;min-width:0;max-width:140px;min-height:44px;padding:6px;border:1px solid #a5ba99;border-radius:6px;color:#183a2b;background:#fff;font-size:.85rem}
+  .candidate-quick-actions a{min-height:44px;padding:6px 8px}
+}
