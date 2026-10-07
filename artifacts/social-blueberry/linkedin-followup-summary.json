@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-07",
+  "cash_spend_usd": 0,
+  "remaining_free_credits": 22,
+  "total_consumed_free_credits": 28,
+  "followup_credits": 4,
+  "results": [
+    {
+      "case": "li-company-followup",
+      "task": "linkedin-company",
+      "http": 200,
+      "state": "success",
+      "credit_delta": 1,
+      "returned_items": 10,
+      "mapped": 10,
+      "mapping_errors": 0,
+      "images": 0,
+      "dates_present": 7,
+      "comments_returned": null,
+      "language_verified": false
+    },
+    {
+      "case": "li-variety-followup",
+      "task": "linkedin-post",
+      "http": 200,
+      "state": "success",
+      "credit_delta": 1,
+      "returned_items": 1,
+      "mapped": 1,
+      "mapping_errors": 0,
+      "images": 3,
+      "dates_present": 1,
+      "comments_returned": 0,
+      "language_verified": false
+    },
+    {
+      "case": "li-flavor-followup",
+      "task": "linkedin-post",
+      "http": 200,
+      "state": "success",
+      "credit_delta": 1,
+      "returned_items": 1,
+      "mapped": 1,
+      "mapping_errors": 0,
+      "images": 3,
+      "dates_present": 1,
+      "comments_returned": 0,
+      "language_verified": false
+    },
+    {
+      "case": "li-search-followup",
+      "task": "linkedin-search",
+      "http": 200,
+      "state": "success",
+      "credit_delta": 1,
+      "returned_items": 9,
+      "mapped": 9,
+      "mapping_errors": 0,
+      "images": 30,
+      "dates_present": 9,
+      "comments_returned": null,
+      "language_verified": false
+    }
+  ],
+  "records_before": 152,
+  "records_after": 171,
+  "unique_new": 19,
+  "replay_added": 0,
+  "previous_failures_not_reinterpreted": true,
+  "independent_accuracy_ungraded": true,
+  "known_posts_older_than_original_interval": true
+}

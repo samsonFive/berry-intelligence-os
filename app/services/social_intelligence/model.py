@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Literal
 from urllib.parse import urlsplit
 import ipaddress
+import re
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 PLATFORMS = ('instagram', 'tiktok', 'facebook', 'threads', 'x', 'reddit', 'youtube',
@@ -84,6 +85,7 @@ class Intake(Strict):
     translation: Translation | None = None
     content_role: Literal['consumer', 'recipe', 'company_owned', 'creator', 'disclosed_sponsorship', 'trade', 'news_repost', 'unknown'] = 'unknown'
     record_role: Literal['original', 'reply', 'repost'] = 'original'
+    source_embed_urn: str | None = None
     attribution: str = Field(max_length=500)
     permission_basis: str = Field(min_length=1, max_length=500)
     retention_days: int = Field(default=30, ge=1, le=365)
@@ -105,6 +107,13 @@ class Intake(Strict):
 
     _url = field_validator('canonical_url')(safe_url)
 
+    @field_validator('source_embed_urn')
+    @classmethod
+    def embed_urn(cls, value):
+        if value and not re.fullmatch(r'urn:li:(?:activity|share|ugcPost):\d{1,30}', value):
+            raise ValueError('Unsupported source embed identity')
+        return value
+
     @field_validator('collected_at','published_at','engagement_at')
     @classmethod
     def timestamp_timezone(cls,v):
@@ -121,6 +130,8 @@ class Intake(Strict):
 
 def validate_intake(payload, *, mode=None):
     item = Intake.model_validate(payload)
+    if item.source_embed_urn and item.source != 'linkedin':
+        raise ValueError('LinkedIn embed identity belongs only to LinkedIn evidence')
     if mode and item.mode != mode:
         raise ValueError('Intake provenance does not match this entry point')
     if any(m.parent_native_id != item.native_id for m in item.media):

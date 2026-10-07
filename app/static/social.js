@@ -37,6 +37,11 @@
   root.querySelector('[data-social-import]').addEventListener('submit',async event=>{
     event.preventDefault();try{status.textContent='Validating import…';const r=await post('/api/social/import',JSON.parse(new FormData(event.target).get('payload')));status.textContent='Uploaded '+r.ids.length+' posts. Choose Uploaded data to see them.';}catch(e){status.textContent=e.message;}
   });
+  document.addEventListener('error',event=>{
+    const img=event.target;
+    if(!img.matches?.('[data-social-reader-image]'))return;
+    const note=document.createElement('small');note.textContent='Image unavailable · open original';img.replaceWith(note);
+  },true);
   document.addEventListener('click',async event=>{
     const imageButton=event.target.closest('[data-social-image]');
     if(imageButton){

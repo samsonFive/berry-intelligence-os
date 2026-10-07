@@ -119,3 +119,8 @@ Final browser regression: a zero-count heatmap cell now encodes `drill=none`; re
 ## October 7 follow-up: translation-first UI and actual SociaVault trial
 
 The [multi-platform measured trial](SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md) supersedes earlier statements that no SociaVault key/account or live social sample was available. Actual bounded discovery returned content from six platforms; 24 one-time free credits consumed, 26 remaining, $0 paid. LinkedIn is blocked and two TikTok responses exceeded the byte ceiling. Original images can be loaded explicitly; translation-first text keeps original wording on hover/focus/tap. Production scheduling, source-specific retention/redisplay permission, independent accuracy/global coverage, automatic dossier/briefing assembly and published dependency retraction remain unproven or unmet. The isolated preview is localhost18345; public git contains counts/manifests and invented demo screenshots, not real raw posts. No merge/deployment occurred.
+
+
+## Visual reader and successful LinkedIn follow-up — October7
+
+See [the current reader/LinkedIn report](SOCIAL-VISUAL-READER-LINKEDIN.md): public company retrieval, two independently located named-variety posts and broader undated keyword search all succeeded.21 retained rows added19 unique records; total isolated records171. Four additional free credits used; total28 consumed,22 remaining,$0 paid. Earlier404 failures remain recorded with unresolved cause. Public native LinkedIn embedding rendered without a LinkedIn login. The reader now leads with native video players/photos and compact supporting detail. No ongoing collection, rights/accuracy qualification, merge or deploy.

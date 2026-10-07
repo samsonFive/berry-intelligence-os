@@ -41,3 +41,16 @@ def test_youtube_undated_shorts_not_given_query_date_or_language():
          'publishedTime':'2026-10-07T10:00:00Z'}}}},'youtube-comments',
          supplied_url='https://www.youtube.com/watch?v=video123',supplied_parent_id='video123')['rows'][0]
     assert comment['text']=='sweet' and comment['parent_native_id']=='video123'
+def test_linkedin_known_post_preserves_original_embed_identity_and_images():
+    from app.services.social_intelligence.sociavault_normalize import normalize
+    payload={'success':True,'data':{'url':'https://www.linkedin.com/posts/example-activity-123-test',
+      'contentUrn':'urn:li:ugcPost:456','description':'Blueberry pruning trial',
+      'datePublished':'2026-01-21T12:00:00Z','images':{'0':'https://media.licdn.com/photo.jpg'},
+      'likeCount':12,'comments':{'0':{'text':'No native comment identity supplied'}}}}
+    result=normalize(payload,'linkedin-post')
+    assert result['mapping_errors']==[] and len(result['rows'])==1
+    row=result['rows'][0]
+    assert row['native_id']=='123' and row['source_embed_urn']=='urn:li:ugcPost:456'
+    assert row['language']=='und' and row['purchase_market'] is None
+    assert len(row['media'])==1 and row['media'][0]['parent_native_id']=='123'
+    assert row['engagement']['likes']==12

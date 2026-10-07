@@ -7,6 +7,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from app.services.social_intelligence.store import Store, now
 from app.services.social_intelligence.aggregate import bundle, href, VIEWS
 from app.services.social_intelligence.model import PLATFORMS
+from app.services.social_intelligence.presentation import player
 
 router=APIRouter()
 ROOT=Path(__file__).resolve().parents[1]
@@ -40,7 +41,7 @@ def page(request:Request):
     # Existing geography boundary contract, no second geocoder or explorer.
     map_locator=overview({'lanes':[]})
     entities=sorted((e for e in main.all_entities() if e.get('entity_type') in ('company','variety')),key=lambda e:e.get('name',e['id']).casefold())
-    return main.templates.TemplateResponse(request,'social.html',{'authoring_mode':True,'bundle':b,'href':href,'views':VIEWS,'platforms':PLATFORMS,'map_locator':map_locator,'social_entities':entities,'trial_preview':os.environ.get('BIOS_SOCIAL_TRIAL_PREVIEW')=='true'},headers={'Cache-Control':'private, no-store'})
+    return main.templates.TemplateResponse(request,'social.html',{'authoring_mode':True,'bundle':b,'href':href,'views':VIEWS,'platforms':PLATFORMS,'map_locator':map_locator,'social_entities':entities,'trial_preview':os.environ.get('BIOS_SOCIAL_TRIAL_PREVIEW')=='true','player_for':player},headers={'Cache-Control':'private, no-store'})
 
 @router.get('/api/social')
 def api(request:Request):
@@ -53,7 +54,8 @@ def reader(request:Request,key:str):
     row=next((r for r in store.records() if r['id']==key),None)
     if not row: raise HTTPException(410,'Observation unavailable or removed')
     thread=[r for r in store.records(mode=row['mode']) if r['source']==row['source'] and (r['native_id']==row.get('parent_native_id') or r.get('parent_native_id')==row['native_id'])]
-    return main.templates.TemplateResponse(request,'social_reader.html',{'row':row,'thread':thread},headers={'Cache-Control':'private, no-store'})
+    from app.services.social_intelligence.presentation import player
+    return main.templates.TemplateResponse(request,'social_reader.html',{'row':row,'thread':thread,'player':player(row)},headers={'Cache-Control':'private, no-store'})
 
 @router.get('/api/social/{key}/media/{media_id}')
 def media(key:str,media_id:str):

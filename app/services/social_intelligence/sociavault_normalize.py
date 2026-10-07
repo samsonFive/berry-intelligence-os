@@ -84,6 +84,7 @@ def normalize(payload,task,*,supplied_url=None,supplied_parent_id=None):
            'tiktok':'comments' if comments else 'search_item_list','linkedin':'posts','pinterest':'pins'}.get(platform)
     if platform=='x':items=_tweets(data)
     elif platform=='youtube':items=values(data.get('comments')) if comments else sum((values(data.get(k)) for k in ('videos','shorts','lives')),[])
+    elif task=='linkedin-post':items=[data]
     elif task=='instagram-post':items=[data.get('xdt_shortcode_media') or data.get('data',{}).get('xdt_shortcode_media',{})]
     elif platform=='facebook':items=values(data.get('posts'))
     else:
@@ -157,8 +158,11 @@ def normalize(payload,task,*,supplied_url=None,supplied_parent_id=None):
                 url=item.get('url');match=re.search(r'(?:activity-|urn:li:activity:)(\d+)',url or '')
                 if not match:raise ValueError('Stable native LinkedIn activity ID absent')
                 row=_row(platform,match.group(1),url,item.get('description') or item.get('name'),item.get('datePublished'))
+                row['source_embed_urn']=item.get('contentUrn')
                 media(row,item.get('image'))
                 for image in values(item.get('images')):media(row,image.get('url') if isinstance(image,dict) else image)
+                row['content_role']='company_owned' if task=='linkedin-company' and supplied_url and item.get('author',{}).get('url','').rstrip('/')==supplied_url.rstrip('/') else 'unknown'
+                row['engagement']={k:v for k,v in {'likes':item.get('likeCount'),'comments':item.get('commentCount')}.items() if isinstance(v,int) and v>=0}
             elif platform=='pinterest':
                 row=_row(platform,item.get('id'),item.get('url'),'\n'.join(filter(None,[item.get('title'),item.get('description')])),item.get('created_at'))
                 images=item.get('images',{});image=images.get('orig') or images.get('736x') or images.get('474x') or {}

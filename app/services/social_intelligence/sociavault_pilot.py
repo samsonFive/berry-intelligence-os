@@ -21,6 +21,8 @@ TASKS={
  'youtube-search':('youtube/search',{'query','uploadDate','sortBy'}),
  'x-search':('twitter/search',{'query','type'}),
  'linkedin-search':('linkedin/search/posts',{'query','date_posted'}),
+ 'linkedin-company':('linkedin/company',{'url'}),
+ 'linkedin-post':('linkedin/post',{'url'}),
  'pinterest-search':('pinterest/search',{'query','trim'}),
  'reddit-comments':('reddit/post/comments',{'url','trim'}),
  'tiktok-comments':('tiktok/comments',{'url','trim'}),

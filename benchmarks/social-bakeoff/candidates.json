@@ -65,11 +65,11 @@
     {
       "id": "sociavault",
       "platform": "multi-Western",
-      "task": "six-platform discovery and known-post/comments trial",
+      "task": "seven-platform public discovery plus known-post/comments trial",
       "state": "partial-live-tested",
       "official": "https://docs.sociavault.com/",
-      "listed_trial": "Actual existing free account: 50 initial credits, 24 consumed, 26 remaining; $0 cash",
-      "blocker": "LinkedIn documented route404; two TikTok byte-ceiling failures; independent precision/rights/deletion/global coverage gates unmet. One-time credits, no sustainable free claim.",
+      "listed_trial": "Actual free account:50 initial credits,28 consumed,22 remaining;$0 cash",
+      "blocker": "Earlier LinkedIn dated404 causes unresolved; later company/posts/broad search succeeded. Two TikTok byte-ceiling failures; independent accuracy/rights/deletion/global monitoring gates unmet.",
       "report": "docs/v2/SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md"
     },
     {
