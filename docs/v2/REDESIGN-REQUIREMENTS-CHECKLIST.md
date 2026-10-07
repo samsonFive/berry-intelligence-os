@@ -4,6 +4,14 @@ Ongoing goal activated October 1, 2026. This checklist is the completion ledger 
 
 ## Checkpoints and completion standard
 
+October 7 capture/date follow-up (CAT-01/CAT-02/NEWS-01): existing guarded
+recovery retrieved two of four public source copies, with two recorded access
+failures. Shared acquisition no longer assigns sidebar/update dates as article
+publication dates. New captures retain explicit date provenance or unknown;
+feed fallback and earlier artifacts are preserved. Native review confirms the
+correct June 8 BluGenix date and pending human decisions. No canonical/readiness
+additions or independent recall claim. See ARTICLE-PUBLICATION-DATE-FIDELITY-REVIEW.md.
+
 October 7 catalog expansion is an independent draft slice stacked on revised
 blueberry checkpoint #313, not merge/deployment or Landscape Milestone B rollout.
 The new catalog rows remain open beyond their delivered first slice.

@@ -225,6 +225,27 @@ def test_stale_feed_date_is_overridden_by_the_articles_own_published_date(tmp_pa
     assert extra["published_date_basis"] == "article_body"
 
 
+@pytest.mark.parametrize("date_block,expected_date,basis,article_basis", [
+    ("<div class='panel-pane pane-node-created'>June 08, 2026</div>", "2026-06-08", "article_body", "publisher_display_date"),
+    ("", "2026-08-18", "discovery_feed", "unknown"),
+])
+def test_latest_news_sidebar_cannot_replace_article_or_feed_date(
+    tmp_path, repos, source, monkeypatch, date_block, expected_date, basis, article_basis,
+):
+    item = _discover_one(tmp_path, source, monkeypatch,
+        title="Blueberry acreage grows in Peru", link="https://example.invalid/date-scope",
+        description="Blueberry acreage update from Peru.")
+    html = _RELEVANT_HTML.replace("<article>", "<article>" + date_block)
+    html = html.replace("</body>", "<aside><time class='published' datetime='2026-10-07'>Latest story</time></aside></body>")
+    monkeypatch.setattr(article_acquisition.httpx, "get", lambda *a, **kw: _FakeArticleResponse(html))
+    result, _extra = process_discovered_article(item, orchestrator=_orchestrator(repos, tmp_path), inbox_dir=tmp_path / "inbox")
+    draft = json.loads((tmp_path / "inbox/evidence" / f"{result.publication_draft_id}.json").read_text(encoding="utf-8"))
+    assert result.state == "awaiting_publication_review"
+    assert draft["published_date"] == expected_date and draft["published_date_basis"] == basis
+    assert draft["article"]["published_date_basis"] == article_basis
+    assert repos.evidence.list() == []
+
+
 def test_confidently_irrelevant_article_is_skipped_before_any_acquisition(tmp_path, repos, source, monkeypatch):
     item = _discover_one(
         tmp_path, source, monkeypatch,

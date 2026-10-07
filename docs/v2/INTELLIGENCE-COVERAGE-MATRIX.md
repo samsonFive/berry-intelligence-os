@@ -1,5 +1,13 @@
 # Intelligence Coverage Matrix
 
+**October 7 article-date follow-up:** bounded recovery retrieved two of four
+current public copies, with a thin trial-page failure and a 403. Native review
+found page-wide date contamination. Shared acquisition v2 now records the
+publisher's June 8 date for BluGenix and unknown for SEKOYA, preserving original
+captures and feed fallback. Both are pending; no canonical/readiness additions.
+Portfolio/catalog counts stay 456/33/423 and 64. Acquisition availability is
+separate from independent name recall. See ARTICLE-PUBLICATION-DATE-FIDELITY-REVIEW.md.
+
 **October 7 UC Davis/source-content follow-up:** 45 additional occurrences in
 two bounded current/historical sections, plus two explicit ambiguous exclusions.
 Combined primary scope 456/33/423 in 39 sections; 17 registry rows have some

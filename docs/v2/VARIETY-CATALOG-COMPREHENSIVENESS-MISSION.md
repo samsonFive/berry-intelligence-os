@@ -15,6 +15,13 @@ intake/source review (#320); real identity/claim decisions stay open. See
 VARIETY-SOURCE-COVERAGE-REVIEW.md and preceding review packets. Earlier numbers
 below record historical slices.
 
+The bounded acquisition follow-up retrieved two of four current copies, with
+two explicitly recorded failures. It also exposed and repaired page-wide
+publication-date contamination. The shared acquisition v2 keeps supported
+publication-date evidence separate from capture/update time. Corrected copies
+remain pending authenticity review, with no canonical or readiness additions.
+See ARTICLE-PUBLICATION-DATE-FIDELITY-REVIEW.md; independent recall stays open.
+
 User direction, October 6–7, 2026: the Hortifrut omission is a warning about
 system-wide recall. Build toward the most comprehensive berry variety resource
 available, without confusing a discovered name with an approved identity or
