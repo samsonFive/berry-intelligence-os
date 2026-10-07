@@ -1,0 +1,765 @@
+{
+  "schema_version": 1,
+  "kind": "unreviewed_portfolio_name_observations",
+  "checked_on": "2026-10-07",
+  "method": "Manual enumeration of publicly accessible primary-source product headings/lists. Body-free observations; no source/claim approval, no role inference, no provider call.",
+  "sources": [
+    {
+      "id": "portfolio-hortifrut-blueberry",
+      "title": "Hortifrut genetic development — blueberries",
+      "url": "https://www.hortifrut.com/innovation/genetic-development/",
+      "company_ids": [
+        "company-hortifrut"
+      ],
+      "checked_on": "2026-10-07",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Berry Blue paragraph, licensed-name paragraph and warm/cold-zone product headings",
+      "limitations": "Page enumeration only; no identity equivalence inferred between Envy/Envoy, Apolo/Alpha, or Candycrunch/Candy Crunch. Source assertions about roles and geography are not approved.",
+      "names": [
+        {
+          "candidate_name": "Prelude",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Daybreak",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Stellar",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Candycrunch",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Apolo",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Bliss",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Temptation",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Robust",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Envy",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Keepsake",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Sensation",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Rocio",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Corona",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Draper",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Aurora",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Liberty",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Osorno",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Presto",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Divine",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Calypso",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Envoy",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "",
+          "trade_name": ""
+        }
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "observed_at": "2026-10-07T07:56:45+00:00"
+    },
+    {
+      "id": "portfolio-hortifrut-raspberry",
+      "title": "Hortifrut genetic development — raspberries",
+      "url": "https://www.hortifrut.com/innovation/genetic-development/",
+      "company_ids": [
+        "company-hortifrut"
+      ],
+      "checked_on": "2026-10-07",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "PBB paragraph and raspberry product headings",
+      "limitations": "Page enumeration only; not a complete historical PBB release register.",
+      "names": [
+        {
+          "candidate_name": "Pacific Deluxe",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Pacific Royale",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Pacific Majesty",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Pacific Scarlet",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Pacific Gema",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Pacific Centennial",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Julieta",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Blazeberry",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        }
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "observed_at": "2026-10-07T07:56:45+00:00"
+    },
+    {
+      "id": "portfolio-hortifrut-blackberry",
+      "title": "Hortifrut genetic development — blackberries",
+      "url": "https://www.hortifrut.com/innovation/genetic-development/",
+      "company_ids": [
+        "company-hortifrut"
+      ],
+      "checked_on": "2026-10-07",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Blackberry breeding paragraph and blackberry product headings",
+      "limitations": "Page enumeration only; source naming does not confirm company roles, locations or spelling variants.",
+      "names": [
+        {
+          "candidate_name": "Camila",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Amara",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Madeline",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Fenomenal",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        }
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "observed_at": "2026-10-07T07:56:45+00:00"
+    },
+    {
+      "id": "portfolio-mbg-blueberry",
+      "title": "MBG Berry Blue variety page — blueberries",
+      "url": "https://www.blueberries.com/proprietary-berry-varieties-berry-blue-llc/",
+      "company_ids": [
+        "company-michigan-blueberry-growers"
+      ],
+      "checked_on": "2026-10-07",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All sixteen blueberry product headings and displayed selection codes",
+      "limitations": "Patents, ownership and breeding assertions are not imported as approved facts.",
+      "names": [
+        {
+          "candidate_name": "Affection",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB06-426MI-84",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Charisma",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB06-343MI-16",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Envoy",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB06-507MI-52",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Intrepid",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB05-268MI-152",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Keepsake",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB05-251MI-14",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Medallion",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB05-259MI-15",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Sensation",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB05-274MI-139",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Alpha",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB05-35FL-10",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Bliss",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB05-185GA",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Candy Crunch",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB07-249GA-3",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Daybreak",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB07-210FL-18",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Prelude",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB06-540FL-12",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Presto",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB07-7FL-4",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Robust",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB05-58GA-1",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Stellar",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB06-50FL-1",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Temptation",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "BB05-61GA-61",
+          "trade_name": ""
+        }
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "observed_at": "2026-10-07T07:56:45+00:00"
+    },
+    {
+      "id": "portfolio-mbg-blackberry",
+      "title": "MBG variety page — blackberries",
+      "url": "https://www.blueberries.com/proprietary-berry-varieties-berry-blue-llc/",
+      "company_ids": [
+        "company-michigan-blueberry-growers"
+      ],
+      "checked_on": "2026-10-07",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Named blackberry product on the page",
+      "limitations": "A marketer listing does not identify the breeder or rights holder.",
+      "names": [
+        {
+          "candidate_name": "Southern Grace",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "A-2454T",
+          "trade_name": ""
+        }
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "observed_at": "2026-10-07T07:56:45+00:00"
+    },
+    {
+      "id": "portfolio-abb-current",
+      "title": "Advanced Berry Breeding — current varieties",
+      "url": "https://www.abbreeding.nl/",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "checked_on": "2026-10-07",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Eight variety cards on the homepage",
+      "limitations": "Related Other Varieties page is recorded separately. Marketing performance claims were not collected.",
+      "names": [
+        {
+          "candidate_name": "Malaika",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "ABB135",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Zawadi",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "ABB136",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Baridi",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "ABB132",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Neema",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "ABB138",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Kwanza",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Sarafina",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Shani",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Rafiki",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        }
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "observed_at": "2026-10-07T07:56:45+00:00"
+    },
+    {
+      "id": "portfolio-abb-other",
+      "title": "Advanced Berry Breeding — other varieties",
+      "url": "https://www.abbreeding.nl/varieties/other-varieties/",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "checked_on": "2026-10-07",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Three named product sections",
+      "limitations": "Page enumeration only; access-gated emailed product sheets were not requested.",
+      "names": [
+        {
+          "candidate_name": "Imara",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Kweli",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Mapema",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "",
+          "trade_name": ""
+        }
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "observed_at": "2026-10-07T07:56:45+00:00"
+    },
+    {
+      "id": "portfolio-uf-strawberry",
+      "title": "Florida Foundation Seed Producers — strawberries",
+      "url": "https://ffsp.net/varieties/strawberry/",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "checked_on": "2026-10-07",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All fourteen linked strawberry releases on the licensing list",
+      "limitations": "Two Florida Pearl releases retain separate denominations; shared brand names never prove shared identity. This is not every historic UF release.",
+      "names": [
+        {
+          "candidate_name": "Florida Beauty",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Florida Brilliance",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Florida Elyana",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "FL 20.80-4",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": "Florida Ember"
+        },
+        {
+          "candidate_name": "FL 20.34-183",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": "Florida Encore"
+        },
+        {
+          "candidate_name": "FL 17.15-86",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": "Florida Felicity"
+        },
+        {
+          "candidate_name": "FL 16.78-109",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": "Florida Pearl"
+        },
+        {
+          "candidate_name": "FL 19.66-220",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": "Florida Pearl"
+        },
+        {
+          "candidate_name": "Florida Radiance",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Florida127",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": "Sweet Sensation"
+        },
+        {
+          "candidate_name": "Strawberry Festival",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Sweet Charlie",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Winter Dawn",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "FL 05-107",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "",
+          "trade_name": "Winterstar"
+        }
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "observed_at": "2026-10-07T07:56:45+00:00"
+    },
+    {
+      "id": "portfolio-arkansas-blackberry",
+      "title": "Arkansas Extension — blackberry releases",
+      "url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/blackberries-production.aspx",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "checked_on": "2026-10-07",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Ten floricane, five primocane and three historic table names",
+      "limitations": "This retained page omits newer releases from the operator photos, including Ponca and Caddo. Last checked is not proof of current portfolio completeness; newer release pages must be reconciled.",
+      "names": [
+        {
+          "candidate_name": "Apache",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Arapaho",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Chickasaw",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Choctaw",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Kiowa",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Natchez",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Navaho",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Osage",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Ouachita",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Shawnee",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Prime-Ark 45",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Prime-Ark Freedom",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Prime-Ark Traveler",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Prime-Jan",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Prime-Jim",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Cherokee",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Comanche",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        },
+        {
+          "candidate_name": "Cheyenne",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": ""
+        }
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "observed_at": "2026-10-07T07:56:45+00:00"
+    },
+    {
+      "id": "portfolio-abz-booklet",
+      "title": "ABZ Seeds fresh-market assortment 2024–2025",
+      "url": "https://abzseeds.abzstrawberry.nl/en/download/assortment-2024-2025-abz-seeds-fresh-market.pdf",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "checked_on": "2026-10-07",
+      "capture_status": "unreadable",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Fresh-market booklet",
+      "limitations": "Search located the official booklet but opening failed. No names counted from search snippets. It is also an older edition; check for a replacement.",
+      "names": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "observed_at": "2026-10-07T07:56:45+00:00"
+    }
+  ]
+}

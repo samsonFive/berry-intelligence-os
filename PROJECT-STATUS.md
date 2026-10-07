@@ -1,5 +1,18 @@
 # Project Status
 
+## Variety portfolio coverage — first reconciliation (2026-10-07)
+
+Independent `feature/variety-portfolio-coverage`, stacked on the revised blueberry
+checkpoint, adds compact authoring-only coverage and a 77-row registry source plan.
+Nine readable primary page/berry sections contain 93 name occurrences (11 catalog
+matches, 82 review needs); an ABZ PDF is unreadable. They add 50 candidates to the
+68 stored-source candidates before private inbox state. Five registry rows have
+some checked names; 72 need primary checks. URLs, codes, separate shared-brand
+denominations, human decisions and read-only/public boundaries remain intact.
+No canonical/schema/backend, trust maturity, merge/deployment or Landscape
+Milestone B changes. TD-116 and global catalog work stay open. See
+[review and limitations](docs/v2/VARIETY-PORTFOLIO-COVERAGE-REVIEW.md).
+
 ## Landscape Explorer — blueberry review checkpoint (2026-10-06)
 
 Additive work on `feature/landscape-explorer`, based on canonical `7962ac04dd05855985f51596f3f8070f19990a75`, implements the blueberry portrait, typed genetics exploration, separate change clocks, deterministic cited explanations and complete HTML/SVG/CSV exports. Draft PR #313 is the blueberry review checkpoint, not merged or deployed; its description records final exact-head checks. Real default Chile/China/Peru coverage has 53 nodes, 82 relationships and 47 sources; no direct genetics-location links are recorded, so company presence and genetics context are visibly separate. Human review and existing data/user state are unchanged. See [mission and resume checklist](docs/v2/LANDSCAPE-EXPLORER-MISSION.md) and [review packet](docs/v2/LANDSCAPE-EXPLORER-REVIEW.md). **Stop after the tested blueberry review packet; the full mission and all Milestone B work remain open pending explicit feedback.**

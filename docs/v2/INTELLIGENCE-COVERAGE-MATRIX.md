@@ -1,5 +1,13 @@
 # Intelligence Coverage Matrix
 
+**October 7 primary portfolio reconciliation:** Nine readable primary page/berry
+sections enumerate 93 source name occurrences (11 catalog matches / 82 review
+needs); one ABZ PDF is unreadable. A 77-row registry source plan exposes 72 rows
+without initial primary checks. Existing candidates gain 50 additional proposed
+names; no approved Variety/Evidence/Fact/Relationship, source onboarding or maturity
+classification changes. These are sampled page checks, not global recall proof.
+See VARIETY-PORTFOLIO-COVERAGE-REVIEW.md; TD-116 remains open.
+
 Living **coverage-control** document for
 `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`. Counts come from committed
 records and `data/configuration/sources.json`. This is not marketing.

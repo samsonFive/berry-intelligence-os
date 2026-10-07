@@ -1,12 +1,13 @@
-{% extends "base.html" %}
+{% extends "glasshouse_base.html" %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=8"><link rel="stylesheet" href="/static/variety_coverage.css?v=1">{% endblock %}
 {% block title %}Variety coverage — Berry Intelligence OS{% endblock %}
 {% block content %}
-<div class="v2-page">
-<section class="page-heading v2-page-header">
+<div class="company-workspace variety-workspace">
+<section class="page-heading v2-page-header portfolio-heading">
   <div>
-    <p class="eyebrow">VARIETY UNIVERSE</p>
+    <p class="eyebrow">VARIETIES · COVERAGE</p>
     <h1>Variety coverage</h1>
-    <p class="context-limit">Raw counts of what is actually recorded. This is not a completeness score. Candidate rows are untrusted until identity review.</p>
+    <p class="context-limit">Find missing varieties, check source coverage and open identity review.</p>
   </div>
   <div class="v2-company-actions">
     <a class="v2-btn v2-btn-quiet" href="/entities/variety">Variety index</a>
@@ -15,6 +16,9 @@
     {% endif %}
   </div>
 </section>
+{% if coverage.portfolio_error %}<p class="portfolio-limit" role="alert">Primary portfolio checks are unavailable: {{ coverage.portfolio_error }}. Existing catalog and source candidates remain available.</p>{% endif %}
+{% if coverage.portfolios and authoring_mode and not static_build %}{% include "_variety_portfolio_coverage.html" %}{% endif %}
+<details class="portfolio-plan"><summary>Existing catalog detail · {{ coverage.totals.canonical_varieties }} varieties</summary>
 
 {% with help_what="Raw counts of trusted Varieties versus untrusted CANDIDATE identities. This is not a completeness score.", help_why="A named cultivar in Evidence is not automatically a trusted Variety. Coverage shows what is actually recorded.", help_do="Use the Variety index for TRUSTED records. Open Identity review for CANDIDATE rows that still need DISTINCT / POSSIBLE ALIAS / UNKNOWN / CONFIRMED SAME.", help_after="Nothing on this page changes identity or trust. Reviewing a candidate never auto-creates a trusted Variety." %}
   {% include "_workspace_help.html" %}
@@ -148,5 +152,5 @@
   </dl>
 </section>
 {% endif %}
-</div>
+</details></div>
 {% endblock %}
