@@ -65,6 +65,8 @@
   document.addEventListener('error',event=>{const img=event.target;if(img.matches?.('[data-social-lightbox] img')){img.alt='Image unavailable';img.closest('a').setAttribute('aria-label','Image unavailable');}if(img===lightbox.querySelector('img'))lightbox.querySelector('span').textContent='Image unavailable';},true);
   initializeMedia();new MutationObserver(initializeMedia).observe(document.body,{childList:true,subtree:true});
   document.addEventListener('click',async event=>{
+    const expand=event.target.closest('[data-social-expand]');
+    if(expand){const opened=expand.getAttribute('aria-expanded')!=='true';expand.setAttribute('aria-expanded',String(opened));expand.textContent=opened?'Less text':'Full post';document.getElementById(expand.getAttribute('aria-controls')).classList.toggle('social-text-expanded',opened);return;}
     const link=event.target.closest('[data-social-lightbox]');
     if(link){event.preventDefault();event.stopImmediatePropagation();opener=link;images=[...link.closest('[data-social-carousel]').querySelectorAll('[data-social-lightbox]')];showImage(images.indexOf(link));lightbox.showModal();return;}
     const b=event.target.closest('[data-social-handoff]');if(!b)return;const s=b.parentElement.querySelector('[data-handoff-status]');

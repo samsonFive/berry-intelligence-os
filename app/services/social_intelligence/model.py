@@ -86,6 +86,8 @@ class Intake(Strict):
     content_role: Literal['consumer', 'recipe', 'company_owned', 'creator', 'disclosed_sponsorship', 'trade', 'news_repost', 'unknown'] = 'unknown'
     record_role: Literal['original', 'reply', 'repost'] = 'original'
     source_embed_urn: str | None = None
+    author_handle: str | None = Field(default=None, max_length=500)
+    author_name: str | None = Field(default=None, max_length=500)
     attribution: str = Field(max_length=500)
     permission_basis: str = Field(min_length=1, max_length=500)
     retention_days: int = Field(default=30, ge=1, le=365)

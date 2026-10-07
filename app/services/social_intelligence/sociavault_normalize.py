@@ -177,6 +177,22 @@ def normalize(payload,task,*,supplied_url=None,supplied_parent_id=None):
                 media(row,video.get('thumbnailUrl'),'thumbnail');media(row,video.get('hdUrl') or video.get('sdUrl'),'video')
                 row['engagement']={k:v for k,v in {'likes':item.get('reactionCount'),'comments':item.get('commentCount')}.items() if isinstance(v,int) and v>=0}
             else:raise ValueError('Mapping not implemented')
+            # Native author fields only; search/watch targets never identify the author.
+            author = post.get('author', {}) if platform in ('reddit', 'tiktok', 'instagram') else item.get('author', {})
+            if platform == 'reddit':
+                row['author_handle'] = author if isinstance(author, str) and author != '[deleted]' else None
+            elif platform == 'x':
+                author = item.get('core', {}).get('user_results', {}).get('result', {})
+                legacy = author.get('legacy', {})
+                row['author_handle'] = legacy.get('screen_name') or author.get('core', {}).get('screen_name')
+                row['author_name'] = legacy.get('name') or author.get('core', {}).get('name')
+            elif isinstance(author, dict):
+                row['author_handle'] = author.get('unique_id') or author.get('username') or author.get('screen_name')
+                row['author_name'] = author.get('name') or author.get('nickname')
+            if platform == 'instagram':
+                owner = post.get('user') or post.get('owner') or {}
+                row['author_handle'] = row.get('author_handle') or owner.get('username')
+                row['author_name'] = row.get('author_name') or owner.get('full_name')
             rows.append(validate_intake(row))
         except (ValueError,TypeError,KeyError) as exc:
             errors.append(type(exc).__name__) # no raw bodies or sensitive fields in report

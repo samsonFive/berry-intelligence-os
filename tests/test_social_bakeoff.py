@@ -156,3 +156,15 @@ def test_facebook_multiple_images_dedupe_and_engagement():
     assert len(result['rows'][0]['media'])==2
     assert result['rows'][0]['engagement']=={'likes':12,'comments':3}
     assert result['rows'][0]['language']=='und'
+
+
+def test_native_author_identity_is_preserved_without_search_target_inference():
+    from app.services.social_intelligence.sociavault_normalize import normalize
+    tweet={'__typename':'Tweet','rest_id':'123','legacy':{'full_text':'Blueberries','lang':'en'},'core':{'user_results':{'result':{'legacy':{'screen_name':'actual_author','name':'Actual Author'}}}}}
+    result=normalize({'success':True,'data':{'result':{'tweets':[tweet]}}},'x-search')
+    assert result['rows'][0]['author_handle']=='actual_author'
+    assert result['rows'][0]['content_role']=='unknown'
+    post={'id':'123','url':'https://www.facebook.com/example/posts/123','text':'Blueberries','author':{'name':'Supplied Page'}}
+    result=normalize({'success':True,'data':{'posts':[post]}},'facebook-posts')
+    assert result['rows'][0]['author_name']=='Supplied Page'
+    assert result['rows'][0]['author_handle'] is None

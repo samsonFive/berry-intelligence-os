@@ -1,6 +1,6 @@
 {% extends "glasshouse_base.html" %}
 {% block title %}Social Listening · Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/social.css?v=6">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/social.css?v=7">{% endblock %}
 {% block content %}
 {% set f=bundle.filters %}
 {% from 'social_macros.html' import mode_label,short_date,retailer_label,status_label,phrase_label,entity_label,media_carousel %}
@@ -37,4 +37,4 @@
 <details class="social-panel"><summary>Coming after blueberry review</summary><p>{{ bundle.continuation.rule }}</p><p>Planned views: {{ bundle.continuation.views|join(' · ') }}. A network will distinguish {{ bundle.continuation.edge_types|join(' / ') }} with inspectable evidence, using canonical node IDs. This is a design preview; collection and graph rollout await feedback.</p></details>
 <script type="application/json" id="social-bundle">{{ bundle|tojson }}</script>
 </div>{% endblock %}
-{% block scripts %}<script src="/static/social.js?v=6"></script>{% endblock %}
+{% block scripts %}<script src="/static/social.js?v=7"></script>{% endblock %}
