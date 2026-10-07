@@ -68,5 +68,15 @@
   "replay_added": 0,
   "previous_failures_not_reinterpreted": true,
   "independent_accuracy_ungraded": true,
-  "known_posts_older_than_original_interval": true
+  "known_posts_older_than_original_interval": true,
+  "browser_verification": {
+    "youtube_sample_player_rendered": true,
+    "youtube_playback_ui_loaded": true,
+    "linkedin_native_public_post_rendered_without_login": true,
+    "linkedin_attached_images_rendered": 3,
+    "linkedin_attached_images_attempted": 3,
+    "tiktok_sample_player_rendered": true,
+    "tiktok_sample_playback_reached_end_seconds": 8,
+    "universal_embedding_availability_established": false
+  }
 }
