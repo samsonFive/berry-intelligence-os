@@ -1,5 +1,24 @@
 # Intelligence Coverage Matrix
 
+October 7 executable photo slice: one named Columbia Star blackberry photograph
+is attached to an existing unreviewed source observation, with Chad Finn/USDA
+ARS credit and the gallery's reuse policy. Gallery downloads returned 404; the
+available magazine asset and differing filename are retained explicitly. Private
+profile/candidate galleries and directory thumbnails are implemented, with
+identity/berry checks and saved corrections. This is one source-labeled photo,
+not approved catalog-photo coverage. Readonly/static exclude these associations.
+Public publication and further photo sourcing remain open under CAT-02/TD-116.
+Name/catalog/source-section denominators remain 64/506/46 and derived candidate
+keys 423. See VARIETY-ATTRIBUTED-PHOTO-COVERAGE.md.
+
+Earlier October 7 photo requirement checkpoint: the user explicitly requires properly attributed
+images of named varieties in profiles and compact review/directory previews
+where available. Existing source images are leads, not cleared gallery assets;
+no variety-photo coverage increase is claimed. Attribution, reuse references,
+identity confidence and private/public review boundaries remain required.
+See VARIETY-ATTRIBUTED-PHOTO-COVERAGE.md. Previous navigation draft #330 passes
+all four exact-head gates (4,106 passed / 11 skipped / two warnings).
+
 October 7 candidate navigation/rights references: sticky alphabet and phone
 picker retain the existing review scope and return to the results, while List
 top / Filters remain reachable deep in the queue. Stored tier-1 patent/PVR and

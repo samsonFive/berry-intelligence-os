@@ -1,5 +1,5 @@
 {% extends "glasshouse_base.html" %}
-{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=8">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=9">{% endblock %}
 {% block title %}Variety identity review — Berry Intelligence OS{% endblock %}
 {% block content %}
 <div class="company-workspace variety-workspace candidate-workspace">
@@ -46,6 +46,10 @@
     {% if row.jurisdiction %}<span class="v2-meta">{{ row.jurisdiction }}</span>{% endif %}
     <span class="v2-meta">{{ row.source_label }}</span>
   </p>
+  {% if row.photos %}<div class="variety-photo-and-context"><div>{% endif %}
+  {% set photo_gallery = row.photos %}{% include "_variety_photo_gallery.html" %}
+  <p><a href="/varieties/photos/candidate/{{ row.id }}">{{ 'Edit photos' if row.photos else 'Add a credited photo' }} →</a></p>
+  {% if row.photos %}</div>{% endif %}
   <dl class="v2-role-list">
     <dt>Source</dt><dd>{% if row.source_url %}<a href="{{ row.source_url }}">{{ row.source_url }}</a>{% else %}{{ row.source_label or "Source not recorded" }}{% endif %}</dd>
     {% if row.external_collection %}<dt>Public collection lead</dt><dd><b>{{ row.external_collection.source_name }}</b> · checked {{ row.external_collection.checked_on }}<br><small>{{ row.external_collection.limitations }}</small><details><summary>{{ row.external_collection.references|length }} source collection {{ 'record' if row.external_collection.references|length == 1 else 'records' }}</summary>{% for ref in row.external_collection.references %}<p>{{ ref.unique_name }} · {{ ref.organism }}{% if ref.institutional_name %} · {{ ref.institutional_name }}{% endif %}</p>{% endfor %}</details></dd>{% endif %}
@@ -77,6 +81,7 @@
       {% endif %}
     </dd>
   </dl>
+  {% if row.photos %}</div>{% endif %}
   {% if authoring_mode %}
   {% set handoff = catalog_handoffs.get(row.id, {}) %}
   <div class="variety-context">
@@ -102,4 +107,4 @@
 </div></div>
 {% endblock %}
 
-{% block scripts %}<script src="/static/variety_workspace.js?v=7"></script>{% endblock %}
+{% block scripts %}<script src="/static/variety_workspace.js?v=8"></script>{% endblock %}

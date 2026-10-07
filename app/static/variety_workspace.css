@@ -25,3 +25,24 @@
   .candidate-letter-picker select{width:100%;min-width:0;max-width:140px;min-height:44px;padding:6px;border:1px solid #a5ba99;border-radius:6px;color:#183a2b;background:#fff;font-size:.85rem}
   .candidate-quick-actions a{min-height:44px;padding:6px 8px}
 }
+/* Credited variety photos stay compact; trial/fruit images are never cropped. */
+.variety-photo-gallery{display:flex;gap:12px;overflow-x:auto;max-width:100%;padding:8px 0 12px;align-items:flex-start}
+.variety-photo{margin:0;flex:0 0 286px;max-width:100%;border:1px solid #adc2a0;border-radius:12px;background:#f8fbf3;overflow:hidden}
+.variety-photo-frame{height:180px;background:#e9efe2;display:grid;place-items:center}
+.variety-photo-frame img{width:100%;height:100%;object-fit:contain}
+.variety-photo-frame span{padding:16px;color:#34543c;font-size:13px}
+.variety-photo-frame [hidden]{display:none}
+.variety-photo figcaption{padding:10px 12px;font-size:12px;line-height:1.45;color:#34543c}
+.variety-photo figcaption b{display:block;font-size:15px;color:#183c2b}
+.variety-photo figcaption p{margin:5px 0}.variety-photo figcaption small{display:block;margin-bottom:4px}
+.variety-photo figcaption a{color:#126039;text-decoration:underline}.variety-photo figcaption details{margin-top:8px}
+.variety-photo-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+.variety-photo-fields label{display:grid;gap:4px;font-weight:600;font-size:13px}
+.variety-photo-fields input,.variety-photo-fields select,.variety-photo-fields textarea{width:100%;min-width:0;padding:8px;border:1px solid #9db497;border-radius:6px;background:#fff;color:#183c2b;font:inherit}
+.variety-photo-fields textarea{min-height:70px}
+.variety-photo-thumb{float:left;margin:0 8px 4px 0;width:44px;height:44px;object-fit:contain;border:1px solid #adc2a0;border-radius:6px;background:#e9efe2}
+@media(max-width:640px){.variety-photo-fields{grid-template-columns:1fr}.variety-photo{flex-basis:260px}}
+.variety-photo-and-context{display:grid;grid-template-columns:286px minmax(0,1fr);gap:20px;align-items:start}
+.variety-photo-and-context>div{min-width:0}.variety-photo-and-context .v2-role-list{grid-template-columns:140px minmax(0,1fr);margin-top:8px}
+.variety-photo-and-context dd{min-width:0;overflow-wrap:anywhere}
+@media(max-width:850px){.variety-photo-and-context{display:block}.variety-photo-and-context .v2-role-list{grid-template-columns:120px minmax(0,1fr)}}

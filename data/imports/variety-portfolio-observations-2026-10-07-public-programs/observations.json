@@ -93,7 +93,22 @@
         {
           "candidate_name": "Columbia Star",
           "berry_id": "berry-blackberry",
-          "portfolio_context": "Earlier release discussed in FY2022 · unreviewed"
+          "portfolio_context": "Earlier release discussed in FY2022 · unreviewed",
+          "photos": [
+            {
+              "image_url": "https://agresearchmag.ars.usda.gov/media/8469/april-2015-story-25-660-x-430-d3402-2_w.jpg",
+              "source_url": "https://agresearchmag.ars.usda.gov/ImageViewer?month=Apr&story=berries&year=2015",
+              "credit": "Chad Finn · USDA Agricultural Research Service",
+              "caption": "Columbia Star blackberry fruit.",
+              "named_variety": "Columbia Star",
+              "berry_id": "berry-blackberry",
+              "reuse": "public_domain",
+              "license_url": "https://www.ars.usda.gov/oc/images/copyright/",
+              "reuse_note": "ARS magazine's image disclaimer directs users to the ARS Image Gallery. The gallery record D3403-1 names Columbia Star and credits Chad Finn; the gallery policy permits reuse with credit and without implying ARS endorsement. This is the available magazine-formatted image; its filename uses d3402-2. Original gallery downloads were unavailable when checked.",
+              "checked_on": "2026-10-07",
+              "kind": "fruit"
+            }
+          ]
         },
         {
           "candidate_name": "Zodiac",

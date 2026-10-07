@@ -1,0 +1,13 @@
+{% extends "glasshouse_base.html" %}
+{% block title %}{{ target.candidate_name or target.name }} · Photos{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=8">{% endblock %}
+{% block content %}<div class="company-workspace variety-workspace">
+<a href="{{ back_url }}">← Back to variety</a><header class="digest-heading"><div><p class="eyebrow">VARIETY PHOTOS</p><h1>{{ target.candidate_name or target.name }}</h1><p>Add a credited photo, correct its details or hide an unsuitable image.</p></div></header>
+{% if request.query_params.get('saved') %}<p role="status">Photo changes saved.</p>{% endif %}
+<p class="company-muted">Your changes are retained across source refreshes. Photo labels remain unreviewed; they do not approve variety identity, traits or rights. Photos without reuse terms show a source link only.</p>
+{% include "_variety_photo_gallery.html" %}
+{% for photo in photos %}<details class="variety-context"><summary>Edit {{ photo.named_variety }} photo · {{ photo.credit }}</summary><form method="post"><input type="hidden" name="revision" value="{{ profile.revision }}"><input type="hidden" name="photo_id" value="{{ photo.id }}">{% include "_variety_photo_fields.html" %}<button class="green-button" name="action" value="save">Save photo details</button><button class="outline-button" name="action" value="remove" formnovalidate>Hide photo</button>{% if photo.has_source %}<button class="outline-button" name="action" value="reset" formnovalidate>Reset to source</button>{% endif %}</form></details>{% endfor %}
+<details class="variety-context" {% if not photos %}open{% endif %}><summary>Add a photo</summary>{% set photo = {} %}<form method="post"><input type="hidden" name="revision" value="{{ profile.revision }}">{% include "_variety_photo_fields.html" %}<button class="green-button" name="action" value="save">Add credited photo</button></form></details>
+{% if hidden_photos %}<details class="variety-context"><summary>Hidden photos · {{ hidden_photos|length }}</summary><p>Restore a hidden photo and its saved details.</p>{% for key in hidden_photos %}<form method="post"><input type="hidden" name="revision" value="{{ profile.revision }}"><input type="hidden" name="photo_id" value="{{ key }}"><button class="outline-button" name="action" value="restore">Restore photo {{ loop.index }}</button></form>{% endfor %}</details>{% endif %}
+</div>{% endblock %}
+{% block scripts %}<script src="/static/variety_workspace.js?v=8"></script>{% endblock %}
