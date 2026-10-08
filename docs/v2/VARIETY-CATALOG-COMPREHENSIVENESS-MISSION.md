@@ -1,20 +1,22 @@
 # Variety catalog: comprehensive, source-linked coverage
 
-October 8 CBC original-source continuation: eleven profiles, all 15 field-day
-pages and two original title/claim references add 27 occurrences in 14 sections.
-CBC033 and three grower-trial codes enter existing private review; nearby codes
-remain distinct and secondary source codes are searchable without alias approval.
-Seven attributed original photos remain unknown-reuse and hidden until the user's
-session choice. Marketing illustrations and blurred captures are excluded.
-Actual audit: 271 sections / 1,001 occurrences / 713 candidate keys / 64 mixed-status
-catalog records; 56/77 entries partly checked, 21 enumeration gaps and 59 source
-follow-ups. 69 affected tests pass (128.25s, one existing warning); records validate;
-all 2,771 original JSON and expansion guide preserved. Native desktop/mobile
-code handoff and photo reveal/refresh/hide/fresh-tab default verified without
-real review actions. Parent #357 passes all four checks (4,355 tests); this follow-up
-requires its own current-head checks. See CBC-ORIGINAL-FIELDDAY-VARIETIES-REVIEW.md.
-CAT-01/CAT-02/TD-116, independent coverage, human catalog and combined release
-remain open. No merge/deploy or other-berry Landscape rollout.
+October 8 CBC original-source follow-up: three remaining technical documents
+join eleven profiles, the full 15-page handout and two original patent title/claim
+references. Combined CBC addition: 17 sections / 35 name occurrences / seven
+held photographs. Four literal field-code leads retain the separate handout's
+commercial-name pairings for human review; they are not four approved new varieties.
+Performance, estimated value, acreage, nursery access and regions stay source claims.
+Actual audit: 274 sections / 1,009 occurrences / 717 candidate keys / 64 mixed-status
+catalog records. 56/77 registry entries partly checked; 21 enumeration gaps and
+59 source follow-ups remain. 39 affected tests pass (38.72s, 1 existing warning);
+all 2,771 original JSON and the governing expansion guide are preserved.
+Native code-only source review and scoped alphabet work at desktop and 390px;
+no real human review action submitted. The original #358 full suite found one
+stale test expectation (4,360 passed); its partial-source and combined-count
+assertions are corrected. Fresh exact-head checks remain required.
+See CBC-ORIGINAL-FIELDDAY-VARIETIES-REVIEW.md. CAT-01/CAT-02/TD-116, independent
+coverage, human catalog and combined release remain open. No merge/deployment
+or other-berry Landscape rollout; LAND-02 retains the blueberry feedback gate.
 
 October 8 Camposol original-source continuation: two literal ORIGEN first-generation
 names, Sol One and Maia Blue, enter existing identity review with original

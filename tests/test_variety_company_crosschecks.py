@@ -66,8 +66,13 @@ def test_company_crosschecks_render_privately_without_writing_or_public_leaks(mo
     cbc = client.get('/varieties/coverage?q=California%20Berry%20Cultivars')
     assert cbc.status_code == 200 and '11 observed items' in cbc.text
     assert '12 minimum cultivars' in cbc.text
-    assert 'Partial source check' in cbc.text and 'CBC027' in cbc.text
-    assert '1 source section read' in cbc.text
+    # A newer complete page does not erase the older index's shortfall.
+    assert 'Partial variety coverage' in cbc.text and 'CBC027' in cbc.text
+    assert 'Some names checked · source gaps remain' in cbc.text
+    read_sections = sum(s['capture_status'] != 'unreadable' for s in
+                        load_portfolio_observations(ROOT / 'data')
+                        if 'company-california-berry-cultivars' in s['company_ids'])
+    assert f'{read_sections} source sections read' in cbc.text
     assert '0 page sections checked' not in cbc.text
     ava = client.get('/varieties/coverage?q=Angus')
     assert ava.status_code == 200 and 'AVA Dalacia' in ava.text and 'AVA Alicia' in ava.text
