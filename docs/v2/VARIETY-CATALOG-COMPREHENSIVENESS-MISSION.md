@@ -1,5 +1,21 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+October 8 Royakkers grower-source continuation: ten original page sections
+add provenance for Elsanta and Portola, both already in the review queue. Neither
+is duplicated or automatically approved. The strawberry page says Royakkers grows
+them; breeding, ownership, nursery supply, rights and growing regions stay unapproved.
+Nine unnamed or wrong-content sections remain partial, including Dutch nursery
+details. Generic pictures are excluded because they do not identify a variety.
+Actual audit: 292 sections / 1,013 name occurrences / 719 candidate keys / 64
+unchanged mixed-status catalog records; 58/77 registry entries partly checked,
+19 initial enumeration gaps and 74 source follow-ups. 38 affected tests pass.
+Native desktop and phone review checked; 2,771 original JSON records and the
+expansion guide remain unchanged. Parent draft #359 passes all four checks,
+including 4,370 tests; this addition requires its own CI. CAT-01/CAT-02/TD-116
+remain open, as does independent recall and full profile/rights coverage.
+No merge, deployment or other-berry Landscape rollout; the blueberry gate remains.
+See ROYAKKERS-GROWER-VARIETY-SOURCES-REVIEW.md.
+
 October 8 historical strawberry source continuation: two original patent
 subjects (PSI-.118 and PSI-130) describe 1987 trials on a Well-Pict-provided
 ranch. Original claim links and six attributed full-resolution photographs enter
