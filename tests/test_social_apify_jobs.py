@@ -274,7 +274,14 @@ def test_reviewed_upstream_failure_overrides_empty_actor_success(tmp_path):
     health=jobs.cached_status()['jobs'][0]
     assert health['status']=='failed' and health['observed_volume'] is None and health['last_success'] is None
     assert len(requests)==before
+    output=tmp_path/'blueberry-sorting-normalized-import.json'
+    original=output.read_bytes()
+    with pytest.raises(AccessBlocked, match='Source failure diagnostic'):
+        jobs.normalize_cached('blueberry-sorting')
+    assert output.read_bytes()==original and len(requests)==before
     cache.write_text('[{}]')
     assert jobs.cached_status()['jobs'][0]['status']=='unknown'
     diagnostic.write_text('{')
     assert jobs.cached_status()['jobs'][0]['observed_volume'] is None
+    with pytest.raises(AccessBlocked, match='Source failure diagnostic'):
+        jobs.normalize_cached('blueberry-sorting')

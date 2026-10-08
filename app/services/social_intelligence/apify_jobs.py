@@ -220,6 +220,10 @@ class ApifyJobs:
         cache = self.folder / (case + '-items.json')
         if not cache.exists() or cache.stat().st_size > 2_000_000:
             raise AccessBlocked('Successful bounded raw dataset cache required')
+        # Any reviewed source diagnostic must be resolved before export,
+        # including stale/malformed diagnostics. Actor success cannot override it.
+        if (self.folder / (case + '-source-diagnostic.json')).exists():
+            raise AccessBlocked('Source failure diagnostic requires review; cached results are not exportable')
         raw = cache.read_bytes()
         items = json.loads(raw)
         captured = entry.get('data_observed_at')
