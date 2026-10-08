@@ -1,5 +1,16 @@
 # Project Status
 
+October 7 local Mountain Blue/Costa follow-up: seven bounded sections add
+28 observations and three held attributed images. Duplicate panels, unnamed
+blackberry placeholders, comparator Kirra and Dazzle's conflicting image
+filename are handled without invented identities or photos. Four new and
+61 existing regressions, records and native Bounty show/hide pass; original
+1,992 JSON unchanged, catalog 64. Current totals: 84 sections / 631 mentions /
+42 text matches / 589 review needs / 511 keys; 30/77 subjects partly checked,
+47 initial checks and twelve source gaps remain. Photos 23 / 22 held / zero
+approved public. See MOUNTAIN-BLUE-COSTA-PORTFOLIO-REVIEW.md. Local-only delivery;
+exact parent-push approval pending, no merge/deploy or Landscape rollout.
+
 October 7 local CIV technical-sheet follow-up: eleven body attempts add nine
 heading observations and four unreviewed code/label leads. Seven bounded
 sections are enumerated; EDWINA/KAMILA remain partial, ANTEA/FLAMINIA unreadable.

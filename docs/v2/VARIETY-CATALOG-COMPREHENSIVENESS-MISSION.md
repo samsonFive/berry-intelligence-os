@@ -1,6 +1,17 @@
 # Variety catalog: comprehensive, source-linked coverage
 
-**Current local checkpoint, October 7:** CIV technical sheets add nine heading
+**Current local checkpoint, October 7:** Mountain Blue/Costa add seven bounded
+source sections, 28 name observations and three held images. Current totals:
+84 sections / 631 occurrences / 42 text matches / 589 review needs / 511 keys;
+30/77 subjects partly enumerated, 47 initial checks and twelve source gaps
+remain. Catalog 64 and existing human decisions unchanged. Photos total
+23/22 unknown-reuse holds/zero approved public. Four new plus 61 existing
+tests, records and native Bounty preview pass. Full histories, independently
+measured recall, rights verification and rich profiles remain open. See
+MOUNTAIN-BLUE-COSTA-PORTFOLIO-REVIEW.md. Local-only delivery pending exact parent
+push approval; no merge/deploy or other-berry Landscape rollout.
+
+**Earlier local checkpoint, October 7:** CIV technical sheets add nine heading
 observations and four unreviewed code leads across eleven body attempts.
 Seven bounded name checks are enumerated, two partial and two unreadable.
 Original index leads, comparison exclusions, access limits and human decisions

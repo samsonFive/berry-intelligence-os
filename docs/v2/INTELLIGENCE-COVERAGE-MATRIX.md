@@ -1,5 +1,17 @@
 # Intelligence Coverage Matrix
 
+October 7 Mountain Blue/Costa follow-up: seven bounded sections add 28 name
+observations and three held images, without approving traits, rights, roles or
+current availability. Current scope: 84 sections / 631 occurrences / 42 catalog
+text matches / 589 review needs / 511 keys. Blueberry 170, strawberry 306,
+raspberry 101, blackberry 54. 30/77 subjects have some enumeration; 47 initial
+checks and twelve capture/accounting gaps remain. Catalog 64, source photos
+23/22 unknown-reuse holds/zero approved public. Four new plus 61 existing
+regressions, records and native Bounty preview pass; all 1,992 original JSON
+unchanged. No acquisition/recall maturity or global completeness claim.
+See MOUNTAIN-BLUE-COSTA-PORTFOLIO-REVIEW.md. Delivery remains local pending exact
+parent-push approval; no new PR/CI, merge/deploy or Landscape rollout.
+
 October 7 CIV technical-sheet follow-up: eleven linked body attempts add nine
 heading observations and four separate code/name leads. Seven bounded sections
 are enumerated, two partial and two unreadable; original index leads and

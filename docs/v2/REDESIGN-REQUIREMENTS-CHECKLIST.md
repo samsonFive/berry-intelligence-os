@@ -1,5 +1,18 @@
 # Redesign and consolidation requirements
 
+October 7 Mountain Blue/Costa follow-up: 28 original-source observations and
+three held attributed fruit images added across seven bounded sections.
+Duplicate panels and unnamed placeholders do not inflate variety counts;
+ambiguous Dazzle photo is withheld. SI-145 species/status and Nebula text-only
+report remain unreviewed. Four new plus 61 existing regressions, records and
+native Bounty preview pass; all 1,992 original JSON unchanged, catalog 64.
+Current scope: 84 sections / 631 mentions / 42 text matches / 589 review needs /
+511 keys; 30/77 subjects partly checked, 47 initial checks and twelve source
+gaps remain. Photos 23 / 22 held / zero approved public. Complete portfolios,
+independent recall, rights/profile depth stay open; CAT-01/CAT-02/TD-116 open.
+See MOUNTAIN-BLUE-COSTA-PORTFOLIO-REVIEW.md. Local-only, pending exact parent
+push approval after automatic rejection; no new PR/CI, merge/deploy or rollout.
+
 October 7 CIV sheet follow-up: eleven original technical-sheet attempts add
 nine source heading observations and four separate code leads. Seven bounded
 checks are enumerated; two partial and two unreadable bodies retain explicit

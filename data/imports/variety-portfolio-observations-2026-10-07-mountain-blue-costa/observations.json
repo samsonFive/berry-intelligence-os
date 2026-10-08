@@ -1,0 +1,418 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-mountain-blue-blueberry-page",
+      "title": "Mountain Blue — nine blueberry cards and Eureka history",
+      "url": "https://www.mountainblue.com.au/our-berries/blueberries",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-mountain-blue-orchards"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Nine distinct named cards plus one Eureka name in the research/history paragraph; repeated hero/menu names count once.",
+      "limitations": "Current visible source scope, not a complete historical portfolio. Names and page descriptions remain publisher claims; no aliases, breeder/owner roles, traits, rights, release dates or growing footprint approved. Source check date is not publication date. No code is inferred from image filenames. Dazzle is visibly captioned beside an asset named Masena.png; that ambiguous photo is withheld, not relabeled. Maxx stays literal; no Eureka MAXX alias inferred. Generic graphics and brand menus are outside the name denominator.",
+      "capture_reference": {
+        "method": "native_page_captions_and_primary_text",
+        "distinct_cards": 9,
+        "photo_mismatch": {
+          "display_label": "Dazzle",
+          "image_url": "https://images.squarespace-cdn.com/content/v1/5ab3417c1137a624c2c5098c/e4ef9f79-a087-434b-822a-2320a879f297/Masena.png?format=500w",
+          "disposition": "No gallery photo attached until source attribution is clarified"
+        }
+      },
+      "names": [
+        {
+          "candidate_name": "Eureka Sunrise",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/blueberries",
+          "portfolio_context": "Mountain Blue names Eureka Sunrise on its blueberry card. Season group and berry specifications are source context, not approved traits.",
+          "photos": [
+            {
+              "image_url": "https://images.squarespace-cdn.com/content/v1/5ab3417c1137a624c2c5098c/09b509a9-2ab8-4209-9019-475e26b7346c/EurekaSunrise.png?format=500w",
+              "source_url": "https://www.mountainblue.com.au/our-berries/blueberries",
+              "credit": "Mountain Blue blueberry page · Photographer not credited",
+              "named_variety": "Eureka Sunrise",
+              "berry_id": "berry-blueberry",
+              "caption": "Eureka Sunrise: publisher-attributed fruit image",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Native fruit image and Eureka Sunrise caption checked together. Site footer reserves rights; no photographer or license established. Image-specific reuse permission is unconfirmed; private session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Eureka Gold",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/blueberries",
+          "portfolio_context": "Mountain Blue names Eureka Gold on its blueberry card. Season group and berry specifications are source context, not approved traits.",
+          "photos": [
+            {
+              "image_url": "https://images.squarespace-cdn.com/content/v1/5ab3417c1137a624c2c5098c/d2d28c52-7412-4b6b-8d9c-12f22ed60d0e/EurekaGold%5B10594%5D.png?format=500w",
+              "source_url": "https://www.mountainblue.com.au/our-berries/blueberries",
+              "credit": "Mountain Blue blueberry page · Photographer not credited",
+              "named_variety": "Eureka Gold",
+              "berry_id": "berry-blueberry",
+              "caption": "Eureka Gold: publisher-attributed fruit image",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Native image and Eureka Gold caption checked together. Exact percent-encoded asset and rendition query retained; no license inferred. Image-specific reuse permission is unconfirmed; private session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Dazzle",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/blueberries",
+          "portfolio_context": "Mountain Blue names Dazzle on its blueberry card. Season group and berry specifications are source context, not approved traits."
+        },
+        {
+          "candidate_name": "Masena",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/blueberries",
+          "portfolio_context": "Mountain Blue names Masena on its blueberry card. Season group and berry specifications are source context, not approved traits."
+        },
+        {
+          "candidate_name": "Maxx",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/blueberries",
+          "portfolio_context": "Mountain Blue names Maxx on its blueberry card. Season group and berry specifications are source context, not approved traits."
+        },
+        {
+          "candidate_name": "Sunset",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/blueberries",
+          "portfolio_context": "Mountain Blue names Sunset on its blueberry card. Season group and berry specifications are source context, not approved traits."
+        },
+        {
+          "candidate_name": "Twilight",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/blueberries",
+          "portfolio_context": "Mountain Blue names Twilight on its blueberry card. Season group and berry specifications are source context, not approved traits."
+        },
+        {
+          "candidate_name": "Echo",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/blueberries",
+          "portfolio_context": "Mountain Blue names Echo on its blueberry card. Season group and berry specifications are source context, not approved traits."
+        },
+        {
+          "candidate_name": "Midnight",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/blueberries",
+          "portfolio_context": "Mountain Blue names Midnight on its blueberry card. Season group and berry specifications are source context, not approved traits."
+        },
+        {
+          "candidate_name": "Eureka",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/blueberries",
+          "portfolio_context": "Eureka is named in the page history as a variety; the wider Eureka brand/series is not an extra cultivar or an approved alias for Maxx."
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-mountain-blue-strawberry-page",
+      "title": "Mountain Blue — two named strawberry partner varieties",
+      "url": "https://www.mountainblue.com.au/our-berries/strawberries",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-mountain-blue-orchards"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "nursery_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Two labeled strawberry images/cards; partner/trial descriptions only, not the full nursery portfolio.",
+      "limitations": "Current visible source scope, not a complete historical portfolio. Names and page descriptions remain publisher claims; no aliases, breeder/owner roles, traits, rights, release dates or growing footprint approved. Source check date is not publication date. Page still describes trials due in 2023. Undated present-day display is not evidence trials occurred. Unnamed quarantine/thornless-cane text below the strawberry section is not assigned a strawberry cultivar identity.",
+      "capture_reference": {
+        "method": "primary_page_name_review"
+      },
+      "names": [
+        {
+          "candidate_name": "Limvalnera",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/strawberries",
+          "portfolio_context": "Mountain Blue displays Limvalnera on its strawberry partner page. This does not establish Mountain Blue as breeder or rights holder."
+        },
+        {
+          "candidate_name": "Limalexia",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/strawberries",
+          "portfolio_context": "Mountain Blue displays Limalexia on its strawberry partner page. This does not establish Mountain Blue as breeder or rights holder."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-mountain-blue-raspberry-page",
+      "title": "Mountain Blue — raspberry card and SI-145 research mention",
+      "url": "https://www.mountainblue.com.au/our-berries/raspberries",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-mountain-blue-orchards"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "nursery_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named card and one literal research selection mentioned on the raspberry page.",
+      "limitations": "Current visible source scope, not a complete historical portfolio. Names and page descriptions remain publisher claims; no aliases, breeder/owner roles, traits, rights, release dates or growing footprint approved. Source check date is not publication date. Source page placement supplies raw berry context only. SI-145 thornless-cane wording and research status require primary technical corroboration; no species or commercial-release decision is approved.",
+      "capture_reference": {
+        "method": "primary_page_name_review"
+      },
+      "names": [
+        {
+          "candidate_name": "Enrosadira",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/raspberries",
+          "portfolio_context": "Enrosadira is the named raspberry card. Commercial presentation is not a breeder or owner relationship."
+        },
+        {
+          "candidate_name": "SI-145",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.mountainblue.com.au/our-berries/raspberries",
+          "portfolio_context": "Source mentions SI-145 under Research and development News on its raspberry page. Keep the literal selection code and source crop placement provisional; species, release status and breeding role are not independently established."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-mountain-blue-blackberry-placeholders",
+      "title": "Mountain Blue — unnamed blackberry placeholders",
+      "url": "https://www.mountainblue.com.au/our-berries/blackberries",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-mountain-blue-orchards"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Two visible placeholder cards, neither an established cultivar name. This bounded page check is not a zero-variety company conclusion.",
+      "limitations": "Current visible source scope, not a complete historical portfolio. Names and page descriptions remain publisher claims; no aliases, breeder/owner roles, traits, rights, release dates or growing footprint approved. Source check date is not publication date. Page still expects data/trials in 2023; it cannot prove current portfolio absence. Later named release coverage is checked separately. Generic photographs are not assigned to Nebula or to invented varieties.",
+      "capture_reference": {
+        "method": "primary_page_name_review"
+      },
+      "names": [],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Blackberry variety 1",
+            "reason": "Unnamed placeholder, not a cultivar identity."
+          },
+          {
+            "label": "Blackberry variety 2",
+            "reason": "Unnamed placeholder, not a cultivar identity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-costa-produce-blueberry-section",
+      "title": "Costa — six blueberry cards and two named program examples",
+      "url": "https://costagroup.com.au/produce/",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-costa-group-holdings"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Berries International: six unique cards; BluGenix Excellent varieties paragraph adds Kirra and Mira, with Arana already counted.",
+      "limitations": "Current visible source scope, not a complete historical portfolio. Names and page descriptions remain publisher claims; no aliases, breeder/owner roles, traits, rights, release dates or growing footprint approved. Source check date is not publication date. Other produce categories, grape cultivar Midnight Beauty and tomato/citrus/avocado varieties are outside this blueberry denominator. Blueberries/Raspberries/Strawberries/Blackberries are crop labels, not cultivars. No whole-company/cross-crop completeness claim.",
+      "capture_reference": {
+        "method": "primary_page_name_review"
+      },
+      "names": [
+        {
+          "candidate_name": "Breeze",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://costagroup.com.au/produce/",
+          "portfolio_context": "Costa lists Breeze in Berries International or its BluGenix program examples. Repeated carousel names count once; marketing traits and company farm locations are not approved variety facts or growing footprints."
+        },
+        {
+          "candidate_name": "Delight",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://costagroup.com.au/produce/",
+          "portfolio_context": "Costa lists Delight in Berries International or its BluGenix program examples. Repeated carousel names count once; marketing traits and company farm locations are not approved variety facts or growing footprints."
+        },
+        {
+          "candidate_name": "Bounty",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://costagroup.com.au/produce/",
+          "portfolio_context": "Costa lists Bounty in Berries International or its BluGenix program examples. Repeated carousel names count once; marketing traits and company farm locations are not approved variety facts or growing footprints."
+        },
+        {
+          "candidate_name": "Arana",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://costagroup.com.au/produce/",
+          "portfolio_context": "Costa lists Arana in Berries International or its BluGenix program examples. Repeated carousel names count once; marketing traits and company farm locations are not approved variety facts or growing footprints."
+        },
+        {
+          "candidate_name": "Eterna",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://costagroup.com.au/produce/",
+          "portfolio_context": "Costa lists Eterna in Berries International or its BluGenix program examples. Repeated carousel names count once; marketing traits and company farm locations are not approved variety facts or growing footprints."
+        },
+        {
+          "candidate_name": "Cascade",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://costagroup.com.au/produce/",
+          "portfolio_context": "Costa lists Cascade in Berries International or its BluGenix program examples. Repeated carousel names count once; marketing traits and company farm locations are not approved variety facts or growing footprints."
+        },
+        {
+          "candidate_name": "Kirra",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://costagroup.com.au/produce/",
+          "portfolio_context": "Costa lists Kirra in Berries International or its BluGenix program examples. Repeated carousel names count once; marketing traits and company farm locations are not approved variety facts or growing footprints."
+        },
+        {
+          "candidate_name": "Mira",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://costagroup.com.au/produce/",
+          "portfolio_context": "Costa lists Mira in Berries International or its BluGenix program examples. Repeated carousel names count once; marketing traits and company farm locations are not approved variety facts or growing footprints."
+        }
+      ],
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-blugenix-five-varieties",
+      "title": "BluGenix — five named blueberry varieties",
+      "url": "https://blugenix.com.au/varieties/",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-costa-group-holdings"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Five distinct index/panel names; repeated tabs, chart legends and map panels count once. Kirra is excluded from this panel denominator as comparison context.",
+      "limitations": "Current visible source scope, not a complete historical portfolio. Names and page descriptions remain publisher claims; no aliases, breeder/owner roles, traits, rights, release dates or growing footprint approved. Source check date is not publication date. Named fruit artwork is publisher-attributed, not independently authenticated cultivar imagery. Specsheet URLs retain original destinations but PDF bodies/codes are not read here. Placeholder # download links and crop calendar locations are not additional varieties or confirmed regions.",
+      "capture_reference": {
+        "method": "native_index_panel_and_original_image_review",
+        "original_bounty_image_dimensions": [
+          527,
+          529
+        ],
+        "specsheet_bodies_checked": false,
+        "bounty_specsheet_url": "https://blugenix.com.au/wp-content/uploads/2026/03/000601_Costa_BerryGenetics_Data-Sheet_S6_v3_02.pdf"
+      },
+      "names": [
+        {
+          "candidate_name": "Bounty",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blugenix.com.au/varieties/",
+          "portfolio_context": "BluGenix names Bounty in its five-variety index and technical panels. Indicative regional specifications are not approved universal traits, actual plantings or current legal rights.",
+          "photos": [
+            {
+              "image_url": "https://blugenix.com.au/wp-content/uploads/2025/12/Bounty.png",
+              "source_url": "https://blugenix.com.au/varieties/",
+              "credit": "Costa BluGenix variety page · Photographer not credited",
+              "named_variety": "Bounty",
+              "berry_id": "berry-blueberry",
+              "caption": "Bounty: publisher-attributed fruit image",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Bounty panel association and original 527 × 529 image visually checked. Publisher marks the displayed sizing as not to scale; no size/trait inferred from the photo. Generic hero and harvest icons excluded. Image-specific reuse permission is unconfirmed; private session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Breeze",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blugenix.com.au/varieties/",
+          "portfolio_context": "BluGenix names Breeze in its five-variety index and technical panels. Indicative regional specifications are not approved universal traits, actual plantings or current legal rights."
+        },
+        {
+          "candidate_name": "Cascade",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blugenix.com.au/varieties/",
+          "portfolio_context": "BluGenix names Cascade in its five-variety index and technical panels. Indicative regional specifications are not approved universal traits, actual plantings or current legal rights."
+        },
+        {
+          "candidate_name": "Delight",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blugenix.com.au/varieties/",
+          "portfolio_context": "BluGenix names Delight in its five-variety index and technical panels. Indicative regional specifications are not approved universal traits, actual plantings or current legal rights."
+        },
+        {
+          "candidate_name": "Eterna",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blugenix.com.au/varieties/",
+          "portfolio_context": "BluGenix names Eterna in its five-variety index and technical panels. Indicative regional specifications are not approved universal traits, actual plantings or current legal rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "Kirra",
+            "reason": "Benchmark comparator in technical panels; separately named as a program example on Costa produce page."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-mountain-blue-nebula-technical-report",
+      "title": "Australian Berry Journal — Nebula blackberry report",
+      "url": "https://berries.net.au/wp-content/uploads/2025/06/ABJ-Ed-23-WINTER-25-RUB-Mountain-Blue-Unveils-New-Blackberry-Variety-Nebula.pdf",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-mountain-blue-orchards"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "industry_technical_report",
+      "capture_status": "partial",
+      "enumerated_scope": "Named headline and opening primary technical-report text returned; two-page document metadata. Visual screenshots failed with a web-tool cache miss.",
+      "limitations": "Current visible source scope, not a complete historical portfolio. Names and page descriptions remain publisher claims; no aliases, breeder/owner roles, traits, rights, release dates or growing footprint approved. Source check date is not publication date. Text-only partial check, not a completed visual/whole-document enumeration. Upload folder is not publication date. No standalone photo attribution, approved traits, current availability or official filing derived.",
+      "capture_reference": {
+        "method": "primary_pdf_text_only",
+        "pages": 2,
+        "visually_checked": false,
+        "author": "Gaius Leong, Berry Industry Development Manager, NSW DPIRD",
+        "visual_limitation": "Web-tool screenshots returned cache miss; no images or hidden code inferred"
+      },
+      "names": [
+        {
+          "candidate_name": "Nebula",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://berries.net.au/wp-content/uploads/2025/06/ABJ-Ed-23-WINTER-25-RUB-Mountain-Blue-Unveils-New-Blackberry-Variety-Nebula.pdf",
+          "portfolio_context": "Named as a Mountain Blue blackberry in an Australian Berry Journal report by Gaius Leong, Berry Industry Development Manager, NSW DPIRD. This is an unreviewed publication lead, separate from the older unnamed website placeholders; no placeholder/code/alias pairing inferred."
+        }
+      ]
+    }
+  ]
+}

@@ -2271,3 +2271,15 @@ candidate review pass. Official verification, historical completeness,
 independent recall and profile depth remain open; TD-116 is not resolved.
 See CIV-TECHNICAL-SHEET-IDENTITY-REVIEW.md. Local follow-up only; exact parent
 push approval remains pending after automatic rejection. No new PR/CI.
+
+**October 7 local Mountain Blue/Costa TD-116 follow-up:** Seven sections add
+28 observations and three held images; unnamed placeholders and repeated
+panels do not become extra cultivars. Conflicting Dazzle photo filename is
+retained without photo assignment; SI-145 and Nebula retain capture/taxon limits.
+Current scope: 84 sections / 631 occurrences / 42 text matches / 589 review
+needs / 511 keys. 47 initial checks and twelve source gaps remain. All 1,992
+original JSON unchanged, catalog 64; photos 23/22 held/zero approved public.
+Four new plus 61 existing regressions, records and native Bounty preview pass.
+Complete portfolios, independent recall and rich profiles/official rights stay
+open. See MOUNTAIN-BLUE-COSTA-PORTFOLIO-REVIEW.md. TD-116 remains open; local
+delivery pending exact parent push approval, no new PR/CI or rollout.
