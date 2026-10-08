@@ -1,5 +1,17 @@
 # Intelligence Coverage Matrix
 
+October 7 crop-scoped catalog follow-up: human-reviewed distinct candidates can
+now enter source review when another berry already uses their name. Exact
+same-crop/unknown-crop matches still block duplicates; checked name/berry survive
+review-aid suggestions. Isolated fictional browser acceptance creates only an
+unverified record and preserves the separate claim gate and original entity.
+74 focused regressions and record validation pass. No real identity/source
+approvals or catalog growth: the 64 catalog / 53 sections / 540 occurrences /
+34 matches / 506 review needs / 450 candidate keys below remain unchanged.
+This supersedes the cross-crop authoring blocker in the preceding checkpoint.
+See VARIETY-CROP-SCOPED-CATALOG-REVIEW.md. CAT-01/CAT-02/TD-116 remain open;
+exact-head CI is recorded with the draft. No merge/deploy/other-berry rollout.
+
 October 7 release/patent photo follow-up: three source-labeled images from
 the USDA Keepsake strawberry release and FC11-164 patent figure now reach private
 galleries with individual session-only Ignore permission controls. Strawberry

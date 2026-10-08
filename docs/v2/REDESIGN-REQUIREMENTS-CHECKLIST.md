@@ -1,5 +1,15 @@
 # Redesign and consolidation requirements
 
+October 7 crop-scoped catalog follow-up: the reviewed-candidate authoring path
+now separates known disjoint crops sharing a name, while exact same-crop,
+unknown-crop and ambiguous matches retain duplicate guards. Review aids cannot
+widen the checked name/berry. Native isolated fictional acceptance preserves
+the original record and separate source/claim gates; no real human decisions
+or catalog additions. 74 focused tests and record validation pass; exact-head CI
+is recorded with the draft. The preceding cross-crop authoring blocker is
+superseded; actual counts stay unchanged. CAT-01/CAT-02/TD-116 remain open.
+See VARIETY-CROP-SCOPED-CATALOG-REVIEW.md. No merge/deploy/other-berry rollout.
+
 October 7 release/patent photo follow-up: three source-labeled images from
 the USDA Keepsake strawberry release and FC11-164 patent figure now reach private
 galleries with individual session-only Ignore permission controls. Strawberry

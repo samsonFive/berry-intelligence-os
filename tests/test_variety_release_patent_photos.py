@@ -66,7 +66,7 @@ def test_live_photo_sources_and_controls_are_private_no_get_writes(monkeypatch, 
     blueberry = client.get("/entities/variety/variety-keepsake")
     profile = client.get("/entities/variety/variety-fc11-164")
     assert strawberry.status_code == blueberry.status_code == profile.status_code == 200
-    assert "A different berry uses this name" in strawberry.text
+    assert "Check the identity and mark it distinct" in strawberry.text
     assert "Open catalog record" not in strawberry.text
     for photo in release["names"][0]["photos"]:
         assert photo["image_url"] in strawberry.text and photo["image_url"] not in blueberry.text

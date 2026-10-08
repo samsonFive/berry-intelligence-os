@@ -9728,7 +9728,7 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
         if tag and tag not in tags:
             tags.append(tag)
     berries = list(draft.get("berry_ids") or [])
-    for berry_id in enrichment.get("suggested_berry_ids") or []:
+    for berry_id in ([] if draft.get("catalog_handoff") else enrichment.get("suggested_berry_ids") or []):
         if berry_id and berry_id not in berries:
             berries.append(berry_id)
     return {
@@ -9829,7 +9829,10 @@ def _review_context(
             berry_labels=BERRIES,
             sources=load_sources(),
         )
+        checked_scope = {key: deepcopy(values.get(key)) for key in ("berries", "varieties")} if draft.get("catalog_handoff") else None
         values = apply_dossier_prefill(values, publication_dossier)
+        if checked_scope is not None:
+            values.update(checked_scope)
     return {
         "draft": draft,
         "parent": parent,
@@ -10083,6 +10086,7 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
                 strategic_question_text=strategic_question_text,
                 reviewer=reviewer,
                 existing_entity_ids=preserved_entity_ids,
+                catalog_variety_scope=(candidate["candidate_name"], candidate["berry_id"]) if draft.get("catalog_handoff") else None,
             )
         )
     except DuplicateRecord:

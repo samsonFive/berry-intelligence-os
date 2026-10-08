@@ -1,5 +1,17 @@
 # Project Status
 
+October 7 crop-scoped catalog follow-up: human-reviewed distinct candidates can
+now enter source review when another berry already uses their name. Exact
+same-crop/unknown-crop matches still block duplicates; source review preserves
+the checked name/berry despite broader review-aid suggestions. Native desktop
+acceptance with isolated fictional records preserves the original entity and
+creates only a separate unverified record, with claims still awaiting review.
+74 focused regressions and record validation pass. No real catalog additions or
+human approvals; coverage counts below are unchanged. This supersedes the
+cross-crop authoring blocker in the preceding photo checkpoint. See
+docs/v2/VARIETY-CROP-SCOPED-CATALOG-REVIEW.md; exact-head CI is recorded with the
+draft. CAT-01/CAT-02/TD-116 remain open. No merge/deploy/other-berry rollout.
+
 October 7 release/patent photo follow-up: three source-labeled images from
 the USDA Keepsake strawberry release and FC11-164 patent figure now reach private
 galleries with individual session-only Ignore permission controls. Strawberry

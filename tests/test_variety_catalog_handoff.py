@@ -1,5 +1,6 @@
 """Fictional workflow acceptance: identity != source approval != verified claim."""
 import json
+from html.parser import HTMLParser
 
 import pytest
 from fastapi.testclient import TestClient
@@ -7,6 +8,7 @@ from fastapi.testclient import TestClient
 from app import main
 from app.services.evidence_claim_review import evidence_trust_tier, TIER_APPROVED_SOURCE, TIER_TRUSTED_EVIDENCE
 from app.services.variety_catalog_handoff import catalog_handoff, decision_digest
+from app.services.review_publish import PublishRequest
 from app.services.variety_universe.candidates import apply_identity_decision, load_variety_candidates, persist_variety_candidates
 
 
@@ -172,20 +174,113 @@ def test_ambiguous_aliases_cannot_prepare_a_third_record(workspace):
     assert snapshot() == before
 
 
-def test_cross_crop_name_cannot_link_or_publish_into_existing_variety(workspace):
+@pytest.mark.parametrize("alias", [False, True])
+def test_reviewed_cross_crop_name_creates_separate_source_linked_variety(workspace, alias):
     client, candidate, repos = workspace
     draft_id = create_draft(client, candidate)
-    existing = {"id": "variety-strawberry-homonym", "record_type": "entity", "entity_type": "variety",
-                "name": candidate["candidate_name"], "berry_ids": ["berry-strawberry"],
-                "aliases": [], "status": "unverified", "description": "User-edited strawberry entry"}
+    existing = {"id": "variety-fictional-review-blue", "record_type": "entity", "entity_type": "variety",
+                "name": "Fictional Strawberry" if alias else candidate["candidate_name"], "berry_ids": ["berry-strawberry"],
+                "aliases": [candidate["candidate_name"]] if alias else [],
+                "status": "unverified", "description": "User-edited strawberry entry"}
     repos.entities.create(existing)
     before = snapshot()
     plan = catalog_handoff(candidate, [existing])
-    assert not plan["ready"] and plan["catalog_entity"] is None
-    assert "different berry" in plan["reason"]
-    assert client.get(plan["href"]).status_code == 409
+    assert plan["ready"] and plan["catalog_entity"] is None
+    assert client.get(plan["href"]).status_code == 200
+    assert snapshot() == before
+    missing = client.post(f"/review/{draft_id}/publish", data={**publish_data(candidate), "reviewer": ""})
+    assert missing.status_code == 400 and snapshot() == before
+    assert client.post(f"/review/{draft_id}/publish", data=publish_data(candidate), follow_redirects=False).status_code == 303
+    created, = [row for row in repos.entities.list() if row["id"] != existing["id"]]
+    assert created["name"] == candidate["candidate_name"] and created["berry_ids"] == ["berry-blueberry"]
+    assert created["status"] == "unverified" and not created["aliases"] and not created["roles"]
+    assert created["evidence_ids"] == [draft_id] and not created["attributes"]
+    assert repos.entities.get(existing["id"]) == existing
+    assert repos.evidence.get(draft_id)["entity_ids"] == [created["id"]]
+    assert not repos.facts.list() and not repos.relationships.list()
+    from app.services.entity_identity import audit_entity_identity
+    assert not audit_entity_identity(repos.entities.list())["varieties"]["canonical_collisions"]
+
+
+@pytest.mark.parametrize("berries", [["berry-blueberry"], [], ["berry-blueberry", "berry-strawberry"]])
+def test_crop_scoped_review_still_blocks_compatible_or_unknown_catalog_entries(workspace, berries):
+    client, candidate, repos = workspace
+    draft_id = create_draft(client, candidate)
+    existing = {"id": "variety-overlap", "record_type": "entity", "entity_type": "variety",
+                "name": candidate["candidate_name"], "berry_ids": berries, "aliases": [], "status": "unverified"}
+    repos.entities.create(existing)
+    before = snapshot()
+    assert not catalog_handoff(candidate, [existing])["ready"]
     assert client.post(f"/review/{draft_id}/publish", data=publish_data(candidate)).status_code == 409
-    assert snapshot() == before and repos.entities.get(existing["id"]) == existing
+    assert snapshot() == before
+
+
+def test_generic_source_review_cannot_attach_a_name_to_the_wrong_crop(workspace):
+    client, candidate, repos = workspace
+    draft_id = create_draft(client, candidate)
+    draft = main.get_draft(draft_id)
+    draft.pop("catalog_handoff")
+    main.save_draft(draft)
+    existing = {"id": "variety-other-crop", "record_type": "entity", "entity_type": "variety",
+                "name": candidate["candidate_name"], "berry_ids": ["berry-strawberry"], "aliases": [], "status": "unverified"}
+    repos.entities.create(existing)
+    before = snapshot()
+    response = client.post(f"/review/{draft_id}/publish", data=publish_data(candidate))
+    assert response.status_code == 400 and "belongs to another berry" in response.text
+    assert snapshot() == before
+
+
+def test_review_aids_do_not_expand_the_checked_name_or_berry_scope(workspace):
+    client, candidate, _ = workspace
+    draft_id = create_draft(client, candidate)
+    draft = main.get_draft(draft_id)
+    draft["summary"] = "The fictional blueberry is separate from strawberry Fictional Other Name."
+    draft["ai_enrichment"] = {"suggested_berry_ids": ["berry-strawberry"]}
+    main.save_draft(draft)
+    before = snapshot()
+    class ScopeInputs(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.fields = []
+
+        def handle_starttag(self, tag, attrs):
+            fields = dict(attrs)
+            if tag == "input" and fields.get("name") in {"berries", "varieties"}:
+                self.fields.append(fields)
+
+    page = ScopeInputs()
+    page.feed(client.get(f"/review/{draft_id}").text)
+    assert [item["value"] for item in page.fields if item["name"] == "berries" and "checked" in item] == [candidate["berry_id"]]
+    assert next(item["value"] for item in page.fields if item["name"] == "varieties") == candidate["candidate_name"]
+    assert snapshot() == before
+
+
+@pytest.mark.parametrize("change", ["no_marker", "name", "berry", "invalid_berry", "catalog_arrived"])
+def test_publish_service_rechecks_scoped_context_before_writes(workspace, change):
+    client, candidate, repos = workspace
+    draft_id = create_draft(client, candidate)
+    draft = main.get_draft(draft_id)
+    scope = (candidate["candidate_name"], candidate["berry_id"])
+    if change == "no_marker":
+        draft.pop("catalog_handoff")
+    elif change == "name":
+        scope = ("Changed Name", candidate["berry_id"])
+    elif change == "berry":
+        scope = (candidate["candidate_name"], "berry-strawberry")
+    elif change == "invalid_berry":
+        scope = (candidate["candidate_name"], "unknown-berry")
+    else:
+        repos.entities.create({"id": "variety-newly-added", "record_type": "entity", "entity_type": "variety",
+                               "name": candidate["candidate_name"], "berry_ids": [candidate["berry_id"]], "status": "unverified"})
+    before = snapshot()
+    result = main._review_publish_service().publish(PublishRequest(
+        draft=draft, draft_id=draft_id, title="Fictional scoped review", source_type="article",
+        source_name="Fixture", source_url=candidate["source_url"], published_date=None, captured_date="2026-10-07",
+        summary="Fictional source text", why_it_matters="", tags=[], selected_berries=[candidate["berry_id"]],
+        all_entity_names_by_type={"variety": [candidate["candidate_name"]]}, facts_input=[], relationships_input=[],
+        priority={}, strategic_question_text=[], reviewer="fixture-source-reviewer", catalog_variety_scope=scope))
+    assert not result.ok and result.schema_errors
+    assert snapshot() == before
 
 
 @pytest.mark.parametrize("change", [{"suggested_varieties": "Different Name"},
