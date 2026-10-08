@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-07",
+  "as_of": "2026-10-08",
   "claims_are_not_measurements": true,
   "candidates": [
     {
@@ -30,19 +30,19 @@
       "id": "google-news-rss",
       "platform": "news",
       "task": "supplementary title discovery",
-      "state": "not-tested",
+      "state": "partial-live-tested",
       "official": "https://news.google.com/",
-      "blocker": "Undocumented RSS service contract; best effort only, no social text/comments/media proof."
+      "blocker": "Actual supplementary news titles retained; undocumented RSS service contract, no social text/comments/media coverage proof."
     },
     {
       "id": "apify-instagram",
       "actor": "apify/instagram-scraper",
       "platform": "instagram",
       "task": "hashtag/search/post/carousel",
-      "state": "documented",
+      "state": "partial-live-tested",
       "official": "https://apify.com/apify/instagram-scraper/input-schema",
-      "listed_starting_price": "$1.50/1000 results; task event rates/ancillary costs need account verification",
-      "blocker": "No APIFY_TOKEN or actual free-plan balance/billing evidence; input/build/rates must be pinned before launch."
+      "blocker": "Verified FREE account; pinned build 0.0.803. Exact hashtag URL returned five posts/carousels; generic search returned tag metadata only. Production jobs, ongoing rights/deletion and independent accuracy unqualified.",
+      "measured_report": "docs/v2/SOCIAL-APIFY-TRIAL.md"
     },
     {
       "id": "apify-instagram-comments",
@@ -51,7 +51,7 @@
       "task": "supplied-post comments",
       "state": "documented",
       "official": "https://apify.com/apify/instagram-comment-scraper",
-      "blocker": "No verified Apify free account. Post comments/replies claim is not attached-comment-image proof."
+      "blocker": "Existing FREE account verified; this specific actor/build/schema/pricing and task capability remain untested. Do not launch from vendor claims or assume included credit bounds this actor."
     },
     {
       "id": "apify-tiktok",
@@ -60,7 +60,7 @@
       "task": "keyword/hashtag/post media",
       "state": "documented",
       "official": "https://apify.com/clockworks/tiktok-scraper/input-schema",
-      "blocker": "No verified free account; pay-per-event task rates must be read before capped launch."
+      "blocker": "Existing FREE account verified; this specific actor/build/schema/pricing and task capability remain untested. Do not launch from vendor claims or assume included credit bounds this actor."
     },
     {
       "id": "sociavault",
@@ -81,7 +81,7 @@
       "official": "https://apify.com/atomus/weibo-scraper",
       "listed_starting_price": "$16/1000 post records; per-mode minima apply",
       "maintenance": "Community; modified 7 days before inspection; 6 monthly active users at inspection; no quality inference",
-      "blocker": "No verified free account; platform terms/redisplay rights and actual output not verified."
+      "blocker": "Existing FREE account verified; this specific actor/build/schema/pricing and task capability remain untested. Do not launch from vendor claims or assume included credit bounds this actor."
     },
     {
       "id": "apify-douyin",
@@ -92,7 +92,7 @@
       "official": "https://apify.com/atomus/douyin-scraper",
       "listed_starting_price": "$5/1000 video search results; README contains differing $0.002 minimum, use task pricing not headline",
       "maintenance": "Community; modified 7 days before inspection",
-      "blocker": "No verified free account; not TikTok access; media expiry/download/rights claims unproven."
+      "blocker": "Existing FREE account verified; this specific actor/build/schema/pricing and task capability remain untested. Do not launch from vendor claims or assume included credit bounds this actor."
     },
     {
       "id": "apify-red",
@@ -103,7 +103,7 @@
       "official": "https://apify.com/atomus/xiaohongshu-scraper",
       "listed_starting_price": "$16/1000 notes; per-mode rates/minima need verification",
       "maintenance": "Community; modified 7 days before inspection",
-      "blocker": "No verified free account; no-cookie claim does not establish permission or working keyword discovery."
+      "blocker": "Existing FREE account verified; this specific actor/build/schema/pricing and task capability remain untested. Do not launch from vendor claims or assume included credit bounds this actor."
     },
     {
       "id": "apify-bilibili",
@@ -114,7 +114,7 @@
       "official": "https://apify.com/atomus/bilibili-scraper",
       "listed_starting_price": "$8/1000 videos; per-mode rates need verification",
       "maintenance": "Community; modified 5 days before inspection",
-      "blocker": "No verified free account; danmaku is not threaded comment imagery; platform rights need review."
+      "blocker": "Existing FREE account verified; this specific actor/build/schema/pricing and task capability remain untested. Do not launch from vendor claims or assume included credit bounds this actor."
     },
     {
       "id": "talkwalker",
@@ -139,6 +139,26 @@
       "state": "documented",
       "official": "https://mention.com/en/pricing/",
       "blocker": "Current Company offer is demo-led; API and history paid add-ons, no verified no-card free API trial."
+    },
+    {
+      "id": "apify-facebook",
+      "actor": "apify/facebook-posts-scraper",
+      "platform": "facebook",
+      "task": "public page posts/images",
+      "state": "partial-live-tested",
+      "official": "https://apify.com/apify/facebook-posts-scraper",
+      "blocker": "Pinned build 0.0.398 returned five posts; no general keyword, private groups or comment-image proof. Production monitoring and rights/deletion unqualified.",
+      "measured_report": "docs/v2/SOCIAL-APIFY-TRIAL.md"
+    },
+    {
+      "id": "apify-linkedin",
+      "actor": "harvestapi/linkedin-post-search",
+      "platform": "linkedin",
+      "task": "keyword and supplied-company discovery",
+      "state": "partial-live-tested",
+      "official": "https://apify.com/harvestapi/linkedin-post-search",
+      "blocker": "Pinned build 0.0.114 returned post bodies and images; article-only results held out. Comments-enabled run returned zero comments, so comment retrieval remains unproven. Production monitoring and rights/deletion unqualified.",
+      "measured_report": "docs/v2/SOCIAL-APIFY-TRIAL.md"
     }
   ]
 }
