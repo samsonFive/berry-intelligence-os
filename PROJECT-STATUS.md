@@ -1,5 +1,17 @@
 # Project Status
 
+October 7 local PSG/OZblu follow-up: nine sections add nine source observations
+and two held photos. Three PSG catalogs fail to load and remain explicit gaps;
+Rejoice code forms/platform scope and EB 12-19 package conflict remain unresolved.
+Magica's photo uses its existing catalog alias. Desktop photo/context columns
+remove the empty band; native phone stacking and session controls verified.
+52 profile/photo and 32 public-snapshot/portfolio checks pass; records validate and all 1,992 original JSON are
+unchanged. Latest scope: 93 sections / 640 occurrences / 44 text matches /
+596 review needs / 518 keys; 32/77 subjects partly checked, 45 initial checks
+and 15 source follow-ups remain. Catalog 64; photos 25/24 held/zero public.
+See docs/v2/PSG-OZBLU-PORTFOLIO-PHOTO-REVIEW.md. Local-only, pending parent
+push approval; no merge/deploy or Landscape rollout.
+
 October 7 local Mountain Blue/Costa follow-up: seven bounded sections add
 28 observations and three held attributed images. Duplicate panels, unnamed
 blackberry placeholders, comparator Kirra and Dazzle's conflicting image

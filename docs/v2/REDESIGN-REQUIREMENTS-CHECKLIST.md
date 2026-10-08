@@ -1,5 +1,17 @@
 # Redesign and consolidation requirements
 
+October 7 PSG/OZblu follow-up: nine source observations and two credited held
+photos; three failed catalogs explicitly recorded. Brand/platform/cultivar
+codes and the conflicting package photo are kept distinct. Existing Magica
+alias is reused without a duplicate candidate. Dense profile photo/content
+columns and phone stacking are native-reviewed; 52 profile/photo and 32 public-snapshot/portfolio tests pass.
+Original 1,992 JSON unchanged, catalog 64. Latest totals: 93 sections / 640
+occurrences / 44 text matches / 596 review needs / 518 keys; 32/77 subjects
+partly checked, 45 initial checks and 15 source follow-ups remain. Photos
+25/24 held/zero public. CAT-01/CAT-02/TD-116 and full mission remain open.
+See PSG-OZBLU-PORTFOLIO-PHOTO-REVIEW.md. Local-only pending parent approval;
+no new PR/CI, merge/deploy or other-berry Landscape rollout.
+
 October 7 Mountain Blue/Costa follow-up: 28 original-source observations and
 three held attributed fruit images added across seven bounded sections.
 Duplicate panels and unnamed placeholders do not inflate variety counts;

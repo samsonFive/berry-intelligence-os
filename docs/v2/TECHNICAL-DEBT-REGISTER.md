@@ -2283,3 +2283,17 @@ Four new plus 61 existing regressions, records and native Bounty preview pass.
 Complete portfolios, independent recall and rich profiles/official rights stay
 open. See MOUNTAIN-BLUE-COSTA-PORTFOLIO-REVIEW.md. TD-116 remains open; local
 delivery pending exact parent push approval, no new PR/CI or rollout.
+
+**October 7 local PSG/OZblu TD-116 follow-up:** Nine bounded sections add nine
+name observations and two held photos. Three original PSG catalogs fail to
+load and remain unreadable; current consumer grades/packs are not varieties.
+Rejoice code forms/platform scope and EB 12-19 caption/package conflict stay
+unresolved, without aliases or photo reassignment. Magica's exact existing
+catalog alias is reused. Desktop photo/context columns and phone stacking
+remove the profile's empty band; 52 profile/photo tests and native session
+controls pass; another 32 public-snapshot/portfolio tests pass. All 1,992 original JSON unchanged; catalog 64. Latest scope:
+93 sections / 640 occurrences / 44 text matches / 596 review needs / 518 keys;
+45 initial checks and 15 source follow-ups remain. Photos 25/24 held/zero public.
+Full historical coverage, independent recall and profile/rights depth remain
+open. See PSG-OZBLU-PORTFOLIO-PHOTO-REVIEW.md. TD-116 remains open, local-only
+pending parent push approval; no new PR/CI, merge/deploy or Landscape rollout.

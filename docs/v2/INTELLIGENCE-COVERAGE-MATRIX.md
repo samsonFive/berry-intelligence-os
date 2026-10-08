@@ -1,5 +1,17 @@
 # Intelligence Coverage Matrix
 
+October 7 PSG/OZblu follow-up: nine named observations in nine bounded sections,
+two attributed held images and three unreadable regional catalogs. Brand,
+code/label discrepancies, comparator and packaging exclusions remain source
+context. Current audit: 93 sections / 640 names / 44 text matches / 596 review
+needs / 518 keys; blueberry 177, strawberry 306, raspberry 101, blackberry 56.
+32/77 subjects have some enumeration; 45 initial checks and 15 follow-ups remain.
+Catalog 64; photos 25/24 held/zero public; 1,992 original JSON unchanged.
+52 profile/photo and 32 public-snapshot/portfolio tests pass with native desktop/phone density/session review.
+No acquisition maturity, independent recall or global completeness claim.
+See PSG-OZBLU-PORTFOLIO-PHOTO-REVIEW.md. Local delivery pending parent approval;
+no new PR/CI, merge/deploy or other-berry Landscape rollout.
+
 October 7 Mountain Blue/Costa follow-up: seven bounded sections add 28 name
 observations and three held images, without approving traits, rights, roles or
 current availability. Current scope: 84 sections / 631 occurrences / 42 catalog

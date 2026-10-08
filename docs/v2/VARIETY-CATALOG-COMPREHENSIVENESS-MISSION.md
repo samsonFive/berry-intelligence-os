@@ -1,5 +1,18 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+**Latest local checkpoint, October 7:** PSG/OZblu add nine bounded sections,
+nine name observations and two credited held images. Three failed regional
+catalogs remain gaps, and platform/cultivar codes/photo conflicts unresolved.
+Existing Magica alias reused; no new canonical identity. Photo/content columns
+restore profile density; phone stacking/session controls native-verified.
+52 profile/photo and 32 public-snapshot/portfolio tests pass; records validate, original 1,992 JSON unchanged.
+Current scope: 93 sections / 640 occurrences / 44 text matches / 596 review
+needs / 518 keys; 32/77 subjects partly checked, 45 initial checks and 15
+source gaps. Catalog 64; photos 25/24 held/zero public. See
+PSG-OZBLU-PORTFOLIO-PHOTO-REVIEW.md. Independent recall, rich profiles, rights,
+full histories and all CAT-01/CAT-02/TD-116 obligations remain open. Local-only
+pending exact parent approval; no merge/deploy or other-berry Landscape rollout.
+
 **Current local checkpoint, October 7:** Mountain Blue/Costa add seven bounded
 source sections, 28 name observations and three held images. Current totals:
 84 sections / 631 occurrences / 42 text matches / 589 review needs / 511 keys;
