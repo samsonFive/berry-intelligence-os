@@ -17,6 +17,7 @@ def test_second_provider_preserves_images_and_receipts_after_restart(tmp_path):
     assert {r['method'] for r in store.collection_receipts(key)} == {'provider-one','provider-two'}
     store.ingest([incoming],ENTITIES)
     assert len(store.collection_receipts(key)) == 2
+    assert len(store.records()[0]['media']) == 1
 
 
 def test_provider_switch_cannot_resurrect_removed_media(tmp_path):

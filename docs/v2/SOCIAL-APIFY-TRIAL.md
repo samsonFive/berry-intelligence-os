@@ -53,4 +53,12 @@ Private SQLite adds `collection_receipts` and `media_url_tombstones` with idempo
 
 Validation: **108 passed**, covering storage, intake, workspace routes and saved profiles, with one existing Starlette/AnyIO deprecation warning. New checks exercise sparse provider updates, one-post identity across restart, receipt deduplication, original-ID removal replay and same-URL/different-ID removal replay. No network or paid calls in tests.
 
+### Actual retained-sample combination
+
+An isolated offline database combined the existing 243 live SociaVault records with 17 schema-valid Apify rows (16 distinct post identities). Three Facebook post identities matched existing records; 13 identities were new. Combined count **256**, unchanged after replay. These are unfiltered schema counts: irrelevant/unttranslated samples are included privately and not approved for display. Collection times/queries differ, so 13 additions do not measure comparative recall.
+
+Matching posts retained both provider receipts and prior media through replay. One five-reference post became ten references because the providers supplied different signed/size URLs for apparently overlapping photos; exact-URL deduplication does not establish visual-asset deduplication. Stable attachment identities/image variants remain open before preview import.
+
+The first actual replay exposed loss after a second sparse response. Storage now checks acquisition history, preserving earlier attachments on repeated updates after provider switching. The regression specifically checks that second update. **69 storage/evidence checks passed**, and the repeated actual sample audit passed. Raw records and the combined database remain private; the original preview is unchanged. Failed first audit retained separately for diagnosis. No new source requests or credit usage.
+
 Next: matched source comparisons, comments/replies, media loading/expiry, repeat/pagination and multilingual samples; then schema-specific normalization through existing intake, with estimated dates, article-only handling, author provenance, translation/quarantine and incidental-hashtag screening. Corporate and consumer views remain separate. Recurring monitoring, retention/removal permission and independent evaluation are unresolved; collection stays disabled.

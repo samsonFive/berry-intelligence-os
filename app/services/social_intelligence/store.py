@@ -58,7 +58,8 @@ class Store:
                     a=analyze(p,entities)
                 if existing:
                     old = json.loads(existing[0]); prior = json.loads(existing[1])
-                    if old['discovery_method'] != p['discovery_method']:
+                    multiple_methods = db.execute('SELECT 1 FROM collection_receipts WHERE evidence_id=? AND method<>? LIMIT 1',(key,p['discovery_method'])).fetchone()
+                    if old['discovery_method'] != p['discovery_method'] or multiple_methods:
                         # A different provider's partial response is not a source
                         # deletion. Preserve observed attachments across providers.
                         incoming_ids={m['id'] for m in p['media']}
