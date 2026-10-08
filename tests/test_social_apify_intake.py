@@ -106,3 +106,26 @@ def test_x_inspected_identity_language_date_media_and_replay(tmp_path):
     item['url']='https://x.com/demo/status/999999'
     bad=apify_dataset([item],source='x',build='1.0.45',collected_at='2026-10-08T00:00:00+00:00')
     assert not bad['rows'] and len(bad['rejected'])==1
+
+
+def test_x_reply_without_parent_stays_reply_and_quoted_media_is_not_attachment(tmp_path):
+    from app.services.social_intelligence.apify_intake import apify_dataset
+    from app.services.social_intelligence.store import Store
+    item={'tweet_id':'777777','url':'https://x.com/demo/status/777777','text':'My blueberries','created_at':'Wed Oct 07 09:01:34 +0000 2026','lang':'en','is_reply':True,'quoted_tweet':{'media':[{'image_url':'https://example.org/quote.jpg'}]},'author':{'avatar':'https://example.org/avatar.jpg'},'media':[{'image_url':'https://example.org/own.jpg'}]}
+    result=apify_dataset([item],source='x',build='1.0.45',collected_at='2026-10-08T00:00:00Z',mode='imported')
+    row=result['rows'][0]
+    assert row['record_role']=='reply' and row['parent_native_id'] is None and len(row['media'])==1
+    store=Store(tmp_path);key=store.ingest([row],[],mode='imported')[0]
+    store.remove(key,media_id=row['media'][0]['id']);Store(tmp_path).ingest([row],[],mode='imported')
+    assert store.records(mode='imported')[0]['media'][0]['state']=='deleted'
+    item['in_reply_to_status_id']='888888'
+    linked=apify_dataset([item],source='x',build='1.0.45',collected_at='2026-10-08T00:00:00Z')['rows'][0]
+    assert linked['parent_native_id']=='888888'
+
+
+@pytest.mark.parametrize('bad',[{'url':[]},{'created_at':7},{'author':['bad']},{'media':[{'image_url':{'bad':'value'}}]},{'is_reply':True,'in_reply_to_status_id':'not-a-native-id'}])
+def test_x_malformed_records_are_explicit_rejects(bad):
+    from app.services.social_intelligence.apify_intake import apify_dataset
+    item={'tweet_id':'123456','url':'https://x.com/demo/status/123456','text':'Blueberries','created_at':'Wed Oct 07 09:01:34 +0000 2026',**bad}
+    result=apify_dataset([item],source='x',build='1.0.45',collected_at='2026-10-08T00:00:00Z')
+    assert not result['rows'] and len(result['rejected'])==1

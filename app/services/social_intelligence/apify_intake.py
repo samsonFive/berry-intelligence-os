@@ -15,7 +15,7 @@ def apify_x_post(item, *, build, collected_at, mode='live'):
     from email.utils import parsedate_to_datetime
     native = str(item.get('tweet_id') or '')
     url = item.get('url'); text = item.get('text')
-    if not native.isdigit() or not isinstance(text, str) or not text.strip() or not url:
+    if not native.isdigit() or not isinstance(text, str) or not text.strip() or not isinstance(url, str) or not url:
         raise AccessBlocked('Tweet identity/body absent')
     parsed = urlsplit(safe_url(url))
     if parsed.hostname not in ('x.com', 'www.x.com', 'twitter.com', 'www.twitter.com') or parsed.path.rstrip('/').split('/')[-2:] != ['status', native]:
@@ -26,7 +26,10 @@ def apify_x_post(item, *, build, collected_at, mode='live'):
     if stamp.tzinfo is None:
         raise AccessBlocked('Tweet publication timezone absent')
     parent = str(item.get('in_reply_to_status_id')) if item.get('is_reply') is True and item.get('in_reply_to_status_id') else None
+    if parent is not None and not parent.isdigit():
+        raise AccessBlocked('Tweet reply parent identity invalid')
     row = common('x', native, url, text, language=item.get('lang') or 'und', published=stamp.isoformat(), parent=parent)
+    if item.get('is_reply') is True:row['record_role'] = 'reply'
     row.update(mode=mode, collected_at=collected_at, discovery_method='apify-x', query_version='apify-inspected-'+build,
                attribution='X original tweet via Apify', permission_basis='Third-party response; reference only; retention/redisplay rights unverified')
     author = item.get('author') or {}
