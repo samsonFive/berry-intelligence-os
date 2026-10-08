@@ -9,7 +9,8 @@ DATA = Path(__file__).resolve().parents[1] / 'data'
 
 
 def documents():
-    return [s for s in load_portfolio_observations(DATA) if s['id'].startswith('portfolio-so-')]
+    return [s for s in load_portfolio_observations(DATA)
+            if s['id'].startswith('portfolio-so-sheet-') or s['id'] == 'portfolio-so-patent-ofelia']
 
 
 def test_original_document_types_and_literal_patent_metadata_remain_unreviewed():

@@ -202,7 +202,8 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
             elif not catalog_id and candidate and candidate.get("human_gated") and candidate.get("identity_state") == "distinct":
                 status = "distinct_awaiting_catalog"
             reference = {"id": source["id"], "title": source["title"], "url": source["url"],
-                         "checked_on": source["checked_on"], "companies": companies, **observation,
+                         "checked_on": source["checked_on"], "source_type": source["source_type"],
+                         "companies": companies, **observation,
                          "identity_notes": identity_notes}
             if source.get("published_date"):
                 reference["published_date"] = source["published_date"]

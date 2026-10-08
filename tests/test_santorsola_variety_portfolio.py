@@ -20,7 +20,8 @@ def test_source_claims_and_programme_date_do_not_become_rights_traits_or_photos(
     assert {c['berry_id'] for c in candidates} == {'berry-strawberry', 'berry-raspberry'}
     assert all(not c['aliases'] and not c['proposed_relationships'] and not c['registration']['status'] for c in candidates)
     assert all(not s.get('published_date') for s in rows)
-    assert all(not s['capture_reference']['full_technical_sheets_checked'] for s in rows if s['names'])
+    assert all(s['capture_reference']['full_technical_sheets_checked'] for s in rows)
+    assert all(not s['capture_reference']['rights_documents_checked'] for s in rows)
     assert next(s for s in rows if not s['names'])['capture_reference']['full_technical_sheets_checked']
     assert not any(n.get('photos') for s in original for n in s['names'])
     assert sum(s['needs_follow_up'] for s in rows) == 1
