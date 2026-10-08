@@ -89,3 +89,20 @@ def test_nested_parent_mismatch_and_metadata_not_silent_success():
         apify_dataset([post],source='linkedin',build='synthetic-test',collected_at=NOW,mode='fixture')
     result=apify_dataset([{'id':'article','article':{'title':'Blueberries'}}],source='linkedin',build='synthetic-test',collected_at=NOW,mode='fixture')
     assert not result['rows'] and len(result['rejected'])==1
+
+
+def test_x_inspected_identity_language_date_media_and_replay(tmp_path):
+    from app.services.social_intelligence.apify_intake import apify_dataset
+    from app.services.social_intelligence.store import Store
+    item={'tweet_id':'123456','url':'https://x.com/demo/status/123456','text':'Blueberries today','created_at':'Wed Oct 07 09:01:34 +0000 2026','lang':'en','author':{'screen_name':'demo','avatar':'https://example.org/avatar.jpg'},'media':[{'image_url':'https://example.org/post.jpg','video_url':None}]}
+    result=apify_dataset([item,item],source='x',build='1.0.45',collected_at='2026-10-08T00:00:00+00:00',mode='imported')
+    assert len(result['rows'])==1 and result['duplicate_copies']==1 and not result['rejected']
+    row=result['rows'][0]
+    assert row['language']=='en' and row['published_at']=='2026-10-07T09:01:34Z'
+    assert len(row['media'])==1 and row['content_role']=='unknown' and row['author_handle']=='demo'
+    assert row.get('author_geography') is None and row.get('purchase_market') is None
+    store=Store(tmp_path);store.ingest(result['rows'],[],mode='imported');Store(tmp_path).ingest(result['rows'],[],mode='imported')
+    assert len(store.records(mode='imported'))==1 and not store.records(mode='live')
+    item['url']='https://x.com/demo/status/999999'
+    bad=apify_dataset([item],source='x',build='1.0.45',collected_at='2026-10-08T00:00:00+00:00')
+    assert not bad['rows'] and len(bad['rejected'])==1

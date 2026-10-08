@@ -250,3 +250,12 @@ def test_allowance_defaults_to_one_and_rejects_above_authorized_maximum(tmp_path
     with pytest.raises(AccessBlocked,match='ledger unreadable'):
         launch(jobs)
     assert not requests
+
+
+@pytest.mark.parametrize('override',[{'searchType':'profile'},{'maxItems':6},{'maxItems':True},{'maxComments':1},{'maxFollowers':1},{'unknownAddon':1}])
+def test_x_search_rejects_addons_and_unbounded_inputs_before_requests(tmp_path,override):
+    jobs, requests, _ = harness(tmp_path)
+    inputs={'searchType':'search','searchQuery':'blueberries','maxItems':5,**override}
+    with pytest.raises(AccessBlocked,match='bounded search only'):
+        jobs.launch('x-trial','atomus/twitter-scraper',build_id=BUILD,build_number='1.0.45',actor_input=inputs)
+    assert not requests and not tmp_path.joinpath('ledger.json').exists()

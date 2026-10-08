@@ -19,7 +19,7 @@ from app.services.collection_runner import CollectionRunLock
 from .adapters import AccessBlocked
 
 ACTORS = {'apify/facebook-posts-scraper', 'apify/instagram-scraper',
-          'harvestapi/linkedin-post-search'}
+          'harvestapi/linkedin-post-search', 'atomus/twitter-scraper'}
 TERMINAL = {'SUCCEEDED', 'FAILED', 'TIMED-OUT', 'ABORTED'}
 
 
@@ -77,6 +77,16 @@ class ApifyJobs:
             raise AccessBlocked('Exact build number required; latest is not a pin')
         if not isinstance(actor_input, dict) or len(json.dumps(actor_input)) > 8000:
             raise ValueError('Bounded actor input required')
+        if actor == 'atomus/twitter-scraper':
+            allowed = {'searchType', 'searchQuery', 'sortOrder', 'maxItems', 'since', 'until', 'language',
+                       'maxComments', 'maxRetweeters', 'maxFollowers', 'maxFollowing'}
+            if (set(actor_input) - allowed or actor_input.get('searchType') != 'search'
+                    or not isinstance(actor_input.get('searchQuery'), str)
+                    or not 1 <= len(actor_input['searchQuery'].strip()) <= 300
+                    or type(actor_input.get('maxItems')) is not int or not 1 <= actor_input['maxItems'] <= 5
+                    or any(type(actor_input.get(k, 0)) is not int or actor_input.get(k, 0) != 0
+                           for k in ('maxComments', 'maxRetweeters', 'maxFollowers', 'maxFollowing'))):
+                raise AccessBlocked('X trial supports bounded search only; add-ons disabled')
         if not isinstance(cap_usd, (float, int)) or not math.isfinite(cap_usd) or not 0 < cap_usd <= .1:
             raise ValueError('Trial cap must be positive and at most $0.10 included credit')
         self.folder.mkdir(parents=True, exist_ok=True)
@@ -204,7 +214,7 @@ class ApifyJobs:
             raise AccessBlocked('Successful saved job required; unfinished/failing jobs are not importable zeroes')
         source = {'apify/facebook-posts-scraper': 'facebook',
                   'apify/instagram-scraper': 'instagram',
-                  'harvestapi/linkedin-post-search': 'linkedin'}.get(entry.get('actor'))
+                  'harvestapi/linkedin-post-search': 'linkedin', 'atomus/twitter-scraper': 'x'}.get(entry.get('actor'))
         if not source or not entry.get('build_number'):
             raise AccessBlocked('Saved source/build contract unrecognized')
         cache = self.folder / (case + '-items.json')
@@ -242,7 +252,7 @@ class ApifyJobs:
         jobs = []
         sources = {'apify/facebook-posts-scraper': 'facebook',
                    'apify/instagram-scraper': 'instagram',
-                   'harvestapi/linkedin-post-search': 'linkedin'}
+                   'harvestapi/linkedin-post-search': 'linkedin', 'atomus/twitter-scraper': 'x'}
         for entry in ledger['attempts']:
             source = sources.get(entry.get('actor'))
             if not source:

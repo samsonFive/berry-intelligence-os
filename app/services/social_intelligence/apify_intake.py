@@ -10,7 +10,50 @@ from .adapters import common, AccessBlocked
 from .model import safe_url, validate_intake
 
 
+def apify_x_post(item, *, build, collected_at, mode='live'):
+    """Inspected Atomus tweet shape; no author-location or quoted-media inference."""
+    from email.utils import parsedate_to_datetime
+    native = str(item.get('tweet_id') or '')
+    url = item.get('url'); text = item.get('text')
+    if not native.isdigit() or not isinstance(text, str) or not text.strip() or not url:
+        raise AccessBlocked('Tweet identity/body absent')
+    parsed = urlsplit(safe_url(url))
+    if parsed.hostname not in ('x.com', 'www.x.com', 'twitter.com', 'www.twitter.com') or parsed.path.rstrip('/').split('/')[-2:] != ['status', native]:
+        raise AccessBlocked('Tweet URL and native identity disagree')
+    if not isinstance(item.get('created_at'), str):
+        raise AccessBlocked('Tweet publication date string required')
+    stamp = parsedate_to_datetime(item['created_at'])
+    if stamp.tzinfo is None:
+        raise AccessBlocked('Tweet publication timezone absent')
+    parent = str(item.get('in_reply_to_status_id')) if item.get('is_reply') is True and item.get('in_reply_to_status_id') else None
+    row = common('x', native, url, text, language=item.get('lang') or 'und', published=stamp.isoformat(), parent=parent)
+    row.update(mode=mode, collected_at=collected_at, discovery_method='apify-x', query_version='apify-inspected-'+build,
+               attribution='X original tweet via Apify', permission_basis='Third-party response; reference only; retention/redisplay rights unverified')
+    author = item.get('author') or {}
+    if not isinstance(author, dict):raise AccessBlocked('Tweet author object required')
+    row.update(author_handle=author.get('screen_name'), author_name=author.get('name'))
+    media = item.get('media') or []
+    if not isinstance(media, list) or len(media)>30:
+        raise AccessBlocked('Tweet media schema/item ceiling exceeded')
+    seen = set()
+    for m in media:
+        if not isinstance(m, dict):raise AccessBlocked('Tweet media object required')
+        for field, kind in (('image_url','image'), ('video_url','video')):
+            ref = m.get(field)
+            if not ref:continue
+            if not isinstance(ref, str):raise AccessBlocked('Tweet media URL string required')
+            if ref in seen:continue
+            safe_url(ref);seen.add(ref)
+            row['media'].append({'id':'apify-'+kind+'-'+hashlib.sha256(ref.encode()).hexdigest()[:24],
+                'parent_native_id':native,'kind':kind,'source_url':ref,'mime':kind+'/reference','state':'available',
+                'storage_permission':'reference_only','attribution':'X tweet media via Apify',
+                'retention':'Availability and retention/redisplay rights require verification'})
+    return validate_intake(row, mode=mode)
+
+
 def apify_post(item, *, source, build, collected_at, mode='live'):
+    if source == 'x':
+        return apify_x_post(item, build=build, collected_at=collected_at, mode=mode)
     if source not in ('instagram', 'facebook', 'linkedin'):
         raise AccessBlocked('Apify platform schema not inspected')
     native = item.get('postId') if source == 'facebook' else item.get('id')
