@@ -1,6 +1,20 @@
 # Variety catalog: comprehensive, source-linked coverage
 
-**Current local checkpoint, October 7:** CIV/Hansabred/Nova Siri add 40 source
+**Current local checkpoint, October 7:** CIV technical sheets add nine heading
+observations and four unreviewed code leads across eleven body attempts.
+Seven bounded name checks are enumerated, two partial and two unreadable.
+Original index leads, comparison exclusions, access limits and human decisions
+remain intact. Current totals: 77 sections / 603 occurrences / 36 catalog text
+matches / 567 review needs / 499 derived keys. Catalog stays 64; 49 initial
+subject checks and eleven capture/accounting gaps remain. Photos unchanged:
+20 references, 19 unknown-reuse holds, zero approved public. 72 tests, records
+and native candidate review pass; existing data unchanged. Full historical
+portfolios, independently measured recall, official rights and profile depth
+remain open. See CIV-TECHNICAL-SHEET-IDENTITY-REVIEW.md. Delivery stays local
+pending exact parent-push approval; no new PR/CI, merge/deploy or other-berry
+Landscape rollout. Earlier checkpoints below remain historical.
+
+**Earlier local checkpoint, October 7:** CIV/Hansabred/Nova Siri add 40 source
 name observations and four held, attributed images. Measured scope is now
 66 sections / 594 mentions / 36 catalog text matches / 558 review needs /
 495 derived candidate keys; 28 of 77 subjects have some bounded enumeration,

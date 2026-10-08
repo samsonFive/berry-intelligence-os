@@ -1,5 +1,19 @@
 # Intelligence Coverage Matrix
 
+October 7 CIV technical-sheet follow-up: eleven linked body attempts add nine
+heading observations and four separate code/name leads. Seven bounded sections
+are enumerated, two partial and two unreadable; original index leads and
+comparison exclusions remain. Measured totals: 77 sections / 603 occurrences /
+36 catalog text matches / 567 review needs / 499 keys before private state.
+Strawberry 304, blueberry 147, raspberry 99, blackberry 53. 28/77 subjects have
+some enumeration; 49 need an initial check and eleven source gaps remain.
+Catalog 64 and photos 20/19 held/zero public approvals are unchanged. 72 tests,
+records and native candidate review pass; all 1,992 original JSON unchanged.
+No acquisition/recall maturity increase, source onboarding, legal verification
+or trust promotion. Independent recall, profiles and full portfolios remain
+open. See CIV-TECHNICAL-SHEET-IDENTITY-REVIEW.md. Local-only delivery pending
+parent push approval; no new PR/CI, merge/deploy or Landscape rollout.
+
 October 7 European source follow-up: CIV, Hansabred and Nova Siri each have a
 bounded current index check, not a completed historical portfolio. Six sections
 add 40 strawberry name observations and four attributed held photos. Product

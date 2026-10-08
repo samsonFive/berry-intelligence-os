@@ -1,5 +1,17 @@
 # Project Status
 
+October 7 local CIV technical-sheet follow-up: eleven body attempts add nine
+heading observations and four unreviewed code/label leads. Seven bounded
+sections are enumerated; EDWINA/KAMILA remain partial, ANTEA/FLAMINIA unreadable.
+Comparators and protection symbols stay separate from approved identities,
+rights and traits. 72 tests, records and native candidate review pass; all
+1,992 existing JSON files unchanged, catalog stays 64. Current totals:
+77 sections / 603 mentions / 36 text matches / 567 review needs / 499 derived
+keys; 28/77 subjects partly checked, 49 initial checks and eleven source gaps
+remain. Photos unchanged at 20 / 19 held / zero approved public. Local delivery
+only, parent 0ce865d push still awaits exact approval after automatic rejection.
+See CIV-TECHNICAL-SHEET-IDENTITY-REVIEW.md; no merge/deploy or Landscape rollout.
+
 October 7 local European portfolio follow-up: CIV/Hansabred/Nova Siri add
 40 original-source name observations and four held, credited photos. Six
 bounded sections preserve code/label pairs, wild-strawberry context, original

@@ -2258,3 +2258,16 @@ Seven source gaps, linked technical sheets, full histories, official rights,
 independent recall and profile depth remain open. Delivery is local pending
 specific parent-push approval after automatic rejection; no new PR/CI.
 See EUROPEAN-PORTFOLIO-NAME-PHOTO-REVIEW.md; TD-116 remains open.
+
+**October 7 local CIV sheet TD-116 follow-up:** Eleven body attempts retain
+nine name observations and four separate, unreviewed code leads. Comparison
+mentions do not become own portfolio entries; protection symbols do not
+become verified rights. Seven sections have bounded enumeration, two remain
+partial and two unreadable. Current totals are 77 sections / 603 mentions /
+36 text matches / 567 review needs / 499 keys; 49 initial subject checks and
+eleven source gaps remain. All existing 1,992 JSON files unchanged; catalog 64,
+photos 20/19 held/zero approved public. 72 focused tests, records and native
+candidate review pass. Official verification, historical completeness,
+independent recall and profile depth remain open; TD-116 is not resolved.
+See CIV-TECHNICAL-SHEET-IDENTITY-REVIEW.md. Local follow-up only; exact parent
+push approval remains pending after automatic rejection. No new PR/CI.

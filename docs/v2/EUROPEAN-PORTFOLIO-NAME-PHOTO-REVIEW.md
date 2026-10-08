@@ -1,5 +1,9 @@
 # Current CIV, Hansabred and Nova Siri portfolios
 
+Subsequent CIV sheet-body checks are recorded separately in
+[CIV-TECHNICAL-SHEET-IDENTITY-REVIEW.md](CIV-TECHNICAL-SHEET-IDENTITY-REVIEW.md).
+The index-only scope and measured counts below describe this earlier slice.
+
 Three additional companies now have bounded original-source name checks in
 the private variety review queue. Six sections add 40 name observations and
 four attributed photo references. The canonical catalog remains 64; a source

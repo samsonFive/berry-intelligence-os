@@ -1,5 +1,18 @@
 # Redesign and consolidation requirements
 
+October 7 CIV sheet follow-up: eleven original technical-sheet attempts add
+nine source heading observations and four separate code leads. Seven bounded
+checks are enumerated; two partial and two unreadable bodies retain explicit
+limits and their original index leads. Comparisons are excluded from own
+portfolios; no automatic identity, rights, trait, photo or human review change.
+72 regressions, record validation and native candidate review pass; existing
+1,992 JSON files unchanged and catalog stays 64. Current scope: 77 sections /
+603 mentions / 36 text matches / 567 review needs / 499 derived keys. 49 initial
+subject checks and eleven source gaps remain. Photos unchanged: 20 references,
+19 holds, zero public approvals. CAT-01/CAT-02/TD-116 remain open. See
+CIV-TECHNICAL-SHEET-IDENTITY-REVIEW.md. Local branch; parent push question still
+pending after automatic rejection. No new PR/CI, merge/deploy or Landscape rollout.
+
 October 7 European source follow-up: three more companies now have bounded
 portfolio checks: CIV's 29 index names, Hansabred's six cultivars and Nova Siri's
 five current products. Four new attributed images use the private session
