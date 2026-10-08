@@ -12,6 +12,7 @@ def test_remote_session_protects_social_workspace_and_mutations(client, monkeypa
     assert remote.get('/social').status_code == 302
     assert remote.get('/api/social').status_code == 302
     assert remote.post('/api/social/manual', json={}, headers={'Origin':'http://testserver'}).status_code == 302
+    assert remote.post('/api/social/profiles/save', json={}, headers={'Origin':'http://testserver'}).status_code == 302
 
 from fastapi.testclient import TestClient
 from app import main
@@ -19,6 +20,27 @@ from app.services.social_intelligence.store import Store
 
 ROOT=Path(__file__).resolve().parents[1]
 FIXTURE=json.loads((ROOT/'benchmarks/social-blueberry-fixtures.json').read_text(encoding='utf-8'))
+
+def test_saved_social_view_private_review_scope_reopen_and_csrf(client):
+    payload={'name':'Berry review','filters':{'mode':'fixture','perspective':'corporate','language':'es'},'reviewed_by':'Test reviewer'}
+    assert client.post('/api/social/profiles/save',json=payload).status_code==403
+    saved=client.post('/api/social/profiles/save',json=payload,headers={'Origin':'http://testserver'})
+    assert saved.status_code==200
+    row=saved.json(); assert row['monitoring'] is False and row['reviewed_by']=='Test reviewer'
+    assert 'Saved views' in client.get('/social').text
+    page=client.get(row['url']);assert page.status_code==200 and 'Berry review' in page.text
+    assert client.get('/api/social?'+row['url'].split('?')[1]).json()['filters']==row['filters']
+    matching=client.get('/api/social?mode=fixture&language=es').json()['records'][0]
+    # A consumer post must not link to this corporate-only saved scope.
+    assert 'Berry review' not in client.get('/api/social/'+matching['id']+'/reader').text
+    consumer=client.post('/api/social/profiles/save',json={'name':'Consumer view','filters':{'mode':'fixture','language':'es','perspective':'consumer'}},headers={'Origin':'http://testserver'})
+    assert consumer.status_code==200
+    assert 'Consumer view' in client.get('/api/social/'+matching['id']+'/reader').text
+    payload['enabled']=True
+    assert client.post('/api/social/profiles/save',json=payload,headers={'Origin':'http://testserver'}).status_code==422
+    assert client.post('/api/social/profiles/remove',json={'id':row['id'],'revision':0},headers={'Origin':'http://testserver'}).status_code==422
+    assert client.post('/api/social/profiles/remove',json={'id':row['id'],'revision':1},headers={'Origin':'http://testserver'}).status_code==200
+    assert client.get('/api/social?mode=fixture').json()['count']>0
 
 @pytest.fixture
 def client(tmp_path,monkeypatch):

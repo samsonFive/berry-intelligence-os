@@ -8,6 +8,7 @@ from app.services.social_intelligence.store import Store, now
 from app.services.social_intelligence.aggregate import bundle, href, VIEWS
 from app.services.social_intelligence.model import PLATFORMS
 from app.services.social_intelligence.presentation import player, readable_in_english
+from app.services.social_intelligence.profiles import saved_profiles,save_profile,remove_profile,matching_profiles
 
 router=APIRouter()
 ROOT=Path(__file__).resolve().parents[1]
@@ -39,7 +40,10 @@ def page(request:Request):
     # Existing geography boundary contract, no second geocoder or explorer.
     map_locator=overview({'lanes':[]})
     entities=sorted((e for e in main.all_entities() if e.get('entity_type') in ('company','variety')),key=lambda e:e.get('name',e['id']).casefold())
-    return main.templates.TemplateResponse(request,'social.html',{'authoring_mode':True,'bundle':b,'href':href,'views':VIEWS,'platforms':PLATFORMS,'map_locator':map_locator,'social_entities':entities,'trial_preview':os.environ.get('BIOS_SOCIAL_TRIAL_PREVIEW')=='true','player_for':player},headers={'Cache-Control':'private, no-store'})
+    try: profiles=saved_profiles(main.INBOX_DIR);profile_error=''
+    except ValueError as exc:profiles=[];profile_error=str(exc)
+    selected_profile=next((p for p in profiles if p['id']==request.query_params.get('saved')),None)
+    return main.templates.TemplateResponse(request,'social.html',{'authoring_mode':True,'bundle':b,'href':href,'views':VIEWS,'platforms':PLATFORMS,'map_locator':map_locator,'social_entities':entities,'trial_preview':os.environ.get('BIOS_SOCIAL_TRIAL_PREVIEW')=='true','player_for':player,'saved_social_profiles':profiles,'selected_social_profile':selected_profile,'profile_error':profile_error},headers={'Cache-Control':'private, no-store'})
 
 @router.get('/api/social')
 def api(request:Request):
@@ -53,7 +57,9 @@ def reader(request:Request,key:str):
     if not row: raise HTTPException(410,'Observation unavailable or removed')
     if not readable_in_english(row): raise HTTPException(409,'An English version is pending')
     thread=[r for r in store.records(mode=row['mode']) if readable_in_english(r) and r['source']==row['source'] and (r['native_id']==row.get('parent_native_id') or r.get('parent_native_id')==row['native_id'])]
-    return main.templates.TemplateResponse(request,'social_reader.html',{'row':row,'thread':thread,'player':player(row)},headers={'Cache-Control':'private, no-store'})
+    try: profiles=matching_profiles(main.INBOX_DIR,row)
+    except ValueError:profiles=[]
+    return main.templates.TemplateResponse(request,'social_reader.html',{'row':row,'thread':thread,'player':player(row),'matching_social_profiles':profiles},headers={'Cache-Control':'private, no-store'})
 
 @router.get('/api/social/{key}/media/{media_id}')
 def media(key:str,media_id:str):
@@ -80,6 +86,21 @@ async def import_records(request:Request):
     try: ids=store.ingest(payload,main.all_entities(),mode='imported')
     except ValueError as exc: raise HTTPException(422,str(exc)) from exc
     return {'ids':ids,'mode':'imported','monitoring':False}
+
+@router.post('/api/social/profiles/save')
+async def save_social_profile(request:Request):
+    payload=await mutation(request);main,_=context()
+    if not isinstance(payload,dict) or set(payload)-{'name','filters','reviewed_by','revision'}:raise HTTPException(422,'Invalid saved view')
+    try:return save_profile(main.INBOX_DIR,payload.get('name'),payload.get('filters'),main.all_entities(),reviewed_by=payload.get('reviewed_by',''),revision=payload.get('revision'))
+    except ValueError as exc:raise HTTPException(422,str(exc)) from exc
+
+@router.post('/api/social/profiles/remove')
+async def remove_social_profile(request:Request):
+    payload=await mutation(request);main,_=context()
+    if not isinstance(payload,dict) or set(payload)!={'id','revision'}:raise HTTPException(422,'Invalid saved view action')
+    try:remove_profile(main.INBOX_DIR,payload['id'],payload['revision'])
+    except ValueError as exc:raise HTTPException(422,str(exc)) from exc
+    return {'removed':True,'monitoring':False}
 
 @router.post('/api/social/manual')
 async def manual(request:Request):

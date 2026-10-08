@@ -32,3 +32,9 @@
 .social-workspace a:not([data-social-lightbox]):not(.social-tabs a),.social-evidence a:not([data-social-lightbox]){text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;color:#514074}.social-workspace button:not(.social-cloud button):not([data-sort]),.social-evidence button{border-color:#899d8e;font-weight:600;box-shadow:0 1px 1px #233e3410}.social-carousel-controls button{min-width:24px;min-height:24px;background:#f7faf4}.social-slide a{position:relative;cursor:zoom-in}.social-slide a::after{content:'⤢';position:absolute;right:3px;bottom:3px;background:#fffE;color:#244338;border:1px solid #aab8ad;border-radius:3px;padding:0 3px;font:15px system-ui;pointer-events:none}.social-evidence summary,.social-workspace summary{cursor:pointer;color:#514074;text-decoration:underline;text-underline-offset:3px}.social-reader-copy,.social-post-text{color:#233e34}.social-reader-top h2{font-weight:600}.social-post-grid thead th{border-bottom:2px solid #afbcad}.social-post-grid .social-chip{font-weight:500}
 
 .social-post-text.social-text-expanded{display:block;-webkit-line-clamp:unset}.social-post-grid .social-full-post{display:block;font-size:10px;padding:2px 5px;margin-top:2px}.social-post-author{overflow-wrap:anywhere}
+/* Saved scope stays compact and collapsed while scanning posts. */
+.social-saved {margin: .3rem 0; font-size: .85rem;}
+.social-saved form {display:flex;flex-wrap:wrap;gap:.5rem;align-items:end;}
+.social-saved label {display:flex;flex-direction:column;gap:.15rem;}
+.social-saved ul {margin:.4rem 0;padding-left:1.1rem;}
+.social-saved p {margin:.3rem 0;}

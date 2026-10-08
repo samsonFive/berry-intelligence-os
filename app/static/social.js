@@ -2,6 +2,17 @@
   'use strict';
   const root=document.querySelector('[data-social]'); if(!root) return;
   const records=[...root.querySelectorAll('[data-social-record]')];
+  const profileStatus=root.querySelector('[data-social-profile-status]');
+  const profileForm=root.querySelector('[data-social-profile-save]');
+  profileForm?.addEventListener('submit',async event=>{
+    event.preventDefault();const data=Object.fromEntries(new FormData(profileForm));
+    data.filters=JSON.parse(root.querySelector('#social-bundle').textContent).filters;
+    if(data.name.trim().toLowerCase()===profileForm.dataset.existingName.toLowerCase() && profileForm.dataset.revision)data.revision=Number(profileForm.dataset.revision);
+    try{const saved=await post('/api/social/profiles/save',data);location.assign(saved.url);}catch(error){profileStatus.textContent=error.message;}
+  });
+  root.querySelectorAll('[data-social-profile-remove]').forEach(button=>button.addEventListener('click',async()=>{
+    try{await post('/api/social/profiles/remove',{id:button.dataset.socialProfileRemove,revision:Number(button.dataset.revision)});button.closest('li').remove();profileStatus.textContent='Saved view removed. Posts are unchanged.';}catch(error){profileStatus.textContent=error.message;}
+  }));
   function drill(ids,label,save=true,clear=false) {
     const selection=new Set(ids);
     records.forEach(r=>{r.hidden=!clear && !selection.has(r.dataset.socialRecord);});
