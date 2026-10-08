@@ -1,5 +1,22 @@
 # Intelligence Coverage Matrix
 
+October 7 European source follow-up: CIV, Hansabred and Nova Siri each have a
+bounded current index check, not a completed historical portfolio. Six sections
+add 40 strawberry name observations and four attributed held photos. Product
+checks preserve code/label assertions, Fontaine's wild-hybrid context, exact
+PDF/asset links, comparison exclusions and unknown image reuse.
+
+Measured scope: 66 sections / 594 occurrences / 36 catalog text matches /
+558 review needs / 495 derived keys; 28 of 77 subjects have some enumeration,
+49 lack an initial checked section. Photos 20, unknown-reuse holds 19, approved
+public zero; catalog 64. Seven source gaps, full portfolios, unread technical
+sheets, registry checks, independent recall and profile depth remain open.
+71 focused tests, records and native desktop/phone photo acceptance pass;
+all 1,992 existing record/runtime files unchanged. Delivery remains local on
+the child branch; parent 0ce865d push awaits specific approval after automatic
+rejection. No new PR/CI, merge/deploy or other-berry rollout. See
+EUROPEAN-PORTFOLIO-NAME-PHOTO-REVIEW.md; CAT-01/CAT-02/TD-116 stay open.
+
 October 7 local company-name/photo follow-up: three additional subjects have
 bounded name checks, not complete portfolios. ASD retains nine literal
 strawberry labels in ten paragraph mentions; Benning's history page names no

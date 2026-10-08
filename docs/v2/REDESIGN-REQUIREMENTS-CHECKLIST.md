@@ -1,5 +1,20 @@
 # Redesign and consolidation requirements
 
+October 7 European source follow-up: three more companies now have bounded
+portfolio checks: CIV's 29 index names, Hansabred's six cultivars and Nova Siri's
+five current products. Four new attributed images use the private session
+control. Literal codes, species/use context and human decisions are preserved;
+no comparator, filename code or registered-mark legal claim is inferred.
+71 regressions, records and native desktop/360px phone acceptance pass.
+Current catalog 64; 66 sections / 594 mentions / 36 text matches / 558 review
+needs / 495 derived keys; 20 photos / 19 unknown-reuse holds / zero approved
+public. 28 of 77 subjects have some enumeration, leaving 49 initial checks.
+Seven existing source gaps, complete historical portfolios, technical sheets,
+official rights verification, independent recall and profile depth stay open.
+See EUROPEAN-PORTFOLIO-NAME-PHOTO-REVIEW.md. Local child branch; prior 0ce865d
+push awaits specific approval after two automatic rejections. No new PR/CI,
+merge/deploy, trust promotion or other-berry Landscape rollout.
+
 October 7 local follow-up: ASD/Benning/Inka's bounded original-source checks add
 12 name mentions and two visibly labeled, credited blueberry images. Generic
 images, spelling corrections, ownership and map claims are not inferred.

@@ -1,5 +1,19 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+**Current local checkpoint, October 7:** CIV/Hansabred/Nova Siri add 40 source
+name observations and four held, attributed images. Measured scope is now
+66 sections / 594 mentions / 36 catalog text matches / 558 review needs /
+495 derived candidate keys; 28 of 77 subjects have some bounded enumeration,
+49 lack an initial checked section. Catalog remains 64; source photos 20,
+unknown-reuse holds 19, approved public zero. 71 relevant local tests, records
+and native desktop/phone image acceptance pass; existing records/user decisions
+are unchanged. Full portfolios, seven source capture/accounting gaps,
+independent recall, official rights verification and profile depth remain open.
+See EUROPEAN-PORTFOLIO-NAME-PHOTO-REVIEW.md for evidence and limitations.
+Changes are local; parent 0ce865d push awaits specific approval after automatic
+rejection. No new PR/CI, merge/deploy or other-berry Landscape rollout.
+The dated sections below retain earlier measured checkpoints.
+
 October 7 visual historical-source follow-up: all 38 pages of a UGA public
 presentation are accounted for, including two handwritten photograph labels
 missed by extracted text. Eleven unreviewed name/code observations add ten

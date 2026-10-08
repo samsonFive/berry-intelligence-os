@@ -2245,3 +2245,16 @@ Inka's historical report, independent recall and profile depth remain open.
 Delivery is on a separate local branch. Preceding 0ce865d push awaits specific user
 authorization after two automatic approval-review rejections; no new PR/CI.
 TD-116 remains open. See COMPANY-NAMED-PHOTO-COVERAGE-REVIEW.md.
+
+**October 7 local European TD-116 follow-up:** CIV/Hansabred/Nova Siri add six
+bounded sections, 40 names and four held attributed photos. Current totals:
+66 sections / 594 mentions / 36 text matches / 558 review needs / 495 derived
+keys; 28/77 subjects with some enumeration, 49 lacking initial checks; photos
+20, unknown-reuse holds 19, approved public zero. Catalog stays 64. 71 local
+regressions, records and native desktop/phone preview pass; existing records
+and review/permission state unchanged. Source-reported identifiers, code/name
+pairs, wild-hybrid use and comparators remain separate from canonical facts.
+Seven source gaps, linked technical sheets, full histories, official rights,
+independent recall and profile depth remain open. Delivery is local pending
+specific parent-push approval after automatic rejection; no new PR/CI.
+See EUROPEAN-PORTFOLIO-NAME-PHOTO-REVIEW.md; TD-116 remains open.

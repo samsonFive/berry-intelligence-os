@@ -1,5 +1,19 @@
 # Project Status
 
+October 7 local European portfolio follow-up: CIV/Hansabred/Nova Siri add
+40 original-source name observations and four held, credited photos. Six
+bounded sections preserve code/label pairs, wild-strawberry context, original
+links and comparison exclusions without approving identities, traits or rights.
+71 focused tests, records and native desktop/phone photo acceptance pass.
+All 1,992 existing record/runtime JSON files remain unchanged; catalog stays 64.
+Current scope: 66 sections / 594 mentions / 36 text matches / 558 review needs /
+495 derived keys; 28 of 77 subjects have some enumeration, 49 lack an initial
+check. Twenty photos, 19 unknown-reuse holds, zero approved public. Seven source
+gaps and broader historical/registry/profile obligations remain open. See
+docs/v2/EUROPEAN-PORTFOLIO-NAME-PHOTO-REVIEW.md. Changes are local; parent
+0ce865d push still awaits the pending specific approval after two automatic
+review rejections. No new PR/CI, merge/deploy or other-berry rollout.
+
 October 7 local company-name/photo follow-up: ASD's two explicit strawberry
 lists, Benning's bounded no-name history check and Inka's Matías/Salvador product
 pages add 12 source mentions and two held, credited blueberry images. Literal
