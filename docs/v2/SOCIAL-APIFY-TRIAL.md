@@ -1,5 +1,9 @@
 # Apify measured trial — October 7, 2026
 
+## User review confirmation — October 8
+
+The user confirmed the corporate workspace looks useful and that playback on tested LinkedIn posts works in the reader. “View post” now opens the native LinkedIn embed expanded with eager loading; browser verification also rendered the actual embedded post/document without a second expansion click. Existing reader/embed checks: 27 passed, one existing deprecation warning. This establishes playback for the user's tested sample, not every LinkedIn format, account, region or future availability. Earlier untested-playback statements below describe the initial acquisition trial. Cheesecake and breakfast-curd promotions remain useful berry-usage examples; their commercial context remains visible rather than classified as consumer opinions. No purchase, merge or deployment.
+
 Four actual authenticated jobs completed on a verified FREE, non-paying account with $5 included credit and a $5 monthly limit. Cash spent **$0**; settled account credit usage **$0.0623138386**; active jobs **0**. No purchase, merge, deployment or ongoing collection.
 
 | Task / pinned build | Returned | Demonstrated capability | Settled run charge |
