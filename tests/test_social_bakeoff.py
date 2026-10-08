@@ -56,6 +56,24 @@ def test_transport_disabled_errors_not_cached_as_zero_and_no_retry(tmp_path):
     assert len(calls)==1 and not list(tmp_path.glob('*.bin'))
     with pytest.raises(AccessBlocked):reader.get('https://example.org/',{})
 
+def test_pilot_ledger_replacement_failure_preserves_previous_reservations(tmp_path,monkeypatch):
+    from pathlib import Path
+    from app.services.social_intelligence.sociavault_pilot import MultiPlatformPilot
+    pilot=MultiPlatformPilot(tmp_path)
+    pilot.ledger={'initial_balance':50,'attempts':[{'id':'already-reserved','state':'started'}]}
+    pilot._save();before=pilot.ledger_path.read_bytes()
+    original_replace=Path.replace
+    def fail_ledger_replace(path,target):
+        if Path(target)==pilot.ledger_path:raise OSError('simulated write interruption')
+        return original_replace(path,target)
+    monkeypatch.setattr(Path,'replace',fail_ledger_replace)
+    pilot.ledger['attempts'].append({'id':'next-reservation','state':'started'})
+    with pytest.raises(OSError):pilot._save()
+    assert pilot.ledger_path.read_bytes()==before
+    restarted=MultiPlatformPilot(tmp_path)
+    assert restarted.ledger['attempts']==[{'id':'already-reserved','state':'started'}]
+    assert not list(tmp_path.glob('*.tmp'))
+
 def test_feed_long_identity_exact_dates_cache_and_pipeline_restart(tmp_path):
     xml=f'''<rss><channel><item><guid>{'long'*200}</guid><link>https://news.google.com/rss/articles/test</link><title>Blueberries sweet and crunchy</title><pubDate>Wed, 07 Oct 2026 12:00:00 GMT</pubDate><source>Publisher</source></item><item><guid>old</guid><link>https://news.google.com/rss/articles/old</link><title>Old blueberry</title><pubDate>Mon, 01 Jan 2024 12:00:00 GMT</pubDate></item></channel></rss>'''
     reader=BoundedRead(tmp_path/'cache',enabled=True,client=httpx.Client(transport=httpx.MockTransport(lambda _:httpx.Response(200,text=xml))))

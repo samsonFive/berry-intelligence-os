@@ -13,6 +13,7 @@ import re
 import httpx
 from .adapters import AccessBlocked
 from .bakeoff import require_free_budget
+from app.services.analyst_state_io import atomic_json
 
 TASKS={
  'reddit-search':('reddit/search',{'query','sort','timeframe','trim'}),
@@ -89,7 +90,7 @@ class MultiPlatformPilot:
 
     def _save(self):
         self.private.mkdir(parents=True,exist_ok=True)
-        self.ledger_path.write_text(json.dumps(self.ledger,indent=2),encoding='utf-8')
+        atomic_json(self.ledger_path,self.ledger)
 
     def fetch(self,task,params,*,case_id):
         if any(a['state']=='price-mismatch' for a in self.ledger['attempts']):
@@ -125,7 +126,7 @@ class MultiPlatformPilot:
             if entry['observed_credit_delta']>1 or (data.get('credits_used') or 0)>1:
                 entry['state']='price-mismatch';raise AccessBlocked('Unexpected credit cost; stop evaluation')
             if entry['state']!='success':raise AccessBlocked(f'Provider HTTP {status} or unsuccessful response; not zero volume')
-            cache.write_text(json.dumps(data,ensure_ascii=False),encoding='utf-8')
+            atomic_json(cache,data)
             return data,False
         except AccessBlocked:
             if entry['state']=='started':entry['state']='transport-blocked'
