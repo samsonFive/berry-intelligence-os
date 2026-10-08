@@ -38,7 +38,7 @@ class ApifyJobs:
             ledger = json.loads(self.ledger_path.read_text(encoding='utf-8'))
             ceiling = ledger['ceiling_free_credit_usd']
             if (not isinstance(ledger['attempts'], list) or ledger.get('cash_spend') != 0
-                    or not isinstance(ceiling, (int, float)) or not math.isfinite(ceiling) or not 0 < ceiling <= 1
+                    or not isinstance(ceiling, (int, float)) or not math.isfinite(ceiling) or not 0 < ceiling <= 2
                     or len({a.get('case') for a in ledger['attempts'] if isinstance(a, dict)}) != len(ledger['attempts'])
                     or any(not isinstance(a, dict) or not isinstance(a.get('case'), str)
                            or not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,79}', a['case'])
@@ -92,8 +92,8 @@ class ApifyJobs:
             limits = self._request('GET', '/users/me/limits')['data']
             current = limits['current']
             usage = current['monthlyUsageUsd']
-            reserved = sum(a['cap_usd'] for a in ledger['attempts'])
-            ceiling = min(1, ledger['ceiling_free_credit_usd'])
+            reserved = math.fsum(a['cap_usd'] for a in ledger['attempts'])
+            ceiling = ledger['ceiling_free_credit_usd']
             if (account.get('plan', {}).get('id') != 'FREE' or account.get('isPaying') is not False
                     or limits['limits']['maxMonthlyUsageUsd'] > 5
                     or not isinstance(usage, (int, float)) or not math.isfinite(usage) or usage < 0

@@ -226,3 +226,27 @@ def test_empty_normalized_search_is_zero_but_changed_cache_is_unverified(tmp_pat
     tmp_path.joinpath('blueberry-sorting-items.json').write_text('[{}]')
     assert jobs.cached_status()['jobs'][0]['observed_volume'] is None
     assert len(requests)==before
+
+
+def test_explicit_two_dollar_allowance_preserves_consumed_reservations(tmp_path):
+    jobs, requests, client = harness(tmp_path)
+    attempts=[{'case':f'prior-{i}','cap_usd':.1,'state':'FAILED'} for i in range(10)]
+    tmp_path.joinpath('ledger.json').write_text(json.dumps({'ceiling_free_credit_usd':2,'cash_spend':0,'attempts':attempts}))
+    launch(jobs)
+    saved=json.loads(tmp_path.joinpath('ledger.json').read_text())
+    assert saved['attempts'][:10]==attempts and len(saved['attempts'])==11
+    assert len([r for r in requests if r.method=='POST'])==1
+    saved['attempts']=[{'case':f'prior-{i}','cap_usd':.1,'state':'FAILED'} for i in range(20)]
+    tmp_path.joinpath('ledger.json').write_text(json.dumps(saved))
+    with pytest.raises(AccessBlocked,match='budget guard'):
+        launch(ApifyJobs(tmp_path,enabled=True,client=client,token='synthetic-secret'),case='next-case')
+    assert len([r for r in requests if r.method=='POST'])==1
+
+
+def test_allowance_defaults_to_one_and_rejects_above_authorized_maximum(tmp_path):
+    jobs, requests, _ = harness(tmp_path)
+    assert jobs._read()['ceiling_free_credit_usd']==1
+    tmp_path.joinpath('ledger.json').write_text(json.dumps({'ceiling_free_credit_usd':2.01,'cash_spend':0,'attempts':[]}))
+    with pytest.raises(AccessBlocked,match='ledger unreadable'):
+        launch(jobs)
+    assert not requests
