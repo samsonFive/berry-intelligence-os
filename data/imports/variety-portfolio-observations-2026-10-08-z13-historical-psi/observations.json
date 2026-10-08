@@ -1,0 +1,404 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-wellpict-original-psi-118",
+      "title": "USPP8205P — PSI-.118: historical strawberry trial and original claim",
+      "url": "https://patentimages.storage.googleapis.com/e2/05/cd/49ad0026fee947/USPP8205.pdf",
+      "checked_on": "2026-10-08",
+      "published_date": "1993-04-20",
+      "company_ids": [
+        "company-well-pict",
+        "company-plant-sciences-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 8 original PDF pages, including four drawing sheets. One filing-subject name; parents/comparators accounted separately. Google citation and similar-document lists are outside this original-document scope.",
+      "limitations": "Historical strawberry selection: the original patent describes a November 1987 trial on a Watsonville ranch provided by Well-Pict. It names a joint Plant Sciences / Coast Cooling breeding program. This is a trial-site connection, not proof that Well-Pict bred, owns or currently sells this variety. The title uses PSI-.118; body text uses PSI-118 and 118, while photographic labels use 86.118. Those spelling/code variants require identity review; no alias is approved. Bounded historical document only; current legal status, owner, expiry, commercial availability and growing footprint remain unverified. Historical yield/trait comparisons are not approved profile values. Three photographic sheets have unknown reuse; the fourth sheet is an isozyme diagram, not a fruit photograph.",
+      "names": [
+        {
+          "candidate_name": "PSI-.118",
+          "breeder_code": "PSI-.118",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://patentimages.storage.googleapis.com/e2/05/cd/49ad0026fee947/USPP8205.pdf#page=4",
+          "portfolio_context": "Historical strawberry selection: the original patent describes a November 1987 trial on a Watsonville ranch provided by Well-Pict. It names a joint Plant Sciences / Coast Cooling breeding program. This is a trial-site connection, not proof that Well-Pict bred, owns or currently sells this variety. The title uses PSI-.118; body text uses PSI-118 and 118, while photographic labels use 86.118. Those spelling/code variants require identity review; no alias is approved.",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/34/60/cf/54d49ec6fbdd65/USPP8205-drawings-page-5.png",
+              "source_url": "https://patentimages.storage.googleapis.com/e2/05/cd/49ad0026fee947/USPP8205.pdf#page=5",
+              "credit": "U.S. plant patent USPP8205P; photographer not identified.",
+              "caption": "PSI-.118: original photographic sheet 1 of 4, PDF page 5. Plant and fruit material; monochrome patent reproduction.",
+              "named_variety": "PSI-.118",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reusable-photo license or permission verified. Publication of a patent does not establish photo reuse permission.",
+              "checked_on": "2026-10-08",
+              "kind": "plant"
+            },
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/0c/1f/af/21c33cef3fdca5/USPP8205-drawings-page-6.png",
+              "source_url": "https://patentimages.storage.googleapis.com/e2/05/cd/49ad0026fee947/USPP8205.pdf#page=6",
+              "credit": "U.S. plant patent USPP8205P; photographer not identified.",
+              "caption": "PSI-.118: original photographic sheet 2 of 4, PDF page 6. Plant and fruit material; monochrome patent reproduction.",
+              "named_variety": "PSI-.118",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reusable-photo license or permission verified. Publication of a patent does not establish photo reuse permission.",
+              "checked_on": "2026-10-08",
+              "kind": "plant"
+            },
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/8d/70/30/336b4fcff5d756/USPP8205-drawings-page-7.png",
+              "source_url": "https://patentimages.storage.googleapis.com/e2/05/cd/49ad0026fee947/USPP8205.pdf#page=7",
+              "credit": "U.S. plant patent USPP8205P; photographer not identified.",
+              "caption": "PSI-.118: original photographic sheet 3 of 4, PDF page 7. Fruit harvested June 27, 1990; monochrome patent reproduction.",
+              "named_variety": "PSI-.118",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reusable-photo license or permission verified. Publication of a patent does not establish photo reuse permission.",
+              "checked_on": "2026-10-08",
+              "kind": "fruit"
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "original_document_complete_visual_review",
+        "sha256": "dabe27f13f8abca62898500b0476ec7132d5d4ed98a5eeb722bb1c65ff28686c",
+        "bytes": 713833,
+        "pages": 8,
+        "all_pages_read": true,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "original_claim_page": 4,
+        "photographic_pages": [
+          5,
+          6,
+          7
+        ],
+        "excluded_diagram_page": 8,
+        "photo_reference_method": "Publisher full-resolution image viewer; observed links, not thumbnails or guessed URLs."
+      },
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [
+          {
+            "label": "Selva",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          },
+          {
+            "label": "Muir",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          },
+          {
+            "label": "Irvine",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          },
+          {
+            "label": "Chandler",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          },
+          {
+            "label": "Pajaro",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          },
+          {
+            "label": "Douglas",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-wellpict-original-psi-130",
+      "title": "USPP8086P — PSI-130: historical strawberry trial and original claim",
+      "url": "https://patentimages.storage.googleapis.com/34/a4/ed/5fffedc1dee2ad/USPP8086.pdf",
+      "checked_on": "2026-10-08",
+      "published_date": "1993-01-05",
+      "company_ids": [
+        "company-well-pict",
+        "company-plant-sciences-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 7 original PDF pages, including four drawing sheets. One filing-subject name; parents/comparators accounted separately. Google citation and similar-document lists are outside this original-document scope.",
+      "limitations": "Historical strawberry selection: the original patent describes a November 1987 trial on a Watsonville ranch provided by Well-Pict. It names a joint Plant Sciences / Coast Cooling breeding program. This is a trial-site connection, not proof that Well-Pict bred, owns or currently sells this variety. The title uses PSI-130; text shorthand 130 and photographic label 86.130 are not approved aliases. The final isozyme drawing prints January 5, 1992, conflicting with the January 5, 1993 front-page patent date. Bounded historical document only; current legal status, owner, expiry, commercial availability and growing footprint remain unverified. Historical yield/trait comparisons are not approved profile values. Three photographic sheets have unknown reuse; the fourth sheet is an isozyme diagram, not a fruit photograph.",
+      "names": [
+        {
+          "candidate_name": "PSI-130",
+          "breeder_code": "PSI-130",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://patentimages.storage.googleapis.com/34/a4/ed/5fffedc1dee2ad/USPP8086.pdf#page=3",
+          "portfolio_context": "Historical strawberry selection: the original patent describes a November 1987 trial on a Watsonville ranch provided by Well-Pict. It names a joint Plant Sciences / Coast Cooling breeding program. This is a trial-site connection, not proof that Well-Pict bred, owns or currently sells this variety. The title uses PSI-130; text shorthand 130 and photographic label 86.130 are not approved aliases. The final isozyme drawing prints January 5, 1992, conflicting with the January 5, 1993 front-page patent date.",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/0d/10/72/1a0be19402d9be/USPP8086-drawings-page-4.png",
+              "source_url": "https://patentimages.storage.googleapis.com/34/a4/ed/5fffedc1dee2ad/USPP8086.pdf#page=4",
+              "credit": "U.S. plant patent USPP8086P; photographer not identified.",
+              "caption": "PSI-130: original photographic sheet 1 of 4, PDF page 4. Plant and fruit material; monochrome patent reproduction.",
+              "named_variety": "PSI-130",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reusable-photo license or permission verified. Publication of a patent does not establish photo reuse permission.",
+              "checked_on": "2026-10-08",
+              "kind": "plant"
+            },
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/b4/02/d1/31e296603a5aba/USPP8086-drawings-page-5.png",
+              "source_url": "https://patentimages.storage.googleapis.com/34/a4/ed/5fffedc1dee2ad/USPP8086.pdf#page=5",
+              "credit": "U.S. plant patent USPP8086P; photographer not identified.",
+              "caption": "PSI-130: original photographic sheet 2 of 4, PDF page 5. Plant and fruit material; monochrome patent reproduction.",
+              "named_variety": "PSI-130",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reusable-photo license or permission verified. Publication of a patent does not establish photo reuse permission.",
+              "checked_on": "2026-10-08",
+              "kind": "plant"
+            },
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/69/58/0b/815f8473460112/USPP8086-drawings-page-6.png",
+              "source_url": "https://patentimages.storage.googleapis.com/34/a4/ed/5fffedc1dee2ad/USPP8086.pdf#page=6",
+              "credit": "U.S. plant patent USPP8086P; photographer not identified.",
+              "caption": "PSI-130: original photographic sheet 3 of 4, PDF page 6. Fruit harvested June 27, 1990; monochrome patent reproduction.",
+              "named_variety": "PSI-130",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reusable-photo license or permission verified. Publication of a patent does not establish photo reuse permission.",
+              "checked_on": "2026-10-08",
+              "kind": "fruit"
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "original_document_complete_visual_review",
+        "sha256": "a4ed542afdc7631d0ec657f6909cbd5ad5979731890c4e17ae96d419b6ac51d9",
+        "bytes": 770060,
+        "pages": 7,
+        "all_pages_read": true,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "original_claim_page": 3,
+        "photographic_pages": [
+          4,
+          5,
+          6
+        ],
+        "excluded_diagram_page": 7,
+        "photo_reference_method": "Publisher full-resolution image viewer; observed links, not thumbnails or guessed URLs."
+      },
+      "accounting": {
+        "observed_items": 9,
+        "exclusions": [
+          {
+            "label": "Selva",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          },
+          {
+            "label": "Muir",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          },
+          {
+            "label": "Irvine",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          },
+          {
+            "label": "Chandler",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          },
+          {
+            "label": "Pajaro",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          },
+          {
+            "label": "Douglas",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          },
+          {
+            "label": "Fern",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          },
+          {
+            "label": "PSI-118",
+            "reason": "Parent or comparison variety in the original description; not a Well-Pict product listing."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-perfection-original-berries-index",
+      "title": "Perfection Fresh — berries index",
+      "url": "https://www.perfection.com.au/perfection-berries",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-perfection-fresh"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Berry category marketing and recipes, not a cultivar enumeration.",
+      "names": [],
+      "limitations": "No named berry cultivar found on this checked page. Unnamed varieties and product ranges do not mean an empty portfolio. Recipes, grower names, nutrition claims and unnamed photos are outside cultivar enumeration. The 2020 Plant Sciences partnership does not establish that Perfection markets any specific PSI patent selection. Named genetics, historical releases and current rights still require follow-up.",
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "sha256": "f93539eee58841106c2f7c6974e29a9dbd7681e61d2e5d363cf29b2bf2cb1c1c",
+        "bytes": 5461,
+        "page_read": true,
+        "named_varieties_found": 0
+      }
+    },
+    {
+      "id": "portfolio-perfection-original-blueberries",
+      "title": "Perfection Fresh — blueberries",
+      "url": "https://www.perfection.com.au/en/perfection-blueberries",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-perfection-fresh"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Exclusive varieties claimed without naming one; Pink Label is a range, not an identified cultivar.",
+      "names": [],
+      "limitations": "No named berry cultivar found on this checked page. Unnamed varieties and product ranges do not mean an empty portfolio. Recipes, grower names, nutrition claims and unnamed photos are outside cultivar enumeration. The 2020 Plant Sciences partnership does not establish that Perfection markets any specific PSI patent selection. Named genetics, historical releases and current rights still require follow-up.",
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "sha256": "95797fac6917737dc4dddb19b11889a26bb0ba6d5c3aa8280af6e73c8c898285",
+        "bytes": 3753,
+        "page_read": true,
+        "named_varieties_found": 0
+      }
+    },
+    {
+      "id": "portfolio-perfection-original-strawberries",
+      "title": "Perfection Fresh — strawberries",
+      "url": "https://www.perfection.com.au/en/perfection-strawberries",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-perfection-fresh"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Signature Premium and Pink Label are product ranges; exclusive Australian varieties are claimed but unnamed. Di West is a grower, not a cultivar.",
+      "names": [],
+      "limitations": "No named berry cultivar found on this checked page. Unnamed varieties and product ranges do not mean an empty portfolio. Recipes, grower names, nutrition claims and unnamed photos are outside cultivar enumeration. The 2020 Plant Sciences partnership does not establish that Perfection markets any specific PSI patent selection. Named genetics, historical releases and current rights still require follow-up.",
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "sha256": "c1cd325b00d0f5d73cd6dfbd8cd905abb9b4e695bb42f453286bebf70bab04b6",
+        "bytes": 3814,
+        "page_read": true,
+        "named_varieties_found": 0
+      }
+    },
+    {
+      "id": "portfolio-perfection-original-blackberries",
+      "title": "Perfection Fresh — blackberries",
+      "url": "https://www.perfection.com.au/en/perfection-blackberries",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-perfection-fresh"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Pink Label product range and generic berry marketing; no named cultivar.",
+      "names": [],
+      "limitations": "No named berry cultivar found on this checked page. Unnamed varieties and product ranges do not mean an empty portfolio. Recipes, grower names, nutrition claims and unnamed photos are outside cultivar enumeration. The 2020 Plant Sciences partnership does not establish that Perfection markets any specific PSI patent selection. Named genetics, historical releases and current rights still require follow-up.",
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "sha256": "f47f0de3928cb8193876ad2ff7cdc04514ddcd6b06d88b5f41474d05625a79bf",
+        "bytes": 3476,
+        "page_read": true,
+        "named_varieties_found": 0
+      }
+    },
+    {
+      "id": "portfolio-perfection-original-raspberries",
+      "title": "Perfection Fresh — raspberries",
+      "url": "https://www.perfection.com.au/produce/perfection-berries/perfection-raspberries-new",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-perfection-fresh"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Generic raspberry marketing and recipes; no named cultivar.",
+      "names": [],
+      "limitations": "No named berry cultivar found on this checked page. Unnamed varieties and product ranges do not mean an empty portfolio. Recipes, grower names, nutrition claims and unnamed photos are outside cultivar enumeration. The 2020 Plant Sciences partnership does not establish that Perfection markets any specific PSI patent selection. Named genetics, historical releases and current rights still require follow-up.",
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "sha256": "59b15a3d2879ee3ff844b8705bca60616bf8e33d43e47cf8f738188b49cb86ef",
+        "bytes": 3514,
+        "page_read": true,
+        "named_varieties_found": 0
+      }
+    },
+    {
+      "id": "portfolio-perfection-original-psi-announcement",
+      "title": "Perfection Fresh — psi announcement",
+      "url": "https://www.perfection.com.au/blog/new-strawberries-on-their-way-to-australia",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-perfection-fresh"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_announcement",
+      "capture_status": "partial",
+      "enumerated_scope": "Original announced Plant Sciences partnership; cultivars remain unnamed. No inference that Perfection markets every PSI cultivar.",
+      "names": [],
+      "limitations": "No named berry cultivar found on this checked page. Unnamed varieties and product ranges do not mean an empty portfolio. Recipes, grower names, nutrition claims and unnamed photos are outside cultivar enumeration. The 2020 Plant Sciences partnership does not establish that Perfection markets any specific PSI patent selection. Named genetics, historical releases and current rights still require follow-up.",
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "sha256": "1f90e9ca709ca8a4e01f71a1743ea10b80535894322221e078dbf6dec149117d",
+        "bytes": 5265,
+        "page_read": true,
+        "named_varieties_found": 0
+      },
+      "published_date": "2020-07-23"
+    }
+  ]
+}
