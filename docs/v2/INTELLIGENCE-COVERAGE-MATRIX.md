@@ -1,5 +1,23 @@
 # Intelligence Coverage Matrix
 
+October 8 BerryWorld/Oishii/Queensland continuation: eleven sections add 57
+source-name occurrences and one permission-held Koyo photo. Regional/brand and
+historical labels remain separate; the Queensland abstract's seven-versus-six
+count conflict is retained. Company coverage links now scope sources, counts
+and registry rows and preserve the company through filter submissions. Native
+desktop review and 88 unique focused tests pass; phone verification remains open.
+Records and original 1,992 JSON preservation pass. Real audit: 143 sections /
+794 occurrences / 57 text matches / 737 review needs / 619 keys, catalog 64;
+41/77 partly checked, 36 initial checks and 21 follow-ups remain. Photos 37,
+36 reuse-unconfirmed, zero newly approved public. See
+BERRYWORLD-OISHII-QUEENSLAND-VARIETY-REVIEW.md. Drafts338/339 are pushed and
+all four exact-head checks pass (4,202/4,260 tests). This next continuation
+still requires its own draft and exact-head checks; no merge, deployment or
+other-berry Landscape rollout. CAT-01/CAT-02/TD-116 remain open.
+
+Earlier checkpoints below are historical; their local-only/approval-pending
+delivery descriptions are superseded by the pushed drafts above.
+
 October 8 NIAB/Bayer/Masiá source continuation: 12 sections add 44 name
 occurrences and five held fruit photos. NIAB's transferred strawberries stay
 separate from legacy names and raspberries; Bayer trademark ownership does not

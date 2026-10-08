@@ -344,7 +344,9 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
     if berry and berry not in BERRY_ORDER:
         raise ValueError("Choose a supported berry")
     q = str(filters.get("q", "")).strip().casefold()
+    company = str(filters.get("company", "")).strip()
     selected = [row for row in source_rows if (not berry or berry in row.get("berry_ids", []) or any(name["berry_id"] == berry for name in row["names"]))
+                and (not company or company in row.get("company_ids", []))
                 and (not q or q in " ".join([row["title"], *(c["name"] for c in row["companies"])]).casefold())]
     if berry:
         selected = [{**row, "names": [n for n in row["names"] if n["berry_id"] == berry],
@@ -354,9 +356,12 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
                      "closed": sum(n["status"] == "previously_rejected" and n["berry_id"] == berry for n in row["names"]),
                      "awaiting_catalog": sum(n["status"] == "distinct_awaiting_catalog" and n["berry_id"] == berry for n in row["names"])} for row in selected]
     selected_subjects = [row for row in subjects if (not berry or berry in row["berry_ids"] or not row["berry_ids"])
+                         and (not company or company in row["entity_ids"])
                          and (not q or q in row["name"].casefold())]
     all_names = [name for source in selected for name in source["names"]]
-    return {"sources": selected, "subjects": selected_subjects, "filters": {"berry": berry, "q": filters.get("q", "")},
+    return {"sources": selected, "subjects": selected_subjects,
+            "filters": {"berry": berry, "q": filters.get("q", ""), "company": company},
+            "company_name": index.get(company, {}).get("name", "Selected company") if company else "",
             "summary": {"source_sections": len(selected), "readable_sections": sum(s["capture_status"] == "names_enumerated" for s in selected),
                         "unreadable_sections": sum(s["capture_status"] == "unreadable" for s in selected),
                         "follow_up_sections": sum(s["needs_follow_up"] for s in selected),

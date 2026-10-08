@@ -109,5 +109,7 @@ keys. Catalog 64; 36 source photos, 35 reuse-unconfirmed, zero newly approved pu
 Independent recall, human-approved identities/relationships, current official
 rights, rich profiles, wider company checks and source/identity follow-ups remain
 open. This local continuation does not complete the overall redesign/release.
-The exact pinned-parent push approval remains unanswered; no new push, draft PR
-or exact-head remote CI. No merge, deployment or other-berry Landscape rollout.
+Delivery update: explicit human approval received. Draft #338 is pushed on
+0ce865d; all four exact-head checks pass, including 4,202 tests. Draft #339
+is pushed on 86c18a1; all four exact-head checks pass, including 4,260 tests.
+Both remain open drafts. No merge, deployment or other-berry Landscape rollout.
