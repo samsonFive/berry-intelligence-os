@@ -219,3 +219,12 @@ The user approved the blueberry workspace and authorized strawberry, raspberry a
 
 ## Apify measured access — October 7
 Facebook public-page posts, LinkedIn keyword search and Instagram exact-hashtag posts are partial live access demonstrated on a verified Free account. Generic Instagram hashtag discovery returned tag metadata only. See [measured trial and exact blockers](SOCIAL-APIFY-TRIAL.md). No production connector, comments/media-byte verification, retention qualification or unattended collection established.
+
+
+## October 8 verified Apify X access boundary
+
+[Atomus X Actor primary documentation](https://apify.com/atomus/twitter-scraper), inspected October8, describes search/profile/detail modes, language/date filters, direct media references and pay-per-result charges. Its advertised Free-plan event price is $4/1,000 tweets; broader functionality and rights remain vendor claims until separately demonstrated. Only pinned build1.0.45 search mode with five-item maximum and all paid add-ons disabled was exercised. Auth uses the existing private Apify token; no X login or cookies were supplied. Native X API access remains separately setup-required.
+
+**Measured access: partial retrieval, then access-pending under an exhausted Actor free tier.** English and Spanish bounded October7–8 searches each returned five distinct posts, supplied language tags and dates in-window. Logs confirm each five-result search. Offline imported replay added zero duplicates. One English original page was inspected without login: wording/handle/displayed date matched; media playback failed in that page. This single assistant check is not independent accuracy, complete history, comments or recall qualification. Japanese Actor terminal success concealed upstream HTTP400. Portuguese terminal success concealed the Actor's explicit free-tier cap reached (10/10); one metadata item rejected, zero usable posts. Failure is unknown volume, not zero conversation. Reset period is unverified.
+
+Saved ledger access block now prevents new Atomus launches before network requests, without preventing inspection of existing runs or disabling other inspected Actors. Apify account credit does not override an Actor-specific limit. No paid activation or quota bypass. API Dojo's X Actor separately restricts Free-plan API use; no run submitted. Source-specific redisplay, retention/deletion refresh, multilingual fidelity and representative consumer coverage remain unmet. Detailed run, cost and isolated receipts: [Apify measured trial](SOCIAL-APIFY-TRIAL.md).
