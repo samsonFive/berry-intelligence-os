@@ -39,7 +39,10 @@ class ApifyJobs:
             ceiling = ledger['ceiling_free_credit_usd']
             if (not isinstance(ledger['attempts'], list) or ledger.get('cash_spend') != 0
                     or not isinstance(ceiling, (int, float)) or not math.isfinite(ceiling) or not 0 < ceiling <= 1
-                    or any(not isinstance(a.get('cap_usd'), (int, float)) or not math.isfinite(a['cap_usd'])
+                    or len({a.get('case') for a in ledger['attempts'] if isinstance(a, dict)}) != len(ledger['attempts'])
+                    or any(not isinstance(a, dict) or not isinstance(a.get('case'), str)
+                           or not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,79}', a['case'])
+                           or not isinstance(a.get('cap_usd'), (int, float)) or not math.isfinite(a['cap_usd'])
                            or not 0 < a['cap_usd'] <= .1 for a in ledger['attempts'])):
                 raise ValueError()
             return ledger
@@ -99,9 +102,29 @@ class ApifyJobs:
                 raise AccessBlocked('Fresh free-account, non-overlap or conservative reservation budget guard blocked')
             metadata = self._request('GET', '/acts/' + actor.replace('/', '~'))['data']
             build = self._request('GET', '/actor-builds/' + build_id)['data']
-            if build.get('status') != 'SUCCEEDED' or build.get('id') != build_id or build.get('buildNumber') != build_number:
+            if (build.get('status') != 'SUCCEEDED' or build.get('id') != build_id
+                    or build.get('buildNumber') != build_number or not metadata.get('id')
+                    or build.get('actId') != metadata['id']):
                 raise AccessBlocked('Inspected build differs from requested pin')
             pricing = metadata.get('currentPricingInfo')
+            if not pricing:
+                # Actual API may return null currentPricingInfo with dated history.
+                # Select only an already effective version, never a future change.
+                now = datetime.now(timezone.utc)
+                effective = []
+                for candidate in metadata.get('pricingInfos', []):
+                    try:
+                        started = datetime.fromisoformat(candidate['startedAt'].replace('Z', '+00:00'))
+                        ended = datetime.fromisoformat(candidate['endedAt'].replace('Z', '+00:00')) if candidate.get('endedAt') else None
+                        if started.tzinfo and started <= now and (ended is None or now < ended):
+                            effective.append((started, candidate))
+                    except (ValueError, KeyError, TypeError):
+                        raise AccessBlocked('Pricing version dates unrecognized') from None
+                if effective:
+                    effective.sort(key=lambda value: value[0], reverse=True)
+                    if len(effective) > 1 and effective[0][0] == effective[1][0]:
+                        raise AccessBlocked('Pricing version ambiguity')
+                    pricing = effective[0][1]
             if not pricing or pricing.get('pricingModel') != 'PAY_PER_EVENT':
                 raise AccessBlocked('Only inspected event-priced actors eligible; rental/unknown pricing blocked')
             Draft7Validator(json.loads(build['inputSchema'])).validate(actor_input)
@@ -109,7 +132,8 @@ class ApifyJobs:
             if not isinstance(memory, int) or not 128 <= memory <= 8192:
                 raise AccessBlocked('Unbounded actor memory configuration')
             entry = {'case': case, 'actor': actor, 'build_id': build_id, 'build_number': build_number,
-                     'input': actor_input, 'fingerprint': fingerprint, 'cap_usd': cap_usd,
+                     'actor_id': metadata['id'], 'pricing_model': pricing['pricingModel'],
+                     'pricing_started_at': pricing.get('startedAt'), 'input': actor_input, 'fingerprint': fingerprint, 'cap_usd': cap_usd,
                      'reserved_at': datetime.now(timezone.utc).isoformat(),
                      'state': 'reserved-before-launch', 'usage_before': usage}
             ledger['attempts'].append(entry)
@@ -125,6 +149,8 @@ class ApifyJobs:
                 raise AccessBlocked('No usable run identity; reconcile reserved submission manually')
             entry.update(run_id=run['id'], state=run['status'])
             atomic_json(self.ledger_path, ledger)
+            if run.get('buildId') != build_id or run.get('actId') != metadata['id']:
+                raise AccessBlocked('Submitted run/build/actor mismatch; retain saved run for reconciliation')
             return {**entry, 'reused': False}
 
     def observe(self, case):
@@ -133,6 +159,8 @@ class ApifyJobs:
         Failed/aborted runs do not count as successful zero results. Cost may
         settle later; usageTotalUsd is an observation, not a final invoice.
         """
+        if not isinstance(case, str) or not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,79}', case):
+            raise ValueError('Bounded case identifier required')
         self.folder.mkdir(parents=True, exist_ok=True)
         with CollectionRunLock(self.folder / 'collection.lock', run_id='observe'):
             ledger = self._read()

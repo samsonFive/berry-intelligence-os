@@ -22,7 +22,7 @@ def harness(tmp_path, *, submission_error=False, status='RUNNING', paying=False)
             data = {'limits': {'maxMonthlyUsageUsd': 5},
                     'current': {'monthlyUsageUsd': .1, 'activeActorJobCount': 0}}
         elif '/actor-builds/' in path:
-            data = {'id': BUILD, 'buildNumber': '0.0.114', 'status': 'SUCCEEDED',
+            data = {'id': BUILD, 'actId': 'actor12345', 'buildNumber': '0.0.114', 'status': 'SUCCEEDED',
                     'inputSchema': json.dumps({'type': 'object', 'required': ['searchQueries'],
                                              'properties': {'searchQueries': {'type': 'array'}}})}
         elif '/actor-runs/' in path:
@@ -33,9 +33,9 @@ def harness(tmp_path, *, submission_error=False, status='RUNNING', paying=False)
         elif request.method == 'POST':
             if submission_error:
                 raise httpx.ReadTimeout('Ambiguous response', request=request)
-            return httpx.Response(201, json={'data': {'id': 'run12345', 'status': 'RUNNING'}})
+            return httpx.Response(201, json={'data': {'id': 'run12345', 'actId': 'actor12345', 'buildId': BUILD, 'status': 'RUNNING'}})
         else:
-            data = {'currentPricingInfo': {'pricingModel': 'PAY_PER_EVENT'},
+            data = {'id': 'actor12345', 'currentPricingInfo': {'pricingModel': 'PAY_PER_EVENT'},
                     'defaultRunOptions': {'memoryMbytes': 4096}}
         return httpx.Response(200, json={'data': data})
     client = httpx.Client(transport=httpx.MockTransport(handle))
@@ -115,3 +115,49 @@ def test_input_pin_changes_and_corrupt_ledger_fail_closed(tmp_path):
     with pytest.raises(AccessBlocked, match='unreadable'):
         launch(jobs, 'new-case')
     assert len([r for r in requests if r.method == 'POST']) == 1
+
+
+def test_wrong_actor_build_is_rejected_before_reservation(tmp_path):
+    jobs, requests, client = harness(tmp_path)
+    original = client._transport
+    def handle(request):
+        response = original.handle_request(request)
+        if '/actor-builds/' in request.url.path:
+            payload = response.json();payload['data']['actId'] = 'otherActor'
+            return httpx.Response(200,json=payload)
+        return response
+    jobs.client = httpx.Client(transport=httpx.MockTransport(handle))
+    with pytest.raises(AccessBlocked,match='pin'):
+        launch(jobs)
+    assert not any(r.method == 'POST' for r in requests)
+    assert not (tmp_path/'ledger.json').exists()
+
+
+def test_observe_rejects_path_cases_and_duplicate_ledger_cases(tmp_path):
+    jobs, requests, _ = harness(tmp_path)
+    with pytest.raises(ValueError,match='identifier'):
+        jobs.observe('../outside')
+    tmp_path.joinpath('ledger.json').write_text(json.dumps({'ceiling_free_credit_usd':1,
+        'cash_spend':0,'attempts':[{'case':'same','cap_usd':.1},{'case':'same','cap_usd':.1}]}))
+    with pytest.raises(AccessBlocked,match='unreadable'):
+        launch(jobs)
+    assert requests == []
+
+
+def test_null_current_pricing_selects_effective_history_not_future(tmp_path):
+    jobs, requests, client = harness(tmp_path)
+    original = client._transport
+    def handle(request):
+        response=original.handle_request(request)
+        if '/acts/' in request.url.path and request.method=='GET':
+            payload=response.json();payload['data']['currentPricingInfo']=None
+            payload['data']['pricingInfos']=[
+                {'pricingModel':'PAY_PER_EVENT','startedAt':'2020-01-01T00:00:00Z'},
+                {'pricingModel':'RENTAL','startedAt':'2099-01-01T00:00:00Z'}]
+            return httpx.Response(200,json=payload)
+        return response
+    jobs.client=httpx.Client(transport=httpx.MockTransport(handle))
+    result=launch(jobs)
+    assert result['pricing_model']=='PAY_PER_EVENT'
+    assert result['pricing_started_at']=='2020-01-01T00:00:00Z'
+    assert len([r for r in requests if r.method=='POST'])==1
