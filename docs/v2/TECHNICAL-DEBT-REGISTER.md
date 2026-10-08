@@ -1,5 +1,12 @@
 # Technical Debt Register
 
+TD-116 continuation (October 8): Camposol original announcement adds two
+reviewable names with contextual crop identity unresolved. Real coverage now
+257 sections / 974 occurrences / 709 candidate keys; 22 registry enumeration
+gaps and 59 follow-ups remain. 43 affected tests and native desktop/mobile
+source-scoped navigation pass. No identity, rights, photo or release approval.
+See CAMPOSOL-ORIGINAL-VARIETIES-REVIEW.md. TD-116 remains open.
+
 Living register for **current** Intelligence OS V2 debt. This is not a changelog.
 Historical work that is already shipped stays out of ACTIVE unless it still
 hurts operators or trust.
