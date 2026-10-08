@@ -4,6 +4,7 @@ No fetching, translation, role inference or promotion occurs here. Raw receipts
 must remain private. Relative LinkedIn dates are not precise publication facts.
 """
 from urllib.parse import urlsplit
+import hashlib
 
 from .adapters import common, AccessBlocked
 from .model import safe_url, validate_intake
@@ -49,7 +50,7 @@ def apify_post(item, *, source, build, collected_at, mode='live'):
             continue
         safe_url(ref)
         seen.add(ref)
-        row['media'].append({'id':str(native) + '-image-' + str(len(row['media'])),
+        row['media'].append({'id':'apify-image-' + hashlib.sha256(ref.encode()).hexdigest()[:24],
             'parent_native_id':str(native), 'kind':'image', 'source_url':ref,
             'mime':'image/reference', 'state':'available', 'storage_permission':'reference_only',
             'attribution':source + ' post image via Apify',

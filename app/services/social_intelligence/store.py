@@ -30,6 +30,8 @@ class Store:
             CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY, payload TEXT NOT NULL);
             CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY, evidence_id TEXT, event TEXT, at TEXT);
             CREATE TABLE IF NOT EXISTS media_tombstones(evidence_id TEXT, media_id TEXT, state TEXT, PRIMARY KEY(evidence_id,media_id));
+            CREATE TABLE IF NOT EXISTS collection_receipts(evidence_id TEXT, method TEXT, query_version TEXT, collected_at TEXT, PRIMARY KEY(evidence_id,method,query_version,collected_at));
+            CREATE TABLE IF NOT EXISTS media_url_tombstones(evidence_id TEXT, url_hash TEXT, state TEXT, PRIMARY KEY(evidence_id,url_hash));
             PRAGMA user_version=1;
             ''')
     def connect(self):
@@ -46,13 +48,28 @@ class Store:
                 if existing and existing[2]:
                     continue # Tombstones prevent deleted content resurrection on replay.
                 tombstones=dict(db.execute('SELECT media_id,state FROM media_tombstones WHERE evidence_id=?',(key,)))
-                if tombstones:
+                url_tombstones=dict(db.execute('SELECT url_hash,state FROM media_url_tombstones WHERE evidence_id=?',(key,)))
+                if tombstones or url_tombstones:
                     for media in p['media']:
-                        if media['id'] in tombstones:
-                            media.update(state=tombstones[media['id']],source_url=None,literal=[],content_hash=None,object_ref=None)
+                        digest=hashlib.sha256(media['source_url'].encode()).hexdigest() if media['source_url'] else None
+                        state=tombstones.get(media['id']) or url_tombstones.get(digest)
+                        if state:
+                            media.update(state=state,source_url=None,literal=[],content_hash=None,object_ref=None)
                     a=analyze(p,entities)
                 if existing:
                     old = json.loads(existing[0]); prior = json.loads(existing[1])
+                    if old['discovery_method'] != p['discovery_method']:
+                        # A different provider's partial response is not a source
+                        # deletion. Preserve observed attachments across providers.
+                        incoming_ids={m['id'] for m in p['media']}
+                        incoming_urls={m['source_url'] for m in p['media'] if m['source_url']}
+                        for media in old['media']:
+                            if media['id'] not in incoming_ids and (not media['source_url'] or media['source_url'] not in incoming_urls):
+                                if len(p['media']) < 30:
+                                    p['media'].append(media)
+                                    incoming_ids.add(media['id'])
+                                    if media['source_url']:incoming_urls.add(media['source_url'])
+                        a=analyze(p,entities)
                     # A search summary omitting pictures does not invalidate a
                     # separately captured full-post reference. Explicit removal
                     # tombstones still govern these durable supplements.
@@ -70,10 +87,18 @@ class Store:
                         a = prior # Preserve analyst corrections; changed source stays visibly flagged.
                         a['source_changed'] = old['text'] != p['text'] or old['media'] != p['media']
                 db.execute('INSERT INTO observations VALUES(?,?,?,0) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload,analysis=excluded.analysis', (key,json.dumps(p,ensure_ascii=False),json.dumps(a,ensure_ascii=False)))
+                if existing:
+                    db.execute('INSERT OR IGNORE INTO collection_receipts VALUES(?,?,?,?)',(key,old['discovery_method'],old['query_version'],old['collected_at']))
+                db.execute('INSERT OR IGNORE INTO collection_receipts VALUES(?,?,?,?)',(key,p['discovery_method'],p['query_version'],p['collected_at']))
                 db.execute('INSERT INTO audit(evidence_id,event,at) VALUES(?,?,?)',(key,'intake:'+p['mode'],now()))
             if job:
                 db.execute('INSERT OR REPLACE INTO jobs VALUES(?,?)',(job['id'],json.dumps(job)))
         return [p[0] for p in prepared]
+    def collection_receipts(self,key):
+        """Content-free acquisition history; provider changes do not erase it."""
+        with closing(self.connect()) as db:
+            rows=db.execute('SELECT method,query_version,collected_at FROM collection_receipts WHERE evidence_id=? ORDER BY collected_at,method',(key,)).fetchall()
+        return [{'method':m,'query_version':q,'collected_at':at} for m,q,at in rows]
     def records(self, *, mode=None):
         with closing(self.connect()) as db:
             rows = db.execute('SELECT id,payload,analysis FROM observations WHERE removed=0 ORDER BY id').fetchall()
@@ -110,6 +135,8 @@ class Store:
                 found = False
                 for m in p['media']:
                     if m['id']==media_id:
+                        if m['source_url']:
+                            db.execute('INSERT OR REPLACE INTO media_url_tombstones VALUES(?,?,?)',(key,hashlib.sha256(m['source_url'].encode()).hexdigest(),state))
                         m.update(state=state,source_url=None,literal=[],content_hash=None,object_ref=None); found=True
                 if not found:
                     raise ValueError('Unknown attachment')

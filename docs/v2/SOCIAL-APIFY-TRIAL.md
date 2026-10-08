@@ -45,4 +45,12 @@ Intake, bake-off and evidence regressions: **98 passed**. Real samples have not 
 
 Workspace routes, presentation and saved profiles: **34 passed**, with one existing Starlette/AnyIO deprecation warning. Total affected checks **132 passed**; `git diff --check` clean.
 
+## Cross-provider storage follow-up
+
+The existing source/mode/native-ID identity combines matching posts without creating provider-specific copies. A sparse response from a different acquisition method now preserves previously captured attachments, with exact-URL deduplication and the existing 30-attachment bound. Content-free collection receipts retain method, query/build version and collection time across updates/restarts. Apify image IDs use URL fingerprints to avoid position collisions with other providers.
+
+Private SQLite adds `collection_receipts` and `media_url_tombstones` with idempotent creation; no trusted corpus migration. Explicit media removals retain an exact-URL hash so replay under another provider's attachment ID cannot resurrect that reference. Existing ID tombstones and whole-post deletion continue to govern. Alternate signed URLs for the same removed image and provider-varying native post IDs still need reconciliation; do not claim universal cross-provider deletion or deduplication. Rollback can leave these additive tables in place, but reverting loses the new receipt/preservation/alias protections. No destructive rollback or preview import performed.
+
+Validation: **108 passed**, covering storage, intake, workspace routes and saved profiles, with one existing Starlette/AnyIO deprecation warning. New checks exercise sparse provider updates, one-post identity across restart, receipt deduplication, original-ID removal replay and same-URL/different-ID removal replay. No network or paid calls in tests.
+
 Next: matched source comparisons, comments/replies, media loading/expiry, repeat/pagination and multilingual samples; then schema-specific normalization through existing intake, with estimated dates, article-only handling, author provenance, translation/quarantine and incidental-hashtag screening. Corporate and consumer views remain separate. Recurring monitoring, retention/removal permission and independent evaluation are unresolved; collection stays disabled.
