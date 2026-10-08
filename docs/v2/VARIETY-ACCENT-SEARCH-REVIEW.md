@@ -25,7 +25,9 @@ Mérida-profile scope. The result retains spelling Mérida and candidate anchor
 vcand-c584f27fb47f, separate-candidate identity and hidden unconfirmed photos.
 Preview includes four fictional names: 711 visible versus 707 real source keys.
 No real decision or permission form was submitted. Phone acceptance is not
-claimed. Full exact-head checks are required for this follow-up draft.
+claimed. Draft #354 exact head 2dd0ac8b4745b89e8caf9cae710782d659e993f2 passes all four
+required checks: 4,336 passed / 11 skipped / two warnings in 661.22s,
+run 37809475229.
 
 The first restricted preview process remained alive without opening its port.
 A diagnostic runner using the same tested local code started successfully with
