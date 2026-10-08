@@ -1,5 +1,25 @@
 # Project Status
 
+October 8 original rights-source continuation: three complete original PDFs
+(12 pages, text and every page visually checked) add five name occurrences for
+Enrosadira, ALEL045 and ALEL111. Existing Enrosadira identity/anchor is retained;
+the two official code proposals stay separate from EasyStar/EasyRock until human
+identity review. Dated printed register details are not verified current rights,
+company roles or trait approvals. One attributed Enrosadira patent photo has
+unknown reuse: hidden by default, session-only Ignore permission / Hide photo.
+Native reveal, refresh, hide and both original register links pass desktop review.
+Real audit: 220 sections / 917 occurrences / 62 text matches / 855 review needs /
+671 proposed keys (63 stored / 608 primary); catalog remains 64 mixed-status.
+50/77 registry entries partly checked, 27 enumeration gaps, 47 source follow-ups.
+The only backend change fixes original national-register source classification
+using the existing tier; it does not approve the source or current legal status.
+86 focused tests pass (44.06s, one existing warning); records validate; all 2,771
+original JSON files and the expansion guide are unchanged. Parent #348 has four
+green checks (4,310 tests). This draft requires its own exact-head full checks.
+See ORIGINAL-RIGHTS-SOURCE-LINKS-REVIEW.md. Embedded technical-sheet photos,
+independent recall and human catalog authoring remain open under CAT-01/CAT-02/
+TD-116. No merge/deploy or other-berry Landscape rollout.
+
 October 8 G-Berries original-source recovery: the earlier failed homepage
 capture is superseded by an original native-browser read, preserving its
 historical version. Three explicit crop selectors, GIL page and six complete

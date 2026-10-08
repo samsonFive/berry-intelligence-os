@@ -1,0 +1,167 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-enrosadira-original-us-patent",
+      "title": "Enrosadira — original USPP28138P3 patent",
+      "url": "https://patentimages.storage.googleapis.com/53/a3/47/82b714b6292d91/USPP28138.pdf",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete four-page original granted document: named cultivar, claim and drawing plate. Parent/comparator names excluded from offered-variety enumeration.",
+      "limitations": "2017 document publication is not a cultivar release date or proof of active rights today. No company automatically associated from the applicant name. Original photo reuse unknown.",
+      "names": [
+        {
+          "candidate_name": "Enrosadira",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patents.google.com/patent/USPP28138P3/en",
+          "portfolio_context": "Original USPP28138P3 publication dated 2017-06-27, application US14/120,026, names Enrosadira and contains one cultivar claim. Applicant/inventor are document fields; current legal status, ownership and company roles require review. Traits/parentage remain source assertions.",
+          "photos": [
+            {
+              "named_variety": "Enrosadira",
+              "berry_id": "berry-raspberry",
+              "kind": "plant",
+              "image_url": "https://patentimages.storage.googleapis.com/34/fa/d1/d0ddc1126f038c/USPP028138-20170627-D00001.png",
+              "source_url": "https://patents.google.com/patent/USPP28138P3/en",
+              "credit": "USPP28138P3, Figures 1–2; applicant AZ. AGR. Molari & Gatti Di Molari Gilberto; photographer not individually credited",
+              "caption": "Original Enrosadira patent plate: planted row and ripe/immature fruit. Black-and-white source reproduction.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named patent plate visually checked, copyright/reuse grant not established. Session choice only; no public approval."
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 4,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "sha256": "96085b197d7e6bb27ee2fc79bcef4bace8ece829aef4e10be3805cace9db1910",
+        "current_legal_status_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "Erika",
+            "reason": "Comparison cultivar, not the granted named variety."
+          },
+          {
+            "label": "T44L04 / Lagorai",
+            "reason": "Parent reference, not the granted named variety or an approved alias."
+          },
+          {
+            "label": "T35L04",
+            "reason": "Parent reference, not the granted named variety."
+          }
+        ]
+      },
+      "published_date": "2017-06-27"
+    },
+    {
+      "id": "portfolio-alel-italian-register-2022",
+      "title": "ALEL raspberry denominations — Italian ministry 2022",
+      "url": "https://www.protezionedellepiante.it/wp-content/uploads/2022/05/dm-6-maggio-2022-aggiornamento-registro-nazionale-fruttiferi.pdf",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "national_register",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete four-page original document; enumeration limited to the two Rubus idaeus Annex rows. Other crop rows are outside this bounded scope.",
+      "limitations": "National registration/propagation qualification and printed CPVO fields are different records. Neither document certifies current rights worldwide or automatically matches commercial names. No current-rights or source trust decision.",
+      "names": [
+        {
+          "candidate_name": "ALEL045",
+          "denomination": "ALEL045",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.protezionedellepiante.it/wp-content/uploads/2022/05/dm-6-maggio-2022-aggiornamento-registro-nazionale-fruttiferi.pdf",
+          "portfolio_context": "Original Italian ministry 2022 Annex table: Rubus idaeus L., denomination ALEL045, CPVO authorization column 20212520, applicant code 447 - R. Annex II expands applicant code as RONCOLATO ELENA AZIENDA AGRICOLA; rights-number/date cells blank in this dated table. Company sheet pairing with an Easy commercial name remains a separate unreviewed identity assertion. No automatic name merge or applicant/breeder relationship."
+        },
+        {
+          "candidate_name": "ALEL111",
+          "denomination": "ALEL111",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.protezionedellepiante.it/wp-content/uploads/2022/05/dm-6-maggio-2022-aggiornamento-registro-nazionale-fruttiferi.pdf",
+          "portfolio_context": "Original Italian ministry 2022 Annex table: Rubus idaeus L., denomination ALEL111, CPVO authorization column 20212519, applicant code 447 - R. Annex II expands applicant code as RONCOLATO ELENA AZIENDA AGRICOLA; rights-number/date cells blank in this dated table. Company sheet pairing with an Easy commercial name remains a separate unreviewed identity assertion. No automatic name merge or applicant/breeder relationship."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 4,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "sha256": "ccbb147984d3d3fbeaaee40f143443b3c649703c9aab5c28c54df4aca5d6d46e",
+        "current_legal_status_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-alel-italian-register-2025",
+      "title": "ALEL raspberry denominations — Italian ministry 2025",
+      "url": "https://www.protezionedellepiante.it/wp-content/uploads/2025/08/dm-28-luglio-2025-aggiornamento-registro-nazionale-fruttiferi-qvi.pdf",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "national_register",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete four-page original document; enumeration limited to the two Rubus idaeus Annex rows. Other crop rows are outside this bounded scope.",
+      "limitations": "National registration/propagation qualification and printed CPVO fields are different records. Neither document certifies current rights worldwide or automatically matches commercial names. No current-rights or source trust decision.",
+      "names": [
+        {
+          "candidate_name": "ALEL045",
+          "denomination": "ALEL045",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.protezionedellepiante.it/wp-content/uploads/2025/08/dm-28-luglio-2025-aggiornamento-registro-nazionale-fruttiferi-qvi.pdf",
+          "portfolio_context": "Original Italian ministry 2025 Annex table: Rubus idaeus L., denomination ALEL045, CPVO authorization column 20212520, applicant code 447 - R. Rights-number/date cells blank; not evidence that no rights exist. Company sheet pairing with an Easy commercial name remains a separate unreviewed identity assertion. No automatic name merge or applicant/breeder relationship."
+        },
+        {
+          "candidate_name": "ALEL111",
+          "denomination": "ALEL111",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.protezionedellepiante.it/wp-content/uploads/2025/08/dm-28-luglio-2025-aggiornamento-registro-nazionale-fruttiferi-qvi.pdf",
+          "portfolio_context": "Original Italian ministry 2025 Annex table: Rubus idaeus L., denomination ALEL111, CPVO authorization column 20212519, applicant code 447 - R. Rights-number column prints 69194 EU with rights date 22/04/2025; current CPVO legal status not independently verified. Company sheet pairing with an Easy commercial name remains a separate unreviewed identity assertion. No automatic name merge or applicant/breeder relationship."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 4,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "sha256": "dc3236aca41f5cf7229ef3ea545d1eaa43d9e78d7935ae47682ff288950d0b1f",
+        "current_legal_status_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      }
+    }
+  ]
+}

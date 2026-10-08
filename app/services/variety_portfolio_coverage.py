@@ -221,6 +221,7 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
                                     "breeder_release_record": "tier_1_breeder_catalog",
                                     "technical_sheet": "tier_2_technical_sheet",
                                     "plant_patent": "tier_1_patent_pvr",
+                                    "national_register": "tier_1_national_register",
                                     "conference_presentation": "tier_3_conference"}.get(
                                         source["source_type"], "weak_noncanonical_lead"),
                     "knowledge": {"origin": "primary_portfolio_observation"}},
