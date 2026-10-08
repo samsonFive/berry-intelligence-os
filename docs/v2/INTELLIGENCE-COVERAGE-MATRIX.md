@@ -1,5 +1,25 @@
 # Intelligence Coverage Matrix
 
+October 8 Berries del Oeste originals: seven named strawberries now appear in
+the company source table, with exact review links and 21 attributed photo
+references. All seven original profiles, the family context and five brochures
+(29 pages, including two distinct Áurea versions) were read and visually checked.
+Marketing families are excluded from cultivar counts; original spellings and
+claims stay provisional. No identity, alias, company role, traits, geography or
+current-rights approval. Photos remain hidden, unknown reuse and private to the
+session preview choice; no public image publication.
+Real audit: 244 sections / 972 occurrences / 62 catalog text matches / 910 review
+needs; 707 proposed keys (63 stored / 644 primary). Catalog remains 64 mixed-status.
+54/77 registry entries partly checked; 23 named-enumeration gaps and 47 source
+follow-ups remain. 68 affected tests pass (63.90s, one existing warning); original
+2,771 JSON files and expansion guide preserved. Native company search, exact
+Áurea handoff, both brochure URLs and photo reveal/refresh/hide verified. Phone
+acceptance remains unverified. Parent #352 has all four green checks (4,327 tests);
+this child requires its own exact-head full checks. See
+BERRIESOESTE-ORIGINAL-VARIETIES-REVIEW.md. CAT-01/CAT-02/TD-116, independent recall,
+rights depth and human catalog authoring remain open. No merge/deploy or
+other-berry Landscape rollout.
+
 October 8 Black Venture Farm original portfolio continuation: the complete
 low-chill and pipeline panels add 21 literal names/codes across four crops.
 The company table labels 11 pipeline selections separately from ten offerings,
