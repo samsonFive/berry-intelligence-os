@@ -326,6 +326,40 @@ def test_context_provider_filters_entity_before_twenty_result_limit(tmp_path):
     assert 'Private caption' not in str(links)
 
 
+def test_research_social_purchase_scope_and_window_before_limit(tmp_path):
+    from types import SimpleNamespace
+    from datetime import date
+    from app.services.social_intelligence.integration import market_context_provider
+    store=Store(tmp_path);store.ingest([sample('manual')],ENTITIES)
+    base=store.records()[0]
+    rows=[]
+    def add(key,published,market=None,**extra):
+        row=deepcopy(base);row.update(id=key,published_at=published,purchase_market=market,**extra);rows.append(row)
+    us={'value':'US','basis':'explicit_text','evidence_ref':'text','confidence':1}
+    mexico={**us,'value':'MX'}
+    add('match','2026-10-01T00:00:00Z',us)
+    add('offset-match','2026-09-07T00:30:00+09:00',us)
+    add('old','2020-01-01T00:00:00Z',us)
+    add('saved-undated',None,us)
+    add('future','2026-10-08T00:00:00Z',us)
+    add('query-target','2026-10-07T00:00:00Z',{**us,'basis':'query_target'})
+    add('origin-author-only','2026-10-07T00:00:00Z',None,fruit_origin=us,author_geography=us)
+    for i in range(25):add(f'foreign-{i}','2026-10-07T00:00:00Z',mexico)
+    geos=[{'id':'geography-us','entity_type':'geography','name':'United States','attributes':{'iso_3166_1_alpha_2':'US'}},
+          {'id':'geography-mx','entity_type':'geography','name':'Mexico','attributes':{'iso_3166_1_alpha_2':'MX'}}]
+    provider=market_context_provider(SimpleNamespace(records=lambda:rows),entities=geos,today=date(2026,10,7))
+    scope=SimpleNamespace(berry_id=None,company_ids=(),variety_ids=(),geography_ids=('geography-us',),window_days=30)
+    result=provider(scope)
+    assert [r['id'] for r in result]==['match']
+    assert 'start=2026-09-07' in result[0]['href'] and 'end=2026-10-07' in result[0]['href']
+    assert 'Private' not in str(result)
+    # No mapping is an honest empty result, never an unfiltered fallback.
+    assert market_context_provider(SimpleNamespace(records=lambda:rows),today=date(2026,10,7))(scope)==[]
+    scope.geography_ids=('geography-north-america',)
+    relations=[{'subject_id':'geography-us','object_id':'geography-north-america','predicate':'part_of','status':'active'}]
+    assert [r['id'] for r in market_context_provider(SimpleNamespace(records=lambda:rows),entities=geos,relationships=relations,today=date(2026,10,7))(scope)]==['match']
+
+
 @pytest.mark.parametrize('text',[
     'BlackBerry vibes. Much later in this long post: a physical keyboard for a phone.',
     'Old devices: Nokia, Sagem, BlackBerry 9700 and BlackBerry Passport.',
