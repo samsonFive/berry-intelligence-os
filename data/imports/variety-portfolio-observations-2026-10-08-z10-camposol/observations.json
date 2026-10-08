@@ -1,0 +1,111 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "company_ids": [
+        "company-camposol"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "id": "portfolio-camposol-original-origen-first-generation",
+      "title": "Camposol — original ORIGEN first-generation announcement",
+      "url": "https://www.camposol.com/news/camposol-launches-origen-its-global-genetics-breeding-program-at-fruit-logistica-2026/",
+      "published_date": "2026-02-04",
+      "source_type": "company_press_release",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original announcement; two literal first-generation names, not a complete historical or worldwide company portfolio.",
+      "limitations": "The names are explicitly presented as varieties in the announcement. Blueberry context comes from the quoted Head of the Blueberries Business Unit; crop identity still needs review. No botanical species, formal denomination, breeder code, patent or current rights verified. Performance wording and 2026 planting plans remain company claims, not approved traits or growing regions. No company roles, approved aliases or named-variety photos inferred.",
+      "names": [
+        {
+          "candidate_name": "Sol One",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.camposol.com/news/camposol-launches-origen-its-global-genetics-breeding-program-at-fruit-logistica-2026/",
+          "portfolio_context": "ORIGEN first-generation announcement; blueberry context requires identity review. No code, denomination or current rights verified."
+        },
+        {
+          "candidate_name": "Maia Blue",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.camposol.com/news/camposol-launches-origen-its-global-genetics-breeding-program-at-fruit-logistica-2026/",
+          "portfolio_context": "ORIGEN first-generation announcement; blueberry context requires identity review. No code, denomination or current rights verified."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "df24f67e4106b2fa883e365faa4da38019347b46f6de4bff4fd16d522503b002"
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "ORIGEN",
+            "reason": "Genetics program name, not a cultivar denomination."
+          },
+          {
+            "label": "Invitrolab",
+            "reason": "Biofactory name, not a cultivar denomination."
+          }
+        ]
+      }
+    },
+    {
+      "company_ids": [
+        "company-camposol"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "id": "portfolio-camposol-original-blueberry-products",
+      "title": "Camposol — original blueberry product page",
+      "url": "https://www.camposol.com/product/blueberries/",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete visible original product page; seven distinct packaging/product labels and a generic availability calendar. No cultivar names supplied.",
+      "limitations": "Packaging sizes and frozen-product format are not varieties. The generic availability calendar cannot be assigned to Sol One, Maia Blue or another cultivar. Generic crop nutrition wording is not variety-specific evidence. No publication date, cultivar photos, growing regions, approved traits, company roles or current rights inferred. Named-variety coverage remains incomplete.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "1a48d930e0417e4183873d79d8acef77e17524bfa72b0dfee3c6f7ec55250212"
+      },
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": [
+          {
+            "label": "4.4 oz / 125 g Clamshell",
+            "reason": "Packaging/product format, not a named cultivar."
+          },
+          {
+            "label": "6 oz / 170 g Clamshell",
+            "reason": "Packaging/product format, not a named cultivar."
+          },
+          {
+            "label": "18 oz / 510 g Clamshell",
+            "reason": "Packaging/product format, not a named cultivar."
+          },
+          {
+            "label": "24 oz / 680 g Clamshell",
+            "reason": "Packaging/product format, not a named cultivar."
+          },
+          {
+            "label": "1 Pint Clamshell",
+            "reason": "Packaging/product format, not a named cultivar."
+          },
+          {
+            "label": "255 g Punnet",
+            "reason": "Packaging/product format, not a named cultivar."
+          },
+          {
+            "label": "Frozen IQF",
+            "reason": "Packaging/product format, not a named cultivar."
+          },
+          {
+            "label": "Calendar of availability",
+            "reason": "Generic crop calendar; no named-variety allocation established."
+          }
+        ]
+      }
+    }
+  ]
+}

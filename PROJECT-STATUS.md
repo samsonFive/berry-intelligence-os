@@ -1,5 +1,21 @@
 # Project Status
 
+October 8 Camposol original-source continuation: two literal ORIGEN first-generation
+names, Sol One and Maia Blue, enter existing identity review with original
+February 4, 2026 source and contextual blueberry scope still needing review.
+Program/factory labels, seven packaging formats and generic calendar are
+excluded; the product page remains partial. No approved roles, aliases, traits,
+regions, rights or photos. Actual audit: 257 sections / 974 occurrences /
+709 candidate keys / 64 mixed-status catalog records; 55/77 entries partly
+checked, 22 enumeration gaps and 59 source follow-ups. 43 affected tests pass
+(45.06s, one existing warning); records validate; all 2,771 original JSON and
+expansion guide preserved. Native desktop and 390-pixel alphabetical handoff
+verified without real review writes. Parent #356 passes all four checks
+(4,351 tests); this follow-up needs its own head checks. See
+CAMPOSOL-ORIGINAL-VARIETIES-REVIEW.md. CAT-01/CAT-02/TD-116, independent coverage,
+rights/photos, human catalog and combined release remain open. No merge/deploy
+or other-berry Landscape rollout.
+
 October 8 selected-article discovery repair: the app recovered 18 original
 Hortifrut paragraphs with 24 named varieties, but the quick check initially
 found only two. Quoted positive declarations and paragraph-local crop scope
@@ -13,8 +29,8 @@ No real review decision or candidate write. The unchanged summary diagnostic
 still has 23/24 cases and 60/64 names; no global recall claim or fixture shortcut.
 Default audit remains 255 sections / 972 occurrences / 707 proposed keys /
 64 mixed-status catalog records, 23 registry enumeration gaps and 58 follow-ups.
-Parent #355 has all four green checks (4,341 tests); this repair needs its own
-exact-head checks. See VARIETY-ARTICLE-QUOTED-LISTS-REVIEW.md. CAT-01/CAT-02 /
+Parent #355 has all four green checks (4,341 tests); draft #356 also passes
+all four checks (4,351 tests / 11 skipped / two warnings, 520.89s). See VARIETY-ARTICLE-QUOTED-LISTS-REVIEW.md. CAT-01/CAT-02 /
 TD-116, acquisition, independent recall, rights/photos, human catalog and release
 remain open. No merge/deploy or other-berry Landscape rollout.
 

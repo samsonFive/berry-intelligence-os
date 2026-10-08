@@ -60,7 +60,8 @@ gaps. Most saved publications still lack original readable bodies; private
 selected captures do not change the canonical-only coverage count.
 
 Parent draft #355 has all four green required checks (4,341 passed / 11 skipped /
-two warnings in 441.39s). This code follow-up requires its own exact-head checks.
+two warnings in 441.39s). Draft #356 also passes all four checks: 4,351 passed / 11 skipped / two warnings
+in 520.89s.
 Broader acquisition/independent coverage, current rights, attributed photos,
 human catalog authoring and release review remain open. No merge, deployment
 or other-berry Landscape rollout.
