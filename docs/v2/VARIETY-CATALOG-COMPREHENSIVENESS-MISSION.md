@@ -1,5 +1,23 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+October 8 Sant’Orsola continuation: the live breeding page adds eleven
+name observations, including Delfi and ten raspberry labels, with exact linked
+technical-sheet URLs. Two enumerated crop sections and one explicit document
+follow-up bring the real audit to 146 sections / 805 occurrences / 57 text
+matches / 748 review needs / 630 candidate keys. Catalog stays 64; 42/77
+registry rows have some enumeration, 35 initial checks and 22 follow-ups remain.
+Photos remain 37 references / 36 reuse-unconfirmed / zero newly approved public.
+The technical sheets are linked but not yet read; no patent status, aliases,
+roles, traits or growing region is approved. Native company search and scoped
+coverage handoff are reviewed. All 37 focused checks, record validation and
+1,992-original-JSON preservation pass. See SANTORSOLA-VARIETY-REVIEW.md.
+Draft #340 is pushed and all four exact-head checks pass (4,267 tests); this
+continuation requires its own exact-head checks. No merge, deployment or
+other-berry Landscape rollout. CAT-01/CAT-02/TD-116 remain open.
+
+Earlier checkpoints below are historical. Current source denominators and
+delivery state are those above; a checked page is not a complete portfolio.
+
 October 8 BerryWorld/Oishii/Queensland continuation: eleven sections add 57
 source-name occurrences and one permission-held Koyo photo. Regional/brand and
 historical labels remain separate; the Queensland abstract's seven-versus-six
