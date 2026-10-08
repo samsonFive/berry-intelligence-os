@@ -1,0 +1,582 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-mattivi-01-raspberry",
+      "title": "Mattivi — raspberry portfolio",
+      "url": "https://www.mattivi.it/raspberry-varieties/",
+      "company_ids": [
+        "company-mattivi-group"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original portfolio/detail body; paired codes stay contextual, not additional offered cultivars.",
+      "limitations": "Four visible name/code pairs; retain both literal labels but do not count them as eight established cultivars or approve aliases. PBR labels are company assertions, not verified register grants. Four separately named photos visually checked; generic header crop image excluded.",
+      "names": [
+        {
+          "candidate_name": "Serena",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.mattivi.it/raspberry-varieties/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed. Source pairs Serena with M.P. 745 and a PBR label. Code equivalence and rights remain unconfirmed.",
+          "display_label": "Serena · M.P. 745",
+          "photos": [
+            {
+              "image_url": "https://www.mattivi.it/wp-content/uploads/elementor/thumbs/73ff27f8-2a2f-4660-acde-094431c15e11-ppqcbue3c4iy6ne6aicfmko4wjvzeapn70g0pvcl1k.jpg",
+              "source_url": "https://www.mattivi.it/raspberry-varieties/",
+              "credit": "Mattivi Group",
+              "caption": "Serena fruit shown in the named Mattivi portfolio card; proposed association.",
+              "named_variety": "Serena",
+              "berry_id": "berry-raspberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reuse grant recorded. Original named card visually checked; identity unreviewed.",
+              "checked_on": "2026-10-08",
+              "kind": "fruit"
+            }
+          ]
+        },
+        {
+          "candidate_name": "Nives",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.mattivi.it/raspberry-varieties/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed. Source pairs Nives with M.P. 102 and a PBR label. Code equivalence and rights remain unconfirmed.",
+          "display_label": "Nives · M.P. 102",
+          "photos": [
+            {
+              "image_url": "https://www.mattivi.it/wp-content/uploads/elementor/thumbs/Nives-Horizontal-qwo4cmlipklremk88wbn017onpb2mo48bvg8atsjuw.jpg",
+              "source_url": "https://www.mattivi.it/raspberry-varieties/",
+              "credit": "Mattivi Group",
+              "caption": "Nives fruit shown in the named Mattivi portfolio card; proposed association.",
+              "named_variety": "Nives",
+              "berry_id": "berry-raspberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reuse grant recorded. Original named card visually checked; identity unreviewed.",
+              "checked_on": "2026-10-08",
+              "kind": "fruit"
+            }
+          ]
+        },
+        {
+          "candidate_name": "Dolcevita",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.mattivi.it/raspberry-varieties/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed. Source pairs Dolcevita with M.F. 500 and a PBR label. Code equivalence and rights remain unconfirmed.",
+          "display_label": "Dolcevita · M.F. 500",
+          "photos": [
+            {
+              "image_url": "https://www.mattivi.it/wp-content/uploads/elementor/thumbs/Dolcevita-fruit-qwo5c24ibr3v1h3gcpodhlc6rko5rxrzj8q4jb9bbc.jpg",
+              "source_url": "https://www.mattivi.it/raspberry-varieties/",
+              "credit": "Mattivi Group",
+              "caption": "Dolcevita fruit shown in the named Mattivi portfolio card; proposed association.",
+              "named_variety": "Dolcevita",
+              "berry_id": "berry-raspberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reuse grant recorded. Original named card visually checked; identity unreviewed.",
+              "checked_on": "2026-10-08",
+              "kind": "fruit"
+            }
+          ]
+        },
+        {
+          "candidate_name": "Isabella",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.mattivi.it/raspberry-varieties/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed. Source pairs Isabella with M.F. 1116 and a PBR label. Code equivalence and rights remain unconfirmed.",
+          "display_label": "Isabella · M.F. 1116",
+          "photos": [
+            {
+              "image_url": "https://www.mattivi.it/wp-content/uploads/elementor/thumbs/isabella-qwo8jlgcdn9o3z9sp5kigxqvdl7cwlg8f3hp4py8i0.jpg",
+              "source_url": "https://www.mattivi.it/raspberry-varieties/",
+              "credit": "Mattivi Group",
+              "caption": "Isabella fruit shown in the named Mattivi portfolio card; proposed association.",
+              "named_variety": "Isabella",
+              "berry_id": "berry-raspberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reuse grant recorded. Original named card visually checked; identity unreviewed.",
+              "checked_on": "2026-10-08",
+              "kind": "fruit"
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "language": "English",
+        "paired_labels_reviewed": true,
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": [
+          {
+            "label": "M.P. 745",
+            "reason": "Paired source code retained in name context; not counted as a separate offered cultivar or approved alias."
+          },
+          {
+            "label": "M.P. 102",
+            "reason": "Paired source code retained in name context; not counted as a separate offered cultivar or approved alias."
+          },
+          {
+            "label": "M.F. 500",
+            "reason": "Paired source code retained in name context; not counted as a separate offered cultivar or approved alias."
+          },
+          {
+            "label": "M.F. 1116",
+            "reason": "Paired source code retained in name context; not counted as a separate offered cultivar or approved alias."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-mattivi-02-strawberry",
+      "title": "Mattivi — strawberry portfolio",
+      "url": "https://www.mattivi.it/strawberry-varieties/",
+      "company_ids": [
+        "company-mattivi-group"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original portfolio/detail body; paired codes stay contextual, not additional offered cultivars.",
+      "limitations": "Two name/code pairs. Detail-page titles also say AuroraKarima/AuroraMunira, while body headings use Karima/A.Karima and Munira/A.Munira. Keep discrepancy explicit; no automatic aliases or rights approval.",
+      "names": [
+        {
+          "candidate_name": "Karima",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.mattivi.it/strawberry-varieties/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed. Source pairs Karima with A.Karima and a PBR label. Code equivalence and rights remain unconfirmed.",
+          "display_label": "Karima · A.Karima"
+        },
+        {
+          "candidate_name": "Munira",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.mattivi.it/strawberry-varieties/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed. Source pairs Munira with A.Munira and a PBR label. Code equivalence and rights remain unconfirmed.",
+          "display_label": "Munira · A.Munira"
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "language": "English",
+        "paired_labels_reviewed": true,
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "A.Karima",
+            "reason": "Paired source code retained in name context; not counted as a separate offered cultivar or approved alias."
+          },
+          {
+            "label": "A.Munira",
+            "reason": "Paired source code retained in name context; not counted as a separate offered cultivar or approved alias."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-mattivi-03-blueberry",
+      "title": "Mattivi — blueberry portfolio",
+      "url": "https://www.mattivi.it/blueberry-varieties/",
+      "company_ids": [
+        "company-mattivi-group"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original portfolio/detail body; paired codes stay contextual, not additional offered cultivars.",
+      "limitations": "Names/codes remain proposed identities. No approved alias, breeder role, growing footprint, trait, rights status, publication date or photo permission.",
+      "names": [
+        {
+          "candidate_name": "M.H. 1-07",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.mattivi.it/blueberry-varieties/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "language": "English",
+        "paired_labels_reviewed": true,
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-mattivi-04-blackberry",
+      "title": "Mattivi — blackberry portfolio",
+      "url": "https://www.mattivi.it/blackberry-varieties/",
+      "company_ids": [
+        "company-mattivi-group"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original portfolio/detail body; paired codes stay contextual, not additional offered cultivars.",
+      "limitations": "Web reader cache miss resolved by complete native page. Browser title incorrectly says Blueberry Varieties; visible headings/menu/detail identify Blackberry. No inferred code alias or verified PBR grant.",
+      "names": [
+        {
+          "candidate_name": "M.PB.64-01",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.mattivi.it/blackberry-varieties/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "language": "English",
+        "paired_labels_reviewed": true,
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-mattivi-05-raspberry",
+      "title": "Mattivi — raspberry named cultivar detail",
+      "url": "https://www.mattivi.it/raspberry-varieties/serena/",
+      "company_ids": [
+        "company-mattivi-group"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original portfolio/detail body; paired codes stay contextual, not additional offered cultivars.",
+      "limitations": "Names/codes remain proposed identities. No approved alias, breeder role, growing footprint, trait, rights status, publication date or photo permission.",
+      "names": [
+        {
+          "candidate_name": "Serena",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.mattivi.it/raspberry-varieties/serena/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed. Source pairs Serena with M.P. 745 and a PBR label. Code equivalence and rights remain unconfirmed.",
+          "display_label": "Serena · M.P. 745"
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_web_reader",
+        "language": "English",
+        "paired_labels_reviewed": true,
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "M.P. 745",
+            "reason": "Paired source code retained in name context; not counted as a separate offered cultivar or approved alias."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-mattivi-06-raspberry",
+      "title": "Mattivi — raspberry named cultivar detail",
+      "url": "https://www.mattivi.it/raspberry-varieties/nives/",
+      "company_ids": [
+        "company-mattivi-group"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original portfolio/detail body; paired codes stay contextual, not additional offered cultivars.",
+      "limitations": "Names/codes remain proposed identities. No approved alias, breeder role, growing footprint, trait, rights status, publication date or photo permission.",
+      "names": [
+        {
+          "candidate_name": "Nives",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.mattivi.it/raspberry-varieties/nives/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed. Source pairs Nives with M.P. 102 and a PBR label. Code equivalence and rights remain unconfirmed.",
+          "display_label": "Nives · M.P. 102"
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_web_reader",
+        "language": "English",
+        "paired_labels_reviewed": true,
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "M.P. 102",
+            "reason": "Paired source code retained in name context; not counted as a separate offered cultivar or approved alias."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-mattivi-07-raspberry",
+      "title": "Mattivi — raspberry named cultivar detail",
+      "url": "https://www.mattivi.it/raspberry-varieties/dolcevita/",
+      "company_ids": [
+        "company-mattivi-group"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original portfolio/detail body; paired codes stay contextual, not additional offered cultivars.",
+      "limitations": "Names/codes remain proposed identities. No approved alias, breeder role, growing footprint, trait, rights status, publication date or photo permission.",
+      "names": [
+        {
+          "candidate_name": "Dolcevita",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.mattivi.it/raspberry-varieties/dolcevita/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed. Source pairs Dolcevita with M.F. 500 and a PBR label. Code equivalence and rights remain unconfirmed.",
+          "display_label": "Dolcevita · M.F. 500"
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_web_reader",
+        "language": "English",
+        "paired_labels_reviewed": true,
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "M.F. 500",
+            "reason": "Paired source code retained in name context; not counted as a separate offered cultivar or approved alias."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-mattivi-08-raspberry",
+      "title": "Mattivi — raspberry named cultivar detail",
+      "url": "https://www.mattivi.it/raspberry-varieties/isabella/",
+      "company_ids": [
+        "company-mattivi-group"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original portfolio/detail body; paired codes stay contextual, not additional offered cultivars.",
+      "limitations": "Names/codes remain proposed identities. No approved alias, breeder role, growing footprint, trait, rights status, publication date or photo permission.",
+      "names": [
+        {
+          "candidate_name": "Isabella",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.mattivi.it/raspberry-varieties/isabella/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed. Source pairs Isabella with M.F. 1116 and a PBR label. Code equivalence and rights remain unconfirmed.",
+          "display_label": "Isabella · M.F. 1116"
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_web_reader",
+        "language": "English",
+        "paired_labels_reviewed": true,
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "M.F. 1116",
+            "reason": "Paired source code retained in name context; not counted as a separate offered cultivar or approved alias."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-mattivi-09-strawberry",
+      "title": "Mattivi — strawberry named cultivar detail",
+      "url": "https://www.mattivi.it/strawberry-varieties/karima/",
+      "company_ids": [
+        "company-mattivi-group"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original portfolio/detail body; paired codes stay contextual, not additional offered cultivars.",
+      "limitations": "Names/codes remain proposed identities. No approved alias, breeder role, growing footprint, trait, rights status, publication date or photo permission.",
+      "names": [
+        {
+          "candidate_name": "Karima",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.mattivi.it/strawberry-varieties/karima/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed. Source pairs Karima with A.Karima and a PBR label. Code equivalence and rights remain unconfirmed.",
+          "display_label": "Karima · A.Karima"
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_web_reader",
+        "language": "English",
+        "paired_labels_reviewed": true,
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "A.Karima",
+            "reason": "Paired source code retained in name context; not counted as a separate offered cultivar or approved alias."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-mattivi-10-strawberry",
+      "title": "Mattivi — strawberry named cultivar detail",
+      "url": "https://www.mattivi.it/strawberry-varieties/munira/",
+      "company_ids": [
+        "company-mattivi-group"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original portfolio/detail body; paired codes stay contextual, not additional offered cultivars.",
+      "limitations": "Names/codes remain proposed identities. No approved alias, breeder role, growing footprint, trait, rights status, publication date or photo permission.",
+      "names": [
+        {
+          "candidate_name": "Munira",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.mattivi.it/strawberry-varieties/munira/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed. Source pairs Munira with A.Munira and a PBR label. Code equivalence and rights remain unconfirmed.",
+          "display_label": "Munira · A.Munira"
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_web_reader",
+        "language": "English",
+        "paired_labels_reviewed": true,
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "A.Munira",
+            "reason": "Paired source code retained in name context; not counted as a separate offered cultivar or approved alias."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-mattivi-11-blueberry",
+      "title": "Mattivi — blueberry named cultivar detail",
+      "url": "https://www.mattivi.it/m-h-1-07-pbr/",
+      "company_ids": [
+        "company-mattivi-group"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original portfolio/detail body; paired codes stay contextual, not additional offered cultivars.",
+      "limitations": "Source also compares maturity with Duke. Duke is a comparator, not an offered Mattivi cultivar. Preserve spacing variation M.H.1-07 as unresolved source spelling, not an approved alias. Company traits and PBR remain claims.",
+      "names": [
+        {
+          "candidate_name": "M.H. 1-07",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.mattivi.it/m-h-1-07-pbr/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_web_reader",
+        "language": "English",
+        "paired_labels_reviewed": true,
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Duke",
+            "reason": "Ripening comparator, not an offered Mattivi cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-mattivi-12-blackberry",
+      "title": "Mattivi — blackberry named cultivar detail",
+      "url": "https://www.mattivi.it/blackberry-varieties/m-pb-64-01/",
+      "company_ids": [
+        "company-mattivi-group"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original portfolio/detail body; paired codes stay contextual, not additional offered cultivars.",
+      "limitations": "Complete native detail resolves web reader cache miss. Numeric yield/quality/shelf-life assertions are company claims with conditions, not independently verified facts. Retain heading spacing difference M.PB. 64-01; no current rights approval.",
+      "names": [
+        {
+          "candidate_name": "M.PB.64-01",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.mattivi.it/blackberry-varieties/m-pb-64-01/",
+          "portfolio_context": "Named in the original company page; identity and company role remain unreviewed."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "language": "English",
+        "paired_labels_reviewed": true,
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    }
+  ]
+}
