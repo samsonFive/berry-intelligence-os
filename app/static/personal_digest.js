@@ -90,11 +90,20 @@
         remember().catch(function (error) { announce(error.message, reader); });
       }
     }
+    var documentJump = event.target.closest("[data-reader-document-section]");
+    if (documentJump && reader) {
+      var section = documentJump.dataset.readerDocumentSection;
+      if (["abstract", "description", "claims"].indexOf(section) !== -1) {
+        var documentHeading = reader.querySelector("#reader-document-" + section);
+        if (documentHeading) { documentHeading.scrollIntoView({block: "start"}); documentHeading.focus({preventScroll: true}); }
+      }
+    }
     var capture = event.target.closest("[data-personal-capture]");
     if (capture && reader) {
       var activeReader = reader, id = reader.dataset.itemId;
+      var captureLabel = capture.textContent;
       capture.disabled = true; capture.textContent = "Loading article…";
-      fetch("/api/digest/" + encodeURIComponent(id) + "/capture", {method: "POST", credentials: "same-origin"}).then(function (response) {
+      fetch("/api/digest/" + encodeURIComponent(id) + "/capture" + (capture.dataset.personalRefresh === "true" ? "?refresh=1" : ""), {method: "POST", credentials: "same-origin"}).then(function (response) {
         if (!response.ok) throw new Error("Article could not be loaded. You can read at the publisher.");
         return response.text();
       }).then(function (html) {
@@ -102,7 +111,7 @@
         if (reader !== activeReader || !activeReader.isConnected) return;
         activeReader.outerHTML = html; setupReader(); applyMode("article");
         if (!reader.querySelector(".article-prose")) announce("Article text could not be loaded here. Try again, read at the publisher or use the Brief.", reader);
-      }).catch(function (error) { announce(error.message, activeReader); }).finally(function () { if (capture.isConnected) { capture.disabled = false; capture.textContent = "Load available article text"; } });
+      }).catch(function (error) { announce(error.message, activeReader); }).finally(function () { if (capture.isConnected) { capture.disabled = false; capture.textContent = captureLabel; } });
     }
     if (!event.target.closest(".glass-more")) { var more = document.querySelector(".glass-more"); if (more) more.open = false; }
     document.querySelectorAll(".filter-multi[open]").forEach(function (details) {

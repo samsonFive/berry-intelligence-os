@@ -417,11 +417,14 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             html = raw.decode("utf-8", errors="replace")
         title_match = _TITLE_RE.search(html)
         headline = decode_html_text(title_match.group(1)) if title_match else ""
-        passages = _paragraphs_from_html(html)
+        from app.services.patent_reader import patent_document
+        document = patent_document(html, final)
+        passages = [row["text"] for row in document["blocks"] if row["kind"] != "heading"] if document else _paragraphs_from_html(html)
         images = extract_article_images(html)
         allowed = frame_allowed(headers)
         availability = classify_capture(passages, status_code=status_code)
-        if limited and availability == "full":
+        document_limited = bool(document and document["truncated"])
+        if (limited or document_limited or document) and availability == "full":
             availability = "partial"
         modes = ["structured_fallback"]
         if availability in {"full", "partial", "excerpt_only"}:
@@ -432,12 +435,13 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             "url": final,
             "ok": availability in {"full", "partial", "excerpt_only"},
             "availability": availability,
-            "reason": "response-size-limit" if limited else "" if availability != "error" else f"http-{status_code}",
-            "truncated": limited,
+            "reason": "response-size-limit" if limited else "document-text-limit" if document_limited else "" if availability != "error" else f"http-{status_code}",
+            "truncated": limited or document_limited,
             "headline": headline,
             "passages": passages,
             "images": images,
-            "content_kind": "article",
+            "content_kind": "patent" if document else "article",
+            "document_blocks": document["blocks"] if document else [],
             "frame_allowed": allowed,
             "reader_modes": modes,
             "method": "direct_http",
@@ -527,15 +531,15 @@ def capture_item(
     refresh: bool = False,
 ) -> dict[str, Any]:
     item_id = str(record.get("id") or "")
-    if item_id and not refresh:
-        existing = load_capture(inbox_dir, item_id)
-        if existing and existing.get("ok") and existing.get("requested_url", str(record.get("source_url") or "")) == str(record.get("source_url") or ""):
-            return existing
+    existing = load_capture(inbox_dir, item_id) if item_id else None
+    matching_existing = bool(existing and existing.get("ok") and existing.get("requested_url", str(record.get("source_url") or "")) == str(record.get("source_url") or ""))
+    if matching_existing and not refresh:
+        return existing
     url = str(record.get("source_url") or "")
     capture = fetch_public_article(url, client=client)
     capture["item_id"] = item_id
     capture["requested_url"] = url
-    if item_id:
+    if item_id and not (matching_existing and not capture.get("ok")):
         save_capture(inbox_dir, item_id, capture)
     return capture
 
@@ -634,6 +638,9 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
         if not existing:
             article["paragraphs"] = [{"text": row} for row in passages]
             merged["article"] = article
+            if capture.get("content_kind") == "patent":
+                from app.services.patent_reader import display_document_blocks
+                merged["reader_document_blocks"] = display_document_blocks(capture.get("document_blocks"))
         if not merged.get("summary") and passages:
             merged["summary"] = passages[0][:280]
     images = [row for row in (capture.get("images") or []) if isinstance(row, dict) and row.get("url")]
