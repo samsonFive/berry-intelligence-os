@@ -143,6 +143,8 @@ def reader_context(request: Request, record: dict):
     card["entities"] = [row for row in card["entities"] if (entities.get(row["id"]) or {}).get("entity_type") in {"company", "brand", "research_program"}]
     content = reader_content(record)
     paragraphs = [] if content["contaminated"] else display_reader_passages([row["text"] for row in article_paragraphs(record)])
+    if not paragraphs and content["body"] and content["state"] in {"body_available", "body_partial"}:
+        paragraphs = display_reader_passages([content["body"]])
     if paragraphs == [content["summary"]]:
         paragraphs = []  # A syndicated synopsis is not the original article.
     document_blocks = record.get("reader_document_blocks", []) if main.AUTHORING_MODE and paragraphs else []
@@ -174,3 +176,39 @@ def digest_capture(request: Request, item_id: str):
     if isinstance(capture, dict) and not capture.get("ok"):
         view["capture_message"] = "Source text could not be loaded. Any previously captured text is still shown; you can try again or read at the publisher."
     return main.templates.TemplateResponse(request=request, name="_personal_reader.html", context=view)
+
+
+def source_variety_report(item_id: str, *, existing_candidates=None):
+    """Read one selected, already-captured source; no fetches or writes."""
+    from app.services.feed_first_reader import load_capture, merge_capture
+    from app.services.variety_universe.corpus_discovery import build_discovered_candidates
+
+    main, context, records, _ = world()
+    record = known_story(item_id, records, context, analyst_queue.load_state(main.INBOX_DIR))
+    if record.get("missing_source"):
+        raise HTTPException(404, "Source no longer available")
+    record = merge_capture(record, load_capture(main.INBOX_DIR, item_id))
+    entities = main.all_entities()
+    report = build_discovered_candidates(
+        varieties=[e for e in entities if e.get("entity_type") == "variety"], entities=entities,
+        published_evidence=[], facts=[], existing_candidates=(existing_candidates if existing_candidates is not None
+            else main.variety_candidate_universe()[1]),
+        source_text_records=[record],
+    )
+    reasons = {row["reason"] for row in report["exclusions"]}
+    if "source_text_unavailable" in reasons:
+        raise HTTPException(422, "Readable article text is unavailable. Load available text in the Reader first, or use manual intake.")
+    if "source_text_too_large" in reasons:
+        raise HTTPException(422, "This document is too large for the quick name check. Use manual intake to review its variety lists.")
+    return main, report
+
+
+@router.post("/varieties/discover-source/{item_id}")
+def discover_source_varieties(request: Request, item_id: str):
+    """Explicit, single-source identity discovery; never capture or approve."""
+    require_edit(request)
+    from app.services.variety_universe.candidates import persist_variety_candidates
+    main, report = source_variety_report(item_id)
+    persist_variety_candidates(report["candidates"], inbox_dir=main.INBOX_DIR)
+    return RedirectResponse('/varieties/candidates?' + urlencode({
+        'source':item_id, 'discovery':'source-text'}), status_code=303)

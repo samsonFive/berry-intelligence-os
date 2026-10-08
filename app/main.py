@@ -3380,6 +3380,13 @@ def variety_candidates_page(request: Request) -> HTMLResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Variety candidates are authoring-only")
     _varieties, candidates, _report = variety_candidate_universe()
+    source_text_report = None
+    if request.query_params.get('discovery') == 'source-text' and request.query_params.get('source'):
+        from app.personal_digest_routes import source_variety_report
+        from app.services.variety_universe.corpus_discovery import source_catalog_coverage
+        _main, selected_report = source_variety_report(request.query_params['source'], existing_candidates=candidates)
+        candidates = merge_visible_candidates(candidates, selected_report['candidates'], report=selected_report)
+        source_text_report = source_catalog_coverage(selected_report).get(request.query_params['source'], [])
     from app.services.variety_navigation import candidate_queue
     try:
         queue = candidate_queue(candidates, dict(request.query_params))
@@ -3398,6 +3405,7 @@ def variety_candidates_page(request: Request) -> HTMLResponse:
             **queue,
             "catalog_handoffs": {row["id"]: _variety_catalog_handoff(row, _varieties) for row in queue["candidates"]},
             "portfolio_error": _report.get("portfolio_error"),
+            "source_text_report": source_text_report,
             "candidate_entities": entity_index(),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,

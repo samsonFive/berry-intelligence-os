@@ -1,5 +1,17 @@
 # Redesign and consolidation requirements
 
+October 7 selected-article follow-up: the private Reader can find explicit
+variety names in one stored/cached article and send new names to identity review.
+Catalog matches and earlier human decisions remain intact; publication status,
+original URLs and declaration context stay visible. Filters/alphabet preserve
+article scope; no provider calls, global body hydration or automatic approval.
+The unchanged summary diagnostic remains 60/64, four raw-body misses, zero extras;
+selected-article behavior has separate tests, not a new global recall claim.
+Default coverage stays 104 sections / 648 occurrences / 518 candidate keys;
+45 initial company checks, 17 follow-ups and CAT-01/CAT-02/TD-116 stay open.
+See VARIETY-SELECTED-ARTICLE-REVIEW.md. Local only pending pinned-parent push
+approval; no new PR/CI, merge/deploy or other-berry Landscape rollout.
+
 October 7 local patent/source recheck: eight original blueberry filing subjects
 reuse existing catalog identities; wrong PP25,358 ornamental subject excluded.
 OZblu old mapping redirect and blank Rejoice English PDF remain source gaps.
@@ -275,8 +287,9 @@ The new catalog rows remain open beyond their delivered first slice.
 
 October 7 recall follow-up: CAT-01/CAT-02 retain a 24-case curated synthetic
 diagnostic, with actual detection improving from 46/64 to 50/64 after spaced-code
-and long-F1 repairs; unexpected names fall from one to zero. Table, Spanish,
-Polish and body-only failures still miss 14 occurrences. Independent human
+and long-F1 repairs; unexpected names fall from one to zero. Later table, Spanish
+and Polish repairs reach 60/64 with four raw-body misses; the selected-article
+action is tested separately and does not change the fixture. Independent human
 verification, real acquisition, canonical authoring and remaining portfolio
 coverage are open. #320 now delivers the candidate-to-existing-authoring
 navigation; actual human decisions and catalog growth remain open. See
@@ -289,8 +302,8 @@ Completion means implementation plus appropriate source/data proof, browser revi
 
 | ID | Accepted requirement | Current evidence / state | Remaining verification or implementation |
 | --- | --- | --- | --- |
-| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Stored discovery audits 1,269 sources (95 observations / 32 matches / 63 candidate observations); combined candidate keys 450 before private state. Dates, URLs/codes/prefixes, historical exclusions and user edits survive. All 38 pages of the UGA presentation are visually accounted for; photo-only labels and experimental selections retain source scope. #320 connects human-reviewed distinct candidates to existing intake and separate source/claim review. Independent GRIN comparison now offers individual private identity-lead handoff without overwriting decisions. All-scopes source-content disclosure distinguishes acquisition gaps from recall. | Older published corpus has 1,198 unavailable bodies / 71 access screens, excluding pending news. Remaining acquisition, other table/language formats, independent review and actual identity/catalog additions remain. Unchanged original diagnostic now detects 60/64, with four body-only misses; title diagnostic misses one F1 name. |
-| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | 77-row source plan; 53 dated sections / 540 source name occurrences across four berries, with seven explicit source follow-ups. Independent GDR comparison has 2,372 genus/name pairs; GRIN has 148 scoped blueberry names plus 53 unresolved hybrid labels. Before private state, GRIN finds 132 missing exact names / 14 queued / two catalog matches. Existing profile websites and analyst edit/clear carry into the source plan. Canonical catalog remains 64. See VARIETY-HISTORICAL-BLUEBERRY-VISUAL-REVIEW.md. | 55 registry rows need initial enumerated primary checks; checked pages are not completed portfolios. Original release/rights verification, hybrid crop resolution, actual catalog authoring, cited traits/images/regions, refresh reconciliation and independently scored recall remain. External comparisons are scoped benchmarks; no global completeness or web-leading claim. |
+| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Stored discovery audits 1,269 sources (95 observations / 32 matches / 63 candidate observations); combined candidate keys 518 before private state. Selected Reader checks now include available article-text declarations with retained publication status; previous human decisions and catalog matches win. Dates, URLs/codes/prefixes, historical exclusions and user edits survive. All 38 pages of the UGA presentation are visually accounted for; photo-only labels and experimental selections retain source scope. #320 connects human-reviewed distinct candidates to existing intake and separate source/claim review. Independent GRIN comparison now offers individual private identity-lead handoff without overwriting decisions. All-scopes source-content disclosure distinguishes acquisition gaps from recall. | Older published corpus has 1,198 unavailable bodies / 71 access screens, excluding pending news. Remaining acquisition, further declaration formats/languages, independent review and actual identity/catalog additions remain. Unchanged original diagnostic now detects 60/64, with four body-only misses; title diagnostic misses one F1 name. |
+| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | 77-row source plan; 104 dated sections / 648 source name occurrences across four berries, with 17 explicit source follow-ups. Independent GDR comparison has 2,372 genus/name pairs; GRIN has 148 scoped blueberry names plus 53 unresolved hybrid labels. Before private state, GRIN finds 132 missing exact names / 14 queued / two catalog matches. Existing profile websites and analyst edit/clear carry into the source plan. Canonical catalog remains 64. See VARIETY-HISTORICAL-BLUEBERRY-VISUAL-REVIEW.md. | 45 registry rows need initial enumerated primary checks; checked pages are not completed portfolios. Original release/rights verification, hybrid crop resolution, actual catalog authoring, cited traits/images/regions, refresh reconciliation and independently scored recall remain. External comparisons are scoped benchmarks; no global completeness or web-leading claim. |
 | UI-01 | Bright, colorful agricultural Glasshouse identity; first berry icon; subtle glass, stronger contrast and hierarchy | Approved Glasshouse identity and first icon across core, intelligence, authoring, public-library and retained shells (M1–21/34/35); source prose stays literal. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-02 | Immersive full-width workspace, compact top navigation, grouped More menu contained within the viewport | Full-width shared top header, contained grouped More, folded specialist destinations; live/private versus generated-public navigation tested (M20/21/35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-03 | Dense information with useful headlines, summaries, metadata and collapsed secondary context; plain language | Distinct heading/lead/body/metadata roles, compact cards/tables and secondary disclosures in News, dossiers, Reports, Landscape, Learn, research/review and retained tools (M3–35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |

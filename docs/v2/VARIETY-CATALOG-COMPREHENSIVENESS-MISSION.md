@@ -1,5 +1,17 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+October 7 selected-article follow-up: the private Reader can find explicit
+variety names in one stored/cached article and send new names to identity review.
+Catalog matches and earlier human decisions remain intact; publication status,
+original URLs and declaration context stay visible. Filters/alphabet preserve
+article scope; no provider calls, global body hydration or automatic approval.
+The unchanged summary diagnostic remains 60/64, four raw-body misses, zero extras;
+selected-article behavior has separate tests, not a new global recall claim.
+Default coverage stays 104 sections / 648 occurrences / 518 candidate keys;
+45 initial company checks, 17 follow-ups and CAT-01/CAT-02/TD-116 stay open.
+See VARIETY-SELECTED-ARTICLE-REVIEW.md. Local only pending pinned-parent push
+approval; no new PR/CI, merge/deploy or other-berry Landscape rollout.
+
 October 7 local patent/source recheck: eight original blueberry filing subjects
 reuse existing catalog identities; wrong PP25,358 ornamental subject excluded.
 OZblu old mapping redirect and blank Rejoice English PDF remain source gaps.
@@ -193,8 +205,9 @@ October 7 recall diagnostic adds 24 curated offline cases across all berries,
 codes, F1 labels, identity/provenance, tables, Spanish/Polish and body-only names.
 Source-based snippets are synthetic, not independently human-verified. Two
 summary defects are repaired: detection improves from 46/64 expected occurrences
-and one unexpected name to 50/64 and zero unexpected names. Four format cases
-still miss 14 names. Corpus/portfolio/catalog counts are unchanged. The benchmark
+and one unexpected name to 50/64 and zero unexpected names. Later table/Spanish/Polish repairs reach 60/64 with zero extras; the original
+raw-body case still misses four names. Selected article paragraphs/full text
+now have an explicit private Reader action, tested separately from that fixture. Corpus/portfolio/catalog counts are unchanged. The benchmark
 task below remains open for independent review, real captures and qualification.
 See VARIETY-NAME-RECALL-DIAGNOSTIC-V1.md.
 

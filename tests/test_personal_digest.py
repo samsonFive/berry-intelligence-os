@@ -192,8 +192,19 @@ def test_live_cached_reader_shows_original_separate_from_summary_and_review(work
     assert "Original publisher paragraph, not the summary." in response.text
     assert 'data-personal-mode="article" aria-pressed="true"' in response.text
     assert "Unreviewed" in response.text and "Read original at publisher" in response.text
+    assert 'action="/varieties/discover-source/ev-raw"' in response.text
     assert '/review/ev-raw/publish' not in response.text
     assert client.get("/intelligence/ev-raw?personal=1").status_code == 200
+
+
+def test_persisted_full_text_is_readable_and_offers_private_name_check(workspace):
+    client, _ = workspace
+    row = article('ev-full-text', article={'full_text':'Blackberry varieties include Full Text Lead. This is publisher text.'})
+    save_bundle(main.INBOX_DIR, {'today':'2026-09-20', 'records':[row]})
+    response = client.get('/api/intelligence/ev-full-text/reader?personal=1')
+    assert response.status_code == 200 and 'class="article-prose"' in response.text
+    assert 'Blackberry varieties include Full Text Lead.' in response.text
+    assert 'action="/varieties/discover-source/ev-full-text"' in response.text
 
 
 def test_summary_and_access_wall_never_masquerade_as_original(workspace):
@@ -202,6 +213,7 @@ def test_summary_and_access_wall_never_masquerade_as_original(workspace):
     for item_id in ["ev-thin", "ev-wall"]:
         text = client.get(f"/api/intelligence/{item_id}/reader?personal=1").text
         assert 'class="article-prose"' not in text and "Article text isn’t available" in text
+        assert '/varieties/discover-source/' not in text
 
 
 def test_capture_only_on_explicit_action_and_uses_existing_capture_store(workspace, monkeypatch):
@@ -244,6 +256,7 @@ def test_patent_document_hierarchy_refresh_and_private_trust_boundaries(workspac
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
     public = client.get("/api/intelligence/ev-digest/reader?personal=1")
     assert "as described and illustrated" not in public.text and "Reload source text" not in public.text
+    assert '/varieties/discover-source/' not in public.text
     assert client.post("/api/digest/ev-digest/capture?refresh=1").status_code == 403
 
 
