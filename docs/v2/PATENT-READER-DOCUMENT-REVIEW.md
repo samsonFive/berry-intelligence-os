@@ -11,7 +11,7 @@ the exact publisher host and `/patent/` path. It retains plain text, section and
 subsection headings, nested-list labels and bounded table cells/spans. It ignores
 site metadata, legal-event chrome and active HTML. The shared Article view keeps
 the publisher action and separates source claims from reviewed facts. Abstract,
-Description and Claims controls jump within the reader and focus the heading.
+Description and Claims controls stay available while scrolling, jump within the reader and focus the heading.
 The original document remains available in its own tab.
 
 Existing captures are retained until an explicit **Reload source text**. If that
