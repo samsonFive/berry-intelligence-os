@@ -29,7 +29,7 @@ This audit distinguishes deterministic engineering checks, actual bounded source
 
 Cash spend remains$0;38 finite free credits consumed,12 remaining,10-credit reserve preserved. Cumulative40 reserved attempts have reached the retained ceiling. No further source requests were made during this audit. No paid activation, external access application, vendor message, scheduling, merge or deployment.
 
-The private21-entry all-berry review packet retains original text/provenance and empty human grading fields. An independent reviewer needs to judge relevance, author role, language, entity/aspect attribution and notes before an accuracy claim. Decide whether negated sweetness is negative preference or merely absent sweetness rather than blindly flipping rule polarity to improve a fixture score.
+The private21-entry all-berry review packet retains original text/provenance and empty per-case gold fields. The user has since explicitly checked and approved relevance and corporate/consumer labels for the inspected sample. This is valid sample acceptance; do not infer ratings for unenumerated cases or manufacture precision/recall. Online translation comparison was requested and completed for three displayed live translations; native-language qualification remains distinct. Decide whether negated sweetness is negative preference or merely absent sweetness rather than blindly flipping rule polarity to improve a fixture score.
 
 Before unattended operation: agree corporate/consumer reference scope; qualify permitted text/media use and deletion refresh; persist reviewed watch configuration; verify budgets/health and recovery against the real source methods. Automatic downstream assembly and published dependency retraction remain engineering work, not completed criteria. Network/footprint views remain design previews on shared Landscape-compatible contracts.
 
@@ -40,3 +40,17 @@ Deliverables are recorded in `SOCIAL-ALL-BERRIES-REVIEW.md`, `SOCIAL-SOURCE-ACCE
 All berries now defaults, four retained BlackBerry phone stories are excluded from fruit views, and a single bounded Reddit detail request recovered an original image that rendered in the lightbox. Account remains $0 cash, 39 free credits consumed, 11 remaining, ten-credit reserve intact. Prior review HEAD21aa644b passed all four required checks and 4,078 tests. See SOCIAL-REVIEW-FEEDBACK-2026-10-07.md; earlier balances and test totals above are historical.
 
 After the user's further functional approval, the opt-in private research context seam now applies UTC publication windows and explicitly attributed purchase-market scope before the result cap, using supplied canonical geography mappings and existing stored containment only. Unknown mapping, query geography, fruit origin and author geography never substitute for market scope. 107 focused tests passed. See SOCIAL-RESEARCH-SCOPE-FOLLOWUP.md. Automatic downstream assembly/retraction, independent accuracy, rights and unattended monitoring remain unmet; the scoped seam does not enable them.
+
+## Current reconciliation after user sample approval
+
+The user has approved the visual/function review and inspected relevance and corporate/consumer labels. Subsequent instructions authorize the all-berry rollout; the original blueberry-first stop is historical, not a continuing prohibition on that approved rollout. No merge or deployment is authorized.
+
+| Item | Current verified evidence | Boundary |
+|---|---|---|
+| Sample review | Direct user approval of relevance and corporate/consumer labels | Sample IDs not enumerated; no retroactive gold labels or statistical accuracy claim |
+| Practical translation check | Actual Google Translate comparisons for all three displayed live non-English translations: ZH, JA, PT; assistant found no material meaning disagreement | ES live translated sample absent; not native-speaker gold; original synthetic pack remains separate |
+| Research scope hook | Publication window and explicitly attributed purchase-market mapping before cap; canonical stored containment supplied read-only; tested unknown/query/origin/author exclusions | Opt-in seam; automatic assembly and published retraction still incomplete |
+| Exact-head validation | HEADd397eec68a45d68895cf4ed6c46f50e1560429d7 passed Change scope, Repository integrity, Static public safety and Python tests; 4,079 passed,11 skipped,2 warnings in282.37 seconds | Later commits require their own checks; [verified run](https://github.com/samsonFive/berry-intelligence-os/actions/runs/37709025343) |
+| Bounded $0 acquisition | Retained ledger:41 attempts, initial50 free credits, latest verified11 remaining;39 consumed; recovered original Reddit picture and replay added0 references | Cached account receipt, not a fresh balance query; ten-credit reserve; no ongoing coverage claim |
+
+[Translation method and review interpretation](SOCIAL-TRANSLATION-CROSSCHECK.md) supersedes earlier requests to repeat the same user approval. Rights/deletion refresh, durable reviewed watch profiles, unattended collection, automatic downstream assembly/retraction and actual post-gate network/footprint views remain explicit continuation work. Current sample approval does not automatically switch on any collector or promote social observations into canonical Facts.
