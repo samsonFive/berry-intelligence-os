@@ -69,3 +69,10 @@ Two initial test assertions used the wrong existing service return shape;
 corrected before the passing runs. Canonical validation passes; expansion
 guide and runtime data are preserved. No merge, deployment, identity/source
 approval or other-berry Landscape rollout. CAT-01/CAT-02/TD-116 remain open.
+
+The first full CI run found one stale assertion in the separate title-precision
+suite: it still expected the preceding 50/64 diagnostic. The assertion now checks
+60/64, all original case/fixture bytes, the three repaired formats and the four
+remaining body-only misses. That repair and adjacent recall/title checks pass
+33 tests with one existing warning (4.29 seconds). A fresh exact-head full CI
+run is required; the failed run is not presented as passing.
