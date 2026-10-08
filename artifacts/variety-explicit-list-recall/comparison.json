@@ -1,0 +1,207 @@
+{
+  "kind": "explicit_summary_recall_diagnostic_comparison",
+  "scope": "24 bounded offline cases. Source-based summaries, tables and translations are synthetic paraphrases of checked factual names; controls are invented. Expected lists were authored separately from discovery output. Not live-page extraction, a statistical web sample, or evidence for catalog promotion.",
+  "review_status": "Agent-curated diagnostic; not independently human-verified or model-qualified",
+  "fixture_sha256": "f396b65542d20afcc7963a105cf12ac42d2a0351cc8a5c686a7d9b9b8f5fbac3",
+  "command": "python scripts/audit_variety_name_recall.py --output <report-path>",
+  "before": {
+    "cases": 24,
+    "cases_passed": 20,
+    "expected_name_occurrences": 64,
+    "detected_name_occurrences": 50,
+    "missed_name_occurrences": 14,
+    "fully_correct_name_occurrences": 50,
+    "returned_name_occurrences": 50,
+    "unexpected_name_occurrences": 0,
+    "unresolved_name_occurrences": 2,
+    "name_recall": 0.7812,
+    "name_precision": 1.0,
+    "errors": {
+      "name_missing": 14
+    }
+  },
+  "after": {
+    "cases": 24,
+    "cases_passed": 23,
+    "expected_name_occurrences": 64,
+    "detected_name_occurrences": 60,
+    "missed_name_occurrences": 4,
+    "fully_correct_name_occurrences": 60,
+    "returned_name_occurrences": 60,
+    "unexpected_name_occurrences": 0,
+    "unresolved_name_occurrences": 2,
+    "name_recall": 0.9375,
+    "name_precision": 1.0,
+    "errors": {
+      "name_missing": 4
+    }
+  },
+  "by_format_after": {
+    "body_only": {
+      "cases": 1,
+      "cases_passed": 0,
+      "expected_name_occurrences": 4,
+      "detected_name_occurrences": 0,
+      "missed_name_occurrences": 4,
+      "fully_correct_name_occurrences": 0,
+      "returned_name_occurrences": 0,
+      "unexpected_name_occurrences": 0,
+      "unresolved_name_occurrences": 0,
+      "name_recall": 0.0,
+      "name_precision": null,
+      "errors": {
+        "name_missing": 4
+      }
+    },
+    "brand_suffix_list": {
+      "cases": 1,
+      "cases_passed": 1,
+      "expected_name_occurrences": 3,
+      "detected_name_occurrences": 3,
+      "missed_name_occurrences": 0,
+      "fully_correct_name_occurrences": 3,
+      "returned_name_occurrences": 3,
+      "unexpected_name_occurrences": 0,
+      "unresolved_name_occurrences": 0,
+      "name_recall": 1.0,
+      "name_precision": 1.0,
+      "errors": {}
+    },
+    "identity": {
+      "cases": 3,
+      "cases_passed": 3,
+      "expected_name_occurrences": 3,
+      "detected_name_occurrences": 3,
+      "missed_name_occurrences": 0,
+      "fully_correct_name_occurrences": 3,
+      "returned_name_occurrences": 3,
+      "unexpected_name_occurrences": 0,
+      "unresolved_name_occurrences": 2,
+      "name_recall": 1.0,
+      "name_precision": 1.0,
+      "errors": {}
+    },
+    "multilingual_list": {
+      "cases": 2,
+      "cases_passed": 2,
+      "expected_name_occurrences": 6,
+      "detected_name_occurrences": 6,
+      "missed_name_occurrences": 0,
+      "fully_correct_name_occurrences": 6,
+      "returned_name_occurrences": 6,
+      "unexpected_name_occurrences": 0,
+      "unresolved_name_occurrences": 0,
+      "name_recall": 1.0,
+      "name_precision": 1.0,
+      "errors": {}
+    },
+    "name_code_pairs": {
+      "cases": 1,
+      "cases_passed": 1,
+      "expected_name_occurrences": 2,
+      "detected_name_occurrences": 2,
+      "missed_name_occurrences": 0,
+      "fully_correct_name_occurrences": 2,
+      "returned_name_occurrences": 2,
+      "unexpected_name_occurrences": 0,
+      "unresolved_name_occurrences": 0,
+      "name_recall": 1.0,
+      "name_precision": 1.0,
+      "errors": {}
+    },
+    "negative": {
+      "cases": 5,
+      "cases_passed": 5,
+      "expected_name_occurrences": 0,
+      "detected_name_occurrences": 0,
+      "missed_name_occurrences": 0,
+      "fully_correct_name_occurrences": 0,
+      "returned_name_occurrences": 0,
+      "unexpected_name_occurrences": 0,
+      "unresolved_name_occurrences": 0,
+      "name_recall": null,
+      "name_precision": null,
+      "errors": {}
+    },
+    "provenance": {
+      "cases": 1,
+      "cases_passed": 1,
+      "expected_name_occurrences": 1,
+      "detected_name_occurrences": 1,
+      "missed_name_occurrences": 0,
+      "fully_correct_name_occurrences": 1,
+      "returned_name_occurrences": 1,
+      "unexpected_name_occurrences": 0,
+      "unresolved_name_occurrences": 0,
+      "name_recall": 1.0,
+      "name_precision": 1.0,
+      "errors": {}
+    },
+    "quoted_license": {
+      "cases": 1,
+      "cases_passed": 1,
+      "expected_name_occurrences": 6,
+      "detected_name_occurrences": 6,
+      "missed_name_occurrences": 0,
+      "fully_correct_name_occurrences": 6,
+      "returned_name_occurrences": 6,
+      "unexpected_name_occurrences": 0,
+      "unresolved_name_occurrences": 0,
+      "name_recall": 1.0,
+      "name_precision": 1.0,
+      "errors": {}
+    },
+    "structured_suggestions": {
+      "cases": 1,
+      "cases_passed": 1,
+      "expected_name_occurrences": 2,
+      "detected_name_occurrences": 2,
+      "missed_name_occurrences": 0,
+      "fully_correct_name_occurrences": 2,
+      "returned_name_occurrences": 2,
+      "unexpected_name_occurrences": 0,
+      "unresolved_name_occurrences": 0,
+      "name_recall": 1.0,
+      "name_precision": 1.0,
+      "errors": {}
+    },
+    "summary_list": {
+      "cases": 7,
+      "cases_passed": 7,
+      "expected_name_occurrences": 33,
+      "detected_name_occurrences": 33,
+      "missed_name_occurrences": 0,
+      "fully_correct_name_occurrences": 33,
+      "returned_name_occurrences": 33,
+      "unexpected_name_occurrences": 0,
+      "unresolved_name_occurrences": 0,
+      "name_recall": 1.0,
+      "name_precision": 1.0,
+      "errors": {}
+    },
+    "table": {
+      "cases": 1,
+      "cases_passed": 1,
+      "expected_name_occurrences": 4,
+      "detected_name_occurrences": 4,
+      "missed_name_occurrences": 0,
+      "fully_correct_name_occurrences": 4,
+      "returned_name_occurrences": 4,
+      "unexpected_name_occurrences": 0,
+      "unresolved_name_occurrences": 0,
+      "name_recall": 1.0,
+      "name_precision": 1.0,
+      "errors": {}
+    }
+  },
+  "remaining_cases": [
+    {
+      "id": "body-only",
+      "errors": {
+        "name_missing": 4
+      }
+    }
+  ],
+  "data_mutations": false,
+  "qualification": false
+}

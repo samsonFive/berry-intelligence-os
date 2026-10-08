@@ -1,29 +1,28 @@
 # Project Status
 
-October 7 session-only photo previews: the user explicitly requests “Ignore
-permission” for otherwise held photos. The private gallery offers that button,
-retains credit and the permission-unconfirmed label, remembers the exact image
-and source URL only in this tab's session, and provides Hide photo to revoke it.
-No app request or saved review/reuse change occurs. Blocked session storage falls
-back to the current view. Readonly/static output contains neither held photos
-nor the override control.
+October 7 explicit-list recall follow-up: the unchanged 24-case diagnostic now
+finds 60 of 64 expected name occurrences (previously 50), with zero unexpected
+names and 23 cases passing every specified check. Mixed crop/name/code tables
+and explicit Spanish/Polish declarations preserve each crop, whole name, code
+and original source URL. Unknown/malformed rows are held; article bodies and
+unpublished drafts are not scanned. Human rejections and edits remain intact.
+This synthetic diagnostic is not independently human-verified, model
+qualification or a global completeness measure. Four body-only misses remain.
 
-Six individually labeled BerrYum blackberry product photos were visually checked
-and added as unreviewed source associations. Publisher terms require written
-consent; no permission is recorded. The six current product names account for
-one bounded page, with LOCH NESS explicitly excluded as a comparison benchmark.
-Repeated calendar rows are growing systems, not extra cultivars; BerrYum remains
-a brand and no breeder/owner role, alias, trait, right or location is approved.
+The actual stored-source audit is unchanged: 1,269 sources / 95 observations /
+32 text matches / 63 review needs. Catalog remains 64; primary occurrences
+537 / matches 33 / review needs 504 in 51 sections; derived candidate keys 448
+before private state. Of 77 registry rows, 22 have some enumerated checks and
+55 still need initial checks; seven source follow-ups remain. Seven source-labeled
+photos (six held, zero approved public photos) and the session-only Ignore
+permission control from draft #333 are retained. That exact parent head passes
+all four checks: 4,138 passed / 11 skipped / two existing warnings.
 
-Current totals: canonical catalog 64; primary occurrences 537 / text matches 33 /
-review needs 504 in 51 sections; derived candidate keys 448 before private state.
-22 of 77 registry rows have some enumerated names; 55 initial checks and seven
-source follow-ups remain. Seven source-labeled photos: one recorded reuse basis,
-six held, zero approved for public publication. CAT-01/CAT-02/TD-116 stay open.
-Parent draft #332 head 04bf5d75348ea163bb6bc24cfd92a1089cd86020 passes all four
-checks, run 37702377614 (4,133 passed / 11 skipped / two existing warnings).
-This new executable change requires its own checks. No merge, deployment or
-other-berry Landscape rollout. See VARIETY-SESSION-PHOTO-PREVIEW.md.
+The final focused regression and this draft's executable CI are recorded with
+the PR; no source approval, identity decision, canonical addition, merge,
+deployment or other-berry Landscape rollout is implied. CAT-01/CAT-02/TD-116
+remain open. See VARIETY-EXPLICIT-LIST-RECALL-REVIEW.md and the retained session
+photo behavior in VARIETY-SESSION-PHOTO-PREVIEW.md.
 
 October 7 executable variety-photo follow-up: private galleries, dense directory
 thumbnails and expanded candidate photos now retain credit, source, exact
