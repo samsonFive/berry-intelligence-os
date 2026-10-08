@@ -67,7 +67,12 @@ Phone acceptance is not newly verified. Records validate; all 1,992 original
 JSON files and the expansion guide remain unchanged.
 
 Parent draft #345 passed all four exact-head gates with 4,291 tests. This draft
-requires its own pushed-head checks. CAT-01, CAT-02 and TD-116 remain open for
+requires its own pushed-head checks. The first full run passed 4,297 tests and
+failed one older assertion: its broad California search now also finds the
+new California Giant sources. The CBC-specific test now searches California
+Berry Cultivars; all 11 affected tests pass in 14.87 seconds with one existing
+warning. A fresh full run is required on the corrected pushed head.
+CAT-01, CAT-02 and TD-116 remain open for
 remaining sources, acquisition, independently scored recall, release/rights
 verification, cited profile depth and actual human catalog authoring. No merge,
 deployment or other-berry Landscape rollout.
