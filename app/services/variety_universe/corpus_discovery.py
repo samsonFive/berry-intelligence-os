@@ -2,7 +2,7 @@
 
 Never writes data/entities. Never promotes trusted Varieties. Never scans
 article bodies for capitalized words. Recognizes explicit named cultivar lists
-in stored summaries, without inferring roles. Prefers structured fields, then
+in summaries and opt-in selected stored article text, without inferring roles. Prefers structured fields, then
 registry/index records, then the existing patent cultivar-name extractor.
 """
 
@@ -481,6 +481,58 @@ def _explicit_variety_ids(
     return found, missing
 
 
+def _declared_names(summary, record, blocked, *, source_text=False):
+    """Explicit declarations only; the same grammar is used in both paths."""
+    mentions, exclusions = [], []
+    berries = _berries(record)
+    fallback = berries[0] if len(berries) == 1 else ""
+    formatted, excluded = explicit_summary_formats(summary, name_token=_NAMED_TOKEN)
+    exclusions.extend({**row, "record_id": record["id"]} for row in excluded)
+    for row in formatted:
+        name = _clean_name(row["name"])
+        if not _is_stop_name(name, blocked):
+            mentions.append(_mention(name=name, berry_id=row["berry_id"], kind=row["kind"],
+                evidence=record, fact=None, context=row["context"],
+                extra={"breeder_code": row["breeder_code"]}))
+    for match in _EXPLICIT_LIST_RE.finditer(summary):
+        species = match.group("species")
+        list_berry = _BERRY_LABELS.get((species or "").lower(), fallback)
+        if not list_berry:
+            exclusions.append({"name": match.group("names"), "reason": "berry_not_established", "record_id": record["id"]})
+            continue
+        for name in _split_name_list(match.group("names")):
+            extra = {}
+            code_match = re.fullmatch(r"(.+?)\s+((?:FCM?|BB|FL|DRIS)[A-Z0-9]*\d[\w.\-]*)", name)
+            if code_match:
+                name = code_match.group(1)
+                extra["breeder_code"] = code_match.group(2)
+            if not _is_stop_name(name, blocked):
+                mentions.append(_mention(name=name, berry_id=list_berry, kind="explicit_summary_list",
+                                         evidence=record, fact=None, context=match.group(0), extra=extra))
+    if re.search(r"\bselection codes?\b", summary) and fallback:
+        for match in _DECLARED_CODE_PAIR_RE.finditer(summary):
+            name = _clean_name(match.group("name"))
+            if not _is_stop_name(name, blocked):
+                mentions.append(_mention(name=name, berry_id=fallback, kind="explicit_summary_code_pair",
+                    evidence=record, fact=None, context=match.group(0), extra={"breeder_code": match.group("code")}))
+    # Explicit quoted license lists in a single-species cultivar summary
+    # are identity leads only. This never creates license/ownership edges.
+    if fallback and re.search(r"\b(?:blueberry|strawberry|raspberry|blackberry)\s+varieties\b", summary, re.IGNORECASE):
+        for clause in _LICENSED_NAMES_RE.finditer(summary):
+            for match in _QUOTED_NAME_RE.finditer(clause.group(0)):
+                name = _clean_name(match.group(1))
+                if not _is_stop_name(name, blocked):
+                    mentions.append(_mention(name=name, berry_id=fallback, kind="quoted_licensed_name",
+                                             evidence=record, fact=None, context=clause.group(0)))
+
+    if source_text:
+        for row in mentions:
+            row["mention_kind"] = row["mention_kind"].replace("summary", "source_text")
+            row["source_text_basis"] = "available_article_text"
+            row["source_publication_reviewed"] = record.get("status") == "published"
+    return mentions, exclusions
+
+
 def discover_corpus_variety_mentions(
     *,
     varieties: list[dict[str, Any]],
@@ -488,6 +540,7 @@ def discover_corpus_variety_mentions(
     published_evidence: list[dict[str, Any]],
     facts: list[dict[str, Any]],
     existing_candidates: list[dict[str, Any]] | None = None,
+    source_text_records: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Return explicit cultivar mentions and how they resolve. Read-only."""
 
@@ -628,49 +681,26 @@ def discover_corpus_variety_mentions(
         mentions.extend(found)
         exclusions.extend(excluded)
 
-        # Ordinary company/news summaries can explicitly enumerate cultivars.
-        # Do not scan full article bodies, infer roles or treat place lists as
-        # varieties. An untyped mixed-berry list remains a gap to review.
-        summary = str(record.get("summary") or "")
-        fallback = berry_id if len(_berries(record)) == 1 else ""
-        formatted, excluded = explicit_summary_formats(summary, name_token=_NAMED_TOKEN)
-        exclusions.extend({**row, "record_id": record["id"]} for row in excluded)
-        for row in formatted:
-            name = _clean_name(row["name"])
-            if not _is_stop_name(name, blocked):
-                mentions.append(_mention(name=name, berry_id=row["berry_id"], kind=row["kind"],
-                    evidence=record, fact=None, context=row["context"],
-                    extra={"breeder_code": row["breeder_code"]}))
-        for match in _EXPLICIT_LIST_RE.finditer(summary):
-            species = match.group("species")
-            list_berry = _BERRY_LABELS.get((species or "").lower(), fallback)
-            if not list_berry:
-                exclusions.append({"name": match.group("names"), "reason": "berry_not_established", "record_id": record["id"]})
-                continue
-            for name in _split_name_list(match.group("names")):
-                extra = {}
-                code_match = re.fullmatch(r"(.+?)\s+((?:FCM?|BB|FL|DRIS)[A-Z0-9]*\d[\w.\-]*)", name)
-                if code_match:
-                    name = code_match.group(1)
-                    extra["breeder_code"] = code_match.group(2)
-                if not _is_stop_name(name, blocked):
-                    mentions.append(_mention(name=name, berry_id=list_berry, kind="explicit_summary_list",
-                                             evidence=record, fact=None, context=match.group(0), extra=extra))
-        if re.search(r"\bselection codes?\b", summary) and fallback:
-            for match in _DECLARED_CODE_PAIR_RE.finditer(summary):
-                name = _clean_name(match.group("name"))
-                if not _is_stop_name(name, blocked):
-                    mentions.append(_mention(name=name, berry_id=fallback, kind="explicit_summary_code_pair",
-                        evidence=record, fact=None, context=match.group(0), extra={"breeder_code": match.group("code")}))
-        # Explicit quoted license lists in a single-species cultivar summary
-        # are identity leads only. This never creates license/ownership edges.
-        if fallback and re.search(r"\b(?:blueberry|strawberry|raspberry|blackberry)\s+varieties\b", summary, re.IGNORECASE):
-            for clause in _LICENSED_NAMES_RE.finditer(summary):
-                for match in _QUOTED_NAME_RE.finditer(clause.group(0)):
-                    name = _clean_name(match.group(1))
-                    if not _is_stop_name(name, blocked):
-                        mentions.append(_mention(name=name, berry_id=fallback, kind="quoted_licensed_name",
-                                                 evidence=record, fact=None, context=clause.group(0)))
+        found, excluded = _declared_names(str(record.get("summary") or ""), record, blocked)
+        mentions.extend(found)
+        exclusions.extend(excluded)
+
+    # Selected-source action only: no hydration or provider calls on list GETs.
+    # Pending publication text may produce identity leads, never a reviewed
+    # publication, Atomic proposal, Fact, or company relationship.
+    from app.services.source_body import article_full_text, reader_content
+    for record in source_text_records or []:
+        content = reader_content(record)
+        if content["state"] not in {"body_available", "body_partial"}:
+            exclusions.append({"record_id": record["id"], "reason": "source_text_unavailable", "name": ""})
+            continue
+        text = article_full_text(record, preserve_line_breaks=True)
+        if len(text) > 200_000:
+            exclusions.append({"record_id": record["id"], "reason": "source_text_too_large", "name": ""})
+            continue
+        found, excluded = _declared_names(text, record, blocked, source_text=True)
+        mentions.extend(found)
+        exclusions.extend(excluded)
 
     # Deduplicate mentions by folded name + berry, merging provenance.
     merged: dict[str, dict[str, Any]] = {}
@@ -822,6 +852,9 @@ def mentions_to_import_rows(mentions: list[dict[str, Any]]) -> list[dict[str, An
                     "evidence_ids": mention.get("evidence_ids") or [],
                     "fact_ids": mention.get("fact_ids") or [],
                     "mention_context": mention.get("mention_context") or "",
+                    **({"source_text_basis": mention["source_text_basis"],
+                        "source_publication_reviewed": mention["source_publication_reviewed"]}
+                       if mention.get("source_text_basis") else {}),
                 },
             }
         )
@@ -835,6 +868,7 @@ def build_discovered_candidates(
     published_evidence: list[dict[str, Any]],
     facts: list[dict[str, Any]],
     existing_candidates: list[dict[str, Any]] | None = None,
+    source_text_records: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     report = discover_corpus_variety_mentions(
         varieties=varieties,
@@ -842,6 +876,7 @@ def build_discovered_candidates(
         published_evidence=published_evidence,
         facts=facts,
         existing_candidates=existing_candidates,
+        source_text_records=source_text_records,
     )
     rows = mentions_to_import_rows(report["new_mentions"])
     built = [build_candidate(row, varieties=varieties) for row in rows]
@@ -852,7 +887,7 @@ def build_discovered_candidates(
         row["human_gated"] = False
         row["auto_confirmed"] = False
         source_ids = set(row["knowledge"].get("evidence_ids") or [])
-        linked_company_ids = {eid for source in published_evidence if source.get("id") in source_ids
+        linked_company_ids = {eid for source in [*published_evidence, *(source_text_records or [])] if source.get("id") in source_ids
                               for eid in source.get("entity_ids") or []}
         row["knowledge"]["source_companies"] = [
             {"entity_id": entity["id"], "entity_type": entity["entity_type"], "name": entity["name"]}

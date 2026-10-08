@@ -84,3 +84,9 @@ Variety schemas, CPVO backends or trusted records. Human decisions win on replay
 - [x] Source-linked candidate visibility in evidence, directory and review queue.
 - [x] Final revised desktop/mobile/theme review and local regression. Exact-head GitHub check results are recorded in draft PR #313 at delivery.
 - [ ] User review of the revised blueberry checkpoint before other-berry rollout.
+
+October 8 source-catalog continuation: NIAB/Bayer/Masiá name histories and five
+held photos now reach private review/company context. Code display is repaired
+without role or alias approval. See NIAB-BAYER-MASIA-VARIETY-REVIEW.md for exact
+source scopes, tests and remaining gaps. The blueberry user checkpoint above
+remains required; no other-berry Landscape rollout or merge/deploy.

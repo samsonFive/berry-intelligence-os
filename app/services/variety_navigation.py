@@ -62,6 +62,8 @@ def directory(cards, *, params, state, entities, relationships, regions):
 
 def candidate_queue(candidates, params):
     filters = {key: str(params.get(key) or "").strip() for key in ("q", "berry", "company", "status", "letter", "source")}
+    if filters['source'] and params.get('discovery') == 'source-text':
+        filters['discovery'] = 'source-text'
     filters["letter"] = filters["letter"].upper()
     if filters["letter"] not in {"", *"ABCDEFGHIJKLMNOPQRSTUVWXYZ#"}:
         raise ValueError("Choose an alphabetical group")

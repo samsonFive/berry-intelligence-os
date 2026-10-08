@@ -1824,9 +1824,23 @@ def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, A
                 sources=load_portfolio_observations(DATA_DIR), varieties=varieties,
                 entities=all_entities(), candidates=visible,
             )
+            report["portfolio_sources"] = _portfolio_sources
         except ValueError as exc:
             report["portfolio_error"] = str(exc)
     return varieties, visible, report
+
+
+def company_source_varieties(entity_id: str, portfolio: dict | None) -> dict | None:
+    """Private, read-only source names; never part of trusted portfolio metrics."""
+    if not AUTHORING_MODE:
+        return None
+    from app.services.company_variety_discoveries import company_variety_discoveries
+    _varieties, _candidates, report = variety_candidate_universe()
+    return company_variety_discoveries(
+        entity_id=entity_id, sources=report.get("portfolio_sources", []),
+        linked_variety_ids={row["id"] for row in (portfolio or {}).get("variety_rows", [])},
+        error=report.get("portfolio_error", ""),
+    )
 
 
 def all_relationships() -> list[dict[str, Any]]:
@@ -3380,6 +3394,13 @@ def variety_candidates_page(request: Request) -> HTMLResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Variety candidates are authoring-only")
     _varieties, candidates, _report = variety_candidate_universe()
+    source_text_report = None
+    if request.query_params.get('discovery') == 'source-text' and request.query_params.get('source'):
+        from app.personal_digest_routes import source_variety_report
+        from app.services.variety_universe.corpus_discovery import source_catalog_coverage
+        _main, selected_report = source_variety_report(request.query_params['source'], existing_candidates=candidates)
+        candidates = merge_visible_candidates(candidates, selected_report['candidates'], report=selected_report)
+        source_text_report = source_catalog_coverage(selected_report).get(request.query_params['source'], [])
     from app.services.variety_navigation import candidate_queue
     try:
         queue = candidate_queue(candidates, dict(request.query_params))
@@ -3398,6 +3419,7 @@ def variety_candidates_page(request: Request) -> HTMLResponse:
             **queue,
             "catalog_handoffs": {row["id"]: _variety_catalog_handoff(row, _varieties) for row in queue["candidates"]},
             "portfolio_error": _report.get("portfolio_error"),
+            "source_text_report": source_text_report,
             "candidate_entities": entity_index(),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
@@ -3573,6 +3595,7 @@ def company_portfolio_page(request: Request, entity_id: str) -> HTMLResponse:
         name="company_portfolio.html",
         context={
             "portfolio": portfolio,
+            "company_source_varieties": company_source_varieties(entity_id, portfolio),
             "berries": BERRIES,
             "authoring_mode": AUTHORING_MODE,
             "ui_context": ui,
@@ -3674,6 +3697,8 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "related_entities": (seed or {}).get("related_entities") or [],
             "growing_profile": growing_profile,
             "dossier": dossier,
+            "company_source_varieties": company_source_varieties(entity_id, backbone.get("portfolio"))
+                if request.query_params.get("tab") == "varieties" else None,
             "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
             "monogram": (seed or {}).get("monogram") or name[:2].upper(),
             "logo_url": (logo_override_url(INBOX_DIR, entity_id) if AUTHORING_MODE else "") or (seed or {}).get("logo_url") or "",

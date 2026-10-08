@@ -635,7 +635,9 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
     if passages:
         article = dict(merged.get("article") or {}) if isinstance(merged.get("article"), dict) else {}
         existing = article.get("paragraphs") if isinstance(article.get("paragraphs"), list) else []
-        if not existing:
+        if not str(article.get("full_text") or "").strip() and not any(
+                str(row.get("text") or "").strip() if isinstance(row, dict)
+                else str(row or "").strip() for row in existing):
             article["paragraphs"] = [{"text": row} for row in passages]
             merged["article"] = article
             if capture.get("content_kind") == "patent":

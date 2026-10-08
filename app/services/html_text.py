@@ -9,7 +9,10 @@ TAG_RE = re.compile(r"<[^>]+>")
 WS_RE = re.compile(r"\s+")
 
 
-def decode_html_text(value: str | None) -> str:
+def decode_html_text(value: str | None, *, preserve_line_breaks: bool = False) -> str:
     text = html.unescape(str(value or ""))
     text = TAG_RE.sub(" ", text)
+    if preserve_line_breaks:
+        return "\n".join(WS_RE.sub(" ", line).replace("\xa0", " ").strip()
+                         for line in text.splitlines()).strip()
     return WS_RE.sub(" ", text).replace("\xa0", " ").strip()

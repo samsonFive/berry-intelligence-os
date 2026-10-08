@@ -1,0 +1,168 @@
+"""Selected article text yields private identity leads, never trusted records."""
+from copy import deepcopy
+import pytest
+from fastapi.testclient import TestClient
+from app import main, personal_digest_routes as routes
+from app.services import feed_first_reader
+from app.services.variety_universe.candidates import load_variety_candidates, persist_variety_candidates
+from app.services.variety_universe.corpus_discovery import build_discovered_candidates, discover_corpus_variety_mentions
+
+
+def source(text, **extra):
+    return {'id':'ev-body-check','status':'in_review','source_type':'company_press_release',
+        'source_name':'Fictional acceptance publisher','title':'Fictional article-text variety check',
+        'source_url':'https://example.test/article?original=1','summary':'The article describes a breeding portfolio.',
+        'berry_ids':['berry-blackberry'], 'article':{'paragraphs':[{'text':text,'locator':'p1'}]}, **extra}
+
+
+def scan(record, **extra):
+    return build_discovered_candidates(varieties=[], entities=[], facts=[], published_evidence=[],
+        source_text_records=[record], **extra)
+
+
+def test_default_discovery_does_not_read_article_text_or_unpublished_sources():
+    record=source('Blackberry varieties include Glorniwa, Juhas, Maryna and Jagna.',status='published')
+    original=deepcopy(record)
+    result=discover_corpus_variety_mentions(varieties=[],entities=[],facts=[],published_evidence=[record])
+    assert not result['mentions'] and record == original
+    # An explicit selected-text check can use an unreviewed publication, with
+    # its review state retained rather than masquerading as published.
+    record['status']='in_review'
+    result=scan(record)
+    assert {c['candidate_name'] for c in result['candidates']} == {'Glorniwa','Juhas','Maryna','Jagna'}
+    assert all(not c['human_gated'] and not c['auto_confirmed'] for c in result['candidates'])
+    assert all(c['knowledge']['source_publication_reviewed'] is False for c in result['candidates'])
+    assert all(c['source_url'] == record['source_url'] and c['knowledge']['evidence_ids'] == [record['id']]
+        for c in result['candidates'])
+
+
+def test_selected_table_keeps_each_crop_code_and_only_declaration_context():
+    text=('The surrounding prose includes Company North and Country South.\n'
+          'Crop | Name | Code\nBlack raspberry | Test Megan | NR 1711902\n'
+          'Strawberry | Test Beskid | NT 141114\n\nA separate paragraph remains outside the declaration.')
+    record=source(text)
+    original=deepcopy(record)
+    candidates=scan(record)['candidates']
+    assert {(c['candidate_name'],c['berry_id'],c['breeder_code']) for c in candidates} == {
+        ('Test Megan','berry-raspberry','NR 1711902'),('Test Beskid','berry-strawberry','NT 141114')}
+    assert all('surrounding prose' not in c['knowledge']['mention_context'] for c in candidates)
+    assert record == original
+
+
+def test_full_text_is_supported_without_changing_the_default_reader_projection():
+    from app.services.source_body import article_full_text
+    text = 'Crop | Name | Code\nBlackberry | Table Lead | BB 101\n'
+    record = source('', article={'full_text': text})
+    assert '\n' not in article_full_text(record)
+    assert article_full_text(record, preserve_line_breaks=True) == text.strip()
+    assert scan(record)['candidates'][0]['candidate_name'] == 'Table Lead'
+
+
+def test_ambiguous_crop_and_non_declarations_do_not_create_identities():
+    record = source('Varieties include Possible Name. Company North has farms in Country South.',
+                    berry_ids=['berry-blackberry', 'berry-blueberry'])
+    assert not scan(record)['candidates']
+
+
+@pytest.mark.parametrize('record,reason',[
+    (source('',body='Blackberry varieties include Hidden Name.'),'source_text_unavailable'),
+    (source('Verify you are a human. Blackberry varieties include Bot Name.'),'source_text_unavailable'),
+    (source('x'*200_001+' Blackberry varieties include Truncated Name.'),'source_text_too_large'),
+])
+def test_unreadable_access_screen_and_oversized_source_do_not_invent_names(record,reason):
+    result=scan(record)
+    assert not result['candidates']
+    assert reason in {r['reason'] for r in result['exclusions']}
+
+
+def setup_routes(monkeypatch,tmp_path,record):
+    monkeypatch.setattr(main,'INBOX_DIR',tmp_path)
+    monkeypatch.setattr(main,'AUTHORING_MODE',True)
+    monkeypatch.setattr(main,'published_evidence',lambda:[])
+    monkeypatch.setattr(main,'all_facts',lambda:[])
+    monkeypatch.setattr(main,'all_entities',lambda:[])
+    monkeypatch.setattr(routes,'world',lambda:(main,{'state':{'decisions':{}}},{record['id']:record},{}))
+    def no_capture(*args,**kwargs):
+        raise AssertionError('name discovery must never acquire or refresh a source')
+    monkeypatch.setattr(feed_first_reader,'capture_item',no_capture)
+    return TestClient(main.app)
+
+
+def test_action_adds_only_new_private_candidates_and_replay_preserves_human_notes(monkeypatch,tmp_path):
+    record=source('Blackberry varieties include New Lead and Human Lead.')
+    client=setup_routes(monkeypatch,tmp_path,record)
+    existing=scan(source('Blackberry varieties include Human Lead.'))['candidates'][0]
+    existing.update(status='rejected',identity_state='rejected',human_gated=True,
+        reviewer='Human',review_notes='Keep this rejection')
+    existing['knowledge'].update(notes='My saved notes',evidence_ids=['ev-old-source'])
+    path=persist_variety_candidates([existing],inbox_dir=tmp_path)[0]
+    original=path.read_bytes()
+    response=client.post('/varieties/discover-source/ev-body-check',follow_redirects=False)
+    assert response.status_code == 303
+    result=client.get(response.headers['location'])
+    assert result.status_code == 200 and '2 explicitly named varieties' in result.text and 'New Lead' in result.text
+    assert 'Unreviewed source; the variety identity still needs review.' in result.text
+    assert '/intelligence/ev-body-check?personal=1' in result.text
+    from html import unescape
+    import re
+    assert 'name="discovery" value="source-text"' in result.text
+    alphabet_link = unescape(re.search(
+        r'aria-label="Candidate alphabetical navigation"><a href="([^"]+)"', result.text).group(1))
+    assert 'discovery=source-text' in alphabet_link
+    assert 'Keep this rejection' in client.get(alphabet_link.split('#')[0] + '&status=rejected').text
+    rejected=client.get(response.headers['location']+'&status=rejected')
+    assert rejected.status_code == 200 and 'Keep this rejection' in rejected.text
+    assert path.read_bytes() == original
+    candidates=load_variety_candidates(tmp_path)
+    assert len(candidates) == 2 and all(c['id'] != record['id'] for c in candidates)
+    snapshot={p:p.read_bytes() for p in tmp_path.rglob('*.json')}
+    replay=client.post('/varieties/discover-source/ev-body-check',follow_redirects=False)
+    assert replay.status_code == 303
+    assert {p:p.read_bytes() for p in tmp_path.rglob('*.json')} == snapshot
+    assert record['status'] == 'in_review'
+
+
+def test_catalog_match_and_selected_get_are_read_only(monkeypatch,tmp_path):
+    record=source('Blackberry varieties include Known Variety and New Lead.')
+    client=setup_routes(monkeypatch,tmp_path,record)
+    monkeypatch.setattr(main,'all_entities',lambda:[{'id':'variety-known','entity_type':'variety',
+        'name':'Known Variety','berry_ids':['berry-blackberry']}])
+    url='/varieties/candidates?source=ev-body-check&discovery=source-text'
+    response=client.get(url)
+    assert response.status_code == 200 and '/entities/variety/variety-known' in response.text
+    assert 'New Lead' in response.text and not list(tmp_path.rglob('*.json'))
+    assert client.post('/varieties/discover-source/ev-body-check',follow_redirects=False).status_code == 303
+    assert [c['candidate_name'] for c in load_variety_candidates(tmp_path)] == ['New Lead']
+
+
+def test_cached_article_is_selected_by_id_and_original_url(monkeypatch,tmp_path):
+    record=source('')
+    client=setup_routes(monkeypatch,tmp_path,record)
+    capture={'ok':True,'requested_url':record['source_url'],
+        'passages':['Blackberry varieties include Captured Lead.'],'availability':'excerpt_only'}
+    feed_first_reader.save_capture(tmp_path,record['id'],capture)
+    selected=[]
+    original_loader=feed_first_reader.load_capture
+    def load(inbox,item_id):
+        selected.append(item_id)
+        return original_loader(inbox,item_id)
+    monkeypatch.setattr(feed_first_reader,'load_capture',load)
+    assert client.post('/varieties/discover-source/ev-body-check',follow_redirects=False).status_code == 303
+    assert selected == ['ev-body-check']
+    assert load_variety_candidates(tmp_path)[0]['candidate_name'] == 'Captured Lead'
+    capture['requested_url']='https://example.test/other-source'
+    feed_first_reader.save_capture(tmp_path,record['id'],capture)
+    assert client.post('/varieties/discover-source/ev-body-check',follow_redirects=False).status_code == 422
+
+
+def test_write_action_rejects_public_cross_site_unknown_and_missing_body(monkeypatch,tmp_path):
+    client=setup_routes(monkeypatch,tmp_path,source(''))
+    endpoint='/varieties/discover-source/ev-body-check'
+    assert client.get(endpoint).status_code == 405
+    assert client.post(endpoint,headers={'origin':'https://other.test'}).status_code == 403
+    assert client.post(endpoint,headers={'sec-fetch-site':'cross-site'}).status_code == 403
+    assert client.post('/varieties/discover-source/unknown').status_code == 404
+    assert client.post(endpoint).status_code == 422
+    monkeypatch.setattr(main,'AUTHORING_MODE',False)
+    assert client.post(endpoint).status_code == 403
+    assert not list(tmp_path.rglob('*.json'))

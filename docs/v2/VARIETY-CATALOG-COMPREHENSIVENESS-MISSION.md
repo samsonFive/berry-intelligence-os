@@ -1,5 +1,108 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+October 8 company-page visibility fix: private company Varieties tabs and
+detailed portfolios now show additional names from checked sources in a compact
+searchable table, with berry/alphabet navigation and exact review destinations.
+Catalog matches do not approve company roles; repeated sources retain provenance,
+different codes stay separate, and rejected names stay closed. Public/static
+views exclude this list. No acquisition or canonical/review/permission writes;
+1,992 original JSON files unchanged. Coverage remains 120 sections / 693 name
+occurrences / 546 keys / catalog 64, with 42 initial checks and 18 follow-ups.
+See COMPANY-SOURCE-VARIETY-VISIBILITY-REVIEW.md; CAT-01/CAT-02/TD-116 remain open.
+Local only; exact pinned-parent push approval unanswered, no new PR/remote CI,
+merge/deploy or other-berry Landscape rollout.
+
+October 8 local source continuation (checks begun October 7): Marionnet/FNM/
+NC State add 16 bounded sections, 45 occurrences and six held fruit photos.
+Marvella MAR118/MAR109 and Marly photo captions stay unresolved; Pink Star
+codes stay separate. FNM catalog-body names include menu omissions; Noelia
+is raspberry. NC State recommendations are separate from release records;
+Ervin/NC 740 pairing and source dates remain unreviewed. 66 affected checks
+pass, plus six overlapping final checks; records and original 1,992 JSON
+preservation pass. Latest audit: 120 sections / 693 occurrences / 53 catalog
+text matches / 640 review needs / 546 keys; 35/77 subjects partly checked,
+42 initial checks and 18 source follow-ups remain. Blueberry 185, strawberry
+328, raspberry 113, blackberry 67. Catalog 64; photos 31/30 held/zero newly
+approved public. See MARIONNET-FNM-NCSTATE-PORTFOLIO-REVIEW.md. CAT-01/CAT-02/
+TD-116 and full redesign/release goal remain open. Local-only; pinned-parent
+push approval unanswered, no new PR/CI, merge/deploy or Landscape rollout.
+
+October 7 selected-article follow-up: the private Reader can find explicit
+variety names in one stored/cached article and send new names to identity review.
+Catalog matches and earlier human decisions remain intact; publication status,
+original URLs and declaration context stay visible. Filters/alphabet preserve
+article scope; no provider calls, global body hydration or automatic approval.
+The unchanged summary diagnostic remains 60/64, four raw-body misses, zero extras;
+selected-article behavior has separate tests, not a new global recall claim.
+Default coverage stays 104 sections / 648 occurrences / 518 candidate keys;
+45 initial company checks, 17 follow-ups and CAT-01/CAT-02/TD-116 stay open.
+See VARIETY-SELECTED-ARTICLE-REVIEW.md. Local only pending pinned-parent push
+approval; no new PR/CI, merge/deploy or other-berry Landscape rollout.
+
+October 7 local patent/source recheck: eight original blueberry filing subjects
+reuse existing catalog identities; wrong PP25,358 ornamental subject excluded.
+OZblu old mapping redirect and blank Rejoice English PDF remain source gaps.
+40 focused checks pass; records validate and original 1,992 JSON unchanged.
+Latest totals: 104 sections / 648 occurrences / 52 catalog text matches /
+596 review needs / 518 candidate keys; 32/77 subjects partly checked, 45
+initial checks and 17 follow-ups remain. Blueberry 185, strawberry 306,
+raspberry 101, blackberry 56. Catalog 64; photos 25/24 held/zero public.
+See docs/v2/OZBLU-PATENT-SOURCE-RECHECK.md (or same-directory note).
+CAT-01/CAT-02/TD-116 and full mission stay open. Local-only pending parent
+push approval; no new PR/CI, merge/deploy or Landscape rollout.
+
+**Latest local checkpoint, October 7:** PSG/OZblu add nine bounded sections,
+nine name observations and two credited held images. Three failed regional
+catalogs remain gaps, and platform/cultivar codes/photo conflicts unresolved.
+Existing Magica alias reused; no new canonical identity. Photo/content columns
+restore profile density; phone stacking/session controls native-verified.
+52 profile/photo and 32 public-snapshot/portfolio tests pass; records validate, original 1,992 JSON unchanged.
+Current scope: 93 sections / 640 occurrences / 44 text matches / 596 review
+needs / 518 keys; 32/77 subjects partly checked, 45 initial checks and 15
+source gaps. Catalog 64; photos 25/24 held/zero public. See
+PSG-OZBLU-PORTFOLIO-PHOTO-REVIEW.md. Independent recall, rich profiles, rights,
+full histories and all CAT-01/CAT-02/TD-116 obligations remain open. Local-only
+pending exact parent approval; no merge/deploy or other-berry Landscape rollout.
+
+**Current local checkpoint, October 7:** Mountain Blue/Costa add seven bounded
+source sections, 28 name observations and three held images. Current totals:
+84 sections / 631 occurrences / 42 text matches / 589 review needs / 511 keys;
+30/77 subjects partly enumerated, 47 initial checks and twelve source gaps
+remain. Catalog 64 and existing human decisions unchanged. Photos total
+23/22 unknown-reuse holds/zero approved public. Four new plus 61 existing
+tests, records and native Bounty preview pass. Full histories, independently
+measured recall, rights verification and rich profiles remain open. See
+MOUNTAIN-BLUE-COSTA-PORTFOLIO-REVIEW.md. Local-only delivery pending exact parent
+push approval; no merge/deploy or other-berry Landscape rollout.
+
+**Earlier local checkpoint, October 7:** CIV technical sheets add nine heading
+observations and four unreviewed code leads across eleven body attempts.
+Seven bounded name checks are enumerated, two partial and two unreadable.
+Original index leads, comparison exclusions, access limits and human decisions
+remain intact. Current totals: 77 sections / 603 occurrences / 36 catalog text
+matches / 567 review needs / 499 derived keys. Catalog stays 64; 49 initial
+subject checks and eleven capture/accounting gaps remain. Photos unchanged:
+20 references, 19 unknown-reuse holds, zero approved public. 72 tests, records
+and native candidate review pass; existing data unchanged. Full historical
+portfolios, independently measured recall, official rights and profile depth
+remain open. See CIV-TECHNICAL-SHEET-IDENTITY-REVIEW.md. Delivery stays local
+pending exact parent-push approval; no new PR/CI, merge/deploy or other-berry
+Landscape rollout. Earlier checkpoints below remain historical.
+
+**Earlier local checkpoint, October 7:** CIV/Hansabred/Nova Siri add 40 source
+name observations and four held, attributed images. Measured scope is now
+66 sections / 594 mentions / 36 catalog text matches / 558 review needs /
+495 derived candidate keys; 28 of 77 subjects have some bounded enumeration,
+49 lack an initial checked section. Catalog remains 64; source photos 20,
+unknown-reuse holds 19, approved public zero. 71 relevant local tests, records
+and native desktop/phone image acceptance pass; existing records/user decisions
+are unchanged. Full portfolios, seven source capture/accounting gaps,
+independent recall, official rights verification and profile depth remain open.
+See EUROPEAN-PORTFOLIO-NAME-PHOTO-REVIEW.md for evidence and limitations.
+Changes are local; parent 0ce865d push awaits specific approval after automatic
+rejection. No new PR/CI, merge/deploy or other-berry Landscape rollout.
+The dated sections below retain earlier measured checkpoints.
+
 October 7 visual historical-source follow-up: all 38 pages of a UGA public
 presentation are accounted for, including two handwritten photograph labels
 missed by extracted text. Eleven unreviewed name/code observations add ten
@@ -129,8 +232,9 @@ October 7 recall diagnostic adds 24 curated offline cases across all berries,
 codes, F1 labels, identity/provenance, tables, Spanish/Polish and body-only names.
 Source-based snippets are synthetic, not independently human-verified. Two
 summary defects are repaired: detection improves from 46/64 expected occurrences
-and one unexpected name to 50/64 and zero unexpected names. Four format cases
-still miss 14 names. Corpus/portfolio/catalog counts are unchanged. The benchmark
+and one unexpected name to 50/64 and zero unexpected names. Later table/Spanish/Polish repairs reach 60/64 with zero extras; the original
+raw-body case still misses four names. Selected article paragraphs/full text
+now have an explicit private Reader action, tested separately from that fixture. Corpus/portfolio/catalog counts are unchanged. The benchmark
 task below remains open for independent review, real captures and qualification.
 See VARIETY-NAME-RECALL-DIAGNOSTIC-V1.md.
 

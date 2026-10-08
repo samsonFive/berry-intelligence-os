@@ -1,0 +1,862 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-marionnet-strawberry-cards",
+      "title": "Marionnet Label — strawberry cards and conflicting codes",
+      "url": "https://www.marionnet-label.com/nos-varietes-les-fraises/",
+      "company_ids": [
+        "company-marionnet"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Five distinct strawberry cards. Codes and commercial labels represent the same source card, not extra varieties.",
+      "limitations": "Five card names were read, but Marvella has unresolved MAR118/MAR109 codes and two image captions conflict with their card names. Company Marionnet remains unverified; this site uses Marionnet Label and CRIV without resolving the stored legal-identity ambiguity. No aliases, rights, ownership, traits or footprints are approved. Footer year is not a publication date.",
+      "capture_reference": {
+        "method": "native_browser_page_and_named_image_review",
+        "identity_conflicts": [
+          {
+            "label": "Marvella",
+            "heading_code": "MAR118",
+            "paragraph_code": "MAR109",
+            "resolution": "unresolved; no code selected"
+          }
+        ],
+        "withheld_images": [
+          {
+            "label": "Marvella",
+            "reason": "MAR109 image label conflicts with MAR118 heading."
+          },
+          {
+            "label": "Marly",
+            "reason": "Image alt text names Mara des Bois while its card and image title use Marly/MAR 109."
+          }
+        ],
+        "company_identity": "Site association only; do not replace unverified Marionnet legal identity with CRIV."
+      },
+      "names": [
+        {
+          "candidate_name": "Marionnet 99",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Marionnet Label pairs Mariguette with Marionnet 99 in its heading; this is an unreviewed source pairing.",
+          "breeder_code": "Marionnet 99",
+          "trade_name": "Mariguette",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-fraises/",
+          "photos": [
+            {
+              "named_variety": "Mariguette",
+              "berry_id": "berry-strawberry",
+              "image_url": "https://www.marionnet-label.com/wp-content/uploads/2022/07/Marionnet-Label_Varietes_Mariguette-2.jpg",
+              "source_url": "https://www.marionnet-label.com/nos-varietes-les-fraises/",
+              "credit": "Marionnet Label · Photographer not credited",
+              "caption": "Mariguette strawberry fruit, labeled by Marionnet Label.",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Marionnet Label labels the fruit image on this portfolio page. Footer reserves all rights; no image-specific reuse permission or photographer is established. Session preview does not grant reuse. Current legal-company identity remains unresolved."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Marionnet 97",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "The Magnum heading lists Marionnet 97. Its BPR wording is not a verified grant identifier or current rights status.",
+          "breeder_code": "Marionnet 97",
+          "trade_name": "Magnum",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-fraises/"
+        },
+        {
+          "candidate_name": "Marvella",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Conflicting codes: the Marvella heading says MAR118, but its paragraph says MAR109. Neither code is selected here; its MAR109-labeled photo is withheld.",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-fraises/"
+        },
+        {
+          "candidate_name": "Mara des bois",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named strawberry card; no separate code is shown. Publisher traits remain claims.",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-fraises/"
+        },
+        {
+          "candidate_name": "MAR 109",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Marly is paired with MAR 109 in its heading. Marvella also uses MAR109 in its paragraph; resolve the conflict before accepting aliases. Its photo alt text says Mara des Bois, so that image is withheld.",
+          "breeder_code": "MAR 109",
+          "trade_name": "Marly",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-fraises/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-marionnet-raspberry-cards",
+      "title": "Marionnet Label — ten distinct raspberry cards",
+      "url": "https://www.marionnet-label.com/nos-varietes-les-framboises/",
+      "company_ids": [
+        "company-marionnet"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Ten distinct raspberry cards; repeated responsive Paris, MAR502, MAR 504, MAR506 and Marastar cards count once each. Pink Star is a shared commercial family, not an eleventh variety.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "native_browser_page_and_named_image_review",
+        "duplicate_cards_counted_once": [
+          "Paris",
+          "MAR502",
+          "MAR 504",
+          "MAR506",
+          "MA 2920"
+        ],
+        "company_identity": "Marionnet Label/CRIV site association does not resolve current legal-company identity."
+      },
+      "names": [
+        {
+          "candidate_name": "Versailles",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Named raspberry card.",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-framboises/"
+        },
+        {
+          "candidate_name": "Paris",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Repeated responsive Paris cards count once.",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-framboises/"
+        },
+        {
+          "candidate_name": "MAR501",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Named raspberry card; code and market-label pairing remains unreviewed.",
+          "breeder_code": "MAR501",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-framboises/"
+        },
+        {
+          "candidate_name": "MAR502",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Gaïa is paired with MAR502 under Pink Star. The shared Pink Star name does not combine these two coded varieties.",
+          "breeder_code": "MAR502",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-framboises/",
+          "trade_name": "Gaïa",
+          "display_label": "Pink Star · Gaïa",
+          "photos": [
+            {
+              "named_variety": "MAR502",
+              "berry_id": "berry-raspberry",
+              "image_url": "https://www.marionnet-label.com/wp-content/uploads/2022/07/Marionnet-Label_Varietes_MAR502.jpg",
+              "source_url": "https://www.marionnet-label.com/nos-varietes-les-framboises/",
+              "credit": "Marionnet Label · Photographer not credited",
+              "caption": "MAR502 raspberry fruit, labeled by Marionnet Label.",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Marionnet Label labels the fruit image on this portfolio page. Footer reserves all rights; no image-specific reuse permission or photographer is established. Session preview does not grant reuse. Current legal-company identity remains unresolved."
+            }
+          ]
+        },
+        {
+          "candidate_name": "MAR503",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Named raspberry card; code and market-label pairing remains unreviewed.",
+          "breeder_code": "MAR503",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-framboises/"
+        },
+        {
+          "candidate_name": "MAR 504",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Named raspberry card; code and market-label pairing remains unreviewed.",
+          "breeder_code": "MAR 504",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-framboises/"
+        },
+        {
+          "candidate_name": "MAR505",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Named raspberry card; code and market-label pairing remains unreviewed.",
+          "breeder_code": "MAR505",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-framboises/"
+        },
+        {
+          "candidate_name": "MAR506",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Pandora is paired with MAR506 under Pink Star. The shared Pink Star name does not combine these two coded varieties.",
+          "breeder_code": "MAR506",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-framboises/",
+          "trade_name": "Pandora",
+          "display_label": "Pink Star · Pandora",
+          "photos": [
+            {
+              "named_variety": "MAR506",
+              "berry_id": "berry-raspberry",
+              "image_url": "https://www.marionnet-label.com/wp-content/uploads/2022/07/Marionnet-Label_Varietes_MAR506.jpg",
+              "source_url": "https://www.marionnet-label.com/nos-varietes-les-framboises/",
+              "credit": "Marionnet Label · Photographer not credited",
+              "caption": "MAR506 raspberry fruit, labeled by Marionnet Label.",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Marionnet Label labels the fruit image on this portfolio page. Footer reserves all rights; no image-specific reuse permission or photographer is established. Session preview does not grant reuse. Current legal-company identity remains unresolved."
+            }
+          ]
+        },
+        {
+          "candidate_name": "MAR507",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Named raspberry card; code and market-label pairing remains unreviewed.",
+          "breeder_code": "MAR507",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-framboises/"
+        },
+        {
+          "candidate_name": "MA 2920",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Named raspberry card; code and market-label pairing remains unreviewed.",
+          "breeder_code": "MA 2920",
+          "product_url": "https://www.marionnet-label.com/nos-varietes-les-framboises/",
+          "trade_name": "Marastar",
+          "display_label": "Marastar"
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-fnm-current-variety-index",
+      "title": "FNM — strawberry and raspberry catalog index",
+      "url": "https://www.fresasnm.com/variedades-fnm/",
+      "company_ids": [
+        "company-fresas-nuevos-materiales"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Eight strawberry product links and one raspberry product link in the page body. Header menu and language/navigation links are excluded; Otras variedades is a category link.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "native_browser_catalog_and_public_product_body_review",
+        "menu_gap": "Divine, Duna and Ondina appear in the catalog body but not the header product menu.",
+        "redirects": [
+          {
+            "listed_url": "https://www.fresasnm.com/marisma/",
+            "resolved_url": "https://www.fresasnm.com/marisma-fnm/",
+            "method": "native_browser"
+          }
+        ],
+        "linked_technical_pdf_bodies_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "Divine",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed under Fresas in FNM’s catalog. The commercial label is not an independently verified cultivar denomination.",
+          "product_url": "https://www.fresasnm.com/divine/"
+        },
+        {
+          "candidate_name": "Duna",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed under Fresas in FNM’s catalog. The commercial label is not an independently verified cultivar denomination.",
+          "product_url": "https://www.fresasnm.com/duna/"
+        },
+        {
+          "candidate_name": "Marisma FNM",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed under Fresas in FNM’s catalog. The commercial label is not an independently verified cultivar denomination.",
+          "product_url": "https://www.fresasnm.com/marisma/"
+        },
+        {
+          "candidate_name": "Rociera FNM",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed under Fresas in FNM’s catalog. The commercial label is not an independently verified cultivar denomination.",
+          "product_url": "https://www.fresasnm.com/rociera-fnm/"
+        },
+        {
+          "candidate_name": "Primoris FNM",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed under Fresas in FNM’s catalog. The commercial label is not an independently verified cultivar denomination.",
+          "product_url": "https://www.fresasnm.com/primoris-fnm/"
+        },
+        {
+          "candidate_name": "Ondina",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed under Fresas in FNM’s catalog. The commercial label is not an independently verified cultivar denomination.",
+          "product_url": "https://www.fresasnm.com/ondina/"
+        },
+        {
+          "candidate_name": "Rábida FNM",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed under Fresas in FNM’s catalog. The commercial label is not an independently verified cultivar denomination.",
+          "product_url": "https://www.fresasnm.com/rabida-fnm/"
+        },
+        {
+          "candidate_name": "Rikas FNM",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed under Fresas in FNM’s catalog. The commercial label is not an independently verified cultivar denomination.",
+          "product_url": "https://www.fresasnm.com/rikas-fnm/"
+        },
+        {
+          "candidate_name": "Noelia",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Listed under Frambuesa in FNM’s catalog.",
+          "product_url": "https://www.fresasnm.com/noelia"
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": [
+          {
+            "label": "Otras variedades",
+            "reason": "Category link, not a cultivar; its Candy entry is captured in a separate source section.",
+            "url": "https://www.fresasnm.com/otras-variedades-de-fresa/"
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-fnm-divine-product",
+      "title": "FNM — Divine product heading",
+      "url": "https://www.fresasnm.com/divine/",
+      "company_ids": [
+        "company-fresas-nuevos-materiales"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named product heading in the page body; header/footer names are navigation, not additional product entries.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "public_primary_page_text",
+        "index_url": "https://www.fresasnm.com/variedades-fnm/",
+        "linked_technical_pdf_body_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "Divine",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "FNM describes Divine as exclusively licensed. A product listing does not establish that FNM bred or owns it; licensor and rights remain unresolved.",
+          "product_url": "https://www.fresasnm.com/divine/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-fnm-duna-product",
+      "title": "FNM — Duna product heading",
+      "url": "https://www.fresasnm.com/duna/",
+      "company_ids": [
+        "company-fresas-nuevos-materiales"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named product heading in the page body; header/footer names are navigation, not additional product entries.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "public_primary_page_text",
+        "index_url": "https://www.fresasnm.com/variedades-fnm/",
+        "linked_technical_pdf_body_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "Duna",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Original named product heading; the linked technical sheet and rights record have not been reviewed.",
+          "product_url": "https://www.fresasnm.com/duna/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-fnm-marisma-fnm-product",
+      "title": "FNM — Marisma FNM product heading",
+      "url": "https://www.fresasnm.com/marisma-fnm/",
+      "company_ids": [
+        "company-fresas-nuevos-materiales"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named product heading in the page body; header/footer names are navigation, not additional product entries.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "native_browser_page_and_product_image_review",
+        "index_url": "https://www.fresasnm.com/variedades-fnm/",
+        "linked_technical_pdf_body_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "Marisma FNM",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Original named product heading; the linked technical sheet and rights record have not been reviewed.",
+          "product_url": "https://www.fresasnm.com/marisma-fnm/",
+          "photos": [
+            {
+              "named_variety": "Marisma FNM",
+              "berry_id": "berry-strawberry",
+              "image_url": "https://www.fresasnm.com/wp-content/uploads/2021/12/variedad-de-fresa-marisma-2-fresasnm.jpg",
+              "source_url": "https://www.fresasnm.com/marisma-fnm/",
+              "credit": "Fresas Nuevos Materiales · Photographer not credited",
+              "caption": "Strawberry fruit shown on FNM’s named Marisma product page.",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Visually checked fruit photograph on the Marisma product page; image has empty alt text, so attribution is to the page presentation, not an independent identity finding. Footer reserves all rights. No photographer or image-specific reuse permission established."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-fnm-rociera-fnm-product",
+      "title": "FNM — Rociera FNM product heading",
+      "url": "https://www.fresasnm.com/rociera-fnm/",
+      "company_ids": [
+        "company-fresas-nuevos-materiales"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named product heading in the page body; header/footer names are navigation, not additional product entries.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "public_primary_page_text",
+        "index_url": "https://www.fresasnm.com/variedades-fnm/",
+        "linked_technical_pdf_body_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "Rociera FNM",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Original named product heading; the linked technical sheet and rights record have not been reviewed.",
+          "product_url": "https://www.fresasnm.com/rociera-fnm/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-fnm-primoris-fnm-product",
+      "title": "FNM — Primoris FNM product heading",
+      "url": "https://www.fresasnm.com/primoris-fnm/",
+      "company_ids": [
+        "company-fresas-nuevos-materiales"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named product heading in the page body; header/footer names are navigation, not additional product entries.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "public_primary_page_text",
+        "index_url": "https://www.fresasnm.com/variedades-fnm/",
+        "linked_technical_pdf_body_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "Primoris FNM",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Original named product heading; the linked technical sheet and rights record have not been reviewed.",
+          "product_url": "https://www.fresasnm.com/primoris-fnm/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-fnm-ondina-product",
+      "title": "FNM — Ondina product heading",
+      "url": "https://www.fresasnm.com/ondina/",
+      "company_ids": [
+        "company-fresas-nuevos-materiales"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named product heading in the page body; header/footer names are navigation, not additional product entries.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "public_primary_page_text",
+        "index_url": "https://www.fresasnm.com/variedades-fnm/",
+        "linked_technical_pdf_body_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "Ondina",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Original named product heading; the linked technical sheet and rights record have not been reviewed.",
+          "product_url": "https://www.fresasnm.com/ondina/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-fnm-rabida-fnm-product",
+      "title": "FNM — Rábida FNM product heading",
+      "url": "https://www.fresasnm.com/rabida-fnm/",
+      "company_ids": [
+        "company-fresas-nuevos-materiales"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named product heading in the page body; header/footer names are navigation, not additional product entries.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "public_primary_page_text",
+        "index_url": "https://www.fresasnm.com/variedades-fnm/",
+        "linked_technical_pdf_body_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "Rábida FNM",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Original named product heading; the linked technical sheet and rights record have not been reviewed.",
+          "product_url": "https://www.fresasnm.com/rabida-fnm/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-fnm-rikas-fnm-product",
+      "title": "FNM — Rikas FNM product heading",
+      "url": "https://www.fresasnm.com/rikas-fnm/",
+      "company_ids": [
+        "company-fresas-nuevos-materiales"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named product heading in the page body; header/footer names are navigation, not additional product entries.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "public_primary_page_text",
+        "index_url": "https://www.fresasnm.com/variedades-fnm/",
+        "linked_technical_pdf_body_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "Rikas FNM",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Original named product heading; the linked technical sheet and rights record have not been reviewed.",
+          "product_url": "https://www.fresasnm.com/rikas-fnm/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-fnm-noelia-product",
+      "title": "FNM — Noelia product heading",
+      "url": "https://www.fresasnm.com/noelia/",
+      "company_ids": [
+        "company-fresas-nuevos-materiales"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named product heading in the page body; header/footer names are navigation, not additional product entries.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "public_primary_page_text",
+        "index_url": "https://www.fresasnm.com/variedades-fnm/",
+        "linked_technical_pdf_body_checked": false,
+        "withheld_image_reason": "Shared raspberry slider and unlabeled body images were not verified as Noelia-specific photographs."
+      },
+      "names": [
+        {
+          "candidate_name": "Noelia",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Original product heading calls Noelia a primocane raspberry. It is not a strawberry despite the company’s Fresas name.",
+          "product_url": "https://www.fresasnm.com/noelia/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-fnm-other-candy",
+      "title": "FNM — Candy under other strawberry varieties",
+      "url": "https://www.fresasnm.com/otras-variedades-de-fresa/",
+      "company_ids": [
+        "company-fresas-nuevos-materiales"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One Candy product heading, not every name in the site menu.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "native_browser_page_review",
+        "photos": "Not added; source page alone does not verify a photographer or image-specific reuse permission."
+      },
+      "names": [
+        {
+          "candidate_name": "Candy",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "FNM lists Candy with a shareholder-only offer note. That is publisher-reported commercial context, not an approved license, owner or acreage claim.",
+          "product_url": "https://www.fresasnm.com/otras-variedades-de-fresa/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-ncstate-home-garden-table",
+      "title": "NC State Extension — eight home-garden blackberry recommendations",
+      "url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden",
+      "company_ids": [
+        "company-nc-state-university"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "extension_recommendation",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Eight rows in Table 1, Comparison of blackberry varieties for the home garden. Comparator mentions in table comments are not extra rows.",
+      "limitations": "A 2024 home-garden recommendation table, not NC State’s breeding portfolio or evidence that these varieties are currently planted across North Carolina. Sweet-Ark-prefixed labels remain literal pending identity review. No traits, growing footprints or roles are approved. Dynamic printed-on date is not a publication date. Only the explicitly captioned Von photograph is attached, with unknown reuse.",
+      "capture_reference": {
+        "method": "native_browser_table_and_named_image_dialog_review",
+        "table": "Table 1",
+        "publication_id": "AG-702-11",
+        "author": "Gina Fernandez",
+        "photo_dialog": "img_dialog_11283"
+      },
+      "names": [
+        {
+          "candidate_name": "Natchez",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "NC State Extension includes this name in its home-garden recommendation table; this does not attribute breeding or ownership to NC State.",
+          "product_url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden"
+        },
+        {
+          "candidate_name": "Ouachita",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "NC State Extension includes this name in its home-garden recommendation table; this does not attribute breeding or ownership to NC State.",
+          "product_url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden"
+        },
+        {
+          "candidate_name": "Osage",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "NC State Extension includes this name in its home-garden recommendation table; this does not attribute breeding or ownership to NC State.",
+          "product_url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden"
+        },
+        {
+          "candidate_name": "Sweet-Ark™ Caddo",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "NC State Extension includes this name in its home-garden recommendation table; this does not attribute breeding or ownership to NC State.",
+          "product_url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden"
+        },
+        {
+          "candidate_name": "Sweet-Ark™ Ponca",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "NC State Extension includes this name in its home-garden recommendation table; this does not attribute breeding or ownership to NC State.",
+          "product_url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden"
+        },
+        {
+          "candidate_name": "Von",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "NC State Extension includes this name in its home-garden recommendation table; this does not attribute breeding or ownership to NC State.",
+          "product_url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden",
+          "photos": [
+            {
+              "named_variety": "Von",
+              "berry_id": "berry-blackberry",
+              "image_url": "https://content.ces.ncsu.edu/media/images/Von_blackberry.jpg",
+              "source_url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden",
+              "credit": "NC State Extension · Blackberries for the Home Garden · Photographer not credited",
+              "caption": "Von blackberry fruit on canes at several ripeness stages, explicitly captioned in the publication.",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Native image dialog names Von. Publication author Gina Fernandez is not assumed to be the photographer. No image-specific reuse permission established; generic fruit and trellis diagrams are excluded from variety galleries."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Prime-Ark Freedom",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "NC State Extension includes this name in its home-garden recommendation table; this does not attribute breeding or ownership to NC State.",
+          "product_url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden"
+        },
+        {
+          "candidate_name": "Prime-Ark Traveler",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "NC State Extension includes this name in its home-garden recommendation table; this does not attribute breeding or ownership to NC State.",
+          "product_url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden"
+        }
+      ],
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": []
+      },
+      "published_date": "2024-03-21"
+    },
+    {
+      "id": "portfolio-ncstate-von-release-page",
+      "title": "NC State Plant Breeding Consortium — Von release page",
+      "url": "https://plantbreeding.ncsu.edu/cultivars/small-fruits/von-blackberry/",
+      "company_ids": [
+        "company-nc-state-university"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named Von cultivar page; no complete breeding-program inventory is inferred.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "public_primary_page_text",
+        "patent_number_as_published": "27,299",
+        "original_filing_checked": false,
+        "withheld_image_reason": "The page image is a breeder headshot, not a Von fruit photograph."
+      },
+      "names": [
+        {
+          "candidate_name": "Von",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "NC State calls Von its first thornless blackberry and lists US patent 27,299. The linked original filing and current official rights status were not checked in this source section.",
+          "product_url": "https://plantbreeding.ncsu.edu/cultivars/small-fruits/von-blackberry/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-ncstate-ervin-coded-release",
+      "title": "NC State Extension — Ervin announcement and Von comparator",
+      "url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+      "company_ids": [
+        "company-nc-state-university"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-07",
+      "source_type": "breeder_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The released label Ervin paired with trial code NC 740, plus explicitly named comparator Von. Ervin/NC 740 are one source item, not two; people and plot numbers are not varieties.",
+      "limitations": "Publisher-listed names only. Identity, aliases, company roles, rights, traits and growing regions require separate review. No current/historical portfolio completeness or independent confirmation is asserted. No publication date is established unless stated separately.",
+      "capture_reference": {
+        "method": "native_browser_release_text_and_labeled_fruit_review",
+        "article_updated_date": "2026-04-05",
+        "photo_plot_label": "Plot 123 NC 740 7/10/23",
+        "ip_status_note": "Page gives an IP contact, not a patent or PBR grant number. No grant inferred."
+      },
+      "names": [
+        {
+          "candidate_name": "NC 740",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "NC State explicitly says Ervin was trialed as NC 740. Keep the pairing for human identity review, separately from earlier uncoded Ervin mentions.",
+          "breeder_code": "NC 740",
+          "trade_name": "Ervin",
+          "product_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+          "photos": [
+            {
+              "named_variety": "NC 740",
+              "berry_id": "berry-blackberry",
+              "image_url": "https://eit-wagpress-prod.s3.amazonaws.com/media/images/2026-02-NC-740-fruit-in-clamshell.max-1200x700.jpg",
+              "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+              "credit": "NC State Extension · Meet Ervin Blackberry · Photographer not credited",
+              "caption": "Blackberry fruit in a container labeled NC 740, shown in NC State’s Ervin announcement.",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Article explicitly pairs Ervin with trial code NC 740; source attribution and plot label are retained without approving that alias. Photographer not established; article authorship is not image credit. No image-specific reuse permission established."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Von",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Named comparator in the Ervin announcement; a comparison does not establish a new release, plantings or approved performance traits.",
+          "product_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      },
+      "published_date": "2026-02-08"
+    }
+  ]
+}

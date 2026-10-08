@@ -1,0 +1,148 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-civ-everbearing-index",
+      "title": "CIV — four names under Rifiorenti",
+      "url": "https://civ.it/fragola/",
+      "checked_on": "2026-10-07",
+      "company_ids": ["company-civ-italy"],
+      "berry_ids": ["berry-strawberry"],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Four links under Rifiorenti in the original strawberry index; one of four separately counted groups, not CIV's lifetime portfolio.",
+      "limitations": "Names and grouping are publisher claims awaiting review. Registered marks do not establish patent/PBR identifiers or current protection. No traits, roles, rights, growing regions or release dates are approved. Other fruit-crop menus and general site photos are outside this strawberry enumeration.",
+      "capture_reference": {"method": "native_browser_index_review", "source_group": "Rifiorenti", "index_total_observed": 29},
+      "names": [
+        {"candidate_name": "MURANO", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/murano/", "portfolio_context": "CIV lists MURANO under Rifiorenti. This is source grouping, not a confirmed flowering trait."},
+        {"candidate_name": "VIVARA", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/vivara/", "portfolio_context": "CIV lists VIVARA under Rifiorenti; product identity and traits remain unreviewed."},
+        {"candidate_name": "ANIA", "display_label": "ANIA®", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/ania/", "portfolio_context": "CIV lists ANIA® under Rifiorenti. The registered-mark symbol is not a filing number."},
+        {"candidate_name": "CANTUS", "display_label": "CANTUS®", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/cantus/", "portfolio_context": "CIV lists CANTUS® under Rifiorenti. No protection or company role is approved."}
+      ],
+      "accounting": {"observed_items": 4, "exclusions": []}
+    },
+    {
+      "id": "portfolio-civ-high-chill-index",
+      "title": "CIV — eight names in its high-chill index group",
+      "url": "https://civ.it/fragola/",
+      "checked_on": "2026-10-07",
+      "company_ids": ["company-civ-italy"],
+      "berry_ids": ["berry-strawberry"],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Eight links under Unifere ad alto fabbisogno di freddo, with KLODIA's individual heading and fruit image also checked.",
+      "limitations": "Source grouping does not confirm climate suitability or traits. KLODIA/CIVH725 pairing is a publisher assertion, not an approved alias or legal registry determination. The shared fragola-header-def.jpg is generic and excluded. Photographer and image reuse permission remain unknown. No rights, roles, growing footprint or release date is approved.",
+      "capture_reference": {"method": "native_browser_index_and_product_review", "source_group": "Unifere ad alto fabbisogno di freddo", "product_checked_urls": ["https://civ.it/fragola/klodia/"], "product_heading": "KLODIA®CIVH725*", "index_total_observed": 29},
+      "names": [
+        {"candidate_name": "CLERY", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/clery/", "portfolio_context": "CIV lists CLERY in this group. KLODIA's comparison with CLERY is not another portfolio occurrence."},
+        {"candidate_name": "APRICA", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/aprica/", "portfolio_context": "CIV lists APRICA in this group. Comparison statements are not verified traits."},
+        {"candidate_name": "CIVH725", "breeder_code": "CIVH725", "trade_name": "KLODIA", "display_label": "KLODIA® CIVH725*", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/klodia/", "portfolio_context": "Index label KLODIA® is paired with CIVH725 in the checked product heading. Keep the literal code and label available for identity review; neither registered-mark nor asterisk establishes a filing or current protection.", "photos": [
+          {"image_url": "https://civ.it/wp-content/uploads/2025/01/klodia-still-life.png", "source_url": "https://civ.it/fragola/klodia/", "named_variety": "CIVH725", "berry_id": "berry-strawberry", "credit": "CIV product page · Photographer not credited", "caption": "CIVH725 / KLODIA: fruit shown beside the named product description", "kind": "fruit", "reuse": "unknown", "license_url": "", "checked_on": "2026-10-07", "reuse_note": "Native product view identifies the still-life beside KLODIA®CIVH725*. Shared strawberry header excluded. Source identification is not independent verification or reuse permission; private tab-session preview only."}
+        ]},
+        {"candidate_name": "JOLY", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/joly/", "portfolio_context": "CIV lists JOLY in the high-chill index group; grouping is unreviewed source context."},
+        {"candidate_name": "SIBILLA", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/sibilla/", "portfolio_context": "CIV lists SIBILLA in the high-chill index group."},
+        {"candidate_name": "DELY", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/dely/", "portfolio_context": "CIV lists DELY in the high-chill index group."},
+        {"candidate_name": "LYCIA", "display_label": "LYCIA®", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/lycia/", "portfolio_context": "CIV lists LYCIA® in the high-chill index group. Code and legal rights are not inferred."},
+        {"candidate_name": "GIUSY", "display_label": "GIUSY®", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/giusy/", "portfolio_context": "CIV lists GIUSY® in the high-chill index group."}
+      ],
+      "accounting": {"observed_items": 8, "exclusions": []}
+    },
+    {
+      "id": "portfolio-civ-low-chill-index",
+      "title": "CIV — six names in its low-chill index group",
+      "url": "https://civ.it/fragola/",
+      "checked_on": "2026-10-07",
+      "company_ids": ["company-civ-italy"],
+      "berry_ids": ["berry-strawberry"],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Six visible links under Unifere a basso fabbisogno di freddo in the original strawberry index.",
+      "limitations": "Source grouping remains a publisher claim; not confirmed chilling requirements, climate suitability, growing regions, breeding roles or legal status. Codes are not guessed from names or URL slugs. No whole-company completeness claim or publication date.",
+      "capture_reference": {"method": "native_browser_index_review", "source_group": "Unifere a basso fabbisogno di freddo", "index_total_observed": 29},
+      "names": [
+        {"candidate_name": "PARTHENOPE", "display_label": "PARTHENOPE®", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/parthenope/", "portfolio_context": "CIV lists PARTHENOPE® in its low-chill group; verify traits separately."},
+        {"candidate_name": "FLAVIA", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/flavia/", "portfolio_context": "CIV lists FLAVIA in its low-chill group."},
+        {"candidate_name": "SHAYDA", "display_label": "SHAYDA®", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/shayda/", "portfolio_context": "CIV lists SHAYDA® in its low-chill group."},
+        {"candidate_name": "LARISSA", "display_label": "LARISSA®", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/larissa/", "portfolio_context": "CIV lists LARISSA® in its low-chill group. This observation does not infer a code from search snippets or unvisited product pages."},
+        {"candidate_name": "ELIDE", "display_label": "ELIDE®", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/elide/", "portfolio_context": "CIV lists ELIDE® in its low-chill group."},
+        {"candidate_name": "KOINÈ", "display_label": "KOINÈ®", "berry_id": "berry-strawberry", "product_url": "https://civ.it/fragola/koine/", "portfolio_context": "CIV lists KOINÈ®; retain its accent rather than creating a new spelling alias."}
+      ],
+      "accounting": {"observed_items": 6, "exclusions": []}
+    },
+    {
+      "id": "portfolio-civ-other-index",
+      "title": "CIV — eleven linked names under Altre varietà",
+      "url": "https://civ.it/fragola/",
+      "checked_on": "2026-10-07",
+      "company_ids": ["company-civ-italy"],
+      "berry_ids": ["berry-strawberry"],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Eleven visible link labels under Altre varietà. Exact PDF destinations are retained, but their bodies are not enumerated here.",
+      "limitations": "A linked PDF label establishes a named source lead, not a read technical sheet. Do not infer codes, publication dates, traits, photos or legal status from PDF filenames. This group is not proof that every variety is currently available. No automatic aliases, roles or regions.",
+      "capture_reference": {"method": "native_browser_index_link_review", "source_group": "Altre varietà", "linked_pdf_bodies_checked": false, "index_total_observed": 29},
+      "names": [
+        {"candidate_name": "ANNELY", "display_label": "ANNELY®", "berry_id": "berry-strawberry", "product_url": "https://civ.it/wp-content/uploads/2025/02/Annely_CIVN223-IT.pdf", "portfolio_context": "CIV's index links ANNELY®. The PDF body and any apparent code in its filename still require review."},
+        {"candidate_name": "ANTEA", "berry_id": "berry-strawberry", "product_url": "https://civ.it/wp-content/uploads/2025/02/Antea_ITA.pdf", "portfolio_context": "CIV links ANTEA in Altre varietà; technical sheet not read in this index check."},
+        {"candidate_name": "ARDEA", "display_label": "ARDEA®", "berry_id": "berry-strawberry", "product_url": "https://civ.it/wp-content/uploads/2025/02/Ardea_IT.pdf", "portfolio_context": "CIV links ARDEA® in Altre varietà; technical sheet not read."},
+        {"candidate_name": "AROSA", "berry_id": "berry-strawberry", "product_url": "https://civ.it/wp-content/uploads/2025/02/AROSA_ITA.pdf", "portfolio_context": "CIV links AROSA in Altre varietà."},
+        {"candidate_name": "EDWINA", "display_label": "EDWINA®", "berry_id": "berry-strawberry", "product_url": "https://civ.it/wp-content/uploads/2025/02/edwina_CIVRH295-ITA.pdf", "portfolio_context": "CIV links EDWINA®. The apparent code in the filename is not imported as identity evidence."},
+        {"candidate_name": "FLAMINIA", "berry_id": "berry-strawberry", "product_url": "https://civ.it/wp-content/uploads/2025/02/Flaminia_ITA_2018.pdf", "portfolio_context": "CIV links FLAMINIA. Filename year is not treated as publication or release date."},
+        {"candidate_name": "KAMILA", "berry_id": "berry-strawberry", "product_url": "https://civ.it/wp-content/uploads/2025/02/Kamila_ITA.pdf", "portfolio_context": "CIV links KAMILA in Altre varietà."},
+        {"candidate_name": "LAETITIA", "berry_id": "berry-strawberry", "product_url": "https://civ.it/wp-content/uploads/2025/02/Laetitia_ITA.pdf", "portfolio_context": "CIV links LAETITIA in Altre varietà."},
+        {"candidate_name": "MAJESTIC", "berry_id": "berry-strawberry", "product_url": "https://civ.it/wp-content/uploads/2025/02/Majestic_ITA.pdf", "portfolio_context": "CIV links MAJESTIC in Altre varietà."},
+        {"candidate_name": "NABILA", "berry_id": "berry-strawberry", "product_url": "https://civ.it/wp-content/uploads/2025/02/Nabila_ITA.pdf", "portfolio_context": "CIV links NABILA in Altre varietà."},
+        {"candidate_name": "QUICKY", "display_label": "QUICKY®", "berry_id": "berry-strawberry", "product_url": "https://civ.it/wp-content/uploads/2025/02/Quicky%C2%AECIVN251_ITA.pdf", "portfolio_context": "CIV links QUICKY®; exact percent-encoded destination is retained and no code is inferred from its filename."}
+      ],
+      "accounting": {"observed_items": 11, "exclusions": []}
+    },
+    {
+      "id": "portfolio-hansabred-cultivars-index",
+      "title": "Hansabred — six cultivars and named Renaissance images",
+      "url": "https://www.hansabred.org/cultivars.html",
+      "checked_on": "2026-10-07",
+      "company_ids": ["company-hansabred"],
+      "berry_ids": ["berry-strawberry"],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Six linked cultivars under Cultivars; all six individual pages checked for identity context. Separate wild-species and collection menus are outside this index count.",
+      "limitations": "Current visible index, not a complete historical breeding portfolio. Individual pages report identifiers and marketing traits; these are not official registry verification, current protection or confirmed traits. Comparator names, pedigree parents, nurseries and collection holdings are not automatically company's own cultivars. Fontaine's wild-strawberry hybrid context stays distinct from standard commercial strawberries. Photographer and image-specific reuse terms are unknown.",
+      "capture_reference": {"method": "native_browser_index_and_six_product_pages", "product_pages_checked": 6, "excluded_scopes": ["Wild Fragaria L. Species", "Sortensammlung", "comparison cultivars", "pedigree parents", "nursery distributors"]},
+      "names": [
+        {"candidate_name": "Jack", "berry_id": "berry-strawberry", "product_url": "https://www.hansabred.org/cultivars/jack.html", "portfolio_context": "Hansabred lists Jack; its product page displays P-150176. This name/code pairing needs identity review. Malling Centenary, Clery, Rendezvous and pedigree P-120279 are comparison or parent context, not extra Jack-page portfolio entries."},
+        {"candidate_name": "Rendezvous", "berry_id": "berry-strawberry", "product_url": "https://www.hansabred.org/cultivars/rendezvous.html", "portfolio_context": "Product page reports CPVO HansRend, application 20190144 and grant/registration 60450. These publisher claims require official registry verification; no alias, filing record or current legal status is approved. Clery and Flair are comparators."},
+        {"candidate_name": "Lola", "berry_id": "berry-strawberry", "product_url": "https://www.hansabred.org/cultivars/lola.html", "portfolio_context": "Product page literally says PVO: Hans Lola, application 20190145 and grant/registration 60451. Preserve the source wording as an unverified legal lead; do not silently repair PVO or approve a rights record. Aprica and Elegance are comparators."},
+        {"candidate_name": "Renaissance", "berry_id": "berry-strawberry", "product_url": "https://www.hansabred.org/cultivars/renaissance.html", "portfolio_context": "Hansabred names Renaissance above its plant and fruit photographs. It reports CPVO application 20161235, an unverified registry lead with no current legal-status approval. Elsanta is comparison context, not an extra portfolio entry.", "photos": [
+          {"image_url": "https://www.hansabred.org/assets/images/x/renaissance_pflanze-q76gjnsnn80egh0.jpg", "source_url": "https://www.hansabred.org/cultivars/renaissance.html", "named_variety": "Renaissance", "berry_id": "berry-strawberry", "credit": "Hansabred product page · Photographer not credited", "caption": "Renaissance: plant shown under the named cultivar heading", "kind": "plant", "reuse": "unknown", "license_url": "", "checked_on": "2026-10-07", "reuse_note": "Plant photo and Renaissance heading checked in the original native page. Attribution is not reuse permission or independent cultivar authentication; held for private session preview."},
+          {"image_url": "https://www.hansabred.org/assets/images/8/renaissance_schale-artagfg8gymjvrf.jpg", "source_url": "https://www.hansabred.org/cultivars/renaissance.html", "named_variety": "Renaissance", "berry_id": "berry-strawberry", "credit": "Hansabred product page · Photographer not credited", "caption": "Renaissance: fruit punnet shown under the named cultivar heading", "kind": "fruit", "reuse": "unknown", "license_url": "", "checked_on": "2026-10-07", "reuse_note": "Fruit punnet and named Renaissance heading checked in the native source view. Image-specific license and photographer are not established; private session preview only."}
+        ]},
+        {"candidate_name": "Fontaine", "berry_id": "berry-strawberry", "product_url": "https://www.hansabred.org/cultivars/fontaine.html", "portfolio_context": "Source describes Fragaria ×vesca Fontaine as a hybrid of European Fragaria vesca and Japanese Fragaria iinumae for potted ornamental and ground-cover uses. Keep this publisher species/use context visible; do not treat it as a verified standard commercial strawberry or approve parentage. Reported application 20141495 / 2014/1495 needs official registry verification."},
+        {"candidate_name": "Snow White", "berry_id": "berry-strawberry", "product_url": "https://www.hansabred.org/cultivars/snow-white.html", "portfolio_context": "Product page reports CPVO hanswhit, application 20131478, not verified here. Anablanca, Weiße Ananas, Pineberrry and Malwina appear as comparison context; no extra portfolio entries or spelling repairs are inferred."}
+      ],
+      "accounting": {"observed_items": 6, "exclusions": []}
+    },
+    {
+      "id": "portfolio-nsg-current-hub",
+      "title": "Nova Siri Genetics — five current products and source-reported codes",
+      "url": "https://www.novasirigenetics.com/hub-varietale/",
+      "checked_on": "2026-10-07",
+      "company_ids": ["company-nova-siri-genetics"],
+      "berry_ids": ["berry-strawberry"],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Five distinct hub/footer products, cross-checked against all five original product pages. Repeated carousel and footer links count once.",
+      "limitations": "Source-reported code/label pairs remain unreviewed; no canonical aliases, breeder roles, traits, growing regions or legal status are approved. Melissa has no code established in this page check. Current hub is not the whole historical portfolio. PDF links are follow-up leads; neither filename dates nor code labels establish filing/release dates. Original pages state all rights reserved; image-specific license and photographer remain unknown. Generic banners, logos, technical-lab images and unrelated product carousel pictures are excluded.",
+      "capture_reference": {"method": "native_browser_hub_and_five_product_pages", "product_pages_checked": 5, "deduplicated_scope": "Carousel clones and repeated footer products", "historical_pdf_follow_up": "Older technical sheets and their text/graphic spellings have not been verified in this check; do not import snippet-only differences."},
+      "names": [
+        {"candidate_name": "NSG 203", "breeder_code": "NSG 203", "trade_name": "Marimbella", "display_label": "NSG 203 — Marimbella®", "berry_id": "berry-strawberry", "product_url": "https://www.novasirigenetics.com/marimbella/", "portfolio_context": "Hub/footer names NSG 203 – MARIMBELLA® and checked product heading says Nsg 203. Pairing remains a source assertion, not an approved alias."},
+        {"candidate_name": "NSG 207", "breeder_code": "NSG 207", "trade_name": "Gioelita", "display_label": "NSG 207 — Gioelita®", "berry_id": "berry-strawberry", "product_url": "https://www.novasirigenetics.com/gioelita/", "portfolio_context": "Current page and logo identify Gioelita with NSG 207. Literal code spacing is retained; no spelling or historical technical-sheet discrepancy is inferred from search snippets.", "photos": [
+          {"image_url": "https://spcdn.shortpixel.ai/spio/ret_img+q_cdnize+to_webp+s_webp/www.novasirigenetics.com/wp-content/uploads/2026/03/GioelitaInterna_DEF.png", "source_url": "https://www.novasirigenetics.com/gioelita/", "named_variety": "NSG 207", "berry_id": "berry-strawberry", "credit": "Nova Siri Genetics product page · Photographer not credited", "caption": "NSG 207 / Gioelita: fruit shown beside the named product description", "kind": "fruit", "reuse": "unknown", "license_url": "", "checked_on": "2026-10-07", "reuse_note": "Native page shows the named Gioelita logo, NSG 207 heading and this fruit still-life together. The exact observed rendered CDN asset URL is retained. Publisher attribution is not photographer credit, independent identity confirmation or reuse permission; private session only."}
+        ]},
+        {"candidate_name": "Melissa", "berry_id": "berry-strawberry", "product_url": "https://www.novasirigenetics.com/melissa/", "portfolio_context": "Hub/footer and product page title identify Melissa. No breeder code is established by the checked page; no code is invented."},
+        {"candidate_name": "NSG 465", "breeder_code": "NSG 465", "trade_name": "Rossetta", "display_label": "NSG 465 — Rossetta®", "berry_id": "berry-strawberry", "product_url": "https://www.novasirigenetics.com/rossetta/", "portfolio_context": "Index label ROSSETTA® is paired with NSG 465 in the checked product heading/title. External brand-site and social links do not approve ownership, traits or growing regions."},
+        {"candidate_name": "NSG 48", "breeder_code": "NSG 48", "trade_name": "Elyson", "display_label": "NSG 48 — Elyson®", "berry_id": "berry-strawberry", "product_url": "https://www.novasirigenetics.com/elyson/", "portfolio_context": "Hub/footer names NSG 48 – ELYSON® and checked product heading says Nsg 48. A news launch headline and repeated carousel links are not extra varieties or approved release evidence."}
+      ],
+      "accounting": {"observed_items": 5, "exclusions": []}
+    }
+  ]
+}

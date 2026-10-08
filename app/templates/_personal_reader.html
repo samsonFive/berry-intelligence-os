@@ -28,5 +28,6 @@
   </section>
   {% if authoring_mode %}<div class="reader-completion"><button type="button" class="outline-button" data-personal-action="start" data-item-id="{{ card.id }}">In progress</button><button type="button" class="green-button" data-personal-action="mark_read" data-item-id="{{ card.id }}">{{ icon('check') }} Complete reading</button></div>{% endif %}
   {% if authoring_mode and statement_reviews %}{% include '_statement_reader_review.html' %}{% endif %}
+  {% if authoring_mode and article_text %}<details class="reader-secondary"><summary>Varieties in this article</summary><p>Find explicitly named varieties in the available article text and check them against the catalog. Proposed names still need identity review.</p><form method="post" action="/varieties/discover-source/{{ card.id }}"><button type="submit" class="outline-button">Find named varieties →</button></form></details>{% endif %}
   <p class="reader-action-status" role="status" aria-live="polite"></p>
 </article>

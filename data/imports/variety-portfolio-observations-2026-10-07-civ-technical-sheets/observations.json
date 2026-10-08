@@ -1,0 +1,409 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-civ-sheet-annely",
+      "title": "CIV — ANNELY technical sheet",
+      "url": "https://civ.it/wp-content/uploads/2025/02/Annely_CIVN223-IT.pdf",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One linked technical sheet from Altre varietà; named heading and explicitly observed comparison references only. Native PDF heading and lower body checked; primary PDF text also returned.",
+      "limitations": "Publisher descriptions and protection symbols are unverified source claims, not current legal status, official filings, approved aliases, company roles, traits, release dates or growing regions. No date/code inferred from filename or upload folder. Embedded PDF photographs remain accessible at the original sheet; no standalone image URL, photographer or reuse permission established. Native PDF heading and lower body checked; primary PDF text also returned.",
+      "capture_reference": {
+        "method": "native_pdf_review",
+        "linked_from": "https://civ.it/fragola/",
+        "body_checked": true,
+        "check_note": "Native PDF heading and lower body checked; primary PDF text also returned.",
+        "pages": 1,
+        "heading": "ANNELY® CIVN223pbr"
+      },
+      "names": [
+        {
+          "candidate_name": "CIVN223",
+          "display_label": "ANNELY® CIVN223pbr",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://civ.it/wp-content/uploads/2025/02/Annely_CIVN223-IT.pdf",
+          "portfolio_context": "CIV pairs ANNELY with CIVN223 in this sheet heading. Literal code/label pairing awaits identity review; no canonical alias is approved. Protection/ownership wording needs official verification and does not establish present rights. Agronomic marketing claims are not approved traits.",
+          "breeder_code": "CIVN223",
+          "trade_name": "ANNELY"
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Clery",
+            "reason": "Size/harvest comparator, not an additional own-variety observation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-civ-sheet-antea",
+      "title": "CIV — ANTEA technical sheet (unreadable)",
+      "url": "https://civ.it/wp-content/uploads/2025/02/Antea_ITA.pdf",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "unreadable",
+      "enumerated_scope": "One linked technical sheet from Altre varietà; named heading and explicitly observed comparison references only. Native browser reported a ChatGPT policy block; web tool returned no readable body. No alternate route attempted.",
+      "limitations": "Publisher descriptions and protection symbols are unverified source claims, not current legal status, official filings, approved aliases, company roles, traits, release dates or growing regions. No date/code inferred from filename or upload folder. Embedded PDF photographs remain accessible at the original sheet; no standalone image URL, photographer or reuse permission established. Native browser reported a ChatGPT policy block; web tool returned no readable body. No alternate route attempted.",
+      "capture_reference": {
+        "method": "unsuccessful_primary_pdf_attempt",
+        "linked_from": "https://civ.it/fragola/",
+        "body_checked": false,
+        "check_note": "Native browser reported a ChatGPT policy block; web tool returned no readable body. No alternate route attempted."
+      },
+      "names": []
+    },
+    {
+      "id": "portfolio-civ-sheet-ardea",
+      "title": "CIV — ARDEA technical sheet",
+      "url": "https://civ.it/wp-content/uploads/2025/02/Ardea_IT.pdf",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One linked technical sheet from Altre varietà; named heading and explicitly observed comparison references only. Native headings on both pages, protection footnote and page-two production-chart reference checked. This is not a verification of every agronomic claim or chart.",
+      "limitations": "Publisher descriptions and protection symbols are unverified source claims, not current legal status, official filings, approved aliases, company roles, traits, release dates or growing regions. No date/code inferred from filename or upload folder. Embedded PDF photographs remain accessible at the original sheet; no standalone image URL, photographer or reuse permission established. Native headings on both pages, protection footnote and page-two production-chart reference checked. This is not a verification of every agronomic claim or chart.",
+      "capture_reference": {
+        "method": "native_pdf_review",
+        "linked_from": "https://civ.it/fragola/",
+        "body_checked": true,
+        "check_note": "Native headings on both pages, protection footnote and page-two production-chart reference checked. This is not a verification of every agronomic claim or chart.",
+        "pages": 2,
+        "heading": "ARDEA® CIVL514*"
+      },
+      "names": [
+        {
+          "candidate_name": "CIVL514",
+          "display_label": "ARDEA® CIVL514*",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://civ.it/wp-content/uploads/2025/02/Ardea_IT.pdf",
+          "portfolio_context": "CIV pairs ARDEA with CIVL514 in this sheet heading. Literal code/label pairing awaits identity review; no canonical alias is approved. Protection/ownership wording needs official verification and does not establish present rights. Agronomic marketing claims are not approved traits.",
+          "breeder_code": "CIVL514",
+          "trade_name": "ARDEA"
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Varietà 1",
+            "reason": "Unnamed early Huelva reference in the production chart; not an identified extra cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-civ-sheet-arosa",
+      "title": "CIV — AROSA technical sheet",
+      "url": "https://civ.it/wp-content/uploads/2025/02/AROSA_ITA.pdf",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One linked technical sheet from Altre varietà; named heading and explicitly observed comparison references only. Native PDF heading, body and footer checked. No breeding code established in the sheet.",
+      "limitations": "Publisher descriptions and protection symbols are unverified source claims, not current legal status, official filings, approved aliases, company roles, traits, release dates or growing regions. No date/code inferred from filename or upload folder. Embedded PDF photographs remain accessible at the original sheet; no standalone image URL, photographer or reuse permission established. Native PDF heading, body and footer checked. No breeding code established in the sheet.",
+      "capture_reference": {
+        "method": "native_pdf_review",
+        "linked_from": "https://civ.it/fragola/",
+        "body_checked": true,
+        "check_note": "Native PDF heading, body and footer checked. No breeding code established in the sheet.",
+        "pages": 1,
+        "heading": "AROSA pbr"
+      },
+      "names": [
+        {
+          "candidate_name": "AROSA",
+          "display_label": "AROSA pbr",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://civ.it/wp-content/uploads/2025/02/AROSA_ITA.pdf",
+          "portfolio_context": "CIV names AROSA in this sheet heading. No breeding code is established; the protection suffix is not an identifier. Protection/ownership wording needs official verification and does not establish present rights. Agronomic marketing claims are not approved traits."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Marmolada® onebor*",
+            "reason": "Paired harvest-comparison reference, not two own-portfolio entries."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-civ-sheet-edwina",
+      "title": "CIV — EDWINA technical sheet (partial)",
+      "url": "https://civ.it/wp-content/uploads/2025/02/edwina_CIVRH295-ITA.pdf",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "One linked technical sheet from Altre varietà; named heading and explicitly observed comparison references only. Primary PDF text returned by web tool; native browser policy-blocked. Heading/code are text-supported, not independently visually verified. No alternate retrieval or photo association.",
+      "limitations": "Publisher descriptions and protection symbols are unverified source claims, not current legal status, official filings, approved aliases, company roles, traits, release dates or growing regions. No date/code inferred from filename or upload folder. Embedded PDF photographs remain accessible at the original sheet; no standalone image URL, photographer or reuse permission established. Primary PDF text returned by web tool; native browser policy-blocked. Heading/code are text-supported, not independently visually verified. No alternate retrieval or photo association.",
+      "capture_reference": {
+        "method": "primary_pdf_text",
+        "linked_from": "https://civ.it/fragola/",
+        "body_checked": false,
+        "check_note": "Primary PDF text returned by web tool; native browser policy-blocked. Heading/code are text-supported, not independently visually verified. No alternate retrieval or photo association.",
+        "pages": 1,
+        "heading": "EDWINA®CIVRH295*"
+      },
+      "names": [
+        {
+          "candidate_name": "CIVRH295",
+          "display_label": "EDWINA®CIVRH295*",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://civ.it/wp-content/uploads/2025/02/edwina_CIVRH295-ITA.pdf",
+          "portfolio_context": "CIV pairs EDWINA with CIVRH295 in this sheet heading. Literal code/label pairing awaits identity review; no canonical alias is approved. Partial check: Primary PDF text returned by web tool; native browser policy-blocked. Heading/code are text-supported, not independently visually verified. No alternate retrieval or photo association. Protection/ownership wording needs official verification and does not establish present rights. Agronomic marketing claims are not approved traits.",
+          "breeder_code": "CIVRH295",
+          "trade_name": "EDWINA"
+        }
+      ]
+    },
+    {
+      "id": "portfolio-civ-sheet-flaminia",
+      "title": "CIV — FLAMINIA technical sheet (unreadable)",
+      "url": "https://civ.it/wp-content/uploads/2025/02/Flaminia_ITA_2018.pdf",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "unreadable",
+      "enumerated_scope": "One linked technical sheet from Altre varietà; named heading and explicitly observed comparison references only. Original index link retained; native PDF attempt stayed blank and web tool supplied no readable body. No heading or page count established. Filename year is not a publication date.",
+      "limitations": "Publisher descriptions and protection symbols are unverified source claims, not current legal status, official filings, approved aliases, company roles, traits, release dates or growing regions. No date/code inferred from filename or upload folder. Embedded PDF photographs remain accessible at the original sheet; no standalone image URL, photographer or reuse permission established. Original index link retained; native PDF attempt stayed blank and web tool supplied no readable body. No heading or page count established. Filename year is not a publication date.",
+      "capture_reference": {
+        "method": "unsuccessful_primary_pdf_attempt",
+        "linked_from": "https://civ.it/fragola/",
+        "body_checked": false,
+        "check_note": "Original index link retained; native PDF attempt stayed blank and web tool supplied no readable body. No heading or page count established. Filename year is not a publication date."
+      },
+      "names": []
+    },
+    {
+      "id": "portfolio-civ-sheet-kamila",
+      "title": "CIV — KAMILA technical sheet (partial)",
+      "url": "https://civ.it/wp-content/uploads/2025/02/Kamila_ITA.pdf",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "One linked technical sheet from Altre varietà; named heading and explicitly observed comparison references only. Native upper heading, embedded photos and upper description visible. Scrolling did not expose the lower body/footer. No claim of full enumeration or absence of further codes/comparators.",
+      "limitations": "Publisher descriptions and protection symbols are unverified source claims, not current legal status, official filings, approved aliases, company roles, traits, release dates or growing regions. No date/code inferred from filename or upload folder. Embedded PDF photographs remain accessible at the original sheet; no standalone image URL, photographer or reuse permission established. Native upper heading, embedded photos and upper description visible. Scrolling did not expose the lower body/footer. No claim of full enumeration or absence of further codes/comparators.",
+      "capture_reference": {
+        "method": "native_pdf_review",
+        "linked_from": "https://civ.it/fragola/",
+        "body_checked": false,
+        "check_note": "Native upper heading, embedded photos and upper description visible. Scrolling did not expose the lower body/footer. No claim of full enumeration or absence of further codes/comparators.",
+        "pages": 1,
+        "heading": "KAMILA pbr"
+      },
+      "names": [
+        {
+          "candidate_name": "KAMILA",
+          "display_label": "KAMILA pbr",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://civ.it/wp-content/uploads/2025/02/Kamila_ITA.pdf",
+          "portfolio_context": "CIV names KAMILA in this sheet heading. No breeding code is established; the protection suffix is not an identifier. Partial check: Native upper heading, embedded photos and upper description visible. Scrolling did not expose the lower body/footer. No claim of full enumeration or absence of further codes/comparators. Protection/ownership wording needs official verification and does not establish present rights. Agronomic marketing claims are not approved traits."
+        }
+      ]
+    },
+    {
+      "id": "portfolio-civ-sheet-laetitia",
+      "title": "CIV — LAETITIA technical sheet",
+      "url": "https://civ.it/wp-content/uploads/2025/02/Laetitia_ITA.pdf",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One linked technical sheet from Altre varietà; named heading and explicitly observed comparison references only. Native PDF heading, body and footer checked; primary text also returned. No breeding code established in the sheet.",
+      "limitations": "Publisher descriptions and protection symbols are unverified source claims, not current legal status, official filings, approved aliases, company roles, traits, release dates or growing regions. No date/code inferred from filename or upload folder. Embedded PDF photographs remain accessible at the original sheet; no standalone image URL, photographer or reuse permission established. Native PDF heading, body and footer checked; primary text also returned. No breeding code established in the sheet.",
+      "capture_reference": {
+        "method": "native_pdf_review",
+        "linked_from": "https://civ.it/fragola/",
+        "body_checked": true,
+        "check_note": "Native PDF heading, body and footer checked; primary text also returned. No breeding code established in the sheet.",
+        "pages": 1,
+        "heading": "LAETITIA pbr"
+      },
+      "names": [
+        {
+          "candidate_name": "LAETITIA",
+          "display_label": "LAETITIA pbr",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://civ.it/wp-content/uploads/2025/02/Laetitia_ITA.pdf",
+          "portfolio_context": "CIV names LAETITIA in this sheet heading. No breeding code is established; the protection suffix is not an identifier. Protection/ownership wording needs official verification and does not establish present rights. Agronomic marketing claims are not approved traits."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Galiaciv",
+            "reason": "Harvest-timing comparator; not an additional own-variety observation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-civ-sheet-majestic",
+      "title": "CIV — MAJESTIC technical sheet",
+      "url": "https://civ.it/wp-content/uploads/2025/02/Majestic_ITA.pdf",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One linked technical sheet from Altre varietà; named heading and explicitly observed comparison references only. Native PDF heading, body and footer checked. No breeding code established in the sheet.",
+      "limitations": "Publisher descriptions and protection symbols are unverified source claims, not current legal status, official filings, approved aliases, company roles, traits, release dates or growing regions. No date/code inferred from filename or upload folder. Embedded PDF photographs remain accessible at the original sheet; no standalone image URL, photographer or reuse permission established. Native PDF heading, body and footer checked. No breeding code established in the sheet.",
+      "capture_reference": {
+        "method": "native_pdf_review",
+        "linked_from": "https://civ.it/fragola/",
+        "body_checked": true,
+        "check_note": "Native PDF heading, body and footer checked. No breeding code established in the sheet.",
+        "pages": 1,
+        "heading": "MAJESTIC (pvr)"
+      },
+      "names": [
+        {
+          "candidate_name": "MAJESTIC",
+          "display_label": "MAJESTIC (pvr)",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://civ.it/wp-content/uploads/2025/02/Majestic_ITA.pdf",
+          "portfolio_context": "CIV names MAJESTIC in this sheet heading. No breeding code is established; the protection suffix is not an identifier. Protection/ownership wording needs official verification and does not establish present rights. Agronomic marketing claims are not approved traits."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-civ-sheet-nabila",
+      "title": "CIV — NABILA technical sheet",
+      "url": "https://civ.it/wp-content/uploads/2025/02/Nabila_ITA.pdf",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One linked technical sheet from Altre varietà; named heading and explicitly observed comparison references only. Native PDF heading, body and footer checked. Generic standard-variety comparison does not identify a separate cultivar. No breeding code established.",
+      "limitations": "Publisher descriptions and protection symbols are unverified source claims, not current legal status, official filings, approved aliases, company roles, traits, release dates or growing regions. No date/code inferred from filename or upload folder. Embedded PDF photographs remain accessible at the original sheet; no standalone image URL, photographer or reuse permission established. Native PDF heading, body and footer checked. Generic standard-variety comparison does not identify a separate cultivar. No breeding code established.",
+      "capture_reference": {
+        "method": "native_pdf_review",
+        "linked_from": "https://civ.it/fragola/",
+        "body_checked": true,
+        "check_note": "Native PDF heading, body and footer checked. Generic standard-variety comparison does not identify a separate cultivar. No breeding code established.",
+        "pages": 1,
+        "heading": "NABILA pbr"
+      },
+      "names": [
+        {
+          "candidate_name": "NABILA",
+          "display_label": "NABILA pbr",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://civ.it/wp-content/uploads/2025/02/Nabila_ITA.pdf",
+          "portfolio_context": "CIV names NABILA in this sheet heading. No breeding code is established; the protection suffix is not an identifier. Protection/ownership wording needs official verification and does not establish present rights. Agronomic marketing claims are not approved traits."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-civ-sheet-quicky",
+      "title": "CIV — QUICKY technical sheet",
+      "url": "https://civ.it/wp-content/uploads/2025/02/Quicky%C2%AECIVN251_ITA.pdf",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One linked technical sheet from Altre varietà; named heading and explicitly observed comparison references only. Original PDF downloaded through its visible index link; text extracted and full page rendered/visually checked. Clery is comparison context.",
+      "limitations": "Publisher descriptions and protection symbols are unverified source claims, not current legal status, official filings, approved aliases, company roles, traits, release dates or growing regions. No date/code inferred from filename or upload folder. Embedded PDF photographs remain accessible at the original sheet; no standalone image URL, photographer or reuse permission established. Original PDF downloaded through its visible index link; text extracted and full page rendered/visually checked. Clery is comparison context.",
+      "capture_reference": {
+        "method": "native_pdf_review",
+        "linked_from": "https://civ.it/fragola/",
+        "body_checked": true,
+        "check_note": "Original PDF downloaded through its visible index link; text extracted and full page rendered/visually checked. Clery is comparison context.",
+        "pages": 1,
+        "heading": "QUICKY® CIVN251pbr"
+      },
+      "names": [
+        {
+          "candidate_name": "CIVN251",
+          "display_label": "QUICKY® CIVN251pbr",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://civ.it/wp-content/uploads/2025/02/Quicky%C2%AECIVN251_ITA.pdf",
+          "portfolio_context": "CIV pairs QUICKY with CIVN251 in this sheet heading. Literal code/label pairing awaits identity review; no canonical alias is approved. Protection/ownership wording needs official verification and does not establish present rights. Agronomic marketing claims are not approved traits.",
+          "breeder_code": "CIVN251",
+          "trade_name": "QUICKY"
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Clery",
+            "reason": "Harvest comparator, not an additional own-variety observation."
+          }
+        ]
+      }
+    }
+  ]
+}

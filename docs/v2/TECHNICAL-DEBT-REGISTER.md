@@ -1994,6 +1994,23 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 8 NIAB/Bayer/Masiá source continuation: 12 sections add 44 name
+occurrences and five held fruit photos. NIAB's transferred strawberries stay
+separate from legacy names and raspberries; Bayer trademark ownership does not
+approve cultivar ownership. Baya Solara/EM2836 retains Subject to approval, and
+later source codes now appear in the company table. Shared Masia photo withheld;
+historical Selene retained; crop headings, propagator repeats and comparators
+excluded. 112 unique local tests, records, session JavaScript and preservation
+pass; 1,992 original JSON unchanged. Desktop photo/control/code review passes;
+mobile sizing could not be applied and remains unverified for this continuation.
+Audit: 132 sections / 737 occurrences / 53 matches / 684 review needs / 573 keys;
+38/77 partly checked, 39 initial checks and 20 follow-ups; catalog 64, photos
+36/35 held/zero newly approved public. See NIAB-BAYER-MASIA-VARIETY-REVIEW.md.
+CAT-01/CAT-02/TD-116 and full redesign/release remain open. Local only; pinned
+parent push approval unanswered, no new draft/remote CI, merge/deploy or
+other-berry Landscape rollout.
+
+
 **October 7 CFIA source-code photos:** Two original strawberry records and four
 held photographs add dated review context. Exact source-code/berry matching
 permits private candidate previews while uncoded AVA pairings and canonical
@@ -2231,3 +2248,122 @@ or close portfolio completeness debt. See VARIETY-REGISTRY-SPECIES-CORRECTION.md
 
 
 **TD-116 catalog handoff follow-up (October 7):** The missing candidate-to-authoring navigation is addressed through existing human intake/publication review, which already supports unverified match/create. A reviewed distinct candidate can prepare source review, and current identity/catalog checks block stale decisions or duplicates before writes. Candidate history remains private; source/claim gates stay separate. No new writer/schema or real canonical additions. The 62 primary checks, independently scored recall, unresolved formats/languages, historical depth and rich profiles remain open. See VARIETY-CATALOG-REVIEW-HANDOFF.md.
+
+**October 7 local TD-116 source-coverage follow-up:**
+
+Five bounded sections add ASD/Benning/Inka's source coverage and two held,
+credited blueberry photos. Current scope is 60 sections / 554 mentions /
+34 text matches / 520 review needs / 461 derived keys; 16 photos, 15 held,
+zero approved public. Catalog stays 64. 25 of 77 subjects have some page
+enumeration and 52 lack an initial checked section; no complete-portfolio
+claim. Seven capture/accounting follow-ups, named Benning planting sources,
+Inka's historical report, independent recall and profile depth remain open.
+67 tests and records pass; native Matías session preview is verified.
+Delivery is on a separate local branch. Preceding 0ce865d push awaits specific user
+authorization after two automatic approval-review rejections; no new PR/CI.
+TD-116 remains open. See COMPANY-NAMED-PHOTO-COVERAGE-REVIEW.md.
+
+**October 7 local European TD-116 follow-up:** CIV/Hansabred/Nova Siri add six
+bounded sections, 40 names and four held attributed photos. Current totals:
+66 sections / 594 mentions / 36 text matches / 558 review needs / 495 derived
+keys; 28/77 subjects with some enumeration, 49 lacking initial checks; photos
+20, unknown-reuse holds 19, approved public zero. Catalog stays 64. 71 local
+regressions, records and native desktop/phone preview pass; existing records
+and review/permission state unchanged. Source-reported identifiers, code/name
+pairs, wild-hybrid use and comparators remain separate from canonical facts.
+Seven source gaps, linked technical sheets, full histories, official rights,
+independent recall and profile depth remain open. Delivery is local pending
+specific parent-push approval after automatic rejection; no new PR/CI.
+See EUROPEAN-PORTFOLIO-NAME-PHOTO-REVIEW.md; TD-116 remains open.
+
+**October 7 local CIV sheet TD-116 follow-up:** Eleven body attempts retain
+nine name observations and four separate, unreviewed code leads. Comparison
+mentions do not become own portfolio entries; protection symbols do not
+become verified rights. Seven sections have bounded enumeration, two remain
+partial and two unreadable. Current totals are 77 sections / 603 mentions /
+36 text matches / 567 review needs / 499 keys; 49 initial subject checks and
+eleven source gaps remain. All existing 1,992 JSON files unchanged; catalog 64,
+photos 20/19 held/zero approved public. 72 focused tests, records and native
+candidate review pass. Official verification, historical completeness,
+independent recall and profile depth remain open; TD-116 is not resolved.
+See CIV-TECHNICAL-SHEET-IDENTITY-REVIEW.md. Local follow-up only; exact parent
+push approval remains pending after automatic rejection. No new PR/CI.
+
+**October 7 local Mountain Blue/Costa TD-116 follow-up:** Seven sections add
+28 observations and three held images; unnamed placeholders and repeated
+panels do not become extra cultivars. Conflicting Dazzle photo filename is
+retained without photo assignment; SI-145 and Nebula retain capture/taxon limits.
+Current scope: 84 sections / 631 occurrences / 42 text matches / 589 review
+needs / 511 keys. 47 initial checks and twelve source gaps remain. All 1,992
+original JSON unchanged, catalog 64; photos 23/22 held/zero approved public.
+Four new plus 61 existing regressions, records and native Bounty preview pass.
+Complete portfolios, independent recall and rich profiles/official rights stay
+open. See MOUNTAIN-BLUE-COSTA-PORTFOLIO-REVIEW.md. TD-116 remains open; local
+delivery pending exact parent push approval, no new PR/CI or rollout.
+
+**October 7 local PSG/OZblu TD-116 follow-up:** Nine bounded sections add nine
+name observations and two held photos. Three original PSG catalogs fail to
+load and remain unreadable; current consumer grades/packs are not varieties.
+Rejoice code forms/platform scope and EB 12-19 caption/package conflict stay
+unresolved, without aliases or photo reassignment. Magica's exact existing
+catalog alias is reused. Desktop photo/context columns and phone stacking
+remove the profile's empty band; 52 profile/photo tests and native session
+controls pass; another 32 public-snapshot/portfolio tests pass. All 1,992 original JSON unchanged; catalog 64. Latest scope:
+93 sections / 640 occurrences / 44 text matches / 596 review needs / 518 keys;
+45 initial checks and 15 source follow-ups remain. Photos 25/24 held/zero public.
+Full historical coverage, independent recall and profile/rights depth remain
+open. See PSG-OZBLU-PORTFOLIO-PHOTO-REVIEW.md. TD-116 remains open, local-only
+pending parent push approval; no new PR/CI, merge/deploy or Landscape rollout.
+
+**TD-116 local patent/source recheck:** October 7 local patent/source recheck: eight original blueberry filing subjects
+reuse existing catalog identities; wrong PP25,358 ornamental subject excluded.
+OZblu old mapping redirect and blank Rejoice English PDF remain source gaps.
+40 focused checks pass; records validate and original 1,992 JSON unchanged.
+Latest totals: 104 sections / 648 occurrences / 52 catalog text matches /
+596 review needs / 518 candidate keys; 32/77 subjects partly checked, 45
+initial checks and 17 follow-ups remain. Blueberry 185, strawberry 306,
+raspberry 101, blackberry 56. Catalog 64; photos 25/24 held/zero public.
+See docs/v2/OZBLU-PATENT-SOURCE-RECHECK.md (or same-directory note).
+CAT-01/CAT-02/TD-116 and full mission stay open. Local-only pending parent
+push approval; no new PR/CI, merge/deploy or Landscape rollout.
+
+October 7 selected-article follow-up: the private Reader can find explicit
+variety names in one stored/cached article and send new names to identity review.
+Catalog matches and earlier human decisions remain intact; publication status,
+original URLs and declaration context stay visible. Filters/alphabet preserve
+article scope; no provider calls, global body hydration or automatic approval.
+The unchanged summary diagnostic remains 60/64, four raw-body misses, zero extras;
+selected-article behavior has separate tests, not a new global recall claim.
+Default coverage stays 104 sections / 648 occurrences / 518 candidate keys;
+45 initial company checks, 17 follow-ups and CAT-01/CAT-02/TD-116 stay open.
+See VARIETY-SELECTED-ARTICLE-REVIEW.md. Local only pending pinned-parent push
+approval; no new PR/CI, merge/deploy or other-berry Landscape rollout.
+
+**TD-116 October 8 source continuation:**
+October 8 local source continuation (checks begun October 7): Marionnet/FNM/
+NC State add 16 bounded sections, 45 occurrences and six held fruit photos.
+Marvella MAR118/MAR109 and Marly photo captions stay unresolved; Pink Star
+codes stay separate. FNM catalog-body names include menu omissions; Noelia
+is raspberry. NC State recommendations are separate from release records;
+Ervin/NC 740 pairing and source dates remain unreviewed. 66 affected checks
+pass, plus six overlapping final checks; records and original 1,992 JSON
+preservation pass. Latest audit: 120 sections / 693 occurrences / 53 catalog
+text matches / 640 review needs / 546 keys; 35/77 subjects partly checked,
+42 initial checks and 18 source follow-ups remain. Blueberry 185, strawberry
+328, raspberry 113, blackberry 67. Catalog 64; photos 31/30 held/zero newly
+approved public. See MARIONNET-FNM-NCSTATE-PORTFOLIO-REVIEW.md. CAT-01/CAT-02/
+TD-116 and full redesign/release goal remain open. Local-only; pinned-parent
+push approval unanswered, no new PR/CI, merge/deploy or Landscape rollout.
+
+**TD-116 October 8 company source visibility:**
+October 8 company-page visibility fix: private company Varieties tabs and
+detailed portfolios now show additional names from checked sources in a compact
+searchable table, with berry/alphabet navigation and exact review destinations.
+Catalog matches do not approve company roles; repeated sources retain provenance,
+different codes stay separate, and rejected names stay closed. Public/static
+views exclude this list. No acquisition or canonical/review/permission writes;
+1,992 original JSON files unchanged. Coverage remains 120 sections / 693 name
+occurrences / 546 keys / catalog 64, with 42 initial checks and 18 follow-ups.
+See COMPANY-SOURCE-VARIETY-VISIBILITY-REVIEW.md; CAT-01/CAT-02/TD-116 remain open.
+Local only; exact pinned-parent push approval unanswered, no new PR/remote CI,
+merge/deploy or other-berry Landscape rollout.

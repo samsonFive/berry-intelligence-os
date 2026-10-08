@@ -1,5 +1,140 @@
 # Redesign and consolidation requirements
 
+October 8 NIAB/Bayer/Masiá source continuation: 12 sections add 44 name
+occurrences and five held fruit photos. NIAB's transferred strawberries stay
+separate from legacy names and raspberries; Bayer trademark ownership does not
+approve cultivar ownership. Baya Solara/EM2836 retains Subject to approval, and
+later source codes now appear in the company table. Shared Masia photo withheld;
+historical Selene retained; crop headings, propagator repeats and comparators
+excluded. 112 unique local tests, records, session JavaScript and preservation
+pass; 1,992 original JSON unchanged. Desktop photo/control/code review passes;
+mobile sizing could not be applied and remains unverified for this continuation.
+Audit: 132 sections / 737 occurrences / 53 matches / 684 review needs / 573 keys;
+38/77 partly checked, 39 initial checks and 20 follow-ups; catalog 64, photos
+36/35 held/zero newly approved public. See NIAB-BAYER-MASIA-VARIETY-REVIEW.md.
+CAT-01/CAT-02/TD-116 and full redesign/release remain open. Local only; pinned
+parent push approval unanswered, no new draft/remote CI, merge/deploy or
+other-berry Landscape rollout.
+
+October 8 company-page visibility fix: private company Varieties tabs and
+detailed portfolios now show additional names from checked sources in a compact
+searchable table, with berry/alphabet navigation and exact review destinations.
+Catalog matches do not approve company roles; repeated sources retain provenance,
+different codes stay separate, and rejected names stay closed. Public/static
+views exclude this list. No acquisition or canonical/review/permission writes;
+1,992 original JSON files unchanged. Coverage remains 120 sections / 693 name
+occurrences / 546 keys / catalog 64, with 42 initial checks and 18 follow-ups.
+See COMPANY-SOURCE-VARIETY-VISIBILITY-REVIEW.md; CAT-01/CAT-02/TD-116 remain open.
+Local only; exact pinned-parent push approval unanswered, no new PR/remote CI,
+merge/deploy or other-berry Landscape rollout.
+
+October 8 local source continuation (checks begun October 7): Marionnet/FNM/
+NC State add 16 bounded sections, 45 occurrences and six held fruit photos.
+Marvella MAR118/MAR109 and Marly photo captions stay unresolved; Pink Star
+codes stay separate. FNM catalog-body names include menu omissions; Noelia
+is raspberry. NC State recommendations are separate from release records;
+Ervin/NC 740 pairing and source dates remain unreviewed. 66 affected checks
+pass, plus six overlapping final checks; records and original 1,992 JSON
+preservation pass. Latest audit: 120 sections / 693 occurrences / 53 catalog
+text matches / 640 review needs / 546 keys; 35/77 subjects partly checked,
+42 initial checks and 18 source follow-ups remain. Blueberry 185, strawberry
+328, raspberry 113, blackberry 67. Catalog 64; photos 31/30 held/zero newly
+approved public. See MARIONNET-FNM-NCSTATE-PORTFOLIO-REVIEW.md. CAT-01/CAT-02/
+TD-116 and full redesign/release goal remain open. Local-only; pinned-parent
+push approval unanswered, no new PR/CI, merge/deploy or Landscape rollout.
+
+October 7 selected-article follow-up: the private Reader can find explicit
+variety names in one stored/cached article and send new names to identity review.
+Catalog matches and earlier human decisions remain intact; publication status,
+original URLs and declaration context stay visible. Filters/alphabet preserve
+article scope; no provider calls, global body hydration or automatic approval.
+The unchanged summary diagnostic remains 60/64, four raw-body misses, zero extras;
+selected-article behavior has separate tests, not a new global recall claim.
+Default coverage stays 104 sections / 648 occurrences / 518 candidate keys;
+45 initial company checks, 17 follow-ups and CAT-01/CAT-02/TD-116 stay open.
+See VARIETY-SELECTED-ARTICLE-REVIEW.md. Local only pending pinned-parent push
+approval; no new PR/CI, merge/deploy or other-berry Landscape rollout.
+
+October 7 local patent/source recheck: eight original blueberry filing subjects
+reuse existing catalog identities; wrong PP25,358 ornamental subject excluded.
+OZblu old mapping redirect and blank Rejoice English PDF remain source gaps.
+40 focused checks pass; records validate and original 1,992 JSON unchanged.
+Latest totals: 104 sections / 648 occurrences / 52 catalog text matches /
+596 review needs / 518 candidate keys; 32/77 subjects partly checked, 45
+initial checks and 17 follow-ups remain. Blueberry 185, strawberry 306,
+raspberry 101, blackberry 56. Catalog 64; photos 25/24 held/zero public.
+See docs/v2/OZBLU-PATENT-SOURCE-RECHECK.md (or same-directory note).
+CAT-01/CAT-02/TD-116 and full mission stay open. Local-only pending parent
+push approval; no new PR/CI, merge/deploy or Landscape rollout.
+
+October 7 PSG/OZblu follow-up: nine source observations and two credited held
+photos; three failed catalogs explicitly recorded. Brand/platform/cultivar
+codes and the conflicting package photo are kept distinct. Existing Magica
+alias is reused without a duplicate candidate. Dense profile photo/content
+columns and phone stacking are native-reviewed; 52 profile/photo and 32 public-snapshot/portfolio tests pass.
+Original 1,992 JSON unchanged, catalog 64. Latest totals: 93 sections / 640
+occurrences / 44 text matches / 596 review needs / 518 keys; 32/77 subjects
+partly checked, 45 initial checks and 15 source follow-ups remain. Photos
+25/24 held/zero public. CAT-01/CAT-02/TD-116 and full mission remain open.
+See PSG-OZBLU-PORTFOLIO-PHOTO-REVIEW.md. Local-only pending parent approval;
+no new PR/CI, merge/deploy or other-berry Landscape rollout.
+
+October 7 Mountain Blue/Costa follow-up: 28 original-source observations and
+three held attributed fruit images added across seven bounded sections.
+Duplicate panels and unnamed placeholders do not inflate variety counts;
+ambiguous Dazzle photo is withheld. SI-145 species/status and Nebula text-only
+report remain unreviewed. Four new plus 61 existing regressions, records and
+native Bounty preview pass; all 1,992 original JSON unchanged, catalog 64.
+Current scope: 84 sections / 631 mentions / 42 text matches / 589 review needs /
+511 keys; 30/77 subjects partly checked, 47 initial checks and twelve source
+gaps remain. Photos 23 / 22 held / zero approved public. Complete portfolios,
+independent recall, rights/profile depth stay open; CAT-01/CAT-02/TD-116 open.
+See MOUNTAIN-BLUE-COSTA-PORTFOLIO-REVIEW.md. Local-only, pending exact parent
+push approval after automatic rejection; no new PR/CI, merge/deploy or rollout.
+
+October 7 CIV sheet follow-up: eleven original technical-sheet attempts add
+nine source heading observations and four separate code leads. Seven bounded
+checks are enumerated; two partial and two unreadable bodies retain explicit
+limits and their original index leads. Comparisons are excluded from own
+portfolios; no automatic identity, rights, trait, photo or human review change.
+72 regressions, record validation and native candidate review pass; existing
+1,992 JSON files unchanged and catalog stays 64. Current scope: 77 sections /
+603 mentions / 36 text matches / 567 review needs / 499 derived keys. 49 initial
+subject checks and eleven source gaps remain. Photos unchanged: 20 references,
+19 holds, zero public approvals. CAT-01/CAT-02/TD-116 remain open. See
+CIV-TECHNICAL-SHEET-IDENTITY-REVIEW.md. Local branch; parent push question still
+pending after automatic rejection. No new PR/CI, merge/deploy or Landscape rollout.
+
+October 7 European source follow-up: three more companies now have bounded
+portfolio checks: CIV's 29 index names, Hansabred's six cultivars and Nova Siri's
+five current products. Four new attributed images use the private session
+control. Literal codes, species/use context and human decisions are preserved;
+no comparator, filename code or registered-mark legal claim is inferred.
+71 regressions, records and native desktop/360px phone acceptance pass.
+Current catalog 64; 66 sections / 594 mentions / 36 text matches / 558 review
+needs / 495 derived keys; 20 photos / 19 unknown-reuse holds / zero approved
+public. 28 of 77 subjects have some enumeration, leaving 49 initial checks.
+Seven existing source gaps, complete historical portfolios, technical sheets,
+official rights verification, independent recall and profile depth stay open.
+See EUROPEAN-PORTFOLIO-NAME-PHOTO-REVIEW.md. Local child branch; prior 0ce865d
+push awaits specific approval after two automatic rejections. No new PR/CI,
+merge/deploy, trust promotion or other-berry Landscape rollout.
+
+October 7 local follow-up: ASD/Benning/Inka's bounded original-source checks add
+12 name mentions and two visibly labeled, credited blueberry images. Generic
+images, spelling corrections, ownership and map claims are not inferred.
+67 regressions and records pass; native Matías show/hide retains unconfirmed
+reuse. Current catalog 64; scope 60 sections / 554 occurrences / 34 matches /
+520 review needs / 461 derived keys; 16 photos / 15 held / zero approved public.
+25 of 77 subjects have some bounded enumeration; 52 lack an initial checked
+section. Full portfolios, named Benning planting sources and the Inka's
+historical report still need research. CAT-01/CAT-02/TD-116 remain open.
+Delivery is on a separate local branch; prior 0ce865d push was rejected twice by
+automatic approval review and the specific authorization question is pending.
+No new PR or exact-head CI exists yet; the preceding checkpoint's CI/draft
+wording denotes required delivery, not a completed push. See
+COMPANY-NAMED-PHOTO-COVERAGE-REVIEW.md. No merge/deploy/other-berry rollout.
+
 October 7 CFIA code-photo follow-up: source-specific exact-code photo preview
 now works for ASF218/ASF219 without confirming trade-name aliases or canonical
 associations. Four held photo references and two unreviewed registry rows add
@@ -195,8 +330,9 @@ The new catalog rows remain open beyond their delivered first slice.
 
 October 7 recall follow-up: CAT-01/CAT-02 retain a 24-case curated synthetic
 diagnostic, with actual detection improving from 46/64 to 50/64 after spaced-code
-and long-F1 repairs; unexpected names fall from one to zero. Table, Spanish,
-Polish and body-only failures still miss 14 occurrences. Independent human
+and long-F1 repairs; unexpected names fall from one to zero. Later table, Spanish
+and Polish repairs reach 60/64 with four raw-body misses; the selected-article
+action is tested separately and does not change the fixture. Independent human
 verification, real acquisition, canonical authoring and remaining portfolio
 coverage are open. #320 now delivers the candidate-to-existing-authoring
 navigation; actual human decisions and catalog growth remain open. See
@@ -209,8 +345,8 @@ Completion means implementation plus appropriate source/data proof, browser revi
 
 | ID | Accepted requirement | Current evidence / state | Remaining verification or implementation |
 | --- | --- | --- | --- |
-| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Stored discovery audits 1,269 sources (95 observations / 32 matches / 63 candidate observations); combined candidate keys 450 before private state. Dates, URLs/codes/prefixes, historical exclusions and user edits survive. All 38 pages of the UGA presentation are visually accounted for; photo-only labels and experimental selections retain source scope. #320 connects human-reviewed distinct candidates to existing intake and separate source/claim review. Independent GRIN comparison now offers individual private identity-lead handoff without overwriting decisions. All-scopes source-content disclosure distinguishes acquisition gaps from recall. | Older published corpus has 1,198 unavailable bodies / 71 access screens, excluding pending news. Remaining acquisition, other table/language formats, independent review and actual identity/catalog additions remain. Unchanged original diagnostic now detects 60/64, with four body-only misses; title diagnostic misses one F1 name. |
-| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | 77-row source plan; 53 dated sections / 540 source name occurrences across four berries, with seven explicit source follow-ups. Independent GDR comparison has 2,372 genus/name pairs; GRIN has 148 scoped blueberry names plus 53 unresolved hybrid labels. Before private state, GRIN finds 132 missing exact names / 14 queued / two catalog matches. Existing profile websites and analyst edit/clear carry into the source plan. Canonical catalog remains 64. See VARIETY-HISTORICAL-BLUEBERRY-VISUAL-REVIEW.md. | 55 registry rows need initial enumerated primary checks; checked pages are not completed portfolios. Original release/rights verification, hybrid crop resolution, actual catalog authoring, cited traits/images/regions, refresh reconciliation and independently scored recall remain. External comparisons are scoped benchmarks; no global completeness or web-leading claim. |
+| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Stored discovery audits 1,269 sources (95 observations / 32 matches / 63 candidate observations); combined candidate keys 546 before private state. Selected Reader checks now include available article-text declarations with retained publication status; previous human decisions and catalog matches win. Dates, URLs/codes/prefixes, historical exclusions and user edits survive. All 38 pages of the UGA presentation are visually accounted for; photo-only labels and experimental selections retain source scope. #320 connects human-reviewed distinct candidates to existing intake and separate source/claim review. Independent GRIN comparison now offers individual private identity-lead handoff without overwriting decisions. All-scopes source-content disclosure distinguishes acquisition gaps from recall. | Older published corpus has 1,198 unavailable bodies / 71 access screens, excluding pending news. Remaining acquisition, further declaration formats/languages, independent review and actual identity/catalog additions remain. Unchanged original diagnostic now detects 60/64, with four body-only misses; title diagnostic misses one F1 name. |
+| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | 77-row source plan; 120 dated sections / 693 source name occurrences across four berries, with 18 explicit source follow-ups. Independent GDR comparison has 2,372 genus/name pairs; GRIN has 148 scoped blueberry names plus 53 unresolved hybrid labels. Before private state, GRIN finds 132 missing exact names / 14 queued / two catalog matches. Existing profile websites and analyst edit/clear carry into the source plan. Canonical catalog remains 64. See VARIETY-HISTORICAL-BLUEBERRY-VISUAL-REVIEW.md. | 42 registry rows need initial enumerated primary checks; checked pages are not completed portfolios. Original release/rights verification, hybrid crop resolution, actual catalog authoring, cited traits/images/regions, refresh reconciliation and independently scored recall remain. External comparisons are scoped benchmarks; no global completeness or web-leading claim. |
 | UI-01 | Bright, colorful agricultural Glasshouse identity; first berry icon; subtle glass, stronger contrast and hierarchy | Approved Glasshouse identity and first icon across core, intelligence, authoring, public-library and retained shells (M1–21/34/35); source prose stays literal. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-02 | Immersive full-width workspace, compact top navigation, grouped More menu contained within the viewport | Full-width shared top header, contained grouped More, folded specialist destinations; live/private versus generated-public navigation tested (M20/21/35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-03 | Dense information with useful headlines, summaries, metadata and collapsed secondary context; plain language | Distinct heading/lead/body/metadata roles, compact cards/tables and secondary disclosures in News, dossiers, Reports, Landscape, Learn, research/review and retained tools (M3–35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
