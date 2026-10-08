@@ -4,6 +4,22 @@ Ongoing goal activated October 1, 2026. This checklist is the completion ledger 
 
 ## Checkpoints and completion standard
 
+October 7 patent Reader repair: a real FC11-164 source capture returned only a
+legal-event note while its original document contained an abstract, description
+and claim. The shared live Reader now preserves bounded plain-text document
+sections, headings, lists and table cells, with section jumps and explicit
+Reload source text. A failed same-source refresh preserves the previous capture;
+source edits and human review gates remain intact. This private reading aid does
+not approve identity, traits, rights or legal status, and does not appear in the
+readonly/static snapshot. Google Patents semantic HTML is supported; other
+registry formats and full PDF text remain coverage gaps. No domain schema,
+canonical variety record, model qualification or collection setting changes.
+See PATENT-READER-DOCUMENT-REVIEW.md. The parent recall draft #334 passes all four
+required checks on 42b7cac: 4,159 passed / 11 skipped / two existing warnings.
+The 60/64 synthetic recall diagnostic retains four body-only misses, and actual
+catalog/portfolio counts stay unchanged; CAT-01/CAT-02/TD-116 remain open.
+No merge, deployment or other-berry Landscape rollout is authorized here.
+
 October 7 explicit-list recall follow-up: the unchanged 24-case diagnostic now
 finds 60 of 64 expected name occurrences (previously 50), with zero unexpected
 names and 23 cases passing every specified check. Mixed crop/name/code tables

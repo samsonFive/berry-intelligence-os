@@ -218,6 +218,35 @@ def test_capture_only_on_explicit_action_and_uses_existing_capture_store(workspa
     assert called == ["ev-digest"]
 
 
+def test_patent_document_hierarchy_refresh_and_private_trust_boundaries(workspace, monkeypatch):
+    from app.services import feed_first_reader as reader
+    from app.services.patent_reader import patent_document
+    from tests.test_patent_reader_document import HTML, URL
+    client, repos = workspace
+    before = repos.evidence.get("ev-digest")
+    document = patent_document(HTML, URL)
+    capture = {"ok": True, "item_id": before["id"], "requested_url": before["source_url"], "content_kind": "patent",
+               "passages": [r["text"] for r in document["blocks"] if r["kind"] != "heading"],
+               "document_blocks": document["blocks"] + [{"kind": "paragraph", "text": '<img src=x onerror="bad">'}], "availability": "partial"}
+    reader.save_capture(main.INBOX_DIR, before["id"], capture)
+    path = reader.capture_path(main.INBOX_DIR, before["id"])
+    stored = path.read_bytes()
+    calls = []
+    monkeypatch.setattr(reader, "capture_item", lambda *args, **kwargs: calls.append(kwargs))
+    response = client.get("/api/intelligence/ev-digest/reader?personal=1")
+    assert response.status_code == 200 and calls == [] and path.read_bytes() == stored
+    assert 'id="reader-document-claims" tabindex="-1">Claims (1)</h3>' in response.text and "<h4>COMPARISON</h4>" in response.text
+    assert '>Site-specific result</td>' in response.text and "source claims, not reviewed facts" in response.text
+    assert "&lt;img src=x" in response.text and '<img src=x onerror="bad">' not in response.text
+    assert "Reload source text" in response.text and "Read original at publisher" in response.text
+    assert client.post("/api/digest/ev-digest/capture?refresh=1").status_code == 200
+    assert calls == [{"refresh": True}] and repos.evidence.get("ev-digest") == before
+    monkeypatch.setattr(main, "AUTHORING_MODE", False)
+    public = client.get("/api/intelligence/ev-digest/reader?personal=1")
+    assert "as described and illustrated" not in public.text and "Reload source text" not in public.text
+    assert client.post("/api/digest/ev-digest/capture?refresh=1").status_code == 403
+
+
 def test_subscriptions_route_populates_digest_then_unsubscribe_keeps_save(workspace):
     client, _ = workspace
     response = client.post("/digest/lists", data={"action": "create", "name": "Nurseries", "company_ids": "company-digest"}, follow_redirects=False)
