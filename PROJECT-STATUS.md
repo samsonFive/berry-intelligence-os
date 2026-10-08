@@ -1,5 +1,21 @@
 # Project Status
 
+October 8 Sant’Orsola original-document continuation: eleven visually
+checked technical sheets and the original Ofelia SO patent add twelve source
+observations, claim/filing links and one held low-resolution fruit photo.
+Ofelia and Ofelia SO stay separate; all eleven older candidate links survive.
+Real audit: 158 sections / 817 occurrences / 57 text matches / 760 review needs /
+631 candidate keys. Catalog stays 64. Registry: 42/77 partly checked, 35 initial
+checks and 22 capture follow-ups open. Photos: 38 references / 37 reuse-unknown /
+zero newly approved public. Twenty-one PDF photo objects remain document links,
+not gallery assets. No aliases, rights status, traits, roles or growing regions
+approved. Native session preview/hide passes; records and 1,992-file preservation
+pass. See SANTORSOLA-DOCUMENT-REFERENCES-REVIEW.md. Parent #341 exact-head gates
+are green (4,270 tests); this draft requires its own pushed-head checks.
+No merge/deploy or other-berry Landscape rollout; CAT-01/CAT-02/TD-116 stay open.
+
+Earlier checkpoints below are historical; current counts are those above.
+
 October 8 Sant’Orsola continuation: the live breeding page adds eleven
 name observations, including Delfi and ten raspberry labels, with exact linked
 technical-sheet URLs. Two enumerated crop sections and one explicit document
