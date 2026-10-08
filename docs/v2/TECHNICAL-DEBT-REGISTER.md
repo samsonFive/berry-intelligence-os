@@ -1994,6 +1994,23 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 8 NIAB/Bayer/Masiá source continuation: 12 sections add 44 name
+occurrences and five held fruit photos. NIAB's transferred strawberries stay
+separate from legacy names and raspberries; Bayer trademark ownership does not
+approve cultivar ownership. Baya Solara/EM2836 retains Subject to approval, and
+later source codes now appear in the company table. Shared Masia photo withheld;
+historical Selene retained; crop headings, propagator repeats and comparators
+excluded. 112 unique local tests, records, session JavaScript and preservation
+pass; 1,992 original JSON unchanged. Desktop photo/control/code review passes;
+mobile sizing could not be applied and remains unverified for this continuation.
+Audit: 132 sections / 737 occurrences / 53 matches / 684 review needs / 573 keys;
+38/77 partly checked, 39 initial checks and 20 follow-ups; catalog 64, photos
+36/35 held/zero newly approved public. See NIAB-BAYER-MASIA-VARIETY-REVIEW.md.
+CAT-01/CAT-02/TD-116 and full redesign/release remain open. Local only; pinned
+parent push approval unanswered, no new draft/remote CI, merge/deploy or
+other-berry Landscape rollout.
+
+
 **October 7 CFIA source-code photos:** Two original strawberry records and four
 held photographs add dated review context. Exact source-code/berry matching
 permits private candidate previews while uncoded AVA pairings and canonical

@@ -32,6 +32,11 @@ def company_variety_discoveries(*, entity_id, sources, linked_variety_ids=(), er
                           "needs_review": "Name needs review",
                           "distinct_awaiting_catalog": "Catalog entry pending"}[name["status"]],
             })
+            # A later reference can supply a literal code absent from the index.
+            # Reconciliation already separates conflicting coded identities;
+            # displaying this source code does not approve an alias or a role.
+            if code and not row["code"]:
+                row["code"] = code
             if not name["catalog_id"]:
                 params = {"company": entity_id, "berry": name["berry_id"],
                           "source": source["id"], "q": name["candidate_name"]}
