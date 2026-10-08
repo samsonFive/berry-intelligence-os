@@ -18,19 +18,10 @@ def decision_digest(candidate: dict) -> str:
 
 def catalog_handoff(candidate: dict, varieties: list[dict]) -> dict:
     name = str(candidate.get("candidate_name") or "").strip()
-    matched, ambiguous = match_named_entity(name, "variety", varieties)
-    crop_conflict = bool(matched and candidate.get("berry_id") and
-                         (matched.get("berry_ids") or matched.get("berry_id")) and
-                         candidate["berry_id"] not in (matched.get("berry_ids") or [matched["berry_id"]]))
-    if crop_conflict:
-        matched = None
+    matched, ambiguous = match_named_entity(name, "variety", varieties, berry_id=candidate.get("berry_id") or "")
     reason = ""
     if not name:
         reason = "Record the variety name before preparing catalog review."
-    elif crop_conflict:
-        # The generic publication writer still resolves names across crops.
-        # Do not offer a false profile link or bypass its duplicate guard.
-        reason = "A different berry uses this name in the catalog. Keep the records separate; catalog creation needs a crop-specific identity check."
     elif ambiguous:
         reason = "This name matches multiple catalog records. Resolve the identity first."
     elif matched:

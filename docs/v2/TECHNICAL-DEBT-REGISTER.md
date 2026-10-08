@@ -1994,6 +1994,16 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+**October 7 crop-scoped authoring:** The checked distinct-candidate workflow now
+permits separate same-name varieties in known disjoint berry crops. Same-crop,
+unknown-crop and ambiguous duplicate guards remain; registration collisions are
+still flagged regardless crop. Source review preserves checked scope rather
+than expanding it from review aids. Native isolated fictional acceptance plus
+74 focused regressions verifies original-record preservation and separate
+source/claim gates. No real identity/source decisions, catalog additions or
+coverage-count changes. This supersedes the authoring blocker below; broader
+CAT-01/CAT-02/TD-116 remain open. See VARIETY-CROP-SCOPED-CATALOG-REVIEW.md.
+
 October 7 release/patent photo follow-up: three source-labeled images from
 the USDA Keepsake strawberry release and FC11-164 patent figure now reach private
 galleries with individual session-only Ignore permission controls. Strawberry

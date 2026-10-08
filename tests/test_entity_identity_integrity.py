@@ -224,6 +224,36 @@ def test_variety_alias_collision():
     assert report["varieties"]["canonical_collisions"][0]["reason"] == "alias_collision"
 
 
+def test_crop_context_resolves_shared_names_without_approving_identity():
+    blueberry = _variety(id="variety-blueberry-keepsake", name="Keepsake")
+    strawberry = _variety(id="variety-strawberry-keepsake", name="Keepsake", berry_ids=["berry-strawberry"])
+    assert match_named_entity("Keepsake", "variety", [blueberry, strawberry])[0] is None
+    assert set(match_named_entity("Keepsake", "variety", [blueberry, strawberry])[1]) == {blueberry["id"], strawberry["id"]}
+    assert match_named_entity("Keepsake", "variety", [blueberry, strawberry], berry_id="berry-strawberry")[0] == strawberry
+    candidate = {"id": "vcand-strawberry", "candidate_name": "Keepsake", "berry_id": "berry-strawberry"}
+    report = audit_entity_identity([blueberry, strawberry], candidates=[candidate])
+    assert not report["varieties"]["canonical_collisions"]
+    assert report["varieties"]["candidate_canonical_conflicts"][0]["entity_ids"] == [strawberry["id"]]
+
+
+def test_crop_collision_pairs_do_not_group_different_crops_as_duplicates():
+    rows = [_variety(id="variety-blue-" + suffix, name="Shared Name") for suffix in ("one", "two")]
+    rows += [_variety(id="variety-straw-" + suffix, name="Shared Name", berry_ids=["berry-strawberry"]) for suffix in ("one", "two")]
+    collisions = audit_entity_identity(rows)["varieties"]["canonical_collisions"]
+    assert {tuple(row["entity_ids"]) for row in collisions} == {
+        ("variety-blue-one", "variety-blue-two"), ("variety-straw-one", "variety-straw-two")}
+    unknown = _variety(id="variety-unknown", name="Shared Name", berry_ids=[])
+    assert len(audit_entity_identity([rows[0], rows[2], unknown])["varieties"]["canonical_collisions"]) == 2
+
+
+def test_unknown_crop_and_identical_registration_still_need_review():
+    blueberry = _variety(id="variety-blue", name="Shared Name", attributes={"patent_id": "USPP999999"})
+    strawberry = _variety(id="variety-straw", name="Shared Name", berry_ids=["berry-strawberry"], attributes={"patent_id": "USPP999999"})
+    unknown = _variety(id="variety-unknown", name="Shared Name", berry_ids=[])
+    assert match_named_entity("Shared Name", "variety", [blueberry, unknown], berry_id="berry-strawberry")[0] == unknown
+    assert audit_entity_identity([blueberry, strawberry])["varieties"]["canonical_collisions"][0]["reason"] == "registration_id_collision"
+
+
 def test_breeder_code_collision():
     last_call = _variety(id="variety-last-call", name="Last Call", attributes={"selection_code": "LC-1"})
     other = _variety(id="variety-other", name="Other Call", attributes={"breeder_code": "LC-1"})
