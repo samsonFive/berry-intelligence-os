@@ -67,3 +67,8 @@ Parent draft #359 passes all four checks, with 4,370 Python tests. This packet
 requires its own checks before release. CAT-01/CAT-02/TD-116 remain open for whole
 portfolios, independent recall, profiles, historical/current rights and user review.
 No merge, deployment or later-berry Landscape rollout; the blueberry gate remains.
+
+CI verification: draft #360 head `a198ea70a7fec4c88254f9bd267dd8988100cdcd`
+passes Change scope, Repository integrity, Static public safety and Python tests.
+Actions run 37837269202: 4,374 passed, 11 skipped, two warnings, 668.14 seconds.
+Full catalog completeness and human review/release gates remain open.
