@@ -40,7 +40,7 @@ legal status. No schema, collector, trust writer or qualification change.
   submitted. The isolated preview contains four fictional candidates and one
   fictional article, excluded from real counts; normal viewport was restored.
 - Parent draft #356 passes all four required checks: 4,351 passed, 11 skipped,
-  two warnings in 520.89s. This follow-up requires checks on its own pushed head.
+  two warnings in 520.89s. Draft #357 also passes all four checks: 4,355 passed, 11 skipped, two warnings in 537.96s.
 
 CAT-01/CAT-02/TD-116 remain open: acquisition, independent coverage, crop/code
 identity, current rights, attributed photos, human catalog authoring and combined

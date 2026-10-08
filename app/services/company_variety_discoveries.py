@@ -44,7 +44,7 @@ def company_variety_discoveries(*, entity_id, sources, linked_variety_ids=(), er
                 if name.get("candidate_id"):
                     row["href"] += "#" + name["candidate_id"]
             row["search_terms"].extend(str(name.get(field) or "") for field in
-                ("candidate_name", "denomination", "breeder_code", "trade_name", "display_label"))
+                ("candidate_name", "denomination", "breeder_code", "trade_name", "display_label", "portfolio_context"))
             row["notes"].extend(name.get("identity_notes", []))
             if name.get("identity_notes") and row["status"] == "needs_review":
                 row["label"] = "Name / code conflict"

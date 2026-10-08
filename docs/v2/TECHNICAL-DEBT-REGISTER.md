@@ -1,5 +1,11 @@
 # Technical Debt Register
 
+TD-116 continuation (October 8): CBC originals add four trial leads, original
+claim links and seven held photos; secondary-code search retains exact identities.
+271 sections / 1,001 occurrences / 713 candidate keys; 21 registry enumeration
+gaps and 59 follow-ups remain. Human catalog/rights review, independent coverage
+and release remain open. See CBC-ORIGINAL-FIELDDAY-VARIETIES-REVIEW.md.
+
 TD-116 continuation (October 8): Camposol original announcement adds two
 reviewable names with contextual crop identity unresolved. Real coverage now
 257 sections / 974 occurrences / 709 candidate keys; 22 registry enumeration

@@ -1,0 +1,943 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-cbc-original-alturas-profile",
+      "title": "CBC — Alturas original cultivar profile",
+      "url": "https://cultivars.cbcberry.com/alturas",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete visible English profile body; named product and comparison-selector labels. Gallery capture is one observed asset, not a complete image inventory.",
+      "limitations": "This accounts for the named product and comparison labels of this individual page, not the full company portfolio. Comparators do not establish breeding or commercial roles. No publication date, current rights, approved aliases, traits or growing regions inferred.",
+      "names": [
+        {
+          "candidate_name": "Alturas",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/alturas",
+          "portfolio_context": "Original named strawberry profile. Yield, resistance, availability and location wording are publisher claims; not approved traits or growing regions.",
+          "photos": [
+            {
+              "image_url": "https://cultivars.cbcberry.com/_next/image?url=%2Fimages%2Fcultivars%2Falturas%2Falturas_1.jpg&w=640&q=75",
+              "source_url": "https://cultivars.cbcberry.com/alturas",
+              "credit": "California Berry Cultivars; photographer not individually credited.",
+              "caption": "Alturas — named photograph from the original cultivar profile (Alturas™ 1).",
+              "named_variety": "Alturas",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reuse permission established. Private session preview requires the user’s choice.",
+              "checked_on": "2026-10-08",
+              "kind": "plant"
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "8d068c4df66cc6ebe8ef3f4e166ba7b3742ad37f091911db329414c98c85170d"
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "Cabrillo",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Carpinteria",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Monterey",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cbc-original-adelanto-profile",
+      "title": "CBC — Adelanto original cultivar profile",
+      "url": "https://cultivars.cbcberry.com/adelanto",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete visible English profile body; named product and comparison-selector labels. Gallery capture is one observed asset, not a complete image inventory.",
+      "limitations": "This accounts for the named product and comparison labels of this individual page, not the full company portfolio. Comparators do not establish breeding or commercial roles. No publication date, current rights, approved aliases, traits or growing regions inferred.",
+      "names": [
+        {
+          "candidate_name": "Adelanto",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/adelanto",
+          "portfolio_context": "Original named strawberry profile. Yield, resistance, availability and location wording are publisher claims; not approved traits or growing regions.",
+          "photos": [
+            {
+              "image_url": "https://cultivars.cbcberry.com/_next/image?url=%2Fimages%2Fcultivars%2Fadelanto%2Fadelanto_2.jpg&w=640&q=75",
+              "source_url": "https://cultivars.cbcberry.com/adelanto",
+              "credit": "California Berry Cultivars; photographer not individually credited.",
+              "caption": "Adelanto — named photograph from the original cultivar profile (Adelanto™ 2).",
+              "named_variety": "Adelanto",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reuse permission established. Private session preview requires the user’s choice.",
+              "checked_on": "2026-10-08",
+              "kind": "plant"
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "c71ff2f9c57d048f295f29573ca3a3ee3cfa94d605a7eb1a5ce92280e6666c0b"
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "Belvedere",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Castaic",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Fronteras",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cbc-original-alhambra-profile",
+      "title": "CBC — Alhambra original cultivar profile",
+      "url": "https://cultivars.cbcberry.com/alhambra",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete visible English profile body; named product and comparison-selector labels. Gallery capture is one observed asset, not a complete image inventory.",
+      "limitations": "This accounts for the named product and comparison labels of this individual page, not the full company portfolio. Comparators do not establish breeding or commercial roles. No publication date, current rights, approved aliases, traits or growing regions inferred. The captured image remained blurred; no photo added.",
+      "names": [
+        {
+          "candidate_name": "Alhambra",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/alhambra",
+          "portfolio_context": "Original named strawberry profile. Yield, resistance, availability and location wording are publisher claims; not approved traits or growing regions."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "bad364dda8673066df6dd6d202659b0022e56ebc4d047de4e68965e95dcc7c1e"
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Portola",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cbc-original-artesia-profile",
+      "title": "CBC — Artesia original cultivar profile",
+      "url": "https://cultivars.cbcberry.com/artesia",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete visible English profile body; named product and comparison-selector labels. Gallery capture is one observed asset, not a complete image inventory.",
+      "limitations": "This accounts for the named product and comparison labels of this individual page, not the full company portfolio. Comparators do not establish breeding or commercial roles. No publication date, current rights, approved aliases, traits or growing regions inferred. The captured image remained blurred and a direct asset preview was blocked; no photo added.",
+      "names": [
+        {
+          "candidate_name": "Artesia",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/artesia",
+          "portfolio_context": "Original named strawberry profile. Yield, resistance, availability and location wording are publisher claims; not approved traits or growing regions."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "b957ec94e27dcab76b2d4940513d7d210dee91dfb9b2dc52890f7d71aa1bbfb2"
+      },
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [
+          {
+            "label": "Cabrillo",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Monterey",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cbc-original-belvedere-profile",
+      "title": "CBC — Belvedere original cultivar profile",
+      "url": "https://cultivars.cbcberry.com/belvedere",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete visible English profile body; named product and comparison-selector labels. Gallery capture is one observed asset, not a complete image inventory.",
+      "limitations": "This accounts for the named product and comparison labels of this individual page, not the full company portfolio. Comparators do not establish breeding or commercial roles. No publication date, current rights, approved aliases, traits or growing regions inferred.",
+      "names": [
+        {
+          "candidate_name": "Belvedere",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/belvedere",
+          "portfolio_context": "Original named strawberry profile. Yield, resistance, availability and location wording are publisher claims; not approved traits or growing regions.",
+          "photos": [
+            {
+              "image_url": "https://cultivars.cbcberry.com/_next/image?url=%2Fimages%2Fcultivars%2Fbelvedere%2Fbelvedere_3.jpg&w=640&q=75",
+              "source_url": "https://cultivars.cbcberry.com/belvedere",
+              "credit": "California Berry Cultivars; photographer not individually credited.",
+              "caption": "Belvedere — named photograph from the original cultivar profile (Belvedere™ 3).",
+              "named_variety": "Belvedere",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reuse permission established. Private session preview requires the user’s choice.",
+              "checked_on": "2026-10-08",
+              "kind": "plant"
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "b84df5cef248d4cbfa8c1d1531fcfc2e8d7b88f2fc2ff750f1470bb6bcc26fa6"
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "Adelanto",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Castaic",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Fronteras",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cbc-original-brisbane-profile",
+      "title": "CBC — Brisbane original cultivar profile",
+      "url": "https://cultivars.cbcberry.com/brisbane",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete visible English profile body; named product and comparison-selector labels. Gallery capture is one observed asset, not a complete image inventory.",
+      "limitations": "This accounts for the named product and comparison labels of this individual page, not the full company portfolio. Comparators do not establish breeding or commercial roles. No publication date, current rights, approved aliases, traits or growing regions inferred.",
+      "names": [
+        {
+          "candidate_name": "Brisbane",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/brisbane",
+          "portfolio_context": "Original named strawberry profile. Yield, resistance, availability and location wording are publisher claims; not approved traits or growing regions.",
+          "photos": [
+            {
+              "image_url": "https://cultivars.cbcberry.com/_next/image?url=%2Fimages%2Fcultivars%2Fbrisbane%2Fbrisbane_2.jpg&w=640&q=75",
+              "source_url": "https://cultivars.cbcberry.com/brisbane",
+              "credit": "California Berry Cultivars; photographer not individually credited.",
+              "caption": "Brisbane — named photograph from the original cultivar profile (Brisbane™ 2).",
+              "named_variety": "Brisbane",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reuse permission established. Private session preview requires the user’s choice.",
+              "checked_on": "2026-10-08",
+              "kind": "fruit"
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "55efa405727447952938d1867441a444288da1ea6c9658c656a39d3bf40d8511"
+      },
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [
+          {
+            "label": "Cabrillo",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Monterey",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cbc-original-castaic-profile",
+      "title": "CBC — Castaic original cultivar profile",
+      "url": "https://cultivars.cbcberry.com/castaic",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete visible English profile body; named product and comparison-selector labels. Gallery capture is one observed asset, not a complete image inventory.",
+      "limitations": "This accounts for the named product and comparison labels of this individual page, not the full company portfolio. Comparators do not establish breeding or commercial roles. No publication date, current rights, approved aliases, traits or growing regions inferred. Castaic™ 2 is a plant photograph; Castaic™ 3 is a marketing illustration and excluded from photos.",
+      "names": [
+        {
+          "candidate_name": "Castaic",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/castaic",
+          "portfolio_context": "Original named strawberry profile. Yield, resistance, availability and location wording are publisher claims; not approved traits or growing regions.",
+          "photos": [
+            {
+              "image_url": "https://cultivars.cbcberry.com/_next/image?url=%2Fimages%2Fcultivars%2Fcastaic%2Fcastaic_2.jpg&w=640&q=75",
+              "source_url": "https://cultivars.cbcberry.com/castaic",
+              "credit": "California Berry Cultivars; photographer not individually credited.",
+              "caption": "Castaic — named photograph from the original cultivar profile (Castaic™ 2).",
+              "named_variety": "Castaic",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reuse permission established. Private session preview requires the user’s choice.",
+              "checked_on": "2026-10-08",
+              "kind": "plant"
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "a9cef35f95cd8d38e6585c5702ba6eadd6819a483c08b0178379ba69a7db94f1"
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "Adelanto",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Belvedere",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Fronteras",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cbc-original-carpinteria-profile",
+      "title": "CBC — Carpinteria original cultivar profile",
+      "url": "https://cultivars.cbcberry.com/carpinteria",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete visible English profile body; named product and comparison-selector labels. Gallery capture is one observed asset, not a complete image inventory.",
+      "limitations": "This accounts for the named product and comparison labels of this individual page, not the full company portfolio. Comparators do not establish breeding or commercial roles. No publication date, current rights, approved aliases, traits or growing regions inferred.",
+      "names": [
+        {
+          "candidate_name": "Carpinteria",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/carpinteria",
+          "portfolio_context": "Original named strawberry profile. Yield, resistance, availability and location wording are publisher claims; not approved traits or growing regions.",
+          "photos": [
+            {
+              "image_url": "https://cultivars.cbcberry.com/_next/image?url=%2Fimages%2Fcultivars%2Fcarpinteria%2Fcarpinteria_3.jpg&w=640&q=75",
+              "source_url": "https://cultivars.cbcberry.com/carpinteria",
+              "credit": "California Berry Cultivars; photographer not individually credited.",
+              "caption": "Carpinteria — named photograph from the original cultivar profile (Carpinteria™ 3).",
+              "named_variety": "Carpinteria",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reuse permission established. Private session preview requires the user’s choice.",
+              "checked_on": "2026-10-08",
+              "kind": "fruit"
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "b8b10f011096812af923a61dab01797e98e9b18953042908f23faaaab2c20d6b"
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "Alturas",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Cabrillo",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Monterey",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cbc-original-sweet-carolina-profile",
+      "title": "CBC — Sweet Carolina original cultivar profile",
+      "url": "https://cultivars.cbcberry.com/sweet-carolina",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete visible English profile body; named product and comparison-selector labels. Gallery capture is one observed asset, not a complete image inventory.",
+      "limitations": "This accounts for the named product and comparison labels of this individual page, not the full company portfolio. Comparators do not establish breeding or commercial roles. No publication date, current rights, approved aliases, traits or growing regions inferred.",
+      "names": [
+        {
+          "candidate_name": "Sweet Carolina",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/sweet-carolina",
+          "portfolio_context": "Original named strawberry profile. Yield, resistance, availability and location wording are publisher claims; not approved traits or growing regions.",
+          "photos": [
+            {
+              "image_url": "https://cultivars.cbcberry.com/_next/image?url=%2Fimages%2Fcultivars%2Fsweetcarolina%2Fsweetcarolina_1.jpg&w=640&q=75",
+              "source_url": "https://cultivars.cbcberry.com/sweet-carolina",
+              "credit": "California Berry Cultivars; photographer not individually credited.",
+              "caption": "Sweet Carolina — named photograph from the original cultivar profile (Sweet Carolina™ 1).",
+              "named_variety": "Sweet Carolina",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reuse permission established. Private session preview requires the user’s choice.",
+              "checked_on": "2026-10-08",
+              "kind": "plant"
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "f2aa3756f1cd47c8b441b2f082102eb11fcd9ce3cc212a7e767611711aa3945d"
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Ruby June",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cbc-original-dunsmuir-profile",
+      "title": "CBC — Dunsmuir original cultivar profile",
+      "url": "https://cultivars.cbcberry.com/dunsmuir",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete visible English profile body; named product and comparison-selector labels. Gallery capture is one observed asset, not a complete image inventory.",
+      "limitations": "This accounts for the named product and comparison labels of this individual page, not the full company portfolio. Comparators do not establish breeding or commercial roles. No publication date, current rights, approved aliases, traits or growing regions inferred. No named-variety gallery photograph exposed on this profile.",
+      "names": [
+        {
+          "candidate_name": "Dunsmuir",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/dunsmuir",
+          "portfolio_context": "Original named strawberry profile. Yield, resistance, availability and location wording are publisher claims; not approved traits or growing regions."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "ecc5eb241052dd5568ab26cf2f7c5812d4ae8893476c679231483bc925209e51"
+      },
+      "accounting": {
+        "observed_items": 15,
+        "exclusions": [
+          {
+            "label": "Adelanto",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Alhambra",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Alturas",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Artesia",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Belvedere",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Brisbane",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Cabrillo",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Carpinteria",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Castaic",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Elcano",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Fronteras",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Monterey",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Portola",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "San andreas",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cbc-original-elcano-profile",
+      "title": "CBC — Elcano original cultivar profile",
+      "url": "https://cultivars.cbcberry.com/elcano",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete visible English profile body; named product and comparison-selector labels. Gallery capture is one observed asset, not a complete image inventory.",
+      "limitations": "This accounts for the named product and comparison labels of this individual page, not the full company portfolio. Comparators do not establish breeding or commercial roles. No publication date, current rights, approved aliases, traits or growing regions inferred. No named-variety gallery photograph exposed on this profile.",
+      "names": [
+        {
+          "candidate_name": "Elcano",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/elcano",
+          "portfolio_context": "Original named strawberry profile. Yield, resistance, availability and location wording are publisher claims; not approved traits or growing regions. The profile pairs Elcano with CBC027; identity needs review.",
+          "breeder_code": "CBC027",
+          "trade_name": "Elcano"
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "d5346601ed94844bfaf7a0f8997ea2c7b60dda7832051eb49b0e374af450b160"
+      },
+      "accounting": {
+        "observed_items": 16,
+        "exclusions": [
+          {
+            "label": "Adelanto",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Alhambra",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Alturas",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Artesia",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Belvedere",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Brisbane",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Cabrillo",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Carpinteria",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Castaic",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Dunsmuir",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Fronteras",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Monterey",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Portola",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "San andreas",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          },
+          {
+            "label": "Bounty",
+            "reason": "Comparison or selector label; not the named product of this individual profile."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cbc-original-watsonville-2026-handout",
+      "title": "CBC — Watsonville field-day handout, May 8, 2026",
+      "url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_program_report",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 15 original pages, including five photo-only pages; fourteen named CBC products or trial selections. The printed May 8 date is the field-day date, not a verified publication date.",
+      "limitations": "Bounded handout only; not a complete historical or worldwide portfolio. Sweet Carolina is on the website but not named here. Outside comparators and anonymous competitor labels are excluded, not assigned to CBC. UC Victor and Victor remain separate literal labels without alias approval. Dunsmuir / CBC029 / 118.060-601 must stay distinct from CBC030 / 118.066-601. Marketing access, acreage, performance and nursery wording do not approve traits, roles, regions or current rights. Printed patent numbers are linked through separately checked originals. Five photo-only pages were read visually; PDF pages are not hosted image assets. Elcano’s 2025 yield prose and table differ; no numeric trait imported.",
+      "names": [
+        {
+          "candidate_name": "Artesia",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=3",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 3. The handout identifies Artesia as CBC008. Name/code pairing needs identity review. Trial results and availability remain company claims.",
+          "breeder_code": "CBC008"
+        },
+        {
+          "candidate_name": "Brisbane",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=4",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 4. The handout identifies Brisbane as CBC016. Name/code pairing needs identity review. Trial results and availability remain company claims.",
+          "breeder_code": "CBC016"
+        },
+        {
+          "candidate_name": "Alturas",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=6",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 6. The handout identifies Alturas as CBC017. Name/code pairing needs identity review. Trial results and availability remain company claims.",
+          "breeder_code": "CBC017"
+        },
+        {
+          "candidate_name": "Carpinteria",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=8",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 8. The handout identifies Carpinteria as CBC024. Name/code pairing needs identity review. Trial results and availability remain company claims.",
+          "breeder_code": "CBC024"
+        },
+        {
+          "candidate_name": "Belvedere",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=10",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 10. The handout identifies Belvedere as CBC015. Name/code pairing needs identity review. Trial results and availability remain company claims.",
+          "breeder_code": "CBC015"
+        },
+        {
+          "candidate_name": "Adelanto",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=12",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 12. The handout identifies Adelanto as CBC005. Name/code pairing needs identity review. Trial results and availability remain company claims.",
+          "breeder_code": "CBC005"
+        },
+        {
+          "candidate_name": "Dunsmuir",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=12",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 12. The handout identifies Dunsmuir as CBC029 / 118.060-601. Name/code pairing needs identity review. Trial results and availability remain company claims.",
+          "breeder_code": "CBC029"
+        },
+        {
+          "candidate_name": "CBC033",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=13",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 13. The handout identifies CBC033 as 119.056-102. Name/code pairing needs identity review. Trial results and availability remain company claims.",
+          "breeder_code": "119.056-102"
+        },
+        {
+          "candidate_name": "CBC030",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=12",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 12. The handout identifies CBC030 as 118.066-601. Grower-trial selection; not a proven commercial release. Name/code pairing needs identity review. Trial results and availability remain company claims.",
+          "breeder_code": "118.066-601"
+        },
+        {
+          "candidate_name": "CBC045",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=12",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 12. The handout identifies CBC045 as 121.008-601. Grower-trial selection; not a proven commercial release. Name/code pairing needs identity review. Trial results and availability remain company claims.",
+          "breeder_code": "121.008-601"
+        },
+        {
+          "candidate_name": "CBC043",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=12",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 12. The handout identifies CBC043 as 121.257-605. Grower-trial selection; not a proven commercial release. Name/code pairing needs identity review. Trial results and availability remain company claims.",
+          "breeder_code": "121.257-605"
+        },
+        {
+          "candidate_name": "Elcano",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=15",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 15. The handout identifies Elcano as CBC027 / 117.074-601. Name/code pairing needs identity review. Trial results and availability remain company claims.",
+          "breeder_code": "CBC027"
+        },
+        {
+          "candidate_name": "Alhambra",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=2",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 2. Name/code pairing needs identity review. Trial results and availability remain company claims."
+        },
+        {
+          "candidate_name": "Castaic",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/wt-may/wtfldday26_EN.pdf#page=2",
+          "portfolio_context": "Watsonville field day, May 8, 2026; page 2. Name/code pairing needs identity review. Trial results and availability remain company claims."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_pdf_all_pages_text_and_visual_review",
+        "sha256": "6dcf03de5cc8fe6834ccfa5ba158fc6e165b6ac0e0664f5a1caac46a4a34ce02",
+        "pages": 15,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "image_only_pages": [
+          5,
+          7,
+          9,
+          11,
+          14
+        ]
+      },
+      "accounting": {
+        "observed_items": 23,
+        "exclusions": [
+          {
+            "label": "Monterey",
+            "reason": "Outside comparator or anonymous trial label; not a named CBC product or selection."
+          },
+          {
+            "label": "Fronteras",
+            "reason": "Outside comparator or anonymous trial label; not a named CBC product or selection."
+          },
+          {
+            "label": "UC Victor",
+            "reason": "Outside comparator or anonymous trial label; not a named CBC product or selection."
+          },
+          {
+            "label": "Victor",
+            "reason": "Outside comparator or anonymous trial label; not a named CBC product or selection."
+          },
+          {
+            "label": "Bounty",
+            "reason": "Outside comparator or anonymous trial label; not a named CBC product or selection."
+          },
+          {
+            "label": "Competitor Variety 1",
+            "reason": "Outside comparator or anonymous trial label; not a named CBC product or selection."
+          },
+          {
+            "label": "Competitor Variety 2",
+            "reason": "Outside comparator or anonymous trial label; not a named CBC product or selection."
+          },
+          {
+            "label": "Competitor Variety 3",
+            "reason": "Outside comparator or anonymous trial label; not a named CBC product or selection."
+          },
+          {
+            "label": "Competitor Variety 4",
+            "reason": "Outside comparator or anonymous trial label; not a named CBC product or selection."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cbc-original-alturas-patent-claim",
+      "title": "Alturas / CBC017 — USPP36707P2 original title and claim",
+      "url": "https://patents.google.com/patent/USPP36707P2/en",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Original PDF title and single plant claim checked visually on pages 1 and 3; first three pages plus final illustration reviewed. Other drawing pages and prior-art completeness not audited.",
+      "limitations": "Patent-record code verified; mapping to the commercial label comes from the company handout and remains unreviewed. No approved alias, current legal status, owner, expiry, territorial coverage, traits or growing region inferred. Plant-patent pending wording elsewhere is not a filing identifier.",
+      "names": [
+        {
+          "candidate_name": "Alturas",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "CBC017",
+          "product_url": "https://patentimages.storage.googleapis.com/b1/30/a3/74986d4c737a47/USPP36707P2.pdf#page=3",
+          "portfolio_context": "USPP36707P2 names CBC017 in its title and single plant claim. Alturas / CBC017 comes from CBC’s separate handout and needs identity review. Original patent date 2025-05-27; current legal status not verified."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_pdf_title_and_claim_visual_review",
+        "sha256": "fbc9038e8b686465fc2fbda33b2d41babc7e41bb01a9ab6f31f8f33680e3c5ef",
+        "pages": 8,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          8
+        ],
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/b1/30/a3/74986d4c737a47/USPP36707P2.pdf"
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "published_date": "2025-05-27"
+    },
+    {
+      "id": "portfolio-cbc-original-belvedere-patent-claim",
+      "title": "Belvedere / CBC015 — USPP36134P3 original title and claim",
+      "url": "https://patents.google.com/patent/USPP36134P3/en",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Original PDF title and single plant claim checked visually on pages 1 and 3; first three pages plus final illustration reviewed. Other drawing pages and prior-art completeness not audited.",
+      "limitations": "Patent-record code verified; mapping to the commercial label comes from the company handout and remains unreviewed. No approved alias, current legal status, owner, expiry, territorial coverage, traits or growing region inferred. Plant-patent pending wording elsewhere is not a filing identifier.",
+      "names": [
+        {
+          "candidate_name": "Belvedere",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "CBC015",
+          "product_url": "https://patentimages.storage.googleapis.com/b4/ae/23/71136f596f15cd/USPP36134.pdf#page=3",
+          "portfolio_context": "USPP36134P3 names CBC015 in its title and single plant claim. Belvedere / CBC015 comes from CBC’s separate handout and needs identity review. Original patent date 2024-09-24; current legal status not verified."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_pdf_title_and_claim_visual_review",
+        "sha256": "37fb3a3daccf8b4dfe65bfc5938c96010d1df52c1cec4c0e4af5b52e6503a81e",
+        "pages": 10,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          10
+        ],
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/b4/ae/23/71136f596f15cd/USPP36134.pdf"
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "published_date": "2024-09-24"
+    }
+  ]
+}
