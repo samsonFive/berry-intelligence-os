@@ -1,0 +1,160 @@
+"""Explicit, bounded private Apify jobs. No scheduler or automatic ingestion.
+
+An uncertain submission consumes its reservation and is never relaunched. Poll
+the persisted run ID; observation timeouts do not mean the actor stopped.
+"""
+import hashlib
+import json
+import math
+import os
+import re
+from datetime import datetime, timezone
+from pathlib import Path
+
+import httpx
+from jsonschema import Draft7Validator
+
+from app.services.analyst_state_io import atomic_json
+from app.services.collection_runner import CollectionRunLock
+from .adapters import AccessBlocked
+
+ACTORS = {'apify/facebook-posts-scraper', 'apify/instagram-scraper',
+          'harvestapi/linkedin-post-search'}
+TERMINAL = {'SUCCEEDED', 'FAILED', 'TIMED-OUT', 'ABORTED'}
+
+
+class ApifyJobs:
+    def __init__(self, private_dir, *, enabled=False, client=None, token=None):
+        self.folder = Path(private_dir)
+        self.enabled = enabled
+        self.token = token or os.environ.get('APIFY_TOKEN')
+        self.client = client or httpx.Client(timeout=30, follow_redirects=False)
+        self.ledger_path = self.folder / 'ledger.json'
+
+    def _read(self):
+        if not self.ledger_path.exists():
+            return {'ceiling_free_credit_usd': 1, 'cash_spend': 0, 'attempts': []}
+        try:
+            ledger = json.loads(self.ledger_path.read_text(encoding='utf-8'))
+            ceiling = ledger['ceiling_free_credit_usd']
+            if (not isinstance(ledger['attempts'], list) or ledger.get('cash_spend') != 0
+                    or not isinstance(ceiling, (int, float)) or not math.isfinite(ceiling) or not 0 < ceiling <= 1
+                    or any(not isinstance(a.get('cap_usd'), (int, float)) or not math.isfinite(a['cap_usd'])
+                           or not 0 < a['cap_usd'] <= .1 for a in ledger['attempts'])):
+                raise ValueError()
+            return ledger
+        except (ValueError, KeyError, TypeError):
+            raise AccessBlocked('Private job ledger unreadable; do not launch') from None
+
+    def _request(self, method, path, *, params=None, body=None):
+        if not self.enabled or not self.token:
+            raise AccessBlocked('Explicit live opt-in and private APIFY_TOKEN required')
+        try:
+            with self.client.stream(method, 'https://api.apify.com/v2' + path,
+                                    params=params, json=body, follow_redirects=False,
+                                    headers={'Authorization': 'Bearer ' + self.token}) as response:
+                expected = 201 if method == 'POST' else 200
+                if response.status_code != expected:
+                    raise AccessBlocked(f'Apify HTTP {response.status_code}; no retry')
+                raw = bytearray()
+                for chunk in response.iter_bytes():
+                    raw.extend(chunk)
+                    if len(raw) > 2_000_000:
+                        raise AccessBlocked('Apify response byte ceiling exceeded')
+            return json.loads(raw)
+        except (httpx.HTTPError, ValueError):
+            raise AccessBlocked('Apify transport/schema failure; no retry') from None
+
+    def launch(self, case, actor, *, build_id, build_number, actor_input, cap_usd=.1):
+        if not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,79}', case):
+            raise ValueError('Bounded case identifier required')
+        if actor not in ACTORS or not re.fullmatch(r'[A-Za-z0-9]{5,50}', build_id):
+            raise AccessBlocked('Inspected actor and exact build identity required')
+        if not re.fullmatch(r'\d+\.\d+\.\d+', build_number):
+            raise AccessBlocked('Exact build number required; latest is not a pin')
+        if not isinstance(actor_input, dict) or len(json.dumps(actor_input)) > 8000:
+            raise ValueError('Bounded actor input required')
+        if not isinstance(cap_usd, (float, int)) or not math.isfinite(cap_usd) or not 0 < cap_usd <= .1:
+            raise ValueError('Trial cap must be positive and at most $0.10 included credit')
+        self.folder.mkdir(parents=True, exist_ok=True)
+        with CollectionRunLock(self.folder / 'collection.lock', run_id=case):
+            ledger = self._read()
+            fingerprint = hashlib.sha256(json.dumps([actor, build_id, build_number, actor_input], sort_keys=True).encode()).hexdigest()
+            previous = next((a for a in ledger['attempts'] if a['case'] == case), None)
+            if previous:
+                if previous.get('fingerprint') != fingerprint:
+                    raise AccessBlocked('Existing case input differs or predates this runner; no relaunch')
+                return {**previous, 'reused': True}
+            account = self._request('GET', '/users/me')['data']
+            limits = self._request('GET', '/users/me/limits')['data']
+            current = limits['current']
+            usage = current['monthlyUsageUsd']
+            reserved = sum(a['cap_usd'] for a in ledger['attempts'])
+            ceiling = min(1, ledger['ceiling_free_credit_usd'])
+            if (account.get('plan', {}).get('id') != 'FREE' or account.get('isPaying') is not False
+                    or limits['limits']['maxMonthlyUsageUsd'] > 5
+                    or not isinstance(usage, (int, float)) or not math.isfinite(usage) or usage < 0
+                    or usage + cap_usd > ceiling or reserved + cap_usd > ceiling
+                    or current.get('activeActorJobCount') != 0):
+                raise AccessBlocked('Fresh free-account, non-overlap or conservative reservation budget guard blocked')
+            metadata = self._request('GET', '/acts/' + actor.replace('/', '~'))['data']
+            build = self._request('GET', '/actor-builds/' + build_id)['data']
+            if build.get('status') != 'SUCCEEDED' or build.get('id') != build_id or build.get('buildNumber') != build_number:
+                raise AccessBlocked('Inspected build differs from requested pin')
+            pricing = metadata.get('currentPricingInfo')
+            if not pricing or pricing.get('pricingModel') != 'PAY_PER_EVENT':
+                raise AccessBlocked('Only inspected event-priced actors eligible; rental/unknown pricing blocked')
+            Draft7Validator(json.loads(build['inputSchema'])).validate(actor_input)
+            memory = metadata['defaultRunOptions']['memoryMbytes']
+            if not isinstance(memory, int) or not 128 <= memory <= 8192:
+                raise AccessBlocked('Unbounded actor memory configuration')
+            entry = {'case': case, 'actor': actor, 'build_id': build_id, 'build_number': build_number,
+                     'input': actor_input, 'fingerprint': fingerprint, 'cap_usd': cap_usd,
+                     'reserved_at': datetime.now(timezone.utc).isoformat(),
+                     'state': 'reserved-before-launch', 'usage_before': usage}
+            ledger['attempts'].append(entry)
+            atomic_json(self.ledger_path, ledger)
+            # Any exception after reservation leaves the case consumed. Even a
+            # lost HTTP response may have started an actor: never retry POST.
+            run = self._request('POST', '/acts/' + actor.replace('/', '~') + '/runs',
+                                params={'build': build_number, 'timeout': 90, 'memory': memory,
+                                        'maxTotalChargeUsd': cap_usd, 'restartOnError': 'false',
+                                        'forcePermissionLevel': 'LIMITED_PERMISSIONS', 'waitForFinish': 0},
+                                body=actor_input)['data']
+            if not re.fullmatch(r'[A-Za-z0-9]{5,50}', run.get('id', '')):
+                raise AccessBlocked('No usable run identity; reconcile reserved submission manually')
+            entry.update(run_id=run['id'], state=run['status'])
+            atomic_json(self.ledger_path, ledger)
+            return {**entry, 'reused': False}
+
+    def observe(self, case):
+        """One bounded poll. Terminal success fetches at most twenty items.
+
+        Failed/aborted runs do not count as successful zero results. Cost may
+        settle later; usageTotalUsd is an observation, not a final invoice.
+        """
+        self.folder.mkdir(parents=True, exist_ok=True)
+        with CollectionRunLock(self.folder / 'collection.lock', run_id='observe'):
+            ledger = self._read()
+            entry = next((a for a in ledger['attempts'] if a['case'] == case), None)
+            if not entry or not re.fullmatch(r'[A-Za-z0-9]{5,50}', entry.get('run_id', '')):
+                raise AccessBlocked('No saved run ID; do not relaunch an uncertain submission')
+            run = self._request('GET', '/actor-runs/' + entry['run_id'])['data']
+            if run.get('id') != entry['run_id'] or run.get('buildId') != entry['build_id']:
+                raise AccessBlocked('Run/build identity mismatch')
+            entry.update(state=run['status'], usage_total_usd=run.get('usageTotalUsd'))
+            atomic_json(self.ledger_path, ledger)
+            if run['status'] != 'SUCCEEDED':
+                return {'case': case, 'run_id': entry['run_id'], 'state': run['status'],
+                        'terminal': run['status'] in TERMINAL, 'items': None}
+            dataset = run.get('defaultDatasetId', '')
+            if not re.fullmatch(r'[A-Za-z0-9]{5,50}', dataset):
+                raise AccessBlocked('Missing terminal dataset identity')
+            items = self._request('GET', '/datasets/' + dataset + '/items', params={'limit': 20, 'clean': 'true'})
+            if not isinstance(items, list) or len(items) > 20:
+                raise AccessBlocked('Dataset schema/item ceiling exceeded')
+            atomic_json(self.folder / (case + '-items.json'), items)
+            entry['returned'] = len(items)
+            atomic_json(self.ledger_path, ledger)
+            return {'case': case, 'run_id': entry['run_id'], 'state': 'SUCCEEDED',
+                    'terminal': True, 'items': items}
