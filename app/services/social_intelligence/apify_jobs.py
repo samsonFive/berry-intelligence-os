@@ -292,6 +292,21 @@ class ApifyJobs:
                     except (ValueError, KeyError, TypeError):
                         status, volume, last_success = 'unknown', None, None
                         note = 'Cached normalization receipt invalid; results unverified'
+            diagnostic_path = self.folder / (case + '-source-diagnostic.json')
+            if diagnostic_path.exists():
+                try:
+                    if diagnostic_path.stat().st_size > 16000:
+                        raise ValueError('Oversized diagnostic')
+                    diagnostic = json.loads(diagnostic_path.read_text(encoding='utf-8'))
+                    if (diagnostic.get('run_id') != entry.get('run_id') or not cache.exists()
+                            or diagnostic.get('dataset_sha256') != hashlib.sha256(cache.read_bytes()).hexdigest()
+                            or diagnostic.get('status') != 'upstream-failed'):
+                        raise ValueError('Unbound diagnostic')
+                    status, volume, last_success = 'failed', None, None
+                    note = 'Reviewed provider log reports upstream failure; Actor completion is not successful source collection'
+                except (ValueError, TypeError, OSError):
+                    status, volume, last_success = 'unknown', None, None
+                    note = 'Source diagnostic invalid or no longer bound to saved run/dataset; results unverified'
             jobs.append({'id': 'apify-trial-' + case, 'source': source,
                          'market': 'No market target', 'language': 'und', 'status': status,
                          'started_at': entry.get('reserved_at'), 'last_success': last_success,

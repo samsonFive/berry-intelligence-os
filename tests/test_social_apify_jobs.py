@@ -259,3 +259,22 @@ def test_x_search_rejects_addons_and_unbounded_inputs_before_requests(tmp_path,o
     with pytest.raises(AccessBlocked,match='bounded search only'):
         jobs.launch('x-trial','atomus/twitter-scraper',build_id=BUILD,build_number='1.0.45',actor_input=inputs)
     assert not requests and not tmp_path.joinpath('ledger.json').exists()
+
+
+def test_reviewed_upstream_failure_overrides_empty_actor_success(tmp_path):
+    import hashlib
+    jobs, requests, _ = harness(tmp_path, status='SUCCEEDED')
+    launch(jobs); jobs.observe('blueberry-sorting')
+    cache=tmp_path/'blueberry-sorting-items.json'; cache.write_text('[]')
+    receipt=jobs.normalize_cached('blueberry-sorting')
+    diagnostic=tmp_path/'blueberry-sorting-source-diagnostic.json'
+    diagnostic.write_text(json.dumps({'run_id':receipt['run_id'],
+        'dataset_sha256':hashlib.sha256(cache.read_bytes()).hexdigest(), 'status':'upstream-failed'}))
+    before=len(requests)
+    health=jobs.cached_status()['jobs'][0]
+    assert health['status']=='failed' and health['observed_volume'] is None and health['last_success'] is None
+    assert len(requests)==before
+    cache.write_text('[{}]')
+    assert jobs.cached_status()['jobs'][0]['status']=='unknown'
+    diagnostic.write_text('{')
+    assert jobs.cached_status()['jobs'][0]['observed_volume'] is None
