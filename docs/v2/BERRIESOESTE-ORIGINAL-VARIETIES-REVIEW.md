@@ -56,7 +56,9 @@ The first original photo loaded at 1920 × 1280; session reveal survives refresh
 and Hide plus refresh restores all three hidden previews. Permission remains
 unconfirmed. Preview totals include four fictional candidates: 711 visible,
 707 real source keys. Phone acceptance remains unverified. Parent draft #352
-passes all four checks with 4,327 tests; this child needs its own full check set.
+passes all four checks with 4,327 tests. Draft #353 at head
+2956ccdb8e8cbb33024d07b6cc2971e707eb811e passes all four required checks, run
+37806267455: 4,331 passed / 11 skipped / two warnings / 535.03s.
 
 CAT-01/CAT-02/TD-116, remaining original sources, official rights status,
 independent recall, historical depth and human catalog authoring remain open.

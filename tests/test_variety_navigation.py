@@ -67,6 +67,36 @@ def test_candidates_filter_photo_company_without_becoming_roles():
     assert navigation.company_actors("vcand-a", RELATIONSHIPS, ENTITIES) == set()
 
 
+@pytest.mark.parametrize("query", ["Merida", "MÉRIDA", "Me\u0301rida", "Pepinieres"])
+def test_candidate_search_ignores_accents_without_changing_scope_or_identity(query):
+    from copy import deepcopy
+    from urllib.parse import parse_qs, urlsplit
+    row = {"id": "vcand-merida", "candidate_name": "Mérida", "berry_id": "berry-strawberry",
+           "identity_state": "distinct", "human_gated": True, "aliases": ["User spelling"],
+           "review_notes": "Retain review", "source_id": "original-profile",
+           "knowledge": {"source_companies": [{"entity_id": "company-a", "name": "Pépinières"}]}}
+    wrong_crop = {**row, "id": "vcand-other-crop", "berry_id": "berry-blueberry"}
+    wrong_source = {**row, "id": "vcand-other-source", "source_id": "another-source"}
+    rejected = {**row, "id": "vcand-rejected", "status": "rejected", "identity_state": "rejected"}
+    rows = [row, wrong_crop, wrong_source, rejected]
+    before = deepcopy(rows)
+    params = {"q": query, "company": "company-a", "berry": "berry-strawberry",
+              "source": "original-profile", "status": "distinct"}
+    result = navigation.candidate_queue(rows, params)
+    assert result["candidates"] == [row]
+    assert rows == before and result["filters"]["q"] == query
+    assert parse_qs(urlsplit(result["letter_urls"]["M"]).query)["q"] == [query]
+
+
+def test_candidate_search_keeps_non_latin_names_and_literal_code_punctuation():
+    rows = [{"id":"vcand-hongyan", "candidate_name":"红颜", "berry_id":"berry-strawberry"},
+            {"id":"vcand-akihime", "candidate_name":"章姫", "berry_id":"berry-strawberry"},
+            {"id":"vcand-code", "candidate_name":"PB-17", "berry_id":"berry-blackberry"}]
+    assert navigation.candidate_queue(rows, {"q":"红颜"})["candidates"] == [rows[0]]
+    assert navigation.candidate_queue(rows, {"q":"PB-17"})["candidates"] == [rows[2]]
+    assert navigation.candidate_queue(rows, {"q":"PB17"})["candidates"] == []
+
+
 def test_candidate_letter_links_land_in_queue_and_preserve_every_filter():
     from urllib.parse import parse_qs, urlsplit
     params = {"company": "company-a", "q": "Alpha & Blue", "berry": "berry-blueberry",

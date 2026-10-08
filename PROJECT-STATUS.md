@@ -1,5 +1,16 @@
 # Project Status
 
+October 8 variety search correction: native review reproduced Merida failing to
+find Mérida. Candidate navigation now ignores accents only during search,
+retaining literal stored spellings, code punctuation, non-Latin letters, IDs,
+user aliases/decisions and company/crop/source/status filters. 55 focused tests
+pass (102.43s, one existing warning); the updated browser returns the correct
+scoped entry with its original name and unresolved identity intact. No data,
+schema or rights/reuse changes. Parent draft #353 passes all four required checks
+(4,331 tests); this search follow-up needs its own exact-head checks. See
+VARIETY-ACCENT-SEARCH-REVIEW.md. CAT-01/CAT-02/TD-116 and combined release remain
+open. No merge/deploy or other-berry Landscape rollout.
+
 October 8 Berries del Oeste originals: seven named strawberries now appear in
 the company source table, with exact review links and 21 attributed photo
 references. All seven original profiles, the family context and five brochures
