@@ -78,7 +78,10 @@ def test_historical_names_and_partial_capture_remain_honest():
     pdf = next(row for row in rows if row["id"] == "portfolio-niab-bella-technical-text")
     assert pdf["needs_follow_up"] and pdf["capture_reference"]["pages_visually_checked"] == 0
     failed = next(row for row in rows if row["id"] == "portfolio-g-berries-retrieval-gap")
-    assert failed["needs_follow_up"] and failed["capture_status"] == "unreadable" and not failed["names"]
+    # A later original-browser recovery supersedes the active failed capture;
+    # the historical timeout remains in the dated original manifest.
+    assert failed["needs_follow_up"] and failed["capture_status"] == "partial" and not failed["names"]
+    assert failed["capture_reference"]["body_read"] and "timeout recovered" in failed["limitations"]
     assert not pdf.get("published_date")
 
 
