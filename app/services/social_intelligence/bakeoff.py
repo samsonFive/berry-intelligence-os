@@ -51,14 +51,14 @@ def require_free_budget(verification, *, all_in_upper_bound, spent, ceiling, now
     checked = datetime.fromisoformat(verification['checked_at'])
     if checked.tzinfo is None or not timedelta(0) <= current-checked <= timedelta(minutes=15):
         raise AccessBlocked('Refresh actual balance and billing verification before this run')
-    if verification.get('evidence_state') != 'actual-account' or not verification.get('evidence_reference'):
+    if verification.get('evidence_state') != 'actual-account' or not isinstance(verification.get('evidence_reference'), str) or not verification['evidence_reference'].strip():
         raise AccessBlocked('Documentation/sample balances cannot authorize metered calls')
-    if not verification.get('free_only') or verification.get('payment_method') or verification.get('auto_recharge'):
+    if verification.get('free_only') is not True or verification.get('payment_method') is not False or verification.get('auto_recharge') is not False:
         raise AccessBlocked('Only verified free-only, no-card, no-recharge accounts are eligible')
-    if not verification.get('enforceable_no_charge_cap') or not verification.get('ancillary_costs_included'):
+    if verification.get('enforceable_no_charge_cap') is not True or verification.get('ancillary_costs_included') is not True:
         raise AccessBlocked('All-in charges and hard no-charge cap must be verified')
     balance = verification['balance']; initial = verification['initial_verified_balance']
-    if not all(isinstance(v,(int,float)) and math.isfinite(v) and v>=0 for v in (balance,initial,spent,ceiling,all_in_upper_bound)):
+    if not all(type(v) in (int,float) and math.isfinite(v) and v>=0 for v in (balance,initial,spent,ceiling,all_in_upper_bound)):
         raise ValueError('Finite nonnegative budgets required')
     if not initial or balance > initial or balance-all_in_upper_bound < initial*.2 or spent+all_in_upper_bound > min(ceiling,initial*.8):
         raise AccessBlocked('Run exceeds ceiling or the 20% free-credit reserve')

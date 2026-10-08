@@ -213,3 +213,22 @@ def test_reddit_direct_gallery_and_inline_photos_are_references():
     assert [m['source_url'] for m in row['media']]==['https://i.redd.it/b.jpg','https://i.redd.it/a.jpg','https://i.redd.it/inline.jpg']
     assert all(m['parent_native_id']=='t3_gallery' and m['storage_permission']=='reference_only' for m in row['media'])
     assert 'alert' not in row['text'] and not row['language']=='en'
+
+
+@pytest.mark.parametrize('field,value',[
+    ('free_only','false'),('enforceable_no_charge_cap','false'),
+    ('ancillary_costs_included',1),('payment_method',None),
+    ('auto_recharge',0),('evidence_reference',True),('evidence_reference','   ')])
+def test_free_budget_rejects_ambiguous_verification(field,value):
+    v=verification();v[field]=value
+    with pytest.raises(AccessBlocked):
+        require_free_budget(v,all_in_upper_bound=1,spent=0,ceiling=20,now=NOW)
+
+
+@pytest.mark.parametrize('field',['balance','initial_verified_balance','spent','ceiling','all_in_upper_bound'])
+def test_free_budget_rejects_boolean_amounts(field):
+    v=verification();args={'all_in_upper_bound':1,'spent':0,'ceiling':20,'now':NOW}
+    if field in v:v[field]=True
+    else:args[field]=True
+    with pytest.raises(ValueError,match='Finite nonnegative budgets'):
+        require_free_budget(v,**args)

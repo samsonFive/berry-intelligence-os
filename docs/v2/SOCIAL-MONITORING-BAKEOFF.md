@@ -130,3 +130,9 @@ The user approved the blueberry workspace and authorized strawberry, raspberry a
 
 ## Apify account tests — October 7
 See [measured Apify trial](SOCIAL-APIFY-TRIAL.md): four completed jobs, Facebook/LinkedIn/Instagram post samples, one unsuccessful hashtag-discovery result, $0 cash and about $0.0623 included credit. Production normalization, comments, repeat/history/media/removal and independent accuracy remain unproven.
+
+### Strict free-access verification types — October 8
+
+The shared metered-request guard now requires explicit boolean confirmations for free-only access, no payment method/recharge, enforceable no-charge caps and included ancillary costs. Nonempty strings such as `"false"`, integer flags, missing confirmations and non-string/blank evidence references cannot authorize collection. Boolean values are rejected as numeric balances/caps/spend. Valid numeric inputs retain the existing 20% reserve, cumulative ceiling and fifteen-minute freshness checks. This closes an ambiguous private configuration path; no additional source calls, quota use, account changes or scheduling occurred.
+
+Validation: **64 affected offline tests passed**, including twelve new malformed-verification cases plus actual-path normalization, restart/removal and bounded job guards. No migration: use genuine JSON booleans and finite numeric amounts in private verification receipts. Full current-head PR checks remain required after push.
