@@ -1,5 +1,13 @@
 # Project Status
 
+October 8 draft #352 full-check follow-up: 4,326 tests passed and one existing
+website-edit display regression failed. Source-plan links now retain both the
+checked original page and the current company website. A cleared website stays
+cleared; original references and private profile history are preserved. Native
+review confirms the separate links. All 64 affected coverage/portfolio/photo
+tests pass (60.84s, one existing warning); corrected-head full checks remain
+required.
+
 October 8 Black Venture Farm original portfolio continuation: the complete
 low-chill and pipeline panels add 21 literal names/codes across four crops.
 The company table labels 11 pipeline selections separately from ten offerings,

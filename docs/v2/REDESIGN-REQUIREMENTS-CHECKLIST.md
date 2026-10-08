@@ -1,5 +1,12 @@
 # Redesign and consolidation requirements
 
+Draft #352 full-check follow-up: 4,326 passed / one failed exposed a hidden
+user-edited website link after portfolio capture. The source plan now displays
+both the checked source and current company website, with explicit clears and
+private/public boundaries retained. All 64 affected tests pass (60.84s, one
+existing warning). Corrected-head full checks remain required;
+neither the catalog coverage nor release gates are closed by this fix.
+
 October 8 Black Venture Farm original portfolio continuation: the complete
 low-chill and pipeline panels add 21 literal names/codes across four crops.
 The company table labels 11 pipeline selections separately from ten offerings,

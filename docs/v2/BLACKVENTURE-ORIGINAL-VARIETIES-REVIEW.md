@@ -56,6 +56,18 @@ was submitted. Phone acceptance remains unverified. The preview contains four
 fictional candidates: 704 visible versus 700 real keys. Parent #351 passes all
 four checks with 4,323 tests; this child requires its own complete check set.
 
+The first pushed #352 full run had 4,326 passed, one failed, 11 skipped and two
+warnings. The failure exposed a coverage-page display regression: after a
+company gained a checked source, its current user-edited website was no longer
+shown. The saved edit itself was preserved. The source plan now shows the
+checked page and a separate Company website link when their URLs differ.
+Explicitly clearing the website suppresses that second link without removing
+historical source references. GET remains read-only, and public output does not
+load private profile edits. All 64 affected coverage, portfolio and photo tests
+pass (60.84 seconds, one existing ReportLab warning). Checks include edited and
+cleared states; native review confirmed both separate links. Fresh full checks
+are required for the corrected head.
+
 Real scope: 231 sections / 953 occurrences / 62 catalog text matches / 891 review
 needs; 700 proposed keys (63 stored / 637 primary). Occurrences by berry:
 blueberry 253, strawberry 420, raspberry 189, blackberry 91. 53/77 registry
