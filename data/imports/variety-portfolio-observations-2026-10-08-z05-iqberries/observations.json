@@ -1,0 +1,435 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-iqberries-original-portfolio",
+      "title": "IQ Berries — original blueberry portfolio",
+      "url": "https://iqberries.com/",
+      "company_ids": [
+        "company-iq-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original homepage: all seven named cultivar cards and paired labels, repeated links counted once.",
+      "limitations": "Crop/company association is unreviewed. Codes are contextual display labels, not approved identities. Marketing climates are not growing footprints; no release date inferred from asset path.",
+      "names": [
+        {
+          "candidate_name": "MEGAEARLY",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megaearly/",
+          "display_label": "MEGAEARLY (T11-319)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGAEARLY with T11-319. Code pairing is source context, not an approved denomination or alias."
+        },
+        {
+          "candidate_name": "MEGACROP",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megacrop/",
+          "display_label": "MEGACROP (T11-119)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGACROP with T11-119. Code pairing is source context, not an approved denomination or alias."
+        },
+        {
+          "candidate_name": "MEGAGRAND",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megagrand/",
+          "display_label": "MEGAGRAND (T112-219)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGAGRAND with T112-219. Code pairing is source context, not an approved denomination or alias."
+        },
+        {
+          "candidate_name": "MEGACRISP",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megacrisp/",
+          "display_label": "MEGACRISP (T111-519)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGACRISP with T111-519. Code pairing is source context, not an approved denomination or alias."
+        },
+        {
+          "candidate_name": "MEGAONE",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megaone/",
+          "display_label": "MEGAONE (F116)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGAONE with F116. Code pairing is source context, not an approved denomination or alias."
+        },
+        {
+          "candidate_name": "MEGAGEM",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megagem/",
+          "display_label": "MEGAGEM (T111-219)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGAGEM with T111-219. Code pairing is source context, not an approved denomination or alias."
+        },
+        {
+          "candidate_name": "MEGASTAR",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megastar/",
+          "display_label": "MEGASTAR (T112-519)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGASTAR with T112-519. Code pairing is source context, not an approved denomination or alias."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true
+      },
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-iqberries-megaearly-original",
+      "title": "IQ Berries — MEGAEARLY original cultivar page",
+      "url": "https://iqberries.com/varieties/megaearly/",
+      "company_ids": [
+        "company-iq-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original MEGAEARLY cultivar page; paired code T11-319, source photos and seasonal chart visually checked.",
+      "limitations": "Company traits, trial performance and seasonal charts are unreviewed. No exact release/publication date or current patent status inferred. Generic site hero/logo and seasonal diagram excluded from variety photos.",
+      "names": [
+        {
+          "candidate_name": "MEGAEARLY",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megaearly/",
+          "display_label": "MEGAEARLY (T11-319)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGAEARLY with T11-319. Code pairing is source context, not an approved denomination or alias. Company describes early harvest, tunnel production and trial yields. Trial conditions and reuse/rights not independently verified.",
+          "photos": [
+            {
+              "named_variety": "MEGAEARLY",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "image_url": "https://iqberries.com/wp-content/uploads/2023/04/MegaEarlyT11-319.jpg",
+              "source_url": "https://iqberries.com/varieties/megaearly/",
+              "credit": "IQ Berries — original named cultivar page; photographer not individually credited",
+              "caption": "MEGAEARLY blueberries shown on the plant on the original IQ Berries cultivar page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named-page image visually checked. No reuse grant established. Private session preview only; no permission approval."
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true,
+        "named_photos_visually_checked": true,
+        "chart_visually_checked": true
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-iqberries-megacrop-original",
+      "title": "IQ Berries — MEGACROP original cultivar page",
+      "url": "https://iqberries.com/varieties/megacrop/",
+      "company_ids": [
+        "company-iq-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original MEGACROP cultivar page; paired code T11-119, source photos and seasonal chart visually checked.",
+      "limitations": "Company traits, trial performance and seasonal charts are unreviewed. No exact release/publication date or current patent status inferred. Generic site hero/logo and seasonal diagram excluded from variety photos.",
+      "names": [
+        {
+          "candidate_name": "MEGACROP",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megacrop/",
+          "display_label": "MEGACROP (T11-119)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGACROP with T11-119. Code pairing is source context, not an approved denomination or alias. Company describes firmness after picking, early-season crop share and trial yields. These are source assertions, not verified universal traits.",
+          "photos": [
+            {
+              "named_variety": "MEGACROP",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "image_url": "https://iqberries.com/wp-content/uploads/2023/04/Megacrop0.jpg",
+              "source_url": "https://iqberries.com/varieties/megacrop/",
+              "credit": "IQ Berries — original named cultivar page; photographer not individually credited",
+              "caption": "MEGACROP blueberries shown on the plant on the original IQ Berries cultivar page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named-page image visually checked. No reuse grant established. Private session preview only; no permission approval."
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true,
+        "named_photos_visually_checked": true,
+        "chart_visually_checked": true
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-iqberries-megagrand-original",
+      "title": "IQ Berries — MEGAGRAND original cultivar page",
+      "url": "https://iqberries.com/varieties/megagrand/",
+      "company_ids": [
+        "company-iq-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original MEGAGRAND cultivar page; paired code T112-219, source photos and seasonal chart visually checked.",
+      "limitations": "Company traits, trial performance and seasonal charts are unreviewed. No exact release/publication date or current patent status inferred. Generic site hero/logo and seasonal diagram excluded from variety photos.",
+      "names": [
+        {
+          "candidate_name": "MEGAGRAND",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megagrand/",
+          "display_label": "MEGAGRAND (T112-219)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGAGRAND with T112-219. Code pairing is source context, not an approved denomination or alias. Company describes early harvest, tunnel production and trial yields; comparison with MegaEarly is not an additional offering in this detail scope.",
+          "photos": [
+            {
+              "named_variety": "MEGAGRAND",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "image_url": "https://iqberries.com/wp-content/uploads/2023/04/T112-219b.jpg",
+              "source_url": "https://iqberries.com/varieties/megagrand/",
+              "credit": "IQ Berries — original named cultivar page; photographer not individually credited",
+              "caption": "MEGAGRAND blueberries shown on the plant on the original IQ Berries cultivar page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named-page image visually checked. No reuse grant established. Private session preview only; no permission approval."
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true,
+        "named_photos_visually_checked": true,
+        "chart_visually_checked": true
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "MegaEarly",
+            "reason": "Comparison in the original named detail, not an additional offering in this bounded detail scope."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-iqberries-megacrisp-original",
+      "title": "IQ Berries — MEGACRISP original cultivar page",
+      "url": "https://iqberries.com/varieties/megacrisp/",
+      "company_ids": [
+        "company-iq-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original MEGACRISP cultivar page; paired code T111-519, source photos and seasonal chart visually checked.",
+      "limitations": "Company traits, trial performance and seasonal charts are unreviewed. No exact release/publication date or current patent status inferred. Generic site hero/logo and seasonal diagram excluded from variety photos.",
+      "names": [
+        {
+          "candidate_name": "MEGACRISP",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megacrisp/",
+          "display_label": "MEGACRISP (T111-519)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGACRISP with T111-519. Code pairing is source context, not an approved denomination or alias. Company describes its best-selling selection and performance in trials. Sales, yield, flavour and shelf-life statements are unreviewed.",
+          "photos": [
+            {
+              "named_variety": "MEGACRISP",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "image_url": "https://iqberries.com/wp-content/uploads/2023/04/MegaCrisp.jpg",
+              "source_url": "https://iqberries.com/varieties/megacrisp/",
+              "credit": "IQ Berries — original named cultivar page; photographer not individually credited",
+              "caption": "MEGACRISP blueberries shown on the plant on the original IQ Berries cultivar page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named-page image visually checked. No reuse grant established. Private session preview only; no permission approval."
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true,
+        "named_photos_visually_checked": true,
+        "chart_visually_checked": true
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-iqberries-megaone-original",
+      "title": "IQ Berries — MEGAONE original cultivar page",
+      "url": "https://iqberries.com/varieties/megaone/",
+      "company_ids": [
+        "company-iq-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original MEGAONE cultivar page; paired code F116, source photos and seasonal chart visually checked.",
+      "limitations": "Company traits, trial performance and seasonal charts are unreviewed. No exact release/publication date or current patent status inferred. Generic site hero/logo and seasonal diagram excluded from variety photos.",
+      "names": [
+        {
+          "candidate_name": "MEGAONE",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megaone/",
+          "display_label": "MEGAONE (F116)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGAONE with F116. Code pairing is source context, not an approved denomination or alias. Company describes an early selection and trial yield progression. Selection wording is not an exact release date.",
+          "photos": [
+            {
+              "named_variety": "MEGAONE",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "image_url": "https://iqberries.com/wp-content/uploads/2023/04/MegaOne-F116-.jpg",
+              "source_url": "https://iqberries.com/varieties/megaone/",
+              "credit": "IQ Berries — original named cultivar page; photographer not individually credited",
+              "caption": "MEGAONE blueberries shown on the plant on the original IQ Berries cultivar page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named-page image visually checked. No reuse grant established. Private session preview only; no permission approval."
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true,
+        "named_photos_visually_checked": true,
+        "chart_visually_checked": true
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-iqberries-megagem-original",
+      "title": "IQ Berries — MEGAGEM original cultivar page",
+      "url": "https://iqberries.com/varieties/megagem/",
+      "company_ids": [
+        "company-iq-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original MEGAGEM cultivar page; paired code T111-219, source photos and seasonal chart visually checked.",
+      "limitations": "Company traits, trial performance and seasonal charts are unreviewed. No exact release/publication date or current patent status inferred. Generic site hero/logo and seasonal diagram excluded from variety photos.",
+      "names": [
+        {
+          "candidate_name": "MEGAGEM",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megagem/",
+          "display_label": "MEGAGEM (T111-219)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGAGEM with T111-219. Code pairing is source context, not an approved denomination or alias. Company describes later harvest and trial yields; the final yield sentence omits the year, so no year is inferred.",
+          "photos": [
+            {
+              "named_variety": "MEGAGEM",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "image_url": "https://iqberries.com/wp-content/uploads/2023/04/MegaGem-T111-219-.jpg",
+              "source_url": "https://iqberries.com/varieties/megagem/",
+              "credit": "IQ Berries — original named cultivar page; photographer not individually credited",
+              "caption": "MEGAGEM blueberries shown on the plant on the original IQ Berries cultivar page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named-page image visually checked. No reuse grant established. Private session preview only; no permission approval."
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true,
+        "named_photos_visually_checked": true,
+        "chart_visually_checked": true
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-iqberries-megastar-original",
+      "title": "IQ Berries — MEGASTAR original cultivar page",
+      "url": "https://iqberries.com/varieties/megastar/",
+      "company_ids": [
+        "company-iq-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original MEGASTAR cultivar page; paired code T112-519, source photos and seasonal chart visually checked.",
+      "limitations": "Company traits, trial performance and seasonal charts are unreviewed. No exact release/publication date or current patent status inferred. Generic site hero/logo and seasonal diagram excluded from variety photos.",
+      "names": [
+        {
+          "candidate_name": "MEGASTAR",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://iqberries.com/varieties/megastar/",
+          "display_label": "MEGASTAR (T112-519)",
+          "portfolio_context": "Original IQ Berries heading pairs MEGASTAR with T112-519. Code pairing is source context, not an approved denomination or alias. Company describes later harvest and ongoing mid/high-chill trials. This is not verified regional growing suitability or an operating footprint.",
+          "photos": [
+            {
+              "named_variety": "MEGASTAR",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "image_url": "https://iqberries.com/wp-content/uploads/2023/04/Megastar0.jpg",
+              "source_url": "https://iqberries.com/varieties/megastar/",
+              "credit": "IQ Berries — original named cultivar page; photographer not individually credited",
+              "caption": "MEGASTAR blueberries shown on the plant on the original IQ Berries cultivar page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named-page image visually checked. No reuse grant established. Private session preview only; no permission approval."
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true,
+        "named_photos_visually_checked": true,
+        "chart_visually_checked": true
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    }
+  ]
+}

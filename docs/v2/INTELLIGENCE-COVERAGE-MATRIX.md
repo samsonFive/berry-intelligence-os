@@ -1,5 +1,25 @@
 # Intelligence Coverage Matrix
 
+October 8 IQ Berries source/photo continuation: the complete original homepage
+and all seven cultivar detail pages provide fourteen occurrences for seven
+blueberry offerings, with original source links and contextual code search.
+Each has a visually checked named fruit photograph, source attribution, unknown
+reuse, hidden default and session-only Ignore permission / Hide photo. No
+permission, company role, rights, trait, region or commercial-name alias approved.
+Seasonal diagrams stay available at the original source; generic hero/logos are
+not variety photos. Original labels/code pairings remain verbatim; no dates are
+guessed from image paths, selection wording or an incomplete trial-yield sentence.
+Real audit: 228 sections / 931 occurrences / 62 text matches / 869 review needs /
+678 proposed keys (63 stored / 615 primary); catalog remains 64 mixed-status.
+51/77 registry entries partly checked, 26 enumeration gaps, 47 source follow-ups.
+90 focused tests pass (43.40s, one existing warning); records validate; all 2,771
+original JSON files and the expansion guide are unchanged. Native company table,
+T11-319 search, exact MEGAEARLY handoff and photo loading/refresh/hide verified.
+Parent #349 has all four green checks (4,315 tests). This draft requires its own
+exact-head full checks. See IQBERRIES-ORIGINAL-VARIETIES-REVIEW.md. CAT-01/CAT-02/
+TD-116, embedded PDF photos, current-rights depth, independent recall and human
+catalog authoring remain open. No merge/deploy or other-berry Landscape rollout.
+
 October 8 original rights-source continuation: three complete original PDFs
 (12 pages, text and every page visually checked) add five name occurrences for
 Enrosadira, ALEL045 and ALEL111. Existing Enrosadira identity/anchor is retained;
