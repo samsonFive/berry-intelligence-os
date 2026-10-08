@@ -31,12 +31,20 @@ def test_targeted_title_diagnostic_removes_prose_without_hiding_the_f1_miss():
     assert FIXTURE.read_bytes() == before
 
 
-def test_original_recall_diagnostic_retains_all_unsupported_cases():
-    summary = audit(ROOT / "benchmarks/variety-name-recall-v1.json")["summary"]
+def test_original_recall_diagnostic_retains_all_cases_and_body_only_gap():
+    fixture = ROOT / "benchmarks/variety-name-recall-v1.json"
+    before = fixture.read_bytes()
+    report = audit(fixture)
+    summary = report["summary"]
     assert summary["cases"] == 24 and summary["expected_name_occurrences"] == 64
-    assert summary["detected_name_occurrences"] == 50
-    assert summary["missed_name_occurrences"] == 14
+    assert summary["detected_name_occurrences"] == 60
+    assert summary["missed_name_occurrences"] == 4
     assert summary["unexpected_name_occurrences"] == 0
+    cases = {case["id"]: case for case in report["cases"]}
+    assert all(cases[key]["passed"] for key in ("mixed-table", "spanish-list", "polish-list"))
+    assert cases["body-only"]["errors"] == {"name_missing": 4}
+    assert not cases["body-only"]["passed"]
+    assert fixture.read_bytes() == before
 
 
 def test_real_blugenix_summary_retains_the_five_names_without_a_brand_phrase_candidate():

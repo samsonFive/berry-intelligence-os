@@ -19,6 +19,7 @@ from app.services.variety_universe.identity import (
     resolve_identity,
 )
 from app.services.variety_universe.registry_import import build_candidate
+from app.services.variety_universe.explicit_summary_formats import explicit_summary_formats
 
 REGISTRY_SOURCE_TYPES = {
     "government_registry",
@@ -116,7 +117,7 @@ _SPLIT_LIST_RE = re.compile(r"\s*(?:,|;|\band\b)\s*", re.IGNORECASE)
 # breeding test stations". Species in the declaration overrides source tags.
 # Long commercial/F1 labels must remain whole. Refuse an over-limit prefix
 # rather than emitting a shortened identity and dropping the rest of the list.
-_NAMED_TOKEN = r"[A-ZÀ-ÖØ-Þ][\w'’+\-]*(?:\s+[A-ZÀ-ÖØ-Þ][\w'’+\-]*){0,7}(?![\w+\-]|\s+[A-ZÀ-ÖØ-Þ])"
+_NAMED_TOKEN = r"[A-ZÀ-ÖØ-ÞĄĆĘŁŃŚŹŻ][\w'’+\-]*(?:\s+[A-ZÀ-ÖØ-ÞĄĆĘŁŃŚŹŻ][\w'’+\-]*){0,7}(?![\w+\-]|\s+[A-ZÀ-ÖØ-ÞĄĆĘŁŃŚŹŻ])"
 _NAMED_ITEM = rf"['‘’\"“”]?{_NAMED_TOKEN}['‘’\"“”]?"
 _EXPLICIT_LIST_RE = re.compile(
     rf"\b(?:(?P<species>(?i:blueberry|strawberry|raspberry|blackberry))\s+)?"
@@ -632,6 +633,14 @@ def discover_corpus_variety_mentions(
         # varieties. An untyped mixed-berry list remains a gap to review.
         summary = str(record.get("summary") or "")
         fallback = berry_id if len(_berries(record)) == 1 else ""
+        formatted, excluded = explicit_summary_formats(summary, name_token=_NAMED_TOKEN)
+        exclusions.extend({**row, "record_id": record["id"]} for row in excluded)
+        for row in formatted:
+            name = _clean_name(row["name"])
+            if not _is_stop_name(name, blocked):
+                mentions.append(_mention(name=name, berry_id=row["berry_id"], kind=row["kind"],
+                    evidence=record, fact=None, context=row["context"],
+                    extra={"breeder_code": row["breeder_code"]}))
         for match in _EXPLICIT_LIST_RE.finditer(summary):
             species = match.group("species")
             list_berry = _BERRY_LABELS.get((species or "").lower(), fallback)

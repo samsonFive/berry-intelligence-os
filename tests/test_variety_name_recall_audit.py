@@ -76,8 +76,9 @@ def test_curated_fixture_retains_all_crops_and_known_unsupported_formats():
     for key in ("hortifrut-eleven", "niwa-codes", "abz-f1-labels", "niwa-black-raspberry", "code-two-sources"):
         assert cases[key]["passed"], cases[key]
     # A failed diagnostic is an honest gap, not a pytest failure or qualification.
-    for key in ("mixed-table", "spanish-list", "polish-list", "body-only"):
-        assert not cases[key]["passed"] and cases[key]["errors"]["name_missing"] > 0
+    for key in ("mixed-table", "spanish-list", "polish-list"):
+        assert cases[key]["passed"], cases[key]
+    assert not cases["body-only"]["passed"] and cases["body-only"]["errors"]["name_missing"] == 4
     assert cases["ambiguous-alias"]["unresolved_names"] == 1
     assert all(cases[key]["passed"] for key in ("generic-types", "geography-list", "brand-only", "mixed-untyped", "unpublished"))
 
