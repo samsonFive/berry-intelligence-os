@@ -8,7 +8,12 @@ from app.services.variety_portfolio_coverage import load_portfolio_observations,
 DATA = Path(__file__).resolve().parents[1] / 'data'
 
 def sources():
-    return [s for s in load_portfolio_observations(DATA) if s['id'].startswith(('portfolio-psg-', 'portfolio-ozblu-'))]
+    # This fixture is the original nine-section batch, not all future checks
+    # of these publishers (which legitimately add more sources).
+    import json
+    path = DATA / 'imports/variety-portfolio-observations-2026-10-07-psg-ozblu/observations.json'
+    ids = {s['id'] for s in json.loads(path.read_text(encoding='utf-8'))['sources']}
+    return [s for s in load_portfolio_observations(DATA) if s['id'] in ids]
 
 def test_catalog_failure_is_a_gap_and_consumer_grades_are_not_cultivars():
     rows, candidates = reconcile_portfolios(sources=sources(), varieties=[], entities=[], candidates=[])

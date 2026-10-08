@@ -2297,3 +2297,15 @@ controls pass; another 32 public-snapshot/portfolio tests pass. All 1,992 origin
 Full historical coverage, independent recall and profile/rights depth remain
 open. See PSG-OZBLU-PORTFOLIO-PHOTO-REVIEW.md. TD-116 remains open, local-only
 pending parent push approval; no new PR/CI, merge/deploy or Landscape rollout.
+
+**TD-116 local patent/source recheck:** October 7 local patent/source recheck: eight original blueberry filing subjects
+reuse existing catalog identities; wrong PP25,358 ornamental subject excluded.
+OZblu old mapping redirect and blank Rejoice English PDF remain source gaps.
+40 focused checks pass; records validate and original 1,992 JSON unchanged.
+Latest totals: 104 sections / 648 occurrences / 52 catalog text matches /
+596 review needs / 518 candidate keys; 32/77 subjects partly checked, 45
+initial checks and 17 follow-ups remain. Blueberry 185, strawberry 306,
+raspberry 101, blackberry 56. Catalog 64; photos 25/24 held/zero public.
+See docs/v2/OZBLU-PATENT-SOURCE-RECHECK.md (or same-directory note).
+CAT-01/CAT-02/TD-116 and full mission stay open. Local-only pending parent
+push approval; no new PR/CI, merge/deploy or Landscape rollout.
