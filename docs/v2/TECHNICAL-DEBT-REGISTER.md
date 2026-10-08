@@ -1994,6 +1994,18 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+**October 7 CFIA source-code photos:** Two original strawberry records and four
+held photographs add dated review context. Exact source-code/berry matching
+permits private candidate previews while uncoded AVA pairings and canonical
+associations retain their identity gate. Native desktop/360px phone review also
+repairs tall-image caption overlap and selected-card visibility. Additive
+private import/replay preserves all prior records and decisions; no human trust
+approvals or canonical additions. 144 relevant local tests and records pass.
+Catalog 64; 55 sections / 542 occurrences / 34 matches / 508 review needs /
+452 derived candidate keys; 14 photos, 13 held, zero approved public. Fifty-five
+initial checks, seven follow-ups and broader independent recall remain open.
+See CFIA-CODED-VARIETY-PHOTO-REVIEW.md; exact-head CI is recorded on the draft.
+
 **October 7 crop-scoped authoring:** The checked distinct-candidate workflow now
 permits separate same-name varieties in known disjoint berry crops. Same-crop,
 unknown-crop and ambiguous duplicate guards remain; registration collisions are

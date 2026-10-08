@@ -64,17 +64,30 @@ def compatible(photo, target, *, candidate=False):
     return any(row["reason"] == "exact_identity_string" for row in result["matches"])
 
 
+def _exact_candidate_code_photo(photo, target, ref):
+    """A source-labeled code photo does not confirm its disputed trade label."""
+    code = fold_identity(ref.get("denomination") or ref.get("breeder_code"))
+    target_code = fold_identity(target.get("denomination") or target.get("breeder_code"))
+    return bool(code and code == target_code == fold_identity(target.get("candidate_name"))
+                == fold_identity(photo["named_variety"])
+                and photo["berry_id"] == ref.get("berry_id") == target.get("berry_id")
+                and photo["source_url"] == (ref.get("product_url") or ref.get("url")))
+
+
 def source_photos(target, *, sources=(), candidate=False, varieties=()):
     refs = [(None, ref) for ref in target.get("portfolio_sources", [])] if candidate else [
         (source, name) for source in sources for name in source.get("names", [])]
     rows = {}
     pair_notes = None
     for source, ref in refs:
-        if ref.get("identity_notes"):
+        if ref.get("identity_notes") and not candidate:
             continue
         for raw in ref.get("photos", []):
             photo = validate_photo(raw)
             if not compatible(photo, target, candidate=candidate):
+                continue
+            code_only = bool(ref.get("identity_notes"))
+            if code_only and not _exact_candidate_code_photo(photo, target, ref):
                 continue
             if not candidate:
                 # Honor the portfolio's existing code/label discrepancy gate,
@@ -90,7 +103,9 @@ def source_photos(target, *, sources=(), candidate=False, varieties=()):
                 if ids != {target["id"]}:
                     continue
             key = "source-photo-" + sha256((photo["source_url"] + "\n" + photo["image_url"]).encode()).hexdigest()[:20]
-            rows[key] = {**photo, "id": key, "origin": "Named by source · not yet reviewed"}
+            origin = (f"Photo labeled {photo['named_variety']} · trade-name match unconfirmed"
+                      if code_only else "Named by source · not yet reviewed")
+            rows[key] = {**photo, "id": key, "origin": origin}
     return list(rows.values())
 
 

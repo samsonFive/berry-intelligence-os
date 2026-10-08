@@ -106,6 +106,7 @@
         else window.sessionStorage.removeItem(key);
       } catch (_) { remembered = false; }
       render();
+      if (accepted) container.closest('figure')?.scrollIntoView({block: 'nearest', inline: 'start', behavior: 'auto'});
     });
     button.hidden = false;
     render();

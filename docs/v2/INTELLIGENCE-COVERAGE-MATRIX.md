@@ -1,5 +1,19 @@
 # Intelligence Coverage Matrix
 
+October 7 CFIA code-photo follow-up: two bounded original strawberry records
+add two name occurrences and four held source-code photos. Known code/berry/
+source matching supports private candidate preview without confirming the
+uncoded AVA labels, applicant roles or rights. Surrender/exemption dates are
+separate from PBR expiry; inconsistent modified dates stay recorded. Catalog
+remains 64. Current scope: 55 sections / 542 occurrences / 34 text matches /
+508 review needs / 452 derived candidate keys before private state. Fourteen
+photos include 13 held and zero approved public; 55 initial company checks and
+seven follow-ups remain. Native desktop/360px phone and 144 local checks pass.
+No real human approvals; additive preview import only creates two proposed
+private candidates. See CFIA-CODED-VARIETY-PHOTO-REVIEW.md; exact-head CI is
+recorded with the draft. CAT-01/CAT-02/TD-116 remain open. No merge/deploy/
+other-berry Landscape rollout.
+
 October 7 crop-scoped catalog follow-up: human-reviewed distinct candidates can
 now enter source review when another berry already uses their name. Exact
 same-crop/unknown-crop matches still block duplicates; checked name/berry survive

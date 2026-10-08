@@ -1,0 +1,158 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-cfia-asf219-record",
+      "title": "CFIA — ASF219 strawberry record and labeled photographs",
+      "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011777e.shtml",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-angus-soft-fruits"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "registry_reference",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One focal denomination and its source-paired trade name. Comparator cultivars are exclusions, not applicant portfolio claims.",
+      "limitations": "Original Canadian record, not a current worldwide legal conclusion. Rights surrendered and compulsory-licensing exemption expiry are separately labeled; neither populates patent/PBR expiry. Both rechecked pages display 2023-09-18 as modified despite a reported 2024 surrender; an earlier ASF219 native capture displayed 2026-10-01. Keep the observed date discrepancy, not a freshness conclusion. Check date is not publication or release. Denomination/trade-name pairing and applicant/breeder are source assertions, not human-approved aliases or roles. Focal source-code photographs remain unreviewed and reuse unknown. Comparison cultivars do not establish company ownership. Trial and office locations do not establish growing regions.",
+      "names": [
+        {
+          "candidate_name": "ASF219",
+          "denomination": "ASF219",
+          "trade_name": "Ava Star",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011777e.shtml",
+          "photos": [
+            {
+              "image_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/image/10143a.jpg",
+              "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011777e.shtml",
+              "named_variety": "ASF219",
+              "berry_id": "berry-strawberry",
+              "credit": "Canadian Food Inspection Agency record · Photographer not credited",
+              "caption": "ASF219: Plants and fruit in the source trial photograph",
+              "kind": "plant",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Named registry photograph visually checked. Photographer, image-specific reuse and original rights ownership not established; keep held."
+            },
+            {
+              "image_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/image/10143b.jpg",
+              "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011777e.shtml",
+              "named_variety": "ASF219",
+              "berry_id": "berry-strawberry",
+              "credit": "Canadian Food Inspection Agency record · Photographer not credited",
+              "caption": "ASF219: Harvested strawberries in the source photograph",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Named registry photograph visually checked. Photographer, image-specific reuse and original rights ownership not established; keep held."
+            }
+          ],
+          "portfolio_context": "CFIA lists ASF219 as Ava Star. Check whether this is the same Ava Star already in the directory before combining them. These photos are labeled ASF219."
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "Flamenco",
+            "reason": "Comparison cultivar in the trial description; not a focal registration or applicant-owned variety.",
+            "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011777e.shtml"
+          },
+          {
+            "label": "Sweet Eve",
+            "reason": "Comparison cultivar in the trial description; not a focal registration or applicant-owned variety.",
+            "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011777e.shtml"
+          },
+          {
+            "label": "SG 134",
+            "reason": "Comparison cultivar in the trial description; not a focal registration or applicant-owned variety.",
+            "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011777e.shtml"
+          },
+          {
+            "label": "Amandine",
+            "reason": "Comparison cultivar in the trial description; not a focal registration or applicant-owned variety.",
+            "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011777e.shtml"
+          },
+          {
+            "label": "Avarosa",
+            "reason": "Comparison cultivar in the trial description; not a focal registration or applicant-owned variety.",
+            "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011777e.shtml"
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cfia-asf218-record",
+      "title": "CFIA — ASF218 strawberry record and labeled photographs",
+      "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011776e.shtml",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-angus-soft-fruits"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "registry_reference",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One focal denomination and its source-paired trade name. Comparator cultivars are exclusions, not applicant portfolio claims.",
+      "limitations": "Original Canadian record, not a current worldwide legal conclusion. Rights surrendered and compulsory-licensing exemption expiry are separately labeled; neither populates patent/PBR expiry. Both rechecked pages display 2023-09-18 as modified despite a reported 2024 surrender; an earlier ASF219 native capture displayed 2026-10-01. Keep the observed date discrepancy, not a freshness conclusion. Check date is not publication or release. Denomination/trade-name pairing and applicant/breeder are source assertions, not human-approved aliases or roles. Focal source-code photographs remain unreviewed and reuse unknown. Comparison cultivars do not establish company ownership. Trial and office locations do not establish growing regions.",
+      "names": [
+        {
+          "candidate_name": "ASF218",
+          "denomination": "ASF218",
+          "trade_name": "Ava Blush",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011776e.shtml",
+          "photos": [
+            {
+              "image_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/image/10142a.jpg",
+              "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011776e.shtml",
+              "named_variety": "ASF218",
+              "berry_id": "berry-strawberry",
+              "credit": "Canadian Food Inspection Agency record · Photographer not credited",
+              "caption": "ASF218: Plants and fruit in the source trial photograph",
+              "kind": "plant",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Named registry photograph visually checked. Photographer, image-specific reuse and original rights ownership not established; keep held."
+            },
+            {
+              "image_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/image/10142b.jpg",
+              "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011776e.shtml",
+              "named_variety": "ASF218",
+              "berry_id": "berry-strawberry",
+              "credit": "Canadian Food Inspection Agency record · Photographer not credited",
+              "caption": "ASF218: Harvested strawberries in the source photograph",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Named registry photograph visually checked. Photographer, image-specific reuse and original rights ownership not established; keep held."
+            }
+          ],
+          "portfolio_context": "CFIA lists ASF218 as Ava Blush. Check whether this is the same Ava Blush already in the directory before combining them. These photos are labeled ASF218."
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [
+          {
+            "label": "Flamenco",
+            "reason": "Comparison cultivar in the trial description; not a focal registration or applicant-owned variety.",
+            "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011776e.shtml"
+          },
+          {
+            "label": "CIR 104",
+            "reason": "Comparison cultivar in the trial description; not a focal registration or applicant-owned variety.",
+            "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011776e.shtml"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,5 +1,19 @@
 # Project Status
 
+October 7 CFIA code-photo follow-up: four held photographs and two original
+Canadian registry records reach private review under ASF218/ASF219. Exact
+code/berry/source matching allows those candidate photos while AVA trade-name
+pairings and canonical profile associations remain unresolved. Tall images fit
+their frame; selecting a photo reveals the whole card. Desktop and 360px phone
+acceptance pass. Additive preview import adds only two proposed candidates;
+replay writes zero and all 1,992 existing record/runtime JSON files are unchanged.
+144 relevant local tests, session JavaScript and record validation pass.
+Catalog stays 64; 55 sections / 542 occurrences / 34 matches / 508 review needs /
+452 candidate keys. Fourteen photos: 13 held, zero approved public. Fifty-five
+initial company checks and seven follow-ups remain. See
+docs/v2/CFIA-CODED-VARIETY-PHOTO-REVIEW.md; exact-head CI is recorded with the
+draft. CAT-01/CAT-02/TD-116 remain open; no merge/deploy/other-berry rollout.
+
 October 7 crop-scoped catalog follow-up: human-reviewed distinct candidates can
 now enter source review when another berry already uses their name. Exact
 same-crop/unknown-crop matches still block duplicates; source review preserves
