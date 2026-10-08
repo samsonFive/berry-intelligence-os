@@ -159,9 +159,14 @@ def collect(store,adapter,entities, *, query,language,market,max_pages=2,max_ite
                     raise AccessBlocked('Item budget cannot fit complete page; increase within pilot bound and resume')
                 for row in rows:
                     row['search_market']={'value':market,'basis':'query_target','evidence_ref':key,'confidence':1}
-                job.update(cursor=next_cursor,has_more=bool(next_cursor),last_success=now(),status='partial' if next_cursor else 'live',
-                           observed_volume=len(ids)+len(rows),calls=adapter.transport.requests)
-                ids+=store.ingest(rows,entities,mode='live',job=job)
+                committed_job={**job,'cursor':next_cursor,'has_more':bool(next_cursor),'last_success':now(),
+                               'status':'partial' if next_cursor else 'live','observed_volume':len(ids)+len(rows),
+                               'calls':adapter.transport.requests}
+                # Advance in-memory state only after records and checkpoint commit
+                # together. Failure reporting must retain the last durable cursor.
+                committed_ids=store.ingest(rows,entities,mode='live',job=committed_job)
+                job=committed_job
+                ids+=committed_ids
                 cursor=next_cursor
                 if not cursor: break
             return {'state':'success','created':ids,'job':job}

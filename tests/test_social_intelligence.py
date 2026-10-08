@@ -169,6 +169,33 @@ def test_real_bluesky_path_checkpoint_restart_and_queries(tmp_path):
     assert seen[0].url.host=='public.api.bsky.app'
     assert all(r['purchase_market'] is None and r['search_market']['value']=='US' for r in s.records())
 
+@pytest.mark.parametrize('resume',[False,True])
+def test_processing_failure_retains_committed_checkpoint_and_retries_page(tmp_path,resume):
+    seen=[];broken=True
+    def handler(request):
+        cursor=request.url.params.get('cursor');seen.append(cursor)
+        if resume and cursor is None:return httpx.Response(200,json=bsky_response('1','next'))
+        data=bsky_response('2','third')
+        if broken:
+            malformed=deepcopy(data['posts'][0]);malformed['uri']=malformed['uri']+'bad'
+            malformed['record']['text']=None
+            data['posts'].append(malformed)
+        return httpx.Response(200,json=data)
+    store=Store(tmp_path)
+    if resume:
+        first=collect(store,Bluesky(transport(handler)),ENTITIES,query='blueberries',language='en',market='US',max_pages=1,enabled=True)
+        old_success=first['job']['last_success']
+    failed=collect(Store(tmp_path),Bluesky(transport(handler)),ENTITIES,query='blueberries',language='en',market='US',max_pages=1,enabled=True)
+    assert failed['state']=='error' and failed['job']['status']=='failed'
+    assert failed['job']['cursor']==('next' if resume else None)
+    assert failed['job']['last_success']==(old_success if resume else None)
+    assert len(Store(tmp_path).records())==(1 if resume else 0)
+    broken=False
+    restarted=collect(Store(tmp_path),Bluesky(transport(handler)),ENTITIES,query='blueberries',language='en',market='US',max_pages=1,enabled=True)
+    assert seen[-1]==seen[-2]==('next' if resume else None)
+    assert restarted['state']=='success' and restarted['job']['cursor']=='third'
+    assert len(Store(tmp_path).records())==(2 if resume else 1)
+
 def test_bluesky_comment_image_thread_normalization():
     parent=bsky_response()['posts'][0];comment=deepcopy(parent);comment['uri']=comment['uri']+'reply'
     comment['record']['reply']={'parent':{'uri':parent['uri']}}

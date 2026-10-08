@@ -6,7 +6,7 @@ This audit distinguishes deterministic engineering checks, actual bounded source
 
 | Requirement | Current evidence and result | Remaining limit |
 |---|---|---|
-| Duplicate source IDs and restart | `test_identity_and_restart_cursor_transaction`, adapter restart tests, and actual private replay with0 duplicate additions. Store ingestion commits records/checkpoints transactionally. | No unattended recovery drill across all provider methods. |
+| Duplicate source IDs and restart | `test_identity_and_restart_cursor_transaction`, adapter restart tests, and actual private replay with0 duplicate additions. Store ingestion commits records/checkpoints transactionally. Processing-failure restart tests now prove failed pages retain the last committed cursor; see [checkpoint recovery](SOCIAL-CHECKPOINT-RECOVERY.md). | No unattended recovery drill across all provider methods. |
 | Outage versus zero conversation | `test_outage_is_unknown_not_zero_and_stale_has_last_success`, failed-transport tests and coverage job states. A failed query does not become a successful zero. | Trial health is not evidence of ongoing coverage. |
 | Live/imported/manual/sample isolation | Store mode-isolation tests, schema/CSRF route tests, separate fixture records and fixture-excluded context/handoff tests. | Manual/imported records do not replace live monitoring. |
 | Five-language original and translation inspection | Original spans/translations tested for EN/ES/PT/ZH/JA; original/English UI controls and translated search inspected. Synthetic packs explicitly labeled. | Live five-language accuracy/translation qualification unmet; independently graded live cases0. |
