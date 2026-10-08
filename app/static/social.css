@@ -39,4 +39,4 @@
 .social-saved ul {margin:.4rem 0;padding-left:1.1rem;}
 .social-saved p {margin:.3rem 0;}
 
-.social-workspace a.social-post-reader-link{color:#233e34;text-decoration:none;cursor:pointer;border-radius:3px}.social-workspace a.social-post-reader-link:hover{color:#514074;text-decoration:underline;text-underline-offset:3px}.social-post-reader-link:focus-visible{outline:2px solid #88749c;outline-offset:3px}
+.social-post-expand-area{cursor:pointer;border-radius:3px;min-height:48px}.social-post-expand-area:hover{background:#eef3e9}.social-post-expand-area:focus-visible{outline:2px solid #88749c;outline-offset:3px}

@@ -79,10 +79,12 @@
   initializeMedia();new MutationObserver(initializeMedia).observe(document.body,{childList:true,subtree:true});
   document.addEventListener('click',async event=>{
     const expand=event.target.closest('[data-social-expand]');
-    if(expand){const opened=expand.getAttribute('aria-expanded')!=='true';expand.setAttribute('aria-expanded',String(opened));expand.textContent=opened?'Less text':'Full post';document.getElementById(expand.getAttribute('aria-controls')).classList.toggle('social-text-expanded',opened);return;}
+    if(expand){const targetId=expand.getAttribute('aria-controls');const text=document.getElementById(targetId);const opened=!text.classList.contains('social-text-expanded');text.classList.toggle('social-text-expanded',opened);document.querySelectorAll('[data-social-expand]').forEach(control=>{if(control.getAttribute('aria-controls')!==targetId)return;control.setAttribute('aria-expanded',String(opened));if(control.classList.contains('social-full-post'))control.textContent=opened?'Less text':'Full post';else control.title=opened?'Collapse post':'Expand full post';});return;}
     const link=event.target.closest('[data-social-lightbox]');
     if(link){event.preventDefault();event.stopImmediatePropagation();opener=link;images=[...link.closest('[data-social-carousel]').querySelectorAll('[data-social-lightbox]')];showImage(images.indexOf(link));lightbox.showModal();return;}
     const b=event.target.closest('[data-social-handoff]');if(!b)return;const s=b.parentElement.querySelector('[data-handoff-status]');
     try{const r=await post('/api/social/'+encodeURIComponent(b.dataset.socialHandoff)+'/handoff',{});const a=document.createElement('a');a.href=r.review_url;a.textContent='Open existing publication review →';s.replaceChildren(a);}catch(e){s.textContent=e.message;}
   });
 })();
+
+document.addEventListener('keydown',event=>{const control=event.target.closest('[data-social-expand][role=button]');if(control&&(event.key==='Enter'||event.key===' ')){event.preventDefault();control.click();}});
