@@ -9,7 +9,7 @@
   {% if discoveries.error %}
     <p role="alert">The source-name list could not be loaded. Reviewed variety links above are still available. Check source coverage before treating this as an empty portfolio.</p>
   {% elif discoveries.rows %}
-    <p class="company-source-lead"><strong>{{ discoveries.rows|length }} additional names to check</strong> from {{ discoveries.source_count }} checked source sections. Being named here does not confirm this company’s breeding, ownership or commercial role.</p>
+    <p class="company-source-lead"><strong>{{ discoveries.rows|length }} additional {{ 'name' if discoveries.rows|length == 1 else 'names' }} to check</strong> from {{ discoveries.source_count }} source section{{ '' if discoveries.source_count == 1 else 's' }}. Being named here does not confirm this company’s breeding, ownership or commercial role.</p>
     <div class="company-source-tools" data-source-tools hidden>
       <div class="company-source-filters">
         <div><label for="company-source-search">Find a name or code</label><input id="company-source-search" type="search" data-source-search placeholder="Search these names" autocomplete="off"></div>
@@ -38,7 +38,7 @@
     </div>
     <p data-source-empty hidden>No names match these filters. Reset to see the full captured list.</p>
   {% else %}
-    <p>{% if discoveries.source_count %}No additional names are ready to review in the checked sources.{% else %}No variety names have been captured from this company’s sources yet.{% endif %} This does not establish the size of its real portfolio.</p>
+    <p>{% if discoveries.source_count %}No additional names are ready to review in the captured sources.{% else %}No variety names have been captured from this company’s sources yet.{% endif %} This does not establish the size of its real portfolio.</p>
   {% endif %}
   {% if discoveries.follow_up_count %}<p class="company-source-warning">{{ discoveries.follow_up_count }} source section{{ 's' if discoveries.follow_up_count != 1 else '' }} still need{{ '' if discoveries.follow_up_count != 1 else 's' }} follow-up. Some names or pages may be missing.</p>{% endif %}
   {% if discoveries.linked_count or discoveries.rejected_count %}<details class="company-source-accounting"><summary>Names already handled</summary><p>{{ discoveries.linked_count }} name{{ 's' if discoveries.linked_count != 1 else '' }} already appear{{ '' if discoveries.linked_count != 1 else 's' }} in reviewed company relationships above. {{ discoveries.rejected_count }} previously rejected name{{ 's' if discoveries.rejected_count != 1 else '' }} remain{{ '' if discoveries.rejected_count != 1 else 's' }} outside this active list.</p><a href="{{ discoveries.review_href }}">Open company name review →</a></details>{% endif %}
