@@ -1,5 +1,25 @@
 # Intelligence Coverage Matrix
 
+October 8 Mattivi source/photo continuation: twelve original portfolio and
+detail pages provide sixteen named occurrences for eight offering labels
+across all four berries. Six displayed name/code pairs remain contextual and
+searchable in the company table, without approving aliases or PBR claims.
+Codes are not counted as extra cultivars; Duke is a maturity comparator.
+Four named raspberry-card photos are credited to Mattivi with original links,
+unknown reuse, hidden defaults and session-only preview. No permission saves.
+Real audit: 207 sections / 897 occurrences / 62 text matches / 835 review needs /
+663 candidate keys (63 stored / 600 primary proposals); catalog 64. Registry:
+49/77 partly checked, 28 rows still need named-variety enumeration, 45 source
+follow-ups. Photos: 45 references / 44 unknown reuse / zero new public approvals.
+All prior IDs, stored registration, aliases, notes and human decisions survive.
+Native table alphabet/code search/reset/berry filter and exact Nives handoff
+pass; photo rendering, refresh and Hide verified. Phone acceptance unverified.
+79 focused tests pass (53.25s; one existing warning); records validate; all
+1,992 original JSON files and expansion guide unchanged. Parent draft #346
+has all four green exact-head checks (4,298 tests). This draft requires its
+own pushed-head checks. See MATTIVI-SOURCE-VARIETIES-REVIEW.md. CAT-01/CAT-02/
+TD-116 remain open. No merge/deploy or other-berry Landscape rollout.
+
 October 8 grower-source continuation: eleven complete-page checks add 53
 literal name occurrences for FreshKampo, California Giant and Cuna de Platero.
 Language spellings, ambiguous newsletter wording, historical dates and the
