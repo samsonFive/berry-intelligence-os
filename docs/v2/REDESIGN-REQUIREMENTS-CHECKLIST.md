@@ -1,5 +1,21 @@
 # Redesign and consolidation requirements
 
+October 8 original company-source gaps: eleven bounded checks cover Singrow,
+Biogea, The Berry Collective, Fruitist and Grupo HerEs. Ten readable partial
+pages and one native DNS failure remain explicit gaps. Brands, input products,
+trial producers and generic Sekoya context are excluded from cultivar identity;
+original crop/date/company scope stays intact. No candidates or photos added.
+Actual audit: 255 sections / 972 occurrences / 62 text matches / 910 review needs;
+707 proposal keys / 64 mixed-status catalog records. 54/77 registry entries have
+some names checked; 23 enumeration gaps remain, with 58 source follow-ups.
+63 affected tests pass (68.23s, one existing warning); records validate; all
+2,771 baseline JSON files and the expansion guide remain unchanged. Native
+private coverage shows exclusions and incomplete source plans without writes.
+Parent #354 is green (4,336 tests); this follow-up needs exact-head checks.
+See REGISTRY-ORIGINAL-SOURCE-GAPS-REVIEW.md. CAT-01/CAT-02/TD-116, acquisition,
+independent recall, rights/photos, human catalog and combined release remain
+open. No merge/deploy or other-berry Landscape rollout.
+
 October 8 variety search correction: native review reproduced Merida failing to
 find Mérida. Candidate navigation now ignores accents only during search,
 retaining literal stored spellings, code punctuation, non-Latin letters, IDs,
@@ -7,7 +23,7 @@ user aliases/decisions and company/crop/source/status filters. 55 focused tests
 pass (102.43s, one existing warning); the updated browser returns the correct
 scoped entry with its original name and unresolved identity intact. No data,
 schema or rights/reuse changes. Parent draft #353 passes all four required checks
-(4,331 tests); this search follow-up needs its own exact-head checks. See
+(4,331 tests); search draft #354 also passes all four checks (4,336 tests). See
 VARIETY-ACCENT-SEARCH-REVIEW.md. CAT-01/CAT-02/TD-116 and combined release remain
 open. No merge/deploy or other-berry Landscape rollout.
 
@@ -26,7 +42,7 @@ follow-ups remain. 68 affected tests pass (63.90s, one existing warning); origin
 2,771 JSON files and expansion guide preserved. Native company search, exact
 Áurea handoff, both brochure URLs and photo reveal/refresh/hide verified. Phone
 acceptance remains unverified. Parent #352 has all four green checks (4,327 tests);
-this child requires its own exact-head full checks. See
+draft #353 passes all four checks (4,331 tests). See
 BERRIESOESTE-ORIGINAL-VARIETIES-REVIEW.md. CAT-01/CAT-02/TD-116, independent recall,
 rights depth and human catalog authoring remain open. No merge/deploy or
 other-berry Landscape rollout.
