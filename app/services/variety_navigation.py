@@ -1,9 +1,16 @@
 """Read-only navigation over existing Variety and company tracking records."""
 from urllib.parse import urlencode
+import unicodedata
 
 from app.services import company_directory, map_regions, personal_digest
 
 ROLE_PREDICATES = {"owns", "develops", "licenses", "grows", "trials", "markets", "distributes"}
+
+
+def _search_text(value):
+    """Ignore accents for navigation, retaining letters, spacing and code punctuation."""
+    return "".join(char for char in unicodedata.normalize("NFD", value.casefold())
+                   if not unicodedata.combining(char))
 
 
 def company_actors(variety_id, relationships, entities):
@@ -82,7 +89,7 @@ def candidate_queue(candidates, params):
         haystack = " ".join(str(row.get(key) or "") for key in ("candidate_name", "denomination", "breeder_code", "breeder_owner", "applicant"))
         haystack += " " + " ".join(item.get("name", "") for item in companies)
         haystack += " " + " ".join(str(source.get(key) or "") for source in portfolios for key in ("breeder_code", "trade_name", "candidate_name"))
-        if filters["q"] and filters["q"].casefold() not in haystack.casefold():
+        if filters["q"] and _search_text(filters["q"]) not in _search_text(haystack):
             continue
         if filters["berry"] and filters["berry"] != row.get("berry_id"):
             continue
