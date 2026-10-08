@@ -100,3 +100,9 @@ older resources, independent coverage, code/rights depth, remaining attributed p
 human catalog authoring and the combined release. LAND-02 still requires user
 acceptance of the revised blueberry checkpoint. No merge, deployment or
 other-berry Landscape rollout.
+
+October 8 verification completed: #358 head a829caf passes Change scope,
+Repository integrity, Static public safety and Python tests. The full suite
+reports 4,365 passed / 11 skipped / 2 warnings (655.58s), Actions run
+37829377993. This supersedes the pending-check note above; the earlier failed
+run remains in the history. No merge or deployment followed.

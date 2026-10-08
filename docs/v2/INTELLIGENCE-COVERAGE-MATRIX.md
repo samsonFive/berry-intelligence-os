@@ -1,5 +1,22 @@
 # Intelligence Coverage Matrix
 
+October 8 historical strawberry source continuation: two original patent
+subjects (PSI-.118 and PSI-130) describe 1987 trials on a Well-Pict-provided
+ranch. Original claim links and six attributed full-resolution photographs enter
+private review; unknown reuse stays held. This does not establish current company
+ownership, availability, rights or growing footprints. Six Perfection Fresh pages
+remain explicitly partial, with unnamed cultivars and no inferred PSI mapping.
+Actual audit: 282 sections / 1,011 name occurrences / 719 candidate keys / 64
+unchanged mixed-status catalog records. 57/77 registry entries have some bounded
+names checked; 20 initial enumeration gaps and 65 source follow-ups remain.
+44 affected tests pass; final full-resolution source tests pass again (5 tests).
+Native desktop and 390px review passes; all 2,771 original JSON and the expansion
+guide are preserved. Parent #358 passes all four exact-head checks (4,365 tests).
+The new packet requires its own CI. CAT-01/CAT-02/TD-116 and human catalog/release
+work remain open; LAND-02 retains the blueberry feedback gate. No merge,
+deployment or other-berry Landscape rollout.
+See WELLPICT-HISTORICAL-VARIETY-SOURCES-REVIEW.md.
+
 October 8 CBC original-source follow-up: three remaining technical documents
 join eleven profiles, the full 15-page handout and two original patent title/claim
 references. Combined CBC addition: 17 sections / 35 name occurrences / seven
