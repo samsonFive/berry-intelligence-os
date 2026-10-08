@@ -61,4 +61,10 @@ Matching posts retained both provider receipts and prior media through replay. O
 
 The first actual replay exposed loss after a second sparse response. Storage now checks acquisition history, preserving earlier attachments on repeated updates after provider switching. The regression specifically checks that second update. **69 storage/evidence checks passed**, and the repeated actual sample audit passed. Raw records and the combined database remain private; the original preview is unchanged. Failed first audit retained separately for diagnosis. No new source requests or credit usage.
 
+### Facebook signed-photo variants
+
+Inspected duplicate photo references had identical Facebook CDN file paths with different query signatures/sizes. Only Facebook-source references on `*.fbcdn.net`, `/v/` paths and image extensions now share that path identity. Other hosts retain exact-URL identity; no generic query stripping or visual-similarity claim. Matching incoming photos retain the established attachment ID so review locators are stable. Removal hashes use this inspected reference identity, with legacy exact-URL hashes still recognized.
+
+Actual isolated replay now retains **5 photos instead of 10 URL variants** on the overlapping five-photo post, preserving 256 combined records and both provider receipts. **71 storage/evidence tests passed**, including refreshed-signature removal and distinct-query behavior on other hosts. Existing tombstones created before this change only protect their recorded exact URL unless the original attachment ID matches; unknown historical signed variants remain a limitation. No media downloads, preview import, spending, merge or deployment.
+
 Next: matched source comparisons, comments/replies, media loading/expiry, repeat/pagination and multilingual samples; then schema-specific normalization through existing intake, with estimated dates, article-only handling, author provenance, translation/quarantine and incidental-hashtag screening. Corporate and consumer views remain separate. Recurring monitoring, retention/removal permission and independent evaluation are unresolved; collection stays disabled.

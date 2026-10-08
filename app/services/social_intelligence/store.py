@@ -10,6 +10,7 @@ import hashlib
 import json
 from pathlib import Path
 import sqlite3
+from urllib.parse import urlsplit
 from .model import validate_intake
 from .extraction import analyze
 
@@ -18,6 +19,14 @@ def now():
 
 def identity(item):
     return 'ev-social-' + hashlib.sha256(f"{item['source']}:{item['mode']}:{item['native_id']}".encode()).hexdigest()[:24]
+
+def media_reference_key(source,url):
+    """Only inspected Facebook CDN paths identify signed photo variants."""
+    if not url:return None
+    parts=urlsplit(url)
+    if source=='facebook' and (parts.hostname or '').endswith('.fbcdn.net') and parts.path.startswith('/v/') and parts.path.lower().endswith(('.jpg','.jpeg','.png','.webp')):
+        return 'facebook-photo:'+parts.path
+    return url
 
 class Store:
     def __init__(self, inbox):
@@ -51,25 +60,34 @@ class Store:
                 url_tombstones=dict(db.execute('SELECT url_hash,state FROM media_url_tombstones WHERE evidence_id=?',(key,)))
                 if tombstones or url_tombstones:
                     for media in p['media']:
-                        digest=hashlib.sha256(media['source_url'].encode()).hexdigest() if media['source_url'] else None
-                        state=tombstones.get(media['id']) or url_tombstones.get(digest)
+                        reference=media_reference_key(p['source'],media['source_url'])
+                        digest=hashlib.sha256(reference.encode()).hexdigest() if reference else None
+                        legacy_digest=hashlib.sha256(media['source_url'].encode()).hexdigest() if media['source_url'] else None
+                        state=tombstones.get(media['id']) or url_tombstones.get(digest) or url_tombstones.get(legacy_digest)
                         if state:
                             media.update(state=state,source_url=None,literal=[],content_hash=None,object_ref=None)
                     a=analyze(p,entities)
                 if existing:
                     old = json.loads(existing[0]); prior = json.loads(existing[1])
+                    # Retain established attachment IDs when an inspected CDN
+                    # variant changes; review locators and removal use these IDs.
+                    old_refs={media_reference_key(p['source'],m['source_url']):m for m in old['media'] if m['source_url']}
+                    for media in p['media']:
+                        retained=old_refs.get(media_reference_key(p['source'],media['source_url']))
+                        if retained:media['id']=retained['id']
                     multiple_methods = db.execute('SELECT 1 FROM collection_receipts WHERE evidence_id=? AND method<>? LIMIT 1',(key,p['discovery_method'])).fetchone()
                     if old['discovery_method'] != p['discovery_method'] or multiple_methods:
                         # A different provider's partial response is not a source
                         # deletion. Preserve observed attachments across providers.
                         incoming_ids={m['id'] for m in p['media']}
-                        incoming_urls={m['source_url'] for m in p['media'] if m['source_url']}
+                        incoming_urls={media_reference_key(p['source'],m['source_url']) for m in p['media'] if m['source_url']}
                         for media in old['media']:
-                            if media['id'] not in incoming_ids and (not media['source_url'] or media['source_url'] not in incoming_urls):
+                            reference=media_reference_key(p['source'],media['source_url'])
+                            if media['id'] not in incoming_ids and (not reference or reference not in incoming_urls):
                                 if len(p['media']) < 30:
                                     p['media'].append(media)
                                     incoming_ids.add(media['id'])
-                                    if media['source_url']:incoming_urls.add(media['source_url'])
+                                    if reference:incoming_urls.add(reference)
                         a=analyze(p,entities)
                     # A search summary omitting pictures does not invalidate a
                     # separately captured full-post reference. Explicit removal
@@ -137,7 +155,8 @@ class Store:
                 for m in p['media']:
                     if m['id']==media_id:
                         if m['source_url']:
-                            db.execute('INSERT OR REPLACE INTO media_url_tombstones VALUES(?,?,?)',(key,hashlib.sha256(m['source_url'].encode()).hexdigest(),state))
+                            reference=media_reference_key(p['source'],m['source_url'])
+                            db.execute('INSERT OR REPLACE INTO media_url_tombstones VALUES(?,?,?)',(key,hashlib.sha256(reference.encode()).hexdigest(),state))
                         m.update(state=state,source_url=None,literal=[],content_hash=None,object_ref=None); found=True
                 if not found:
                     raise ValueError('Unknown attachment')
