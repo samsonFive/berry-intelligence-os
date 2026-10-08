@@ -58,3 +58,77 @@ def apify_post(item, *, source, build, collected_at, mode='live'):
         if len(row['media']) == 30:
             break
     return validate_intake(row, mode=mode)
+
+
+def apify_linkedin_comment(item, *, build, collected_at, parent_native_id=None, mode='live'):
+    """Inspected comment body only; parent pictures/avatars are not attachments."""
+    native = item.get('id')
+    parent = item.get('postId') or parent_native_id
+    if parent_native_id and item.get('postId') and str(item['postId']) != str(parent_native_id):
+        raise AccessBlocked('Nested comment parent conflicts with containing post')
+    text = item.get('commentary')
+    url = item.get('linkedinUrl')
+    if not native or not parent or not url or not isinstance(text, str) or not text.strip():
+        raise AccessBlocked('Comment identity/parent/source/body absent')
+    host = urlsplit(safe_url(url)).hostname or ''
+    if host != 'linkedin.com' and not host.endswith('.linkedin.com'):
+        raise AccessBlocked('Comment URL does not belong to LinkedIn')
+    row = common('linkedin', str(native), url, text, published=item.get('createdAt'), parent=str(parent))
+    row.update(mode=mode, collected_at=collected_at, discovery_method='apify-linkedin-comment',
+               query_version='apify-inspected-' + build,
+               attribution='LinkedIn original comment via Apify',
+               permission_basis='Third-party comment response; reference only; retention/redisplay rights unverified')
+    actor = item.get('actor') or {}
+    row['author_name'] = actor.get('name')
+    row['author_handle'] = actor.get('publicIdentifier')
+    row['engagement'] = {k: v for k, v in (item.get('engagement') or {}).items()
+                         if isinstance(v, int) and not isinstance(v, bool) and v >= 0}
+    # No inspected comment-image field in this response. Preserve no guessed
+    # avatars, post photos, inferred language, geography or corporate role.
+    return validate_intake(row, mode=mode)
+
+
+def apify_dataset(items, *, source, build, collected_at, mode='live'):
+    """Bounded rows + explicit rejects; duplicate copies cannot inflate counts.
+
+    Conflicting same-ID bodies/parents fail the batch, rather than silently
+    choosing a nested or standalone variant. No transport or Store writes.
+    """
+    if not isinstance(items, list) or len(items) > 20:
+        raise AccessBlocked('Inspected dataset item ceiling is twenty')
+    rows, rejected, seen = [], [], {}
+    duplicates = 0
+    def retain(row):
+        nonlocal duplicates
+        key = (row['source'], row['native_id'])
+        prior = seen.get(key)
+        if prior:
+            if prior != row:
+                raise AccessBlocked('Conflicting duplicate native identity in dataset')
+            duplicates += 1
+            return
+        seen[key] = row
+        rows.append(row)
+    for index, item in enumerate(items):
+        if not isinstance(item, dict):
+            rejected.append({'index': index, 'reason': 'Dataset item is not an object'})
+            continue
+        try:
+            if source == 'linkedin' and item.get('type') == 'comment':
+                row = apify_linkedin_comment(item, build=build, collected_at=collected_at, mode=mode)
+            else:
+                row = apify_post(item, source=source, build=build, collected_at=collected_at, mode=mode)
+        except (AccessBlocked, ValueError):
+            rejected.append({'index': index, 'reason': 'Inspected identity/body/schema validation failed'})
+            continue
+        retain(row)
+        if source == 'linkedin' and row['record_role'] == 'original':
+            comments = item.get('comments', [])
+            if not isinstance(comments, list) or len(comments) > 20:
+                raise AccessBlocked('Nested comment schema/item ceiling exceeded')
+            for comment in comments:
+                if not isinstance(comment, dict):
+                    raise AccessBlocked('Nested comment schema unrecognized')
+                retain(apify_linkedin_comment(comment, build=build, collected_at=collected_at,
+                                              parent_native_id=row['native_id'], mode=mode))
+    return {'rows': rows, 'rejected': rejected, 'duplicate_copies': duplicates, 'input_items': len(items)}
