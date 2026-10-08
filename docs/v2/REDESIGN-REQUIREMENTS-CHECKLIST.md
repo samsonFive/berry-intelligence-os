@@ -4,24 +4,30 @@ Ongoing goal activated October 1, 2026. This checklist is the completion ledger 
 
 ## Checkpoints and completion standard
 
-October 7 company-portfolio crosschecks: four dated source sections add 25
-unreviewed name occurrences and 19 derived candidate keys. CBC has eleven
-individually checked strawberry products against its stated 12+ minimum;
-comparison labels remain outside its product scope. AVA has five strawberry
-and two raspberry labels. Dalicia and Alicia remain separate literal leads;
-carousel-only Dalacia stays a crop/identity exclusion, visibly retained.
-Company website suggestions preserve analyst edits. Partial readable sources
-now count as read, without claiming their portfolios are complete.
+October 7 session-only photo previews: the user explicitly requests “Ignore
+permission” for otherwise held photos. The private gallery offers that button,
+retains credit and the permission-unconfirmed label, remembers the exact image
+and source URL only in this tab's session, and provides Hide photo to revoke it.
+No app request or saved review/reuse change occurs. Blocked session storage falls
+back to the current view. Readonly/static output contains neither held photos
+nor the override control.
 
-Current primary totals: 531 occurrences / 33 catalog text matches / 498 review
-needs in 50 sections; 442 derived candidate keys before private state.
-Catalog remains 64. Of 77 registry rows, 21 have some enumerated page names;
-56 still need initial enumerated checks. Seven source sections need follow-up.
-One unreviewed source-labeled photo remains; no additional photo reuse or
-catalog identities are approved. Parent #331 head 39a0bf312e8876044a339fd45ac35c3b40296b39
-passes all four checks, run 37699877256 (4,129 passed / 11 skipped / two existing
-warnings). This source-data draft requires its own checks. No merge, deployment
-or other-berry Landscape rollout. See VARIETY-COMPANY-PORTFOLIO-CROSSCHECKS.md.
+Six individually labeled BerrYum blackberry product photos were visually checked
+and added as unreviewed source associations. Publisher terms require written
+consent; no permission is recorded. The six current product names account for
+one bounded page, with LOCH NESS explicitly excluded as a comparison benchmark.
+Repeated calendar rows are growing systems, not extra cultivars; BerrYum remains
+a brand and no breeder/owner role, alias, trait, right or location is approved.
+
+Current totals: canonical catalog 64; primary occurrences 537 / text matches 33 /
+review needs 504 in 51 sections; derived candidate keys 448 before private state.
+22 of 77 registry rows have some enumerated names; 55 initial checks and seven
+source follow-ups remain. Seven source-labeled photos: one recorded reuse basis,
+six held, zero approved for public publication. CAT-01/CAT-02/TD-116 stay open.
+Parent draft #332 head 04bf5d75348ea163bb6bc24cfd92a1089cd86020 passes all four
+checks, run 37702377614 (4,133 passed / 11 skipped / two existing warnings).
+This new executable change requires its own checks. No merge, deployment or
+other-berry Landscape rollout. See VARIETY-SESSION-PHOTO-PREVIEW.md.
 
 October 7 attributed variety-photo requirement: include photos wherever useful
 on variety profiles and in review/directory surfaces when the source identifies

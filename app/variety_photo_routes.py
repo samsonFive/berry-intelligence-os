@@ -1,5 +1,6 @@
 """Private photo corrections reuse the existing profile history and edit guard."""
 from datetime import date
+from urllib.parse import urlencode, urlsplit
 
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import RedirectResponse
@@ -9,6 +10,18 @@ from app.services import company_directory, variety_photos
 from app.services.variety_portfolio_coverage import load_portfolio_observations
 
 router = APIRouter()
+
+
+def photo_return(kind, target_id, value=""):
+    path = f"/entities/variety/{target_id}" if kind == "catalog" else "/varieties/candidates"
+    fallback = path if kind == "catalog" else path + "#" + target_id
+    try:
+        parts = urlsplit(str(value or ""))
+    except ValueError:
+        return fallback
+    if parts.scheme or parts.netloc or parts.path != path:
+        return fallback
+    return path + ("?" + parts.query if parts.query else "") + ("#" + target_id if kind == "candidate" else "")
 
 
 def photo_context(kind, target_id):
@@ -41,7 +54,7 @@ def photo_page(request: Request, kind: str, target_id: str):
         "hidden_photos": sorted(hidden), "reuse_choices": variety_photos.REUSE, "photo_kinds": variety_photos.KINDS,
         "photo_berries": {key: main.BERRIES[key] for key in ([target.get("berry_id")] if kind == "candidate" else target.get("berry_ids") or []) if key in main.BERRIES},
         "today": date.today().isoformat(), "authoring_mode": True, "static_build": False,
-        "back_url": f"/entities/variety/{target_id}" if kind == "catalog" else f"/varieties/candidates#{target_id}",
+        "back_url": photo_return(kind, target_id, request.query_params.get("return_to", "")),
     })
 
 
@@ -54,4 +67,5 @@ async def edit_photo(request: Request, kind: str, target_id: str):
                             reviewer=main.session_username(request) or main.review_username() or "")
     except ValueError as exc:
         raise HTTPException(409 if "changed in another" in str(exc) else 400, str(exc)) from exc
-    return RedirectResponse(f"/varieties/photos/{kind}/{target_id}?saved=1", status_code=303)
+    back = photo_return(kind, target_id, request.query_params.get("return_to", ""))
+    return RedirectResponse(f"/varieties/photos/{kind}/{target_id}?" + urlencode({"saved": "1", "return_to": back}), status_code=303)

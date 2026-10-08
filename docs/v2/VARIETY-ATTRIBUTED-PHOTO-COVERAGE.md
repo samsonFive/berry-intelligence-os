@@ -8,6 +8,16 @@ thumbnails and photos inside expanded candidate details. Source population and
 human-reviewed public photo publication remain open; no canonical identity,
 trait, role, rights or growing-location record is changed.
 
+## Session preview follow-up
+
+The user subsequently requested an explicit “Ignore permission” button to view
+held source photos temporarily. The private gallery now offers a per-image,
+per-tab session override and Hide photo to revoke it. Attribution and unconfirmed
+permission remain visible. It does not record permission or publish an asset;
+readonly/static remain excluded. Six named BerrYum product images are retained
+with individual source-page links and the publisher's written-consent requirement.
+See VARIETY-SESSION-PHOTO-PREVIEW.md for current counts and verification.
+
 ## Presentation and source requirements
 
 - Lead variety profiles with a compact credited photo or gallery when available.

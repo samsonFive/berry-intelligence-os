@@ -71,6 +71,30 @@ def test_unknown_reuse_keeps_source_and_credit_without_inline_image():
     html = main.templates.env.get_template("_variety_photo_gallery.html").render(
         photo_gallery=gallery, authoring_mode=True, static_build=False)
     assert "<img" not in html and "Photo source" in html and "Photographer" in html
+    assert 'data-photo-session' in html and 'Ignore permission' in html
+    assert 'data-image-url="https://images.example.test/keepsake.jpg"' in html
+    assert 'Permission unconfirmed' in html and '<form' not in html
+
+
+def test_session_controls_and_held_photos_never_enter_readonly_or_static():
+    sourced = photos.source_photos(variety(), sources=source(photo(reuse="unknown")))
+    gallery = photos.gallery(variety(), sourced=sourced, authoring=True)
+    template = main.templates.env.get_template("_variety_photo_gallery.html")
+    for context in ({"authoring_mode": False}, {"authoring_mode": True, "static_build": True}):
+        html = template.render(photo_gallery=gallery, **context)
+        assert 'Ignore permission' not in html and photo()['image_url'] not in html
+
+
+def test_session_script_loads_only_the_chosen_asset_and_never_persists_permission():
+    from pathlib import Path
+    import shutil
+    import subprocess
+    node = shutil.which('node')
+    if not node:
+        pytest.skip('Node runtime unavailable for session-script behavior test')
+    result = subprocess.run([node, str(Path(__file__).with_name('variety_photo_session_checks.js'))],
+                            capture_output=True, text=True, timeout=20)
+    assert result.returncode == 0, result.stdout + result.stderr
 
 
 @pytest.mark.parametrize("changes", [{"image_url": "javascript:alert(1)"}, {"image_url": "http://127.0.0.1/private"},
@@ -187,3 +211,60 @@ def test_real_source_photo_has_caption_credit_license_and_does_not_approve_ident
     assert len(candidates) == 7 and not candidates[0]["human_gated"]
     assert not candidates[0]["auto_confirmed"]
     assert photos.source_photos(candidates[0], candidate=True)
+
+
+def test_berryum_product_photos_remain_held_and_brand_does_not_become_breeder():
+    from app.services.variety_portfolio_coverage import reconcile_portfolios
+    source = next(s for s in load_portfolio_observations(main.DATA_DIR)
+                  if s['id'] == 'portfolio-berryum-blackberry-products')
+    assert source['company_ids'] == ['brand-berryum']
+    assert source['berry_ids'] == ['berry-blackberry']
+    rows, candidates = reconcile_portfolios(sources=[source], varieties=[], entities=[], candidates=[])
+    assert len(candidates) == 6 and rows[0]['accounting_view']['accounted_items'] == 7
+    assert rows[0]['accounting_view']['exclusions'][0]['label'] == 'LOCH NESS'
+    assert not any(c['proposed_relationships'] or c['human_gated'] or c['auto_confirmed'] for c in candidates)
+    for candidate in candidates:
+        sourced = photos.source_photos(candidate, candidate=True)
+        assert len(sourced) == 1 and sourced[0]['reuse'] == 'unknown'
+        assert sourced[0]['source_url'] == candidate['portfolio_sources'][0]['product_url']
+        assert sourced[0]['named_variety'] == candidate['trade_name']
+        assert 'Photographer not credited' in sourced[0]['credit']
+        assert 'written consent' in sourced[0]['reuse_note']
+        gallery = photos.gallery(candidate, sourced=sourced, authoring=True)
+        assert not gallery[0]['display_image']
+
+
+def test_real_held_photo_controls_render_privately_without_file_or_permission_writes(monkeypatch, tmp_path):
+    monkeypatch.setattr(main, 'INBOX_DIR', tmp_path)
+    monkeypatch.setattr(main, 'AUTHORING_MODE', True)
+    client = TestClient(main.app)
+    page = client.get('/varieties/candidates?q=Furia&berry=berry-blackberry')
+    assert page.status_code == 200 and 'Ignore permission' in page.text
+    assert 'Berryneo / BerrYum' in page.text and 'Permission unconfirmed' in page.text
+    image = 'https://www.berryneo.com/wp-content/uploads/2021/05/moras_berryum_furia2.png'
+    assert f'data-image-url="{image}"' in page.text and f'src="{image}"' not in page.text
+    assert not list(tmp_path.rglob('*'))
+    monkeypatch.setattr(main, 'AUTHORING_MODE', False)
+    public = client.get('/varieties/candidates?q=Furia&berry=berry-blackberry')
+    assert image not in public.text and 'Ignore permission' not in public.text
+
+
+def test_editor_return_preserves_candidate_scope_through_saved_redirect(monkeypatch, tmp_path):
+    from urllib.parse import parse_qs, urlencode, urlsplit
+    from app.variety_photo_routes import photo_return
+    target = {'id': 'vcand-keepsake', 'candidate_name': 'Keepsake', 'berry_id': 'berry-strawberry'}
+    monkeypatch.setattr(main, 'AUTHORING_MODE', True)
+    monkeypatch.setattr(main, 'INBOX_DIR', tmp_path)
+    monkeypatch.setattr(main, 'variety_candidate_universe', lambda: ([], [target], {}))
+    back = '/varieties/candidates?q=Keepsake&berry=berry-strawberry&letter=K#vcand-keepsake'
+    url = '/varieties/photos/candidate/vcand-keepsake?' + urlencode({'return_to': back})
+    client = TestClient(main.app)
+    page = client.get(url)
+    assert page.status_code == 200 and back.replace('&', '&amp;') in page.text
+    assert not list(tmp_path.iterdir())
+    saved = client.post(url, data={**photo(), 'action': 'save', 'revision': '0'}, follow_redirects=False)
+    assert saved.status_code == 303
+    assert parse_qs(urlsplit(saved.headers['location']).query)['return_to'] == [back]
+    assert back.replace('&', '&amp;') in client.get(saved.headers['location']).text
+    for unsafe in ('https://evil.test/varieties/candidates', '//evil.test/varieties/candidates', '/today', '/entities/variety/other', 'https://[invalid'):
+        assert photo_return('candidate', target['id'], unsafe) == '/varieties/candidates#vcand-keepsake'
