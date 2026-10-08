@@ -1,0 +1,498 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-so-patent-lagorai-plus",
+      "title": "Lagorai Plus — original US plant patent",
+      "url": "https://patents.google.com/patent/USPP25636P3/en",
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal denomination in the original grant heading and claim; not a complete rights search.",
+      "limitations": "Grant header and exact claim read, not a current enforceability/rights status opinion. Google legal/expiry assumptions not copied. Trial sites do not establish commercial growing footprints. No permission or role approval.",
+      "names": [
+        {
+          "candidate_name": "Lagorai Plus",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/28/a2/6c/c68459e9fc9615/USPP25636.pdf#page=3",
+          "application_number": "13/815,342",
+          "grant_number": "USPP25636P3",
+          "jurisdiction": "US",
+          "application_date": "2013-02-22",
+          "grant_date": "2015-06-23",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/33/22/45/64210094d4f509/USPP025636-20150623-D00001.png",
+              "source_url": "https://patentimages.storage.googleapis.com/28/a2/6c/c68459e9fc9615/USPP25636.pdf",
+              "named_variety": "Lagorai Plus",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-08",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Sant’Orsola · USPP25636P3 · Photographer not credited",
+              "caption": "Figure 1 identifies ripe Lagorai Plus raspberry fruit. Low-resolution monochrome patent scan; open the original document for detail.",
+              "reuse_note": "No photograph reuse permission established. A hosted patent document does not approve image reuse."
+            }
+          ],
+          "portfolio_context": "Original grant heading and claim checked. Claim 1 is on PDF page 3, column 6; filing and grant dates are historical document metadata. Current rights and licence terms are not verified."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_patent_text_and_all_pages_visual_review",
+        "sha256": "af501443c53974dcf032e86a8388c9fb0763bf1d5bc99955cf634dcaf33e84d1",
+        "page_count": 6,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "claim_page": 3,
+        "claim_column": 6,
+        "fruit_figure": 1,
+        "fruit_page": 4,
+        "non_portfolio_context": [
+          "Tulameen is a parent/comparator, not a new attributed company release.",
+          "Glen Moy is a comparator, not a new attributed company release."
+        ]
+      }
+    },
+    {
+      "id": "portfolio-so-patent-dafne",
+      "title": "Dafne — original US plant patent",
+      "url": "https://patents.google.com/patent/USPP31991P3/en",
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal denomination in the original grant heading and claim; not a complete rights search.",
+      "limitations": "No current legal/expiry status, licence, role or growing-footprint decision. Handwritten fruit-photo code is retained as original visual context only, not an approved alias. Original trial/season context does not become a universal trait.",
+      "names": [
+        {
+          "candidate_name": "Dafne",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/57/c6/5b/e1851953be7503/USPP31991.pdf#page=3",
+          "application_number": "16/350,828",
+          "grant_number": "USPP31991P3",
+          "jurisdiction": "US",
+          "application_date": "2019-01-18",
+          "grant_date": "2020-07-21",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/b3/e7/41/c0e92caf966d1e/USPP031991-20200721-D00004.png",
+              "source_url": "https://patentimages.storage.googleapis.com/57/c6/5b/e1851953be7503/USPP31991.pdf",
+              "named_variety": "Dafne",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-08",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Sant’Orsola · USPP31991P3 · Photographer not credited",
+              "caption": "Figure 4 identifies ripe Dafne raspberry fruit. Low-resolution monochrome patent scan; open the original document for detail.",
+              "reuse_note": "No photograph reuse permission established. A hosted patent document does not approve image reuse."
+            }
+          ],
+          "portfolio_context": "Original grant heading and claim checked. Claim 1 is on PDF page 3, column 6; filing and grant dates are historical document metadata. Current rights and licence terms are not verified."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_patent_text_and_all_pages_visual_review",
+        "sha256": "8f584efde1fba22efe0a63cdb84679430ce0d2ea531b22a6a861bcaeaf5046af",
+        "page_count": 7,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "claim_page": 3,
+        "claim_column": 6,
+        "fruit_figure": 4,
+        "fruit_page": 7,
+        "non_portfolio_context": [
+          "Amaranta is a parent, not a newly attributed release from this document.",
+          "Evita and Lagorai Plus are comparison records; no trait transfer.",
+          "Older parent not-patented wording does not establish current worldwide rights."
+        ]
+      }
+    },
+    {
+      "id": "portfolio-santorsola-current-strawberry",
+      "title": "Sant’Orsola — named strawberry breeding list",
+      "url": "https://www.santorsola.com/sperimentazione-e-breeding/",
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 1 strawberry labels in the named currently available raspberry/strawberry list on this page.",
+      "limitations": "Company list labels retained; all eleven original linked technical sheets have since been read and visually checked. Source descriptions remain unreviewed. Original patent review covers Ofelia SO, Lagorai Plus and Dafne, not a full rights search. No approved aliases, traits, company roles or growing footprint. Upload-directory years and programme history are not publication dates.",
+      "names": [
+        {
+          "candidate_name": "Delfi",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-delfi.pdf",
+          "portfolio_context": "Listed on the current company breeding page; the linked original technical sheet has been checked. Its descriptions remain source claims."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_primary_page_body_read",
+        "heading": "Lamponi e fragole Sant’Orsola: tutte le varietà",
+        "full_technical_sheets_checked": true,
+        "rights_documents_checked": false
+      }
+    },
+    {
+      "id": "portfolio-santorsola-current-raspberry",
+      "title": "Sant’Orsola — named raspberry breeding list",
+      "url": "https://www.santorsola.com/sperimentazione-e-breeding/",
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 10 raspberry labels in the named currently available raspberry/strawberry list on this page.",
+      "limitations": "Company list labels retained; all eleven original linked technical sheets have since been read and visually checked. Source descriptions remain unreviewed. Original patent review covers Ofelia SO, Lagorai Plus and Dafne, not a full rights search. No approved aliases, traits, company roles or growing footprint. Upload-directory years and programme history are not publication dates.",
+      "names": [
+        {
+          "candidate_name": "Amaranta",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-amaranta.pdf",
+          "portfolio_context": "Listed on the current company breeding page; the linked original technical sheet has been checked. Its descriptions remain source claims."
+        },
+        {
+          "candidate_name": "Atena",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-atena.pdf",
+          "portfolio_context": "Listed on the current company breeding page; the linked original technical sheet has been checked. Its descriptions remain source claims."
+        },
+        {
+          "candidate_name": "Dafne",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-dafne.pdf",
+          "portfolio_context": "Listed on the current company breeding page; the linked original technical sheet has been checked. Its descriptions remain source claims."
+        },
+        {
+          "candidate_name": "Dolomia Plus",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/dolomia-plus-it.pdf",
+          "portfolio_context": "Listed on the current company breeding page; the linked original technical sheet has been checked. Its descriptions remain source claims."
+        },
+        {
+          "candidate_name": "Ofelia",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2024/02/schede-tecniche-ofelia.pdf",
+          "portfolio_context": "Listed on the current company breeding page; the linked original technical sheet has been checked. Its descriptions remain source claims. The list says Ofelia, while the sheet and original patent say Ofelia SO; check this pairing before accepting an alias."
+        },
+        {
+          "candidate_name": "Evita",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-evita.pdf",
+          "portfolio_context": "Listed on the current company breeding page; the linked original technical sheet has been checked. Its descriptions remain source claims."
+        },
+        {
+          "candidate_name": "Lagorai Plus",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-lagorai-plus.pdf",
+          "portfolio_context": "Listed on the current company breeding page; the linked original technical sheet has been checked. Its descriptions remain source claims."
+        },
+        {
+          "candidate_name": "Sungold",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/schede-tecniche-sungold-ita.pdf",
+          "portfolio_context": "Listed on the current company breeding page; the linked original technical sheet has been checked. Its descriptions remain source claims."
+        },
+        {
+          "candidate_name": "Titania",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-titania.pdf",
+          "portfolio_context": "Listed on the current company breeding page; the linked original technical sheet has been checked. Its descriptions remain source claims."
+        },
+        {
+          "candidate_name": "Vajolet",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-vajolet.pdf",
+          "portfolio_context": "Listed on the current company breeding page; the linked original technical sheet has been checked. Its descriptions remain source claims."
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_primary_page_body_read",
+        "heading": "Lamponi e fragole Sant’Orsola: tutte le varietà",
+        "full_technical_sheets_checked": true,
+        "rights_documents_checked": false
+      }
+    },
+    {
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "checked_on": "2026-10-08",
+      "capture_status": "names_enumerated",
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "id": "portfolio-so-patent-ofelia",
+      "title": "Ofelia SO — original US plant patent",
+      "url": "https://patents.google.com/patent/USPP35680P3/en",
+      "source_type": "plant_patent",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "enumerated_scope": "One literal denomination in the original grant heading and claim, not a complete rights search.",
+      "limitations": "All nine original PDF pages visually checked, including the grant heading, original claim and named fruit figure. Filing and grant dates are historical metadata, not current enforceability. Ofelia and Ofelia SO remain separate identity leads. No approved alias, rights status, licence, role, trait or growing footprint.",
+      "names": [
+        {
+          "candidate_name": "Ofelia SO",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/d0/47/ab/57f8206bfae9c5/USPP35680.pdf#page=3",
+          "application_number": "18/073,772",
+          "grant_number": "USPP35680P3",
+          "jurisdiction": "US",
+          "application_date": "2022-12-02",
+          "grant_date": "2024-03-12",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/eb/dc/8d/1a8ecb372286c7/USPP035680-20240312-D00003.png",
+              "source_url": "https://patentimages.storage.googleapis.com/d0/47/ab/57f8206bfae9c5/USPP35680.pdf",
+              "credit": "Sant’Orsola · USPP35680P3 · Photographer not credited",
+              "caption": "Figure 3 identifies ripe Ofelia SO raspberry fruit. Low-resolution monochrome patent image; open the original document for detail.",
+              "named_variety": "Ofelia SO",
+              "berry_id": "berry-raspberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No photo reuse permission established. Patent-document hosting does not establish permission for a photograph.",
+              "checked_on": "2026-10-08",
+              "kind": "fruit"
+            }
+          ],
+          "portfolio_context": "The original US grant identifies Ofelia SO; claim 1 is on PDF page 3, column 6. The company list uses Ofelia. Check the identity before joining those labels. The technical sheet and patent report different trial measurements; neither is an approved universal trait."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_patent_visual_page_review_and_primary_document_html",
+        "sha256": "3fca510d68be67a2f438dd9414411aceb3f88d8ff234eb830d92b9ceb15e54f0",
+        "original_url": "https://patentimages.storage.googleapis.com/d0/47/ab/57f8206bfae9c5/USPP35680.pdf",
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "claim_page": 3,
+        "claim_column": 6,
+        "named_fruit_figure": 3,
+        "named_fruit_page": 6,
+        "page_count": 9
+      }
+    },
+    {
+      "id": "portfolio-santorsola-technical-sheet-followup",
+      "title": "Sant’Orsola — remaining rights and photo follow-up",
+      "url": "https://www.santorsola.com/sperimentazione-e-breeding/",
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "All eleven original one-page technical sheets and all original PDF pages for Ofelia SO, Lagorai Plus and Dafne checked; remaining rights, identity and photo reuse work remains open.",
+      "limitations": "Three original patent claims and named fruit figures checked; current rights, other jurisdictions and other original patents remain unresolved. Ofelia name pairing and directly hosted technical-sheet photos still need review. PDF photo objects remain document links, not gallery assets.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_primary_link_list_read",
+        "linked_documents": [
+          {
+            "name": "Delfi",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-delfi.pdf"
+          },
+          {
+            "name": "Amaranta",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-amaranta.pdf"
+          },
+          {
+            "name": "Atena",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-atena.pdf"
+          },
+          {
+            "name": "Dafne",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-dafne.pdf"
+          },
+          {
+            "name": "Dolomia Plus",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/dolomia-plus-it.pdf"
+          },
+          {
+            "name": "Ofelia",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2024/02/schede-tecniche-ofelia.pdf"
+          },
+          {
+            "name": "Evita",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-evita.pdf"
+          },
+          {
+            "name": "Lagorai Plus",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-lagorai-plus.pdf"
+          },
+          {
+            "name": "Sungold",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/schede-tecniche-sungold-ita.pdf"
+          },
+          {
+            "name": "Titania",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-titania.pdf"
+          },
+          {
+            "name": "Vajolet",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-vajolet.pdf"
+          }
+        ],
+        "full_technical_sheets_checked": true,
+        "original_technical_pages_checked": 11,
+        "embedded_named_photo_objects": 21,
+        "rights_documents_checked": false,
+        "ofelia_original_patent_pages_checked": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "exclusions": [
+          {
+            "label": "Tulameen",
+            "reason": "Vajolet timing comparator, not a newly attributed release."
+          },
+          {
+            "label": "SO.LR.08.25.30",
+            "reason": "Patent parental code, not a marketed portfolio release."
+          }
+        ],
+        "original_patents_checked": [
+          "USPP35680P3",
+          "USPP25636P3",
+          "USPP31991P3"
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gap-sunbelle-craveabelles",
+      "title": "Sun Belle — current portfolio source gap",
+      "url": "https://www.sun-belle.com/craveabelles/",
+      "company_ids": [
+        "company-sunbelle"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Current premium blueberry/blackberry line described under CraveABelles; no cultivar denomination named in this bounded page.",
+      "limitations": "Retain this explicit gap; inspect other direct cultivar or original release sources, without inferring zero varieties.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_primary_page_body_read",
+        "failure": null,
+        "names_found": false,
+        "non_portfolio_context": [
+          "CraveABelles is a line/brand, not a new cultivar.",
+          "Generic packaging and fruit imagery lack named-variety context."
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gap-wellpict-dns",
+      "title": "Well-Pict — current portfolio source gap",
+      "url": "https://wellpict.com/",
+      "company_ids": [
+        "company-well-pict"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry",
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "unreadable",
+      "enumerated_scope": "Stored primary site address could not be resolved; no portfolio body read.",
+      "limitations": "Stored domain failed DNS; do not guess URL variants or import old trade codes as current portfolio names. Resolve authoritative website from primary evidence.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_direct_primary_url_attempt",
+        "failure": "ERR_NAME_NOT_RESOLVED",
+        "names_found": false,
+        "non_portfolio_context": []
+      }
+    }
+  ]
+}

@@ -3409,6 +3409,7 @@ def variety_candidates_page(request: Request) -> HTMLResponse:
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     from app.services import variety_photos, company_directory
     profiles = company_directory.load_profiles(INBOX_DIR)["profiles"]
+    queue["candidates"] = [dict(row) for row in queue["candidates"]]
     for row in queue["candidates"]:
         row["photos"] = variety_photos.gallery(row, authoring=True,
             sourced=variety_photos.source_photos(row, candidate=True), profile=profiles.get(row["id"]))

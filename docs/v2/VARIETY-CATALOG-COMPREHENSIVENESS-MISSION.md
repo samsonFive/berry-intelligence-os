@@ -1,5 +1,22 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+October 8 source-specific patent continuation: later original patent
+references now show their own claim links and filing/grant metadata without
+replacing existing candidate IDs or saved registration, aliases or decisions.
+Lagorai Plus and Dafne original PDFs are fully read/visually checked; Ofelia SO
+now has all nine pages checked. Two small named fruit thumbnails remain held
+for unknown reuse, with session-only preview. Current company snapshots no
+longer say their technical sheets are unread. Sun Belle's brand-only page and
+Well-Pict's DNS failure remain explicit source gaps, not empty portfolios.
+Real audit: 162 sections / 819 occurrences / 57 text matches / 762 review needs /
+631 keys; catalog 64. Registry: 42/77 partly checked, 35 initial checks and 24
+follow-ups open. Photos: 40 references / 39 reuse unknown / zero new public.
+All 103 final focused tests pass; private browser review confirms hidden,
+session preview, reload and Hide behavior. Phone acceptance remains unverified.
+Parent #342 is green (4,274 tests); this draft needs its own pushed-head gates.
+CAT-01/CAT-02/TD-116 remain open. No merge/deploy or other-berry rollout.
+See VARIETY-SOURCE-PATENT-LINKS-REVIEW.md.
+
 October 8 Sant’Orsola original-document continuation: eleven visually
 checked technical sheets and the original Ofelia SO patent add twelve source
 observations, claim/filing links and one held low-resolution fruit photo.
