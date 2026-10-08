@@ -1,0 +1,605 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "checked_on": "2026-10-08",
+      "capture_status": "names_enumerated",
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "id": "portfolio-so-patent-ofelia",
+      "title": "Ofelia SO — original US plant patent",
+      "url": "https://patents.google.com/patent/USPP35680P3/en",
+      "source_type": "plant_patent",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "enumerated_scope": "One literal denomination in the original grant heading and claim, not a complete rights search.",
+      "limitations": "Original PDF pages 1, 2, 3, 4, 6, 8 and 9 were visually checked; pages 5 and 7 remain unread. Filing and grant dates are historical document metadata, not current enforceability. Ofelia and Ofelia SO remain separate identity leads. No approved alias, rights status, licence, role, trait or growing footprint.",
+      "names": [
+        {
+          "candidate_name": "Ofelia SO",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/d0/47/ab/57f8206bfae9c5/USPP35680.pdf#page=3",
+          "application_number": "18/073,772",
+          "grant_number": "USPP35680P3",
+          "jurisdiction": "US",
+          "application_date": "2022-12-02",
+          "grant_date": "2024-03-12",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/eb/dc/8d/1a8ecb372286c7/USPP035680-20240312-D00003.png",
+              "source_url": "https://patentimages.storage.googleapis.com/d0/47/ab/57f8206bfae9c5/USPP35680.pdf",
+              "credit": "Sant’Orsola · USPP35680P3 · Photographer not credited",
+              "caption": "Figure 3 identifies ripe Ofelia SO raspberry fruit. Low-resolution monochrome patent image; open the original document for detail.",
+              "named_variety": "Ofelia SO",
+              "berry_id": "berry-raspberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No photo reuse permission established. Patent-document hosting does not establish permission for a photograph.",
+              "checked_on": "2026-10-08",
+              "kind": "fruit"
+            }
+          ],
+          "portfolio_context": "The original US grant identifies Ofelia SO; claim 1 is on PDF page 3, column 6. The company list uses Ofelia. Check the identity before joining those labels. The technical sheet and patent report different trial measurements; neither is an approved universal trait."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_patent_visual_page_review_and_primary_document_html",
+        "sha256": "3fca510d68be67a2f438dd9414411aceb3f88d8ff234eb830d92b9ceb15e54f0",
+        "original_url": "https://patentimages.storage.googleapis.com/d0/47/ab/57f8206bfae9c5/USPP35680.pdf",
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          8,
+          9
+        ],
+        "claim_page": 3,
+        "claim_column": 6,
+        "named_fruit_figure": 3,
+        "named_fruit_page": 6
+      }
+    },
+    {
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "checked_on": "2026-10-08",
+      "capture_status": "names_enumerated",
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "id": "portfolio-so-sheet-delfi",
+      "title": "Sant’Orsola — Delfi technical sheet",
+      "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-delfi.pdf",
+      "source_type": "technical_sheet",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "enumerated_scope": "One printed cultivar heading on the complete one-page original technical sheet.",
+      "limitations": "Breeder descriptions remain unreviewed source claims, not approved traits or commercial growing regions. Upload-directory dates are not publication dates. Named photos are embedded in the PDF; no individual hosted image URL or reuse permission was established.",
+      "names": [
+        {
+          "candidate_name": "Delfi",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-delfi.pdf",
+          "portfolio_context": "The breeder describes a remontant strawberry with dark-red, medium-to-large fruit. Source description only; growing conditions and trial scope matter."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_technical_sheet_text_and_visual_page_review",
+        "sha256": "46f9760dc713d694693045d899aa5c6749e2bb56ae33985fcfa1eb33be7fc374",
+        "printed_heading": "Delfi",
+        "page_count": 1,
+        "visually_reviewed_pages": [
+          1
+        ],
+        "embedded_photo_objects": 2,
+        "directly_hosted_photo_url": null,
+        "photo_reuse": "unknown"
+      }
+    },
+    {
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "checked_on": "2026-10-08",
+      "capture_status": "names_enumerated",
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "id": "portfolio-so-sheet-amaranta",
+      "title": "Sant’Orsola — Amaranta technical sheet",
+      "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-amaranta.pdf",
+      "source_type": "technical_sheet",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "enumerated_scope": "One printed cultivar heading on the complete one-page original technical sheet.",
+      "limitations": "Breeder descriptions remain unreviewed source claims, not approved traits or commercial growing regions. Upload-directory dates are not publication dates. Named photos are embedded in the PDF; no individual hosted image URL or reuse permission was established.",
+      "names": [
+        {
+          "candidate_name": "Amaranta",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-amaranta.pdf",
+          "portfolio_context": "The breeder describes an early remontant raspberry with easy fruit detachment. Source description only; growing conditions and trial scope matter."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_technical_sheet_text_and_visual_page_review",
+        "sha256": "6f0362a6d5090d96d4619b53030bdb558dde8932c7b5d359494d3da83381e6e8",
+        "printed_heading": "Amaranta",
+        "page_count": 1,
+        "visually_reviewed_pages": [
+          1
+        ],
+        "embedded_photo_objects": 2,
+        "directly_hosted_photo_url": null,
+        "photo_reuse": "unknown"
+      }
+    },
+    {
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "checked_on": "2026-10-08",
+      "capture_status": "names_enumerated",
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "id": "portfolio-so-sheet-atena",
+      "title": "Sant’Orsola — Atena technical sheet",
+      "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-atena.pdf",
+      "source_type": "technical_sheet",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "enumerated_scope": "One printed cultivar heading on the complete one-page original technical sheet.",
+      "limitations": "Breeder descriptions remain unreviewed source claims, not approved traits or commercial growing regions. Upload-directory dates are not publication dates. Named photos are embedded in the PDF; no individual hosted image URL or reuse permission was established.",
+      "names": [
+        {
+          "candidate_name": "Atena",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-atena.pdf",
+          "portfolio_context": "The breeder describes a remontant raspberry with easy picking and long shelf life. Source description only; growing conditions and trial scope matter."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_technical_sheet_text_and_visual_page_review",
+        "sha256": "d90a90e2e8d619ecfd9cd03a384a9687367bb8ca6287a76b184eb7d8c1454524",
+        "printed_heading": "Atena",
+        "page_count": 1,
+        "visually_reviewed_pages": [
+          1
+        ],
+        "embedded_photo_objects": 2,
+        "directly_hosted_photo_url": null,
+        "photo_reuse": "unknown"
+      }
+    },
+    {
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "checked_on": "2026-10-08",
+      "capture_status": "names_enumerated",
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "id": "portfolio-so-sheet-dafne",
+      "title": "Sant’Orsola — Dafne technical sheet",
+      "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-dafne.pdf",
+      "source_type": "technical_sheet",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "enumerated_scope": "One printed cultivar heading on the complete one-page original technical sheet.",
+      "limitations": "Breeder descriptions remain unreviewed source claims, not approved traits or commercial growing regions. Upload-directory dates are not publication dates. Named photos are embedded in the PDF; no individual hosted image URL or reuse permission was established.",
+      "names": [
+        {
+          "candidate_name": "Dafne",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-dafne.pdf",
+          "portfolio_context": "The breeder describes double cropping and adaptation to cool and warm conditions. Source description only; growing conditions and trial scope matter."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_technical_sheet_text_and_visual_page_review",
+        "sha256": "5668029b76250540e436f4c6d549354d3b246ec771fea89434a697ca581543d9",
+        "printed_heading": "Dafne",
+        "page_count": 1,
+        "visually_reviewed_pages": [
+          1
+        ],
+        "embedded_photo_objects": 2,
+        "directly_hosted_photo_url": null,
+        "photo_reuse": "unknown"
+      }
+    },
+    {
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "checked_on": "2026-10-08",
+      "capture_status": "names_enumerated",
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "id": "portfolio-so-sheet-dolomia-plus",
+      "title": "Sant’Orsola — Dolomia plus technical sheet",
+      "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/dolomia-plus-it.pdf",
+      "source_type": "technical_sheet",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "enumerated_scope": "One printed cultivar heading on the complete one-page original technical sheet.",
+      "limitations": "Breeder descriptions remain unreviewed source claims, not approved traits or commercial growing regions. Upload-directory dates are not publication dates. Named photos are embedded in the PDF; no individual hosted image URL or reuse permission was established.",
+      "names": [
+        {
+          "candidate_name": "Dolomia plus",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/dolomia-plus-it.pdf",
+          "portfolio_context": "The breeder describes firm fruit and suitability for mechanical harvesting. Source description only; growing conditions and trial scope matter."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_technical_sheet_text_and_visual_page_review",
+        "sha256": "00cfad43882a8805d008a607f8f58201d07f108885c3f9fe19eb8034fdd565c1",
+        "printed_heading": "Dolomia plus",
+        "page_count": 1,
+        "visually_reviewed_pages": [
+          1
+        ],
+        "embedded_photo_objects": 2,
+        "directly_hosted_photo_url": null,
+        "photo_reuse": "unknown"
+      }
+    },
+    {
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "checked_on": "2026-10-08",
+      "capture_status": "names_enumerated",
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "id": "portfolio-so-sheet-ofelia",
+      "title": "Sant’Orsola — Ofelia SO technical sheet",
+      "url": "https://www.santorsola.com/2020/wp-content/uploads/2024/02/schede-tecniche-ofelia.pdf",
+      "source_type": "technical_sheet",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "enumerated_scope": "One printed cultivar heading on the complete one-page original technical sheet.",
+      "limitations": "Breeder descriptions remain unreviewed source claims, not approved traits or commercial growing regions. Upload-directory dates are not publication dates. Named photos are embedded in the PDF; no individual hosted image URL or reuse permission was established.",
+      "names": [
+        {
+          "candidate_name": "Ofelia SO",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2024/02/schede-tecniche-ofelia.pdf",
+          "portfolio_context": "The breeder describes remontant cropping and larger, paler fruit than Dafne. Source description only; growing conditions and trial scope matter. The company list says Ofelia; this sheet says Ofelia SO. Identity is unresolved."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_technical_sheet_text_and_visual_page_review",
+        "sha256": "5c25ed90913c46ba341a82e2fbd5a9916022376c736069678b5c5c9d67c842ce",
+        "printed_heading": "Ofelia SO",
+        "page_count": 1,
+        "visually_reviewed_pages": [
+          1
+        ],
+        "embedded_photo_objects": 2,
+        "directly_hosted_photo_url": null,
+        "photo_reuse": "unknown"
+      }
+    },
+    {
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "checked_on": "2026-10-08",
+      "capture_status": "names_enumerated",
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "id": "portfolio-so-sheet-evita",
+      "title": "Sant’Orsola — Evita technical sheet",
+      "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-evita.pdf",
+      "source_type": "technical_sheet",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "enumerated_scope": "One printed cultivar heading on the complete one-page original technical sheet.",
+      "limitations": "Breeder descriptions remain unreviewed source claims, not approved traits or commercial growing regions. Upload-directory dates are not publication dates. Named photos are embedded in the PDF; no individual hosted image URL or reuse permission was established.",
+      "names": [
+        {
+          "candidate_name": "Evita",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-evita.pdf",
+          "portfolio_context": "The breeder describes vigorous plants and high yield. Source description only; growing conditions and trial scope matter."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_technical_sheet_text_and_visual_page_review",
+        "sha256": "9aa85d779d4bd22ea7951d699dd2edc718b7ceadf0027bc7f6c5f9e5a5801dac",
+        "printed_heading": "Evita",
+        "page_count": 1,
+        "visually_reviewed_pages": [
+          1
+        ],
+        "embedded_photo_objects": 2,
+        "directly_hosted_photo_url": null,
+        "photo_reuse": "unknown"
+      }
+    },
+    {
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "checked_on": "2026-10-08",
+      "capture_status": "names_enumerated",
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "id": "portfolio-so-sheet-lagorai-plus",
+      "title": "Sant’Orsola — Lagorai plus technical sheet",
+      "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-lagorai-plus.pdf",
+      "source_type": "technical_sheet",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "enumerated_scope": "One printed cultivar heading on the complete one-page original technical sheet.",
+      "limitations": "Breeder descriptions remain unreviewed source claims, not approved traits or commercial growing regions. Upload-directory dates are not publication dates. Named photos are embedded in the PDF; no individual hosted image URL or reuse permission was established.",
+      "names": [
+        {
+          "candidate_name": "Lagorai plus",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-lagorai-plus.pdf",
+          "portfolio_context": "The breeder describes floricane cropping with weak autumn fruiting at the cane tips. Source description only; growing conditions and trial scope matter."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_technical_sheet_text_and_visual_page_review",
+        "sha256": "2f1329f1e9f26611bc5fd338a283ab33ac013125f287375f27016277639a47fa",
+        "printed_heading": "Lagorai plus",
+        "page_count": 1,
+        "visually_reviewed_pages": [
+          1
+        ],
+        "embedded_photo_objects": 2,
+        "directly_hosted_photo_url": null,
+        "photo_reuse": "unknown"
+      }
+    },
+    {
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "checked_on": "2026-10-08",
+      "capture_status": "names_enumerated",
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "id": "portfolio-so-sheet-sungold",
+      "title": "Sant’Orsola — Sungold technical sheet",
+      "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/schede-tecniche-sungold-ita.pdf",
+      "source_type": "technical_sheet",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "enumerated_scope": "One printed cultivar heading on the complete one-page original technical sheet.",
+      "limitations": "Breeder descriptions remain unreviewed source claims, not approved traits or commercial growing regions. Upload-directory dates are not publication dates. Named photos are embedded in the PDF; no individual hosted image URL or reuse permission was established.",
+      "names": [
+        {
+          "candidate_name": "Sungold",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/schede-tecniche-sungold-ita.pdf",
+          "portfolio_context": "The breeder describes a yellow remontant raspberry with sweet, aromatic fruit. Source description only; growing conditions and trial scope matter."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_technical_sheet_text_and_visual_page_review",
+        "sha256": "acdd4e12299be85bc612347524ec9995ff58005c2d5a1e511a653a1c4fc43a4f",
+        "printed_heading": "Sungold",
+        "page_count": 1,
+        "visually_reviewed_pages": [
+          1
+        ],
+        "embedded_photo_objects": 1,
+        "directly_hosted_photo_url": null,
+        "photo_reuse": "unknown"
+      }
+    },
+    {
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "checked_on": "2026-10-08",
+      "capture_status": "names_enumerated",
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "id": "portfolio-so-sheet-titania",
+      "title": "Sant’Orsola — Titania technical sheet",
+      "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-titania.pdf",
+      "source_type": "technical_sheet",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "enumerated_scope": "One printed cultivar heading on the complete one-page original technical sheet.",
+      "limitations": "Breeder descriptions remain unreviewed source claims, not approved traits or commercial growing regions. Upload-directory dates are not publication dates. Named photos are embedded in the PDF; no individual hosted image URL or reuse permission was established.",
+      "names": [
+        {
+          "candidate_name": "Titania",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-titania.pdf",
+          "portfolio_context": "The breeder recommends autumn-only cropping; first-fruit size and average fruit weight are different measures. Source description only; growing conditions and trial scope matter."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_technical_sheet_text_and_visual_page_review",
+        "sha256": "7f5e29157bcf3e4eb8290445a9a0a8527ac267a2a83d9ebe026e0927a75dbc57",
+        "printed_heading": "Titania",
+        "page_count": 1,
+        "visually_reviewed_pages": [
+          1
+        ],
+        "embedded_photo_objects": 2,
+        "directly_hosted_photo_url": null,
+        "photo_reuse": "unknown"
+      }
+    },
+    {
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "checked_on": "2026-10-08",
+      "capture_status": "names_enumerated",
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "id": "portfolio-so-sheet-vajolet",
+      "title": "Sant’Orsola — Vajolet technical sheet",
+      "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-vajolet.pdf",
+      "source_type": "technical_sheet",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "enumerated_scope": "One printed cultivar heading on the complete one-page original technical sheet.",
+      "limitations": "Breeder descriptions remain unreviewed source claims, not approved traits or commercial growing regions. Upload-directory dates are not publication dates. Named photos are embedded in the PDF; no individual hosted image URL or reuse permission was established.",
+      "names": [
+        {
+          "candidate_name": "Vajolet",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-vajolet.pdf",
+          "portfolio_context": "The breeder describes early floricane production; Tulameen is a timing comparator, not an additional release. Source description only; growing conditions and trial scope matter."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_technical_sheet_text_and_visual_page_review",
+        "sha256": "c391c4f2a5971c49580414a2b40fa90f826b4ad0e126ccdc82fd70eda8f164d4",
+        "printed_heading": "Vajolet",
+        "page_count": 1,
+        "visually_reviewed_pages": [
+          1
+        ],
+        "embedded_photo_objects": 2,
+        "directly_hosted_photo_url": null,
+        "photo_reuse": "unknown"
+      }
+    },
+    {
+      "id": "portfolio-santorsola-technical-sheet-followup",
+      "title": "Sant’Orsola — remaining rights and photo follow-up",
+      "url": "https://www.santorsola.com/sperimentazione-e-breeding/",
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "All eleven original one-page technical sheets checked; remaining rights searches, identity pairing and embedded-photo reuse remain open.",
+      "limitations": "Ofelia SO original claim and fruit figure checked, but not a full rights or current-status search. Other original patents, Ofelia name pairing, directly hosted sheet photos and reuse permission remain unresolved. PDF photos remain available through original document links; no PDF URL is used as an image asset.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_primary_link_list_read",
+        "linked_documents": [
+          {
+            "name": "Delfi",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-delfi.pdf"
+          },
+          {
+            "name": "Amaranta",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-amaranta.pdf"
+          },
+          {
+            "name": "Atena",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-atena.pdf"
+          },
+          {
+            "name": "Dafne",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-dafne.pdf"
+          },
+          {
+            "name": "Dolomia Plus",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/dolomia-plus-it.pdf"
+          },
+          {
+            "name": "Ofelia",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2024/02/schede-tecniche-ofelia.pdf"
+          },
+          {
+            "name": "Evita",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-evita.pdf"
+          },
+          {
+            "name": "Lagorai Plus",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-lagorai-plus.pdf"
+          },
+          {
+            "name": "Sungold",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/schede-tecniche-sungold-ita.pdf"
+          },
+          {
+            "name": "Titania",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-titania.pdf"
+          },
+          {
+            "name": "Vajolet",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-vajolet.pdf"
+          }
+        ],
+        "full_technical_sheets_checked": true,
+        "original_technical_pages_checked": 11,
+        "embedded_named_photo_objects": 21,
+        "rights_documents_checked": false,
+        "ofelia_original_patent_pages_checked": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          8,
+          9
+        ],
+        "exclusions": [
+          {
+            "label": "Tulameen",
+            "reason": "Vajolet timing comparator, not a newly attributed release."
+          },
+          {
+            "label": "SO.LR.08.25.30",
+            "reason": "Patent parental code, not a marketed portfolio release."
+          }
+        ]
+      }
+    }
+  ]
+}
