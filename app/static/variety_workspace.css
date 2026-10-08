@@ -30,6 +30,8 @@
 .variety-photo{margin:0;flex:0 0 286px;max-width:100%;border:1px solid #adc2a0;border-radius:12px;background:#f8fbf3;overflow:hidden}
 .variety-photo-frame{height:180px;background:#e9efe2;display:grid;grid-template-rows:minmax(0,1fr);place-items:center;overflow:hidden}
 .variety-photo-frame img{width:100%;height:100%;min-height:0;max-height:180px;object-fit:contain}
+.variety-photo-zoom{display:flex;align-items:center;gap:8px;padding:6px 12px;border-bottom:1px solid #c7d5bc;font-size:12px;color:#34543c}
+.variety-photo-zoom[hidden]{display:none}.variety-photo-zoom input{min-width:0;flex:1;accent-color:#126039}.variety-photo-zoom output{min-width:24px;text-align:right;font-variant-numeric:tabular-nums}
 .variety-photo-frame span{padding:16px;color:#34543c;font-size:13px}
 .variety-photo-frame [hidden]{display:none}
 .variety-photo-frame[hidden]{display:none}

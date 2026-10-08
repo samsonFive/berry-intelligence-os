@@ -11,11 +11,15 @@ function page(storage, { blocked = false, image = 'https://publisher.test/a.jpg'
       addEventListener(event, action) { assert.equal(event, 'click'); this.click = action; } };
     const status = {};
     const fallback = { hidden: true };
-    const figure = { scrolls: [], scrollIntoView(options) { this.scrolls.push(options); } };
+    const zoomInput = { value: '1' };
+    const zoomOutput = {};
+    const zoom = { hidden: true, querySelector(selector) { return selector === 'input' ? zoomInput : selector === 'output' ? zoomOutput : null; } };
+    const figure = { scrolls: [], scrollIntoView(options) { this.scrolls.push(options); },
+      querySelector(selector) { return selector === '[data-photo-zoom]' ? zoom : null; } };
     const frame = { hidden: true, img: null, querySelector(selector) {
       return selector === 'img' ? this.img : selector === 'span' ? fallback : null;
-    }, prepend(img) { this.img = img; img.parent = this; } };
-    return { button, frame, status, fallback, figure,
+    }, prepend(img) { this.img = img; img.parent = this; }, closest() { return figure; } };
+    return { button, frame, status, fallback, figure, zoom, zoomInput, zoomOutput,
       closest(selector) { assert.equal(selector, 'figure'); return figure; },
       dataset: { sourceUrl: source, imageUrl, caption: 'A credited, named fruit photo' },
       querySelector(selector) { return { '[data-photo-session-toggle]': button,
@@ -28,7 +32,10 @@ function page(storage, { blocked = false, image = 'https://publisher.test/a.jpg'
     querySelectorAll(selector) { return selector === '[data-photo-session]' ? containers : []; },
     createElement(tag) {
       assert.equal(tag, 'img'); created++;
-      return { hidden: false, events: {}, addEventListener(name, action) { this.events[name] = action; },
+      return { hidden: false, style: {}, events: {}, addEventListener(name, action) {
+        const previous = this.events[name];
+        this.events[name] = previous ? () => { previous(); action(); } : action;
+      },
         remove() { this.parent.img = null; } };
     }
   };
@@ -57,6 +64,20 @@ assert.equal(first.containers[0].figure.scrolls[0].inline, 'start');
 assert.equal(first.containers[0].figure.scrolls[0].block, 'nearest');
 assert.equal(first.containers[1].figure.scrolls.length, 0);
 assert.equal(storage.size, 1);
+const chosen = first.containers[0];
+assert.ok(chosen.zoom.hidden); // A choice does not pretend an unavailable photo loaded.
+chosen.frame.img.naturalWidth = 375;
+chosen.frame.img.events.load();
+assert.equal(chosen.zoom.hidden, false);
+chosen.zoomInput.value = '4'; chosen.zoomInput.oninput();
+assert.equal(chosen.frame.img.style.transform, 'scale(4)');
+assert.equal(chosen.zoomOutput.textContent, '4×');
+assert.equal(chosen.frame.img.src, 'https://publisher.test/a.jpg');
+assert.equal(storage.size, 1); // Zoom has no persistent or permission effect.
+chosen.zoomInput.value = '100'; chosen.zoomInput.oninput();
+assert.equal(chosen.frame.img.style.transform, 'scale(5)');
+chosen.zoomInput.value = 'invalid'; chosen.zoomInput.oninput();
+assert.equal(chosen.frame.img.style.transform, 'scale(1)');
 
 const reload = page(storage);
 assert.equal(reload.created(), 1); // Same tab session retains the exact chosen asset.
@@ -67,6 +88,7 @@ assert.equal(page(storage, { source: 'https://publisher.test/replacement' }).cre
 assert.equal(page(new Map()).created(), 0); // A fresh session has no override.
 reload.containers[0].button.click();
 assert.equal(reload.containers[0].frame.img, null);
+assert.ok(reload.containers[0].zoom.hidden);
 assert.equal(reload.containers[0].button.attributes['aria-pressed'], 'false');
 assert.equal(reload.containers[0].figure.scrolls.length, 0); // Hiding does not jump the page.
 assert.equal(storage.size, 0);
@@ -79,6 +101,7 @@ assert.match(noStorage.containers[0].status.textContent, /this view.*Permission 
 noStorage.containers[0].frame.img.events.error();
 assert.ok(noStorage.containers[0].frame.img.hidden);
 assert.equal(noStorage.containers[0].fallback.hidden, false);
+assert.ok(noStorage.containers[0].zoom.hidden);
 noStorage.containers[0].button.click();
 assert.ok(noStorage.containers[0].frame.hidden);
 assert.equal(storage.size, 0);

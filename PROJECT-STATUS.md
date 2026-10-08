@@ -1,5 +1,24 @@
 # Project Status
 
+October 8 Black Venture Farm original portfolio continuation: the complete
+low-chill and pipeline panels add 21 literal names/codes across four crops.
+The company table labels 11 pipeline selections separately from ten offerings,
+supports code search and exact review handoff. Nine original named cutout photos
+retain attribution, hidden default, unknown reuse and session-only preview.
+A compact keyboard-accessible zoom control makes padded source images usable
+without altering source assets, persisting permission or approving identity.
+No company role, release date, trait, region or rights decision is inferred.
+Real audit: 231 sections / 953 occurrences / 62 text matches / 891 review needs /
+700 proposed keys (63 stored / 637 primary); catalog remains 64 mixed-status.
+53/77 registry entries partly checked, 24 enumeration gaps, 47 source follow-ups.
+85 focused tests pass (79.43s, one existing warning); records validate; all 2,771
+original JSON files and expansion guide unchanged. Native table/code search,
+actual Urani handoff, photo reveal/refresh/hide and zoom checked. Parent #351 has
+all four green checks (4,323 tests); this child needs exact-head full checks.
+See BLACKVENTURE-ORIGINAL-VARIETIES-REVIEW.md. CAT-01/CAT-02/TD-116 remain open:
+source/code/rights depth, remaining photos, independent recall and human catalog
+authoring. No completeness claim, merge/deploy or other-berry Landscape rollout.
+
 October 8 EU Plants original YANA continuation: all ten pages of original
 USPP34772P3 were read and visually checked, including its single cultivar claim
 and seven drawing plates. The existing company Varieties table links one named
