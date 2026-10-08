@@ -1,0 +1,388 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-familytree-historical-blueberry-sheet",
+      "title": "Family Tree Farms — historical blueberry sales sheet",
+      "url": "https://familytreefarms.com/pdf/BlueberrySalesSheet.pdf",
+      "company_ids": [
+        "company-family-tree-farms"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_sales_sheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Four literal labels in page 1's named blueberry bullet list; historical, not a current lifetime portfolio.",
+      "limitations": "Historical source only. File creation metadata is 2011-04-19, not a verified publication date. Current growing use, rights, company roles and cultivar footprint are not established. The 2010–2020 forecast is not actual production; packaging, nursery and tunnel images do not identify individual cultivars.",
+      "names": [
+        {
+          "candidate_name": "Star",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://familytreefarms.com/pdf/BlueberrySalesSheet.pdf#page=1",
+          "portfolio_context": "Named in an older Family Tree Farms blueberry sales sheet; current cultivar use is not established."
+        },
+        {
+          "candidate_name": "Spring High",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://familytreefarms.com/pdf/BlueberrySalesSheet.pdf#page=1",
+          "portfolio_context": "Named in an older Family Tree Farms blueberry sales sheet; current cultivar use is not established. Keep the source spelling Spring High; a spaced label does not approve an alias for Springhigh."
+        },
+        {
+          "candidate_name": "Snow Chaser",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://familytreefarms.com/pdf/BlueberrySalesSheet.pdf#page=1",
+          "portfolio_context": "Named in an older Family Tree Farms blueberry sales sheet; current cultivar use is not established. The sheet spells Snow Chaser with a space; Fall Creek lists Snowchaser. Check the original names before combining them."
+        },
+        {
+          "candidate_name": "Bluecrisp",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://familytreefarms.com/pdf/BlueberrySalesSheet.pdf#page=1",
+          "portfolio_context": "Named in an older Family Tree Farms blueberry sales sheet; current cultivar use is not established."
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_pdf_text_and_all_pages_visual_review",
+        "sha256": "b013bd375b790f1e8faf1990a43362f036eb703b0c448887769bebc02a9e41e5",
+        "page_count": 2,
+        "visually_checked_pages": [
+          1,
+          2
+        ],
+        "document_creation_metadata": "2011-04-19",
+        "publication_date_verified": false,
+        "non_portfolio_context": [
+          "Page 2's 2010–2020 production forecast is not actual production or a cultivar footprint.",
+          "California, Mexico, West Hills and tunnel production are source context, not approved named-variety regions.",
+          "Packaging, nursery and tunnel photos do not identify which named variety is pictured; no gallery asset added.",
+          "Snow Chaser versus Snowchaser and Spring High versus Springhigh require review; no aliases inferred."
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gap-familytree-current-blueberry",
+      "title": "Family Tree Farms — current blueberry product labels",
+      "url": "https://familytreefarms.com/fruit/blueberries/",
+      "company_ids": [
+        "company-family-tree-farms"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_sales_sheet",
+      "capture_status": "partial",
+      "enumerated_scope": "Three current product headings checked; no cultivar denominations disclosed by these headings.",
+      "limitations": "Current product headings are market categories without literal cultivar denominations. Generic fruit photos, year-round availability and exclusivity claims do not establish cultivar identity, image assignment, rights or growing footprint.",
+      "names": [],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [
+          {
+            "label": "Premier Blues",
+            "reason": "Product category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Premier Jumbo Blues",
+            "reason": "Product category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Premier Organic Blues",
+            "reason": "Product category, not a literal cultivar denomination."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_current_primary_page_complete_body_review",
+        "non_portfolio_context": [
+          "Jumboz is a market label in the body, not an identified cultivar."
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gap-familytree-current-industry",
+      "title": "Family Tree Farms — current berry availability sections",
+      "url": "https://familytreefarms.com/industry/",
+      "company_ids": [
+        "company-family-tree-farms"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_sales_sheet",
+      "capture_status": "partial",
+      "enumerated_scope": "Blueberry, raspberry and blackberry availability sections checked; six crop/organic category labels, not cultivar lists.",
+      "limitations": "Blueberry/raspberry/blackberry rows are crop categories and availability calendars. Named plumcots/apriums are outside the berry scope. Do not convert their names or farm locations into berry varieties or cultivar footprints.",
+      "names": [],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "Blueberries",
+            "reason": "Crop/organic category in an availability calendar, not a cultivar."
+          },
+          {
+            "label": "Organic Blueberries",
+            "reason": "Crop/organic category in an availability calendar, not a cultivar."
+          },
+          {
+            "label": "Blackberries",
+            "reason": "Crop/organic category in an availability calendar, not a cultivar."
+          },
+          {
+            "label": "Organic Blackberries",
+            "reason": "Crop/organic category in an availability calendar, not a cultivar."
+          },
+          {
+            "label": "Raspberries",
+            "reason": "Crop/organic category in an availability calendar, not a cultivar."
+          },
+          {
+            "label": "Organic Raspberries",
+            "reason": "Crop/organic category in an availability calendar, not a cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "complete_primary_web_body_review"
+      }
+    },
+    {
+      "id": "portfolio-gap-familytree-association-brochure",
+      "title": "Family Tree Farms — association brochure access gap",
+      "url": "https://www.berriesza.co.za/download/2721/?tmstv=1771510000",
+      "company_ids": [
+        "company-family-tree-farms"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_sales_sheet",
+      "capture_status": "unreadable",
+      "enumerated_scope": "Association download lead returned a request-verification screen; original brochure body not read.",
+      "limitations": "The association download returned a request-verification access screen, not the brochure body. No bypass, download, cultivar import or image assignment attempted. Cached search snippet is a lead only.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "primary_association_link_web_body_review",
+        "body_available": false
+      }
+    },
+    {
+      "id": "portfolio-miyoshi-19fag1-english-sheet",
+      "title": "Miyoshi — Berry Pop SAKURA original technical sheet",
+      "url": "https://miyoshi-strawberry.jp/cp/wp-content/uploads/2021/01/19fag1_en.pdf",
+      "company_ids": [
+        "company-miyoshi-group"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "technical_sheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal variety code and displayed market label in the complete one-page English sheet; not a lifetime portfolio.",
+      "limitations": "Source pairs 19FAG-1 with Berry Pop SAKURA; no approved alias or equivalence to Japanese history labels. The printed revision is Ver.2, 8 March 2021, not a verified publication date. Domestic Japanese comparative data is not a universal trait or commercial growing region. Embedded fruit photos remain original-document references; separate hosted image URLs and reuse permission are not established.",
+      "names": [
+        {
+          "candidate_name": "19FAG-1",
+          "breeder_code": "19FAG-1",
+          "trade_name": "Berry Pop SAKURA",
+          "display_label": "Berry Pop SAKURA",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://miyoshi-strawberry.jp/cp/wp-content/uploads/2021/01/19fag1_en.pdf",
+          "portfolio_context": "The 2021 English sheet displays Berry Pop SAKURA with variety code 19FAG-1. Its comparisons are based on tests in Japan; Benihope is a comparator. The original sheet includes named fruit pictures. Review the code/market-label pairing before accepting an alias."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_technical_sheet_complete_visual_review",
+        "sha256": "74566afa74b78aea26151467a555b5f28b3937e5428af66e5da5738e52a1c7e5",
+        "page_count": 1,
+        "visually_checked_pages": [
+          1
+        ],
+        "sheet_revision": "Ver.2 · 8 Mar 2021",
+        "sheet_revision_date": "2021-03-08",
+        "publication_date_verified": false,
+        "non_portfolio_context": [
+          "Benihope is a sourness comparator, not another company release from this sheet.",
+          "The sheet says its data is based on domestic comparative tests in Japan; Brix, temperature and harvesting windows are source claims, not universal traits or commercial footprint.",
+          "Filename 19fag1 is not the literal sheet code 19FAG-1 and must not create another identity.",
+          "Berry Pop is a series; Japanese history labels are not automatically equivalent to this English label.",
+          "Named fruit photos are embedded in the original PDF. No separately hosted image URL or reuse permission established; footer reserves all rights."
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gap-miyoshi-japanese-history",
+      "title": "Miyoshi — Japanese history page unavailable",
+      "url": "https://www.miyoshi-group.co.jp/75th/product_history/strawberry/",
+      "company_ids": [
+        "company-miyoshi-group"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "unreadable",
+      "enumerated_scope": "Native primary page unavailable; cached labels are research leads only, not an enumerated current portfolio.",
+      "limitations": "Native primary history currently shows Under Maintenance. Cached Japanese labels are unimported historical research leads; do not claim a current readable portfolio or use cached images. English technical sheets still need full text and visual review.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "cached_web_body_compared_to_native_maintenance_page",
+        "body_available": false
+      }
+    },
+    {
+      "id": "portfolio-gap-miyoshi-current-cultivars",
+      "title": "Miyoshi — current cultivar page unavailable",
+      "url": "https://miyoshi-strawberry.jp/cultivars/",
+      "company_ids": [
+        "company-miyoshi-group"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "unreadable",
+      "enumerated_scope": "Native primary page unavailable; cached labels are research leads only, not an enumerated current portfolio.",
+      "limitations": "Native page shows database connection error. Search snippet is not a complete page; no names imported from it.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "web_body_error_and_native_browser_database_error",
+        "body_available": false
+      }
+    },
+    {
+      "id": "portfolio-gap-rijk-corporate-crops",
+      "title": "Rijk Zwaan — corporate crop index scope gap",
+      "url": "https://www.rijkzwaan.com/en/page/crops",
+      "company_ids": [
+        "company-rijk-zwaan"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Twenty corporate crop headings checked; no berry cultivar list exposed by this index.",
+      "limitations": "Twenty crop headings do not expose berry cultivars. Bounded primary search supplied no named strawberry list. Keep berry-portfolio check open; this is not proof that there is no berry breeding programme.",
+      "names": [],
+      "accounting": {
+        "observed_items": 20,
+        "exclusions": [
+          {
+            "label": "Aubergine",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Beetroot",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Brassica",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Carrot",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Celery",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Chard",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Cucumber",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Lettuce",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Melon",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Spinach",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Sweet pepper",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Tomato",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Radish",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Rocket",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Rootstock",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Watermelon",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Zucchini",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Beans",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Celeriac",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          },
+          {
+            "label": "Endive",
+            "reason": "Corporate crop category, not a named berry cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "complete_primary_crop_index_web_body_review"
+      }
+    }
+  ]
+}

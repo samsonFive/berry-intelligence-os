@@ -39,10 +39,10 @@
     <small>{{ row.source_label }}</small>
   </summary><div class="variety-section-body">
   <p class="v2-company-meta">
-    <span class="badge">{{ 'Identity unresolved' if row.portfolio_identity_notes and not row.human_gated else row.identity_label }}</span>
+    <span class="badge">{{ 'Identity unresolved' if row.portfolio_identity_notes and not row.human_gated else 'Needs identity review' if not row.human_gated and row.identity_state == 'distinct' else row.identity_label }}</span>
     <span class="badge">Candidate (untrusted)</span>
-    {% if row.discovered_from == "corpus" %}<span class="badge">{{ "Article name check" if row.knowledge.source_text_basis else "Corpus discovery" }}</span>{% endif %}
-    {% if row.persisted == false %}<span class="badge">Not yet in inbox</span>{% endif %}
+    {% if row.discovered_from == "corpus" %}<span class="badge">{{ "Article name check" if row.knowledge.source_text_basis else "Found in stored sources" }}</span>{% endif %}
+    {% if row.persisted == false %}<span class="badge">Not saved</span>{% endif %}
     {% if row.berry_id %}<span class="v2-chip v2-chip-berry">{{ berry_label(row.berry_id) if berry_label is defined else row.berry_id }}</span>{% endif %}
     {% if row.jurisdiction %}<span class="v2-meta">{{ row.jurisdiction }}</span>{% endif %}
     <span class="v2-meta">{{ row.source_label }}</span>
@@ -55,7 +55,7 @@
   <dl class="v2-role-list">
     <dt>Source</dt><dd>{% if row.source_url %}<a href="{{ row.source_url }}">{{ row.source_url }}</a>{% else %}{{ row.source_label or "Source not recorded" }}{% endif %}</dd>
     {% if row.external_collection %}<dt>Public collection lead</dt><dd><b>{{ row.external_collection.source_name }}</b> · checked {{ row.external_collection.checked_on }}<br><small>{{ row.external_collection.limitations }}</small><details><summary>{{ row.external_collection.references|length }} source collection {{ 'record' if row.external_collection.references|length == 1 else 'records' }}</summary>{% for ref in row.external_collection.references %}<p>{{ ref.unique_name }} · {{ ref.organism }}{% if ref.institutional_name %} · {{ ref.institutional_name }}{% endif %}</p>{% endfor %}</details></dd>{% endif %}
-    <dt>Denomination / code</dt><dd>{{ row.denomination or "—" }} {% if row.breeder_code %}· {{ row.breeder_code }}{% endif %}</dd>
+    <dt>Denomination / code</dt><dd>{{ row.denomination or row.breeder_code or "—" }}{% if row.denomination and row.breeder_code and row.breeder_code != row.denomination %} · {{ row.breeder_code }}{% endif %}</dd>
     <dt>Applicant / breeder</dt><dd>{{ row.breeder_owner or row.applicant or "—" }}</dd>
     {% if row.knowledge.company_associations %}<dt>Companies in your registry</dt><dd>{% for item in row.knowledge.company_associations %}<a href="/entities/{{ item.entity_type }}/{{ item.entity_id }}">{{ item.name }}</a>{% if not loop.last %} &middot; {% endif %}{% endfor %}<br>Association supplied in your photos; role and spelling still need confirmation.</dd>{% endif %}
     {% if row.knowledge.source_companies %}<dt>Companies mentioned by the source</dt><dd>{% for item in row.knowledge.source_companies %}<a href="/entities/company/{{ item.entity_id }}">{{ item.name }}</a>{% if not loop.last %} · {% endif %}{% endfor %}<small>Source context, not an approved breeder or owner relationship.</small></dd>{% endif %}
@@ -72,7 +72,7 @@
           {% if source.grant_date %} · Granted <time datetime="{{ source.grant_date }}">{{ source.grant_date }}</time>{% endif %}
         </small>{% endif %}
         {% if source.portfolio_context %}<br>{{ source.portfolio_context }}{% endif %}<br><small>{% if source.published_date %}Published <time datetime="{{ source.published_date }}">{{ source.published_date }}</time>. {% endif %}Checked <time datetime="{{ source.checked_on }}">{{ source.checked_on }}</time>.</small>
-      </p>{% endfor %}<small>Name observations awaiting review; no company role approved. Filing dates describe the source document; current rights still need review.</small></dd>{% endif %}
+      </p>{% endfor %}<small>Name observations awaiting review; no company role approved.{% if row.portfolio_sources|selectattr('source_type', 'equalto', 'plant_patent')|list %} Filing dates describe the source document; current rights still need review.{% endif %}</small></dd>{% endif %}
     <dt>Registration</dt>
     <dd>
       {{ row.registration.application_number or "—" }}

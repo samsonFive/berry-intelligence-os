@@ -1,5 +1,22 @@
 # Project Status
 
+October 8 Family Tree Farms / Miyoshi source continuation: eight bounded
+source sections add four historical Family Tree Farms blueberry labels and
+Miyoshi's 19FAG-1 / Berry Pop SAKURA source pairing. Existing Star identity,
+saved registration and human decisions win; Snow Chaser remains separate from
+Snowchaser pending review. Product categories, comparator Benihope and cached
+Japanese labels are excluded. Current inaccessible pages remain explicit gaps.
+Real audit: 170 sections / 824 occurrences / 57 text matches / 767 review needs /
+635 candidate keys; catalog 64. Registry: 44/77 partly checked, 33 initial checks
+and 30 source follow-ups remain. No new photo assets or public image approvals.
+Company search, alphabet/reset and candidate handoff pass native browser review.
+Review badges use plain language and patent cautions appear only for patents.
+All 94 final focused tests pass (57.32s); records and all 1,992 original JSON
+files validate/preserve. The expansion guide is unchanged. Parent draft #343's
+four exact-head gates are green (4,280 tests); this draft needs its own gates.
+CAT-01/CAT-02/TD-116 remain open. No merge/deploy or other-berry rollout.
+See FAMILYTREE-MIYOSHI-SOURCE-VARIETIES-REVIEW.md. Earlier counts are historical.
+
 October 8 source-specific patent continuation: later original patent
 references now show their own claim links and filing/grant metadata without
 replacing existing candidate IDs or saved registration, aliases or decisions.
