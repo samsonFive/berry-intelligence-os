@@ -1994,6 +1994,23 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 7 release/patent photo follow-up: three source-labeled images from
+the USDA Keepsake strawberry release and FC11-164 patent figure now reach private
+galleries with individual session-only Ignore permission controls. Strawberry
+Keepsake stays separate from blueberry Keepsake. A misleading cross-crop catalog
+shortcut is corrected; catalog preparation remains blocked until crop-specific
+creation can preserve the generic writer's duplicate guard. No saved permission,
+human identity, canonical variety, rights or region decision changes.
+106 focused checks, session JavaScript and record validation pass; native desktop
+loads and reversible photo choices are verified without runtime file changes.
+Current coverage: 64 catalog varieties, 53 sections, 540 occurrences, 34 text
+matches, 506 review needs, 450 derived candidate keys before private state.
+Ten source photos: nine held and zero approved public; 55 initial company checks
+and seven follow-ups remain. Mobile acceptance of these new views is unverified.
+See VARIETY-RELEASE-PATENT-PHOTO-REVIEW.md. CAT-01/CAT-02/TD-116 remain open;
+exact-head CI is recorded with the draft. No merge/deploy/other-berry rollout.
+
+
 October 7 patent Reader repair: a real FC11-164 source capture returned only a
 legal-event note while its original document contained an abstract, description
 and claim. The shared live Reader now preserves bounded plain-text document
