@@ -1,5 +1,27 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+October 8 G-Berries original-source recovery: the earlier failed homepage
+capture is superseded by an original native-browser read, preserving its
+historical version. Three explicit crop selectors, GIL page and six complete
+original PDFs (18 pages, all visually checked) provide fifteen named occurrences
+for eight offering labels. Company code search finds ALEL045/EasyStar and
+ALEL111/EasyRock without approving denomination or aliases. Program/club labels,
+nurseries and legacy comparison-table varieties are not extra company offerings.
+PDF Tafí and website Tafì spellings remain source-specific; no human identity
+approval. Original sheet links expose brochure details; patent wording is not
+an official register finding. Named PDF photos remain source leads requiring
+private embedded-document image support/reuse review, with no new assets.
+Real audit: 217 sections / 912 occurrences / 62 text matches / 850 review needs /
+669 proposed keys (63 stored / 606 primary); catalog remains 64 mixed-status.
+50/77 registry entries partly checked; 27 need enumeration; 47 source follow-ups,
+including G-Berries' unnamed blackberry program. All prior anchors and 1,992
+original JSON files, user decisions/notes/registration and expansion guide remain
+unchanged. 60 focused tests pass (34.07s; one existing warning); native code search
+and exact EasyStar handoff pass. This draft needs its own pushed-head checks.
+Parent draft #347 is green: 4,304 passed / 11 skipped / 2 warnings.
+See GBERRIES-ORIGINAL-VARIETIES-REVIEW.md. CAT-01/CAT-02/TD-116 remain open;
+no global completeness claim, merge, deployment or other-berry Landscape rollout.
+
 October 8 Mattivi source/photo continuation: twelve original portfolio and
 detail pages provide sixteen named occurrences for eight offering labels
 across all four berries. Six displayed name/code pairs remain contextual and

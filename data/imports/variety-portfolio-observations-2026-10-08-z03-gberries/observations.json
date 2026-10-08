@@ -1,0 +1,576 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-g-berries-retrieval-gap",
+      "title": "G-Berries — homepage recovered",
+      "url": "https://www.gberries.it/",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original homepage; no cultivar names enumerated on homepage.",
+      "limitations": "Earlier web-reader timeout recovered in native browser. Historical failed capture retained in the earlier manifest. Four fruits/five programs/nine projects/twelve nurseries are marketing totals, not cultivar counts; no empty-portfolio conclusion.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true
+      },
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-gberries-raspberry-program",
+      "title": "G-Berries — raspberry program",
+      "url": "https://www.gberries.it/programs/",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original raspberry program after selecting Raspberry; repeated legend names counted once.",
+      "limitations": "Company performance, climate and Lucchini collaboration statements remain unreviewed. Original linked sheets are separately enumerated.",
+      "names": [
+        {
+          "candidate_name": "Enrosadira",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.gberries.it/programs/",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved."
+        },
+        {
+          "candidate_name": "Dorotea",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.gberries.it/programs/",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved."
+        },
+        {
+          "candidate_name": "Halley",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.gberries.it/programs/",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved."
+        },
+        {
+          "candidate_name": "EasyStar",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.gberries.it/programs/",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved."
+        },
+        {
+          "candidate_name": "EasyRock",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.gberries.it/programs/",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true
+      },
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": [
+          {
+            "label": "Legacy is gold",
+            "reason": "Program label, not cultivar."
+          },
+          {
+            "label": "GIL Program",
+            "reason": "Program label, not cultivar."
+          },
+          {
+            "label": "Easy concept",
+            "reason": "Program label, not cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gberries-blackberry-program",
+      "title": "G-Berries — blackberry development",
+      "url": "https://www.gberries.it/programs/",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original Blackberry selector; no literal cultivar names.",
+      "limitations": "Named-variety enumeration remains open; program founded in 2022 is a company assertion, not a release or evidence of an empty portfolio.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": [
+          {
+            "label": "Blackberry Development Program",
+            "reason": "Program, not a named cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gberries-blueberry-program",
+      "title": "G-Berries — blueberry program",
+      "url": "https://www.gberries.it/programs/",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original Blueberry selector; original Naike/Tafì links point to one eight-page PDF.",
+      "limitations": "Naike and Tafì described as coming; no current availability or release date inferred. Cuna ownership, exclusive Italy/Greece management and authorized nursery are source claims, not approved roles or growing footprints.",
+      "names": [
+        {
+          "candidate_name": "Cupla",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.gberries.it/programs/",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved."
+        },
+        {
+          "candidate_name": "Naike",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.gberries.it/programs/",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved."
+        },
+        {
+          "candidate_name": "Tafì",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.gberries.it/programs/",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved. Website uses Tafì; PDF uses Tafí. Spelling difference unreviewed, no approved alias."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true
+      },
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": [
+          {
+            "label": "Naike Blueberry Club",
+            "reason": "Club/brand, not an additional cultivar."
+          },
+          {
+            "label": "Molari Società Agricola",
+            "reason": "Nursery organization, not cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gberries-gil-program",
+      "title": "G-Berries — GIL program",
+      "url": "https://www.gberries.it/gil-program/",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original program body; no cultivar denominations.",
+      "limitations": "Partner/nursery names, program video and licensed network are not cultivar names. No form submission, source onboarding or automatic company role.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "GIL",
+            "reason": "Organization or program, not cultivar."
+          },
+          {
+            "label": "Molari Società Agricola",
+            "reason": "Organization or program, not cultivar."
+          },
+          {
+            "label": "Van Der Avoird Trayplant",
+            "reason": "Organization or program, not cultivar."
+          },
+          {
+            "label": "Dole Diversified",
+            "reason": "Organization or program, not cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gberries-naike-tafi-sheet",
+      "title": "G-Berries — Naike and Tafí technical sheet",
+      "url": "https://www.gberries.it/download/2982/",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete eight-page original PDF text plus visual review of every page.",
+      "limitations": "Fruit/plant photos are named source leads with unknown reuse, not added assets. Yield/size/adaptation charts and FAUBA/EARLYCROP ownership/exclusivity wording are unreviewed brochure assertions, not official patent/register records.",
+      "names": [
+        {
+          "candidate_name": "Naike",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.gberries.it/download/2982/",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved."
+        },
+        {
+          "candidate_name": "Tafí",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.gberries.it/download/2982/",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved. PDF uses Tafí while program uses Tafì; exact labels retained without approved alias."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 8,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "sha256": "ac4d08f594cba74fbd5c56d5dfb582749b6500fa93910baf15ea06621633c3da",
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "Naike Blueberry Club",
+            "reason": "Club brand, not third variety."
+          },
+          {
+            "label": "FAUBA",
+            "reason": "Institution, not cultivar."
+          },
+          {
+            "label": "EARLYCROP S.A.",
+            "reason": "Organization, not cultivar."
+          },
+          {
+            "label": "Molari Società Agricola",
+            "reason": "Nursery, not cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gberries-enrosadira-sheet",
+      "title": "G-Berries — Enrosadira original technical sheet",
+      "url": "https://www.gberries.it/download/1047/?tmstv=1680099955",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete two-page original PDF text and visual review; named sheet focus distinct from comparison table.",
+      "limitations": "Named photos are unknown-reuse leads, not assets. Molari and Lucchini credits/nurseries do not approve breeder or licensing roles. Historical comparison data dated 2018/2019 is not a release date or current performance. Company patent/trait/harvest assertions remain unreviewed.",
+      "names": [
+        {
+          "candidate_name": "Enrosadira",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.gberries.it/download/1047/?tmstv=1680099955",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 2,
+        "visually_checked_pages": [
+          1,
+          2
+        ],
+        "sha256": "c47b3c72c63a2c67f035cb22d324b42ef1ad858457585f9736903b91799b357c",
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [
+          {
+            "label": "Halley",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Castion",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Dorotea",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Aurora",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Polka",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Autumn Bliss",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gberries-dorotea-sheet",
+      "title": "G-Berries — Dorotea original technical sheet",
+      "url": "https://www.gberries.it/download/1049/?tmstv=1680099968",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete two-page original PDF text and visual review; named sheet focus distinct from comparison table.",
+      "limitations": "Named photos are unknown-reuse leads, not assets. Molari and Lucchini credits/nurseries do not approve breeder or licensing roles. Historical comparison data dated 2018/2019 is not a release date or current performance. Company patent/trait/harvest assertions remain unreviewed.",
+      "names": [
+        {
+          "candidate_name": "Dorotea",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.gberries.it/download/1049/?tmstv=1680099968",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 2,
+        "visually_checked_pages": [
+          1,
+          2
+        ],
+        "sha256": "2b7aeb15fa69c12d07b2fe24f466a1c4092f6782e8aefc6708e8edbe8881ba67",
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [
+          {
+            "label": "Enrosadira",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Halley",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Castion",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Aurora",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Polka",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Autumn Bliss",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gberries-halley-sheet",
+      "title": "G-Berries — Halley original technical sheet",
+      "url": "https://www.gberries.it/download/1051/?tmstv=1680099980",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete two-page original PDF text and visual review; named sheet focus distinct from comparison table.",
+      "limitations": "Named photos are unknown-reuse leads, not assets. Molari and Lucchini credits/nurseries do not approve breeder or licensing roles. Historical comparison data dated 2018/2019 is not a release date or current performance. Company patent/trait/harvest assertions remain unreviewed.",
+      "names": [
+        {
+          "candidate_name": "Halley",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.gberries.it/download/1051/?tmstv=1680099980",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 2,
+        "visually_checked_pages": [
+          1,
+          2
+        ],
+        "sha256": "1270e4093d35a7466401e2ff1d9cb5e3d32bc84576211cd55eb519203691845d",
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [
+          {
+            "label": "Enrosadira",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Castion",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Dorotea",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Aurora",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Polka",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          },
+          {
+            "label": "Autumn Bliss",
+            "reason": "Comparative ripening/weight table label, not an additional offered cultivar in this named sheet."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gberries-easystar-sheet",
+      "title": "G-Berries — EasyStar original technical sheet",
+      "url": "https://www.gberries.it/download/1053/?tmstv=1680099849",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete two-page original PDF text and visual review; named sheet focus distinct from comparison table.",
+      "limitations": "Named photos are unknown-reuse leads, not assets. Molari and Lucchini credits/nurseries do not approve breeder or licensing roles. Historical comparison data dated 2018/2019 is not a release date or current performance. Company patent/trait/harvest assertions remain unreviewed.",
+      "names": [
+        {
+          "candidate_name": "EasyStar",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.gberries.it/download/1053/?tmstv=1680099849",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved. Named header pairs EasyStar with ALEL045; retain contextual code, not approved denomination or alias. Vegetable patent registered wording has no official application number in this sheet.",
+          "display_label": "EasyStar · ALEL045"
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 2,
+        "visually_checked_pages": [
+          1,
+          2
+        ],
+        "sha256": "9364f48eb046e4ecd1c6b11a55cd52393cb543b7b4c6462157d20781fb459bad",
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "ALEL045",
+            "reason": "Paired code contextual, not extra offered cultivar or approved alias."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gberries-easyrock-sheet",
+      "title": "G-Berries — EasyRock original technical sheet",
+      "url": "https://www.gberries.it/download/1055/?tmstv=1680099933",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete two-page original PDF text and visual review; named sheet focus distinct from comparison table.",
+      "limitations": "Named photos are unknown-reuse leads, not assets. Molari and Lucchini credits/nurseries do not approve breeder or licensing roles. Historical comparison data dated 2018/2019 is not a release date or current performance. Company patent/trait/harvest assertions remain unreviewed.",
+      "names": [
+        {
+          "candidate_name": "EasyRock",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.gberries.it/download/1055/?tmstv=1680099933",
+          "portfolio_context": "Named in the original G-Berries program. Offering association unreviewed; no canonical company role, trait or current rights approved. Named header pairs EasyRock with ALEL111; retain contextual code, not approved denomination or alias. Vegetable patent registered wording has no official application number in this sheet.",
+          "display_label": "EasyRock · ALEL111"
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 2,
+        "visually_checked_pages": [
+          1,
+          2
+        ],
+        "sha256": "3e319e6c526adf17fc84e1c8dfd71e70e0b7edb69e76e24c81073646e076e62c",
+        "rights_claim_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "ALEL111",
+            "reason": "Paired code contextual, not extra offered cultivar or approved alias."
+          }
+        ]
+      }
+    }
+  ]
+}

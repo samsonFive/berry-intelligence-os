@@ -54,7 +54,10 @@ def test_historical_newsletter_dates_are_not_current_release_or_rights_dates():
     assert all(not c['registration']['grant_date'] and not c['registration']['expiry'] for c in candidates)
 
 def test_all_existing_ids_and_human_registration_rejection_survive_the_new_references():
-    all_sources=load_portfolio_observations(DATA)
+    # This historical batch is tested against its predecessors. Later G-Berries
+    # references also name Cupla; including them only in the hypothetical old
+    # baseline would make them its first source and test an impossible order.
+    all_sources=[s for s in load_portfolio_observations(DATA) if not s['id'].startswith('portfolio-gberries-')]
     _,old=reconcile_portfolios(sources=[s for s in all_sources if s['id'] not in IDS],varieties=[],entities=[],candidates=[])
     _,new=reconcile_portfolios(sources=all_sources,varieties=[],entities=[],candidates=[])
     keys={(c['berry_id'],c['candidate_name']):c['id'] for c in new}
