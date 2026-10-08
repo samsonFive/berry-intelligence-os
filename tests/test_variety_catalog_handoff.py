@@ -172,6 +172,22 @@ def test_ambiguous_aliases_cannot_prepare_a_third_record(workspace):
     assert snapshot() == before
 
 
+def test_cross_crop_name_cannot_link_or_publish_into_existing_variety(workspace):
+    client, candidate, repos = workspace
+    draft_id = create_draft(client, candidate)
+    existing = {"id": "variety-strawberry-homonym", "record_type": "entity", "entity_type": "variety",
+                "name": candidate["candidate_name"], "berry_ids": ["berry-strawberry"],
+                "aliases": [], "status": "unverified", "description": "User-edited strawberry entry"}
+    repos.entities.create(existing)
+    before = snapshot()
+    plan = catalog_handoff(candidate, [existing])
+    assert not plan["ready"] and plan["catalog_entity"] is None
+    assert "different berry" in plan["reason"]
+    assert client.get(plan["href"]).status_code == 409
+    assert client.post(f"/review/{draft_id}/publish", data=publish_data(candidate)).status_code == 409
+    assert snapshot() == before and repos.entities.get(existing["id"]) == existing
+
+
 @pytest.mark.parametrize("change", [{"suggested_varieties": "Different Name"},
     {"intake_type": "standalone_fact"}, {"source_url": "http://localhost/private"}])
 def test_intake_refuses_changed_name_type_or_private_source(workspace, change):
