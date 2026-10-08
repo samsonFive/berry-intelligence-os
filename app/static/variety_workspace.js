@@ -47,12 +47,34 @@
   window.addEventListener('hashchange', reveal);
   reveal();
 })();
+// Inspect padded source assets without changing the source or its reuse status.
+function preparePhotoZoom(frame, img) {
+  const controls = frame.closest?.('figure')?.querySelector('[data-photo-zoom]');
+  if (!controls) return;
+  const input = controls.querySelector('input');
+  const output = controls.querySelector('output');
+  if (!input || !output) return;
+  controls.hidden = true;
+  input.value = '1';
+  output.textContent = '1×';
+  input.oninput = () => {
+    const value = Number(input.value);
+    const zoom = Number.isFinite(value) ? Math.min(5, Math.max(1, value)) : 1;
+    img.style.transform = `scale(${zoom})`;
+    output.textContent = `${zoom}×`;
+  };
+  const ready = () => { controls.hidden = !img.naturalWidth; };
+  img.addEventListener('load', ready);
+  img.addEventListener('error', () => { controls.hidden = true; });
+  if (img.complete) ready();
+}
 // Retain attribution and the original-source link when an image cannot load.
 (() => {
   document.querySelectorAll('[data-variety-photo]').forEach(frame => {
     const img = frame.querySelector('img');
     const fallback = frame.querySelector('span');
     if (!img || !fallback) return;
+    preparePhotoZoom(frame, img);
     function unavailable() { img.hidden = true; fallback.hidden = false; }
     img.addEventListener('error', unavailable);
     if (img.complete && !img.naturalWidth) unavailable();
@@ -75,6 +97,8 @@
     try { accepted = window.sessionStorage.getItem(key) === 'show'; }
     catch (_) { remembered = false; }
     function render() {
+      const zoom = container.closest('figure')?.querySelector('[data-photo-zoom]');
+      if (zoom) zoom.hidden = true;
       frame.querySelector('img')?.remove();
       const fallback = frame.querySelector('span');
       if (fallback) fallback.hidden = true;
@@ -97,6 +121,7 @@
         if (fallback) fallback.hidden = false;
       });
       frame.prepend(img);
+      preparePhotoZoom(frame, img);
       img.src = container.dataset.imageUrl;
     }
     button.addEventListener('click', () => {

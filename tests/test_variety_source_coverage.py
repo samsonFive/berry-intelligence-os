@@ -125,11 +125,21 @@ def test_live_coverage_respects_profile_edits_and_never_writes_on_get(monkeypatc
     client = TestClient(main.app)
     page = client.get("/varieties/coverage?q=Black+Venture")
     assert page.status_code == 200 and "https://example.test/custom-portfolio" in page.text
+    assert 'href="https://blackventurefarm.com/#page-3"' in page.text
+    assert 'href="https://example.test/custom-portfolio" target="_blank" rel="noopener noreferrer">Company website' in page.text
     assert "PRIVATE HISTORY MARKER" not in page.text
     assert "Article text coverage" in page.text and "1269 saved sources" in page.text
     assert "excluding pending news" in page.text
     assert 'href="/source-fidelity"' in page.text
     assert path.read_bytes() == before and list(tmp_path.iterdir()) == [path]
+    path.write_text(json.dumps({"version": 1, "profiles": {
+        "company-black-venture-farm": {"website": ""}}, "history": []}), encoding="utf-8")
+    cleared_before = path.read_bytes()
+    cleared = client.get("/varieties/coverage?q=Black+Venture")
+    assert cleared.status_code == 200 and "https://example.test/custom-portfolio" not in cleared.text
+    assert 'href="https://blackventurefarm.com/#page-3"' in cleared.text
+    assert "Company website ↗" not in cleared.text
+    assert path.read_bytes() == cleared_before and list(tmp_path.iterdir()) == [path]
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
     public = client.get("/varieties/coverage")
     assert public.status_code == 200 and "https://example.test/custom-portfolio" not in public.text
