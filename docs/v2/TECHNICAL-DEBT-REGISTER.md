@@ -2337,3 +2337,16 @@ text matches / 640 review needs / 546 keys; 35/77 subjects partly checked,
 approved public. See MARIONNET-FNM-NCSTATE-PORTFOLIO-REVIEW.md. CAT-01/CAT-02/
 TD-116 and full redesign/release goal remain open. Local-only; pinned-parent
 push approval unanswered, no new PR/CI, merge/deploy or Landscape rollout.
+
+**TD-116 October 8 company source visibility:**
+October 8 company-page visibility fix: private company Varieties tabs and
+detailed portfolios now show additional names from checked sources in a compact
+searchable table, with berry/alphabet navigation and exact review destinations.
+Catalog matches do not approve company roles; repeated sources retain provenance,
+different codes stay separate, and rejected names stay closed. Public/static
+views exclude this list. No acquisition or canonical/review/permission writes;
+1,992 original JSON files unchanged. Coverage remains 120 sections / 693 name
+occurrences / 546 keys / catalog 64, with 42 initial checks and 18 follow-ups.
+See COMPANY-SOURCE-VARIETY-VISIBILITY-REVIEW.md; CAT-01/CAT-02/TD-116 remain open.
+Local only; exact pinned-parent push approval unanswered, no new PR/remote CI,
+merge/deploy or other-berry Landscape rollout.

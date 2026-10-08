@@ -230,7 +230,9 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
                 existing[candidate_key(observation)] = candidate
             labels = {"catalog_match": "Catalog match", "needs_review": "Needs identity review",
                       "previously_rejected": "Previously rejected", "distinct_awaiting_catalog": "Distinct · catalog entry pending"}
-            names.append({**observation, "identity_notes": identity_notes, "catalog_id": catalog_id, "status": status, "label": labels[status],
+            names.append({**observation, "identity_notes": identity_notes, "catalog_id": catalog_id,
+                          "candidate_id": candidate.get("id") if candidate else None,
+                          "identity_key": candidate_key(observation), "status": status, "label": labels[status],
                           "href": "/entities/variety/" + catalog_id if catalog_id else
                                   "/varieties/candidates?" + urlencode({"q": observation["candidate_name"], "berry": observation["berry_id"]})})
         checked = date.fromisoformat(source["checked_on"])

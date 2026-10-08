@@ -1824,9 +1824,23 @@ def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, A
                 sources=load_portfolio_observations(DATA_DIR), varieties=varieties,
                 entities=all_entities(), candidates=visible,
             )
+            report["portfolio_sources"] = _portfolio_sources
         except ValueError as exc:
             report["portfolio_error"] = str(exc)
     return varieties, visible, report
+
+
+def company_source_varieties(entity_id: str, portfolio: dict | None) -> dict | None:
+    """Private, read-only source names; never part of trusted portfolio metrics."""
+    if not AUTHORING_MODE:
+        return None
+    from app.services.company_variety_discoveries import company_variety_discoveries
+    _varieties, _candidates, report = variety_candidate_universe()
+    return company_variety_discoveries(
+        entity_id=entity_id, sources=report.get("portfolio_sources", []),
+        linked_variety_ids={row["id"] for row in (portfolio or {}).get("variety_rows", [])},
+        error=report.get("portfolio_error", ""),
+    )
 
 
 def all_relationships() -> list[dict[str, Any]]:
@@ -3581,6 +3595,7 @@ def company_portfolio_page(request: Request, entity_id: str) -> HTMLResponse:
         name="company_portfolio.html",
         context={
             "portfolio": portfolio,
+            "company_source_varieties": company_source_varieties(entity_id, portfolio),
             "berries": BERRIES,
             "authoring_mode": AUTHORING_MODE,
             "ui_context": ui,
@@ -3682,6 +3697,8 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "related_entities": (seed or {}).get("related_entities") or [],
             "growing_profile": growing_profile,
             "dossier": dossier,
+            "company_source_varieties": company_source_varieties(entity_id, backbone.get("portfolio"))
+                if request.query_params.get("tab") == "varieties" else None,
             "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
             "monogram": (seed or {}).get("monogram") or name[:2].upper(),
             "logo_url": (logo_override_url(INBOX_DIR, entity_id) if AUTHORING_MODE else "") or (seed or {}).get("logo_url") or "",

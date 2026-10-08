@@ -1,0 +1,47 @@
+{% if authoring_mode and not static_build and company_source_varieties %}
+{% set discoveries = company_source_varieties %}
+<link rel="stylesheet" href="/static/company_variety_discoveries.css?v=1">
+<section class="company-source-varieties" data-company-source-varieties aria-labelledby="company-source-varieties-heading">
+  <header>
+    <div><p class="eyebrow">SOURCE DISCOVERIES · AWAITING REVIEW</p><h2 id="company-source-varieties-heading">Varieties named in sources</h2></div>
+    <a href="{{ discoveries.coverage_href }}">Check source coverage →</a>
+  </header>
+  {% if discoveries.error %}
+    <p role="alert">The source-name list could not be loaded. Reviewed variety links above are still available. Check source coverage before treating this as an empty portfolio.</p>
+  {% elif discoveries.rows %}
+    <p class="company-source-lead"><strong>{{ discoveries.rows|length }} additional names to check</strong> from {{ discoveries.source_count }} checked source sections. Being named here does not confirm this company’s breeding, ownership or commercial role.</p>
+    <div class="company-source-tools" data-source-tools hidden>
+      <div class="company-source-filters">
+        <div><label for="company-source-search">Find a name or code</label><input id="company-source-search" type="search" data-source-search placeholder="Search these names" autocomplete="off"></div>
+        <div><label for="company-source-berry">Berry</label><select id="company-source-berry" data-source-berry><option value="">All berries</option>{% for id,label in discoveries.berries %}<option value="{{ id }}">{{ label }}</option>{% endfor %}</select></div>
+        <button type="button" data-source-reset>Reset</button>
+      </div>
+      <nav aria-label="Source variety alphabet" class="company-source-alphabet">
+        <button type="button" data-source-letter="" aria-pressed="true">All</button>
+        {% for letter in discoveries.letters %}<button type="button" data-source-letter="{{ letter }}" aria-pressed="false">{{ letter }}</button>{% endfor %}
+      </nav>
+      <p class="company-source-count" data-source-count role="status" aria-live="polite">{{ discoveries.rows|length }} names shown</p>
+    </div>
+    <div class="company-source-table-wrap">
+      <table class="company-source-table">
+        <caption class="sr-only">Additional variety names from company-associated sources, awaiting review</caption>
+        <thead><tr><th scope="col">Name / code</th><th scope="col">Berry</th><th scope="col">What to check</th><th scope="col">Source</th></tr></thead>
+        <tbody>{% for row in discoveries.rows %}
+          <tr data-source-row data-letter="{{ row.letter }}" data-berry="{{ row.berry_id }}" data-search="{{ row.search }}">
+            <th scope="row"><a href="{{ row.href }}">{{ row.name }}</a>{% if row.code and row.code != row.name %}<small>Code: {{ row.code }}</small>{% endif %}</th>
+            <td><span class="company-source-berry">{{ row.berry }}</span></td>
+            <td><span class="company-source-review">{{ row.label }}</span><a href="{{ row.href }}" class="company-source-action">{{ row.review_label }} →</a>{% if row.notes %}<details><summary>Identity / source notes</summary>{% for note in row.notes %}<p>{{ note }}</p>{% endfor %}</details>{% endif %}</td>
+            <td><a href="{{ row.sources[0].href }}" target="_blank" rel="noopener noreferrer">{{ row.sources[0].title }} ↗</a><small>{{ row.sources[0].context }} · Checked {{ row.sources[0].checked_on }}</small>{% if row.sources|length > 1 %}<details><summary>{{ row.sources|length - 1 }} more source references</summary>{% for source in row.sources[1:] %}<p><a href="{{ source.href }}" target="_blank" rel="noopener noreferrer">{{ source.title }} ↗</a><small>{{ source.context }} · Checked {{ source.checked_on }}</small></p>{% endfor %}</details>{% endif %}</td>
+          </tr>
+        {% endfor %}</tbody>
+      </table>
+    </div>
+    <p data-source-empty hidden>No names match these filters. Reset to see the full captured list.</p>
+  {% else %}
+    <p>{% if discoveries.source_count %}No additional names are ready to review in the checked sources.{% else %}No variety names have been captured from this company’s sources yet.{% endif %} This does not establish the size of its real portfolio.</p>
+  {% endif %}
+  {% if discoveries.follow_up_count %}<p class="company-source-warning">{{ discoveries.follow_up_count }} source section{{ 's' if discoveries.follow_up_count != 1 else '' }} still need{{ '' if discoveries.follow_up_count != 1 else 's' }} follow-up. Some names or pages may be missing.</p>{% endif %}
+  {% if discoveries.linked_count or discoveries.rejected_count %}<details class="company-source-accounting"><summary>Names already handled</summary><p>{{ discoveries.linked_count }} name{{ 's' if discoveries.linked_count != 1 else '' }} already appear{{ '' if discoveries.linked_count != 1 else 's' }} in reviewed company relationships above. {{ discoveries.rejected_count }} previously rejected name{{ 's' if discoveries.rejected_count != 1 else '' }} remain{{ '' if discoveries.rejected_count != 1 else 's' }} outside this active list.</p><a href="{{ discoveries.review_href }}">Open company name review →</a></details>{% endif %}
+</section>
+<script src="/static/company_variety_discoveries.js?v=1" defer></script>
+{% endif %}
