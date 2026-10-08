@@ -1,6 +1,21 @@
 # Zero-spend social monitoring pilot — 2026-10-07
 
-**Updated trial results are in [the multi-platform follow-up](SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md). No proven global winner yet; cash spent remains $0.** The initial pre-account evaluation below is historical. Start with the existing direct APIs and permitted manual/imported evidence. For the next blocked test, use one free SociaVault account; add an Apify free account only for selected Instagram/China tasks. Defer enterprise trials until a provider confirms it can export the actual text and media we need. No purchase, account creation, vendor contact, merge, deployment or scheduled collection occurred.
+## Current recommendation — October 8, 2026
+
+**Do not purchase yet. Both existing accounts are useful for targeted collection; neither has demonstrated complete monitoring or a purchase-winning accuracy advantage.** SociaVault supplies the broader tested platform mix; Apify supplements LinkedIn company/agtech and selected Instagram/Facebook paths. Use the existing accounts rather than creating more. Enterprise demos are optional only if they provide a permitted raw-content/API sample and source-specific rights answers; no vendor outreach is authorized or has occurred.
+
+| Measured capability | Current evidence | Remaining boundary |
+|---|---|---|
+| Facebook company posts | Two saved SociaVault company probes: six posts, fourteen image references, no mapping errors. Apify separately returned five public-page posts. | Known pages, not global keyword discovery; unmatched collection times do not establish vendor recall superiority. |
+| X company search | Two saved SociaVault probes: forty returned, twenty retained posts, nineteen image references, no mapping errors. Additional bounded berry probes are reported separately. | One-page samples; no complete history, representative consumer coverage or independent accuracy score. |
+| LinkedIn | Successful SociaVault follow-up, native reader playback confirmed by user; Apify supplier/agtech discovery and two unique actual comments. | Earlier failures remain documented; comment images and coverage completeness unproven. |
+| Instagram repeat | Apify: five posts, nine image references/two carousels, zero overlap with earlier five-post sample, zero replay duplicates. | Sample turnover is not recall. Assistant caption screening is not independent gold; new sample held outside preview. |
+| Budget | Last saved SociaVault ledger: eleven of fifty one-time free credits remain. Apify: nine terminal trials, $0.90 conservative reservations of $1 ceiling; last settled account usage about $0.11808 included credit. Cash $0. | These are retained measurements, not fresh access authorization. Every new metered request must reverify account access/cost safeguards; preserve reserves and cumulative attempt ceilings. |
+
+Next decision evidence: matched source/time-window comparisons, independent relevance and author-role labels, language-specific translation checks, and source media/deletion/retention qualification. No independently graded live precision/recall is available yet. Keep corporate and consumer results separate; do not infer business ownership from promotional wording or purchase market from origin/search geography. Unreadable content stays outside the English workspace.
+
+Detailed receipts: [Apify trial](SOCIAL-APIFY-TRIAL.md), [multi-platform trial](SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md), [all-berry follow-up](SOCIAL-ALL-BERRIES-REVIEW.md), and [acceptance audit](SOCIAL-ACCEPTANCE-AUDIT.md). The dated sections below retain earlier states and cost assumptions for audit; their balances, unavailable-account statements and setup recommendations are historical. The local preview remains localhost18345, collection disabled. No purchase, merge or deployment.
+
 
 This complements the [blueberry gate report](SOCIAL-BLUEBERRY-REVIEW.md), [15-platform official access matrix](SOCIAL-SOURCE-ACCESS-MATRIX.md), and machine-readable [candidate matrix](../../benchmarks/social-bakeoff/candidates.json). The UI now calls invented examples **Sample posts**, shows original text/translation/aspects/media in a compact sortable post sheet, uses MM/DD/YY for routine dates, and groups coverage into 15 platform rows instead of 75 repeated rows. Filters, source links, visual selection and the existing evidence drawer remain shared with the app.
 
