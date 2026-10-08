@@ -32,6 +32,9 @@
 .variety-photo-frame img{width:100%;height:100%;object-fit:contain}
 .variety-photo-frame span{padding:16px;color:#34543c;font-size:13px}
 .variety-photo-frame [hidden]{display:none}
+.variety-photo-frame[hidden]{display:none}
+.variety-photo-session-controls{padding:10px 12px;border-bottom:1px solid #c7d5bc;display:grid;gap:6px;font-size:12px;color:#34543c}
+.variety-photo-session-controls button{justify-self:start}.variety-photo-session-controls button[hidden]{display:none}
 .variety-photo figcaption{padding:10px 12px;font-size:12px;line-height:1.45;color:#34543c}
 .variety-photo figcaption b{display:block;font-size:15px;color:#183c2b}
 .variety-photo figcaption p{margin:5px 0}.variety-photo figcaption small{display:block;margin-bottom:4px}

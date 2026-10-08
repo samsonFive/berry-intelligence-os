@@ -1,5 +1,5 @@
 {% extends "glasshouse_base.html" %}
-{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=9">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=10">{% endblock %}
 {% block title %}Variety identity review — Berry Intelligence OS{% endblock %}
 {% block content %}
 <div class="company-workspace variety-workspace candidate-workspace">
@@ -48,7 +48,8 @@
   </p>
   {% if row.photos %}<div class="variety-photo-and-context"><div>{% endif %}
   {% set photo_gallery = row.photos %}{% include "_variety_photo_gallery.html" %}
-  <p><a href="/varieties/photos/candidate/{{ row.id }}">{{ 'Edit photos' if row.photos else 'Add a credited photo' }} →</a></p>
+  {% set photo_return = request.url.path ~ ('?' ~ request.url.query if request.url.query else '') ~ '#' ~ row.id %}
+  <p><a href="/varieties/photos/candidate/{{ row.id }}?return_to={{ photo_return|urlencode }}">{{ 'Edit photos' if row.photos else 'Add a credited photo' }} →</a></p>
   {% if row.photos %}</div>{% endif %}
   <dl class="v2-role-list">
     <dt>Source</dt><dd>{% if row.source_url %}<a href="{{ row.source_url }}">{{ row.source_url }}</a>{% else %}{{ row.source_label or "Source not recorded" }}{% endif %}</dd>
@@ -107,4 +108,4 @@
 </div></div>
 {% endblock %}
 
-{% block scripts %}<script src="/static/variety_workspace.js?v=8"></script>{% endblock %}
+{% block scripts %}<script src="/static/variety_workspace.js?v=9"></script>{% endblock %}

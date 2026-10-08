@@ -58,3 +58,56 @@
     if (img.complete && !img.naturalWidth) unavailable();
   });
 })();
+
+// An explicit private-view choice: retain it only for this tab's session.
+// No request goes to the app and no saved reuse/publication status changes.
+(() => {
+  document.querySelectorAll('[data-photo-session]').forEach(container => {
+    const button = container.querySelector('[data-photo-session-toggle]');
+    const frame = container.querySelector('[data-photo-session-frame]');
+    const status = container.querySelector('[data-photo-session-status]');
+    if (!button || !frame || !status) return;
+    const key = 'bios:variety-photo-session:v1:' + JSON.stringify([
+      container.dataset.sourceUrl, container.dataset.imageUrl
+    ]);
+    let accepted = false;
+    let remembered = true;
+    try { accepted = window.sessionStorage.getItem(key) === 'show'; }
+    catch (_) { remembered = false; }
+    function render() {
+      frame.querySelector('img')?.remove();
+      const fallback = frame.querySelector('span');
+      if (fallback) fallback.hidden = true;
+      frame.hidden = !accepted;
+      button.textContent = accepted ? 'Hide photo' : 'Ignore permission';
+      button.setAttribute('aria-pressed', String(accepted));
+      status.textContent = accepted
+        ? `${remembered ? 'Session preview' : 'Preview in this view'} · Permission unconfirmed`
+        : 'Permission unconfirmed · source link available';
+      if (!accepted) return;
+      const img = document.createElement('img');
+      img.alt = container.dataset.caption;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.referrerPolicy = 'no-referrer';
+      img.width = 320;
+      img.height = 200;
+      img.addEventListener('error', () => {
+        img.hidden = true;
+        if (fallback) fallback.hidden = false;
+      });
+      frame.prepend(img);
+      img.src = container.dataset.imageUrl;
+    }
+    button.addEventListener('click', () => {
+      accepted = !accepted;
+      try {
+        if (accepted) window.sessionStorage.setItem(key, 'show');
+        else window.sessionStorage.removeItem(key);
+      } catch (_) { remembered = false; }
+      render();
+    });
+    button.hidden = false;
+    render();
+  });
+})();
