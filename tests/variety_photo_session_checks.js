@@ -11,10 +11,12 @@ function page(storage, { blocked = false, image = 'https://publisher.test/a.jpg'
       addEventListener(event, action) { assert.equal(event, 'click'); this.click = action; } };
     const status = {};
     const fallback = { hidden: true };
+    const figure = { scrolls: [], scrollIntoView(options) { this.scrolls.push(options); } };
     const frame = { hidden: true, img: null, querySelector(selector) {
       return selector === 'img' ? this.img : selector === 'span' ? fallback : null;
     }, prepend(img) { this.img = img; img.parent = this; } };
-    return { button, frame, status, fallback,
+    return { button, frame, status, fallback, figure,
+      closest(selector) { assert.equal(selector, 'figure'); return figure; },
       dataset: { sourceUrl: source, imageUrl, caption: 'A credited, named fruit photo' },
       querySelector(selector) { return { '[data-photo-session-toggle]': button,
         '[data-photo-session-frame]': frame, '[data-photo-session-status]': status }[selector]; } };
@@ -50,17 +52,23 @@ assert.equal(first.containers[0].frame.img.src, 'https://publisher.test/a.jpg');
 assert.equal(first.containers[0].frame.img.referrerPolicy, 'no-referrer');
 assert.equal(first.containers[0].button.attributes['aria-pressed'], 'true');
 assert.equal(first.containers[1].frame.img, null); // Other assets remain blocked.
+assert.equal(first.containers[0].figure.scrolls.length, 1);
+assert.equal(first.containers[0].figure.scrolls[0].inline, 'start');
+assert.equal(first.containers[0].figure.scrolls[0].block, 'nearest');
+assert.equal(first.containers[1].figure.scrolls.length, 0);
 assert.equal(storage.size, 1);
 
 const reload = page(storage);
 assert.equal(reload.created(), 1); // Same tab session retains the exact chosen asset.
 assert.equal(reload.containers[1].frame.img, null);
+assert.ok(reload.containers.every(c => c.figure.scrolls.length === 0)); // Restore does not move the page.
 assert.equal(page(storage, { image: 'https://publisher.test/replacement.jpg' }).created(), 0);
 assert.equal(page(storage, { source: 'https://publisher.test/replacement' }).created(), 0);
 assert.equal(page(new Map()).created(), 0); // A fresh session has no override.
 reload.containers[0].button.click();
 assert.equal(reload.containers[0].frame.img, null);
 assert.equal(reload.containers[0].button.attributes['aria-pressed'], 'false');
+assert.equal(reload.containers[0].figure.scrolls.length, 0); // Hiding does not jump the page.
 assert.equal(storage.size, 0);
 assert.equal(page(storage).created(), 0);
 

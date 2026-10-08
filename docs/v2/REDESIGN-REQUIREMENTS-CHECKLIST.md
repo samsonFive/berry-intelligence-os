@@ -1,5 +1,18 @@
 # Redesign and consolidation requirements
 
+October 7 CFIA code-photo follow-up: source-specific exact-code photo preview
+now works for ASF218/ASF219 without confirming trade-name aliases or canonical
+associations. Four held photo references and two unreviewed registry rows add
+bounded source context; source dates, roles and rights remain human-reviewed.
+Tall-photo caption overlap and partial card visibility are corrected; native
+desktop/360px phone acceptance passes. 144 local regressions, session JavaScript
+and records pass; exact-head CI is recorded with the draft. Catalog stays 64;
+current counts are 55 sections / 542 occurrences / 34 matches / 508 review needs /
+452 candidate keys; 14 photos, 13 held, zero approved public. Two proposed private
+candidates are additive and replay-safe; existing records/user state remain
+unchanged. CAT-01/CAT-02/TD-116 remain open. See
+CFIA-CODED-VARIETY-PHOTO-REVIEW.md. No merge/deploy/other-berry rollout.
+
 October 7 crop-scoped catalog follow-up: the reviewed-candidate authoring path
 now separates known disjoint crops sharing a name, while exact same-crop,
 unknown-crop and ambiguous matches retain duplicate guards. Review aids cannot
