@@ -1,0 +1,701 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-freshkampo-english-fruit",
+      "title": "FreshKampo — English marketed berry list",
+      "url": "https://freshkampo.com/en/fruit/",
+      "company_ids": [
+        "company-fresh-kampo"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry",
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All explicit berry name lists in this complete page, counting responsive repetitions once per language.",
+      "limitations": "One visible list per crop; web reader repeats responsive raspberry/blueberry blocks. Count each listed name once per language. Grower/marketed-fruit context, not breeder ownership. Generic crop photos are not individually named-variety images. Production zones are crop-wide assertions, not approved cultivar footprints. Exclude fig Black Mission, avocado Hass and asparagus UC157NuP/Grande. Copyright 2021 is not article publication.",
+      "names": [
+        {
+          "candidate_name": "Festival",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://freshkampo.com/en/fruit/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Albion",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://freshkampo.com/en/fruit/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "San Andreas",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://freshkampo.com/en/fruit/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Sayulita",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://freshkampo.com/en/fruit/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Frontera",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://freshkampo.com/en/fruit/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed. Keep literal Frontera; Fronteras is not an approved alias."
+        },
+        {
+          "candidate_name": "Adelita",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://freshkampo.com/en/fruit/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Sofia",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://freshkampo.com/en/fruit/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Tupy",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://freshkampo.com/en/fruit/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Biloxi",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://freshkampo.com/en/fruit/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Ventura",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://freshkampo.com/en/fruit/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Victoria",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://freshkampo.com/en/fruit/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_primary_web_reader_and_native_body",
+        "language": "English",
+        "responsive_duplicate_blocks_excluded": true,
+        "copyright_not_publication": true
+      },
+      "accounting": {
+        "observed_items": 15,
+        "exclusions": [
+          {
+            "label": "Black Mission",
+            "reason": "Non-berry fig, avocado or asparagus, outside the four-berry scope."
+          },
+          {
+            "label": "Hass",
+            "reason": "Non-berry fig, avocado or asparagus, outside the four-berry scope."
+          },
+          {
+            "label": "UC157NuP",
+            "reason": "Non-berry fig, avocado or asparagus, outside the four-berry scope."
+          },
+          {
+            "label": "Grande",
+            "reason": "Non-berry fig, avocado or asparagus, outside the four-berry scope."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-freshkampo-spanish-fruit",
+      "title": "FreshKampo — Spanish marketed berry list",
+      "url": "https://freshkampo.com/fruta/",
+      "company_ids": [
+        "company-fresh-kampo"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry",
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All explicit berry name lists in this complete page, counting responsive repetitions once per language.",
+      "limitations": "Biloxy is the literal Spanish spelling, unlike English Biloxi. Do not approve an alias or silently replace the spelling. Frontera is not automatically Fronteras. Repeated responsive blocks, non-berry names and generic crop photos are excluded. Crop geography, traits, breeder roles, rights and release dates remain unapproved.",
+      "names": [
+        {
+          "candidate_name": "Festival",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://freshkampo.com/fruta/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Albion",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://freshkampo.com/fruta/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "San Andreas",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://freshkampo.com/fruta/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Sayulita",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://freshkampo.com/fruta/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Frontera",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://freshkampo.com/fruta/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed. Keep literal Frontera; Fronteras is not an approved alias."
+        },
+        {
+          "candidate_name": "Adelita",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://freshkampo.com/fruta/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Sofia",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://freshkampo.com/fruta/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Tupy",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://freshkampo.com/fruta/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Biloxy",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://freshkampo.com/fruta/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed. Spanish page spells Biloxy; English page spells Biloxi. Equivalence remains unconfirmed."
+        },
+        {
+          "candidate_name": "Ventura",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://freshkampo.com/fruta/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Victoria",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://freshkampo.com/fruta/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_primary_web_reader_and_native_body",
+        "language": "Spanish",
+        "responsive_duplicate_blocks_excluded": true,
+        "copyright_not_publication": true
+      },
+      "accounting": {
+        "observed_items": 15,
+        "exclusions": [
+          {
+            "label": "Black Mission",
+            "reason": "Non-berry fig, avocado or asparagus, outside the four-berry scope."
+          },
+          {
+            "label": "Hass",
+            "reason": "Non-berry fig, avocado or asparagus, outside the four-berry scope."
+          },
+          {
+            "label": "UC157NuP",
+            "reason": "Non-berry fig, avocado or asparagus, outside the four-berry scope."
+          },
+          {
+            "label": "Grande",
+            "reason": "Non-berry fig, avocado or asparagus, outside the four-berry scope."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-freshkampo-kali-post",
+      "title": "FreshKampo — original Kali blackberry post",
+      "url": "https://es.linkedin.com/posts/freshkampo_emprende-un-viaje-de-exquisito-sabor-y-cosechas-activity-7186879839553888257-dpuT",
+      "company_ids": [
+        "company-fresh-kampo"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_newsroom",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Named cultivar in the complete original company post.",
+      "limitations": "Original FreshKampo post names Kali as a floricane blackberry. Relative two-years display is not an exact publication date. Promotional claims about innovation/Mexico do not approve breeder role, growing footprint, traits or release date. Do not equate Kali with Kalika; the associated social photo is not yet visually verified or approved for reuse.",
+      "names": [
+        {
+          "candidate_name": "Kali",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://es.linkedin.com/posts/freshkampo_emprende-un-viaje-de-exquisito-sabor-y-cosechas-activity-7186879839553888257-dpuT",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed. Original company post names Kali as a floricane blackberry; Kali and Kalika remain distinct proposals. Relative publication age is not an exact release date."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_public_original_company_post_web_reader",
+        "language": "Spanish and English",
+        "exact_publication_date_verified": false
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-calgiant-2020-grower-update",
+      "title": "California Giant — July 2020 grower update",
+      "url": "https://trade.calgiant.com/newsletters/july-10-2020",
+      "company_ids": [
+        "company-california-giant-berry-farms"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_newsroom",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete historical crop update, retaining literal spellings and ambiguous wording.",
+      "limitations": "Historical grower crop update, not current breeder portfolio. Prime Mark is literal blackberry wording; do not replace it with Prime-Ark or another cultivar. Oregon/Watsonville-Salinas context is retained as source prose, not an approved current footprint. Generic filename photos are not individually verified cultivar associations.",
+      "names": [
+        {
+          "candidate_name": "Duke",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://trade.calgiant.com/newsletters/july-10-2020",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership."
+        },
+        {
+          "candidate_name": "Draper",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://trade.calgiant.com/newsletters/july-10-2020",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership."
+        },
+        {
+          "candidate_name": "Megasblue",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://trade.calgiant.com/newsletters/july-10-2020",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership."
+        },
+        {
+          "candidate_name": "Blue Ribbon",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://trade.calgiant.com/newsletters/july-10-2020",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership."
+        },
+        {
+          "candidate_name": "Top Shelf",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://trade.calgiant.com/newsletters/july-10-2020",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership."
+        },
+        {
+          "candidate_name": "Kwanza",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://trade.calgiant.com/newsletters/july-10-2020",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership."
+        },
+        {
+          "candidate_name": "Prime Mark",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://trade.calgiant.com/newsletters/july-10-2020",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership. Original newsletter says Prime Mark. A correction or alias for Prime-Ark is unconfirmed."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body_web_reader_cache_miss",
+        "language": "English"
+      },
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": []
+      },
+      "published_date": "2020-07-10"
+    },
+    {
+      "id": "portfolio-calgiant-2018-grower-update",
+      "title": "California Giant — December 2018 grower update",
+      "url": "https://trade.calgiant.com/newsletters/dedc-2018-017",
+      "company_ids": [
+        "company-california-giant-berry-farms"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_newsroom",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete historical crop update, retaining literal spellings and ambiguous wording.",
+      "limitations": "Historical crop update. Fronteras and Frontera both occur, without approved equivalence. Original phrase Top Shelf and Blue Ribbon Great varieties is ambiguous: retain phrase and flag Blue Ribbon Great versus Blue Ribbon for identity review, never silently decide. Region/weather/quality assertions and photographs do not approve individual current cultivar traits or footprints.",
+      "names": [
+        {
+          "candidate_name": "Fronteras",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://trade.calgiant.com/newsletters/dedc-2018-017",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership."
+        },
+        {
+          "candidate_name": "San Andreas",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://trade.calgiant.com/newsletters/dedc-2018-017",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership."
+        },
+        {
+          "candidate_name": "Frontera",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://trade.calgiant.com/newsletters/dedc-2018-017",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership. Keep literal Frontera; Fronteras is not an approved alias."
+        },
+        {
+          "candidate_name": "Brilliance",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://trade.calgiant.com/newsletters/dedc-2018-017",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership."
+        },
+        {
+          "candidate_name": "Sensation",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://trade.calgiant.com/newsletters/dedc-2018-017",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership."
+        },
+        {
+          "candidate_name": "Radiance",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://trade.calgiant.com/newsletters/dedc-2018-017",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership."
+        },
+        {
+          "candidate_name": "Top Shelf",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://trade.calgiant.com/newsletters/dedc-2018-017",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership."
+        },
+        {
+          "candidate_name": "Blue Ribbon Great",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://trade.calgiant.com/newsletters/dedc-2018-017",
+          "portfolio_context": "Historical grower supply update; not current cultivation or breeding ownership. Ambiguous original wording: Top Shelf and Blue Ribbon Great varieties. Whether Great is part of the name remains unconfirmed."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body_web_reader_cache_miss",
+        "language": "English",
+        "ambiguous_name_phrase": "Top Shelf and Blue Ribbon Great varieties"
+      },
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": []
+      },
+      "published_date": "2018-12-18"
+    },
+    {
+      "id": "portfolio-gap-calgiant-current-faq",
+      "title": "California Giant — current FAQ without cultivar names",
+      "url": "https://www.calgiant.com/faq/",
+      "company_ids": [
+        "company-california-giant-berry-farms"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete readable page; no literal cultivar names disclosed.",
+      "limitations": "Four berry categories and general breeding/grower statements without a cultivar list. Readable current FAQ is a named-variety coverage gap, not an empty portfolio.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_primary_web_reader",
+        "language": "English"
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "Strawberries",
+            "reason": "Crop category, not a cultivar name."
+          },
+          {
+            "label": "Blueberries",
+            "reason": "Crop category, not a cultivar name."
+          },
+          {
+            "label": "Raspberries",
+            "reason": "Crop category, not a cultivar name."
+          },
+          {
+            "label": "Blackberries",
+            "reason": "Crop category, not a cultivar name."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cuna-strawberry-calendar",
+      "title": "Cuna de Platero — main and summer strawberry calendars",
+      "url": "https://www.cunadeplatero.com/fresas/",
+      "company_ids": [
+        "company-cuna-de-platero"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete main and summer strawberry calendar name lists.",
+      "limitations": "Main calendar names five; separate summer calendar names Portola. Capture all six, not just main search excerpt. Company supply context is not breeding ownership, rights, current cultivar footprint or exact release date. Crop-wide production and calendar months remain source assertions; generic images not assigned.",
+      "names": [
+        {
+          "candidate_name": "Rociera",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cunadeplatero.com/fresas/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Marisma",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cunadeplatero.com/fresas/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Cleopatra",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cunadeplatero.com/fresas/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Adelanto",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cunadeplatero.com/fresas/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "San Andreas",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cunadeplatero.com/fresas/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Portola",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cunadeplatero.com/fresas/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed. Listed separately under the summer strawberry calendar."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_primary_web_reader",
+        "language": "Spanish"
+      },
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-cuna-raspberry-calendar",
+      "title": "Cuna de Platero — raspberry calendar",
+      "url": "https://www.cunadeplatero.com/frambuesas/",
+      "company_ids": [
+        "company-cuna-de-platero"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete named-variety calendar/landing page.",
+      "limitations": "Three names in calendar; retain Rocío accent and distinguish it from Rociera/other names. Company supply is not breeding ownership or current cultivar footprint; crop-wide statistics and nutrition not individual traits.",
+      "names": [
+        {
+          "candidate_name": "Adelita",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.cunadeplatero.com/frambuesas/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Noelia",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.cunadeplatero.com/frambuesas/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Rocío",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.cunadeplatero.com/frambuesas/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed. Keep the original Rocío accent; do not merge with Rociera or another label."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body_resolves_web_reader_timeout",
+        "language": "Spanish"
+      },
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-cuna-blueberry-calendar",
+      "title": "Cuna de Platero — blueberry calendar",
+      "url": "https://www.cunadeplatero.com/arandanos/",
+      "company_ids": [
+        "company-cuna-de-platero"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete named-variety calendar/landing page.",
+      "limitations": "Five calendar names. Cupla proprietary/supply wording remains source context pending roles/rights review. Snowchaser is not automatically Snow Chaser; crop-wide statistics and nutritional text are not cultivar traits. Named Cupla link is followed separately.",
+      "names": [
+        {
+          "candidate_name": "Cupla",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.cunadeplatero.com/arandanos/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Snowchaser",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.cunadeplatero.com/arandanos/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed. Snowchaser and Snow Chaser remain distinct until identity review."
+        },
+        {
+          "candidate_name": "Manila",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.cunadeplatero.com/arandanos/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Ventura",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.cunadeplatero.com/arandanos/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        },
+        {
+          "candidate_name": "Star",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.cunadeplatero.com/arandanos/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_primary_web_reader",
+        "language": "Spanish"
+      },
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-gap-cuna-blackberry-calendar",
+      "title": "Cuna de Platero — blackberry calendar without cultivar names",
+      "url": "https://www.cunadeplatero.com/moras/",
+      "company_ids": [
+        "company-cuna-de-platero"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete readable page; no literal cultivar names disclosed.",
+      "limitations": "Readable blackberry product/calendar page supplies no cultivar names. This is a named-variety coverage gap, not proof no blackberry varieties are grown. Crop-wide acreage/yield not individual cultivar footprint.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_primary_web_reader",
+        "language": "Spanish"
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": [
+          {
+            "label": "Moras",
+            "reason": "Blackberry category/calendar with no named cultivar list."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cuna-cupla-page",
+      "title": "Cuna de Platero — named Cupla cultivar page",
+      "url": "https://www.cunadeplatero.com/descubre-cupla/",
+      "company_ids": [
+        "company-cuna-de-platero"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete named-variety calendar/landing page.",
+      "limitations": "Single named cultivar landing page. Fruit graphic visible beside marketed attributes; empty alt text, so association remains proposed. Logo, calendar and decorative blueberries are not gallery assets. No reuse approval; default hidden, session-only Ignore permission may preview but must not persist/publicly publish permission. Marketing performance/calendar claims are not verified traits or universal footprint.",
+      "names": [
+        {
+          "candidate_name": "Cupla",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.cunadeplatero.com/descubre-cupla/",
+          "portfolio_context": "Named in the company’s berry offering; company role and identity remain unreviewed.",
+          "photos": [
+            {
+              "image_url": "https://www.cunadeplatero.com/wp-content/uploads/2024/10/Recurso-11.png",
+              "source_url": "https://www.cunadeplatero.com/descubre-cupla/",
+              "credit": "Cuna de Platero",
+              "caption": "Fruit illustration/photo shown in the original Cupla cultivar page; no reuse approval recorded.",
+              "named_variety": "Cupla",
+              "berry_id": "berry-blueberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No photo reuse grant recorded. Proposed association from the single named Cupla page; empty original alt text.",
+              "checked_on": "2026-10-08",
+              "kind": "fruit"
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_primary_web_reader_and_native_visual_review",
+        "language": "Spanish",
+        "named_photo_visually_checked": true,
+        "original_photo_alt": "",
+        "reuse_permission_verified": false
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    }
+  ]
+}

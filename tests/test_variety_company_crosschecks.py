@@ -62,7 +62,8 @@ def test_company_crosschecks_render_privately_without_writing_or_public_leaks(mo
     monkeypatch.setattr(main, 'INBOX_DIR', tmp_path)
     monkeypatch.setattr(main, 'AUTHORING_MODE', True)
     client = TestClient(main.app)
-    cbc = client.get('/varieties/coverage?q=California')
+    # California Giant now also has source sections; scope this CBC assertion.
+    cbc = client.get('/varieties/coverage?q=California%20Berry%20Cultivars')
     assert cbc.status_code == 200 and '11 observed items' in cbc.text
     assert '12 minimum cultivars' in cbc.text
     assert 'Partial source check' in cbc.text and 'CBC027' in cbc.text

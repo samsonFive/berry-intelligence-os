@@ -1,5 +1,23 @@
 # Intelligence Coverage Matrix
 
+October 8 grower-source continuation: eleven complete-page checks add 53
+literal name occurrences for FreshKampo, California Giant and Cuna de Platero.
+Language spellings, ambiguous newsletter wording, historical dates and the
+separate summer strawberry calendar stay explicit. A Cupla image from its
+named page has source attribution but unknown reuse: hidden by default, with
+session-only Ignore permission / Hide photo verified. No permission is saved.
+Real audit: 195 sections / 881 occurrences / 62 text matches / 819 review needs /
+655 candidate keys; catalog 64. Registry: 48/77 partly checked, 29 rows still
+need named-variety enumeration, with 45 source follow-ups. Batch ordering
+preserves every existing provisional ID, including Cleopatra. Human rejection,
+registration and user edits win. Final focused tests: 75 passed / one existing
+warning in 41.23 seconds. Native alphabet/search/reset, blueberry company
+scope, exact Cupla handoff, photo rendering/refresh/hide pass desktop review.
+Records validate; all 1,992 original JSON files and expansion guide unchanged.
+Parent draft #345 has four green checks (4,291 tests); this draft needs its own
+pushed-head checks. See GROWER-SOURCE-VARIETIES-REVIEW.md. CAT-01/CAT-02/TD-116
+remain open. No merge/deploy or other-berry Landscape rollout.
+
 October 8 Wish Farms / market-source continuation: fourteen bounded sections
 add the four blackberry names in Wish Farms' 2019 grower announcement. Original
 publication date and differing article dateline remain separate. Existing IDs,
