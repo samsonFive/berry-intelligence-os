@@ -1,5 +1,21 @@
 # Intelligence Coverage Matrix
 
+October 8 original company-range follow-up: Surexport and Gem-Pack retain
+unnamed-variety gaps after original pages and two complete one-page PDFs were read.
+Eight existing section IDs are refreshed without duplicate rows; four sections are
+new. Pack labels, brands, company names and generic pictures create no candidates,
+aliases or variety/company roles. Source scope is prominent; secondary context
+starts collapsed while name/code, missing-item and website warnings stay available.
+Actual audit: 296 sections / 1,013 occurrences / 719 candidate keys / 64 unchanged
+mixed-status catalog records. 58/77 registry entries have some named-source checks;
+19 lack initial named enumeration, including companies with attempted unnamed
+pages. 78 source follow-ups remain. 44 affected data tests and 39 presentation /
+source tests pass. Original data, user edits and trust gates are preserved.
+Parent #360 passes all four checks (4,374 tests); this packet needs its own CI.
+CAT-01/CAT-02/TD-116 and independent recall, rights/profile depth remain open.
+No merge, deployment or rollout past the blueberry checkpoint.
+See COMPANY-UNNAMED-PORTFOLIO-AUDIT-REVIEW.md.
+
 October 8 Royakkers grower-source continuation: ten original page sections
 add provenance for Elsanta and Portola, both already in the review queue. Neither
 is duplicated or automatically approved. The strawberry page says Royakkers grows
