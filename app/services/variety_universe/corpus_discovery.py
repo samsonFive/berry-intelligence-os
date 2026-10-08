@@ -483,6 +483,31 @@ def _explicit_variety_ids(
 
 def _declared_names(summary, record, blocked, *, source_text=False):
     """Explicit declarations only; the same grammar is used in both paths."""
+    if source_text:
+        from app.services.variety_universe.explicit_article_formats import (
+            explicit_article_formats, paragraph_crop_ids,
+        )
+        mentions, exclusions = [], []
+        for paragraph in re.split(r"\n\s*\n", summary):
+            # A selected document can discuss crops absent from publication tags.
+            # Keep paragraph boundaries; one crop cannot spill into the next.
+            crops = paragraph_crop_ids(paragraph)
+            scoped_record = {**record, "berry_ids": crops or _berries(record)}
+            found, excluded = _declared_names(paragraph, scoped_record, blocked)
+            mentions.extend(found)
+            exclusions.extend(excluded)
+            quoted, excluded = explicit_article_formats(paragraph, name_token=_NAMED_TOKEN)
+            exclusions.extend({**row, "record_id": record["id"]} for row in excluded)
+            for row in quoted:
+                name = _clean_name(row["name"])
+                if not _is_stop_name(name, blocked):
+                    mentions.append(_mention(name=name, berry_id=row["berry_id"], kind=row["kind"],
+                        evidence=record, fact=None, context=row["context"]))
+        for row in mentions:
+            row["mention_kind"] = row["mention_kind"].replace("summary", "source_text")
+            row["source_text_basis"] = "available_article_text"
+            row["source_publication_reviewed"] = record.get("status") == "published"
+        return mentions, exclusions
     mentions, exclusions = [], []
     berries = _berries(record)
     fallback = berries[0] if len(berries) == 1 else ""
@@ -495,6 +520,9 @@ def _declared_names(summary, record, blocked, *, source_text=False):
                 evidence=record, fact=None, context=row["context"],
                 extra={"breeder_code": row["breeder_code"]}))
     for match in _EXPLICIT_LIST_RE.finditer(summary):
+        prefix = re.split(r"[.!?;\n]", summary[:match.start()])[-1]
+        if re.search(r"\b(?:no|not|never|without)\b", prefix, re.IGNORECASE):
+            continue
         species = match.group("species")
         list_berry = _BERRY_LABELS.get((species or "").lower(), fallback)
         if not list_berry:
@@ -525,11 +553,6 @@ def _declared_names(summary, record, blocked, *, source_text=False):
                     mentions.append(_mention(name=name, berry_id=fallback, kind="quoted_licensed_name",
                                              evidence=record, fact=None, context=clause.group(0)))
 
-    if source_text:
-        for row in mentions:
-            row["mention_kind"] = row["mention_kind"].replace("summary", "source_text")
-            row["source_text_basis"] = "available_article_text"
-            row["source_publication_reviewed"] = record.get("status") == "published"
     return mentions, exclusions
 
 

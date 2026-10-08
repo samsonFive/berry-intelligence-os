@@ -166,3 +166,76 @@ def test_write_action_rejects_public_cross_site_unknown_and_missing_body(monkeyp
     monkeypatch.setattr(main,'AUTHORING_MODE',False)
     assert client.post(endpoint).status_code == 403
     assert not list(tmp_path.rglob('*.json'))
+
+
+def test_selected_quoted_lists_find_all_crops_without_borrowing_publication_tags():
+    # Synthetic prose uses the grammatical forms read on the original Hortifrut
+    # page, with expectations fixed before the parser change. It is not a Gold
+    # qualification case or copied full publication body.
+    blueberries = ['Prelude', 'Daybreak', 'Stellar', 'Candycrunch', 'Apolo', 'Bliss',
+                   'Temptation', 'Robust', 'Envy', 'Keepsake', 'Sensation']
+    raspberries = ['Pacific Deluxe', 'Pacific Royale', 'Pacific Majesty',
+                  'Pacific Scarlet', 'Pacific Gema']
+    quoted = lambda names: ', '.join('‘' + name + '’' for name in names[:-1]) + ', and ‘' + names[-1] + '’'
+    text = (
+        "In blueberries, we have the exclusive license for the best varieties: "
+        "‘Rocio’ and ‘Corona’ from Program One for America, and ‘Draper’, ‘Aurora’, "
+        "‘Liberty’, and ‘Osorno’ from University Two.\n\n"
+        "Our blackberry program tests fruit quality. ‘Camila’ and ‘Amara’ are the first two varieties in this group.\n\n"
+        + quoted(blueberries) + " are the first varieties by Program Three. These are blueberries.\n\n"
+        + quoted(raspberries) + " are some of the Program Four raspberry varieties."
+    )
+    record = source(text, berry_ids=['berry-blueberry'])
+    before = deepcopy(record)
+    result = scan(record)
+    expected = {(n, 'berry-blueberry') for n in blueberries + ['Rocio', 'Corona', 'Draper', 'Aurora', 'Liberty', 'Osorno']}
+    expected |= {(n, 'berry-raspberry') for n in raspberries}
+    expected |= {('Camila', 'berry-blackberry'), ('Amara', 'berry-blackberry')}
+    assert {(c['candidate_name'], c['berry_id']) for c in result['candidates']} == expected
+    assert len(result['candidates']) == 24
+    assert all(not c['aliases'] and not c['proposed_relationships']
+               and not c['human_gated'] and not c['auto_confirmed'] for c in result['candidates'])
+    assert all(c['knowledge']['source_publication_reviewed'] is False
+               and c['knowledge']['source_text_basis'] == 'available_article_text'
+               and c['source_url'] == record['source_url'] for c in result['candidates'])
+    assert record == before
+
+
+def test_explicit_reverse_crop_wins_and_one_paragraph_cannot_label_another():
+    record = source(
+        "‘Red Lead’ are some of the Example Company raspberry varieties. Blueberries are also discussed.\n\n"
+        "‘Unknown Lead’ are the first varieties by Example Company.",
+        berry_ids=['berry-blueberry'])
+    result = scan(record)
+    assert {(c['candidate_name'], c['berry_id']) for c in result['candidates']} == {('Red Lead', 'berry-raspberry')}
+    assert any(e['reason'] == 'berry_not_established' for e in result['exclusions'])
+
+
+@pytest.mark.parametrize('text', [
+    "Blueberries and blackberries: ‘Ambiguous Lead’ are the first varieties.",
+    "The blueberry brand is ‘Brand North’. The quality claim is ‘Sweet Fruit’.",
+    "‘Company North’ and ‘Company South’ are partners in a blueberry program.",
+    "‘Parent North’ and ‘Parent South’ are not blueberry varieties.",
+    "We have no license for the best varieties: ‘Negative Lead’ from Program One. These are blueberries.",
+    "‘Incomplete Name’ and Another Name are the first blueberry varieties.",
+])
+def test_selected_quote_prose_and_negative_or_incomplete_lists_are_not_identities(text):
+    result = scan(source(text, berry_ids=[]))
+    assert not result['candidates']
+
+
+def test_long_reverse_lists_are_refused_whole_instead_of_returning_a_suffix():
+    from app.services.variety_universe.explicit_article_formats import explicit_article_formats
+    from app.services.variety_universe.corpus_discovery import _NAMED_TOKEN
+    text = ', '.join('‘Lead' + str(i) + '’' for i in range(65)) + ' are the first blueberry varieties.'
+    leads, _ = explicit_article_formats(text, name_token=_NAMED_TOKEN)
+    assert leads == []
+
+
+def test_paragraph_crop_scope_also_protects_existing_forward_and_license_lists():
+    record = source(
+        'Our raspberries have varieties including Local Red and Local Gold.\n\n'
+        'Our blackberry program licenses ‘Local Black’ from Example Program. Blackberry varieties are discussed.',
+        berry_ids=['berry-blueberry'])
+    assert {(c['candidate_name'], c['berry_id']) for c in scan(record)['candidates']} == {
+        ('Local Red', 'berry-raspberry'), ('Local Gold', 'berry-raspberry'), ('Local Black', 'berry-blackberry')}

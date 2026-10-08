@@ -1,5 +1,23 @@
 # Redesign and consolidation requirements
 
+October 8 selected-article discovery repair: the app recovered 18 original
+Hortifrut paragraphs with 24 named varieties, but the quick check initially
+found only two. Quoted positive declarations and paragraph-local crop scope
+now return all 24 with correct berries and no extras. Existing records remain
+unchanged; this repairs automation rather than counting manual coverage again.
+A negated-list false positive exposed by new tests is corrected. 103 affected
+tests pass (73.88s, one existing warning); records validate. Native selected
+preview shows 24 names / 23 candidates plus the existing Keepsake catalog link;
+Raspberry filtering retains article context and returns five Pacific names.
+No real review decision or candidate write. The unchanged summary diagnostic
+still has 23/24 cases and 60/64 names; no global recall claim or fixture shortcut.
+Default audit remains 255 sections / 972 occurrences / 707 proposed keys /
+64 mixed-status catalog records, 23 registry enumeration gaps and 58 follow-ups.
+Parent #355 has all four green checks (4,341 tests); this repair needs its own
+exact-head checks. See VARIETY-ARTICLE-QUOTED-LISTS-REVIEW.md. CAT-01/CAT-02 /
+TD-116, acquisition, independent recall, rights/photos, human catalog and release
+remain open. No merge/deploy or other-berry Landscape rollout.
+
 October 8 original company-source gaps: eleven bounded checks cover Singrow,
 Biogea, The Berry Collective, Fruitist and Grupo HerEs. Ten readable partial
 pages and one native DNS failure remain explicit gaps. Brands, input products,
@@ -11,7 +29,8 @@ some names checked; 23 enumeration gaps remain, with 58 source follow-ups.
 63 affected tests pass (68.23s, one existing warning); records validate; all
 2,771 baseline JSON files and the expansion guide remain unchanged. Native
 private coverage shows exclusions and incomplete source plans without writes.
-Parent #354 is green (4,336 tests); this follow-up needs exact-head checks.
+Parent #354 is green (4,336 tests); draft #355 also passes all four checks
+(4,341 tests / 11 skipped / two warnings, 441.39s).
 See REGISTRY-ORIGINAL-SOURCE-GAPS-REVIEW.md. CAT-01/CAT-02/TD-116, acquisition,
 independent recall, rights/photos, human catalog and combined release remain
 open. No merge/deploy or other-berry Landscape rollout.
