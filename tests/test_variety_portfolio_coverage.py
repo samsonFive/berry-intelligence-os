@@ -81,10 +81,10 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 974
-    assert report["summary"]["registry_entries_checked"] == 55
+    assert report["summary"]["names"] == 1009
+    assert report["summary"]["registry_entries_checked"] == 56
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 255, "berry-strawberry": 439, "berry-raspberry": 189, "berry-blackberry": 91}
+        "berry-blueberry": 255, "berry-strawberry": 474, "berry-raspberry": 189, "berry-blackberry": 91}
     assert "visible_candidates" not in report
     assert all("review_notes" not in str(r) for r in report["subjects"])
     abz = next(s for s in report["subjects"] if s["name"] == "ABZ Seeds")
