@@ -196,6 +196,25 @@ def test_processing_failure_retains_committed_checkpoint_and_retries_page(tmp_pa
     assert restarted['state']=='success' and restarted['job']['cursor']=='third'
     assert len(Store(tmp_path).records())==(2 if resume else 1)
 
+@pytest.mark.parametrize('text',[
+    'Blueberries are sweet. Cashews are crunchy and bananas are soft.',
+    'Arándanos dulce. Anacardos crujiente.',
+    'Mirtilos doce. Castanhas crocante.',
+    '蓝莓甜，腰果脆，香蕉软。',
+    'ブルーベリー甘い。カシューナッツカリカリ。',
+])
+def test_other_food_descriptors_do_not_become_berry_texture(text):
+    from app.services.social_intelligence.extraction import analyze
+    result=analyze(sample(text=text),ENTITIES)
+    aspects={a['aspect']:a for a in result['aspects']}
+    assert aspects['flavor']['target']=='berry-blueberry'
+    assert aspects['flavor']['sentiment']=='positive'
+    assert aspects['texture']['target'] is None and aspects['texture']['sentiment']=='uncertain'
+    assert any('target_basis' in hit for hit in aspects['texture']['evidence'])
+    for aspect in aspects.values():
+        for hit in aspect['evidence']:
+            span=hit['span'];assert text[span['start']:span['end']]==span['text']
+
 def test_bluesky_comment_image_thread_normalization():
     parent=bsky_response()['posts'][0];comment=deepcopy(parent);comment['uri']=comment['uri']+'reply'
     comment['record']['reply']={'parent':{'uri':parent['uri']}}

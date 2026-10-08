@@ -7,7 +7,10 @@ import re
 import hashlib
 from functools import lru_cache
 
-VERSION = 'social-literal-3'
+VERSION = 'social-literal-4'
+OTHER_FOODS = ['banana','bananas','cashew','cashews','yogurt','granola',
+               'plátano','plátanos','anacardo','anacardos','iogurte','castanha','castanhas',
+               '香蕉','腰果','酸奶','バナナ','カシューナッツ','ヨーグルト']
 VOCAB = {
  'berry-blueberry': {'en':['blueberry','blueberries'], 'es':['arándano','arándanos'], 'pt':['mirtilo','mirtilos'], 'zh':['蓝莓','藍莓'], 'ja':['ブルーベリー']},
  'berry-strawberry': {'en':['strawberry','strawberries'], 'es':['fresa','fresas','frutilla','frutillas'], 'pt':['morango','morangos'], 'zh':['草莓'], 'ja':['イチゴ','いちご','苺']},
@@ -71,7 +74,14 @@ def analyze(item, entities):
                 if re.search(r'\b(not|no|não)\s+$|不$',before,re.I) or 'ない' in after:
                     hit['polarity']='uncertain' # Simple negation must not become confident praise.
             signs = {h['polarity'] for h in hits}
-            aspects.append({'aspect':aspect, 'sentiment':'uncertain' if 'uncertain' in signs else 'mixed' if len(signs)>1 else next(iter(signs)), 'target':berries[0] if len(berries)==1 else None, 'evidence':hits})
+            competing_food=False
+            for hit in hits:
+                start=hit['span']['start'];end=hit['span']['end'];boundaries='.;!?。；！？，,、\n'
+                left=max([text.rfind(c,0,start) for c in boundaries])+1
+                right=min([i for c in boundaries if (i:=text.find(c,end))>=0] or [len(text)])
+                if any(spans(text[left:right],food) for food in OTHER_FOODS):
+                    competing_food=True;hit['target_basis']='Other food in descriptor clause; berry attribution requires review'
+            aspects.append({'aspect':aspect, 'sentiment':'uncertain' if competing_food or 'uncertain' in signs else 'mixed' if len(signs)>1 else next(iter(signs)), 'target':berries[0] if len(berries)==1 and not competing_food else None, 'evidence':hits})
     retailers = []
     for label, aliases in RETAILERS.items():
         for alias in aliases:
