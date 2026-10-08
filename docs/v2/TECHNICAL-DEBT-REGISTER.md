@@ -1994,6 +1994,26 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 8 EU Plants original YANA continuation: all ten pages of original
+USPP34772P3 were read and visually checked, including its single cultivar claim
+and seven drawing plates. The existing company Varieties table links one named
+raspberry proposal to exact identity review and original patent/claim references.
+Nine comparator/reference labels stay outside the company offering enumeration.
+Figure 1 has literal attribution and a visually checked original photo, unknown
+reuse, hidden default and private session-only Ignore permission / Hide photo.
+Printed applicant/assignee, priority and publication dates are historical source
+fields, not current legal status, approved company roles or trait/region records.
+Real audit: 229 sections / 932 occurrences / 62 text matches / 870 review needs /
+679 proposed keys (63 stored / 616 primary); catalog remains 64 mixed-status.
+52/77 registry entries partly checked, 25 enumeration gaps, 47 source follow-ups.
+81 focused tests pass (45.71s, one existing warning); records validate; all 2,771
+original JSON files and expansion guide are unchanged. Native company handoff,
+original references and photo reveal/refresh/hide verified. Parent #350 has all
+four green checks (4,319 tests); this child needs its own exact-head full checks.
+See EUPLANTS-YANA-ORIGINAL-PATENT-REVIEW.md. CAT-01/CAT-02/TD-116, current-rights
+verification, embedded technical-sheet photos, independent recall and human
+catalog authoring remain open. No merge/deploy or other-berry Landscape rollout.
+
 October 8 IQ Berries source/photo continuation: the complete original homepage
 and all seven cultivar detail pages provide fourteen occurrences for seven
 blueberry offerings, with original source links and contextual code search.

@@ -1,0 +1,106 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-euplants-yana-original-us-patent",
+      "title": "EU Plants — YANA original USPP34772P3 patent",
+      "url": "https://patentimages.storage.googleapis.com/70/61/9a/63fbc2649c7028/USPP34772.pdf",
+      "company_ids": [
+        "company-eu-plants"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "published_date": "2022-11-29",
+      "enumerated_scope": "Complete ten-page original grant: cover, description, single cultivar claim and all seven drawing plates. Enumeration limited to the granted YANA cultivar; comparisons and references are excluded.",
+      "limitations": "Printed EU PLANTS LTD applicant and assignee wording connects the source to the existing company for review only. No approved breeder/owner/licensee role or current legal status. Original observations and photos do not approve traits, growing regions or reuse.",
+      "names": [
+        {
+          "candidate_name": "YANA",
+          "denomination": "YANA",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patents.google.com/patent/USPP34772P3/en",
+          "portfolio_context": "Original USPP34772P3 publication dated 2022-11-29 names YANA and contains one cultivar claim. Application 17/164,322 filed 2021-02-01; foreign priority PBR 2020/0331 dated 2020-01-30 is an application reference, not proof of a current CPVO grant. Printed applicant EU PLANTS LTD and assignee EU PLANTS LTD OF MANOR FARM are historical document fields; current ownership and company roles require separate review. Reported plant/fruit observations and comparisons remain source assertions under their stated conditions, without an approved trait or growing footprint.",
+          "photos": [
+            {
+              "named_variety": "YANA",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "image_url": "https://patentimages.storage.googleapis.com/fc/36/03/e445c51f48e53e/USPP034772-20221129-D00001.png",
+              "source_url": "https://patents.google.com/patent/USPP34772P3/en",
+              "credit": "USPP34772P3, Figure 1; applicant EU PLANTS LTD; photographer not individually credited",
+              "caption": "YANA fruit on the plant, Figure 1 of the original patent. Black-and-white source reproduction.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named patent photograph visually checked in the full PDF and full-resolution source viewer. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 10,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "sha256": "8cee9f26361a91a5946970e1b1c14be280b86ad7f141179e6dc359d1f62eb58e",
+        "current_legal_status_verified": false,
+        "photo_reuse_verified": false
+      },
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": [
+          {
+            "label": "Kwanza",
+            "reason": "Comparison/reference in the original description, not the granted named cultivar or an EU Plants portfolio offering."
+          },
+          {
+            "label": "Polka",
+            "reason": "Comparison/reference in the original description, not the granted named cultivar or an EU Plants portfolio offering."
+          },
+          {
+            "label": "Diamond Jubilee",
+            "reason": "Comparison/reference in the original description, not the granted named cultivar or an EU Plants portfolio offering."
+          },
+          {
+            "label": "Glen Amble",
+            "reason": "Comparison/reference in the original description, not the granted named cultivar or an EU Plants portfolio offering."
+          },
+          {
+            "label": "Malling Bella",
+            "reason": "Comparison/reference in the original description, not the granted named cultivar or an EU Plants portfolio offering."
+          },
+          {
+            "label": "Malling Charm",
+            "reason": "Comparison/reference in the original description, not the granted named cultivar or an EU Plants portfolio offering."
+          },
+          {
+            "label": "Maravilla",
+            "reason": "Comparison/reference in the original description, not the granted named cultivar or an EU Plants portfolio offering."
+          },
+          {
+            "label": "DJ",
+            "reason": "Comparison/reference in the original description, not the granted named cultivar or an EU Plants portfolio offering."
+          },
+          {
+            "label": "Tulameen",
+            "reason": "Comparison/reference in the original description, not the granted named cultivar or an EU Plants portfolio offering."
+          }
+        ]
+      }
+    }
+  ]
+}
