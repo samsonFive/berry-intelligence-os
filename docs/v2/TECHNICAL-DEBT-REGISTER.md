@@ -1994,6 +1994,25 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 8 Wish Farms / market-source continuation: fourteen bounded sections
+add the four blackberry names in Wish Farms' 2019 grower announcement. Original
+publication date and differing article dateline remain separate. Existing IDs,
+registration and human decisions win; no inferred spelling aliases or roles.
+Gem-Pack's complete original packaging sheet contains labels, not cultivar
+denominations. Surexport, Perfection and Pairwise categories, brands and trait
+labels remain coverage gaps. A company with zero captured names now gets an
+upfront explanation that its varieties may still be missing.
+Real audit: 184 sections / 828 occurrences / 58 text matches / 770 review needs /
+636 candidate keys; catalog 64. Registry: 45/77 partly checked, 32 rows still
+need named-variety enumeration, with 43 source follow-ups. No new gallery assets
+or public photo approvals. Final focused tests: 77 passed / one existing warning
+in 55.94 seconds. Native Wish search/alphabet/reset and candidate/source handoff,
+and Surexport's six read pages / zero captured names, pass desktop review.
+Records validate; all 1,992 original JSON files and expansion guide unchanged.
+Parent draft #344 has four green checks (4,285 tests); this draft needs its own
+pushed-head checks. See WISH-FARMS-MARKET-SOURCE-VARIETIES-REVIEW.md.
+CAT-01/CAT-02/TD-116 remain open. No merge/deploy or other-berry rollout.
+
 October 8 Family Tree Farms / Miyoshi source continuation: eight bounded
 source sections add four historical Family Tree Farms blueberry labels and
 Miyoshi's 19FAG-1 / Berry Pop SAKURA source pairing. Existing Star identity,
