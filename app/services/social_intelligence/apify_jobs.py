@@ -45,6 +45,10 @@ class ApifyJobs:
                            or not isinstance(a.get('cap_usd'), (int, float)) or not math.isfinite(a['cap_usd'])
                            or not 0 < a['cap_usd'] <= .1 for a in ledger['attempts'])):
                 raise ValueError()
+            blocks = ledger.get('actor_access_blocks', [])
+            if (not isinstance(blocks, list) or any(not isinstance(a, str) or a not in ACTORS for a in blocks)
+                    or len(set(blocks)) != len(blocks)):
+                raise ValueError()
             return ledger
         except (ValueError, KeyError, TypeError):
             raise AccessBlocked('Private job ledger unreadable; do not launch') from None
@@ -98,6 +102,8 @@ class ApifyJobs:
                 if previous.get('fingerprint') != fingerprint:
                     raise AccessBlocked('Existing case input differs or predates this runner; no relaunch')
                 return {**previous, 'reused': True}
+            if actor in ledger.get('actor_access_blocks', []):
+                raise AccessBlocked('Saved Actor access blocker requires verified free-access review; no new launch')
             account = self._request('GET', '/users/me')['data']
             limits = self._request('GET', '/users/me/limits')['data']
             current = limits['current']

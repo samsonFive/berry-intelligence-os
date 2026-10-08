@@ -285,3 +285,33 @@ def test_reviewed_upstream_failure_overrides_empty_actor_success(tmp_path):
     assert jobs.cached_status()['jobs'][0]['observed_volume'] is None
     with pytest.raises(AccessBlocked, match='Source failure diagnostic'):
         jobs.normalize_cached('blueberry-sorting')
+
+
+def test_saved_actor_access_block_prevents_new_request_but_keeps_observation(tmp_path):
+    jobs, requests, client = harness(tmp_path)
+    launch(jobs)
+    ledger=json.loads(jobs.ledger_path.read_text());ledger['actor_access_blocks']=[ACTOR]
+    jobs.ledger_path.write_text(json.dumps(ledger))
+    before=len(requests)
+    restarted=ApifyJobs(tmp_path, enabled=True, client=client, token='synthetic-secret')
+    with pytest.raises(AccessBlocked,match='Saved Actor access blocker'):
+        launch(restarted,case='new-blocked-case')
+    assert len(requests)==before and len(restarted._read()['attempts'])==1
+    assert launch(restarted)['reused']
+    assert restarted.observe('blueberry-sorting')['run_id']=='run12345'
+
+
+@pytest.mark.parametrize('blocks',[None,{},['unrecognized/actor'],[ACTOR,ACTOR]])
+def test_malformed_actor_access_blocks_fail_closed(tmp_path,blocks):
+    jobs, requests, _ = harness(tmp_path)
+    jobs.ledger_path.write_text(json.dumps({'ceiling_free_credit_usd':1,'cash_spend':0,'attempts':[], 'actor_access_blocks':blocks}))
+    with pytest.raises(AccessBlocked,match='ledger unreadable'):
+        launch(jobs)
+    assert not requests
+
+
+def test_actor_block_does_not_disable_other_inspected_source(tmp_path):
+    jobs, requests, _ = harness(tmp_path)
+    jobs.ledger_path.write_text(json.dumps({'ceiling_free_credit_usd':1,'cash_spend':0,'attempts':[], 'actor_access_blocks':['atomus/twitter-scraper']}))
+    assert launch(jobs)['run_id']=='run12345'
+    assert requests
