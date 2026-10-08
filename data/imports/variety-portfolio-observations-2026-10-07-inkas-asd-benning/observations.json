@@ -1,0 +1,158 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-asd-victoria-names",
+      "title": "Australian Strawberry Distributors — Victoria farm variety names",
+      "url": "https://asdstrawberries.com.au/about-us/",
+      "checked_on": "2026-10-07",
+      "company_ids": ["company-australian-strawberry-distributors"],
+      "berry_ids": ["berry-strawberry"],
+      "source_type": "company_growing_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Six literal variety labels in the Victoria paragraph under Our Farms; not the whole company's current holdings.",
+      "limitations": "Company-reported planting context, not breeder ownership, verified growing regions or current production. Keep Peteluma, Grenada and Fontarias exactly as published until identity review; do not silently correct them or infer aliases. Page has no publication date. Native browser timed out; enumeration uses returned public primary-page text, cross-checked against the Products page. Photos are not identified by variety and are excluded from variety galleries. The page's malformed plant-total wording is not a supported quantity.",
+      "capture_reference": {
+        "method": "public_primary_page_text",
+        "native_navigation": "connection timed out; no native source-page acceptance",
+        "cross_check_url": "https://asdstrawberries.com.au/products/",
+        "cross_check_note": "Products repeats these names but joins Red Rhapsody and Sundrench without punctuation; the separate About paragraphs establish the list boundaries. No joined cultivar name is inferred."
+      },
+      "names": [
+        {"candidate_name": "Albion", "berry_id": "berry-strawberry", "portfolio_context": "ASD lists this name among strawberries grown on its Victoria farm. Identity and the growing claim need separate review."},
+        {"candidate_name": "Peteluma", "berry_id": "berry-strawberry", "portfolio_context": "ASD publishes the spelling Peteluma in its Victoria list. Check the intended cultivar before changing the name or combining it with another entry."},
+        {"candidate_name": "Grenada", "berry_id": "berry-strawberry", "portfolio_context": "ASD publishes the spelling Grenada in its Victoria list. Check the intended cultivar before changing the name or combining it with another entry."},
+        {"candidate_name": "Cabrillo", "berry_id": "berry-strawberry", "portfolio_context": "ASD lists this name among strawberries grown on its Victoria farm. Identity and the growing claim need separate review."},
+        {"candidate_name": "Fontarias", "berry_id": "berry-strawberry", "portfolio_context": "ASD publishes the spelling Fontarias in its Victoria list. Check the intended cultivar before changing the name or combining it with another entry."},
+        {"candidate_name": "Red Rhapsody", "berry_id": "berry-strawberry", "portfolio_context": "ASD lists Red Rhapsody in its Victoria paragraph and separately in its Queensland paragraph. These are two source mentions of one label, not proof of two varieties or approved growing regions."}
+      ],
+      "accounting": {"observed_items": 6, "exclusions": []}
+    },
+    {
+      "id": "portfolio-asd-queensland-names",
+      "title": "Australian Strawberry Distributors — Queensland farm variety names",
+      "url": "https://asdstrawberries.com.au/about-us/",
+      "checked_on": "2026-10-07",
+      "company_ids": ["company-australian-strawberry-distributors"],
+      "berry_ids": ["berry-strawberry"],
+      "source_type": "company_growing_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Four literal variety labels in the Queensland paragraph under Our Farms; repeated Red Rhapsody retains its separate paragraph context.",
+      "limitations": "Company-reported growing list, not a breeder portfolio or independent confirmation of current planting. No regions, licenses, traits or company roles are approved. Page has no publication date. Native browser timed out; names are from returned public primary-page text. Products has a missing delimiter between Red Rhapsody and Sundrench; do not create a joined name. Unlabeled strawberry photos do not establish cultivar identity or reuse permission.",
+      "capture_reference": {
+        "method": "public_primary_page_text",
+        "native_navigation": "connection timed out; no native source-page acceptance",
+        "cross_check_url": "https://asdstrawberries.com.au/products/"
+      },
+      "names": [
+        {"candidate_name": "Sundrench", "berry_id": "berry-strawberry", "portfolio_context": "ASD lists Sundrench separately in its Queensland paragraph. The Products page's missing punctuation does not make it part of Red Rhapsody's name."},
+        {"candidate_name": "Parisienne Kiss", "berry_id": "berry-strawberry", "portfolio_context": "ASD lists Parisienne Kiss among its Queensland strawberries. The name and planting claim remain unreviewed."},
+        {"candidate_name": "Scarlet Rose", "berry_id": "berry-strawberry", "portfolio_context": "ASD lists Scarlet Rose among its Queensland strawberries. The name and planting claim remain unreviewed."},
+        {"candidate_name": "Red Rhapsody", "berry_id": "berry-strawberry", "portfolio_context": "ASD repeats Red Rhapsody in its Queensland list. Preserve this context alongside its Victoria mention; neither mention approves a growing footprint."}
+      ],
+      "accounting": {"observed_items": 4, "exclusions": []}
+    },
+    {
+      "id": "portfolio-benning-history-name-check",
+      "title": "Benning Blueberries — history page name check",
+      "url": "https://benningblueberries.com.au/about/",
+      "checked_on": "2026-10-07",
+      "company_ids": ["company-denning-blueberries"],
+      "berry_ids": ["berry-blueberry"],
+      "source_type": "company_about_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Benning History text on the original About page: no named blueberry cultivars in that bounded text. Home and Facilities were also inspected as context.",
+      "limitations": "No cultivar names found on this page is not zero varieties owned or grown, and is not a complete company portfolio. Generic blueberry photographs, company history, acreage claims and packing-machine brands cannot supply cultivar names. Existing company identifier is retained; this observation does not rename or merge company records, validate quantities, or approve growing regions. Page has no stated publication date.",
+      "capture_reference": {
+        "method": "native_browser_page_review",
+        "additional_checked_urls": ["https://benningblueberries.com.au/", "https://benningblueberries.com.au/our-facilities/"],
+        "next_step": "Locate an explicitly named planting or variety source; company history and packing equipment do not provide a variety list."
+      },
+      "names": [],
+      "accounting": {"observed_items": 0, "exclusions": []}
+    },
+    {
+      "id": "portfolio-inkas-matias-product",
+      "title": "Inka's Berries — Matías product page and labeled fruit image",
+      "url": "https://inkasberries.com.pe/variedad-matias/",
+      "checked_on": "2026-10-07",
+      "company_ids": ["company-inkas-berries"],
+      "berry_ids": ["berry-blueberry"],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named product heading and its visibly labeled hero fruit image. Repeated responsive headings and inquiry-form options are not additional product entries.",
+      "limitations": "Publisher-labeled variety, not independently confirmed identity, rights, traits, ownership, release date or growing footprint. Registered-mark styling is not a patent/PBR identifier. No publication date or photographer/image-specific reuse permission was established. Do not attach the shared unnamed harvest background or other generic site imagery. Marketing claims remain separate from verified facts.",
+      "capture_reference": {
+        "method": "native_browser_page_and_labeled_image_review",
+        "list_url": "https://inkasberries.com.pe/variedades/",
+        "list_note": "Visible list links include a preview=true query; product observation uses the independently found original product URL without altering stored source links. Unnamed advanced-selection totals are not named catalog entries."
+      },
+      "names": [
+        {
+          "candidate_name": "Matías",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://inkasberries.com.pe/variedad-matias/",
+          "portfolio_context": "Inka's Berries presents Matías as a named blueberry product. Its header image visibly carries the Matías label; the identity and promotional claims remain unreviewed.",
+          "photos": [
+            {
+              "image_url": "https://inkasberries.com.pe/wp-content/uploads/2023/03/Header-Matias-e1679512747620.png",
+              "source_url": "https://inkasberries.com.pe/variedad-matias/",
+              "named_variety": "Matías",
+              "berry_id": "berry-blueberry",
+              "credit": "Inka's Berries product page · Photographer not credited",
+              "caption": "Matías: Publisher's labeled blueberry fruit image",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Original header was visually checked with the Matías label visible. Source identification is not independent cultivar verification or reuse permission. Keep held; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {"observed_items": 1, "exclusions": []}
+    },
+    {
+      "id": "portfolio-inkas-salvador-product",
+      "title": "Inka's Berries — Salvador product page and labeled fruit image",
+      "url": "https://inkasberries.com.pe/variedad-salvador/",
+      "checked_on": "2026-10-07",
+      "company_ids": ["company-inkas-berries"],
+      "berry_ids": ["berry-blueberry"],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named product heading and its visibly labeled hero fruit image. The second inquiry option and duplicated responsive headings are not additional product entries.",
+      "limitations": "Company product-page assertion only. Registered-mark styling is not a patent/PBR record and the publication/release date is unknown. Breeder, owner, licensing, traits, growing regions and photographer/reuse permission remain unapproved. The shared unnamed harvest image is excluded. This page is not the complete Inka's Berries lifetime portfolio or a fresh legal-status check.",
+      "capture_reference": {
+        "method": "native_browser_page_and_labeled_image_review",
+        "list_url": "https://inkasberries.com.pe/variedades/",
+        "historical_follow_up_url": "https://inkasberries.com.pe/wp-content/uploads/IB_Sostenibilidad_2020.pdf",
+        "historical_follow_up_status": "Search lead only; full report and individual historical planting claims not enumerated or approved in this observation."
+      },
+      "names": [
+        {
+          "candidate_name": "Salvador",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://inkasberries.com.pe/variedad-salvador/",
+          "portfolio_context": "Inka's Berries presents Salvador as a named blueberry product. The hero image carries the Salvador label; independent identity, rights and trait review remain necessary.",
+          "photos": [
+            {
+              "image_url": "https://inkasberries.com.pe/wp-content/uploads/2022/11/Salvador-Header-scaled-e1669772390342.webp",
+              "source_url": "https://inkasberries.com.pe/variedad-salvador/",
+              "named_variety": "Salvador",
+              "berry_id": "berry-blueberry",
+              "credit": "Inka's Berries product page · Photographer not credited",
+              "caption": "Salvador: Publisher's labeled blueberry fruit image",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Original header was visually checked with the Salvador label visible. Publisher attribution does not establish the photographer or image-specific reuse terms. Keep held; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {"observed_items": 1, "exclusions": []}
+    }
+  ]
+}

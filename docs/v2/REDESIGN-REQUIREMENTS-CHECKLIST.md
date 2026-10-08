@@ -1,5 +1,20 @@
 # Redesign and consolidation requirements
 
+October 7 local follow-up: ASD/Benning/Inka's bounded original-source checks add
+12 name mentions and two visibly labeled, credited blueberry images. Generic
+images, spelling corrections, ownership and map claims are not inferred.
+67 regressions and records pass; native Matías show/hide retains unconfirmed
+reuse. Current catalog 64; scope 60 sections / 554 occurrences / 34 matches /
+520 review needs / 461 derived keys; 16 photos / 15 held / zero approved public.
+25 of 77 subjects have some bounded enumeration; 52 lack an initial checked
+section. Full portfolios, named Benning planting sources and the Inka's
+historical report still need research. CAT-01/CAT-02/TD-116 remain open.
+Delivery is on a separate local branch; prior 0ce865d push was rejected twice by
+automatic approval review and the specific authorization question is pending.
+No new PR or exact-head CI exists yet; the preceding checkpoint's CI/draft
+wording denotes required delivery, not a completed push. See
+COMPANY-NAMED-PHOTO-COVERAGE-REVIEW.md. No merge/deploy/other-berry rollout.
+
 October 7 CFIA code-photo follow-up: source-specific exact-code photo preview
 now works for ASF218/ASF219 without confirming trade-name aliases or canonical
 associations. Four held photo references and two unreviewed registry rows add

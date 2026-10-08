@@ -1,5 +1,21 @@
 # Project Status
 
+October 7 local company-name/photo follow-up: ASD's two explicit strawberry
+lists, Benning's bounded no-name history check and Inka's Matías/Salvador product
+pages add 12 source mentions and two held, credited blueberry images. Literal
+spellings, repeated contexts and negative page findings remain separate from
+approved identities, traits and growing claims. 67 relevant tests and records
+pass; native Matías session preview is verified. Catalog stays 64; current scope
+is 60 sections / 554 mentions / 34 text matches / 520 review needs / 461 derived
+keys; 16 photos, 15 held, zero approved public. See
+docs/v2/COMPANY-NAMED-PHOTO-COVERAGE-REVIEW.md.
+
+This follow-up is on a separate local branch. Preceding commit 0ce865d is local: automatic
+approval review rejected its push twice, and explicit destination/commit
+approval is pending. No new PR/CI, merge, deployment or other-berry rollout.
+Earlier CFIA CI/draft wording below describes required delivery, not a
+completed push.
+
 October 7 CFIA code-photo follow-up: four held photographs and two original
 Canadian registry records reach private review under ASF218/ASF219. Exact
 code/berry/source matching allows those candidate photos while AVA trade-name

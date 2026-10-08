@@ -2231,3 +2231,17 @@ or close portfolio completeness debt. See VARIETY-REGISTRY-SPECIES-CORRECTION.md
 
 
 **TD-116 catalog handoff follow-up (October 7):** The missing candidate-to-authoring navigation is addressed through existing human intake/publication review, which already supports unverified match/create. A reviewed distinct candidate can prepare source review, and current identity/catalog checks block stale decisions or duplicates before writes. Candidate history remains private; source/claim gates stay separate. No new writer/schema or real canonical additions. The 62 primary checks, independently scored recall, unresolved formats/languages, historical depth and rich profiles remain open. See VARIETY-CATALOG-REVIEW-HANDOFF.md.
+
+**October 7 local TD-116 source-coverage follow-up:**
+
+Five bounded sections add ASD/Benning/Inka's source coverage and two held,
+credited blueberry photos. Current scope is 60 sections / 554 mentions /
+34 text matches / 520 review needs / 461 derived keys; 16 photos, 15 held,
+zero approved public. Catalog stays 64. 25 of 77 subjects have some page
+enumeration and 52 lack an initial checked section; no complete-portfolio
+claim. Seven capture/accounting follow-ups, named Benning planting sources,
+Inka's historical report, independent recall and profile depth remain open.
+67 tests and records pass; native Matías session preview is verified.
+Delivery is on a separate local branch. Preceding 0ce865d push awaits specific user
+authorization after two automatic approval-review rejections; no new PR/CI.
+TD-116 remains open. See COMPANY-NAMED-PHOTO-COVERAGE-REVIEW.md.

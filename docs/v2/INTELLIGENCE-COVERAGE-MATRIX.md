@@ -1,5 +1,24 @@
 # Intelligence Coverage Matrix
 
+October 7 local company-name/photo follow-up: three additional subjects have
+bounded name checks, not complete portfolios. ASD retains nine literal
+strawberry labels in ten paragraph mentions; Benning's history page names no
+cultivar; Inka's supplies two named blueberry product pages and two held,
+credited photos. Benning/Inka's were checked natively. ASD's native timeout is
+retained; public primary-page text was cross-checked. No generic photos,
+spelling/alias correction, region, rights or role approvals are inferred.
+
+Current scope: 60 sections / 554 occurrences / 34 catalog text matches /
+520 review needs / 461 derived keys; 25 of 77 subjects have some enumeration,
+52 lack an initial checked section. Seven capture/accounting gaps and new
+Benning/historical Inka's research tasks remain. Photos 16, held 15, approved
+public zero; catalog 64. 67 focused tests and records pass; native Matías
+session preview is verified. Follow-up on a separate local branch; prior 0ce865d push
+awaits specific authorization after automatic rejection. No new PR/exact-head
+CI, trust promotion, merge/deploy or other-berry rollout. Earlier CFIA CI/draft
+wording denotes required delivery, not a completed push. See
+COMPANY-NAMED-PHOTO-COVERAGE-REVIEW.md; CAT-01/CAT-02/TD-116 remain open.
+
 October 7 CFIA code-photo follow-up: two bounded original strawberry records
 add two name occurrences and four held source-code photos. Known code/berry/
 source matching supports private candidate preview without confirming the
