@@ -192,3 +192,37 @@ def test_unfinished_cache_does_not_become_import_or_successful_zero(tmp_path):
     with pytest.raises(AccessBlocked,match='Successful saved job'):
         jobs.normalize_cached('blueberry-sorting')
     assert len(requests)==before and not tmp_path.joinpath('blueberry-sorting-normalized-import.json').exists()
+
+
+
+def test_cached_health_never_turns_failure_or_metadata_into_zero(tmp_path):
+    jobs, requests, _ = harness(tmp_path,status='SUCCEEDED')
+    launch(jobs);jobs.observe('blueberry-sorting')
+    before=len(requests)
+    assert jobs.cached_status()['jobs'][0]['observed_volume'] is None
+    # The minimal fixture response is metadata, not a valid post.
+    jobs.normalize_cached('blueberry-sorting')
+    status=jobs.cached_status()
+    assert status['jobs'][0]['status']=='failed'
+    assert status['jobs'][0]['observed_volume'] is None
+    assert status['reserved_free_credit_usd']==.1 and not status['fresh_account_verified']
+    assert len(requests)==before
+
+
+def test_empty_normalized_search_is_zero_but_changed_cache_is_unverified(tmp_path):
+    jobs, requests, _ = harness(tmp_path,status='SUCCEEDED')
+    launch(jobs);jobs.observe('blueberry-sorting')
+    tmp_path.joinpath('blueberry-sorting-items.json').write_text('[]')
+    jobs.normalize_cached('blueberry-sorting')
+    before=len(requests)
+    status=jobs.cached_status()['jobs'][0]
+    assert status['status']=='partial' and status['observed_volume']==0 and status['last_success']
+    receipt_path=tmp_path/'blueberry-sorting-normalization.json'
+    receipt=json.loads(receipt_path.read_text());receipt['data_observed_at']='invalid'
+    receipt_path.write_text(json.dumps(receipt))
+    invalid=jobs.cached_status()['jobs'][0]
+    assert invalid['status']=='unknown' and invalid['observed_volume'] is None and invalid['last_success'] is None
+    jobs.normalize_cached('blueberry-sorting')
+    tmp_path.joinpath('blueberry-sorting-items.json').write_text('[{}]')
+    assert jobs.cached_status()['jobs'][0]['observed_volume'] is None
+    assert len(requests)==before

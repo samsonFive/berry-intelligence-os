@@ -210,7 +210,8 @@ class ApifyJobs:
         cache = self.folder / (case + '-items.json')
         if not cache.exists() or cache.stat().st_size > 2_000_000:
             raise AccessBlocked('Successful bounded raw dataset cache required')
-        items = json.loads(cache.read_text(encoding='utf-8'))
+        raw = cache.read_bytes()
+        items = json.loads(raw)
         captured = entry.get('data_observed_at')
         basis = 'Saved dataset observation timestamp'
         if not captured:
@@ -227,7 +228,67 @@ class ApifyJobs:
         receipt = {'case': case, 'state': 'normalized-cached', 'mode': 'imported',
                    'input_items': result['input_items'], 'normalized': len(result['rows']),
                    'rejected': len(result['rejected']), 'duplicate_copies': result['duplicate_copies'],
-                   'collection_time_basis': basis, 'new_source_calls': 0, 'ingested': False,
+                   'collection_time_basis': basis, 'data_observed_at': captured,
+                   'run_id': entry.get('run_id'), 'dataset_sha256': hashlib.sha256(raw).hexdigest(),
+                   'new_source_calls': 0, 'ingested': False,
                    'file': str(output)}
         atomic_json(self.folder / (case + '-normalization.json'), receipt)
         return receipt
+
+
+    def cached_status(self):
+        """Content-free cached status, never fresh account/coverage verification."""
+        ledger = self._read()
+        jobs = []
+        sources = {'apify/facebook-posts-scraper': 'facebook',
+                   'apify/instagram-scraper': 'instagram',
+                   'harvestapi/linkedin-post-search': 'linkedin'}
+        for entry in ledger['attempts']:
+            source = sources.get(entry.get('actor'))
+            if not source:
+                raise AccessBlocked('Saved actor unrecognized')
+            case = entry['case']
+            state = entry.get('state')
+            status = 'failed' if state in ('FAILED', 'ABORTED', 'TIMED-OUT', 'launch-rejected') else 'unknown'
+            volume, last_success = None, None
+            note = 'Saved run is unfinished or unverified; this is not zero conversation'
+            receipt_path = self.folder / (case + '-normalization.json')
+            cache = self.folder / (case + '-items.json')
+            if state == 'SUCCEEDED':
+                note = 'Provider run completed; cached rows have not been verified by normalization'
+                if receipt_path.exists() and cache.exists() and receipt_path.stat().st_size <= 16000 and cache.stat().st_size <= 2_000_000:
+                    try:
+                        receipt = json.loads(receipt_path.read_text(encoding='utf-8'))
+                        bound = (receipt.get('case') == case and receipt.get('run_id') == entry.get('run_id')
+                                 and receipt.get('dataset_sha256') == hashlib.sha256(cache.read_bytes()).hexdigest())
+                        counts = [receipt.get(k) for k in ('normalized', 'rejected', 'input_items')]
+                        valid_counts = all(isinstance(v, int) and not isinstance(v, bool) and v >= 0 for v in counts)
+                        if bound and valid_counts:
+                            normalized, rejected, input_items = counts
+                            if normalized or not rejected and input_items == 0:
+                                status, volume = 'partial', normalized
+                                captured = datetime.fromisoformat(receipt['data_observed_at'].replace('Z', '+00:00'))
+                                if captured.tzinfo is None or captured > datetime.now(timezone.utc):
+                                    raise ValueError('Invalid cached capture timestamp')
+                                last_success = captured.isoformat()
+                                note = 'One-off normalized snapshot; not ongoing monitoring, relevance, language or country coverage'
+                                if rejected:
+                                    note += '; some returned items failed normalization'
+                            else:
+                                status = 'failed'
+                                note = 'Returned items failed post/comment normalization; not a successful zero-result search'
+                        else:
+                            note = 'Cached normalization receipt no longer matches this run/dataset; results unverified'
+                    except (ValueError, KeyError, TypeError):
+                        status, volume, last_success = 'unknown', None, None
+                        note = 'Cached normalization receipt invalid; results unverified'
+            jobs.append({'id': 'apify-trial-' + case, 'source': source,
+                         'market': 'No market target', 'language': 'und', 'status': status,
+                         'started_at': entry.get('reserved_at'), 'last_success': last_success,
+                         'observed_volume': volume, 'failure': note, 'query_changed': True,
+                         'query_label': case, 'mode': 'live', 'provider_run_state': state,
+                         'cost_usd': entry.get('usage_total_usd'), 'cost_final': False})
+        return {'state': 'cached-status', 'jobs': jobs,
+                'reserved_free_credit_usd': round(sum(a['cap_usd'] for a in ledger['attempts']), 6),
+                'trial_ceiling_usd': ledger['ceiling_free_credit_usd'], 'attempts': len(jobs),
+                'fresh_account_verified': False, 'scheduled_collection': False, 'new_source_calls': 0}
