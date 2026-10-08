@@ -216,3 +216,6 @@ October7 Social continuation: Facebook public company pages and X company search
 ### All-berry rollout authorized — 2026-10-07
 
 The user approved the blueberry workspace and authorized strawberry, raspberry and blackberry expansion. See [all-berry review](SOCIAL-ALL-BERRIES-REVIEW.md), measured `artifacts/social-all-berries/trial-summary.json` and separate synthetic evaluation. Six additional X/Reddit probes returned HTTP200 at $0, six free credits consumed; 38 cumulative consumed, 12 remain. No ongoing collection, merge or deployment. Layout approval does not qualify independent relevance/role/language accuracy, redisplay/deletion rights, watch persistence or automatic downstream assembly. Historical blueberry-only gate statements above describe the earlier checkpoint. Landscape Explorer retains its separate scope.
+
+## Apify measured access — October 7
+Facebook public-page posts, LinkedIn keyword search and Instagram exact-hashtag posts are partial live access demonstrated on a verified Free account. Generic Instagram hashtag discovery returned tag metadata only. See [measured trial and exact blockers](SOCIAL-APIFY-TRIAL.md). No production connector, comments/media-byte verification, retention qualification or unattended collection established.

@@ -112,3 +112,6 @@ The [multi-platform measured trial](SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md) su
 ### All-berry rollout authorized — 2026-10-07
 
 The user approved the blueberry workspace and authorized strawberry, raspberry and blackberry expansion. See [all-berry review](SOCIAL-ALL-BERRIES-REVIEW.md), measured `artifacts/social-all-berries/trial-summary.json` and separate synthetic evaluation. Six additional X/Reddit probes returned HTTP200 at $0, six free credits consumed; 38 cumulative consumed, 12 remain. No ongoing collection, merge or deployment. Layout approval does not qualify independent relevance/role/language accuracy, redisplay/deletion rights, watch persistence or automatic downstream assembly. Historical blueberry-only gate statements above describe the earlier checkpoint. Landscape Explorer retains its separate scope.
+
+## Apify account tests — October 7
+See [measured Apify trial](SOCIAL-APIFY-TRIAL.md): four completed jobs, Facebook/LinkedIn/Instagram post samples, one unsuccessful hashtag-discovery result, $0 cash and about $0.0623 included credit. Production normalization, comments, repeat/history/media/removal and independent accuracy remain unproven.

@@ -12,7 +12,7 @@ def context_links(records,entity_id=None,berry_id='all',market=None, *, entity_i
     rows.sort(key=newest_first_key,reverse=True)
     return [{'id':r['id'],'title':display_text(r)[:160],'trust_class':'UNREVIEWED SOCIAL OBSERVATION',
              'source_ids':[r['id']],'mode':r['mode'],'date':(r['published_at'] or r['collected_at'])[:10],
-             'date_basis':'publication' if r['published_at'] else 'collection',
+             'date_basis':('estimated publication' if r.get('publication_date_basis')=='estimated' else 'publication') if r['published_at'] else 'collection',
              'href':'/social?'+urlencode({'mode':r['mode'],'berry':berry_id,'story':r['id']}),
              'does_not_prove':['Verified relationship','National availability','Representative consumer sentiment']} for r in rows[:20]]
 

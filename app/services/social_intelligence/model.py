@@ -75,6 +75,7 @@ class Intake(Strict):
     canonical_url: str
     parent_native_id: str | None = None
     published_at: datetime | None = None
+    publication_date_basis: Literal['source', 'estimated'] = 'source'
     collected_at: datetime
     mode: Literal['live', 'imported', 'manual', 'fixture']
     discovery_method: str = Field(min_length=1, max_length=120)
