@@ -161,3 +161,34 @@ def test_null_current_pricing_selects_effective_history_not_future(tmp_path):
     assert result['pricing_model']=='PAY_PER_EVENT'
     assert result['pricing_started_at']=='2020-01-01T00:00:00Z'
     assert len([r for r in requests if r.method=='POST'])==1
+
+
+
+def test_cached_normalization_is_offline_imported_and_keeps_time(tmp_path):
+    jobs, requests, _ = harness(tmp_path, status='SUCCEEDED')
+    launch(jobs);jobs.observe('blueberry-sorting')
+    # Replace synthetic minimal transport item with inspected synthetic shape.
+    tmp_path.joinpath('blueberry-sorting-items.json').write_text(json.dumps([
+        {'type':'post','id':'post12345','linkedinUrl':'https://www.linkedin.com/posts/test/',
+         'content':'Blueberry supplier','postedAt':{'date':'2026-10-07T10:00:00Z'}}]))
+    before=len(requests)
+    offline=ApifyJobs(tmp_path,enabled=False,token=None)
+    receipt=offline.normalize_cached('blueberry-sorting')
+    assert len(requests)==before and receipt['mode']=='imported' and not receipt['ingested']
+    assert receipt['normalized']==1 and receipt['rejected']==0
+    rows=json.loads(tmp_path.joinpath('blueberry-sorting-normalized-import.json').read_text())
+    ledger=json.loads(tmp_path.joinpath('ledger.json').read_text())
+    assert rows[0]['collected_at']==ledger['attempts'][0]['data_observed_at'].replace('+00:00','Z')
+    assert rows[0]['publication_date_basis']=='estimated' and rows[0]['language']=='und'
+    assert rows[0]['mode']=='imported' and rows[0]['content_role']=='unknown'
+    assert offline.normalize_cached('blueberry-sorting')['normalized']==1
+
+
+def test_unfinished_cache_does_not_become_import_or_successful_zero(tmp_path):
+    jobs, requests, _ = harness(tmp_path)
+    launch(jobs)
+    tmp_path.joinpath('blueberry-sorting-items.json').write_text('[]')
+    before=len(requests)
+    with pytest.raises(AccessBlocked,match='Successful saved job'):
+        jobs.normalize_cached('blueberry-sorting')
+    assert len(requests)==before and not tmp_path.joinpath('blueberry-sorting-normalized-import.json').exists()

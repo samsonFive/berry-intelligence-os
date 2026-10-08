@@ -183,6 +183,51 @@ class ApifyJobs:
                 raise AccessBlocked('Dataset schema/item ceiling exceeded')
             atomic_json(self.folder / (case + '-items.json'), items)
             entry['returned'] = len(items)
+            entry['data_observed_at'] = datetime.now(timezone.utc).isoformat()
             atomic_json(self.ledger_path, ledger)
             return {'case': case, 'run_id': entry['run_id'], 'state': 'SUCCEEDED',
                     'terminal': True, 'items': items}
+
+
+    def normalize_cached(self, case):
+        """Offline export for existing schema-validated import; no Store write.
+
+        Imported provenance is intentional. Re-reading a cached response is not
+        a new live observation or independent language/relevance review.
+        """
+        if not isinstance(case, str) or not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,79}', case):
+            raise ValueError('Bounded case identifier required')
+        from .apify_intake import apify_dataset
+        ledger = self._read()
+        entry = next((a for a in ledger['attempts'] if a['case'] == case), None)
+        if not entry or entry.get('state') != 'SUCCEEDED':
+            raise AccessBlocked('Successful saved job required; unfinished/failing jobs are not importable zeroes')
+        source = {'apify/facebook-posts-scraper': 'facebook',
+                  'apify/instagram-scraper': 'instagram',
+                  'harvestapi/linkedin-post-search': 'linkedin'}.get(entry.get('actor'))
+        if not source or not entry.get('build_number'):
+            raise AccessBlocked('Saved source/build contract unrecognized')
+        cache = self.folder / (case + '-items.json')
+        if not cache.exists() or cache.stat().st_size > 2_000_000:
+            raise AccessBlocked('Successful bounded raw dataset cache required')
+        items = json.loads(cache.read_text(encoding='utf-8'))
+        captured = entry.get('data_observed_at')
+        basis = 'Saved dataset observation timestamp'
+        if not captured:
+            captured = datetime.fromtimestamp(cache.stat().st_mtime, timezone.utc).isoformat()
+            basis = 'Legacy cached receipt file-save timestamp, not publication time'
+        result = apify_dataset(items, source=source, build=entry['build_number'],
+                               collected_at=captured, mode='imported')
+        for row in result['rows']:
+            row['permission_basis'] += '; ' + basis
+        # Conflicts fail before write; rejection counts remain explicit in a
+        # separate receipt. Operator reviews rows before existing import.
+        output = self.folder / (case + '-normalized-import.json')
+        atomic_json(output, result['rows'])
+        receipt = {'case': case, 'state': 'normalized-cached', 'mode': 'imported',
+                   'input_items': result['input_items'], 'normalized': len(result['rows']),
+                   'rejected': len(result['rejected']), 'duplicate_copies': result['duplicate_copies'],
+                   'collection_time_basis': basis, 'new_source_calls': 0, 'ingested': False,
+                   'file': str(output)}
+        atomic_json(self.folder / (case + '-normalization.json'), receipt)
+        return receipt
