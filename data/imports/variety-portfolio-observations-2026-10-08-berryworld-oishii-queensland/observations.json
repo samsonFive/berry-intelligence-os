@@ -1,0 +1,639 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-berryworld-sa-strawberry",
+      "title": "BerryWorld South Africa — strawberry list",
+      "url": "https://www.berryworld.com/en-za/berries/varieties",
+      "company_ids": [
+        "company-berryworld"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 7 names under this crop heading in the non-exhaustive Exclusivities & Varieties list.",
+      "limitations": "This South African page calls its list non-exhaustive. Its footer separates BerryWorld SA from the North American brand operated by Mastronardi Produce. BerryWorld prefixes are retained; no alias, exclusive rights, breeding role or growing region is approved. Crop cutouts and mixed-berry pictures do not identify named varieties and are withheld.",
+      "names": [
+        {
+          "candidate_name": "Eves Delight 2",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Source lists this label under the Edward Vinson breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "Sweet Eve",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Source lists this label under the Edward Vinson breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "Sweet Eve 2",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Source lists this label under the Edward Vinson breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "Eves Joy",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Source lists this label under the Edward Vinson breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "Eves Gloria",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Source lists this label under the Edward Vinson breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "Viva Patricia",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Source lists this label under the Edward Vinson breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BEE Honest",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Source lists this label under the Beekers Berries breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        }
+      ],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "primary_page_body_read",
+        "regional_page": "South Africa",
+        "non_exhaustive": true
+      }
+    },
+    {
+      "id": "portfolio-berryworld-sa-raspberry",
+      "title": "BerryWorld South Africa — raspberry list",
+      "url": "https://www.berryworld.com/en-za/berries/varieties",
+      "company_ids": [
+        "company-berryworld"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 10 names under this crop heading in the non-exhaustive Exclusivities & Varieties list.",
+      "limitations": "This South African page calls its list non-exhaustive. Its footer separates BerryWorld SA from the North American brand operated by Mastronardi Produce. BerryWorld prefixes are retained; no alias, exclusive rights, breeding role or growing region is approved. Crop cutouts and mixed-berry pictures do not identify named varieties and are withheld.",
+      "names": [
+        {
+          "candidate_name": "BerryWorld Reyes",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Source lists this label under the BerryWorld Plus breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Jewel",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Source lists this label under the BerryWorld Plus breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Gem",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Source lists this label under the BerryWorld Plus breeding programme. Source grouping is unreviewed; company roles and rights are not approved. The 2021 awards line pairs Diamond Jubilee / BerryWorld Gem; that is a source naming lead, not an approved alias. BerryWorld Gem and BerryGem are separate literal labels pending identity review."
+        },
+        {
+          "candidate_name": "BerryGem",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Source lists this label under the BerryWorld Plus breeding programme. Source grouping is unreviewed; company roles and rights are not approved. BerryWorld Gem and BerryGem are separate literal labels pending identity review."
+        },
+        {
+          "candidate_name": "BerryWorld Iris",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Source lists this label under the BerryWorld Plus breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Ruby",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Source lists this label under the BerryWorld Plus breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Pearl",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Source lists this label under the BerryWorld Plus breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "Diamond Jubilee",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Source lists this label under the BerryWorld Plus breeding programme. Source grouping is unreviewed; company roles and rights are not approved. The 2021 awards line pairs Diamond Jubilee / BerryWorld Gem; that is a source naming lead, not an approved alias."
+        },
+        {
+          "candidate_name": "Jade",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Source lists this label under the BerryWorld Plus breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "Sapphire",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Source lists this label under the BerryWorld Plus breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "primary_page_body_read",
+        "regional_page": "South Africa",
+        "non_exhaustive": true
+      }
+    },
+    {
+      "id": "portfolio-berryworld-sa-blackberry",
+      "title": "BerryWorld South Africa — blackberry list",
+      "url": "https://www.berryworld.com/en-za/berries/varieties",
+      "company_ids": [
+        "company-berryworld"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 2 names under this crop heading in the non-exhaustive Exclusivities & Varieties list.",
+      "limitations": "This South African page calls its list non-exhaustive. Its footer separates BerryWorld SA from the North American brand operated by Mastronardi Produce. BerryWorld prefixes are retained; no alias, exclusive rights, breeding role or growing region is approved. Crop cutouts and mixed-berry pictures do not identify named varieties and are withheld.",
+      "names": [
+        {
+          "candidate_name": "BerryWorld Midnight",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Source lists this label under the Beekers Berries breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "Sweet Karoline",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Source lists this label under the Next Gen breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "primary_page_body_read",
+        "regional_page": "South Africa",
+        "non_exhaustive": true
+      }
+    },
+    {
+      "id": "portfolio-berryworld-sa-blueberry",
+      "title": "BerryWorld South Africa — blueberry list",
+      "url": "https://www.berryworld.com/en-za/berries/varieties",
+      "company_ids": [
+        "company-berryworld"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 19 names under this crop heading in the non-exhaustive Exclusivities & Varieties list.",
+      "limitations": "This South African page calls its list non-exhaustive. Its footer separates BerryWorld SA from the North American brand operated by Mastronardi Produce. BerryWorld prefixes are retained; no alias, exclusive rights, breeding role or growing region is approved. Crop cutouts and mixed-berry pictures do not identify named varieties and are withheld.",
+      "names": [
+        {
+          "candidate_name": "BerryWorld Orb",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the BerryWorld Plus breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Eureka",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld First Blush",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Meridian",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Opi",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Sundown",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Twilight",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Dazzle",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Echo",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Eureka Sunrise",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Eureka Sunset",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Inicio",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Masena",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "BerryWorld Splash",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "Eureka Dawn",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "Eureka Gold",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "Eureka Maxx",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "Kalinda",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        },
+        {
+          "candidate_name": "Merliah",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Source lists this label under the Mountain Blue (MBO) breeding programme. Source grouping is unreviewed; company roles and rights are not approved."
+        }
+      ],
+      "accounting": {
+        "observed_items": 19,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "primary_page_body_read",
+        "regional_page": "South Africa",
+        "non_exhaustive": true
+      }
+    },
+    {
+      "id": "portfolio-berryworld-sa-award-history",
+      "title": "BerryWorld South Africa — additional historical award labels",
+      "url": "https://www.berryworld.com/en-za/berries/varieties",
+      "company_ids": [
+        "company-berryworld"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Four additional literal labels from the 2018–2026 award history that are absent from the current list under the same spelling.",
+      "limitations": "This South African page calls its list non-exhaustive. Its footer separates BerryWorld SA from the North American brand operated by Mastronardi Produce. BerryWorld prefixes are retained; no alias, exclusive rights, breeding role or growing region is approved. Crop cutouts and mixed-berry pictures do not identify named varieties and are withheld. Award years are historical event context, not publication dates or current availability. Repeated current labels are not counted again.",
+      "names": [
+        {
+          "candidate_name": "Eves Delight",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical 2022 award label. Spelling is retained separately from the current list; no brand-prefix alias or current supply claim is approved."
+        },
+        {
+          "candidate_name": "Eves Blush",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Historical 2018 award label. Spelling is retained separately from the current list; no brand-prefix alias or current supply claim is approved."
+        },
+        {
+          "candidate_name": "Masena",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Historical 2024 award label. Spelling is retained separately from the current list; no brand-prefix alias or current supply claim is approved."
+        },
+        {
+          "candidate_name": "BerryWorld Eureka Dawn",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Historical 2026 award label. Spelling is retained separately from the current list; no brand-prefix alias or current supply claim is approved."
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "primary_page_body_read",
+        "award_years": [
+          2018,
+          2022,
+          2024,
+          2026
+        ]
+      }
+    },
+    {
+      "id": "portfolio-oishii-koyo-product",
+      "title": "Oishii — The Koyo Berry",
+      "url": "https://oishii.com/pages/the-koyo-berry",
+      "company_ids": [
+        "company-oishii"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named marketed berry product on its own source page.",
+      "limitations": "This is the literal marketed product label, not an official cultivar denomination or breeder code. No alias to shorter names, parentage, patent, traits or growing footprint is approved. The FAQ describes Oishii berries as Japanese strawberry varietals; Nikko page crop context relies on that FAQ. Product menu, grade, recipes and tomato are not additional strawberry identities.",
+      "names": [
+        {
+          "candidate_name": "The Koyo Berry",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in this bounded source. Identity, company role and current availability need review.",
+          "photos": [
+            {
+              "named_variety": "The Koyo Berry",
+              "berry_id": "berry-strawberry",
+              "image_url": "https://oishii.com/cdn/shop/files/Koyo_2_700x.png?v=1710945416",
+              "source_url": "https://oishii.com/pages/the-koyo-berry",
+              "credit": "Oishii · Photographer not credited",
+              "caption": "Koyo: fruit pictured on its named product page",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Native browser visually checked the fruit cutout on the named Koyo page; exact Koyo filename, empty alt, loaded 700 × 700 image. Permission is not recorded. Private tab-session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "The Rubī Tomato",
+            "reason": "Tomato is outside berry crops."
+          },
+          {
+            "label": "Connoisseur Grade",
+            "reason": "Product grade, not a separately established cultivar."
+          },
+          {
+            "label": "Premium Preserves",
+            "reason": "Processed product category, not a named strawberry cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "primary_page_body_read",
+        "crop_context_url": "https://oishii.com/pages/faq",
+        "crop_context_method": "native_browser_expanded_faq",
+        "legal_denomination_recorded": false,
+        "photo_method": "native_browser_visual_and_rendered_asset_check"
+      }
+    },
+    {
+      "id": "portfolio-oishii-omakase-product",
+      "title": "Oishii — The Omakase Berry",
+      "url": "https://oishii.com/pages/the-omakase-berry",
+      "company_ids": [
+        "company-oishii"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named marketed berry product on its own source page.",
+      "limitations": "This is the literal marketed product label, not an official cultivar denomination or breeder code. No alias to shorter names, parentage, patent, traits or growing footprint is approved. The FAQ describes Oishii berries as Japanese strawberry varietals; Nikko page crop context relies on that FAQ. Product menu, grade, recipes and tomato are not additional strawberry identities.",
+      "names": [
+        {
+          "candidate_name": "The Omakase Berry",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in this bounded source. Identity, company role and current availability need review."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "primary_page_body_read",
+        "crop_context_url": "https://oishii.com/pages/faq",
+        "crop_context_method": "native_browser_expanded_faq",
+        "legal_denomination_recorded": false
+      }
+    },
+    {
+      "id": "portfolio-oishii-nikko-product",
+      "title": "Oishii — The Nikko Berry",
+      "url": "https://oishii.com/pages/the-nikko-berry",
+      "company_ids": [
+        "company-oishii"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named marketed berry product on its own source page.",
+      "limitations": "This is the literal marketed product label, not an official cultivar denomination or breeder code. No alias to shorter names, parentage, patent, traits or growing footprint is approved. The FAQ describes Oishii berries as Japanese strawberry varietals; Nikko page crop context relies on that FAQ. Product menu, grade, recipes and tomato are not additional strawberry identities.",
+      "names": [
+        {
+          "candidate_name": "The Nikko Berry",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in this bounded source. Identity, company role and current availability need review."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "primary_page_body_read",
+        "crop_context_url": "https://oishii.com/pages/faq",
+        "crop_context_method": "native_browser_expanded_faq",
+        "legal_denomination_recorded": false
+      }
+    },
+    {
+      "id": "portfolio-queensland-2018-subtropical",
+      "title": "Queensland — 2018 strawberry report, subtropical abstract group",
+      "url": "https://era.dpi.qld.gov.au/id/eprint/6539/",
+      "company_ids": [
+        "company-queensland-government"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_program_report",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 7 names in the subtropical target-group sentence of the 2018 report abstract.",
+      "limitations": "Bounded report abstract only; the full linked PDF and rights filings have not been checked in this capture. 2018 is the report citation year; 2019 archive and 2021 modification dates are not publication dates. Climate target groups are source context, not mapped plantings. Breeding targets are not confirmed outcomes. The abstract reports 12 new varieties but calls the seven-name subtropical group six; discrepancy retained for follow-up.",
+      "names": [
+        {
+          "candidate_name": "Red Rhapsody",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in the 2018 report abstract under the subtropical target group. Historical development/commercialisation context, not evidence of current supply or planted regions."
+        },
+        {
+          "candidate_name": "Parisienne Kiss",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in the 2018 report abstract under the subtropical target group. Historical development/commercialisation context, not evidence of current supply or planted regions."
+        },
+        {
+          "candidate_name": "Sundrench",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in the 2018 report abstract under the subtropical target group. Historical development/commercialisation context, not evidence of current supply or planted regions."
+        },
+        {
+          "candidate_name": "Scarlet Rose-ASBP",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in the 2018 report abstract under the subtropical target group. Historical development/commercialisation context, not evidence of current supply or planted regions."
+        },
+        {
+          "candidate_name": "Sunglow ASBP",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in the 2018 report abstract under the subtropical target group. Historical development/commercialisation context, not evidence of current supply or planted regions."
+        },
+        {
+          "candidate_name": "Meadowsong",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in the 2018 report abstract under the subtropical target group. Historical development/commercialisation context, not evidence of current supply or planted regions."
+        },
+        {
+          "candidate_name": "Venus-ASBP",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in the 2018 report abstract under the subtropical target group. Historical development/commercialisation context, not evidence of current supply or planted regions."
+        }
+      ],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [],
+        "reported_items": 6,
+        "reported_scope": "Varieties in this abstract subtropical group"
+      },
+      "capture_reference": {
+        "method": "primary_archive_abstract_body_read",
+        "report_year": 2018,
+        "full_report_url": "https://era.dpi.qld.gov.au/6539/1/BS12021%20-%20Final%20Report%20Complete.pdf",
+        "full_report_checked": false,
+        "abstract_total_reported": 12,
+        "climate_target_group": "subtropical"
+      }
+    },
+    {
+      "id": "portfolio-queensland-2018-temperate",
+      "title": "Queensland — 2018 strawberry report, temperate abstract group",
+      "url": "https://era.dpi.qld.gov.au/id/eprint/6539/",
+      "company_ids": [
+        "company-queensland-government"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_program_report",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 2 names in the temperate target-group sentence of the 2018 report abstract.",
+      "limitations": "Bounded report abstract only; the full linked PDF and rights filings have not been checked in this capture. 2018 is the report citation year; 2019 archive and 2021 modification dates are not publication dates. Climate target groups are source context, not mapped plantings. Breeding targets are not confirmed outcomes. The abstract reports 12 new varieties but calls the seven-name subtropical group six; discrepancy retained for follow-up.",
+      "names": [
+        {
+          "candidate_name": "Summer Song",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in the 2018 report abstract under the temperate target group. Historical development/commercialisation context, not evidence of current supply or planted regions."
+        },
+        {
+          "candidate_name": "Scarletsilk",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in the 2018 report abstract under the temperate target group. Historical development/commercialisation context, not evidence of current supply or planted regions."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [],
+        "reported_items": 2,
+        "reported_scope": "Varieties in this abstract temperate group"
+      },
+      "capture_reference": {
+        "method": "primary_archive_abstract_body_read",
+        "report_year": 2018,
+        "full_report_url": "https://era.dpi.qld.gov.au/6539/1/BS12021%20-%20Final%20Report%20Complete.pdf",
+        "full_report_checked": false,
+        "abstract_total_reported": 12,
+        "climate_target_group": "temperate"
+      }
+    },
+    {
+      "id": "portfolio-queensland-2018-mediterranean",
+      "title": "Queensland — 2018 strawberry report, mediterranean abstract group",
+      "url": "https://era.dpi.qld.gov.au/id/eprint/6539/",
+      "company_ids": [
+        "company-queensland-government"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_program_report",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 3 names in the mediterranean target-group sentence of the 2018 report abstract.",
+      "limitations": "Bounded report abstract only; the full linked PDF and rights filings have not been checked in this capture. 2018 is the report citation year; 2019 archive and 2021 modification dates are not publication dates. Climate target groups are source context, not mapped plantings. Breeding targets are not confirmed outcomes. The abstract reports 12 new varieties but calls the seven-name subtropical group six; discrepancy retained for follow-up.",
+      "names": [
+        {
+          "candidate_name": "Rosalie-ASBP",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in the 2018 report abstract under the mediterranean target group. Historical development/commercialisation context, not evidence of current supply or planted regions."
+        },
+        {
+          "candidate_name": "Jubilee-ASBP",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in the 2018 report abstract under the mediterranean target group. Historical development/commercialisation context, not evidence of current supply or planted regions."
+        },
+        {
+          "candidate_name": "Fanfare- ASBP",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in the 2018 report abstract under the mediterranean target group. Historical development/commercialisation context, not evidence of current supply or planted regions."
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [],
+        "reported_items": 3,
+        "reported_scope": "Varieties in this abstract mediterranean group"
+      },
+      "capture_reference": {
+        "method": "primary_archive_abstract_body_read",
+        "report_year": 2018,
+        "full_report_url": "https://era.dpi.qld.gov.au/6539/1/BS12021%20-%20Final%20Report%20Complete.pdf",
+        "full_report_checked": false,
+        "abstract_total_reported": 12,
+        "climate_target_group": "mediterranean"
+      }
+    }
+  ]
+}

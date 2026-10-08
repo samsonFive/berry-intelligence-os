@@ -1,5 +1,6 @@
 {% set portfolios = coverage.portfolios %}
 <section class="portfolio-coverage" aria-label="Primary portfolio coverage">
+  {% if portfolios.filters.company %}<p class="portfolio-note"><b>Company: {{ portfolios.company_name }}</b> · <a href="/varieties/coverage">View all companies</a>. Portfolio counts and source plan below use this company scope; article text and public collection comparisons cover all companies.</p>{% endif %}
   <div class="portfolio-counts">
     <div><strong>{{ portfolios.summary.names }}</strong><span>source name occurrences</span></div>
     <div><strong>{{ portfolios.summary.catalog_matches }}</strong><span>catalog matches</span></div>
@@ -9,6 +10,7 @@
   <p class="company-muted portfolio-note">{{ portfolios.summary.source_sections - portfolios.summary.unreadable_sections }} source {{ 'section' if portfolios.summary.source_sections - portfolios.summary.unreadable_sections == 1 else 'sections' }} read · {{ portfolios.summary.unreadable_sections }} unreadable. Names may repeat across sources. New names await review; company roles and traits are not approved by this check.</p>
   {% if portfolios.summary.follow_up_sections %}<details class="portfolio-plan portfolio-gaps"><summary>{{ portfolios.summary.follow_up_sections }} source {{ 'check still has' if portfolios.summary.follow_up_sections == 1 else 'checks still have' }} gaps</summary><p>A readable page can still leave a portfolio incomplete. Keep checking complete release lists and older catalogs.</p><ul>{% for source in portfolios.sources %}{% if source.needs_follow_up %}<li><a href="#portfolio-source-{{ source.id }}">{{ source.title }}</a> · {% if source.capture_status == 'unreadable' %}Could not read this source{% elif source.capture_status == 'partial' %}Only part of the source was captured{% elif source.accounting_view.reported_scope %}{{ source.accounting_view.observed_items }} observed items; {{ source.accounting_view.reported_items }} {{ source.accounting_view.reported_scope }} reported{% else %}Some source items still need accounting{% endif %}.</li>{% endif %}{% endfor %}</ul></details>{% endif %}
   <form class="digest-filters" method="get" aria-label="Filter portfolio coverage">
+    {% if portfolios.filters.company %}<input type="hidden" name="company" value="{{ portfolios.filters.company }}">{% endif %}
     <label>Company or source<input name="q" type="search" value="{{ portfolios.filters.q }}" placeholder="Company or publisher"></label>
     <label>Berry<select name="berry"><option value="">All berries</option>{% for row in portfolios.by_berry %}<option value="{{ row.id }}" {% if portfolios.filters.berry == row.id %}selected{% endif %}>{{ row.label }}</option>{% endfor %}</select></label>
     <button class="green-button">Apply filters</button><a href="/varieties/coverage">Reset</a>
