@@ -57,8 +57,9 @@ existing isolated preview: four fictional candidates and one fictional article
 are excluded from real counts. No real form or human review was submitted.
 Phone acceptance of this data follow-up remains unverified.
 
-Parent draft #354 passes all four required checks with 4,336 tests. This source
-follow-up requires its own pushed-head checks. Independent recall remains
+Parent draft #354 passes all four required checks with 4,336 tests. Draft #355 exact head
+47313b1d860ab697e0d97342fa1c984b8bd1e29d passes all four required checks:
+4,341 passed / 11 skipped / two warnings in 441.39s (run 37813407045). Independent recall remains
 23/24 cases and 60/64 expected names in the unchanged summary diagnostic; its
 four raw-body misses are not repaired or hidden by these portfolio checks.
 Article acquisition, independent recall, current-rights depth, named photos,
