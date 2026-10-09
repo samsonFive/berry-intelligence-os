@@ -31,15 +31,16 @@ there rather than reconstructing the mission from historical progress reports.
   eight attributed UF cultivar photo references using the existing session-only
   permission-held preview; all required checks pass (4,553 passed / 11 skipped /
   two warnings).
-- [Profile-field coverage review](docs/v2/VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md):
+- [Draft #381](https://github.com/samsonFive/berry-intelligence-os/pull/381),
+  [profile-field coverage review](docs/v2/VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md):
   a dense per-variety inventory with gap filters, protected photo edits and cited
   trait/role/reference counts. 84 affected tests pass; actual desktop review is
   complete. Phone visual verification remains before the combined release.
 
-The [latest bounded audit](docs/v2/UF-CULTIVAR-PHOTO-REFERENCES-REVIEW.md) has
-363 source sections / 1,140 name occurrences / 72 matched occurrences / 1,068
-requiring review, with 788 public derived candidate keys and 64 unchanged
-canonical varieties. There are 122 photo references; the new eight have unknown
+The [latest bounded audit](docs/v2/SUNBELLE-ORIGINAL-VARIETY-SOURCES-REVIEW.md) has
+366 source sections / 1,142 name occurrences / 72 matched occurrences / 1,070
+requiring review, with 789 public derived candidate keys and 64 unchanged
+canonical varieties. There are 122 photo references; the eight UF photos have unknown
 reuse permission and remain excluded from public static output. Source mentions
 are not approved varieties or a global completeness measure.
 

@@ -1,0 +1,112 @@
+{
+  "scope": "Three original Sun Belle pages; not a complete or current/historical portfolio",
+  "summary": {
+    "source_sections": 366,
+    "readable_sections": 270,
+    "unreadable_sections": 14,
+    "follow_up_sections": 110,
+    "names": 1142,
+    "catalog_matches": 72,
+    "needs_review": 1070,
+    "registry_entries": 77,
+    "registry_entries_checked": 60,
+    "registry_entries_partial_checks": 14,
+    "registry_entries_unavailable": 1,
+    "registry_entries_not_started": 0,
+    "registry_entries_identity_hold": 2
+  },
+  "by_berry": [
+    {
+      "id": "berry-blueberry",
+      "label": "Blueberry",
+      "names": 301,
+      "matched": 51
+    },
+    {
+      "id": "berry-strawberry",
+      "label": "Strawberry",
+      "names": 526,
+      "matched": 2
+    },
+    {
+      "id": "berry-raspberry",
+      "label": "Raspberry",
+      "names": 200,
+      "matched": 16
+    },
+    {
+      "id": "berry-blackberry",
+      "label": "Blackberry",
+      "names": 115,
+      "matched": 3
+    }
+  ],
+  "candidate_counts": {
+    "stored_source_candidates": 63,
+    "combined_candidates": 789,
+    "additional_primary_portfolio_candidates": 726
+  },
+  "sunbelle": {
+    "name": "SunBelle",
+    "entity_ids": [
+      "company-sunbelle"
+    ],
+    "website": "",
+    "starting_url": "https://www.sun-belle.com/craveabelles/",
+    "starting_label": "Partial page \u2197",
+    "site_notes": [],
+    "berry_ids": [
+      "berry-blackberry",
+      "berry-blueberry",
+      "berry-raspberry",
+      "berry-strawberry"
+    ],
+    "berries": "Blackberry, Blueberry, Raspberry, Strawberry",
+    "resolution": "EXISTING_EXACT",
+    "sources": [
+      "portfolio-gap-sunbelle-craveabelles",
+      "portfolio-sunbelle-info-blackberry-origin",
+      "portfolio-sunbelle-info-raspberry-origin",
+      "portfolio-sunbelle-info-blueberry-origin-gap"
+    ],
+    "identity_hold_label": "",
+    "identity_hold_reason": "",
+    "checked": false,
+    "source_status": "partial",
+    "named_occurrences": 2,
+    "has_source_gaps": true,
+    "href": "/entities/company/company-sunbelle"
+  },
+  "original_pages_native_checked": 3,
+  "named_references": [
+    "Aketzali / blackberry",
+    "Erika / raspberry"
+  ],
+  "canonical_varieties": 64,
+  "photo_references": 122,
+  "initial_tests": {
+    "passed": 83,
+    "failed": 1,
+    "warnings": 1,
+    "seconds": 143.15,
+    "failure": "Outdated exact manifest total1140; now1142"
+  },
+  "final_tests": {
+    "passed": 92,
+    "warnings": 1,
+    "seconds": 102.81
+  },
+  "static_pages": 1755,
+  "record_validation": "PASS",
+  "original_canonical_files_unchanged": 2771,
+  "pending_copies_unchanged": 32,
+  "new_canonical_writes": 0,
+  "new_human_decisions": 0,
+  "new_photo_approvals": 0,
+  "merge_or_deploy": false,
+  "full_goal_complete": false,
+  "actual_isolated_preview_candidate_keys": 790,
+  "native_identity_handoff_verified": true,
+  "private_table_and_new_source_titles_excluded_from_static": true,
+  "all31_requirement_ids_and_order_preserved": true
+}

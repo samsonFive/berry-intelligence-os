@@ -1,0 +1,74 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-sunbelle-info-blackberry-origin",
+      "title": "Sun Belle — named blackberry on older original site",
+      "url": "https://www.sunbelle.info/blackberries/13",
+      "company_ids": ["company-sunbelle"],
+      "berry_ids": ["berry-blackberry"],
+      "checked_on": "2026-10-09",
+      "source_type": "breeder_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "One explicit blackberry name on the original company site's Origin page; not a complete variety portfolio.",
+      "limitations": "The page has no publication or release date. Its newest wording does not establish current availability or a recent launch. Growing location, flavor and company role claims remain unreviewed. The newer company site uses product and premium-line labels without a full cultivar list. Generic berry header/background images are not assigned as named-variety photographs.",
+      "names": [
+        {
+          "candidate_name": "Aketzali",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.sunbelle.info/blackberries/13",
+          "display_label": "Aketzali",
+          "portfolio_context": "The company names this blackberry and describes growing it in Mexico. This is a source assertion, not an approved growing footprint, release date, rights record or company-to-variety role."
+        }
+      ],
+      "accounting": {"observed_items": 1, "exclusions": []},
+      "capture_reference": {
+        "method": "native_original_page_body_read",
+        "names_found": true,
+        "non_portfolio_context": ["Unnamed header and background fruit images lack explicit cultivar captions."]
+      }
+    },
+    {
+      "id": "portfolio-sunbelle-info-raspberry-origin",
+      "title": "Sun Belle — named raspberry on older original site",
+      "url": "https://www.sunbelle.info/raspberries/19",
+      "company_ids": ["company-sunbelle"],
+      "berry_ids": ["berry-raspberry"],
+      "checked_on": "2026-10-09",
+      "source_type": "breeder_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "One explicit raspberry name on the original company site's Origin page; not a complete variety portfolio.",
+      "limitations": "The page has no publication or release date. Its currently wording cannot establish a dated current growing footprint. The company describes Italian origins and Mexican growing locations; performance and geography remain unreviewed company assertions. No breeder identity, license or current legal rights inferred. Generic raspberry imagery is not assigned to Erika without an explicit cultivar image caption.",
+      "names": [
+        {
+          "candidate_name": "Erika",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.sunbelle.info/raspberries/19",
+          "display_label": "Erika",
+          "portfolio_context": "The company explicitly names this raspberry. Its origin, growing-location and fruit-quality descriptions remain source claims; they do not create approved traits, company links or growing regions."
+        }
+      ],
+      "accounting": {"observed_items": 1, "exclusions": []},
+      "capture_reference": {
+        "method": "native_original_page_body_read",
+        "names_found": true,
+        "non_portfolio_context": ["Page copyright is not a publication date; the native page showed2026 while one indexed copy showed2025."]
+      }
+    },
+    {
+      "id": "portfolio-sunbelle-info-blueberry-origin-gap",
+      "title": "Sun Belle — blueberry origin page without cultivar names",
+      "url": "https://www.sunbelle.info/blueberries/1",
+      "company_ids": ["company-sunbelle"],
+      "berry_ids": ["berry-blueberry"],
+      "checked_on": "2026-10-09",
+      "source_type": "breeder_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Original company blueberry Origin page; seasonal geography described without cultivar denominations.",
+      "limitations": "A readable category page without a name list does not prove zero blueberry varieties. The undated seasonal geography and nutrition descriptions do not establish an approved variety footprint or trait. Generic blueberry images are not named cultivar photographs. Complete current and historical portfolios remain outstanding.",
+      "names": [],
+      "accounting": {"observed_items": 0, "exclusions": []},
+      "capture_reference": {"method": "native_original_page_body_read", "names_found": false}
+    }
+  ]
+}
