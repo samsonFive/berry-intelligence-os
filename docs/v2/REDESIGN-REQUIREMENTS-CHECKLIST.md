@@ -25,6 +25,12 @@ derived candidate keys and 64 unchanged canonical varieties. There are 122
 photo references; the eight UF photos remain permission-held. These are source
 observations, not a global census or approved catalog growth.
 
+The [four-berry 2024 register](REGISTER-LIST-52-ACQUISITION-REVIEW.md) is now acquired
+from an original university-hosted journal copy. Full entry accounting and catalog
+reconciliation remain pending; no names from its automated reading aid are included
+in the bounded counts above. The original Lewis/Hutton distinction is retained as
+source context for a human decision, not automatic identity approval.
+
 The 32-copy human source/name packet remains unfinished. Source authenticity,
 name/identity review, statement review, extraction qualification and photo reuse
 are separate decisions. No automatic gate completion is authorized.
