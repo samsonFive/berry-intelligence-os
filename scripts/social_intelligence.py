@@ -14,7 +14,7 @@ def entities():
     return [json.loads(p.read_text(encoding='utf-8')) for p in (resolve_data_dir(ROOT)/'entities').rglob('*.json')]
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('action',choices=['status','fixture','import','collect','expire','schema','attach'])
+    p=argparse.ArgumentParser();p.add_argument('action',choices=['status','fixture','import','collect','expire','schema','attach','translate'])
     p.add_argument('--file',type=Path);p.add_argument('--source',choices=['bluesky','youtube'],default='bluesky')
     p.add_argument('--query',default='blueberries');p.add_argument('--language',default='en');p.add_argument('--market',default='US')
     p.add_argument('--enable',action='store_true');p.add_argument('--max-pages',type=int,default=1);p.add_argument('--max-items',type=int,default=40)
@@ -27,6 +27,10 @@ def main():
         path=args.file or ROOT/'benchmarks/social-blueberry-fixtures.json'
         payload=json.loads(path.read_text(encoding='utf-8'));rows=payload['records'] if isinstance(payload,dict) else payload
         result={'ids':store.ingest(rows,entities(),mode='fixture' if args.action=='fixture' else 'imported')}
+    elif args.action=='translate':
+        if not args.file: p.error('translate needs a verified enrichment file')
+        packet=json.loads(args.file.read_text(encoding='utf-8'))
+        result={'id':store.enrich_translation(packet['evidence_id'],packet['source_hash'],packet['translation'],packet['reviewer'])}
     elif args.action=='expire': result={'expired':store.expire()}
     elif args.action=='attach':
         if not args.file or not args.evidence_id or not args.media_id: p.error('attach needs file, evidence-id and media-id')

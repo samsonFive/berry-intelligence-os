@@ -11,7 +11,7 @@ import json
 from pathlib import Path
 import sqlite3
 from urllib.parse import urlsplit
-from .model import validate_intake
+from .model import Translation, validate_intake
 from .extraction import analyze
 
 def now():
@@ -19,6 +19,10 @@ def now():
 
 def identity(item):
     return 'ev-social-' + hashlib.sha256(f"{item['source']}:{item['mode']}:{item['native_id']}".encode()).hexdigest()[:24]
+
+def translation_source_hash(record):
+    """Bind enrichment to original text/language; timestamps/media are separate."""
+    return hashlib.sha256(json.dumps([record['text'],record['language']],ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
 
 def media_reference_key(source,url):
     """Only inspected Facebook CDN paths identify signed photo variants."""
@@ -42,6 +46,7 @@ class Store:
             CREATE TABLE IF NOT EXISTS media_tombstones(evidence_id TEXT, media_id TEXT, state TEXT, PRIMARY KEY(evidence_id,media_id));
             CREATE TABLE IF NOT EXISTS collection_receipts(evidence_id TEXT, method TEXT, query_version TEXT, collected_at TEXT, PRIMARY KEY(evidence_id,method,query_version,collected_at));
             CREATE TABLE IF NOT EXISTS media_url_tombstones(evidence_id TEXT, url_hash TEXT, state TEXT, PRIMARY KEY(evidence_id,url_hash));
+            CREATE TABLE IF NOT EXISTS translation_enrichments(evidence_id TEXT PRIMARY KEY, source_hash TEXT NOT NULL, payload TEXT NOT NULL);
             PRAGMA user_version=1;
             ''')
     def connect(self):
@@ -125,14 +130,43 @@ class Store:
     def records(self, *, mode=None):
         with closing(self.connect()) as db:
             rows = db.execute('SELECT id,payload,analysis FROM observations WHERE removed=0 ORDER BY id').fetchall()
+            enrichments={key:(digest,json.loads(value)) for key,digest,value in db.execute('SELECT evidence_id,source_hash,payload FROM translation_enrichments')}
         records=[{**json.loads(p),'id':key,'analysis':json.loads(a)} for key,p,a in rows if not mode or json.loads(p)['mode']==mode]
         from .output_eligibility import deleted_sources
         receipts=deleted_sources(self.inbox)
         ids={r['id'] for r in receipts};native={(r['source'],r['native_id']) for r in receipts}
         for record in records:
+            enrichment=enrichments.get(record['id'])
+            if enrichment and enrichment[0]==translation_source_hash(record):
+                record['translation']=enrichment[1]['translation']
+                record['translation_review']={k:v for k,v in enrichment[1].items() if k!='translation'}
             if record['mode']!='fixture' and (record['id'] in ids or (record['source'],record['native_id']) in native):
                 record['output_excluded']=True
         return records
+    def enrich_translation(self,key,source_hash,translation,reviewer):
+        """Explicit offline enrichment; never rewrite source or extraction review."""
+        if not isinstance(reviewer,str) or not reviewer.strip() or len(reviewer)>100:
+            raise ValueError('Reviewer required')
+        value=Translation.model_validate(translation).model_dump()
+        if value['language']!='en' or not value['text'].strip() or not value['version'].strip() or not value['uncertainty'].strip():
+            raise ValueError('Nonempty English translation and provenance required')
+        from .output_eligibility import deleted_sources
+        receipts=deleted_sources(self.inbox)
+        with closing(self.connect()) as db, db:
+            row=db.execute('SELECT payload,removed FROM observations WHERE id=?',(key,)).fetchone()
+            if not row or row[1]:
+                raise ValueError('Unavailable observation')
+            source=json.loads(row[0])
+            if source_hash!=translation_source_hash(source):
+                raise ValueError('Source text changed; verify translation again')
+            if source['mode']!='fixture' and (value['method']=='synthetic' or any(r['id']==key or (r['source'],r['native_id'])==(source['source'],source['native_id']) for r in receipts)):
+                raise ValueError('Synthetic translation or deleted source in real evidence')
+            previous=db.execute('SELECT payload FROM translation_enrichments WHERE evidence_id=?',(key,)).fetchone()
+            payload={'translation':value,'reviewer':reviewer,'verified_at':now()}
+            db.execute('INSERT OR REPLACE INTO translation_enrichments VALUES(?,?,?)',(key,source_hash,json.dumps(payload,ensure_ascii=False)))
+            db.execute('INSERT INTO audit(evidence_id,event,at) VALUES(?,?,?)',(key,json.dumps({'translation_enrichment_before':json.loads(previous[0]) if previous else None,'reviewer':reviewer},ensure_ascii=False),now()))
+        return key
+
     def jobs(self):
         with closing(self.connect()) as db:
             return [json.loads(p) for (p,) in db.execute('SELECT payload FROM jobs ORDER BY id')]
