@@ -1,5 +1,14 @@
 # Intelligence Coverage Matrix
 
+October 8 source-plan correction: [review](PORTFOLIO-SOURCE-PLAN-STATUS-REVIEW.md)
+records accurate berry/company/source scope and a direct table jump. Current:
+329 sections / 1,050 occurrences / 726 keys; 58/77 entries with named-source
+checks, 12 incomplete, one unavailable, six unstarted; 93 follow-ups. The previous
+59/77 included Benning's empty list. Collective refresh keeps its identity
+unverified. 50 affected tests and desktop/phone review pass; original data and
+human gates remain. Parents #362/#363 now pass all four checks; this child needs
+its own CI. CAT-01/CAT-02/TD-116 and the full catalog/release mission remain open.
+
 October 8 Smart Berries: [nine bounded original sections](SMARTBERRIES-BRAND-CULTIVAR-GAPS-REVIEW.md)
 are partial: crop/brand pages, two archive pages, two full farm articles, trade,
 company overview and a blank video embed. No new named cultivar or photo. Combined

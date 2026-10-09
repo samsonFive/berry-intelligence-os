@@ -1,0 +1,149 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-registry-original-gap-collective-home",
+      "title": "The Berry Collective — original fruit-marketing scope",
+      "url": "https://theberrycollective.com.au/",
+      "company_ids": [
+        "company-the-berry-collective"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original homepage; company marketing/partner context, with original Products page followed separately.",
+      "limitations": "The company describes fruit marketing, retail supply and a Mountain Blue/Oz Group partnership. Shared partners and branding do not identify specific cultivars or grant a genetics role, rights, production footprint or attributed cultivar photo.",
+      "names": [],
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "capture_sha256": "980064b25f656fcb66d478fb908db4d43037398779c6966f6968322f8a86a115",
+        "refresh_of_existing_section": true,
+        "body_read": true,
+        "bytes": 3221
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Mountain Blue",
+            "reason": "Named company/partner, not a cultivar in this context."
+          },
+          {
+            "label": "Oz Group",
+            "reason": "Named company/partner, not a cultivar in this context."
+          }
+        ]
+      },
+      "review_warnings": [
+        "This check concerns the Australian marketing venture’s website. The supplied registry’s University/Public label conflicts with that description; confirm which organization was intended before assigning company or variety relationships."
+      ]
+    },
+    {
+      "id": "portfolio-registry-original-gap-collective-products",
+      "title": "The Berry Collective — original crop and brand products",
+      "url": "https://theberrycollective.com.au/products/",
+      "company_ids": [
+        "company-the-berry-collective"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original product-page text and four crop categories; Eureka Blueberries and Marvelus Strawberries are presented in brand/product context, without cultivar-by-cultivar enumeration.",
+      "limitations": "Eureka Blueberries may relate to already documented genetics elsewhere; this brand/product page does not resolve a specific formal cultivar or denomination. Marvelus Strawberries is described as a WA business/product brand. Keep these labels inspectable without a new cultivar, alias or licensed/company role. Generic fruit/brand imagery not attributed to a cultivar.",
+      "names": [],
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "capture_sha256": "7aaac82f5002d5dae3bbd6fabd01b0cf03062002e4fc4ca8a144258b06d69cf9",
+        "refresh_of_existing_section": true,
+        "body_read": true,
+        "bytes": 2473
+      },
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "Blueberries",
+            "reason": "Crop category, not an individual cultivar."
+          },
+          {
+            "label": "Raspberries",
+            "reason": "Crop category, not an individual cultivar."
+          },
+          {
+            "label": "Blackberries",
+            "reason": "Crop category, not an individual cultivar."
+          },
+          {
+            "label": "Strawberries",
+            "reason": "Crop category, not an individual cultivar."
+          },
+          {
+            "label": "Eureka Blueberries",
+            "reason": "Brand/product context here; specific formal cultivar identity unresolved, not a new cultivar inferred."
+          },
+          {
+            "label": "Marvelus Strawberries",
+            "reason": "Business/product-brand context here, not an identified cultivar."
+          }
+        ]
+      },
+      "review_warnings": [
+        "This check concerns the Australian marketing venture’s website. The supplied registry’s University/Public label conflicts with that description; confirm which organization was intended before assigning company or variety relationships."
+      ]
+    },
+    {
+      "id": "portfolio-collective-original-about",
+      "title": "The Berry Collective — company and grower services",
+      "url": "https://theberrycollective.com.au/about/",
+      "company_ids": [
+        "company-the-berry-collective"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete About page read. Grower support, market analysis, retailer access and marketing services are described without cultivar names.",
+      "limitations": "Company locations, partner genetics and general berry quality descriptions do not establish a cultivar identity, rights holder, licensed role, trait or variety growing footprint. Marketing scale claims remain attributed and unverified. No generic berry image is treated as a named-variety photograph.",
+      "names": [],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Mountain Blue",
+            "reason": "Named corporate partner, not a cultivar."
+          },
+          {
+            "label": "Oz Group",
+            "reason": "Named corporate partner, not a cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "capture_sha256": "9f85a1a55fd279b72a786931dc88cf0bbb49c9181fe728f9705e1273015bb140",
+        "bytes": 2687
+      },
+      "checked_on": "2026-10-08",
+      "review_warnings": [
+        "This check concerns the Australian marketing venture’s website. The supplied registry’s University/Public label conflicts with that description; confirm which organization was intended before assigning company or variety relationships."
+      ]
+    }
+  ]
+}

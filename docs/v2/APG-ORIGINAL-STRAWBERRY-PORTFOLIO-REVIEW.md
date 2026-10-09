@@ -69,3 +69,8 @@ are still asserted exactly. No production behavior was weakened to pass it.
 38 historical-identity, APG and portfolio tests pass after the correction
 (47.40 seconds, one existing warning). Fresh full checks on the corrected head
 remain required.
+
+Subsequent exact-head verification: ca3d78ba04b18ce0c618755f0ba50cb3a3c00a77, Actions 37871575708, all four required
+checks successful. Python: 4,384 passed, 11 skipped, two existing warnings
+in 686.85 seconds. The earlier pending-check notes above are historical.
+No merge, deployment or catalog approval.

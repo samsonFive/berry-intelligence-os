@@ -64,3 +64,8 @@ explicit assertion correction is now carried into this child. Nine historical
 identity and Smart Berries tests pass on the combined correction (23.31 seconds,
 one existing warning); two overlap the earlier 76-test run. No production logic
 changed in this correction. Both updated heads require fresh full checks.
+
+Subsequent exact-head verification: 0b542ba8f3888721ef2b89b5f4aff715336e0800, Actions 37871686914, all four required
+checks successful. Python: 4,386 passed, 11 skipped, two existing warnings
+in 686.29 seconds. The earlier pending-check notes above are historical.
+No merge, deployment or catalog approval.
