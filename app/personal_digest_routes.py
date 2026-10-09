@@ -151,12 +151,23 @@ def reader_context(request: Request, record: dict):
     card["source_url"] = card["source_url"] if is_public_http_url(card["source_url"]) else ""
     entry = ((analyst_queue.load_state(main.INBOX_DIR).get("reading") or {}).get(str(record["id"])) or {}) if main.AUTHORING_MODE else {}
     statement_reviews = present_statements(card["statements"], {str(record["id"]): record}, context["entities"], return_to="/statements") if main.AUTHORING_MODE else []
+    article_varieties = []
+    if main.AUTHORING_MODE and paragraphs:
+        from app.services.variety_universe.candidates import load_variety_candidates
+        from app.services.variety_universe.corpus_discovery import build_discovered_candidates, source_catalog_coverage
+        report = build_discovered_candidates(
+            varieties=[row for row in entities.values() if row.get("entity_type") == "variety"],
+            entities=list(entities.values()), published_evidence=[], facts=[],
+            existing_candidates=load_variety_candidates(main.INBOX_DIR), source_text_records=[record],
+        )
+        article_varieties = source_catalog_coverage(report).get(str(record["id"]), [])
     return_to = request.query_params.get("return_to") or "/digest"
     return_to = return_to if urlsplit(return_to).path == "/statements" and not urlsplit(return_to).netloc and not urlsplit(return_to).scheme else "/digest"
     return {"personal_reader": True, "card": card, "record": record, "article_text": paragraphs, "document_blocks": document_blocks,
             "article_available": bool(paragraphs), "reading_entry": entry, "summary": content["summary"],
             "trusted": source_reviewed(record), "escalated_statements": escalations(main.all_facts()).get(str(record["id"]), []),
             "statement_reviews": statement_reviews, "reader_return_to": return_to,
+            "article_varieties": article_varieties,
             "authoring_mode": main.AUTHORING_MODE, "static_build": False}
 
 
@@ -207,8 +218,11 @@ def source_variety_report(item_id: str, *, existing_candidates=None):
 def discover_source_varieties(request: Request, item_id: str):
     """Explicit, single-source identity discovery; never capture or approve."""
     require_edit(request)
-    from app.services.variety_universe.candidates import persist_variety_candidates
-    main, report = source_variety_report(item_id)
+    from app import main
+    from app.services.variety_universe.candidates import load_variety_candidates, persist_variety_candidates
+    # Derived rows are visible before this action. Compare against persisted
+    # decisions only so "keep" can retain newly discovered names additively.
+    main, report = source_variety_report(item_id, existing_candidates=load_variety_candidates(main.INBOX_DIR))
     persist_variety_candidates(report["candidates"], inbox_dir=main.INBOX_DIR)
     return RedirectResponse('/varieties/candidates?' + urlencode({
         'source':item_id, 'discovery':'source-text'}), status_code=303)

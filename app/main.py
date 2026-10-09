@@ -1807,22 +1807,31 @@ def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, A
     GET never writes inbox or trusted data. Discovered rows are proposed
     Variety Candidates, never canonical Varieties.
     """
-    varieties = [entity for entity in all_entities() if entity.get("entity_type") == "variety"]
+    entities = all_entities()
+    varieties = [entity for entity in entities if entity.get("entity_type") == "variety"]
     inbox = load_variety_candidates(INBOX_DIR) if AUTHORING_MODE else []
+    published = published_evidence()
+    article_sources, article_counts = [], None
+    if AUTHORING_MODE:
+        from app.services.variety_universe.article_sources import available_article_sources
+        article_sources, article_counts = available_article_sources(published, INBOX_DIR)
     report = build_discovered_candidates(
         varieties=varieties,
-        entities=all_entities(),
-        published_evidence=published_evidence(),
+        entities=entities,
+        published_evidence=published,
         facts=all_facts(),
         existing_candidates=inbox,
+        source_text_records=article_sources,
     )
+    if article_counts is not None:
+        report["article_sources"] = article_counts
     visible = merge_visible_candidates(inbox, report["candidates"], report=report)
     if AUTHORING_MODE:
         from app.services.variety_portfolio_coverage import load_portfolio_observations, reconcile_portfolios
         try:
             _portfolio_sources, visible = reconcile_portfolios(
                 sources=load_portfolio_observations(DATA_DIR), varieties=varieties,
-                entities=all_entities(), candidates=visible,
+                entities=entities, candidates=visible,
             )
             report["portfolio_sources"] = _portfolio_sources
         except ValueError as exc:
@@ -3329,6 +3338,7 @@ def variety_coverage_page(request: Request) -> HTMLResponse:
         "unresolved": len(corpus_report["unresolved"]),
         "exclusions": len(corpus_report["exclusions"]),
     }
+    coverage["article_sources"] = corpus_report.get("article_sources")
     if AUTHORING_MODE and corpus_report.get("portfolio_error"):
         coverage["portfolio_error"] = corpus_report["portfolio_error"]
     elif AUTHORING_MODE:
@@ -3421,6 +3431,7 @@ def variety_candidates_page(request: Request) -> HTMLResponse:
             "catalog_handoffs": {row["id"]: _variety_catalog_handoff(row, _varieties) for row in queue["candidates"]},
             "portfolio_error": _report.get("portfolio_error"),
             "source_text_report": source_text_report,
+            "article_sources": _report.get("article_sources"),
             "candidate_entities": entity_index(),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
