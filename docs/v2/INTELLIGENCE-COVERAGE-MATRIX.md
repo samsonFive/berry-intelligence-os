@@ -1,5 +1,17 @@
 # Intelligence Coverage Matrix
 
+October 9 original corpus follow-up: [review](ORIGINAL-CORPUS-AND-SOURCE-REVIEW-READABILITY.md) records 22 private
+pending copies from 25 existing URLs; two access blocks and one body failure
+remain explicit. Together with the preceding cohort there are 32 pending copies
+from 35 unique source IDs, with no source acceptance or new extraction readiness.
+Source authenticity review now retains publisher headings and secondary passage
+references instead of repeated system labels. 77 affected tests, validation,
+2,771-file preservation, 1,755-page static safety and native desktop/375px review
+pass. Parent #372 is all-green: 4,520 passed / 11 skipped / two warnings / 767.96s
+on 88138b2. The current pushed-head checks remain separate. CAT-01/CAT-02/TD-116,
+human identity/catalog work, wider corpus/portfolios/recall/rights/photos and
+integrated release remain open. No merge/deployment or other-berry rollout.
+
 October 9 trial report coverage: [review](ARTICLE-PROSE-AND-TRIAL-IMAGE-REVIEW.md) recovers report prose
 mis-tagged as navigation, then retains twenty manually read image-table names
 as unreviewed identity leads. Ten current-page copies await separate source-text

@@ -213,7 +213,7 @@ def test_private_source_fidelity_queue_and_decision_are_separate_and_audited(mon
     detail = client.get(f"/source-fidelity/{trusted['id']}")
     assert queue.status_code == 200 and "Source authenticity" in queue.text
     assert detail.status_code == 200 and "Accepting a copy does not approve its statements" in detail.text
-    assert "Paragraph 0" in detail.text and "historic_inbox" in detail.text
+    assert 'title="Source paragraph 0"' in detail.text and "historic_inbox" in detail.text
 
     response = client.post(
         f"/source-fidelity/{trusted['id']}/decision",
@@ -380,7 +380,7 @@ def test_authenticity_layout_retains_body_search_and_separate_confirmation(monke
     assert "Same publication record" in queue
     assert "EXACT IDENTITY MATCH" not in queue
     reader = re.search(r'<div class="fidelity-reader"[^>]*>(.*?)</div>', detail, re.S).group(1)
-    assert reader.count('<p>') == 5
+    assert reader.count('<p data-source-paragraph=') == 5
     assert "paragraph 0" in reader
     assert '<dt>Berries</dt><dd>Raspberry</dd>' in detail
     assert '</details>\n    <div class="fidelity-reader"' in detail
@@ -411,3 +411,44 @@ def test_local_review_has_required_reviewer_when_session_identity_is_absent(monk
     html = client.get(f"/source-fidelity/{trusted['id']}").text
     assert '<input type="hidden" name="reviewer" value="signed-in-analyst">' in html
     assert 'name="reviewer" autocomplete="name" required' not in html
+
+
+def test_review_preserves_original_heading_structure_and_escapes_source_text(monkeypatch, tmp_path):
+    from app.services.source_fidelity_workbench import reader_payload
+
+    trusted = _trusted()
+    record = _rich()
+    rows = record['article']['paragraphs']
+    rows[0].update(text='Trial results', heading_level=2)
+    rows[1]['text'] = 'Literal source text <script>never_run()</script> stays text.'
+    rows[2].update(text='Site limitations', heading_level=4)
+    artifact = build_recovery_artifact(match_recoveries([trusted], [_candidate(record)])[0], trusted)
+    path = _stage(monkeypatch, tmp_path, trusted, artifact)
+    before = path.read_bytes()
+    payload = reader_payload(artifact)
+    assert [row['text'] for row in payload['paragraphs']] == [row['text'] for row in rows]
+    assert [row['index'] for row in payload['paragraphs']] == list(range(5))
+    page = TestClient(app).get(f"/source-fidelity/{trusted['id']}")
+    assert page.status_code == 200
+    assert '<h4 data-source-paragraph="0" title="Source paragraph 0">Trial results</h4>' in page.text
+    assert '<h5 data-source-paragraph="2" title="Source paragraph 2">Site limitations</h5>' in page.text
+    assert '&lt;script&gt;never_run()&lt;/script&gt;' in page.text
+    assert '<script>never_run()</script>' not in page.text
+    assert path.read_bytes() == before
+    assert load_review_events(main.INBOX_DIR, workflow='source_fidelity_review') == []
+
+
+def test_review_ambiguous_and_invalid_heading_hints_stay_literal_prose():
+    from app.services.source_fidelity_workbench import reader_payload
+
+    artifact = {'artifact': {'article': {'paragraphs': [
+        {'index': 9, 'text': 'Repeated section', 'heading_level': 2},
+        {'index': 10, 'text': 'Repeated section'},
+        {'index': 11, 'text': 'Untrusted heading level', 'heading_level': '<script>'},
+        {'index': 12, 'text': 'Boolean is not a heading', 'heading_level': True},
+    ]}}}
+    before = deepcopy(artifact)
+    payload = reader_payload(artifact)
+    assert [row['index'] for row in payload['paragraphs']] == [9,10,11,12]
+    assert all(row['heading_level'] is None for row in payload['paragraphs'])
+    assert artifact == before
