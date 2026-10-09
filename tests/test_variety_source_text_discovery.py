@@ -36,6 +36,69 @@ def test_default_discovery_does_not_read_article_text_or_unpublished_sources():
         for c in result['candidates'])
 
 
+@pytest.mark.parametrize('field,name,code',[
+    ('Cultivar name: Field Lead (selection code FL11-35)', 'Field Lead', 'FL11-35'),
+    ('Cultivar name: Field Lead (selection code FL 95-209a)', 'Field Lead', 'FL 95-209a'),
+    ('Cultivar name: Field Lead (“UF52-20”)', 'Field Lead', 'UF52-20'),
+    ('Blueberry variety name: “Field Lead”', 'Field Lead', ''),
+])
+def test_explicit_profile_fields_preserve_whole_names_codes_and_unreviewed_provenance(field,name,code):
+    record=source('', article={'title':'Field Lead | blueberry-breeding',
+        'paragraphs':[{'text':'General Description'},{'text':field}]}, berry_ids=['berry-raspberry'])
+    before=deepcopy(record)
+    report=scan(record)
+    assert len(report['candidates']) == 1
+    candidate=report['candidates'][0]
+    assert (candidate['candidate_name'],candidate['berry_id'],candidate['breeder_code']) == (name,'berry-blueberry',code)
+    assert candidate['source_url'] == record['source_url']
+    assert not candidate['human_gated'] and not candidate['auto_confirmed']
+    assert not candidate['aliases'] and not candidate['breeder_owner'] and not candidate['proposed_relationships']
+    assert candidate['knowledge']['source_publication_reviewed'] is False
+    assert candidate['knowledge']['source_text_basis'] == 'available_article_text'
+    assert record == before
+
+
+def test_profile_fields_use_nearby_crop_headings_without_bleeding_across_sections():
+    record=source('Southern Highbush Blueberry Variety\n\nGeneral Description\n\n'
+        'Fruit is firm.\n\nCultivar name: Local Blue (selection code FL 123)\n\n'
+        'Red Raspberry Variety\n\nCultivar name: Local Red (selection code NR 456)',
+        berry_ids=['berry-blackberry'])
+    assert {(c['candidate_name'],c['berry_id'],c['breeder_code']) for c in scan(record)['candidates']} == {
+        ('Local Blue','berry-blueberry','FL 123'),('Local Red','berry-raspberry','NR 456')}
+
+
+@pytest.mark.parametrize('text,title',[
+    ('Cultivar name: Unscoped Lead (selection code FL 123)','Fictional profile'),
+    ('Cultivar name: Unscoped Lead','Blueberry and raspberry profiles'),
+    ('Raspberry cultivars are discussed.\n\nCultivar name: Unscoped Lead','Blueberry profile'),
+    ('Not cultivar name: Negated Lead','Blueberry profile'),
+    ('Cultivar name: Incomplete Lead (selection code FL 123','Blueberry profile'),
+    ('Cultivar name: Partial Lead and further text','Blueberry profile'),
+    ('Cultivar name: Year Lead (2024)','Blueberry profile'),
+    ('Cultivar name: Word Lead (selection code Parent)','Blueberry profile'),
+    ('Southern Highbush Blueberry Variety'+('\n\nUnrelated prose.'*5)+'\n\nCultivar name: Distant Lead','Fictional profile'),
+])
+def test_profile_fields_refuse_ambiguous_stale_incomplete_and_publication_tag_only_scope(text,title):
+    record=source('',article={'title':title,'paragraphs':[{'text':text}]},berry_ids=['berry-blueberry'])
+    assert not scan(record)['candidates']
+
+
+def test_generic_blueberry_plant_types_are_not_cultivar_identities():
+    record=source('Blueberry cultivars are Rabbiteye. Blueberry varieties include Lowbush and Highbush.')
+    assert not scan(record)['candidates']
+
+
+def test_profile_field_refresh_preserves_an_existing_human_candidate():
+    record=source('Blueberry cultivar name: Human Lead (selection code FL 123)')
+    candidate=scan(record)['candidates'][0]
+    candidate.update(human_gated=True,identity_state='rejected',status='rejected',review_notes='Preserve my decision')
+    candidate['knowledge']['notes']='My profile notes'
+    original=deepcopy(candidate)
+    refreshed=scan(record,existing_candidates=[candidate])
+    assert refreshed['candidates'] == []
+    assert candidate == original
+
+
 def test_selected_table_keeps_each_crop_code_and_only_declaration_context():
     text=('The surrounding prose includes Company North and Country South.\n'
           'Crop | Name | Code\nBlack raspberry | Test Megan | NR 1711902\n'

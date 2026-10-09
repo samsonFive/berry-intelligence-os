@@ -75,6 +75,10 @@ _STOP_FOLDS = {
     "day neutral",
     "southern highbush",
     "northern highbush",
+    "rabbiteye",
+    "lowbush",
+    "highbush",
+    "half high",
 }
 
 _QUOTED_SUBJECT_RE = re.compile(
@@ -485,10 +489,21 @@ def _declared_names(summary, record, blocked, *, source_text=False):
     """Explicit declarations only; the same grammar is used in both paths."""
     if source_text:
         from app.services.variety_universe.explicit_article_formats import (
-            explicit_article_formats, paragraph_crop_ids,
+            explicit_article_formats, paragraph_crop_ids, profile_heading_crop_ids,
         )
         mentions, exclusions = [], []
-        for paragraph in re.split(r"\n\s*\n", summary):
+        # Profile fields may use an explicit crop in the captured source title,
+        # or a short nearby profile heading. Publication tags are not a substitute.
+        title_crops = paragraph_crop_ids((record.get("article") or {}).get("title") or "")
+        document_crops = paragraph_crop_ids(summary)
+        if any(crop not in title_crops for crop in document_crops):
+            # A multi-crop article title cannot scope every later profile field.
+            title_crops = []
+        profile_crops, heading_index = [], -5
+        for paragraph_index, paragraph in enumerate(re.split(r"\n\s*\n", summary)):
+            heading_crops = profile_heading_crop_ids(paragraph)
+            if heading_crops:
+                profile_crops, heading_index = heading_crops, paragraph_index
             # A selected document can discuss crops absent from publication tags.
             # Keep paragraph boundaries; one crop cannot spill into the next.
             crops = paragraph_crop_ids(paragraph)
@@ -496,13 +511,15 @@ def _declared_names(summary, record, blocked, *, source_text=False):
             found, excluded = _declared_names(paragraph, scoped_record, blocked)
             mentions.extend(found)
             exclusions.extend(excluded)
-            quoted, excluded = explicit_article_formats(paragraph, name_token=_NAMED_TOKEN)
+            quoted, excluded = explicit_article_formats(paragraph, name_token=_NAMED_TOKEN,
+                profile_crop_ids=profile_crops if paragraph_index - heading_index <= 4 else title_crops)
             exclusions.extend({**row, "record_id": record["id"]} for row in excluded)
             for row in quoted:
                 name = _clean_name(row["name"])
                 if not _is_stop_name(name, blocked):
                     mentions.append(_mention(name=name, berry_id=row["berry_id"], kind=row["kind"],
-                        evidence=record, fact=None, context=row["context"]))
+                        evidence=record, fact=None, context=row["context"],
+                        extra={"breeder_code": row["breeder_code"]} if row.get("breeder_code") else None))
         for row in mentions:
             row["mention_kind"] = row["mention_kind"].replace("summary", "source_text")
             row["source_text_basis"] = "available_article_text"
