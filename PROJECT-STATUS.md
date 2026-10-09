@@ -1,5 +1,12 @@
 # Project Status
 
+October 9 explicit article-text recall auditing: [review](docs/v2/ARTICLE-SOURCE-RECALL-AUDIT-REVIEW.md) adds
+opt-in supported Article inputs to the offline scorer and refuses unfinished
+expectations before score output. 54 affected tests pass; the original
+synthetic fixture stays 60/64. A private 32-copy human packet has blank
+expectations and no approvals or recall score. CAT-01/CAT-02/TD-116,
+independent human review and blueberry feedback/release gates remain open.
+
 October 9 article profile-name detection: [review](docs/v2/ARTICLE-PROFILE-NAME-RECALL-REVIEW.md) records eight
 previously missed explicit cultivar/code fields and removal of a generic
 Rabbiteye false lead. Same 32 pending copies: 28 before / 35 after offline

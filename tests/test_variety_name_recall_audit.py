@@ -107,3 +107,95 @@ def test_long_name_limit_never_emits_a_truncated_identity():
         "id": "ev-long", "status": "published", "berry_ids": ["berry-strawberry"],
         "summary": "Strawberry varieties include One Two Three Four Five Six Seven Eight Nine Ten."}])
     assert result["mentions"] == []
+
+
+def article_case():
+    source = {"id": "ev-recall-article", "status": "in_review",
+              "source_url": "https://example.test/profile?original=1", "summary": "A cultivar profile.",
+              "berry_ids": ["berry-raspberry"], "article": {
+                  "title": "Fictional blueberry profile",
+                  "paragraphs": [{"text": "Cultivar name: Fictional Field (selection code FL 123)"}]}}
+    return {"id": "explicit-article", "format": "article_profile_field", "language": "en",
+            "fixture_kind": "synthetic_control", "inputs": {"evidence": [], "source_text_records": [source]},
+            "expected": [{"name": "Fictional Field", "berry_id": "berry-blueberry", "breeder_code": "FL 123",
+                          "evidence_ids": [source["id"]], "source_url": source["source_url"]}]}
+
+
+def test_explicit_supported_article_is_scored_with_unreviewed_source_provenance():
+    fixture = article_case()
+    before = deepcopy(fixture)
+    result = audit_module.score_case(fixture)
+    assert result["passed"] and result["fully_correct_names"] == 1
+    assert result["explicit_source_text_records"] == 1
+    observed = result["checks"][0]["observed"]
+    assert observed["source_publication_reviewed"] is False
+    assert observed["source_text_basis"] == "available_article_text"
+    assert fixture == before
+
+
+def test_evidence_article_is_not_implicitly_opted_into_source_text_scoring():
+    fixture = article_case()
+    source = fixture["inputs"].pop("source_text_records")[0]
+    source["status"] = "published"
+    fixture["inputs"]["evidence"] = [source]
+    result = audit_module.score_case(fixture)
+    assert result["explicit_source_text_records"] == 0
+    assert not result["passed"] and result["errors"] == {"name_missing": 1}
+
+
+def test_explicit_article_diagnostic_keeps_false_positives_and_wrong_codes_visible():
+    fixture = article_case()
+    fixture["inputs"]["source_text_records"][0]["article"]["paragraphs"].append(
+        {"text": "Blueberry varieties include Unexpected Name."})
+    fixture["expected"][0]["breeder_code"] = "FL 999"
+    result = audit_module.score_case(fixture)
+    assert result["errors"] == {"unexpected_name": 1, "wrong_or_missing_code": 1}
+    assert not result["passed"]
+
+
+def test_nested_explicit_article_inputs_survive_scorer_mutation():
+    fixture = article_case()
+    before = deepcopy(fixture)
+    def mutate(**kwargs):
+        kwargs["source_text_records"][0]["article"]["paragraphs"][0]["text"] = "changed"
+        return {"mentions": [], "exclusions": []}
+    audit_module.score_case(fixture, discover=mutate)
+    assert fixture == before
+
+
+@pytest.mark.parametrize("expected", [None, {}, [{"name": "", "berry_id": "berry-blueberry"}],
+                                      [{"name": "Missing Crop"}]])
+def test_unfinished_or_invalid_expected_names_are_refused_before_discovery(expected):
+    fixture = article_case()
+    fixture["expected"] = expected
+    def forbidden(**kwargs):
+        pytest.fail("Unfinished expectations must not be scored")
+    with pytest.raises(ValueError, match="Expected"):
+        audit_module.score_case(fixture, discover=forbidden)
+
+
+def test_explicit_human_review_remains_metadata_and_does_not_qualify_a_fixture(tmp_path):
+    fixture = {"schema_version": "variety-name-recall-v1", "scope": "Fictional article test only",
+               "review_status": "not independently human-verified", "cases": [article_case()]}
+    path = tmp_path / "article-fixture.json"
+    path.write_text(json.dumps(fixture), encoding="utf-8")
+    before = path.read_bytes()
+    result = audit_module.audit(path)
+    assert result["summary"]["name_recall"] == 1
+    assert result["review_status"] == "not independently human-verified"
+    assert path.read_bytes() == before
+    assert not any(p.name != path.name for p in tmp_path.iterdir())
+
+
+def test_cli_refuses_unfinished_article_expectations_without_writing_a_score(tmp_path):
+    item = article_case()
+    item["expected"] = None
+    fixture = {"schema_version": "variety-name-recall-v1", "scope": "Unfinished fictional expectations",
+               "review_status": "not independently human-verified", "cases": [item]}
+    path, output = tmp_path / "fixture.json", tmp_path / "score.json"
+    path.write_text(json.dumps(fixture), encoding="utf-8")
+    before = path.read_bytes()
+    completed = subprocess.run([sys.executable, str(ROOT / "scripts/audit_variety_name_recall.py"),
+        "--fixture", str(path), "--output", str(output)], cwd=ROOT, capture_output=True, text=True)
+    assert completed.returncode != 0 and "Expected-name list is unfinished" in completed.stderr
+    assert not output.exists() and path.read_bytes() == before
