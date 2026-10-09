@@ -21,5 +21,14 @@
   "new_image_reveals": 0,
   "new_canonical_or_human_decisions": 0,
   "merge_or_deploy": false,
-  "full_goal_complete": false
+  "full_goal_complete": false,
+  "initial_full_ci": {
+    "head": "f987aa5ac62671352e05f12fdc392de14bad2747",
+    "passed": 4562, "failed": 1, "skipped": 11, "warnings": 2,
+    "seconds": 510.08,
+    "failure": "Source-status test expected superseded CSS cache version6 rather than7",
+    "other_three_checks": "SUCCESS",
+    "fresh_exact_head_ci_required": true,
+    "repair_tests": {"passed": 18, "warnings": 1, "seconds": 32.95}
+  }
 }

@@ -78,6 +78,15 @@ two warnings / 759.59 seconds**. Documentation draft #380 is all-green on
 `46bbcba4ffa6ad4fc46c283956eb8c8b01db122d` via its required Markdown fast path.
 This application draft requires its own full CI.
 
+The first draft #381 full run passed scope, integrity and static safety, but its
+Python job had **4,562 passed / one failed / 11 skipped / two warnings / 510.08
+seconds**. The remaining source-status test expected the superseded stylesheet
+version6 rather than the new version7. The explicit cache-version assertion was
+repaired; a fresh exact-head full CI run is required before calling the draft green.
+The repair passes all **18 source-status/field-inventory tests**, one existing
+ReportLab warning, 32.95 seconds. It changes the test assertion only; the final
+application code and native screenshots are unchanged.
+
 ## Remaining work
 
 Use these gaps to prioritize actual source-backed profiles and human authoring.
