@@ -8,6 +8,12 @@ occurrences / 1,068 requiring review. The catalog remains 64 varieties and photo
 references total 122. Source name observations and pending copies do not raise
 trusted evidence maturity, create approved identities or prove complete coverage.
 
+The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
+shows actual catalog gaps: 53/64 without photo references, 36/64 without
+patent/PVR references, 33/64 without cited traits and 14/64 without company
+role links. Counts are scoped field presence, not current rights, independent
+measurement or catalog completeness. Phone visual verification remains.
+
 The established evidence-class matrix below retains its original as-of dates
 and classifications; it is not a newly measured production snapshot.
 [Historical acquisition updates](INTELLIGENCE-COVERAGE-MATRIX-HISTORY.md)

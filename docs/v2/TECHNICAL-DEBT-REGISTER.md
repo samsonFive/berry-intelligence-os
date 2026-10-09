@@ -8,6 +8,12 @@ current rights, independent human recall or approved catalog growth. See the
 [catalog mission](VARIETY-CATALOG-COMPREHENSIVENESS-MISSION.md) and
 [latest source/photo evidence](UF-CULTIVAR-PHOTO-REFERENCES-REVIEW.md).
 
+The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
+shows actual catalog gaps: 53/64 without photo references, 36/64 without
+patent/PVR references, 33/64 without cited traits and 14/64 without company
+role links. Counts are scoped field presence, not current rights, independent
+measurement or catalog completeness. Phone visual verification remains.
+
 The active/resolved debt rows and dated proof below remain unchanged.
 [Historical progress updates](TECHNICAL-DEBT-REGISTER-HISTORY.md) preserve the
 previous introductory updates verbatim. Do not reopen resolved UI-lane items or

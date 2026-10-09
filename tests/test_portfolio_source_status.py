@@ -148,7 +148,7 @@ def test_live_progress_is_clear_and_private_without_review_state_writes(monkeypa
     assert 'Company source-check progress' in page.text and 'checked, list incomplete' in page.text
     assert 'Pages checked · varieties not named here' in page.text
     assert 'company lists still need names checked' not in page.text
-    assert 'variety_coverage.css?v=6' in page.text
+    assert 'variety_coverage.css?v=7' in page.text
     assert 'href="#portfolio-source-plan"' in page.text
     assert 'id="portfolio-source-plan" tabindex="-1"' in page.text
     benning=client.get('/varieties/coverage',params={'company':'company-denning-blueberries','berry':BLUE})

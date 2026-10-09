@@ -1,5 +1,5 @@
 {% extends "glasshouse_base.html" %}
-{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=8"><link rel="stylesheet" href="/static/variety_coverage.css?v=6">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=8"><link rel="stylesheet" href="/static/variety_coverage.css?v=7">{% endblock %}
 {% block title %}Variety coverage — Berry Intelligence OS{% endblock %}
 {% block content %}
 <div class="company-workspace variety-workspace">
@@ -24,6 +24,7 @@
 {% if coverage.external_error %}<p class="portfolio-limit" role="alert">{{ coverage.external_error }}</p>{% endif %}
 {% if coverage.external and coverage.external.reports %}{% include "_variety_external_coverage.html" %}{% endif %}
 {% endif %}
+{% if coverage.profile_fields and authoring_mode and not static_build %}{% include "_variety_profile_coverage.html" %}{% endif %}
 <details class="portfolio-plan"><summary>Existing catalog detail · {{ coverage.totals.canonical_varieties }} varieties</summary>
 
 {% with help_what="Compare catalog entries with discovered names needing review. This is not a completeness score.", help_why="Being named in a source does not verify a variety's identity, traits or company roles.", help_do="Open a catalog profile to check its status and sources. Use identity review to resolve newly discovered names.", help_after="Identity, source and claim reviews are separate decisions. These counts do not approve any record." %}

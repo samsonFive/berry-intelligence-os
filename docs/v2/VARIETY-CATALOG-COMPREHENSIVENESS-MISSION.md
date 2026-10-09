@@ -13,6 +13,12 @@ requiring review, 788 public candidate keys and 64 unchanged canonical varieties
 Photo references total 122 with no new reuse approvals. The 77-entry company
 plan retains 14 incomplete checks, one unavailable source and two identity holds.
 
+The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
+shows actual catalog gaps: 53/64 without photo references, 36/64 without
+patent/PVR references, 33/64 without cited traits and 14/64 without company
+role links. Counts are scoped field presence, not current rights, independent
+measurement or catalog completeness. Phone visual verification remains.
+
 Continue accessible original corpus acquisition, complete current/historical
 portfolios, cited profiles, current official rights and attributed photos. The
 32 pending source copies and independently supplied expected-name packet still
