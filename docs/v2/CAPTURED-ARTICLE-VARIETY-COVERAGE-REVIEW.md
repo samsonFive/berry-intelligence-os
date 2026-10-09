@@ -95,3 +95,13 @@ Complete current/historical portfolios, official current rights, profile depth,
 independent human-reviewed recall and human catalog authoring remain open under
 CAT-01/CAT-02/TD-116. This is progress toward the full goal, not its completion.
 No merge/deployment or other-berry Landscape rollout is authorized by this review.
+
+## Completed pushed-head CI
+
+Draft #367 is green on `e494eb9ba3dda1c9cd0364270bc4016301228c95`.
+All four required checks passed. Python: **4,418 passed / 11 skipped / two
+warnings / 486.63s**; run 37882948181, job 113666573480. Watcher 68964
+completed with exit 0 and was consumed. The recorded pending-draft gap above
+is now addressed by [pending-article integration](PENDING-ARTICLE-VARIETY-COVERAGE-REVIEW.md),
+which requires its own new-head checks. The broad catalog and release gates
+remain open.

@@ -930,7 +930,8 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates" or request.url.path.startswith("/landscapes/explorer")
-    if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
+    personal_reader = request.url.path.startswith("/intelligence/") and request.query_params.get("personal") == "1"
+    if variety_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -1814,7 +1815,8 @@ def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, A
     article_sources, article_counts = [], None
     if AUTHORING_MODE:
         from app.services.variety_universe.article_sources import available_article_sources
-        article_sources, article_counts = available_article_sources(published, INBOX_DIR)
+        article_sources, article_counts = available_article_sources(
+            published, INBOX_DIR, pending=list_drafts())
     report = build_discovered_candidates(
         varieties=varieties,
         entities=entities,
@@ -6760,9 +6762,8 @@ def _intelligence_page_context(
 def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
     record = _load_intelligence_record(item_id)
     if request.query_params.get("personal") == "1" or record is None:
-        from app.personal_digest_routes import reader_context
-        from app.services.personal_digest import source_records
-        personal_record = source_records(published_evidence(), INBOX_DIR, include_private=AUTHORING_MODE).get(item_id)
+        from app.personal_digest_routes import reader_context, personal_source_record
+        personal_record = personal_source_record(item_id)
         if personal_record is not None:
             return templates.TemplateResponse(request=request, name="personal_reader_page.html", context=reader_context(request, personal_record))
     if record is None:
@@ -6778,9 +6779,8 @@ def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
 def intelligence_reader_fragment(request: Request, item_id: str) -> HTMLResponse:
     record = _load_intelligence_record(item_id)
     if request.query_params.get("personal") == "1" or record is None:
-        from app.personal_digest_routes import reader_context
-        from app.services.personal_digest import source_records
-        personal_record = source_records(published_evidence(), INBOX_DIR, include_private=AUTHORING_MODE).get(item_id)
+        from app.personal_digest_routes import reader_context, personal_source_record
+        personal_record = personal_source_record(item_id)
         if personal_record is not None:
             return templates.TemplateResponse(request=request, name="_personal_reader.html", context=reader_context(request, personal_record))
     if record is None:

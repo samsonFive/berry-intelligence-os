@@ -1,5 +1,18 @@
 # Intelligence Coverage Matrix
 
+October 8 pending-article coverage: [review](PENDING-ARTICLE-VARIETY-COVERAGE-REVIEW.md) connects active publication
+draft bodies to private identity review and selected original reading. A real
+Italian Berry acquisition exposed and repaired the G‑Viva naming miss; 35
+indexed paragraphs remain private/unreviewed, with no AI or publication action.
+Private audit: 103 names / 32 catalog matches / 71 discoveries before human
+decisions; 739 combined candidate keys; 64 canonical varieties unchanged.
+157 affected tests and final 82 overlapping focused tests pass; desktop/phone,
+saved Digest, alphabetical G jump and original-data preservation verified.
+Parent #367 passes all four checks (4,418 tests); this child needs full CI on
+its pushed head. CAT-01/CAT-02/TD-116, article acquisition/layout, full portfolios,
+real recall, rights/profile depth, human catalog authoring and integrated release
+remain open. No merge, deployment or other-berry Landscape rollout.
+
 October 8 article-to-catalog connection: [review](CAPTURED-ARTICLE-VARIETY-COVERAGE-REVIEW.md) now includes
 known, already-readable news automatically in private variety identity views.
 The native Hortifrut capture finds 24 explicit names; private audit 102 source
@@ -9,7 +22,7 @@ names / 32 catalog matches / 70 discoveries before private decisions, versus
 article does not repair the 1,269-record acquisition gap; canonical bodies
 remain 0/1,269. 132 affected tests and final 13 overlapping focused tests pass;
 desktop/phone review, record validation and original-data preservation pass.
-Parent #366 is green (4,405 tests); this child needs its own full CI.
+Draft #367 is now green on e494eb9: all four checks; 4,418 tests / 11 skipped / two warnings / 486.63s.
 CAT-01/CAT-02/TD-116, full portfolios, real recall, rights/profile depth, human
 catalog authoring and tested release remain open. No merge/deploy or berry-gate bypass.
 
