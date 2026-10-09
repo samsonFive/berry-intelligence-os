@@ -57,3 +57,10 @@ Parent draft #362 has green scope, repository integrity and public safety checks
 its full Python suite was still running at this packet's local validation. This
 addition needs its own exact-head checks. Human catalog and blueberry release
 gates remain; no merge, deployment or other-berry rollout.
+
+The parent full suite subsequently found one older exact-shape identity assertion
+missing the new presentation-only warning list (4,383 other tests passed). The
+explicit assertion correction is now carried into this child. Nine historical
+identity and Smart Berries tests pass on the combined correction (23.31 seconds,
+one existing warning); two overlap the earlier 76-test run. No production logic
+changed in this correction. Both updated heads require fresh full checks.
