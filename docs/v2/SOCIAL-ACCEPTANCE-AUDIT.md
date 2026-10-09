@@ -2,6 +2,10 @@
 
 ## Latest accepted usability gate and reproducible quality sample
 
+### User-approved deleted-source exclusion
+
+The user approved excluding deleted sources from new outputs. [Deletion output policy](SOCIAL-DELETED-SOURCE-OUTPUT-POLICY.md) implements durable private deletion receipts, real-source identity matching and transitive dependency holds through existing live/CLI/static output seams and the shared Landscape service. Canonical records and saved reports remain unchanged; new PDF exports with excluded citations are blocked until regeneration. Unavailable/restricted sources and fixture deletion do not seed the policy. Local validation:228 social/request-corpus tests, then27 final deletion/briefing tests passed. Exact-head CI remains required. Provider deletion detection/refresh, retention rights and independently qualified accuracy remain unmet; this is output exclusion, not automatic canonical retraction. Earlier published-removal statements below are historical.
+
 ### Role-proposal provenance follow-up
 
 New SociaVault normalization now records why a LinkedIn company-owned proposal was made: the supplied author URL matches the requested company URL. It explicitly states that account ownership is not independently verified. Instagram sponsorship requires the literal boolean `is_paid_partnership=true`, with that provider-field basis retained; strings such as `"false"` and numeric truthy values cannot become disclosures. Missing or differing authors remain unknown. This changes future normalization only; historical observations and review decisions are not rewritten. It closes a missing explanation found in caption triage, not independent corporate-label qualification.

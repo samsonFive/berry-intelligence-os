@@ -37,6 +37,7 @@ class Store:
             db.executescript('''
             CREATE TABLE IF NOT EXISTS observations(id TEXT PRIMARY KEY, payload TEXT NOT NULL, analysis TEXT NOT NULL, removed INTEGER NOT NULL DEFAULT 0);
             CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY, payload TEXT NOT NULL);
+            CREATE TABLE IF NOT EXISTS source_deletions(evidence_id TEXT, source TEXT, native_id TEXT, mode TEXT, media_id TEXT, deleted_at TEXT, PRIMARY KEY(evidence_id,media_id));
             CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY, evidence_id TEXT, event TEXT, at TEXT);
             CREATE TABLE IF NOT EXISTS media_tombstones(evidence_id TEXT, media_id TEXT, state TEXT, PRIMARY KEY(evidence_id,media_id));
             CREATE TABLE IF NOT EXISTS collection_receipts(evidence_id TEXT, method TEXT, query_version TEXT, collected_at TEXT, PRIMARY KEY(evidence_id,method,query_version,collected_at));
@@ -195,6 +196,8 @@ class Store:
             db.execute('UPDATE observations SET payload=?,analysis=?,removed=? WHERE id=?',(json.dumps(p),json.dumps({'relevance':'needs-review','berry_ids':[], 'aspects':[], 'entity_links':[], 'retailers':[], 'concepts':[], 'candidates':[], 'removed_media':media_id}),0 if media_id else 1,key))
             if media_id:
                 db.execute('INSERT OR REPLACE INTO media_tombstones VALUES(?,?,?)',(key,media_id,state))
+            if state=='deleted':
+                db.execute('INSERT OR IGNORE INTO source_deletions VALUES(?,?,?,?,?,?)',(key,p['source'],p['native_id'],mode,media_id or '',now()))
             db.execute('UPDATE audit SET event=? WHERE evidence_id=?',('source content removed; prior correction detail redacted',key))
             db.execute('INSERT INTO audit(evidence_id,event,at) VALUES(?,?,?)',(key,'removal:'+state,now()))
         draft = self.inbox/'evidence'/f'{key}.json'
