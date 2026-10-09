@@ -81,14 +81,14 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 1129
+    assert report["summary"]["names"] == 1132
     assert report["summary"]["registry_entries_checked"] == 60
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
         "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [14, 1, 0, 2]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 293, "berry-strawberry": 526, "berry-raspberry": 199, "berry-blackberry": 111}
+        "berry-blueberry": 293, "berry-strawberry": 526, "berry-raspberry": 199, "berry-blackberry": 114}
     assert "visible_candidates" not in report
     assert all("review_notes" not in str(r) for r in report["subjects"])
     abz = next(s for s in report["subjects"] if s["name"] == "ABZ Seeds")
@@ -126,6 +126,46 @@ def test_osu_historical_release_list_accounts_for_all_entries_without_inventing_
         assert not candidate["breeder_owner"] and not candidate["proposed_relationships"]
         assert not candidate["deployment"] and not candidate["registration"]["official_registry_source"]
         assert not candidate["registration"]["grant_date"]
+
+
+def test_original_public_program_grants_enrich_existing_candidates_without_overwriting_human_fields():
+    all_sources = load_portfolio_observations(Path(__file__).resolve().parents[1] / "data")
+    grants = [row for row in all_sources if row["id"].startswith("portfolio-public-program-grant-")]
+    old_sources = [row for row in all_sources if row not in grants]
+    _, before = reconcile(old_sources)
+    _, after = reconcile(all_sources)
+    assert {row["id"] for row in before} == {row["id"] for row in after}
+    assert len(grants) == 3 and all(not row["company_ids"] for row in grants)
+    expected = {"Onyx": ("USPP22358P2", 3, 6, "2010-02-22", "2011-12-20"),
+                "APF-77": ("USPP24249P3", 4, 8, "2011-12-29", "2014-02-18"),
+                "Columbia Giant": ("USPP28369P3", 4, 8, "2015-09-28", "2017-09-12")}
+    for source_row in grants:
+        observation = source_row["names"][0]
+        grant, page, column, filed, granted = expected[observation["candidate_name"]]
+        capture = source_row["capture_reference"]
+        assert capture["visually_reviewed_pages"] == list(range(1, capture["page_count"] + 1))
+        assert (capture["claim_page"], capture["claim_column"]) == (page, column)
+        assert observation["product_url"].endswith(f"#page={page}")
+        assert (observation["grant_number"], observation["application_date"], observation["grant_date"]) == (grant, filed, granted)
+        assert capture["non_portfolio_context"] and source_row["accounting"]["observed_items"] == 1
+        candidate = next(row for row in after if row["candidate_name"] == observation["candidate_name"]
+                         and row["berry_id"] == "berry-blackberry")
+        assert not candidate["human_gated"] and not candidate["auto_confirmed"]
+        assert not candidate["aliases"] and not candidate["breeder_owner"]
+        assert not candidate["proposed_relationships"] and not candidate["deployment"]
+        human = deepcopy(candidate)
+        human.update(human_gated=True, identity_state="distinct", review_notes="Human identity decision")
+        human["registration"] = {**human["registration"], "grant_date": "2000-01-01", "official_registry_source": "https://example.test/human-check"}
+        original = deepcopy(human)
+        _, refreshed = reconcile(all_sources, candidates=[human])
+        retained = next(row for row in refreshed if row["id"] == human["id"])
+        assert retained["registration"] == original["registration"] and retained["review_notes"] == original["review_notes"]
+        assert human == original
+        reference = next(row for row in retained["portfolio_sources"] if row["id"] == source_row["id"])
+        assert reference["grant_date"] == granted and reference["grant_number"] == grant
+    onyx = next(row for row in grants if row["names"][0]["candidate_name"] == "Onyx")["names"][0]
+    assert "ORUS 1523-4" in onyx["portfolio_context"] and "breeder_code" not in onyx and "photos" not in onyx
+    assert "ORUS 1350-1" in next(row for row in grants if row["names"][0]["candidate_name"] == "Columbia Giant")["limitations"]
 
 
 def test_source_plan_prefers_readable_then_partial_then_site_without_erasing_failed_capture(tmp_path):

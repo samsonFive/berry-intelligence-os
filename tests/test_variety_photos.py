@@ -85,6 +85,31 @@ def test_session_controls_and_held_photos_never_enter_readonly_or_static():
         assert 'Ignore permission' not in html and photo()['image_url'] not in html
 
 
+def test_original_public_program_fruit_figures_stay_session_only_and_cultivar_specific():
+    from pathlib import Path
+    sources = [row for row in load_portfolio_observations(Path(__file__).resolve().parents[1] / "data")
+               if row["id"].startswith("portfolio-public-program-grant-")]
+    template = main.templates.env.get_template("_variety_photo_gallery.html")
+    assert sum(len(row["names"][0].get("photos", [])) for row in sources) == 2
+    for source_row in sources:
+        observation = source_row["names"][0]
+        if not observation.get("photos"):
+            continue
+        target = {"id": "fixture-candidate", "candidate_name": observation["candidate_name"],
+                  "berry_id": "berry-blackberry", "portfolio_sources": [observation]}
+        sourced = photos.source_photos(target, candidate=True)
+        assert len(sourced) == 1 and sourced[0]["reuse"] == "unknown" and not sourced[0]["license_url"]
+        assert "Photographer not credited" in sourced[0]["credit"]
+        gallery = photos.gallery(target, sourced=sourced, authoring=True)
+        assert not gallery[0]["display_image"]
+        private = template.render(photo_gallery=gallery, authoring_mode=True, static_build=False)
+        assert "Ignore permission" in private and "<img" not in private
+        for context in ({"authoring_mode": False}, {"authoring_mode": True, "static_build": True}):
+            public = template.render(photo_gallery=gallery, **context)
+            assert sourced[0]["image_url"] not in public and "Ignore permission" not in public
+        assert photos.source_photos({**target, "berry_id": "berry-blueberry"}, candidate=True) == []
+
+
 def test_session_script_loads_only_the_chosen_asset_and_never_persists_permission():
     from pathlib import Path
     import shutil

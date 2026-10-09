@@ -1,5 +1,18 @@
 # Intelligence Coverage Matrix
 
+October 9 original public-program grants: [review](PUBLIC-PROGRAM-ORIGINAL-GRANTS-REVIEW.md) connects
+Onyx, APF-77 / Black Magic and Columbia Giant to their original cultivar claims
+and printed filing/grant dates. Two attributed fruit figures stay permission-held
+and session-only; Onyx remains PDF-only. Coverage is 355 sections / 1,132 name
+occurrences / 64 catalog matches / 1,068 needing review, with 788 public keys
+unchanged. Ninety-two focused tests, validation, 2,771-file preservation,
+32-copy private preservation and 1,755-page static safety pass. Parent #375 is
+all-green on cf8272f: 4,525 passed / 11 skipped / two warnings / 458.38s.
+Source selection codes, trial sites and printed assignees do not approve aliases,
+roles, regions, current rights or photo reuse. CAT-01/CAT-02/TD-116, wider
+portfolios/corpus/recall/rights/photos, human authoring and integrated release
+remain open. Blueberry feedback still gates remaining Landscape; no merge/deploy.
+
 October 9 public-program release coverage: [review](OSU-HISTORICAL-RELEASE-COVERAGE-REVIEW.md) adds all 45 entries
 from OSU’s four-berry historical release list to identity review: 39 new keys
 and six additional references. Coverage is 352 sections / 1,129 name occurrences

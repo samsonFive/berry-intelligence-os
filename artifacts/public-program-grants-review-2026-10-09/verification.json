@@ -1,0 +1,54 @@
+{
+  "coverage": {
+    "source_sections": 355,
+    "readable_sections": 262,
+    "unreadable_sections": 14,
+    "follow_up_sections": 107,
+    "names": 1132,
+    "catalog_matches": 64,
+    "needs_review": 1068,
+    "registry_entries": 77,
+    "registry_entries_checked": 60,
+    "registry_entries_partial_checks": 14,
+    "registry_entries_unavailable": 1,
+    "registry_entries_not_started": 0,
+    "registry_entries_identity_hold": 2
+  },
+  "candidate_counts": {
+    "stored_source_candidates": 63,
+    "combined_candidates": 788,
+    "additional_primary_portfolio_candidates": 725
+  },
+  "canonical_varieties": 64,
+  "isolated_preview_candidates": 789,
+  "photo_references": 114,
+  "new_public_reuse_approvals": 0,
+  "original_data_json_preserved": 2771,
+  "private_source_copies_preserved": 32,
+  "new_human_decisions": 0,
+  "tests": {
+    "passed": 92,
+    "warnings": 1,
+    "seconds": 73.19
+  },
+  "static_html_pages": 1755,
+  "static_new_observation_and_held_image_exclusion": "PASS",
+  "record_validation": "PASS",
+  "source_body_storage": "ignored inbox only",
+  "native_review": {
+    "onyx": "original claim page 3; no fabricated figure URL",
+    "apf_77": "original claim page 4; figure loaded, hidden and reload-gated",
+    "columbia_giant": "original claim page 4; figure loaded and hidden",
+    "review_forms_submitted": false
+  },
+  "parent_ci": {
+    "pr": 375,
+    "head": "cf8272f2e81bea47dc47951f7aa28fbf89a7ec8d",
+    "all_four": "SUCCESS",
+    "passed": 4525,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 458.38
+  },
+  "remaining": "Full current/historical coverage, corpus, rights/photos, independent human recall and authoring remain open; blueberry feedback gates rollout; no merge/deploy"
+}
