@@ -79,7 +79,7 @@ sections remain follow-up work because the historical list is incomplete.
   output write and failed with PermissionDenied. Both handles are terminal and
   consumed; no checks were bypassed.
 - Parent blueberry draft #374 is all-green on `3a8261769768588009fa507d113d197c644b5e43`:
-  **4,524 passed / 11 skipped / 2 warnings / 627.09s**. New draft CI is separate.
+  **4,524 passed / 11 skipped / 2 warnings / 627.09s**. Draft #375 is now all-green on cf8272f: **4,525 passed / 11 skipped / two warnings / 458.38s**.
 
 ## Remaining mission
 
