@@ -75,7 +75,7 @@ def test_different_codes_do_not_collapse_when_sources_use_the_label_as_candidate
     rows, visible = reconcile(sources, varieties, [human, uncoded])
     assert rows[0]['matched'] == 1 and rows[1]['matched'] == 0
     assert next(c for c in visible if c['id'] == human['id'])['review_notes'] == 'Code 1 checked'
-    assert next(c for c in visible if c['id'] == uncoded['id']) == {**uncoded, 'portfolio_sources': [], 'portfolio_identity_notes': []}
+    assert next(c for c in visible if c['id'] == uncoded['id']) == {**uncoded, 'portfolio_sources': [], 'portfolio_identity_notes': [], 'portfolio_review_warnings': []}
 
 def test_two_codes_under_one_label_in_one_source_still_require_separate_review():
     s = source('one', 'Shared', 'CODE 1')
