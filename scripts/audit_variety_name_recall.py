@@ -3,6 +3,8 @@
 This is a diagnostic, not extraction qualification or a global coverage estimate.
 It never reads operator inboxes, acquires pages, or changes catalog/review state.
 Unsupported formats stay in the denominator rather than being silently skipped.
+Article text is read only from explicitly supplied inputs.source_text_records.
+Unfinished expected-name lists are refused, never scored as zero-name successes.
 """
 from __future__ import annotations
 
@@ -23,19 +25,31 @@ from app.services.variety_universe.identity import fold_identity
 DEFAULT_FIXTURE = ROOT / "benchmarks" / "variety-name-recall-v1.json"
 
 
+def expected_rows(case: dict) -> list[dict]:
+    rows = case.get("expected")
+    if not isinstance(rows, list):
+        raise ValueError(f"Expected-name list is unfinished or invalid in {case.get('id', 'unknown')}")
+    if any(not isinstance(row, dict) or not isinstance(row.get("name"), str)
+           or not row["name"].strip() or not isinstance(row.get("berry_id"), str)
+           or not row["berry_id"].strip() for row in rows):
+        raise ValueError(f"Expected names need literal name and berry_id in {case.get('id', 'unknown')}")
+    return rows
+
+
 def score_case(case: dict, *, discover=discover_corpus_variety_mentions) -> dict:
     """Score names separately from species, codes, resolution and provenance."""
+    expected = expected_rows(case)
     inputs = deepcopy(case["inputs"])
     report = discover(
         varieties=inputs.get("varieties", []), entities=inputs.get("entities", []),
         published_evidence=inputs.get("evidence", []), facts=inputs.get("facts", []),
         existing_candidates=inputs.get("candidates", []),
+        source_text_records=inputs.get("source_text_records", []),
     )
     observed = report["mentions"]
     by_name: dict[str, list[dict]] = {}
     for row in observed:
         by_name.setdefault(fold_identity(row["candidate_name"]), []).append(row)
-    expected = case["expected"]
     expected_names = {fold_identity(row["name"]) for row in expected}
     checks = []
     extra_berry_assignments = []
@@ -72,6 +86,7 @@ def score_case(case: dict, *, discover=discover_corpus_variety_mentions) -> dict
     return {
         "id": case["id"], "format": case["format"], "language": case["language"],
         "fixture_kind": case["fixture_kind"], "reference_urls": case.get("reference_urls", []),
+        "explicit_source_text_records": len(case["inputs"].get("source_text_records") or []),
         "expected_names": len(expected), "detected_names": sum("name_missing" not in c["errors"] for c in checks),
         "fully_correct_names": sum(not c["errors"] for c in checks),
         "returned_names": len(observed), "unexpected_names": len(unexpected),
@@ -111,7 +126,7 @@ def audit(fixture_path: Path = DEFAULT_FIXTURE) -> dict:
     if len(ids) != len(set(ids)):
         raise ValueError("Recall case IDs must be unique")
     for case in fixture["cases"]:
-        names = [fold_identity(row["name"]) for row in case["expected"]]
+        names = [fold_identity(row["name"]) for row in expected_rows(case)]
         if len(names) != len(set(names)):
             raise ValueError(f"Duplicate expected names in {case['id']}; split ambiguous-species cases")
     cases = [score_case(case) for case in fixture["cases"]]
@@ -128,7 +143,7 @@ def audit(fixture_path: Path = DEFAULT_FIXTURE) -> dict:
     return {
         "schema_version": fixture["schema_version"], "fixture_sha256": hashlib.sha256(raw).hexdigest(),
         "scope": fixture["scope"], "review_status": fixture["review_status"],
-        "method": "Existing deterministic corpus discovery only; independent expected lists; offline; no qualification or catalog writes",
+        "method": "Existing deterministic corpus discovery; explicit opt-in article records; separately supplied expected lists; offline; no qualification or catalog writes",
         "summary": aggregate(cases),
         "by_format": {value: aggregate([row for row in cases if row["format"] == value]) for value in sorted({row["format"] for row in cases})},
         "by_language": {value: aggregate([row for row in cases if row["language"] == value]) for value in sorted({row["language"] for row in cases})},
