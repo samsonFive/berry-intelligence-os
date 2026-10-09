@@ -1,5 +1,15 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+October 8 original article hierarchy: [review](PUBLISHER-ARTICLE-HIERARCHY-REVIEW.md) preserves
+publisher headings through new normalized article acquisition and explicit
+Reader capture. The real Italian Berry proof retains all 35 paragraph texts,
+indexes and content SHA while recovering 12 source headings. No existing draft
+or canonical record changed. Desktop and 375px mobile reviewed; mobile sticky
+actions fixed; 168 affected tests, validation and original-data preservation pass.
+Parent #368 is all-green with 4,441 tests; this follow-up still needs pushed-head
+CI. Legacy body migration, wider acquisition, source/identity review, portfolio
+completion and integrated release remain open. No merge or deployment.
+
 October 8 pending-article coverage: [review](PENDING-ARTICLE-VARIETY-COVERAGE-REVIEW.md) connects active publication
 draft bodies to private identity review and selected original reading. A real
 Italian Berry acquisition exposed and repaired the G‑Viva naming miss; 35
@@ -8,8 +18,7 @@ Private audit: 103 names / 32 catalog matches / 71 discoveries before human
 decisions; 739 combined candidate keys; 64 canonical varieties unchanged.
 157 affected tests and final 82 overlapping focused tests pass; desktop/phone,
 saved Digest, alphabetical G jump and original-data preservation verified.
-Parent #367 passes all four checks (4,418 tests); this child needs full CI on
-its pushed head. CAT-01/CAT-02/TD-116, article acquisition/layout, full portfolios,
+Parents #367 and #368 pass all four checks (4,418 and 4,441 tests). CAT-01/CAT-02/TD-116, article acquisition/layout, full portfolios,
 real recall, rights/profile depth, human catalog authoring and integrated release
 remain open. No merge, deployment or other-berry Landscape rollout.
 

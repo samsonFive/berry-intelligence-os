@@ -38,7 +38,7 @@
       {% if paragraphs %}
         <div class="intel-body">
           {% for paragraph in paragraphs %}
-            <p id="{{ paragraph.locator }}"><small class="locator">{{ paragraph.locator }}</small> {{ paragraph.text }}</p>
+            {% if paragraph.heading_level %}<h3 class="publisher-heading" id="{{ paragraph.locator }}"><small class="locator">{{ paragraph.locator }}</small> {{ paragraph.text }}</h3>{% else %}<p id="{{ paragraph.locator }}"><small class="locator">{{ paragraph.locator }}</small> {{ paragraph.text }}</p>{% endif %}
           {% endfor %}
         </div>
       {% elif reader_content.summary %}

@@ -142,3 +142,11 @@ The accepted redesign and visual explainer remain delivered; the combined
 release stack still needs an integrated review and tested release packet.
 No merge, deployment or rollout beyond the blueberry Landscape checkpoint is
 authorized by this review. No user input is needed for the next safe work.
+
+## Completed pushed-head CI and heading follow-up
+
+All four checks on b0ec41e pass. Python: 4,441 passed, 11 skipped, two warnings,
+478.11 seconds; run 37886083984 / job 113676332471. Watch session 90121 was
+consumed with terminal success. The original-heading limitation above now has a
+separate [implementation and real-source review](PUBLISHER-ARTICLE-HIERARCHY-REVIEW.md),
+without migration of old bodies or alteration of the original pending draft.

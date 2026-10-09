@@ -183,6 +183,8 @@ def reader_context(request: Request, record: dict):
     if paragraphs == [content["summary"]]:
         paragraphs = []  # A syndicated synopsis is not the original article.
     document_blocks = record.get("reader_document_blocks", []) if main.AUTHORING_MODE and paragraphs else []
+    from app.services.article_structure import display_article_blocks
+    article_blocks = display_article_blocks(record, paragraphs)
     card["source_url"] = card["source_url"] if is_public_http_url(card["source_url"]) else ""
     entry = ((analyst_queue.load_state(main.INBOX_DIR).get("reading") or {}).get(str(record["id"])) or {}) if main.AUTHORING_MODE else {}
     statement_reviews = present_statements(card["statements"], {str(record["id"]): record}, context["entities"], return_to="/statements") if main.AUTHORING_MODE else []
@@ -198,7 +200,7 @@ def reader_context(request: Request, record: dict):
         article_varieties = source_catalog_coverage(report).get(str(record["id"]), [])
     return_to = request.query_params.get("return_to") or "/digest"
     return_to = return_to if urlsplit(return_to).path == "/statements" and not urlsplit(return_to).netloc and not urlsplit(return_to).scheme else "/digest"
-    return {"personal_reader": True, "card": card, "record": record, "article_text": paragraphs, "document_blocks": document_blocks,
+    return {"personal_reader": True, "card": card, "record": record, "article_text": paragraphs, "article_blocks": article_blocks, "document_blocks": document_blocks,
             "article_available": bool(paragraphs), "reading_entry": entry, "summary": content["summary"],
             "trusted": source_reviewed(record), "escalated_statements": escalations(main.all_facts()).get(str(record["id"]), []),
             "statement_reviews": statement_reviews, "reader_return_to": return_to,

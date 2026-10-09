@@ -340,7 +340,8 @@
             "required": ["index", "text"],
             "properties": {
               "index": {"type": "integer", "minimum": 0},
-              "text": {"type": "string", "minLength": 1}
+              "text": {"type": "string", "minLength": 1},
+              "heading_level": {"type": "integer", "minimum": 2, "maximum": 6, "$comment": "Optional display hint matched to an original publisher h2–h6. Text, paragraph indexes and source body hash remain unchanged."}
             }
           },
           "$comment": "Paragraph index is the article's locator, the written-text equivalent of a transcript's segment index -- a future qualified extraction step cites paragraph indexes, never an invented timestamp."
