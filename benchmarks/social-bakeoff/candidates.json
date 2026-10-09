@@ -1,0 +1,164 @@
+{
+  "as_of": "2026-10-08",
+  "claims_are_not_measurements": true,
+  "candidates": [
+    {
+      "id": "bluesky-search",
+      "platform": "bluesky",
+      "task": "keyword search + thread",
+      "state": "blocked",
+      "official": "https://docs.bsky.app/docs/api/app-bsky-feed-search-posts",
+      "blocker": "Public search returned HTTP 403; no access bypass. Thread path implemented, not live-proven."
+    },
+    {
+      "id": "bluesky-jetstream",
+      "platform": "bluesky",
+      "task": "present-time tail",
+      "state": "live-tested",
+      "official": "https://bsky.network/docs/jetstream/",
+      "blocker": "Transport connected; initial 30-second sample yielded no blueberry events. Not 30-day search or useful-monitor proof."
+    },
+    {
+      "id": "youtube",
+      "platform": "youtube",
+      "task": "search/comments/replies",
+      "state": "blocked",
+      "official": "https://developers.google.com/youtube/v3/docs",
+      "blocker": "BIOS_SOCIAL_YOUTUBE_KEY absent. Existing project/API enablement, no billing activation, actual quota verification required."
+    },
+    {
+      "id": "google-news-rss",
+      "platform": "news",
+      "task": "supplementary title discovery",
+      "state": "partial-live-tested",
+      "official": "https://news.google.com/",
+      "blocker": "Actual supplementary news titles retained; undocumented RSS service contract, no social text/comments/media coverage proof."
+    },
+    {
+      "id": "apify-instagram",
+      "actor": "apify/instagram-scraper",
+      "platform": "instagram",
+      "task": "hashtag/search/post/carousel",
+      "state": "partial-live-tested",
+      "official": "https://apify.com/apify/instagram-scraper/input-schema",
+      "blocker": "Verified FREE account; pinned build 0.0.803. Exact hashtag URL returned five posts/carousels; generic search returned tag metadata only. Production jobs, ongoing rights/deletion and independent accuracy unqualified.",
+      "measured_report": "docs/v2/SOCIAL-APIFY-TRIAL.md"
+    },
+    {
+      "id": "apify-instagram-comments",
+      "actor": "apify/instagram-comment-scraper",
+      "platform": "instagram",
+      "task": "supplied-post comments",
+      "state": "documented",
+      "official": "https://apify.com/apify/instagram-comment-scraper",
+      "blocker": "Existing FREE account verified; this specific actor/build/schema/pricing and task capability remain untested. Do not launch from vendor claims or assume included credit bounds this actor."
+    },
+    {
+      "id": "apify-tiktok",
+      "actor": "clockworks/tiktok-scraper",
+      "platform": "tiktok",
+      "task": "keyword/hashtag/post media",
+      "state": "documented",
+      "official": "https://apify.com/clockworks/tiktok-scraper/input-schema",
+      "blocker": "Existing FREE account verified; this specific actor/build/schema/pricing and task capability remain untested. Do not launch from vendor claims or assume included credit bounds this actor."
+    },
+    {
+      "id": "sociavault",
+      "platform": "multi-Western",
+      "task": "seven-platform public discovery plus known-post/comments trial",
+      "state": "partial-live-tested",
+      "official": "https://docs.sociavault.com/",
+      "listed_trial": "Actual free account:50 initial credits,28 consumed,22 remaining;$0 cash",
+      "blocker": "Earlier LinkedIn dated404 causes unresolved; later company/posts/broad search succeeded. Two TikTok byte-ceiling failures; independent accuracy/rights/deletion/global monitoring gates unmet.",
+      "report": "docs/v2/SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md"
+    },
+    {
+      "id": "apify-weibo",
+      "actor": "atomus/weibo-scraper",
+      "platform": "weibo",
+      "task": "keyword/post/comments",
+      "state": "documented",
+      "official": "https://apify.com/atomus/weibo-scraper",
+      "listed_starting_price": "$16/1000 post records; per-mode minima apply",
+      "maintenance": "Community; modified 7 days before inspection; 6 monthly active users at inspection; no quality inference",
+      "blocker": "Existing FREE account verified; this specific actor/build/schema/pricing and task capability remain untested. Do not launch from vendor claims or assume included credit bounds this actor."
+    },
+    {
+      "id": "apify-douyin",
+      "actor": "atomus/douyin-scraper",
+      "platform": "douyin",
+      "task": "keyword/video/comments",
+      "state": "documented",
+      "official": "https://apify.com/atomus/douyin-scraper",
+      "listed_starting_price": "$5/1000 video search results; README contains differing $0.002 minimum, use task pricing not headline",
+      "maintenance": "Community; modified 7 days before inspection",
+      "blocker": "Existing FREE account verified; this specific actor/build/schema/pricing and task capability remain untested. Do not launch from vendor claims or assume included credit bounds this actor."
+    },
+    {
+      "id": "apify-red",
+      "actor": "atomus/xiaohongshu-scraper",
+      "platform": "red",
+      "task": "keyword/note/comments",
+      "state": "documented",
+      "official": "https://apify.com/atomus/xiaohongshu-scraper",
+      "listed_starting_price": "$16/1000 notes; per-mode rates/minima need verification",
+      "maintenance": "Community; modified 7 days before inspection",
+      "blocker": "Existing FREE account verified; this specific actor/build/schema/pricing and task capability remain untested. Do not launch from vendor claims or assume included credit bounds this actor."
+    },
+    {
+      "id": "apify-bilibili",
+      "actor": "atomus/bilibili-scraper",
+      "platform": "bilibili",
+      "task": "keyword/video/comments/danmaku",
+      "state": "documented",
+      "official": "https://apify.com/atomus/bilibili-scraper",
+      "listed_starting_price": "$8/1000 videos; per-mode rates need verification",
+      "maintenance": "Community; modified 5 days before inspection",
+      "blocker": "Existing FREE account verified; this specific actor/build/schema/pricing and task capability remain untested. Do not launch from vendor claims or assume included credit bounds this actor."
+    },
+    {
+      "id": "talkwalker",
+      "platform": "multi",
+      "task": "enterprise search/export",
+      "state": "documented",
+      "official": "https://developer.talkwalker.com/docs/getting-started/api-restrictions",
+      "blocker": "No trial/API entitlement. Several social sources allow aggregates but not raw text export; X richer data paid entitlement. China raw export restricted."
+    },
+    {
+      "id": "brandwatch",
+      "platform": "multi",
+      "task": "enterprise consumer research export",
+      "state": "documented",
+      "official": "https://developers.brandwatch.com/docs/data-restrictions",
+      "blocker": "No trial/API entitlement. X rehydration required; LinkedIn text/snippets absent; news export excerpt limits. Confirm source-specific raw text/media permissions."
+    },
+    {
+      "id": "mention",
+      "platform": "multi",
+      "task": "enterprise monitoring/API",
+      "state": "documented",
+      "official": "https://mention.com/en/pricing/",
+      "blocker": "Current Company offer is demo-led; API and history paid add-ons, no verified no-card free API trial."
+    },
+    {
+      "id": "apify-facebook",
+      "actor": "apify/facebook-posts-scraper",
+      "platform": "facebook",
+      "task": "public page posts/images",
+      "state": "partial-live-tested",
+      "official": "https://apify.com/apify/facebook-posts-scraper",
+      "blocker": "Pinned build 0.0.398 returned five posts; no general keyword, private groups or comment-image proof. Production monitoring and rights/deletion unqualified.",
+      "measured_report": "docs/v2/SOCIAL-APIFY-TRIAL.md"
+    },
+    {
+      "id": "apify-linkedin",
+      "actor": "harvestapi/linkedin-post-search",
+      "platform": "linkedin",
+      "task": "keyword and supplied-company discovery",
+      "state": "partial-live-tested",
+      "official": "https://apify.com/harvestapi/linkedin-post-search",
+      "blocker": "Pinned build 0.0.114 returned post bodies and images; article-only results held out. Comments-enabled run returned zero comments, so comment retrieval remains unproven. Production monitoring and rights/deletion unqualified.",
+      "measured_report": "docs/v2/SOCIAL-APIFY-TRIAL.md"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "version": "all-berries-rollout-2026-10-07-v1",
+  "predeclared_at": "2026-10-07T20:27:24.215011+00:00",
+  "cash_spend_cap_usd": 0,
+  "additional_requests_cap": 6,
+  "cumulative_attempt_ceiling": 40,
+  "initial_free_credit_reserve": 0.2,
+  "pages_per_case": 1,
+  "retries": 0,
+  "docs_verified_2026_10_07": [
+    "https://docs.sociavault.com/api-reference/twitter/search",
+    "https://docs.sociavault.com/api-reference/reddit/search",
+    "https://sociavault.com/pricing"
+  ],
+  "queries": [
+    {
+      "id": "rollout-strawberry-x",
+      "berry": "berry-strawberry",
+      "task": "x-search",
+      "params": {
+        "query": "from:driscollsberry strawberries",
+        "type": "Latest"
+      },
+      "purpose": "Known corporate author search; dates measured, no freshness claim"
+    },
+    {
+      "id": "rollout-strawberry-reddit",
+      "berry": "berry-strawberry",
+      "task": "reddit-search",
+      "params": {
+        "query": "strawberries fruit",
+        "sort": "new",
+        "timeframe": "month",
+        "trim": "false"
+      },
+      "purpose": "Consumer discovery candidates; authors/roles require review"
+    },
+    {
+      "id": "rollout-raspberry-x",
+      "berry": "berry-raspberry",
+      "task": "x-search",
+      "params": {
+        "query": "from:driscollsberry raspberries",
+        "type": "Latest"
+      },
+      "purpose": "Known corporate author search; dates measured, no freshness claim"
+    },
+    {
+      "id": "rollout-raspberry-reddit",
+      "berry": "berry-raspberry",
+      "task": "reddit-search",
+      "params": {
+        "query": "raspberries fruit",
+        "sort": "new",
+        "timeframe": "month",
+        "trim": "false"
+      },
+      "purpose": "Consumer discovery candidates; authors/roles require review"
+    },
+    {
+      "id": "rollout-blackberry-x",
+      "berry": "berry-blackberry",
+      "task": "x-search",
+      "params": {
+        "query": "from:driscollsberry blackberries",
+        "type": "Latest"
+      },
+      "purpose": "Known corporate author search; dates measured, no freshness claim"
+    },
+    {
+      "id": "rollout-blackberry-reddit",
+      "berry": "berry-blackberry",
+      "task": "reddit-search",
+      "params": {
+        "query": "blackberries fruit",
+        "sort": "new",
+        "timeframe": "month",
+        "trim": "false"
+      },
+      "purpose": "Consumer discovery candidates; authors/roles require review"
+    }
+  ]
+}

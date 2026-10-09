@@ -383,6 +383,43 @@
         "url": {"type": ["string", "null"], "$comment": "Link to an externally-hosted transcript, if `text` is not stored inline."}
       }
     },
+    "social_observation": {
+      "type": "object",
+      "required": [
+        "schema_version",
+        "id",
+        "source",
+        "native_id",
+        "mode",
+        "private_reader_href"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^ev-social-[a-f0-9]{24}$"
+        },
+        "source": {
+          "type": "string"
+        },
+        "native_id": {
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "live",
+            "imported",
+            "manual"
+          ]
+        },
+        "private_reader_href": {
+          "type": "string"
+        }
+      },
+      "$comment": "Minimal acquisition provenance only, no media/text rehosting. Private observation remains in inbox; publication and claim review are existing human gates. Fixture handoff forbidden."
+    },
     "priority": {
       "type": "object",
       "required": ["reading", "testing", "commercial_position", "monitoring"],

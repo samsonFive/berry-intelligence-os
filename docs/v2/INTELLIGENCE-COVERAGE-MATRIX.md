@@ -629,3 +629,36 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **October 4 in-app agency refresh:** An explicit Eurostat check returned the same four-country/eight-figure 2025 strawberry area/production reference scope, preserving original units, flags, source update and check dates. Its country references are human-selected private context, never canonical Facts or recall/coverage maturity changes. USDA references and unsupported country/crop gaps remain untouched; broader FAOSTAT/national/research population is still partial. See MISSION-32-OFFICIAL-STATISTICS-REFRESH-REVIEW.md.
+# Social blueberry pilot coverage — 2026-10-07
+
+Bake-off addendum:93unique real news titles under EN/ES/JA feed locales;4/4identities preserved on one real news repeat. PT/ZH feeds were blocked redirects; original language and purchase geography were not inferred. Two saved official Bluesky live-tail connections yielded zero blueberry matches. These isolated tests add no canonical Evidence or consumer-coverage maturity. Vendor capabilities remain documentation-only; see `SOCIAL-MONITORING-BAKEOFF.md` for counts/blockers/unmet checks.
+
+Private fixture-only demonstration covers EN/ES/PT/ZH/JA and synthetic purchase examples in Spain/Brazil/China/Japan. No live sample or national/consumer representativeness claim. Bluesky search returned HTTP403; YouTube key absent. All 15 platform statuses, primary docs, eligibility/retention and setup blockers are in `SOCIAL-SOURCE-ACCESS-MATRIX.md`; acceptance is in `SOCIAL-BLUEBERRY-REVIEW.md`. Manual/import are separate modes and do not establish automated monitoring.
+
+
+## October 7 follow-up: translation-first UI and actual SociaVault trial
+
+The [multi-platform measured trial](SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md) supersedes earlier statements that no SociaVault key/account or live social sample was available. Actual bounded discovery returned content from six platforms; 24 one-time free credits consumed, 26 remaining, $0 paid. LinkedIn is blocked and two TikTok responses exceeded the byte ceiling. Original images can be loaded explicitly; translation-first text keeps original wording on hover/focus/tap. Production scheduling, source-specific retention/redisplay permission, independent accuracy/global coverage, automatic dossier/briefing assembly and published dependency retraction remain unproven or unmet. The isolated preview is localhost18345; public git contains counts/manifests and invented demo screenshots, not real raw posts. No merge/deployment occurred.
+
+
+## Visual reader and successful LinkedIn follow-up — October7
+
+See [the current reader/LinkedIn report](SOCIAL-VISUAL-READER-LINKEDIN.md): public company retrieval, two independently located named-variety posts and broader undated keyword search all succeeded.21 retained rows added19 unique records; total isolated records171. Four additional free credits used; total28 consumed,22 remaining,$0 paid. Earlier404 failures remain recorded with unresolved cause. Public native LinkedIn embedding rendered without a LinkedIn login. The reader now leads with native video players/photos and compact supporting detail. No ongoing collection, rights/accuracy qualification, merge or deploy.
+
+
+October7 Social continuation: Facebook public company pages and X company searches now demonstrated via bounded vendor follow-up (six Facebook posts,20 retained X posts;$0,18 free credits remain). Source language/translation controls hide unreadable records; Facebook groups/comments/general keyword search and independent qualification remain unmet. See [current measured report](SOCIAL-VISUAL-READER-LINKEDIN.md).
+
+
+### All-berry rollout authorized — 2026-10-07
+
+The user approved the blueberry workspace and authorized strawberry, raspberry and blackberry expansion. See [all-berry review](SOCIAL-ALL-BERRIES-REVIEW.md), measured `artifacts/social-all-berries/trial-summary.json` and separate synthetic evaluation. Six additional X/Reddit probes returned HTTP200 at $0, six free credits consumed; 38 cumulative consumed, 12 remain. No ongoing collection, merge or deployment. Layout approval does not qualify independent relevance/role/language accuracy, redisplay/deletion rights, watch persistence or automatic downstream assembly. Historical blueberry-only gate statements above describe the earlier checkpoint. Landscape Explorer retains its separate scope.
+
+October 7 saved-view follow-up: [Saved Social Listening views](SOCIAL-SAVED-VIEWS.md) persist applied filters and optional reviewed registry-linked targets in the existing private Watchlist state. Shared atomic writes preserve existing watches; stale revisions and invalid profiles fail closed. Collection remains disabled. Source execution plans, rights/deletion refresh, recovery drills and downstream assembly/retraction remain open. No acquisition or spend.
+
+Social Apify2026-10-07: partial actual public Facebook-page, LinkedIn keyword and Instagram exact-hashtag samples verified; strict intake mapping tested with isolated receipts. This does not establish ongoing coverage, recall, comments, translation or media rights. See [measured trial](SOCIAL-APIFY-TRIAL.md).
+
+Social blueberry ag-tech probe2026-10-08: ten actual LinkedIn search results, four screened topic-relevant additions covering irrigation, harvest research, grading and sorting. Primary topic sources checked; performance/coverage remain unqualified. This does not populate Learner Mode or close Harvest/AgTech knowledge gaps. See [measured probe](SOCIAL-AGTECH-TRIAL.md).
+
+October8 social quality audit: a fixed30-caption stratified diagnostic sample exposed NABC/USHBC alias conflation. Primary pages were checked; social matching now holds the conflicting aliases without modifying canonical identity or Landscape. Independent accuracy remains unmeasured; TD-118 tracks registry reconciliation and other matcher impact. The targeted Instagram picking probe returned only one family-picking caption among five mixed-purpose posts, with unknown provider language tags and a measured one-page free limit. Neither result upgrades consumer/global coverage. See SOCIAL-ACCEPTANCE-AUDIT.md and SOCIAL-APIFY-TRIAL.md.
+
+October 8 social source follow-up: bounded Atomus X search returned five supplied-English posts with reported dates in the requested October7–8 window; shared private normalization/replay succeeded. This is partial source access, not qualified consumer/market coverage, native-source fidelity or health-claim evidence. Rights/deletion refresh remain open; collection disabled. See SOCIAL-APIFY-TRIAL.md for exact scope and charges.

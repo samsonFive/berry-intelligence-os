@@ -1,0 +1,194 @@
+{
+  "version": 1,
+  "as_of": "2026-10-07",
+  "recommendation": "no proven winner yet",
+  "query_attempts": 20,
+  "successful_queries": 15,
+  "blocked_queries": 5,
+  "news": {
+    "returned": 94,
+    "unique": 93,
+    "duplicates": 1,
+    "executed_queries": 15,
+    "posts": 93,
+    "comments": 0,
+    "human_reviewed_precision": {
+      "numerator": 0,
+      "denominator": 0,
+      "estimate": null,
+      "wilson95": null
+    },
+    "field_presence_not_correctness": {
+      "native_id": {
+        "numerator": 93,
+        "denominator": 93,
+        "estimate": 1.0,
+        "wilson95": [
+          0.9603324967873037,
+          1
+        ]
+      },
+      "canonical_url": {
+        "numerator": 93,
+        "denominator": 93,
+        "estimate": 1.0,
+        "wilson95": [
+          0.9603324967873037,
+          1
+        ]
+      },
+      "published_at": {
+        "numerator": 93,
+        "denominator": 93,
+        "estimate": 1.0,
+        "wilson95": [
+          0.9603324967873037,
+          1
+        ]
+      },
+      "text": {
+        "numerator": 93,
+        "denominator": 93,
+        "estimate": 1.0,
+        "wilson95": [
+          0.9603324967873037,
+          1
+        ]
+      },
+      "language": {
+        "numerator": 93,
+        "denominator": 93,
+        "estimate": 1.0,
+        "wilson95": [
+          0.9603324967873037,
+          1
+        ]
+      }
+    },
+    "media_references": 0,
+    "downloaded_media_bytes": 0,
+    "retention_permission_verified": false,
+    "languages": {
+      "en": 46,
+      "es": 27,
+      "ja": 20
+    }
+  },
+  "by_feed_locale_not_verified_original_language": {
+    "en": {
+      "attempted_queries": 8,
+      "successful_queries": 8,
+      "blocked_queries": 0,
+      "returned_with_duplicates": 47,
+      "unique_titles": 46,
+      "local_berry_relevance_machine_only": {
+        "needs-review": 23,
+        "relevant": 19,
+        "excluded-phone": 4
+      },
+      "original_language_verified": false,
+      "reviewed_precision": {
+        "numerator": 0,
+        "denominator": 0,
+        "estimate": null
+      }
+    },
+    "es": {
+      "attempted_queries": 4,
+      "successful_queries": 4,
+      "blocked_queries": 0,
+      "returned_with_duplicates": 27,
+      "unique_titles": 27,
+      "local_berry_relevance_machine_only": {
+        "needs-review": 20,
+        "relevant": 7
+      },
+      "original_language_verified": false,
+      "reviewed_precision": {
+        "numerator": 0,
+        "denominator": 0,
+        "estimate": null
+      }
+    },
+    "pt": {
+      "attempted_queries": 3,
+      "successful_queries": 0,
+      "blocked_queries": 3,
+      "returned_with_duplicates": 0,
+      "unique_titles": 0,
+      "local_berry_relevance_machine_only": {},
+      "original_language_verified": false,
+      "reviewed_precision": {
+        "numerator": 0,
+        "denominator": 0,
+        "estimate": null
+      }
+    },
+    "zh": {
+      "attempted_queries": 2,
+      "successful_queries": 0,
+      "blocked_queries": 2,
+      "returned_with_duplicates": 0,
+      "unique_titles": 0,
+      "local_berry_relevance_machine_only": {},
+      "original_language_verified": false,
+      "reviewed_precision": {
+        "numerator": 0,
+        "denominator": 0,
+        "estimate": null
+      }
+    },
+    "ja": {
+      "attempted_queries": 3,
+      "successful_queries": 3,
+      "blocked_queries": 0,
+      "returned_with_duplicates": 20,
+      "unique_titles": 20,
+      "local_berry_relevance_machine_only": {
+        "needs-review": 10,
+        "relevant": 10
+      },
+      "original_language_verified": false,
+      "reviewed_precision": {
+        "numerator": 0,
+        "denominator": 0,
+        "estimate": null
+      }
+    }
+  },
+  "same_pipeline_unique": 93,
+  "cached_feed_bytes": 272972,
+  "repeat": {
+    "state": "live-tested",
+    "provider_repeat": true,
+    "first_n": 4,
+    "second_n": 4,
+    "same_ids_n": 4,
+    "same_id_sets": true,
+    "source": "news titles only",
+    "cached": false,
+    "social_repeat_proof": false
+  },
+  "cost_ledger": {
+    "cash_usd": 0,
+    "apify_credit_usd": 0,
+    "sociavault_credits": 0,
+    "youtube_quota": 0,
+    "public_news_http_attempts": 21,
+    "paid_models": 0,
+    "paid_proxies": 0,
+    "paid_storage": 0,
+    "scheduled": false,
+    "replacement_cost_usd": 0,
+    "local_disk_bytes": 272972,
+    "notes": "Local disk/connection/compute use existing resources; no incremental cash. Raw normalized JSON/SQLite add local bytes not counted as feed transfer."
+  },
+  "acceptance": {
+    "reviewed_social_discovery": 0,
+    "reference_fetch_attempts": 0,
+    "live_comment_images": 0,
+    "verified_scores": 0,
+    "tested_score_weight_percent": 0,
+    "global_monitor_proven": false
+  }
+}

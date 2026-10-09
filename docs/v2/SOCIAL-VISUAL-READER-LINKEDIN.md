@@ -1,0 +1,89 @@
+# Visual reader and LinkedIn follow-up — October 7, 2026
+
+**Public LinkedIn access worked without a LinkedIn login. Cash spend remains $0;28 one-time free credits consumed in total,22 remaining.** Four additional predeclared, one-page requests used the existing SociaVault account and unchanged30-attempt ceiling. Collection is now stopped at that ceiling. No purchases, account creation, vendor contact, login credentials, cookies, scheduled monitoring, merge or deployment.
+
+## Actual LinkedIn results
+
+| Task | HTTP | Returned / retained | Images supplied | Publication dates present | Credits |
+|---|---:|---:|---:|---:|---:|
+| Fall Creek public company page |200|10 /10 posts|0|7 /10|1|
+| Independent pruning/variety post |200|1 /1|3|1 /1|1|
+| Independent PeachyBlue flavor post |200|1 /1|3|1 /1|1|
+| `Fall Creek blueberry`, without date filter |200|9 /9 posts|30|9 /9|1|
+
+The21 retained rows added19 unique records to the isolated same-pipeline store, bringing all-platform records to171. The blueberry-keyword view selects55, of which10 are LinkedIn; selections are machine proposals, not validated opinions or complete corporate coverage. Company-page results and keyword search can overlap. The older independent known posts are outside the earlier30-day discovery interval and are **not** scored as fresh discoveries. These known references came from independently located public LinkedIn pages, not fabricated fixture URLs. Mapping failures:0. Neither known post returned comments; comments and replies remain unproven for this LinkedIn trial. Original language is `und`, not inferred from the English query; independent accuracy is ungraded.
+
+The earlier malformed-route and documented-route404 failures remain recorded. The documented route succeeded with a different broader query and no date filter today. We cannot attribute the earlier failure to a specific root cause or claim date-filtered search repaired. LinkedIn status is now **partial live-tested public company/post/search access**, not globally blocked and not an unattended monitor. No LinkedIn password/session is needed for this demonstrated path. Your own signed-in browser may help identify further posts for manual capture; it does not authorize private-network scraping or establish provider access.
+
+The independent pruning post names ArabellaBlue `FC14-062`, LoretoBlue `FC11-118`, Valor `ZF08-070` and Cargo. This confirms that source material useful to company/variety research exists, not that every variety alias has been linked correctly. The current extractor links Fall Creek but leaves Cargo ambiguous; unmatched other cultivar aliases are a continuation gap. A pruning event location is not a purchase market, nationwide growing footprint or company commercial relationship. The PeachyBlue post contains corporate flavor claims, not independently verified taste-trial results. No canonical entity/evidence record has been promoted.
+
+Content-free measurements: [LinkedIn summary](../../artifacts/social-blueberry/linkedin-followup-summary.json). Raw responses, actual post text and screenshots stay private in ignored inbox/local review outputs.
+
+## Reader changes and demonstrated visuals
+
+The original source is prominent in the existing reader. Valid YouTube/TikTok video links get a native platform player; missing API thumbnail fields no longer produce a misleading “Text only” label. The post sheet links directly to “Play video” or “View post.” YouTube uses its privacy-enhanced embed domain and a platform-compatible referrer policy; no autoplay. User playback is inside the drawer. One actual YouTube Short from the user's example rendered its title, thumbnail and playback controls, and the play action loaded playback UI. This does not guarantee every video is embeddable.
+
+Attached reader photos display automatically at useful size, with media failure handling and original links. LinkedIn leads with its attached photos; the native original post expands inside the reader. This avoids repeating a long original caption above the same images and local analysis. The actual pruning post's native LinkedIn embed rendered its company attribution, caption, images and reactions without login. Its three attached-image references also rendered. Native source `contentUrn` is preserved separately from activity ID; guessing that these IDs match would produce the wrong embed. This is an optional validated, backward-compatible intake field, not a new graph/navigation contract.
+
+Available English translation comes first in the reader; original wording remains on hover/focus/tap. No translation claim is made for untranslated sources. Empty analysis sections are omitted; unknown locations are grouped in a disclosure. A saved date is explicitly identified when the publication date is absent. Opening the source is a visible action beside the title.
+
+Source players are built only from allowlisted platform hosts and validated native IDs/URNs, never raw vendor HTML. Invented samples do not load external players. Replies do not embed an invented standalone post. Restricted/unavailable media suppresses the player; removed observations remain410. Embedded content is controlled by the originating platform and can become unavailable; the source link stays visible. The embed is presentation, not a durable screenshot, downloaded video, sentiment label or verification of a claim. Source images are browser-rendered references, not permanently rehosted media objects.
+
+## Current primary sources and continuation
+
+- [SociaVault company endpoint](https://docs.sociavault.com/api-reference/linkedin/company): public company page and recent posts, `GET /v1/scrape/linkedin/company`, URL required,1credit documented and observed.
+- [SociaVault post endpoint](https://docs.sociavault.com/api-reference/linkedin/post): known post/article, `GET /v1/scrape/linkedin/post`, URL required,1credit documented and observed.
+- [SociaVault search endpoint](https://docs.sociavault.com/api-reference/linkedin/search-posts): Google-indexed public posts, `GET /v1/scrape/linkedin/search/posts`, query and optional index-age date filter/cursor,1credit observed. Broad search succeeded; earlier dated query failures remain unresolved.
+- [LinkedIn official embedding guidance](https://www.linkedin.com/help/linkedin/answer/a529065/embed-content-from-the-linkedin-feed): public author-controlled embeds, with compact/full-post options and removal when the author deletes content. Guidance lists multi-photo/repost limitations; this sampled multi-image post did render, which does not establish general support for all such posts.
+- [YouTube official player parameters](https://developers.google.com/youtube/player_parameters), [TikTok official embed player](https://developers.tiktok.com/doc/embed-player): native playback paths, separate from collection/export rights. TikTok native player rendered for an actual Driscoll’s ANZ post; Play entered Pause state and the eight-second clip reached00:08/00:08 with Replay. This verifies that sampled playback, not availability of all TikTok posts.
+
+Prioritize a corporate watchlist covering breeders, nurseries, marketers and relevant industry leaders; validate registry aliases against explicit cultivar wording before linking. Extend the independent reference set and human review before scoring discovery. Source-specific storage/redisplay rights, deletion refresh, completeness/history, regional coverage, translated-language accuracy and sustained costs remain gates. Free signup credits are one-time, not an ongoing allowance. Do not purchase yet. Public retrieval success does not establish access to connections-only conversations.
+
+## Review, operations and rollback
+
+The existing localhost18345 trial preview reads the171-record isolated store; it never collects from a page load. Public git contains no actual post body, credential or real screenshot. The reader upgrade needs restarting the existing local preview so Python picks up its renderer. Other local preview processes are separate. No production migration or deployment configuration changes. Existing rows accept optional `source_embed_urn=None`; rollback requires reverting this additive commit and stopping/restarting the local preview, not deleting original evidence. Keep the prior gate report's broader migration/rollback notes.
+
+Deterministic tests cover platform/native-identity allowlisting, malformed embed identity, invented sample/reply/removal suppression, LinkedIn actual-shaped post mapping, media parent IDs, unchanged geography/language unknowns and reader routes. Required exact-HEAD CI must be checked on the updated PR. Stop at the blueberry gate for user feedback; no automatic dossier/briefing promotion or broader berry UI rollout.
+
+
+## Compact media follow-up — October 7, 2026
+
+Post rows, retail gallery and reader share a bounded-height attachment carousel. Clicking the image opens a native modal lightbox in the app, with previous/next, keyboard arrows, Escape and focus return; redundant media links/image captions and Show image steps are removed. IntersectionObserver loads visible/nearby thumbnails (180px lead) and defers distant rows and off-screen slides. Lightbox navigation preloads adjacent source images; no image proxy, storage, media download or collection is introduced. Network/provider failures can still delay images; no promise of instant delivery from external CDNs. Restricted/unavailable attachments stay suppressed.
+
+Browser verification: original LinkedIn photos render in the compact row and 320px reader carousel; next attachment changes 1/3 to 2/3; one-click lightbox opens, next image works, Escape closes only the lightbox and retains the reader. Original screenshot evidence remains in the local review packet. Mobile swipe uses horizontal scroll snapping; full mobile/assistive-technology review remains pending.
+
+X is already live-tested via three search assignments: 12 retained records, including Chinese replies; sparse/noisy sample, not qualified broad coverage. Facebook public-profile/page collection is documented by the vendor but was not tested. The prior 30-attempt trial cap is exhausted; no additional calls were made. Facebook needs a bounded follow-up against named public industry pages, then independent relevance/media/retention checks, rather than treating unsupported general keyword/group access as proven. Cash spend remains $0.
+
+
+## English-readable mission follow-up — October 7, 2026
+
+Clarified user requirement: posts without English source text or an English translation are excluded from all Social Listening selections, counts, visual drilldowns, briefing/export and reader conversations. Unknown language stays pending rather than guessed from alphabet/query. Original records remain in the private acquisition index for translation/audit; they are not deleted. Direct reader access to a pending-English post returns409. English translations retain method/uncertainty/original provenance; translation availability does not establish accuracy. Links are underlined, buttons outlined, and clickable images carry an enlargement cue. No unavailable-translation message remains.
+
+A predeclared four-request continuation extended the prior30-attempt study to34, retaining the initial20% free-credit reserve, per-call actual free-account checks, one-credit upper bound, byte/time caps and no retries/pagination. Company source links were verified directly from https://www.fallcreeknursery.com/ and https://www.driscolls.com/.
+
+| Case | HTTP | Returned | Retained | Media references | Dates |
+|---|---:|---:|---:|---:|---:|
+| Facebook Fall Creek page |200|3|3|7|3|
+| Facebook Driscoll's page |200|3|3|7|3|
+| X FallCreekBlues blueberries |200|20|10|9|10|
+| X driscollsberry blueberries |200|20|10|10|10|
+
+26 new unique records;197 total private all-platform records, not197 readable blueberry matches. Facebook's six are mixed berries: two Fall Creek posts mention blueberries, other raspberry/blackberry/general-berry posts do not qualify as blueberry evidence. X retains the existing10-per-query cap; older company posts are not fresh30-day discovery. No independent relevance/accuracy grade. Facebook multiple images now dedupe and preserve all supplied references, engagement and video references without rehosting. Top-comment summaries did not establish comment retrieval and were not promoted into invented records.
+
+Facebook did not supply language. Six complete Facebook texts and ten previously displayed LinkedIn texts were inspected as English by the assistant; language_basis explicitly records this assistant assessment, separate from provider/human language qualification. Hash-bound private assessment metadata protects replay from applying an assessment to changed text. Unknown other records remain hidden pending translation/language assessment; no fabricated English translations.
+
+Cumulative cash$0;32 free credits consumed,18 remaining,34 reserved attempts. No ongoing collection. Official vendor docs: [Facebook public profile/page posts](https://docs.sociavault.com/api-reference/facebook/profile-posts), [X search](https://docs.sociavault.com/api-reference/twitter/search). Demonstrated access is vendor-mediated public content; direct Meta/X permission, private groups, keyword-wide Facebook search, deletion refresh and recurring costs remain unqualified. Replay with scripts/report_social_facebook_x_followup.py uses saved private responses only. Machine/source screenshots and raw content remain outside public git.
+
+Mission remains at the blueberry review boundary: resolve English translation/review workflow, independent relevance/language QA and rights/deletion before unattended monitoring or purchase. No merge/deploy or other-berry rollout.
+
+User mission focus:both corporate and consumer intelligence, shown separately. Perspective selection filters the same evidence bundle and preserves URLs across views/exports:corporate/trade,consumer/creator,unclassified/news. No unknown post is assumed consumer. Known follow-up company posts are labeled company_owned only when the returned canonical URL hostname/author handle matches the independently verified company watch handle; query text alone does not qualify identity. Classification is still pending independent review; sponsored creator content remains explicitly labeled.
+
+
+### Review feedback: author identity and navigation (2026-10-07)
+
+Social Listening is now in the authoring workspace primary navigation, with active-page styling; public static navigation stays restricted to published surfaces. The posts table shows native author handle (or supplied display name) on its third metadata line and Full post on its fourth line. Full post expands the original text cell in place; original-language controls also sit in the metadata column. Missing author data is explicit, and author identity does not automatically classify a post. Optional author fields preserve existing normalized records; no SQLite schema migration is required. Local saved provider responses enriched 115 existing records without replacing translations, analysis, review state or collection timestamps. No additional provider calls or spend. Rollback: revert presentation/normalizer changes; optional author fields may remain in private payloads.
+
+
+### Newest-first review feedback (2026-10-07)
+
+Shared social selections now sort by source publication timestamp descending, falling back to the explicitly labeled saved timestamp for undated records. Timestamp comparisons respect timezone offsets, with stable identity tie breaks. Gallery, posts, reader sequence and exports share that ordering; Momentum presents recent days first. Date sorting uses real timestamps in the browser and announces the current direction. Existing historical source dates remain unchanged. Regression tests cover shuffled inputs, historical posts collected recently, missing publication dates and different timezone offsets. Validation: 55 focused tests passed; JavaScript syntax and browser oldest/newest toggle verified. No migration, source calls or spend; rollback is a code revert.

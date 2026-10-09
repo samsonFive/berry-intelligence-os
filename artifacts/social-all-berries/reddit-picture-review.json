@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-07",
+  "cash_spend_usd": 0,
+  "additional_requests_cap": 1,
+  "media_downloads": 0,
+  "source": "reddit",
+  "state": "offline-replay",
+  "returned_attachment_references": 1,
+  "new_attachment_references": 0,
+  "mapping_errors": [],
+  "http": 200,
+  "observed_credit_delta": 1,
+  "remaining_free_credits": 11,
+  "cumulative_attempts": 41
+}

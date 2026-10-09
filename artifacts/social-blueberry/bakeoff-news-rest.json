@@ -1,0 +1,251 @@
+{
+  "version": 1,
+  "manifest_version": "berry-bakeoff-2026-10-07-v1",
+  "manifest_interval": [
+    "2026-09-07T13:00:11+00:00",
+    "2026-10-07T13:00:11+00:00"
+  ],
+  "at": "2026-10-07T13:05:41.367129+00:00",
+  "scheduled": false,
+  "cash_usd": 0,
+  "results": [
+    {
+      "candidate": "google-news-rss",
+      "state": "live-tested",
+      "attempts": [
+        {
+          "query": "bb-zh-1",
+          "language": "zh",
+          "state": "blocked",
+          "reason": "HTTP 302; not zero volume"
+        },
+        {
+          "query": "bb-ja-1",
+          "language": "ja",
+          "target_market": "JP",
+          "state": "live-tested",
+          "returned": 10,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "bb-en-2",
+          "language": "en",
+          "target_market": "US",
+          "state": "live-tested",
+          "returned": 10,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "bb-es-2",
+          "language": "es",
+          "target_market": "ES",
+          "state": "live-tested",
+          "returned": 6,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "bb-pt-2",
+          "language": "pt",
+          "state": "blocked",
+          "reason": "HTTP 302; not zero volume"
+        },
+        {
+          "query": "bb-zh-2",
+          "language": "zh",
+          "state": "blocked",
+          "reason": "HTTP 302; not zero volume"
+        },
+        {
+          "query": "bb-ja-2",
+          "language": "ja",
+          "target_market": "JP",
+          "state": "live-tested",
+          "returned": 0,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "bb-en-3",
+          "language": "en",
+          "target_market": "US",
+          "state": "live-tested",
+          "returned": 4,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "bb-es-3",
+          "language": "es",
+          "target_market": "ES",
+          "state": "live-tested",
+          "returned": 5,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "st-en",
+          "language": "en",
+          "target_market": "US",
+          "state": "live-tested",
+          "returned": 10,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "ra-es",
+          "language": "es",
+          "target_market": "ES",
+          "state": "live-tested",
+          "returned": 10,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "bk-pt",
+          "language": "pt",
+          "state": "blocked",
+          "reason": "HTTP 302; not zero volume"
+        },
+        {
+          "query": "st-ja",
+          "language": "ja",
+          "target_market": "JP",
+          "state": "live-tested",
+          "returned": 10,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "amb-phone",
+          "language": "en",
+          "target_market": "US",
+          "state": "live-tested",
+          "returned": 10,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "amb-cultivar",
+          "language": "en",
+          "target_market": "US",
+          "state": "live-tested",
+          "returned": 0,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "ret-found",
+          "language": "en",
+          "target_market": "US",
+          "state": "live-tested",
+          "returned": 9,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "ret-wish",
+          "language": "en",
+          "target_market": "US",
+          "state": "live-tested",
+          "returned": 0,
+          "cap": 10,
+          "pages": 1
+        }
+      ],
+      "metrics": {
+        "returned": 84,
+        "unique": 84,
+        "duplicates": 0,
+        "executed_queries": 13,
+        "posts": 84,
+        "comments": 0,
+        "human_reviewed_precision": {
+          "numerator": 0,
+          "denominator": 0,
+          "estimate": null,
+          "wilson95": null
+        },
+        "field_presence_not_correctness": {
+          "native_id": {
+            "numerator": 84,
+            "denominator": 84,
+            "estimate": 1.0,
+            "wilson95": [
+              0.95626827092561,
+              0.9999999999999999
+            ]
+          },
+          "canonical_url": {
+            "numerator": 84,
+            "denominator": 84,
+            "estimate": 1.0,
+            "wilson95": [
+              0.95626827092561,
+              0.9999999999999999
+            ]
+          },
+          "published_at": {
+            "numerator": 84,
+            "denominator": 84,
+            "estimate": 1.0,
+            "wilson95": [
+              0.95626827092561,
+              0.9999999999999999
+            ]
+          },
+          "text": {
+            "numerator": 84,
+            "denominator": 84,
+            "estimate": 1.0,
+            "wilson95": [
+              0.95626827092561,
+              0.9999999999999999
+            ]
+          },
+          "language": {
+            "numerator": 84,
+            "denominator": 84,
+            "estimate": 1.0,
+            "wilson95": [
+              0.95626827092561,
+              0.9999999999999999
+            ]
+          }
+        },
+        "media_references": 0,
+        "downloaded_media_bytes": 0,
+        "retention_permission_verified": false,
+        "languages": {
+          "en": 43,
+          "es": 21,
+          "ja": 20
+        }
+      },
+      "same_pipeline_unique": 84,
+      "requests": 17,
+      "cache_hits": 0,
+      "score": {
+        "verified_points_out_of_100": 0,
+        "tested_weight_percent": 0,
+        "renormalized": false,
+        "recommendation": "no proven winner yet"
+      },
+      "score_reason": "No independently reviewed sample; no dimension scored",
+      "cash_usd": 0,
+      "free_credits_consumed": 0,
+      "paid_models": 0,
+      "retries": 0
+    }
+  ],
+  "unmet": [
+    "30 reviewed discovery results",
+    "10 applicable reference fetches",
+    "three live non-English languages",
+    "more than one evidenced region",
+    "live comment images",
+    "verified redisplay/retention permissions"
+  ]
+}

@@ -337,3 +337,6 @@ Accepted (`docs/v2/00-README.md` through `10-BACKLOG.md`, 2026-08-13). `docs/v2/
 - D-012 (explicit analytical scope, separate from provenance) — **ACCEPTED**, schema-level implemented (Phase 2A); query-level `ScopeQueryService.explicit_scope()`/`records_by_entity_intersection()`/`scope_disagreements()` implemented and tested (Phase 2B.2), but not yet wired into any live route filter — Landscape's Assessment/Recommendation branch still uses the legacy derived-intersection rule only, preserving its exact existing behavior
 
 No decisions remain open. No PostgreSQL or write-migration work has begun. AI-assisted transcript extraction is implemented only as an untrusted proposal boundary; it does not alter the human trust model.
+# Blueberry social review (2026-10-07, pending feedback)
+
+`feature/social-blueberry-review` is stacked on Landscape Explorer #313. Private Social Listening, durable intake/media, bounded Bluesky/YouTube adapter paths, five visual views and synthetic five-language evaluation are ready for review. Live access remains unmet (Bluesky HTTP403; YouTube key absent); collectors disabled. No merge/deploy. See `docs/v2/SOCIAL-BLUEBERRY-REVIEW.md` for partial acceptance checks, operations and continuation backlog.

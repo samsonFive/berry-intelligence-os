@@ -1,0 +1,582 @@
+{
+  "version": "sociavault-multiplatform-2026-10-07-v1",
+  "date": "2026-10-07",
+  "cash_spend_usd": 0,
+  "initial_free_credits": 50,
+  "remaining_free_credits": 26,
+  "metered_attempts_reserved": 26,
+  "consumed_free_credits": 24,
+  "reserve_required": 10.0,
+  "credit_ceiling": 30,
+  "cases": [
+    {
+      "case": "bb-en-1",
+      "task": "reddit-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 7,
+      "mapped_items": 7,
+      "in_interval": 7,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    },
+    {
+      "case": "bb-en-2",
+      "task": "tiktok-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 25,
+      "mapped_items": 10,
+      "in_interval": 10,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 10,
+      "mapping_errors": 0
+    },
+    {
+      "case": "bb-en-3",
+      "task": "linkedin-search",
+      "transport_state": "provider-error",
+      "http": 404,
+      "credit_delta": 0,
+      "returned_items": null,
+      "mapped_items": 0,
+      "in_interval": 0,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    },
+    {
+      "case": "amb-phone",
+      "task": "x-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 20,
+      "mapped_items": 10,
+      "in_interval": 10,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 7,
+      "mapping_errors": 0
+    },
+    {
+      "case": "ret-found",
+      "task": "instagram-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 10,
+      "mapped_items": 10,
+      "in_interval": 10,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 10,
+      "mapping_errors": 0
+    },
+    {
+      "case": "amb-cultivar",
+      "task": "pinterest-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 18,
+      "mapped_items": 8,
+      "in_interval": 2,
+      "unknown_date": 0,
+      "outside_interval": 6,
+      "media_references": 8,
+      "mapping_errors": 2
+    },
+    {
+      "case": "st-en",
+      "task": "youtube-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 25,
+      "mapped_items": 10,
+      "in_interval": 0,
+      "unknown_date": 10,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    },
+    {
+      "case": "bb-es-1",
+      "task": "reddit-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 7,
+      "mapped_items": 7,
+      "in_interval": 7,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    },
+    {
+      "case": "bb-pt-1",
+      "task": "tiktok-search",
+      "transport_state": "transport-blocked",
+      "http": null,
+      "credit_delta": null,
+      "returned_items": null,
+      "mapped_items": 0,
+      "in_interval": 0,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    },
+    {
+      "case": "bb-zh-1",
+      "task": "x-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 2,
+      "mapped_items": 2,
+      "in_interval": 2,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    },
+    {
+      "case": "bb-ja-1",
+      "task": "youtube-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 19,
+      "mapped_items": 10,
+      "in_interval": 5,
+      "unknown_date": 5,
+      "outside_interval": 0,
+      "media_references": 5,
+      "mapping_errors": 0
+    },
+    {
+      "case": "bb-es-2",
+      "task": "instagram-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 5,
+      "mapped_items": 5,
+      "in_interval": 5,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 5,
+      "mapping_errors": 0
+    },
+    {
+      "case": "bb-pt-2",
+      "task": "pinterest-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 16,
+      "mapped_items": 10,
+      "in_interval": 0,
+      "unknown_date": 0,
+      "outside_interval": 10,
+      "media_references": 10,
+      "mapping_errors": 0
+    },
+    {
+      "case": "bb-zh-2",
+      "task": "linkedin-search",
+      "transport_state": "provider-error",
+      "http": 404,
+      "credit_delta": 0,
+      "returned_items": null,
+      "mapped_items": 0,
+      "in_interval": 0,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    },
+    {
+      "case": "bb-ja-2",
+      "task": "reddit-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 0,
+      "mapped_items": 0,
+      "in_interval": 0,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    },
+    {
+      "case": "bb-es-3",
+      "task": "x-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 0,
+      "mapped_items": 0,
+      "in_interval": 0,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    },
+    {
+      "case": "ra-es",
+      "task": "youtube-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 13,
+      "mapped_items": 10,
+      "in_interval": 4,
+      "unknown_date": 6,
+      "outside_interval": 0,
+      "media_references": 4,
+      "mapping_errors": 0
+    },
+    {
+      "case": "bk-pt",
+      "task": "pinterest-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 18,
+      "mapped_items": 10,
+      "in_interval": 1,
+      "unknown_date": 0,
+      "outside_interval": 9,
+      "media_references": 10,
+      "mapping_errors": 0
+    },
+    {
+      "case": "st-ja",
+      "task": "instagram-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 9,
+      "mapped_items": 9,
+      "in_interval": 9,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 9,
+      "mapping_errors": 0
+    },
+    {
+      "case": "ret-wish",
+      "task": "tiktok-search",
+      "transport_state": "transport-blocked",
+      "http": null,
+      "credit_delta": null,
+      "returned_items": null,
+      "mapped_items": 0,
+      "in_interval": 0,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    },
+    {
+      "case": "probe-instagram-post",
+      "task": "instagram-post",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 1,
+      "mapped_items": 1,
+      "in_interval": 1,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 1,
+      "mapping_errors": 0
+    },
+    {
+      "case": "probe-instagram-comments",
+      "task": "instagram-comments",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 15,
+      "mapped_items": 15,
+      "in_interval": 15,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    },
+    {
+      "case": "probe-youtube-comments",
+      "task": "youtube-comments",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 4,
+      "mapped_items": 4,
+      "in_interval": 4,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    },
+    {
+      "case": "probe-tiktok-comments",
+      "task": "tiktok-comments",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 0,
+      "mapped_items": 0,
+      "in_interval": 0,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    },
+    {
+      "case": "probe-reddit-comment-image",
+      "task": "reddit-comments",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 15,
+      "mapped_items": 15,
+      "in_interval": 0,
+      "unknown_date": 0,
+      "outside_interval": 15,
+      "media_references": 1,
+      "mapping_errors": 0
+    },
+    {
+      "case": "bb-en-1-repeat",
+      "task": "reddit-search",
+      "transport_state": "success",
+      "http": 200,
+      "credit_delta": 1,
+      "returned_items": 7,
+      "mapped_items": 7,
+      "in_interval": 7,
+      "unknown_date": 0,
+      "outside_interval": 0,
+      "media_references": 0,
+      "mapping_errors": 0
+    }
+  ],
+  "discovery": {
+    "returned": 118,
+    "unique": 117,
+    "duplicates": 1,
+    "executed_queries": 14,
+    "posts": 114,
+    "comments": 3,
+    "human_reviewed_precision": {
+      "numerator": 0,
+      "denominator": 0,
+      "estimate": null,
+      "wilson95": null
+    },
+    "field_presence_not_correctness": {
+      "native_id": {
+        "numerator": 117,
+        "denominator": 117,
+        "estimate": 1.0,
+        "wilson95": [
+          0.96821075385171,
+          1
+        ]
+      },
+      "canonical_url": {
+        "numerator": 117,
+        "denominator": 117,
+        "estimate": 1.0,
+        "wilson95": [
+          0.96821075385171,
+          1
+        ]
+      },
+      "published_at": {
+        "numerator": 96,
+        "denominator": 117,
+        "estimate": 0.8205128205128205,
+        "wilson95": [
+          0.7411469123256904,
+          0.8795010068100211
+        ]
+      },
+      "text": {
+        "numerator": 110,
+        "denominator": 117,
+        "estimate": 0.9401709401709402,
+        "wilson95": [
+          0.8816369502044151,
+          0.9707195254086286
+        ]
+      },
+      "language_tag_including_unknown": {
+        "numerator": 117,
+        "denominator": 117,
+        "estimate": 1.0,
+        "wilson95": [
+          0.96821075385171,
+          1
+        ],
+        "does_not_establish_original_language": true
+      }
+    },
+    "media_references": 77,
+    "downloaded_media_bytes": 0,
+    "retention_permission_verified": false,
+    "languages": {
+      "en": 19,
+      "ja": 1,
+      "pt": 1,
+      "und": 93,
+      "zh": 2,
+      "zh-Hans": 1
+    }
+  },
+  "references": {
+    "returned": 36,
+    "unique": 36,
+    "duplicates": 0,
+    "executed_queries": 5,
+    "posts": 2,
+    "comments": 34,
+    "human_reviewed_precision": {
+      "numerator": 0,
+      "denominator": 0,
+      "estimate": null,
+      "wilson95": null
+    },
+    "field_presence_not_correctness": {
+      "native_id": {
+        "numerator": 36,
+        "denominator": 36,
+        "estimate": 1.0,
+        "wilson95": [
+          0.9035813700311206,
+          1
+        ]
+      },
+      "canonical_url": {
+        "numerator": 36,
+        "denominator": 36,
+        "estimate": 1.0,
+        "wilson95": [
+          0.9035813700311206,
+          1
+        ]
+      },
+      "published_at": {
+        "numerator": 35,
+        "denominator": 36,
+        "estimate": 0.9722222222222222,
+        "wilson95": [
+          0.8583028121147521,
+          0.9950795929146393
+        ]
+      },
+      "text": {
+        "numerator": 35,
+        "denominator": 36,
+        "estimate": 0.9722222222222222,
+        "wilson95": [
+          0.8583028121147521,
+          0.9950795929146393
+        ]
+      },
+      "language_tag_including_unknown": {
+        "numerator": 36,
+        "denominator": 36,
+        "estimate": 1.0,
+        "wilson95": [
+          0.9035813700311206,
+          1
+        ],
+        "does_not_establish_original_language": true
+      }
+    },
+    "media_references": 2,
+    "downloaded_media_bytes": 0,
+    "retention_permission_verified": false,
+    "languages": {
+      "und": 36
+    }
+  },
+  "reference_url_count": 4,
+  "unique_live_records_in_isolated_store": 152,
+  "restart_unique_records": 152,
+  "store_preexisting_records": 152,
+  "platforms_mapped": {
+    "reddit": 30,
+    "tiktok": 10,
+    "x": 12,
+    "instagram": 38,
+    "pinterest": 28,
+    "youtube": 34
+  },
+  "provider_language_tags": {
+    "und": 130,
+    "en": 19,
+    "zh-Hans": 1,
+    "zh": 2
+  },
+  "display_language_tags": {
+    "und": 128,
+    "en": 19,
+    "zh-Hans": 1,
+    "zh": 2,
+    "ja": 1,
+    "pt": 1
+  },
+  "repeat": {
+    "original": 7,
+    "returned": 7,
+    "stable_ids": 7,
+    "real_second_request": true,
+    "cache_replay_is_not_provider_proof": true
+  },
+  "scores": {
+    "verified_points_out_of_100": 0,
+    "tested_weight_percent": 0,
+    "renormalized": false,
+    "recommendation": "no proven winner yet"
+  },
+  "independent_human_reviews": 0,
+  "translations_generated": 3,
+  "screenshots_from_provider": 0,
+  "downloaded_media_bytes": 0,
+  "limits": [
+    "Source images are references until browser inspection; no original screenshot service demonstrated",
+    "Account is actual free/no purchased pack; one-time signup credits do not establish recurring zero-cost monitoring",
+    "Two TikTok requests hit the two-megabyte cap and may consume credit; not retried",
+    "Initial LinkedIn request used an incorrect route; corrected documented route also returned 404",
+    "Provider may return more than ten items in one response; client intake capped ten posts/twenty comments",
+    "Missing publication dates and unverified languages are not inferred from query targets",
+    "No independently scored precision, regional coverage, deletion refresh or global recall established"
+  ],
+  "browser_media_inspection": {
+    "attempted": 4,
+    "rendered": 4,
+    "kinds": [
+      "instagram_thumbnail",
+      "tiktok_thumbnail",
+      "pinterest_image",
+      "reddit_comment_attached_image"
+    ],
+    "all_media_availability_established": false,
+    "original_post_screenshot_service_demonstrated": false
+  }
+}

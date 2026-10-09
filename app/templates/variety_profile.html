@@ -2,6 +2,7 @@
 {% block title %}{{ entity.name }} · Varieties{% endblock %}
 {% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=6">{% endblock %}
 {% block content %}
+{% if authoring_mode and not static_build %}<p class="company-workspace"><a href="/social?entity={{ entity.id }}">Inspect unreviewed social observations for this entity →</a></p>{% endif %}
 <div class="company-workspace variety-workspace">
 <a class="company-back" href="/entities/variety">← Variety directory</a>
 {% if authoring_mode and not static_build and 'berry-blueberry' in entity.berry_ids %}<p><a href="/landscapes/explorer?countries=&amp;focus={{ entity.id }}">Explore documented genetics connections →</a></p>{% endif %}

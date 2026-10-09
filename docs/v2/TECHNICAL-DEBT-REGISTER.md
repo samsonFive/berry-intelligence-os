@@ -1990,7 +1990,16 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 | Mitigation | Read-only adapter preserves predicates, identities, disputes and source gates; labels company context separately, makes caveats and unknown dates explicit, identifies missing locators, and does not promote private annotations. No fabricated cross-country genetics path or historical ending. Generic supported geography paths are covered by test-only fixtures. |
 | Still required | Human-reviewed, explicit genetics geography associations and richer dated provenance via existing acquisition/review workflows; each remaining berry needs its own sufficiency audit after the blueberry gate. No schema rewrite authorized by this debt entry. |
 | Proof | `tests/test_landscape_explorer.py`; `docs/v2/LANDSCAPE-EXPLORER-MISSION.md`; review packet. |
+# TD-117 — Social live access, published removal and multilingual validation
 
+Bake-off addendum2026-10-07:93unique actual news titles and two saved Bluesky stream connections without blueberry matches are isolated tests, not consumer-monitor proof. Vendor free-account/billing/build verification, independent reference/field review, comment images, China capabilities and redisplay permissions remain blocked. Apify launch/poll/dataset normalization and vendor history/deletion remain unfinished. See `SOCIAL-MONITORING-BAKEOFF.md`; these measurements do not close the debt below.
+
+Status: open; severity: High; owner: acquisition/product. Blueberry pilot has no live records (Bluesky403, missing YouTube key). Private tombstones invalidate derived observations/media/pending drafts, but published summaries and dependent trusted records require audited retraction. Automatic provider deletion polling, OCR/vision, translation and independent language evaluation are absent. Collectors remain disabled. Five synthetic negation errors are reported, not hidden. Proof and ordered remediation: `SOCIAL-BLUEBERRY-REVIEW.md`, `tests/test_social_intelligence.py`, `tests/test_social_routes.py`, dated access matrix.
+
+
+### TD-118 — NABC/USHBC registry aliases conflate organization identity
+
+Status: open; owner: canonical entity authoring. `company-ushbc` currently includes “North American Blueberry Council” and “NABC” aliases. [NABC](https://nabc.blueberry.org/about/) and [USHBC](https://ushbc.blueberry.org/about-ushbc/mission-vision-strategic-plan/) primary pages inspected October8 distinguish their missions and governance. A real social caption exposed two incorrect identity proposals through those aliases. Social literal version5 holds only the conflicting USHBC alias matches for review (text and packaging), preserving original spans and direct USHBC links. This mitigation does not rewrite canonical records, invent a relationship or fix other domain matchers. Existing privately stored proposals need controlled reanalysis; reviewer decisions must be preserved. Next: reviewed registry reconciliation, impact audit across shared entity consumers, then remove any obsolete mitigation only after identity tests. See SOCIAL-ACCEPTANCE-AUDIT.md and test_social_alias_identity_holds.py.
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
@@ -2000,3 +2009,30 @@ Concrete navigation defect: `/facts/fact-agrovision-peru-scale` returned 404 in 
 | Evidence | October 7 corpus audit: 64 canonical varieties, 1,269 published sources, 99 explicit named identities, 31 exact catalog matches and 68 candidate names before private inbox state. Hortifrut's 11 names and MBG's 16 code/name pairs were largely absent from discovery. Shared explicit-list parsing and existing candidate workflow now account for them; this does not approve new identities or roles. |
 | Risk | A visible source portfolio can exceed catalog coverage, misleading users about competitors' genetics. Other berries, tables, multilingual catalogs, truncated text and aliases remain under-reconciled. Generic descriptors and brand/code combinations can produce false positives without a benchmark. |
 | Next | Complete per-breeder/per-berry portfolio reconciliation, authoritative-source freshness manifest, manually verified recall benchmark and human canonical-authoring handoff. Use existing intake/qualified extraction; preserve operator decisions and data. See VARIETY-CATALOG-COMPREHENSIVENESS-MISSION.md and the repeatable audit artifact. |
+
+
+## October 7 follow-up: translation-first UI and actual SociaVault trial
+
+The [multi-platform measured trial](SOCIAL-SOCIAVAULT-MULTIPLATFORM-TRIAL.md) supersedes earlier statements that no SociaVault key/account or live social sample was available. Actual bounded discovery returned content from six platforms; 24 one-time free credits consumed, 26 remaining, $0 paid. LinkedIn is blocked and two TikTok responses exceeded the byte ceiling. Original images can be loaded explicitly; translation-first text keeps original wording on hover/focus/tap. Production scheduling, source-specific retention/redisplay permission, independent accuracy/global coverage, automatic dossier/briefing assembly and published dependency retraction remain unproven or unmet. The isolated preview is localhost18345; public git contains counts/manifests and invented demo screenshots, not real raw posts. No merge/deployment occurred.
+
+
+## Visual reader and successful LinkedIn follow-up — October7
+
+See [the current reader/LinkedIn report](SOCIAL-VISUAL-READER-LINKEDIN.md): public company retrieval, two independently located named-variety posts and broader undated keyword search all succeeded.21 retained rows added19 unique records; total isolated records171. Four additional free credits used; total28 consumed,22 remaining,$0 paid. Earlier404 failures remain recorded with unresolved cause. Public native LinkedIn embedding rendered without a LinkedIn login. The reader now leads with native video players/photos and compact supporting detail. No ongoing collection, rights/accuracy qualification, merge or deploy.
+
+
+October7 Social continuation: Facebook public company pages and X company searches now demonstrated via bounded vendor follow-up (six Facebook posts,20 retained X posts;$0,18 free credits remain). Source language/translation controls hide unreadable records; Facebook groups/comments/general keyword search and independent qualification remain unmet. See [current measured report](SOCIAL-VISUAL-READER-LINKEDIN.md).
+
+
+### All-berry rollout authorized — 2026-10-07
+
+The user approved the blueberry workspace and authorized strawberry, raspberry and blackberry expansion. See [all-berry review](SOCIAL-ALL-BERRIES-REVIEW.md), measured `artifacts/social-all-berries/trial-summary.json` and separate synthetic evaluation. Six additional X/Reddit probes returned HTTP200 at $0, six free credits consumed; 38 cumulative consumed, 12 remain. No ongoing collection, merge or deployment. Layout approval does not qualify independent relevance/role/language accuracy, redisplay/deletion rights, watch persistence or automatic downstream assembly. Historical blueberry-only gate statements above describe the earlier checkpoint. Landscape Explorer retains its separate scope.
+
+October 7 continuation: [research scope follow-up](SOCIAL-RESEARCH-SCOPE-FOLLOWUP.md) tightens the opt-in social context hook's publication window and explicit purchase-market geography before its result cap. Canonical geography mapping/containment is supplied read-only; unknown, query-only, origin and author location cannot establish market sightings. No additional acquisition or spend. Automatic downstream assembly/retraction and independent qualification remain open. Latest prior picture recovery left 11 free credits (39 consumed), with the ten-credit reserve intact; older balances above describe earlier batches.
+
+October 7 saved-view follow-up: [Saved Social Listening views](SOCIAL-SAVED-VIEWS.md) persist applied filters and optional reviewed registry-linked targets in the existing private Watchlist state. Shared atomic writes preserve existing watches; stale revisions and invalid profiles fail closed. Collection remains disabled. Source execution plans, rights/deletion refresh, recovery drills and downstream assembly/retraction remain open. No acquisition or spend.
+
+Apify follow-up2026-10-07: Free-account real Facebook/LinkedIn/Instagram runs and strict post-schema normalization are demonstrated; 31 offline checks pass. Comments returned empty, video/article-body mapping, estimated-date representation, production transport, matched-provider recall, retention/removal and multilingual qualification remain open. Raw receipts stay private; no preview import or unattended collection. See SOCIAL-APIFY-TRIAL.md.
+
+
+Social deleted-source follow-up (user approved October 8 local time): new-output exclusion is implemented for explicit deleted receipts and transitive published dependencies, with canonical history retained and saved-report PDF export blocked until regeneration. See SOCIAL-DELETED-SOURCE-OUTPUT-POLICY.md. This narrows the published-output gap in TD-117; source deletion refresh, rights/retention qualification and independent accuracy remain open. No automatic trust-state retraction or unattended collection.
