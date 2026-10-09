@@ -1,0 +1,966 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-royalberries-patent-rb-a063",
+      "title": "Royal Berries — RB A063 original US plant patent",
+      "url": "https://patents.google.com/patent/USPP34718P3/en",
+      "company_ids": [
+        "breeding_program-atlantic-blue-royal-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2022-11-08",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal subject in the original patent heading, description and single claim. Parents and comparators are separately accounted; related-document suggestions and cited papers are excluded from this portfolio scope.",
+      "limitations": "Bounded historical patent check, not the full/current Royal Berries portfolio. Named inventors remain distinct from applicant/assignee. Google status and expiry assumptions are not copied. No current rights, breeding/ownership role, trait, brand/code alias, growing footprint or photo permission is approved.",
+      "names": [
+        {
+          "candidate_name": "RB A063",
+          "denomination": "RB A063",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/7e/2b/5e/2d9a1f69444c02/USPP34718.pdf",
+          "application_number": "17/585,906",
+          "grant_number": "USPP34718P3",
+          "jurisdiction": "US",
+          "application_date": "2022-01-27",
+          "grant_date": "2022-11-08",
+          "portfolio_context": "Royal Berries is the applicant/assignee named in this historical US patent. Trial observations do not establish today's commercial production.",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/0c/23/26/d3f736322ad414/USPP034718-20221108-D00008.png",
+              "source_url": "https://patentimages.storage.googleapis.com/7e/2b/5e/2d9a1f69444c02/USPP34718.pdf",
+              "named_variety": "RB A063",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-08",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Royal Berries · USPP34718P3 · photographer not credited",
+              "caption": "Figure 8 shows harvested fruit of RB A063. Original monochrome patent scan; not a color or quality comparison.",
+              "reuse_note": "Patent hosting does not establish photograph reuse permission. Private session choice only; scan quality is limited."
+            }
+          ]
+        }
+      ],
+      "review_warnings": [
+        "The patent cites CPVO application 2021/0331, not a verified European grant. Current European rights still need checking."
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "Rocio",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "S124",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "New Hanover",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Suziblue",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Legacy",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_subject_and_claim",
+        "capture_sha256": "1e23916abda1446f6f4ba369280b01a4eba4a7b42bf4536632476cd4f68f3add",
+        "bytes": 14972,
+        "heading_description_and_claim_read": true,
+        "pdf_url": "https://patentimages.storage.googleapis.com/7e/2b/5e/2d9a1f69444c02/USPP34718.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "scope": "Patent subject, historical dates, parents/comparators and literal claim reviewed in publisher HTML. Not a complete company portfolio, official current-rights verification, or full visual PDF review.",
+        "cpvo_priority_claim": "2021/0331",
+        "fruit_visual_review": true,
+        "fruit_figure": 8,
+        "figure_width": 1849,
+        "figure_height": 1495
+      }
+    },
+    {
+      "id": "portfolio-royalberries-patent-rb-a097",
+      "title": "Royal Berries — RB A097 original US plant patent",
+      "url": "https://patents.google.com/patent/USPP34719P3/en",
+      "company_ids": [
+        "breeding_program-atlantic-blue-royal-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2022-11-08",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal subject in the original patent heading, description and single claim. Parents and comparators are separately accounted; related-document suggestions and cited papers are excluded from this portfolio scope.",
+      "limitations": "Bounded historical patent check, not the full/current Royal Berries portfolio. Named inventors remain distinct from applicant/assignee. Google status and expiry assumptions are not copied. No current rights, breeding/ownership role, trait, brand/code alias, growing footprint or photo permission is approved.",
+      "names": [
+        {
+          "candidate_name": "RB A097",
+          "denomination": "RB A097",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/34/6d/f0/fca223368b3ac3/USPP34719.pdf",
+          "application_number": "17/586,000",
+          "grant_number": "USPP34719P3",
+          "jurisdiction": "US",
+          "application_date": "2022-01-27",
+          "grant_date": "2022-11-08",
+          "portfolio_context": "Royal Berries is the applicant/assignee named in this historical US patent. Trial observations do not establish today's commercial production.",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/67/56/db/a69d4133d975b5/USPP034719-20221108-D00007.png",
+              "source_url": "https://patentimages.storage.googleapis.com/34/6d/f0/fca223368b3ac3/USPP34719.pdf",
+              "named_variety": "RB A097",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-08",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Royal Berries · USPP34719P3 · photographer not credited",
+              "caption": "Figure 7 shows harvested fruit of RB A097. Original monochrome patent scan; not a color or quality comparison.",
+              "reuse_note": "Patent hosting does not establish photograph reuse permission. Private session choice only; scan quality is limited."
+            }
+          ]
+        }
+      ],
+      "review_warnings": [
+        "The patent cites CPVO application 2021/0333, not a verified European grant. Current European rights still need checking."
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "Rocio",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "S124",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "New Hanover",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Suziblue",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Legacy",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_subject_and_claim",
+        "capture_sha256": "2d0a2fb8c9216cc22eadef28509739f3bff164398fd2421763b868bf419c9263",
+        "bytes": 14766,
+        "heading_description_and_claim_read": true,
+        "pdf_url": "https://patentimages.storage.googleapis.com/34/6d/f0/fca223368b3ac3/USPP34719.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "scope": "Patent subject, historical dates, parents/comparators and literal claim reviewed in publisher HTML. Not a complete company portfolio, official current-rights verification, or full visual PDF review.",
+        "cpvo_priority_claim": "2021/0333",
+        "fruit_visual_review": true,
+        "fruit_figure": 7,
+        "figure_width": 1770,
+        "figure_height": 1123
+      }
+    },
+    {
+      "id": "portfolio-royalberries-patent-rb-a140",
+      "title": "Royal Berries — RB A140 original US plant patent",
+      "url": "https://patents.google.com/patent/USPP36024P2/en",
+      "company_ids": [
+        "breeding_program-atlantic-blue-royal-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2024-07-23",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal subject in the original patent heading, description and single claim. Parents and comparators are separately accounted; related-document suggestions and cited papers are excluded from this portfolio scope.",
+      "limitations": "Bounded historical patent check, not the full/current Royal Berries portfolio. Named inventors remain distinct from applicant/assignee. Google status and expiry assumptions are not copied. No current rights, breeding/ownership role, trait, brand/code alias, growing footprint or photo permission is approved.",
+      "names": [
+        {
+          "candidate_name": "RB A140",
+          "denomination": "RB A140",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/37/5a/63/177627cd9e286d/USPP36024.pdf",
+          "application_number": "18/523,419",
+          "grant_number": "USPP36024P2",
+          "jurisdiction": "US",
+          "application_date": "2023-11-29",
+          "grant_date": "2024-07-23",
+          "portfolio_context": "Royal Berries is the applicant/assignee named in this historical US patent. Trial observations do not establish today's commercial production.",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/59/9d/e6/f73f6c4531c499/USPP036024-20240723-D00008.png",
+              "source_url": "https://patentimages.storage.googleapis.com/37/5a/63/177627cd9e286d/USPP36024.pdf",
+              "named_variety": "RB A140",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-08",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Royal Berries · USPP36024P2 · photographer not credited",
+              "caption": "Figure 8 shows harvested fruit of RB A140. Original monochrome patent scan; not a color or quality comparison.",
+              "reuse_note": "Patent hosting does not establish photograph reuse permission. Private session choice only; scan quality is limited."
+            }
+          ]
+        }
+      ],
+      "review_warnings": [],
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": [
+          {
+            "label": "Rocío",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "S03-08-03",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Sapphire",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Legacy",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_subject_and_claim",
+        "capture_sha256": "00c3e131d0e632a8ad6b0e95d5d8f8e21ca66332b30315ac09f0a1223c914f2f",
+        "bytes": 23032,
+        "heading_description_and_claim_read": true,
+        "pdf_url": "https://patentimages.storage.googleapis.com/37/5a/63/177627cd9e286d/USPP36024.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "scope": "Patent subject, historical dates, parents/comparators and literal claim reviewed in publisher HTML. Not a complete company portfolio, official current-rights verification, or full visual PDF review.",
+        "fruit_visual_review": true,
+        "fruit_figure": 8,
+        "figure_width": 1173,
+        "figure_height": 1940
+      }
+    },
+    {
+      "id": "portfolio-royalberries-patent-rocio",
+      "title": "Royal Berries — Rocio original US plant patent",
+      "url": "https://patents.google.com/patent/USPP20374P2/en",
+      "company_ids": [
+        "breeding_program-atlantic-blue-royal-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2009-09-29",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal subject in the original patent heading, description and single claim. Parents and comparators are separately accounted; related-document suggestions and cited papers are excluded from this portfolio scope.",
+      "limitations": "Bounded historical patent check, not the full/current Royal Berries portfolio. Named inventors remain distinct from applicant/assignee. Google status and expiry assumptions are not copied. No current rights, breeding/ownership role, trait, brand/code alias, growing footprint or photo permission is approved.",
+      "names": [
+        {
+          "candidate_name": "Rocio",
+          "denomination": "Rocio",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/72/53/21/539cbfc95bdada/USPP20374.pdf",
+          "application_number": "12/213,085",
+          "grant_number": "USPP20374P2",
+          "jurisdiction": "US",
+          "application_date": "2008-06-13",
+          "grant_date": "2009-09-29",
+          "portfolio_context": "Royal Berries is the applicant/assignee named in this historical US patent. Trial observations do not establish today's commercial production. Historical initial designation rendered as SO1-29-01."
+        }
+      ],
+      "review_warnings": [
+        "The historical HTML renders the initial designation with SO1 (letter O). It is retained as context, not assigned as a breeder code or normalized into an alias; check the original PDF typography before resolving it."
+      ],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [
+          {
+            "label": "FL 96-24",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "FL 95-3",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Sharpblue",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Windsor",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Biloxi",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Star",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_subject_and_claim",
+        "capture_sha256": "fc0ef047928ee5cd57fde7c068813e5ad3b094b6515b0ec832f71f902853686e",
+        "bytes": 20649,
+        "heading_description_and_claim_read": true,
+        "pdf_url": "https://patentimages.storage.googleapis.com/72/53/21/539cbfc95bdada/USPP20374.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "scope": "Patent subject, historical dates, parents/comparators and literal claim reviewed in publisher HTML. Not a complete company portfolio, official current-rights verification, or full visual PDF review."
+      }
+    },
+    {
+      "id": "portfolio-royalberries-patent-romero",
+      "title": "Royal Berries — Romero original US plant patent",
+      "url": "https://patents.google.com/patent/USPP20373P2/en",
+      "company_ids": [
+        "breeding_program-atlantic-blue-royal-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2009-09-29",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal subject in the original patent heading, description and single claim. Parents and comparators are separately accounted; related-document suggestions and cited papers are excluded from this portfolio scope.",
+      "limitations": "Bounded historical patent check, not the full/current Royal Berries portfolio. Named inventors remain distinct from applicant/assignee. Google status and expiry assumptions are not copied. No current rights, breeding/ownership role, trait, brand/code alias, growing footprint or photo permission is approved.",
+      "names": [
+        {
+          "candidate_name": "Romero",
+          "denomination": "Romero",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/07/52/10/d8ff7b9cf3d750/USPP20373.pdf",
+          "application_number": "12/213,079",
+          "grant_number": "USPP20373P2",
+          "jurisdiction": "US",
+          "application_date": "2008-06-13",
+          "grant_date": "2009-09-29",
+          "portfolio_context": "Royal Berries is the applicant/assignee named in this historical US patent. Trial observations do not establish today's commercial production. Historical initial designation rendered as SO1-18-12."
+        }
+      ],
+      "review_warnings": [
+        "The historical HTML renders the initial designation with SO1 (letter O). It is retained as context, not assigned as a breeder code or normalized into an alias; check the original PDF typography before resolving it."
+      ],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [
+          {
+            "label": "FL 95-3",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Star",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Sharpblue",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Gulf Coast",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Misty",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "O'Neal",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_subject_and_claim",
+        "capture_sha256": "0b71591c4f134e7883b30ee9d54f4e9fad7d2aafc57b4ae482e0aae57e1f931b",
+        "bytes": 19078,
+        "heading_description_and_claim_read": true,
+        "pdf_url": "https://patentimages.storage.googleapis.com/07/52/10/d8ff7b9cf3d750/USPP20373.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "scope": "Patent subject, historical dates, parents/comparators and literal claim reviewed in publisher HTML. Not a complete company portfolio, official current-rights verification, or full visual PDF review."
+      }
+    },
+    {
+      "id": "portfolio-royalberries-patent-sevilla",
+      "title": "Royal Berries — Sevilla original US plant patent",
+      "url": "https://patents.google.com/patent/USPP21180P3/en",
+      "company_ids": [
+        "breeding_program-atlantic-blue-royal-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2010-08-03",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal subject in the original patent heading, description and single claim. Parents and comparators are separately accounted; related-document suggestions and cited papers are excluded from this portfolio scope.",
+      "limitations": "Bounded historical patent check, not the full/current Royal Berries portfolio. Named inventors remain distinct from applicant/assignee. Google status and expiry assumptions are not copied. No current rights, breeding/ownership role, trait, brand/code alias, growing footprint or photo permission is approved.",
+      "names": [
+        {
+          "candidate_name": "Sevilla",
+          "denomination": "Sevilla",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/10/05/80/93f00c58b6710e/USPP21180.pdf",
+          "application_number": "12/289,432",
+          "grant_number": "USPP21180P3",
+          "jurisdiction": "US",
+          "application_date": "2008-10-28",
+          "grant_date": "2010-08-03",
+          "portfolio_context": "Royal Berries is the applicant/assignee named in this historical US patent. Trial observations do not establish today's commercial production."
+        }
+      ],
+      "review_warnings": [],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "FL 98-19",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Millennia",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Misty",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Star",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Sharpblue",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_subject_and_claim",
+        "capture_sha256": "1ed95db01756e961396bb12a481684c92e5e329fbf26aa79bbe149755aede44f",
+        "bytes": 20631,
+        "heading_description_and_claim_read": true,
+        "pdf_url": "https://patentimages.storage.googleapis.com/10/05/80/93f00c58b6710e/USPP21180.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "scope": "Patent subject, historical dates, parents/comparators and literal claim reviewed in publisher HTML. Not a complete company portfolio, official current-rights verification, or full visual PDF review."
+      }
+    },
+    {
+      "id": "portfolio-royalberries-patent-alba",
+      "title": "Royal Berries — Alba original US plant patent",
+      "url": "https://patents.google.com/patent/USPP21182P3/en",
+      "company_ids": [
+        "breeding_program-atlantic-blue-royal-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2010-08-03",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal subject in the original patent heading, description and single claim. Parents and comparators are separately accounted; related-document suggestions and cited papers are excluded from this portfolio scope.",
+      "limitations": "Bounded historical patent check, not the full/current Royal Berries portfolio. Named inventors remain distinct from applicant/assignee. Google status and expiry assumptions are not copied. No current rights, breeding/ownership role, trait, brand/code alias, growing footprint or photo permission is approved.",
+      "names": [
+        {
+          "candidate_name": "Alba",
+          "denomination": "Alba",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/e8/1d/17/c2d350fb8d1cfd/USPP21182.pdf",
+          "application_number": "12/289,062",
+          "grant_number": "USPP21182P3",
+          "jurisdiction": "US",
+          "application_date": "2008-10-20",
+          "grant_date": "2010-08-03",
+          "portfolio_context": "Royal Berries is the applicant/assignee named in this historical US patent. Trial observations do not establish today's commercial production."
+        }
+      ],
+      "review_warnings": [
+        "The original description spells a comparator Windor; this source spelling is not silently corrected or imported as a new variety."
+      ],
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": [
+          {
+            "label": "FL 95-209B",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "FL 97-24",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Santa Fe",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Windor",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "O'Neal",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Blue Crisp",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Star",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_subject_and_claim",
+        "capture_sha256": "6b01f3958495c1b0f2126560e3bb481f1f1a0fe7b51019d5b47500958d6d302a",
+        "bytes": 21948,
+        "heading_description_and_claim_read": true,
+        "pdf_url": "https://patentimages.storage.googleapis.com/e8/1d/17/c2d350fb8d1cfd/USPP21182.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "scope": "Patent subject, historical dates, parents/comparators and literal claim reviewed in publisher HTML. Not a complete company portfolio, official current-rights verification, or full visual PDF review."
+      }
+    },
+    {
+      "id": "portfolio-royalberries-patent-celeste",
+      "title": "Royal Berries — Celeste original US plant patent",
+      "url": "https://patents.google.com/patent/USPP20807P3/en",
+      "company_ids": [
+        "breeding_program-atlantic-blue-royal-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2010-03-02",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal subject in the original patent heading, description and single claim. Parents and comparators are separately accounted; related-document suggestions and cited papers are excluded from this portfolio scope.",
+      "limitations": "Bounded historical patent check, not the full/current Royal Berries portfolio. Named inventors remain distinct from applicant/assignee. Google status and expiry assumptions are not copied. No current rights, breeding/ownership role, trait, brand/code alias, growing footprint or photo permission is approved.",
+      "names": [
+        {
+          "candidate_name": "Celeste",
+          "denomination": "Celeste",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/46/24/60/350a79b46d257c/USPP20807.pdf",
+          "application_number": "12/232,717",
+          "grant_number": "USPP20807P3",
+          "jurisdiction": "US",
+          "application_date": "2008-09-23",
+          "grant_date": "2010-03-02",
+          "portfolio_context": "Royal Berries is the applicant/assignee named in this historical US patent. Trial observations do not establish today's commercial production."
+        }
+      ],
+      "review_warnings": [],
+      "accounting": {
+        "observed_items": 9,
+        "exclusions": [
+          {
+            "label": "FL 97-24",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Jewel",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Star",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "O'Neal",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Bluecrisp",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Santa Fe",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Biloxi",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Misty",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_subject_and_claim",
+        "capture_sha256": "a2c72cd305b9464a24f373d23c6739ff2ea6ec000d41001dcc0ece5cb4ee7724",
+        "bytes": 20019,
+        "heading_description_and_claim_read": true,
+        "pdf_url": "https://patentimages.storage.googleapis.com/46/24/60/350a79b46d257c/USPP20807.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "scope": "Patent subject, historical dates, parents/comparators and literal claim reviewed in publisher HTML. Not a complete company portfolio, official current-rights verification, or full visual PDF review."
+      }
+    },
+    {
+      "id": "portfolio-royalberries-patent-magna",
+      "title": "Royal Berries — Magna original US plant patent",
+      "url": "https://patents.google.com/patent/USPP20806P3/en",
+      "company_ids": [
+        "breeding_program-atlantic-blue-royal-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2010-03-02",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal subject in the original patent heading, description and single claim. Parents and comparators are separately accounted; related-document suggestions and cited papers are excluded from this portfolio scope.",
+      "limitations": "Bounded historical patent check, not the full/current Royal Berries portfolio. Named inventors remain distinct from applicant/assignee. Google status and expiry assumptions are not copied. No current rights, breeding/ownership role, trait, brand/code alias, growing footprint or photo permission is approved.",
+      "names": [
+        {
+          "candidate_name": "Magna",
+          "denomination": "Magna",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/01/a6/0c/bfb8ce9836ce4b/USPP20806.pdf",
+          "application_number": "12/232,874",
+          "grant_number": "USPP20806P3",
+          "jurisdiction": "US",
+          "application_date": "2008-09-25",
+          "grant_date": "2010-03-02",
+          "portfolio_context": "Royal Berries is the applicant/assignee named in this historical US patent. Trial observations do not establish today's commercial production."
+        }
+      ],
+      "review_warnings": [
+        "The original description spells its parent Millenia; no alias decision with Millennia is made here."
+      ],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [
+          {
+            "label": "FL 98-19",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Millenia",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Sharpblue",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Windsor",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Misty",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "O'Neal",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_subject_and_claim",
+        "capture_sha256": "bff14d75ce38223e03db0af1d7fa50eb9cb5557e60e8657168a14f74607ad9d0",
+        "bytes": 19371,
+        "heading_description_and_claim_read": true,
+        "pdf_url": "https://patentimages.storage.googleapis.com/01/a6/0c/bfb8ce9836ce4b/USPP20806.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "scope": "Patent subject, historical dates, parents/comparators and literal claim reviewed in publisher HTML. Not a complete company portfolio, official current-rights verification, or full visual PDF review."
+      }
+    },
+    {
+      "id": "portfolio-royalberries-patent-corona",
+      "title": "Royal Berries — Corona original US plant patent",
+      "url": "https://patents.google.com/patent/USPP21153P3/en",
+      "company_ids": [
+        "breeding_program-atlantic-blue-royal-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2010-07-13",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal subject in the original patent heading, description and single claim. Parents and comparators are separately accounted; related-document suggestions and cited papers are excluded from this portfolio scope.",
+      "limitations": "Bounded historical patent check, not the full/current Royal Berries portfolio. Named inventors remain distinct from applicant/assignee. Google status and expiry assumptions are not copied. No current rights, breeding/ownership role, trait, brand/code alias, growing footprint or photo permission is approved.",
+      "names": [
+        {
+          "candidate_name": "Corona",
+          "denomination": "Corona",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/0b/b8/52/00baef3de53227/USPP21153.pdf",
+          "application_number": "12/289,178",
+          "grant_number": "USPP21153P3",
+          "jurisdiction": "US",
+          "application_date": "2008-10-22",
+          "grant_date": "2010-07-13",
+          "portfolio_context": "Royal Berries is the applicant/assignee named in this historical US patent. Trial observations do not establish today's commercial production."
+        }
+      ],
+      "review_warnings": [],
+      "accounting": {
+        "observed_items": 9,
+        "exclusions": [
+          {
+            "label": "FL 95-54",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Jewel",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Misty",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Windsor",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "O'Neal",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Blue Crisp",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Star",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Biloxi",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_subject_and_claim",
+        "capture_sha256": "3fc3e9c861b860aeb24b168f1fa1124e060a1269cd7c6c944c1b4d584eaa963c",
+        "bytes": 21944,
+        "heading_description_and_claim_read": true,
+        "pdf_url": "https://patentimages.storage.googleapis.com/0b/b8/52/00baef3de53227/USPP21153.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "scope": "Patent subject, historical dates, parents/comparators and literal claim reviewed in publisher HTML. Not a complete company portfolio, official current-rights verification, or full visual PDF review."
+      }
+    },
+    {
+      "id": "portfolio-royalberries-patent-altair",
+      "title": "Royal Berries — Altair original US plant patent",
+      "url": "https://patents.google.com/patent/USPP20830P3/en",
+      "company_ids": [
+        "breeding_program-atlantic-blue-royal-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2010-03-16",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal subject in the original patent heading, description and single claim. Parents and comparators are separately accounted; related-document suggestions and cited papers are excluded from this portfolio scope.",
+      "limitations": "Bounded historical patent check, not the full/current Royal Berries portfolio. Named inventors remain distinct from applicant/assignee. Google status and expiry assumptions are not copied. No current rights, breeding/ownership role, trait, brand/code alias, growing footprint or photo permission is approved.",
+      "names": [
+        {
+          "candidate_name": "Altair",
+          "denomination": "Altair",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/fd/ec/65/1b8190d96f6401/USPP20830.pdf",
+          "application_number": "12/289,016",
+          "grant_number": "USPP20830P3",
+          "jurisdiction": "US",
+          "application_date": "2008-10-17",
+          "grant_date": "2010-03-16",
+          "portfolio_context": "Royal Berries is the applicant/assignee named in this historical US patent. Trial observations do not establish today's commercial production."
+        }
+      ],
+      "review_warnings": [],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "FL 90-4",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "FL 96-32",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Sharpblue",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Santa Fe",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Star",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_subject_and_claim",
+        "capture_sha256": "7f614a18f0ae266d31b8be68039664972ec49ccdddf9ecb9a6baacc87df01d91",
+        "bytes": 19310,
+        "heading_description_and_claim_read": true,
+        "pdf_url": "https://patentimages.storage.googleapis.com/fd/ec/65/1b8190d96f6401/USPP20830.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "scope": "Patent subject, historical dates, parents/comparators and literal claim reviewed in publisher HTML. Not a complete company portfolio, official current-rights verification, or full visual PDF review."
+      }
+    },
+    {
+      "id": "portfolio-royalberries-patent-lucero",
+      "title": "Royal Berries — Lucero original US plant patent",
+      "url": "https://patents.google.com/patent/USPP21072P3/en",
+      "company_ids": [
+        "breeding_program-atlantic-blue-royal-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2010-06-22",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal subject in the original patent heading, description and single claim. Parents and comparators are separately accounted; related-document suggestions and cited papers are excluded from this portfolio scope.",
+      "limitations": "Bounded historical patent check, not the full/current Royal Berries portfolio. Named inventors remain distinct from applicant/assignee. Google status and expiry assumptions are not copied. No current rights, breeding/ownership role, trait, brand/code alias, growing footprint or photo permission is approved.",
+      "names": [
+        {
+          "candidate_name": "Lucero",
+          "denomination": "Lucero",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/69/54/9e/dc835545f7200d/USPP21072.pdf",
+          "application_number": "12/289,493",
+          "grant_number": "USPP21072P3",
+          "jurisdiction": "US",
+          "application_date": "2008-10-29",
+          "grant_date": "2010-06-22",
+          "portfolio_context": "Royal Berries is the applicant/assignee named in this historical US patent. Trial observations do not establish today's commercial production."
+        }
+      ],
+      "review_warnings": [],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [
+          {
+            "label": "FL 91-160",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Windsor",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Sharpblue",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Misty",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "O'Neal",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          },
+          {
+            "label": "Star",
+            "reason": "Parent or comparator named in this document; not an additional Royal Berries release identified by this patent."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_subject_and_claim",
+        "capture_sha256": "771d186a8d05c6ec2d87749e3680fcd96ce9697bd622e235c4ec2a2642e7291b",
+        "bytes": 20801,
+        "heading_description_and_claim_read": true,
+        "pdf_url": "https://patentimages.storage.googleapis.com/69/54/9e/dc835545f7200d/USPP21072.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "scope": "Patent subject, historical dates, parents/comparators and literal claim reviewed in publisher HTML. Not a complete company portfolio, official current-rights verification, or full visual PDF review."
+      }
+    },
+    {
+      "id": "portfolio-cas-strawberry-ripening-research",
+      "title": "Institute of Botany, CAS — strawberry ripening research; no release names",
+      "url": "https://ib.cas.cn/2019gb/kyjz2019/202106/t20210604_6079552.html",
+      "company_ids": [
+        "company-institute-of-botany-cas"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2021-06-04",
+      "source_type": "institutional_research_announcement",
+      "capture_status": "partial",
+      "names": [],
+      "enumerated_scope": "Complete original institutional announcement text about RNA methylation and strawberry fruit ripening. No cultivar release list or named cultivar is provided.",
+      "limitations": "This is research on fruit ripening, not a cultivar catalog or proof of a breeding release. NCED5, ABAR, AREB1, MTA and MTB are gene names, not varieties. The institution is distinct from Wuhan Botanical Garden and other CAS institutes; no affiliation-based portfolio substitution. The research diagram is not a variety photograph. Further berry-portfolio research remains necessary.",
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "NCED5",
+            "reason": "Gene name or research diagram, not a named released variety."
+          },
+          {
+            "label": "ABAR",
+            "reason": "Gene name or research diagram, not a named released variety."
+          },
+          {
+            "label": "AREB1",
+            "reason": "Gene name or research diagram, not a named released variety."
+          },
+          {
+            "label": "MTA",
+            "reason": "Gene name or research diagram, not a named released variety."
+          },
+          {
+            "label": "MTB",
+            "reason": "Gene name or research diagram, not a named released variety."
+          },
+          {
+            "label": "RNA-methylation ripening diagram",
+            "reason": "Gene name or research diagram, not a named released variety."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_original_institutional_announcement",
+        "capture_sha256": "d35fbf5be97a85619ed53e6259e622f0d8b5f8aa2a83ad3c4a5cf6f5e3f78281",
+        "bytes": 3874,
+        "body_read": true,
+        "no_cultivar_release_names": true
+      }
+    }
+  ]
+}

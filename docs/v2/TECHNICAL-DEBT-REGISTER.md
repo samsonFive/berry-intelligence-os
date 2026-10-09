@@ -1,5 +1,18 @@
 # Technical Debt Register
 
+October 8 Royal Berries/CAS: [original-source and identity-scope review](ROYALBERRIES-CAS-SOURCE-PLAN-REVIEW.md)
+adds twelve patent subjects, ten new review keys and three held fruit scans.
+CAS strawberry research names no cultivar releases. Two excluded labels now show
+their identity/scope reasons rather than posing as unchecked company portfolios.
+Current: 347 sections / 1,064 occurrences / 738 candidate keys; 60/77 named-source
+entries, 14 incomplete, one unavailable, zero unstarted in the full view and two
+held identities; 103 source follow-ups. This is not complete portfolio coverage.
+64 canonical records unchanged; 112 photo references, no new public approvals.
+55 affected tests pass; desktop/390px review and original-data preservation pass.
+Parent #365 passes all four checks (4,397 tests); this child still requires CI.
+CAT-01/CAT-02/TD-116, real recall, article bodies, rights/profile depth and tested
+release/human catalog decisions remain open. No merge/deployment or berry-gate bypass.
+
 October 8 Expoberries/Splendor: [original-source review](EXPOBERRIES-SPLENDOR-ORIGINAL-SOURCES-REVIEW.md)
 adds two exact patent denominations with historical metadata and held fruit
 figures; three Splendor pages remain unnamed. 334 sections / 1,052 occurrences /

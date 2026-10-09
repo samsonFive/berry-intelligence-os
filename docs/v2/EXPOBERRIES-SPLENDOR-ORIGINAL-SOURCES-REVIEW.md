@@ -81,3 +81,11 @@ CAT-01/CAT-02/TD-116 stay open: full/current/historical portfolios, independent
 recall, original body acquisition, current rights, photo permissions, profile
 depth and human catalog decisions remain unfinished. No worldwide completeness
 claim, merge, deployment or other-berry Landscape rollout.
+
+## Exact-head draft validation
+
+Draft #365, head 4229a783672dbfab931ffe6eb0c90101ce53250e, passes all four
+required checks on run 37877781102. Python job 113650254913: 4,397 passed,
+11 skipped, two warnings in 695.78 seconds; completed 2026-10-09T03:19:31Z.
+Watcher 4305 completed successfully and was consumed. Draft remains open,
+unmerged and undeployed; no catalog/release gate is closed by test success.
