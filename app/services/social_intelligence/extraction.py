@@ -7,7 +7,13 @@ import re
 import hashlib
 from functools import lru_cache
 
-VERSION = 'social-literal-4'
+VERSION = 'social-literal-5'
+# Primary-source audit found these aliases conflate separate councils. Hold
+# only the conflicting registry matches, without rewriting trusted identity.
+# Sources and reconciliation boundary: SOCIAL-ACCEPTANCE-AUDIT.md / TD-118.
+ALIAS_IDENTITY_HOLDS = {
+    'company-ushbc': {'nabc', 'north american blueberry council'},
+}
 OTHER_FOODS = ['banana','bananas','cashew','cashews','yogurt','granola',
                'plátano','plátanos','anacardo','anacardos','iogurte','castanha','castanhas',
                '香蕉','腰果','酸奶','バナナ','カシューナッツ','ヨーグルト']
@@ -105,12 +111,16 @@ def analyze(item, entities):
                 if len(name) >= 4 and spans(content,name):
                     by_name.setdefault(name.casefold(), []).append(e)
         for name, choices in by_name.items():
+            choices = [e for e in choices if name not in ALIAS_IDENTITY_HOLDS.get(e['id'], set())]
+            hit = {'name':name,'basis':basis,'locator':locator,'span':spans(content,name)[0], 'review':'proposed'}
+            if not choices:
+                candidates.append({**hit, 'candidate_ids':[], 'reason':'Registry alias identity conflict; separate organization requires review'})
+                continue
             ids = {e['id'] for e in choices}
             e = choices[0]
             provisional = e.get('status') in ('unverified','provisional') or e.get('attributes',{}).get('identity_status') in ('provisional','unresolved')
             # Single generic cultivar words are deliberately not auto-linked.
             ambiguous = len(ids)!=1 or provisional or (e.get('entity_type')=='variety' and len(name.split())==1 and len(name)<9)
-            hit = {'name':name,'basis':basis,'locator':locator,'span':spans(content,name)[0], 'review':'proposed'}
             if ambiguous or not berries:
                 candidates.append({**hit,'candidate_ids':sorted(ids)})
             else:

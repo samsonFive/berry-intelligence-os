@@ -1997,6 +1997,10 @@ Bake-off addendum2026-10-07:93unique actual news titles and two saved Bluesky st
 Status: open; severity: High; owner: acquisition/product. Blueberry pilot has no live records (Bluesky403, missing YouTube key). Private tombstones invalidate derived observations/media/pending drafts, but published summaries and dependent trusted records require audited retraction. Automatic provider deletion polling, OCR/vision, translation and independent language evaluation are absent. Collectors remain disabled. Five synthetic negation errors are reported, not hidden. Proof and ordered remediation: `SOCIAL-BLUEBERRY-REVIEW.md`, `tests/test_social_intelligence.py`, `tests/test_social_routes.py`, dated access matrix.
 
 
+### TD-118 — NABC/USHBC registry aliases conflate organization identity
+
+Status: open; owner: canonical entity authoring. `company-ushbc` currently includes “North American Blueberry Council” and “NABC” aliases. [NABC](https://nabc.blueberry.org/about/) and [USHBC](https://ushbc.blueberry.org/about-ushbc/mission-vision-strategic-plan/) primary pages inspected October8 distinguish their missions and governance. A real social caption exposed two incorrect identity proposals through those aliases. Social literal version5 holds only the conflicting USHBC alias matches for review (text and packaging), preserving original spans and direct USHBC links. This mitigation does not rewrite canonical records, invent a relationship or fix other domain matchers. Existing privately stored proposals need controlled reanalysis; reviewer decisions must be preserved. Next: reviewed registry reconciliation, impact audit across shared entity consumers, then remove any obsolete mitigation only after identity tests. See SOCIAL-ACCEPTANCE-AUDIT.md and test_social_alias_identity_holds.py.
+
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
 | Field | Value |

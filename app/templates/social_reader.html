@@ -9,7 +9,7 @@
 {% if row.analysis.aspects or row.analysis.retailers or row.analysis.entity_links or row.analysis.candidates %}<h3>What it says</h3>{% for asp in row.analysis.aspects %}<span class="social-chip sentiment-{{ asp.sentiment }}">{{ asp.aspect|capitalize }} · {{ asp.sentiment|replace('uncertain','Unclear') }}</span>{% endfor %}
 {% for retail in row.analysis.retailers %}<p><b>{{ retail.name }}</b> · {{ retailer_label(retail.relation) }}</p>{% endfor %}
 {% for link in row.analysis.entity_links %}<p><a href="/entities/{{ 'variety' if link.entity_id.startswith('variety-') else 'company' }}/{{ link.entity_id }}">{{ link.name }}</a> · {{ 'readable package label' if link.basis=='packaging_label' else 'named in text' }}</p>{% endfor %}
-{% if row.analysis.candidates %}<p>Variety unclear: {{ row.analysis.candidates|map(attribute='name')|join(', ') }}</p>{% endif %}
+{% if row.analysis.candidates %}<p>Name needs review: {{ row.analysis.candidates|map(attribute='name')|join(', ') }}</p>{% endif %}
 {% endif %}<details class="social-reader-locations"><summary>Locations · {{ row.purchase_market.value if row.purchase_market else 'Purchase unknown' }}</summary><p>Purchased in: <b>{{ row.purchase_market.value if row.purchase_market else 'Unknown' }}</b> · Grown in: {{ row.fruit_origin.value if row.fruit_origin else 'Unknown' }} · Author: {{ row.author_geography.value if row.author_geography else 'Unknown' }}</p></details>
 {% if thread %}<h3>Conversation</h3>{% for related in thread %}<p>{{ related.text }} · <a href="/social?mode={{ row.mode }}&amp;story={{ related.id }}">Open {{ 'comment' if related.record_role=='reply' else 'post' }}</a></p>{% endfor %}{% endif %}
 

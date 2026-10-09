@@ -130,6 +130,34 @@ class Store:
     def save_job(self,job):
         with closing(self.connect()) as db, db:
             db.execute('INSERT OR REPLACE INTO jobs VALUES(?,?)',(job['id'],json.dumps(job)))
+    def refresh_proposals(self, keys, entities):
+        """Explicit offline reanalysis; source bytes and human decisions stay intact.
+
+        Removed/reviewed observations are skipped. Missing IDs abort the whole
+        transaction, preventing a partial refresh from looking complete.
+        """
+        if (not isinstance(keys,list) or len(keys)>100
+                or any(not isinstance(k,str) for k in keys) or len(set(keys))!=len(keys)):
+            raise ValueError('At most 100 distinct observation IDs required')
+        changed=[]
+        with closing(self.connect()) as db, db:
+            for key in keys:
+                row=db.execute('SELECT payload,analysis,removed FROM observations WHERE id=?',(key,)).fetchone()
+                if not row:
+                    raise ValueError('Unavailable observation')
+                payload, previous, removed=row
+                old=json.loads(previous)
+                if removed or old.get('reviewed'):
+                    continue
+                updated=analyze(json.loads(payload),entities)
+                if updated==old:
+                    continue
+                db.execute('INSERT INTO audit(evidence_id,event,at) VALUES(?,?,?)',
+                           (key,json.dumps({'proposal_refresh_before':old,'new_version':updated['version']},ensure_ascii=False),now()))
+                db.execute('UPDATE observations SET analysis=? WHERE id=?',
+                           (json.dumps(updated,ensure_ascii=False),key))
+                changed.append(key)
+        return changed
     def correct(self,key,analysis,reviewer):
         if not reviewer or len(reviewer)>100:
             raise ValueError('Reviewer required')
