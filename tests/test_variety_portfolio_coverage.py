@@ -81,14 +81,14 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 1050
-    assert report["summary"]["registry_entries_checked"] == 58
+    assert report["summary"]["names"] == 1052
+    assert report["summary"]["registry_entries_checked"] == 59
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
-        "registry_entries_unavailable", "registry_entries_not_started")] == [12, 1, 6]
+        "registry_entries_unavailable", "registry_entries_not_started")] == [13, 1, 4]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 255, "berry-strawberry": 515, "berry-raspberry": 189, "berry-blackberry": 91}
+        "berry-blueberry": 255, "berry-strawberry": 515, "berry-raspberry": 190, "berry-blackberry": 92}
     assert "visible_candidates" not in report
     assert all("review_notes" not in str(r) for r in report["subjects"])
     abz = next(s for s in report["subjects"] if s["name"] == "ABZ Seeds")

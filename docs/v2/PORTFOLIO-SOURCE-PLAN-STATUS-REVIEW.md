@@ -75,3 +75,7 @@ Those assertions expected superseded company-plan labels; they now check
 "Pages checked · varieties not named here" or "Names found · more sources to
 check". Their no-write/public-boundary checks remain intact. Production behavior
 was not weakened. The corrected head requires fresh full CI.
+
+Corrected exact-head CI: 54652e437561a18c27b0dd5b6559555ff96973ad, run
+37876197228, all four checks successful; 4,392 passed, 11 skipped, two warnings
+in 463.65 seconds. No merge or deployment.
