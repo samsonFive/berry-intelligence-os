@@ -61,6 +61,10 @@ def verify_snapshot(destination):
     manifest = json.loads((destination / "MANIFEST.json").read_text(encoding="utf-8"))
     if manifest.get("kind") != "private-social-runtime" or manifest.get("collection_enabled") is not False:
         raise ValueError("Unsupported snapshot")
+    expected_files = set(manifest["files"])
+    actual_files = {str(p.relative_to(destination)).replace("\\", "/") for p in destination.rglob("*") if p.is_file() and p != destination / "MANIFEST.json"}
+    if actual_files != expected_files:
+        raise ValueError("Unexpected or missing snapshot files")
     for relative, expected in manifest["files"].items():
         path = destination / relative
         if path.is_symlink() or not path.resolve().is_relative_to(destination) or not path.is_file() or digest(path) != expected:

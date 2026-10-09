@@ -33,3 +33,28 @@ def test_verification_detects_modified_database_and_rejects_source_destination(t
     export_snapshot(source, destination)
     with (destination / "inbox/social/observations.sqlite3").open("ab") as f: f.write(b"changed")
     with pytest.raises(ValueError): verify_snapshot(destination)
+
+
+def test_permitted_stored_media_survives_transfer_and_missing_media_fails(tmp_path):
+    source = tmp_path / "source"
+    store = Store(source)
+    row = sample(media=[])
+    row["media"] = [{"id": "photo", "parent_native_id": row["native_id"], "kind": "image", "source_url": "https://example.org/photo.png", "mime": "image/png", "attribution": "Synthetic local bytes", "state": "available", "storage_permission": "permitted_bytes", "retention": "Synthetic regression only"}]
+    key = store.ingest([row], ENTITIES)[0]
+    content = b"\x89PNG\r\n\x1a\nsynthetic-test-body"
+    obj = store.attach_media(key, "photo", content, "image/png")
+    destination = tmp_path / "snapshot"
+    assert export_snapshot(source, destination)["media_objects"] == 1
+    assert (destination / "inbox/social/media/fixture" / obj).read_bytes() == content
+    (source / "social/media/fixture" / obj).write_bytes(b"altered")
+    with pytest.raises(ValueError): export_snapshot(source, tmp_path / "invalid-snapshot")
+    assert not (tmp_path / "invalid-snapshot/MANIFEST.json").exists()
+
+
+def test_snapshot_rejects_extra_secret_file(tmp_path):
+    source = tmp_path / "source"
+    Store(source)
+    destination = tmp_path / "snapshot"
+    export_snapshot(source, destination)
+    (destination / "unexpected-secret.txt").write_text("must-not-be-packaged")
+    with pytest.raises(ValueError): verify_snapshot(destination)
