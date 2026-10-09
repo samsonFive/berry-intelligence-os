@@ -1,5 +1,14 @@
 # Intelligence Coverage Matrix
 
+October 8 APG original strawberry continuation: 23 sections / 37 occurrences /
+ten subjects / seven new queue keys / ten withheld photo references. See
+[APG review](APG-ORIGINAL-STRAWBERRY-PORTFOLIO-REVIEW.md). Combined audit: 319
+sections, 1,050 occurrences, 62 catalog text matches, 988 review needs, 726 queue
+keys and 107 photo references; 64 mixed-status canonical records unchanged.
+59/77 registry entries partly checked; 18 enumeration gaps and 83 source follow-ups.
+70 focused tests pass. Current rights, source independence, article-body recall
+and worldwide/historical completeness remain unproven. Trust gates are unchanged.
+
 October 8 original company-range follow-up: Surexport and Gem-Pack retain
 unnamed-variety gaps after original pages and two complete one-page PDFs were read.
 Eight existing section IDs are refreshed without duplicate rows; four sections are

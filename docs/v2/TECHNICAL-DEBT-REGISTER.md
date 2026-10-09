@@ -1,5 +1,12 @@
 # Technical Debt Register
 
+October 8 TD-116 follow-up: [APG original strawberry review](APG-ORIGINAL-STRAWBERRY-PORTFOLIO-REVIEW.md)
+adds bounded source coverage and surfaces conflicting protection/version claims
+without changing approved rights or operator fields. 70 focused tests pass.
+319 sections / 1,050 occurrences / 726 candidate keys; 18 initial enumeration
+gaps and 83 source follow-ups remain. TD-116 and CAT-01/CAT-02 remain open;
+independent recall and current rights/profile depth are not yet established.
+
 October 8 original company-range follow-up: Surexport and Gem-Pack retain
 unnamed-variety gaps after original pages and two complete one-page PDFs were read.
 Eight existing section IDs are refreshed without duplicate rows; four sections are

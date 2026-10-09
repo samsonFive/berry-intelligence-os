@@ -1,5 +1,14 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+October 8 APG continuation: [original strawberry review](APG-ORIGINAL-STRAWBERRY-PORTFOLIO-REVIEW.md)
+accounts for the ten-name index, ASBP/CIV pages and seven complete factsheets.
+37 occurrences produce seven new queue keys; ten attributed photos stay held.
+Audit: 319 sections / 1,050 occurrences / 726 candidate keys, 59/77 partly checked
+registry entries, 18 initial enumeration gaps and 83 source follow-ups.
+70 focused tests pass; 64 mixed-status catalog records are unchanged. Independent
+recall, current rights, historical portfolios and human catalog decisions remain
+unfinished; CAT-01/CAT-02/TD-116 stay open. No worldwide completeness claim.
+
 October 8 original company-range follow-up: Surexport and Gem-Pack retain
 unnamed-variety gaps after original pages and two complete one-page PDFs were read.
 Eight existing section IDs are refreshed without duplicate rows; four sections are

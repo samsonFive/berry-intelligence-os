@@ -1,0 +1,1228 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-apg-original-home",
+      "title": "APG — company home",
+      "url": "https://ausplantgenetics.com.au/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete landing page links strawberry and macadamia ranges; no strawberry cultivar names on this page.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Strawberry varieties",
+            "reason": "Crop navigation, not a named berry variety."
+          },
+          {
+            "label": "Macadamia varieties",
+            "reason": "Crop navigation, not a named berry variety."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "0eeae96ecbaf0d657e8aeae41e2668434ff7651c0f5c662edccd6a6b85796e07",
+        "bytes": 1795
+      }
+    },
+    {
+      "id": "portfolio-apg-original-strawberry-overview",
+      "title": "APG — strawberry overview",
+      "url": "https://ausplantgenetics.com.au/home/strawberry/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete strawberry overview with links to the ASBP/CIV programs and varieties; no cultivar name is printed on this page.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "ASBP Varieties",
+            "reason": "Program label, not a named cultivar."
+          },
+          {
+            "label": "CIV Varieties",
+            "reason": "Program label, not a named cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "6ed85b93dcdad0e0a175a6ff98f64bb16a3f33611e83bf52b62644032d48e3c2",
+        "bytes": 4906
+      }
+    },
+    {
+      "id": "portfolio-apg-original-asbp-program",
+      "title": "APG — ASBP program and seven varieties",
+      "url": "https://ausplantgenetics.com.au/asbp-varieties/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete ASBP program page and all seven linked variety cards; repeated climate/program tags are not extra varieties.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Stella-ASBP",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/stella-asbp/",
+          "display_label": "STELLA-ASBP",
+          "portfolio_context": "APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "Red Rhapsody",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/red-rhapsody-asbp/",
+          "display_label": "RED RHAPSODY-ASBP",
+          "portfolio_context": "The index labels this linked page RED RHAPSODY-ASBP; its detail page also explicitly uses Red Rhapsody. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "Sundrench",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/sundrench-asbp/",
+          "display_label": "SUNDRENCH-ASBP",
+          "portfolio_context": "The index labels this linked page SUNDRENCH-ASBP; its detail page also explicitly uses Sundrench. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "Scarlet Rose",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/scarlet-rose-asbp/",
+          "display_label": "SCARLET ROSE-ASBP",
+          "portfolio_context": "The index labels this linked page SCARLET ROSE-ASBP; its detail page also explicitly uses Scarlet Rose. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "Susie",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/susie-asbp/",
+          "display_label": "SUSIE-ASBP",
+          "portfolio_context": "The index labels this linked page SUSIE-ASBP; its detail page also explicitly uses Susie. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "Tahli",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/tahli-asbp/",
+          "display_label": "TAHLI-ASBP",
+          "portfolio_context": "The index labels this linked page TAHLI-ASBP; its detail page also explicitly uses Tahli. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "Tamara",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/tamara-asbp/",
+          "display_label": "TAMARA-ASBP",
+          "portfolio_context": "The index labels this linked page TAMARA-ASBP; its detail page also explicitly uses Tamara. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        }
+      ],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "d9e15d92a8ea88df8fcf25f51ccbb94576b9862bbfd2961184a8cf22488566c9",
+        "bytes": 8045
+      }
+    },
+    {
+      "id": "portfolio-apg-original-licensing-overview",
+      "title": "APG — licensing and breeding programs",
+      "url": "https://ausplantgenetics.com.au/varieties/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete new-varieties overview identifies APG as licensing partner and describes two breeding programs; names are on the linked listing.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [],
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": [
+          {
+            "label": "Australian Strawberry Breeding Program",
+            "reason": "Breeding program or nursery organization, not a cultivar on this overview."
+          },
+          {
+            "label": "Consorzio Italiano Vivaisti",
+            "reason": "Breeding program or nursery organization, not a cultivar on this overview."
+          },
+          {
+            "label": "Vivai Mazzoni",
+            "reason": "Breeding program or nursery organization, not a cultivar on this overview."
+          },
+          {
+            "label": "Salvi Vivai",
+            "reason": "Breeding program or nursery organization, not a cultivar on this overview."
+          },
+          {
+            "label": "Tagliani Vivai",
+            "reason": "Breeding program or nursery organization, not a cultivar on this overview."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "a3a28401d7e4bb9e6887b3cc7fa85ed74a23079f8d8eba1e1956b0aaca335010",
+        "bytes": 4638
+      }
+    },
+    {
+      "id": "portfolio-apg-original-all-varieties",
+      "title": "APG — ten-variety listing",
+      "url": "https://ausplantgenetics.com.au/all-varieties/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All ten linked variety cards on the original listing, reconciled against every detail page; seven ASBP labels and three CIV-linked codes.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Stella-ASBP",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/stella-asbp/",
+          "display_label": "STELLA-ASBP",
+          "portfolio_context": "APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "Red Rhapsody",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/red-rhapsody-asbp/",
+          "display_label": "RED RHAPSODY-ASBP",
+          "portfolio_context": "The index labels this linked page RED RHAPSODY-ASBP; its detail page also explicitly uses Red Rhapsody. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "Sundrench",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/sundrench-asbp/",
+          "display_label": "SUNDRENCH-ASBP",
+          "portfolio_context": "The index labels this linked page SUNDRENCH-ASBP; its detail page also explicitly uses Sundrench. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "Scarlet Rose",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/scarlet-rose-asbp/",
+          "display_label": "SCARLET ROSE-ASBP",
+          "portfolio_context": "The index labels this linked page SCARLET ROSE-ASBP; its detail page also explicitly uses Scarlet Rose. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "Susie",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/susie-asbp/",
+          "display_label": "SUSIE-ASBP",
+          "portfolio_context": "The index labels this linked page SUSIE-ASBP; its detail page also explicitly uses Susie. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "Tahli",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/tahli-asbp/",
+          "display_label": "TAHLI-ASBP",
+          "portfolio_context": "The index labels this linked page TAHLI-ASBP; its detail page also explicitly uses Tahli. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "Tamara",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/tamara-asbp/",
+          "display_label": "TAMARA-ASBP",
+          "portfolio_context": "The index labels this linked page TAMARA-ASBP; its detail page also explicitly uses Tamara. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "QSGA 002",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/qsga-002/",
+          "display_label": "QSGA 002",
+          "portfolio_context": "APG attributes this strawberry to CIV Italy and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "QSGA 003",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/qsga-003/",
+          "display_label": "QSGA 003",
+          "portfolio_context": "APG attributes this strawberry to CIV Italy and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "APG 003",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/apg-003/",
+          "display_label": "APG 003",
+          "portfolio_context": "APG attributes this strawberry to CIV Italy and presents its Australian licensing availability. "
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "09b5b2b3c5494f5f58414fbed0d04a6a3e9bd18ea78cf6105c50905399c1349d",
+        "bytes": 8490
+      }
+    },
+    {
+      "id": "portfolio-apg-original-stella-asbp",
+      "title": "APG — Stella-ASBP variety page",
+      "url": "https://ausplantgenetics.com.au/varieties/stella-asbp/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original detail page, including performance comparisons, grower notes, suitability, availability and acknowledgements; one named subject and its original hero photo.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Stella-ASBP",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/stella-asbp/",
+          "display_label": "STELLA-ASBP",
+          "portfolio_context": "APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The webpage describes protection as applied for; the linked factsheet conflicts with that claim.",
+          "photos": [
+            {
+              "named_variety": "Stella-ASBP",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://ausplantgenetics.com.au/wp-content/uploads//Stella-fruit-SQ.png",
+              "source_url": "https://ausplantgenetics.com.au/varieties/stella-asbp/",
+              "credit": "Australasian Plant Genetics / Strawberry Innovation — original named page; photographer not individually credited",
+              "caption": "Stella-ASBP strawberry fruit on APG’s original named variety page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named header photo visually checked in the original page. Full-size alternative explicitly published in its srcset. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Red Rhapsody",
+            "reason": "Performance comparator on this detail page, not an additional portfolio subject."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "9d6c915c12b15ae80cbffe77964de64f04ec88a8bb9f96dc23393ef33831e49f",
+        "bytes": 9203,
+        "named_photo_visually_checked": true,
+        "hero_srcset": "https://ausplantgenetics.com.au/wp-content/uploads//Stella-fruit-SQ.png 972w, https://ausplantgenetics.com.au/wp-content/uploads//Stella-fruit-SQ-300x300.png 300w, https://ausplantgenetics.com.au/wp-content/uploads//Stella-fruit-SQ-80x80.png 80w, https://ausplantgenetics.com.au/wp-content/uploads//Stella-fruit-SQ-768x768.png 768w, https://ausplantgenetics.com.au/wp-content/uploads//Stella-fruit-SQ-36x36.png 36w, https://ausplantgenetics.com.au/wp-content/uploads//Stella-fruit-SQ-180x180.png 180w, https://ausplantgenetics.com.au/wp-content/uploads//Stella-fruit-SQ-705x705.png 705w"
+      },
+      "review_warnings": [
+        "Stella’s webpage says protection was applied for, while its linked factsheet says it is protected. Neither establishes the current official register status; check that before relying on the protection claim."
+      ]
+    },
+    {
+      "id": "portfolio-apg-original-red-rhapsody-asbp",
+      "title": "APG — Red Rhapsody variety page",
+      "url": "https://ausplantgenetics.com.au/varieties/red-rhapsody-asbp/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original detail page, including performance comparisons, grower notes, suitability, availability and acknowledgements; one named subject and its original hero photo.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Red Rhapsody",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/red-rhapsody-asbp/",
+          "display_label": "RED RHAPSODY-ASBP",
+          "portfolio_context": "The index labels this linked page RED RHAPSODY-ASBP; its detail page also explicitly uses Red Rhapsody. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The page describes Australian protection, but this has not been checked against the current official register.",
+          "photos": [
+            {
+              "named_variety": "Red Rhapsody",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://ausplantgenetics.com.au/wp-content/uploads/RED-RHAPSODY-fruit-SQ.jpg",
+              "source_url": "https://ausplantgenetics.com.au/varieties/red-rhapsody-asbp/",
+              "credit": "Australasian Plant Genetics / Strawberry Innovation — original named page; photographer not individually credited",
+              "caption": "Red Rhapsody strawberry fruit on APG’s original named variety page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named header photo visually checked in the original page. Full-size alternative explicitly published in its srcset. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Florida Festival",
+            "reason": "Performance comparator on this detail page, not an additional portfolio subject."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "f79bce4115dcce1f8c1d6268e07ab7da8b5217d8d3d321781df7adb0e217fcbc",
+        "bytes": 10168,
+        "named_photo_visually_checked": true,
+        "hero_srcset": "https://ausplantgenetics.com.au/wp-content/uploads/RED-RHAPSODY-fruit-SQ-300x300.jpg 300w, https://ausplantgenetics.com.au/wp-content/uploads/RED-RHAPSODY-fruit-SQ-1030x1030.jpg 1030w, https://ausplantgenetics.com.au/wp-content/uploads/RED-RHAPSODY-fruit-SQ-80x80.jpg 80w, https://ausplantgenetics.com.au/wp-content/uploads/RED-RHAPSODY-fruit-SQ-768x768.jpg 768w, https://ausplantgenetics.com.au/wp-content/uploads/RED-RHAPSODY-fruit-SQ-1536x1536.jpg 1536w, https://ausplantgenetics.com.au/wp-content/uploads/RED-RHAPSODY-fruit-SQ-36x36.jpg 36w, https://ausplantgenetics.com.au/wp-content/uploads/RED-RHAPSODY-fruit-SQ-180x180.jpg 180w, https://ausplantgenetics.com.au/wp-content/uploads/RED-RHAPSODY-fruit-SQ-1500x1500.jpg 1500w, https://ausplantgenetics.com.au/wp-content/uploads/RED-RHAPSODY-fruit-SQ-705x705.jpg 705w, https://ausplantgenetics.com.au/wp-content/uploads/RED-RHAPSODY-fruit-SQ.jpg 1818w"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-sundrench-asbp",
+      "title": "APG — Sundrench variety page",
+      "url": "https://ausplantgenetics.com.au/varieties/sundrench-asbp/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original detail page, including performance comparisons, grower notes, suitability, availability and acknowledgements; one named subject and its original hero photo.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Sundrench",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/sundrench-asbp/",
+          "display_label": "SUNDRENCH-ASBP",
+          "portfolio_context": "The index labels this linked page SUNDRENCH-ASBP; its detail page also explicitly uses Sundrench. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The page describes Australian protection, but this has not been checked against the current official register.",
+          "photos": [
+            {
+              "named_variety": "Sundrench",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://ausplantgenetics.com.au/wp-content/uploads/SUNDRENCH-fruit-SQ.jpg",
+              "source_url": "https://ausplantgenetics.com.au/varieties/sundrench-asbp/",
+              "credit": "Australasian Plant Genetics / Strawberry Innovation — original named page; photographer not individually credited",
+              "caption": "Sundrench strawberry fruit on APG’s original named variety page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named header photo visually checked in the original page. Full-size alternative explicitly published in its srcset. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Red Rhapsody",
+            "reason": "Performance comparator on this detail page, not an additional portfolio subject."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "1626e4efa1c26c49d5541c5f033d9a8874cca099696b287720d9456d23f51145",
+        "bytes": 9857,
+        "named_photo_visually_checked": true,
+        "hero_srcset": "https://ausplantgenetics.com.au/wp-content/uploads/SUNDRENCH-fruit-SQ-300x300.jpg 300w, https://ausplantgenetics.com.au/wp-content/uploads/SUNDRENCH-fruit-SQ-1030x1030.jpg 1030w, https://ausplantgenetics.com.au/wp-content/uploads/SUNDRENCH-fruit-SQ-80x80.jpg 80w, https://ausplantgenetics.com.au/wp-content/uploads/SUNDRENCH-fruit-SQ-768x768.jpg 768w, https://ausplantgenetics.com.au/wp-content/uploads/SUNDRENCH-fruit-SQ-1536x1536.jpg 1536w, https://ausplantgenetics.com.au/wp-content/uploads/SUNDRENCH-fruit-SQ-36x36.jpg 36w, https://ausplantgenetics.com.au/wp-content/uploads/SUNDRENCH-fruit-SQ-180x180.jpg 180w, https://ausplantgenetics.com.au/wp-content/uploads/SUNDRENCH-fruit-SQ-1500x1500.jpg 1500w, https://ausplantgenetics.com.au/wp-content/uploads/SUNDRENCH-fruit-SQ-705x705.jpg 705w, https://ausplantgenetics.com.au/wp-content/uploads/SUNDRENCH-fruit-SQ.jpg 2004w"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-scarlet-rose-asbp",
+      "title": "APG — Scarlet Rose variety page",
+      "url": "https://ausplantgenetics.com.au/varieties/scarlet-rose-asbp/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original detail page, including performance comparisons, grower notes, suitability, availability and acknowledgements; one named subject and its original hero photo.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Scarlet Rose",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/scarlet-rose-asbp/",
+          "display_label": "SCARLET ROSE-ASBP",
+          "portfolio_context": "The index labels this linked page SCARLET ROSE-ASBP; its detail page also explicitly uses Scarlet Rose. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The page describes Australian protection, but this has not been checked against the current official register.",
+          "photos": [
+            {
+              "named_variety": "Scarlet Rose",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://ausplantgenetics.com.au/wp-content/uploads/SCARLET_ROSE-fruit-SQ-2048x2048.jpg",
+              "source_url": "https://ausplantgenetics.com.au/varieties/scarlet-rose-asbp/",
+              "credit": "Australasian Plant Genetics / Strawberry Innovation — original named page; photographer not individually credited",
+              "caption": "Scarlet Rose strawberry fruit on APG’s original named variety page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named header photo visually checked in the original page. Full-size alternative explicitly published in its srcset. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Red Rhapsody",
+            "reason": "Performance comparator on this detail page, not an additional portfolio subject."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "012835cd27a3a33c810ec32270fe856a8232aed7ffb3ebb380e806fc57a0fca1",
+        "bytes": 9718,
+        "named_photo_visually_checked": true,
+        "hero_srcset": "https://ausplantgenetics.com.au/wp-content/uploads/SCARLET_ROSE-fruit-SQ-300x300.jpg 300w, https://ausplantgenetics.com.au/wp-content/uploads/SCARLET_ROSE-fruit-SQ-1030x1030.jpg 1030w, https://ausplantgenetics.com.au/wp-content/uploads/SCARLET_ROSE-fruit-SQ-80x80.jpg 80w, https://ausplantgenetics.com.au/wp-content/uploads/SCARLET_ROSE-fruit-SQ-768x768.jpg 768w, https://ausplantgenetics.com.au/wp-content/uploads/SCARLET_ROSE-fruit-SQ-1536x1536.jpg 1536w, https://ausplantgenetics.com.au/wp-content/uploads/SCARLET_ROSE-fruit-SQ-2048x2048.jpg 2048w, https://ausplantgenetics.com.au/wp-content/uploads/SCARLET_ROSE-fruit-SQ-36x36.jpg 36w, https://ausplantgenetics.com.au/wp-content/uploads/SCARLET_ROSE-fruit-SQ-180x180.jpg 180w, https://ausplantgenetics.com.au/wp-content/uploads/SCARLET_ROSE-fruit-SQ-1500x1500.jpg 1500w, https://ausplantgenetics.com.au/wp-content/uploads/SCARLET_ROSE-fruit-SQ-705x705.jpg 705w"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-susie-asbp",
+      "title": "APG — Susie variety page",
+      "url": "https://ausplantgenetics.com.au/varieties/susie-asbp/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original detail page, including performance comparisons, grower notes, suitability, availability and acknowledgements; one named subject and its original hero photo.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Susie",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/susie-asbp/",
+          "display_label": "SUSIE-ASBP",
+          "portfolio_context": "The index labels this linked page SUSIE-ASBP; its detail page also explicitly uses Susie. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The page describes Australian protection, but this has not been checked against the current official register.",
+          "photos": [
+            {
+              "named_variety": "Susie",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://ausplantgenetics.com.au/wp-content/uploads/Susie-ASBP-fruit-SQ-1.jpg",
+              "source_url": "https://ausplantgenetics.com.au/varieties/susie-asbp/",
+              "credit": "Australasian Plant Genetics / Strawberry Innovation — original named page; photographer not individually credited",
+              "caption": "Susie strawberry fruit on APG’s original named variety page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named header photo visually checked in the original page. Full-size alternative explicitly published in its srcset. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Red Rhapsody",
+            "reason": "Performance comparator on this detail page, not an additional portfolio subject."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "694056539c7c004808359035374ca42b0f973fd77eb68bb3c0975df9fbb5e3a5",
+        "bytes": 9829,
+        "named_photo_visually_checked": true,
+        "hero_srcset": "https://ausplantgenetics.com.au/wp-content/uploads/Susie-ASBP-fruit-SQ-1-300x300.jpg 300w, https://ausplantgenetics.com.au/wp-content/uploads/Susie-ASBP-fruit-SQ-1-1030x1030.jpg 1030w, https://ausplantgenetics.com.au/wp-content/uploads/Susie-ASBP-fruit-SQ-1-80x80.jpg 80w, https://ausplantgenetics.com.au/wp-content/uploads/Susie-ASBP-fruit-SQ-1-768x768.jpg 768w, https://ausplantgenetics.com.au/wp-content/uploads/Susie-ASBP-fruit-SQ-1-36x36.jpg 36w, https://ausplantgenetics.com.au/wp-content/uploads/Susie-ASBP-fruit-SQ-1-180x180.jpg 180w, https://ausplantgenetics.com.au/wp-content/uploads/Susie-ASBP-fruit-SQ-1-705x705.jpg 705w, https://ausplantgenetics.com.au/wp-content/uploads/Susie-ASBP-fruit-SQ-1.jpg 1500w"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-tahli-asbp",
+      "title": "APG — Tahli variety page",
+      "url": "https://ausplantgenetics.com.au/varieties/tahli-asbp/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original detail page, including performance comparisons, grower notes, suitability, availability and acknowledgements; one named subject and its original hero photo.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Tahli",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/tahli-asbp/",
+          "display_label": "TAHLI-ASBP",
+          "portfolio_context": "The index labels this linked page TAHLI-ASBP; its detail page also explicitly uses Tahli. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The page describes Australian protection, but this has not been checked against the current official register.",
+          "photos": [
+            {
+              "named_variety": "Tahli",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://ausplantgenetics.com.au/wp-content/uploads/Tahli-Fruit-SQ.jpg",
+              "source_url": "https://ausplantgenetics.com.au/varieties/tahli-asbp/",
+              "credit": "Australasian Plant Genetics / Strawberry Innovation — original named page; photographer not individually credited",
+              "caption": "Tahli strawberry fruit on APG’s original named variety page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named header photo visually checked in the original page. Full-size alternative explicitly published in its srcset. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "161e727eb3ad51a9b78ac45bd092bfeee9c3735fb7dcb7ca2efc4d6a2d9cd3c7",
+        "bytes": 9821,
+        "named_photo_visually_checked": true,
+        "hero_srcset": "https://ausplantgenetics.com.au/wp-content/uploads/Tahli-Fruit-SQ-300x300.jpg 300w, https://ausplantgenetics.com.au/wp-content/uploads/Tahli-Fruit-SQ-1030x1030.jpg 1030w, https://ausplantgenetics.com.au/wp-content/uploads/Tahli-Fruit-SQ-80x80.jpg 80w, https://ausplantgenetics.com.au/wp-content/uploads/Tahli-Fruit-SQ-768x768.jpg 768w, https://ausplantgenetics.com.au/wp-content/uploads/Tahli-Fruit-SQ-36x36.jpg 36w, https://ausplantgenetics.com.au/wp-content/uploads/Tahli-Fruit-SQ-180x180.jpg 180w, https://ausplantgenetics.com.au/wp-content/uploads/Tahli-Fruit-SQ-705x705.jpg 705w, https://ausplantgenetics.com.au/wp-content/uploads/Tahli-Fruit-SQ.jpg 1500w"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-tamara-asbp",
+      "title": "APG — Tamara variety page",
+      "url": "https://ausplantgenetics.com.au/varieties/tamara-asbp/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original detail page, including performance comparisons, grower notes, suitability, availability and acknowledgements; one named subject and its original hero photo.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Tamara",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/tamara-asbp/",
+          "display_label": "TAMARA-ASBP",
+          "portfolio_context": "The index labels this linked page TAMARA-ASBP; its detail page also explicitly uses Tamara. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The page describes Australian protection, but this has not been checked against the current official register.",
+          "photos": [
+            {
+              "named_variety": "Tamara",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://ausplantgenetics.com.au/wp-content/uploads/Tamara-Fruit-SQ.jpg",
+              "source_url": "https://ausplantgenetics.com.au/varieties/tamara-asbp/",
+              "credit": "Australasian Plant Genetics / Strawberry Innovation — original named page; photographer not individually credited",
+              "caption": "Tamara strawberry fruit on APG’s original named variety page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named header photo visually checked in the original page. Full-size alternative explicitly published in its srcset. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Albion",
+            "reason": "Performance comparator on this detail page, not an additional portfolio subject."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "1472630689b6a746782acd3a3bf6b4db1184705bc8ebc9f298e8b6c221f83aa0",
+        "bytes": 9459,
+        "named_photo_visually_checked": true,
+        "hero_srcset": "https://ausplantgenetics.com.au/wp-content/uploads/Tamara-Fruit-SQ-300x300.jpg 300w, https://ausplantgenetics.com.au/wp-content/uploads/Tamara-Fruit-SQ-1030x1030.jpg 1030w, https://ausplantgenetics.com.au/wp-content/uploads/Tamara-Fruit-SQ-80x80.jpg 80w, https://ausplantgenetics.com.au/wp-content/uploads/Tamara-Fruit-SQ-768x768.jpg 768w, https://ausplantgenetics.com.au/wp-content/uploads/Tamara-Fruit-SQ-36x36.jpg 36w, https://ausplantgenetics.com.au/wp-content/uploads/Tamara-Fruit-SQ-180x180.jpg 180w, https://ausplantgenetics.com.au/wp-content/uploads/Tamara-Fruit-SQ-705x705.jpg 705w, https://ausplantgenetics.com.au/wp-content/uploads/Tamara-Fruit-SQ.jpg 1500w"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-qsga-002",
+      "title": "APG — QSGA 002 variety page",
+      "url": "https://ausplantgenetics.com.au/varieties/qsga-002/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original detail page, including performance comparisons, grower notes, suitability, availability and acknowledgements; one named subject and its original hero photo.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "QSGA 002",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/qsga-002/",
+          "display_label": "QSGA 002",
+          "portfolio_context": "APG attributes this strawberry to CIV Italy and presents its Australian licensing availability. The page describes small quantities for on-farm testing, not proven full commercial availability.",
+          "photos": [
+            {
+              "named_variety": "QSGA 002",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://ausplantgenetics.com.au/wp-content/uploads/QSGA-002-1-SQ.jpg",
+              "source_url": "https://ausplantgenetics.com.au/varieties/qsga-002/",
+              "credit": "Australasian Plant Genetics / Strawberry Innovation — original named page; photographer not individually credited",
+              "caption": "QSGA 002 strawberry fruit on APG’s original named variety page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named header photo visually checked in the original page. Full-size alternative explicitly published in its srcset. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "e71341a6f4d4734188589706f428b99bb5218dad70e7eb3a959e4c285473f886",
+        "bytes": 7055,
+        "named_photo_visually_checked": true,
+        "hero_srcset": "https://ausplantgenetics.com.au/wp-content/uploads/QSGA-002-1-SQ-300x300.jpg 300w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-002-1-SQ-1030x1030.jpg 1030w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-002-1-SQ-80x80.jpg 80w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-002-1-SQ-768x768.jpg 768w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-002-1-SQ-36x36.jpg 36w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-002-1-SQ-180x180.jpg 180w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-002-1-SQ-705x705.jpg 705w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-002-1-SQ.jpg 1500w"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-qsga-003",
+      "title": "APG — QSGA 003 variety page",
+      "url": "https://ausplantgenetics.com.au/varieties/qsga-003/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original detail page, including performance comparisons, grower notes, suitability, availability and acknowledgements; one named subject and its original hero photo.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "QSGA 003",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/qsga-003/",
+          "display_label": "QSGA 003",
+          "portfolio_context": "APG attributes this strawberry to CIV Italy and presents its Australian licensing availability. The page describes small quantities for on-farm testing, not proven full commercial availability.",
+          "photos": [
+            {
+              "named_variety": "QSGA 003",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://ausplantgenetics.com.au/wp-content/uploads/QSGA-003-2-SQ.jpg",
+              "source_url": "https://ausplantgenetics.com.au/varieties/qsga-003/",
+              "credit": "Australasian Plant Genetics / Strawberry Innovation — original named page; photographer not individually credited",
+              "caption": "QSGA 003 strawberry fruit on APG’s original named variety page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named header photo visually checked in the original page. Full-size alternative explicitly published in its srcset. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "725cd4d1897be8bc2963fe7d09df757669674f525c6663f209265e4ffbb511bc",
+        "bytes": 7089,
+        "named_photo_visually_checked": true,
+        "hero_srcset": "https://ausplantgenetics.com.au/wp-content/uploads/QSGA-003-2-SQ-300x300.jpg 300w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-003-2-SQ-1030x1030.jpg 1030w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-003-2-SQ-80x80.jpg 80w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-003-2-SQ-768x768.jpg 768w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-003-2-SQ-36x36.jpg 36w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-003-2-SQ-180x180.jpg 180w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-003-2-SQ-705x705.jpg 705w, https://ausplantgenetics.com.au/wp-content/uploads/QSGA-003-2-SQ.jpg 1500w"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-apg-003",
+      "title": "APG — APG 003 variety page",
+      "url": "https://ausplantgenetics.com.au/varieties/apg-003/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original detail page, including performance comparisons, grower notes, suitability, availability and acknowledgements; one named subject and its original hero photo.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "APG 003",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/apg-003/",
+          "display_label": "APG 003",
+          "portfolio_context": "APG attributes this strawberry to CIV Italy and presents its Australian licensing availability. The page still discusses quarantine planned for October 2022; this does not establish release or commercial availability today.",
+          "photos": [
+            {
+              "named_variety": "APG 003",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://ausplantgenetics.com.au/wp-content/uploads/APG-003-3-SQ.jpg",
+              "source_url": "https://ausplantgenetics.com.au/varieties/apg-003/",
+              "credit": "Australasian Plant Genetics / Strawberry Innovation — original named page; photographer not individually credited",
+              "caption": "APG 003 strawberry fruit on APG’s original named variety page.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named header photo visually checked in the original page. Full-size alternative explicitly published in its srcset. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "2aea85c5707f8933781d6878c706d6e1b41d524507906ea6909339f0f5915187",
+        "bytes": 7439,
+        "named_photo_visually_checked": true,
+        "hero_srcset": "https://ausplantgenetics.com.au/wp-content/uploads/APG-003-3-SQ-300x300.jpg 300w, https://ausplantgenetics.com.au/wp-content/uploads/APG-003-3-SQ-1030x1030.jpg 1030w, https://ausplantgenetics.com.au/wp-content/uploads/APG-003-3-SQ-80x80.jpg 80w, https://ausplantgenetics.com.au/wp-content/uploads/APG-003-3-SQ-768x768.jpg 768w, https://ausplantgenetics.com.au/wp-content/uploads/APG-003-3-SQ-36x36.jpg 36w, https://ausplantgenetics.com.au/wp-content/uploads/APG-003-3-SQ-180x180.jpg 180w, https://ausplantgenetics.com.au/wp-content/uploads/APG-003-3-SQ-705x705.jpg 705w, https://ausplantgenetics.com.au/wp-content/uploads/APG-003-3-SQ.jpg 1500w"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-civ-program",
+      "title": "APG — CIV program and three codes",
+      "url": "https://ausplantgenetics.com.au/civ-varieties/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete CIV program page with all three linked code cards. The combined QSGA 002-003 heading groups two cards and is not a fourth cultivar.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "QSGA 002",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/qsga-002/",
+          "display_label": "QSGA 002",
+          "portfolio_context": "APG attributes this strawberry to CIV Italy and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "QSGA 003",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/qsga-003/",
+          "display_label": "QSGA 003",
+          "portfolio_context": "APG attributes this strawberry to CIV Italy and presents its Australian licensing availability. "
+        },
+        {
+          "candidate_name": "APG 003",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/apg-003/",
+          "display_label": "APG 003",
+          "portfolio_context": "APG attributes this strawberry to CIV Italy and presents its Australian licensing availability. "
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "QSGA 002-003",
+            "reason": "Combined group heading for QSGA 002 and QSGA 003, not a separate cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "39867c0ffe810f6254ead54d3e660bb1c3e6a1cc1e0d46beb3dde366f95c2ebf",
+        "bytes": 5491
+      }
+    },
+    {
+      "id": "portfolio-apg-original-stella-asbp-factsheet",
+      "title": "APG — Stella-ASBP factsheet",
+      "url": "https://ausplantgenetics.com.au/wp-content/uploads/FACTSHEET-STELLA-ASBP-V1.pdf",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_factsheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Entire one-page original factsheet visually read, including availability, comparisons, charts, acknowledgements and printed document label.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Stella-ASBP",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/stella-asbp/",
+          "display_label": "STELLA-ASBP",
+          "portfolio_context": "APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The linked PDF states Australian protection; this is a source claim, not a current official-register check."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Red Rhapsody",
+            "reason": "Named comparison in this factsheet, not a second portfolio subject."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "original_pdf_text_and_visual_review",
+        "all_pages_read": true,
+        "visually_checked_pages": [
+          1
+        ],
+        "page_count": 1,
+        "sha256": "87ced5b2d229df3c5a8656f7fe58aa928d7e105da1591c5d9037520c143ee2b9",
+        "bytes": 337689,
+        "copyright_year": 2023,
+        "printed_document_label": "FACTSHEET-STELLA-ASBP-V2"
+      },
+      "review_warnings": [
+        "Stella’s webpage says protection was applied for, while its linked factsheet says it is protected. Neither establishes the current official register status; check that before relying on the protection claim.",
+        "The Stella PDF link ends in V1.pdf, but the document prints FACTSHEET-STELLA-ASBP-V2. The original URL is preserved; no publication date or version chronology is inferred."
+      ]
+    },
+    {
+      "id": "portfolio-apg-original-red-rhapsody-asbp-factsheet",
+      "title": "APG — Red Rhapsody factsheet",
+      "url": "https://ausplantgenetics.com.au/wp-content/uploads/FACTSHEET-RED-RHAPSODY-ASBP-V2.pdf",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_factsheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Entire one-page original factsheet visually read, including availability, comparisons, charts, acknowledgements and printed document label.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Red Rhapsody",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/red-rhapsody-asbp/",
+          "display_label": "RED RHAPSODY-ASBP",
+          "portfolio_context": "The index labels this linked page RED RHAPSODY-ASBP; its detail page also explicitly uses Red Rhapsody. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The linked PDF states Australian protection; this is a source claim, not a current official-register check."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Florida Festival",
+            "reason": "Named comparison in this factsheet, not a second portfolio subject."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "original_pdf_text_and_visual_review",
+        "all_pages_read": true,
+        "visually_checked_pages": [
+          1
+        ],
+        "page_count": 1,
+        "sha256": "64c62f97ac500845b9dc5ae84bbf554ed090e44fbff0404f389cca4e26de900e",
+        "bytes": 377521,
+        "copyright_year": 2022,
+        "printed_document_label": "FACTSHEET-RED-RHAPSODY-ASBP-V2"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-sundrench-asbp-factsheet",
+      "title": "APG — Sundrench factsheet",
+      "url": "https://ausplantgenetics.com.au/wp-content/uploads/FACTSHEET-SUNDRENCH-ASBP-V2.pdf",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_factsheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Entire one-page original factsheet visually read, including availability, comparisons, charts, acknowledgements and printed document label.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Sundrench",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/sundrench-asbp/",
+          "display_label": "SUNDRENCH-ASBP",
+          "portfolio_context": "The index labels this linked page SUNDRENCH-ASBP; its detail page also explicitly uses Sundrench. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The linked PDF states Australian protection; this is a source claim, not a current official-register check."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Red Rhapsody",
+            "reason": "Named comparison in this factsheet, not a second portfolio subject."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "original_pdf_text_and_visual_review",
+        "all_pages_read": true,
+        "visually_checked_pages": [
+          1
+        ],
+        "page_count": 1,
+        "sha256": "817f5ff859214e9b20d2eee95150db65a5ff3ebc52aceb07a7c17e87a077e4ee",
+        "bytes": 369506,
+        "copyright_year": 2022,
+        "printed_document_label": "FACTSHEET-SUNDRENCH-ASBP-V2"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-scarlet-rose-asbp-factsheet",
+      "title": "APG — Scarlet Rose factsheet",
+      "url": "https://ausplantgenetics.com.au/wp-content/uploads/FACTSHEET-SCARLET-ROSE-ASBP-V2.pdf",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_factsheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Entire one-page original factsheet visually read, including availability, comparisons, charts, acknowledgements and printed document label.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Scarlet Rose",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/scarlet-rose-asbp/",
+          "display_label": "SCARLET ROSE-ASBP",
+          "portfolio_context": "The index labels this linked page SCARLET ROSE-ASBP; its detail page also explicitly uses Scarlet Rose. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The linked PDF states Australian protection; this is a source claim, not a current official-register check."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Red Rhapsody",
+            "reason": "Named comparison in this factsheet, not a second portfolio subject."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "original_pdf_text_and_visual_review",
+        "all_pages_read": true,
+        "visually_checked_pages": [
+          1
+        ],
+        "page_count": 1,
+        "sha256": "84e2893c77843fc5cc741fa56be60aceeec55b42e798688aed26e58ec93590c6",
+        "bytes": 402437,
+        "copyright_year": 2022,
+        "printed_document_label": "FACTSHEET-SCARLET-ROSE-ASBP-V2"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-susie-asbp-factsheet",
+      "title": "APG — Susie factsheet",
+      "url": "https://ausplantgenetics.com.au/wp-content/uploads/FACTSHEET-SUSIE-ASBP-V2.pdf",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_factsheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Entire one-page original factsheet visually read, including availability, comparisons, charts, acknowledgements and printed document label.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Susie",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/susie-asbp/",
+          "display_label": "SUSIE-ASBP",
+          "portfolio_context": "The index labels this linked page SUSIE-ASBP; its detail page also explicitly uses Susie. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The linked PDF states Australian protection; this is a source claim, not a current official-register check."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Red Rhapsody",
+            "reason": "Named comparison in this factsheet, not a second portfolio subject."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "original_pdf_text_and_visual_review",
+        "all_pages_read": true,
+        "visually_checked_pages": [
+          1
+        ],
+        "page_count": 1,
+        "sha256": "4ba3a507338f64a8b872f666e72f6351e0621f5134a85b90f7b9240e7105c611",
+        "bytes": 448426,
+        "copyright_year": 2022,
+        "printed_document_label": "FACTSHEET-SUSIE-ASBP-V2"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-tahli-asbp-factsheet",
+      "title": "APG — Tahli factsheet",
+      "url": "https://ausplantgenetics.com.au/wp-content/uploads/FACTSHEET-TAHLI-ASBP-V2.pdf",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_factsheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Entire one-page original factsheet visually read, including availability, comparisons, charts, acknowledgements and printed document label.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Tahli",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/tahli-asbp/",
+          "display_label": "TAHLI-ASBP",
+          "portfolio_context": "The index labels this linked page TAHLI-ASBP; its detail page also explicitly uses Tahli. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The linked PDF states Australian protection; this is a source claim, not a current official-register check."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_pdf_text_and_visual_review",
+        "all_pages_read": true,
+        "visually_checked_pages": [
+          1
+        ],
+        "page_count": 1,
+        "sha256": "a3d06a17b000174e0a2b86b7d6f026cf87d4132599eecea074d8727cf6388172",
+        "bytes": 411432,
+        "copyright_year": 2022,
+        "printed_document_label": "FACTSHEET-TAHLI-ASBP-V2"
+      }
+    },
+    {
+      "id": "portfolio-apg-original-tamara-asbp-factsheet",
+      "title": "APG — Tamara factsheet",
+      "url": "https://ausplantgenetics.com.au/wp-content/uploads/FACTSHEET-TAMARA-ASBP-V2.pdf",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-australasian-plant-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_variety_factsheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Entire one-page original factsheet visually read, including availability, comparisons, charts, acknowledgements and printed document label.",
+      "limitations": "APG presents a licensing range, not an automatically approved breeder/owner relationship. Source labels and program associations remain unreviewed; no aliases, current legal status, approved traits, or growing footprints are inferred. Suitability, trial locations and historical planting comments remain source claims. Copyright years and quarantine plans are not exact publication or release dates. Logos, radar diagrams, tracking pixels and neighboring-variety thumbnails are not photos of this subject.",
+      "names": [
+        {
+          "candidate_name": "Tamara",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://ausplantgenetics.com.au/varieties/tamara-asbp/",
+          "display_label": "TAMARA-ASBP",
+          "portfolio_context": "The index labels this linked page TAMARA-ASBP; its detail page also explicitly uses Tamara. The source label is retained for review, not written as a catalog alias. APG attributes this strawberry to ASBP/QDAF and presents its Australian licensing availability. The linked PDF states Australian protection; this is a source claim, not a current official-register check."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Albion",
+            "reason": "Named comparison in this factsheet, not a second portfolio subject."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "original_pdf_text_and_visual_review",
+        "all_pages_read": true,
+        "visually_checked_pages": [
+          1
+        ],
+        "page_count": 1,
+        "sha256": "8d671427fe3ba165d4c114be8971a7b2a9f5681c79968eb0be6d6dd2c066f389",
+        "bytes": 407240,
+        "copyright_year": 2022,
+        "printed_document_label": "FACTSHEET-TAMARA-ASBP-V2"
+      }
+    }
+  ]
+}

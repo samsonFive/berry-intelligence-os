@@ -68,7 +68,9 @@ scope contrast, default-collapsed context and successful context expansion. A 39
 phone check has no page-wide horizontal overflow; the source table scrolls within
 its container. No review form was submitted.
 
-Parent #360 passes all four required checks (4,374 tests). This packet requires its
-own current-head checks. Full primary/historical coverage, independent recall,
+Parent #360 passes all four required checks (4,374 tests). This packet's #361 head
+`76b6906c81892fa94cf4b62b608680c916bf8d93` now also passes all four required
+checks in Actions run `37840564570`: 4,378 passed, 11 skipped, two warnings.
+Full primary/historical coverage, independent recall,
 rights/profile depth and human catalog decisions remain open in CAT-01/CAT-02/TD-116.
 No merge, deployment or other-berry Landscape rollout; the blueberry gate remains.
