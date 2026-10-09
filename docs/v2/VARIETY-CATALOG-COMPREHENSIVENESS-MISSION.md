@@ -7,9 +7,9 @@ mission remains open. Existing discovery, original-source observations, patent
 links and photo previews feed review without silently approving identities,
 aliases, roles, traits, regions or rights.
 
-The [latest source/photo review](UF-CULTIVAR-PHOTO-REFERENCES-REVIEW.md) records
-363 bounded sections / 1,140 name occurrences / 72 matched occurrences / 1,068
-requiring review, 788 public candidate keys and 64 unchanged canonical varieties.
+The [latest source review](SUNBELLE-ORIGINAL-VARIETY-SOURCES-REVIEW.md) records
+366 bounded sections / 1,142 name occurrences / 72 matched occurrences / 1,070
+requiring review, 789 public candidate keys and 64 unchanged canonical varieties.
 Photo references total 122 with no new reuse approvals. The 77-entry company
 plan retains 14 incomplete checks, one unavailable source and two identity holds.
 

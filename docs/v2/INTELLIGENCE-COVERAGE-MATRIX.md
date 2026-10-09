@@ -2,9 +2,9 @@
 
 ## Current variety follow-up — October 9, 2026
 
-The [bounded portfolio/photo audit](UF-CULTIVAR-PHOTO-REFERENCES-REVIEW.md)
-records 363 source sections / 1,140 name occurrences / 72 catalog-matched
-occurrences / 1,068 requiring review. The catalog remains 64 varieties and photo
+The [bounded original-source audit](SUNBELLE-ORIGINAL-VARIETY-SOURCES-REVIEW.md)
+records 366 source sections / 1,142 name occurrences / 72 catalog-matched
+occurrences / 1,070 requiring review. The catalog remains 64 varieties and photo
 references total 122. Source name observations and pending copies do not raise
 trusted evidence maturity, create approved identities or prove complete coverage.
 

@@ -6,7 +6,7 @@ TD-116 remains open. Source-name discovery, original patent links and attributed
 photo references improve coverage but do not establish complete portfolios,
 current rights, independent human recall or approved catalog growth. See the
 [catalog mission](VARIETY-CATALOG-COMPREHENSIVENESS-MISSION.md) and
-[latest source/photo evidence](UF-CULTIVAR-PHOTO-REFERENCES-REVIEW.md).
+[latest original-source evidence](SUNBELLE-ORIGINAL-VARIETY-SOURCES-REVIEW.md).
 
 The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
 shows actual catalog gaps: 53/64 without photo references, 36/64 without
