@@ -22,6 +22,12 @@ there rather than reconstructing the mission from historical progress reports.
 
 ## Latest reviewable changes
 
+- [Original Lewis pedigree](docs/v2/LEWIS-ORIGINAL-PEDIGREE-REVIEW.md):
+  eleven historical review leads from an original diagram, with all earlier IDs
+  and human decisions preserved; one unclear code remains held. 44 affected
+  checks pass.
+
+
 - [Original patent/profile links](docs/v2/ORIGINAL-PATENT-PROFILE-LINKS-REVIEW.md):
   original claims/document/illustration links, recorded breeding-program and
   patent fields, and preserved human distinct/rejected decisions. 59 targeted
@@ -48,9 +54,9 @@ there rather than reconstructing the mission from historical progress reports.
   the guide now traces source names through identity review, separate catalog
   authoring and profile enrichment, with links to the existing private workflows.
 
-The [latest bounded audit](docs/v2/ORIGINAL-PATENT-PROFILE-LINKS-REVIEW.md) has
-367 source sections / 1,143 name occurrences / 73 matched occurrences / 1,070
-requiring review, with 789 public derived candidate keys and 64 unchanged
+The [latest bounded audit](docs/v2/LEWIS-ORIGINAL-PEDIGREE-REVIEW.md) has
+368 source sections / 1,156 name occurrences / 73 matched occurrences / 1,083
+requiring review, with 800 public derived candidate keys and 64 unchanged
 canonical varieties. There are 122 photo references; the eight UF photos have unknown
 reuse permission and remain excluded from public static output. Source mentions
 are not approved varieties or a global completeness measure.

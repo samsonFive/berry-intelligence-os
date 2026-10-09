@@ -2710,3 +2710,12 @@ trait, region or image-reuse approval is inferred. The 59 affected checks pass.
 See ORIGINAL-PATENT-PROFILE-LINKS-REVIEW.md. CAT-01/CAT-02/TD-116 remain open;
 complete portfolios, official current rights, independently reviewed recall,
 human catalog authoring and the integrated release are still required.
+
+**October 9 original USDA pedigree follow-up:** The earlier Lewis paper PDF
+access gap is resolved by reading all four original pages. Eleven historical
+review leads from Figure 2 retain source context, earlier candidate IDs and
+operator decisions. A code with unclear punctuation stays held; no current USDA
+release, legal status, ancestry edge or photo permission is inferred. The 44
+affected checks pass. See LEWIS-ORIGINAL-PEDIGREE-REVIEW.md. CAT-01/CAT-02/TD-116
+remain open; full portfolios, independent recall, human catalog authoring,
+phone verification and the integrated release still require completion.
