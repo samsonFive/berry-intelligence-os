@@ -2,17 +2,18 @@
 
 ## Current variety follow-up — October 9, 2026
 
-The [bounded original-source audit](LEWIS-ORIGINAL-PEDIGREE-REVIEW.md)
-records 368 source sections / 1,156 name occurrences / 73 catalog-matched
-occurrences / 1,083 requiring review. The catalog remains 64 varieties and photo
+The [bounded four-berry register intake](REGISTER-LIST-52-INTAKE-REVIEW.md)
+records 376 source sections / 1,544 name occurrences / 88 catalog-matched
+occurrences / 1,456 requiring review; 1,121 public-source-derived candidate keys. The catalog remains 64 varieties and photo
 references total 122. Source name observations and pending copies do not raise
 trusted evidence maturity, create approved identities or prove complete coverage.
 
 The [2024 cultivar register acquisition review](REGISTER-LIST-52-ACQUISITION-REVIEW.md)
 recovers a university-hosted original journal copy covering all four berry crops.
-Its full entry enumeration and catalog reconciliation remain pending; none of its
-reading-aid names has been imported or counted above. Historical rights references
-are not current official-rights checks. This acquisition does not promote any
+Its checked first-name headings and addenda now supply 388 unreviewed observations,
+accounted separately from eight referrals and two held codes. Body/parent/trade-name
+recall and per-entry company links remain partial. Historical rights references
+are not current official-rights checks. This intake does not promote any
 evidence-class maturity cell below.
 
 The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now

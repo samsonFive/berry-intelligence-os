@@ -1,0 +1,243 @@
+{
+  "scope": "Quoted first-name headings only, including separately accounted referrals/held glyphs; not full-source recall or a global census.",
+  "source_sections": 8,
+  "observed_heading_contexts": 398,
+  "name_observations": 388,
+  "excluded_contexts": 10,
+  "by_section": [
+    {
+      "id": "portfolio-register52-2024-blackberry-main",
+      "observed": 18,
+      "names": 18,
+      "excluded": 0
+    },
+    {
+      "id": "portfolio-register52-2024-blueberry-main",
+      "observed": 46,
+      "names": 46,
+      "excluded": 0
+    },
+    {
+      "id": "portfolio-register52-2024-raspberry-main",
+      "observed": 45,
+      "names": 43,
+      "excluded": 2
+    },
+    {
+      "id": "portfolio-register52-2024-strawberry-main",
+      "observed": 168,
+      "names": 162,
+      "excluded": 6
+    },
+    {
+      "id": "portfolio-register52-2024-blackberry-addenda",
+      "observed": 13,
+      "names": 13,
+      "excluded": 0
+    },
+    {
+      "id": "portfolio-register52-2024-blueberry-addenda",
+      "observed": 77,
+      "names": 75,
+      "excluded": 2
+    },
+    {
+      "id": "portfolio-register52-2024-raspberry-addenda",
+      "observed": 3,
+      "names": 3,
+      "excluded": 0
+    },
+    {
+      "id": "portfolio-register52-2024-strawberry-addenda",
+      "observed": 28,
+      "names": 28,
+      "excluded": 0
+    }
+  ],
+  "visually_reviewed_pdf_pages": [
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73
+  ],
+  "source_pdf_sha256": "b009020b2f801bafcc175abc6e784802edc6806cccc028321a1e6f81c475ec0b",
+  "canonical_changes": 0,
+  "human_decisions_created": 0,
+  "source_url": "https://jujube.nmsu.edu/documents/2024-fruit-cultivar-registration-52-hortsci-article-p1220.pdf",
+  "sha256": "b009020b2f801bafcc175abc6e784802edc6806cccc028321a1e6f81c475ec0b",
+  "summary": {
+    "source_sections": 376,
+    "readable_sections": 272,
+    "unreadable_sections": 14,
+    "follow_up_sections": 118,
+    "names": 1544,
+    "catalog_matches": 88,
+    "needs_review": 1456,
+    "registry_entries": 77,
+    "registry_entries_checked": 60,
+    "registry_entries_partial_checks": 14,
+    "registry_entries_unavailable": 1,
+    "registry_entries_not_started": 0,
+    "registry_entries_identity_hold": 2
+  },
+  "by_berry": [
+    {
+      "id": "berry-blueberry",
+      "label": "Blueberry",
+      "names": 423,
+      "matched": 64
+    },
+    {
+      "id": "berry-strawberry",
+      "label": "Strawberry",
+      "names": 716,
+      "matched": 2
+    },
+    {
+      "id": "berry-raspberry",
+      "label": "Raspberry",
+      "names": 259,
+      "matched": 19
+    },
+    {
+      "id": "berry-blackberry",
+      "label": "Blackberry",
+      "names": 146,
+      "matched": 3
+    }
+  ],
+  "candidate_counts": {
+    "stored_source_candidates": 63,
+    "combined_candidates": 1121,
+    "additional_primary_portfolio_candidates": 1058
+  },
+  "added_combined_candidate_keys": 321,
+  "native_private_keys": 1122,
+  "canonical_varieties": 64,
+  "photo_references": 122,
+  "tests": {
+    "passed": 48,
+    "warnings": 1,
+    "seconds": 100.57
+  },
+  "initial_tests": {
+    "passed": 47,
+    "failed": 1,
+    "warnings": 1,
+    "seconds": 66.58,
+    "failure": "Preservation fixture selected Capella, which was not a prior source candidate; corrected to actual prior Colossus."
+  },
+  "record_validation": "passed",
+  "static": {
+    "html_pages": 1755,
+    "pagefind": "passed",
+    "draft_leak_check": "passed",
+    "new_private_marker_scan": "passed",
+    "markers": [
+      "portfolio-register52-2024-",
+      "jujube.nmsu.edu/documents/2024-fruit-cultivar-registration-52-hortsci-article-p1220.pdf",
+      "2024 cultivar register — Raspberry"
+    ]
+  },
+  "native_browser": {
+    "tab": 60,
+    "source_page_link_checked": true,
+    "unreviewed_identity_checked": true,
+    "floating_navigation_checked": true,
+    "plain_language_warnings_checked": true,
+    "review_form_submitted": false,
+    "screenshot": "bonnie-lewis-review.png"
+  },
+  "preservation": {
+    "original_json_files": 2771,
+    "expansion_guide_unchanged": true,
+    "pending_copies": 32,
+    "pending_draft_sha256": "deb45f2e3836c96e5f3fb13abaf9dc15c86930f1a0a9cb495f347a033cf822e4"
+  },
+  "canonical_writes": 0,
+  "new_photo_reuse_approvals": 0,
+  "current_rights_verified": false,
+  "full_source_recall_verified": false,
+  "company_associations_complete": false,
+  "independent_human_recall_score": null,
+  "full_ci": "Fresh repaired-head CI required.",
+  "merge_or_deploy": false,
+  "requirements_ids_and_order_preserved": [
+    "CAT-01",
+    "CAT-02",
+    "UI-01",
+    "UI-02",
+    "UI-03",
+    "NEWS-01",
+    "NEWS-02",
+    "NEWS-03",
+    "DIGEST-01",
+    "CO-01",
+    "CO-02",
+    "VAR-01",
+    "VAR-02",
+    "MAP-01",
+    "MAP-02",
+    "PACK-01",
+    "PACK-02",
+    "PACK-03",
+    "AUDIT-01",
+    "REPORT-01",
+    "REPORT-02",
+    "REPORT-03",
+    "LAND-01",
+    "LAND-02",
+    "LEARN-01",
+    "LEARN-02",
+    "INT-01",
+    "MON-01",
+    "OPS-01",
+    "GUIDE-01",
+    "REL-01"
+  ],
+  "initial_full_ci": {
+    "head": "cc856c0f7bff39f66d6258ce54a5ad0581da0e3f",
+    "run": 38004480326,
+    "passed": 4578,
+    "failed": 1,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 567.86,
+    "failure": "SunBelle historical test removed the earlier Erika anchor while retaining the later register, so its before/after baseline no longer represented the original addition."
+  },
+  "ci_repair_tests": {
+    "passed": 13,
+    "warnings": 1,
+    "seconds": 11.67,
+    "application_identity_algorithm_changed": false,
+    "historical_and_current_anchor_tests_separate": true
+  }
+}
