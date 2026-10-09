@@ -3348,16 +3348,27 @@ def variety_coverage_page(request: Request) -> HTMLResponse:
         from app.services import company_directory
         try:
             entities = all_entities()
+            profile_records = company_directory.load_profiles(INBOX_DIR)["profiles"]
+            portfolio_sources = load_portfolio_observations(DATA_DIR)
             company_catalog = company_directory.catalog(
                 {row["id"]: row for row in entities},
-                profiles=company_directory.load_profiles(INBOX_DIR)["profiles"],
+                profiles=profile_records,
             )
             coverage["portfolios"] = portfolio_coverage(
-                data_dir=DATA_DIR, sources=load_portfolio_observations(DATA_DIR),
+                data_dir=DATA_DIR, sources=portfolio_sources,
                 varieties=varieties, entities=entities, candidates=candidates,
                 filters=dict(request.query_params), company_catalog=company_catalog,
             )
             coverage["portfolios"]["source_content"] = source_content_coverage(published_evidence())
+            from app.services.variety_profile_coverage import profile_field_coverage
+            coverage["profile_fields"] = profile_field_coverage(
+                varieties=varieties, entities=entities, relationships=all_relationships(),
+                facts=all_facts(),
+                published_evidence=published_evidence(), portfolio_sources=portfolio_sources,
+                reconciled_sources=corpus_report.get("portfolio_sources"),
+                candidates=candidates, profiles=profile_records,
+                filters=dict(request.query_params),
+            )
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
     if AUTHORING_MODE:

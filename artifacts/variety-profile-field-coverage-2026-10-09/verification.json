@@ -1,0 +1,25 @@
+{
+  "scope": "Read-only catalog profile field inventory; not global completeness",
+  "catalog_profiles": 64,
+  "missing_counts": {"photos": 53, "rights": 36, "traits": 33, "companies": 14},
+  "local_tests": {"passed": 84, "warnings": 1, "seconds": 103.45},
+  "inventory_build_seconds": 2.418,
+  "static_pages": 1755,
+  "record_validation": "PASS",
+  "public_table_excluded": true,
+  "native_desktop": {
+    "missing_photo_rows": 53,
+    "colossus": {"photos": 1, "permission_held": 1, "cited_entries": 9, "rights_references": 0},
+    "drisblue_seventeen": {"photos": 0, "linked_rights_records": 2, "cited_entries": 4},
+    "screenshots": ["desktop-missing-photos.png", "colossus-field-review.png", "drisblue-rights-review.png"]
+  },
+  "phone_visual_verified": false,
+  "phone_review_limit": "Native browser retained 1280px actual viewport after 390px override; override reset",
+  "original_canonical_json_files_unchanged": 2771,
+  "original_pending_source_copies_unchanged": 32,
+  "new_source_polling": false,
+  "new_image_reveals": 0,
+  "new_canonical_or_human_decisions": 0,
+  "merge_or_deploy": false,
+  "full_goal_complete": false
+}
