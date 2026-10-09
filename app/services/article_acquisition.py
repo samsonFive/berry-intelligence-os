@@ -32,7 +32,7 @@ import trafilatura
 
 from app.services.google_news_url import resolve_google_news_url
 
-ARTICLE_ACQUISITION_VERSION = "article-acquisition-v2"
+ARTICLE_ACQUISITION_VERSION = "article-acquisition-v3"
 ARTICLE_FETCH_TIMEOUT_SECONDS = 20
 ARTICLE_FETCH_USER_AGENT = "berry-intelligence-os-article-acquisition/1.0"
 MIN_BODY_CHARS = 200
@@ -402,9 +402,10 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
     if wall:
         raise ArticleAcquisitionError(f"{wall} wall detected fetching {url}", category=wall)
 
+    extraction_html = html
     try:
         extracted_json = trafilatura.extract(
-            html,
+            extraction_html,
             url=str(response.url),
             output_format="json",
             with_metadata=True,
@@ -412,6 +413,17 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
             include_comments=False,
             include_tables=False,
         )
+        if not extracted_json:
+            from app.services.article_semantics import prose_navigation_html
+            repaired = prose_navigation_html(html)
+            if repaired:
+                extracted_json = trafilatura.extract(
+                    repaired, url=str(response.url), output_format="json",
+                    with_metadata=True, favor_precision=True,
+                    include_comments=False, include_tables=False,
+                )
+                if extracted_json:
+                    extraction_html = repaired
     except Exception as exc:  # noqa: BLE001 -- any extractor-internal failure is a reportable acquisition failure, not a crash
         raise ArticleAcquisitionError(f"extraction failed for {url}: {exc}", category="malformed_html") from exc
 
@@ -437,7 +449,7 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
 
     paragraphs = _split_paragraphs(body_text, title=extracted.get("title"))
     from app.services.article_structure import publisher_heading_levels
-    headings = publisher_heading_levels(html, [paragraph.text for paragraph in paragraphs])
+    headings = publisher_heading_levels(extraction_html, [paragraph.text for paragraph in paragraphs])
     paragraphs = tuple(ArticleParagraph(p.index, p.text, headings.get(p.index)) for p in paragraphs)
     word_count = len(body_text.split())
     content_sha256 = hashlib.sha256(body_text.encode("utf-8")).hexdigest()

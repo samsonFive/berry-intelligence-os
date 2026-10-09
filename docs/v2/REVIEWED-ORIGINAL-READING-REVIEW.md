@@ -75,7 +75,10 @@ Parent draft [#370](https://github.com/samsonFive/berry-intelligence-os/pull/370
 passes all four checks on `69c044718fefc92595f437c50d15d5f49bbcd7eb`:
 **4,487 passed / 11 skipped / two warnings / 750.46 seconds**. Run 37891895321,
 Python job 113694490209; watch 26769 consumed with terminal success.
-This change's pushed-head CI is a separate gate.
+Draft [#371](https://github.com/samsonFive/berry-intelligence-os/pull/371)
+passes all four checks on `c87d366856866675927ea29e183e5dbfa6e4590c`: **4,506
+passed / 11 skipped / two warnings / 733.78 seconds**, run 37895614737,
+Python job 113706219567. Watch 7224 was consumed with terminal success.
 
 CAT-01/CAT-02/TD-116 remain open. Original corpus acquisition, complete current
 and historical portfolios, independently human-qualified recall, rights/profile
