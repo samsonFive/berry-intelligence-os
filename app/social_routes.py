@@ -55,6 +55,7 @@ def reader(request:Request,key:str):
     main,store=context()
     row=next((r for r in store.records() if r['id']==key),None)
     if not row: raise HTTPException(410,'Observation unavailable or removed')
+    if row.get('output_excluded'): raise HTTPException(410,'Source confirmed deleted; excluded from new outputs')
     if not readable_in_english(row): raise HTTPException(409,'An English version is pending')
     thread=[r for r in store.records(mode=row['mode']) if readable_in_english(r) and r['source']==row['source'] and (r['native_id']==row.get('parent_native_id') or r.get('parent_native_id')==row['native_id'])]
     try: profiles=matching_profiles(main.INBOX_DIR,row)

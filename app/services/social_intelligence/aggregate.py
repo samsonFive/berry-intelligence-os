@@ -30,6 +30,7 @@ def bundle(records,jobs,params, *, access=None):
     f=selection(params)
     rows=[]
     for r in records:
+        if r.get('output_excluded'):continue
         a=r['analysis']; day=(r['published_at'] or r['collected_at'])[:10]
         if r['mode']!=f['mode'] or not a.get('berry_ids') or f['berry']!='all' and f['berry'] not in a['berry_ids']: continue
         if any(f[k] and r[rk]!=f[k] for k,rk in (('source','source'),('language','language'),('role','content_role'))): continue

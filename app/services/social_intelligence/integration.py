@@ -5,7 +5,7 @@ from app.services.geography_hierarchy import resolve_geography_scope
 from .presentation import readable_in_english, display_text, newest_first_key
 
 def context_links(records,entity_id=None,berry_id='all',market=None, *, entity_ids=None):
-    rows=[r for r in records if r['mode']!='fixture' and readable_in_english(r) and r['analysis'].get('berry_ids') and (berry_id=='all' or berry_id in r['analysis']['berry_ids'])]
+    rows=[r for r in records if not r.get('output_excluded') and r['mode']!='fixture' and readable_in_english(r) and r['analysis'].get('berry_ids') and (berry_id=='all' or berry_id in r['analysis']['berry_ids'])]
     if entity_id:rows=[r for r in rows if any(l['entity_id']==entity_id for l in r['analysis'].get('entity_links',[]))]
     if entity_ids:rows=[r for r in rows if any(l['entity_id'] in entity_ids for l in r['analysis'].get('entity_links',[]))]
     if market:rows=[r for r in rows if (r.get('purchase_market') or {}).get('value')==market]

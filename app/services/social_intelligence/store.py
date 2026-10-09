@@ -106,6 +106,9 @@ class Store:
                     if prior.get('reviewed'):
                         a = prior # Preserve analyst corrections; changed source stays visibly flagged.
                         a['source_changed'] = old['text'] != p['text'] or old['media'] != p['media']
+                for media in p['media']:
+                    if media['state']=='deleted':
+                        db.execute('INSERT OR IGNORE INTO source_deletions VALUES(?,?,?,?,?,?)',(key,p['source'],p['native_id'],p['mode'],media['id'],now()))
                 db.execute('INSERT INTO observations VALUES(?,?,?,0) ON CONFLICT(id) DO UPDATE SET payload=excluded.payload,analysis=excluded.analysis', (key,json.dumps(p,ensure_ascii=False),json.dumps(a,ensure_ascii=False)))
                 if existing:
                     db.execute('INSERT OR IGNORE INTO collection_receipts VALUES(?,?,?,?)',(key,old['discovery_method'],old['query_version'],old['collected_at']))
@@ -122,7 +125,14 @@ class Store:
     def records(self, *, mode=None):
         with closing(self.connect()) as db:
             rows = db.execute('SELECT id,payload,analysis FROM observations WHERE removed=0 ORDER BY id').fetchall()
-        return [{**json.loads(p),'id':key,'analysis':json.loads(a)} for key,p,a in rows if not mode or json.loads(p)['mode']==mode]
+        records=[{**json.loads(p),'id':key,'analysis':json.loads(a)} for key,p,a in rows if not mode or json.loads(p)['mode']==mode]
+        from .output_eligibility import deleted_sources
+        receipts=deleted_sources(self.inbox)
+        ids={r['id'] for r in receipts};native={(r['source'],r['native_id']) for r in receipts}
+        for record in records:
+            if record['mode']!='fixture' and (record['id'] in ids or (record['source'],record['native_id']) in native):
+                record['output_excluded']=True
+        return records
     def jobs(self):
         with closing(self.connect()) as db:
             return [json.loads(p) for (p,) in db.execute('SELECT payload FROM jobs ORDER BY id')]
@@ -230,7 +240,7 @@ class Store:
         return obj
     def media(self,key,media_id):
         r=next((r for r in self.records() if r['id']==key),None)
-        if not r: raise ValueError('Unavailable observation')
+        if not r or r.get('output_excluded'): raise ValueError('Unavailable observation')
         m=next((m for m in r['media'] if m['id']==media_id and m['state']=='available'),None)
         if not m or not m.get('object_ref'): raise ValueError('No permitted stored bytes; reference/availability limits apply')
         return self.inbox/'social'/'media'/r['mode']/m['object_ref'],m['mime']
@@ -242,7 +252,7 @@ class Store:
         return expired
     def handoff(self,key):
         r = next((r for r in self.records() if r['id']==key),None)
-        if not r or r['mode']=='fixture':
+        if not r or r['mode']=='fixture' or r.get('output_excluded'):
             raise ValueError('Unavailable/fixture observations cannot enter publication review')
         folder = self.inbox/'evidence'; folder.mkdir(parents=True,exist_ok=True)
         draft = {'id':key,'record_type':'evidence','status':'draft','review_state':'draft',

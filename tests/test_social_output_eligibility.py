@@ -108,3 +108,34 @@ def test_existing_landscape_uses_output_projection_without_contract_or_history_c
     assert [r['id'] for r in landscape.landscape_evidence('berry-blueberry')]==['ev-other']
     assert view.evidence.get('ev-deleted')==rows[0]
     assert raw.evidence.list()==rows
+
+
+def test_explicit_intake_deletion_excludes_replay_preserving_bytes_and_review_audit(tmp_path):
+    import json,pytest
+    from tests.test_social_intelligence import sample,ENTITIES
+    from app.services.social_intelligence.store import Store
+    from app.services.social_intelligence.aggregate import bundle
+    from app.services.social_intelligence.integration import context_links
+    store=Store(tmp_path);row=sample('imported',source='facebook',media=[])
+    row['media']=[{'id':'photo-one','parent_native_id':row['native_id'],'kind':'image',
+        'source_url':'https://cdn.example.org/synthetic.png','mime':'image/png',
+        'attribution':'Synthetic test reference','state':'available','storage_permission':'permitted_bytes','retention':'Synthetic test only'}]
+    key=store.ingest([row],ENTITIES,mode='imported')[0]
+    content=b'\x89PNG\r\n\x1a\nsynthetic'
+    obj=store.attach_media(key,'photo-one',content,'image/png')
+    path=tmp_path/'social'/'media'/'imported'/obj
+    store.correct(key,store.records()[0]['analysis'],'Test reviewer')
+    store.handoff(key);draft=tmp_path/'evidence'/f'{key}.json';draft_before=draft.read_bytes()
+    with store.connect() as db:prior_audit=db.execute('SELECT id,event,at FROM audit ORDER BY id').fetchall()
+    incoming=deepcopy(row);incoming['media'][0]['state']='deleted'
+    store.ingest([incoming],ENTITIES,mode='imported')
+    assert any(r['id']==key for r in deleted_sources(tmp_path))
+    Store(tmp_path).ingest([row],ENTITIES,mode='imported')
+    record=store.records()[0];assert record['output_excluded'] is True
+    assert record['analysis']['reviewed'] is True
+    assert path.read_bytes()==content and draft.read_bytes()==draft_before
+    with store.connect() as db:assert db.execute('SELECT id,event,at FROM audit WHERE id<=? ORDER BY id',(prior_audit[-1][0],)).fetchall()==prior_audit
+    assert bundle(store.records(),[],{'mode':'imported','berry':'all'})['count']==0
+    assert context_links(store.records())==[]
+    with pytest.raises(ValueError):store.handoff(key)
+    with pytest.raises(ValueError):store.media(key,'photo-one')

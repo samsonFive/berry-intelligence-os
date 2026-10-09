@@ -184,3 +184,27 @@ def test_all_berries_default_preserves_shareable_scope_and_unique_exports(client
     assert exported['filters']['berry']=='all' and exported['count']==2
     assert len({r['id'] for r in exported['records']})==2
     assert 'All berries social observation briefing' in client.get('/social/briefing',params={'mode':'manual'}).text
+
+
+def test_explicit_import_deletion_holds_reader_briefing_export_and_replay(client):
+    row=deepcopy(FIXTURE['records'][0]);row.update(mode='imported',translation=None,native_id='synthetic-deletion-route',record_role='original',parent_native_id=None)
+    row['media']=[{'id':'synthetic-photo','parent_native_id':row['native_id'],'kind':'image',
+        'source_url':'https://example.org/synthetic/deletion-route.png','mime':'image/png','attribution':'Synthetic route test',
+        'state':'available','storage_permission':'reference_only','retention':'Synthetic test only'}]
+    headers={'Origin':'http://testserver'}
+    first=client.post('/api/social/import',json=[row],headers=headers);assert first.status_code==200
+    key=first.json()['ids'][0]
+    assert client.get('/api/social?mode=imported').json()['count']==1
+    assert client.get('/api/social/'+key+'/reader').status_code==200
+    deleted=deepcopy(row);deleted['media'][0]['state']='deleted'
+    invalid=deepcopy(row);invalid['source']='unknown'
+    assert client.post('/api/social/import',json=[deleted,invalid],headers=headers).status_code==422
+    assert client.get('/api/social?mode=imported').json()['count']==1
+    assert client.post('/api/social/import',json=[deleted],headers=headers).status_code==200
+    assert client.post('/api/social/import',json=[row],headers=headers).status_code==200
+    assert client.get('/api/social?mode=imported').json()['count']==0
+    assert client.get('/api/social/'+key+'/reader').status_code==410
+    assert client.post('/api/social/'+key+'/handoff',json={},headers=headers).status_code==422
+    assert client.get('/social/export?mode=imported').json()['count']==0
+    assert row['canonical_url'] not in client.get('/social/briefing?mode=imported').text
+    assert client.get('/api/social?mode=fixture').json()['count']>0
