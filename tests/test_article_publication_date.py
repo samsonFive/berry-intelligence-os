@@ -17,7 +17,7 @@ def test_cms_article_date_wins_over_latest_news_and_extractor_guess(monkeypatch)
     body = aa.fetch_article(URL)
     assert body.published_date == "2026-06-08"
     assert body.published_date_basis == body.as_dict()["published_date_basis"] == "publisher_display_date"
-    assert body.as_dict()["acquisition"]["version"] == "article-acquisition-v2"
+    assert body.as_dict()["acquisition"]["version"] == "article-acquisition-v3"
 
 
 @pytest.mark.parametrize("markup", [

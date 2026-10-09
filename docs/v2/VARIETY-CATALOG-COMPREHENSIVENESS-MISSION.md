@@ -1,5 +1,18 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+October 9 trial report coverage: [review](ARTICLE-PROSE-AND-TRIAL-IMAGE-REVIEW.md) recovers report prose
+mis-tagged as navigation, then retains twenty manually read image-table names
+as unreviewed identity leads. Ten current-page copies await separate source-text
+review; none is accepted or extraction-enabled. The trial publisher is not
+inferred to be the breeder. Portfolio audit: 348 sections / 1,084 occurrences /
+749 combined candidate keys; isolated preview 750 including its existing pending
+Italian Berry source. All 64 canonical varieties remain unchanged. 166 affected
+tests, 44 overlapping focused checks, validation, 2,771-file preservation,
+1,755-page static safety and desktop/375px native review pass. Parent #371 is
+all-green: 4,506 passed / 11 skipped / two warnings / 733.78s on c87d366.
+Current pushed-head CI is a separate gate. CAT-01/CAT-02/TD-116 and integrated
+release remain open. No merge/deployment or other-berry Landscape rollout.
+
 October 8 accepted original reading: [review](REVIEWED-ORIGINAL-READING-REVIEW.md)
 connects existing human-accepted article copies to selected private readers and
 variety-name discovery, with identity/URL/payload checks and no canonical writes.
@@ -9,7 +22,8 @@ validation, original-data preservation, 1,755-page static safety and fictional
 desktop/375px browser acceptance/rejection verified. Real audit stays 103 names /
 32 matches / 71 discoveries; 64 canonical varieties unchanged. Parent #370 is
 all-green: 4,487 tests, 11 skipped, two warnings, 750.46s on 69c0447.
-Current pushed-head CI remains a separate gate. CAT-01/CAT-02/TD-116, corpus,
+Draft #371 passes all four checks on c87d366: 4,506 passed / 11 skipped /
+two warnings / 733.78s. CAT-01/CAT-02/TD-116, corpus,
 portfolios, real recall, rights/photos, authoring and integrated release remain
 open. No merge, deployment or other-berry Landscape rollout.
 

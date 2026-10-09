@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "kind": "unreviewed_portfolio_name_observations",
+  "checked_on": "2026-10-09",
+  "method": "Manual visual enumeration of the original university Table 1 image, alongside the published report. Names only; no automatic identity, breeding, rights, source-fidelity or claim decisions.",
+  "sources": [
+    {
+      "id": "portfolio-arkansas-2024-blueberry-trial",
+      "title": "University of Arkansas — 2024 blueberry trial, original Table 1",
+      "url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/2024-blueberry-variety-trial.aspx",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "trial_report",
+      "review_state": "unreviewed",
+      "capture_status": "names_enumerated",
+      "checked_on": "2026-10-09",
+      "published_date": "2024-11-22",
+      "enumerated_scope": "All 20 names in Table 1: five Northern Highbush, four Southern Highbush and eleven Rabbiteye entries. The list is an image; prose extraction alone does not enumerate the entire trial.",
+      "limitations": "Historical Clarksville, Arkansas trial, not the university's breeding or licensing portfolio. Publisher association does not imply the university bred or owns these varieties. No harvest dates, performance claims, growing footprints, photo permissions, aliases or rights are approved. Does not replace the separate current university breeding listing or establish complete licensing/history.",
+      "accounting": {
+        "observed_items": 20,
+        "reported_items": 20,
+        "reported_scope": "The article states 20 varieties across three plant types; Table 1 lists 5 + 4 + 11 names.",
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_publication_and_table_image_visual_review",
+        "url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png",
+        "label": "Table 1 — bush types, varieties and harvest dates; only literal names enumerated"
+      },
+      "names": [
+        {
+          "candidate_name": "Bluecrop",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Northern Highbush column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Blueray",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Northern Highbush column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Blue Ribbon",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Northern Highbush column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Duke",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Northern Highbush column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Top Shelf",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Northern Highbush column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Legacy",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Southern Highbush column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "New Hanover",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Southern Highbush column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "O'Neal",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Southern Highbush column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Summit",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Southern Highbush column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Alapaha",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Rabbiteye column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Brightwell",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Rabbiteye column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Climax",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Rabbiteye column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Krewer",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Rabbiteye column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Ochlockonee",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Rabbiteye column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Premier",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Rabbiteye column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Tiftblue",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Rabbiteye column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Titan",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Rabbiteye column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Vernon",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Rabbiteye column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Overtime",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Rabbiteye column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        },
+        {
+          "candidate_name": "Powderblue",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named in the 2024 trial's Rabbiteye column; university is the report publisher, not an inferred breeder.",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/images/2024%20blueberry%20variety%20trial%20list%20table1.png"
+        }
+      ]
+    }
+  ]
+}
