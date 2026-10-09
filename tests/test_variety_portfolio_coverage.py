@@ -81,20 +81,51 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 1084
+    assert report["summary"]["names"] == 1129
     assert report["summary"]["registry_entries_checked"] == 60
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
         "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [14, 1, 0, 2]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 287, "berry-strawberry": 515, "berry-raspberry": 190, "berry-blackberry": 92}
+        "berry-blueberry": 293, "berry-strawberry": 526, "berry-raspberry": 199, "berry-blackberry": 111}
     assert "visible_candidates" not in report
     assert all("review_notes" not in str(r) for r in report["subjects"])
     abz = next(s for s in report["subjects"] if s["name"] == "ABZ Seeds")
     assert abz["starting_url"] == "https://www.abzseeds.com/high-tech-greenhouse"
     assert abz["starting_label"] == "Checked page ↗"
     assert any(s["id"] == "portfolio-abz-booklet" and s["capture_status"] == "unreadable" for s in report["sources"])
+
+
+def test_osu_historical_release_list_accounts_for_all_entries_without_inventing_roles():
+    sources = [row for row in load_portfolio_observations(Path(__file__).resolve().parents[1] / "data")
+               if row["id"].startswith("portfolio-osu-cooperative-historical-")]
+    rows, candidates = reconcile(sources)
+    assert {row["berry_ids"][0]: len(row["names"]) for row in rows} == {
+        "berry-blackberry": 19, "berry-strawberry": 11, "berry-raspberry": 9, "berry-blueberry": 6}
+    assert all(not row["accounting_view"]["issues"] for row in rows)
+    assert all(not row["company_ids"] and not row.get("published_date") for row in sources)
+    named = {(row["candidate_name"], row["berry_id"]): row for row in candidates}
+    for code, label, berry in [("APF-77", "Black Magic", "blackberry"),
+                              ("ORUS 2240-1", "Sweet Sunrise", "strawberry"),
+                              ("ORUS 2262-2", "Charm", "strawberry")]:
+        candidate = named[code, "berry-" + berry]
+        assert candidate["breeder_code"] == code and candidate["trade_name"] == label
+        assert (label, "berry-" + berry) not in named
+    assert named["Schwartz", "berry-strawberry"]["trade_name"] == "Puget Summer"
+    assert ("Puget Summer", "berry-strawberry") not in named
+    assert ("ORUS 2427-4", "berry-blackberry") in named
+    assert ("ORUS 1939-4", "berry-blackberry") in named
+    assert not {"Eclipse", "Columbia Sunrise"} & {name for name, berry in named}
+    assert "WSU" in named["Cascade Bounty", "berry-raspberry"]["portfolio_sources"][0]["portfolio_context"]
+    assert "University of Arkansas" in named["Prime-Jan", "berry-blackberry"]["portfolio_sources"][0]["portfolio_context"]
+    assert "USPP 22,358" in named["Onyx", "berry-blackberry"]["portfolio_sources"][0]["portfolio_context"]
+    for candidate in candidates:
+        assert candidate["status"] == "proposed" and not candidate["human_gated"]
+        assert not candidate["auto_confirmed"] and not candidate["aliases"]
+        assert not candidate["breeder_owner"] and not candidate["proposed_relationships"]
+        assert not candidate["deployment"] and not candidate["registration"]["official_registry_source"]
+        assert not candidate["registration"]["grant_date"]
 
 
 def test_source_plan_prefers_readable_then_partial_then_site_without_erasing_failed_capture(tmp_path):

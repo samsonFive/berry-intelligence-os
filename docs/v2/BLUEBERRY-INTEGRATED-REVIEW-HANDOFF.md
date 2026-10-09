@@ -118,6 +118,11 @@ All links below point to the actual native review or downloads, not mock data.
 
 ## Verification
 
+Draft #374 is now all-green on `3a8261769768588009fa507d113d197c644b5e43`: all four
+GitHub checks pass; Python reports **4,524 passed / 11 skipped / 2 warnings /
+627.09s**. The watcher completed successfully and its terminal result was consumed.
+The separate public-program catalog draft adds no Landscape rollout approval.
+
 - Initial Landscape/guide/shell/retained-workspace suite: **120 passed**, one
   existing warning, 118.04s. Final changed Landscape/guide/static suite, including
   the production JavaScript reload regression: **66 passed**, one existing
