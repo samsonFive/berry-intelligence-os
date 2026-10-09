@@ -20,4 +20,12 @@ Private receipts bind original and displayed-translation hashes, observed transl
 
 ## Continuing boundary
 
+## October 8 follow-up: Spanish and usability acceptance
+
+The retained private `social-spanish-translation-review.md` records one real Spanish trade-caption excerpt compared with visibly returned Google Translate English. Company actors, organic blueberries, China/Europe destination scope and February–April commercial timing were preserved. A literal strategic phrase was awkward without materially changing meaning. This supersedes the earlier Spanish-zero statement for practical translator comparison only: four non-English languages now each have one assistant comparison. The Spanish check was an excerpt, not a complete-caption test or an end-to-end pipeline translation score. Hash-bound boundaries and receipts remain private; no new source acquisition or preview import occurred.
+
+The user subsequently accepted the current workspace and asked to continue. The usability gate is accepted; no repeated layout approval is required. This does not create per-case gold ratings, approve paid collection, qualify extraction, or authorize merge/deployment. The next work is measured quality and coverage, with corporate and consumer evidence kept separate.
+
+Fresh offline evaluation reproduced blueberry 202/207 checks across 31 synthetic cases and all-berry 246/246 across 33 synthetic cases. The five blueberry differences remain flavor-negation cases (expected negative, actual uncertain), one per language. No benchmark labels or implementation polarity were changed to improve the score. Independent live accuracy remains unmeasured.
+
 Post relevance and role-label acceptance are recorded; they no longer require repeating the same approval request. Online translator comparisons are an acceptable practical check for this review. Escalate material disagreements, ambiguous berry/cultivar names, negation or attribution before claiming those translations are checked. No new social acquisition, paid activation, unattended monitoring, merge or deployment was performed. Source rights, reviewed watch configuration and downstream assembly/retraction remain open work.
