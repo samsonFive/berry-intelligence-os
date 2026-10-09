@@ -61,3 +61,11 @@ current rights, historical portfolios and human catalog decisions remain open.
 Parent draft #361 passes all four checks, including 4,378 tests. This addition
 requires its own exact-head full checks. No merge, deployment or other-berry
 Landscape rollout; the blueberry review checkpoint remains in force.
+
+The first #362 full suite passed 4,383 tests and failed one existing exact-shape
+assertion for historical identity review. That assertion now includes the new
+empty presentation-only warning list; human fields and source/code separation
+are still asserted exactly. No production behavior was weakened to pass it.
+38 historical-identity, APG and portfolio tests pass after the correction
+(47.40 seconds, one existing warning). Fresh full checks on the corrected head
+remain required.
