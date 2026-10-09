@@ -36,18 +36,18 @@ Status: **partial** via the existing Apify Free account. [Official Instagram Scr
 - **Verification:** 2026-10-09 browser inspection of official overview/search; visible updates2026-05-07 and2026-04-17. Documentation verified; API access not tested.
 - **Official documentation:** [Source 1](https://developers.facebook.com/documentation/pages-api), [Source 2](https://developers.facebook.com/documentation/pages-api/search-pages)
 
-## threads — stale
+## threads — access-pending
 
 - **Implemented:** False
-- **Methods:** Proposed Threads API keyword search; authorized exports/manual
-- **Auth:** Meta app, token and current approved scope required
-- **Capabilities:** Keyword search/replies/media access not established in this environment
-- **History:** No historical completeness claimed
-- **Quotas costs:** Quota/pricing not verified
+- **Methods:** Official keyword/topic-tag search and scoped user-reply retrieval; authorized export/manual remain separate
+- **Auth:** Threads access token with threads_basic and threads_keyword_search. Without approved keyword-search permission, only authenticated-user posts are searchable; approved public search is required for industry monitoring.
+- **Capabilities:** Public keyword/tag search supports TOP/RECENT, text/image/video filters and exact author_username. Owner field omitted. Paged user replies document root_post/replied_to, media_url and carousel children; complete public-thread retrieval/media access not tested.
+- **History:** Search supports since/until with since floor1688540400, default25/max100 results per request; date parameters do not establish complete historical recall.
+- **Quotas costs:** Documented user-wide2200 queries per rolling24h across apps; repeat keywords count, zero-result queries do not. Sensitive/offensive queries may return empty arrays. No monetary price inferred.
 - **Retention deletion:** Current platform terms/deletion obligations not verified
-- **Blocker:** No credentials; primary docs HTTP 429
-- **Verification:** attempted current primary docs; blocked HTTP 429
-- **Official documentation:** [Source 1](https://developers.facebook.com/docs/threads/), [Source 2](https://developers.facebook.com/docs/threads/keyword-search/)
+- **Blocker:** No eligible app/token or approved public-keyword-search permission provisioned. Browser documentation now readable; no API calls or access application submitted.
+- **Verification:** 2026-10-09 browser inspection of official keyword/reply pages; visible updates2026-01-21/2026-02-02. Documented capabilities only; live native access remains untested.
+- **Official documentation:** [Source 1](https://developers.facebook.com/documentation/threads/keyword-search), [Source 2](https://developers.facebook.com/documentation/threads/retrieve-and-manage-replies/retrieve-replies)
 
 ## tiktok — access-pending
 

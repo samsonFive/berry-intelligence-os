@@ -39,20 +39,20 @@
     },
     {
       "source": "threads",
-      "status": "stale",
+      "status": "access-pending",
       "implemented": false,
-      "methods": "Proposed Threads API keyword search; authorized exports/manual",
-      "auth": "Meta app, token and current approved scope required",
-      "capabilities": "Keyword search/replies/media access not established in this environment",
-      "history": "No historical completeness claimed",
-      "quotas_costs": "Quota/pricing not verified",
+      "methods": "Official keyword/topic-tag search and scoped user-reply retrieval; authorized export/manual remain separate",
+      "auth": "Threads access token with threads_basic and threads_keyword_search. Without approved keyword-search permission, only authenticated-user posts are searchable; approved public search is required for industry monitoring.",
+      "capabilities": "Public keyword/tag search supports TOP/RECENT, text/image/video filters and exact author_username. Owner field omitted. Paged user replies document root_post/replied_to, media_url and carousel children; complete public-thread retrieval/media access not tested.",
+      "history": "Search supports since/until with since floor1688540400, default25/max100 results per request; date parameters do not establish complete historical recall.",
+      "quotas_costs": "Documented user-wide2200 queries per rolling24h across apps; repeat keywords count, zero-result queries do not. Sensitive/offensive queries may return empty arrays. No monetary price inferred.",
       "retention_deletion": "Current platform terms/deletion obligations not verified",
-      "blocker": "No credentials; primary docs HTTP 429",
+      "blocker": "No eligible app/token or approved public-keyword-search permission provisioned. Browser documentation now readable; no API calls or access application submitted.",
       "official_urls": [
-        "https://developers.facebook.com/docs/threads/",
-        "https://developers.facebook.com/docs/threads/keyword-search/"
+        "https://developers.facebook.com/documentation/threads/keyword-search",
+        "https://developers.facebook.com/documentation/threads/retrieve-and-manage-replies/retrieve-replies"
       ],
-      "verification": "attempted current primary docs; blocked HTTP 429"
+      "verification": "2026-10-09 browser inspection of official keyword/reply pages; visible updates2026-01-21/2026-02-02. Documented capabilities only; live native access remains untested."
     },
     {
       "source": "tiktok",
