@@ -16,6 +16,12 @@ recall and per-entry company links remain partial. Historical rights references
 are not current official-rights checks. This intake does not promote any
 evidence-class maturity cell below.
 
+The [entry-level company context review](ENTRY-COMPANY-SOURCE-CONTEXT-REVIEW.md)
+adds 156 unreviewed organization associations across 148 register entries and 18
+existing organizations. 240 entries still have no assignment. Company filters
+use the specific entry rather than every program in the source. These mentions
+do not approve breeder/owner roles or change canonical counts.
+
 The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
 shows actual catalog gaps: 53/64 without photo references, 36/64 without
 patent/PVR references, 33/64 without cited traits and 14/64 without company

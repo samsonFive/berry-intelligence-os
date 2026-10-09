@@ -75,6 +75,8 @@
           {% if source.grant_date %} · Granted <time datetime="{{ source.grant_date }}">{{ source.grant_date }}</time>{% endif %}
         </small>{% endif %}
         {% if source.portfolio_context %}<br>{{ source.portfolio_context }}{% endif %}<br><small>{% if source.published_date %}Published <time datetime="{{ source.published_date }}">{{ source.published_date }}</time>. {% endif %}Checked <time datetime="{{ source.checked_on }}">{{ source.checked_on }}</time>.</small>
+        {% if source.source_company_ids and source.companies %}<br><small>Organizations named in this entry: {% for company in source.companies %}<a href="{{ company.href }}">{{ company.name }}</a>{{ ', ' if not loop.last else '' }}{% endfor %}. Company roles still need review.</small>{% endif %}
+        {% if source.source_company_context %}<br><small>{{ source.source_company_context }}</small>{% endif %}
       </p>{% endfor %}<small>Name observations awaiting review; no company role approved.{% if row.portfolio_sources|selectattr('source_type', 'equalto', 'plant_patent')|list %} Filing dates describe the source document; current rights still need review.{% endif %}</small></dd>{% endif %}
     <dt>Registration</dt>
     <dd>

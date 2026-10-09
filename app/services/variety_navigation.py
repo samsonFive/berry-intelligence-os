@@ -82,6 +82,9 @@ def candidate_queue(candidates, params):
         knowledge = row.get("knowledge") or {}
         portfolios = row.get("portfolio_sources") or []
         companies = (knowledge.get("company_associations") or []) + (knowledge.get("source_companies") or []) + [c for source in portfolios for c in source.get("companies", [])]
+        scoped_portfolios = [source for source in portfolios if source["id"] == filters["source"]]
+        if scoped_portfolios:
+            companies = [c for source in scoped_portfolios for c in source.get("companies", [])]
         if filters["source"] and filters["source"] not in ((knowledge.get("evidence_ids") or []) + (row.get("corpus_evidence_ids") or []) + [source["id"] for source in portfolios]) and filters["source"] != row.get("source_id"):
             continue
         if row.get("status") == "rejected" and filters["status"] != "rejected":

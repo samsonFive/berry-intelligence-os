@@ -10,6 +10,12 @@ current rights, independent human recall or approved catalog growth. See the
 The 388 checked heading observations add 321 candidate keys, while body/parent
 recall, per-entry company associations and all human catalog decisions remain open.
 
+The mixed-program source association blocker is addressed by [entry-level
+company context](ENTRY-COMPANY-SOURCE-CONTEXT-REVIEW.md), shared by candidate
+filters, company tables and coverage counts. 148 entries have 156 source-company
+associations; 240 remain unassigned. Source context never approves company roles.
+TD-116 remains open for complete portfolios, profiles and independent recall.
+
 The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
 shows actual catalog gaps: 53/64 without photo references, 36/64 without
 patent/PVR references, 33/64 without cited traits and 14/64 without company
