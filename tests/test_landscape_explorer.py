@@ -294,6 +294,36 @@ def test_ui_api_export_match_and_blueberry_rollout_gate(client_world):
     assert client_world.get("/landscapes/explorer?edge=missing").status_code == 422
 
 
+def test_portrait_role_summary_does_not_transfer_program_roles_to_owner(client_world, world):
+    import re
+
+    world["relationships"][4].update(status="disputed", notes="confidence=low; Inferred only from a reported portfolio; no direct statement retrieved.")
+    before = deepcopy(world)
+    page = client_world.get("/landscapes/explorer")
+    assert page.status_code == 200
+    table = page.text.split('class="lx-portfolio-table"', 1)[1].split("</table>", 1)[0]
+    owner = re.search(r'<tr data-node="company-a">(.*?)</tr>', table, re.S).group(1)
+    licensee = re.search(r'<tr data-node="company-b">(.*?)</tr>', table, re.S).group(1)
+    assert "Owner / rights holder · Program A" in owner
+    assert "Breeder / developer" not in owner
+    assert 'aria-label="Alpha owns Program A"' in owner
+    assert "Licensee · Disputed" in licensee
+    assert "Limited support" in licensee
+    assert "Azure" in licensee
+    assert world == before
+
+
+def test_controller_restores_explicit_focus_and_independent_evidence():
+    import shutil
+    import subprocess
+
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node is required to execute the production browser controller")
+    result = subprocess.run([node, str(Path(__file__).with_name("landscape_url_restore_checks.js"))], capture_output=True, text=True, timeout=20)
+    assert result.returncode == 0, result.stdout + result.stderr
+
+
 @pytest.mark.parametrize("path", ["/landscapes/explorer", "/api/landscapes/explorer", "/landscapes/explorer/briefing", "/landscapes/explorer/export/html", "/landscapes/explorer/export/svg", "/landscapes/explorer/export/csv"])
 def test_all_formats_are_analyst_only(client_world, monkeypatch, path):
     monkeypatch.setattr(main, "AUTHORING_MODE", False)

@@ -1,5 +1,9 @@
 # Blueberry Landscape Explorer — revised review packet
 
+For the October 9 integrated candidate, use [the current handoff](BLUEBERRY-INTEGRATED-REVIEW-HANDOFF.md).
+The ports, catalog counts, screenshots and checks below describe the earlier
+#313 checkpoint and remain historical evidence, not the latest release state.
+
 This is the blueberry checkpoint in [draft PR #313](https://github.com/samsonFive/berry-intelligence-os/pull/313). No merge, deployment or other-berry rollout. The [mission checklist](LANDSCAPE-EXPLORER-MISSION.md) and [catalog coverage mission](VARIETY-CATALOG-COMPREHENSIVENESS-MISSION.md) preserve remaining work.
 
 ## Open the candidate

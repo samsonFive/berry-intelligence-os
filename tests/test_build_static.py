@@ -283,9 +283,9 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert "Build a brief →" not in guide_html
     assert "Brief pack" in guide_html and "live workspace" in guide_html
     assert guide_html.count('class="guide-workspace guide-accent-') == 11
-    assert guide_html.count('class="guide-availability"') == 11
+    assert guide_html.count('class="guide-availability"') == 12
     assert "Public view available" in guide_html
-    for output in ("Meeting Prep", "Brief pack", "Sourced report", "Market snapshot", "Competitor news packet"):
+    for output in ("Meeting Prep", "Brief pack", "Sourced report", "Market snapshot", "Competitor news packet", "Landscape briefing"):
         assert f"<h3>{output}</h3>" in guide_html
 
     landscape_html = (
@@ -334,6 +334,9 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert "Choose the output you need" in guide_html
     assert '/reports/new' not in guide_html
     assert '/news-packets' not in guide_html
+    assert '/landscapes/explorer' not in guide_html
+    assert '/source-fidelity' not in guide_html
+    assert "Accepting text does not approve identities or individual statements" in guide_html
     assert 'href="/statements"' not in guide_html
     assert 'href="../signals/index.html"' in guide_html
     assert '/war-room' not in guide_html

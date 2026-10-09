@@ -1,5 +1,12 @@
 # Landscape Explorer — blueberry review checkpoint
 
+October 9 integrated checkpoint: [current review handoff](BLUEBERRY-INTEGRATED-REVIEW-HANDOFF.md)
+supersedes the earlier preview/artifact links for the stacked candidate. It includes
+the denser portfolio roles, corrected focus/evidence URL restoration, current
+visual workflow/reporting guide and verified native briefing downloads. Parent
+#373 is all-green; the new draft's exact-head checks remain a separate gate.
+Blueberry feedback, other-berry rollout and merge/deploy gates remain open.
+
 **Mission remains open. Milestone A is the current review candidate; Milestone B is explicitly gated on user feedback. Do not enable other berries, merge or deploy at this checkpoint.** The full approved scope is retained verbatim in [the executable brief](LANDSCAPE-EXPLORER-BRIEF.md). This document is the durable resume checklist, not a replacement or narrowing of that brief.
 
 ## Identity and existing architecture
