@@ -24,7 +24,15 @@ def audit(data_dir, *, inbox_dir=None):
     article_sources, article_counts = [], None
     if inbox_dir is not None:
         from app.services.variety_universe.article_sources import available_article_sources
-        article_sources, article_counts = available_article_sources(evidence, inbox_dir)
+        pending = []
+        for path in sorted((Path(inbox_dir) / "evidence").glob("*.json")):
+            try:
+                row = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                continue
+            if isinstance(row, dict) and row.get("id") == path.stem:
+                pending.append(row)
+        article_sources, article_counts = available_article_sources(evidence, inbox_dir, pending=pending)
     report = build_discovered_candidates(varieties=varieties, entities=entities, published_evidence=evidence,
         facts=facts, source_text_records=article_sources)
     source_rows = []
@@ -39,7 +47,7 @@ def audit(data_dir, *, inbox_dir=None):
                 **({"named_in_article": any(ref["evidence_id"] == source["id"]
                     for ref in row.get("article_text_sources") or [])} if inbox_dir is not None else {})} for row in mentions],
                 **({"publication_reviewed": source.get("status") == "published"} if inbox_dir is not None else {})})
-    return {"scope": ("Private: published summaries and known captured article text; before private identity decisions; not internet completeness"
+    return {"scope": ("Private: published summaries, known captured articles and active publication draft text; before private identity decisions; not internet completeness"
                       if inbox_dir is not None else "Published stored sources only; exact identity strings, explicit declarations; not internet completeness"),
             **({"article_sources": article_counts} if article_counts is not None else {}),
             "catalog_count": len(varieties), "reviewed_sources_scanned": len(evidence), "source_named_identities": report["mention_count"],

@@ -14,7 +14,18 @@ router = APIRouter()
 def world():
     from app import main
     context = main._feed_first_world()
-    records = digest.source_records(main.published_evidence(), main.INBOX_DIR)
+    records = digest.source_records(main.published_evidence(), main.INBOX_DIR, include_private=main.AUTHORING_MODE)
+    if main.AUTHORING_MODE:
+        # Resolve only personally retained draft IDs here. Opening an article
+        # does not add the entire publication backlog to the user's Digest.
+        reading = analyst_queue.load_state(main.INBOX_DIR)
+        for item_id in set(context["state"].get("decisions", {})) | set(reading.get("reading", {})):
+            if digest.inclusion({"id": item_id}, context["state"], reading):
+                record = personal_source_record(item_id, records=records)
+                if record is not None:
+                    records[item_id] = record
+                else:
+                    records.pop(item_id, None)
     entities = {str(row["id"]): row for row in context["entities"] if row.get("id")}
     return main, context, records, entities
 
@@ -73,11 +84,35 @@ async def digest_lists(request: Request):
     return RedirectResponse(return_path(str(form.get("return_to") or "")) + "#subscriptions", status_code=303)
 
 
+def personal_source_record(item_id: str, *, records=None):
+    """Selected pending source lookup; never load all draft bodies in a Reader."""
+    from app import main
+    from app.services.variety_universe.article_sources import active_publication_record, inactive_publication_record
+    if not feed_first.SAFE_ID_RE.fullmatch(item_id):
+        return None
+    if records is None:
+        records = digest.source_records(main.published_evidence(), main.INBOX_DIR,
+                                        include_private=main.AUTHORING_MODE)
+    record = records.get(item_id)
+    if record is not None and record.get("status") == "published":
+        return record  # Never replace canonical prose with a pending version.
+    if main.AUTHORING_MODE:
+        original = main.get_draft(item_id)
+        if original and original.get("id") == item_id and inactive_publication_record(original):
+            return None
+        draft = active_publication_record(original)
+        if (draft is not None and draft["id"] == item_id
+                and (record is None or draft.get("source_url") == record.get("source_url"))):
+            return draft
+    return record
+
+
 def known_story(item_id: str, records, context, reading):
     if not feed_first.SAFE_ID_RE.fullmatch(item_id):
         raise HTTPException(400, "Invalid story")
-    if item_id in records:
-        return records[item_id]
+    record = personal_source_record(item_id, records=records)
+    if record is not None:
+        return record
     if feed_first.decision_for(item_id, context["state"])["saved"] or item_id in reading.get("reading", {}):
         return {"id": item_id, "missing_source": True}
     raise HTTPException(404, "Story not found")

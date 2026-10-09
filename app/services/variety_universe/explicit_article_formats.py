@@ -50,6 +50,27 @@ def explicit_article_formats(text, *, name_token):
     for match in reverse.finditer(text):
         add(match, "quoted_article_variety_list", match.group("crop") or "")
 
+    # Original release articles can name a single cultivar in a sentence,
+    # rather than a quoted portfolio list. Keep the assertion bounded to
+    # variety/cultivar naming wording and one crop in this paragraph. Unicode
+    # hyphens remain in the source name; no code/brand alias is inferred.
+    single_token = name_token.replace(r"\-", r"\-\u2010\u2011")
+    named_release = re.compile(
+        rf"(?i:\b(?:name\s+of\s+(?:(?:the|our|this)\s+)?(?:new\s+)?"
+        rf"(?:{_CROP}\s+)?(?:variety|cultivar)\s*[:;,]\s*(?:it\s+)?"
+        rf"(?:will\s+be\s+|is\s+)?|(?:(?:the|our|this)\s+)?(?:new\s+)?"
+        rf"(?:{_CROP})\s+(?:variety|cultivar)\s+(?:is\s+|will\s+be\s+))"
+        rf"(?:called|named)\s+)(?P<name>{single_token})")
+    for match in named_release.finditer(text):
+        prefix = re.split(r"[.!?\n]", text[:match.start()])[-1]
+        if re.search(r"\b(?:no|not|never|without|could|might|may|perhaps)\b", prefix, re.IGNORECASE):
+            continue
+        if len(crop_ids) != 1:
+            excluded.append({"name": match.group("name"), "reason": "berry_not_established"})
+            continue
+        leads.append({"name": match.group("name"), "berry_id": crop_ids[0],
+                      "kind": "article_named_release", "context": match.group(0).strip()[:240]})
+
     # Licensing declarations require an actual varieties colon, followed by a
     # quoted name list. Only another quoted list after a bounded 'from ...,'
     # attribution is eligible; brands/traits quoted elsewhere are not names.
