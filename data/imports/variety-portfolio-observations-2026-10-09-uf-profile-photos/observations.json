@@ -1,0 +1,437 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-uf-profile-photo-colossus",
+      "title": "Colossus \u2014 source-labeled cultivar photograph",
+      "url": "https://www.blueberrybreeding.com/colossus",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-09",
+      "source_type": "university_cultivar_profile",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal focal cultivar and the photograph shown beside its heading. Not a complete portfolio, trait extraction or current rights search.",
+      "limitations": "Native browser visually checked the source photograph and exact source-provided 199px asset URL. No full-resolution URL invented. Photographer and reusable image licence not established; held by default. Other named cultivars in comparisons/flowering context are outside this focal-photo scope. Source text authenticity, identity, traits, regions and rights require separate review.",
+      "names": [
+        {
+          "candidate_name": "Colossus",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "FL11-35",
+          "product_url": "https://www.blueberrybreeding.com/colossus",
+          "portfolio_context": "Focal name/code printed in the source profile; source photo association remains unreviewed. No alias, breeder role, growing footprint or current rights decision.",
+          "photos": [
+            {
+              "image_url": "https://static.wixstatic.com/media/b1af78_3d871477f6e64f0bbd300154e3c56474~mv2_d_1868_2353_s_2.jpg/v1/crop/x_0,y_329,w_1868,h_1694/fill/w_199,h_179,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/11-35%20fruit%20raceme%20fruit%20on%20leafless%20ste.jpg",
+              "source_url": "https://www.blueberrybreeding.com/colossus",
+              "named_variety": "Colossus",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-09",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "UF Blueberry Breeding Program \u00b7 Colossus profile \u00b7 Photographer not credited",
+              "caption": "Colossus fruit cluster on a stem, shown beside the cultivar heading; the source image label refers to selection 11-35.",
+              "reuse_note": "Image-specific reuse permission is not established. Nursery/cultivar licensing information does not establish photo reuse permission."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_source_page_image_and_heading_visual_review",
+        "source_image_alt": "11-35 fruit raceme fruit on leafless ste",
+        "source_image_width": 199,
+        "source_image_height": 179,
+        "visually_reviewed": true,
+        "asset_url_modified": false,
+        "image_downloaded": false,
+        "whole_page_name_enumeration": false
+      }
+    },
+    {
+      "id": "portfolio-uf-profile-photo-emerald",
+      "title": "Emerald \u2014 source-labeled cultivar photograph",
+      "url": "https://www.blueberrybreeding.com/emerald",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-09",
+      "source_type": "university_cultivar_profile",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal focal cultivar and the photograph shown beside its heading. Not a complete portfolio, trait extraction or current rights search.",
+      "limitations": "Native browser visually checked the source photograph and exact source-provided 199px asset URL. No full-resolution URL invented. Photographer and reusable image licence not established; held by default. Other named cultivars in comparisons/flowering context are outside this focal-photo scope. Source text authenticity, identity, traits, regions and rights require separate review.",
+      "names": [
+        {
+          "candidate_name": "Emerald",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "FL 95-209a",
+          "product_url": "https://www.blueberrybreeding.com/emerald",
+          "portfolio_context": "Focal name/code printed in the source profile; source photo association remains unreviewed. No alias, breeder role, growing footprint or current rights decision.",
+          "photos": [
+            {
+              "image_url": "https://static.wixstatic.com/media/b1af78_3ca351aa0bc14515ab4842363d0c2145~mv2_d_2624_3936_s_4_2.jpg/v1/fill/w_199,h_179,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/b1af78_3ca351aa0bc14515ab4842363d0c2145~mv2_d_2624_3936_s_4_2.jpg",
+              "source_url": "https://www.blueberrybreeding.com/emerald",
+              "named_variety": "Emerald",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-09",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "UF Blueberry Breeding Program \u00b7 Emerald profile \u00b7 Photographer not credited",
+              "caption": "Emerald fruit cluster on a leafy branch, shown beside the cultivar heading.",
+              "reuse_note": "Image-specific reuse permission is not established. Nursery/cultivar licensing information does not establish photo reuse permission."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_source_page_image_and_heading_visual_review",
+        "source_image_alt": "",
+        "source_image_width": 199,
+        "source_image_height": 179,
+        "visually_reviewed": true,
+        "asset_url_modified": false,
+        "image_downloaded": false,
+        "whole_page_name_enumeration": false
+      }
+    },
+    {
+      "id": "portfolio-uf-profile-photo-farthing",
+      "title": "Farthing \u2014 source-labeled cultivar photograph",
+      "url": "https://www.blueberrybreeding.com/farthing",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-09",
+      "source_type": "university_cultivar_profile",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal focal cultivar and the photograph shown beside its heading. Not a complete portfolio, trait extraction or current rights search.",
+      "limitations": "Native browser visually checked the source photograph and exact source-provided 199px asset URL. No full-resolution URL invented. Photographer and reusable image licence not established; held by default. Other named cultivars in comparisons/flowering context are outside this focal-photo scope. Source text authenticity, identity, traits, regions and rights require separate review.",
+      "names": [
+        {
+          "candidate_name": "Farthing",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "FL00-75",
+          "product_url": "https://www.blueberrybreeding.com/farthing",
+          "portfolio_context": "Focal name/code printed in the source profile; source photo association remains unreviewed. No alias, breeder role, growing footprint or current rights decision.",
+          "photos": [
+            {
+              "image_url": "https://static.wixstatic.com/media/b1af78_9bd3b77f98124b66ae0d08e70e81ad4b~mv2_d_2624_3936_s_4_2.jpg/v1/fill/w_199,h_180,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/b1af78_9bd3b77f98124b66ae0d08e70e81ad4b~mv2_d_2624_3936_s_4_2.jpg",
+              "source_url": "https://www.blueberrybreeding.com/farthing",
+              "named_variety": "Farthing",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-09",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "UF Blueberry Breeding Program \u00b7 Farthing profile \u00b7 Photographer not credited",
+              "caption": "Farthing fruit cluster on a leafy branch, shown beside the cultivar heading.",
+              "reuse_note": "Image-specific reuse permission is not established. Nursery/cultivar licensing information does not establish photo reuse permission."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_source_page_image_and_heading_visual_review",
+        "source_image_alt": "",
+        "source_image_width": 199,
+        "source_image_height": 180,
+        "visually_reviewed": true,
+        "asset_url_modified": false,
+        "image_downloaded": false,
+        "whole_page_name_enumeration": false
+      }
+    },
+    {
+      "id": "portfolio-uf-profile-photo-jewel",
+      "title": "Jewel \u2014 source-labeled cultivar photograph",
+      "url": "https://www.blueberrybreeding.com/jewel",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-09",
+      "source_type": "university_cultivar_profile",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal focal cultivar and the photograph shown beside its heading. Not a complete portfolio, trait extraction or current rights search.",
+      "limitations": "Native browser visually checked the source photograph and exact source-provided 199px asset URL. No full-resolution URL invented. Photographer and reusable image licence not established; held by default. Other named cultivars in comparisons/flowering context are outside this focal-photo scope. Source text authenticity, identity, traits, regions and rights require separate review.",
+      "names": [
+        {
+          "candidate_name": "Jewel",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "FL92-176",
+          "product_url": "https://www.blueberrybreeding.com/jewel",
+          "portfolio_context": "Focal name/code printed in the source profile; source photo association remains unreviewed. No alias, breeder role, growing footprint or current rights decision.",
+          "photos": [
+            {
+              "image_url": "https://static.wixstatic.com/media/b1af78_2bd27be9dcf440c9b6a6654a0aae06e6~mv2_d_2624_3936_s_4_2.jpg/v1/fill/w_199,h_180,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/b1af78_2bd27be9dcf440c9b6a6654a0aae06e6~mv2_d_2624_3936_s_4_2.jpg",
+              "source_url": "https://www.blueberrybreeding.com/jewel",
+              "named_variety": "Jewel",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-09",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "UF Blueberry Breeding Program \u00b7 Jewel profile \u00b7 Photographer not credited",
+              "caption": "Jewel fruit at different ripening stages on a branch, shown beside the cultivar heading.",
+              "reuse_note": "Image-specific reuse permission is not established. Nursery/cultivar licensing information does not establish photo reuse permission."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_source_page_image_and_heading_visual_review",
+        "source_image_alt": "",
+        "source_image_width": 199,
+        "source_image_height": 180,
+        "visually_reviewed": true,
+        "asset_url_modified": false,
+        "image_downloaded": false,
+        "whole_page_name_enumeration": false
+      }
+    },
+    {
+      "id": "portfolio-uf-profile-photo-meadowlark",
+      "title": "Meadowlark \u2014 source-labeled cultivar photograph",
+      "url": "https://www.blueberrybreeding.com/meadowlark-fl01-173",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-09",
+      "source_type": "university_cultivar_profile",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal focal cultivar and the photograph shown beside its heading. Not a complete portfolio, trait extraction or current rights search.",
+      "limitations": "Native browser visually checked the source photograph and exact source-provided 199px asset URL. No full-resolution URL invented. Photographer and reusable image licence not established; held by default. Other named cultivars in comparisons/flowering context are outside this focal-photo scope. Source text authenticity, identity, traits, regions and rights require separate review.",
+      "names": [
+        {
+          "candidate_name": "Meadowlark",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "FL01-173",
+          "product_url": "https://www.blueberrybreeding.com/meadowlark-fl01-173",
+          "portfolio_context": "Focal name/code printed in the source profile; source photo association remains unreviewed. No alias, breeder role, growing footprint or current rights decision.",
+          "photos": [
+            {
+              "image_url": "https://static.wixstatic.com/media/b1af78_5e372b0e839a42d49f56d7a773685b09~mv2.jpg/v1/fill/w_199,h_179,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/b1af78_5e372b0e839a42d49f56d7a773685b09~mv2.jpg",
+              "source_url": "https://www.blueberrybreeding.com/meadowlark-fl01-173",
+              "named_variety": "Meadowlark",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-09",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "UF Blueberry Breeding Program \u00b7 Meadowlark profile \u00b7 Photographer not credited",
+              "caption": "Meadowlark fruit cluster on a branch, shown beside the cultivar heading.",
+              "reuse_note": "Image-specific reuse permission is not established. Nursery/cultivar licensing information does not establish photo reuse permission."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_source_page_image_and_heading_visual_review",
+        "source_image_alt": "",
+        "source_image_width": 199,
+        "source_image_height": 179,
+        "visually_reviewed": true,
+        "asset_url_modified": false,
+        "image_downloaded": false,
+        "whole_page_name_enumeration": false
+      }
+    },
+    {
+      "id": "portfolio-uf-profile-photo-optimus",
+      "title": "Optimus \u2014 source-labeled cultivar photograph",
+      "url": "https://www.blueberrybreeding.com/optimus",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-09",
+      "source_type": "university_cultivar_profile",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal focal cultivar and the photograph shown beside its heading. Not a complete portfolio, trait extraction or current rights search.",
+      "limitations": "Native browser visually checked the source photograph and exact source-provided 199px asset URL. No full-resolution URL invented. Photographer and reusable image licence not established; held by default. Other named cultivars in comparisons/flowering context are outside this focal-photo scope. Source text authenticity, identity, traits, regions and rights require separate review.",
+      "names": [
+        {
+          "candidate_name": "Optimus",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "FL08-262",
+          "product_url": "https://www.blueberrybreeding.com/optimus",
+          "portfolio_context": "Focal name/code printed in the source profile; source photo association remains unreviewed. No alias, breeder role, growing footprint or current rights decision.",
+          "photos": [
+            {
+              "image_url": "https://static.wixstatic.com/media/b1af78_f910c2b379bb4294bd32e7fb802ada5d~mv2.png/v1/crop/x_7,y_0,w_533,h_483/fill/w_199,h_179,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/b1af78_f910c2b379bb4294bd32e7fb802ada5d~mv2.png",
+              "source_url": "https://www.blueberrybreeding.com/optimus",
+              "named_variety": "Optimus",
+              "berry_id": "berry-blueberry",
+              "kind": "plant",
+              "checked_on": "2026-10-09",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "UF Blueberry Breeding Program \u00b7 Optimus profile \u00b7 Photographer not credited",
+              "caption": "Optimus plant carrying fruit, shown beside the cultivar heading.",
+              "reuse_note": "Image-specific reuse permission is not established. Nursery/cultivar licensing information does not establish photo reuse permission."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_source_page_image_and_heading_visual_review",
+        "source_image_alt": "",
+        "source_image_width": 199,
+        "source_image_height": 179,
+        "visually_reviewed": true,
+        "asset_url_modified": false,
+        "image_downloaded": false,
+        "whole_page_name_enumeration": false
+      }
+    },
+    {
+      "id": "portfolio-uf-profile-photo-patrecia",
+      "title": "Patrecia \u2014 source-labeled cultivar photograph",
+      "url": "https://www.blueberrybreeding.com/patrecia",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-09",
+      "source_type": "university_cultivar_profile",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal focal cultivar and the photograph shown beside its heading. Not a complete portfolio, trait extraction or current rights search.",
+      "limitations": "Native browser visually checked the source photograph and exact source-provided 199px asset URL. No full-resolution URL invented. Photographer and reusable image licence not established; held by default. Other named cultivars in comparisons/flowering context are outside this focal-photo scope. Source text authenticity, identity, traits, regions and rights require separate review.",
+      "names": [
+        {
+          "candidate_name": "Patrecia",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "UF52-20",
+          "product_url": "https://www.blueberrybreeding.com/patrecia",
+          "portfolio_context": "Focal name/code printed in the source profile; source photo association remains unreviewed. No alias, breeder role, growing footprint or current rights decision.",
+          "photos": [
+            {
+              "image_url": "https://static.wixstatic.com/media/b1af78_0bf6a71a3a924ed1847655f4afed20ed~mv2.jpg/v1/fill/w_199,h_179,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/b1af78_0bf6a71a3a924ed1847655f4afed20ed~mv2.jpg",
+              "source_url": "https://www.blueberrybreeding.com/patrecia",
+              "named_variety": "Patrecia",
+              "berry_id": "berry-blueberry",
+              "kind": "plant",
+              "checked_on": "2026-10-09",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "UF Blueberry Breeding Program \u00b7 Patrecia profile \u00b7 Photographer not credited",
+              "caption": "Patrecia branches carrying fruit at different ripening stages, shown beside the cultivar heading.",
+              "reuse_note": "Image-specific reuse permission is not established. Nursery/cultivar licensing information does not establish photo reuse permission."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_source_page_image_and_heading_visual_review",
+        "source_image_alt": "",
+        "source_image_width": 199,
+        "source_image_height": 179,
+        "visually_reviewed": true,
+        "asset_url_modified": false,
+        "image_downloaded": false,
+        "whole_page_name_enumeration": false
+      }
+    },
+    {
+      "id": "portfolio-uf-profile-photo-sentinel",
+      "title": "Sentinel \u2014 source-labeled cultivar photograph",
+      "url": "https://www.blueberrybreeding.com/sentinel",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-09",
+      "source_type": "university_cultivar_profile",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal focal cultivar and the photograph shown beside its heading. Not a complete portfolio, trait extraction or current rights search.",
+      "limitations": "Native browser visually checked the source photograph and exact source-provided 199px asset URL. No full-resolution URL invented. Photographer and reusable image licence not established; held by default. Other named cultivars in comparisons/flowering context are outside this focal-photo scope. Source text authenticity, identity, traits, regions and rights require separate review.",
+      "names": [
+        {
+          "candidate_name": "Sentinel",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "FL11-155",
+          "product_url": "https://www.blueberrybreeding.com/sentinel",
+          "portfolio_context": "Focal name/code printed in the source profile; source photo association remains unreviewed. No alias, breeder role, growing footprint or current rights decision.",
+          "photos": [
+            {
+              "image_url": "https://static.wixstatic.com/media/b1af78_db246ccfbdc2435dacfbf50423070d2f~mv2.jpg/v1/crop/x_0,y_64,w_1272,h_1154/fill/w_199,h_179,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_7610_edited.jpg",
+              "source_url": "https://www.blueberrybreeding.com/sentinel",
+              "named_variety": "Sentinel",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-09",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "UF Blueberry Breeding Program \u00b7 Sentinel profile \u00b7 Photographer not credited",
+              "caption": "Sentinel fruit at different ripening stages on a leafy branch, shown beside the cultivar heading.",
+              "reuse_note": "Image-specific reuse permission is not established. Nursery/cultivar licensing information does not establish photo reuse permission."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_source_page_image_and_heading_visual_review",
+        "source_image_alt": "IMG_7610_edited.jpg",
+        "source_image_width": 199,
+        "source_image_height": 179,
+        "visually_reviewed": true,
+        "asset_url_modified": false,
+        "image_downloaded": false,
+        "whole_page_name_enumeration": false
+      }
+    }
+  ]
+}
