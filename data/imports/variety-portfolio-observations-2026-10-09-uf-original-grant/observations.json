@@ -1,0 +1,89 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-uf-original-grant-colossus",
+      "title": "Colossus — original US plant patent",
+      "url": "https://patents.google.com/patent/USPP33802P3/en",
+      "company_ids": [
+        "company-florida-foundation-seed-producers"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-09",
+      "published_date": "2022-01-04",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Focal denomination, printed code and claim in one original grant. Parent and comparison names are accounted separately; not a company portfolio or a current rights assessment.",
+      "limitations": "Colossus is the focal denomination; the description also uses FL11-35. Claim 1 is on PDF page 3, printed column 6. Figure 2 on PDF page 5 shows fruit clusters; Figure 3 on page 6 shows harvested berries. Names and dates are original document metadata, not new alias, role, trait, growing-region, current-rights or image-reuse decisions. The printed applicant/assignee remains a historical source association. Google legal-status estimates were not used. Photographer and illustration reuse permission are not established.",
+      "names": [
+        {
+          "candidate_name": "Colossus",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "FL11-35",
+          "product_url": "https://patentimages.storage.googleapis.com/67/d1/75/a8dd538948294e/USPP33802.pdf#page=3",
+          "application_number": "16/935,768",
+          "grant_number": "USPP33802P3",
+          "jurisdiction": "US",
+          "application_date": "2020-07-22",
+          "grant_date": "2022-01-04",
+          "portfolio_context": "Colossus is the focal denomination; the description also uses FL11-35. Claim 1 is on PDF page 3, printed column 6. Figure 2 on PDF page 5 shows fruit clusters; Figure 3 on page 6 shows harvested berries. Names and dates are original document metadata, not new alias, role, trait, growing-region, current-rights or image-reuse decisions."
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": [
+          {
+            "label": "FL08-35",
+            "reason": "Female parent in the historical cross, not the focal granted denomination."
+          },
+          {
+            "label": "FL04-103",
+            "reason": "Male parent in the historical cross, not the focal granted denomination."
+          },
+          {
+            "label": "FL07-399",
+            "reason": "Comparison cultivar, not the focal granted denomination."
+          },
+          {
+            "label": "Emerald",
+            "reason": "Comparison cultivar and cited prior patent, not the focal granted denomination."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_patent_heading_claim_and_pdf_link_with_original_pdf_text_and_selected_page_review",
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/67/d1/75/a8dd538948294e/USPP33802.pdf",
+        "claim_url": "https://patents.google.com/patent/USPP33802P3/en#claims",
+        "figures_url": "https://patentimages.storage.googleapis.com/67/d1/75/a8dd538948294e/USPP33802.pdf#page=5",
+        "sha256": "d40a87ea256b83f1e108015901ce6d47033705e787ea9a72f940104b92beee91",
+        "page_count": 9,
+        "text_extracted_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "visually_reviewed_pages": [
+          1,
+          3,
+          5,
+          6
+        ],
+        "claim_page": 3,
+        "claim_column": 6,
+        "fruit_figure": 2,
+        "fruit_page": 5,
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    }
+  ]
+}

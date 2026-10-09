@@ -134,5 +134,55 @@
     "warnings": 3,
     "seconds": 36.19,
     "failure": "New test used blueberry-origin instead of actual blueberry-origin-gap source ID; corrected; isolated cache configured."
+  },
+  "current_head_full_ci": {
+    "head": "842d941d3df59245b8e642e26c8b61cf568faeb0",
+    "all_four": "SUCCESS",
+    "passed": 4565,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 802.37,
+    "snapshot": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-09T21:36:10Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/samsonFive/berry-intelligence-os/actions/runs/37994411892/job/114036642721",
+        "name": "Change scope",
+        "startedAt": "2026-10-09T21:36:01Z",
+        "status": "COMPLETED",
+        "workflowName": "PR validation"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-09T21:36:47Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/samsonFive/berry-intelligence-os/actions/runs/37994411892/job/114036707093",
+        "name": "Repository integrity",
+        "startedAt": "2026-10-09T21:36:12Z",
+        "status": "COMPLETED",
+        "workflowName": "PR validation"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-09T21:37:26Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/samsonFive/berry-intelligence-os/actions/runs/37994411892/job/114036707169",
+        "name": "Static public safety",
+        "startedAt": "2026-10-09T21:36:12Z",
+        "status": "COMPLETED",
+        "workflowName": "PR validation"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-09T21:50:06Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/samsonFive/berry-intelligence-os/actions/runs/37994411892/job/114036707223",
+        "name": "Python tests",
+        "startedAt": "2026-10-09T21:36:12Z",
+        "status": "COMPLETED",
+        "workflowName": "PR validation"
+      }
+    ]
   }
 }

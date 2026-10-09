@@ -65,5 +65,54 @@
     "warnings": 1,
     "seconds": 42.3
   },
-  "current_head_full_ci": "Required after repair push; not assumed green"
+  "current_head_full_ci": {
+    "head": "155bbff806805a4b5dfc2774f0e684d009cf0c0c",
+    "all_four": "SUCCESS",
+    "passed": 4565,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 628.63,
+    "snapshot": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-09T21:38:45Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/samsonFive/berry-intelligence-os/actions/runs/37994664784/job/114037516180",
+        "name": "Change scope",
+        "startedAt": "2026-10-09T21:38:36Z",
+        "status": "COMPLETED",
+        "workflowName": "PR validation"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-09T21:39:24Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/samsonFive/berry-intelligence-os/actions/runs/37994664784/job/114037580428",
+        "name": "Repository integrity",
+        "startedAt": "2026-10-09T21:38:47Z",
+        "status": "COMPLETED",
+        "workflowName": "PR validation"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-09T21:39:59Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/samsonFive/berry-intelligence-os/actions/runs/37994664784/job/114037580275",
+        "name": "Static public safety",
+        "startedAt": "2026-10-09T21:38:47Z",
+        "status": "COMPLETED",
+        "workflowName": "PR validation"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-09T21:49:47Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/samsonFive/berry-intelligence-os/actions/runs/37994664784/job/114037580375",
+        "name": "Python tests",
+        "startedAt": "2026-10-09T21:38:47Z",
+        "status": "COMPLETED",
+        "workflowName": "PR validation"
+      }
+    ]
+  }
 }

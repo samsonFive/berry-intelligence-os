@@ -3210,10 +3210,26 @@ def entity_synthesis_context(
     }
     if entity.get("entity_type") == "variety":
         all_patents = [e for e in entities.values() if e.get("entity_type") == "patent"]
-        breeding_program_id = (entity.get("attributes") or {}).get("breeding_program_id")
+        variety_attributes = entity.get("attributes") or {}
+        breeding_program_id = variety_attributes.get("breeding_program_id") or variety_attributes.get("breeding_program")
         context["variety_trait_profile"] = variety_trait_profile(entity, entities)
         context["variety_patent_link"] = variety_patent_link(entity, all_patents)
-        context["variety_breeding_program"] = entities.get(breeding_program_id) if breeding_program_id else None
+        breeding_program = entities.get(breeding_program_id) if isinstance(breeding_program_id, str) else None
+        context["variety_breeding_program"] = breeding_program if breeding_program and breeding_program.get("entity_type") == "breeding_program" else None
+        context["variety_original_patents"] = []
+        context["variety_original_patent_error"] = False
+        if AUTHORING_MODE and include_pending:
+            from app.services.variety_patent_references import original_patent_references
+            from app.services.variety_portfolio_coverage import load_portfolio_observations
+            try:
+                context["variety_original_patents"] = original_patent_references(
+                    variety=entity,
+                    varieties=[e for e in entities.values() if e.get("entity_type") == "variety"],
+                    entities=list(entities.values()), candidates=load_variety_candidates(INBOX_DIR),
+                    sources=load_portfolio_observations(DATA_DIR),
+                )
+            except ValueError:
+                context["variety_original_patent_error"] = True
     if entity.get("entity_type") == "company":
         context.update(
             company_profile_context(

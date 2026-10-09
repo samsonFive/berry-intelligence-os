@@ -81,14 +81,14 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 1142
+    assert report["summary"]["names"] == 1143
     assert report["summary"]["registry_entries_checked"] == 60
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
         "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [14, 1, 0, 2]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 301, "berry-strawberry": 526, "berry-raspberry": 200, "berry-blackberry": 115}
+        "berry-blueberry": 302, "berry-strawberry": 526, "berry-raspberry": 200, "berry-blackberry": 115}
     sunbelle = next(s for s in report["subjects"] if s["name"] == "SunBelle")
     assert sunbelle["source_status"] == "partial" and not sunbelle["checked"]
     assert sunbelle["named_occurrences"] == 2

@@ -110,7 +110,8 @@ def profile_field_coverage(*, varieties, entities, relationships, published_evid
             'status': str(variety.get('status') or 'unverified').replace('_', ' ').title(),
             'photos': len(photos), 'held_photos': sum(p['reuse'] == 'unknown' for p in photos),
             'rights_refs': len(rights_refs), 'unreviewed_rights_refs': len(unreviewed_refs),
-            'patent_number_only': bool(attrs.get('patent_number') and not patent and not rights_refs),
+            'patent_number_only': bool((attrs.get('patent_number') or attrs.get('us_plant_patent'))
+                                      and not patent and not rights_refs and not unreviewed_refs),
             'cited_traits': cited + len(fact_traits_by_variety[vid]),
             'uncited_traits': len(traits) - cited,
             'company_links': roles, 'breeder_text_only': bool(attrs.get('breeder') and not roles),

@@ -520,7 +520,8 @@ def test_variety_page_handles_missing_trait_and_patent_data_honestly() -> None:
     response = client.get("/entities/variety/variety-arana")
     assert response.status_code == 200
     assert "No structured trait data recorded" in response.text
-    assert "no patent number recorded" in response.text
+    assert "No patent reference linked." in response.text
+    assert "Original filing references" not in response.text
 
 
 def test_variety_page_breeding_program_and_patent_links_resolve() -> None:

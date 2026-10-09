@@ -2700,3 +2700,13 @@ occurrences / 546 keys / catalog 64, with 42 initial checks and 18 follow-ups.
 See COMPANY-SOURCE-VARIETY-VISIBILITY-REVIEW.md; CAT-01/CAT-02/TD-116 remain open.
 Local only; exact pinned-parent push approval unanswered, no new PR/remote CI,
 merge/deploy or other-berry Landscape rollout.
+
+**October 9 original patent/profile follow-up:** Recorded `us_plant_patent`
+and `breeding_program` fields now render; private reconciled filing links lead
+to actual claims/documents/figures. Shared reconciliation now respects a saved
+human distinct/rejected decision over an exact name match. One original
+Colossus grant is explicitly page-accounted; no legal-status, identity, role,
+trait, region or image-reuse approval is inferred. The 59 affected checks pass.
+See ORIGINAL-PATENT-PROFILE-LINKS-REVIEW.md. CAT-01/CAT-02/TD-116 remain open;
+complete portfolios, official current rights, independently reviewed recall,
+human catalog authoring and the integrated release are still required.

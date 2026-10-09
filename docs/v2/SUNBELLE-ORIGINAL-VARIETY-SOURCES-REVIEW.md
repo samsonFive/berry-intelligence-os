@@ -68,6 +68,10 @@ not new human reviews. **33 source/identity regression tests pass**, one existin
 warning, 42.30 seconds. No application identity code was changed; exact-head
 full CI remains required on the repaired draft.
 
+The repaired head `842d941d3df59245b8e642e26c8b61cf568faeb0` now passes all
+four required checks, run 37994411892: **4,565 passed / 11 skipped / two warnings
+/ 802.37 seconds**. The failed first run remains in the verification artifact.
+
 Full current/historical portfolios, current official rights, cited profiles,
 original corpus and independent human recall remain incomplete. CAT-01/CAT-02/
 TD-116 stay open. The blueprint's phone visual review remains outstanding. Other

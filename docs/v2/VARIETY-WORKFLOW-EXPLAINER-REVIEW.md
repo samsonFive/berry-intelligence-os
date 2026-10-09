@@ -61,6 +61,12 @@ verification artifacts rather than being presented as green runs.
 
 ## Remaining mission
 
+The repaired current head `155bbff806805a4b5dfc2774f0e684d009cf0c0c` now passes
+all four required checks, run 37994664784: **4,565 passed / 11 skipped / two
+warnings / 628.63 seconds**. The earlier failed run remains recorded above and
+in the verification artifact. This is draft-head validation, not integrated
+release approval.
+
 CAT-01/CAT-02/TD-116 remain open. Full current/historical portfolios, original
 corpus, reviewed canonical additions, cited profiles/current rights and independent
 human recall still require real evidence and decisions. The 32-copy source/name
