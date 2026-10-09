@@ -1,5 +1,13 @@
 # Technical Debt Register
 
+October 9 article profile-name detection: [review](ARTICLE-PROFILE-NAME-RECALL-REVIEW.md) records eight
+previously missed explicit cultivar/code fields and removal of a generic
+Rabbiteye false lead. Same 32 pending copies: 28 before / 35 after offline
+mentions; no independent recall score, acceptance or catalog writes.
+104 affected tests, preservation and the 1,755-page static build pass.
+Parent #376 is all-green (4,527 passed / 11 skipped / two warnings).
+CAT-01/CAT-02/TD-116 remain open; blueberry feedback gates rollout.
+
 October 9 original public-program grants: [review](PUBLIC-PROGRAM-ORIGINAL-GRANTS-REVIEW.md) connects
 Onyx, APF-77 / Black Magic and Columbia Giant to their original cultivar claims
 and printed filing/grant dates. Two attributed fruit figures stay permission-held

@@ -2,6 +2,7 @@
 
 No acquisition, title-case guessing, publication-tag crop assignment, or writes.
 Paragraph context supplies a crop only when it names exactly one supported crop.
+Anchored profile fields can also use an explicit source title or nearby crop heading.
 """
 import re
 
@@ -17,13 +18,22 @@ _LICENSE = re.compile(
     r"\blicen[cs]es?\b[^.!?\n:]{0,80}\bvarieties\s*:\s*", re.IGNORECASE)
 _ATTRIBUTION = re.compile(
     r"\s+from\b[^.!?\n:;'‘’\"“”]{1,240},\s*(?:and\s+)?", re.IGNORECASE)
+_PROFILE_HEADING = re.compile(
+    rf"\s*(?i:(?:(?:southern|northern)\s+highbush\s+|rabbiteye\s+|"
+    rf"red\s+|black\s+|yellow\s+)?(?P<crop>{_CROP})\s+(?:variety|cultivar))\s*")
 
 
 def paragraph_crop_ids(text):
     return sorted({_CROPS[m.group(1).casefold()] for m in _CROP_WORDS.finditer(text)})
 
 
-def explicit_article_formats(text, *, name_token):
+def profile_heading_crop_ids(text):
+    """A short crop/profile heading, never an arbitrary preceding paragraph."""
+    heading = _PROFILE_HEADING.fullmatch(text)
+    return [_CROPS[heading.group("crop").casefold()]] if heading else []
+
+
+def explicit_article_formats(text, *, name_token, profile_crop_ids=()):
     """Return source assertions of names, never roles/traits/rights or aliases."""
     leads, excluded = [], []
     quoted = rf"(?:'{name_token}'|\"{name_token}\"|‘{name_token}’|“{name_token}”)"
@@ -55,6 +65,28 @@ def explicit_article_formats(text, *, name_token):
     # variety/cultivar naming wording and one crop in this paragraph. Unicode
     # hyphens remain in the source name; no code/brand alias is inferred.
     single_token = name_token.replace(r"\-", r"\-\u2010\u2011")
+    profile_name = rf"(?:'{single_token}'|\"{single_token}\"|‘{single_token}’|“{single_token}”|{single_token})"
+    profile_code = r"[A-Za-z][A-Za-z0-9. \-]{0,59}"
+    field = re.compile(
+        rf"\s*(?:(?P<crop>(?i:{_CROP}))\s+)?(?i:variety|cultivar)\s+(?i:name)\s*:\s*"
+        rf"(?P<name>{profile_name})(?:\s*\(\s*(?:(?i:selection\s+code)\s+"
+        rf"(?P<code>{profile_code})|(?P<quoted_code>'{profile_code}'|\"{profile_code}\"|‘{profile_code}’|“{profile_code}”))\s*\))?\s*\.?\s*")
+    for line in text.splitlines():
+        match = field.fullmatch(line)
+        if not match:
+            continue
+        explicit_crop = match.group("crop")
+        crops = [_CROPS[explicit_crop.casefold()]] if explicit_crop else (crop_ids or list(profile_crop_ids))
+        if len(crops) != 1:
+            excluded.append({"name": match.group("name"), "reason": "berry_not_established"})
+            continue
+        code = (match.group("code") or match.group("quoted_code") or "").strip("'\"‘’“” ")
+        if code and not re.search(r"\d", code):
+            continue
+        leads.append({"name": match.group("name").strip("'\"‘’“”"), "berry_id": crops[0],
+                      "breeder_code": code, "kind": "article_cultivar_name_field",
+                      "context": line.strip()[:240]})
+
     named_release = re.compile(
         rf"(?i:\b(?:name\s+of\s+(?:(?:the|our|this)\s+)?(?:new\s+)?"
         rf"(?:{_CROP}\s+)?(?:variety|cultivar)\s*[:;,]\s*(?:it\s+)?"
