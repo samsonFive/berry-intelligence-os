@@ -95,3 +95,12 @@ human catalog authoring and the integrated release review remain open.
 
 CAT-01/CAT-02/TD-116 and the ongoing goal remain active. No merge, deployment or
 other-berry Landscape rollout. No user input is needed for the next safe work.
+
+## Pushed-head CI result
+
+Draft #369 is all-green on 267389e4bf45828a7f1a282c7f17ac1a0378bb90:
+all four checks; 4,452 tests / 11 skipped / two warnings / 797.24 seconds.
+Run 37888500290, Python job 113683959991. The exact live watch 24224 was
+consumed with terminal success. No merge or deployment was performed.
+The subsequent pending News/Digest inventory follow-up has its own review and
+checks; broader catalog and integrated release requirements remain open.

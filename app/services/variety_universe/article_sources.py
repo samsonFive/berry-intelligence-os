@@ -10,36 +10,11 @@ from pathlib import Path
 from app.services.feed_first import SAFE_ID_RE
 from app.services.feed_first_reader import capture_path, load_capture, merge_capture
 from app.services.personal_digest import source_records
+from app.services.publication_sources import active_publication_record, inactive_publication_record
 from app.services.source_body import article_full_text, reader_content
 
 MAX_CAPTURE_BYTES = 2_000_000
 MAX_ARTICLE_CHARS = 200_000
-
-
-def inactive_publication_record(record: dict | None) -> bool:
-    return (isinstance(record, dict) and record.get("evidence_role") == "publication_artifact"
-            and (record.get("status") in {"rejected", "archived"}
-                 or record.get("review_state") in {"rejected", "archived"}))
-
-
-def active_publication_record(record: dict | None) -> dict | None:
-    """A private publication draft is a source lead, never reviewed news.
-
-    Rejected/archived publications and individual Atomic proposals are not
-    article inputs. An inbox status cannot approve a publication.
-    """
-    if (not isinstance(record, dict)
-            or not SAFE_ID_RE.fullmatch(str(record.get("id") or ""))
-            or record.get("evidence_role") != "publication_artifact"
-            or inactive_publication_record(record)
-            or record.get("status", "draft") not in {"draft", "in_review"}):
-        return None
-    # This configured Source label describes its acquisition method. The
-    # remaining text is the publisher already named by the Source, not a
-    # guessed publisher or a change to the stored draft.
-    label = str(record.get("source_name") or "")
-    label = label.removeprefix("Site-restricted news search -- ")
-    return {**record, "status": "unreviewed", "source_name": label}
 
 
 def article_source_records(published: list[dict], inbox_dir: Path, *, pending=None) -> dict[str, dict]:

@@ -6760,12 +6760,15 @@ def _intelligence_page_context(
 
 @app.get("/intelligence/{item_id}", response_class=HTMLResponse)
 def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
-    record = _load_intelligence_record(item_id)
-    if request.query_params.get("personal") == "1" or record is None:
+    personal = request.query_params.get("personal") == "1"
+    record = None if personal else _load_intelligence_record(item_id)
+    if personal or record is None:
         from app.personal_digest_routes import reader_context, personal_source_record
         personal_record = personal_source_record(item_id)
         if personal_record is not None:
             return templates.TemplateResponse(request=request, name="personal_reader_page.html", context=reader_context(request, personal_record))
+        if personal:
+            raise HTTPException(status_code=404, detail="Story not available")
     if record is None:
         raise HTTPException(status_code=404, detail="Intelligence item not found")
     return templates.TemplateResponse(
@@ -6777,12 +6780,15 @@ def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
 
 @app.get("/api/intelligence/{item_id}/reader", response_class=HTMLResponse)
 def intelligence_reader_fragment(request: Request, item_id: str) -> HTMLResponse:
-    record = _load_intelligence_record(item_id)
-    if request.query_params.get("personal") == "1" or record is None:
+    personal = request.query_params.get("personal") == "1"
+    record = None if personal else _load_intelligence_record(item_id)
+    if personal or record is None:
         from app.personal_digest_routes import reader_context, personal_source_record
         personal_record = personal_source_record(item_id)
         if personal_record is not None:
             return templates.TemplateResponse(request=request, name="_personal_reader.html", context=reader_context(request, personal_record))
+        if personal:
+            raise HTTPException(status_code=404, detail="Story not available")
     if record is None:
         raise HTTPException(status_code=404, detail="Intelligence item not found")
     return templates.TemplateResponse(
