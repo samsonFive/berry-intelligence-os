@@ -63,3 +63,7 @@ recall, cited profiles and actual human catalog authoring remain open. CAT-01,
 CAT-02 and TD-116 stay active; phone verification and the combined release still
 require review. Other Landscape berries await revised blueberry feedback.
 This draft requires fresh exact-head CI; no merge or deployment is included.
+
+## Full-suite follow-up
+
+Initial PR #385 head `3a8285473070380b43ffcd8c809de1513976e328` passed three required checks. Full Python run 38000328542 had 4,575 passed / one failed / 11 skipped / two warnings in 524.04 seconds. The historical test still expected the recovered paper to be unreadable. The corrected test verifies readable text/table scope and separately held partial pedigree, while retaining comparator, identity, date and role safeguards. Nine affected checks pass locally, one warning, 7.68 seconds. Fresh repaired-head CI remains required.

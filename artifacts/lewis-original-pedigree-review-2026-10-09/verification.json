@@ -61,6 +61,21 @@
   "pending_source_copies_preserved": 32,
   "human_decisions_created": 0,
   "canonical_writes": 0,
-  "full_ci": "Required after push",
-  "merge_or_deploy": false
+  "full_ci": "Fresh exact-head CI required after historical access expectation repair.",
+  "merge_or_deploy": false,
+  "initial_full_ci": {
+    "head": "3a8285473070380b43ffcd8c809de1513976e328",
+    "run": 38000328542,
+    "passed": 4575,
+    "failed": 1,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 524.04,
+    "failure": "Historical test still expected the recovered paper to be partial/unreadable."
+  },
+  "ci_repair_tests": {
+    "passed": 9,
+    "warnings": 1,
+    "seconds": 7.68
+  }
 }
