@@ -84,7 +84,7 @@ mismatch, fixed in the production normalization without weakening assertions.
 Record validation and preservation
 of all 2,771 original data JSON files and the canonical expansion guide passed.
 The full static build passed: 1,755 pages, Pagefind search, and unpublished
-ID/title exclusion. This draft's pushed-head CI remains a separate gate.
+ID/title exclusion. Draft #370 passes all four checks on `69c044718fefc92595f437c50d15d5f49bbcd7eb`: 4,487 passed / 11 skipped / two warnings / 750.46 seconds. Run 37891895321, Python job 113694490209; watch 26769 consumed with terminal success.
 
 Parent #369 passes all four checks on `267389e4bf45828a7f1a282c7f17ac1a0378bb90`:
 4,452 passed / 11 skipped / two warnings / 797.24 seconds. Run 37888500290,

@@ -1,5 +1,18 @@
 # Technical Debt Register
 
+October 8 accepted original reading: [review](REVIEWED-ORIGINAL-READING-REVIEW.md)
+connects existing human-accepted article copies to selected private readers and
+variety-name discovery, with identity/URL/payload checks and no canonical writes.
+Pending, rejected and changed copies stay excluded; original user text wins.
+193 affected tests and final 52 overlapping POST/public checks pass, with
+validation, original-data preservation, 1,755-page static safety and fictional
+desktop/375px browser acceptance/rejection verified. Real audit stays 103 names /
+32 matches / 71 discoveries; 64 canonical varieties unchanged. Parent #370 is
+all-green: 4,487 tests, 11 skipped, two warnings, 750.46s on 69c0447.
+Current pushed-head CI remains a separate gate. CAT-01/CAT-02/TD-116, corpus,
+portfolios, real recall, rights/photos, authoring and integrated release remain
+open. No merge, deployment or other-berry Landscape rollout.
+
 October 8 captured News/Digest inventory: [review](PENDING-NEWS-DIGEST-INVENTORY-REVIEW.md) connects active
 publication metadata to Unreviewed News and subscribed Personal Digest lists
 before individual saving. Real Italian Berry source/image, explicit subscribe
@@ -8,7 +21,7 @@ verified. Article-pipeline web captures now pass the News format gate; audio,
 video and registry-like captures remain excluded. Archived/rejected sources no
 longer resurface through the personal reader fallback. 165 affected tests,
 119 final overlapping tests, record validation, original-data preservation and
-1,755-page static safety pass; pushed-head CI remains a separate gate. CAT-01/CAT-02/TD-116, corpus acquisition, portfolios,
+1,755-page static safety pass. Draft #370 passes all four checks on 69c0447: 4,487 tests / 11 skipped / two warnings / 750.46s. CAT-01/CAT-02/TD-116, corpus acquisition, portfolios,
 independent recall and integrated release remain open. No merge/deployment.
 
 October 8 original article hierarchy: [review](PUBLISHER-ARTICLE-HIERARCHY-REVIEW.md) preserves
