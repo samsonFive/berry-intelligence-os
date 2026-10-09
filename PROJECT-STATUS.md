@@ -22,6 +22,13 @@ there rather than reconstructing the mission from historical progress reports.
 
 ## Latest reviewable changes
 
+- [Original patent/profile links](docs/v2/ORIGINAL-PATENT-PROFILE-LINKS-REVIEW.md):
+  original claims/document/illustration links, recorded breeding-program and
+  patent fields, and preserved human distinct/rejected decisions. 59 targeted
+  checks pass; final draft-head CI is required after push.
+- Drafts #382 and #383 both pass all four checks, including 4,565 tests each.
+
+
 - [Draft #377](https://github.com/samsonFive/berry-intelligence-os/pull/377):
   explicit article/profile name detection; all required checks pass.
 - [Draft #378](https://github.com/samsonFive/berry-intelligence-os/pull/378):
@@ -41,8 +48,8 @@ there rather than reconstructing the mission from historical progress reports.
   the guide now traces source names through identity review, separate catalog
   authoring and profile enrichment, with links to the existing private workflows.
 
-The [latest bounded audit](docs/v2/SUNBELLE-ORIGINAL-VARIETY-SOURCES-REVIEW.md) has
-366 source sections / 1,142 name occurrences / 72 matched occurrences / 1,070
+The [latest bounded audit](docs/v2/ORIGINAL-PATENT-PROFILE-LINKS-REVIEW.md) has
+367 source sections / 1,143 name occurrences / 73 matched occurrences / 1,070
 requiring review, with 789 public derived candidate keys and 64 unchanged
 canonical varieties. There are 122 photo references; the eight UF photos have unknown
 reuse permission and remain excluded from public static output. Source mentions

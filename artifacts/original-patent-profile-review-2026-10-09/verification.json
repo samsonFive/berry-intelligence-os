@@ -1,0 +1,73 @@
+{
+  "scope": "Original filing access and recorded profile fields; not current rights or global completeness",
+  "source": {
+    "method": "native_patent_heading_claim_and_pdf_link_with_original_pdf_text_and_selected_page_review",
+    "original_pdf_url": "https://patentimages.storage.googleapis.com/67/d1/75/a8dd538948294e/USPP33802.pdf",
+    "claim_url": "https://patents.google.com/patent/USPP33802P3/en#claims",
+    "figures_url": "https://patentimages.storage.googleapis.com/67/d1/75/a8dd538948294e/USPP33802.pdf#page=5",
+    "sha256": "d40a87ea256b83f1e108015901ce6d47033705e787ea9a72f940104b92beee91",
+    "page_count": 9,
+    "text_extracted_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "visually_reviewed_pages": [
+      1,
+      3,
+      5,
+      6
+    ],
+    "claim_page": 3,
+    "claim_column": 6,
+    "fruit_figure": 2,
+    "fruit_page": 5,
+    "grant_metadata_verified_in_original": true,
+    "current_legal_status_verified": false,
+    "reuse_permission_verified": false
+  },
+  "native_profile": "http://127.0.0.1:18573/entities/variety/variety-colossus#rights",
+  "native_claims_text_checked": true,
+  "document_scope_collapsed_by_default": true,
+  "screenshot": "colossus-rights-desktop.png",
+  "phone_visual_verified": false,
+  "tests": {
+    "passed": 59,
+    "warnings": 1,
+    "seconds": 69.46
+  },
+  "initial_manifest_run": {
+    "passed": 50,
+    "failed": 1,
+    "reason": "manifest1142 updated against actual1143"
+  },
+  "lookup_seconds_before": 3.126,
+  "lookup_seconds_after": 0.661,
+  "canonical_json_files_preserved": 2771,
+  "canonical_varieties": 64,
+  "source_sections": 367,
+  "name_occurrences": 1143,
+  "matched_occurrences": 73,
+  "requires_review": 1070,
+  "public_candidate_keys": 789,
+  "photo_references": 122,
+  "pending_source_copies_preserved": 32,
+  "real_pending_draft_bytes_preserved": true,
+  "human_decisions_created": 0,
+  "merge_or_deploy": false,
+  "full_ci": "Required after push; not assumed green",
+  "static": {
+    "pages": 1755,
+    "unpublished_draft_check": "passed",
+    "new_private_filing_markers_absent": true,
+    "all_html_pages_scanned": 1755,
+    "final_session26540_consumed": true
+  },
+  "record_validation": "passed"
+}

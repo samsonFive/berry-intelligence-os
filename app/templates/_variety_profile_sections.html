@@ -82,13 +82,17 @@
     <dd>
       {% if variety_patent_link %}
         <a href="/entities/patent/{{ variety_patent_link.id }}">{{ variety_patent_link.name }}</a>
-      {% elif entity.attributes and entity.attributes.patent_number %}
-        {{ entity.attributes.patent_number }} — no matching patent record found in the dataset
+      {% elif entity.attributes and (entity.attributes.patent_number or entity.attributes.us_plant_patent) %}
+        {% if entity.attributes.patent_number %}{{ entity.attributes.patent_number }}{% endif %}{% if entity.attributes.us_plant_patent and entity.attributes.us_plant_patent != entity.attributes.patent_number %}{% if entity.attributes.patent_number %} · {% endif %}{{ entity.attributes.us_plant_patent }}{% endif %}
+        <small>Recorded reference · current rights not verified.</small>
+      {% elif variety_original_patents %}
+        Original documents below.
       {% else %}
-        — no patent number recorded
+        No patent reference linked.
       {% endif %}
     </dd>
   </dl>
+  {% include "_variety_patent_references.html" %}
   {% if rights_published or rights_drafts %}
     <ul class="entity-links">
       {% for row in rights_published %}

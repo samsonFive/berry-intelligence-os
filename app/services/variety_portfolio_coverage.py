@@ -164,11 +164,12 @@ def _identity_pair_notes(sources):
     return notes
 
 
-def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None):
+def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None, source_ids=None):
     """Account for each explicitly enumerated name, retaining source/code identity.
 
     A shared trade name is not an identity key when a denomination is recorded.
     Exact matches use the existing resolver; ambiguous matches require review.
+    A selected-source view still checks identity conflicts across all sources.
     """
     today = today or date.today()
     entity_index = {row["id"]: row for row in entities}
@@ -182,6 +183,8 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
     provenance = {}
     pair_notes = _identity_pair_notes(sources)
     for source in sources:
+        if source_ids is not None and source["id"] not in source_ids:
+            continue
         names = []
         companies = [{"entity_id": cid, "name": entity_index[cid]["name"],
                       "href": "/entities/" + entity_index[cid]["entity_type"] + "/" + cid}
@@ -196,7 +199,12 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
             if identity_notes:
                 catalog_id = None
             candidate = existing.get(candidate_key(observation))
-            if candidate and candidate.get("human_gated") and candidate.get("identity_state") == "confirmed_same":
+            # An exact spelling is not permission to reverse a saved human
+            # identity decision or reattach a rejected candidate to the catalog.
+            if candidate and (candidate.get("status") == "rejected" or (
+                    candidate.get("human_gated") and candidate.get("identity_state") in {"distinct", "rejected"})):
+                catalog_id = None
+            elif candidate and candidate.get("human_gated") and candidate.get("identity_state") == "confirmed_same":
                 match_id = candidate.get("candidate_canonical_match")
                 compatible = any(row["id"] == match_id and observation["berry_id"] in row.get("berry_ids", []) for row in varieties)
                 if match_id in canonical_ids and compatible:
