@@ -68,7 +68,7 @@ def test_company_crosschecks_render_privately_without_writing_or_public_leaks(mo
     assert '12 minimum cultivars' in cbc.text
     # A newer complete page does not erase the older index's shortfall.
     assert 'Partial variety coverage' in cbc.text and 'CBC027' in cbc.text
-    assert 'Some names checked · source gaps remain' in cbc.text
+    assert 'Names found · more sources to check' in cbc.text
     read_sections = sum(s['capture_status'] != 'unreadable' for s in
                         load_portfolio_observations(ROOT / 'data')
                         if 'company-california-berry-cultivars' in s['company_ids'])

@@ -68,3 +68,10 @@ recall, article-body acquisition, current rights, photo permissions and human
 catalog decisions remain unfinished. The published corpus still has zero readable
 bodies out of 1,269 saved records. No worldwide completeness claim, merge,
 deployment or other-berry Landscape rollout.
+
+The first full CI run (37874708008, head 2860f5d) passed 4,389 tests and failed
+three existing UI-copy assertions in 707.36 seconds (11 skipped, two warnings).
+Those assertions expected superseded company-plan labels; they now check
+"Pages checked · varieties not named here" or "Names found · more sources to
+check". Their no-write/public-boundary checks remain intact. Production behavior
+was not weakened. The corrected head requires fresh full CI.
