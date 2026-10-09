@@ -1,5 +1,13 @@
 # Project Status
 
+October 9 UF cultivar photographs: [review](docs/v2/UF-CULTIVAR-PHOTO-REFERENCES-REVIEW.md) adds eight source-labeled
+photo references to existing blueberry profiles, held by default with the
+approved session-only reveal. Photo references: 122; zero new reuse approvals.
+Current bounded audit: 363 sections / 1,140 occurrences / 72 matched /
+1,068 needing review; canonical catalog remains 64. 92 targeted tests and
+the 1,755-page static build pass. Parent #378 is all-green (4,553 tests).
+CAT-01/CAT-02/TD-116 and blueberry feedback/release gates remain open.
+
 October 9 explicit article-text recall auditing: [review](docs/v2/ARTICLE-SOURCE-RECALL-AUDIT-REVIEW.md) adds
 opt-in supported Article inputs to the offline scorer and refuses unfinished
 expectations before score output. 54 affected tests pass; the original
