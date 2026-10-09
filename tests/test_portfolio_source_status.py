@@ -44,6 +44,45 @@ def test_source_progress_partitions_named_partial_unavailable_and_unstarted(tmp_
     assert next(s for s in report['subjects'] if s['name']=='Alpha')['has_source_gaps']
 
 
+def test_unresolved_labels_and_people_are_not_unchecked_company_portfolios(tmp_path):
+    entities,sources=setup_plan(tmp_path)
+    path=tmp_path/'imports/competitor-coverage-registry-2026-09-21/reconciliation-matrix.json'
+    payload=json.loads(path.read_text())
+    held=[dict(input_registry_name='Generic genetics',canonical_entity_ids=[],entity_type='unresolved label',
+               resolution_status='EXCLUDED_WITH_REASON',notes='Cannot identify a berry organization.'),
+          dict(input_registry_name='Named person',canonical_entity_ids=[],entity_type='person',
+               resolution_status='EXCLUDED_WITH_REASON',notes='An individual, not an organization.')]
+    payload['rows']+=held
+    path.write_text(json.dumps(payload))
+    original=deepcopy(payload)
+    report=portfolio_coverage(data_dir=tmp_path,sources=sources,varieties=[],entities=entities,candidates=[])
+    subjects={s['name']:s for s in report['subjects']}
+    assert report['summary']['registry_entries']==6
+    assert report['summary']['registry_entries_not_started']==1
+    assert report['summary']['registry_entries_identity_hold']==2
+    assert subjects['Generic genetics']['identity_hold_label']=='Company not identified'
+    assert subjects['Named person']['identity_hold_label']=='Person, not a company'
+    assert all(not subjects[r['input_registry_name']]['checked'] and
+               subjects[r['input_registry_name']]['source_status']=='identity_hold' and
+               subjects[r['input_registry_name']]['identity_hold_reason']==r['notes'] and
+               not subjects[r['input_registry_name']]['href'] for r in held)
+    assert json.loads(path.read_text())==original
+    assert not report['visible_candidates'] or all(c['candidate_name']=='Dely' for c in report['visible_candidates'])
+
+
+def test_held_real_registry_names_show_reasons_without_company_creation(monkeypatch,tmp_path):
+    monkeypatch.setattr(main,'INBOX_DIR',tmp_path)
+    monkeypatch.setattr(main,'AUTHORING_MODE',True)
+    client=TestClient(main.app)
+    generic=client.get('/varieties/coverage',params={'q':'Genetics Uruguay'})
+    person=client.get('/varieties/coverage',params={'q':'Mario Aguas-Alvarado'})
+    assert generic.status_code==person.status_code==200
+    assert 'Company not identified' in generic.text and 'Why this entry is held' in generic.text
+    assert 'Person, not a company' in person.text and 'Why this entry is held' in person.text
+    assert 'No source check in this scope' not in generic.text and 'No source check in this scope' not in person.text
+    assert not list(tmp_path.rglob('*.json'))
+
+
 def test_blueberry_source_plan_cannot_borrow_a_strawberry_check(tmp_path):
     entities,sources=setup_plan(tmp_path)
     original=deepcopy(sources)

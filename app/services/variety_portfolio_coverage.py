@@ -343,7 +343,8 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
         all_linked = [source for source in source_rows if set(source.get("company_ids", [])) & set(ids)]
         linked = [source for source in selected if set(source.get("company_ids", [])) & set(ids)]
         named_sources = [source for source in linked if source["capture_status"] == "names_enumerated" and source["names"]]
-        source_status = ("names_found" if named_sources else "partial" if any(
+        identity_hold = not ids
+        source_status = ("identity_hold" if identity_hold else "names_found" if named_sources else "partial" if any(
             source["capture_status"] != "unreadable" for source in linked) else "unreadable" if linked else "not_started")
         profile_rows = [company_catalog[cid] for cid in ids if cid in company_catalog]
         edited_websites = [profile["website"] for profile in profile_rows if profile.get("website_edited")]
@@ -368,6 +369,9 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
                          "site_notes": [s["company_site_note"] for s in linked if s.get("company_site_note")],
                          "berry_ids": scope, "berries": ", ".join(BERRY_LABELS[berry] for berry in scope) or "Scope needs checking",
                          "resolution": row["resolution_status"], "sources": linked,
+                         "identity_hold_label": ("Person, not a company" if row.get("entity_type") == "person"
+                                                 else "Company not identified") if identity_hold else "",
+                         "identity_hold_reason": row.get("notes", "") if identity_hold else "",
                          "checked": bool(named_sources), "source_status": source_status,
                          "named_occurrences": sum(len(source["names"]) for source in linked),
                          "has_source_gaps": any(source["needs_follow_up"] for source in linked),
@@ -387,7 +391,8 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
                         "registry_entries": len(selected_subjects), "registry_entries_checked": sum(s["checked"] for s in selected_subjects),
                         "registry_entries_partial_checks": sum(s["source_status"] == "partial" for s in selected_subjects),
                         "registry_entries_unavailable": sum(s["source_status"] == "unreadable" for s in selected_subjects),
-                        "registry_entries_not_started": sum(s["source_status"] == "not_started" for s in selected_subjects)},
+                        "registry_entries_not_started": sum(s["source_status"] == "not_started" for s in selected_subjects),
+                        "registry_entries_identity_hold": sum(s["source_status"] == "identity_hold" for s in selected_subjects)},
             "by_berry": [{"id": berry_id, "label": BERRY_LABELS[berry_id],
                           "names": sum(n["berry_id"] == berry_id for n in all_names),
                           "matched": sum(n["berry_id"] == berry_id and n["status"] == "catalog_match" for n in all_names)} for berry_id in BERRY_ORDER],
