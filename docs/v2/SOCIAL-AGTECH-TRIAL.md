@@ -24,3 +24,10 @@ A second bounded run used the Multiscan company URL returned by the first result
 The new bilingual post retains the original Spanish/English and displays the source-authored English section verbatim. It remains unreviewed evidence; neither product performance nor deployment claims were independently verified. The preview now includes five new ag-tech records from these two runs.
 
 Settled supplier-run cost: **$0.01005** of included credit. Across seven completed Apify trial runs, the final account read reported **$0.098495029** usage, **$0 cash spend**, and zero active jobs. All seven content-free trial health receipts are in the local preview; ongoing collection remains disabled. Private supplier selection/import receipt and pre-import SQLite backup are retained with the trial artifacts.
+
+
+## Agtech relevance screening correction — literal version7
+
+A reproduced false exclusion treated every Raspberry Pi mention as a non-fruit post, including “A Raspberry Pi monitors soil moisture in blueberry plantings.” The bounded rule now removes the device-name raspberry match, but retains other explicit berry mentions when crop context is also present. A separate actual raspberry-fruit reference can still supply raspberry scope. Device-only posts, blueberry hostnames and unnamed-crop sensors remain excluded. Five-language tests cover crop/irrigation context; this is literal screening, not a qualified semantic classifier or inferred variety/market/ownership link.
+
+Validation:86 focused agtech/extraction/identity/negation checks passed in4.51s. Nine new cases are authored synthetic regressions, not collected posts or independent live gold. Expected benchmark labels remain unchanged; version7 evaluation remains202/207 blueberry and246/246 all-berry. No private source payloads or reviewed analyses were rewritten. Stored analyses need an explicit, backed-up, unreviewed-only refresh to use a new literal version; no automatic live refresh or collector is enabled. No new platform run, credit reservation, purchase, merge or deployment.

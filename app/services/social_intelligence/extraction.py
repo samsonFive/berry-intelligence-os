@@ -7,13 +7,16 @@ import re
 import hashlib
 from functools import lru_cache
 
-VERSION = 'social-literal-6'
+VERSION = 'social-literal-7'
 # Primary-source audit found these aliases conflate separate councils. Hold
 # only the conflicting registry matches, without rewriting trusted identity.
 # Sources and reconciliation boundary: SOCIAL-ACCEPTANCE-AUDIT.md / TD-118.
 ALIAS_IDENTITY_HOLDS = {
     'company-ushbc': {'nabc', 'north american blueberry council'},
 }
+CROP_CONTEXT = ['soil','crop','crops','planting','plantings','harvest','irrigation','greenhouse','farm','farms',
+                'cultivo','cultivos','riego','suelo','cosecha','irrigação','solo','colheita',
+                '灌溉','种植','種植','土壤','収穫','栽培','灌水']
 OTHER_FOODS = ['banana','bananas','cashew','cashews','yogurt','granola',
                'plátano','plátanos','anacardo','anacardos','iogurte','castanha','castanhas',
                '香蕉','腰果','酸奶','バナナ','カシューナッツ','ヨーグルト']
@@ -65,10 +68,20 @@ def analyze(item, entities):
     excluded=bool(blackberry_mentions and tech_context)
     # Preserve an explicit plural fruit mention even in a mixed device/food post.
     explicit_blackberries=bool(spans(text,'blackberries') or re.search(r'\bblackberry\s+(?:jam|bush|plant|fruit|cobbler|pie|harvest)\b|\b(?:picked|ate|eating|harvested)\s+(?:a\s+)?blackberry\b',text,re.I))
-    nonfruit = bool(re.search(r'raspberry\s+pi\b|perfume that smells|need a perfume|(?:wine|coffee).{0,35}(?:notes of|notes:)', text, re.I))
+    device_mentions=spans(text,'raspberry pi')
+    nonfruit = bool(re.search(r'perfume that smells|need a perfume|(?:wine|coffee).{0,35}(?:notes of|notes:)', text, re.I))
     berries = sorted(b for b, packs in VOCAB.items() if any(spans(text,t) for terms in packs.values() for t in terms))
     if excluded and not explicit_blackberries:
         berries = [b for b in berries if b != 'berry-blackberry']
+    if device_mentions:
+        # The device name does not identify raspberry fruit. Explicit berry
+        # vocabulary plus crop context can still describe relevant agtech.
+        fruit_raspberry=any(not any(d['start']<=hit['start'] and hit['end']<=d['end'] for d in device_mentions)
+            for terms in VOCAB['berry-raspberry'].values() for term in terms for hit in spans(text,term))
+        if not fruit_raspberry:
+            berries=[b for b in berries if b!='berry-raspberry']
+        if not berries or not any(spans(text,term) for term in CROP_CONTEXT):
+            nonfruit=True
     if nonfruit:
         berries = []
     aspects = []
