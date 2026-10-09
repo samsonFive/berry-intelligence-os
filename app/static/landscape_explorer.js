@@ -84,7 +84,10 @@
   const windowControl = root.querySelector('[name=window]');
   function customDates() { root.querySelectorAll('[data-custom-date]').forEach(label => { label.hidden = windowControl.value !== 'custom'; }); }
   windowControl.addEventListener('change', customDates); customDates();
+  // Restore both explicit URL selections. A subsequent focus change may still
+  // close unrelated evidence, but loading a shared view must not discard it.
+  const initialEdge = bundle.filters.edge;
   if (bundle.filters.focus) selectFocus(bundle.filters.focus);
-  if (bundle.filters.edge) selectEdge(bundle.filters.edge, false);
+  if (initialEdge) selectEdge(initialEdge, false);
   root.dataset.readyMs = (performance.now() - readyStart).toFixed(2);
 })();

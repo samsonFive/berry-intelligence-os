@@ -1,5 +1,19 @@
 # Intelligence Coverage Matrix
 
+October 9 integrated blueberry handoff: [current review](BLUEBERRY-INTEGRATED-REVIEW-HANDOFF.md)
+records denser, direction-preserving portfolio roles; publisher-named catalog
+links; repaired focus/evidence URL restoration; and the updated visual guide
+with eleven section homes and six reporting outputs. Native HTML/SVG/CSV retain
+82 relationships / 47 sources / 97 relationship-source rows. Final changed
+suite: 66 passed / one existing warning / 34.89s; earlier overlapping suite 120
+passed / one warning / 118.04s. Validation, 2,771-file preservation and final
+1,755-page static safety pass. Parent #373 is all-green: 4,522 passed / 11 skipped
+/ two warnings / 756.73s on 5a707a0; new draft CI remains separate. This handoff
+changes no catalog records or human reviews: 64 canonical varieties and 32
+pending source copies remain. CAT-01/CAT-02/TD-116, full corpus/portfolios/recall,
+rights/photos, human catalog work and integrated release remain open. Blueberry
+feedback is required before other-berry Landscape rollout; no merge/deploy.
+
 October 9 original corpus follow-up: [review](ORIGINAL-CORPUS-AND-SOURCE-REVIEW-READABILITY.md) records 22 private
 pending copies from 25 existing URLs; two access blocks and one body failure
 remain explicit. Together with the preceding cohort there are 32 pending copies
