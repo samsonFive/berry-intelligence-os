@@ -1,5 +1,18 @@
 # Project Status
 
+October 8 article-to-catalog connection: [review](docs/v2/CAPTURED-ARTICLE-VARIETY-COVERAGE-REVIEW.md) now includes
+known, already-readable news automatically in private variety identity views.
+The native Hortifrut capture finds 24 explicit names; private audit 102 source
+names / 32 catalog matches / 70 discoveries before private decisions, versus
+99 / 31 / 68 from summaries alone. Combined portfolio queue remains 738 keys;
+64 canonical varieties and human decisions unchanged. One private readable
+article does not repair the 1,269-record acquisition gap; canonical bodies
+remain 0/1,269. 132 affected tests and final 13 overlapping focused tests pass;
+desktop/phone review, record validation and original-data preservation pass.
+Parent #366 is green (4,405 tests); this child needs its own full CI.
+CAT-01/CAT-02/TD-116, full portfolios, real recall, rights/profile depth, human
+catalog authoring and tested release remain open. No merge/deploy or berry-gate bypass.
+
 October 8 Royal Berries/CAS: [original-source and identity-scope review](docs/v2/ROYALBERRIES-CAS-SOURCE-PLAN-REVIEW.md)
 adds twelve patent subjects, ten new review keys and three held fruit scans.
 CAS strawberry research names no cultivar releases. Two excluded labels now show

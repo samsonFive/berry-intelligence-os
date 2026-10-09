@@ -18,6 +18,7 @@
   </div>
 </section>
 {% if coverage.portfolio_error %}<p class="portfolio-limit" role="alert">Primary portfolio checks are unavailable: {{ coverage.portfolio_error }}. Existing catalog and source candidates remain available.</p>{% endif %}
+{% if coverage.article_sources and authoring_mode and not static_build %}<details class="portfolio-plan"><summary>Article names · {{ coverage.article_sources.readable_sources }} readable {{ 'source' if coverage.article_sources.readable_sources == 1 else 'sources' }} checked in this workspace</summary><p>{{ coverage.article_sources.reviewed_sources }} reviewed {{ 'source' if coverage.article_sources.reviewed_sources == 1 else 'sources' }} · {{ coverage.article_sources.unreviewed_sources }} unreviewed · {{ coverage.article_sources.reader_captures }} supplied by private Reader captures. Explicitly named varieties are included in <a href="/varieties/candidates">identity review</a>; this does not approve their identities or claims. Other known news may have only summaries, access screens or missing text. {{ coverage.article_sources.oversized_sources }} oversized {{ 'document was' if coverage.article_sources.oversized_sources == 1 else 'documents were' }} excluded from this quick check.</p></details>{% endif %}
 {% if coverage.portfolios and authoring_mode and not static_build %}{% include "_variety_portfolio_coverage.html" %}{% endif %}
 {% if authoring_mode and not static_build %}
 {% if coverage.external_error %}<p class="portfolio-limit" role="alert">{{ coverage.external_error }}</p>{% endif %}

@@ -127,3 +127,10 @@ independent recall, article-body acquisition, current rights, photo permissions,
 profile depth and human catalog decisions. The tested combined release and visual
 guide reconciliation also remain open. No global completeness claim, merge,
 deployment or other-berry Landscape rollout; the blueberry checkpoint remains.
+
+## Exact-head CI follow-up
+
+Draft #366 now passes all four checks on `bb95be5b99eec83ce9c57619bbfec417af921ecc`.
+Run 37880415786 / Python job 113658688522: 4,405 passed, 11 skipped, two warnings
+in 424.01s. Watcher 47684 completed with exit 0 and was consumed. This does not
+approve identities, merge/deploy the draft or close the full catalog mission.

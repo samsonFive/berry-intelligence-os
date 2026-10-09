@@ -507,6 +507,10 @@ def _declared_names(summary, record, blocked, *, source_text=False):
             row["mention_kind"] = row["mention_kind"].replace("summary", "source_text")
             row["source_text_basis"] = "available_article_text"
             row["source_publication_reviewed"] = record.get("status") == "published"
+            row["article_text_sources"] = [{"evidence_id": record["id"],
+                "source_url": record.get("source_url") or "",
+                "source_label": record.get("source_name") or record.get("source_id") or "",
+                "publication_reviewed": record.get("status") == "published"}]
         return mentions, exclusions
     mentions, exclusions = [], []
     berries = _berries(record)
@@ -708,7 +712,8 @@ def discover_corpus_variety_mentions(
         mentions.extend(found)
         exclusions.extend(excluded)
 
-    # Selected-source action only: no hydration or provider calls on list GETs.
+    # Explicit article inputs only: no hydration or provider calls here.
+    # Private callers may supply already-captured, exact-source bodies.
     # Pending publication text may produce identity leads, never a reviewed
     # publication, Atomic proposal, Fact, or company relationship.
     from app.services.source_body import article_full_text, reader_content
@@ -748,6 +753,16 @@ def discover_corpus_variety_mentions(
             current["evidence_ids"].append(mention["evidence_id"])
         if mention.get("fact_id") and mention["fact_id"] not in current["fact_ids"]:
             current["fact_ids"].append(mention["fact_id"])
+        if mention.get("article_text_sources"):
+            sources = current.setdefault("article_text_sources", [])
+            for source in mention["article_text_sources"]:
+                if source not in sources:
+                    sources.append(source)
+            # These legacy fields describe the primary mention only. Never
+            # borrow a reviewed status from a different co-mentioning source.
+            if current.get("evidence_id") == mention.get("evidence_id"):
+                current["source_text_basis"] = mention["source_text_basis"]
+                current["source_publication_reviewed"] = mention["source_publication_reviewed"]
 
     already_canonical: list[dict[str, Any]] = []
     already_candidate_rows: list[dict[str, Any]] = []
@@ -875,6 +890,8 @@ def mentions_to_import_rows(mentions: list[dict[str, Any]]) -> list[dict[str, An
                     "evidence_ids": mention.get("evidence_ids") or [],
                     "fact_ids": mention.get("fact_ids") or [],
                     "mention_context": mention.get("mention_context") or "",
+                    **({"article_text_sources": mention["article_text_sources"]}
+                       if mention.get("article_text_sources") else {}),
                     **({"source_text_basis": mention["source_text_basis"],
                         "source_publication_reviewed": mention["source_publication_reviewed"]}
                        if mention.get("source_text_basis") else {}),
@@ -956,7 +973,13 @@ def merge_visible_candidates(
         # Additional read-only provenance is separate from operator-owned
         # knowledge and decisions. No persisted field is replaced on replay.
         provenance = sorted({sid for mention in matching for sid in mention.get("evidence_ids") or []})
-        merged.append({**row, "corpus_evidence_ids": provenance})
+        article_sources = []
+        for mention in matching:
+            for source in mention.get("article_text_sources") or []:
+                if source not in article_sources:
+                    article_sources.append(source)
+        merged.append({**row, "corpus_evidence_ids": provenance,
+                       "corpus_article_text_sources": article_sources})
     for row in discovered_candidates:
         berry = str(row.get("berry_id") or "")
         key = f"{fold_identity(str(row.get('candidate_name') or ''))}|{berry}"
