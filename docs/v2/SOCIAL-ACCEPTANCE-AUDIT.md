@@ -2,6 +2,10 @@
 
 ## Latest accepted usability gate and reproducible quality sample
 
+### Role-proposal provenance follow-up
+
+New SociaVault normalization now records why a LinkedIn company-owned proposal was made: the supplied author URL matches the requested company URL. It explicitly states that account ownership is not independently verified. Instagram sponsorship requires the literal boolean `is_paid_partnership=true`, with that provider-field basis retained; strings such as `"false"` and numeric truthy values cannot become disclosures. Missing or differing authors remain unknown. This changes future normalization only; historical observations and review decisions are not rewritten. It closes a missing explanation found in caption triage, not independent corporate-label qualification.
+
 ### Known-parent Instagram comments
 
 The additional bounded provider test retrieved three real comments with explicit native comment URLs/timestamps and a known numeric parent ID. Three normalized imported records replayed without duplicate additions. All three captions were emoji-only, with unknown provider language and zero comment-media references; no preview import or sensory/purchase evidence claimed. Comments require a bound known-parent context; native links/IDs must agree, avatars never become attachments, context drift blocks export/reuse and changes cached normalized health to unknown. Source requests remain explicit and capped; no scheduling. This extends demonstrated comment retrieval, not independent accuracy or Instagram comment-image qualification. See SOCIAL-APIFY-TRIAL.md. The prior identity checkpoint `1f8efd4cfe1e831890b373eb1d2234e42ea52c7a` passed all four checks with4,164 tests,11 skips,2 warnings (387.82s); subsequent changes require fresh exact-head checks.

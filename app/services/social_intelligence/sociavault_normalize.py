@@ -149,7 +149,9 @@ def normalize(payload,task,*,supplied_url=None,supplied_parent_id=None):
                 media(row,post.get('display_url') or post.get('thumbnail_src'),'thumbnail' if post.get('is_video') else 'image')
                 for child in values(post.get('edge_sidecar_to_children',{}).get('edges')):media(row,child.get('node',{}).get('display_url'))
                 row['engagement']={k:v for k,v in {'likes':post.get('like_count'),'comments':post.get('comment_count')}.items() if isinstance(v,int) and v>=0}
-                if post.get('is_paid_partnership'):row['content_role']='disclosed_sponsorship'
+                if post.get('is_paid_partnership') is True:
+                    row['content_role']='disclosed_sponsorship'
+                    row['content_role_basis']='Provider explicitly supplied is_paid_partnership=true; disclosure not independently verified'
             elif platform=='x':
                 native=item['rest_id'];post=item['legacy'];parent=post.get('in_reply_to_status_id_str')
                 row=_row(platform,native,'https://x.com/i/status/'+native,post.get('full_text'),post.get('created_at'),post.get('lang','und'),parent)
@@ -172,6 +174,8 @@ def normalize(payload,task,*,supplied_url=None,supplied_parent_id=None):
                 media(row,item.get('image'))
                 for image in values(item.get('images')):media(row,image.get('url') if isinstance(image,dict) else image)
                 row['content_role']='company_owned' if task=='linkedin-company' and supplied_url and item.get('author',{}).get('url','').rstrip('/')==supplied_url.rstrip('/') else 'unknown'
+                if row['content_role']=='company_owned':
+                    row['content_role_basis']='Provider author URL matches the requested company URL; account ownership not independently verified'
                 row['engagement']={k:v for k,v in {'likes':item.get('likeCount'),'comments':item.get('commentCount')}.items() if isinstance(v,int) and v>=0}
             elif platform=='pinterest':
                 row=_row(platform,item.get('id'),item.get('url'),'\n'.join(filter(None,[item.get('title'),item.get('description')])),item.get('created_at'))

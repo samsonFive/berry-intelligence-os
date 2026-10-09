@@ -1,5 +1,25 @@
 from app.services.social_intelligence.sociavault_normalize import normalize
 
+def test_role_proposals_retain_provider_basis_without_inventing_ownership():
+    company='https://www.linkedin.com/company/example'
+    post={'url':'https://www.linkedin.com/posts/example-activity-123-test',
+          'description':'Blueberry trial','author':{'url':company}}
+    payload={'success':True,'data':{'posts':[post]}}
+    row=normalize(payload,'linkedin-company',supplied_url=company)['rows'][0]
+    assert row['content_role']=='company_owned'
+    assert 'Provider author URL matches' in row['content_role_basis']
+    assert 'not independently verified' in row['content_role_basis']
+    post['author']['url']='https://www.linkedin.com/in/consumer'
+    row=normalize(payload,'linkedin-company',supplied_url=company)['rows'][0]
+    assert row['content_role']=='unknown'
+    for flag,expected in [(True,'disclosed_sponsorship'),(False,'unknown'),('false','unknown'),(1,'unknown')]:
+        post={'id':'123','shortcode':'AbCd','caption':'Blueberries','is_paid_partnership':flag}
+        row=normalize({'success':True,'data':{'posts':[post]}},'instagram-search')['rows'][0]
+        assert row['content_role']==expected
+        if flag is True:
+            assert 'is_paid_partnership=true' in row['content_role_basis']
+            assert 'not independently verified' in row['content_role_basis']
+
 def test_real_shape_tiktok_dict_arrays_no_language_or_geography_from_query():
     payload={'success':True,'data':{'search_item_list':{'0':{'aweme_info':{
        'aweme_id':'123','url':'https://www.tiktok.com/@sample/video/123','desc':'Blueberries crunchy',
