@@ -1,0 +1,69 @@
+{
+  "scope": "Visual source-to-variety guide and honest current checklist; no source or catalog additions",
+  "site_section_cards": 11,
+  "analyst_workflow_steps": 4,
+  "reporting_outputs": 6,
+  "variety_workflow_steps": 4,
+  "native_desktop_verified": true,
+  "native_handoffs": [
+    "/varieties/coverage#profile-field-coverage",
+    "/varieties/candidates",
+    "/source-fidelity"
+  ],
+  "phone_visual_verified": false,
+  "phone_limit": "Fresh native tab retained1280px after390px override; reset and temporary tab closed",
+  "local_tests": {
+    "passed": 47,
+    "warnings": 1,
+    "seconds": 54.86
+  },
+  "static_pages": 1755,
+  "public_private_action_links": [],
+  "all31_requirement_ids_and_order_preserved": true,
+  "parent381_full_ci": {
+    "head": "d737715c417aba5c1e65518657f10350175e5d22",
+    "run_id": 37991526395,
+    "all_four": "SUCCESS",
+    "passed": 4563,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 617.19
+  },
+  "original_canonical_json_files_unchanged": 2771,
+  "pending_source_copies_unchanged": 32,
+  "new_canonical_or_human_decisions": 0,
+  "new_source_collection": false,
+  "merge_or_deploy": false,
+  "full_goal_complete": false,
+  "initial_full_ci": {
+    "head": "a5531f850db9880910610ba16e00821e4db4865e",
+    "run": 37993459335,
+    "passed": 4561,
+    "failed": 2,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 508.59,
+    "failures": [
+      "Historical source replay test omitted existing queue; parent repair included.",
+      "Availability-label count12 became13 with the new explanatory section."
+    ],
+    "private_data_leak_found": false
+  },
+  "public_safety_repair_tests": {
+    "passed": 16,
+    "warnings": 1,
+    "seconds": 9.07,
+    "private_links_absent": [
+      "/varieties/coverage#profile-field-coverage",
+      "/varieties/candidates",
+      "/source-fidelity"
+    ]
+  },
+  "parent_source_repair_head": "842d941d3df59245b8e642e26c8b61cf568faeb0",
+  "parent_source_repair_tests": {
+    "passed": 33,
+    "warnings": 1,
+    "seconds": 42.3
+  },
+  "current_head_full_ci": "Required after repair push; not assumed green"
+}

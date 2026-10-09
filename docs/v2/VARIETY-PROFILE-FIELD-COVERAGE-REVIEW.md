@@ -87,6 +87,11 @@ The repair passes all **18 source-status/field-inventory tests**, one existing
 ReportLab warning, 32.95 seconds. It changes the test assertion only; the final
 application code and native screenshots are unchanged.
 
+The repaired final head `d737715c417aba5c1e65518657f10350175e5d22` passes all
+four required checks, run 37991526395: **4,563 passed / 11 skipped / two warnings /
+617.19 seconds**. The CI watcher returned terminal success. This verifies the draft
+slice, not the combined release, phone review or catalog completeness.
+
 ## Remaining work
 
 Use these gaps to prioritize actual source-backed profiles and human authoring.

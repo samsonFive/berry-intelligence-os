@@ -283,7 +283,12 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert "Build a brief →" not in guide_html
     assert "Brief pack" in guide_html and "live workspace" in guide_html
     assert guide_html.count('class="guide-workspace guide-accent-') == 11
-    assert guide_html.count('class="guide-availability"') == 12
+    assert guide_html.count('class="guide-availability"') == 13
+    assert 'id="variety-workflow"' in guide_html
+    assert "Coverage, candidate decisions and catalog authoring are available in the live analyst workspace." in guide_html
+    assert "/varieties/coverage#profile-field-coverage" not in guide_html
+    assert "/varieties/candidates" not in guide_html
+    assert "/source-fidelity" not in guide_html
     assert "Public view available" in guide_html
     for output in ("Meeting Prep", "Brief pack", "Sourced report", "Market snapshot", "Competitor news packet", "Landscape briefing"):
         assert f"<h3>{output}</h3>" in guide_html

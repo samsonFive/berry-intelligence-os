@@ -19,10 +19,10 @@ at `/guide`; this checklist still owns outstanding requirements.
 | REL-01: tested release | Integrate approved drafts, reconcile canonical and verify the combined release | Current-head required CI, browser review, data/edit preservation, reviewable release and actual backup/rollback readiness; separate merge/deploy approval |
 
 Current bounded portfolio/photo evidence is in
-[UF photo review](UF-CULTIVAR-PHOTO-REFERENCES-REVIEW.md): 363 sections, 1,140
-name occurrences, 72 matched occurrences, 1,068 requiring review, 788 public
+[original-source review](SUNBELLE-ORIGINAL-VARIETY-SOURCES-REVIEW.md): 366 sections, 1,142
+name occurrences, 72 matched occurrences, 1,070 requiring review, 789 public
 derived candidate keys and 64 unchanged canonical varieties. There are 122
-photo references; the latest eight remain permission-held. These are source
+photo references; the eight UF photos remain permission-held. These are source
 observations, not a global census or approved catalog growth.
 
 The 32-copy human source/name packet remains unfinished. Source authenticity,
@@ -70,7 +70,7 @@ table and implementation sequence below are preserved.
 | INT-01 | Plain-language investigation workspaces without changing review decisions | Intelligence home preserves Statements, Signals/candidates, Assessments, Recommendations, Questions, Research and native authoring. M11–17/20/35 verify named references, literal source text and separate gates. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
-| GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | Live/public visual guide has eleven purpose cards, four workflow steps, worked example, five output explanations and distinct review lifecycle (M11/20); generated links resolve. M38 combined desktop/390px guide reviewed and screenshots saved. | Visual guide complete, including current capability limits; final exact-head release gates apply. |
+| GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | Live/public visual guide has eleven purpose cards, four analyst workflow steps, worked example, six output explanations and distinct review lifecycle (M11/20 and later blueberry briefing); generated links resolve. The [variety workflow explainer](VARIETY-WORKFLOW-EXPLAINER-REVIEW.md) adds four steps from source name through identity review and separate catalog authoring to a sourced profile, with existing private handoffs. M38 desktop/390px proof remains dated evidence; the current native browser retained desktop width after a new390px request, so current phone verification remains open. | Visual guide delivered, including current capability limits; final exact-head release and current phone gates apply. |
 | REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | October 7 fetch verifies canonical 7962ac04dd05855985f51596f3f8070f19990a75, PR #312 merged October 6 after user acceptance. Earlier M38 authenticated restart, 2,798-file verified restore and isolated prior-image rollback passed; the visual guide and requirements audit are delivered. | Production deployment is not reverified in this source-coverage mission. The later Landscape/variety drafts retain current-head CI and blueberry feedback/release gates before merge or deployment. Actual production backup remains required before an approved deployment. Actual phone visual verification of the new field table remains; the native viewport override did not change the browser size. |
 
 ## Historical implementation sequence
