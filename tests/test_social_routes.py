@@ -208,3 +208,13 @@ def test_explicit_import_deletion_holds_reader_briefing_export_and_replay(client
     assert client.get('/social/export?mode=imported').json()['count']==0
     assert row['canonical_url'] not in client.get('/social/briefing?mode=imported').text
     assert client.get('/api/social?mode=fixture').json()['count']>0
+
+
+def test_reader_quotes_negation_context_across_five_languages(client):
+    rows=client.get('/api/social?mode=fixture&berry=all').json()['records']
+    expected={'demo-en-6':'not sweet','demo-es-5':'no dulce','demo-pt-5':'não doce','demo-zh-5':'不甜','demo-ja-5':'甘いわけではない'}
+    for native_id,quote in expected.items():
+        row=next(r for r in rows if r['native_id']==native_id)
+        response=client.get('/api/social/'+row['id']+'/reader?mode=fixture&berry=all')
+        assert response.status_code==200
+        assert '“'+quote+'”' in response.text

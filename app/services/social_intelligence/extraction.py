@@ -7,7 +7,7 @@ import re
 import hashlib
 from functools import lru_cache
 
-VERSION = 'social-literal-5'
+VERSION = 'social-literal-6'
 # Primary-source audit found these aliases conflate separate councils. Hold
 # only the conflicting registry matches, without rewriting trusted identity.
 # Sources and reconciliation boundary: SOCIAL-ACCEPTANCE-AUDIT.md / TD-118.
@@ -77,8 +77,13 @@ def analyze(item, entities):
         if hits:
             for hit in hits:
                 s=hit['span'];before=text[max(0,s['start']-12):s['start']];after=text[s['end']:s['end']+15]
-                if re.search(r'\b(not|no|não)\s+$|不$',before,re.I) or 'ない' in after:
-                    hit['polarity']='uncertain' # Simple negation must not become confident praise.
+                preceding=re.search(r'\b(not|no|não)\s+$|不$',before,re.I)
+                following=re.search('ない',after)
+                if preceding or following:
+                    hit['polarity']='uncertain' # Absence of sweetness is not proof of dislike.
+                    left=s['start']-len(before)+preceding.start() if preceding else s['start']
+                    right=s['end']+following.end() if following else s['end']
+                    hit['negation_context']={'start':left,'end':right,'text':text[left:right]}
             signs = {h['polarity'] for h in hits}
             competing_food=False
             for hit in hits:
