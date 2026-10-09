@@ -103,6 +103,9 @@ own line instead of running directly into the company link.
 - Record validation passed. All **2,771 original data JSON files** and the
   canonical expansion guide were preserved. No backend/domain schemas,
   Atomic qualification markers or publication/identity decisions were changed.
+- Local trusted static build passed: **1,755 pages**; the build verified that
+  no unpublished draft IDs or titles appear in the output. Build session 48487
+  completed with exit 0 and was consumed.
 - Native desktop review verified the automatic name link, selected source,
   individual Unreviewed provenance and untouched human review controls.
 - Native 390px phone review showed original article imagery and saving into
