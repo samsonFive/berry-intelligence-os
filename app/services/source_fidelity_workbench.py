@@ -240,11 +240,17 @@ def consequence_preview(trusted: dict[str, Any], artifact: dict[str, Any]) -> di
 
 
 def reader_payload(artifact: dict[str, Any]) -> dict[str, Any]:
+    from app.services.article_structure import display_article_blocks
+
     transcript = _transcript(artifact)
+    article_rows = paragraphs(artifact)
+    blocks = display_article_blocks({"article": _article(artifact)},
+                                    [row.get("text") or "" for row in article_rows])
     return {
         "paragraphs": [
-            {"index": row.get("index", index), "text": row.get("text") or ""}
-            for index, row in enumerate(paragraphs(artifact))
+            {"index": row.get("index", index), "text": row.get("text") or "",
+             "heading_level": blocks[index]["level"] + 1 if blocks[index]["heading"] else None}
+            for index, row in enumerate(article_rows)
         ],
         "segments": [
             {

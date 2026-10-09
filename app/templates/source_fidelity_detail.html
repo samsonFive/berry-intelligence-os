@@ -79,7 +79,13 @@
         {% endfor %}
       {% else %}
         {% for paragraph in reader.paragraphs %}
-        <p><strong>Paragraph {{ paragraph.index }}</strong><br>{{ paragraph.text }}</p>
+        {% if paragraph.heading_level == 4 %}
+        <h4 data-source-paragraph="{{ paragraph.index }}" title="Source paragraph {{ paragraph.index }}">{{ paragraph.text }}</h4>
+        {% elif paragraph.heading_level == 5 %}
+        <h5 data-source-paragraph="{{ paragraph.index }}" title="Source paragraph {{ paragraph.index }}">{{ paragraph.text }}</h5>
+        {% else %}
+        <p data-source-paragraph="{{ paragraph.index }}" title="Source paragraph {{ paragraph.index }}">{{ paragraph.text }}</p>
+        {% endif %}
         {% else %}
         <p>No article text was recovered.</p>
         {% endfor %}
