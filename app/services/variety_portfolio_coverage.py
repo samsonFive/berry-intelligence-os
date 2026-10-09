@@ -312,7 +312,22 @@ def source_content_coverage(records):
 def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, filters=None, today=None, company_catalog=None):
     filters = filters or {}
     today = today or date.today()
+    berry = filters.get("berry", "")
+    if berry and berry not in BERRY_ORDER:
+        raise ValueError("Choose a supported berry")
+    q = str(filters.get("q", "")).strip().casefold()
+    company = str(filters.get("company", "")).strip()
     source_rows, visible = reconcile_portfolios(sources=sources, varieties=varieties, entities=entities, candidates=candidates, today=today)
+    selected = [row for row in source_rows if (not berry or berry in row.get("berry_ids", []) or any(name["berry_id"] == berry for name in row["names"]))
+                and (not company or company in row.get("company_ids", []))
+                and (not q or q in " ".join([row["title"], *(c["name"] for c in row["companies"])]).casefold())]
+    if berry:
+        selected = [{**row, "names": [n for n in row["names"] if n["berry_id"] == berry],
+                     "identity_issues": sorted({message for n in row["names"] if n["berry_id"] == berry for message in n["identity_notes"]}),
+                     "matched": sum(n["status"] == "catalog_match" and n["berry_id"] == berry for n in row["names"]),
+                     "needs_review": sum(n["status"] == "needs_review" and n["berry_id"] == berry for n in row["names"]),
+                     "closed": sum(n["status"] == "previously_rejected" and n["berry_id"] == berry for n in row["names"]),
+                     "awaiting_catalog": sum(n["status"] == "distinct_awaiting_catalog" and n["berry_id"] == berry for n in row["names"])} for row in selected]
     registry_path = data_dir / "imports/competitor-coverage-registry-2026-09-21/reconciliation-matrix.json"
     registry = json.loads(registry_path.read_text(encoding="utf-8"))["rows"] if registry_path.is_file() else []
     photo_path = data_dir / "imports/variety-operator-seed-2026-09-30/rows.json"
@@ -325,7 +340,11 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
     subjects = []
     for row in registry:
         ids = row.get("canonical_entity_ids") or []
-        linked = [source for source in source_rows if set(source.get("company_ids", [])) & set(ids)]
+        all_linked = [source for source in source_rows if set(source.get("company_ids", [])) & set(ids)]
+        linked = [source for source in selected if set(source.get("company_ids", [])) & set(ids)]
+        named_sources = [source for source in linked if source["capture_status"] == "names_enumerated" and source["names"]]
+        source_status = ("names_found" if named_sources else "partial" if any(
+            source["capture_status"] != "unreadable" for source in linked) else "unreadable" if linked else "not_started")
         profile_rows = [company_catalog[cid] for cid in ids if cid in company_catalog]
         edited_websites = [profile["website"] for profile in profile_rows if profile.get("website_edited")]
         websites = edited_websites if edited_websites else [row.get("website", "")] + [profile.get("website", "") for profile in profile_rows]
@@ -342,34 +361,20 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
             starting_url = linked[0]["url"] if linked else ""
             starting_label = "Attempted source ↗"
         scope = sorted({berry for cid in ids for berry in index.get(cid, {}).get("berry_ids", []) if berry in BERRY_ORDER}
-                       | {berry for source in linked for berry in source.get("berry_ids", [])}
+                       | {berry for source in all_linked for berry in source.get("berry_ids", [])}
                        | {photo["berry_id"] for photo in photo_rows if set(photo.get("company_ids", [])) & set(ids)})
         subjects.append({"name": row["input_registry_name"], "entity_ids": ids, "website": website,
                          "starting_url": starting_url, "starting_label": starting_label,
                          "site_notes": [s["company_site_note"] for s in linked if s.get("company_site_note")],
                          "berry_ids": scope, "berries": ", ".join(BERRY_LABELS[berry] for berry in scope) or "Scope needs checking",
                          "resolution": row["resolution_status"], "sources": linked,
-                         "checked": bool(linked) and any(source["capture_status"] == "names_enumerated" for source in linked),
+                         "checked": bool(named_sources), "source_status": source_status,
+                         "named_occurrences": sum(len(source["names"]) for source in linked),
                          "has_source_gaps": any(source["needs_follow_up"] for source in linked),
                          "href": "/entities/" + index[ids[0]]["entity_type"] + "/" + ids[0] if ids and ids[0] in index else ""})
-    berry = filters.get("berry", "")
-    if berry and berry not in BERRY_ORDER:
-        raise ValueError("Choose a supported berry")
-    q = str(filters.get("q", "")).strip().casefold()
-    company = str(filters.get("company", "")).strip()
-    selected = [row for row in source_rows if (not berry or berry in row.get("berry_ids", []) or any(name["berry_id"] == berry for name in row["names"]))
-                and (not company or company in row.get("company_ids", []))
-                and (not q or q in " ".join([row["title"], *(c["name"] for c in row["companies"])]).casefold())]
-    if berry:
-        selected = [{**row, "names": [n for n in row["names"] if n["berry_id"] == berry],
-                     "identity_issues": sorted({message for n in row["names"] if n["berry_id"] == berry for message in n["identity_notes"]}),
-                     "matched": sum(n["status"] == "catalog_match" and n["berry_id"] == berry for n in row["names"]),
-                     "needs_review": sum(n["status"] == "needs_review" and n["berry_id"] == berry for n in row["names"]),
-                     "closed": sum(n["status"] == "previously_rejected" and n["berry_id"] == berry for n in row["names"]),
-                     "awaiting_catalog": sum(n["status"] == "distinct_awaiting_catalog" and n["berry_id"] == berry for n in row["names"])} for row in selected]
     selected_subjects = [row for row in subjects if (not berry or berry in row["berry_ids"] or not row["berry_ids"])
                          and (not company or company in row["entity_ids"])
-                         and (not q or q in row["name"].casefold())]
+                         and (not q or q in row["name"].casefold() or row["sources"])]
     all_names = [name for source in selected for name in source["names"]]
     return {"sources": selected, "subjects": selected_subjects,
             "filters": {"berry": berry, "q": filters.get("q", ""), "company": company},
@@ -379,7 +384,10 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
                         "follow_up_sections": sum(s["needs_follow_up"] for s in selected),
                         "names": len(all_names), "catalog_matches": sum(n["status"] == "catalog_match" for n in all_names),
                         "needs_review": sum(n["status"] == "needs_review" for n in all_names),
-                        "registry_entries": len(selected_subjects), "registry_entries_checked": sum(s["checked"] for s in selected_subjects)},
+                        "registry_entries": len(selected_subjects), "registry_entries_checked": sum(s["checked"] for s in selected_subjects),
+                        "registry_entries_partial_checks": sum(s["source_status"] == "partial" for s in selected_subjects),
+                        "registry_entries_unavailable": sum(s["source_status"] == "unreadable" for s in selected_subjects),
+                        "registry_entries_not_started": sum(s["source_status"] == "not_started" for s in selected_subjects)},
             "by_berry": [{"id": berry_id, "label": BERRY_LABELS[berry_id],
                           "names": sum(n["berry_id"] == berry_id for n in all_names),
                           "matched": sum(n["berry_id"] == berry_id and n["status"] == "catalog_match" for n in all_names)} for berry_id in BERRY_ORDER],

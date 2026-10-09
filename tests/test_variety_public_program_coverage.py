@@ -89,7 +89,7 @@ def test_live_gap_notice_is_filtered_read_only_and_private(monkeypatch, tmp_path
     assert response.status_code == 200
     assert '1 source check still has gaps' in response.text
     assert '9 observed items; 23 lifetime raspberry cultivars reported' in response.text
-    assert 'Some names checked · source gaps remain' in response.text
+    assert 'Names found · more sources to check' in response.text
     assert 'Source capture unavailable' not in response.text
     uga = client.get('/varieties/coverage?q=University+of+Georgia')
     assert 'Could not read this source' in uga.text and 'certificate-name mismatch' in uga.text

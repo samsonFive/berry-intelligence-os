@@ -96,7 +96,7 @@ def test_live_source_gaps_show_originals_without_writes_or_public_review_leaks(m
     page = client.get("/varieties/coverage", params={"company": "company-biogea"})
     assert page.status_code == 200
     assert "We haven’t captured variety names in these pages" in page.text
-    assert "Partial source check · named-variety coverage remains" in page.text
+    assert "Pages checked · varieties not named here" in page.text
     assert 'href="https://www.biogea.mx/en/frambuesa-jalisco"' in page.text
     assert "BIOGROW3" in page.text and "Ojo Zarco" in page.text
     assert "Partial variety coverage" in page.text
