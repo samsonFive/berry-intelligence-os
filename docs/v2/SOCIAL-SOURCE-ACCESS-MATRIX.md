@@ -2,7 +2,11 @@
 
 The [zero-spend vendor comparison](SOCIAL-MONITORING-BAKEOFF.md) adds current Apify Actor/SociaVault/enterprise feasibility, official setup links and isolated test measurements. Two saved public Bluesky Jetstream samples connected but yielded no blueberry posts; keyword search remains HTTP403-blocked. News RSS returned93unique titles, not consumer-social evidence. These tests do not upgrade the15platform production-coverage statuses below or establish vendor permission.
 
-No subscriptions, paid collection, trials or access applications were activated. Only Bluesky and YouTube have implemented automated paths. Imported/manual samples never count as live access. Primary-page fetch failures remain visible.
+No subscriptions, paid collection or access applications were activated. Existing user-created provider accounts supply the bounded trials documented below; no unattended collection. Direct Bluesky/YouTube paths and guarded Apify paths are implemented separately. Provider acquisition/export remains labelled imported on normalization; manual/fixture samples never establish live platform access. Primary-page fetch failures remain visible. The original platform entries retain their dated status; subsequent measured provider results below do not establish production rights or full coverage.
+
+## Latest Instagram provider access measurement — October 8 local time
+
+Status: **partial** via the existing Apify Free account. [Official Instagram Scraper documentation](https://apify.com/apify/instagram-scraper) was inspected again; it documents public URL/hashtag extraction, API token access and $2.70/1,000 results on the Free plan. This is vendor documentation, not a measured unlimited-access guarantee or redistribution permission. Our pinned-build five-post `blueberrypicking` test returned five valid imported records; observed charge$0.0135 included credit, cash$0. Its saved log explicitly limits free-user hashtag extraction to one page. All five provider language tags are unknown. Consumer usefulness, native media fidelity and complete-history recall remain unqualified; no source retention/deletion rights were newly established. [Measured run and diagnostic caption mix](SOCIAL-APIFY-TRIAL.md) remain separate from claims.
 
 ## instagram — stale
 
