@@ -188,7 +188,7 @@
   "full_source_recall_verified": false,
   "company_associations_complete": false,
   "independent_human_recall_score": null,
-  "full_ci": "Required on the new pushed draft head.",
+  "full_ci": "Fresh repaired-head CI required.",
   "merge_or_deploy": false,
   "requirements_ids_and_order_preserved": [
     "CAT-01",
@@ -222,5 +222,22 @@
     "OPS-01",
     "GUIDE-01",
     "REL-01"
-  ]
+  ],
+  "initial_full_ci": {
+    "head": "cc856c0f7bff39f66d6258ce54a5ad0581da0e3f",
+    "run": 38004480326,
+    "passed": 4578,
+    "failed": 1,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 567.86,
+    "failure": "SunBelle historical test removed the earlier Erika anchor while retaining the later register, so its before/after baseline no longer represented the original addition."
+  },
+  "ci_repair_tests": {
+    "passed": 13,
+    "warnings": 1,
+    "seconds": 11.67,
+    "application_identity_algorithm_changed": false,
+    "historical_and_current_anchor_tests_separate": true
+  }
 }

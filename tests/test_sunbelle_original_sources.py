@@ -9,8 +9,12 @@ DATA = Path(__file__).resolve().parents[1] / "data"
 PREFIX = "portfolio-sunbelle-info-"
 
 
-def test_fresh_sunbelle_reconciliation_preserves_previous_anchors_and_adds_only_erika():
-    sources = load_portfolio_observations(DATA)
+def test_sunbelle_checkpoint_preserves_previous_anchors_and_adds_only_erika():
+    # This measures the SunBelle addition against its historical baseline. The
+    # later cultivar register independently names Erika; removing her earlier
+    # anchor and rebuilding from that later source is not a replay of this step.
+    sources = [s for s in load_portfolio_observations(DATA)
+               if not s["id"].startswith("portfolio-register52-2024-")]
     before = [s for s in sources if not s["id"].startswith(PREFIX)]
     _, old = reconcile_portfolios(sources=before, varieties=[], entities=[], candidates=[])
     rows, new = reconcile_portfolios(sources=sources, varieties=[], entities=[], candidates=[])
@@ -32,6 +36,15 @@ def test_fresh_sunbelle_reconciliation_preserves_previous_anchors_and_adds_only_
     assert all(not n.get("photos") for s in batch for n in s["names"])
     blueberry = next(s for s in batch if s["id"] == PREFIX + "blueberry-origin-gap")
     assert blueberry["capture_status"] == "partial" and blueberry["needs_follow_up"]
+
+
+def test_current_erika_keeps_sunbelle_anchor_and_later_register_reference():
+    _, candidates = reconcile_portfolios(sources=load_portfolio_observations(DATA), varieties=[], entities=[], candidates=[])
+    erika = next(c for c in candidates if c["candidate_name"] == "Erika" and c["berry_id"] == "berry-raspberry")
+    assert erika["source_id"] == PREFIX + "raspberry-origin"
+    assert erika["source_url"] == "https://www.sunbelle.info/raspberries/19"
+    assert {PREFIX + "raspberry-origin", "portfolio-register52-2024-raspberry-main"} <= {s["id"] for s in erika["portfolio_sources"]}
+    assert not erika["human_gated"] and not erika["auto_confirmed"]
 
 
 def test_new_source_cannot_replace_existing_human_identity_notes_or_photo_choice():

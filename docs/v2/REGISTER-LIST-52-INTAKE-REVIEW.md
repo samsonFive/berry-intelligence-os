@@ -74,3 +74,16 @@ separate human gates. CAT-01, CAT-02, TD-116 and REL-01 stay open. The visual
 workflow explainer at `/guide` describes the existing review path; this source
 addition does not change it. Phone verification and the integrated release remain
 unproven. No merge, deploy or other-berry Landscape rollout is included.
+
+## Full-suite follow-up
+
+Initial draft #386 head `cc856c0f7bff39f66d6258ce54a5ad0581da0e3f` passed three
+required checks. Python run 38004480326 had 4,578 passed / one failed / 11 skipped /
+two warnings in 567.86 seconds. The older SunBelle test removed its earlier Erika
+source but kept the later register, then expected reinserting the earlier source
+to preserve an ID rebuilt from the later source. That was not its historical
+checkpoint. The historical test now excludes the later register; a separate
+current-data test proves Erika retains her SunBelle anchor and gains the exact
+register reference. No application identity algorithm changed. Thirteen affected
+repair checks pass, one warning, in 11.67 seconds. Fresh repaired-head CI is
+required; the initial failure and repair evidence remain retained.
