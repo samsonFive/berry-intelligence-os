@@ -1,5 +1,12 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+October 8 Smart Berries: [bounded original-page audit](SMARTBERRIES-BRAND-CULTIVAR-GAPS-REVIEW.md)
+finds unnamed underlying cultivars, with Betty Blues and Ruby Reds explicitly
+identified as brands. Nine checked sections add no candidate or approved identity.
+Combined: 328 sections / 1,050 occurrences / 726 queue keys; 18 initial enumeration
+gaps and 92 follow-ups. Current/historical completeness and independent recall
+remain unproven; source access is not approval or trust.
+
 October 8 APG continuation: [original strawberry review](APG-ORIGINAL-STRAWBERRY-PORTFOLIO-REVIEW.md)
 accounts for the ten-name index, ASBP/CIV pages and seven complete factsheets.
 37 occurrences produce seven new queue keys; ten attributed photos stay held.

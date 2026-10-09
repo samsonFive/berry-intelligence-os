@@ -1,5 +1,11 @@
 # Technical Debt Register
 
+October 8 TD-116: [Smart Berries original pages](SMARTBERRIES-BRAND-CULTIVAR-GAPS-REVIEW.md)
+now expose the missing underlying cultivar inventory. Brand labels and historical
+farm locations do not become varieties or growing footprints. Nine added partial
+sections bring follow-ups to 92; 18 initial enumeration gaps remain. TD-116 and
+CAT-01/CAT-02 stay open, including unread video and independent recall.
+
 October 8 TD-116 follow-up: [APG original strawberry review](APG-ORIGINAL-STRAWBERRY-PORTFOLIO-REVIEW.md)
 adds bounded source coverage and surfaces conflicting protection/version claims
 without changing approved rights or operator fields. 70 focused tests pass.

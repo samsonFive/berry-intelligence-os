@@ -1,0 +1,371 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-smartberries-original-about",
+      "title": "Smart Berries — Company and growing overview",
+      "url": "https://www.smartberries.com.au/about-us/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-smart-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete company overview read. It describes grower/distributor/marketer activity and hand-crossing but names no cultivars.",
+      "limitations": "The checked section does not identify its underlying cultivars. Brand names, crop names, article headings and unnamed winter varieties are not cultivar identities or aliases. Generic berry/pack images are not photos of a named variety. Company locations and historical farm accounts do not establish a current growing footprint for an individual variety; no company role, performance claim, rights or availability is approved. Copyright 2026 is not a publication date. This is bounded page coverage, not a complete current or historical portfolio.",
+      "names": [],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Smart Berries",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "Smart",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "45220a96d69b8dc505689f671a216c63d0053345e061a69b72d6c1d43de671a2",
+        "bytes": 1634
+      }
+    },
+    {
+      "id": "portfolio-smartberries-original-range",
+      "title": "Smart Berries — Blueberry, raspberry and blackberry range",
+      "url": "https://www.smartberries.com.au/our-berries/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-smart-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "partial",
+      "enumerated_scope": "All three crop sections read. Different blueberry/raspberry varieties and exclusive blackberries are described without names or breeder codes.",
+      "limitations": "The checked section does not identify its underlying cultivars. Brand names, crop names, article headings and unnamed winter varieties are not cultivar identities or aliases. Generic berry/pack images are not photos of a named variety. Company locations and historical farm accounts do not establish a current growing footprint for an individual variety; no company role, performance claim, rights or availability is approved. Copyright 2026 is not a publication date. This is bounded page coverage, not a complete current or historical portfolio.",
+      "names": [],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [
+          {
+            "label": "blueberries",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "raspberries",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "blackberries…coming soon!",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "58750b9784697cd0d5e539942784d9e9cd9cc7e8238eb8f1cac88611b5bba770",
+        "bytes": 2007
+      }
+    },
+    {
+      "id": "portfolio-smartberries-original-brands",
+      "title": "Smart Berries — Wholesale brands",
+      "url": "https://www.smartberries.com.au/our-brands/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-smart-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete brand page read. Smart Berries, Betty Blues and Ruby Reds are explicitly described as brands, not named cultivars.",
+      "limitations": "The checked section does not identify its underlying cultivars. Brand names, crop names, article headings and unnamed winter varieties are not cultivar identities or aliases. Generic berry/pack images are not photos of a named variety. Company locations and historical farm accounts do not establish a current growing footprint for an individual variety; no company role, performance claim, rights or availability is approved. Copyright 2026 is not a publication date. This is bounded page coverage, not a complete current or historical portfolio.",
+      "names": [],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [
+          {
+            "label": "Smart Berries",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "Betty Blues",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "Ruby Reds",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "3bc7a812edeb2e5d95d0f9034796d4dda121d2d4fbfd722031c2a18c3c00a7e9",
+        "bytes": 1150
+      }
+    },
+    {
+      "id": "portfolio-smartberries-original-trade",
+      "title": "Smart Berries — Storage, handling and point of sale",
+      "url": "https://www.smartberries.com.au/trade/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-smart-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete public trade page read. Storage/handling, merchandising and point-of-sale information do not identify cultivars.",
+      "limitations": "The checked section does not identify its underlying cultivars. Brand names, crop names, article headings and unnamed winter varieties are not cultivar identities or aliases. Generic berry/pack images are not photos of a named variety. Company locations and historical farm accounts do not establish a current growing footprint for an individual variety; no company role, performance claim, rights or availability is approved. Copyright 2026 is not a publication date. This is bounded page coverage, not a complete current or historical portfolio.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "03a6210c36954c640e1cc00c5b48367e0eaed6c699dbdbe40ee4918f0c537712",
+        "bytes": 1098
+      }
+    },
+    {
+      "id": "portfolio-smartberries-original-blog-page-1",
+      "title": "Smart Berries — Original blog archive — page 1",
+      "url": "https://www.smartberries.com.au/berry-blog/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-smart-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "partial",
+      "enumerated_scope": "All ten archive cards and excerpts read, not the full contents of all ten posts. No cultivar name appears in those excerpts; selected farm articles were read separately.",
+      "limitations": "The checked section does not identify its underlying cultivars. Brand names, crop names, article headings and unnamed winter varieties are not cultivar identities or aliases. Generic berry/pack images are not photos of a named variety. Company locations and historical farm accounts do not establish a current growing footprint for an individual variety; no company role, performance claim, rights or availability is approved. Copyright 2026 is not a publication date. This is bounded page coverage, not a complete current or historical portfolio.",
+      "names": [],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": [
+          {
+            "label": "Best ways to store Berries?",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "A handful of health",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "Oat and Blueberry Biscuits",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "Blueberries can help lower blood pressure, research shows…",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "Raspberries you can eat them all day…",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "There are lots of great health reasons you should eat blueberries everyday!",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "Tassie blueberries",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "Did you know?",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "Our farm in sunny Mundubbera",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "Raspberries in Tasmania",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "1a92aeae19009bd2de91fd7852ec4ee725eae1665e934af44697066f76a1d9cb",
+        "bytes": 3949,
+        "archive_cards_read": 10,
+        "all_linked_articles_read": false
+      }
+    },
+    {
+      "id": "portfolio-smartberries-original-mundubbera-farm",
+      "title": "Smart Berries — Original Mundubbera blueberry farm account",
+      "url": "https://www.smartberries.com.au/2016/11/our-farm-in-sunny-mundubbera/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-smart-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete November 29, 2016 farm article read. Winter varieties are unnamed; the farm location does not identify or locate any particular cultivar.",
+      "limitations": "The checked section does not identify its underlying cultivars. Brand names, crop names, article headings and unnamed winter varieties are not cultivar identities or aliases. Generic berry/pack images are not photos of a named variety. Company locations and historical farm accounts do not establish a current growing footprint for an individual variety; no company role, performance claim, rights or availability is approved. Copyright 2026 is not a publication date. This is bounded page coverage, not a complete current or historical portfolio.",
+      "names": [],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": [
+          {
+            "label": "winter varieties of blueberries",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "26e0edc296b6789c76dcc17c29de0378cc4a2f32d3a045632e673b2174a26b7d",
+        "bytes": 1209
+      },
+      "published_date": "2016-11-29"
+    },
+    {
+      "id": "portfolio-smartberries-original-blog-page-2",
+      "title": "Smart Berries — Original blog archive — page 2",
+      "url": "https://www.smartberries.com.au/berry-blog/page/2/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-smart-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Both remaining archive cards read. The video iframe is blank; no spoken cultivar identification or video content was reviewed.",
+      "limitations": "The checked section does not identify its underlying cultivars. Brand names, crop names, article headings and unnamed winter varieties are not cultivar identities or aliases. Generic berry/pack images are not photos of a named variety. Company locations and historical farm accounts do not establish a current growing footprint for an individual variety; no company role, performance claim, rights or availability is approved. Copyright 2026 is not a publication date. This is bounded page coverage, not a complete current or historical portfolio.",
+      "names": [],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Did you know?",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          },
+          {
+            "label": "Smart Berries on Queensland Weekender",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "f66f3557887a99dbbccb4a43ce1b38bc989acd48a6ee927174b375083268c53c",
+        "bytes": 629,
+        "archive_cards_read": 2,
+        "all_linked_articles_read": false
+      }
+    },
+    {
+      "id": "portfolio-smartberries-original-weekender-video",
+      "title": "Smart Berries — Queensland Weekender — video access gap",
+      "url": "https://www.smartberries.com.au/2016/11/smart-berries-on-queensland-weekender/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-smart-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Original November 4, 2016 article heading and date read. The embedded YouTube frame is blank and there is no readable article body or transcript. Video content remains unchecked.",
+      "limitations": "The checked section does not identify its underlying cultivars. Brand names, crop names, article headings and unnamed winter varieties are not cultivar identities or aliases. Generic berry/pack images are not photos of a named variety. Company locations and historical farm accounts do not establish a current growing footprint for an individual variety; no company role, performance claim, rights or availability is approved. Copyright 2026 is not a publication date. This is bounded page coverage, not a complete current or historical portfolio.",
+      "names": [],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": [
+          {
+            "label": "Smart Berries on Queensland Weekender",
+            "reason": "Brand, organization, crop, unnamed group or article heading; not an identified cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "8db27321def369fdafff1049ef0ce85e41c1475eb94f63d6e2cb8fb09b9a8816",
+        "bytes": 665,
+        "video_url": "https://www.youtube.com/embed/yx3-uN7L6M8?wmode=transparent",
+        "video_content_read": false,
+        "transcript_read": false
+      },
+      "published_date": "2016-11-04"
+    },
+    {
+      "id": "portfolio-smartberries-original-tasmania-farm",
+      "title": "Smart Berries — Original Tasmania raspberry farm account",
+      "url": "https://www.smartberries.com.au/2016/11/raspberries-in-tasmania/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-smart-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_variety_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete November 27, 2016 farm article read. It describes hand-picked raspberries on Tasmania’s north coast without cultivar names.",
+      "limitations": "The checked section does not identify its underlying cultivars. Brand names, crop names, article headings and unnamed winter varieties are not cultivar identities or aliases. Generic berry/pack images are not photos of a named variety. Company locations and historical farm accounts do not establish a current growing footprint for an individual variety; no company role, performance claim, rights or availability is approved. Copyright 2026 is not a publication date. This is bounded page coverage, not a complete current or historical portfolio.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "body_read": true,
+        "sha256": "0ad18f8f3e79941116b769228e12ef0938940c0d450bd058f182b931e2bbd0bb",
+        "bytes": 1259
+      },
+      "published_date": "2016-11-27"
+    }
+  ]
+}

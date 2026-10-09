@@ -1,5 +1,12 @@
 # Intelligence Coverage Matrix
 
+October 8 Smart Berries: [nine bounded original sections](SMARTBERRIES-BRAND-CULTIVAR-GAPS-REVIEW.md)
+are partial: crop/brand pages, two archive pages, two full farm articles, trade,
+company overview and a blank video embed. No new named cultivar or photo. Combined
+audit: 328 sections, 1,050 occurrences, 62 catalog text matches, 988 review needs,
+726 candidate keys, 107 photo references; 64 mixed-status catalog records unchanged.
+59/77 registry entries partly checked, 18 enumeration gaps and 92 follow-ups.
+
 October 8 APG original strawberry continuation: 23 sections / 37 occurrences /
 ten subjects / seven new queue keys / ten withheld photo references. See
 [APG review](APG-ORIGINAL-STRAWBERRY-PORTFOLIO-REVIEW.md). Combined audit: 319

@@ -1,5 +1,11 @@
 # Redesign and consolidation requirements
 
+October 8 Smart Berries: [nine original source gaps](SMARTBERRIES-BRAND-CULTIVAR-GAPS-REVIEW.md)
+keep wholesale brands out of cultivar identities and preserve the unchecked video
+boundary. 328 source sections / 1,050 occurrences / 726 queue keys; 18 initial
+enumeration gaps and 92 follow-ups. CAT-01/CAT-02/TD-116 and human catalog/release
+gates remain open; this addition does not close worldwide or historical coverage.
+
 October 8 APG continuation: [original strawberry review](APG-ORIGINAL-STRAWBERRY-PORTFOLIO-REVIEW.md)
 adds ten source subjects and seven new queue keys; no automatic catalog promotion.
 Critical source conflicts are prominent; secondary context remains collapsed.
