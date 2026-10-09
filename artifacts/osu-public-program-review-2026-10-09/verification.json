@@ -1,0 +1,106 @@
+{
+  "source_sections_added": 4,
+  "source_entries_added": 45,
+  "new_candidate_keys": 39,
+  "earlier_candidate_references": 6,
+  "public_coverage": {
+    "source_sections": 352,
+    "readable_sections": 259,
+    "unreadable_sections": 14,
+    "follow_up_sections": 107,
+    "names": 1129,
+    "catalog_matches": 64,
+    "needs_review": 1065,
+    "registry_entries": 77,
+    "registry_entries_checked": 60,
+    "registry_entries_partial_checks": 14,
+    "registry_entries_unavailable": 1,
+    "registry_entries_not_started": 0,
+    "registry_entries_identity_hold": 2
+  },
+  "public_candidate_counts": {
+    "stored_source_candidates": 63,
+    "combined_candidates": 788,
+    "additional_primary_portfolio_candidates": 725
+  },
+  "by_berry": [
+    {
+      "id": "berry-blueberry",
+      "label": "Blueberry",
+      "names": 293,
+      "matched": 43
+    },
+    {
+      "id": "berry-strawberry",
+      "label": "Strawberry",
+      "names": 526,
+      "matched": 2
+    },
+    {
+      "id": "berry-raspberry",
+      "label": "Raspberry",
+      "names": 199,
+      "matched": 16
+    },
+    {
+      "id": "berry-blackberry",
+      "label": "Blackberry",
+      "names": 111,
+      "matched": 3
+    }
+  ],
+  "canonical_varieties_preserved": 64,
+  "original_data_json_preserved": 2771,
+  "expansion_guide_unchanged": true,
+  "private_integrity": {
+    "unique_attempted_urls": 35,
+    "initial_failed_trial_retried_once": true,
+    "pending_source_copies": 32,
+    "new_human_source_decisions": 0,
+    "new_extraction_ready_ids": [],
+    "followup_attempted": 25,
+    "followup_pending": 22,
+    "followup_access_blocked": 2,
+    "followup_no_usable_body": 1,
+    "prior_artifact_body_hashes_preserved": 10,
+    "real_pending_draft_bytes_preserved": true,
+    "scope": "Local source copies only; no source acceptance, identity decisions, canonical authoring or global recall qualification."
+  },
+  "native_browser": {
+    "coverage_tab": 27,
+    "all_four_lists_checked": true,
+    "code_name_pair_checked": "ORUS 2240-1 / Sweet Sunrise",
+    "local_visible_candidate_keys": 789,
+    "human_forms_submitted": 0
+  },
+  "tests": {
+    "passed": 90,
+    "warnings": 1,
+    "seconds": 73.4,
+    "session": 93591,
+    "terminal_consumed": true
+  },
+  "parent_ci": {
+    "pr": 374,
+    "head": "3a8261769768588009fa507d113d197c644b5e43",
+    "all_four": "SUCCESS",
+    "passed": 4524,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 627.09
+  },
+  "remaining_landscape_rollout_authorized": false,
+  "merge_or_deployment": false,
+  "static": {
+    "html_pages": 1755,
+    "pagefind": "PASS",
+    "draft_id_title_exclusion": "PASS",
+    "new_unreviewed_source_id_code_exclusion": "PASS",
+    "initial_build_session": 53180,
+    "initial_exit": 1,
+    "initial_failure": "Pagefind output write denied by local filesystem sandbox",
+    "index_retry_session": 64305,
+    "index_retry_exit": 0,
+    "handles_consumed": true
+  }
+}

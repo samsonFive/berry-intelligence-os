@@ -1,5 +1,18 @@
 # Project Status
 
+October 9 public-program release coverage: [review](docs/v2/OSU-HISTORICAL-RELEASE-COVERAGE-REVIEW.md) adds all 45 entries
+from OSU’s four-berry historical release list to identity review: 39 new keys
+and six additional references. Coverage is 352 sections / 1,129 name occurrences
+/ 64 catalog matches / 1,065 requiring review; 788 public derived keys. The
+64 canonical varieties and 32 pending source copies are unchanged. Partner
+credits, source code/name pairings and historical rights wording do not
+approve identities, roles or current rights. Ninety targeted tests pass;
+validation and original-data/private-payload preservation pass. Parent #374
+is all-green on 3a82617: 4,524 passed / 11 skipped / two warnings / 627.09s.
+CAT-01/CAT-02/TD-116, full portfolios/corpus/recall/rights/photos, human catalog
+authoring and integrated release remain open. Blueberry feedback still gates
+remaining Landscape rollout; no merge or deployment.
+
 October 9 integrated blueberry handoff: [current review](docs/v2/BLUEBERRY-INTEGRATED-REVIEW-HANDOFF.md)
 records denser, direction-preserving portfolio roles; publisher-named catalog
 links; repaired focus/evidence URL restoration; and the updated visual guide

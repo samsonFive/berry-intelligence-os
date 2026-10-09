@@ -1,0 +1,382 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-osu-cooperative-historical-blackberry",
+      "title": "Oregon State University — historical blackberry releases",
+      "url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program",
+      "checked_on": "2026-10-09",
+      "observed_at": "2026-10-09T18:16:00.254397Z",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "breeder_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 19 bullet entries in the Blackberry subsection of Publications & Varieties Released; code/name pairs are one observed entry each.",
+      "limitations": "Historical list ends with 2015 releases; not a complete current or lifetime portfolio. Release years are source assertions, not publication dates or approved release metadata. Several entries credit other institutions; publication on this site does not assign OSU or USDA breeding, ownership or licensing roles. PPAF and patent references are historical wording, not current legal status. No inferred code aliases, growing regions, traits, canonical entities or image permission. The original accordion link changed the fragment but did not visibly expand in the browser; its original DOM text and the web reader independently supplied the same 45 entries.",
+      "review_warnings": [
+        "Historic program list: check newer releases separately. Institution credits and selection/name pairs require human review."
+      ],
+      "names": [
+        {
+          "candidate_name": "ORUS 2427-4",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2015 · unreviewed",
+          "breeder_code": "ORUS 2427-4"
+        },
+        {
+          "candidate_name": "Columbia Giant",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2015 · unreviewed"
+        },
+        {
+          "candidate_name": "APF-77",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2014 · unreviewed",
+          "trade_name": "Black Magic",
+          "breeder_code": "APF-77"
+        },
+        {
+          "candidate_name": "Columbia Star",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2013 · unreviewed"
+        },
+        {
+          "candidate_name": "ORUS 1939-4",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2012 · unreviewed",
+          "breeder_code": "ORUS 1939-4"
+        },
+        {
+          "candidate_name": "Newberry",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2010 · unreviewed"
+        },
+        {
+          "candidate_name": "Onyx",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2010 · unreviewed · Historical list cites USPP 22,358; current rights not verified"
+        },
+        {
+          "candidate_name": "Wild Treasure",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2010 · unreviewed"
+        },
+        {
+          "candidate_name": "Prime-Jan",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2005 · unreviewed · University of Arkansas named as primary releasing institution"
+        },
+        {
+          "candidate_name": "Prime-Jim",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2005 · unreviewed · University of Arkansas named as primary releasing institution"
+        },
+        {
+          "candidate_name": "Obsidian",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2005 · unreviewed"
+        },
+        {
+          "candidate_name": "Metolius",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2005 · unreviewed"
+        },
+        {
+          "candidate_name": "Black Pearl",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2005 · unreviewed"
+        },
+        {
+          "candidate_name": "Nightfall",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2005 · unreviewed"
+        },
+        {
+          "candidate_name": "Black Diamond",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2005 · unreviewed"
+        },
+        {
+          "candidate_name": "Siskiyou",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 1997 · unreviewed"
+        },
+        {
+          "candidate_name": "Black Butte",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 1996 · unreviewed"
+        },
+        {
+          "candidate_name": "Triple Crown",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 1996 · unreviewed · USDA-ARS Beltsville named as primary releasing institution"
+        },
+        {
+          "candidate_name": "Chandler",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 1994 · unreviewed · USDA-ARS Chatsworth named as primary releasing institution"
+        }
+      ],
+      "accounting": {
+        "observed_items": 19,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-osu-cooperative-historical-strawberry",
+      "title": "Oregon State University — historical strawberry releases",
+      "url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program",
+      "checked_on": "2026-10-09",
+      "observed_at": "2026-10-09T18:16:00.254447Z",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 11 bullet entries in the Strawberry subsection of Publications & Varieties Released; code/name pairs are one observed entry each.",
+      "limitations": "Historical list ends with 2015 releases; not a complete current or lifetime portfolio. Release years are source assertions, not publication dates or approved release metadata. Several entries credit other institutions; publication on this site does not assign OSU or USDA breeding, ownership or licensing roles. PPAF and patent references are historical wording, not current legal status. No inferred code aliases, growing regions, traits, canonical entities or image permission. The original accordion link changed the fragment but did not visibly expand in the browser; its original DOM text and the web reader independently supplied the same 45 entries.",
+      "review_warnings": [
+        "Historic program list: check newer releases separately. Institution credits and selection/name pairs require human review."
+      ],
+      "names": [
+        {
+          "candidate_name": "ORUS 2240-1",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2013 · unreviewed",
+          "trade_name": "Sweet Sunrise",
+          "breeder_code": "ORUS 2240-1"
+        },
+        {
+          "candidate_name": "ORUS 2262-2",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2013 · unreviewed",
+          "trade_name": "Charm",
+          "breeder_code": "ORUS 2262-2"
+        },
+        {
+          "candidate_name": "Puget Crimson",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2011 · unreviewed · WSU named as primary releasing institution"
+        },
+        {
+          "candidate_name": "Sweet Bliss",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2011 · unreviewed"
+        },
+        {
+          "candidate_name": "Valley Red",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2009 · unreviewed"
+        },
+        {
+          "candidate_name": "Stolo",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2007 · unreviewed · Agriculture and Agri-Foods Canada named as primary releasing institution"
+        },
+        {
+          "candidate_name": "Pinnacle",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2002 · unreviewed"
+        },
+        {
+          "candidate_name": "Tillamook",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2002 · unreviewed"
+        },
+        {
+          "candidate_name": "Schwartz",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2002 · unreviewed · WSU named as primary releasing institution; source name pairing needs review",
+          "trade_name": "Puget Summer"
+        },
+        {
+          "candidate_name": "Firecracker",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 1997 · unreviewed"
+        },
+        {
+          "candidate_name": "Independence",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 1997 · unreviewed"
+        }
+      ],
+      "accounting": {
+        "observed_items": 11,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-osu-cooperative-historical-raspberry",
+      "title": "Oregon State University — historical raspberry releases",
+      "url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program",
+      "checked_on": "2026-10-09",
+      "observed_at": "2026-10-09T18:16:00.254469Z",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "breeder_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 9 bullet entries in the Red Raspberry subsection of Publications & Varieties Released; code/name pairs are one observed entry each.",
+      "limitations": "Historical list ends with 2015 releases; not a complete current or lifetime portfolio. Release years are source assertions, not publication dates or approved release metadata. Several entries credit other institutions; publication on this site does not assign OSU or USDA breeding, ownership or licensing roles. PPAF and patent references are historical wording, not current legal status. No inferred code aliases, growing regions, traits, canonical entities or image permission. The original accordion link changed the fragment but did not visibly expand in the browser; its original DOM text and the web reader independently supplied the same 45 entries.",
+      "review_warnings": [
+        "Historic program list: check newer releases separately. Institution credits and selection/name pairs require human review."
+      ],
+      "names": [
+        {
+          "candidate_name": "Cascade Harvest",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2014 · unreviewed"
+        },
+        {
+          "candidate_name": "Cascade Gold",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2013 · unreviewed"
+        },
+        {
+          "candidate_name": "Vintage",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2011 · unreviewed"
+        },
+        {
+          "candidate_name": "Cascade Bounty",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2006 · unreviewed · WSU named as primary releasing institution"
+        },
+        {
+          "candidate_name": "Saanich",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2006 · unreviewed · Agriculture and Agri-Food Canada named as primary releasing institution"
+        },
+        {
+          "candidate_name": "Esquimalt",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2005 · unreviewed · Agriculture and Agri-Food Canada named as primary releasing institution"
+        },
+        {
+          "candidate_name": "Chinook",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2002 · unreviewed"
+        },
+        {
+          "candidate_name": "Coho",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 1999 · unreviewed"
+        },
+        {
+          "candidate_name": "Lewis",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 1998 · unreviewed · Source describes cooperation with HortResearch Inc. New Zealand; identity distinctness from Hutton Lewis remains unresolved"
+        }
+      ],
+      "accounting": {
+        "observed_items": 9,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-osu-cooperative-historical-blueberry",
+      "title": "Oregon State University — historical blueberry releases",
+      "url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program",
+      "checked_on": "2026-10-09",
+      "observed_at": "2026-10-09T18:16:00.254482Z",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "breeder_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 6 bullet entries in the Blueberry subsection of Publications & Varieties Released; code/name pairs are one observed entry each.",
+      "limitations": "Historical list ends with 2015 releases; not a complete current or lifetime portfolio. Release years are source assertions, not publication dates or approved release metadata. Several entries credit other institutions; publication on this site does not assign OSU or USDA breeding, ownership or licensing roles. PPAF and patent references are historical wording, not current legal status. No inferred code aliases, growing regions, traits, canonical entities or image permission. The original accordion link changed the fragment but did not visibly expand in the browser; its original DOM text and the web reader independently supplied the same 45 entries.",
+      "review_warnings": [
+        "Historic program list: check newer releases separately. Institution credits and selection/name pairs require human review."
+      ],
+      "names": [
+        {
+          "candidate_name": "Baby Blues",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2015 · unreviewed"
+        },
+        {
+          "candidate_name": "Perpetua",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2012 · unreviewed · Listed as ornamental; do not exclude from blueberry identity coverage"
+        },
+        {
+          "candidate_name": "Pink Champagne",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2007 · unreviewed · Listed as pink highbush"
+        },
+        {
+          "candidate_name": "Pink Lemonade",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2007 · unreviewed · Listed as pink rabbiteye"
+        },
+        {
+          "candidate_name": "ARS 96-138",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2005 · unreviewed · USDA-ARS Chatsworth named as primary releasing institution",
+          "breeder_code": "ARS 96-138"
+        },
+        {
+          "candidate_name": "G-435",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://plantbreeding.oregonstate.edu/plantbreeding/research/small-fruit-breeding-program#collapseEleven",
+          "portfolio_context": "OSU historical release list · listed release year 2005 · unreviewed · USDA-ARS Chatsworth named as primary releasing institution",
+          "breeder_code": "G-435"
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": []
+      }
+    }
+  ]
+}
