@@ -34,5 +34,36 @@
   "new_canonical_or_human_decisions": 0,
   "new_source_collection": false,
   "merge_or_deploy": false,
-  "full_goal_complete": false
+  "full_goal_complete": false,
+  "initial_full_ci": {
+    "head": "a5531f850db9880910610ba16e00821e4db4865e",
+    "run": 37993459335,
+    "passed": 4561,
+    "failed": 2,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 508.59,
+    "failures": [
+      "Historical source replay test omitted existing queue; parent repair included.",
+      "Availability-label count12 became13 with the new explanatory section."
+    ],
+    "private_data_leak_found": false
+  },
+  "public_safety_repair_tests": {
+    "passed": 16,
+    "warnings": 1,
+    "seconds": 9.07,
+    "private_links_absent": [
+      "/varieties/coverage#profile-field-coverage",
+      "/varieties/candidates",
+      "/source-fidelity"
+    ]
+  },
+  "parent_source_repair_head": "842d941d3df59245b8e642e26c8b61cf568faeb0",
+  "parent_source_repair_tests": {
+    "passed": 33,
+    "warnings": 1,
+    "seconds": 42.3
+  },
+  "current_head_full_ci": "Required after repair push; not assumed green"
 }

@@ -44,6 +44,21 @@ Parent field-inventory draft #381 is all-green on
 failure remains recorded. Sun Belle source draft #382 is a separate current-head
 CI gate; this application-template draft also requires its own full CI.
 
+The initial guide CI head `a5531f850db9880910610ba16e00821e4db4865e`
+failed the static fixture's old availability-label count: the new workflow adds
+one explanatory live-workspace label (13 total, formerly 12). Its generated
+snapshot passed the draft-leakage check; the failure did not identify exposed
+private data. The count is corrected with explicit assertions that the new
+section keeps profile-coverage, candidate-review and source-authenticity links
+out of public markup. **All 16 CI public-safety fixture tests pass locally**,
+one existing warning, 9.07 seconds.
+
+The dependent guide branch includes the source-replay regression repair from
+draft #382; that separate repair preserves existing identities and decisions,
+without application identity or canonical-data changes. Both drafts require
+fresh current-head CI before release. The earlier failures remain in their
+verification artifacts rather than being presented as green runs.
+
 ## Remaining mission
 
 CAT-01/CAT-02/TD-116 remain open. Full current/historical portfolios, original
