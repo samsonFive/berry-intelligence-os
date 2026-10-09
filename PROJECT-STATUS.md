@@ -22,16 +22,22 @@ there rather than reconstructing the mission from historical progress reports.
 
 ## Latest reviewable changes
 
+- [Four-berry register intake](docs/v2/REGISTER-LIST-52-INTAKE-REVIEW.md):
+  388 unreviewed heading observations, eight referrals and two held codes add
+  321 candidate keys. 48 affected checks and the 1,755-page public build pass;
+  prior IDs, original records and operator edits are preserved. Per-entry company
+  associations and body/parent recall remain open. Fresh pushed-head CI is required.
+
 - [Original Lewis pedigree](docs/v2/LEWIS-ORIGINAL-PEDIGREE-REVIEW.md):
   eleven historical review leads from an original diagram, with all earlier IDs
   and human decisions preserved; one unclear code remains held. 44 affected
-  checks pass.
+  checks pass. Draft #385 passes all four checks, including 4,576 Python tests.
 
 
 - [Original patent/profile links](docs/v2/ORIGINAL-PATENT-PROFILE-LINKS-REVIEW.md):
   original claims/document/illustration links, recorded breeding-program and
   patent fields, and preserved human distinct/rejected decisions. 59 targeted
-  checks pass; final draft-head CI is required after push.
+  checks pass. Draft #384 passes all four checks, including 4,574 Python tests.
 - Drafts #382 and #383 both pass all four checks, including 4,565 tests each.
 
 
@@ -54,9 +60,9 @@ there rather than reconstructing the mission from historical progress reports.
   the guide now traces source names through identity review, separate catalog
   authoring and profile enrichment, with links to the existing private workflows.
 
-The [latest bounded audit](docs/v2/LEWIS-ORIGINAL-PEDIGREE-REVIEW.md) has
-368 source sections / 1,156 name occurrences / 73 matched occurrences / 1,083
-requiring review, with 800 public derived candidate keys and 64 unchanged
+The [latest bounded audit](docs/v2/REGISTER-LIST-52-INTAKE-REVIEW.md) has
+376 source sections / 1,544 name occurrences / 88 matched occurrences / 1,456
+requiring review, with 1,121 public-source-derived candidate keys and 64 unchanged
 canonical varieties. There are 122 photo references; the eight UF photos have unknown
 reuse permission and remain excluded from public static output. Source mentions
 are not approved varieties or a global completeness measure.

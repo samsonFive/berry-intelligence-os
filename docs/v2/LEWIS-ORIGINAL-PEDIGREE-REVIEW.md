@@ -62,7 +62,8 @@ complete current/historical portfolios, original corpus, independent human
 recall, cited profiles and actual human catalog authoring remain open. CAT-01,
 CAT-02 and TD-116 stay active; phone verification and the combined release still
 require review. Other Landscape berries await revised blueberry feedback.
-This draft requires fresh exact-head CI; no merge or deployment is included.
+Draft #385 exact head `d2d0e26551e62f73028e83b93d3b653d20f334f8` passes all four
+required checks; no merge or deployment is included.
 
 The subsequent [four-berry register acquisition](REGISTER-LIST-52-ACQUISITION-REVIEW.md)
 also supplies an original 2024 description distinguishing the Hutton Bonnie Lewis
@@ -72,4 +73,4 @@ four-berry register enumeration is the next broader portfolio-audit step.
 
 ## Full-suite follow-up
 
-Initial PR #385 head `3a8285473070380b43ffcd8c809de1513976e328` passed three required checks. Full Python run 38000328542 had 4,575 passed / one failed / 11 skipped / two warnings in 524.04 seconds. The historical test still expected the recovered paper to be unreadable. The corrected test verifies readable text/table scope and separately held partial pedigree, while retaining comparator, identity, date and role safeguards. Nine affected checks pass locally, one warning, 7.68 seconds. Fresh repaired-head CI remains required.
+Initial PR #385 head `3a8285473070380b43ffcd8c809de1513976e328` passed three required checks. Full Python run 38000328542 had 4,575 passed / one failed / 11 skipped / two warnings in 524.04 seconds. The historical test still expected the recovered paper to be unreadable. The corrected test verifies readable text/table scope and separately held partial pedigree, while retaining comparator, identity, date and role safeguards. Nine affected checks pass locally, one warning, 7.68 seconds. Repaired exact head `d2d0e26551e62f73028e83b93d3b653d20f334f8` passed all four checks in run 38002131094: 4,576 passed / 11 skipped / two warnings in 527.59 seconds. The first failure and repair evidence remain retained.

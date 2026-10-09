@@ -61,7 +61,15 @@
   "pending_source_copies_preserved": 32,
   "human_decisions_created": 0,
   "canonical_writes": 0,
-  "full_ci": "Fresh exact-head CI required after historical access expectation repair.",
+  "full_ci": {
+    "head": "d2d0e26551e62f73028e83b93d3b653d20f334f8",
+    "run": 38002131094,
+    "all_four": "SUCCESS",
+    "passed": 4576,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 527.59
+  },
   "merge_or_deploy": false,
   "initial_full_ci": {
     "head": "3a8285473070380b43ffcd8c809de1513976e328",

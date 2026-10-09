@@ -6,7 +6,9 @@ TD-116 remains open. Source-name discovery, original patent links and attributed
 photo references improve coverage but do not establish complete portfolios,
 current rights, independent human recall or approved catalog growth. See the
 [catalog mission](VARIETY-CATALOG-COMPREHENSIVENESS-MISSION.md) and
-[latest original-source evidence](SUNBELLE-ORIGINAL-VARIETY-SOURCES-REVIEW.md).
+[latest four-berry original-source evidence](REGISTER-LIST-52-INTAKE-REVIEW.md).
+The 388 checked heading observations add 321 candidate keys, while body/parent
+recall, per-entry company associations and all human catalog decisions remain open.
 
 The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
 shows actual catalog gaps: 53/64 without photo references, 36/64 without

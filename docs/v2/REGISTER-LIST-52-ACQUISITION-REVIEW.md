@@ -33,7 +33,15 @@ shared label. It adds an original-source reference for a human identity review;
 it does not submit that decision or change any catalog record. Its historical
 rights references require separate current official verification.
 
-## Next program step
+## Subsequent intake
+
+The later [checked-heading intake](REGISTER-LIST-52-INTAKE-REVIEW.md) accounts for
+398 first-name heading contexts across all four berries and their addenda. It
+adds 388 unreviewed observations; body/parent/trade-name recall remains partial.
+The acquisition artifact below is historical and retains its original no-import
+scope. Neither step approves identities, current rights or catalog edits.
+
+## Original next program step
 
 1. Account for every described cultivar and every referral in the four crop
    sections, then audit the four-berry addenda. Preserve printed spellings,
