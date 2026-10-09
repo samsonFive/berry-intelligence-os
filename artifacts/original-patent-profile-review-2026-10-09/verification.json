@@ -61,7 +61,15 @@
   "real_pending_draft_bytes_preserved": true,
   "human_decisions_created": 0,
   "merge_or_deploy": false,
-  "full_ci": "Fresh exact-head CI required after fixture repair push; earlier failure retained.",
+  "full_ci": {
+    "head": "f2420ddab027b8ee8f11862ac0d8930eaf99a3d4",
+    "run": 37999704027,
+    "all_four": "SUCCESS",
+    "passed": 4574,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 657.65
+  },
   "static": {
     "pages": 1755,
     "unpublished_draft_check": "passed",

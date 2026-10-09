@@ -1,0 +1,81 @@
+{
+  "source_url": "https://www.ars.usda.gov/ARSUserFiles/1718/PDF/2001/Lewismanuscript.pdf",
+  "sha256": "a7e862e9aa2e92db0069b658eb8e0f056433a5c64c80d4d9ccbed0780ab3a32e",
+  "visually_reviewed_pages": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "diagram_page": 2,
+  "observed_nodes": 16,
+  "represented_unique_contexts": 13,
+  "excluded_nodes": 3,
+  "unclear_code_held": true,
+  "added_source_only_candidates": 11,
+  "all_prior_ids_preserved": true,
+  "operator_fields_and_input_preserved": true,
+  "tests": {
+    "passed": 44,
+    "warnings": 1,
+    "seconds": 35.47
+  },
+  "initial_test_run": {
+    "passed": 43,
+    "failed": 1,
+    "seconds": 36.62,
+    "reason": "Compared recomputed provenance as saved operator fields"
+  },
+  "static": {
+    "pages": 1755,
+    "draft_leak_check": "passed",
+    "new_private_source_marker_scan": "passed"
+  },
+  "record_validation": "passed",
+  "summary": {
+    "source_sections": 368,
+    "readable_sections": 272,
+    "unreadable_sections": 14,
+    "follow_up_sections": 110,
+    "names": 1156,
+    "catalog_matches": 73,
+    "needs_review": 1083,
+    "registry_entries": 77,
+    "registry_entries_checked": 60,
+    "registry_entries_partial_checks": 14,
+    "registry_entries_unavailable": 1,
+    "registry_entries_not_started": 0,
+    "registry_entries_identity_hold": 2
+  },
+  "candidate_counts": {
+    "stored_source_candidates": 63,
+    "combined_candidates": 800,
+    "additional_primary_portfolio_candidates": 737
+  },
+  "canonical_varieties": 64,
+  "photo_references": 122,
+  "native_private_keys": 801,
+  "native_creston_provenance_checked": true,
+  "screenshot": "creston-source-review.png",
+  "source_json_files_preserved": 2771,
+  "pending_source_copies_preserved": 32,
+  "human_decisions_created": 0,
+  "canonical_writes": 0,
+  "full_ci": "Fresh exact-head CI required after historical access expectation repair.",
+  "merge_or_deploy": false,
+  "initial_full_ci": {
+    "head": "3a8285473070380b43ffcd8c809de1513976e328",
+    "run": 38000328542,
+    "passed": 4575,
+    "failed": 1,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 524.04,
+    "failure": "Historical test still expected the recovered paper to be partial/unreadable."
+  },
+  "ci_repair_tests": {
+    "passed": 9,
+    "warnings": 1,
+    "seconds": 7.68
+  }
+}

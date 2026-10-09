@@ -86,14 +86,21 @@ def test_two_codes_under_one_label_in_one_source_still_require_separate_review()
     assert len({c['id'] for c in candidates}) == 2
     assert all(n['identity_notes'] for n in rows[0]['names'])
 
-def test_historical_sources_keep_comparators_and_unread_pedigree_out_of_release_claims():
+def test_historical_sources_keep_comparators_separate_from_pedigree_and_release_claims():
     sources = load_portfolio_observations(ROOT / 'data')
     selected = [s for s in sources if s['id'] in {'portfolio-hutton-legacy-raspberry-list', 'portfolio-usda-lewis-2001-paper'}]
     rows, candidates = reconcile(selected)
     hutton = next(r for r in rows if 'hutton' in r['id'])
     paper = next(r for r in rows if 'usda' in r['id'])
     assert len(hutton['names']) == 6 and all(n['product_url'].endswith('.asp') for n in hutton['names'])
-    assert paper['capture_status'] == 'partial' and paper['needs_follow_up']
+    # The original four-page paper is now readable. Its separately accounted
+    # pedigree still has an unresolved printed code; source access is not
+    # identity, catalog, role, or current-rights approval.
+    assert paper['capture_status'] == 'names_enumerated'
+    pedigree = next(s for s in sources if s['id'] == 'portfolio-usda-lewis-2001-pedigree')
+    pedigree_rows, _ = reconcile([pedigree])
+    assert pedigree_rows[0]['capture_status'] == 'partial'
+    assert pedigree_rows[0]['needs_follow_up']
     assert len(paper['names']) == 13 and paper['accounting_view']['accounted_items'] == 16
     assert {e['label'] for e in paper['accounting_view']['exclusions']} == {'ORUS 1570', 'ORUS 1748', 'Centennial'}
     assert not {'ORUS 1570', 'ORUS 1748', 'Centennial'} & {c['candidate_name'] for c in candidates}

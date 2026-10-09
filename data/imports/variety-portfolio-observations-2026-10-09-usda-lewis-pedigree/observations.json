@@ -1,0 +1,256 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-usda-lewis-2001-paper",
+      "title": "USDA ARS — Lewis raspberry release paper (2001)",
+      "url": "https://www.ars.usda.gov/ARSUserFiles/1718/PDF/2001/Lewismanuscript.pdf",
+      "checked_on": "2026-10-09",
+      "observed_at": "2026-10-07T14:01:06.636428Z",
+      "company_ids": [
+        "company-usda"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "breeder_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Thirteen named cultivar/release/comparator contexts in the four-page paper text and tables; two parent codes and one bibliography-only cultivar title are excluded from this bounded scope.",
+      "limitations": "Original four-page release paper retrieved and visually reviewed on 2026-10-09. This section retains the thirteen release/comparator contexts in the text and tables; the page 2 pedigree is accounted in a separate section with an unresolved selection-code label. Lewis is paired with ORUS 576-47 in the original paper; a current Hutton overview also names Lewis, and identity remains unresolved. Comparison cultivars are not USDA breeder assignments. Printed publication year 2001 and acceptance dates do not establish a publication day. Trial observations, rights, current availability, growing regions and image reuse are not approved.",
+      "names": [
+        {
+          "candidate_name": "ORUS 576-47",
+          "breeder_code": "ORUS 576-47",
+          "trade_name": "Lewis",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Lewis release paper, 2001 · code/name pairing unreviewed"
+        },
+        {
+          "candidate_name": "Coho",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Related release mentioned in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Meeker",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Willamette",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Chilcotin",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Chilliwack",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Comox",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Glen Ample",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Tulameen",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Qualicum",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Southland",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Fairview",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Skeena",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        }
+      ],
+      "accounting": {
+        "observed_items": 16,
+        "exclusions": [
+          {
+            "label": "ORUS 1570",
+            "reason": "Parent selection code in the origin paragraph; pedigree-only material is outside this release/comparator scope."
+          },
+          {
+            "label": "ORUS 1748",
+            "reason": "Parent selection code in the origin paragraph; pedigree-only material is outside this release/comparator scope."
+          },
+          {
+            "label": "Centennial",
+            "reason": "Bibliography-only cultivar title; the referenced release paper remains a separate source check."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "original_pdf_text_and_all_four_page_visual_review",
+        "original_pdf_url": "https://www.ars.usda.gov/ARSUserFiles/1718/PDF/2001/Lewismanuscript.pdf",
+        "sha256": "a7e862e9aa2e92db0069b658eb8e0f056433a5c64c80d4d9ccbed0780ab3a32e",
+        "page_count": 4,
+        "text_extracted_pages": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "publication_year": 2001,
+        "exact_publication_date_established": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-usda-lewis-2001-pedigree",
+      "title": "Lewis red raspberry — original pedigree diagram",
+      "url": "https://www.ars.usda.gov/ARSUserFiles/1718/PDF/2001/Lewismanuscript.pdf",
+      "company_ids": [
+        "company-usda"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-09",
+      "source_type": "breeder_release_record",
+      "capture_status": "partial",
+      "enumerated_scope": "Figure 2 on PDF page 2: thirteen unique focal/cultivar/selection contexts and three separately accounted diagram nodes.",
+      "limitations": "Historical pedigree context from an original USDA-hosted multi-institution paper; not a current company portfolio or approved ancestry graph. One selection label between SHRI 5856/49 and Burnetholm/Malling Jewel remains held because its printed separator is unclear. The wild taxon/material node is excluded; the repeated Willamette node is separately counted. Do not infer current rights, crop traits, growing regions, company breeder/owner assignments or image reuse.",
+      "names": [
+        {
+          "candidate_name": "ORUS 576-47",
+          "breeder_code": "ORUS 576-47",
+          "trade_name": "Lewis",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "The paper identifies Lewis as ORUS 576-47 (Origin, page 1) and shows its ancestry in Figure 2. Whether this is the same Lewis named in the current Hutton portfolio remains unresolved."
+        },
+        {
+          "candidate_name": "ORUS 1570",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Ancestor shown in the 2001 Lewis raspberry pedigree (Figure 2, page 2). This paper does not establish current ownership, commercial availability or growing locations."
+        },
+        {
+          "candidate_name": "ORUS 1748",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Ancestor shown in the 2001 Lewis raspberry pedigree (Figure 2, page 2). This paper does not establish current ownership, commercial availability or growing locations."
+        },
+        {
+          "candidate_name": "Creston",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Ancestor shown in the 2001 Lewis raspberry pedigree (Figure 2, page 2). This paper does not establish current ownership, commercial availability or growing locations."
+        },
+        {
+          "candidate_name": "ORUS 1094",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Ancestor shown in the 2001 Lewis raspberry pedigree (Figure 2, page 2). This paper does not establish current ownership, commercial availability or growing locations."
+        },
+        {
+          "candidate_name": "Willamette",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Ancestor shown in the 2001 Lewis raspberry pedigree (Figure 2, page 2). This paper does not establish current ownership, commercial availability or growing locations."
+        },
+        {
+          "candidate_name": "ORUS 1028",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Ancestor shown in the 2001 Lewis raspberry pedigree (Figure 2, page 2). This paper does not establish current ownership, commercial availability or growing locations."
+        },
+        {
+          "candidate_name": "Washington",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Ancestor shown in the 2001 Lewis raspberry pedigree (Figure 2, page 2). This paper does not establish current ownership, commercial availability or growing locations."
+        },
+        {
+          "candidate_name": "SHRI 6145/42",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Ancestor shown in the 2001 Lewis raspberry pedigree (Figure 2, page 2). This paper does not establish current ownership, commercial availability or growing locations."
+        },
+        {
+          "candidate_name": "SHRI 5856/49",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Ancestor shown in the 2001 Lewis raspberry pedigree (Figure 2, page 2). This paper does not establish current ownership, commercial availability or growing locations."
+        },
+        {
+          "candidate_name": "141/33 (EM)",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Ancestor shown in the 2001 Lewis raspberry pedigree (Figure 2, page 2). This paper does not establish current ownership, commercial availability or growing locations."
+        },
+        {
+          "candidate_name": "Burnetholm",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Ancestor shown in the 2001 Lewis raspberry pedigree (Figure 2, page 2). This paper does not establish current ownership, commercial availability or growing locations."
+        },
+        {
+          "candidate_name": "Malling Jewel",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Ancestor shown in the 2001 Lewis raspberry pedigree (Figure 2, page 2). This paper does not establish current ownership, commercial availability or growing locations."
+        }
+      ],
+      "accounting": {
+        "observed_items": 16,
+        "exclusions": [
+          {
+            "label": "R. strigosus (Mt. Mitchell, N.C.)",
+            "reason": "Wild taxon/material node, not an individual cultivar denomination."
+          },
+          {
+            "label": "Willamette — repeated lower pedigree node",
+            "reason": "Second occurrence of the same literal label; represented once in this section without inventing a second identity."
+          },
+          {
+            "label": "Selection between SHRI 5856/49 and Burnetholm / Malling Jewel",
+            "reason": "The printed code resembles 3B:45 (selfed), but its separator is unresolved. Keep this node held; do not substitute a guessed code or alias."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "original_pdf_text_and_all_four_page_visual_review",
+        "original_pdf_url": "https://www.ars.usda.gov/ARSUserFiles/1718/PDF/2001/Lewismanuscript.pdf",
+        "sha256": "a7e862e9aa2e92db0069b658eb8e0f056433a5c64c80d4d9ccbed0780ab3a32e",
+        "page_count": 4,
+        "text_extracted_pages": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "publication_year": 2001,
+        "exact_publication_date_established": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "pedigree_page": 2,
+        "figure": 2
+      }
+    }
+  ]
+}

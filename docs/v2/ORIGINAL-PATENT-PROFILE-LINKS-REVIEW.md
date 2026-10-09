@@ -79,3 +79,7 @@ remains required; this failed run is retained in the verification artifact.
 All47 synthesis/profile regression checks pass after that fixture repair, one
 existing warning,62.00 seconds. Application behavior and source data are unchanged
 by the repair; fresh pushed-head CI remains required.
+
+## Final repaired CI
+
+PR #384 repaired head `f2420ddab027b8ee8f11862ac0d8930eaf99a3d4` passes all four required checks, run 37999704027: 4,574 passed / 11 skipped / two warnings in 657.65 seconds. The initial failed assertion remains recorded. This is draft-scope evidence, not combined release or current-rights approval.
