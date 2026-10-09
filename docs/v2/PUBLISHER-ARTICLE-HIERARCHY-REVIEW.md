@@ -70,6 +70,11 @@ private capture was saved or replaced by this proof.
 - Local public static build: 1,755 pages, unpublished draft IDs/titles excluded.
   Final asset-version/mobile synchronization was rebuilt successfully: 1,755
   pages and the same unpublished-ID/title exclusion check.
+- The first child CI static-safety run caught an existing required relative
+  app.css URL assertion after live cache versioning. Static pages now retain
+  their original relative asset path; only live pages receive that cache query.
+  Original test assertions are preserved; 22 focused static/reader/shell tests
+  passed, one existing warning, 19.02 seconds.
 - Parent #368 head b0ec41e passes all four checks: 4,441 tests / 11 skipped /
   two warnings / 478.11 seconds. Run 37886083984, Python job 113676332471;
   live watch session 90121 was consumed with terminal success.
