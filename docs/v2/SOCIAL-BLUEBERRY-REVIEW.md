@@ -1,5 +1,29 @@
 # Blueberry social intelligence review — 2026-10-07
 
+## Current accepted workspace and quality review — October 8 local time
+
+Code checkpoint `8d98ea4a9d2dac00a08b7ff5f9e89096e1395987` passed Change scope, Repository integrity, Static public safety and Python tests in [run37892414322](https://github.com/samsonFive/berry-intelligence-os/actions/runs/37892414322):4,179 passed,11 skipped,2 warnings (345.05s). PR base is `feature/landscape-explorer` at `bd6b4a390e73582aad317eaec12bd5c27c6fad7a`; branch `feature/social-blueberry-review`, draft [PR314](https://github.com/samsonFive/berry-intelligence-os/pull/314). Later documentation-only commits require their own exact-head checks.
+
+The user accepted the current workspace, sample relevance/role separation, inline expansion and reader behavior, and authorized the all-berry follow-up. **The dated collection snapshots below are historical.** Current private preview is `http://127.0.0.1:18345/social`, served by `python scripts/preview_social_sociavault.py` with source polling disabled. Social Listening is in the main navigation; All berries is the default. Central post text expands inline; Full post opens the shared reader. Translation-first display, original hover/focus, compact dates, newest-first order, author handles, carousel/lightbox media and native LinkedIn playback are retained. Unsupported English readability is hidden from the English workspace rather than displaying an unavailable-translation notice.
+
+Fresh private corpus inspection:258 live provider observations across eight platforms,102 readable in English and156 pending English, plus64 isolated synthetic observations. Real-source counts: Reddit50, TikTok10, X58, Instagram41, Pinterest28, YouTube34, LinkedIn29, Facebook8. These are retained pilot records, not independent authors, population totals, market coverage or representative recall. The later Apify picking/comment probes remain isolated imported evaluations, not preview posts.
+
+The [current acceptance audit](SOCIAL-ACCEPTANCE-AUDIT.md), [bake-off](SOCIAL-MONITORING-BAKEOFF.md), [Apify receipts](SOCIAL-APIFY-TRIAL.md) and [access matrix](SOCIAL-SOURCE-ACCESS-MATRIX.md) carry the reconciled results. Independent live gold remains0; authored evaluations remain202/207 blueberry and246/246 all-berry across five languages. Practical translator comparison covers one sample/excerpt each in ES/PT/ZH/JA, not a measured independent accuracy rate. Source-literal identity version5 holds NABC/USHBC alias conflation without editing the trusted registry; two unreviewed private proposals were refreshed with byte-identical source payloads.
+
+Current access: SociaVault retained11/50 credits, ten-credit reserve, no new calls; Apify eighteen conservative reservations$1.80/$2, leaving$0.20 subject to fresh guards, $0.10/run maximum and cash$0. X Actor's own ten-tweet free cap remains blocked. Instagram free hashtag retrieval is one-page; a targeted five-post query yielded one family-picking caption among mixed worker/recruitment/artwork results. Three direct comments were retrieved correctly but were emoji-only and provided no sensory/purchase evidence or comment images. No purchase recommendation, paid activation, vendor outreach, unattended collection, merge or deployment.
+
+### Current five-minute walkthrough
+
+1. **Discover:** Open Posts with Live collection/All berries; compare corporate, consumer and unclear roles. Read the author handle and source labels; date sorting starts with newest posts.
+2. **Inspect:** Click central post text to expand it, then Full post for the reader. Inspect original text/provenance, image carousel/lightbox and native player where available. A media reference is not proof of a rendered or analyzed image.
+3. **Compare:** Select a phrase or attribute; confirm the displayed evidence reproduces its count and denominator. Inspect retailer relation/variety-name basis without treating proposals as trusted Facts.
+4. **Locate:** Inspect Map & retail, the unknown-location bucket and Coverage. Purchase market, fruit origin, author geography and search target stay distinct; failed queries have unknown volume.
+5. **Qualify:** Inspect Momentum collection changes/outages and sparse-data warnings. Follow the existing dossier/briefing hooks; then review the unmet quality/rights/deletion/downstream criteria and shared-contract post-gate designs.
+
+No schema migration for the latest comment/identity changes. Explicit comment manifests bind known native parent IDs and URLs; existing non-comment jobs remain compatible. Keep before-state backups and all trial reservations when rolling back. Source payloads and human decisions are preserved by the explicit analysis-only refresh. Current PR HEAD and its exact checks are authoritative in the draft PR; older counts below do not validate later commits. Remaining gates include representative consumer/country/language coverage, independent accuracy, permitted retention/redisplay and deletion refresh, already-published dependency retraction, and production watch execution. Usability acceptance does not enable them.
+
+## Historical checkpoint notes
+
 ## Updated review: compact UI and $0 bake-off
 
 The [bake-off report](SOCIAL-MONITORING-BAKEOFF.md) supersedes the initial collection snapshot below:93unique actual news-feed titles were ingested in a separate evaluation store; zero live consumer-social records were obtained. Two saved Bluesky live-tail connections succeeded without blueberry matches; keyword search remains403-blocked and YouTube key absent. No purchase, merge, deployment or scheduled collection occurred. Live social-image/retailer/comment proof and independent multilingual acceptance remain unmet.
