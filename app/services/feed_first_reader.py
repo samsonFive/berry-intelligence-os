@@ -42,6 +42,7 @@ _STYLE_RE = re.compile(r"<style\b[^>]*>.*?</style>", re.IGNORECASE | re.DOTALL)
 _ON_EVENT_RE = re.compile(r"\son\w+\s*=\s*(['\"]).*?\1", re.IGNORECASE | re.DOTALL)
 _JS_URL_RE = re.compile(r"javascript:", re.IGNORECASE)
 _P_RE = re.compile(r"<p\b[^>]*>(.*?)</p>", re.IGNORECASE | re.DOTALL)
+_ARTICLE_BLOCK_RE = re.compile(r"<(p|h[2-6])\b[^>]*>(.*?)</\1>", re.IGNORECASE | re.DOTALL)
 _TITLE_RE = re.compile(r"<title\b[^>]*>(.*?)</title>", re.IGNORECASE | re.DOTALL)
 _PDF_TJ_RE = re.compile(rb"\(((?:\\.|[^\\)])+)\)\s*Tj")
 _OG_IMAGE_RE = re.compile(
@@ -165,13 +166,25 @@ def sanitize_reader_html(html: str) -> str:
     return _JS_URL_RE.sub("", cleaned)
 
 
-def paragraphs_from_html(html: str) -> list[str]:
+def paragraphs_from_html(html: str, *, limit: int | None = 24) -> list[str]:
     cleaned = sanitize_reader_html(html)
-    found = [decode_html_text(chunk) for chunk in _P_RE.findall(cleaned)]
-    raw_passages = [row for row in found if len(row) >= 40]
+    # Keep publisher section titles in their original order, never invent them
+    # from sentence length, question marks, or model-generated summaries.
+    from lxml import etree, html as html_parser
+    try:
+        tree = html_parser.fromstring(cleaned)
+        for node in tree.xpath("//nav | //aside | //footer | //template | //*[@hidden] | //*[@aria-hidden='true']"):
+            node.drop_tree()
+        roots = tree.xpath("//article") or tree.xpath("//main")
+        cleaned = "\n".join(html_parser.tostring(node, encoding="unicode") for node in roots) if roots else html_parser.tostring(tree, encoding="unicode")
+    except (etree.ParserError, ValueError):
+        pass
+    found = [(tag.lower(), decode_html_text(chunk)) for tag, chunk in _ARTICLE_BLOCK_RE.findall(cleaned)]
+    has_body = any(tag == 'p' and len(row) >= 40 for tag, row in found)
+    raw_passages = [row for tag, row in found if has_body and (len(row) >= 40 if tag == 'p' else 0 < len(row) <= 500)]
     passages = display_reader_passages(raw_passages)
     if passages:
-        return passages[:24]
+        return passages[:limit] if limit is not None else passages
     if raw_passages:
         return []
     blob = decode_html_text(cleaned)
@@ -420,11 +433,14 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
         from app.services.patent_reader import patent_document
         document = patent_document(html, final)
         passages = [row["text"] for row in document["blocks"] if row["kind"] != "heading"] if document else _paragraphs_from_html(html)
+        from app.services.article_structure import publisher_heading_levels
+        heading_levels = publisher_heading_levels(html, passages) if not document else {}
+        passage_limited = not document and len(paragraphs_from_html(html, limit=None)) > len(passages)
         images = extract_article_images(html)
         allowed = frame_allowed(headers)
         availability = classify_capture(passages, status_code=status_code)
         document_limited = bool(document and document["truncated"])
-        if (limited or document_limited or document) and availability == "full":
+        if (limited or document_limited or passage_limited or document) and availability == "full":
             availability = "partial"
         modes = ["structured_fallback"]
         if availability in {"full", "partial", "excerpt_only"}:
@@ -435,10 +451,11 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             "url": final,
             "ok": availability in {"full", "partial", "excerpt_only"},
             "availability": availability,
-            "reason": "response-size-limit" if limited else "document-text-limit" if document_limited else "" if availability != "error" else f"http-{status_code}",
-            "truncated": limited or document_limited,
+            "reason": "response-size-limit" if limited else "document-text-limit" if document_limited else "article-text-limit" if passage_limited else "" if availability != "error" else f"http-{status_code}",
+            "truncated": limited or document_limited or passage_limited,
             "headline": headline,
             "passages": passages,
+            "heading_levels": {str(index): level for index, level in heading_levels.items()},
             "images": images,
             "content_kind": "patent" if document else "article",
             "document_blocks": document["blocks"] if document else [],
@@ -628,7 +645,8 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
     """Copy captured passages onto the live record without writing Evidence."""
     if not capture:
         return record
-    if record.get("source_url") and capture.get("requested_url") and capture["requested_url"] != record["source_url"]:
+    captured_source = capture.get("requested_url") or capture.get("url")
+    if record.get("source_url") and captured_source and captured_source != record["source_url"]:
         return record
     merged = dict(record)
     passages = display_reader_passages([str(row) for row in (capture.get("passages") or []) if str(row).strip()])
@@ -638,7 +656,17 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
         if not str(article.get("full_text") or "").strip() and not any(
                 str(row.get("text") or "").strip() if isinstance(row, dict)
                 else str(row or "").strip() for row in existing):
-            article["paragraphs"] = [{"text": row} for row in passages]
+            # Bind cached hints to the exact displayed text, including after
+            # leading boilerplate removal; never annotate an operator's body.
+            original = capture.get("passages") or []
+            levels = capture.get("heading_levels") if isinstance(capture.get("heading_levels"), dict) else {}
+            from app.services.article_structure import display_article_blocks
+            hinted = {"article": {"paragraphs": [
+                {"text": row, "heading_level": levels.get(str(index))} for index, row in enumerate(original)
+            ]}}
+            blocks = display_article_blocks(hinted, passages)
+            article["paragraphs"] = [{"text": row, **({"heading_level": block["source_level"]} if block["heading"] else {})}
+                                     for row, block in zip(passages, blocks)]
             merged["article"] = article
             if capture.get("content_kind") == "patent":
                 from app.services.patent_reader import display_document_blocks

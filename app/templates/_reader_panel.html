@@ -54,7 +54,7 @@
     <div class="intel-body v2-reader-body">
       {% if paragraphs %}
         {% for paragraph in paragraphs %}
-          <p id="{{ paragraph.locator }}"><span class="sh-paragraph-label">{{ paragraph.locator }}</span> {{ paragraph.text }}</p>
+          {% if paragraph.heading_level %}<h3 class="publisher-heading" id="{{ paragraph.locator }}"><span class="sh-paragraph-label">{{ paragraph.locator }}</span> {{ paragraph.text }}</h3>{% else %}<p id="{{ paragraph.locator }}"><span class="sh-paragraph-label">{{ paragraph.locator }}</span> {{ paragraph.text }}</p>{% endif %}
         {% endfor %}
 
       {% endif %}

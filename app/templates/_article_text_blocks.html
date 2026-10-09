@@ -1,0 +1,5 @@
+{% for block in article_blocks %}
+  {% if block.heading %}
+    {% if block.level == 3 %}<h3 class="publisher-heading">{{ block.text }}</h3>{% else %}<h4 class="publisher-heading">{{ block.text }}</h4>{% endif %}
+  {% else %}<p>{{ block.text }}</p>{% endif %}
+{% endfor %}

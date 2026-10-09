@@ -699,3 +699,5 @@ button.filter-chip,
 .front-page-nav a{color:#3d5c94;text-decoration:none;font-size:13px}
 .front-page-nav a:hover{text-decoration:underline}
 .front-coverage-watch{font-size:12px;color:#7d8799}
+
+.intel-body .publisher-heading{font-size:20px;line-height:1.35;font-weight:750;color:#204b31;margin:24px 0 10px;padding-top:12px;border-top:1px solid #bdd0b1;overflow-wrap:anywhere}

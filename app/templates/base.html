@@ -1,7 +1,7 @@
 {% extends "glasshouse_base.html" %}
 {% set retained_workspace_shell = true %}
 {% block legacy_content_styles %}
-<link rel="stylesheet" href="/static/app.css">
+<link rel="stylesheet" href="/static/app.css{{ '' if static_build else '?v=article-structure-1' }}">
 <link rel="stylesheet" href="/static/v2.css">
 {% endblock %}
 {% block workspace_styles %}

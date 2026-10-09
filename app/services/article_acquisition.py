@@ -88,9 +88,13 @@ class ArticleAcquisitionError(Exception):
 class ArticleParagraph:
     index: int
     text: str
+    heading_level: int | None = None
 
     def as_dict(self) -> dict[str, Any]:
-        return {"index": self.index, "text": self.text}
+        row = {"index": self.index, "text": self.text}
+        if self.heading_level is not None:
+            row["heading_level"] = self.heading_level
+        return row
 
 
 @dataclass(frozen=True)
@@ -432,6 +436,9 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
         )
 
     paragraphs = _split_paragraphs(body_text, title=extracted.get("title"))
+    from app.services.article_structure import publisher_heading_levels
+    headings = publisher_heading_levels(html, [paragraph.text for paragraph in paragraphs])
+    paragraphs = tuple(ArticleParagraph(p.index, p.text, headings.get(p.index)) for p in paragraphs)
     word_count = len(body_text.split())
     content_sha256 = hashlib.sha256(body_text.encode("utf-8")).hexdigest()
 
