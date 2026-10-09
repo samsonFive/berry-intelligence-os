@@ -50,7 +50,8 @@ def test_exact_capture_and_retained_text_are_automatic_but_trust_stays_separate(
     before = {p: p.read_bytes() for p in tmp_path.rglob("*.json")}
     selected, counts = available_article_sources([published], tmp_path)
     assert counts == {"known_sources": 2, "readable_sources": 2, "reviewed_sources": 1,
-                      "unreviewed_sources": 1, "reader_captures": 1, "oversized_sources": 0}
+                      "unreviewed_sources": 1, "reader_captures": 1, "oversized_sources": 0,
+                      "affirmed_recoveries": 0, "recovery_issues": 0}
     report = scan(selected)
     candidates = {row["candidate_name"]: row for row in report["candidates"]}
     assert set(candidates) == {"Captured Blue", "Local Black"}

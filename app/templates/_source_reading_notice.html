@@ -1,0 +1,4 @@
+{% if authoring_mode and record.reader_source_recovery %}
+{% if record.reader_source_recovery.state == 'affirmed' %}<details class="reader-secondary"><summary>Source text checked</summary><p>The recovered article text was checked against this publication. Its claims are reviewed separately. <a href="/source-fidelity/{{ record.id }}">Open source-text review ↗</a></p></details>
+{% elif record.reader_source_recovery.state == 'unavailable' %}<p class="sh-note" role="status">A saved source copy couldn’t be verified. <a href="/source-fidelity/{{ record.id }}">Review source text ↗</a></p>{% endif %}
+{% endif %}

@@ -1,6 +1,6 @@
 """Read-only article inputs for private variety identity discovery.
 
-Uses the existing Digest source inventory and Reader captures. No fetches,
+Uses the existing Digest source inventory, affirmed recoveries and Reader captures. No fetches,
 candidate persistence, canonical writes or publication/claim approvals.
 """
 from __future__ import annotations
@@ -12,6 +12,7 @@ from app.services.feed_first_reader import capture_path, load_capture, merge_cap
 from app.services.personal_digest import source_records
 from app.services.publication_sources import active_publication_record, inactive_publication_record
 from app.services.source_body import article_full_text, reader_content
+from app.services.source_reading import reviewed_original_for_reading
 
 MAX_CAPTURE_BYTES = 2_000_000
 MAX_ARTICLE_CHARS = 200_000
@@ -51,9 +52,12 @@ def available_article_sources(published: list[dict], inbox_dir: Path, *, pending
     selected = []
     counts = {"known_sources": len(records), "readable_sources": 0,
               "reviewed_sources": 0, "unreviewed_sources": 0,
-              "reader_captures": 0, "oversized_sources": 0}
+              "reader_captures": 0, "oversized_sources": 0,
+              "affirmed_recoveries": 0, "recovery_issues": 0}
     for item_id, original in records.items():
-        record = original
+        record = reviewed_original_for_reading(original, inbox_dir)
+        recovered = (record.get('reader_source_recovery') or {}).get('state') == 'affirmed'
+        counts['recovery_issues'] += int((record.get('reader_source_recovery') or {}).get('state') == 'unavailable')
         captured = False
         if SAFE_ID_RE.fullmatch(item_id) and original.get("source_url"):
             path = capture_path(inbox_dir, item_id)
@@ -68,8 +72,8 @@ def available_article_sources(published: list[dict], inbox_dir: Path, *, pending
                         and capture.get("requested_url") == original["source_url"]
                         and isinstance(capture.get("passages"), list)
                         and all(isinstance(text, str) for text in capture["passages"])):
-                    record = merge_capture(original, capture)
-                    captured = not article_full_text(original) and bool(article_full_text(record))
+                    record = merge_capture(record, capture)
+                    captured = not recovered and not article_full_text(original) and bool(article_full_text(record))
         content = reader_content(record)
         if content["state"] not in {"body_available", "body_partial"}:
             continue
@@ -84,4 +88,5 @@ def available_article_sources(published: list[dict], inbox_dir: Path, *, pending
         counts["readable_sources"] += 1
         counts["reviewed_sources" if record.get("status") == "published" else "unreviewed_sources"] += 1
         counts["reader_captures"] += int(captured)
+        counts['affirmed_recoveries'] += int(recovered)
     return selected, counts

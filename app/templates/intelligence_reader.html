@@ -23,6 +23,7 @@
 
 <div class="intel-reader">
   <article class="intel-reader-main">
+    {% include '_source_reading_notice.html' %}
     {% if reader_content.notice %}<p class="sh-note" role="status">{{ reader_content.notice }}</p>{% endif %}
     <div class="intel-card-meta">
       <span class="badge intel-trust-{{ item.trust }}">{{ item.trust_label }}</span>

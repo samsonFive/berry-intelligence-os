@@ -30,6 +30,7 @@
     </div>
   </header>
 
+  {% include '_source_reading_notice.html' %}
   {% if reader_content.notice %}<p class="sh-note" role="status">{{ reader_content.notice }}</p>{% endif %}
   {% set hits = learn_glossary_hits(item.title, item.why or '', item.summary or '') %}
   {% set compact = false %}

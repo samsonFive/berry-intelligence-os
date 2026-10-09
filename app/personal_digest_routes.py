@@ -168,6 +168,8 @@ def reader_context(request: Request, record: dict):
     from app.services.news_workspace import source_reviewed, escalations
     from app.services.statement_workspace import present_statements
     if main.AUTHORING_MODE:
+        from app.services.source_reading import reviewed_original_for_reading
+        record = reviewed_original_for_reading(record, main.INBOX_DIR)
         record = merge_capture(record, load_capture(main.INBOX_DIR, str(record["id"])))
     context = main._feed_first_world() if main.AUTHORING_MODE else {"entities": main.all_entities(), "state": feed_first.empty_state()}
     entities = {str(row["id"]): row for row in context["entities"] if row.get("id")}

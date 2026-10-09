@@ -6699,6 +6699,9 @@ def _intelligence_page_context(
     values: dict[str, Any] | None = None,
     overlay: bool = False,
 ) -> dict[str, Any]:
+    if AUTHORING_MODE:
+        from app.services.source_reading import reviewed_original_for_reading
+        record = reviewed_original_for_reading(record, INBOX_DIR)
     entities = entity_index()
     source_index = _source_index()
     if overlay:
