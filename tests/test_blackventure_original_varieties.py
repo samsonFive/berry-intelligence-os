@@ -41,10 +41,15 @@ def test_complete_panels_keep_pipeline_codes_and_crop_groups_separate_from_comme
 def test_new_source_batch_keeps_every_old_anchor_and_analyst_fields():
     all_sources=load_portfolio_observations(DATA)
     _,old=reconcile_portfolios(sources=[s for s in all_sources if not s['id'].startswith(PREFIX)],varieties=[],entities=[],candidates=[])
-    _,new=reconcile_portfolios(sources=all_sources,varieties=[],entities=[],candidates=[])
+    # Replaying an existing queue must retain its IDs even when another source
+    # mentions a name first. A later source may already mention a batch name.
+    _,new=reconcile_portfolios(sources=all_sources,varieties=[],entities=[],candidates=old)
     ids={(c['berry_id'],c['candidate_name']):c['id'] for c in new}
     assert all(ids[(c['berry_id'],c['candidate_name'])]==c['id'] for c in old)
-    assert len(new)==len(old)+21
+    old_names={(c['berry_id'],c['candidate_name']) for c in old}
+    batch_names={(n['berry_id'],n['candidate_name']) for s in sources() for n in s['names']}
+    assert set(ids)==old_names | batch_names
+    assert len(new)==len(old_names | batch_names)
     human=dict(id='operator-urani',candidate_name='Urani',berry_id='berry-blackberry',human_gated=True,
         status='reviewed',identity_state='distinct',aliases=['User spelling'],registration={'status':'My status'},
         review_notes='Keep notes',photos=[{'operator':'Keep'}])

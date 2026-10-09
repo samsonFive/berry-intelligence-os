@@ -52,6 +52,22 @@ All 2,771 original canonical JSON files, the governing guide, 32 pending source
 copies and the real pending draft remain unchanged; no new human decisions,
 extraction-ready IDs, photo reuse approvals or canonical authoring.
 
+The initial full CI run on `4ed2751b43c5b675ee1189d5c0b5a83400ba35b4`
+passed scope, integrity and public safety, but failed one historical batch test:
+**4,562 passed / one failed / 11 skipped / two warnings / 806.29 seconds**.
+That test removed the earlier Black Venture source, rebuilt Aketzali from the
+newer Sun Belle reference, then expected the former ID after restoring the
+earlier source. It did not supply the existing queue it claimed to preserve.
+
+The corrected replay test supplies that queue and accounts for overlapping
+names instead of assuming every newly read name is new. Two added regressions
+verify that the actual Sun Belle addition preserves all earlier freshly derived
+IDs, adds only Erika, and preserves existing human notes, rejection, alias and
+photo choices even with source order reversed. These are fixture decisions,
+not new human reviews. **33 source/identity regression tests pass**, one existing
+warning, 42.30 seconds. No application identity code was changed; exact-head
+full CI remains required on the repaired draft.
+
 Full current/historical portfolios, current official rights, cited profiles,
 original corpus and independent human recall remain incomplete. CAT-01/CAT-02/
 TD-116 stay open. The blueprint's phone visual review remains outstanding. Other
