@@ -12,7 +12,7 @@ from app.services.social_intelligence.apify_jobs import ApifyJobs
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     choice = parser.add_mutually_exclusive_group(required=True)
-    choice.add_argument('--manifest', type=Path, help='Private JSON: case, actor, build_id, build_number, actor_input')
+    choice.add_argument('--manifest', type=Path, help='Private JSON: case, actor, build_id, build_number, actor_input; parent_context for Instagram comments')
     choice.add_argument('--observe', help='Poll saved case once; never submit a new job')
     choice.add_argument('--status', action='store_true', help='Content-free cached job/budget status; no network')
     choice.add_argument('--normalize', help='Offline cached export for reviewed schema-validated import; no network or ingestion')
@@ -35,7 +35,8 @@ def main():
             parser.error('Manifest byte ceiling exceeded')
         config = json.loads(args.manifest.read_text(encoding='utf-8'))
         result = jobs.launch(config['case'], config['actor'], build_id=config['build_id'],
-                             build_number=config['build_number'], actor_input=config['actor_input'])
+                             build_number=config['build_number'], actor_input=config['actor_input'],
+                             parent_context=config.get('parent_context'))
     else:
         result = jobs.observe(args.observe)
     # Raw post content/input and credential never enter console/report output.

@@ -6,6 +6,8 @@ No subscriptions, paid collection or access applications were activated. Existin
 
 ## Latest Instagram provider access measurement — October 8 local time
 
+Known-parent comments are additionally **partial**: one guarded request returned three explicitly linked comments, all emoji-only, with zero comment-media references. Mapping/restart worked; semantic usefulness, language and comment-image retrieval remain unqualified. API manifest now binds the known numeric parent ID and exact post URL; context drift blocks export. Observed charge$0 at observation is not final pricing. No account login, paid activation or ongoing coverage. [Measured comment test](SOCIAL-APIFY-TRIAL.md).
+
 Status: **partial** via the existing Apify Free account. [Official Instagram Scraper documentation](https://apify.com/apify/instagram-scraper) was inspected again; it documents public URL/hashtag extraction, API token access and $2.70/1,000 results on the Free plan. This is vendor documentation, not a measured unlimited-access guarantee or redistribution permission. Our pinned-build five-post `blueberrypicking` test returned five valid imported records; observed charge$0.0135 included credit, cash$0. Its saved log explicitly limits free-user hashtag extraction to one page. All five provider language tags are unknown. Consumer usefulness, native media fidelity and complete-history recall remain unqualified; no source retention/deletion rights were newly established. [Measured run and diagnostic caption mix](SOCIAL-APIFY-TRIAL.md) remain separate from claims.
 
 ## instagram — stale

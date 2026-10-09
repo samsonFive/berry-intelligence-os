@@ -72,7 +72,7 @@ class ApifyJobs:
         except (httpx.HTTPError, ValueError):
             raise AccessBlocked('Apify transport/schema failure; no retry') from None
 
-    def launch(self, case, actor, *, build_id, build_number, actor_input, cap_usd=.1):
+    def launch(self, case, actor, *, build_id, build_number, actor_input, cap_usd=.1, parent_context=None):
         if not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,79}', case):
             raise ValueError('Bounded case identifier required')
         if actor not in ACTORS or not re.fullmatch(r'[A-Za-z0-9]{5,50}', build_id):
@@ -81,6 +81,15 @@ class ApifyJobs:
             raise AccessBlocked('Exact build number required; latest is not a pin')
         if not isinstance(actor_input, dict) or len(json.dumps(actor_input)) > 8000:
             raise ValueError('Bounded actor input required')
+        if actor=='apify/instagram-scraper' and actor_input.get('resultsType')=='comments':
+            from .apify_intake import instagram_parent_context
+            instagram_parent_context(parent_context)
+            if (actor_input.get('directUrls')!=[parent_context['canonical_url']]
+                    or type(actor_input.get('resultsLimit')) is not int or not 1<=actor_input['resultsLimit']<=5
+                    or set(actor_input)-{'directUrls','resultsType','resultsLimit'}):
+                raise AccessBlocked('Comment trial requires one known parent URL and at most five comments')
+        elif parent_context is not None:
+            raise AccessBlocked('Parent context only applies to inspected Instagram comment jobs')
         if actor == 'atomus/twitter-scraper':
             allowed = {'searchType', 'searchQuery', 'sortOrder', 'maxItems', 'since', 'until', 'language',
                        'maxComments', 'maxRetweeters', 'maxFollowers', 'maxFollowing'}
@@ -96,10 +105,12 @@ class ApifyJobs:
         self.folder.mkdir(parents=True, exist_ok=True)
         with CollectionRunLock(self.folder / 'collection.lock', run_id=case):
             ledger = self._read()
-            fingerprint = hashlib.sha256(json.dumps([actor, build_id, build_number, actor_input], sort_keys=True).encode()).hexdigest()
+            identity_input=[actor,build_id,build_number,actor_input]
+            if parent_context is not None:identity_input.append(parent_context)
+            fingerprint = hashlib.sha256(json.dumps(identity_input, sort_keys=True).encode()).hexdigest()
             previous = next((a for a in ledger['attempts'] if a['case'] == case), None)
             if previous:
-                if previous.get('fingerprint') != fingerprint:
+                if previous.get('fingerprint') != fingerprint or parent_context is not None and previous.get('parent_context')!=parent_context:
                     raise AccessBlocked('Existing case input differs or predates this runner; no relaunch')
                 return {**previous, 'reused': True}
             if actor in ledger.get('actor_access_blocks', []):
@@ -152,6 +163,7 @@ class ApifyJobs:
                      'pricing_started_at': pricing.get('startedAt'), 'input': actor_input, 'fingerprint': fingerprint, 'cap_usd': cap_usd,
                      'reserved_at': datetime.now(timezone.utc).isoformat(),
                      'state': 'reserved-before-launch', 'usage_before': usage}
+            if parent_context is not None:entry['parent_context']=parent_context
             ledger['attempts'].append(entry)
             atomic_json(self.ledger_path, ledger)
             # Any exception after reservation leaves the case consumed. Even a
@@ -223,6 +235,13 @@ class ApifyJobs:
                   'harvestapi/linkedin-post-search': 'linkedin', 'atomus/twitter-scraper': 'x'}.get(entry.get('actor'))
         if not source or not entry.get('build_number'):
             raise AccessBlocked('Saved source/build contract unrecognized')
+        if source=='instagram' and (entry.get('input') or {}).get('resultsType')=='comments':
+            from .apify_intake import instagram_parent_context
+            context=entry.get('parent_context')
+            instagram_parent_context(context)
+            expected=hashlib.sha256(json.dumps([entry['actor'],entry['build_id'],entry['build_number'],entry['input'],context],sort_keys=True).encode()).hexdigest()
+            if entry.get('fingerprint')!=expected:
+                raise AccessBlocked('Saved comment parent context changed; no export')
         cache = self.folder / (case + '-items.json')
         if not cache.exists() or cache.stat().st_size > 2_000_000:
             raise AccessBlocked('Successful bounded raw dataset cache required')
@@ -238,7 +257,7 @@ class ApifyJobs:
             captured = datetime.fromtimestamp(cache.stat().st_mtime, timezone.utc).isoformat()
             basis = 'Legacy cached receipt file-save timestamp, not publication time'
         result = apify_dataset(items, source=source, build=entry['build_number'],
-                               collected_at=captured, mode='imported')
+                               collected_at=captured, mode='imported',parent_context=entry.get('parent_context'))
         for row in result['rows']:
             row['permission_basis'] += '; ' + basis
         # Conflicts fail before write; rejection counts remain explicit in a
@@ -252,6 +271,8 @@ class ApifyJobs:
                    'run_id': entry.get('run_id'), 'dataset_sha256': hashlib.sha256(raw).hexdigest(),
                    'new_source_calls': 0, 'ingested': False,
                    'file': str(output)}
+        if source=='instagram' and (entry.get('input') or {}).get('resultsType')=='comments':
+            receipt['parent_context_sha256']=hashlib.sha256(json.dumps(entry['parent_context'],sort_keys=True).encode()).hexdigest()
         atomic_json(self.folder / (case + '-normalization.json'), receipt)
         return receipt
 
@@ -281,6 +302,13 @@ class ApifyJobs:
                         receipt = json.loads(receipt_path.read_text(encoding='utf-8'))
                         bound = (receipt.get('case') == case and receipt.get('run_id') == entry.get('run_id')
                                  and receipt.get('dataset_sha256') == hashlib.sha256(cache.read_bytes()).hexdigest())
+                        if source=='instagram' and (entry.get('input') or {}).get('resultsType')=='comments':
+                            from .apify_intake import instagram_parent_context
+                            context=entry.get('parent_context')
+                            try:instagram_parent_context(context)
+                            except AccessBlocked:raise ValueError('Invalid comment parent context') from None
+                            expected=hashlib.sha256(json.dumps([entry['actor'],entry['build_id'],entry['build_number'],entry['input'],context],sort_keys=True).encode()).hexdigest()
+                            bound=bound and entry.get('fingerprint')==expected and receipt.get('parent_context_sha256')==hashlib.sha256(json.dumps(context,sort_keys=True).encode()).hexdigest()
                         counts = [receipt.get(k) for k in ('normalized', 'rejected', 'input_items')]
                         valid_counts = all(isinstance(v, int) and not isinstance(v, bool) and v >= 0 for v in counts)
                         if bound and valid_counts:

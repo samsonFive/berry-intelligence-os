@@ -8,6 +8,55 @@ import hashlib
 
 from .adapters import common, AccessBlocked
 from .model import safe_url, validate_intake
+import re
+
+
+def instagram_parent_context(context):
+    """Explicit known parent identity; shortcode alone is not its numeric ID."""
+    if not isinstance(context,dict) or set(context)!={'native_id','canonical_url'}:
+        raise AccessBlocked('Known Instagram parent identity and URL required')
+    native=context['native_id'];url=context['canonical_url']
+    if not isinstance(native,str) or not re.fullmatch(r'[0-9]{1,40}',native) or not isinstance(url,str):
+        raise AccessBlocked('Invalid Instagram parent context')
+    parsed=urlsplit(safe_url(url))
+    match=re.fullmatch(r'/(?:p|reel)/([A-Za-z0-9_-]+)/?',parsed.path)
+    if parsed.hostname not in ('instagram.com','www.instagram.com') or not match or parsed.query or parsed.fragment:
+        raise AccessBlocked('Instagram parent must be an exact public post/reel URL')
+    if match[1].isdigit() and match[1]!=native:
+        raise AccessBlocked('Numeric parent URL and native ID disagree')
+    return native,parsed
+
+
+def apify_instagram_comment(item, *, parent_context, build, collected_at, mode='live'):
+    """Inspected direct-comment schema; never treats avatars as attachments."""
+    parent,parent_url=instagram_parent_context(parent_context)
+    native=item.get('id');text=item.get('text')
+    if not isinstance(native,(str,int)) or isinstance(native,bool) or not re.fullmatch(r'[0-9]{1,40}',str(native)) or not isinstance(text,str) or not text.strip():
+        raise AccessBlocked('Instagram comment identity/body absent')
+    if item.get('timestamp') is not None and not isinstance(item['timestamp'],str):
+        raise AccessBlocked('Instagram comment publication timestamp must be a string')
+    post=item.get('postUrl');url=item.get('commentUrl')
+    if not isinstance(post,str) or not isinstance(url,str):
+        raise AccessBlocked('Explicit comment and parent source URLs required')
+    post_url=urlsplit(safe_url(post));comment_url=urlsplit(safe_url(url))
+    hosts=('instagram.com','www.instagram.com')
+    if (post_url.hostname not in hosts or comment_url.hostname not in hosts
+            or post_url.path.rstrip('/')!=parent_url.path.rstrip('/')
+            or comment_url.path.rstrip('/')!=parent_url.path.rstrip('/')+'/c/'+str(native)):
+        raise AccessBlocked('Instagram comment/parent identities disagree')
+    row=common('instagram',str(native),url,text,published=item.get('timestamp'),parent=parent)
+    row.update(mode=mode,collected_at=collected_at,discovery_method='apify-instagram-comment',
+               query_version='apify-inspected-'+build,attribution='Instagram original comment via Apify',
+               permission_basis='Third-party comment response; explicit known parent mapping; retention/redisplay rights unverified')
+    row['author_handle']=item.get('ownerUsername')
+    owner=item.get('owner') or {}
+    if not isinstance(owner,dict):raise AccessBlocked('Instagram comment owner object required')
+    row['author_name']=owner.get('full_name')
+    likes=item.get('likesCount')
+    if type(likes) is int and likes>=0:row['engagement']={'likes':likes}
+    # The inspected schema supplies profile pictures, not comment attachments.
+    # No guessed media, language, geography or business ownership.
+    return validate_intake(row,mode=mode)
 
 
 def apify_x_post(item, *, build, collected_at, mode='live'):
@@ -134,7 +183,7 @@ def apify_linkedin_comment(item, *, build, collected_at, parent_native_id=None, 
     return validate_intake(row, mode=mode)
 
 
-def apify_dataset(items, *, source, build, collected_at, mode='live'):
+def apify_dataset(items, *, source, build, collected_at, mode='live', parent_context=None):
     """Bounded rows + explicit rejects; duplicate copies cannot inflate counts.
 
     Conflicting same-ID bodies/parents fail the batch, rather than silently
@@ -160,7 +209,9 @@ def apify_dataset(items, *, source, build, collected_at, mode='live'):
             rejected.append({'index': index, 'reason': 'Dataset item is not an object'})
             continue
         try:
-            if source == 'linkedin' and item.get('type') == 'comment':
+            if source == 'instagram' and ('commentUrl' in item or parent_context is not None):
+                row=apify_instagram_comment(item,parent_context=parent_context,build=build,collected_at=collected_at,mode=mode)
+            elif source == 'linkedin' and item.get('type') == 'comment':
                 row = apify_linkedin_comment(item, build=build, collected_at=collected_at, mode=mode)
             else:
                 row = apify_post(item, source=source, build=build, collected_at=collected_at, mode=mode)
