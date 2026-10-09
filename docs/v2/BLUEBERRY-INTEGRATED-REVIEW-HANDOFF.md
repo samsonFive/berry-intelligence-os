@@ -6,6 +6,7 @@ This is a local review candidate, not a merged or deployed release.
 
 ## Candidate identity
 
+- Review draft: [PR #374](https://github.com/samsonFive/berry-intelligence-os/pull/374). Fresh exact-head checks are separate from the all-green parent.
 - Branch: `feature/blueberry-review-handoff`.
 - Parent: `feature/variety-original-corpus-followup`, draft [#373](https://github.com/samsonFive/berry-intelligence-os/pull/373), `5a707a0741cd506b7464cabec8fc7f751830b927`.
 - Canonical baseline: `v2/intelligence-os`, `7962ac04dd05855985f51596f3f8070f19990a75`.
