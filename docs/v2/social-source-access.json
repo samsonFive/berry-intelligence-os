@@ -4,36 +4,38 @@
   "sources": [
     {
       "source": "instagram",
-      "status": "stale",
+      "status": "setup-required",
       "implemented": false,
-      "methods": "Proposed official Instagram Platform account/hashtag methods; authorized exports/manual supported by common intake",
-      "auth": "Meta app, eligible professional account, access token and approved permissions; exact current scopes need revalidation",
-      "capabilities": "Current hashtag/search/comments/media limits unverified; do not claim broad consumer keyword listening",
-      "history": "Current historical limits unverified",
-      "quotas_costs": "No current quota/price assertion; developer console and accessible documentation required",
+      "methods": "Official professional-account management, business discovery and approved hashtag discovery; authorized export/manual remain separate",
+      "auth": "Facebook-login route needs a professional Instagram account linked to a Facebook Page; hashtag access needs App Review, Instagram Public Content Access and instagram_basic. Instagram-login management route does not require a Facebook Page. No eligible app/token provisioned.",
+      "capabilities": "Professional-account media/comments/mentions/insights; approved public hashtag media via top/recent edges. Facebook-login API cannot access consumer accounts directly. Stories hashtags unsupported. Video media_url may be omitted for licensed/copyrighted audio or disabled reel downloads; omitted media is not deletion.",
+      "history": "Cursor pagination documented; time-based pagination only on User Insights. No complete historical consumer search demonstrated.",
+      "quotas_costs": "Official hashtag search:30 unique hashtags per professional account per rolling7 days; top/recent media queries also count. No monetary price inferred from these pages.",
       "retention_deletion": "Current Meta terms/deletion requirements must be reviewed before enabling storage",
-      "blocker": "No app/token/approved permissions provisioned; primary pages HTTP 429 during research",
+      "blocker": "Professional account/app/token and reviewed hashtag feature not provisioned; retention/redisplay permission still unqualified. Research fetch returns429, but official documentation is readable in browser.",
       "official_urls": [
-        "https://developers.facebook.com/docs/instagram-platform/",
-        "https://developers.facebook.com/docs/instagram-platform/instagram-api-with-facebook-login/hashtag-search/"
+        "https://developers.facebook.com/documentation/instagram-platform",
+        "https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-facebook-login",
+        "https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-facebook-login/hashtag-search"
       ],
-      "verification": "attempted current primary docs; blocked HTTP 429"
+      "verification": "2026-10-09 browser inspection of official pages; visible platform update2026-09-16 and hashtag update2026-08-17. Documentation verified; API access not tested."
     },
     {
       "source": "facebook",
-      "status": "stale",
+      "status": "setup-required",
       "implemented": false,
-      "methods": "Proposed Pages API; authorized exports/manual",
-      "auth": "Meta app/page token and permission review required",
-      "capabilities": "Page posts/comments/media scope needs current review; private groups excluded",
-      "history": "No full-history or public-conversation coverage claimed",
-      "quotas_costs": "Quota/pricing not verified",
+      "methods": "Official Pages API and Page search; authorized export/manual remain separate",
+      "auth": "Page management uses authenticated Page tokens with relevant permissions. Public Page metadata search without logged-in user needs App token and Page Public Metadata Access; competitive analysis needs Page Public Content Access. No eligible app/token or reviewed feature provisioned.",
+      "capabilities": "Page-owned posts/comments, scoped user content, insights and Page webhooks; Page search returns Page metadata rather than general post keyword search. No private group or personal-profile coverage demonstrated.",
+      "history": "Paging documented; no complete public conversation history demonstrated.",
+      "quotas_costs": "Endpoint permissions verified; current numeric rate limits and financial costs not established by the inspected overview/search pages.",
       "retention_deletion": "Review Meta platform terms/deletion requirements before collection",
-      "blocker": "No page token/access review; documentation HTTP 429",
+      "blocker": "App/token and appropriate public metadata/content feature approval absent; retention/redisplay permission remains unqualified. Research fetch returns429, but official documentation is readable in browser.",
       "official_urls": [
-        "https://developers.facebook.com/docs/pages-api/"
+        "https://developers.facebook.com/documentation/pages-api",
+        "https://developers.facebook.com/documentation/pages-api/search-pages"
       ],
-      "verification": "attempted current primary docs; blocked HTTP 429"
+      "verification": "2026-10-09 browser inspection of official overview/search; visible updates2026-05-07 and2026-04-17. Documentation verified; API access not tested."
     },
     {
       "source": "threads",

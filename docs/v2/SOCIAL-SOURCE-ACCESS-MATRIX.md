@@ -10,31 +10,31 @@ Known-parent comments are additionally **partial**: one guarded request returned
 
 Status: **partial** via the existing Apify Free account. [Official Instagram Scraper documentation](https://apify.com/apify/instagram-scraper) was inspected again; it documents public URL/hashtag extraction, API token access and $2.70/1,000 results on the Free plan. This is vendor documentation, not a measured unlimited-access guarantee or redistribution permission. Our pinned-build five-post `blueberrypicking` test returned five valid imported records; observed charge$0.0135 included credit, cash$0. Its saved log explicitly limits free-user hashtag extraction to one page. All five provider language tags are unknown. Consumer usefulness, native media fidelity and complete-history recall remain unqualified; no source retention/deletion rights were newly established. [Measured run and diagnostic caption mix](SOCIAL-APIFY-TRIAL.md) remain separate from claims.
 
-## instagram — stale
+## instagram — setup-required
 
 - **Implemented:** False
-- **Methods:** Proposed official Instagram Platform account/hashtag methods; authorized exports/manual supported by common intake
-- **Auth:** Meta app, eligible professional account, access token and approved permissions; exact current scopes need revalidation
-- **Capabilities:** Current hashtag/search/comments/media limits unverified; do not claim broad consumer keyword listening
-- **History:** Current historical limits unverified
-- **Quotas costs:** No current quota/price assertion; developer console and accessible documentation required
+- **Methods:** Official professional-account management, business discovery and approved hashtag discovery; authorized export/manual remain separate
+- **Auth:** Facebook-login route needs a professional Instagram account linked to a Facebook Page; hashtag access needs App Review, Instagram Public Content Access and instagram_basic. Instagram-login management route does not require a Facebook Page. No eligible app/token provisioned.
+- **Capabilities:** Professional-account media/comments/mentions/insights; approved public hashtag media via top/recent edges. Facebook-login API cannot access consumer accounts directly. Stories hashtags unsupported. Video media_url may be omitted for licensed/copyrighted audio or disabled reel downloads; omitted media is not deletion.
+- **History:** Cursor pagination documented; time-based pagination only on User Insights. No complete historical consumer search demonstrated.
+- **Quotas costs:** Official hashtag search:30 unique hashtags per professional account per rolling7 days; top/recent media queries also count. No monetary price inferred from these pages.
 - **Retention deletion:** Current Meta terms/deletion requirements must be reviewed before enabling storage
-- **Blocker:** No app/token/approved permissions provisioned; primary pages HTTP 429 during research
-- **Verification:** attempted current primary docs; blocked HTTP 429
-- **Official documentation:** [Source 1](https://developers.facebook.com/docs/instagram-platform/), [Source 2](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-facebook-login/hashtag-search/)
+- **Blocker:** Professional account/app/token and reviewed hashtag feature not provisioned; retention/redisplay permission still unqualified. Research fetch returns429, but official documentation is readable in browser.
+- **Verification:** 2026-10-09 browser inspection of official pages; visible platform update2026-09-16 and hashtag update2026-08-17. Documentation verified; API access not tested.
+- **Official documentation:** [Source 1](https://developers.facebook.com/documentation/instagram-platform), [Source 2](https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-facebook-login), [Source 3](https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-facebook-login/hashtag-search)
 
-## facebook — stale
+## facebook — setup-required
 
 - **Implemented:** False
-- **Methods:** Proposed Pages API; authorized exports/manual
-- **Auth:** Meta app/page token and permission review required
-- **Capabilities:** Page posts/comments/media scope needs current review; private groups excluded
-- **History:** No full-history or public-conversation coverage claimed
-- **Quotas costs:** Quota/pricing not verified
+- **Methods:** Official Pages API and Page search; authorized export/manual remain separate
+- **Auth:** Page management uses authenticated Page tokens with relevant permissions. Public Page metadata search without logged-in user needs App token and Page Public Metadata Access; competitive analysis needs Page Public Content Access. No eligible app/token or reviewed feature provisioned.
+- **Capabilities:** Page-owned posts/comments, scoped user content, insights and Page webhooks; Page search returns Page metadata rather than general post keyword search. No private group or personal-profile coverage demonstrated.
+- **History:** Paging documented; no complete public conversation history demonstrated.
+- **Quotas costs:** Endpoint permissions verified; current numeric rate limits and financial costs not established by the inspected overview/search pages.
 - **Retention deletion:** Review Meta platform terms/deletion requirements before collection
-- **Blocker:** No page token/access review; documentation HTTP 429
-- **Verification:** attempted current primary docs; blocked HTTP 429
-- **Official documentation:** [Source 1](https://developers.facebook.com/docs/pages-api/)
+- **Blocker:** App/token and appropriate public metadata/content feature approval absent; retention/redisplay permission remains unqualified. Research fetch returns429, but official documentation is readable in browser.
+- **Verification:** 2026-10-09 browser inspection of official overview/search; visible updates2026-05-07 and2026-04-17. Documentation verified; API access not tested.
+- **Official documentation:** [Source 1](https://developers.facebook.com/documentation/pages-api), [Source 2](https://developers.facebook.com/documentation/pages-api/search-pages)
 
 ## threads — stale
 
