@@ -1,5 +1,14 @@
 # Project Status
 
+October 8 Expoberries/Splendor: [original-source review](docs/v2/EXPOBERRIES-SPLENDOR-ORIGINAL-SOURCES-REVIEW.md)
+adds two exact patent denominations with historical metadata and held fruit
+figures; three Splendor pages remain unnamed. 334 sections / 1,052 occurrences /
+728 candidate keys; 59/77 named-source entries, 13 incomplete, one unavailable,
+four unstarted; 96 follow-ups. Canonical 64 unchanged; 109 photo refs. 49 affected
+tests and native desktop/phone review pass; original data/human gates preserved.
+Corrected parent #364 passes all four checks (4,392 tests); this child needs CI.
+CAT-01/CAT-02/TD-116 and catalog/release work remain open.
+
 October 8 source-plan correction: [review](docs/v2/PORTFOLIO-SOURCE-PLAN-STATUS-REVIEW.md)
 records accurate berry/company/source scope and a direct table jump. Current:
 329 sections / 1,050 occurrences / 726 keys; 58/77 entries with named-source
