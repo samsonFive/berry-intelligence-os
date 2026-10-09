@@ -101,7 +101,9 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
         key = str(record.get("id") or "")
         if key in SEED_FIXTURE_EVIDENCE_IDS or not feed_first.SAFE_ID_RE.fullmatch(key):
             continue
-        if record.get("source_type") not in NEWS_TYPES or "structural" in (record.get("tags") or []):
+        article_capture = (record.get("source_type") == "discovered_media"
+                           and record.get("media_format") == "web_article")
+        if (record.get("source_type") not in NEWS_TYPES and not article_capture) or "structural" in (record.get("tags") or []):
             continue
         hit = DiscoveryHit(title=str(record.get("title") or ""), snippet=str(record.get("summary") or ""),
                            url=str(record.get("source_url") or ""), source_domain="", published_date=record.get("published_date"),

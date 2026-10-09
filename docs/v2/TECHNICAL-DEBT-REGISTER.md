@@ -1,13 +1,24 @@
 # Technical Debt Register
 
+October 8 captured News/Digest inventory: [review](PENDING-NEWS-DIGEST-INVENTORY-REVIEW.md) connects active
+publication metadata to Unreviewed News and subscribed Personal Digest lists
+before individual saving. Real Italian Berry source/image, explicit subscribe
+and unsubscribe, original Reader, 375px phone width and unchanged draft bytes
+verified. Article-pipeline web captures now pass the News format gate; audio,
+video and registry-like captures remain excluded. Archived/rejected sources no
+longer resurface through the personal reader fallback. 165 affected tests,
+119 final overlapping tests, record validation, original-data preservation and
+1,755-page static safety pass; pushed-head CI remains a separate gate. CAT-01/CAT-02/TD-116, corpus acquisition, portfolios,
+independent recall and integrated release remain open. No merge/deployment.
+
 October 8 original article hierarchy: [review](PUBLISHER-ARTICLE-HIERARCHY-REVIEW.md) preserves
 publisher headings through new normalized article acquisition and explicit
 Reader capture. The real Italian Berry proof retains all 35 paragraph texts,
 indexes and content SHA while recovering 12 source headings. No existing draft
 or canonical record changed. Desktop and 375px mobile reviewed; mobile sticky
 actions fixed; 168 affected tests, validation and original-data preservation pass.
-Parent #368 is all-green with 4,441 tests; this follow-up still needs pushed-head
-CI. Legacy body migration, wider acquisition, source/identity review, portfolio
+Draft #369 is now all-green on 267389e: all four checks, 4,452 tests /
+11 skipped / two warnings / 797.24s; watch 24224 consumed terminal success. Legacy body migration, wider acquisition, source/identity review, portfolio
 completion and integrated release remain open. No merge or deployment.
 
 October 8 pending-article coverage: [review](PENDING-ARTICLE-VARIETY-COVERAGE-REVIEW.md) connects active publication

@@ -14,18 +14,13 @@ router = APIRouter()
 def world():
     from app import main
     context = main._feed_first_world()
-    records = digest.source_records(main.published_evidence(), main.INBOX_DIR, include_private=main.AUTHORING_MODE)
+    pending, issues = [], []
     if main.AUTHORING_MODE:
-        # Resolve only personally retained draft IDs here. Opening an article
-        # does not add the entire publication backlog to the user's Digest.
-        reading = analyst_queue.load_state(main.INBOX_DIR)
-        for item_id in set(context["state"].get("decisions", {})) | set(reading.get("reading", {})):
-            if digest.inclusion({"id": item_id}, context["state"], reading):
-                record = personal_source_record(item_id, records=records)
-                if record is not None:
-                    records[item_id] = record
-                else:
-                    records.pop(item_id, None)
+        from app.services.publication_sources import pending_source_previews
+        pending, issues = pending_source_previews(main.INBOX_DIR)
+    records = digest.source_records(main.published_evidence(), main.INBOX_DIR,
+                                   include_private=main.AUTHORING_MODE, pending=pending, metadata_only=True)
+    context['pending_source_issue_count'] = len(issues)
     entities = {str(row["id"]): row for row in context["entities"] if row.get("id")}
     return main, context, records, entities
 
@@ -63,6 +58,7 @@ def personal_digest_page(request: Request):
     retained_members = {key for row in model["lists"] for key in row.get("company_ids", [])}
     return main.templates.TemplateResponse(request=request, name="personal_digest.html", context={
         **model, "authoring_mode": main.AUTHORING_MODE, "static_build": False,
+        "pending_source_issue_count": context['pending_source_issue_count'],
         "companies": sorted([row for row in entities.values() if row.get("entity_type") == "company" or row.get("id") in retained_members], key=lambda row: row.get("name", "").casefold()),
         "berry_choices": feed_first.CROP_LABELS,
         "countries": sorted([row for row in entities.values() if row.get("entity_type") == "geography"], key=lambda row: row.get("name", "")),
@@ -87,12 +83,13 @@ async def digest_lists(request: Request):
 def personal_source_record(item_id: str, *, records=None):
     """Selected pending source lookup; never load all draft bodies in a Reader."""
     from app import main
-    from app.services.variety_universe.article_sources import active_publication_record, inactive_publication_record
+    from app.services.publication_sources import active_publication_record, inactive_publication_record
     if not feed_first.SAFE_ID_RE.fullmatch(item_id):
         return None
-    if records is None:
-        records = digest.source_records(main.published_evidence(), main.INBOX_DIR,
+    # Selected reading resolves original prose; feed cards carry metadata only.
+    full_records = digest.source_records(main.published_evidence(), main.INBOX_DIR,
                                         include_private=main.AUTHORING_MODE)
+    records = full_records if records is None else {**records, **full_records}
     record = records.get(item_id)
     if record is not None and record.get("status") == "published":
         return record  # Never replace canonical prose with a pending version.

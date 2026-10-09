@@ -41,6 +41,7 @@ def news_page(request: Request):
     model["refresh_state"] = {key: refresh.get(key) for key in ("status", "completed_at", "story_count", "error_count", "message")}
     return main.templates.TemplateResponse(request=request, name="news_workspace.html", context={
         **model, "authoring_mode": main.AUTHORING_MODE, "static_build": False,
+        "pending_source_issue_count": context['pending_source_issue_count'],
         "berry_choices": {"berry-" + key: label for key, label in feed_first.CROP_LABELS.items()},
         "countries": sorted([row for row in entities.values() if row.get("entity_type") == "geography"], key=lambda row: row.get("name", "")),
         "companies": sorted([row for row in entities.values() if row.get("entity_type") in {"company", "person", "brand", "research_program"}], key=lambda row: row.get("name", "")),
