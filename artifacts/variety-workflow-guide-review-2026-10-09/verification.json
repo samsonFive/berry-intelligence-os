@@ -1,0 +1,38 @@
+{
+  "scope": "Visual source-to-variety guide and honest current checklist; no source or catalog additions",
+  "site_section_cards": 11,
+  "analyst_workflow_steps": 4,
+  "reporting_outputs": 6,
+  "variety_workflow_steps": 4,
+  "native_desktop_verified": true,
+  "native_handoffs": [
+    "/varieties/coverage#profile-field-coverage",
+    "/varieties/candidates",
+    "/source-fidelity"
+  ],
+  "phone_visual_verified": false,
+  "phone_limit": "Fresh native tab retained1280px after390px override; reset and temporary tab closed",
+  "local_tests": {
+    "passed": 47,
+    "warnings": 1,
+    "seconds": 54.86
+  },
+  "static_pages": 1755,
+  "public_private_action_links": [],
+  "all31_requirement_ids_and_order_preserved": true,
+  "parent381_full_ci": {
+    "head": "d737715c417aba5c1e65518657f10350175e5d22",
+    "run_id": 37991526395,
+    "all_four": "SUCCESS",
+    "passed": 4563,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 617.19
+  },
+  "original_canonical_json_files_unchanged": 2771,
+  "pending_source_copies_unchanged": 32,
+  "new_canonical_or_human_decisions": 0,
+  "new_source_collection": false,
+  "merge_or_deploy": false,
+  "full_goal_complete": false
+}

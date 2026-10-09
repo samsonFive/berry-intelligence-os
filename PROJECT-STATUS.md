@@ -34,8 +34,12 @@ there rather than reconstructing the mission from historical progress reports.
 - [Draft #381](https://github.com/samsonFive/berry-intelligence-os/pull/381),
   [profile-field coverage review](docs/v2/VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md):
   a dense per-variety inventory with gap filters, protected photo edits and cited
-  trait/role/reference counts. 84 affected tests pass; actual desktop review is
+  trait/role/reference counts. All four CI checks pass (4,563 passed / 11 skipped /
+  two warnings). Actual desktop review is
   complete. Phone visual verification remains before the combined release.
+- [Variety workflow explainer](docs/v2/VARIETY-WORKFLOW-EXPLAINER-REVIEW.md):
+  the guide now traces source names through identity review, separate catalog
+  authoring and profile enrichment, with links to the existing private workflows.
 
 The [latest bounded audit](docs/v2/SUNBELLE-ORIGINAL-VARIETY-SOURCES-REVIEW.md) has
 366 source sections / 1,142 name occurrences / 72 matched occurrences / 1,070

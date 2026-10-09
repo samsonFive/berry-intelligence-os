@@ -1,17 +1,39 @@
 {
   "scope": "Read-only catalog profile field inventory; not global completeness",
   "catalog_profiles": 64,
-  "missing_counts": {"photos": 53, "rights": 36, "traits": 33, "companies": 14},
-  "local_tests": {"passed": 84, "warnings": 1, "seconds": 103.45},
+  "missing_counts": {
+    "photos": 53,
+    "rights": 36,
+    "traits": 33,
+    "companies": 14
+  },
+  "local_tests": {
+    "passed": 84,
+    "warnings": 1,
+    "seconds": 103.45
+  },
   "inventory_build_seconds": 2.418,
   "static_pages": 1755,
   "record_validation": "PASS",
   "public_table_excluded": true,
   "native_desktop": {
     "missing_photo_rows": 53,
-    "colossus": {"photos": 1, "permission_held": 1, "cited_entries": 9, "rights_references": 0},
-    "drisblue_seventeen": {"photos": 0, "linked_rights_records": 2, "cited_entries": 4},
-    "screenshots": ["desktop-missing-photos.png", "colossus-field-review.png", "drisblue-rights-review.png"]
+    "colossus": {
+      "photos": 1,
+      "permission_held": 1,
+      "cited_entries": 9,
+      "rights_references": 0
+    },
+    "drisblue_seventeen": {
+      "photos": 0,
+      "linked_rights_records": 2,
+      "cited_entries": 4
+    },
+    "screenshots": [
+      "desktop-missing-photos.png",
+      "colossus-field-review.png",
+      "drisblue-rights-review.png"
+    ]
   },
   "phone_visual_verified": false,
   "phone_review_limit": "Native browser retained 1280px actual viewport after 390px override; override reset",
@@ -24,11 +46,27 @@
   "full_goal_complete": false,
   "initial_full_ci": {
     "head": "f987aa5ac62671352e05f12fdc392de14bad2747",
-    "passed": 4562, "failed": 1, "skipped": 11, "warnings": 2,
+    "passed": 4562,
+    "failed": 1,
+    "skipped": 11,
+    "warnings": 2,
     "seconds": 510.08,
     "failure": "Source-status test expected superseded CSS cache version6 rather than7",
     "other_three_checks": "SUCCESS",
     "fresh_exact_head_ci_required": true,
-    "repair_tests": {"passed": 18, "warnings": 1, "seconds": 32.95}
+    "repair_tests": {
+      "passed": 18,
+      "warnings": 1,
+      "seconds": 32.95
+    }
+  },
+  "final_full_ci": {
+    "head": "d737715c417aba5c1e65518657f10350175e5d22",
+    "run_id": 37991526395,
+    "all_four": "SUCCESS",
+    "passed": 4563,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 617.19
   }
 }
