@@ -1,5 +1,14 @@
 # Project Status
 
+October 8 Smart Berries follow-up: nine original sections document an unresolved
+cultivar inventory behind crop and wholesale-brand pages. Betty Blues and Ruby Reds
+are brands; no new variety, alias, image or footprint is inferred. Combined audit:
+328 sections / 1,050 name occurrences / 726 candidate keys; 59/77 registry entries
+partly checked, 18 initial enumeration gaps, 92 source follow-ups. Scope, original
+links, historical dates and unchecked video remain visible. CAT-01/CAT-02/TD-116
+and human catalog/release work stay open. See
+[Smart Berries review](docs/v2/SMARTBERRIES-BRAND-CULTIVAR-GAPS-REVIEW.md).
+
 October 8 APG original strawberry review: 23 original sections, 37 name
 occurrences, ten subjects, seven newly discovered queue keys and ten held photos.
 All seven linked one-page factsheets were fully read and visually reviewed.
