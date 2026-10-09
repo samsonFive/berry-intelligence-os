@@ -1,5 +1,13 @@
 # Redesign and consolidation requirements
 
+October 8 APG continuation: [original strawberry review](APG-ORIGINAL-STRAWBERRY-PORTFOLIO-REVIEW.md)
+adds ten source subjects and seven new queue keys; no automatic catalog promotion.
+Critical source conflicts are prominent; secondary context remains collapsed.
+70 focused tests and desktop/phone review pass. Audit: 319 sections, 1,050 name
+occurrences, 726 candidate keys, 59/77 partly checked companies, 18 enumeration
+gaps and 83 follow-ups. CAT-01/CAT-02/TD-116 remain open. Parent #361 is green;
+this child requires its own checks. Human catalog and blueberry release gates remain.
+
 October 8 original company-range follow-up: Surexport and Gem-Pack retain
 unnamed-variety gaps after original pages and two complete one-page PDFs were read.
 Eight existing section IDs are refreshed without duplicate rows; four sections are

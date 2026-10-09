@@ -38,6 +38,7 @@
     <span>{{ 'Check shared name' if row.portfolio_identity_notes and not row.human_gated else {'distinct':'Separate candidate','possible_alias':'Needs identity review','unknown':'Unresolved','confirmed_same':'Matched to existing variety','rejected':'Rejected'}.get(row.identity_state, row.identity_label|humanize_label) }}</span>
     <small>{{ row.source_label }}</small>
   </summary><div class="variety-section-body">
+  {% if row.portfolio_review_warnings %}<aside class="brief-window" aria-label="Source details to check"><strong>Check before relying on these sources</strong>{% for warning in row.portfolio_review_warnings %}<p>{{ warning }}</p>{% endfor %}</aside>{% endif %}
   <p class="v2-company-meta">
     <span class="badge">{{ 'Identity unresolved' if row.portfolio_identity_notes and not row.human_gated else 'Needs identity review' if not row.human_gated and row.identity_state == 'distinct' else row.identity_label }}</span>
     <span class="badge">Candidate (untrusted)</span>

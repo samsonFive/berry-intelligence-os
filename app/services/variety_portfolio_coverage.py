@@ -74,6 +74,11 @@ def _load_portfolio_observations(data_dir: Path):
                    or (row.get("product_url") and not _public_url(row["product_url"])) for row in source["names"]):
                 raise ValueError("Portfolio names need an explicit berry and name")
             accounting = source.get("accounting")
+            warnings = source.get("review_warnings", [])
+            if not isinstance(warnings, list) or len(warnings) > 8 or any(
+                    not isinstance(message, str) or not message.strip() or len(message) > 1000
+                    for message in warnings):
+                raise ValueError("Source review warnings need short, nonempty text")
             from app.services.variety_photos import compatible, validate_photo
             for name in source["names"]:
                 if "photos" in name:
@@ -207,6 +212,8 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
                          "identity_notes": identity_notes}
             if source.get("published_date"):
                 reference["published_date"] = source["published_date"]
+            if source.get("review_warnings"):
+                reference["review_warnings"] = list(source["review_warnings"])
             provenance.setdefault(candidate_key(observation), []).append(reference)
             if status == "needs_review" and candidate is None:
                 lead = observation
@@ -261,7 +268,7 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
             accounting_view = {**accounting, "accounted_items": accounted, "issues": issues}
         source_rows.append({**source, "names": names, "companies": companies,
                             "accounting_view": accounting_view,
-                            "needs_follow_up": source["capture_status"] != "names_enumerated" or bool(accounting_view and accounting_view["issues"]),
+                            "needs_follow_up": source["capture_status"] != "names_enumerated" or bool(accounting_view and accounting_view["issues"]) or bool(source.get("review_warnings")),
                             "identity_issues": sorted({message for name in names for message in name["identity_notes"]}),
                             "age_days": age, "freshness": freshness,
                             "matched": sum(row["status"] == "catalog_match" for row in names),
@@ -269,6 +276,7 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
                             "closed": sum(row["status"] == "previously_rejected" for row in names),
                             "awaiting_catalog": sum(row["status"] == "distinct_awaiting_catalog" for row in names)})
     visible = [{**row, "portfolio_sources": provenance.get(candidate_key(row), []),
+                "portfolio_review_warnings": sorted({message for ref in provenance.get(candidate_key(row), []) for message in ref.get("review_warnings", [])}),
                 "portfolio_identity_notes": sorted({message for ref in provenance.get(candidate_key(row), []) for message in ref["identity_notes"]})}
                for row in [*candidates, *additions]]
     return source_rows, visible

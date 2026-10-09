@@ -1,5 +1,18 @@
 # Project Status
 
+October 8 APG original strawberry review: 23 original sections, 37 name
+occurrences, ten subjects, seven newly discovered queue keys and ten held photos.
+All seven linked one-page factsheets were fully read and visually reviewed.
+Protection and PDF-label conflicts remain prominent in source and candidate views.
+Audit: 319 sections / 1,050 occurrences / 726 candidate keys; 59/77 registry entries
+partly checked, 18 initial enumeration gaps and 83 source follow-ups remain.
+70 focused tests pass; records validate; all 2,771 original JSON files and the
+expansion guide are preserved. Desktop and 390px native review pass. Parent #361
+passes all four checks (4,378 tests). This child needs its own exact-head checks.
+CAT-01/CAT-02/TD-116, independent recall and human catalog/release work stay open.
+See [APG review](docs/v2/APG-ORIGINAL-STRAWBERRY-PORTFOLIO-REVIEW.md).
+No merge, deployment or other-berry Landscape rollout.
+
 October 8 original company-range follow-up: Surexport and Gem-Pack retain
 unnamed-variety gaps after original pages and two complete one-page PDFs were read.
 Eight existing section IDs are refreshed without duplicate rows; four sections are
