@@ -61,7 +61,7 @@
   "real_pending_draft_bytes_preserved": true,
   "human_decisions_created": 0,
   "merge_or_deploy": false,
-  "full_ci": "Required after push; not assumed green",
+  "full_ci": "Fresh exact-head CI required after fixture repair push; earlier failure retained.",
   "static": {
     "pages": 1755,
     "unpublished_draft_check": "passed",
@@ -69,5 +69,20 @@
     "all_html_pages_scanned": 1755,
     "final_session26540_consumed": true
   },
-  "record_validation": "passed"
+  "record_validation": "passed",
+  "initial_full_ci": {
+    "head": "49593bbc7b644226a4b74643d3b8bd44f303c9c2",
+    "run": 37998245608,
+    "passed": 4573,
+    "failed": 1,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 638.24,
+    "failure": "Existing Arana missing-data fixture expected old no-patent-number wording; actual missing reference state is preserved. Fixture now checks current wording and no invented filing panel."
+  },
+  "fixture_repair_tests": {
+    "passed": 47,
+    "warnings": 1,
+    "seconds": 62.0
+  }
 }

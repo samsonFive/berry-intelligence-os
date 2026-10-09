@@ -66,3 +66,16 @@ photos/regions, independent human recall and real human catalog authoring.
 Phone visual review and the integrated tested release are still required.
 Blueberry feedback gates other Landscape berries; this change is a draft, with
 no merge or deployment. Exact-head CI must be checked after pushing.
+
+The initial full CI on `49593bbc7b644226a4b74643d3b8bd44f303c9c2`, run
+37998245608, passed scope, integrity and public safety but failed an older
+missing-data wording assertion: **4,573 passed / one failed / 11 skipped / two
+warnings / 638.24 seconds**. Arana still shows its missing trait and patent
+reference states; the fixture expected the replaced text “no patent number
+recorded.” It now checks “No patent reference linked.” and confirms that no
+original filing panel is invented for that variety. Fresh repaired-head CI
+remains required; this failed run is retained in the verification artifact.
+
+All47 synthesis/profile regression checks pass after that fixture repair, one
+existing warning,62.00 seconds. Application behavior and source data are unchanged
+by the repair; fresh pushed-head CI remains required.
