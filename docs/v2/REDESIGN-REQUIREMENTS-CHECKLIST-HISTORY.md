@@ -936,3 +936,6 @@ Historical release checkpoint, October 5, 2026: `origin/v2/intelligence-os` is `
 
 Completion means implementation plus appropriate source/data proof, browser review, meaningful automated checks, exact-head required CI, preserved private/public and human-review boundaries, updated guide and a reviewable release. Unavailable source text, unresolved photo identities, absent geographic statistics and missing credentials must be reported honestly. Human confirmation must never be simulated to close a checklist item.
 
+## Archive boundary
+
+Current work continues in [REDESIGN-REQUIREMENTS-CHECKLIST.md](REDESIGN-REQUIREMENTS-CHECKLIST.md).

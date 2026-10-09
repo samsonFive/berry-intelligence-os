@@ -738,3 +738,6 @@ publication-date evidence separate from capture/update time. Corrected copies
 remain pending authenticity review, with no canonical or readiness additions.
 See ARTICLE-PUBLICATION-DATE-FIDELITY-REVIEW.md; independent recall stays open.
 
+## Archive boundary
+
+Current work continues in [VARIETY-CATALOG-COMPREHENSIVENESS-MISSION.md](VARIETY-CATALOG-COMPREHENSIVENESS-MISSION.md).

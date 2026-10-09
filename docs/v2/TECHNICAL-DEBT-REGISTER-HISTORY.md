@@ -258,3 +258,6 @@ source-scoped navigation pass. No identity, rights, photo or release approval.
 See CAMPOSOL-ORIGINAL-VARIETIES-REVIEW.md. TD-116 remains open.
 
 Living register for **current** Intelligence OS V2 debt. This is not a changelog.
+## Archive boundary
+
+Current work continues in [TECHNICAL-DEBT-REGISTER.md](TECHNICAL-DEBT-REGISTER.md).

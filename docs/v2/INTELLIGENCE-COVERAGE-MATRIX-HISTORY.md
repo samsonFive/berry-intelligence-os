@@ -949,3 +949,6 @@ names; no approved Variety/Evidence/Fact/Relationship, source onboarding or matu
 classification changes. These are sampled page checks, not global recall proof.
 See VARIETY-PORTFOLIO-COVERAGE-REVIEW.md; TD-116 remains open.
 
+## Archive boundary
+
+Current work continues in [INTELLIGENCE-COVERAGE-MATRIX.md](INTELLIGENCE-COVERAGE-MATRIX.md).
