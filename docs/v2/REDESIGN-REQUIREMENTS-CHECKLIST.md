@@ -31,10 +31,11 @@ held codes. Body/parent/trade-name recall and per-entry company associations rem
 partial; no source observation automatically creates an approved variety. The original Lewis/Hutton distinction is retained as
 source context for a human decision, not automatic identity approval.
 
-The [entry-company source review](ENTRY-COMPANY-SOURCE-CONTEXT-REVIEW.md) now
-links 148 register entries to 18 existing organizations, including explicit joint
+The [searchable organization follow-up](SEARCHABLE-ORIGIN-ORGANIZATIONS-REVIEW.md)
+links 160 register entries to 20 existing organizations, including explicit joint
 program context. Company tables and source/company filters use those entries;
-240 remain unassigned. No company role, current rights or catalog approval follows.
+60 further entries have searchable unresolved organization names. 228 remain
+unassigned. No company role, current rights or catalog approval follows.
 
 The 32-copy human source/name packet remains unfinished. Source authenticity,
 name/identity review, statement review, extraction qualification and photo reuse

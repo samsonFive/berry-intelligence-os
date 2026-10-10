@@ -7,11 +7,15 @@ mission remains open. Existing discovery, original-source observations, patent
 links and photo previews feed review without silently approving identities,
 aliases, roles, traits, regions or rights.
 
-The [latest source review](SUNBELLE-ORIGINAL-VARIETY-SOURCES-REVIEW.md) records
-366 bounded sections / 1,142 name occurrences / 72 matched occurrences / 1,070
-requiring review, 789 public candidate keys and 64 unchanged canonical varieties.
+The [latest source review](SEARCHABLE-ORIGIN-ORGANIZATIONS-REVIEW.md) records
+376 bounded sections / 1,544 name occurrences / 88 matched occurrences / 1,456
+requiring review, 1,121 public candidate keys and 64 unchanged canonical varieties.
 Photo references total 122 with no new reuse approvals. The 77-entry company
 plan retains 14 incomplete checks, one unavailable source and two identity holds.
+
+The register has 160 entries linked to 20 existing organizations and 60 further
+entries searchable by unresolved organization wording. 228 entries still lack
+identity assignments. Source mentions do not approve company roles or rights.
 
 The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
 shows actual catalog gaps: 53/64 without photo references, 36/64 without

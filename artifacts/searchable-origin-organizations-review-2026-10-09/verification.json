@@ -1,0 +1,725 @@
+{
+  "prior_sha256": "9852209ca17e9f55ea6d7ca1863825e9e42d4625fe91ee995fce9c666c28e356",
+  "prior_snapshot_bytes_preserved": true,
+  "names": 388,
+  "added_contexts": 72,
+  "added_mapped_entries": 12,
+  "added_unresolved_contexts": 60,
+  "total_mapped_entries": 160,
+  "total_associations": 168,
+  "total_organizations": 20,
+  "total_context_entries": 220,
+  "remaining_unassigned_entries": 228,
+  "added_labels": {
+    "Next Progeny": 3,
+    "University of Georgia": 9,
+    "Allberry": 8,
+    "Five Aces Breeding": 4,
+    "Berryworld Plus": 1,
+    "Agriculture and Agri-Food Canada": 3,
+    "Sweet Darling Sales": 12,
+    "Lassen Canyon Nursery": 2,
+    "Berry Genetics": 11,
+    "Strawberry Sciences": 8,
+    "Edward Vinson Ltd.": 7,
+    "Rutgers University": 3,
+    "Five Acres Breeding": 1
+  },
+  "checked_original_pages": [
+    13,
+    14,
+    15,
+    49,
+    50,
+    52,
+    53,
+    54,
+    55,
+    56,
+    64,
+    65,
+    66,
+    68,
+    69,
+    70
+  ],
+  "changes": [
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "NS 15-14",
+      "berry_id": "berry-blueberry",
+      "organization_as_read": "Next Progeny",
+      "entity_ids": [
+        "company-next-progeny"
+      ],
+      "pdf_page": 13
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "NS 15-15",
+      "berry_id": "berry-blueberry",
+      "organization_as_read": "Next Progeny",
+      "entity_ids": [
+        "company-next-progeny"
+      ],
+      "pdf_page": 13
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "NS 16-6",
+      "berry_id": "berry-blueberry",
+      "organization_as_read": "Next Progeny",
+      "entity_ids": [
+        "company-next-progeny"
+      ],
+      "pdf_page": 13
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-1093",
+      "berry_id": "berry-blueberry",
+      "organization_as_read": "University of Georgia",
+      "entity_ids": [
+        "breeding_program-university-of-georgia-blueberry"
+      ],
+      "pdf_page": 14
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-1241",
+      "berry_id": "berry-blueberry",
+      "organization_as_read": "University of Georgia",
+      "entity_ids": [
+        "breeding_program-university-of-georgia-blueberry"
+      ],
+      "pdf_page": 14
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-1987",
+      "berry_id": "berry-blueberry",
+      "organization_as_read": "University of Georgia",
+      "entity_ids": [
+        "breeding_program-university-of-georgia-blueberry"
+      ],
+      "pdf_page": 14
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-1996",
+      "berry_id": "berry-blueberry",
+      "organization_as_read": "University of Georgia",
+      "entity_ids": [
+        "breeding_program-university-of-georgia-blueberry"
+      ],
+      "pdf_page": 14
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-889",
+      "berry_id": "berry-blueberry",
+      "organization_as_read": "University of Georgia",
+      "entity_ids": [
+        "breeding_program-university-of-georgia-blueberry"
+      ],
+      "pdf_page": 14
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-896",
+      "berry_id": "berry-blueberry",
+      "organization_as_read": "University of Georgia",
+      "entity_ids": [
+        "breeding_program-university-of-georgia-blueberry"
+      ],
+      "pdf_page": 14
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-920",
+      "berry_id": "berry-blueberry",
+      "organization_as_read": "University of Georgia",
+      "entity_ids": [
+        "breeding_program-university-of-georgia-blueberry"
+      ],
+      "pdf_page": 15
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TO-1719",
+      "berry_id": "berry-blueberry",
+      "organization_as_read": "University of Georgia",
+      "entity_ids": [
+        "breeding_program-university-of-georgia-blueberry"
+      ],
+      "pdf_page": 15
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TO-3097",
+      "berry_id": "berry-blueberry",
+      "organization_as_read": "University of Georgia",
+      "entity_ids": [
+        "breeding_program-university-of-georgia-blueberry"
+      ],
+      "pdf_page": 15
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "ABB 123",
+      "berry_id": "berry-raspberry",
+      "organization_as_read": "Allberry",
+      "entity_ids": [],
+      "pdf_page": 49
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "ABB 132",
+      "berry_id": "berry-raspberry",
+      "organization_as_read": "Allberry",
+      "entity_ids": [],
+      "pdf_page": 49
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "ABB 135",
+      "berry_id": "berry-raspberry",
+      "organization_as_read": "Allberry",
+      "entity_ids": [],
+      "pdf_page": 49
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "ABB 136",
+      "berry_id": "berry-raspberry",
+      "organization_as_read": "Allberry",
+      "entity_ids": [],
+      "pdf_page": 50
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Addison",
+      "berry_id": "berry-raspberry",
+      "organization_as_read": "Five Aces Breeding",
+      "entity_ids": [],
+      "pdf_page": 50
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Autumn Glory",
+      "berry_id": "berry-raspberry",
+      "organization_as_read": "Five Aces Breeding",
+      "entity_ids": [],
+      "pdf_page": 50
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Diamond Jubilee",
+      "berry_id": "berry-raspberry",
+      "organization_as_read": "Berryworld Plus",
+      "entity_ids": [],
+      "pdf_page": 50
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Pearl",
+      "berry_id": "berry-raspberry",
+      "organization_as_read": "Five Aces Breeding",
+      "entity_ids": [],
+      "pdf_page": 52
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Rafiki",
+      "berry_id": "berry-raspberry",
+      "organization_as_read": "Allberry",
+      "entity_ids": [],
+      "pdf_page": 52
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Sapphire",
+      "berry_id": "berry-raspberry",
+      "organization_as_read": "Five Aces Breeding",
+      "entity_ids": [],
+      "pdf_page": 52
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Sarafina",
+      "berry_id": "berry-raspberry",
+      "organization_as_read": "Allberry",
+      "entity_ids": [],
+      "pdf_page": 52
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Shani",
+      "berry_id": "berry-raspberry",
+      "organization_as_read": "Allberry",
+      "entity_ids": [],
+      "pdf_page": 52
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Wengi",
+      "berry_id": "berry-raspberry",
+      "organization_as_read": "Allberry",
+      "entity_ids": [],
+      "pdf_page": 53
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "AAC Audrey",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Agriculture and Agri-Food Canada",
+      "entity_ids": [],
+      "pdf_page": 53
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "AAC Evelyn",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Agriculture and Agri-Food Canada",
+      "entity_ids": [],
+      "pdf_page": 53
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "AAC Kate",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Agriculture and Agri-Food Canada",
+      "entity_ids": [],
+      "pdf_page": 53
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Alicia",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Sweet Darling Sales",
+      "entity_ids": [],
+      "pdf_page": 53
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Ashley Jay",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Lassen Canyon Nursery",
+      "entity_ids": [],
+      "pdf_page": 53
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-10.3169",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Berry Genetics",
+      "entity_ids": [],
+      "pdf_page": 54
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-10.3181",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Berry Genetics",
+      "entity_ids": [],
+      "pdf_page": 54
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-11.3205",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Berry Genetics",
+      "entity_ids": [],
+      "pdf_page": 54
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-11.3209",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Berry Genetics",
+      "entity_ids": [],
+      "pdf_page": 54
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-12.3241",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Berry Genetics",
+      "entity_ids": [],
+      "pdf_page": 54
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-12.3258",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Berry Genetics",
+      "entity_ids": [],
+      "pdf_page": 54
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-12.3266",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Berry Genetics",
+      "entity_ids": [],
+      "pdf_page": 54
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-4.352",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Berry Genetics",
+      "entity_ids": [],
+      "pdf_page": 55
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-6.3016",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Berry Genetics",
+      "entity_ids": [],
+      "pdf_page": 55
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-9.3128",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Berry Genetics",
+      "entity_ids": [],
+      "pdf_page": 55
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-9.3147",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Berry Genetics",
+      "entity_ids": [],
+      "pdf_page": 55
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Bounty",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Strawberry Sciences",
+      "entity_ids": [],
+      "pdf_page": 55
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Camila",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Lassen Canyon Nursery",
+      "entity_ids": [],
+      "pdf_page": 55
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Caprice",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Sweet Darling Sales",
+      "entity_ids": [],
+      "pdf_page": 55
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Constitution",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Strawberry Sciences",
+      "entity_ids": [],
+      "pdf_page": 56
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Discovery",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Strawberry Sciences",
+      "entity_ids": [],
+      "pdf_page": 56
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Dr. Duncan",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Sweet Darling Sales",
+      "entity_ids": [],
+      "pdf_page": 56
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "GB96",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Edward Vinson Ltd.",
+      "entity_ids": [],
+      "pdf_page": 64
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "JFK44",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Edward Vinson Ltd.",
+      "entity_ids": [],
+      "pdf_page": 64
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Lucretia",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Sweet Darling Sales",
+      "entity_ids": [],
+      "pdf_page": 64
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Magellan",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Sweet Darling Sales",
+      "entity_ids": [],
+      "pdf_page": 64
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Malibu",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Sweet Darling Sales",
+      "entity_ids": [],
+      "pdf_page": 64
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "NJ08-08-6",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Rutgers University",
+      "entity_ids": [],
+      "pdf_page": 65
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "NJ09-2-1",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Rutgers University",
+      "entity_ids": [],
+      "pdf_page": 65
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "NJ99-204-1",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Rutgers University",
+      "entity_ids": [],
+      "pdf_page": 65
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Octavia",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Sweet Darling Sales",
+      "entity_ids": [],
+      "pdf_page": 66
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Omaha",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Sweet Darling Sales",
+      "entity_ids": [],
+      "pdf_page": 66
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Playa",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Sweet Darling Sales",
+      "entity_ids": [],
+      "pdf_page": 68
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "QBC-1",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Five Acres Breeding",
+      "entity_ids": [],
+      "pdf_page": 68
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Resolution",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Strawberry Sciences",
+      "entity_ids": [],
+      "pdf_page": 68
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SB_12_53-118",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Strawberry Sciences",
+      "entity_ids": [],
+      "pdf_page": 68
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SB_13_177-015",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Strawberry Sciences",
+      "entity_ids": [],
+      "pdf_page": 69
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SB_14_223-007",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Strawberry Sciences",
+      "entity_ids": [],
+      "pdf_page": 69
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SB_14_225-001",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Strawberry Sciences",
+      "entity_ids": [],
+      "pdf_page": 69
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SRE36",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Edward Vinson Ltd.",
+      "entity_ids": [],
+      "pdf_page": 69
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SRV36",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Edward Vinson Ltd.",
+      "entity_ids": [],
+      "pdf_page": 69
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SSL 93",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Edward Vinson Ltd.",
+      "entity_ids": [],
+      "pdf_page": 69
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Stata",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Sweet Darling Sales",
+      "entity_ids": [],
+      "pdf_page": 69
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Sweet Eve 2",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Edward Vinson Ltd.",
+      "entity_ids": [],
+      "pdf_page": 70
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SWV 25",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Edward Vinson Ltd.",
+      "entity_ids": [],
+      "pdf_page": 70
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Taia",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Sweet Darling Sales",
+      "entity_ids": [],
+      "pdf_page": 70
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Wenatchee",
+      "berry_id": "berry-strawberry",
+      "organization_as_read": "Sweet Darling Sales",
+      "entity_ids": [],
+      "pdf_page": 70
+    }
+  ],
+  "canonical_writes": 0,
+  "human_decisions_created": 0,
+  "new_image_permissions": 0,
+  "summary": {
+    "source_sections": 376,
+    "readable_sections": 272,
+    "unreadable_sections": 14,
+    "follow_up_sections": 118,
+    "names": 1544,
+    "catalog_matches": 88,
+    "needs_review": 1456,
+    "registry_entries": 77,
+    "registry_entries_checked": 60,
+    "registry_entries_partial_checks": 14,
+    "registry_entries_unavailable": 1,
+    "registry_entries_not_started": 0,
+    "registry_entries_identity_hold": 2
+  },
+  "candidate_counts": {
+    "stored_source_candidates": 63,
+    "combined_candidates": 1121,
+    "additional_primary_portfolio_candidates": 1058
+  },
+  "verification": {
+    "source_navigation_suite": {
+      "passed": 74,
+      "warnings": 1,
+      "seconds": 106.23
+    },
+    "repair_and_new_route_suite": {
+      "passed": 54,
+      "warnings": 1,
+      "seconds": 111.45
+    },
+    "record_validation": "passed",
+    "static_pages": 1755,
+    "pagefind": "passed",
+    "all_html_new_private_markers_absent": true,
+    "markers": [
+      "This entry names Rutgers University",
+      "This entry names Five Acres Breeding",
+      "source=portfolio-register52-2024-",
+      "portfolio-register52-2024-",
+      "jujube.nmsu.edu/documents/2024-fruit-cultivar-registration-52-hortsci-article-p1220.pdf"
+    ],
+    "all_31_requirement_ids_and_order_preserved": true,
+    "original_json_files_preserved": 2771,
+    "expansion_guide_preserved": true,
+    "pending_source_copies_preserved": 32,
+    "human_source_decisions": 0,
+    "pending_draft_sha256": "deb45f2e3836c96e5f3fb13abaf9dc15c86930f1a0a9cb495f347a033cf822e4"
+  },
+  "native_browser": {
+    "tab": 62,
+    "port": 18575,
+    "unresolved_rutgers_matches": 3,
+    "new_georgia_register_rows": 9,
+    "georgia_total_source_rows": 24,
+    "source_sections": 4,
+    "reviewed_links": 0,
+    "followup_sections": 2,
+    "correct_original_pdf_pages": true,
+    "program_route_crash_fixed_and_rechecked": true,
+    "client_filter_matches": 2,
+    "review_forms_submitted": 0,
+    "screenshots": [
+      "rutgers-source-context.png",
+      "georgia-entry-context.png",
+      "georgia-program-source-table.png"
+    ]
+  },
+  "catalog_count": 64,
+  "photo_references": 122,
+  "new_canonical_varieties": 0,
+  "new_reuse_approvals": 0,
+  "fresh_pushed_head_checks_required": true,
+  "merge_or_deploy": false
+}

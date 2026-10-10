@@ -22,6 +22,14 @@ there rather than reconstructing the mission from historical progress reports.
 
 ## Latest reviewable changes
 
+- [Searchable organization context](docs/v2/SEARCHABLE-ORIGIN-ORGANIZATIONS-REVIEW.md):
+  72 additional register entries gain attributed organization descriptions.
+  160 entries now link to 20 existing organizations; another 60 have searchable
+  unresolved organization wording. 228 remain unassigned. Original identities,
+  roles and all human gates remain unchanged. Browser review found and repaired
+  a breeding-program Varieties-tab crash. 74 source/navigation and 54 repair checks
+  pass; post-fix public build and data/runtime preservation pass. Fresh CI pending.
+
 - [Entry-level company context](docs/v2/ENTRY-COMPANY-SOURCE-CONTEXT-REVIEW.md):
   company tables and joint source/company filters use each original entry.
   148 register entries now have context for 18 organizations; eight Costa entries
@@ -32,7 +40,8 @@ there rather than reconstructing the mission from historical progress reports.
   388 unreviewed heading observations, eight referrals and two held codes add
   321 candidate keys. 48 affected checks and the 1,755-page public build pass;
   prior IDs, original records and operator edits are preserved. Per-entry company
-  associations and body/parent recall remain open. Fresh pushed-head CI is required.
+  associations and body/parent recall remain open. Repaired draft #386 passes all
+  four required checks, including 4,580 tests; initial failure evidence is retained.
 
 - [Original Lewis pedigree](docs/v2/LEWIS-ORIGINAL-PEDIGREE-REVIEW.md):
   eleven historical review leads from an original diagram, with all earlier IDs

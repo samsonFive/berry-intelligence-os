@@ -16,9 +16,10 @@ recall and per-entry company links remain partial. Historical rights references
 are not current official-rights checks. This intake does not promote any
 evidence-class maturity cell below.
 
-The [entry-level company context review](ENTRY-COMPANY-SOURCE-CONTEXT-REVIEW.md)
-adds 156 unreviewed organization associations across 148 register entries and 18
-existing organizations. 240 entries still have no assignment. Company filters
+The [searchable organization follow-up](SEARCHABLE-ORIGIN-ORGANIZATIONS-REVIEW.md)
+retains 168 unreviewed organization associations across 160 register entries and
+20 existing organizations, plus 60 searchable unresolved organization contexts.
+228 entries still have no assignment. Company filters
 use the specific entry rather than every program in the source. These mentions
 do not approve breeder/owner roles or change canonical counts.
 
