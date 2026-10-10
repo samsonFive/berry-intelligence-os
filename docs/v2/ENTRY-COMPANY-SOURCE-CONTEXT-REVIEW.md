@@ -71,3 +71,24 @@ and actual catalog authoring remain required. The visual guide at `/guide` retai
 the source → identity → separate catalog review workflow. Phone verification,
 combined release review and revised blueberry feedback remain outstanding. No
 merge, deploy or other-berry Landscape rollout is included.
+
+## Full-suite and program-route follow-up
+
+Draft #387 head `2a3f4f4edd76cb96f4dcfa7622cd0375bce42688` passed three required
+checks. The complete Python run38006524697/job114076504909 returned4,587 passed /
+three failed /11 skipped /two warnings in900.77seconds. Two assertions had not
+accounted for entry-specific organizations in the mixed register: CBC's section
+count used source-root identifiers only, and the Hutton gap test expected only
+the earlier Ltd section. The tests now retain both the earlier gaps and register
+context. The photo future-date parameter was evaluated during test collection;
+the run crossed midnight before validation. It is now calculated during execution.
+Photo permission and date-validation behavior are unchanged.
+
+Subsequent actual browser review found a breeding-program Varieties-tab500 when
+no company backbone existed. The route now passes an empty portfolio to the
+existing source projection; a read-only integration test covers the established
+Georgia program and its earlier Blue Suede source. No new domain schema or writer.
+The combined follow-up workspace passes54 repair/regression checks /one warning
+in111.45seconds; later source additions are separately tracked. Fresh checks are
+required on the repaired pushed head. Initial failures are retained. Watch-process
+exit status alone is not CI success; current-head GitHub check metadata is authoritative.

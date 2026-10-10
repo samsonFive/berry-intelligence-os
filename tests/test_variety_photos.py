@@ -125,8 +125,11 @@ def test_session_script_loads_only_the_chosen_asset_and_never_persists_permissio
 @pytest.mark.parametrize("changes", [{"image_url": "javascript:alert(1)"}, {"image_url": "http://127.0.0.1/private"},
     {"source_url": "https://user:password@example.test/"}, {"license_url": "file:///secret"}, {"credit": ""},
     {"named_variety": ""}, {"reuse_note": ""}, {"license_url": ""}, {"kind": "logo"},
-    {"checked_on": "bad-date"}, {"checked_on": (date.today() + timedelta(days=1)).isoformat()}])
+    {"checked_on": "bad-date"}, {"checked_on": "tomorrow"}])
 def test_photo_requires_safe_attributed_dated_reuse(changes):
+    # Compute at execution, not collection: a full run can cross midnight.
+    if changes.get("checked_on") == "tomorrow":
+        changes = {**changes, "checked_on": (date.today() + timedelta(days=1)).isoformat()}
     with pytest.raises(ValueError):
         photos.validate_photo(photo(**changes))
 

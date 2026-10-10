@@ -3738,7 +3738,7 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "related_entities": (seed or {}).get("related_entities") or [],
             "growing_profile": growing_profile,
             "dossier": dossier,
-            "company_source_varieties": company_source_varieties(entity_id, backbone.get("portfolio"))
+            "company_source_varieties": company_source_varieties(entity_id, (backbone or {}).get("portfolio"))
                 if request.query_params.get("tab") == "varieties" else None,
             "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
             "monogram": (seed or {}).get("monogram") or name[:2].upper(),

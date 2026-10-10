@@ -3106,7 +3106,7 @@
     "pending_copies": 32,
     "pending_draft_sha256": "deb45f2e3836c96e5f3fb13abaf9dc15c86930f1a0a9cb495f347a033cf822e4"
   },
-  "full_ci": "Fresh pushed-head CI required.",
+  "full_ci": "Initial head has three test failures; diagnosed repairs require fresh pushed-head checks.",
   "merge_or_deploy": false,
   "requirements_ids_and_order_preserved": [
     "CAT-01",
@@ -3140,5 +3140,27 @@
     "OPS-01",
     "GUIDE-01",
     "REL-01"
-  ]
+  ],
+  "initial_full_ci": {
+    "head": "2a3f4f4edd76cb96f4dcfa7622cd0375bce42688",
+    "run": 38006524697,
+    "job": 114076504909,
+    "passed": 4587,
+    "failed": 3,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 900.77,
+    "checks_success": 3,
+    "checks_failed": 1
+  },
+  "repair_verification": {
+    "combined_followup_workspace_tests": 54,
+    "warnings": 1,
+    "seconds": 111.45,
+    "coverage_assertions_retain_mixed_entry_context": true,
+    "future_date_calculated_at_execution": true,
+    "program_without_company_backbone_route_fixed": true,
+    "permissions_or_trust_gate_changes": false,
+    "fresh_pushed_head_checks_required": true
+  }
 }
