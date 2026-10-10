@@ -1,0 +1,81 @@
+{
+  "scope": "Source-only private worksheet and read-only captured text mode; no real expected names supplied or qualification created.",
+  "verification": {
+    "targeted_tests": {
+      "passed": 65,
+      "warnings": 1,
+      "seconds": 11.19
+    },
+    "initial_fixture_syntax_error_fixed": true,
+    "record_validation": "passed",
+    "static_pages": 1755,
+    "pagefind": "passed",
+    "all_html_private_markers_absent": true,
+    "markers": [
+      "data-name-review-source",
+      "variety-name-human-review-v1",
+      "?name_review=1",
+      "Fictional Demo"
+    ],
+    "data_files_preserved": 2831,
+    "original_canonical_json_preserved": 2771,
+    "expansion_guide_preserved": true,
+    "all_31_requirement_ids_and_order_preserved": true,
+    "pending_source_copies_preserved": 32,
+    "real_pending_draft_sha256": "deb45f2e3836c96e5f3fb13abaf9dc15c86930f1a0a9cb495f347a033cf822e4"
+  },
+  "real_packet": {
+    "source_count": 32,
+    "completed_expected_lists": 0,
+    "expected_lists_all_null": true,
+    "copy_acceptance_decisions": 0,
+    "catalog_decisions": 0,
+    "qualification_approved": false,
+    "source_bodies_in_packet": false
+  },
+  "native_browser": {
+    "worksheet_tab": 64,
+    "source_copy_tab": 65,
+    "fictional_test_tab": 66,
+    "actual_expected_lists_completed": 0,
+    "source_only_text_verified": true,
+    "stored_summary_hidden": true,
+    "source_approval_controls_absent": true,
+    "fictional_draft_retention_after_reload": true,
+    "actual_partial_download_verified": true,
+    "download_scope": "Two fictional sources only; second expected list remains null",
+    "metadata_only_worksheet_screenshot": "unfilled-source-worksheet.png",
+    "current_phone_verification": false
+  },
+  "source_audit_unchanged": {
+    "sections": 378,
+    "occurrences": 1549,
+    "catalog_matches": 88,
+    "needs_review": 1461,
+    "source_derived_candidate_keys": 1124,
+    "canonical_varieties": 64,
+    "photo_references": 122
+  },
+  "parent_389": {
+    "head": "977163c24a9081b20fde9969ebd47f9449d05968",
+    "all_four": "SUCCESS",
+    "python": {
+      "passed": 4597,
+      "skipped": 11,
+      "warnings": 2,
+      "seconds": 726.03
+    }
+  },
+  "remaining": [
+    "Human source/name review",
+    "Independent all-four-berry benchmark qualification",
+    "CAT-01",
+    "CAT-02",
+    "TD-116",
+    "LAND-02",
+    "REL-01",
+    "Actual phone review"
+  ],
+  "fresh_new_head_checks_required": true,
+  "merge_or_deploy": false
+}

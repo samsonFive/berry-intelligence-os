@@ -1,5 +1,7 @@
 # Project Status
 
+**October 9: human name-review packet prepared.** All32 retained copies now have a private source-only worksheet, browser-local drafts and export into the existing offline diagnostic. Real human answers remain unfinished; no source/catalog approval or benchmark qualification is created. Parent#389 passes all four checks /4,597 tests. See [human packet review](docs/v2/VARIETY-HUMAN-RECALL-PACKET-REVIEW.md).
+
 **October 9: original Rutgers filing follow-up.** NJ09-2-1 / Rutgers D'Light naming, original claim and separate historical parent/comparison leads now reach private identity review. 52 targeted checks and record validation pass; no canonical edits or new photo permissions. Parent #387 passes all four checks, including 4,591 tests. Full scope and remaining review/release gates: [Rutgers filing review](docs/v2/RUTGERS-ORIGINAL-FILING-REVIEW.md).
 
 ## Current checkpoint — October 9, 2026

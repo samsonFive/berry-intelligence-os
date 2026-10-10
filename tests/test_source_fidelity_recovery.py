@@ -56,6 +56,33 @@ def _candidate(record, source="historic_inbox"):
     return value
 
 
+def test_name_review_only_shows_captured_text_without_stored_summary_or_decision_controls(monkeypatch, tmp_path):
+    trusted = _trusted(summary='STORED_SUMMARY_MUST_NOT_PRIME_RECALL')
+    record = _rich()
+    record['article']['paragraphs'][0].update(text='Literal source heading', heading_level=2)
+    record['article']['paragraphs'][1]['text'] = 'Literal text <script>never_execute()</script>'
+    artifact = build_recovery_artifact(match_recoveries([trusted], [_candidate(record)])[0], trusted)
+    artifact['source_title'] = 'Title from captured source'
+    path = _stage(monkeypatch, tmp_path, trusted, artifact)
+    before = path.read_bytes()
+    client = TestClient(app)
+    view = client.get(f"/source-fidelity/{trusted['id']}?name_review=1")
+    assert view.status_code == 200 and 'Captured source text' in view.text
+    assert 'STORED_SUMMARY_MUST_NOT_PRIME_RECALL' not in view.text
+    assert 'Title from captured source' in view.text
+    assert '<h4 data-source-paragraph="0">Literal source heading</h4>' in view.text
+    assert '&lt;script&gt;never_execute()&lt;/script&gt;' in view.text
+    assert '<script>never_execute()</script>' not in view.text
+    assert 'data-fidelity-form' not in view.text and 'confirm_affirm' not in view.text
+    assert 'Accept recovered copy' not in view.text and 'Mark distinct' not in view.text
+    assert '/decision' not in view.text
+    normal = client.get(f"/source-fidelity/{trusted['id']}")
+    assert 'STORED_SUMMARY_MUST_NOT_PRIME_RECALL' in normal.text and 'Accept recovered copy' in normal.text
+    assert path.read_bytes() == before
+    assert load_review_events(main.INBOX_DIR, workflow='source_fidelity_review') == []
+    assert main.get_repositories(main.DATA_DIR, main.SCHEMAS_DIR).evidence.get(trusted['id']) == trusted
+
+
 def test_exact_id_recovery_and_pink_hudson_not_confused_with_other_article():
     trusted = _trusted()
     pink = _candidate(_rich())

@@ -1,0 +1,30 @@
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">VARIETIES · SOURCE TEXT FOR NAME REVIEW</p>
+    <h1>{{ artifact.source_title or 'Saved source copy' }}</h1>
+    <p>Read the captured words and record the variety names in your worksheet. Stored summaries and detector suggestions are hidden in this view.</p>
+  </div>
+</section>
+<p class="trust-notice">This is a read-only copy. Source acceptance, variety identity and statement review remain separate.</p>
+<section class="card" data-name-review-source>
+  <p>{% if artifact.source_url %}<a href="{{ artifact.source_url }}" target="_blank" rel="noopener noreferrer">Open original source ↗</a>{% endif %}{% if artifact.published_date %} · Published {{ artifact.published_date }}{% endif %}</p>
+  <details><summary>About this saved copy</summary>
+    <p>{% if recovery_kind == 'reacquired_current' %}Captured from the current page; it may differ from the earlier publication.{% else %}Retained earlier capture.{% endif %}
+    {% if review_state == 'affirmed' %}The source copy has been accepted.{% elif review_state == 'rejected' %}The source copy has been rejected.{% else %}The source copy still needs separate authenticity review.{% endif %}</p>
+    <p><a href="/source-fidelity/{{ trusted.id }}">Open separate source-authenticity review →</a></p>
+  </details>
+  <div class="fidelity-reader" data-fidelity-reader>
+    <h2>Captured source text</h2>
+    {% if artifact.artifact_type == 'transcript' %}
+      {% for segment in reader.segments %}
+      <p><strong>{{ segment.start_seconds }}s{% if segment.end_seconds %}–{{ segment.end_seconds }}s{% endif %}{% if segment.speaker %} · {{ segment.speaker }}{% endif %}</strong><br>{{ segment.text }}</p>
+      {% else %}<p>No timestamped transcript was captured.</p>{% endfor %}
+    {% else %}
+      {% for paragraph in reader.paragraphs %}
+      {% if paragraph.heading_level == 4 %}<h4 data-source-paragraph="{{ paragraph.index }}">{{ paragraph.text }}</h4>
+      {% elif paragraph.heading_level == 5 %}<h5 data-source-paragraph="{{ paragraph.index }}">{{ paragraph.text }}</h5>
+      {% else %}<p data-source-paragraph="{{ paragraph.index }}">{{ paragraph.text }}</p>{% endif %}
+      {% else %}<p>No article text was captured. Leave the worksheet unfinished and investigate the copy.</p>{% endfor %}
+    {% endif %}
+  </div>
+</section>
