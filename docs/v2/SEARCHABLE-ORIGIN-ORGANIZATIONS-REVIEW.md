@@ -63,7 +63,9 @@ historical SunBelle fixture failure and repair evidence remain retained.
 Draft#387 initial head2a3f4f4 had three full-suite failures: two outdated
 mixed-entry coverage assertions and a future-date test parameter collected before
 midnight. Those repairs and the program-tab fix are pushed separately as04768b4;
-its fresh full checks are pending. Initial failure evidence remains retained.
+its fresh full checks now pass: all four required checks, including4,591 tests /
+11 skipped /two warnings in938.87seconds. Draft#388's current full Python suite
+is still running. Initial failure evidence remains retained.
 
 CAT-01,CAT-02,TD-116 andREL-01 remain open. Continue original-source recall,
 historical/current portfolios, original official rights, cited profiles/photos,

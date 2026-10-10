@@ -696,3 +696,16 @@ See VARIETY-PORTFOLIO-EXPANSION-REVIEW.md.
 
 
 **October 7 reviewed catalog handoff:** Candidate identity review now links to existing source intake and human publication/claim decisions. This is workflow delivery, not a source acquisition or canonical coverage increase: 64 real existing catalog entries and 341 combined candidate keys before private state remain unchanged. Fictional browser additions exist only in an isolated ignored runtime. Remaining portfolios and rich/independently checked coverage stay open. See VARIETY-CATALOG-REVIEW-HANDOFF.md.
+
+
+## October 9 follow-up: Rutgers original filing and historical names
+
+See [original Rutgers filing review](RUTGERS-ORIGINAL-FILING-REVIEW.md). One focal
+grant plus four separate parent/comparison mentions are now discoverable, including
+the source's explicit NJ09-2-1 / Rutgers D'Light pairing. No catalog alias, entity,
+company role, current right, region or image permission is approved automatically.
+The bounded audit is now 378 sections /1,549 occurrences /88 catalog matches /
+1,461 needing review /1,124 source-derived candidate keys. All 31 requirements and
+their order are retained; CAT-01, CAT-02, TD-116 and REL-01 stay open. Current and
+historical portfolio completeness, original current rights, human authoring,
+independent recall, phone review and integrated release preparation remain.

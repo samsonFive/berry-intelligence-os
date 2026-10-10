@@ -2731,3 +2731,16 @@ release, legal status, ancestry edge or photo permission is inferred. The 44
 affected checks pass. See LEWIS-ORIGINAL-PEDIGREE-REVIEW.md. CAT-01/CAT-02/TD-116
 remain open; full portfolios, independent recall, human catalog authoring,
 phone verification and the integrated release still require completion.
+
+
+## October 9 follow-up: Rutgers original filing and historical names
+
+See [original Rutgers filing review](RUTGERS-ORIGINAL-FILING-REVIEW.md). One focal
+grant plus four separate parent/comparison mentions are now discoverable, including
+the source's explicit NJ09-2-1 / Rutgers D'Light pairing. No catalog alias, entity,
+company role, current right, region or image permission is approved automatically.
+The bounded audit is now 378 sections /1,549 occurrences /88 catalog matches /
+1,461 needing review /1,124 source-derived candidate keys. All 31 requirements and
+their order are retained; CAT-01, CAT-02, TD-116 and REL-01 stay open. Current and
+historical portfolio completeness, original current rights, human authoring,
+independent recall, phone review and integrated release preparation remain.

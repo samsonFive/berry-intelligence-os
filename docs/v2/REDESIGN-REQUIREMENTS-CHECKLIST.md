@@ -19,8 +19,8 @@ at `/guide`; this checklist still owns outstanding requirements.
 | REL-01: tested release | Integrate approved drafts, reconcile canonical and verify the combined release | Current-head required CI, browser review, data/edit preservation, reviewable release and actual backup/rollback readiness; separate merge/deploy approval |
 
 Current bounded portfolio/photo evidence is in
-[four-berry register intake](REGISTER-LIST-52-INTAKE-REVIEW.md): 376 sections, 1,544
-name occurrences, 88 matched occurrences, 1,456 requiring review, 1,121 public
+[original Rutgers filing review](RUTGERS-ORIGINAL-FILING-REVIEW.md): 378 sections, 1,549
+name occurrences, 88 matched occurrences, 1,461 requiring review, 1,124 public
 derived candidate keys and 64 unchanged canonical varieties. There are 122
 photo references; the eight UF photos remain permission-held. These are source
 observations, not a global census or approved catalog growth.
@@ -248,3 +248,16 @@ Routine checkpoint completion does not end the ongoing goal. A genuine input/acc
 
 
 **October 7 catalog handoff:** CAT-01 now connects human-reviewed distinct candidates to the existing intake/source/claim review path. Names/berries/source URLs carry forward; changed decisions and catalog name/alias collisions block writes. Explicit reviewer fields work without local login. Existing human review creates only an unverified entity, with statements separately reviewed. No real canonical additions were made. CAT-01/CAT-02 and comprehensive coverage remain open; see VARIETY-CATALOG-REVIEW-HANDOFF.md.
+
+
+## October 9 follow-up: Rutgers original filing and historical names
+
+See [original Rutgers filing review](RUTGERS-ORIGINAL-FILING-REVIEW.md). One focal
+grant plus four separate parent/comparison mentions are now discoverable, including
+the source's explicit NJ09-2-1 / Rutgers D'Light pairing. No catalog alias, entity,
+company role, current right, region or image permission is approved automatically.
+The bounded audit is now 378 sections /1,549 occurrences /88 catalog matches /
+1,461 needing review /1,124 source-derived candidate keys. All 31 requirements and
+their order are retained; CAT-01, CAT-02, TD-116 and REL-01 stay open. Current and
+historical portfolio completeness, original current rights, human authoring,
+independent recall, phone review and integrated release preparation remain.
