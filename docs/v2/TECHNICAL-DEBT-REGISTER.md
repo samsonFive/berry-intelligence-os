@@ -12,8 +12,12 @@ recall, per-entry company associations and all human catalog decisions remain op
 
 The mixed-program source association blocker is addressed by [entry-level
 company context](ENTRY-COMPANY-SOURCE-CONTEXT-REVIEW.md), shared by candidate
-filters, company tables and coverage counts. 148 entries have 156 source-company
-associations; 240 remain unassigned. Source context never approves company roles.
+filters, company tables and coverage counts. The [searchable organization
+follow-up](SEARCHABLE-ORIGIN-ORGANIZATIONS-REVIEW.md) retains 160 entries with 168
+source associations across 20 existing organizations; 60 further entries have
+unresolved organization wording. 228 remain unassigned. Source context never
+approves company roles. The breeding-program varieties-tab crash is also fixed;
+an absent company dossier no longer hides source discoveries.
 TD-116 remains open for complete portfolios, profiles and independent recall.
 
 The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now

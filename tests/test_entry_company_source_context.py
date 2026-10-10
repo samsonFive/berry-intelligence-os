@@ -56,6 +56,18 @@ def test_joint_company_and_source_filters_do_not_borrow_another_source_associati
     assert len(candidate_queue(candidates, {"company":"company-b","source":"two"})["candidates"]) == 1
 
 
+def test_unresolved_organization_wording_is_searchable_without_an_assignment():
+    unknown = {"candidate_name":"Unnamed Program Selection", "berry_id":"berry-blueberry",
+               "source_company_ids":[], "source_company_context":"Entry names Orchard Research Group; identity unresolved."}
+    original = deepcopy(unknown)
+    _, candidates = reconcile_portfolios(sources=[source([unknown])], varieties=[], entities=ENTITIES, candidates=[])
+    assert len(candidate_queue(candidates, {"q":"Orchard Research Group", "source":"mixed"})["candidates"]) == 1
+    assert candidate_queue(candidates, {"q":"Orchard Research Group", "company":"company-publisher"})["candidates"] == []
+    assert unknown == original
+    assert not candidates[0]["portfolio_sources"][0]["companies"]
+    assert not candidates[0]["breeder_owner"] and not candidates[0]["proposed_relationships"]
+
+
 def test_older_single_program_sources_keep_ids_and_saved_decisions_on_replay():
     legacy = source([{"candidate_name":"Alpha","berry_id":"berry-blueberry"}])
     _, old = reconcile_portfolios(sources=[legacy], varieties=[], entities=ENTITIES, candidates=[])
@@ -97,15 +109,50 @@ def test_real_register_company_context_preserves_cultivars_and_institute_boundar
     sources = [s for s in load_portfolio_observations(data) if s["id"].startswith("portfolio-register52-2024-")]
     all_names = [n for s in sources for n in s["names"]]
     mapped = [n for n in all_names if n.get("source_company_ids")]
-    assert len(all_names) == 388 and len(mapped) == 148
-    assert len({cid for n in mapped for cid in n["source_company_ids"]}) == 18
+    assert len(all_names) == 388 and len(mapped) == 160
+    assert len({cid for n in mapped for cid in n["source_company_ids"]}) == 20
     bonnie = next(n for n in mapped if n["candidate_name"] == "Bonnie Lewis")
     assert bonnie["source_company_ids"] == ["company-james-hutton-institute"]
     costa = [n for n in mapped if "company-costa-berry-international" in n["source_company_ids"]]
     assert len(costa) == 8  # Not blanket assignment to the wider Costa parent.
     assert all(n["product_url"].endswith("#page=11") and "company-university-of-florida" in n["source_company_ids"] for n in costa)
-    entities = [json.loads(p.read_text(encoding="utf-8")) for p in (data / "entities/companies").glob("*.json")]
+    entities = [json.loads(p.read_text(encoding="utf-8")) for p in (data / "entities").rglob("*.json")]
     _, before = reconcile_portfolios(sources=[{**s,"names":[{k:v for k,v in n.items() if k not in {"source_company_ids","source_company_context"}} for n in s["names"]]} for s in sources], varieties=[],entities=entities,candidates=[])
     _, after = reconcile_portfolios(sources=sources,varieties=[],entities=entities,candidates=[])
     assert {(c["candidate_name"],c["berry_id"]):c["id"] for c in before} == {(c["candidate_name"],c["berry_id"]):c["id"] for c in after}
     assert all(not c["human_gated"] and not c["proposed_relationships"] and not c["breeder_owner"] for c in after)
+
+
+def test_actual_origin_program_and_unknown_labels_remain_distinct_and_unreviewed():
+    data = Path(__file__).resolve().parents[1] / "data"
+    sources = [s for s in load_portfolio_observations(data) if s["id"].startswith("portfolio-register52-2024-")]
+    names = [n for s in sources for n in s["names"]]
+    georgia = [n for n in names if n.get("source_company_ids") == ["breeding_program-university-of-georgia-blueberry"]]
+    assert len(georgia) == 9
+    assert next(n for n in georgia if n["candidate_name"] == "TH-1987")["product_url"].endswith("#page=14")
+    assert len([n for n in names if n.get("source_company_ids") == ["company-next-progeny"]]) == 3
+    unresolved = [n for n in names if n.get("source_company_context") and not n.get("source_company_ids")]
+    assert len(unresolved) == 60
+    assert all(n["source_company_ids"] == [] for n in unresolved)
+    entities = [json.loads(p.read_text(encoding="utf-8")) for p in (data / "entities").rglob("*.json")]
+    _, candidates = reconcile_portfolios(sources=sources, varieties=[], entities=entities, candidates=[])
+    for query, expected in (("Rutgers University",3), ("Five Acres Breeding",1), ("Five Aces Breeding",4), ("Allberry",8), ("Berryworld Plus",1)):
+        hits = candidate_queue(candidates, {"q":query})["candidates"]
+        assert len(hits) == expected
+        assert all(not c["portfolio_sources"][0]["companies"] and not c["human_gated"] for c in hits)
+    assert len(candidate_queue(candidates, {"company":"breeding_program-university-of-georgia-blueberry"})["candidates"]) == 9
+    assert not candidate_queue(candidates, {"company":"breeding_program-njaes-rutgers-strawberry", "q":"Rutgers University"})["candidates"]
+
+
+def test_existing_breeding_program_varieties_tab_uses_source_names_without_writes(tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+    from app import main
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
+    monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    page = TestClient(main.app).get("/entities/breeding_program/breeding_program-university-of-georgia-blueberry?tab=varieties")
+    assert page.status_code == 200
+    assert 'aria-current="page">Varieties' in page.text
+    assert "TH-1987" in page.text and "Varieties named in sources" in page.text
+    assert "portfolio-register52-2024-blueberry-main" in page.text
+    assert "Reviewed variety links · 0" in page.text
+    assert not list(tmp_path.iterdir())

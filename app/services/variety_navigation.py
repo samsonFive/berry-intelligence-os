@@ -93,7 +93,7 @@ def candidate_queue(candidates, params):
         haystack += " " + " ".join(item.get("name", "") for item in companies)
         # Source wording can contain additional trial codes without making them
         # approved aliases. Search that context without changing identity keys.
-        haystack += " " + " ".join(str(source.get(key) or "") for source in portfolios for key in ("breeder_code", "trade_name", "candidate_name", "portfolio_context"))
+        haystack += " " + " ".join(str(source.get(key) or "") for source in portfolios for key in ("breeder_code", "trade_name", "candidate_name", "portfolio_context", "source_company_context"))
         if filters["q"] and _search_text(filters["q"]) not in _search_text(haystack):
             continue
         if filters["berry"] and filters["berry"] != row.get("berry_id"):
