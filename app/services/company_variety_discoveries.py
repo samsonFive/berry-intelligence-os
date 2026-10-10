@@ -3,14 +3,16 @@ from urllib.parse import urlencode
 
 from app.services.company_directory import initial
 from app.services.variety_universe.coverage import BERRY_LABELS
-from app.services.variety_portfolio_coverage import _public_url
+from app.services.variety_portfolio_coverage import _public_url, observation_company_ids, source_company_ids
 
 
 def company_variety_discoveries(*, entity_id, sources, linked_variety_ids=(), error=""):
-    selected = [source for source in sources if entity_id in source.get("company_ids", [])]
+    selected = [source for source in sources if entity_id in source_company_ids(source)]
     grouped, linked, rejected = {}, set(), set()
     for source in selected:
         for name in source["names"]:
+            if entity_id not in observation_company_ids(source, name):
+                continue
             # Reuse reconciliation's code-aware identity key. Shared marketing
             # labels with different breeder codes must remain separate rows.
             key = tuple(name["identity_key"])
@@ -50,6 +52,8 @@ def company_variety_discoveries(*, entity_id, sources, linked_variety_ids=(), er
                 row["label"] = "Name / code conflict"
             if name.get("portfolio_context"):
                 row["notes"].append(name["portfolio_context"])
+            if name.get("source_company_context"):
+                row["notes"].append(name["source_company_context"])
             href = name.get("product_url") or source["url"]
             row["sources"].append({
                 "id": source["id"], "title": source["title"],

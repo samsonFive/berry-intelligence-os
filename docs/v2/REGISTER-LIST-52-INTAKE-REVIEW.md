@@ -87,3 +87,8 @@ current-data test proves Erika retains her SunBelle anchor and gains the exact
 register reference. No application identity algorithm changed. Thirteen affected
 repair checks pass, one warning, in 11.67 seconds. Fresh repaired-head CI is
 required; the initial failure and repair evidence remain retained.
+
+Repaired head `1e653d0ba4cf81570fa1bf35a40df2ada5428833` subsequently passed all
+four required checks. Python run38005906450/job114074574137:4,580 passed /11
+skipped /two warnings in660.97seconds. This verifies that pushed head only;
+later draft changes still require their own checks.

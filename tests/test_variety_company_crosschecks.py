@@ -5,7 +5,7 @@ from pathlib import Path
 from fastapi.testclient import TestClient
 
 from app import main
-from app.services.variety_portfolio_coverage import load_portfolio_observations, reconcile_portfolios
+from app.services.variety_portfolio_coverage import load_portfolio_observations, reconcile_portfolios, source_company_ids
 
 ROOT = Path(__file__).resolve().parents[1]
 IDS = {'portfolio-cbc-visible-cultivars', 'portfolio-ava-named-varieties',
@@ -71,7 +71,7 @@ def test_company_crosschecks_render_privately_without_writing_or_public_leaks(mo
     assert 'Names found · more sources to check' in cbc.text
     read_sections = sum(s['capture_status'] != 'unreadable' for s in
                         load_portfolio_observations(ROOT / 'data')
-                        if 'company-california-berry-cultivars' in s['company_ids'])
+                        if 'company-california-berry-cultivars' in source_company_ids(s))
     assert f'{read_sections} source sections read' in cbc.text
     assert '0 page sections checked' not in cbc.text
     ava = client.get('/varieties/coverage?q=Angus')

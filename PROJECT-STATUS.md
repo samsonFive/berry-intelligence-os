@@ -22,6 +22,12 @@ there rather than reconstructing the mission from historical progress reports.
 
 ## Latest reviewable changes
 
+- [Entry-level company context](docs/v2/ENTRY-COMPANY-SOURCE-CONTEXT-REVIEW.md):
+  company tables and joint source/company filters use each original entry.
+  148 register entries now have context for 18 organizations; eight Costa entries
+  retain both Costa Berry International and UF. 240 entries remain unassigned.
+  71 affected checks and the full public build pass; fresh draft-head CI is required.
+
 - [Four-berry register intake](docs/v2/REGISTER-LIST-52-INTAKE-REVIEW.md):
   388 unreviewed heading observations, eight referrals and two held codes add
   321 candidate keys. 48 affected checks and the 1,755-page public build pass;

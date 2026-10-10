@@ -20,6 +20,33 @@ def _key(row):
     return fold_identity(row.get("candidate_name", "")), row.get("berry_id", "")
 
 
+def observation_company_ids(source, observation):
+    """Named organizations are untrusted source context, never company roles.
+
+    Older single-program snapshots retain their source-wide association. An
+    explicit entry list, including an empty list, overrides that fallback.
+    """
+    return observation.get("source_company_ids", source.get("company_ids", []))
+
+
+def source_company_ids(source):
+    """Whole-source scope for navigation, not a blanket assignment to entries."""
+    return set(source.get("company_ids", [])) | {
+        cid for name in source.get("names", []) for cid in observation_company_ids(source, name)
+    }
+
+
+def _scope_source_names(source, *, berry="", company=""):
+    names = [name for name in source["names"] if (not berry or name["berry_id"] == berry)
+             and (not company or company in observation_company_ids(source, name))]
+    return {**source, "names": names,
+            "identity_issues": sorted({message for name in names for message in name["identity_notes"]}),
+            "matched": sum(name["status"] == "catalog_match" for name in names),
+            "needs_review": sum(name["status"] == "needs_review" for name in names),
+            "closed": sum(name["status"] == "previously_rejected" for name in names),
+            "awaiting_catalog": sum(name["status"] == "distinct_awaiting_catalog" for name in names)}
+
+
 def _coded_label_keys(sources):
     """Labels tied to different literal codes cannot be one candidate key."""
     labels = {}
@@ -81,6 +108,14 @@ def _load_portfolio_observations(data_dir: Path):
                 raise ValueError("Source review warnings need short, nonempty text")
             from app.services.variety_photos import compatible, validate_photo
             for name in source["names"]:
+                if "source_company_ids" in name and (not isinstance(name["source_company_ids"], list) or any(
+                        not isinstance(cid, str) or not cid.strip() for cid in name["source_company_ids"])):
+                    raise ValueError("Entry company context needs explicit organization identifiers")
+                if "source_company_context" in name and (not isinstance(name["source_company_context"], str)
+                        or not name["source_company_context"].strip()):
+                    raise ValueError("Entry company context needs its source description")
+                if name.get("source_company_ids") and not name.get("source_company_context"):
+                    raise ValueError("Entry company associations need an attributable source description")
                 if "photos" in name:
                     if not isinstance(name["photos"], list) or len(name["photos"]) > 12:
                         raise ValueError("Keep at most 12 attributed photos per source name")
@@ -117,8 +152,8 @@ def _identity_pair_notes(sources):
     """Literal source pair discrepancies, not alias decisions or a new resolver."""
     codes, labels, label_mentions = {}, {}, {}
     for source in sources:
-        companies = tuple(sorted(source.get("company_ids", [])))
         for row in source["names"]:
+            companies = tuple(sorted(observation_company_ids(source, row)))
             code = row.get("denomination") or row.get("breeder_code")
             label = row.get("trade_name") or row["candidate_name"]
             mention_label = label or row["candidate_name"]
@@ -130,8 +165,8 @@ def _identity_pair_notes(sources):
                 labels.setdefault((*scope, fold_identity(label)), set()).add(code)
     notes = {}
     for source in sources:
-        companies = tuple(sorted(source.get("company_ids", [])))
         for row in source["names"]:
+            companies = tuple(sorted(observation_company_ids(source, row)))
             scope = (companies, row["berry_id"])
             code = row.get("denomination") or row.get("breeder_code")
             label = row.get("trade_name") or row["candidate_name"]
@@ -188,8 +223,11 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
         names = []
         companies = [{"entity_id": cid, "name": entity_index[cid]["name"],
                       "href": "/entities/" + entity_index[cid]["entity_type"] + "/" + cid}
-                     for cid in source.get("company_ids", []) if cid in entity_index]
+                     for cid in sorted(source_company_ids(source)) if cid in entity_index]
         for observation in source.get("names", []):
+            entry_companies = [{"entity_id": cid, "name": entity_index[cid]["name"],
+                                "href": "/entities/" + entity_index[cid]["entity_type"] + "/" + cid}
+                               for cid in observation_company_ids(source, observation) if cid in entity_index]
             query = {k: observation.get(k, "") for k in ("candidate_name", "denomination", "breeder_code", "berry_id")}
             result = resolve_identity(query, varieties)
             exact_ids = {row["variety_id"] for row in result["matches"] if row["reason"] == "exact_identity_string"}
@@ -216,7 +254,7 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
                 status = "distinct_awaiting_catalog"
             reference = {"id": source["id"], "title": source["title"], "url": source["url"],
                          "checked_on": source["checked_on"], "source_type": source["source_type"],
-                         "companies": companies, **observation,
+                         **observation, "companies": entry_companies,
                          "identity_notes": identity_notes}
             if source.get("published_date"):
                 reference["published_date"] = source["published_date"]
@@ -327,15 +365,10 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
     company = str(filters.get("company", "")).strip()
     source_rows, visible = reconcile_portfolios(sources=sources, varieties=varieties, entities=entities, candidates=candidates, today=today)
     selected = [row for row in source_rows if (not berry or berry in row.get("berry_ids", []) or any(name["berry_id"] == berry for name in row["names"]))
-                and (not company or company in row.get("company_ids", []))
+                and (not company or company in source_company_ids(row))
                 and (not q or q in " ".join([row["title"], *(c["name"] for c in row["companies"])]).casefold())]
-    if berry:
-        selected = [{**row, "names": [n for n in row["names"] if n["berry_id"] == berry],
-                     "identity_issues": sorted({message for n in row["names"] if n["berry_id"] == berry for message in n["identity_notes"]}),
-                     "matched": sum(n["status"] == "catalog_match" and n["berry_id"] == berry for n in row["names"]),
-                     "needs_review": sum(n["status"] == "needs_review" and n["berry_id"] == berry for n in row["names"]),
-                     "closed": sum(n["status"] == "previously_rejected" and n["berry_id"] == berry for n in row["names"]),
-                     "awaiting_catalog": sum(n["status"] == "distinct_awaiting_catalog" and n["berry_id"] == berry for n in row["names"])} for row in selected]
+    if berry or company:
+        selected = [_scope_source_names(row, berry=berry, company=company) for row in selected]
     registry_path = data_dir / "imports/competitor-coverage-registry-2026-09-21/reconciliation-matrix.json"
     registry = json.loads(registry_path.read_text(encoding="utf-8"))["rows"] if registry_path.is_file() else []
     photo_path = data_dir / "imports/variety-operator-seed-2026-09-30/rows.json"
@@ -348,9 +381,10 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
     subjects = []
     for row in registry:
         ids = row.get("canonical_entity_ids") or []
-        all_linked = [source for source in source_rows if set(source.get("company_ids", [])) & set(ids)]
-        linked = [source for source in selected if set(source.get("company_ids", [])) & set(ids)]
-        named_sources = [source for source in linked if source["capture_status"] == "names_enumerated" and source["names"]]
+        all_linked = [source for source in source_rows if source_company_ids(source) & set(ids)]
+        linked = [source for source in selected if source_company_ids(source) & set(ids)]
+        named_sources = [source for source in linked if source["capture_status"] == "names_enumerated" and any(
+            set(observation_company_ids(source, name)) & set(ids) for name in source["names"])]
         identity_hold = not ids
         source_status = ("identity_hold" if identity_hold else "names_found" if named_sources else "partial" if any(
             source["capture_status"] != "unreadable" for source in linked) else "unreadable" if linked else "not_started")
@@ -370,7 +404,10 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
             starting_url = linked[0]["url"] if linked else ""
             starting_label = "Attempted source ↗"
         scope = sorted({berry for cid in ids for berry in index.get(cid, {}).get("berry_ids", []) if berry in BERRY_ORDER}
-                       | {berry for source in all_linked for berry in source.get("berry_ids", [])}
+                       | {name["berry_id"] for source in all_linked for name in source["names"]
+                          if set(observation_company_ids(source, name)) & set(ids)}
+                       | {berry for source in all_linked if set(source.get("company_ids", [])) & set(ids)
+                          for berry in source.get("berry_ids", [])}
                        | {photo["berry_id"] for photo in photo_rows if set(photo.get("company_ids", [])) & set(ids)})
         subjects.append({"name": row["input_registry_name"], "entity_ids": ids, "website": website,
                          "starting_url": starting_url, "starting_label": starting_label,
@@ -381,7 +418,8 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
                                                  else "Company not identified") if identity_hold else "",
                          "identity_hold_reason": row.get("notes", "") if identity_hold else "",
                          "checked": bool(named_sources), "source_status": source_status,
-                         "named_occurrences": sum(len(source["names"]) for source in linked),
+                         "named_occurrences": sum(bool(set(observation_company_ids(source, name)) & set(ids))
+                                                  for source in linked for name in source["names"]),
                          "has_source_gaps": any(source["needs_follow_up"] for source in linked),
                          "href": "/entities/" + index[ids[0]]["entity_type"] + "/" + ids[0] if ids and ids[0] in index else ""})
     selected_subjects = [row for row in subjects if (not berry or berry in row["berry_ids"] or not row["berry_ids"])
