@@ -1,0 +1,117 @@
+{
+  "scope": "Original Chandler reference and separately scoped historical names; no canonical or review approvals.",
+  "verification": {
+    "targeted_tests": {
+      "passed": 62,
+      "warnings": 1,
+      "seconds": 195.82
+    },
+    "initial_failures": {
+      "failed": 2,
+      "passed": 60,
+      "anchor_order_fixed": true,
+      "bounded_manifest_updated": true
+    },
+    "record_validation": "passed",
+    "static_pages": 1755,
+    "pagefind": "passed",
+    "all_html_private_markers_absent": true,
+    "original_canonical_json_preserved": 2771,
+    "all_parent_data_files_preserved": 2831,
+    "new_observation_files": 1,
+    "expansion_guide_preserved": true,
+    "all_31_requirement_ids_and_order_preserved": true,
+    "pending_source_copies_preserved": 32,
+    "source_decisions_created": 0,
+    "extraction_ready_ids": [],
+    "real_pending_draft_sha256": "deb45f2e3836c96e5f3fb13abaf9dc15c86930f1a0a9cb495f347a033cf822e4"
+  },
+  "source_audit": {
+    "summary": {
+      "source_sections": 380,
+      "readable_sections": 276,
+      "unreadable_sections": 14,
+      "follow_up_sections": 119,
+      "names": 1557,
+      "catalog_matches": 88,
+      "needs_review": 1469,
+      "registry_entries": 77,
+      "registry_entries_checked": 60,
+      "registry_entries_partial_checks": 14,
+      "registry_entries_unavailable": 1,
+      "registry_entries_not_started": 0,
+      "registry_entries_identity_hold": 2
+    },
+    "candidate_counts": {
+      "stored_source_candidates": 63,
+      "combined_candidates": 1126,
+      "additional_primary_portfolio_candidates": 1063
+    },
+    "canonical_varieties": 64,
+    "photo_references": 122,
+    "new_reuse_approvals": 0,
+    "new_canonical_records": 0
+  },
+  "original_document": {
+    "number": "USPP5262P",
+    "sha256": "10996964d2d1df8950c225e7426df47c3caa4f47f5adea27b2f57f4a80093620",
+    "pages": 2,
+    "visually_reviewed_pages": [
+      1,
+      2
+    ],
+    "claim_page": 1,
+    "claim_column": 2,
+    "fruit_figure": 3,
+    "figure_page": 2,
+    "assignee_campus_unassigned": true,
+    "current_legal_status_verified": false,
+    "reuse_permission_verified": false
+  },
+  "native_browser": {
+    "candidate_tab": 68,
+    "parent_tab": 69,
+    "port": 18577,
+    "source_code": "C24",
+    "parent_code": "C55",
+    "retained_chandler_candidate": "vcand-292c233893fe",
+    "candidate_total": 1126,
+    "original_claim_visible": true,
+    "historical_filing_dates_visible": true,
+    "assignee_warning_visible": true,
+    "parent_has_no_focal_grant": true,
+    "submitted_review_forms": 0,
+    "original_image_thumbnail": [
+      82,
+      120
+    ],
+    "new_gallery_photo_added": false,
+    "screenshot": "retained-candidate-original-claim.png",
+    "current_phone_verification": false
+  },
+  "human_packet": {
+    "expected_lists_completed": 0,
+    "qualification_approved": false
+  },
+  "parent_390": {
+    "head": "c00a3d2d09e6180727694cf4b50c2754d3a4720c",
+    "all_four": "SUCCESS",
+    "python_tests": {
+      "passed": 4618,
+      "skipped": 11,
+      "warnings": 2,
+      "seconds": 901.47
+    }
+  },
+  "fresh_new_head_checks_required": true,
+  "merge_or_deploy": false,
+  "remaining": [
+    "CAT-01",
+    "CAT-02",
+    "TD-116",
+    "LAND-02",
+    "REL-01",
+    "Actual phone review",
+    "Human source/name and catalog reviews"
+  ]
+}

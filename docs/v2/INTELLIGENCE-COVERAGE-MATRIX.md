@@ -723,3 +723,8 @@ qualification marker. Source acceptance, catalog authoring and independent
 benchmark qualification remain separate. This prepares the human packet; it does
 not complete the human-owned recall requirement. Full scope, phone, blueberry
 feedback and integrated release gates remain open. All31 requirement IDs/order stay.
+
+
+## October 10 UTC: original Chandler source follow-up
+
+Original claim/code references and seven separate parent/comparison observations retain existing candidate anchors, crop boundaries and human decisions. The bounded audit is 380 sections /1,557 occurrences /88 matched /1,469 requiring review /1,126 derived keys, with 64 canonical varieties and 122 unchanged photo references. Parent #390 passes all four required checks /4,618 tests; this child needs fresh CI. The actual 32-source human worksheet remains unfinished. Full corpus/portfolio/rights/profile coverage, independent human recall and catalog authoring, phone review, blueberry feedback and integrated release remain open. See [Chandler source review](CHANDLER-ORIGINAL-FILING-REVIEW.md). No merge/deploy or other-berry Landscape rollout.
