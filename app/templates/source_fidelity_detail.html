@@ -1,6 +1,9 @@
 {% extends "source_review_base.html" %}
-{% block title %}Source Authenticity — {{ trusted.title }}{% endblock %}
+{% block title %}{% if request.query_params.get('name_review') == '1' %}Name review — {{ artifact.source_title or 'Saved source copy' }}{% else %}Source Authenticity — {{ trusted.title }}{% endif %}{% endblock %}
 {% block source_review_content %}
+{% if request.query_params.get('name_review') == '1' %}
+{% include "_source_copy_name_review.html" %}
+{% else %}
 <section class="page-heading">
   <div>
     <p class="eyebrow">OPERATIONS · SOURCE AUTHENTICITY</p>
@@ -133,4 +136,5 @@
   <p class="shortcut-help">Shortcuts (disabled while typing): A accept · R reject · I investigate · N next · P previous. Accept still requires confirmation; decisions apply to one source at a time.</p>
 </section>
 
+{% endif %}
 {% endblock %}

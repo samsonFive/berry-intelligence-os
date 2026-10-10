@@ -2744,3 +2744,17 @@ The bounded audit is now 378 sections /1,549 occurrences /88 catalog matches /
 their order are retained; CAT-01, CAT-02, TD-116 and REL-01 stay open. Current and
 historical portfolio completeness, original current rights, human authoring,
 independent recall, phone review and integrated release preparation remain.
+
+
+## October 9 follow-up: human variety-name review packet
+
+The [human name-review worksheet](VARIETY-HUMAN-RECALL-PACKET-REVIEW.md) now
+prepares all32 retained Article copies with blank expected lists. A read-only
+captured-text view hides stored summaries and approval controls. Browser-local
+drafts and partial JSON export are verified with fictional sources; none of the
+actual32 expected lists is completed. Offline assembly verifies source fingerprints,
+refuses unfinished/shortened inputs and uses the existing scorer without a
+qualification marker. Source acceptance, catalog authoring and independent
+benchmark qualification remain separate. This prepares the human packet; it does
+not complete the human-owned recall requirement. Full scope, phone, blueberry
+feedback and integrated release gates remain open. All31 requirement IDs/order stay.
