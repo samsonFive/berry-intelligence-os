@@ -1,0 +1,158 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "url": "https://patents.google.com/patent/USPP33784P2/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-09",
+      "published_date": "2021-12-28",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-rutgers-original-grant-nj09-2-1",
+      "title": "NJ09-2-1 / Rutgers D'Light — original US plant patent",
+      "source_type": "plant_patent",
+      "enumerated_scope": "One focal denomination and its expressly printed trade-name association; not the full Rutgers portfolio.",
+      "limitations": "Historical grant metadata and source-reported naming only. Current rights, catalog aliases, organization roles, traits, growing regions and photo reuse are not approved.",
+      "names": [
+        {
+          "candidate_name": "NJ09-2-1",
+          "denomination": "NJ09-2-1",
+          "trade_name": "Rutgers D'Light",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "source_company_context": "The original document names Rutgers, The State University of New Jersey as applicant and assignee. Its association with a specific stored breeding program still needs identity review.",
+          "product_url": "https://patentimages.storage.googleapis.com/73/02/f2/e85c5faf790f1a/USPP33784.pdf#page=3",
+          "application_number": "17/157,349",
+          "grant_number": "USPP33784P2",
+          "jurisdiction": "US",
+          "application_date": "2021-01-25",
+          "grant_date": "2021-12-28",
+          "portfolio_context": "The description associates NJ09-2-1 with Rutgers D'Light on PDF page 2, column 3. Claim 1 names NJ09-2-1 on page 3, column 6. Figure 1 shows fruit on page 4; Figure 3 shows a fruit cluster on page 6. This source pairing requires review before changing catalog aliases."
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": [
+          {
+            "label": "NJ6-13-1",
+            "reason": "Female-parent selection; discoverable in the separate historical-mentions section, not covered by this focal grant."
+          },
+          {
+            "label": "NJ03-232-2",
+            "reason": "Male-parent selection; discoverable separately, not covered by this focal grant."
+          },
+          {
+            "label": "NJ08-08-6",
+            "reason": "Comparison cultivar with a cited earlier patent; discoverable separately, not covered by this focal grant."
+          },
+          {
+            "label": "Chandler",
+            "reason": "Comparison cultivar with a cited earlier patent; discoverable separately, not covered by this focal grant."
+          }
+        ]
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/73/02/f2/e85c5faf790f1a/USPP33784.pdf",
+        "claim_url": "https://patents.google.com/patent/USPP33784P2/en#claims",
+        "figures_url": "https://patentimages.storage.googleapis.com/73/02/f2/e85c5faf790f1a/USPP33784.pdf#page=4",
+        "sha256": "c64256350cc8221a8ab2d5e5d5a414f304dbeaa6d8a2f7664c1a039d5d7f73c2",
+        "page_count": 7,
+        "text_extracted_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          6
+        ],
+        "claim_page": 3,
+        "claim_column": 6,
+        "trade_name_page": 2,
+        "fruit_figure": 1,
+        "fruit_page": 4,
+        "fruit_cluster_figure": 3,
+        "fruit_cluster_page": 6,
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "url": "https://patents.google.com/patent/USPP33784P2/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-09",
+      "published_date": "2021-12-28",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-rutgers-original-grant-historical-mentions",
+      "title": "Rutgers NJ09-2-1 patent — parent and comparison names",
+      "source_type": "historical_document_mentions",
+      "enumerated_scope": "Two named parent selections and two comparison cultivars in one historical document.",
+      "limitations": "Names remain discoverable without inheriting the focal patent, a company role, current rights, traits or growing regions. Earlier cited patents still need original-document follow-up.",
+      "names": [
+        {
+          "candidate_name": "NJ6-13-1",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/73/02/f2/e85c5faf790f1a/USPP33784.pdf#page=1",
+          "portfolio_context": "Female parent reported in the 2009 cross. The source calls this selection unpatented at that time; current status is not established.",
+          "source_company_context": "Mentioned in the historical Rutgers NJ09-2-1 patent; this is document provenance, not an approved organization role."
+        },
+        {
+          "candidate_name": "NJ03-232-2",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/73/02/f2/e85c5faf790f1a/USPP33784.pdf#page=1",
+          "portfolio_context": "Male parent reported in the 2009 cross. The source calls this selection unpatented at that time; current status is not established.",
+          "source_company_context": "Mentioned in the historical Rutgers NJ09-2-1 patent; this is document provenance, not an approved organization role."
+        },
+        {
+          "candidate_name": "NJ08-08-6",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/73/02/f2/e85c5faf790f1a/USPP33784.pdf#page=1",
+          "portfolio_context": "Related comparison cultivar. The document cites earlier US plant patent 27,544; the cited grant has not been independently verified here.",
+          "source_company_context": "Mentioned in the historical Rutgers NJ09-2-1 patent; this is document provenance, not an approved organization role."
+        },
+        {
+          "candidate_name": "Chandler",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/73/02/f2/e85c5faf790f1a/USPP33784.pdf#page=2",
+          "portfolio_context": "Comparison cultivar. The document cites earlier US plant patent 5,262; the cited grant has not been independently verified here.",
+          "source_company_context": "Mentioned in the historical Rutgers NJ09-2-1 patent; this is document provenance, not an approved organization role."
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/73/02/f2/e85c5faf790f1a/USPP33784.pdf",
+        "sha256": "c64256350cc8221a8ab2d5e5d5a414f304dbeaa6d8a2f7664c1a039d5d7f73c2",
+        "page_count": 7,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3
+        ],
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    }
+  ]
+}

@@ -90,5 +90,7 @@ existing source projection; a read-only integration test covers the established
 Georgia program and its earlier Blue Suede source. No new domain schema or writer.
 The combined follow-up workspace passes54 repair/regression checks /one warning
 in111.45seconds; later source additions are separately tracked. Fresh checks are
-required on the repaired pushed head. Initial failures are retained. Watch-process
+completed on repaired head04768b44282f141274c6f0d41d8eb0fd25e04291: all four
+required checks pass, including4,591 tests /11 skipped /two warnings in938.87seconds
+(run38008542034/job114082951971). Initial failures are retained. Watch-process
 exit status alone is not CI success; current-head GitHub check metadata is authoritative.

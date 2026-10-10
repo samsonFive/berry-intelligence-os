@@ -7,9 +7,9 @@ mission remains open. Existing discovery, original-source observations, patent
 links and photo previews feed review without silently approving identities,
 aliases, roles, traits, regions or rights.
 
-The [latest source review](SEARCHABLE-ORIGIN-ORGANIZATIONS-REVIEW.md) records
-376 bounded sections / 1,544 name occurrences / 88 matched occurrences / 1,456
-requiring review, 1,121 public candidate keys and 64 unchanged canonical varieties.
+The [latest source review](RUTGERS-ORIGINAL-FILING-REVIEW.md) records
+378 bounded sections / 1,549 name occurrences / 88 matched occurrences / 1,461
+requiring review, 1,124 public candidate keys and 64 unchanged canonical varieties.
 Photo references total 122 with no new reuse approvals. The 77-entry company
 plan retains 14 incomplete checks, one unavailable source and two identity holds.
 
@@ -179,3 +179,16 @@ it does not authorize rollout of other berries in Landscape Explorer. Continue
 the catalog mission through acquisition, verification and draft PRs under the
 existing human trust gates. Obtain required access or approval only when actually
 needed. No merge or deployment is part of this review checkpoint.
+
+
+## October 9 follow-up: Rutgers original filing and historical names
+
+See [original Rutgers filing review](RUTGERS-ORIGINAL-FILING-REVIEW.md). One focal
+grant plus four separate parent/comparison mentions are now discoverable, including
+the source's explicit NJ09-2-1 / Rutgers D'Light pairing. No catalog alias, entity,
+company role, current right, region or image permission is approved automatically.
+The bounded audit is now 378 sections /1,549 occurrences /88 catalog matches /
+1,461 needing review /1,124 source-derived candidate keys. All 31 requirements and
+their order are retained; CAT-01, CAT-02, TD-116 and REL-01 stay open. Current and
+historical portfolio completeness, original current rights, human authoring,
+independent recall, phone review and integrated release preparation remain.

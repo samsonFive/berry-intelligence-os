@@ -1,5 +1,7 @@
 # Project Status
 
+**October 9: original Rutgers filing follow-up.** NJ09-2-1 / Rutgers D'Light naming, original claim and separate historical parent/comparison leads now reach private identity review. 52 targeted checks and record validation pass; no canonical edits or new photo permissions. Parent #387 passes all four checks, including 4,591 tests. Full scope and remaining review/release gates: [Rutgers filing review](docs/v2/RUTGERS-ORIGINAL-FILING-REVIEW.md).
+
 ## Current checkpoint — October 9, 2026
 
 The approved Glasshouse redesign and section consolidation were integrated in
