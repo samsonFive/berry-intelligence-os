@@ -14,7 +14,10 @@ deploy/.env
 .cursor
 opt
 tests
-docs
+docs/*
+!docs/v2
+docs/v2/*
+!docs/v2/social-source-access.json
 domain-packs
 review
 *.md
