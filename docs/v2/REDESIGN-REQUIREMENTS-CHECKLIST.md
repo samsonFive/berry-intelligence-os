@@ -11,6 +11,15 @@ The original redesign/consolidation release was accepted and integrated in
 Landscape/catalog work is an unmerged draft stack. The visual guide is delivered
 at `/guide`; this checklist still owns outstanding requirements.
 
+The [phone row-context correction](VARIETY-FIELD-ROW-CONTEXT-REVIEW.md) follows
+actual 412px native review of the guide and field inventory. Names disappeared
+when the table was panned; the pinned-column fix passes 21 existing checks and
+the full public build. Its final visual proof remains pending because browser
+URL verification stopped and the supported alternative's app approval expired.
+Parent #394 is all-green / 4,635 tests, with a verified 2,956-file isolated
+complete restore. Current child CI, final package/browser checks and human
+blueberry/release decisions remain gates. All 31 IDs/order and scope stay intact.
+
 Combined release preparation now includes the [recovery lease repair](REVIEW-RUNTIME-RECOVERY-REVIEW.md):
 18 focused checks and a 79-file local inbox restore preserve the 32 pending source
 copies and original draft while omitting process ownership. The final committed

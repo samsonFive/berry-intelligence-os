@@ -1,5 +1,12 @@
 # Project Status
 
+**October 12: phone field-table context.** Native 412px review reproduced row
+names disappearing during horizontal table scroll. The name column is now
+pinned; 21 affected checks and the complete public build pass. Final visual
+verification is pending after the browser URL safety check and expired Edge app
+approval. Parent #394 is all-green / 4,635 tests. See the
+[row-context review](docs/v2/VARIETY-FIELD-ROW-CONTEXT-REVIEW.md).
+
 **October 12: recovery lease repair.** Review preparation reproduced a backup
 that archived its own collection lock. New backups omit that process lease;
 legacy recovery verifies it but does not recreate it or replace a live target
