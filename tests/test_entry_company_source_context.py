@@ -154,5 +154,6 @@ def test_existing_breeding_program_varieties_tab_uses_source_names_without_write
     assert 'aria-current="page">Varieties' in page.text
     assert "TH-1987" in page.text and "Varieties named in sources" in page.text
     assert "portfolio-register52-2024-blueberry-main" in page.text
-    assert "Reviewed variety links · 0" in page.text
+    assert "Recorded variety links · 0" in page.text
+    assert "Reviewed variety links · 0" not in page.text
     assert not list(tmp_path.iterdir())

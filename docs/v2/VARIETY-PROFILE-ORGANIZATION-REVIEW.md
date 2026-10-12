@@ -68,6 +68,15 @@ and original pending draft are preserved. Parent draft [#391](https://github.com
 passes all four required checks, including **4,622 Python tests / 11 skipped**.
 This change requires its own pushed-head checks.
 
+The initial full CI run on `81612406515970c0a56bf5c2d3978db755a2d165`
+reported **4,626 passed / one failed / 11 skipped / two warnings**. The remaining
+failure expected the obsolete "Reviewed variety links" heading in the older
+Georgia program/source-context regression. That assertion now expects "Recorded
+variety links" and still verifies source-only names, the existing source handoff
+and unchanged private state. The accurate heading does not approve source names.
+All **16 affected source-context/program tests pass**, one existing ReportLab
+warning, 108.80 seconds. The repaired head requires a fresh full CI result.
+
 ## Remaining mission
 
 The [31-requirement checklist](REDESIGN-REQUIREMENTS-CHECKLIST.md) retains the full
