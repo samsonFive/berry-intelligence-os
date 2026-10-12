@@ -267,15 +267,16 @@ def test_progressive_disclosure_does_not_crop_exports(world):
 
 
 @pytest.fixture
-def client_world(world, monkeypatch):
+def client_world(world, monkeypatch, tmp_path):
     monkeypatch.setattr(main, "AUTHORING_MODE", True)
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
     monkeypatch.setattr(main, "all_entities", lambda: list(world["entities"].values()))
     monkeypatch.setattr(main, "all_relationships", lambda: world["relationships"])
     monkeypatch.setattr(main, "all_evidence", lambda: world["evidence"])
     return TestClient(main.app)
 
 
-def test_ui_api_export_match_and_blueberry_rollout_gate(client_world):
+def test_ui_api_export_match_and_registered_berry_validation(client_world):
     query = "countries=geography-peru&focus=variety-a&theme=dark&window=30d"
     api = client_world.get("/api/landscapes/explorer?" + query)
     assert api.status_code == 200
@@ -290,8 +291,315 @@ def test_ui_api_export_match_and_blueberry_rollout_gate(client_world):
         assert response.status_code == 200
         assert api.json()["version"] in response.text
         assert "r-peru" in response.text and "r-chile" not in response.text
-    assert client_world.get("/landscapes/explorer?berry=berry-strawberry").status_code == 422
+    strawberry = client_world.get("/landscapes/explorer?berry=berry-strawberry")
+    assert strawberry.status_code == 200
+    assert '<option value="berry-strawberry" selected>Strawberry</option>' in strawberry.text
+    assert client_world.get("/landscapes/explorer?berry=berry-unknown").status_code == 422
     assert client_world.get("/landscapes/explorer?edge=missing").status_code == 422
+
+
+@pytest.mark.parametrize('berry,role', [('berry-strawberry','licenses'),
+    ('berry-raspberry','markets'),('berry-blackberry','grows')])
+def test_new_crop_routes_preserve_genetic_identity_role_and_source(client_world,world,berry,role):
+    before=deepcopy(world)
+    key='variety-'+berry.removeprefix('berry-')+'-specific'
+    source='ev-'+berry
+    world['entities'][berry]={'id':berry,'name':berry.removeprefix('berry-').title(),'entity_type':'berry'}
+    world['entities'][key]={'id':key,'name':'Crop-specific cultivar','entity_type':'variety','berry_ids':[berry]}
+    world['evidence'].append({'id':source,'title':'Recorded crop-specific source','status':'published',
+        'source_url':'https://example.test/'+berry,'berry_ids':[berry]})
+    world['relationships'].append({'id':'crop-specific-role','subject_id':'company-b','predicate':role,
+        'object_id':key,'status':'active','evidence_ids':[source]})
+    query='countries=&berry='+berry
+    response=client_world.get('/api/landscapes/explorer?'+query)
+    assert response.status_code==200
+    bundle=response.json()
+    edge=next(e for e in bundle['edges'] if e['id']=='crop-specific-role')
+    assert edge['predicate']==role and edge['evidence_ids']==[source]
+    assert key in bundle['nodes'] and 'variety-a' not in bundle['nodes']
+    assert bundle['coverage']['genetic_location_links']==0
+    assert 'r-license' not in {e['id'] for e in bundle['edges']}
+    for kind in ('html','svg','csv'):
+        exported=client_world.get('/landscapes/explorer/export/'+kind+'?'+query)
+        assert exported.status_code==200 and 'crop-specific-role' in exported.text
+        assert berry.removeprefix('berry-')+'-landscape-' in exported.headers['content-disposition']
+    assert before['entities']['variety-a']==world['entities']['variety-a']
+
+
+def test_nonblueberry_defaults_do_not_impose_blueberry_markets(world):
+    strawberry=lx.selection({'berry':'berry-strawberry'},world['entities'])
+    assert strawberry['countries']==[]
+    explicit=lx.selection({'berry':'berry-strawberry','countries':'geography-peru'},world['entities'])
+    assert explicit['countries']==['geography-peru']
+    assert lx.selection({},world['entities'])['countries']==['geography-chile','geography-china','geography-peru']
+
+
+def test_all_berries_preserves_distinct_genetics_and_deduplicates_shared_records(world):
+    world['entities']['variety-s']['name'] = 'Azure'
+    single = {crop: build(world, berry=crop, countries='') for crop in ('berry-blueberry','berry-strawberry')}
+    result = build(world, berry='all', countries='')
+    assert set(result['nodes']) == set().union(*(set(b['nodes']) for b in single.values()))
+    assert {e['id'] for e in result['edges']} == set().union(*({e['id'] for e in b['edges']} for b in single.values()))
+    assert result['nodes']['variety-a']['label'] == result['nodes']['variety-s']['label'] == 'Azure'
+    assert result['coverage']['genetic_location_links'] == 0
+    assert len(result['sources']) == 1  # the source is shared, not duplicated
+    edge = next(e for e in result['edges'] if e['id'] == 'r-other-berry')
+    assert edge['berry_ids'] == ['berry-strawberry']
+    assert all(row['berry_label'] == 'Strawberry' for row in result['portfolios'] if any(v['id'] == 'variety-s' for v in row['varieties']))
+    assert lx.selection({'berry':'all'}, world['entities'])['countries'] == []
+
+
+def test_union_does_not_follow_cross_crop_company_shortcut(world):
+    world['entities']['company-c'] = {'id':'company-c','name':'Gamma','entity_type':'company','berry_ids':['berry-strawberry']}
+    world['evidence'].append({'id':'ev-s','status':'published','title':'Strawberry roles','berry_ids':['berry-strawberry']})
+    world['relationships'].extend([
+        {'id':'s-peru','subject_id':'company-c','predicate':'operates_in','object_id':'geography-peru','status':'active','evidence_ids':['ev-s']},
+        {'id':'s-partner','subject_id':'company-c','predicate':'partners_with','object_id':'company-b','status':'active','evidence_ids':['ev-s'],'berry_ids':['berry-strawberry']},
+    ])
+    # No blueberry actor is linked to China; strawberry links cannot pull a
+    # disconnected blueberry portfolio into the aggregate's country scope.
+    world['relationships'] = [e for e in world['relationships'] if e['id'] not in {'r-peru','r-chile'}]
+    result = build(world, berry='all', countries='geography-peru')
+    assert not {'r-license','r-program','r-develops'}.intersection(e['id'] for e in result['edges'])
+    assert 'variety-a' not in result['nodes']
+
+
+def test_explicit_relationship_crop_overrides_multi_crop_actor_tags(world):
+    world['entities']['company-a']['berry_ids'] = ['berry-blueberry','berry-strawberry']
+    world['entities']['company-b']['berry_ids'] = ['berry-blueberry','berry-strawberry']
+    world['relationships'].append({'id':'s-partner-only','subject_id':'company-a','predicate':'partners_with','object_id':'company-b','status':'active','berry_ids':['berry-strawberry'],'evidence_ids':['ev-a']})
+    result=build(world,berry='all',countries='')
+    assert next(e for e in result['edges'] if e['id']=='s-partner-only')['berry_ids']==['berry-strawberry']
+
+
+def test_comparison_limits_report_actual_display_and_export_complete_scope(world):
+    for index in range(60):
+        for crop,suffix in [('berry-blueberry','b'),('berry-strawberry','s')]:
+            key=f'variety-{suffix}-{index}'
+            world['entities'][key]={'id':key,'name':f'{suffix} {index}','entity_type':'variety','berry_ids':[crop]}
+            world['relationships'].append({'id':'r-'+key,'subject_id':'company-a','predicate':'develops','object_id':key,'status':'active','evidence_ids':['ev-a']})
+    result=build(world,berry='berry-blueberry',compare='berry-strawberry',view='compare',countries='',limit=100)
+    assert len(result['visible_nodes']) <= 100
+    assert result['coverage']['hidden_nodes']==len(result['nodes'])-len(result['visible_nodes'])
+    assert result['coverage']['hidden_relationships']==len(result['edges'])-len(result['visible_edges'])
+    assert result['coverage']['truncated_display']
+    assert all('r-variety-'+suffix+'-59' in exports.html_export(result) for suffix in ('s','b'))
+    compact=lx.browser_bundle(result)
+    assert compact['nodes']==result['nodes'] and compact['edges']==result['edges'] and compact['sources']==result['sources']
+    assert 'portfolios' not in compact and 'market_rows' not in compact
+
+
+def test_comparison_has_exact_common_actors_separate_scopes_and_focus(world):
+    result = build(world, berry='berry-blueberry', compare='berry-strawberry', view='compare', countries='', focus='variety-s')
+    assert result['title'] == 'Blueberry vs Strawberry landscapes'
+    assert result['common_actor_ids'] == ['company-a']
+    crops = {c['id']:c for c in result['crop_scopes']}
+    assert 'variety-s' not in crops['berry-blueberry']['node_ids']
+    assert 'variety-a' not in crops['berry-strawberry']['node_ids']
+    assert 'focus=variety-s' not in crops['berry-blueberry']['url']
+    assert 'focus=variety-s' in crops['berry-strawberry']['url']
+    restored = lx.build_bundle(**world, params=dict(__import__('urllib.parse',fromlist=['parse_qsl']).parse_qsl(result['url'].split('?',1)[1])), today=date(2026,10,6))
+    assert result == restored
+    for view in ('portrait','changes','explain','relationships'):
+        alternate = lx.build_bundle(**world, params={**result['filters'],'countries':'','view':view}, today=date(2026,10,6))
+        assert {e['id'] for e in alternate['edges']} == {e['id'] for e in result['edges']}
+        assert alternate['filters']['pair']=='1' and alternate['title']==result['title']
+
+
+@pytest.mark.parametrize('params', [dict(berry='all',view='compare'), dict(berry='berry-blueberry',compare='berry-blueberry',view='compare'), dict(compare='missing')])
+def test_invalid_comparison_is_recoverable(client_world, params):
+    from urllib.parse import urlencode
+    assert client_world.get('/landscapes/explorer?'+urlencode(params)).status_code == 422
+    assert client_world.get('/api/landscapes/explorer?'+urlencode(params)).status_code == 422
+
+
+def test_comparison_filters_and_exports_keep_exact_crop_source_parity(client_world, world):
+    world['evidence'].append({'id':'ev-private','status':'in_review','title':'Unreviewed strawberry source','berry_ids':['berry-strawberry']})
+    world['relationships'][5]['evidence_ids'] = ['ev-private']
+    query = 'berry=berry-blueberry&compare=berry-strawberry&view=compare&countries=&theme=dark'
+    reviewed = client_world.get('/api/landscapes/explorer?'+query).json()
+    assert reviewed['crop_scopes'][1]['coverage']['relationships'] == 0
+    query += '&evidence=all'
+    bundle = client_world.get('/api/landscapes/explorer?'+query).json()
+    page = client_world.get('/landscapes/explorer?'+query)
+    assert page.status_code == 200 and 'Strawberry landscape comparison' in page.text
+    assert 'Shared actor' in page.text and 'Unreviewed strawberry source' in page.text
+    assert 'data-theme="dark"' in page.text
+    assert page.text.count('class="lx-crop-coverage"') == 1
+    for kind in ('html','svg','csv'):
+        response = client_world.get('/landscapes/explorer/export/'+kind+'?'+query)
+        assert response.status_code == 200
+        assert bundle['version'] in response.text
+        assert 'r-other-berry' in response.text and 'Unreviewed strawberry source' in response.text
+    csv_rows = list(csv.DictReader(StringIO(exports.csv_export(bundle).lstrip('\ufeff'))))
+    assert next(r for r in csv_rows if r['relationship_id']=='r-other-berry')['relationship_berry_scopes']=='berry-strawberry'
+    assert all(r['generated_at']==bundle['generated_at'] for r in csv_rows)
+    world['evidence'].pop()
+    updated = client_world.get('/api/landscapes/explorer?'+query).json()
+    assert updated['version'] != bundle['version'] and not any(e['id']=='r-other-berry' for e in updated['edges'])
+
+
+def test_wrong_crop_genetic_focus_cannot_enter_a_landscape(client_world,world):
+    response=client_world.get('/api/landscapes/explorer?berry=berry-strawberry&focus=variety-a')
+    assert response.status_code==422 and 'outside the selected berry' in response.json()['detail']
+    # A company can be explored across crops; its actual supported genetic links determine the result.
+    assert lx.selection({'berry':'berry-strawberry','focus':'company-a'},world['entities'])['focus']=='company-a'
+
+
+def test_explorer_saved_selection_reopens_refreshes_and_preserves_old_views(client_world,world):
+    from app.services import landscape_workspace as workspace
+    old=workspace.save_view(main.INBOX_DIR,name='Original overview',filters={'company':'company-a','section':'companies'})
+    initial=deepcopy(world)
+    response=client_world.post('/landscapes/explorer/views',data={'name':'Two crops','berry':'berry-blueberry','compare':'berry-strawberry','view':'compare','countries':'','evidence':'all','window':'30d','private_article':'do not store'},follow_redirects=False)
+    assert response.status_code==303
+    row=next(r for r in workspace.load_views(main.INBOX_DIR)['views'].values() if r.get('kind')=='explorer')
+    assert row['filters']['pair']=='1' and 'private_article' not in row['filters']
+    assert workspace.load_views(main.INBOX_DIR)['views'][old['id']]==old
+    assert world==initial
+    location=response.headers['location']
+    before=client_world.get('/api'+location).json()
+    assert before['filters']['berry']=='berry-blueberry' and before['filters']['view']=='compare'
+    assert before['filters']['window']=='30d' and before['filters']['evidence']=='all'
+    world['evidence'][0]['title']='Edited source title'
+    after=client_world.get('/api'+location).json()
+    assert after['version']!=before['version'] and after['sources'][0]['title']=='Edited source title'
+    page=client_world.get(location)
+    assert page.status_code==200 and 'data-save-selection' in page.text and 'name="revision" value="1"' in page.text
+    assert 'reopen it with current data' in page.text
+    assert client_world.get('/landscapes/explorer/export/html?saved_view='+row['id']).status_code==200
+
+
+def test_saved_explorer_revision_copy_archive_restore_and_surface_safety(client_world):
+    from app.services import landscape_workspace as workspace
+    from urllib.parse import parse_qs,urlsplit
+    created=client_world.post('/landscapes/explorer/views',data={'name':'Crop watch','berry':'all','countries':''},follow_redirects=False)
+    key=parse_qs(urlsplit(created.headers['location']).query)['saved_view'][0]
+    updated=client_world.post('/landscapes/explorer/views',data={'saved_view':key,'view_id':key,'revision':'1','name':'Renamed','q':'Alpha'},follow_redirects=False)
+    assert updated.status_code==303
+    store_path=main.INBOX_DIR/workspace.VIEW_FILE
+    before=store_path.read_bytes()
+    conflict=client_world.post('/landscapes/explorer/views',data={'saved_view':key,'view_id':key,'revision':'1','name':'Lost update'},follow_redirects=False)
+    assert conflict.status_code==409 and store_path.read_bytes()==before
+    copied=client_world.post('/landscapes/explorer/views',data={'saved_view':key,'view_id':key,'revision':'2','action':'copy','name':'Separate scope'},follow_redirects=False)
+    assert copied.status_code==303 and key not in copied.headers['location']
+    wrong_surface=client_world.post('/landscapes/views',data={'view_id':key,'revision':'2','name':'Invalid conversion'},follow_redirects=False)
+    assert wrong_surface.status_code==422
+    # The overview's existing archive/restore controls must retain Explorer fields.
+    archived=client_world.post('/landscapes/views',data={'view_id':key,'revision':'2','action':'archive'},follow_redirects=False)
+    assert archived.status_code==303
+    assert client_world.get('/landscapes/explorer?saved_view='+key).status_code==422
+    restored=client_world.post('/landscapes/views',data={'view_id':key,'revision':'3','action':'restore'},follow_redirects=False)
+    assert restored.status_code==303 and restored.headers['location']==workspace.view_href(workspace.load_views(main.INBOX_DIR)['views'][key])
+    row=workspace.load_views(main.INBOX_DIR)['views'][key]
+    assert row['kind']=='explorer' and row['filters']['berry']=='all' and row['filters']['q']=='Alpha' and row['revision']==4
+
+
+def test_saved_explorer_validation_and_cross_site_writes_do_not_change_store(client_world):
+    from app.services import landscape_workspace as workspace
+    path=main.INBOX_DIR/workspace.VIEW_FILE
+    assert client_world.post('/landscapes/explorer/views',data={'name':'Bad','berry':'missing'},follow_redirects=False).status_code==422
+    assert not path.exists()
+    for headers in ({'origin':'https://other.test'},{'sec-fetch-site':'cross-site'}):
+        assert client_world.post('/landscapes/explorer/views',data={'name':'Blocked'},headers=headers,follow_redirects=False).status_code==403
+    assert not path.exists()
+    assert client_world.get('/landscapes/explorer?saved_view=missing').status_code==422
+    path.write_text('broken saved-view JSON',encoding='utf-8')
+    before=path.read_bytes()
+    assert client_world.post('/landscapes/explorer/views',data={'name':'Must not overwrite'},follow_redirects=False).status_code==422
+    assert path.read_bytes()==before
+
+
+def test_repeated_country_controls_survive_saved_view_context(client_world):
+    bundle=client_world.get('/api/landscapes/explorer?countries=geography-peru&countries=geography-chile').json()
+    assert bundle['filters']['countries']==['geography-chile','geography-peru']
+    assert {'r-chile','r-peru'}<={e['id'] for e in bundle['edges']}
+
+
+def test_saved_relative_date_window_refreshes_without_rewriting_selection(client_world,monkeypatch):
+    from app.services import landscape_workspace as workspace
+    from urllib.parse import parse_qs,urlsplit
+    class ReviewDate(date):
+        current=date(2026,10,1)
+        @classmethod
+        def today(cls):
+            return cls.current
+    monkeypatch.setattr(lx,'date',ReviewDate)
+    created=client_world.post('/landscapes/explorer/views',data={'name':'Rolling dates','window':'30d','countries':''},follow_redirects=False)
+    assert created.status_code==303
+    key=parse_qs(urlsplit(created.headers['location']).query)['saved_view'][0]
+    store_path=main.INBOX_DIR/workspace.VIEW_FILE
+    before=store_path.read_bytes()
+    ReviewDate.current=date(2026,10,15)
+    refreshed=client_world.get('/api/landscapes/explorer?saved_view='+key).json()
+    assert refreshed['filters']['start']=='2026-09-16' and refreshed['filters']['end']=='2026-10-15'
+    assert store_path.read_bytes()==before
+
+
+def test_explorer_saved_writes_require_authoring_and_remote_login(client_world,monkeypatch):
+    monkeypatch.setattr(main,'AUTHORING_MODE',False)
+    assert client_world.post('/landscapes/explorer/views',data={'name':'Blocked'},follow_redirects=False).status_code==403
+    monkeypatch.setattr(main,'AUTHORING_MODE',True)
+    monkeypatch.setenv('BIOS_REMOTE_INTERACTIVE','1')
+    monkeypatch.setenv('BIOS_REVIEW_USERNAME','fixture-analyst')
+    monkeypatch.setenv('BIOS_REVIEW_PASSWORD','fixture-password')
+    monkeypatch.setenv('BIOS_SESSION_SECRET','fixture-secret-not-password-with-adequate-signing-length')
+    response=client_world.post('/landscapes/explorer/views',data={'name':'Blocked'},follow_redirects=False)
+    assert response.status_code in {302,303,307} and '/login' in response.headers['location']
+
+
+def test_landscape_respects_canonical_deleted_source_holds_without_erasing_history(client_world,world,monkeypatch,tmp_path):
+    from app.services.social_intelligence.store import Store
+    template=json.loads((Path(__file__).resolve().parents[1]/'benchmarks/social-blueberry-fixtures.json').read_text(encoding='utf-8'))['records'][0]
+    store=Store(main.INBOX_DIR)
+    row=dict(template,mode='live',translation=None,native_id='landscape-test-post')
+    key=store.ingest([row],[],mode='live')[0]
+    world['evidence'][0]['social_observation']={'id':key,'source':row['source'],'native_id':row['native_id'],'mode':'live'}
+    before=deepcopy(world)
+    data=tmp_path/'canonical-fixtures'
+    for name,records in [('evidence',world['evidence']),('relationships',world['relationships']),('facts',[]),('signals',[]),('assessments',[]),('recommendations',[])]:
+        folder=data/name;folder.mkdir(parents=True)
+        for record in records:(folder/(record['id']+'.json')).write_text(json.dumps(record),encoding='utf-8')
+    monkeypatch.setattr(main,'DATA_DIR',data)
+    snapshot={p:p.read_bytes() for p in data.rglob('*.json')}
+    visible=client_world.get('/api/landscapes/explorer').json()
+    assert len(visible['edges'])==5
+    store.remove(key,state='unavailable')
+    assert len(client_world.get('/api/landscapes/explorer').json()['edges'])==5
+    store.remove(key,state='deleted')
+    hidden=client_world.get('/api/landscapes/explorer').json()
+    assert not hidden['edges'] and not hidden['sources'] and hidden['version']!=visible['version']
+    assert 'A blueberry announcement' not in client_world.get('/landscapes/explorer/export/html').text
+    assert world==before and all(p.read_bytes()==body for p,body in snapshot.items())
+
+
+def test_portrait_role_summary_does_not_transfer_program_roles_to_owner(client_world, world):
+    import re
+
+    world["relationships"][4].update(status="disputed", notes="confidence=low; Inferred only from a reported portfolio; no direct statement retrieved.")
+    before = deepcopy(world)
+    page = client_world.get("/landscapes/explorer")
+    assert page.status_code == 200
+    table = page.text.split('class="lx-portfolio-table"', 1)[1].split("</table>", 1)[0]
+    owner = re.search(r'<tr data-node="company-a">(.*?)</tr>', table, re.S).group(1)
+    licensee = re.search(r'<tr data-node="company-b">(.*?)</tr>', table, re.S).group(1)
+    assert "Owner / rights holder · Program A" in owner
+    assert "Breeder / developer" not in owner
+    assert 'aria-label="Alpha owns Program A"' in owner
+    assert "Licensee · Disputed" in licensee
+    assert "Limited support" in licensee
+    assert "Azure" in licensee
+    assert world == before
+
+
+def test_controller_restores_explicit_focus_and_independent_evidence():
+    import shutil
+    import subprocess
+
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("Node is required to execute the production browser controller")
+    result = subprocess.run([node, str(Path(__file__).with_name("landscape_url_restore_checks.js"))], capture_output=True, text=True, timeout=20)
+    assert result.returncode == 0, result.stdout + result.stderr
 
 
 @pytest.mark.parametrize("path", ["/landscapes/explorer", "/api/landscapes/explorer", "/landscapes/explorer/briefing", "/landscapes/explorer/export/html", "/landscapes/explorer/export/svg", "/landscapes/explorer/export/csv"])

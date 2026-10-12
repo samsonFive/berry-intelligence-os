@@ -4,6 +4,8 @@ jinja2==3.1.6
 pydantic==2.11.7
 jsonschema==4.25.0
 python-multipart==0.0.20
+# Stream private publication metadata without constructing article/transcript bodies.
+ijson==3.5.1
 feedparser==6.0.11
 httpx==0.28.1
 # trafilatura -- readable-article-text extraction for

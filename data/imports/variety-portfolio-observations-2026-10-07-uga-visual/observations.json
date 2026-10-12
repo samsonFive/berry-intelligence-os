@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "kind": "unreviewed_portfolio_name_observations",
+  "checked_on": "2026-10-07",
+  "method": "Manual page-by-page visual and extracted-text accounting of a captured public university PDF. Body-free identity leads only; source, identity, trait and rights review remain separate.",
+  "sources": [
+    {
+      "id": "portfolio-uga-blueberry-ornamental-presentation",
+      "title": "University of Georgia — blueberries for gardens and landscapes",
+      "url": "https://turf.caes.uga.edu/content/dam/caes-subsite/georgiaturf/docs/se-turf/presentations/2015/2015-scott-nesmith.pdf",
+      "company_ids": [
+        "breeding_program-university-of-georgia-blueberry"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T17:17:39Z",
+      "capture_status": "names_enumerated",
+      "source_type": "conference_presentation",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 38 pages visually checked: three named blueberries, six experimental ornamental selections and two additional handwritten photo labels. Repeated slide headings are counted once per identity; Gold Rush remains paired with TO-1398 for review.",
+      "limitations": "Historical presentation, not a complete release or licensing register. The URL path includes 2015; no exact publication or release date is inferred. T-959 is not automatically an alias of Titan. Alapaha on both photo cards could be a site or a variety label and is withheld. Source traits, patent assertions, growing locations and image reuse rights remain unverified. This does not close the inaccessible current licensing-list gap.",
+      "capture_reference": {
+        "sha256": "31cb1000705e1a802e124b95032709b86c1435398e0609e6b9dec5875cd6fdbc",
+        "pages": 38,
+        "visually_checked_pages": 38
+      },
+      "names": [
+        {
+          "candidate_name": "Blue Suede",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named southern highbush blueberry · source description awaiting review",
+          "product_url": "https://turf.caes.uga.edu/content/dam/caes-subsite/georgiaturf/docs/se-turf/presentations/2015/2015-scott-nesmith.pdf#page=11"
+        },
+        {
+          "candidate_name": "Summer Sunset",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named hybrid blueberry, mostly rabbiteye · source description awaiting review",
+          "product_url": "https://turf.caes.uga.edu/content/dam/caes-subsite/georgiaturf/docs/se-turf/presentations/2015/2015-scott-nesmith.pdf#page=16"
+        },
+        {
+          "candidate_name": "Titan",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Named rabbiteye blueberry · photograph code T-959 is not an approved alias",
+          "product_url": "https://turf.caes.uga.edu/content/dam/caes-subsite/georgiaturf/docs/se-turf/presentations/2015/2015-scott-nesmith.pdf#page=20"
+        },
+        {
+          "candidate_name": "TO-1088",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "TO-1088",
+          "portfolio_context": "Experimental ornamental selection · release not established",
+          "product_url": "https://turf.caes.uga.edu/content/dam/caes-subsite/georgiaturf/docs/se-turf/presentations/2015/2015-scott-nesmith.pdf#page=25"
+        },
+        {
+          "candidate_name": "T-460",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "T-460",
+          "portfolio_context": "Experimental ornamental selection · retain exact T prefix; release not established",
+          "product_url": "https://turf.caes.uga.edu/content/dam/caes-subsite/georgiaturf/docs/se-turf/presentations/2015/2015-scott-nesmith.pdf#page=29"
+        },
+        {
+          "candidate_name": "TO-1319",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "TO-1319",
+          "portfolio_context": "Experimental ornamental selection · release not established",
+          "product_url": "https://turf.caes.uga.edu/content/dam/caes-subsite/georgiaturf/docs/se-turf/presentations/2015/2015-scott-nesmith.pdf#page=31"
+        },
+        {
+          "candidate_name": "T-1223",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "T-1223",
+          "portfolio_context": "Experimental ornamental selection · retain exact T prefix; release not established",
+          "product_url": "https://turf.caes.uga.edu/content/dam/caes-subsite/georgiaturf/docs/se-turf/presentations/2015/2015-scott-nesmith.pdf#page=33"
+        },
+        {
+          "candidate_name": "TO-1089",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "TO-1089",
+          "portfolio_context": "Experimental ornamental selection · release not established",
+          "product_url": "https://turf.caes.uga.edu/content/dam/caes-subsite/georgiaturf/docs/se-turf/presentations/2015/2015-scott-nesmith.pdf#page=34"
+        },
+        {
+          "candidate_name": "TO-1398",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "TO-1398",
+          "trade_name": "Gold Rush",
+          "display_label": "Gold Rush · TO-1398",
+          "portfolio_context": "Experimental ornamental selection displayed as Gold Rush · pairing awaits identity review",
+          "product_url": "https://turf.caes.uga.edu/content/dam/caes-subsite/georgiaturf/docs/se-turf/presentations/2015/2015-scott-nesmith.pdf#page=35"
+        },
+        {
+          "candidate_name": "Premier",
+          "berry_id": "berry-blueberry",
+          "portfolio_context": "Handwritten comparison-fruit label inside a photograph · no release or breeder role established here",
+          "product_url": "https://turf.caes.uga.edu/content/dam/caes-subsite/georgiaturf/docs/se-turf/presentations/2015/2015-scott-nesmith.pdf#page=20"
+        },
+        {
+          "candidate_name": "T-959",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "T-959",
+          "portfolio_context": "Handwritten fruit label inside Titan slide photograph · equivalence to Titan not established",
+          "product_url": "https://turf.caes.uga.edu/content/dam/caes-subsite/georgiaturf/docs/se-turf/presentations/2015/2015-scott-nesmith.pdf#page=20"
+        }
+      ],
+      "accounting": {
+        "observed_items": 12,
+        "exclusions": [
+          {
+            "label": "Alapaha",
+            "reason": "Repeated below both T-959 and Premier photograph labels beside 6/4/08; could identify the photo site rather than the berries. No cultivar identity or growing-region inference.",
+            "url": "https://turf.caes.uga.edu/content/dam/caes-subsite/georgiaturf/docs/se-turf/presentations/2015/2015-scott-nesmith.pdf#page=20"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,18 +1,115 @@
 # Redesign and consolidation requirements
 
-Ongoing goal activated October 1, 2026. This checklist is the completion ledger for the accepted conversation requirements, not a claim that all draft work is deployed. Each mission must update its evidence and unresolved work here. Final release requires user review before merge or deployment.
+This is the durable inventory of the user's accepted requirements. Keep every
+ID and its remaining work visible; passing tests or added source observations
+do not complete independent human review or prove catalog completeness.
 
-## Checkpoints and completion standard
+## Current checkpoint — October 12, 2026
 
-Canonical freshly checked October 5, 2026: `origin/v2/intelligence-os` is `916b8f09f9ce2a1847335d7990ea80ff921f1cec`, an ancestor of the approved stack. The expansion guide has no diff. Drafts #272–311 remain unmerged. Historical #311 exact head `8be0d39614f3c867f8a93dbcf2da216c191de617` passed all four required checks, run `37338997850`: 3,893 passed / 11 skipped / two warnings / 380.29 seconds. M38 adds authenticated recovery, native guide/upload, real packet capture/download/receipt restart and Map/phone/PDF evidence. RELEASE-REVIEW.md reconciles every requirement. #312 head 60d6f0f passed all four checks (3,895 / 11 / two warnings, run 37349791854); the final acceptance/presentation update requires its own exact-head checks.
+The user explicitly approved the blueberry checkpoint on October 12. LAND-02
+now proceeds to the retained milestone B scope on draft #396; source/identity
+and release decisions remain separate. The first four-crop rollout and focus
+guard pass 53 Explorer tests, with native raspberry-to-strawberry scope review.
+All berries and two-crop comparison now have implementation and 123 related
+regressions; complete exports retain crop/source scope. Traits/sensory context
+where supported, PDF and final browser/performance/CI remain; saved Explorer
+selections now reuse the existing store with 91 passing persistence/auth tests; the full scope is
+not reduced to the selector rollout.
 
-Completion means implementation plus appropriate source/data proof, browser review, meaningful automated checks, exact-head required CI, preserved private/public and human-review boundaries, updated guide and a reviewable release. Unavailable source text, unresolved photo identities, absent geographic statistics and missing credentials must be reported honestly. Human confirmation must never be simulated to close a checklist item.
+Use the [current combined review](CURRENT-BLUEBERRY-CATALOG-REVIEW.md) for
+launch links, fresh source counts, native phone proof and authenticated
+isolated restart/recovery/rollback evidence. The original 31 IDs/order and
+the satisfied blueberry feedback gate is recorded; release approval remains separate.
+
+The original redesign/consolidation release was accepted and integrated in
+[PR #312](https://github.com/samsonFive/berry-intelligence-os/pull/312). The later
+Landscape/catalog work is an unmerged draft stack. The visual guide is delivered
+at `/guide`; this checklist still owns outstanding requirements.
+
+The [phone row-context correction](VARIETY-FIELD-ROW-CONTEXT-REVIEW.md) follows
+actual 412px native review of the guide and field inventory. Names disappeared
+when the table was panned; the pinned-column fix passes 21 existing checks and
+the full public build. Following explicit Edge approval, final native 412px
+review verifies pinned names, headers and full wrapping company names. A
+browser-found column refinement is included; its fresh current-head CI remains.
+Parent #394 is all-green / 4,635 tests, with a verified 2,956-file isolated
+complete restore. Initial #395 CI is all-green / 4,635 tests. Current child CI,
+final package/combined browser checks and human
+blueberry/release decisions remain gates. All 31 IDs/order and scope stay intact.
+
+Combined release preparation now includes the [recovery lease repair](REVIEW-RUNTIME-RECOVERY-REVIEW.md):
+18 focused checks and a 79-file local inbox restore preserve the 32 pending source
+copies and original draft while omitting process ownership. The final committed
+package, complete review-runtime recovery, actual browser/phone review and
+exact-head CI still need matching evidence. This local proof does not replace
+the required production backup or authorize deployment. All 31 requirement IDs
+and their order remain unchanged.
+
+The [Cornell photo follow-up](CORNELL-VARIETY-PHOTOS-REVIEW.md) adds four
+source-captioned photo references with unknown reuse, including three existing
+raspberry profiles and the Dickens strawberry candidate. Catalog photo gaps fall
+to 50/64; rights 35, cited traits 33 and organization gaps 10 are unchanged.
+The current bounded audit has 384 sections / 1,561 occurrences / 91 matches /
+1,470 review needs, with 1,126 candidate keys and 126 photo references. Original
+records and all human decisions remain intact. CAT-01/CAT-02 and release gates
+remain open; these are references, not image reuse or identity approvals.
+
+The [profile organization correction](VARIETY-PROFILE-ORGANIZATION-REVIEW.md)
+aligns the field inventory with active company, brand and breeding-program links,
+including trial operators. Four false missing-link flags are repaired; 10 of
+64 catalog profiles still lack organization links. Source mentions do not create
+roles, and all original records, user edits and human review gates remain intact.
+The same correction now includes the program overview and Varieties tab: an
+existing active link is shown in both, without creating a company portfolio or
+promoting source-only names.
+
+| Remaining requirement | Next action | Required evidence or decision |
+|---|---|---|
+| CAT-01: source names reach catalog review | Recover accessible original text and reconcile every named cultivar without silent omissions | Preserved source passages; independently supplied multi-berry expected names; actual human identity/catalog decisions |
+| CAT-02: comprehensive variety resource | Complete current and historical company/program portfolios, profiles, rights and attributed photos | Scope/accounting for every source; documented unresolved identities and missing text; current official rights; reviewed canonical records |
+| LAND-02: revised Landscape Explorer | Review the dense blueberry version, then implement and verify the remaining brief | Explicit user blueberry feedback before other berries; meaningful narrative, saved views/export and source handoffs |
+| REL-01: tested release | Integrate approved drafts, reconcile canonical and verify the combined release | Current-head required CI, browser review, data/edit preservation, reviewable release and actual backup/rollback readiness; separate merge/deploy approval |
+
+Current bounded portfolio/photo evidence is in
+[Cornell photo review](CORNELL-VARIETY-PHOTOS-REVIEW.md): 384 sections, 1,561
+name occurrences, 91 matched occurrences, 1,470 requiring review, 1,126 public
+derived candidate keys and 64 unchanged canonical varieties. There are 126
+photo references; the eight UF and four Cornell photos remain permission-held. These are source
+observations, not a global census or approved catalog growth.
+
+The [four-berry 2024 register intake](REGISTER-LIST-52-INTAKE-REVIEW.md) accounts
+for 398 first-name heading contexts: 388 observations, eight referrals and two
+held codes. Body/parent/trade-name recall and per-entry company associations remain
+partial; no source observation automatically creates an approved variety. The original Lewis/Hutton distinction is retained as
+source context for a human decision, not automatic identity approval.
+
+The [searchable organization follow-up](SEARCHABLE-ORIGIN-ORGANIZATIONS-REVIEW.md)
+links 160 register entries to 20 existing organizations, including explicit joint
+program context. Company tables and source/company filters use those entries;
+60 further entries have searchable unresolved organization names. 228 remain
+unassigned. No company role, current rights or catalog approval follows.
+
+The [32-copy human name-review worksheet](VARIETY-HUMAN-RECALL-PACKET-REVIEW.md) is prepared; actual human source/name review remains unfinished. Source authenticity,
+name/identity review, statement review, extraction qualification and photo reuse
+are separate decisions. No automatic gate completion is authorized.
+
+Completion requires implementation, matching source/data proof, native browser
+review, meaningful checks, required CI on the release head, preserved user edits
+and private/public boundaries, the updated explainer and a reviewable release.
+Unavailable text, unresolved images, absent statistics and missing credentials
+remain visible gaps. Never substitute a narrow check for a broad requirement.
+
+[Historical progress and checkpoints](REDESIGN-REQUIREMENTS-CHECKLIST-HISTORY.md)
+retain the previous updates and decisions verbatim. The complete requirement
+table and implementation sequence below are preserved.
 
 | ID | Accepted requirement | Current evidence / state | Remaining verification or implementation |
 | --- | --- | --- | --- |
+| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Stored corpus discovery, automatic known-article-text checks plus explicit additive Keep and original portfolio observations feed private identity review. Exact names, dates, codes, provenance and human decisions survive; existing intake retains separate source/claim review. The native Hortifrut capture finds 24 names and the #368 private article audit reaches 103 / 32 catalog matches / 71 discoveries before human decisions, with 750 combined candidate keys in the isolated preview after the original trial image-table observations; see [pending article review](PENDING-ARTICLE-VARIETY-COVERAGE-REVIEW.md). Test-only article hierarchy preview copies are excluded from those coverage counts. Current bounded portfolio audit and preservation proof are in [ROYALBERRIES-CAS-SOURCE-PLAN-REVIEW.md](ROYALBERRIES-CAS-SOURCE-PLAN-REVIEW.md); latest observations are measured by `scripts/audit_variety_portfolios.py`. GDR/GRIN comparisons retain original-name handoff without automatic identity decisions. | The current read-only published audit finds 95 explicit named identity strings / 32 catalog matches / 63 review needs. Saved published records still have zero readable bodies out of 1,269 (1,198 unavailable and 71 access screens), excluding pending/runtime capture. Further acquisition, declaration formats/languages, independently reviewed recall and actual human identity/catalog additions remain. Original synthetic diagnostic reaches 60/64; four legacy raw body fields are intentionally outside the supported Article path. The 32-copy profile diagnostic improves 28 to 35 occurrences, without independent human recall qualification; see [profile-name review](ARTICLE-PROFILE-NAME-RECALL-REVIEW.md). |
+| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | Four-berry original-source coverage, original patent/PDF links, attributed session photo previews, company/program handoffs and analyst website overrides are implemented. Latest bounded audit and source limits are in [current combined review](CURRENT-BLUEBERRY-CATALOG-REVIEW.md): 384 sections, 1,561 occurrences (91 catalog-matched; 1,470 requiring review), 1,126 public-source-derived candidate keys (operator-private state counted separately), 64 unchanged canonical records and 126 photo references with no new reuse approvals. The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) exposes scoped per-variety gaps for photos, patent/PVR references, cited traits and company roles without a completeness score. Offline pending-copy detections are a separate diagnostic, not approved catalog additions. The 77-row source plan distinguishes named, incomplete, unavailable, unstarted and identity/scope holds; no fabricated company closes a gap. Independent GDR/GRIN are scoped collections, not complete global catalogs. | 14 entries have incomplete lists, one has unavailable sources and two supplied labels are held; zero unstarted in the full view does not mean complete portfolios. Full/current/historical release and rights verification, hybrid crop resolution, human catalog authoring, cited traits/images/regions, refresh reconciliation and independently scored recall remain. No global completeness or web-leading claim. |
 | UI-01 | Bright, colorful agricultural Glasshouse identity; first berry icon; subtle glass, stronger contrast and hierarchy | Approved Glasshouse identity and first icon across core, intelligence, authoring, public-library and retained shells (M1–21/34/35); source prose stays literal. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-02 | Immersive full-width workspace, compact top navigation, grouped More menu contained within the viewport | Full-width shared top header, contained grouped More, folded specialist destinations; live/private versus generated-public navigation tested (M20/21/35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
-| UI-03 | Dense information with useful headlines, summaries, metadata and collapsed secondary context; plain language | Distinct heading/lead/body/metadata roles, compact cards/tables and secondary disclosures in News, dossiers, Reports, Landscape, Learn, research/review and retained tools (M3–35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
+| UI-03 | Dense information with useful headlines, summaries, metadata and collapsed secondary context; plain language | Distinct heading/lead/body/metadata roles, compact cards/tables and secondary disclosures in News, dossiers, Reports, Landscape, Learn, research/review and retained tools (M3–35). New original articles/captures preserve publisher headings; see [article hierarchy review](PUBLISHER-ARTICLE-HIERARCHY-REVIEW.md). Existing body migration remains separately open. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | NEWS-01 | Primary news-reader experience, image previews, newest first, multi-berry and country scope, custom dates and 7/30 days/YTD | Shared newest-first publication chronology, multi-berry/country/company/list/mark/date scope; 7/30 days, YTD and custom ranges; M29–31 source preview and compact phone filters verified. Desktop-review correction adds publisher-first shared visuals, labeled crop illustrations on missing/broken images, scoped retained-thumbnail capture and WebP delivery; native 36-story check found two publisher thumbnails. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | NEWS-02 | Trusted versus Unreviewed; useful/not-relevant/save/publisher icons, descriptive accessible names, delayed hover tooltips | Trusted requires reviewed source plus active escalated information; raw lane keeps actual source labels. SVG actions, accessible names and two-second hover descriptions retained. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | NEWS-03 | Right-side overlay that closes back to unchanged grid; original article within Reader and separate publisher option | Shared right-side Article/Brief overlay; publisher option, selected-source capture, independent positions and return-to-origin. M30 real article/image and M31 safe bounded capture verified. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
@@ -31,13 +128,14 @@ Completion means implementation plus appropriate source/data proof, browser revi
 | REPORT-02 | Rename War Room to Meeting Prep, keep its scope, saved takeaways and handoffs | Meeting Prep replaces War Room presentation; scope, saved takeaways, question/refresh actions, history and human handoffs retained (M7). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | REPORT-03 | Reports and exports must read as designed documents: takeaway first, clear hierarchy, no generated internal ID dumps, readable linked sources | Refined takeaway-first PDF/editor, numbered outlined findings, readable linked Source references and named appendix; literal edits/qualifications retained. #300 four checks green; five PDF pages and phone reviewed. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | LAND-01 | Landscape configurable by what/where to include | Multi-subject/place and included-section selections, source-date ranges, private saved views and Reader/report/brief handoffs (M8), four checks green. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
+| LAND-02 | Evidence-backed multi-berry Landscape, dense narrative, source/variety and dossier handoffs, comparison, saved views and complete visual exports | User explicitly approved blueberry October 12. Consolidated draft #396 enables all four existing crops, All berries and two-crop comparison with distinct genetics and shared actors; 123 related tests and trusted static build pass. Saved Explorer selections reuse the existing revision-checked store, with 91 persistence/auth/controller tests passing. CAT-01/CAT-02 source-name repair remains behind human review. | Downloadable PDF, sourced trait/sensory context, native saved-view/comparison/phone/themes/performance, current-head CI and final release review remain against the retained brief. This approval does not authorize merging or deployment. |
 | LEARN-01 | Top-level expanded Learn, detailed visual lessons/research first, pictures/diagrams/video links, interactive exploration | Top-level Learn with five-pillar interactive teaching visuals, licensed photo, diagrams and source/video links; original curriculum and reviewed rights retained (M9/19/20/21). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | LEARN-02 | Select/highlight content -> research/add to Learn -> explicit Perplexity deep research -> new learning content | Selected-text/Reader Learn action, existing-lesson detour, explicit public-topic research, durable jobs and cited editable private drafts/updates/return origin (M9). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | INT-01 | Plain-language investigation workspaces without changing review decisions | Intelligence home preserves Statements, Signals/candidates, Assessments, Recommendations, Questions, Research and native authoring. M11–17/20/35 verify named references, literal source text and separate gates. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
-| GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | Live/public visual guide has eleven purpose cards, four workflow steps, worked example, five output explanations and distinct review lifecycle (M11/20); generated links resolve. M38 combined desktop/390px guide reviewed and screenshots saved. | Visual guide complete, including current capability limits; final exact-head release gates apply. |
-| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Canonical freshly fetched Oct 5 remains 916b8f09f9ce2a1847335d7990ea80ff921f1cec, an ancestor; protected guide unchanged. #311 exact-head four checks green. M38 authenticated container, restart, 2,798-file verified empty restore and isolated prior-image rollback passed. | Native acceptance and requirement audit complete; final exact-head gates and user review precede merge/deploy. Actual production backup required before approved deployment. |
+| GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | Live/public visual guide has eleven purpose cards, four analyst workflow steps, worked example, six output explanations and distinct review lifecycle (M11/20 and later blueberry briefing); generated links resolve. The [variety workflow explainer](VARIETY-WORKFLOW-EXPLAINER-REVIEW.md) adds four steps from source name through identity review and separate catalog authoring to a sourced profile, with existing private handoffs. M38 proof remains dated evidence. October 12 native guide review verifies eleven section cards and four workflow steps at 412px; current desktop review verifies all six outputs. Responsive emulation is distinguished from a physical-phone test. | Visual guide delivered, including current capability limits; final exact-head release and current phone gates apply. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | October 7 fetch verifies canonical 7962ac04dd05855985f51596f3f8070f19990a75, PR #312 merged October 6 after user acceptance. Earlier M38 authenticated restart, 2,798-file verified restore and isolated prior-image rollback passed; the visual guide and requirements audit are delivered. | Production deployment is not reverified in this source-coverage mission. The later Landscape/variety drafts retain current-head CI and blueberry feedback/release gates before merge or deployment. Actual production backup remains required before an approved deployment. October 12 native 412px field-table review passes. Current application package verified 3,610 files; authenticated isolated fifteen-route/restart/2,959-file recovery/previous-image rollback checks pass with 32 sources still pending and production unchanged. This does not replace current-head CI or actual production backup. |
 
 ## Historical implementation sequence
 
@@ -199,3 +297,38 @@ Routine checkpoint completion does not end the ongoing goal. A genuine input/acc
 **Mission 37 current ledger:** Primary rows above have been reconciled through M36 rather than leaving completed work in stale Remaining columns. Source/content limitations, human decisions, native chooser failure and the one-shared-analyst/worker boundary remain explicit. Combined release acceptance is still required.
 
 **Final acceptance reconciliation (October 5):** All 28 primary requirements have a delivered purpose, actual evidence and existing regression-suite reference in [RELEASE-REVIEW.md](RELEASE-REVIEW.md). Native real packet All/Reviewed capture, schema-valid download, unchanged re-download timestamp, seven-file restart preservation and scoped Map/snapshot phone/PDF checks passed. Packet source/review columns are kept readable. Photo/identity/figure/source decisions and source-dependent coverage remain honest human/content limits. Fresh exact-head CI and final user review remain release gates; production is unchanged.
+
+
+**October 7 catalog handoff:** CAT-01 now connects human-reviewed distinct candidates to the existing intake/source/claim review path. Names/berries/source URLs carry forward; changed decisions and catalog name/alias collisions block writes. Explicit reviewer fields work without local login. Existing human review creates only an unverified entity, with statements separately reviewed. No real canonical additions were made. CAT-01/CAT-02 and comprehensive coverage remain open; see VARIETY-CATALOG-REVIEW-HANDOFF.md.
+
+
+## October 9 follow-up: Rutgers original filing and historical names
+
+See [original Rutgers filing review](RUTGERS-ORIGINAL-FILING-REVIEW.md). One focal
+grant plus four separate parent/comparison mentions are now discoverable, including
+the source's explicit NJ09-2-1 / Rutgers D'Light pairing. No catalog alias, entity,
+company role, current right, region or image permission is approved automatically.
+The bounded audit is now 378 sections /1,549 occurrences /88 catalog matches /
+1,461 needing review /1,124 source-derived candidate keys. All 31 requirements and
+their order are retained; CAT-01, CAT-02, TD-116 and REL-01 stay open. Current and
+historical portfolio completeness, original current rights, human authoring,
+independent recall, phone review and integrated release preparation remain.
+
+
+## October 9 follow-up: human variety-name review packet
+
+The [human name-review worksheet](VARIETY-HUMAN-RECALL-PACKET-REVIEW.md) now
+prepares all32 retained Article copies with blank expected lists. A read-only
+captured-text view hides stored summaries and approval controls. Browser-local
+drafts and partial JSON export are verified with fictional sources; none of the
+actual32 expected lists is completed. Offline assembly verifies source fingerprints,
+refuses unfinished/shortened inputs and uses the existing scorer without a
+qualification marker. Source acceptance, catalog authoring and independent
+benchmark qualification remain separate. This prepares the human packet; it does
+not complete the human-owned recall requirement. Full scope, phone, blueberry
+feedback and integrated release gates remain open. All31 requirement IDs/order stay.
+
+
+## October 10 UTC: original Chandler source follow-up
+
+Original claim/code references and seven separate parent/comparison observations retain existing candidate anchors, crop boundaries and human decisions. The bounded audit is 380 sections /1,557 occurrences /88 matched /1,469 requiring review /1,126 derived keys, with 64 canonical varieties and 122 unchanged photo references. Parent #390 passes all four required checks /4,618 tests; this child needs fresh CI. The actual 32-source human worksheet remains unfinished. Full corpus/portfolio/rights/profile coverage, independent human recall and catalog authoring, phone review, blueberry feedback and integrated release remain open. See [Chandler source review](CHANDLER-ORIGINAL-FILING-REVIEW.md). No merge/deploy or other-berry Landscape rollout.

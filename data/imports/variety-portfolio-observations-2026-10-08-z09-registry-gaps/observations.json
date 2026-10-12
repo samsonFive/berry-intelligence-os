@@ -1,0 +1,396 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-registry-original-gap-singrow-home",
+      "title": "Singrow — original product-label and technology scope",
+      "url": "https://www.singrow.com/",
+      "company_ids": [
+        "company-singrow"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete current homepage; two named strawberry product/color labels and consumer brand considered, not a formal cultivar list.",
+      "limitations": "Rouge and Blanc appear together as product/color labels without codes or formal cultivar identity. Whether each is a cultivar is unresolved; preserve these leads without inventing identities or synonyms. Promotional performance, GMO and technology claims remain company assertions. No named-variety photo, approved company role, trait, footprint or current rights inferred.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "4a0fbfe39896a455bd80df185db7649974981954a9555a6de4d31cc06cd60cd6"
+      },
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [
+          {
+            "label": "Rouge",
+            "reason": "Ambiguous product/color label; formal cultivar identity unresolved."
+          },
+          {
+            "label": "Blanc",
+            "reason": "Ambiguous product/color label; formal cultivar identity unresolved."
+          },
+          {
+            "label": "BLOOOM",
+            "reason": "Consumer concept brand; not a formal cultivar identity in this context."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-registry-original-gap-singrow-media",
+      "title": "Singrow — original media index and unnamed launch lead",
+      "url": "https://www.singrow.com/media",
+      "company_ids": [
+        "company-singrow"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete visible original media index; original linked launch announcement followed separately. Other external articles are not fully enumerated portfolios.",
+      "limitations": "The media card reports February 22, 2023; the original company-supplied release prints February 2, 2023. Retain the original release date separately. An unnamed climate-resilient strawberry claim does not establish a denomination, code or current portfolio.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "237b94482bbc02620ec5b25702e68b9a0403e7692e9fc840e1ece4eda7bc6fde"
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": [
+          {
+            "label": "Blooom",
+            "reason": "Explicit consumer concept brand in the media index, not a named cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-registry-original-gap-singrow-launch",
+      "title": "Singrow — original unnamed strawberry launch",
+      "url": "https://en.prnasia.com/releases/apac/singapore-headquartered-agri-genomics-firm-singrow-launches-world-s-first-climate-resilient-strawberry-variety-391909.shtml",
+      "company_ids": [
+        "company-singrow"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_press_release",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original company-supplied release, printed February 2, 2023; no literal cultivar denomination/code is supplied.",
+      "limitations": "The original article is supplied by Singrow, not independent corroboration. Its unnamed strawberry, performance and resilience claims remain unreviewed. A launch claim and historical expansion plans do not establish formal identity, granted rights, approved traits or a current growing footprint. Original time zone is unspecified; no UTC time inferred.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "512deaa506aaffcc48e2aa73c5a5b220601ca44e1bf6f0736481a0b92e515c19"
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": [
+          {
+            "label": "Singrow Strawberries",
+            "reason": "Company/crop product description; no formal cultivar identity supplied."
+          }
+        ]
+      },
+      "published_date": "2023-02-02"
+    },
+    {
+      "id": "portfolio-registry-original-gap-biogea-home",
+      "title": "Biogea — original agricultural-input product scope",
+      "url": "https://www.biogea.mx/en",
+      "company_ids": [
+        "company-biogea"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original homepage and input-product menu; no named cultivar portfolio disclosed.",
+      "limitations": "The listed official site describes agricultural biotechnology and beneficial fungi/bacteria. Product trademarks are inputs, not cultivar denominations. The separate operator-photo company/genetics associations still need identity/role review; no automatic website/company correction or genetics ownership inferred.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "2b310ebdab9a0d318944646696c5100c47dd9ad18100f59b8f3a2a441df22890"
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "BIOGROW3",
+            "reason": "Agricultural-input product label, not a cultivar."
+          },
+          {
+            "label": "Nitro Aire",
+            "reason": "Agricultural-input product label, not a cultivar."
+          },
+          {
+            "label": "Biogea Plantek",
+            "reason": "Agricultural-input trademark, not a cultivar."
+          },
+          {
+            "label": "Biogea THD",
+            "reason": "Agricultural-input trademark, not a cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-registry-original-gap-biogea-raspberry-trial",
+      "title": "Biogea — original raspberry root-stimulation trial",
+      "url": "https://www.biogea.mx/en/frambuesa-jalisco-1",
+      "company_ids": [
+        "company-biogea"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original raspberry trial page and both labeled root photographs; no cultivar name provided.",
+      "limitations": "Page reports a March 2019 root-stimulation trial in Ciudad Guzmán, Jalisco; this is a trial period, not a publication date. Mira Valle is labeled producer, and BIOGEA THD is the applied input. Trial photos label treatment/control crop, not a cultivar. No approved genetics role, trait, variety-growing region or image reuse inferred.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "d69a19fe7936b581ca79969f2be49748836a33a4e6a6300963b1611899fae699"
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "BIOGEA THD",
+            "reason": "Root-stimulation input, not a cultivar."
+          },
+          {
+            "label": "Mira Valle",
+            "reason": "Trial producer label, not a cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-registry-original-gap-biogea-strawberry-trial",
+      "title": "Biogea — original strawberry root-stimulation trial",
+      "url": "https://www.biogea.mx/en/frambuesa-jalisco",
+      "company_ids": [
+        "company-biogea"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original strawberry trial page and both labeled plant photographs; original URL spelling remains unchanged despite the strawberry content.",
+      "limitations": "Original URL includes frambuesa but visible content explicitly describes a strawberry trial, March 2019. Preserve original URL and explicit crop separately; Ojo Zarco is a producer, BIOGEA THD the applied input. No cultivar name supplied. Trial period is not publication date; no named photo, trait or footprint approval.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "da07c85d7e761cafa49d09185c894e40486ffacba717a744965a5c22e8fb01fa"
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "BIOGEA THD",
+            "reason": "Root-stimulation input, not a cultivar."
+          },
+          {
+            "label": "Ojo Zarco",
+            "reason": "Trial producer label, not a cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-registry-original-gap-collective-home",
+      "title": "The Berry Collective — original fruit-marketing scope",
+      "url": "https://theberrycollective.com.au/",
+      "company_ids": [
+        "company-the-berry-collective"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original homepage; company marketing/partner context, with original Products page followed separately.",
+      "limitations": "The company describes fruit marketing, retail supply and a Mountain Blue/Oz Group partnership. Shared partners and branding do not identify specific cultivars or grant a genetics role, rights, production footprint or attributed cultivar photo.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "6dcc6a5d45ecd0880b0b165951b2c8c654a8daefdbd563d0763f46a2e9e65989"
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Mountain Blue",
+            "reason": "Named company/partner, not a cultivar in this context."
+          },
+          {
+            "label": "Oz Group",
+            "reason": "Named company/partner, not a cultivar in this context."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-registry-original-gap-collective-products",
+      "title": "The Berry Collective — original crop and brand products",
+      "url": "https://theberrycollective.com.au/products/",
+      "company_ids": [
+        "company-the-berry-collective"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original product-page text and four crop categories; Eureka Blueberries and Marvelus Strawberries are presented in brand/product context, without cultivar-by-cultivar enumeration.",
+      "limitations": "Eureka Blueberries may relate to already documented genetics elsewhere; this brand/product page does not resolve a specific formal cultivar or denomination. Marvelus Strawberries is described as a WA business/product brand. Keep these labels inspectable without a new cultivar, alias or licensed/company role. Generic fruit/brand imagery not attributed to a cultivar.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "dd5f25a796d444f9d52c9a107602ca532b6b63fbee0ef2ec3ac67b308a38a38a"
+      },
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "Blueberries",
+            "reason": "Crop category, not an individual cultivar."
+          },
+          {
+            "label": "Raspberries",
+            "reason": "Crop category, not an individual cultivar."
+          },
+          {
+            "label": "Blackberries",
+            "reason": "Crop category, not an individual cultivar."
+          },
+          {
+            "label": "Strawberries",
+            "reason": "Crop category, not an individual cultivar."
+          },
+          {
+            "label": "Eureka Blueberries",
+            "reason": "Brand/product context here; specific formal cultivar identity unresolved, not a new cultivar inferred."
+          },
+          {
+            "label": "Marvelus Strawberries",
+            "reason": "Business/product-brand context here, not an identified cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-registry-original-gap-grupoheres-dns",
+      "title": "Grupo HerEs — original site not reachable",
+      "url": "https://www.grupoheres.com.mx/",
+      "company_ids": [
+        "company-grupo-heres"
+      ],
+      "berry_ids": [],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "unreadable",
+      "enumerated_scope": "Original company-site URL attempted in native browser; no readable portfolio or name enumeration obtained.",
+      "limitations": "Native original-site request failed with net::ERR_NAME_NOT_RESOLVED. Missing content is unknown, not an empty portfolio. No alternate company identity, cultivar, role, trait, location, rights or photo inferred.",
+      "names": [],
+      "capture_reference": {
+        "method": "native_browser_original_site_attempt",
+        "outcome": "net::ERR_NAME_NOT_RESOLVED"
+      },
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-registry-original-gap-fruitist-brands",
+      "title": "Fruitist — original fruit brand and product scope",
+      "url": "https://www.fruitist.com/our-brands",
+      "company_ids": [
+        "company-agrovision"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete current original brand page; named Fruitist brands and three crop categories, without cultivar-by-cultivar enumeration.",
+      "limitations": "Fruitist Jumbo is a blueberry product/brand label, and Fruitist is a brand spanning blueberries, raspberries and blackberries. Neither identifies a formal cultivar here. Existing canonical Agrovision/Fruitist identity is reused; no duplicate company, alias, genetics role, GMO/quality trait, current footprint or named-variety photograph inferred.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "73cf7ae47537f27495e2ea6f921bf392dd3ad267ad5f2f16d4ec16b19372d3f5"
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Fruitist Jumbo",
+            "reason": "Blueberry product/brand label; no cultivar denomination or code supplied."
+          },
+          {
+            "label": "Fruitist",
+            "reason": "Company/product brand spanning three crops, not an individual cultivar here."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-registry-original-gap-fruitist-2022",
+      "title": "Fruitist / Agrovision — original historical 2022 report context",
+      "url": "https://www.fruitist.com/sustainability-reports/2022",
+      "company_ids": [
+        "company-agrovision"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original HTML report page for the 2022 reporting period; one Sekoya label, not a specific cultivar/code list. Full underlying report is offered by request, not obtained.",
+      "limitations": "This historical page refers to Sekoya generically without a specific cultivar denomination. Do not substitute Pop, Beauty or any other named selection, or merge a brand/family label into a cultivar. The reporting year 2022 is not a publication date or current operating footprint. Company assertions, claimed improvements and financial figures remain unreviewed; no patent/rights, role, trait, location or image approval inferred.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_page_body_review",
+        "capture_sha256": "36c08694e612033fedf88dd6639479ca1bf85d2b7da58cf45815c13828ac750d"
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": [
+          {
+            "label": "Sekoya",
+            "reason": "Historical generic portfolio label; specific cultivar identity is unresolved on this page."
+          }
+        ]
+      }
+    }
+  ]
+}

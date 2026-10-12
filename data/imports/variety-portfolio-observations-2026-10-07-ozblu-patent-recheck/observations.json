@@ -1,0 +1,403 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-ozblu-filing-25858",
+      "title": "Julieta — patent PP25,858 names EB 8-42",
+      "url": "https://patents.google.com/patent/USPP25858P3/en",
+      "checked_on": "2026-10-07",
+      "published_date": "2015-09-08",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_publication",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The filing names EB 8-42 as its blueberry subject. Title, botanical identity and one claim checked; this is a single-filing check, not a whole portfolio.",
+      "limitations": "Existing catalog identities and links are preserved. This check does not verify current legal status, ownership, commercial availability or growing locations. A filing code alone does not establish its market name. Parent, comparison and citation lists are outside this check. Trial locations do not establish current plantings; patent figures are not added as photos.",
+      "capture_reference": {
+        "method": "web_original_filing_body",
+        "botanical_subject": "Vaccinium hybrid",
+        "publication_number": "USPP25858P3",
+        "denomination": "EB 8-42",
+        "claim_section_checked": true,
+        "catalog_commercial_label": "Julieta",
+        "commercial_label_basis": "Existing catalog identity; not inferred from this filing",
+        "current_official_rights_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "EB 8-42",
+          "breeder_code": "EB 8-42",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patents.google.com/patent/USPP25858P3/en",
+          "portfolio_context": "Filing names EB 8-42 as its blueberry subject and contains one claim. The existing catalog associates it with Julieta; this recheck does not establish a new market-name alias or approve current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-ozblu-filing-26173",
+      "title": "Bella — patent PP26,173 names EB 8-46",
+      "url": "https://patents.google.com/patent/USPP26173P3/en",
+      "checked_on": "2026-10-07",
+      "published_date": "2015-12-01",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_publication",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The filing names EB 8-46 as its blueberry subject. Title, botanical identity and one claim checked; this is a single-filing check, not a whole portfolio.",
+      "limitations": "Existing catalog identities and links are preserved. This check does not verify current legal status, ownership, commercial availability or growing locations. A filing code alone does not establish its market name. Parent, comparison and citation lists are outside this check. Trial locations do not establish current plantings; patent figures are not added as photos.",
+      "capture_reference": {
+        "method": "web_original_filing_body",
+        "botanical_subject": "Vaccinium hybrid",
+        "publication_number": "USPP26173P3",
+        "denomination": "EB 8-46",
+        "claim_section_checked": true,
+        "catalog_commercial_label": "Bella",
+        "commercial_label_basis": "Existing catalog identity; not inferred from this filing",
+        "current_official_rights_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "EB 8-46",
+          "breeder_code": "EB 8-46",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patents.google.com/patent/USPP26173P3/en",
+          "portfolio_context": "Filing names EB 8-46 as its blueberry subject and contains one claim. The existing catalog associates it with Bella; this recheck does not establish a new market-name alias or approve current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-ozblu-filing-28149",
+      "title": "Magica — patent PP28,149 names EB 9-2",
+      "url": "https://patents.google.com/patent/USPP28149P3/en",
+      "checked_on": "2026-10-07",
+      "published_date": "2017-07-04",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_publication",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The filing names EB 9-2 as its blueberry subject. Title, botanical identity and one claim checked; this is a single-filing check, not a whole portfolio.",
+      "limitations": "Existing catalog identities and links are preserved. This check does not verify current legal status, ownership, commercial availability or growing locations. A filing code alone does not establish its market name. Parent, comparison and citation lists are outside this check. Trial locations do not establish current plantings; patent figures are not added as photos.",
+      "capture_reference": {
+        "method": "web_original_filing_body",
+        "botanical_subject": "Vaccinium hybrid",
+        "publication_number": "USPP28149P3",
+        "denomination": "EB 9-2",
+        "claim_section_checked": true,
+        "catalog_commercial_label": "Magica",
+        "commercial_label_basis": "Existing catalog identity; not inferred from this filing",
+        "current_official_rights_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "EB 9-2",
+          "breeder_code": "EB 9-2",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patents.google.com/patent/USPP28149P3/en",
+          "portfolio_context": "Filing names EB 9-2 as its blueberry subject and contains one claim. The existing catalog associates it with Magica; this recheck does not establish a new market-name alias or approve current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-ozblu-filing-27142",
+      "title": "Magnifica — patent PP27,142 names EB 12-19",
+      "url": "https://patents.google.com/patent/USPP27142P3/en",
+      "checked_on": "2026-10-07",
+      "published_date": "2016-09-13",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_publication",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The filing names EB 12-19 as its blueberry subject. Title, botanical identity and one claim checked; this is a single-filing check, not a whole portfolio.",
+      "limitations": "Existing catalog identities and links are preserved. This check does not verify current legal status, ownership, commercial availability or growing locations. A filing code alone does not establish its market name. Parent, comparison and citation lists are outside this check. Trial locations do not establish current plantings; patent figures are not added as photos.",
+      "capture_reference": {
+        "method": "web_original_filing_body",
+        "botanical_subject": "Vaccinium hybrid",
+        "publication_number": "USPP27142P3",
+        "denomination": "EB 12-19",
+        "claim_section_checked": true,
+        "catalog_commercial_label": "Magnifica",
+        "commercial_label_basis": "Existing catalog identity; not inferred from this filing",
+        "current_official_rights_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "EB 12-19",
+          "breeder_code": "EB 12-19",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patents.google.com/patent/USPP27142P3/en",
+          "portfolio_context": "Filing names EB 12-19 as its blueberry subject and contains one claim. The existing catalog associates it with Magnifica; this recheck does not establish a new market-name alias or approve current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-ozblu-filing-28358",
+      "title": "Bonita — patent PP28,358 names EB 9-12",
+      "url": "https://patents.google.com/patent/USPP28358P3/en",
+      "checked_on": "2026-10-07",
+      "published_date": "2017-09-05",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_publication",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The filing names EB 9-12 as its blueberry subject. Title, botanical identity and one claim checked; this is a single-filing check, not a whole portfolio.",
+      "limitations": "Existing catalog identities and links are preserved. This check does not verify current legal status, ownership, commercial availability or growing locations. A filing code alone does not establish its market name. Parent, comparison and citation lists are outside this check. Trial locations do not establish current plantings; patent figures are not added as photos.",
+      "capture_reference": {
+        "method": "native_original_filing_body",
+        "botanical_subject": "Vaccinium hybrid",
+        "publication_number": "USPP28358P3",
+        "denomination": "EB 9-12",
+        "claim_section_checked": true,
+        "catalog_commercial_label": "Bonita",
+        "commercial_label_basis": "Existing catalog identity; not inferred from this filing",
+        "current_official_rights_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "EB 9-12",
+          "breeder_code": "EB 9-12",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patents.google.com/patent/USPP28358P3/en",
+          "portfolio_context": "Filing names EB 9-12 as its blueberry subject and contains one claim. The existing catalog associates it with Bonita; this recheck does not establish a new market-name alias or approve current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-ozblu-filing-30934",
+      "title": "Elaina — patent PP30,934 names NS 13-6",
+      "url": "https://patents.google.com/patent/USPP30934P3/en",
+      "checked_on": "2026-10-07",
+      "published_date": "2019-10-15",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_publication",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The filing names NS 13-6 as its blueberry subject. Title, botanical identity and one claim checked; this is a single-filing check, not a whole portfolio.",
+      "limitations": "Existing catalog identities and links are preserved. This check does not verify current legal status, ownership, commercial availability or growing locations. A filing code alone does not establish its market name. Parent, comparison and citation lists are outside this check. Trial locations do not establish current plantings; patent figures are not added as photos.",
+      "capture_reference": {
+        "method": "native_original_filing_body",
+        "botanical_subject": "Vaccinium hybrid",
+        "publication_number": "USPP30934P3",
+        "denomination": "NS 13-6",
+        "claim_section_checked": true,
+        "catalog_commercial_label": "Elaina",
+        "commercial_label_basis": "Existing catalog identity; not inferred from this filing",
+        "current_official_rights_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "NS 13-6",
+          "breeder_code": "NS 13-6",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patents.google.com/patent/USPP30934P3/en",
+          "portfolio_context": "Filing names NS 13-6 as its blueberry subject and contains one claim. The existing catalog associates it with Elaina; this recheck does not establish a new market-name alias or approve current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-ozblu-filing-33138",
+      "title": "Dina — patent PP33,138 names NS 15-13",
+      "url": "https://patents.google.com/patent/USPP33138P3/en",
+      "checked_on": "2026-10-07",
+      "published_date": "2021-06-08",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_publication",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The filing names NS 15-13 as its blueberry subject. Title, botanical identity and one claim checked; this is a single-filing check, not a whole portfolio.",
+      "limitations": "Existing catalog identities and links are preserved. This check does not verify current legal status, ownership, commercial availability or growing locations. A filing code alone does not establish its market name. Parent, comparison and citation lists are outside this check. Trial locations do not establish current plantings; patent figures are not added as photos.",
+      "capture_reference": {
+        "method": "web_original_filing_body",
+        "botanical_subject": "Vaccinium hybrid",
+        "publication_number": "USPP33138P3",
+        "denomination": "NS 15-13",
+        "claim_section_checked": true,
+        "catalog_commercial_label": "Dina",
+        "commercial_label_basis": "Existing catalog identity; not inferred from this filing",
+        "current_official_rights_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "NS 15-13",
+          "breeder_code": "NS 15-13",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patents.google.com/patent/USPP33138P3/en",
+          "portfolio_context": "Filing names NS 15-13 as its blueberry subject and contains one claim. The existing catalog associates it with Dina; this recheck does not establish a new market-name alias or approve current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-ozblu-filing-32897",
+      "title": "Olivia — patent PP32,897 names NS 16-2",
+      "url": "https://patents.google.com/patent/USPP32897P3/en",
+      "checked_on": "2026-10-07",
+      "published_date": "2021-03-16",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_publication",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The filing names NS 16-2 as its blueberry subject. Title, botanical identity and one claim checked; this is a single-filing check, not a whole portfolio.",
+      "limitations": "Existing catalog identities and links are preserved. This check does not verify current legal status, ownership, commercial availability or growing locations. A filing code alone does not establish its market name. Parent, comparison and citation lists are outside this check. Trial locations do not establish current plantings; patent figures are not added as photos.",
+      "capture_reference": {
+        "method": "native_original_filing_body",
+        "botanical_subject": "Vaccinium hybrid",
+        "publication_number": "USPP32897P3",
+        "denomination": "NS 16-2",
+        "claim_section_checked": true,
+        "catalog_commercial_label": "Olivia",
+        "commercial_label_basis": "Existing catalog identity; not inferred from this filing",
+        "current_official_rights_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "NS 16-2",
+          "breeder_code": "NS 16-2",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patents.google.com/patent/USPP32897P3/en",
+          "portfolio_context": "Filing names NS 16-2 as its blueberry subject and contains one claim. The existing catalog associates it with Olivia; this recheck does not establish a new market-name alias or approve current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-ozblu-rejected-patent-25358",
+      "title": "Bonita — reject the wrong ornamental-plant patent number",
+      "url": "https://patents.google.com/patent/USPP25358P3/en",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_publication",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Title and botanical denomination of the circulated wrong patent reference; one non-berry subject excluded.",
+      "limitations": "Existing catalog identities and links are preserved. This check does not verify current legal status, ownership, commercial availability or growing locations. A filing code alone does not establish its market name. PP25,358 is Aglaonema commutatum KKAG201303, not blueberry EB 9-12. The existing Bonita correction to PP28,358 is retained. This negative reference is not an OZblu cultivar or proof of an empty portfolio.",
+      "capture_reference": {
+        "method": "web_original_filing_body",
+        "botanical_subject": "Aglaonema commutatum",
+        "denomination": "KKAG201303",
+        "corrected_reference": "https://patents.google.com/patent/USPP28358P3/en"
+      },
+      "names": [],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": [
+          {
+            "label": "KKAG201303",
+            "reason": "Ornamental Aglaonema subject of PP25,358, not blueberry Bonita / EB 9-12. No berry candidate admitted."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-ozblu-old-mapping-recheck",
+      "title": "OZblu — old variety table no longer appears at its saved URL",
+      "url": "https://www.ozblu.com/our-story/where-we-grow/",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Original saved mapping URL followed to its current Growing our blueberries page; current country cards and page text checked for the old code/name table.",
+      "limitations": "Existing catalog identities and links are preserved. This check does not verify current legal status, ownership, commercial availability or growing locations. A filing code alone does not establish its market name. The page now redirects and no longer supplies the old variety/code table. The saved 2024 evidence is preserved as historical evidence. Brand country cards do not locate every cultivar, establish acreage or approve variety growing regions. This is a missing current mapping, not zero varieties.",
+      "capture_reference": {
+        "method": "native_redirect_and_current_page_review",
+        "final_url": "https://www.ozblu.com/our-story/growing-our-blueberries/",
+        "historical_evidence_id": "ev-ozblu-where-we-grow-2024",
+        "current_mapping_found": false
+      },
+      "names": []
+    },
+    {
+      "id": "portfolio-psg-rejoice-english-sheet-attempt",
+      "title": "Rejoice — English technical sheet could not be read",
+      "url": "https://rejoiceblackberry.com/wp-content/uploads/2026/07/PSG_rejoice_BK6-13_Sell-Sheet-ENG-v1.0.pdf",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "unreadable",
+      "enumerated_scope": "Original English sell-sheet destination opened; native viewer and two screenshots returned a blank body.",
+      "limitations": "Existing catalog identities and links are preserved. This check does not verify current legal status, ownership, commercial availability or growing locations. A filing code alone does not establish its market name. No document text, page count, figures or denomination verified. BK6-13 in the filename is not an observed body code or alias. Blank rendering is not an empty portfolio. Spanish sheet body remains unchecked.",
+      "capture_reference": {
+        "method": "native_pdf_body_attempt",
+        "body_readable": false,
+        "blank_viewer": true,
+        "parent_source": "portfolio-psg-rejoice-varietal-faq"
+      },
+      "names": []
+    }
+  ]
+}

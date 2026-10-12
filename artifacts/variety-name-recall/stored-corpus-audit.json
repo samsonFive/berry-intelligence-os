@@ -1,0 +1,30 @@
+{
+  "scope": "Published stored sources only; exact identity strings, explicit declarations; not internet completeness",
+  "catalog_count": 64,
+  "reviewed_sources_scanned": 1269,
+  "source_named_identities": 99,
+  "catalog_matches": 31,
+  "names_awaiting_review": 68,
+  "per_berry": {
+    "berry-blueberry": {
+      "catalog": 41,
+      "source_named": 90,
+      "awaiting_review": 66
+    },
+    "berry-strawberry": {
+      "catalog": 6,
+      "source_named": 0,
+      "awaiting_review": 0
+    },
+    "berry-raspberry": {
+      "catalog": 12,
+      "source_named": 9,
+      "awaiting_review": 2
+    },
+    "berry-blackberry": {
+      "catalog": 5,
+      "source_named": 0,
+      "awaiting_review": 0
+    }
+  }
+}

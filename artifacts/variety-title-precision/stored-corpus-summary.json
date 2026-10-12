@@ -1,0 +1,46 @@
+{
+  "scope": "Published stored sources only; exact identity strings, explicit declarations; not internet completeness",
+  "catalog_count": 64,
+  "reviewed_sources_scanned": 1269,
+  "source_named_identities": 95,
+  "catalog_matches": 32,
+  "names_awaiting_review": 63,
+  "per_berry": {
+    "berry-blueberry": {
+      "catalog": 41,
+      "source_named": 88,
+      "awaiting_review": 63
+    },
+    "berry-strawberry": {
+      "catalog": 6,
+      "source_named": 0,
+      "awaiting_review": 0
+    },
+    "berry-raspberry": {
+      "catalog": 12,
+      "source_named": 7,
+      "awaiting_review": 0
+    },
+    "berry-blackberry": {
+      "catalog": 5,
+      "source_named": 0,
+      "awaiting_review": 0
+    }
+  },
+  "combined_candidate_keys_before_private_state": 336,
+  "catalog_statuses": {
+    "active": 57,
+    "unverified": 6,
+    "historical": 1
+  },
+  "primary_portfolio": {
+    "sections": 32,
+    "source_name_occurrences": 381,
+    "catalog_matches": 25,
+    "occurrence_review_needs": 356,
+    "registry_rows": 77,
+    "rows_with_some_checks": 15,
+    "initial_checks_remaining": 62
+  },
+  "limitations": "Exact stored-name observations and sampled primary pages only; not full-text/table/multilingual recall, human approval or global completeness. Canonical data unchanged."
+}

@@ -1,0 +1,483 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-gap-surexport-current-brands",
+      "title": "Surexport — current brands and crop categories",
+      "url": "https://surexport.es/en/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "names": [],
+      "enumerated_scope": "Product/crop labels checked; no literal cultivar list disclosed. Complete original source rechecked; no new cultivar names.",
+      "limitations": "No named cultivar was found in this bounded original page. Unnamed proprietary varieties do not establish an empty portfolio. Company brands, nutrition, health claims, generic fruit pictures, business history and trial geography are not cultivar identities or approved traits. No publication date, current legal status, individual breeder/owner mapping or growing footprint is approved.",
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "Doñarosa",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Berry Sensations",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Strawberry",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Raspberry",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Blueberry",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Blackberry",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "sha256": "08192ed472291aa4ba7dab8db989c5a28c3c08b3e90ce42b417b64c4e9735b66",
+        "bytes": 10926,
+        "page_read": true,
+        "named_varieties_found": 0,
+        "refresh_of_existing_section": true
+      }
+    },
+    {
+      "id": "portfolio-gap-surexport-strawberry",
+      "title": "Surexport — strawberry product page",
+      "url": "https://surexport.es/en/products/strawberry/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "names": [],
+      "enumerated_scope": "Primary page reviewed; named-variety coverage remains incomplete. Complete original source rechecked; no new cultivar names.",
+      "limitations": "No named cultivar was found in this bounded original page. Unnamed proprietary varieties do not establish an empty portfolio. Company brands, nutrition, health claims, generic fruit pictures, business history and trial geography are not cultivar identities or approved traits. No publication date, current legal status, individual breeder/owner mapping or growing footprint is approved.",
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "sha256": "44afe7e3189e540bc1b57f2c392eef2534f3c162c129823536fa2db29d7c1417",
+        "bytes": 9870,
+        "page_read": true,
+        "named_varieties_found": 0,
+        "refresh_of_existing_section": true
+      }
+    },
+    {
+      "id": "portfolio-gap-surexport-raspberry",
+      "title": "Surexport — raspberry product page",
+      "url": "https://surexport.es/en/products/raspberry/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "names": [],
+      "enumerated_scope": "Primary page reviewed; named-variety coverage remains incomplete. Complete original source rechecked; no new cultivar names.",
+      "limitations": "No named cultivar was found in this bounded original page. Unnamed proprietary varieties do not establish an empty portfolio. Company brands, nutrition, health claims, generic fruit pictures, business history and trial geography are not cultivar identities or approved traits. No publication date, current legal status, individual breeder/owner mapping or growing footprint is approved.",
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "sha256": "81ca60d0d06f11319cc84e2056ff02c49158372bf6db0ca258660344518b01ad",
+        "bytes": 9774,
+        "page_read": true,
+        "named_varieties_found": 0,
+        "refresh_of_existing_section": true
+      }
+    },
+    {
+      "id": "portfolio-gap-surexport-blueberry",
+      "title": "Surexport — blueberry product page",
+      "url": "https://surexport.es/en/products/blueberry/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "names": [],
+      "enumerated_scope": "Primary page reviewed; named-variety coverage remains incomplete. Complete original source rechecked; no new cultivar names.",
+      "limitations": "No named cultivar was found in this bounded original page. Unnamed proprietary varieties do not establish an empty portfolio. Company brands, nutrition, health claims, generic fruit pictures, business history and trial geography are not cultivar identities or approved traits. No publication date, current legal status, individual breeder/owner mapping or growing footprint is approved.",
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "sha256": "40a9d1664202b3222ef67412f06992092ab1976363d2b8e830e27f0fd63534c5",
+        "bytes": 9547,
+        "page_read": true,
+        "named_varieties_found": 0,
+        "refresh_of_existing_section": true
+      }
+    },
+    {
+      "id": "portfolio-gap-surexport-blackberry",
+      "title": "Surexport — blackberry product page",
+      "url": "https://surexport.es/en/products/blackberry/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "names": [],
+      "enumerated_scope": "Primary page reviewed; named-variety coverage remains incomplete. Complete original source rechecked; no new cultivar names.",
+      "limitations": "No named cultivar was found in this bounded original page. Unnamed proprietary varieties do not establish an empty portfolio. Company brands, nutrition, health claims, generic fruit pictures, business history and trial geography are not cultivar identities or approved traits. No publication date, current legal status, individual breeder/owner mapping or growing footprint is approved.",
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "sha256": "8cacc7e46513e61c6e6e62e6ba72be29824acefc2eee87f24008b717bdc27348",
+        "bytes": 9595,
+        "page_read": true,
+        "named_varieties_found": 0,
+        "refresh_of_existing_section": true
+      }
+    },
+    {
+      "id": "portfolio-gap-surexport-research",
+      "title": "Surexport — research page without named varieties",
+      "url": "https://surexport.es/en/quality/research-development/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_program_page",
+      "capture_status": "partial",
+      "names": [],
+      "enumerated_scope": "Primary page reviewed; named-variety coverage remains incomplete. Complete original source rechecked; no new cultivar names.",
+      "limitations": "No named cultivar was found in this bounded original page. Unnamed proprietary varieties do not establish an empty portfolio. Company brands, nutrition, health claims, generic fruit pictures, business history and trial geography are not cultivar identities or approved traits. No publication date, current legal status, individual breeder/owner mapping or growing footprint is approved.",
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "sha256": "3bde68197ae39491c8f849d646b7e0988ca5d1c1ed74bafb9993a66f3e11c830",
+        "bytes": 8283,
+        "page_read": true,
+        "named_varieties_found": 0,
+        "refresh_of_existing_section": true
+      }
+    },
+    {
+      "id": "portfolio-surexport-original-history",
+      "title": "Surexport — company history",
+      "url": "https://surexport.es/en/about-us/a-bit-of-history/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_program_page",
+      "capture_status": "partial",
+      "names": [],
+      "enumerated_scope": "Complete original history page; cultivar names absent.",
+      "limitations": "No named cultivar was found in this bounded original page. Unnamed proprietary varieties do not establish an empty portfolio. Company brands, nutrition, health claims, generic fruit pictures, business history and trial geography are not cultivar identities or approved traits. No publication date, current legal status, individual breeder/owner mapping or growing footprint is approved. The page describes a 2007 Plant Sciences agreement but names no selections; this does not map PSI patent subjects to Surexport.",
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "sha256": "da3b6779c0d5ea324119ed95064b2193cfb3504ad89ad26c79f20389860ffc55",
+        "bytes": 10960,
+        "page_read": true,
+        "named_varieties_found": 0
+      }
+    },
+    {
+      "id": "portfolio-gap-gempack-current-crops",
+      "title": "Gem-Pack — current berry product categories",
+      "url": "https://www.gem-packberries.com/en/gems",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "names": [],
+      "enumerated_scope": "Product/crop labels checked; no literal cultivar list disclosed. Complete original source rechecked; no new cultivar names.",
+      "limitations": "The checked page names no cultivars. Crop categories, founding families, company labels and generic images are not cultivar identities. Absence of names does not establish an empty portfolio. No breeding, ownership, release date, rights, traits or growing footprint is approved.",
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "page_read": true,
+        "sha256": "06fbf29e96fe3ac0fe00e05693dbd87154fed1dcdbf709fb01dd64113d2b85fc",
+        "bytes": 12045,
+        "refresh_of_existing_section": true
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "Strawberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Blueberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Raspberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Blackberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gempack-original-family",
+      "title": "Gem-Pack — growers and company history",
+      "url": "https://www.gem-packberries.com/en/family",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_history_page",
+      "capture_status": "partial",
+      "names": [],
+      "enumerated_scope": "Complete original family page; no cultivar denominations named.",
+      "limitations": "The checked page names no cultivars. Crop categories, founding families, company labels and generic images are not cultivar identities. Absence of names does not establish an empty portfolio. No breeding, ownership, release date, rights, traits or growing footprint is approved.",
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "page_read": true,
+        "sha256": "85721d32e9fc159924a18f494d572462cdfc2a21349f10c40d358c0de54e5538",
+        "bytes": 10708
+      }
+    },
+    {
+      "id": "portfolio-gempack-original-faq",
+      "title": "Gem-Pack — grower FAQs",
+      "url": "https://www.gem-packberries.com/en/faqs",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_faq",
+      "capture_status": "partial",
+      "names": [],
+      "enumerated_scope": "Three expanded FAQ answers: growing locations, GMO/natural breeding, and additional strawberry facts. Other answers not enumerated.",
+      "limitations": "These three answers name no cultivars. Company-wide locations do not locate any individual variety. Natural-breeding language does not identify a breeder, owner or selection. The California Strawberry Commission reference is a general facts link, not a Gem-Pack variety portfolio. The remaining collapsed answers, historical cultivars and original releases remain outside this bounded scope.",
+      "capture_reference": {
+        "method": "native_browser_expanded_faq_review",
+        "answers_read": 3,
+        "captures": [
+          {
+            "file": "gempack-original-faq-answer-01.json",
+            "sha256": "02f407f2b8e4981f905a76e8c67b94c6a22c5aa843f6be11cc5fda937d1423d5",
+            "bytes": 2184
+          },
+          {
+            "file": "gempack-original-faq-answer-02.json",
+            "sha256": "b99a6a060f97448137135d570a864df5b92491fc35953534a39fb91d11f4c0a4",
+            "bytes": 2061
+          },
+          {
+            "file": "gempack-original-faq-answer-03.json",
+            "sha256": "013744e6c932ef749d45a6a50b54d7f98984764991311c0d3e42936afb906f0b",
+            "bytes": 2038
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gap-gempack-packaging-catalog",
+      "title": "Gem-Pack — original packaging catalog",
+      "url": "https://api.gem-packberries.com/wp-content/uploads/2024/02/product-catalog.pdf",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_pack_catalog",
+      "capture_status": "partial",
+      "names": [],
+      "enumerated_scope": "Five distinct LABEL entries checked across 36 packaging/SKU rows in the complete one-page catalog. LABEL entries describe brands and packs, not cultivar denominations. Complete original source rechecked; no new cultivar names.",
+      "limitations": "The LABEL column is not a cultivar field. Winter Frost appears as the label for a 10 oz Pineberry pack; this sheet does not establish its underlying cultivar identity. Pack sizes, barcodes and GTINs are not breeder codes. The printed update is Jan 2024, with no day; no ISO publication date is invented. No cultivar photographs, current rights, traits, breeder/owner or growing footprints approved. No cultivar names captured does not mean an empty portfolio.",
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": [
+          {
+            "label": "Gem-Pack Berries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Mainland",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Fresh",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Red Blossom",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Winter Frost",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "original_document_complete_visual_review",
+        "sha256": "51bd8acd51f4d2e6fa3562c7f6ca7ec68a9dcf47847d3d6ccfeb944a7a35d92b",
+        "page_count": 1,
+        "visually_checked_pages": [
+          1
+        ],
+        "sheet_revision": "Last Updated Jan 2024",
+        "publication_date_verified": false,
+        "packaging_rows": 36,
+        "bytes": 87887,
+        "pages": 1,
+        "all_pages_read": true,
+        "printed_update_label": "Jan 2024",
+        "sku_rows": 36,
+        "refresh_of_existing_section": true
+      }
+    },
+    {
+      "id": "portfolio-gempack-original-history-pdf",
+      "title": "Gem-Pack — company history (PDF)",
+      "url": "https://api.gem-packberries.com/wp-content/uploads/2024/05/gem-pack-history.pdf",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_history_document",
+      "capture_status": "partial",
+      "names": [],
+      "enumerated_scope": "Complete one-page corporate timeline; seven organization/label references excluded from cultivar enumeration.",
+      "limitations": "The timeline describes unnamed patented varieties and corporate additions; it does not identify individual selections. Its literal California Strawberry Cultivars (CBC, LLC) wording is not automatically approved as an alias for California Berry Cultivars. CBC and Well-Pict associations do not map every known patent or trial selection to Gem-Pack. Copyright 2024 is not a publication day. No cultivar photographs, current rights, traits, breeder/owner or growing footprints approved. No cultivar names captured does not mean an empty portfolio.",
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [
+          {
+            "label": "Western Marketing Company",
+            "reason": "Organization or marketing label in a corporate timeline; not a named cultivar release."
+          },
+          {
+            "label": "Western Chief",
+            "reason": "Organization or marketing label in a corporate timeline; not a named cultivar release."
+          },
+          {
+            "label": "Orange County Produce",
+            "reason": "Organization or marketing label in a corporate timeline; not a named cultivar release."
+          },
+          {
+            "label": "Gem-Pack Berries",
+            "reason": "Organization or marketing label in a corporate timeline; not a named cultivar release."
+          },
+          {
+            "label": "California Strawberry Cultivars",
+            "reason": "Organization or marketing label in a corporate timeline; not a named cultivar release."
+          },
+          {
+            "label": "Red Blossom Sales",
+            "reason": "Organization or marketing label in a corporate timeline; not a named cultivar release."
+          },
+          {
+            "label": "Well-Pict Berries",
+            "reason": "Organization or marketing label in a corporate timeline; not a named cultivar release."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "original_document_complete_visual_review",
+        "sha256": "11746d411b850e8fceb0367c352e287a70287672aa95230bdff4c172ad487e16",
+        "bytes": 244495,
+        "pages": 1,
+        "all_pages_read": true,
+        "visually_checked_pages": [
+          1
+        ],
+        "printed_update_label": "",
+        "sku_rows": null
+      }
+    }
+  ]
+}

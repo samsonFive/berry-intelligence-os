@@ -1,0 +1,842 @@
+{
+  "schema_version": "variety-name-recall-v1",
+  "fixture_sha256": "1c16277059cf3397024fb0a855be38ae62128e22fd9304aa4e1d6b52ee592b16",
+  "scope": "Fourteen targeted title cases: five original stored counterexamples, four invented Title Case variants and five invented positive controls. Not a random sample, live extraction or global precision estimate. Names require human identity review.",
+  "review_status": "Agent-curated diagnostic; not independently human-verified or model-qualified",
+  "method": "Existing deterministic corpus discovery only; independent expected lists; offline; no qualification or catalog writes",
+  "summary": {
+    "cases": 14,
+    "cases_passed": 3,
+    "expected_name_occurrences": 6,
+    "detected_name_occurrences": 3,
+    "missed_name_occurrences": 3,
+    "fully_correct_name_occurrences": 3,
+    "returned_name_occurrences": 13,
+    "unexpected_name_occurrences": 10,
+    "unresolved_name_occurrences": 0,
+    "name_recall": 0.5,
+    "name_precision": 0.2308,
+    "errors": {
+      "name_missing": 3,
+      "unexpected_name": 10
+    }
+  },
+  "by_format": {
+    "launch_title": {
+      "cases": 14,
+      "cases_passed": 3,
+      "expected_name_occurrences": 6,
+      "detected_name_occurrences": 3,
+      "missed_name_occurrences": 3,
+      "fully_correct_name_occurrences": 3,
+      "returned_name_occurrences": 13,
+      "unexpected_name_occurrences": 10,
+      "unresolved_name_occurrences": 0,
+      "name_recall": 0.5,
+      "name_precision": 0.2308,
+      "errors": {
+        "name_missing": 3,
+        "unexpected_name": 10
+      }
+    }
+  },
+  "by_language": {
+    "en": {
+      "cases": 14,
+      "cases_passed": 3,
+      "expected_name_occurrences": 6,
+      "detected_name_occurrences": 3,
+      "missed_name_occurrences": 3,
+      "fully_correct_name_occurrences": 3,
+      "returned_name_occurrences": 13,
+      "unexpected_name_occurrences": 10,
+      "unresolved_name_occurrences": 0,
+      "name_recall": 0.5,
+      "name_precision": 0.2308,
+      "errors": {
+        "name_missing": 3,
+        "unexpected_name": 10
+      }
+    }
+  },
+  "by_berry": {
+    "berry-blackberry": {
+      "expected_name_occurrences": 1,
+      "detected_name_occurrences": 1,
+      "detected_with_correct_berry": 1,
+      "fully_correct_name_occurrences": 1
+    },
+    "berry-blueberry": {
+      "expected_name_occurrences": 3,
+      "detected_name_occurrences": 2,
+      "detected_with_correct_berry": 2,
+      "fully_correct_name_occurrences": 2
+    },
+    "berry-raspberry": {
+      "expected_name_occurrences": 1,
+      "detected_name_occurrences": 0,
+      "detected_with_correct_berry": 0,
+      "fully_correct_name_occurrences": 0
+    },
+    "berry-strawberry": {
+      "expected_name_occurrences": 1,
+      "detected_name_occurrences": 0,
+      "detected_with_correct_berry": 0,
+      "fully_correct_name_occurrences": 0
+    }
+  },
+  "cases": [
+    {
+      "id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 1,
+      "unexpected_names": 1,
+      "unresolved_names": 0,
+      "errors": {
+        "unexpected_name": 1
+      },
+      "passed": false,
+      "checks": [],
+      "unexpected": [
+        {
+          "candidate_name": "two new",
+          "berry_id": "berry-raspberry",
+          "berry_ids": [
+            "berry-raspberry"
+          ],
+          "mention_kind": "launch_title",
+          "mention_context": "Cornell releases two new raspberry varieties - Cornell Chronicle",
+          "evidence_id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie",
+          "fact_id": "",
+          "source_id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie",
+          "source_type": "news_search",
+          "source_tier": "tier_3_trade_press",
+          "source_label": "",
+          "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQS0J0VEJfbHNwR0VfTDVQRTdpME9yNzNKRGpJcnNzeUJoTEZZUU02TUZmenZNYW94OGtYenExVlk5U0RlWDczTzd6aVJTOUJ4UFEySWY3UjZnOTNMb3Iya3lQMnNiVEpXMndjZ0NpRGZNa08teXg3RWZQd1lhNHhtWXh2TW0zT3pOSk84YkFR?oc=5",
+          "published_date": "",
+          "breeder_owner": "",
+          "jurisdiction": "",
+          "evidence_ids": [
+            "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie"
+          ],
+          "fact_ids": [],
+          "identity_state": "distinct",
+          "candidate_canonical_match": null,
+          "match_reason": "no_canonical_identity_match",
+          "disposition": "new_candidate"
+        }
+      ],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "reference_urls": [],
+      "expected_names": 1,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 1,
+      "unexpected_names": 1,
+      "unresolved_names": 0,
+      "errors": {
+        "name_missing": 1,
+        "unexpected_name": 1
+      },
+      "passed": false,
+      "checks": [
+        {
+          "expected": {
+            "name": "Sentinel",
+            "berry_id": "berry-blueberry",
+            "evidence_ids": [
+              "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-"
+            ],
+            "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQTUJrSUo1ejF5bXpxMHpRZEtSZHRpMVpTVHQ2UkdtRDcyZnpTSkhXTGo4aGJiOW5FMUpnUmZFVWdMSW9TbjF2Tm5sRU1uaWFmcjctVm96WnhicHF6YlVKNkFLWlYxVnJxUndHcHNQcUxOWjRQeUJlb3BmdnZYYzJybWs5WXhsMnJ3ekE?oc=5"
+          },
+          "observed": null,
+          "errors": [
+            "name_missing"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "candidate_name": "new Sentinel",
+          "berry_id": "berry-blueberry",
+          "berry_ids": [
+            "berry-blueberry"
+          ],
+          "mention_kind": "launch_title",
+          "mention_context": "UF/IFAS releases new Sentinel blueberry variety - Fruit Growers News",
+          "evidence_id": "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-",
+          "fact_id": "",
+          "source_id": "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-",
+          "source_type": "news_search",
+          "source_tier": "tier_3_trade_press",
+          "source_label": "",
+          "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQTUJrSUo1ejF5bXpxMHpRZEtSZHRpMVpTVHQ2UkdtRDcyZnpTSkhXTGo4aGJiOW5FMUpnUmZFVWdMSW9TbjF2Tm5sRU1uaWFmcjctVm96WnhicHF6YlVKNkFLWlYxVnJxUndHcHNQcUxOWjRQeUJlb3BmdnZYYzJybWs5WXhsMnJ3ekE?oc=5",
+          "published_date": "",
+          "breeder_owner": "",
+          "jurisdiction": "",
+          "evidence_ids": [
+            "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-"
+          ],
+          "fact_ids": [],
+          "identity_state": "distinct",
+          "candidate_canonical_match": null,
+          "match_reason": "no_canonical_identity_match",
+          "disposition": "new_candidate"
+        }
+      ],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 1,
+      "unexpected_names": 1,
+      "unresolved_names": 0,
+      "errors": {
+        "unexpected_name": 1
+      },
+      "passed": false,
+      "checks": [],
+      "unexpected": [
+        {
+          "candidate_name": "bursts onto the scene",
+          "berry_id": "berry-blueberry",
+          "berry_ids": [
+            "berry-blueberry"
+          ],
+          "mention_kind": "new_named_variety_title",
+          "mention_context": "New blueberry variety bursts onto the scene: High calibers, extreme hardiness, and over 55 days of post-harvest shelf life - Hortidaily",
+          "evidence_id": "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc",
+          "fact_id": "",
+          "source_id": "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc",
+          "source_type": "news_search",
+          "source_tier": "tier_3_trade_press",
+          "source_label": "",
+          "source_url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNN3puNnpKNnc3bnBOUnpDenhlbTZhZUJHOWtDcUJhWkJGcUMzeUJaem8xVWxBaFdrZ0Nrb0dXS3puN0Y3dk9OQVNyczFzUExDRjk4VmIzalFzV2IyODNfdlR6RFdCX1Y0el81Zm45UWVJRzREQnhPQnNlYW1KZGtjVTBKQWtqSW5YcHU2c2RyX05ZZFYzSzhMTmNSd01rVzByLW5GZWdTRlVUdWp0S19zSTVaam1GR3pVOHVYdEVRTUsxTE9ob1J4eXJCNjhmVVB4bWJMNFNQSExoeVpGcEdMVEpIZjRyYVI3TENtM3ZhMjIzdmNQTEE?oc=5",
+          "published_date": "",
+          "breeder_owner": "",
+          "jurisdiction": "",
+          "evidence_ids": [
+            "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc"
+          ],
+          "fact_ids": [],
+          "identity_state": "distinct",
+          "candidate_canonical_match": null,
+          "match_reason": "no_canonical_identity_match",
+          "disposition": "new_candidate"
+        }
+      ],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 1,
+      "unexpected_names": 1,
+      "unresolved_names": 0,
+      "errors": {
+        "unexpected_name": 1
+      },
+      "passed": false,
+      "checks": [],
+      "unexpected": [
+        {
+          "candidate_name": "from Mexico coming next",
+          "berry_id": "berry-raspberry",
+          "berry_ids": [
+            "berry-raspberry"
+          ],
+          "mention_kind": "new_named_variety_title",
+          "mention_context": "New raspberry variety from Mexico coming next month - FreshPlaza",
+          "evidence_id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming",
+          "fact_id": "",
+          "source_id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming",
+          "source_type": "news_search",
+          "source_tier": "tier_3_trade_press",
+          "source_label": "",
+          "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOY1B0b0JoZUdXeVFCTEd4WXUtN244amFodl9hTS1vcWV2TU94WTZpcF9ickc0ZnlPM2s5YW11U0taeHlEeUlFcXZBU19vQ3ppN255M0lZazF4TTVlRWs0cFdYODB2N3h6Y0dNMDR5RWM0X0lwVU1QcFIyOUdoMV9QYnJIMk1TOW15MWZKMzNoSHJGcE5QR1Q0aWVzeHFod0RnQmoxcHJtUWJHaTd6Snc?oc=5",
+          "published_date": "",
+          "breeder_owner": "",
+          "jurisdiction": "",
+          "evidence_ids": [
+            "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming"
+          ],
+          "fact_ids": [],
+          "identity_state": "distinct",
+          "candidate_canonical_match": null,
+          "match_reason": "no_canonical_identity_match",
+          "disposition": "new_candidate"
+        }
+      ],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-producereport-blugenix-2026",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 1,
+      "unexpected_names": 1,
+      "unresolved_names": 0,
+      "errors": {
+        "unexpected_name": 1
+      },
+      "passed": false,
+      "checks": [],
+      "unexpected": [
+        {
+          "candidate_name": "BluGenix with five",
+          "berry_id": "berry-blueberry",
+          "berry_ids": [
+            "berry-blueberry"
+          ],
+          "mention_kind": "launch_title",
+          "mention_context": "Costa launches BluGenix with five blueberry varieties suited to Yunnan",
+          "evidence_id": "ev-producereport-blugenix-2026",
+          "fact_id": "",
+          "source_id": "ev-producereport-blugenix-2026",
+          "source_type": "trade_press",
+          "source_tier": "tier_3_trade_press",
+          "source_label": "",
+          "source_url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+          "published_date": "",
+          "breeder_owner": "",
+          "jurisdiction": "",
+          "evidence_ids": [
+            "ev-producereport-blugenix-2026"
+          ],
+          "fact_ids": [],
+          "identity_state": "distinct",
+          "candidate_canonical_match": null,
+          "match_reason": "no_canonical_identity_match",
+          "disposition": "new_candidate"
+        }
+      ],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "caps-launch",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "expected_names": 1,
+      "detected_names": 1,
+      "fully_correct_names": 1,
+      "returned_names": 1,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [
+        {
+          "expected": {
+            "name": "Nova Blue",
+            "berry_id": "berry-blueberry",
+            "evidence_ids": [
+              "ev-fixture-caps-launch"
+            ],
+            "source_url": "https://example.test/caps-launch?original=1"
+          },
+          "observed": {
+            "candidate_name": "Nova Blue",
+            "berry_id": "berry-blueberry",
+            "berry_ids": [
+              "berry-blueberry"
+            ],
+            "mention_kind": "launch_title",
+            "mention_context": "Example RELEASES Nova Blue BLUEBERRY VARIETY",
+            "evidence_id": "ev-fixture-caps-launch",
+            "fact_id": "",
+            "source_id": "ev-fixture-caps-launch",
+            "source_type": "trade_press",
+            "source_tier": "tier_3_trade_press",
+            "source_label": "",
+            "source_url": "https://example.test/caps-launch?original=1",
+            "published_date": "",
+            "breeder_owner": "",
+            "jurisdiction": "",
+            "evidence_ids": [
+              "ev-fixture-caps-launch"
+            ],
+            "fact_ids": [],
+            "identity_state": "distinct",
+            "candidate_canonical_match": null,
+            "match_reason": "no_canonical_identity_match",
+            "disposition": "new_candidate"
+          },
+          "errors": []
+        }
+      ],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "f1-launch",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "expected_names": 1,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 0,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {
+        "name_missing": 1
+      },
+      "passed": false,
+      "checks": [
+        {
+          "expected": {
+            "name": "Royal Ruby F1",
+            "berry_id": "berry-strawberry",
+            "evidence_ids": [
+              "ev-fixture-f1-launch"
+            ],
+            "source_url": "https://example.test/f1-launch?original=1"
+          },
+          "observed": null,
+          "errors": [
+            "name_missing"
+          ]
+        }
+      ],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [
+        {
+          "name": "Royal Ruby F1",
+          "reason": "parentage_or_selection_code",
+          "kind": "launch_title"
+        }
+      ],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "blackberry-launch",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "expected_names": 1,
+      "detected_names": 1,
+      "fully_correct_names": 1,
+      "returned_names": 1,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [
+        {
+          "expected": {
+            "name": "Test Thornless",
+            "berry_id": "berry-blackberry",
+            "evidence_ids": [
+              "ev-fixture-blackberry-launch"
+            ],
+            "source_url": "https://example.test/blackberry-launch?original=1"
+          },
+          "observed": {
+            "candidate_name": "Test Thornless",
+            "berry_id": "berry-blackberry",
+            "berry_ids": [
+              "berry-blackberry"
+            ],
+            "mention_kind": "launch_title",
+            "mention_context": "Example unveils Test Thornless blackberry variety",
+            "evidence_id": "ev-fixture-blackberry-launch",
+            "fact_id": "",
+            "source_id": "ev-fixture-blackberry-launch",
+            "source_type": "trade_press",
+            "source_tier": "tier_3_trade_press",
+            "source_label": "",
+            "source_url": "https://example.test/blackberry-launch?original=1",
+            "published_date": "",
+            "breeder_owner": "",
+            "jurisdiction": "",
+            "evidence_ids": [
+              "ev-fixture-blackberry-launch"
+            ],
+            "fact_ids": [],
+            "identity_state": "distinct",
+            "candidate_canonical_match": null,
+            "match_reason": "no_canonical_identity_match",
+            "disposition": "new_candidate"
+          },
+          "errors": []
+        }
+      ],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "named-raspberry",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "expected_names": 1,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 1,
+      "unexpected_names": 1,
+      "unresolved_names": 0,
+      "errors": {
+        "name_missing": 1,
+        "unexpected_name": 1
+      },
+      "passed": false,
+      "checks": [
+        {
+          "expected": {
+            "name": "Crimson Plus",
+            "berry_id": "berry-raspberry",
+            "evidence_ids": [
+              "ev-fixture-named-raspberry"
+            ],
+            "source_url": "https://example.test/named-raspberry?original=1"
+          },
+          "observed": null,
+          "errors": [
+            "name_missing"
+          ]
+        }
+      ],
+      "unexpected": [
+        {
+          "candidate_name": "Crimson Plus enters trials",
+          "berry_id": "berry-raspberry",
+          "berry_ids": [
+            "berry-raspberry"
+          ],
+          "mention_kind": "new_named_variety_title",
+          "mention_context": "New raspberry variety Crimson Plus enters trials",
+          "evidence_id": "ev-fixture-named-raspberry",
+          "fact_id": "",
+          "source_id": "ev-fixture-named-raspberry",
+          "source_type": "trade_press",
+          "source_tier": "tier_3_trade_press",
+          "source_label": "",
+          "source_url": "https://example.test/named-raspberry?original=1",
+          "published_date": "",
+          "breeder_owner": "",
+          "jurisdiction": "",
+          "evidence_ids": [
+            "ev-fixture-named-raspberry"
+          ],
+          "fact_ids": [],
+          "identity_state": "distinct",
+          "candidate_canonical_match": null,
+          "match_reason": "no_canonical_identity_match",
+          "disposition": "new_candidate"
+        }
+      ],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie-titlecase",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_case_variant",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 1,
+      "unexpected_names": 1,
+      "unresolved_names": 0,
+      "errors": {
+        "unexpected_name": 1
+      },
+      "passed": false,
+      "checks": [],
+      "unexpected": [
+        {
+          "candidate_name": "Two New",
+          "berry_id": "berry-raspberry",
+          "berry_ids": [
+            "berry-raspberry"
+          ],
+          "mention_kind": "launch_title",
+          "mention_context": "Cornell Releases Two New Raspberry Varieties - Cornell Chronicle",
+          "evidence_id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie",
+          "fact_id": "",
+          "source_id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie",
+          "source_type": "news_search",
+          "source_tier": "tier_3_trade_press",
+          "source_label": "",
+          "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQS0J0VEJfbHNwR0VfTDVQRTdpME9yNzNKRGpJcnNzeUJoTEZZUU02TUZmenZNYW94OGtYenExVlk5U0RlWDczTzd6aVJTOUJ4UFEySWY3UjZnOTNMb3Iya3lQMnNiVEpXMndjZ0NpRGZNa08teXg3RWZQd1lhNHhtWXh2TW0zT3pOSk84YkFR?oc=5",
+          "published_date": "",
+          "breeder_owner": "",
+          "jurisdiction": "",
+          "evidence_ids": [
+            "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie"
+          ],
+          "fact_ids": [],
+          "identity_state": "distinct",
+          "candidate_canonical_match": null,
+          "match_reason": "no_canonical_identity_match",
+          "disposition": "new_candidate"
+        }
+      ],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc-titlecase",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_case_variant",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 1,
+      "unexpected_names": 1,
+      "unresolved_names": 0,
+      "errors": {
+        "unexpected_name": 1
+      },
+      "passed": false,
+      "checks": [],
+      "unexpected": [
+        {
+          "candidate_name": "Bursts Onto The Scene",
+          "berry_id": "berry-blueberry",
+          "berry_ids": [
+            "berry-blueberry"
+          ],
+          "mention_kind": "new_named_variety_title",
+          "mention_context": "New Blueberry Variety Bursts Onto The Scene: High Calibers, Extreme Hardiness, And Over 55 Days Of Post-Harvest Shelf Life - Hortidaily",
+          "evidence_id": "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc",
+          "fact_id": "",
+          "source_id": "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc",
+          "source_type": "news_search",
+          "source_tier": "tier_3_trade_press",
+          "source_label": "",
+          "source_url": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNN3puNnpKNnc3bnBOUnpDenhlbTZhZUJHOWtDcUJhWkJGcUMzeUJaem8xVWxBaFdrZ0Nrb0dXS3puN0Y3dk9OQVNyczFzUExDRjk4VmIzalFzV2IyODNfdlR6RFdCX1Y0el81Zm45UWVJRzREQnhPQnNlYW1KZGtjVTBKQWtqSW5YcHU2c2RyX05ZZFYzSzhMTmNSd01rVzByLW5GZWdTRlVUdWp0S19zSTVaam1GR3pVOHVYdEVRTUsxTE9ob1J4eXJCNjhmVVB4bWJMNFNQSExoeVpGcEdMVEpIZjRyYVI3TENtM3ZhMjIzdmNQTEE?oc=5",
+          "published_date": "",
+          "breeder_owner": "",
+          "jurisdiction": "",
+          "evidence_ids": [
+            "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc"
+          ],
+          "fact_ids": [],
+          "identity_state": "distinct",
+          "candidate_canonical_match": null,
+          "match_reason": "no_canonical_identity_match",
+          "disposition": "new_candidate"
+        }
+      ],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming-titlecase",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_case_variant",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 1,
+      "unexpected_names": 1,
+      "unresolved_names": 0,
+      "errors": {
+        "unexpected_name": 1
+      },
+      "passed": false,
+      "checks": [],
+      "unexpected": [
+        {
+          "candidate_name": "From Mexico Coming Next",
+          "berry_id": "berry-raspberry",
+          "berry_ids": [
+            "berry-raspberry"
+          ],
+          "mention_kind": "new_named_variety_title",
+          "mention_context": "New Raspberry Variety From Mexico Coming Next Month - Freshplaza",
+          "evidence_id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming",
+          "fact_id": "",
+          "source_id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming",
+          "source_type": "news_search",
+          "source_tier": "tier_3_trade_press",
+          "source_label": "",
+          "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOY1B0b0JoZUdXeVFCTEd4WXUtN244amFodl9hTS1vcWV2TU94WTZpcF9ickc0ZnlPM2s5YW11U0taeHlEeUlFcXZBU19vQ3ppN255M0lZazF4TTVlRWs0cFdYODB2N3h6Y0dNMDR5RWM0X0lwVU1QcFIyOUdoMV9QYnJIMk1TOW15MWZKMzNoSHJGcE5QR1Q0aWVzeHFod0RnQmoxcHJtUWJHaTd6Snc?oc=5",
+          "published_date": "",
+          "breeder_owner": "",
+          "jurisdiction": "",
+          "evidence_ids": [
+            "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming"
+          ],
+          "fact_ids": [],
+          "identity_state": "distinct",
+          "candidate_canonical_match": null,
+          "match_reason": "no_canonical_identity_match",
+          "disposition": "new_candidate"
+        }
+      ],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-producereport-blugenix-2026-titlecase",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_case_variant",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 1,
+      "unexpected_names": 1,
+      "unresolved_names": 0,
+      "errors": {
+        "unexpected_name": 1
+      },
+      "passed": false,
+      "checks": [],
+      "unexpected": [
+        {
+          "candidate_name": "Blugenix With Five",
+          "berry_id": "berry-blueberry",
+          "berry_ids": [
+            "berry-blueberry"
+          ],
+          "mention_kind": "launch_title",
+          "mention_context": "Costa Launches Blugenix With Five Blueberry Varieties Suited To Yunnan",
+          "evidence_id": "ev-producereport-blugenix-2026",
+          "fact_id": "",
+          "source_id": "ev-producereport-blugenix-2026",
+          "source_type": "trade_press",
+          "source_tier": "tier_3_trade_press",
+          "source_label": "",
+          "source_url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+          "published_date": "",
+          "breeder_owner": "",
+          "jurisdiction": "",
+          "evidence_ids": [
+            "ev-producereport-blugenix-2026"
+          ],
+          "fact_ids": [],
+          "identity_state": "distinct",
+          "candidate_canonical_match": null,
+          "match_reason": "no_canonical_identity_match",
+          "disposition": "new_candidate"
+        }
+      ],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "capitalized-new-is-name",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "expected_names": 1,
+      "detected_names": 1,
+      "fully_correct_names": 1,
+      "returned_names": 1,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [
+        {
+          "expected": {
+            "name": "New Hanover",
+            "berry_id": "berry-blueberry",
+            "evidence_ids": [
+              "ev-fixture-new-hanover"
+            ],
+            "source_url": "https://example.test/new-hanover"
+          },
+          "observed": {
+            "candidate_name": "New Hanover",
+            "berry_id": "berry-blueberry",
+            "berry_ids": [
+              "berry-blueberry"
+            ],
+            "mention_kind": "launch_title",
+            "mention_context": "Example releases New Hanover blueberry variety",
+            "evidence_id": "ev-fixture-new-hanover",
+            "fact_id": "",
+            "source_id": "ev-fixture-new-hanover",
+            "source_type": "trade_press",
+            "source_tier": "tier_3_trade_press",
+            "source_label": "",
+            "source_url": "https://example.test/new-hanover",
+            "published_date": "",
+            "breeder_owner": "",
+            "jurisdiction": "",
+            "evidence_ids": [
+              "ev-fixture-new-hanover"
+            ],
+            "fact_ids": [],
+            "identity_state": "distinct",
+            "candidate_canonical_match": null,
+            "match_reason": "no_canonical_identity_match",
+            "disposition": "new_candidate"
+          },
+          "errors": []
+        }
+      ],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    }
+  ]
+}

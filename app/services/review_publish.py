@@ -50,7 +50,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from app.repositories.base import DuplicateRecord
-from app.services.entity_identity import match_named_entity
+from app.services.entity_identity import berry_scopes_disjoint, match_named_entity, recorded_berry_ids
 from app.services.evidence_claim_review import prepare_candidate_proposition
 from app.services.review_events import EventAppendResult, append_review_event, remove_created_event
 from app.services.source_completeness import source_completeness
@@ -141,6 +141,7 @@ class PublishRequest:
     strategic_question_text: list[str]
     reviewer: str
     existing_entity_ids: list[str] = field(default_factory=list)
+    catalog_variety_scope: tuple[str, str] | None = None
 
 
 @dataclass
@@ -182,6 +183,12 @@ class ReviewPublishService:
         self._review_events_inbox = review_events_inbox
 
     def publish(self, request: PublishRequest) -> PublishResult:
+        if request.catalog_variety_scope is not None:
+            name, berry = request.catalog_variety_scope
+            if (not name.strip() or not recorded_berry_ids({"berry_id": berry})
+                    or not request.draft.get("catalog_handoff") or request.selected_berries != [berry]
+                    or request.all_entity_names_by_type.get("variety") != [name]):
+                return PublishResult(schema_errors=["Keep catalog source review scoped to its checked variety name and berry."])
         # --- entity match-or-create -----------------------------------
         entities_idx = {e["id"]: e for e in self._repos.entities.list() if e.get("id")}
         existing_ids = set(entities_idx.keys())
@@ -199,7 +206,9 @@ class ReviewPublishService:
 
         for entity_type, names in request.all_entity_names_by_type.items():
             for name in names:
-                matched, ambiguous = match_named_entity(name, entity_type, list(entities_by_id.values()))
+                scoped = entity_type == "variety" and request.catalog_variety_scope is not None
+                matched, ambiguous = match_named_entity(name, entity_type, list(entities_by_id.values()),
+                    berry_id=request.catalog_variety_scope[1] if scoped else "")
                 if ambiguous:
                     return PublishResult(schema_errors=[
                         f"Ambiguous {entity_type} name {name!r} matches "
@@ -207,6 +216,11 @@ class ReviewPublishService:
                         + "; resolve the canonical identity before publishing."
                     ])
                 if matched:
+                    if scoped:
+                        return PublishResult(schema_errors=["This variety name is already recorded for this berry or has an unknown berry. Reopen identity review before adding a catalog record."])
+                    if (entity_type == "variety" and len(request.selected_berries) == 1
+                            and berry_scopes_disjoint({"berry_id": request.selected_berries[0]}, matched)):
+                        return PublishResult(schema_errors=["The matching variety belongs to another berry. Use variety identity review to add a separate record."])
                     name_to_id[name] = matched["id"]
                     entity_ids.append(matched["id"])
                     continue

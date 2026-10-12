@@ -1,0 +1,80 @@
+{
+  "scope": "Four source-captioned photo references, not whole portfolios or reuse approvals",
+  "canonical_profiles": 64,
+  "source_photo_references": 126,
+  "new_permission_held_references": 4,
+  "baseline_missing": {
+    "photos": 53,
+    "rights": 35,
+    "traits": 33,
+    "companies": 10
+  },
+  "current_missing": {
+    "photos": 50,
+    "rights": 35,
+    "traits": 33,
+    "companies": 10
+  },
+  "filled_photo_gaps": [
+    "Crimson Night",
+    "Crimson Treasure",
+    "Double Gold"
+  ],
+  "other_profile_fields_unchanged": true,
+  "portfolio_summary": {
+    "source_sections": 384,
+    "readable_sections": 280,
+    "unreadable_sections": 14,
+    "follow_up_sections": 119,
+    "names": 1561,
+    "catalog_matches": 91,
+    "needs_review": 1470,
+    "registry_entries": 77,
+    "registry_entries_checked": 60,
+    "registry_entries_partial_checks": 14,
+    "registry_entries_unavailable": 1,
+    "registry_entries_not_started": 0,
+    "registry_entries_identity_hold": 2
+  },
+  "candidate_keys": 1126,
+  "original_data_json_preserved": 2771,
+  "parent_data_preserved": true,
+  "expansion_guide_preserved": true,
+  "requirement_ids_and_order_preserved": 31,
+  "visual_guide_unchanged": true,
+  "pending_human_name_reviews": 32,
+  "human_expected_lists_completed": 0,
+  "pending_draft_preserved": true,
+  "new_source_or_catalog_decisions": 0,
+  "review_preview_private_json_files": 0,
+  "static_pages": 1755,
+  "private_photo_assets_absent": true,
+  "session_photo_screenshots_kept_in_ignored_local_inbox": true,
+  "pagefind": "passed",
+  "affected_tests": "50 passed, 1 warning in 191.87s (0:03:11)",
+  "final_source_specific_tests": "4 passed, 1 warning in 61.04s (0:01:01)",
+  "parent_pr": 392,
+  "parent_head": "2cb68bfcae65c1160f94f39cb25921bc86705c34",
+  "parent_fresh_ci_required": true,
+  "child_fresh_ci_required": true,
+  "native_browser": {
+    "port": 18579,
+    "catalog_profile": "Crimson Night",
+    "candidate": "Dickens",
+    "initially_hidden": true,
+    "session_preview_then_hide_verified": true,
+    "permission_status_unchanged": true,
+    "forms_submitted": 0,
+    "phone_verified": false
+  },
+  "merge_or_deploy": false,
+  "remaining": [
+    "CAT-01",
+    "CAT-02",
+    "TD-116",
+    "LAND-02",
+    "REL-01",
+    "Phone review",
+    "Human source/name and catalog decisions"
+  ]
+}

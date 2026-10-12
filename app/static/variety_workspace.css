@@ -5,3 +5,56 @@
 .variety-workspace .v2-btn{display:inline-block;text-decoration:none}.variety-workspace .digest-heading .company-socials{justify-content:flex-end}#candidate-results{scroll-margin-top:90px}@media(max-width:800px){.variety-workspace button,.variety-workspace .v2-btn,.variety-workspace input,.variety-workspace select{min-height:44px}.variety-workspace .digest-heading .company-socials{justify-content:flex-start}}
 
 .variety-discovered-names{border:1px solid #c3aa70;border-left:4px solid #b48628;background:#fff8e8;padding:10px 13px;border-radius:8px;margin:8px 0;font-size:.8rem}.variety-discovered-names>div{display:flex;justify-content:space-between;gap:12px}.variety-discovered-names p{margin:5px 0;color:#665d44;max-width:110ch}.variety-discovered-names summary{cursor:pointer}.variety-discovery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:7px;margin-top:9px}.variety-discovery-grid>a{padding:5px 7px;border:1px solid #d7c9a6;background:#fffdf7;border-radius:5px;text-decoration:none}.variety-discovery-grid small{display:block;color:#635e4f;font-size:.7rem;margin-top:2px}
+
+.candidate-quick-nav{position:sticky;top:var(--candidate-header-height,90px);z-index:80;display:flex;align-items:center;gap:12px;padding:8px 10px;margin:12px 0;background:rgba(250,253,243,.97);border:1px solid #a5ba99;border-radius:9px;box-shadow:0 4px 12px #21432d18;backdrop-filter:blur(12px)}
+.candidate-quick-nav .company-alphabet{flex:1;min-width:0;margin:0}
+.candidate-quick-nav .company-alphabet a{background:#fff}
+.candidate-quick-nav .company-alphabet [aria-current]{background:#28774e;color:#fff}
+.candidate-quick-actions{display:flex;flex-shrink:0;gap:7px}
+.candidate-quick-actions a{display:grid;place-items:center;min-height:34px;padding:5px 8px;border:1px solid #a5ba99;border-radius:6px;background:#fff;text-decoration:none;font-size:.78rem;font-weight:600}
+.candidate-letter-picker{display:none}
+.candidate-workspace [id]{scroll-margin-top:var(--candidate-scroll-offset,160px)}
+.candidate-workspace #candidate-results,.candidate-workspace #candidate-filters{scroll-margin-top:calc(var(--candidate-header-height,90px) + 12px)}
+.candidate-quick-nav a:focus-visible,.candidate-letter-picker select:focus-visible{outline:3px solid #8270b6;outline-offset:2px}
+@media(max-width:800px){
+  .candidate-quick-nav{gap:8px;padding:7px 8px}
+  .candidate-quick-nav .company-alphabet{flex-wrap:nowrap;overflow-x:auto;min-width:0;overscroll-behavior-x:contain}
+  .candidate-quick-nav .company-alphabet a,.candidate-quick-nav .company-alphabet span{flex-shrink:0;min-width:44px;min-height:44px}
+  .candidate-quick-nav[data-enhanced] .company-alphabet{display:none}
+  .candidate-quick-nav[data-enhanced] .candidate-letter-picker{display:flex;align-items:center;gap:6px;flex:1;min-width:0;font-size:.76rem;font-weight:600}
+  .candidate-letter-picker select{width:100%;min-width:0;max-width:140px;min-height:44px;padding:6px;border:1px solid #a5ba99;border-radius:6px;color:#183a2b;background:#fff;font-size:.85rem}
+  .candidate-quick-actions a{min-height:44px;padding:6px 8px}
+}
+/* Credited variety photos stay compact; trial/fruit images are never cropped. */
+.variety-photo-gallery{display:flex;gap:12px;overflow-x:auto;max-width:100%;padding:8px 0 12px;align-items:flex-start}
+.variety-photo{margin:0;flex:0 0 286px;max-width:100%;border:1px solid #adc2a0;border-radius:12px;background:#f8fbf3;overflow:hidden}
+.variety-photo-frame{height:180px;background:#e9efe2;display:grid;grid-template-rows:minmax(0,1fr);place-items:center;overflow:hidden}
+.variety-photo-frame img{width:100%;height:100%;min-height:0;max-height:180px;object-fit:contain}
+.variety-photo-zoom{display:flex;align-items:center;gap:8px;padding:6px 12px;border-bottom:1px solid #c7d5bc;font-size:12px;color:#34543c}
+.variety-photo-zoom[hidden]{display:none}.variety-photo-zoom input{min-width:0;flex:1;accent-color:#126039}.variety-photo-zoom output{min-width:24px;text-align:right;font-variant-numeric:tabular-nums}
+.variety-photo-frame span{padding:16px;color:#34543c;font-size:13px}
+.variety-photo-frame [hidden]{display:none}
+.variety-photo-frame[hidden]{display:none}
+.variety-photo-session-controls{padding:10px 12px;border-bottom:1px solid #c7d5bc;display:grid;gap:6px;font-size:12px;color:#34543c}
+.variety-photo-session-controls button{justify-self:start}.variety-photo-session-controls button[hidden]{display:none}
+.variety-photo figcaption{padding:10px 12px;font-size:12px;line-height:1.45;color:#34543c}
+.variety-photo figcaption b{display:block;font-size:15px;color:#183c2b}
+.variety-photo figcaption p{margin:5px 0}.variety-photo figcaption small{display:block;margin-bottom:4px}
+.variety-photo figcaption a{color:#126039;text-decoration:underline}.variety-photo figcaption details{margin-top:8px}
+.variety-photo-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0}
+.variety-photo-fields label{display:grid;gap:4px;font-weight:600;font-size:13px}
+.variety-photo-fields input,.variety-photo-fields select,.variety-photo-fields textarea{width:100%;min-width:0;padding:8px;border:1px solid #9db497;border-radius:6px;background:#fff;color:#183c2b;font:inherit}
+.variety-photo-fields textarea{min-height:70px}
+.variety-photo-thumb{float:left;margin:0 8px 4px 0;width:44px;height:44px;object-fit:contain;border:1px solid #adc2a0;border-radius:6px;background:#e9efe2}
+@media(max-width:640px){.variety-photo-fields{grid-template-columns:1fr}.variety-photo{flex-basis:260px}}
+.variety-photo-and-context{display:grid;grid-template-columns:286px minmax(0,1fr);gap:20px;align-items:start}
+.variety-photo-and-context>div{min-width:0}.variety-photo-and-context .v2-role-list{grid-template-columns:140px minmax(0,1fr);margin-top:8px}
+.variety-photo-and-context dd{min-width:0;overflow-wrap:anywhere}
+@media(max-width:850px){.variety-photo-and-context{display:block}.variety-photo-and-context .v2-role-list{grid-template-columns:120px minmax(0,1fr)}}
+.variety-profile-with-photos{display:grid;grid-template-columns:minmax(240px,280px) minmax(0,1fr);gap:20px;align-items:start}
+.variety-profile-main,.variety-profile-photos{min-width:0}
+.variety-profile-photos .variety-photo-gallery{padding-top:0}
+.variety-profile-photos .variety-photo{flex:0 0 100%;min-width:0}
+.variety-profile-photos figcaption{overflow-wrap:anywhere}
+.variety-profile-main .company-tabs{margin-top:0}
+@media(max-width:900px){.variety-profile-with-photos{display:block}.variety-profile-photos .variety-photo{flex-basis:280px;max-width:100%}}

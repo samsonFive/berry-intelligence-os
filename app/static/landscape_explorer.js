@@ -9,9 +9,18 @@
   const panel = root.querySelector('.lx-evidence');
   const el = (tag, text, className) => { const node = document.createElement(tag); if (text) node.textContent = text; if (className) node.className = className; return node; };
   function syncLinks() {
+    root.querySelectorAll('[data-save-selection] input[type=hidden]').forEach(input => {
+      if (Object.hasOwn(bundle.filters, input.name)) input.value = Array.isArray(bundle.filters[input.name]) ? bundle.filters[input.name].join(',') : bundle.filters[input.name];
+    });
     root.querySelectorAll('a[href*="/landscapes/explorer?"]').forEach(a => {
-      if (a.dataset.focus || a.dataset.resetFocus !== undefined) return;
-      const url = new URL(a.href); url.searchParams.set('focus', bundle.filters.focus || ''); url.searchParams.set('edge', bundle.filters.edge || ''); a.href = url.pathname + url.search;
+      if (a.dataset.focus || a.dataset.resetFocus !== undefined || a.dataset.savedView !== undefined) return;
+      const url = new URL(a.href);
+      const node = bundle.nodes[bundle.filters.focus];
+      const scope = bundle.crop_scopes?.find(crop => crop.id === a.dataset.cropLink);
+      const compatible = !scope || !node || node.type === 'company' || !node.berry_ids?.length || node.berry_ids.includes(scope.id);
+      url.searchParams.set('focus', compatible ? bundle.filters.focus || '' : '');
+      url.searchParams.set('edge', !scope || scope.edge_ids.includes(bundle.filters.edge) ? bundle.filters.edge || '' : '');
+      a.href = url.pathname + url.search;
     });
     root.querySelectorAll('a[href*="/landscapes/explorer/export/"], a[href*="/landscapes/explorer/briefing?"]').forEach(a => {
       const url = new URL(a.href); url.searchParams.set('focus', bundle.filters.focus || ''); url.searchParams.set('edge', bundle.filters.edge || ''); a.href = url.pathname + url.search;
@@ -27,6 +36,7 @@
     content.replaceChildren(el('h3', edge.label), el('span', edge.status_label, 'lx-status ' + edge.status));
     if (edge.caveat) content.append(el('p', edge.caveat, 'lx-lead'));
     content.append(el('p', edge.review, 'lx-muted'));
+    if (bundle.crop_scopes) content.append(el('p', 'Crop scope: ' + edge.berry_ids.map(key => key.replace('berry-', '')).join(' · '), 'lx-crop-tag'));
     [edge.subject_id, edge.object_id].forEach(key => { if (bundle.nodes[key].identity_note) content.append(el('p', `${bundle.nodes[key].label}: ${bundle.nodes[key].identity_note}`, 'lx-muted')); });
     const dates = el('dl');
     [['Effective', edge.effective || 'Not recorded'], ['Published', edge.published.join(' · ') || 'Not recorded'], ['First captured', edge.first_seen || 'Not recorded']].forEach(([key, value]) => dates.append(el('dt', key), el('dd', value)));
@@ -50,7 +60,7 @@
     const node = bundle.nodes[id]; if (!node || node.type === 'geography') return;
     const start = performance.now();
     setURL('focus', id);
-    root.querySelector('[name=focus]').value = id;
+    root.querySelector('[data-scope-form] [name=focus]').value = id;
     const related = bundle.edges.filter(edge => edge.subject_id === id || edge.object_id === id);
     if (bundle.filters.edge && !related.some(edge => edge.id === bundle.filters.edge)) root.querySelector('[data-clear-edge]').click();
     const neighbors = new Set([id, ...related.flatMap(edge => [edge.subject_id, edge.object_id])]);
@@ -81,10 +91,23 @@
     if (event.target.closest('[data-clear-edge]')) { setURL('edge', ''); panel.hidden = true; root.removeAttribute('data-evidence-open'); content.replaceChildren(el('p', 'Select a connection to inspect its sources.', 'lx-lead')); root.querySelectorAll('.is-selected').forEach(row => row.classList.remove('is-selected')); }
   });
   root.addEventListener('keydown', event => { if (event.key === 'Escape') root.querySelector('[data-clear-edge]').click(); });
-  const windowControl = root.querySelector('[name=window]');
+  root.addEventListener('change', event => {
+    if (event.target.name !== 'berry' && event.target.name !== 'compare') return;
+    const focusInput = root.querySelector('[data-scope-form] [name=focus]');
+    const focused = bundle.nodes[focusInput.value];
+    const first = event.target.name === 'berry' ? event.target.value : bundle.filters.berry;
+    const second = event.target.name === 'compare' ? event.target.value : bundle.filters.compare;
+    const scope = bundle.filters.pair === '1' || bundle.filters.view === 'compare' ? [first, second] : [first];
+    if (first !== 'all' && focused && ['variety', 'breeding_program'].includes(focused.type) && focused.berry_ids?.length && !focused.berry_ids.some(key => scope.includes(key))) focusInput.value = '';
+    bundle.filters[event.target.name] = event.target.value;
+  });
+  const windowControl = root.querySelector('[data-scope-form] [name=window]');
   function customDates() { root.querySelectorAll('[data-custom-date]').forEach(label => { label.hidden = windowControl.value !== 'custom'; }); }
   windowControl.addEventListener('change', customDates); customDates();
+  // Restore both explicit URL selections. A subsequent focus change may still
+  // close unrelated evidence, but loading a shared view must not discard it.
+  const initialEdge = bundle.filters.edge;
   if (bundle.filters.focus) selectFocus(bundle.filters.focus);
-  if (bundle.filters.edge) selectEdge(bundle.filters.edge, false);
+  if (initialEdge) selectEdge(initialEdge, false);
   root.dataset.readyMs = (performance.now() - readyStart).toFixed(2);
 })();

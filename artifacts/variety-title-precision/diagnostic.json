@@ -1,0 +1,609 @@
+{
+  "schema_version": "variety-name-recall-v1",
+  "fixture_sha256": "1c16277059cf3397024fb0a855be38ae62128e22fd9304aa4e1d6b52ee592b16",
+  "scope": "Fourteen targeted title cases: five original stored counterexamples, four invented Title Case variants and five invented positive controls. Not a random sample, live extraction or global precision estimate. Names require human identity review.",
+  "review_status": "Agent-curated diagnostic; not independently human-verified or model-qualified",
+  "method": "Existing deterministic corpus discovery only; independent expected lists; offline; no qualification or catalog writes",
+  "summary": {
+    "cases": 14,
+    "cases_passed": 13,
+    "expected_name_occurrences": 6,
+    "detected_name_occurrences": 5,
+    "missed_name_occurrences": 1,
+    "fully_correct_name_occurrences": 5,
+    "returned_name_occurrences": 5,
+    "unexpected_name_occurrences": 0,
+    "unresolved_name_occurrences": 0,
+    "name_recall": 0.8333,
+    "name_precision": 1.0,
+    "errors": {
+      "name_missing": 1
+    }
+  },
+  "by_format": {
+    "launch_title": {
+      "cases": 14,
+      "cases_passed": 13,
+      "expected_name_occurrences": 6,
+      "detected_name_occurrences": 5,
+      "missed_name_occurrences": 1,
+      "fully_correct_name_occurrences": 5,
+      "returned_name_occurrences": 5,
+      "unexpected_name_occurrences": 0,
+      "unresolved_name_occurrences": 0,
+      "name_recall": 0.8333,
+      "name_precision": 1.0,
+      "errors": {
+        "name_missing": 1
+      }
+    }
+  },
+  "by_language": {
+    "en": {
+      "cases": 14,
+      "cases_passed": 13,
+      "expected_name_occurrences": 6,
+      "detected_name_occurrences": 5,
+      "missed_name_occurrences": 1,
+      "fully_correct_name_occurrences": 5,
+      "returned_name_occurrences": 5,
+      "unexpected_name_occurrences": 0,
+      "unresolved_name_occurrences": 0,
+      "name_recall": 0.8333,
+      "name_precision": 1.0,
+      "errors": {
+        "name_missing": 1
+      }
+    }
+  },
+  "by_berry": {
+    "berry-blackberry": {
+      "expected_name_occurrences": 1,
+      "detected_name_occurrences": 1,
+      "detected_with_correct_berry": 1,
+      "fully_correct_name_occurrences": 1
+    },
+    "berry-blueberry": {
+      "expected_name_occurrences": 3,
+      "detected_name_occurrences": 3,
+      "detected_with_correct_berry": 3,
+      "fully_correct_name_occurrences": 3
+    },
+    "berry-raspberry": {
+      "expected_name_occurrences": 1,
+      "detected_name_occurrences": 1,
+      "detected_with_correct_berry": 1,
+      "fully_correct_name_occurrences": 1
+    },
+    "berry-strawberry": {
+      "expected_name_occurrences": 1,
+      "detected_name_occurrences": 0,
+      "detected_with_correct_berry": 0,
+      "fully_correct_name_occurrences": 0
+    }
+  },
+  "cases": [
+    {
+      "id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 0,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "reference_urls": [],
+      "expected_names": 1,
+      "detected_names": 1,
+      "fully_correct_names": 1,
+      "returned_names": 1,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [
+        {
+          "expected": {
+            "name": "Sentinel",
+            "berry_id": "berry-blueberry",
+            "evidence_ids": [
+              "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-"
+            ],
+            "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQTUJrSUo1ejF5bXpxMHpRZEtSZHRpMVpTVHQ2UkdtRDcyZnpTSkhXTGo4aGJiOW5FMUpnUmZFVWdMSW9TbjF2Tm5sRU1uaWFmcjctVm96WnhicHF6YlVKNkFLWlYxVnJxUndHcHNQcUxOWjRQeUJlb3BmdnZYYzJybWs5WXhsMnJ3ekE?oc=5"
+          },
+          "observed": {
+            "candidate_name": "Sentinel",
+            "berry_id": "berry-blueberry",
+            "berry_ids": [
+              "berry-blueberry"
+            ],
+            "mention_kind": "launch_title",
+            "mention_context": "UF/IFAS releases new Sentinel blueberry variety - Fruit Growers News",
+            "evidence_id": "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-",
+            "fact_id": "",
+            "source_id": "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-",
+            "source_type": "news_search",
+            "source_tier": "tier_3_trade_press",
+            "source_label": "",
+            "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQTUJrSUo1ejF5bXpxMHpRZEtSZHRpMVpTVHQ2UkdtRDcyZnpTSkhXTGo4aGJiOW5FMUpnUmZFVWdMSW9TbjF2Tm5sRU1uaWFmcjctVm96WnhicHF6YlVKNkFLWlYxVnJxUndHcHNQcUxOWjRQeUJlb3BmdnZYYzJybWs5WXhsMnJ3ekE?oc=5",
+            "published_date": "",
+            "breeder_owner": "",
+            "jurisdiction": "",
+            "evidence_ids": [
+              "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-"
+            ],
+            "fact_ids": [],
+            "identity_state": "distinct",
+            "candidate_canonical_match": null,
+            "match_reason": "no_canonical_identity_match",
+            "disposition": "new_candidate"
+          },
+          "errors": []
+        }
+      ],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 0,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 0,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-producereport-blugenix-2026",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "stored_title_counterexample",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 0,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "caps-launch",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "expected_names": 1,
+      "detected_names": 1,
+      "fully_correct_names": 1,
+      "returned_names": 1,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [
+        {
+          "expected": {
+            "name": "Nova Blue",
+            "berry_id": "berry-blueberry",
+            "evidence_ids": [
+              "ev-fixture-caps-launch"
+            ],
+            "source_url": "https://example.test/caps-launch?original=1"
+          },
+          "observed": {
+            "candidate_name": "Nova Blue",
+            "berry_id": "berry-blueberry",
+            "berry_ids": [
+              "berry-blueberry"
+            ],
+            "mention_kind": "launch_title",
+            "mention_context": "Example RELEASES Nova Blue BLUEBERRY VARIETY",
+            "evidence_id": "ev-fixture-caps-launch",
+            "fact_id": "",
+            "source_id": "ev-fixture-caps-launch",
+            "source_type": "trade_press",
+            "source_tier": "tier_3_trade_press",
+            "source_label": "",
+            "source_url": "https://example.test/caps-launch?original=1",
+            "published_date": "",
+            "breeder_owner": "",
+            "jurisdiction": "",
+            "evidence_ids": [
+              "ev-fixture-caps-launch"
+            ],
+            "fact_ids": [],
+            "identity_state": "distinct",
+            "candidate_canonical_match": null,
+            "match_reason": "no_canonical_identity_match",
+            "disposition": "new_candidate"
+          },
+          "errors": []
+        }
+      ],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "f1-launch",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "expected_names": 1,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 0,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {
+        "name_missing": 1
+      },
+      "passed": false,
+      "checks": [
+        {
+          "expected": {
+            "name": "Royal Ruby F1",
+            "berry_id": "berry-strawberry",
+            "evidence_ids": [
+              "ev-fixture-f1-launch"
+            ],
+            "source_url": "https://example.test/f1-launch?original=1"
+          },
+          "observed": null,
+          "errors": [
+            "name_missing"
+          ]
+        }
+      ],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [
+        {
+          "name": "Royal Ruby F1",
+          "reason": "parentage_or_selection_code",
+          "kind": "launch_title"
+        }
+      ],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "blackberry-launch",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "expected_names": 1,
+      "detected_names": 1,
+      "fully_correct_names": 1,
+      "returned_names": 1,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [
+        {
+          "expected": {
+            "name": "Test Thornless",
+            "berry_id": "berry-blackberry",
+            "evidence_ids": [
+              "ev-fixture-blackberry-launch"
+            ],
+            "source_url": "https://example.test/blackberry-launch?original=1"
+          },
+          "observed": {
+            "candidate_name": "Test Thornless",
+            "berry_id": "berry-blackberry",
+            "berry_ids": [
+              "berry-blackberry"
+            ],
+            "mention_kind": "launch_title",
+            "mention_context": "Example unveils Test Thornless blackberry variety",
+            "evidence_id": "ev-fixture-blackberry-launch",
+            "fact_id": "",
+            "source_id": "ev-fixture-blackberry-launch",
+            "source_type": "trade_press",
+            "source_tier": "tier_3_trade_press",
+            "source_label": "",
+            "source_url": "https://example.test/blackberry-launch?original=1",
+            "published_date": "",
+            "breeder_owner": "",
+            "jurisdiction": "",
+            "evidence_ids": [
+              "ev-fixture-blackberry-launch"
+            ],
+            "fact_ids": [],
+            "identity_state": "distinct",
+            "candidate_canonical_match": null,
+            "match_reason": "no_canonical_identity_match",
+            "disposition": "new_candidate"
+          },
+          "errors": []
+        }
+      ],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "named-raspberry",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "expected_names": 1,
+      "detected_names": 1,
+      "fully_correct_names": 1,
+      "returned_names": 1,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [
+        {
+          "expected": {
+            "name": "Crimson Plus",
+            "berry_id": "berry-raspberry",
+            "evidence_ids": [
+              "ev-fixture-named-raspberry"
+            ],
+            "source_url": "https://example.test/named-raspberry?original=1"
+          },
+          "observed": {
+            "candidate_name": "Crimson Plus",
+            "berry_id": "berry-raspberry",
+            "berry_ids": [
+              "berry-raspberry"
+            ],
+            "mention_kind": "new_named_variety_title",
+            "mention_context": "New raspberry variety Crimson Plus enters trials",
+            "evidence_id": "ev-fixture-named-raspberry",
+            "fact_id": "",
+            "source_id": "ev-fixture-named-raspberry",
+            "source_type": "trade_press",
+            "source_tier": "tier_3_trade_press",
+            "source_label": "",
+            "source_url": "https://example.test/named-raspberry?original=1",
+            "published_date": "",
+            "breeder_owner": "",
+            "jurisdiction": "",
+            "evidence_ids": [
+              "ev-fixture-named-raspberry"
+            ],
+            "fact_ids": [],
+            "identity_state": "distinct",
+            "candidate_canonical_match": null,
+            "match_reason": "no_canonical_identity_match",
+            "disposition": "new_candidate"
+          },
+          "errors": []
+        }
+      ],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie-titlecase",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_case_variant",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 0,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [
+        {
+          "name": "Two New",
+          "reason": "not_a_variety",
+          "kind": "launch_title"
+        }
+      ],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-20260806173843-a2d0-new-blueberry-variety-bursts-onto-the-sc-titlecase",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_case_variant",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 0,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [
+        {
+          "name": "Bursts Onto The Scene",
+          "reason": "not_a_variety",
+          "kind": "new_named_variety_title"
+        }
+      ],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming-titlecase",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_case_variant",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 0,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [
+        {
+          "name": "From Mexico Coming Next Month",
+          "reason": "not_a_variety",
+          "kind": "new_named_variety_title"
+        }
+      ],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "ev-producereport-blugenix-2026-titlecase",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_case_variant",
+      "reference_urls": [],
+      "expected_names": 0,
+      "detected_names": 0,
+      "fully_correct_names": 0,
+      "returned_names": 0,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [
+        {
+          "name": "Blugenix With Five",
+          "reason": "not_a_variety",
+          "kind": "launch_title"
+        }
+      ],
+      "missing_exclusion_reasons": []
+    },
+    {
+      "id": "capitalized-new-is-name",
+      "format": "launch_title",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "expected_names": 1,
+      "detected_names": 1,
+      "fully_correct_names": 1,
+      "returned_names": 1,
+      "unexpected_names": 0,
+      "unresolved_names": 0,
+      "errors": {},
+      "passed": true,
+      "checks": [
+        {
+          "expected": {
+            "name": "New Hanover",
+            "berry_id": "berry-blueberry",
+            "evidence_ids": [
+              "ev-fixture-new-hanover"
+            ],
+            "source_url": "https://example.test/new-hanover"
+          },
+          "observed": {
+            "candidate_name": "New Hanover",
+            "berry_id": "berry-blueberry",
+            "berry_ids": [
+              "berry-blueberry"
+            ],
+            "mention_kind": "launch_title",
+            "mention_context": "Example releases New Hanover blueberry variety",
+            "evidence_id": "ev-fixture-new-hanover",
+            "fact_id": "",
+            "source_id": "ev-fixture-new-hanover",
+            "source_type": "trade_press",
+            "source_tier": "tier_3_trade_press",
+            "source_label": "",
+            "source_url": "https://example.test/new-hanover",
+            "published_date": "",
+            "breeder_owner": "",
+            "jurisdiction": "",
+            "evidence_ids": [
+              "ev-fixture-new-hanover"
+            ],
+            "fact_ids": [],
+            "identity_state": "distinct",
+            "candidate_canonical_match": null,
+            "match_reason": "no_canonical_identity_match",
+            "disposition": "new_candidate"
+          },
+          "errors": []
+        }
+      ],
+      "unexpected": [],
+      "unexpected_berry_assignments": [],
+      "exclusions": [],
+      "missing_exclusion_reasons": []
+    }
+  ]
+}

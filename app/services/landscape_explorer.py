@@ -18,8 +18,9 @@ from urllib.parse import urlencode, urlsplit
 from app.services.geography_hierarchy import geography_descendants
 from app.services.source_independence import independence_report
 from app.services.variety_universe.corpus_discovery import discover_corpus_variety_mentions, source_catalog_coverage
+from app.services.variety_universe.coverage import BERRY_ORDER
 
-ENGINE_VERSION = "landscape-2"
+ENGINE_VERSION = "landscape-3"
 GENETIC_TYPES = {"variety", "breeding_program"}
 ACTOR_TYPES = {"company", "breeding_program", "variety"}
 ROLE_LABELS = {"develops": "Breeder / developer", "owns": "Owner / rights holder",
@@ -47,19 +48,33 @@ def _values(params, key):
 
 def selection(params, entities, *, today=None):
     today = today or date.today()
-    countries = _values(params, "countries") if "countries" in params else ["geography-chile", "geography-china", "geography-peru"]
-    # Generic service accepts any known berry; the milestone route gates rollout.
+    # Generic service accepts known berries; the route exposes the app's four crop categories.
     berry = str(params.get("berry") or "berry-blueberry")
-    if berry not in entities or entities[berry].get("entity_type") != "berry":
+    available = [key for key in BERRY_ORDER if key in entities and entities[key].get("entity_type") == "berry"]
+    if berry != "all" and berry not in available:
         raise ValueError("Choose a registered berry.")
+    compare = str(params.get("compare") or next((key for key in available if key != berry), ""))
+    if compare and compare not in available:
+        raise ValueError("Choose a registered berry to compare.")
+    if str(params.get("pair") or "") not in {"", "1"}:
+        raise ValueError("Choose a supported comparison scope.")
+    comparing = params.get("view") == "compare" or params.get("pair") == "1"
+    if comparing and (berry == "all" or not compare or compare == berry):
+        raise ValueError("Comparison needs two different berries. Choose a first berry and a second berry.")
+    berry_scope = available if berry == "all" else [berry, compare] if comparing else [berry]
+    countries = (_values(params, "countries") if "countries" in params else
+                 ["geography-chile", "geography-china", "geography-peru"] if berry == "berry-blueberry" and not comparing else [])
     if any(key not in entities or entities[key].get("entity_type") != "geography" for key in countries):
         raise ValueError("Choose registered countries or regions.")
     focus = str(params.get("focus") or "")
     if focus and (focus not in entities or entities[focus].get("entity_type") not in ACTOR_TYPES):
         raise ValueError("The selected company, program or variety is unavailable.")
+    if (focus and entities[focus].get("entity_type") in GENETIC_TYPES
+            and entities[focus].get("berry_ids") and not set(berry_scope).intersection(entities[focus]["berry_ids"])):
+        raise ValueError("This program or variety is outside the selected berry; choose its berry or reset focus.")
     enums = {"predicate": ("", *ROLE_LABELS), "evidence": ("reviewed", "all"),
              "status": ("all", "active", "historical", "disputed"),
-             "view": ("portrait", "changes", "explain", "relationships"),
+             "view": ("portrait", "changes", "explain", "relationships", "compare"),
              "window": ("all", "7d", "30d", "ytd", "custom"),
              "time": ("documented", "published", "event"),
              "question": tuple(QUESTIONS), "theme": ("light", "dark")}
@@ -80,7 +95,7 @@ def selection(params, entities, *, today=None):
     except (TypeError, ValueError) as exc:
         raise ValueError("The display limit is invalid.") from exc
     edge = str(params.get("edge") or "")
-    return {**result, "berry": berry, "countries": countries, "focus": focus,
+    return {**result, "berry": berry, "compare": compare, "pair": "1" if comparing else "", "countries": countries, "focus": focus,
             "q": str(params.get("q") or "").strip()[:200], "start": start or "", "end": end or "",
             "limit": limit, "edge": edge}
 
@@ -158,6 +173,10 @@ def build_bundle(entities, relationships, evidence, params, *, today=None):
         if cache_key in _CACHE:
             _CACHE.move_to_end(cache_key)
             return deepcopy(_CACHE[cache_key])
+    if filters["berry"] == "all" or filters["pair"]:
+        bundle = _combined_bundle(entities, relationships, evidence, filters, fingerprint, today)
+        _remember(cache_key, bundle)
+        return bundle
     records = {row["id"]: row for row in evidence if row.get("status") == "published" or
                (filters["evidence"] == "all" and row.get("status") == "in_review")}
     country_scope = set(filters["countries"])
@@ -177,7 +196,8 @@ def build_bundle(entities, relationships, evidence, params, *, today=None):
         explicit_tags = [set(node.get("berry_ids") or []) for node in genetic if node.get("berry_ids")]
         tags = set(row.get("berry_ids") or []) | set(left.get("berry_ids") or []) | set(right.get("berry_ids") or [])
         source_tags = {tag for sid in row.get("evidence_ids", []) for tag in records.get(sid, {}).get("berry_ids", [])}
-        if any(berry not in tagset for tagset in explicit_tags) or berry not in tags | source_tags:
+        if (row.get("berry_ids") and berry not in row["berry_ids"] or
+                any(berry not in tagset for tagset in explicit_tags) or berry not in tags | source_tags):
             continue
         if row.get("predicate") not in ROLE_LABELS or row.get("status") not in {"active", "historical", "disputed"}:
             continue
@@ -197,6 +217,7 @@ def build_bundle(entities, relationships, evidence, params, *, today=None):
         in_window = any((not filters["start"] or d >= filters["start"]) and
                         (not filters["end"] or d <= filters["end"]) for d in selected_dates)
         candidates.append({"id": row["id"], "subject_id": left["id"], "object_id": right["id"],
+                           "berry_ids": [berry],
                            "predicate": row["predicate"], "role": ROLE_LABELS[row["predicate"]],
                            "status": row["status"], "status_label": {"active": "Documented relationship", "historical": "Historical relationship", "disputed": "Disputed / review required"}[row["status"]],
                            "review": "Includes unreviewed source" if any(r.get("status") != "published" for r in source_rows) else "Reviewed sources",
@@ -236,6 +257,26 @@ def build_bundle(entities, relationships, evidence, params, *, today=None):
         query = filters["q"].casefold()
         matches = {key for key in reached if query in " ".join([str(entities[key].get("name", "")), *[str(a) for a in entities[key].get("aliases", [])]]).casefold()}
         edges = [edge for edge in edges if {edge["subject_id"], edge["object_id"]} & matches]
+    bundle = _assemble_bundle(entities, relationships, records, filters, edges, fingerprint, excluded)
+    _remember(cache_key, bundle)
+    return bundle
+
+
+def _remember(cache_key, bundle):
+    with _CACHE_LOCK:
+        _CACHE[cache_key] = deepcopy(bundle)
+        while len(_CACHE) > 12:
+            _CACHE.popitem(last=False)
+
+
+def browser_bundle(bundle):
+    """Interactive core; server-rendered tables need not be duplicated in JSON."""
+    return {**{key: bundle[key] for key in ("contract", "version", "filters", "nodes", "edges", "sources")},
+            "crop_scopes": [{"id": c["id"], "edge_ids": c["edge_ids"]} for c in bundle.get("crop_scopes", [])]}
+
+
+def _assemble_bundle(entities, relationships, records, filters, edges, fingerprint, excluded):
+    """One projection shared by single-crop, union and comparison exports."""
     used = {key for edge in edges for key in (edge["subject_id"], edge["object_id"])}
     node_rows = [{"id": key, "label": entities[key].get("name") or key, "type": entities[key]["entity_type"],
                   "aliases": entities[key].get("aliases") or [], "berry_ids": entities[key].get("berry_ids") or [],
@@ -292,7 +333,7 @@ def build_bundle(entities, relationships, evidence, params, *, today=None):
     if any(edge["unavailable_evidence_count"] for edge in edges):
         warnings.append("Some relationship references are unavailable under the selected review policy; only visible sources are cited.")
     bundle = {"contract": ENGINE_VERSION, "version": fingerprint[:16], "generated_at": datetime.now(timezone.utc).isoformat(),
-              "filters": filters, "title": f"{entities[berry].get('name', berry)} landscape", "nodes": nodes,
+              "filters": filters, "title": "All berries landscape" if filters["berry"] == "all" else f"{entities[filters['berry']].get('name', filters['berry'])} landscape", "nodes": nodes,
               "edges": edges, "visible_nodes": visible_nodes, "visible_edges": visible_edges, "lanes": lanes,
               "genetics": [row for row in visible_nodes if row["type"] in GENETIC_TYPES],
               "sources": sources, "independence": independence, "changes": changes,
@@ -307,10 +348,67 @@ def build_bundle(entities, relationships, evidence, params, *, today=None):
                            "excluded": excluded, "partial": True}}
     bundle["explanation"] = explain(bundle)
     add_portrait_context(bundle, entities, records)
-    with _CACHE_LOCK:
-        _CACHE[cache_key] = deepcopy(bundle)
-        while len(_CACHE) > 12:
-            _CACHE.popitem(last=False)
+    return bundle
+
+
+def _combined_bundle(entities, relationships, evidence, filters, fingerprint, today):
+    """Union already-scoped crop bundles, never traverse a cross-crop shortcut.
+
+    Stable registry IDs deduplicate shared actors and edges. Crop membership is
+    the set of single-crop projections containing the edge, not an inferred
+    variety identity, commercial footprint or source claim.
+    """
+    crops = ([filters["berry"], filters["compare"]] if filters["pair"] else
+             [key for key in BERRY_ORDER if key in entities and entities[key].get("entity_type") == "berry"])
+    panels, edges = [], {}
+    for crop in crops:
+        focus = filters["focus"]
+        if focus and entities[focus].get("entity_type") in GENETIC_TYPES and entities[focus].get("berry_ids") and crop not in entities[focus]["berry_ids"]:
+            focus = ""
+        child = build_bundle(entities, relationships, evidence,
+                             {**filters, "countries": ",".join(filters["countries"]),
+                              "berry": crop, "view": "portrait", "pair": "", "focus": focus, "edge": "",
+                              "limit": max(20, filters["limit"] // 2) if filters["view"] == "compare" else filters["limit"]}, today=today)
+        panels.append(child)
+        for edge in child["edges"]:
+            if edge["id"] not in edges:
+                edges[edge["id"]] = deepcopy(edge)
+                edges[edge["id"]]["berry_ids"] = []
+            edges[edge["id"]]["berry_ids"].append(crop)
+    records = {row["id"]: row for row in evidence if row.get("status") == "published" or
+               (filters["evidence"] == "all" and row.get("status") == "in_review")}
+    # These diagnostics overlap across crops; do not add them as distinct records.
+    excluded = {key: max((p["coverage"]["excluded"][key] for p in panels), default=0)
+                for key in ("missing_endpoints", "unavailable_sources")}
+    bundle = _assemble_bundle(entities, relationships, records, filters,
+                              [edges[key] for key in sorted(edges)], fingerprint, excluded)
+    bundle["coverage"]["excluded_count_basis"] = "Largest per-crop diagnostic; crop diagnostics overlap, so these are not distinct excluded-record totals."
+    common = set.intersection(*[{key for key, row in p["nodes"].items()
+                                if row["type"] in {"company", "breeding_program"}} for p in panels]) if panels else set()
+    bundle["common_actor_ids"] = sorted(common) if filters["pair"] else []
+    bundle["crop_scopes"] = [{"id": p["filters"]["berry"], "label": entities[p["filters"]["berry"]]["name"],
+                               "coverage": p["coverage"], "node_ids": list(p["nodes"]),
+                               "edge_ids": [e["id"] for e in p["edges"]],
+                               "visible_ids": [n["id"] for n in p["visible_nodes"]],
+                               "url": p["url"]} for p in panels]
+    # Keep program -> variety paths inside their single-crop projections.
+    bundle["portfolios"] = [{**row, "berry_id": p["filters"]["berry"],
+                              "berry_label": entities[p["filters"]["berry"]]["name"]}
+                             for p in panels for row in p["portfolios"]]
+    if filters["pair"]:
+        bundle["title"] = " vs ".join(entities[crop]["name"] for crop in crops) + " landscapes"
+    if filters["view"] == "compare":
+        # The page displays two bounded panels, not the aggregate's edge prefix.
+        visible_ids = {node["id"] for p in panels for node in p["visible_nodes"]}
+        visible_edges = {edge["id"] for p in panels for edge in p["visible_edges"]}
+        bundle["visible_nodes"] = [n for n in bundle["nodes"].values() if n["id"] in visible_ids]
+        bundle["visible_edges"] = [e for e in bundle["edges"] if e["id"] in visible_edges]
+        bundle["genetics"] = [n for n in bundle["visible_nodes"] if n["type"] in GENETIC_TYPES]
+        bundle["coverage"].update(hidden_nodes=len(bundle["nodes"])-len(visible_ids),
+                                  hidden_relationships=len(bundle["edges"])-len(visible_edges),
+                                  truncated_display=len(bundle["edges"])!=len(visible_edges))
+    bundle["warnings"].append("Crop totals overlap where the same registry actor, relationship or source appears in more than one crop. Counts show recorded coverage, not scale or influence.")
+    bundle["explanation"] = explain(bundle)
     return bundle
 
 
@@ -342,7 +440,10 @@ def add_portrait_context(bundle, entities, records):
     source_mentions = source_catalog_coverage(report)
     for source in bundle["sources"]:
         source["varieties"] = source_mentions.get(source["id"], [])
-    gaps = [row for row in report["mentions"] if not row.get("canonical_variety_id") and row.get("berry_id") == bundle["filters"]["berry"]]
+    scope = set(BERRY_ORDER) if bundle["filters"]["berry"] == "all" else {bundle["filters"]["berry"]}
+    if bundle["filters"].get("pair"):
+        scope.add(bundle["filters"]["compare"])
+    gaps = [row for row in report["mentions"] if not row.get("canonical_variety_id") and row.get("berry_id") in scope]
     insights = []
     def insight(title, text, next_step, selected):
         insights.append({"title": title, "text": text, "next_step": next_step,

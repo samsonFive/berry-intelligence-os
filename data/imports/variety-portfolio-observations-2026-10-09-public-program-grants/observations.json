@@ -1,0 +1,199 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-public-program-grant-onyx",
+      "title": "Onyx — original US plant patent",
+      "url": "https://patents.google.com/patent/USPP22358P2/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-09",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal focal denomination in the original grant heading and claim; not a full historical portfolio or rights search.",
+      "limitations": "No current rights, licence, company-role, trait, growing-footprint or reuse approval. Printed assignee and source comparisons remain document context. The original description calls the selected seedling ORUS 1523-4. This is attributed source context, not an approved catalog alias. Figure 2 on PDF page 5 shows fruit and a fruit cluster; the browser page exposes no separate figure URL, so view it in the original PDF.",
+      "names": [
+        {
+          "candidate_name": "Onyx",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://patentimages.storage.googleapis.com/58/65/a8/64219f4e167eb0/USPP22358.pdf#page=3",
+          "application_number": "12/660,189",
+          "grant_number": "USPP22358P2",
+          "jurisdiction": "US",
+          "application_date": "2010-02-22",
+          "grant_date": "2011-12-20",
+          "portfolio_context": "Claim 1 is on PDF page 3, printed column 6. Filing and grant dates are historical document metadata; current rights and licence terms are not verified. The original description calls the selected seedling ORUS 1523-4. This is attributed source context, not an approved catalog alias. Figure 2 on PDF page 5 shows fruit and a fruit cluster; the browser page exposes no separate figure URL, so view it in the original PDF."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_patent_text_and_all_pages_visual_review",
+        "sha256": "290adb0efd46505927e19dcae64c6193e7120a3482416bab95020a43ac0de87e",
+        "page_count": 6,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "claim_page": 3,
+        "claim_column": 6,
+        "fruit_figure": 2,
+        "fruit_page": 5,
+        "non_portfolio_context": [
+          "OSC 1466 and ORUS 1117-11 are parents, not focal releases.",
+          "Marion, Black Diamond, Siskiyou, Metolius, Obsidian, Kotata, Chester Thornless, Ouachita and Navaho are comparison context.",
+          "Aurora and Corvallis observations do not establish current commercial growing regions."
+        ]
+      }
+    },
+    {
+      "id": "portfolio-public-program-grant-apf-77",
+      "title": "APF-77 — original US plant patent",
+      "url": "https://patents.google.com/patent/USPP24249P3/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-09",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal focal denomination in the original grant heading and claim; not a full historical portfolio or rights search.",
+      "limitations": "No current rights, licence, company-role, trait, growing-footprint or reuse approval. Printed assignee and source comparisons remain document context. The grant denomination is APF-77. The Black Magic display label comes from the separately retained OSU release list, not from the patent claim. Figure 2 shows ripe primocane fruit near Clarksville, Arkansas; its location and season remain historical trial context.",
+      "names": [
+        {
+          "candidate_name": "APF-77",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://patentimages.storage.googleapis.com/77/6b/72/93d8fc28b7f38b/USPP24249.pdf#page=4",
+          "application_number": "13/374,444",
+          "grant_number": "USPP24249P3",
+          "jurisdiction": "US",
+          "application_date": "2011-12-29",
+          "grant_date": "2014-02-18",
+          "portfolio_context": "Claim 1 is on PDF page 4, printed column 8. Filing and grant dates are historical document metadata; current rights and licence terms are not verified. The grant denomination is APF-77. The Black Magic display label comes from the separately retained OSU release list, not from the patent claim. Figure 2 shows ripe primocane fruit near Clarksville, Arkansas; its location and season remain historical trial context.",
+          "trade_name": "Black Magic",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/48/5c/e3/f8c9c4d07694d5/USPP024249-20140218-D00002.png",
+              "source_url": "https://patentimages.storage.googleapis.com/77/6b/72/93d8fc28b7f38b/USPP24249.pdf",
+              "named_variety": "APF-77",
+              "berry_id": "berry-blackberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-09",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "USPP24249P3 · Board of Trustees of the University of Arkansas (printed assignee) · Photographer not credited",
+              "caption": "APF-77 ripe primocane fruit, Figure 2. Monochrome original grant scan; the caption places the photograph near Clarksville, Arkansas in early October.",
+              "reuse_note": "No photograph reuse permission established. A public patent grant and its printed assignee do not establish image reuse permission."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_patent_text_and_all_pages_visual_review",
+        "sha256": "1f84ed7c9ae4ef3fe170d17043716cbc5cbbf827a4b83bc886886fcd288f848a",
+        "page_count": 8,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "claim_page": 4,
+        "claim_column": 8,
+        "fruit_figure": 2,
+        "fruit_page": 6,
+        "non_portfolio_context": [
+          "APF-12 and Arapaho are parents, not focal releases.",
+          "APF-45 is comparison context, not a newly attributed release.",
+          "Test locations and older non-patented wording do not establish commercial footprints or current worldwide rights."
+        ]
+      }
+    },
+    {
+      "id": "portfolio-public-program-grant-columbia-giant",
+      "title": "Columbia Giant — original US plant patent",
+      "url": "https://patents.google.com/patent/USPP28369P3/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-09",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal focal denomination in the original grant heading and claim; not a full historical portfolio or rights search.",
+      "limitations": "No current rights, licence, company-role, trait, growing-footprint or reuse approval. Printed assignee and source comparisons remain document context. Figure 3 shows a fruiting lateral. Description observations cover the 2011–2014 Corvallis and Aurora trials and vary with conditions. The document gives male parent ORUS 1350-2 in its origin section but ORUS 1350-1 in its comparison section; this discrepancy is not resolved into a catalog relationship.",
+      "names": [
+        {
+          "candidate_name": "Columbia Giant",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://patentimages.storage.googleapis.com/2d/d0/4b/62445dd4b49272/USPP28369.pdf#page=4",
+          "application_number": "14/756,637",
+          "grant_number": "USPP28369P3",
+          "jurisdiction": "US",
+          "application_date": "2015-09-28",
+          "grant_date": "2017-09-12",
+          "portfolio_context": "Claim 1 is on PDF page 4, printed column 8. Filing and grant dates are historical document metadata; current rights and licence terms are not verified. Figure 3 shows a fruiting lateral. Description observations cover the 2011–2014 Corvallis and Aurora trials and vary with conditions. The document gives male parent ORUS 1350-2 in its origin section but ORUS 1350-1 in its comparison section; this discrepancy is not resolved into a catalog relationship.",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/1c/12/12/690d962a398fc0/USPP028369-20170912-D00003.png",
+              "source_url": "https://patentimages.storage.googleapis.com/2d/d0/4b/62445dd4b49272/USPP28369.pdf",
+              "named_variety": "Columbia Giant",
+              "berry_id": "berry-blackberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-09",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "USPP28369P3 · United States, represented by the Secretary of Agriculture (printed assignee) · Photographer not credited",
+              "caption": "Columbia Giant fruiting lateral, Figure 3. Monochrome original grant scan; view the document for the original caption and trial context.",
+              "reuse_note": "No photograph reuse permission established. A public patent grant and its printed assignee do not establish image reuse permission."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "original_patent_text_and_all_pages_visual_review",
+        "sha256": "3c222cc31ebbd2b724b464008d1a53db992f3ed2d0d256554ae358052870407e",
+        "page_count": 8,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "claim_page": 4,
+        "claim_column": 8,
+        "fruit_figure": 3,
+        "fruit_page": 7,
+        "non_portfolio_context": [
+          "NZ 9629-1 and ORUS 1350-2 are parents, not focal releases; inconsistent ORUS 1350-1 wording remains unresolved.",
+          "Lincoln Logan and Austin Thornless are ancestry context; Marion, Black Diamond and Columbia Star are comparison context.",
+          "No ORUS 2427-4 or ORUS 1939-4 cultivar identity is inferred from this grant."
+        ]
+      }
+    }
+  ]
+}
