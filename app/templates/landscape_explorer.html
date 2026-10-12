@@ -1,11 +1,11 @@
 {% extends "glasshouse_base.html" %}
 {% block title %}Landscape Explorer · Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/landscape_explorer.css?v=5">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/landscape_explorer.css?v=6">{% endblock %}
 {% block content %}
 {% set f = bundle.filters %}
 {% set visible_ids = bundle.visible_nodes|map(attribute="id")|list %}
 {% macro endpoint(key) %}{% if bundle.nodes[key].type == 'geography' %}<span>{{ bundle.nodes[key].label }}</span>{% else %}<a href="{{ href(f, focus=key, edge='') }}" data-focus="{{ key }}">{{ bundle.nodes[key].label }}</a>{% endif %}{% endmacro %}
-<div class="lx" data-landscape-explorer data-theme="{{ f.theme }}"{% if f.edge %} data-evidence-open{% endif %}>
+<div class="lx" data-landscape-explorer data-theme="{{ f.theme }}"{% if f.pair %} data-paired-scope{% endif %}{% if f.edge %} data-evidence-open{% endif %}>
   <header class="lx-heading"><div><p class="lx-eyebrow">YOUR INDUSTRY, CONNECTED</p><h1>Landscape Explorer</h1><p>Compare market presence, trace genetics access and see what still needs checking.</p></div><div class="lx-heading-actions"><a href="/landscapes">Landscape overview</a><a href="{{ href(f, theme='light' if f.theme == 'dark' else 'dark') }}">{{ 'Light' if f.theme == 'dark' else 'Dark' }} view</a><details class="lx-exports"><summary>Export briefing ↓</summary><div><a href="/landscapes/explorer/briefing?{{ export_query }}" target="_blank" rel="noopener noreferrer">Preview printable briefing ↗</a><a href="/landscapes/explorer/export/html?{{ export_query }}">Printable HTML · complete scope</a><a href="/landscapes/explorer/export/svg?{{ export_query }}">Vector SVG · all connections</a><a href="/landscapes/explorer/export/csv?{{ export_query }}">Relationships & sources CSV</a><small>Exports keep a dated snapshot. Saved views reopen with current data.</small></div></details></div></header>
   {% include 'partials/landscape_explorer_saved.html' %}
   <form class="lx-filters" data-scope-form method="get" action="/landscapes/explorer">
@@ -67,4 +67,4 @@
   <script type="application/json" id="landscape-bundle">{{ browser_bundle|tojson }}</script>
 </div>
 {% endblock %}
-{% block scripts %}<script src="/static/landscape_explorer.js?v=6"></script>{% endblock %}
+{% block scripts %}<script src="/static/landscape_explorer.js?v=7"></script>{% endblock %}

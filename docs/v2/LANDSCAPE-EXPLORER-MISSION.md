@@ -2,6 +2,33 @@
 
 ## Milestone B authorized — October 12, 2026
 
+### Actual browser walkthrough and density repair
+
+The in-app browser is now available and completes review despite the earlier
+native Edge activation failure. Real raspberry–blackberry comparison opens the
+Driscoll's→Victoria source panel, focuses the shared company, saves a named view
+on the isolated copied runtime, and reopens it with both focus and evidence
+restored. The review view is `lview-5e2f1377bf4d4281b103772965319475` in that
+copy only; no original/production runtime or trust state was changed.
+
+Visual review found a fifth filter control pushed Apply into an empty row and
+company columns consumed half the comparison width. Explicit paired columns
+and wrapping role chips restore density. Phone comparison tables fit without
+horizontal page overflow, with full names wrapping. A real focus click also
+exposed the Clear focus selector overwriting Return to single crop; scoping
+that selector repairs the control. **69 Explorer/controller tests pass**,
+one existing warning, **8.01 seconds**, after these changes.
+
+Light/dark responsive emulation at **412×844** verifies a 397px content viewport
+with matching document scroll width; each stacked crop panel is 337px wide and
+has 335px scroll width. This is browser emulation, not physical-phone evidence.
+Observed controller initialization is **0.4–0.6 ms** and shared-company
+highlighting **4.8 ms** on this PC; these exclude server response time and paint.
+Private screenshot `landscape-comparison-iab-desktop.jpg` is retained in the
+review inbox. Temporary viewport overrides are reset. Remaining blueberry–
+strawberry/All berries walkthrough, exports, PDF, traits, guide refresh and final
+current-head checks remain; no release approval is inferred.
+
 ### Canonical integration — October 12
 
 Canonical advanced to `7360c5821c009484381394ed8afa9fb91e322a50` with the

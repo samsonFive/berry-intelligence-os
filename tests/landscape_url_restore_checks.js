@@ -33,7 +33,7 @@ root.addEventListener = (name, handler) => { handlers[name] = handler; };
 const selectors = {'[data-evidence-content]':content, '.lx-evidence':panel,
   '[data-scope-form] [name=focus]':field, '[data-clear-edge]':clear, '.lx-focus':focusSection,
   '[data-focus-title]':title, '[data-focus-diagram]':diagram,
-  '[data-reset-focus]':reset, '[data-scope-form] [name=window]':windowControl};
+  '.lx-focus [data-reset-focus]':reset, '[data-scope-form] [name=window]':windowControl};
 root.querySelector = selector => {
   assert.ok(selector in selectors, 'Unexpected DOM dependency: ' + selector);
   return selectors[selector];
