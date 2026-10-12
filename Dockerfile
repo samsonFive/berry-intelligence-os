@@ -21,6 +21,7 @@ COPY app /app/app
 COPY schemas /app/schemas
 COPY scripts /app/scripts
 COPY benchmarks /app/benchmarks
+COPY docs/v2/social-source-access.json /app/docs/v2/social-source-access.json
 COPY data /app/seed/data
 COPY docker-entrypoint.sh /app/docker-entrypoint.sh
 
