@@ -1,6 +1,13 @@
 # Technical Debt Register
 
-## Current catalog debt — October 10, 2026
+## Current catalog debt — October 12, 2026
+
+The [Cornell photo follow-up](CORNELL-VARIETY-PHOTOS-REVIEW.md) adds four
+permission-held references, reducing missing catalog photo references from 53
+to 50 of 64 profiles. Rights, traits and organization rows are unchanged. Source
+captions do not approve identities or reuse; current portfolios, independently
+reviewed recall and actual human catalog decisions remain incomplete. TD-116
+remains open and evidence-class maturity counts below are unchanged.
 
 TD-116 remains open. Source-name discovery, original patent links and attributed
 photo references improve coverage but do not establish complete portfolios,
@@ -21,7 +28,7 @@ an absent company dossier no longer hides source discoveries.
 TD-116 remains open for complete portfolios, profiles and independent recall.
 
 The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
-shows actual catalog gaps: 53/64 without photo references, 35/64 without
+shows actual catalog gaps: 50/64 without photo references, 35/64 without
 patent/PVR references, 33/64 without cited traits and 10/64 without linked
 organizations after the [active-role correction](VARIETY-PROFILE-ORGANIZATION-REVIEW.md).
 Counts are scoped field presence, not current rights, independent

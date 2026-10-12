@@ -1,5 +1,13 @@
 # Project Status
 
+**October 12: Cornell photo references.** Three existing raspberry profiles and
+the Dickens strawberry candidate gain separately captioned source photographs.
+Photo-reference gaps fall from 53 to 50 of 64 catalog profiles; other field gaps
+and all canonical records remain unchanged. All four photos stay permission-held
+with private session preview. The 50 affected tests, record validation and full
+1,755-page public build pass. Fresh parent/child CI and phone review remain;
+see [Cornell photo review](docs/v2/CORNELL-VARIETY-PHOTOS-REVIEW.md).
+
 **October 10: profile organization correction.** The inventory now uses active
 company, brand and breeding-program links, including trial operators. Four false
 missing-link flags are repaired; 10 of 64 profiles still lack an organization

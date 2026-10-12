@@ -1,0 +1,141 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-cornell-photo-double-gold",
+      "title": "Double Gold — Cornell release photograph",
+      "url": "https://news.cornell.edu/stories/2012/04/cornell-releases-two-new-raspberry-varieties",
+      "company_ids": ["breeding_program-cornell-berry"],
+      "berry_ids": ["berry-raspberry"],
+      "checked_on": "2026-10-12",
+      "published_date": "2012-04-30",
+      "source_type": "university_release_photo",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One focal cultivar explicitly named by the photograph caption. Other release names already have separate source observations; this is not a whole-page or current-portfolio enumeration.",
+      "limitations": "Historical source-labeled photograph, not independent cultivar verification or trait evidence. The publisher's photo policy requires express permission for redistribution; none has been recorded. Retain the exact observed asset URL and credit. No downloaded image, rights decision, cultivar alias or catalog write.",
+      "names": [{
+        "candidate_name": "Double Gold",
+        "berry_id": "berry-raspberry",
+        "product_url": "https://news.cornell.edu/stories/2012/04/cornell-releases-two-new-raspberry-varieties",
+        "portfolio_context": "Cornell's April 2012 release identifies this photograph as Double Gold and credits Courtney Weber.",
+        "photos": [{
+          "image_url": "https://news.cornell.edu/sites/chronicle.cornell/files/DoubleGold.jpg",
+          "source_url": "https://news.cornell.edu/stories/2012/04/cornell-releases-two-new-raspberry-varieties",
+          "named_variety": "Double Gold",
+          "berry_id": "berry-raspberry",
+          "kind": "fruit",
+          "checked_on": "2026-10-12",
+          "reuse": "unknown",
+          "license_url": "https://news.cornell.edu/about/copyright",
+          "credit": "Courtney Weber · Cornell Chronicle",
+          "caption": "Golden and pink-blushed raspberries in the release photo identified as Double Gold by Cornell.",
+          "reuse_note": "Cornell Chronicle's photo policy requires express written permission for redistribution or commercial use. This source check records no such permission. Session preview does not change that status."
+        }]
+      }],
+      "accounting": {"observed_items": 1, "exclusions": []},
+      "capture_reference": {"method": "native_source_image_caption_and_gallery_review", "source_image_alt": "raspberries", "source_image_width": 400, "source_image_height": 267, "visually_reviewed": true, "asset_url_modified": false, "image_downloaded": false, "whole_page_name_enumeration": false}
+    },
+    {
+      "id": "portfolio-cornell-photo-crimson-night",
+      "title": "Crimson Night — Cornell release photograph",
+      "url": "https://news.cornell.edu/stories/2012/04/cornell-releases-two-new-raspberry-varieties",
+      "company_ids": ["breeding_program-cornell-berry"],
+      "berry_ids": ["berry-raspberry"],
+      "checked_on": "2026-10-12",
+      "published_date": "2012-04-30",
+      "source_type": "university_release_photo",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One focal cultivar explicitly named by the photograph caption. Other release names already have separate source observations; this is not a whole-page or current-portfolio enumeration.",
+      "limitations": "Historical source-labeled photograph, not independent cultivar verification or trait evidence. The publisher's photo policy requires express permission for redistribution; none has been recorded. Retain the exact observed asset URL and credit. No downloaded image, rights decision, cultivar alias or catalog write.",
+      "names": [{
+        "candidate_name": "Crimson Night",
+        "berry_id": "berry-raspberry",
+        "product_url": "https://news.cornell.edu/stories/2012/04/cornell-releases-two-new-raspberry-varieties",
+        "portfolio_context": "Cornell's April 2012 release identifies this photograph as Crimson Night and credits Courtney Weber.",
+        "photos": [{
+          "image_url": "https://news.cornell.edu/sites/chronicle.cornell/files/CrimsonNight.jpg",
+          "source_url": "https://news.cornell.edu/stories/2012/04/cornell-releases-two-new-raspberry-varieties",
+          "named_variety": "Crimson Night",
+          "berry_id": "berry-raspberry",
+          "kind": "fruit",
+          "checked_on": "2026-10-12",
+          "reuse": "unknown",
+          "license_url": "https://news.cornell.edu/about/copyright",
+          "credit": "Courtney Weber · Cornell Chronicle",
+          "caption": "Dark raspberry fruit on a cane, identified as Crimson Night in Cornell's release photograph.",
+          "reuse_note": "Cornell Chronicle's photo policy requires express written permission for redistribution or commercial use. This source check records no such permission. Session preview does not change that status."
+        }]
+      }],
+      "accounting": {"observed_items": 1, "exclusions": []},
+      "capture_reference": {"method": "native_source_image_caption_and_gallery_review", "source_image_alt": "Crimson Night raspberries", "source_image_width": 400, "source_image_height": 267, "visually_reviewed": true, "asset_url_modified": false, "image_downloaded": false, "whole_page_name_enumeration": false}
+    },
+    {
+      "id": "portfolio-cornell-photo-crimson-treasure",
+      "title": "Crimson Treasure — Cornellians cultivar photograph",
+      "url": "https://alumni.cornell.edu/cornellians/fruits-veggies/",
+      "company_ids": ["breeding_program-cornell-berry"],
+      "berry_ids": ["berry-raspberry"],
+      "checked_on": "2026-10-12",
+      "published_date": "2023-05-22",
+      "source_type": "university_cultivar_photo",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One cultivar explicitly named by the raspberry photograph caption; excludes names in surrounding prose and every other crop section. This is not a whole-page or current-portfolio enumeration.",
+      "limitations": "The source labels the photograph and describes its photos as provided, without naming this photographer or an image-specific reuse licence. No reuse permission, independent identity, release-date, trait or role decision is recorded. The exact responsive asset observed in the browser is retained without inventing a larger image URL.",
+      "names": [{
+        "candidate_name": "Crimson Treasure",
+        "berry_id": "berry-raspberry",
+        "product_url": "https://alumni.cornell.edu/cornellians/fruits-veggies/",
+        "portfolio_context": "The raspberry section captions this photograph as Crimson Treasure. Cornellians published the article in May 2023; its photographer is not credited.",
+        "photos": [{
+          "image_url": "https://alumni.cornell.edu/cornellians/wp-content/uploads/sites/2/2023/05/Crimson_Treasure_raspberry-A-400x225.jpg",
+          "source_url": "https://alumni.cornell.edu/cornellians/fruits-veggies/",
+          "named_variety": "Crimson Treasure",
+          "berry_id": "berry-raspberry",
+          "kind": "plant",
+          "checked_on": "2026-10-12",
+          "reuse": "unknown",
+          "license_url": "",
+          "credit": "Cornellians · Photographer not credited",
+          "caption": "A hand holds fruit on a raspberry plant, labeled Crimson Treasure by Cornellians.",
+          "reuse_note": "The article credits its photos as provided but establishes no image-specific permission for this site's reuse. Photographer and reusable licence remain unknown; session preview does not grant permission."
+        }]
+      }],
+      "accounting": {"observed_items": 1, "exclusions": []},
+      "capture_reference": {"method": "native_source_image_and_figure_caption_review", "source_image_alt": "A person touching a raspberry plant", "source_image_width": 371, "source_image_height": 209, "visually_reviewed": true, "asset_url_modified": false, "image_downloaded": false, "whole_page_name_enumeration": false}
+    },
+    {
+      "id": "portfolio-cornell-photo-dickens",
+      "title": "Dickens — Cornellians cultivar photograph",
+      "url": "https://alumni.cornell.edu/cornellians/fruits-veggies/",
+      "company_ids": ["breeding_program-cornell-berry"],
+      "berry_ids": ["berry-strawberry"],
+      "checked_on": "2026-10-12",
+      "published_date": "2023-05-22",
+      "source_type": "university_cultivar_photo",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One cultivar explicitly named by the strawberry photograph caption; excludes names in surrounding prose and every other crop section. This is not a whole-page or current-portfolio enumeration.",
+      "limitations": "The source labels the photograph and describes its photos as provided, without naming this photographer or an image-specific reuse licence. No reuse permission, independent identity, release-date, trait or role decision is recorded. The exact responsive asset observed in the browser is retained without inventing a larger image URL.",
+      "names": [{
+        "candidate_name": "Dickens",
+        "berry_id": "berry-strawberry",
+        "product_url": "https://alumni.cornell.edu/cornellians/fruits-veggies/",
+        "portfolio_context": "The strawberry section captions this photograph as Dickens. Cornellians published the article in May 2023; its photographer is not credited.",
+        "photos": [{
+          "image_url": "https://alumni.cornell.edu/cornellians/wp-content/uploads/sites/2/2023/05/Dickens_strawberries-A-768x432.jpg",
+          "source_url": "https://alumni.cornell.edu/cornellians/fruits-veggies/",
+          "named_variety": "Dickens",
+          "berry_id": "berry-strawberry",
+          "kind": "fruit",
+          "checked_on": "2026-10-12",
+          "reuse": "unknown",
+          "license_url": "",
+          "credit": "Cornellians · Photographer not credited",
+          "caption": "Strawberry fruit clusters, labeled Dickens by Cornellians.",
+          "reuse_note": "The article credits its photos as provided but establishes no image-specific permission for this site's reuse. Photographer and reusable licence remain unknown; session preview does not grant permission."
+        }]
+      }],
+      "accounting": {"observed_items": 1, "exclusions": []},
+      "capture_reference": {"method": "native_source_image_and_figure_caption_review", "source_image_alt": "Red strawberries", "source_image_width": 640, "source_image_height": 360, "visually_reviewed": true, "asset_url_modified": false, "image_downloaded": false, "whole_page_name_enumeration": false}
+    }
+  ]
+}

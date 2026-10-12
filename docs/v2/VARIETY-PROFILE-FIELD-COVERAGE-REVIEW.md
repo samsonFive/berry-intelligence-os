@@ -1,8 +1,15 @@
 # Find the missing information in variety profiles
 
-**Current organization correction (October 10):** Active company, brand and
+**Current photo follow-up (October 12):** Three existing raspberry profiles gain
+separately captioned, permission-held Cornell photos; the Dickens strawberry
+photo remains with its candidate. The current catalog inventory is 50/64 without
+photo references, 35 without patent/PVR references, 33 without cited traits and
+10 without organization links. See the [Cornell review](CORNELL-VARIETY-PHOTOS-REVIEW.md).
+The dated inventories and screenshots below remain historical proof.
+
+**Organization correction (October 10):** Active company, brand and
 breeding-program links now match the directory; trial operators are included and
-proposed/inactive edges are excluded. The current 64-profile inventory has
+proposed/inactive edges are excluded. That 64-profile inventory had
 53 missing photo references, 35 missing patent/PVR references, 33 missing cited
 trait entries and 10 missing organization links. See the
 [organization review](VARIETY-PROFILE-ORGANIZATION-REVIEW.md). The original

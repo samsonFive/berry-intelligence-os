@@ -4,12 +4,21 @@ This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.
 
-## Current checkpoint — October 10, 2026
+## Current checkpoint — October 12, 2026
 
 The original redesign/consolidation release was accepted and integrated in
 [PR #312](https://github.com/samsonFive/berry-intelligence-os/pull/312). The later
 Landscape/catalog work is an unmerged draft stack. The visual guide is delivered
 at `/guide`; this checklist still owns outstanding requirements.
+
+The [Cornell photo follow-up](CORNELL-VARIETY-PHOTOS-REVIEW.md) adds four
+source-captioned photo references with unknown reuse, including three existing
+raspberry profiles and the Dickens strawberry candidate. Catalog photo gaps fall
+to 50/64; rights 35, cited traits 33 and organization gaps 10 are unchanged.
+The current bounded audit has 384 sections / 1,561 occurrences / 91 matches /
+1,470 review needs, with 1,126 candidate keys and 126 photo references. Original
+records and all human decisions remain intact. CAT-01/CAT-02 and release gates
+remain open; these are references, not image reuse or identity approvals.
 
 The [profile organization correction](VARIETY-PROFILE-ORGANIZATION-REVIEW.md)
 aligns the field inventory with active company, brand and breeding-program links,
@@ -28,10 +37,10 @@ promoting source-only names.
 | REL-01: tested release | Integrate approved drafts, reconcile canonical and verify the combined release | Current-head required CI, browser review, data/edit preservation, reviewable release and actual backup/rollback readiness; separate merge/deploy approval |
 
 Current bounded portfolio/photo evidence is in
-[original Chandler filing review](CHANDLER-ORIGINAL-FILING-REVIEW.md): 380 sections, 1,557
-name occurrences, 88 matched occurrences, 1,469 requiring review, 1,126 public
-derived candidate keys and 64 unchanged canonical varieties. There are 122
-photo references; the eight UF photos remain permission-held. These are source
+[Cornell photo review](CORNELL-VARIETY-PHOTOS-REVIEW.md): 384 sections, 1,561
+name occurrences, 91 matched occurrences, 1,470 requiring review, 1,126 public
+derived candidate keys and 64 unchanged canonical varieties. There are 126
+photo references; the eight UF and four Cornell photos remain permission-held. These are source
 observations, not a global census or approved catalog growth.
 
 The [four-berry 2024 register intake](REGISTER-LIST-52-INTAKE-REVIEW.md) accounts
