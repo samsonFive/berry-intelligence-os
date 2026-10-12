@@ -80,7 +80,7 @@
     });
     if (!showAll && related.length > 6) { const more = el('button', `Show all ${related.length} connections · ${related.length - 6} more`, 'lx-edge'); more.type = 'button'; more.dataset.expandFocus = id; diagram.append(more); }
     if (!related.length) diagram.append(el('p', 'No connections match this focus. Try another scope.'));
-    const resetURL = new URL(location.href); resetURL.searchParams.set('focus',''); resetURL.searchParams.set('edge',''); root.querySelector('[data-reset-focus]').href = resetURL.pathname + resetURL.search;
+    const resetURL = new URL(location.href); resetURL.searchParams.set('focus',''); resetURL.searchParams.set('edge',''); root.querySelector('.lx-focus [data-reset-focus]').href = resetURL.pathname + resetURL.search;
     root.dataset.highlightMs = (performance.now() - start).toFixed(2);
   }
   root.addEventListener('click', event => {

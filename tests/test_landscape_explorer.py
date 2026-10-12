@@ -423,7 +423,7 @@ def test_comparison_filters_and_exports_keep_exact_crop_source_parity(client_wor
     bundle = client_world.get('/api/landscapes/explorer?'+query).json()
     page = client_world.get('/landscapes/explorer?'+query)
     assert page.status_code == 200 and 'Strawberry landscape comparison' in page.text
-    assert 'Shared actor' in page.text and 'Unreviewed strawberry source' in page.text
+    assert 'Shared company' in page.text and 'Unreviewed strawberry source' in page.text
     assert 'data-theme="dark"' in page.text
     assert page.text.count('class="lx-crop-coverage"') == 1
     for kind in ('html','svg','csv'):
