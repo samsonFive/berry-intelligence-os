@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-07",
+  "purpose": "LinkedIn company/known-post diagnosis; older independent public reference posts; no30-day discovery claim",
+  "max_calls": 4,
+  "existing_ceiling": 30,
+  "cases": [
+    [
+      "li-company-followup",
+      "linkedin-company",
+      {
+        "url": "https://www.linkedin.com/company/fallcreeknursery/"
+      }
+    ],
+    [
+      "li-variety-followup",
+      "linkedin-post",
+      {
+        "url": "https://www.linkedin.com/posts/fallcreeknursery_fallcreek-betterblueberries-growersupport-activity-7419677146589278208-FdXM"
+      }
+    ],
+    [
+      "li-flavor-followup",
+      "linkedin-post",
+      {
+        "url": "https://www.linkedin.com/posts/fallcreeknursery_fallcreekblueberries-fallcreekbreeding-activity-7318272006020349952-YX0d"
+      }
+    ],
+    [
+      "li-search-followup",
+      "linkedin-search",
+      {
+        "query": "Fall Creek blueberry"
+      }
+    ]
+  ]
+}

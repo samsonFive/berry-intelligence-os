@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "manifest_version": "berry-bakeoff-2026-10-07-v1",
+  "manifest_interval": [
+    "2026-09-07T13:00:11+00:00",
+    "2026-10-07T13:00:11+00:00"
+  ],
+  "at": "2026-10-07T13:02:58.501430+00:00",
+  "scheduled": false,
+  "cash_usd": 0,
+  "results": [
+    {
+      "candidate": "google-news-rss",
+      "state": "live-tested",
+      "attempts": [
+        {
+          "query": "bb-en-1",
+          "language": "en",
+          "target_market": "US",
+          "state": "live-tested",
+          "returned": 4,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "bb-es-1",
+          "language": "es",
+          "target_market": "ES",
+          "state": "live-tested",
+          "returned": 6,
+          "cap": 10,
+          "pages": 1
+        },
+        {
+          "query": "bb-pt-1",
+          "language": "pt",
+          "state": "blocked",
+          "reason": "HTTP 302; not zero volume"
+        }
+      ],
+      "metrics": {
+        "returned": 10,
+        "unique": 10,
+        "duplicates": 0,
+        "executed_queries": 2,
+        "posts": 10,
+        "comments": 0,
+        "human_reviewed_precision": {
+          "numerator": 0,
+          "denominator": 0,
+          "estimate": null,
+          "wilson95": null
+        },
+        "field_presence_not_correctness": {
+          "native_id": {
+            "numerator": 10,
+            "denominator": 10,
+            "estimate": 1.0,
+            "wilson95": [
+              0.7224671969739421,
+              0.9999999999999999
+            ]
+          },
+          "canonical_url": {
+            "numerator": 10,
+            "denominator": 10,
+            "estimate": 1.0,
+            "wilson95": [
+              0.7224671969739421,
+              0.9999999999999999
+            ]
+          },
+          "published_at": {
+            "numerator": 10,
+            "denominator": 10,
+            "estimate": 1.0,
+            "wilson95": [
+              0.7224671969739421,
+              0.9999999999999999
+            ]
+          },
+          "text": {
+            "numerator": 10,
+            "denominator": 10,
+            "estimate": 1.0,
+            "wilson95": [
+              0.7224671969739421,
+              0.9999999999999999
+            ]
+          },
+          "language": {
+            "numerator": 10,
+            "denominator": 10,
+            "estimate": 1.0,
+            "wilson95": [
+              0.7224671969739421,
+              0.9999999999999999
+            ]
+          }
+        },
+        "media_references": 0,
+        "downloaded_media_bytes": 0,
+        "retention_permission_verified": false,
+        "languages": {
+          "en": 4,
+          "es": 6
+        }
+      },
+      "same_pipeline_unique": 10,
+      "requests": 1,
+      "cache_hits": 2,
+      "score": {
+        "verified_points_out_of_100": 0,
+        "tested_weight_percent": 0,
+        "renormalized": false,
+        "recommendation": "no proven winner yet"
+      },
+      "score_reason": "No independently reviewed sample; no dimension scored",
+      "cash_usd": 0,
+      "free_credits_consumed": 0,
+      "paid_models": 0,
+      "retries": 0
+    }
+  ],
+  "unmet": [
+    "30 reviewed discovery results",
+    "10 applicable reference fetches",
+    "three live non-English languages",
+    "more than one evidenced region",
+    "live comment images",
+    "verified redisplay/retention permissions"
+  ]
+}

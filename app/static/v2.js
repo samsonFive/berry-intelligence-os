@@ -169,7 +169,8 @@
     overlayBody.setAttribute("aria-busy", "true");
     var instance = ensureOverlay();
     if (instance) instance.show();
-    fetch("/api/intelligence/" + encodeURIComponent(id) + "/reader" + (document.body.hasAttribute("data-personal-digest") ? "?personal=1" : ""), { credentials: "same-origin" })
+    var socialReader = window.location.pathname === "/social" && /^ev-social-[a-f0-9]{24}$/.test(id);
+    fetch((socialReader ? "/api/social/" : "/api/intelligence/") + encodeURIComponent(id) + "/reader" + (!socialReader && document.body.hasAttribute("data-personal-digest") ? "?personal=1" : ""), { credentials: "same-origin" })
       .then(function (res) {
         if (!res.ok) throw new Error("Reader unavailable");
         return res.text();

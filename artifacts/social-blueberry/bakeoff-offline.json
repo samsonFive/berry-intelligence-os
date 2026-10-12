@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "manifest_version": "berry-bakeoff-2026-10-07-v1",
+  "manifest_interval": [
+    "2026-09-07T13:00:11+00:00",
+    "2026-10-07T13:00:11+00:00"
+  ],
+  "at": "2026-10-07T13:01:45.244773+00:00",
+  "scheduled": false,
+  "cash_usd": 0,
+  "results": [
+    {
+      "candidate": "offline-pipeline",
+      "state": "fixture-only",
+      "synthetic": true,
+      "evaluation": {
+        "version": "social-literal-1",
+        "dataset": "Synthetic labeled blueberry pilot; not independent human gold or representative population",
+        "by_language": {
+          "en": {
+            "cases": 7,
+            "checks": 47,
+            "correct": 46,
+            "errors": [
+              {
+                "native_id": "demo-en-6",
+                "field": "aspects",
+                "expected": {
+                  "flavor": "negative"
+                },
+                "actual": {
+                  "flavor": "uncertain"
+                }
+              }
+            ],
+            "accuracy": 0.9787
+          },
+          "es": {
+            "cases": 6,
+            "checks": 40,
+            "correct": 39,
+            "errors": [
+              {
+                "native_id": "demo-es-5",
+                "field": "aspects",
+                "expected": {
+                  "flavor": "negative"
+                },
+                "actual": {
+                  "flavor": "uncertain"
+                }
+              }
+            ],
+            "accuracy": 0.975
+          },
+          "pt": {
+            "cases": 6,
+            "checks": 40,
+            "correct": 39,
+            "errors": [
+              {
+                "native_id": "demo-pt-5",
+                "field": "aspects",
+                "expected": {
+                  "flavor": "negative"
+                },
+                "actual": {
+                  "flavor": "uncertain"
+                }
+              }
+            ],
+            "accuracy": 0.975
+          },
+          "zh": {
+            "cases": 6,
+            "checks": 40,
+            "correct": 39,
+            "errors": [
+              {
+                "native_id": "demo-zh-5",
+                "field": "aspects",
+                "expected": {
+                  "flavor": "negative"
+                },
+                "actual": {
+                  "flavor": "uncertain"
+                }
+              }
+            ],
+            "accuracy": 0.975
+          },
+          "ja": {
+            "cases": 6,
+            "checks": 40,
+            "correct": 39,
+            "errors": [
+              {
+                "native_id": "demo-ja-5",
+                "field": "aspects",
+                "expected": {
+                  "flavor": "negative"
+                },
+                "actual": {
+                  "flavor": "uncertain"
+                }
+              }
+            ],
+            "accuracy": 0.975
+          }
+        },
+        "live_sample": {
+          "cases": 0,
+          "performance": null,
+          "reason": "Bluesky search HTTP 403; YouTube key not provisioned. No live extraction performance claim."
+        }
+      },
+      "provider_proof": false
+    }
+  ],
+  "unmet": [
+    "30 reviewed discovery results",
+    "10 applicable reference fetches",
+    "three live non-English languages",
+    "more than one evidenced region",
+    "live comment images",
+    "verified redisplay/retention permissions"
+  ]
+}

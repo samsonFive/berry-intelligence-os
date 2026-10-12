@@ -439,3 +439,101 @@ def test_registry_import_still_does_not_write_canonical(tmp_path: Path) -> None:
     before = {e["id"] for e in _varieties()}
     import_registry_rows(load_registry_rows(FIXTURE), varieties=_varieties(), inbox_dir=tmp_path / "inbox")
     assert {e["id"] for e in _varieties()} == before
+
+
+def test_hortifrut_and_mbg_portfolios_are_captured_without_role_approval():
+    varieties, entities, evidence, facts = _corpus()
+    report = build_discovered_candidates(varieties=varieties, entities=entities, published_evidence=evidence, facts=facts)
+    hort = {m["candidate_name"]: m for m in report["mentions"] if "ev-hortifrut-genetic-development" in m["evidence_ids"]}
+    assert set(hort) >= {"Prelude", "Daybreak", "Stellar", "Candycrunch", "Apolo", "Bliss", "Temptation", "Robust", "Envy", "Keepsake", "Sensation", "Rocio", "Corona", "Draper", "Aurora", "Liberty", "Osorno"}
+    assert hort["Keepsake"]["canonical_variety_id"] == "variety-keepsake"
+    mbg = [m for m in report["mentions"] if "ev-mbg-berry-blue-varieties" in m["evidence_ids"]]
+    assert len(mbg) == 16
+    assert next(m for m in mbg if m["candidate_name"] == "Daybreak")["breeder_code"] == "BB07-210FL-18"
+    prelude = next(c for c in report["candidates"] if c["candidate_name"] == "Prelude")
+    assert prelude["source_tier"] == "tier_1_breeder_catalog"
+    assert not prelude["proposed_relationships"] and not prelude["auto_confirmed"]
+    assert {"ev-hortifrut-genetic-development", "ev-mbg-berry-blue-varieties"} <= set(prelude["knowledge"]["evidence_ids"])
+
+
+def test_explicit_summary_lists_respect_species_and_ignore_generic_prose():
+    source = {"id": "ev-list", "status": "published", "source_type": "trade_press", "source_url": "https://example.test",
+              "berry_ids": ["berry-blueberry", "berry-raspberry"],
+              "summary": "Blueberry varieties including 'Azure', Daybreak and Prelude, lists test stations in Chile and Peru. Raspberry varieties: Ruby and Pacific Star. Companies including Acme and Beta are present."}
+    canonical = [{"id": "variety-a", "name": "Azure", "aliases": ["Azure Blue"], "berry_ids": ["berry-blueberry"]}]
+    r = build_discovered_candidates(varieties=canonical, entities=[], published_evidence=[source], facts=[])
+    assert {(m["candidate_name"], m["berry_id"]) for m in r["mentions"]} == {
+        ("Azure", "berry-blueberry"), ("Daybreak", "berry-blueberry"), ("Prelude", "berry-blueberry"),
+        ("Ruby", "berry-raspberry"), ("Pacific Star", "berry-raspberry")}
+    assert next(m for m in r["mentions"] if m["candidate_name"] == "Azure")["disposition"] == "already_canonical"
+    assert all(c["source_tier"] != "tier_1_registry" for c in r["candidates"])
+    source["status"] = "draft"
+    assert not build_discovered_candidates(varieties=[], entities=[], published_evidence=[source], facts=[])["mentions"]
+
+
+def test_rejected_name_is_not_resurrected_and_source_changes_remove_discovery():
+    source = {"id": "ev-list", "status": "published", "berry_ids": ["berry-blueberry"], "summary": "Blueberry varieties including Prelude and Daybreak."}
+    existing = [{"id": "vcand-human", "candidate_name": "Prelude", "berry_id": "berry-blueberry", "status": "rejected", "identity_state": "rejected", "reviewer": "operator"}]
+    r = build_discovered_candidates(varieties=[], entities=[], published_evidence=[source], facts=[], existing_candidates=existing)
+    assert [c["candidate_name"] for c in r["candidates"]] == ["Daybreak"]
+    merged = merge_visible_candidates(existing, r["candidates"] + [{**existing[0], "id": "another-id", "status": "proposed"}])
+    assert len(merged) == 2 and merged[0] == existing[0]
+    source["summary"] = "Blueberry breeding stations in Chile and Peru."
+    assert not build_discovered_candidates(varieties=[], entities=[], published_evidence=[source], facts=[])["candidates"]
+
+
+def test_ambiguous_exact_alias_does_not_pick_first_catalog_identity():
+    varieties = [{"id": key, "name": key, "aliases": ["Shared"], "berry_ids": ["berry-blueberry"]} for key in ["variety-one", "variety-two"]]
+    r = discover_corpus_variety_mentions(varieties=varieties, entities=[], published_evidence=[{
+        "id": "ev-list", "status": "published", "berry_ids": ["berry-blueberry"], "summary": "Blueberry varieties including Shared."}], facts=[])
+    assert not r["already_canonical"]
+    assert r["mentions"][0]["disposition"] == "possible_alias"
+
+
+def test_summary_names_preserve_plus_and_separate_codes_from_names():
+    sources = [
+        {"id": "ev-types", "status": "published", "berry_ids": ["berry-strawberry"], "summary": "Strawberry varieties such as June-bearing, everbearing and day-neutral types."},
+        {"id": "ev-names", "status": "published", "berry_ids": ["berry-blueberry"], "summary": "Blueberry varieties including Abril Blue+, ArabellaBlue FC14-062 and FCM14-057."},
+    ]
+    r = build_discovered_candidates(varieties=[], entities=[], published_evidence=sources, facts=[])
+    assert {c["candidate_name"] for c in r["candidates"]} == {"Abril Blue+", "ArabellaBlue", "FCM14-057"}
+    assert next(c for c in r["candidates"] if c["candidate_name"] == "ArabellaBlue")["breeder_code"] == "FC14-062"
+
+
+def test_directory_search_and_source_queue_surface_missing_portfolio_names(tmp_path, monkeypatch):
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
+    client = TestClient(app)
+    page = client.get("/entities/variety?q=Prelude&berry=berry-blueberry")
+    assert page.status_code == 200
+    assert "additional names awaiting catalog review" in page.text and "Prelude" in page.text
+    assert 'id="variety-variety-prelude"' not in page.text
+    queue = client.get("/varieties/candidates?source=ev-hortifrut-genetic-development&berry=berry-blueberry")
+    assert queue.status_code == 200
+    assert "Prelude" in queue.text and "Sensation" in queue.text
+    assert "Source context, not an approved breeder or owner relationship" in queue.text
+    assert not (tmp_path / "inbox" / "variety_candidates").exists()
+
+
+def test_explicit_names_keep_accents_and_license_lists_are_context_bounded():
+    source = {"id": "ev-list", "status": "published", "berry_ids": ["berry-blueberry"],
+              "summary": "Blueberry varieties including María and Étoile. The company licenses 'Rocio' and 'Corona' from another programme."}
+    r = build_discovered_candidates(varieties=[], entities=[], published_evidence=[source], facts=[])
+    assert {c["candidate_name"] for c in r["candidates"]} == {"María", "Étoile", "Rocio", "Corona"}
+    assert all(not c["proposed_relationships"] for c in r["candidates"])
+    source["summary"] = "The company licenses 'Brand Name' for its packaging."
+    assert not build_discovered_candidates(varieties=[], entities=[], published_evidence=[source], facts=[])["candidates"]
+
+
+def test_previously_imported_name_gains_readonly_source_context_without_editing_decision():
+    from copy import deepcopy
+    from app.services.variety_navigation import candidate_queue
+    inbox = [{"id": "vcand-human", "candidate_name": "Prelude", "berry_id": "berry-blueberry", "status": "reviewed",
+              "identity_state": "distinct", "reviewer": "operator", "review_notes": "Keep my spelling", "knowledge": {"origin": "photo", "evidence_ids": []}}]
+    before = deepcopy(inbox)
+    source = {"id": "ev-list", "status": "published", "berry_ids": ["berry-blueberry"], "summary": "Blueberry varieties including Prelude."}
+    report = build_discovered_candidates(varieties=[], entities=[], published_evidence=[source], facts=[], existing_candidates=inbox)
+    visible = merge_visible_candidates(inbox, report["candidates"], report=report)
+    assert inbox == before and visible[0]["knowledge"] == before[0]["knowledge"]
+    assert visible[0]["reviewer"] == "operator" and visible[0]["review_notes"] == "Keep my spelling"
+    assert visible[0]["corpus_evidence_ids"] == ["ev-list"]
+    assert candidate_queue(visible, {"source": "ev-list"})["candidates"] == visible

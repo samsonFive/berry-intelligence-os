@@ -1,0 +1,11 @@
+# Selected social provider routing
+
+User accepted the pilot and authorized the selective provider setup on October9,2026. SociaVault is the preferred broad discovery path; the tested Apify harvestapi/linkedin-post-search Actor is preferred for targeted LinkedIn detail. Matched Multiscan results:5 shared post identities,5 equivalent texts,zero new identities from the second provider,Apify media references on4 posts versus none in the company summaries. This does not establish overall recall superiority or inability of SociaVault post-detail endpoints to return media.
+
+Inspect a route with `python scripts/social_provider_route.py linkedin detail` or `python scripts/social_provider_route.py reddit discovery`. Use `--already-captured` for discovery to select retained-record reuse. This command never collects; it provides the operator route to the existing explicit runners. No background collection, paid fallback or scheduler is enabled. Existing runner guards remain mandatory; route selection does not imply available credit or access.
+
+Operational private policy is `inbox/social-bakeoff/quality-audit-2026-10-08/active-provider-policy.json`. SociaVault ceiling42/reserve10 with observed10 remaining:additional calls blocked. Apify mission ceiling2,maximum0.10/run,remaining conservative reservation0.10 after the matched test; freshly reverify account,Actor/build/schema/pricing before any launch. The blocked atomus/twitter-scraper Actor is never selected by this policy. Credentials stay in the private secret file/environment.
+
+The existing preview/data pipeline remains unchanged. Detail enrichment is an explicit reviewed job, not automatic for every displayed post. Dedupe and collection receipts use the existing source/native identity pipeline. No canonical records or Landscape contracts change.
+
+Rollback:remove the routing command/module and private policy together; existing runners and stored evidence remain intact. No database migration. Regression checks cover the tested Actor/cap,all supported discovery routes,retained identity reuse and unsupported-task/platform rejection. Matched raw receipts and measured report remain private in the same audit folder. Cash spend0;no purchase,merge or deployment.

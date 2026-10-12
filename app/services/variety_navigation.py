@@ -61,7 +61,7 @@ def directory(cards, *, params, state, entities, relationships, regions):
 
 
 def candidate_queue(candidates, params):
-    filters = {key: str(params.get(key) or "").strip() for key in ("q", "berry", "company", "status", "letter")}
+    filters = {key: str(params.get(key) or "").strip() for key in ("q", "berry", "company", "status", "letter", "source")}
     filters["letter"] = filters["letter"].upper()
     if filters["letter"] not in {"", *"ABCDEFGHIJKLMNOPQRSTUVWXYZ#"}:
         raise ValueError("Choose an alphabetical group")
@@ -70,7 +70,12 @@ def candidate_queue(candidates, params):
         raise ValueError("Choose an available identity status")
     rows = []
     for row in candidates:
-        companies = (row.get("knowledge") or {}).get("company_associations") or []
+        knowledge = row.get("knowledge") or {}
+        companies = (knowledge.get("company_associations") or []) + (knowledge.get("source_companies") or [])
+        if filters["source"] and filters["source"] not in ((knowledge.get("evidence_ids") or []) + (row.get("corpus_evidence_ids") or [])) and filters["source"] != row.get("source_id"):
+            continue
+        if row.get("status") == "rejected" and filters["status"] != "rejected":
+            continue
         haystack = " ".join(str(row.get(key) or "") for key in ("candidate_name", "denomination", "breeder_code", "breeder_owner", "applicant"))
         haystack += " " + " ".join(item.get("name", "") for item in companies)
         if filters["q"] and filters["q"].casefold() not in haystack.casefold():
@@ -85,7 +90,9 @@ def candidate_queue(candidates, params):
     letters = {company_directory.initial(row["candidate_name"]) for row in rows}
     if filters["letter"]:
         rows = [row for row in rows if company_directory.initial(row["candidate_name"]) == filters["letter"]]
-    companies = {item["entity_id"]: item["name"] for row in candidates for item in (row.get("knowledge") or {}).get("company_associations") or []}
+    companies = {item["entity_id"]: item["name"] for row in candidates for item in
+                 ((row.get("knowledge") or {}).get("company_associations") or []) +
+                 ((row.get("knowledge") or {}).get("source_companies") or [])}
     return {"candidates": sorted(rows, key=lambda row: (row["candidate_name"].casefold(), row["id"])), "candidate_total": len(candidates),
             "filters": filters, "letters": letters, "candidate_companies": sorted(companies.items(), key=lambda row: row[1].casefold()),
             "candidate_statuses": sorted({row.get("identity_state", "unknown") for row in candidates}),

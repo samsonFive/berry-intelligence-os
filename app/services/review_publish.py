@@ -351,6 +351,7 @@ class ReviewPublishService:
             "relevance_tier",
             "does_not_prove",
             "source_artifact",
+            "social_observation",
         ):
             if field_name not in request.draft:
                 continue

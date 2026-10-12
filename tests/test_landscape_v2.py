@@ -149,11 +149,12 @@ def test_landscape_per_berry_route_unknown_berry_404():
     assert page.status_code == 404
 
 
-def test_landscape_nav_link_points_to_all_berries_when_global():
+def test_landscape_navigation_keeps_overview_and_adds_explorer():
     client = TestClient(app)
     page = client.get("/brief")
     assert page.status_code == 200
-    assert 'href="/landscapes"><b>Landscape</b>' in page.text
+    assert 'href="/landscapes"><b>Landscape overview</b>' in page.text
+    assert 'href="/landscapes/explorer"><b>Landscape Explorer</b>' in page.text
 
 
 def test_landscape_variety_compare_deep_link_uses_real_ids():

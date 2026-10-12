@@ -129,6 +129,11 @@ class RequestCorpus:
             self._repos = get_repositories(self.data_dir, self.schemas_dir)
         return self._repos
 
+    def _eligible_for_new_outputs(self, records):
+        from app.services.social_intelligence.output_eligibility import eligible_records, output_exclusions
+        blocked=output_exclusions(self.data_dir,self.inbox_dir,repositories=self.repos())
+        return eligible_records(records,blocked)
+
     def _list(self, attr: str, loader: Callable[[], list[dict[str, Any]]]) -> list[dict[str, Any]]:
         cached = getattr(self, attr)
         if cached is None:
@@ -143,7 +148,7 @@ class RequestCorpus:
     @property
     def published_evidence(self) -> list[dict[str, Any]]:
         if self._published is None:
-            records = [r for r in self.evidence if r.get("status") == "published"]
+            records = self._eligible_for_new_outputs([r for r in self.evidence if r.get("status") == "published"])
             self._published = sorted(
                 records,
                 key=lambda r: r.get("published_date") or r.get("captured_date", ""),
@@ -163,7 +168,7 @@ class RequestCorpus:
 
     @property
     def facts(self) -> list[dict[str, Any]]:
-        return self._list("_facts", lambda: self.repos().facts.list())
+        return self._list("_facts", lambda: self._eligible_for_new_outputs(self.repos().facts.list()))
 
     @property
     def relationships(self) -> list[dict[str, Any]]:
@@ -171,15 +176,15 @@ class RequestCorpus:
 
     @property
     def signals(self) -> list[dict[str, Any]]:
-        return self._list("_signals", lambda: self.repos().signals.list())
+        return self._list("_signals", lambda: self._eligible_for_new_outputs(self.repos().signals.list()))
 
     @property
     def assessments(self) -> list[dict[str, Any]]:
-        return self._list("_assessments", lambda: self.repos().assessments.list())
+        return self._list("_assessments", lambda: self._eligible_for_new_outputs(self.repos().assessments.list()))
 
     @property
     def recommendations(self) -> list[dict[str, Any]]:
-        return self._list("_recommendations", lambda: self.repos().recommendations.list())
+        return self._list("_recommendations", lambda: self._eligible_for_new_outputs(self.repos().recommendations.list()))
 
     @property
     def strategic_questions(self) -> list[dict[str, Any]]:

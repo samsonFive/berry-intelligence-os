@@ -37,3 +37,7 @@ Thumbs.db
 # Local secrets. Copy .env.example → .env. Never commit values.
 .env
 .env.local
+keyz.txt
+Keyz.txt
+keysz.txt
+Keysz.txt

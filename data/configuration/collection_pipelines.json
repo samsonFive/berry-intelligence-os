@@ -89,7 +89,7 @@
       "cadence_seconds": 21600,
       "runner": "scripts/catchall_recall.py --json",
       "state": "operations/catchall_recall/cache.json",
-      "notes": "Background NewsCatcher CatchAll recall. Base mode is 10-15 minutes and must never run on request-time /week. This job writes normalized hits to inbox/operations/catchall_recall/cache.json; /week consumes already-fetched rows. Without NEWSCATCHER_API_KEY or CATCHALL_API_KEY the runner succeeds as awaiting_key \u00e2\u20ac\u201d SET the env var and the next scheduled run becomes live. No Publication drafts. No Evidence writes."
+      "notes": "Background NewsCatcher CatchAll recall. Base mode is 10-15 minutes and must never run on request-time /week. This job writes normalized hits to inbox/operations/catchall_recall/cache.json; /week consumes already-fetched rows. Without NEWSCATCHER_API_KEY or CATCHALL_API_KEY the runner succeeds as awaiting_key â€” SET the env var and the next scheduled run becomes live. No Publication drafts. No Evidence writes."
     },
     {
       "id": "usda_pvpo",
@@ -130,6 +130,16 @@
       "runner": "POST /api/news/refresh",
       "state": "operations/pipelines/news_workspace_refresh/runs",
       "notes": "Explicit refresh of existing bounded public News discovery lanes, with paid providers disabled. Shared collection lease, metadata previews only, no human-review bypass, canonical writes or scheduled polling."
+    },
+    {
+      "id": "social_intelligence",
+      "enabled": false,
+      "scheduled": false,
+      "schedule_entrypoint": true,
+      "cadence_seconds": 86400,
+      "runner": "scripts/social_intelligence.py collect --source bluesky --query blueberries --language en --market US --max-pages 1 --enable",
+      "state": "operations/pipelines/social_intelligence/runs",
+      "notes": "All-berry workspace approved after blueberry layout review on 2026-10-07. Disabled/unscheduled. Explicit enablement requires access/retention review; shared runtime lock and bounded request/page budgets. No paid activation. One-off free-credit trials are separate, predeclared and private."
     }
   ]
 }

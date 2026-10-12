@@ -1,0 +1,153 @@
+{
+  "date": "2026-10-07",
+  "cash_spend_usd": 0,
+  "additional_requests_cap": 6,
+  "results": [
+    {
+      "case": "rollout-strawberry-x",
+      "berry": "berry-strawberry",
+      "state": "offline-replay",
+      "http": 200,
+      "credit_delta": 1,
+      "returned": 20,
+      "mapped": 10,
+      "mapping_errors": [],
+      "readable": 10,
+      "media_references": 10
+    },
+    {
+      "case": "rollout-strawberry-reddit",
+      "berry": "berry-strawberry",
+      "state": "offline-replay",
+      "http": 200,
+      "credit_delta": 1,
+      "returned": 7,
+      "mapped": 7,
+      "mapping_errors": [],
+      "readable": 1,
+      "media_references": 0
+    },
+    {
+      "case": "rollout-raspberry-x",
+      "berry": "berry-raspberry",
+      "state": "offline-replay",
+      "http": 200,
+      "credit_delta": 1,
+      "returned": 20,
+      "mapped": 10,
+      "mapping_errors": [],
+      "readable": 10,
+      "media_references": 10
+    },
+    {
+      "case": "rollout-raspberry-reddit",
+      "berry": "berry-raspberry",
+      "state": "offline-replay",
+      "http": 200,
+      "credit_delta": 1,
+      "returned": 7,
+      "mapped": 7,
+      "mapping_errors": [],
+      "readable": 1,
+      "media_references": 0
+    },
+    {
+      "case": "rollout-blackberry-x",
+      "berry": "berry-blackberry",
+      "state": "offline-replay",
+      "http": 200,
+      "credit_delta": 1,
+      "returned": 20,
+      "mapped": 10,
+      "mapping_errors": [],
+      "readable": 10,
+      "media_references": 7
+    },
+    {
+      "case": "rollout-blackberry-reddit",
+      "berry": "berry-blackberry",
+      "state": "offline-replay",
+      "http": 200,
+      "credit_delta": 1,
+      "returned": 7,
+      "mapped": 7,
+      "mapping_errors": [],
+      "readable": 2,
+      "media_references": 0
+    }
+  ],
+  "records_before": 197,
+  "records_after": 243,
+  "unique_added": 46,
+  "replay_added": 0,
+  "by_berry": {
+    "berry-blueberry": {
+      "raw_relevant": 82,
+      "english_readable": 41,
+      "sources": {
+        "x": 21,
+        "reddit": 1,
+        "tiktok": 5,
+        "linkedin": 10,
+        "youtube": 1,
+        "facebook": 2,
+        "pinterest": 1
+      },
+      "roles": {
+        "unknown": 37,
+        "consumer": 1,
+        "company_owned": 3
+      }
+    },
+    "berry-strawberry": {
+      "raw_relevant": 33,
+      "english_readable": 12,
+      "sources": {
+        "reddit": 1,
+        "x": 10,
+        "linkedin": 1
+      },
+      "roles": {
+        "recipe": 1,
+        "company_owned": 10,
+        "unknown": 1
+      }
+    },
+    "berry-raspberry": {
+      "raw_relevant": 29,
+      "english_readable": 16,
+      "sources": {
+        "x": 11,
+        "reddit": 1,
+        "facebook": 3,
+        "linkedin": 1
+      },
+      "roles": {
+        "company_owned": 13,
+        "consumer": 1,
+        "unknown": 2
+      }
+    },
+    "berry-blackberry": {
+      "raw_relevant": 28,
+      "english_readable": 19,
+      "sources": {
+        "reddit": 2,
+        "x": 14,
+        "facebook": 2,
+        "linkedin": 1
+      },
+      "roles": {
+        "consumer": 1,
+        "company_owned": 12,
+        "unknown": 5,
+        "recipe": 1
+      }
+    }
+  },
+  "independent_live_accuracy_graded": 0,
+  "remaining_free_credits": 12,
+  "balance_evidence": "Actual free-only account; latest saved receipt when replaying offline",
+  "cumulative_attempts": 40,
+  "consumed_free_credits": 38
+}

@@ -1,0 +1,32 @@
+{
+  "state": "error",
+  "failed": [
+    {
+      "source": "bluesky",
+      "reason": "API HTTP 403; no success claimed"
+    }
+  ],
+  "job": {
+    "id": "bluesky-a435f76c9af12483",
+    "source": "bluesky",
+    "query": "blueberries",
+    "language": "en",
+    "market": "US",
+    "query_version": "social-query-1",
+    "status": "access-pending",
+    "started_at": "2026-10-07T07:22:27.552417+00:00",
+    "last_success": null,
+    "cursor": null,
+    "query_changed": true,
+    "observed_volume": null,
+    "calls": 1,
+    "cost_usd": 0,
+    "budget": {
+      "max_pages": 1,
+      "max_items": 40,
+      "max_requests": 12
+    },
+    "failure": "API HTTP 403; no success claimed",
+    "failed_at": "2026-10-07T07:22:27.721639+00:00"
+  }
+}

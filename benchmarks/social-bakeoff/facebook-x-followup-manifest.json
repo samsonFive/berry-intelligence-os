@@ -1,0 +1,50 @@
+{
+  "version": "facebook-x-followup-2026-10-07-v1",
+  "cash_spend_cap_usd": 0,
+  "additional_requests_cap": 4,
+  "cumulative_attempt_ceiling": 34,
+  "initial_free_credit_reserve": 0.2,
+  "pages_per_case": 1,
+  "retries": 0,
+  "source_urls_verified_from": [
+    "https://www.fallcreeknursery.com/",
+    "https://www.driscolls.com/"
+  ],
+  "queries": [
+    {
+      "id": "fb-fallcreek-followup",
+      "task": "facebook-posts",
+      "params": {
+        "url": "https://www.facebook.com/FallCreekNursery"
+      }
+    },
+    {
+      "id": "fb-driscolls-followup",
+      "task": "facebook-posts",
+      "params": {
+        "url": "https://www.facebook.com/DriscollsBerries/"
+      }
+    },
+    {
+      "id": "x-fallcreek-followup",
+      "task": "x-search",
+      "params": {
+        "query": "from:FallCreekBlues blueberries",
+        "type": "Latest"
+      }
+    },
+    {
+      "id": "x-driscolls-followup",
+      "task": "x-search",
+      "params": {
+        "query": "from:driscollsberry blueberries",
+        "type": "Latest"
+      }
+    }
+  ],
+  "limitations": [
+    "No date interval; known company paths separate from fresh global discovery scoring",
+    "No pagination,comments/groups/private access qualification",
+    "No language inferred from query; independent accuracy ungraded"
+  ]
+}

@@ -1,7 +1,8 @@
 """Scan trusted/public corpus for explicit Variety/cultivar identities.
 
 Never writes data/entities. Never promotes trusted Varieties. Never scans
-article bodies for capitalized words. Prefers structured fields, then
+article bodies for capitalized words. Recognizes explicit named cultivar lists
+in stored summaries, without inferring roles. Prefers structured fields, then
 registry/index records, then the existing patent cultivar-name extractor.
 """
 
@@ -68,6 +69,11 @@ _STOP_FOLDS = {
     "the ozblu",
     "parentage",
     "origin",
+    "june bearing",
+    "everbearing",
+    "day neutral",
+    "southern highbush",
+    "northern highbush",
 }
 
 _QUOTED_SUBJECT_RE = re.compile(
@@ -105,6 +111,22 @@ _OWNER_DENOMINATIONS_RE = re.compile(
     re.IGNORECASE,
 )
 _SPLIT_LIST_RE = re.compile(r"\s*(?:,|;|\band\b)\s*", re.IGNORECASE)
+# Restricted to explicit declarations, not arbitrary capitalized words. The
+# case-sensitive name grammar deliberately ends before prose such as "lists
+# breeding test stations". Species in the declaration overrides source tags.
+_NAMED_TOKEN = r"[A-ZÀ-ÖØ-Þ][\w'’+\-]*(?:\s+[A-ZÀ-ÖØ-Þ][\w'’+\-]*){0,3}"
+_NAMED_ITEM = rf"['‘’\"“”]?{_NAMED_TOKEN}['‘’\"“”]?"
+_EXPLICIT_LIST_RE = re.compile(
+    rf"\b(?:(?P<species>(?i:blueberry|strawberry|raspberry|blackberry))\s+)?"
+    rf"(?i:varieties|cultivars|denominations)\s*(?i:including|include|named|such as|are|:)\s*"
+    rf"(?P<names>{_NAMED_ITEM}(?:\s*(?:,\s*(?:and\s+)?|;\s*|\band\s+){_NAMED_ITEM})*)"
+)
+_DECLARED_CODE_PAIR_RE = re.compile(
+    rf"(?:\bincluding\s+|[:,;]\s*(?:and\s+)?|\band\s+)(?P<name>{_NAMED_TOKEN})\s+"
+    r"['‘’\"“”](?P<code>[A-Za-z0-9][A-Za-z0-9.\-]*\d[A-Za-z0-9.\-]*)['‘’\"“”]"
+)
+_LICENSED_NAMES_RE = re.compile(r"\blicenses\s+['‘’\"“”].+?(?:\.|$)")
+_QUOTED_NAME_RE = re.compile(rf"['‘’\"“”]({_NAMED_TOKEN})['‘’\"“”]")
 _PARENTAGE_CODE_RE = re.compile(r"^(?=.*\d)[A-Za-z0-9]{1,6}(?:[ \-][A-Za-z0-9]{1,6}){0,3}$")
 _DENOMINATION_CODE_RE = re.compile(
     r"(?i)^(dris|pla|ridley|fc|fcm|ns|bb|fl|eb|th|zf|bk)"
@@ -212,8 +234,8 @@ def _blocked_folds(entities: list[dict[str, Any]]) -> set[str]:
     return blocked
 
 
-def _canonical_index(varieties: list[dict[str, Any]]) -> dict[str, str]:
-    index: dict[str, str] = {}
+def _canonical_index(varieties: list[dict[str, Any]]) -> dict[str, set[str]]:
+    index: dict[str, set[str]] = {}
     for variety in varieties:
         vid = str(variety.get("id") or "")
         if not vid:
@@ -221,20 +243,20 @@ def _canonical_index(varieties: list[dict[str, Any]]) -> dict[str, str]:
         for value in [variety.get("name"), *(variety.get("aliases") or [])]:
             folded = fold_identity(str(value or ""))
             if len(folded) >= 3:
-                index.setdefault(folded, vid)
+                index.setdefault(folded, set()).add(vid)
         attrs = variety.get("attributes") or {}
         for key in ("trade_name", "commercial_name", "denomination", "selection_code", "breeder_code"):
             folded = fold_identity(str(attrs.get(key) or ""))
             if len(folded) >= 3:
-                index.setdefault(folded, vid)
+                index.setdefault(folded, set()).add(vid)
     return index
 
 
 def _candidate_index(candidates: list[dict[str, Any]]) -> dict[str, str]:
     index: dict[str, str] = {}
     for row in candidates:
-        if row.get("status") == "rejected":
-            continue
+        # A rejected name is still a human decision. Rediscovery must never
+        # resurrect it as another proposed candidate.
         berry = str(row.get("berry_id") or (row.get("berry_ids") or [""])[0] or "")
         folded = fold_identity(str(row.get("candidate_name") or ""))
         if folded:
@@ -264,7 +286,9 @@ def _mention(
         "fact_id": (fact or {}).get("id") or "",
         "source_id": record.get("source_id") or record.get("id") or "",
         "source_type": record.get("source_type") or "",
-        "source_tier": "tier_1_registry" if _is_registry_source(record) else "",
+        "source_tier": "tier_1_registry" if _is_registry_source(record) else
+            "tier_1_breeder_catalog" if record.get("source_type") in {"company_website", "breeder_catalog"} else
+            "tier_3_trade_press" if record.get("source_type") in LAUNCH_TITLE_SOURCE_TYPES else "weak_noncanonical_lead",
         "source_label": record.get("source_name") or record.get("source_id") or "",
         "source_url": record.get("source_url") or "",
         "published_date": record.get("published_date") or "",
@@ -595,6 +619,42 @@ def discover_corpus_variety_mentions(
         mentions.extend(found)
         exclusions.extend(excluded)
 
+        # Ordinary company/news summaries can explicitly enumerate cultivars.
+        # Do not scan full article bodies, infer roles or treat place lists as
+        # varieties. An untyped mixed-berry list remains a gap to review.
+        summary = str(record.get("summary") or "")
+        fallback = berry_id if len(_berries(record)) == 1 else ""
+        for match in _EXPLICIT_LIST_RE.finditer(summary):
+            species = match.group("species")
+            list_berry = _BERRY_LABELS.get((species or "").lower(), fallback)
+            if not list_berry:
+                exclusions.append({"name": match.group("names"), "reason": "berry_not_established", "record_id": record["id"]})
+                continue
+            for name in _split_name_list(match.group("names")):
+                extra = {}
+                code_match = re.fullmatch(r"(.+?)\s+((?:FCM?|BB|FL|DRIS)[A-Z0-9]*\d[\w.\-]*)", name)
+                if code_match:
+                    name = code_match.group(1)
+                    extra["breeder_code"] = code_match.group(2)
+                if not _is_stop_name(name, blocked):
+                    mentions.append(_mention(name=name, berry_id=list_berry, kind="explicit_summary_list",
+                                             evidence=record, fact=None, context=match.group(0), extra=extra))
+        if re.search(r"\bselection codes?\b", summary) and fallback:
+            for match in _DECLARED_CODE_PAIR_RE.finditer(summary):
+                name = _clean_name(match.group("name"))
+                if not _is_stop_name(name, blocked):
+                    mentions.append(_mention(name=name, berry_id=fallback, kind="explicit_summary_code_pair",
+                        evidence=record, fact=None, context=match.group(0), extra={"breeder_code": match.group("code")}))
+        # Explicit quoted license lists in a single-species cultivar summary
+        # are identity leads only. This never creates license/ownership edges.
+        if fallback and re.search(r"\b(?:blueberry|strawberry|raspberry|blackberry)\s+varieties\b", summary, re.IGNORECASE):
+            for clause in _LICENSED_NAMES_RE.finditer(summary):
+                for match in _QUOTED_NAME_RE.finditer(clause.group(0)):
+                    name = _clean_name(match.group(1))
+                    if not _is_stop_name(name, blocked):
+                        mentions.append(_mention(name=name, berry_id=fallback, kind="quoted_licensed_name",
+                                                 evidence=record, fact=None, context=clause.group(0)))
+
     # Deduplicate mentions by folded name + berry, merging provenance.
     merged: dict[str, dict[str, Any]] = {}
     for mention in mentions:
@@ -628,25 +688,27 @@ def discover_corpus_variety_mentions(
     for key, mention in merged.items():
         folded = fold_identity(mention["candidate_name"])
         berry = str(mention.get("berry_id") or "")
-        canonical_id = canonical.get(folded)
-        if canonical_id:
-            variety = next((row for row in varieties if row.get("id") == canonical_id), None)
-            variety_berries = set(_berries(variety or {}))
-            if not berry or not variety_berries or berry in variety_berries:
+        canonical_ids = canonical.get(folded, set())
+        compatible_ids = {row["id"] for row in varieties if row.get("id") in canonical_ids and
+                          (not berry or not _berries(row) or berry in _berries(row))}
+        if canonical_ids:
+            if len(compatible_ids) == 1:
+                canonical_id = next(iter(compatible_ids))
                 mention["disposition"] = "already_canonical"
                 mention["canonical_variety_id"] = canonical_id
                 already_canonical.append(mention)
                 continue
-            mention["disposition"] = "berry_mismatch"
-            exclusions.append(
-                {
-                    "name": mention["candidate_name"],
-                    "reason": "berry_mismatch",
-                    "canonical_variety_id": canonical_id,
-                    "mention_berry": berry,
-                }
-            )
-            continue
+            if not compatible_ids:
+                mention["disposition"] = "berry_mismatch"
+                exclusions.append(
+                    {
+                        "name": mention["candidate_name"],
+                        "reason": "berry_mismatch",
+                        "canonical_variety_id": sorted(canonical_ids)[0],
+                        "mention_berry": berry,
+                    }
+                )
+                continue
         if key in already_candidate:
             mention["disposition"] = "already_candidate"
             mention["existing_candidate_id"] = already_candidate[key]
@@ -731,7 +793,7 @@ def mentions_to_import_rows(mentions: list[dict[str, Any]]) -> list[dict[str, An
                 "berry_id": mention.get("berry_id") or "",
                 "source_id": mention.get("source_id") or evidence_id or "",
                 "source_type": mention.get("source_type") or "",
-                "source_tier": mention.get("source_tier") or "tier_1_registry",
+                "source_tier": mention.get("source_tier") or "weak_noncanonical_lead",
                 "source_label": mention.get("source_label") or mention.get("source_id") or "",
                 "source_url": mention.get("source_url") or "",
                 "breeder_owner": mention.get("breeder_owner") or "",
@@ -772,18 +834,54 @@ def build_discovered_candidates(
         row["discovered_from"] = "corpus"
         row["human_gated"] = False
         row["auto_confirmed"] = False
+        source_ids = set(row["knowledge"].get("evidence_ids") or [])
+        linked_company_ids = {eid for source in published_evidence if source.get("id") in source_ids
+                              for eid in source.get("entity_ids") or []}
+        row["knowledge"]["source_companies"] = [
+            {"entity_id": entity["id"], "entity_type": entity["entity_type"], "name": entity["name"]}
+            for entity in entities if entity.get("id") in linked_company_ids and entity.get("entity_type") == "company"
+        ]
     report["candidates"] = persistable
     report["rejected_builds"] = [row for row in built if row.get("status") == "rejected"]
     return report
 
 
+def source_catalog_coverage(report: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+    """Source mentions beside catalog matches; no invented relationship edges."""
+    from urllib.parse import urlencode
+    result: dict[str, list[dict[str, Any]]] = {}
+    for mention in report.get("mentions") or []:
+        if mention.get("disposition") == "berry_mismatch":
+            continue
+        canonical_id = mention.get("canonical_variety_id")
+        row = {"name": mention["candidate_name"], "catalog_id": canonical_id,
+               "label": "In catalog" if canonical_id else "Needs catalog review",
+               "href": "/entities/variety/" + canonical_id if canonical_id else
+                       "/varieties/candidates?" + urlencode({"q": mention["candidate_name"], "berry": mention.get("berry_id") or ""})}
+        for sid in mention.get("evidence_ids") or []:
+            result.setdefault(sid, []).append(row)
+    return {sid: sorted(rows, key=lambda row: row["name"].casefold()) for sid, rows in result.items()}
+
+
 def merge_visible_candidates(
     inbox_candidates: list[dict[str, Any]],
     discovered_candidates: list[dict[str, Any]],
+    *,
+    report: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     """Inbox (possibly human-reviewed) wins. Discovered rows fill gaps. No writes."""
     seen = _candidate_index(inbox_candidates)
-    merged = list(inbox_candidates)
+    merged = []
+    for row in inbox_candidates:
+        matching = [mention for mention in (report or {}).get("already_candidate", [])
+                    if mention.get("existing_candidate_id") == row.get("id")]
+        if not matching:
+            merged.append(row)
+            continue
+        # Additional read-only provenance is separate from operator-owned
+        # knowledge and decisions. No persisted field is replaced on replay.
+        provenance = sorted({sid for mention in matching for sid in mention.get("evidence_ids") or []})
+        merged.append({**row, "corpus_evidence_ids": provenance})
     for row in discovered_candidates:
         berry = str(row.get("berry_id") or "")
         key = f"{fold_identity(str(row.get('candidate_name') or ''))}|{berry}"

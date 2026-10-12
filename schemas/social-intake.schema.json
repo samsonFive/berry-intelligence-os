@@ -1,0 +1,564 @@
+{
+  "$defs": {
+    "Geography": {
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "maxLength": 120,
+          "title": "Value",
+          "type": "string"
+        },
+        "basis": {
+          "enum": [
+            "explicit_text",
+            "package_label",
+            "analyst",
+            "profile",
+            "query_target"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "evidence_ref": {
+          "title": "Evidence Ref",
+          "type": "string"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "latitude": {
+          "anyOf": [
+            {
+              "maximum": 90,
+              "minimum": -90,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latitude"
+        },
+        "longitude": {
+          "anyOf": [
+            {
+              "maximum": 180,
+              "minimum": -180,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Longitude"
+        }
+      },
+      "required": [
+        "value",
+        "basis",
+        "evidence_ref",
+        "confidence"
+      ],
+      "title": "Geography",
+      "type": "object"
+    },
+    "LiteralExtraction": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "maxLength": 4000,
+          "title": "Text",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "human_label",
+            "ocr",
+            "transcript"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        },
+        "locator": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Locator",
+          "type": "string"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "text",
+        "method",
+        "version",
+        "locator",
+        "confidence"
+      ],
+      "title": "LiteralExtraction",
+      "type": "object"
+    },
+    "Media": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "parent_native_id": {
+          "title": "Parent Native Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "image",
+            "video",
+            "thumbnail",
+            "transcript"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Url"
+        },
+        "mime": {
+          "maxLength": 100,
+          "title": "Mime",
+          "type": "string"
+        },
+        "content_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Hash"
+        },
+        "object_ref": {
+          "anyOf": [
+            {
+              "pattern": "^[a-f0-9]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Object Ref"
+        },
+        "attribution": {
+          "maxLength": 500,
+          "title": "Attribution",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "available",
+            "unavailable",
+            "deleted",
+            "restricted",
+            "unsupported"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "storage_permission": {
+          "enum": [
+            "reference_only",
+            "permitted_bytes",
+            "restricted"
+          ],
+          "title": "Storage Permission",
+          "type": "string"
+        },
+        "retention": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Retention",
+          "type": "string"
+        },
+        "literal": {
+          "items": {
+            "$ref": "#/$defs/LiteralExtraction"
+          },
+          "maxItems": 30,
+          "title": "Literal",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "parent_native_id",
+        "kind",
+        "mime",
+        "attribution",
+        "state",
+        "storage_permission",
+        "retention"
+      ],
+      "title": "Media",
+      "type": "object"
+    },
+    "Translation": {
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "maxLength": 20000,
+          "title": "Text",
+          "type": "string"
+        },
+        "language": {
+          "default": "en",
+          "title": "Language",
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "human",
+            "provider",
+            "machine",
+            "synthetic"
+          ],
+          "title": "Method",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        },
+        "uncertainty": {
+          "title": "Uncertainty",
+          "type": "string"
+        }
+      },
+      "required": [
+        "text",
+        "method",
+        "version",
+        "uncertainty"
+      ],
+      "title": "Translation",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "source": {
+      "title": "Source",
+      "type": "string"
+    },
+    "native_id": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Native Id",
+      "type": "string"
+    },
+    "canonical_url": {
+      "title": "Canonical Url",
+      "type": "string"
+    },
+    "parent_native_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Parent Native Id"
+    },
+    "published_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published At"
+    },
+    "collected_at": {
+      "format": "date-time",
+      "title": "Collected At",
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "live",
+        "imported",
+        "manual",
+        "fixture"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "discovery_method": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Discovery Method",
+      "type": "string"
+    },
+    "query_version": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Query Version",
+      "type": "string"
+    },
+    "text": {
+      "maxLength": 20000,
+      "title": "Text",
+      "type": "string"
+    },
+    "language": {
+      "maxLength": 35,
+      "minLength": 2,
+      "title": "Language",
+      "type": "string"
+    },
+    "language_basis": {
+      "maxLength": 120,
+      "minLength": 1,
+      "title": "Language Basis",
+      "type": "string"
+    },
+    "translation": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Translation"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "content_role": {
+      "default": "unknown",
+      "enum": [
+        "consumer",
+        "recipe",
+        "company_owned",
+        "creator",
+        "disclosed_sponsorship",
+        "trade",
+        "news_repost",
+        "unknown"
+      ],
+      "title": "Content Role",
+      "type": "string"
+    },
+    "content_role_basis": {
+      "default": "Not classified",
+      "maxLength": 500,
+      "title": "Content Role Basis",
+      "type": "string"
+    },
+    "record_role": {
+      "default": "original",
+      "enum": [
+        "original",
+        "reply",
+        "repost"
+      ],
+      "title": "Record Role",
+      "type": "string"
+    },
+    "source_embed_urn": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Embed Urn"
+    },
+    "author_handle": {
+      "anyOf": [
+        {
+          "maxLength": 500,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Author Handle"
+    },
+    "author_name": {
+      "anyOf": [
+        {
+          "maxLength": 500,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Author Name"
+    },
+    "attribution": {
+      "maxLength": 500,
+      "title": "Attribution",
+      "type": "string"
+    },
+    "permission_basis": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Permission Basis",
+      "type": "string"
+    },
+    "retention_days": {
+      "default": 30,
+      "maximum": 365,
+      "minimum": 1,
+      "title": "Retention Days",
+      "type": "integer"
+    },
+    "purchase_market": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Geography"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "fruit_origin": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Geography"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "author_geography": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Geography"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "conversation_market": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Geography"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "search_market": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Geography"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "media": {
+      "items": {
+        "$ref": "#/$defs/Media"
+      },
+      "maxItems": 30,
+      "title": "Media",
+      "type": "array"
+    },
+    "engagement": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "maxProperties": 20,
+      "title": "Engagement",
+      "type": "object"
+    },
+    "engagement_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Engagement At"
+    }
+  },
+  "required": [
+    "source",
+    "native_id",
+    "canonical_url",
+    "collected_at",
+    "mode",
+    "discovery_method",
+    "query_version",
+    "text",
+    "language",
+    "language_basis",
+    "attribution",
+    "permission_basis"
+  ],
+  "title": "Intake",
+  "type": "object"
+}

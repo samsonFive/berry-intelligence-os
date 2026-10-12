@@ -1,0 +1,42 @@
+{
+  "version": "berry-bakeoff-2026-10-07-v1",
+  "predeclared_at": "2026-10-07T13:00:11+00:00",
+  "start_utc": "2026-09-07T13:00:11+00:00",
+  "end_utc": "2026-10-07T13:00:11+00:00",
+  "caps": {"results_per_query": 10, "reference_urls_per_provider": 5, "pages": 1, "retries": 0},
+  "exceptions": {"google-news-rss": "Feed when:30d syntax; returned dates filtered to exact interval; title-only news, not social", "bluesky-jetstream": "30-second present-time tail; no historical search comparison; preceding connection probe exploratory only"},
+  "vocabulary": "Existing berry registry aliases and EN/ES/PT/ZH/JA synthetic extraction vocabulary; query translations still need independent native-speaker validation. Retailer target is never purchase/author location.",
+  "queries": [
+    {"id":"bb-en-1","group":"blueberry","query":"blueberries sweet crunchy","language":"en","market":"US","feed_locale":"en-US"},
+    {"id":"bb-es-1","group":"blueberry","query":"arándanos sabor textura","language":"es","market":"ES","feed_locale":"es"},
+    {"id":"bb-pt-1","group":"blueberry","query":"mirtilos sabor textura","language":"pt","market":"BR","feed_locale":"pt-BR"},
+    {"id":"bb-zh-1","group":"blueberry","query":"蓝莓 口感 脆 甜","language":"zh","market":"CN","feed_locale":"zh-CN"},
+    {"id":"bb-ja-1","group":"blueberry","query":"ブルーベリー 味 食感","language":"ja","market":"JP","feed_locale":"ja"},
+    {"id":"bb-en-2","group":"blueberry","query":"blueberries Driscoll's","language":"en","market":"US","feed_locale":"en-US"},
+    {"id":"bb-es-2","group":"blueberry","query":"arándanos Mercadona","language":"es","market":"ES","feed_locale":"es"},
+    {"id":"bb-pt-2","group":"blueberry","query":"mirtilo Carrefour","language":"pt","market":"BR","feed_locale":"pt-BR"},
+    {"id":"bb-zh-2","group":"blueberry","query":"蓝莓 山姆 秘鲁","language":"zh","market":"CN","feed_locale":"zh-CN"},
+    {"id":"bb-ja-2","group":"blueberry","query":"ブルーベリー コストコ ペルー","language":"ja","market":"JP","feed_locale":"ja"},
+    {"id":"bb-en-3","group":"blueberry","query":"blueberry Sekoya Pop cultivar","language":"en","market":"US","feed_locale":"en-US"},
+    {"id":"bb-es-3","group":"blueberry","query":"arándanos Perú compré España","language":"es","market":"ES","feed_locale":"es"},
+    {"id":"st-en","group":"other-berry","query":"strawberries flavor texture","language":"en","market":"US","feed_locale":"en-US"},
+    {"id":"ra-es","group":"other-berry","query":"frambuesas sabor","language":"es","market":"ES","feed_locale":"es"},
+    {"id":"bk-pt","group":"other-berry","query":"amoras sabor","language":"pt","market":"BR","feed_locale":"pt-BR"},
+    {"id":"st-ja","group":"other-berry","query":"いちご 味 食感","language":"ja","market":"JP","feed_locale":"ja"},
+    {"id":"amb-phone","group":"ambiguity-retail","query":"BlackBerry phone keyboard","language":"en","market":"US","feed_locale":"en-US"},
+    {"id":"amb-cultivar","group":"ambiguity-retail","query":"blueberries Duke Legacy","language":"en","market":"US","feed_locale":"en-US"},
+    {"id":"ret-found","group":"ambiguity-retail","query":"blueberries found at Costco","language":"en","market":"US","feed_locale":"en-US"},
+    {"id":"ret-wish","group":"ambiguity-retail","query":"blueberries wish Kroger stocked","language":"en","market":"US","feed_locale":"en-US"}
+  ],
+  "weights": {"discovery":25,"multilingual":20,"media":20,"fidelity":15,"repeat":10,"cost":10},
+  "rubric": {
+    "common": "0 observed failure; 1 below targets; 2 useful limited sample; 3 meets dimension's pilot target with adequate sample; 4 repeated target success across strata; 5 independently reviewed repeated target success including required edge cases. Never assign ratings from docs, output counts or unknown judgments.",
+    "discovery": "3 requires >=80% reviewed relevance and >=30 unique reviewed discovery records; report Wilson interval and strata, not population recall",
+    "multilingual": "3 requires three live non-English languages and >1 evidenced region; query market alone does not evidence a region",
+    "media": "3 requires separate working post image, carousel, comments, replies and attached-comment-image checks with applicability denominators; missing/unsupported never silently excluded",
+    "fidelity": "3 requires >=90% reference retrieval across >=10 accessible applicable independent references, attributable IDs/URLs and no invented geography/entity",
+    "repeat": "3 requires real second call and stable identities/schema with dedupe/restart/deletion checks; cache replay is not provider reliability",
+    "cost": "3 requires enforceable zero spend over repeat runs plus recurring free allowance sufficient for declared scenario and permission/maintenance review",
+    "unmeasured": "No rating, verified points 0, tested coverage 0; zero points here means no evidence, not observed bad quality"
+  }
+}

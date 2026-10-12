@@ -1,0 +1,344 @@
+{
+  "version": "sociavault-multiplatform-2026-10-07-v1",
+  "predeclared_at": "2026-10-07T14:32:01.131439+00:00",
+  "start_utc": "2026-09-07T14:32:01.131439+00:00",
+  "end_utc": "2026-10-07T14:32:01.131439+00:00",
+  "caps": {
+    "results_per_query": 10,
+    "reference_urls_per_provider": 5,
+    "pages": 1,
+    "retries": 0
+  },
+  "exceptions": {
+    "instagram": "Hashtag discovery through Google index, not arbitrary phrase search; index date is not post date",
+    "linkedin": "Google-indexed public posts; date filter may apply to index age",
+    "pinterest": "No date parameter; exact date filtered only when present",
+    "youtube": "Search this_month approximates interval; unknown dates remain explicitly unverified",
+    "x": "Native since/until dates are day-granular; exact local date filter when returned",
+    "known-url": "Known-URL media/comment probes may be outside interval; separate from discovery score"
+  },
+  "vocabulary": "Existing berry registry aliases and EN/ES/PT/ZH/JA synthetic extraction vocabulary; query translations still need independent native-speaker validation. Retailer target is never purchase/author location.",
+  "queries": [
+    {
+      "id": "bb-en-1",
+      "group": "blueberry",
+      "query": "blueberries sweet crunchy",
+      "language": "en",
+      "market": "US",
+      "feed_locale": "en-US",
+      "platform": "reddit",
+      "task": "reddit-search",
+      "params": {
+        "query": "blueberries sweet crunchy",
+        "timeframe": "month",
+        "sort": "new",
+        "trim": "false"
+      }
+    },
+    {
+      "id": "bb-en-2",
+      "group": "blueberry",
+      "query": "blueberries Driscoll's",
+      "language": "en",
+      "market": "US",
+      "feed_locale": "en-US",
+      "platform": "tiktok",
+      "task": "tiktok-search",
+      "params": {
+        "query": "blueberries Driscoll's",
+        "date_posted": "this-month",
+        "sort_by": "date-posted",
+        "trim": "false"
+      }
+    },
+    {
+      "id": "bb-en-3",
+      "group": "blueberry",
+      "query": "blueberry Sekoya Pop cultivar",
+      "language": "en",
+      "market": "US",
+      "feed_locale": "en-US",
+      "platform": "linkedin",
+      "task": "linkedin-search",
+      "params": {
+        "query": "blueberry Sekoya Pop cultivar",
+        "date_posted": "last-month"
+      }
+    },
+    {
+      "id": "amb-phone",
+      "group": "ambiguity-retail",
+      "query": "BlackBerry phone keyboard",
+      "language": "en",
+      "market": "US",
+      "feed_locale": "en-US",
+      "platform": "x",
+      "task": "x-search",
+      "params": {
+        "query": "BlackBerry phone keyboard since:2026-09-07 until:2026-10-08",
+        "type": "Latest"
+      }
+    },
+    {
+      "id": "ret-found",
+      "group": "ambiguity-retail",
+      "query": "blueberries found at Costco",
+      "language": "en",
+      "market": "US",
+      "feed_locale": "en-US",
+      "platform": "instagram",
+      "task": "instagram-search",
+      "syntax_exception": "Hashtag replaces phrase; retailer/intent terms not preserved",
+      "params": {
+        "hashtag": "blueberries",
+        "date_posted": "last-month",
+        "media_type": "all"
+      }
+    },
+    {
+      "id": "amb-cultivar",
+      "group": "ambiguity-retail",
+      "query": "blueberries Duke Legacy",
+      "language": "en",
+      "market": "US",
+      "feed_locale": "en-US",
+      "platform": "pinterest",
+      "task": "pinterest-search",
+      "params": {
+        "query": "blueberries Duke Legacy",
+        "trim": "false"
+      }
+    },
+    {
+      "id": "st-en",
+      "group": "other-berry",
+      "query": "strawberries flavor texture",
+      "language": "en",
+      "market": "US",
+      "feed_locale": "en-US",
+      "platform": "youtube",
+      "task": "youtube-search",
+      "params": {
+        "query": "strawberries flavor texture",
+        "uploadDate": "this_month",
+        "sortBy": "relevance"
+      }
+    },
+    {
+      "id": "bb-es-1",
+      "group": "blueberry",
+      "query": "arándanos sabor textura",
+      "language": "es",
+      "market": "ES",
+      "feed_locale": "es",
+      "platform": "reddit",
+      "task": "reddit-search",
+      "params": {
+        "query": "arándanos sabor textura",
+        "timeframe": "month",
+        "sort": "new",
+        "trim": "false"
+      }
+    },
+    {
+      "id": "bb-pt-1",
+      "group": "blueberry",
+      "query": "mirtilos sabor textura",
+      "language": "pt",
+      "market": "BR",
+      "feed_locale": "pt-BR",
+      "platform": "tiktok",
+      "task": "tiktok-search",
+      "params": {
+        "query": "mirtilos sabor textura",
+        "date_posted": "this-month",
+        "sort_by": "date-posted",
+        "trim": "false"
+      }
+    },
+    {
+      "id": "bb-zh-1",
+      "group": "blueberry",
+      "query": "蓝莓 口感 脆 甜",
+      "language": "zh",
+      "market": "CN",
+      "feed_locale": "zh-CN",
+      "platform": "x",
+      "task": "x-search",
+      "params": {
+        "query": "蓝莓 口感 脆 甜 since:2026-09-07 until:2026-10-08",
+        "type": "Latest"
+      }
+    },
+    {
+      "id": "bb-ja-1",
+      "group": "blueberry",
+      "query": "ブルーベリー 味 食感",
+      "language": "ja",
+      "market": "JP",
+      "feed_locale": "ja",
+      "platform": "youtube",
+      "task": "youtube-search",
+      "params": {
+        "query": "ブルーベリー 味 食感",
+        "uploadDate": "this_month",
+        "sortBy": "relevance"
+      }
+    },
+    {
+      "id": "bb-es-2",
+      "group": "blueberry",
+      "query": "arándanos Mercadona",
+      "language": "es",
+      "market": "ES",
+      "feed_locale": "es",
+      "platform": "instagram",
+      "task": "instagram-search",
+      "syntax_exception": "Hashtag replaces phrase; retailer/intent terms not preserved",
+      "params": {
+        "hashtag": "arandanos",
+        "date_posted": "last-month",
+        "media_type": "all"
+      }
+    },
+    {
+      "id": "bb-pt-2",
+      "group": "blueberry",
+      "query": "mirtilo Carrefour",
+      "language": "pt",
+      "market": "BR",
+      "feed_locale": "pt-BR",
+      "platform": "pinterest",
+      "task": "pinterest-search",
+      "params": {
+        "query": "mirtilo Carrefour",
+        "trim": "false"
+      }
+    },
+    {
+      "id": "bb-zh-2",
+      "group": "blueberry",
+      "query": "蓝莓 山姆 秘鲁",
+      "language": "zh",
+      "market": "CN",
+      "feed_locale": "zh-CN",
+      "platform": "linkedin",
+      "task": "linkedin-search",
+      "params": {
+        "query": "蓝莓 山姆 秘鲁",
+        "date_posted": "last-month"
+      }
+    },
+    {
+      "id": "bb-ja-2",
+      "group": "blueberry",
+      "query": "ブルーベリー コストコ ペルー",
+      "language": "ja",
+      "market": "JP",
+      "feed_locale": "ja",
+      "platform": "reddit",
+      "task": "reddit-search",
+      "params": {
+        "query": "ブルーベリー コストコ ペルー",
+        "timeframe": "month",
+        "sort": "new",
+        "trim": "false"
+      }
+    },
+    {
+      "id": "bb-es-3",
+      "group": "blueberry",
+      "query": "arándanos Perú compré España",
+      "language": "es",
+      "market": "ES",
+      "feed_locale": "es",
+      "platform": "x",
+      "task": "x-search",
+      "params": {
+        "query": "arándanos Perú compré España since:2026-09-07 until:2026-10-08",
+        "type": "Latest"
+      }
+    },
+    {
+      "id": "ra-es",
+      "group": "other-berry",
+      "query": "frambuesas sabor",
+      "language": "es",
+      "market": "ES",
+      "feed_locale": "es",
+      "platform": "youtube",
+      "task": "youtube-search",
+      "params": {
+        "query": "frambuesas sabor",
+        "uploadDate": "this_month",
+        "sortBy": "relevance"
+      }
+    },
+    {
+      "id": "bk-pt",
+      "group": "other-berry",
+      "query": "amoras sabor",
+      "language": "pt",
+      "market": "BR",
+      "feed_locale": "pt-BR",
+      "platform": "pinterest",
+      "task": "pinterest-search",
+      "params": {
+        "query": "amoras sabor",
+        "trim": "false"
+      }
+    },
+    {
+      "id": "st-ja",
+      "group": "other-berry",
+      "query": "いちご 味 食感",
+      "language": "ja",
+      "market": "JP",
+      "feed_locale": "ja",
+      "platform": "instagram",
+      "task": "instagram-search",
+      "syntax_exception": "Hashtag replaces phrase; retailer/intent terms not preserved",
+      "params": {
+        "hashtag": "いちご",
+        "date_posted": "last-month",
+        "media_type": "all"
+      }
+    },
+    {
+      "id": "ret-wish",
+      "group": "ambiguity-retail",
+      "query": "blueberries wish Kroger stocked",
+      "language": "en",
+      "market": "US",
+      "feed_locale": "en-US",
+      "platform": "tiktok",
+      "task": "tiktok-search",
+      "params": {
+        "query": "blueberries wish Kroger stocked",
+        "date_posted": "this-month",
+        "sort_by": "date-posted",
+        "trim": "false"
+      }
+    }
+  ],
+  "weights": {
+    "discovery": 25,
+    "multilingual": 20,
+    "media": 20,
+    "fidelity": 15,
+    "repeat": 10,
+    "cost": 10
+  },
+  "rubric": {
+    "common": "0 observed failure; 1 below targets; 2 useful limited sample; 3 meets dimension's pilot target with adequate sample; 4 repeated target success across strata; 5 independently reviewed repeated target success including required edge cases. Never assign ratings from docs, output counts or unknown judgments.",
+    "discovery": "3 requires >=80% reviewed relevance and >=30 unique reviewed discovery records; report Wilson interval and strata, not population recall",
+    "multilingual": "3 requires three live non-English languages and >1 evidenced region; query market alone does not evidence a region",
+    "media": "3 requires separate working post image, carousel, comments, replies and attached-comment-image checks with applicability denominators; missing/unsupported never silently excluded",
+    "fidelity": "3 requires >=90% reference retrieval across >=10 accessible applicable independent references, attributable IDs/URLs and no invented geography/entity",
+    "repeat": "3 requires real second call and stable identities/schema with dedupe/restart/deletion checks; cache replay is not provider reliability",
+    "cost": "3 requires enforceable zero spend over repeat runs plus recurring free allowance sufficient for declared scenario and permission/maintenance review",
+    "unmeasured": "No rating, verified points 0, tested coverage 0; zero points here means no evidence, not observed bad quality"
+  },
+  "credit_ceiling": 30,
+  "known_url_cap": 5
+}

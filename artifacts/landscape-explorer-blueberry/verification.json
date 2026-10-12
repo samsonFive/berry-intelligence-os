@@ -1,0 +1,92 @@
+{
+  "environment": "Windows laptop; Python 3.13 existing venv; native Codex in-app browser",
+  "measured_at": "2026-10-06T17:07:00.363801+00:00",
+  "data_version": "9e0002d110252e61",
+  "scope": {
+    "predicate": "",
+    "evidence": "reviewed",
+    "status": "all",
+    "view": "portrait",
+    "window": "all",
+    "time": "documented",
+    "question": "markets",
+    "theme": "light",
+    "berry": "berry-blueberry",
+    "countries": [
+      "geography-chile",
+      "geography-china",
+      "geography-peru"
+    ],
+    "focus": "",
+    "q": "",
+    "start": "",
+    "end": "",
+    "limit": 100,
+    "edge": ""
+  },
+  "coverage": {
+    "nodes": 53,
+    "relationships": 82,
+    "sources": 47,
+    "genetic_location_links": 0,
+    "company_location_links": 10,
+    "event_dated": 16,
+    "undated_for_window": 0,
+    "hidden_nodes": 0,
+    "hidden_relationships": 0,
+    "truncated_display": false,
+    "complete_export": true,
+    "excluded": {
+      "missing_endpoints": 0,
+      "unavailable_sources": 3
+    },
+    "partial": true
+  },
+  "node_types": {
+    "company": 16,
+    "variety": 30,
+    "breeding_program": 4,
+    "geography": 3
+  },
+  "relationship_statuses": {
+    "active": 80,
+    "disputed": 2
+  },
+  "conservative_source_origins": 19,
+  "http_api_ms": [
+    434.05,
+    192.65,
+    225.66
+  ],
+  "json_payload_bytes": 396063,
+  "browser": {
+    "desktop_viewport": [
+      1280,
+      720
+    ],
+    "mobile_viewport": [
+      390,
+      844
+    ],
+    "markup_data_binding_ms": 2.1,
+    "real_program_focus_highlight_ms": 7.8,
+    "console_errors": 0,
+    "horizontal_phone_overflow": false,
+    "all_three_questions_reviewed": true,
+    "custom_event_window_changes": 7,
+    "same_capture_window_changes": 0,
+    "keyboard_table_and_dossiers_reader_reviewed": true
+  },
+  "export_parity": {
+    "relationships": 82,
+    "sources": 47,
+    "csv_relationship_source_rows": 97,
+    "svg_dimensions": "0 0 1200 20764",
+    "checks": "Native HTML/SVG/CSV downloads; XML parse; complete relationship/source IDs (normalize SVG line-wrap whitespace), version/scope parity; inline HTML visually reviewed"
+  },
+  "limits": [
+    "Browser performance measured on real 53-node/82-edge corpus, not a synthetic maximum-size browser run.",
+    "100-node/200-edge bounds separately tested in backend fixtures only.",
+    "SVG is a tall continuous vector with panels; printable HTML provides page pagination."
+  ]
+}

@@ -1,0 +1,18 @@
+{% macro mode_label(mode) -%}{{ {'fixture':'Sample posts','live':'Live collection','imported':'Uploaded data','manual':'Saved by you'}.get(mode,mode) }}{%- endmacro %}
+{% macro short_date(value) -%}{% if value %}{{ value[5:7] }}/{{ value[8:10] }}/{{ value[2:4] }}{% else %}Unknown{% endif %}{%- endmacro %}
+{% macro retailer_label(value) -%}{{ {'found-at':'Found at','bought-at':'Bought at','wishes-stocked-by':'Wants stocked at','unavailable-at':'Unavailable at','sold-by':'Sold by','compared-with':'Compared with','uncertain':'Unclear'}.get(value,value|replace('-',' ')) }}{%- endmacro %}
+{% macro phrase_label(value) -%}{% if ' · ' in value %}{{ value.split(' · ')[0] }} · {{ retailer_label(value.split(' · ')[1]) }}{% else %}{{ value|capitalize }}{% endif %}{%- endmacro %}
+{% macro entity_label(value,entities) -%}{% set matched=entities|selectattr('id','equalto',value)|first %}{{ matched.name if matched else 'Unresolved name' }}{%- endmacro %}
+{% macro status_label(value) -%}{{ {'setup-required':'Needs setup','access-pending':'Access blocked','unsupported':'Not available','fixture-only':'Sample data only','stale':'Out of date','live':'Connected','partial':'Limited coverage','failed':'Failed','running':'Collecting'}.get(value,value|replace('-',' ')) }}{%- endmacro %}
+
+{% macro media_carousel(row,reader=false,player=none) %}
+<div class="social-carousel {{ 'social-carousel-reader' if reader else 'social-carousel-row' }}" data-social-carousel aria-label="Post attachments">
+<div class="social-carousel-track">{% for m in row.media %}{% if not reader or not player or m.kind not in ('thumbnail','video') %}
+<figure class="social-slide">{% if m.state=='available' and m.storage_permission!='restricted' and m.kind in ('image','thumbnail') and (m.object_ref or m.source_url) %}
+{% set image_url='/api/social/'+row.id+'/media/'+(m.id|urlencode) if m.object_ref else m.source_url %}
+<a href="{{ image_url }}" data-social-lightbox aria-label="Enlarge attachment {{ loop.index }}"><img data-social-src="{{ image_url }}" alt="{{ 'Invented sample attachment' if row.mode=='fixture' else 'Original post attachment '+loop.index|string }}" width="{{ 600 if reader else 88 }}" height="{{ 320 if reader else 64 }}" decoding="async" referrerpolicy="no-referrer"></a>
+{% elif reader and m.state=='available' and m.storage_permission!='restricted' and m.kind=='video' and m.source_url %}<video controls preload="none" src="{{ m.source_url }}"></video>
+{% elif not reader and m.state=='available' and m.kind=='video' %}<a href="/social?mode={{ row.mode }}&amp;story={{ row.id }}" data-open-reader data-item-id="{{ row.id }}">Play video ▷</a>{% else %}<small>{{ m.kind|capitalize }} · {{ m.state }}</small>{% endif %}
+{% if reader %}{% for lit in m.literal %}<p>Literal label: “{{ lit.text }}”</p>{% endfor %}{% endif %}</figure>{% endif %}{% endfor %}</div>
+<div class="social-carousel-controls" hidden><button type="button" data-slide-step="-1" aria-label="Previous attachment">‹</button><span data-slide-count aria-live="polite"></span><button type="button" data-slide-step="1" aria-label="Next attachment">›</button></div>
+</div>{% endmacro %}

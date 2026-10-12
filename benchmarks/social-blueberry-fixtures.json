@@ -1,0 +1,1579 @@
+{
+  "label": "SYNTHETIC; fictional source URLs; no live access",
+  "evaluation_entities": [
+    {
+      "id": "variety-demo-breeze",
+      "name": "Breeze",
+      "entity_type": "variety",
+      "status": "active"
+    }
+  ],
+  "records": [
+    {
+      "source": "reddit",
+      "native_id": "demo-en-0",
+      "canonical_url": "https://example.org/synthetic/demo-en-0",
+      "text": "Found these blueberries at Costco; huge and crunchy, but bland.",
+      "language": "en",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-01T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found blueberries at Costco; positive size and texture, negative flavor.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "US",
+        "basis": "query_target",
+        "evidence_ref": "demo-en-0",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "youtube",
+      "native_id": "demo-en-1",
+      "canonical_url": "https://example.org/synthetic/demo-en-1",
+      "text": "Wish Kroger stocked these blueberries.",
+      "language": "en",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-02T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Wish for blueberries at Kroger.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "US",
+        "basis": "query_target",
+        "evidence_ref": "demo-en-1",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "bluesky",
+      "native_id": "demo-en-2",
+      "canonical_url": "https://example.org/synthetic/demo-en-2",
+      "text": "These blueberries are sweet and sour.",
+      "language": "en",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-03T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Mixed flavor.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "US",
+        "basis": "query_target",
+        "evidence_ref": "demo-en-2",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "instagram",
+      "native_id": "demo-en-3",
+      "canonical_url": "https://example.org/synthetic/demo-en-3",
+      "text": "BlackBerry Android smartphone keyboard review.",
+      "language": "en",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-04T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Phone exclusion.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "US",
+        "basis": "query_target",
+        "evidence_ref": "demo-en-3",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "forums-retail",
+      "native_id": "demo-en-4",
+      "canonical_url": "https://example.org/synthetic/demo-en-4",
+      "text": "Blueberries: SEKOYA Crunch. Author in Japan; purchased in Spain; grown in Peru.",
+      "language": "en",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-05T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Named cultivar and separate geographies.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": {
+        "value": "Spain",
+        "basis": "explicit_text",
+        "evidence_ref": "demo-en-4:literal",
+        "confidence": 0.9,
+        "latitude": 40.4168,
+        "longitude": -3.7038
+      },
+      "fruit_origin": {
+        "value": "Peru",
+        "basis": "explicit_text",
+        "evidence_ref": "demo-en-4:literal",
+        "confidence": 0.9
+      },
+      "author_geography": {
+        "value": "Japan",
+        "basis": "profile",
+        "evidence_ref": "demo-en-4:literal",
+        "confidence": 0.9
+      },
+      "conversation_market": null,
+      "search_market": {
+        "value": "US",
+        "basis": "query_target",
+        "evidence_ref": "demo-en-4",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "red",
+      "native_id": "demo-en-5",
+      "canonical_url": "https://example.org/synthetic/demo-en-5",
+      "text": "Blueberries, a Breeze this morning.",
+      "language": "en",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-01T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Ambiguous cultivar.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "US",
+        "basis": "query_target",
+        "evidence_ref": "demo-en-5",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "tiktok",
+      "native_id": "demo-en-6",
+      "canonical_url": "https://example.org/synthetic/demo-en-6",
+      "text": "Blueberries are not sweet.",
+      "language": "en",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-02T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Negated flavor: error challenge.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "US",
+        "basis": "query_target",
+        "evidence_ref": "demo-en-6",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "reddit",
+      "native_id": "demo-es-0",
+      "canonical_url": "https://example.org/synthetic/demo-es-0",
+      "text": "Encontré arándanos en Costco; grande y crujiente pero insípido. Comprado en Madrid, España.",
+      "language": "es",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-01T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found blueberries at Costco; large and crunchy, bland. Purchased in Spain (synthetic).",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": {
+        "value": "Spain",
+        "basis": "analyst",
+        "evidence_ref": "demo-es-0:explicit synthetic text / fixture coordinates",
+        "confidence": 1,
+        "latitude": 40.4168,
+        "longitude": -3.7038
+      },
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Spain",
+        "basis": "query_target",
+        "evidence_ref": "demo-es-0",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "youtube",
+      "native_id": "demo-es-1",
+      "canonical_url": "https://example.org/synthetic/demo-es-1",
+      "text": "Ojalá Kroger tenga arándanos.",
+      "language": "es",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-02T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Wish Kroger stocked blueberries.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Spain",
+        "basis": "query_target",
+        "evidence_ref": "demo-es-1",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "bluesky",
+      "native_id": "demo-es-2",
+      "canonical_url": "https://example.org/synthetic/demo-es-2",
+      "text": "Arándanos dulce e insípido.",
+      "language": "es",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-03T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Mixed flavor blueberries.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Spain",
+        "basis": "query_target",
+        "evidence_ref": "demo-es-2",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "instagram",
+      "native_id": "demo-es-3",
+      "canonical_url": "https://example.org/synthetic/demo-es-3",
+      "text": "Arándanos SEKOYA Crunch.",
+      "language": "es",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-04T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Explicit cultivar.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Spain",
+        "basis": "query_target",
+        "evidence_ref": "demo-es-3",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "reddit",
+      "native_id": "demo-es-4",
+      "canonical_url": "https://example.org/synthetic/demo-es-4",
+      "text": "Arándanos con esta etiqueta.",
+      "language": "es",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-05T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Blueberries with package label.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "reply",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [
+        {
+          "id": "demo-es-4-image",
+          "parent_native_id": "demo-es-4",
+          "kind": "image",
+          "source_url": "https://example.org/synthetic/demo-es-4.png",
+          "mime": "image/png",
+          "attribution": "Synthetic labeled package diagram; not a real photograph",
+          "state": "available",
+          "storage_permission": "permitted_bytes",
+          "retention": "Synthetic demo only; remove with parent",
+          "literal": [
+            {
+              "text": "SEKOYA Crunch",
+              "method": "human_label",
+              "version": "synthetic-label-1",
+              "locator": "region 10,10,180,60",
+              "confidence": 1
+            }
+          ]
+        }
+      ],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Spain",
+        "basis": "query_target",
+        "evidence_ref": "demo-es-4",
+        "confidence": 1
+      },
+      "parent_native_id": "demo-es-0"
+    },
+    {
+      "source": "red",
+      "native_id": "demo-es-5",
+      "canonical_url": "https://example.org/synthetic/demo-es-5",
+      "text": "Arándanos no dulce.",
+      "language": "es",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-01T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Blueberries not sweet: challenge.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Spain",
+        "basis": "query_target",
+        "evidence_ref": "demo-es-5",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "reddit",
+      "native_id": "demo-pt-0",
+      "canonical_url": "https://example.org/synthetic/demo-pt-0",
+      "text": "Encontrei mirtilos no Costco; grande e crocante mas sem sabor. Comprado em São Paulo, Brasil.",
+      "language": "pt",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-01T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found blueberries at Costco; large and crunchy but bland. Purchased in Brazil (synthetic).",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": {
+        "value": "Brazil",
+        "basis": "analyst",
+        "evidence_ref": "demo-pt-0:explicit synthetic text / fixture coordinates",
+        "confidence": 1,
+        "latitude": -23.5505,
+        "longitude": -46.6333
+      },
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Brazil",
+        "basis": "query_target",
+        "evidence_ref": "demo-pt-0",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "youtube",
+      "native_id": "demo-pt-1",
+      "canonical_url": "https://example.org/synthetic/demo-pt-1",
+      "text": "Tomara que Kroger tenha mirtilos.",
+      "language": "pt",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-02T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Wish Kroger stocked blueberries.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Brazil",
+        "basis": "query_target",
+        "evidence_ref": "demo-pt-1",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "bluesky",
+      "native_id": "demo-pt-2",
+      "canonical_url": "https://example.org/synthetic/demo-pt-2",
+      "text": "Mirtilos doce e sem sabor.",
+      "language": "pt",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-03T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Mixed flavor blueberries.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Brazil",
+        "basis": "query_target",
+        "evidence_ref": "demo-pt-2",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "instagram",
+      "native_id": "demo-pt-3",
+      "canonical_url": "https://example.org/synthetic/demo-pt-3",
+      "text": "Mirtilos SEKOYA Crunch.",
+      "language": "pt",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-04T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Explicit cultivar.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Brazil",
+        "basis": "query_target",
+        "evidence_ref": "demo-pt-3",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "reddit",
+      "native_id": "demo-pt-4",
+      "canonical_url": "https://example.org/synthetic/demo-pt-4",
+      "text": "Mirtilos com esta embalagem.",
+      "language": "pt",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-05T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Blueberries with package label.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "reply",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [
+        {
+          "id": "demo-pt-4-image",
+          "parent_native_id": "demo-pt-4",
+          "kind": "image",
+          "source_url": "https://example.org/synthetic/demo-pt-4.png",
+          "mime": "image/png",
+          "attribution": "Synthetic labeled package diagram; not a real photograph",
+          "state": "available",
+          "storage_permission": "permitted_bytes",
+          "retention": "Synthetic demo only; remove with parent",
+          "literal": [
+            {
+              "text": "SEKOYA Crunch",
+              "method": "human_label",
+              "version": "synthetic-label-1",
+              "locator": "region 10,10,180,60",
+              "confidence": 1
+            }
+          ]
+        }
+      ],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Brazil",
+        "basis": "query_target",
+        "evidence_ref": "demo-pt-4",
+        "confidence": 1
+      },
+      "parent_native_id": "demo-pt-0"
+    },
+    {
+      "source": "red",
+      "native_id": "demo-pt-5",
+      "canonical_url": "https://example.org/synthetic/demo-pt-5",
+      "text": "Mirtilos não doce.",
+      "language": "pt",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-01T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Blueberries not sweet: challenge.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Brazil",
+        "basis": "query_target",
+        "evidence_ref": "demo-pt-5",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "reddit",
+      "native_id": "demo-zh-0",
+      "canonical_url": "https://example.org/synthetic/demo-zh-0",
+      "text": "在好市多发现蓝莓，大颗又脆，但是寡淡。在中国上海购买。",
+      "language": "zh",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-01T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found blueberries at Costco, large and crunchy but bland. Purchased in China (synthetic).",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": {
+        "value": "China",
+        "basis": "analyst",
+        "evidence_ref": "demo-zh-0:explicit synthetic text / fixture coordinates",
+        "confidence": 1,
+        "latitude": 31.2304,
+        "longitude": 121.4737
+      },
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "China",
+        "basis": "query_target",
+        "evidence_ref": "demo-zh-0",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "youtube",
+      "native_id": "demo-zh-1",
+      "canonical_url": "https://example.org/synthetic/demo-zh-1",
+      "text": "希望 Kroger 有蓝莓。",
+      "language": "zh",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-02T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Wish Kroger stocked blueberries.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "China",
+        "basis": "query_target",
+        "evidence_ref": "demo-zh-1",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "bluesky",
+      "native_id": "demo-zh-2",
+      "canonical_url": "https://example.org/synthetic/demo-zh-2",
+      "text": "蓝莓甜又寡淡。",
+      "language": "zh",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-03T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Mixed flavor blueberries.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "China",
+        "basis": "query_target",
+        "evidence_ref": "demo-zh-2",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "instagram",
+      "native_id": "demo-zh-3",
+      "canonical_url": "https://example.org/synthetic/demo-zh-3",
+      "text": "蓝莓 SEKOYA Crunch。",
+      "language": "zh",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-04T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Explicit cultivar.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "China",
+        "basis": "query_target",
+        "evidence_ref": "demo-zh-3",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "reddit",
+      "native_id": "demo-zh-4",
+      "canonical_url": "https://example.org/synthetic/demo-zh-4",
+      "text": "蓝莓包装标签。",
+      "language": "zh",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-05T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Blueberry packaging label.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "reply",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [
+        {
+          "id": "demo-zh-4-image",
+          "parent_native_id": "demo-zh-4",
+          "kind": "image",
+          "source_url": "https://example.org/synthetic/demo-zh-4.png",
+          "mime": "image/png",
+          "attribution": "Synthetic labeled package diagram; not a real photograph",
+          "state": "available",
+          "storage_permission": "permitted_bytes",
+          "retention": "Synthetic demo only; remove with parent",
+          "literal": [
+            {
+              "text": "SEKOYA Crunch",
+              "method": "human_label",
+              "version": "synthetic-label-1",
+              "locator": "region 10,10,180,60",
+              "confidence": 1
+            }
+          ]
+        }
+      ],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "China",
+        "basis": "query_target",
+        "evidence_ref": "demo-zh-4",
+        "confidence": 1
+      },
+      "parent_native_id": "demo-zh-0"
+    },
+    {
+      "source": "red",
+      "native_id": "demo-zh-5",
+      "canonical_url": "https://example.org/synthetic/demo-zh-5",
+      "text": "蓝莓不甜。",
+      "language": "zh",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-01T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Blueberries not sweet: challenge.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "China",
+        "basis": "query_target",
+        "evidence_ref": "demo-zh-5",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "reddit",
+      "native_id": "demo-ja-0",
+      "canonical_url": "https://example.org/synthetic/demo-ja-0",
+      "text": "コストコでブルーベリーを見つけた。大きい、カリカリ、でも味が薄い。日本の東京で購入。",
+      "language": "ja",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-01T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Found blueberries at Costco; large and crunchy but bland. Purchased in Japan (synthetic).",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": {
+        "value": "Japan",
+        "basis": "analyst",
+        "evidence_ref": "demo-ja-0:explicit synthetic text / fixture coordinates",
+        "confidence": 1,
+        "latitude": 35.6762,
+        "longitude": 139.6503
+      },
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Japan",
+        "basis": "query_target",
+        "evidence_ref": "demo-ja-0",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "youtube",
+      "native_id": "demo-ja-1",
+      "canonical_url": "https://example.org/synthetic/demo-ja-1",
+      "text": "Kroger でブルーベリーを扱ってほしい。",
+      "language": "ja",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-02T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Wish Kroger stocked blueberries.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Japan",
+        "basis": "query_target",
+        "evidence_ref": "demo-ja-1",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "bluesky",
+      "native_id": "demo-ja-2",
+      "canonical_url": "https://example.org/synthetic/demo-ja-2",
+      "text": "ブルーベリーは甘い、でも味が薄い。",
+      "language": "ja",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-03T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Mixed flavor blueberries.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Japan",
+        "basis": "query_target",
+        "evidence_ref": "demo-ja-2",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "instagram",
+      "native_id": "demo-ja-3",
+      "canonical_url": "https://example.org/synthetic/demo-ja-3",
+      "text": "ブルーベリー SEKOYA Crunch。",
+      "language": "ja",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-04T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Explicit cultivar.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Japan",
+        "basis": "query_target",
+        "evidence_ref": "demo-ja-3",
+        "confidence": 1
+      }
+    },
+    {
+      "source": "reddit",
+      "native_id": "demo-ja-4",
+      "canonical_url": "https://example.org/synthetic/demo-ja-4",
+      "text": "ブルーベリーの包装ラベル。",
+      "language": "ja",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-05T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Blueberry packaging label.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "reply",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [
+        {
+          "id": "demo-ja-4-image",
+          "parent_native_id": "demo-ja-4",
+          "kind": "image",
+          "source_url": "https://example.org/synthetic/demo-ja-4.png",
+          "mime": "image/png",
+          "attribution": "Synthetic labeled package diagram; not a real photograph",
+          "state": "available",
+          "storage_permission": "permitted_bytes",
+          "retention": "Synthetic demo only; remove with parent",
+          "literal": [
+            {
+              "text": "SEKOYA Crunch",
+              "method": "human_label",
+              "version": "synthetic-label-1",
+              "locator": "region 10,10,180,60",
+              "confidence": 1
+            }
+          ]
+        }
+      ],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Japan",
+        "basis": "query_target",
+        "evidence_ref": "demo-ja-4",
+        "confidence": 1
+      },
+      "parent_native_id": "demo-ja-0"
+    },
+    {
+      "source": "red",
+      "native_id": "demo-ja-5",
+      "canonical_url": "https://example.org/synthetic/demo-ja-5",
+      "text": "ブルーベリーは甘いわけではない。",
+      "language": "ja",
+      "language_basis": "synthetic author label; not language detector",
+      "published_at": "2026-10-01T12:00:00+00:00",
+      "collected_at": "2026-10-07T03:00:00+00:00",
+      "mode": "fixture",
+      "discovery_method": "synthetic-labeled-fixture",
+      "query_version": "fixture-1",
+      "translation": {
+        "text": "Blueberries not sweet: challenge.",
+        "method": "synthetic",
+        "version": "fixture-translation-1",
+        "uncertainty": "Synthetic gloss; no human linguistic validation"
+      },
+      "content_role": "consumer",
+      "record_role": "original",
+      "attribution": "Fictional QA sample; no real author",
+      "permission_basis": "Synthetic test content created for this pilot",
+      "media": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "conversation_market": null,
+      "search_market": {
+        "value": "Japan",
+        "basis": "query_target",
+        "evidence_ref": "demo-ja-5",
+        "confidence": 1
+      }
+    }
+  ],
+  "expected": [
+    {
+      "relevance": "relevant",
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "size": "positive",
+        "texture": "positive",
+        "flavor": "negative"
+      }
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {}
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "flavor": "mixed"
+      }
+    },
+    {
+      "relevance": "excluded-phone",
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {}
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [
+        "variety-sekoya-crunch"
+      ],
+      "purchase_market": "Spain",
+      "fruit_origin": "Peru",
+      "author_geography": "Japan"
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "flavor": "negative"
+      }
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": "Spain",
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "size": "positive",
+        "texture": "positive",
+        "flavor": "negative"
+      }
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {}
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "flavor": "mixed"
+      }
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [
+        "variety-sekoya-crunch"
+      ],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [
+        "variety-sekoya-crunch"
+      ],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "flavor": "negative"
+      }
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": "Brazil",
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "size": "positive",
+        "texture": "positive",
+        "flavor": "negative"
+      }
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {}
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "flavor": "mixed"
+      }
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [
+        "variety-sekoya-crunch"
+      ],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [
+        "variety-sekoya-crunch"
+      ],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "flavor": "negative"
+      }
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": "China",
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "size": "positive",
+        "texture": "positive",
+        "flavor": "negative"
+      }
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {}
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "flavor": "mixed"
+      }
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [
+        "variety-sekoya-crunch"
+      ],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [
+        "variety-sekoya-crunch"
+      ],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "flavor": "negative"
+      }
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [
+        [
+          "Costco",
+          "found-at"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": "Japan",
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "size": "positive",
+        "texture": "positive",
+        "flavor": "negative"
+      }
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [
+        [
+          "Kroger",
+          "wishes-stocked-by"
+        ]
+      ],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {}
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "flavor": "mixed"
+      }
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [
+        "variety-sekoya-crunch"
+      ],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [
+        "variety-sekoya-crunch"
+      ],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null
+    },
+    {
+      "relevance": "relevant",
+      "retailers": [],
+      "entity_ids": [],
+      "purchase_market": null,
+      "fruit_origin": null,
+      "author_geography": null,
+      "aspects": {
+        "flavor": "negative"
+      }
+    }
+  ]
+}

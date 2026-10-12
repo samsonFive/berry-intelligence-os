@@ -709,8 +709,23 @@ def _json_tree_sig(folder: Path) -> tuple[tuple[str, int, int], ...]:
     return tuple(sorted(rows))
 
 
+def _output_landscape_service():
+    from app.services.social_intelligence.output_eligibility import OutputRepositories, output_exclusions
+    blocked=output_exclusions(DATA_DIR,INBOX_DIR)
+    if not blocked:return get_domain_services(DATA_DIR).landscape
+    from app.services.berries.landscape import BerriesLandscapeService
+    from app.composition import get_query_services
+    return BerriesLandscapeService(OutputRepositories(get_repositories(DATA_DIR,SCHEMAS_DIR),blocked),get_query_services(DATA_DIR,SCHEMAS_DIR))
+
+
+def _social_output_signature():
+    from app.services.social_intelligence.output_eligibility import deleted_sources
+    return tuple(sorted((r['id'],r['source'],r['native_id'],r['mode'],r['media_id']) for r in deleted_sources(INBOX_DIR)))
+
+
 def _nav_work_cache_key() -> tuple[Any, ...]:
     return (
+        _social_output_signature(),
         str(INBOX_DIR),
         str(DATA_DIR),
         _json_folder_sig(INBOX_DIR / "evidence"),
@@ -734,6 +749,7 @@ _LANDSCAPE_CACHE: dict[str, Any] = {"key": None, "value": {}}
 
 def _landscape_cache_key() -> tuple[Any, ...]:
     return (
+        _social_output_signature(),
         _json_tree_sig(DATA_DIR / "entities"),
         _json_folder_sig(DATA_DIR / "evidence"),
         _json_folder_sig(DATA_DIR / "relationships"),
@@ -768,7 +784,7 @@ def _cached_landscape_context_all() -> dict[str, Any]:
         _LANDSCAPE_CACHE["key"] = key
         _LANDSCAPE_CACHE["value"] = {}
     if cache_key not in _LANDSCAPE_CACHE["value"]:
-        _LANDSCAPE_CACHE["value"][cache_key] = get_domain_services(DATA_DIR).landscape.landscape_context_all_berries(BERRIES)
+        _LANDSCAPE_CACHE["value"][cache_key] = _output_landscape_service().landscape_context_all_berries(BERRIES)
     return _LANDSCAPE_CACHE["value"][cache_key]
 
 
@@ -929,7 +945,7 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
     """Nav action counts for HTML pages. Overlay fragments skip nav work entirely."""
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
-    variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates"
+    variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates" or request.url.path.startswith("/landscapes/explorer")
     if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
             "nav_work_counts": {},
@@ -1322,11 +1338,16 @@ def all_evidence() -> list[dict[str, Any]]:
     return get_repositories(DATA_DIR, SCHEMAS_DIR).evidence.list()
 
 
+def _social_eligible_outputs(records):
+    from app.services.social_intelligence.output_eligibility import for_new_outputs
+    return for_new_outputs(records, DATA_DIR, INBOX_DIR)
+
+
 def published_evidence() -> list[dict[str, Any]]:
     corpus = get_request_corpus()
     if corpus is not None:
         return corpus.published_evidence
-    records = [r for r in all_evidence() if r.get("status") == "published"]
+    records = _social_eligible_outputs([r for r in all_evidence() if r.get("status") == "published"])
     return sorted(records, key=lambda r: r.get("published_date") or r.get("captured_date", ""), reverse=True)
 
 
@@ -1798,7 +1819,7 @@ def all_facts() -> list[dict[str, Any]]:
     corpus = get_request_corpus()
     if corpus is not None:
         return corpus.facts
-    return get_repositories(DATA_DIR, SCHEMAS_DIR).facts.list()
+    return _social_eligible_outputs(get_repositories(DATA_DIR, SCHEMAS_DIR).facts.list())
 
 
 def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, Any]], dict[str, Any]]:
@@ -1816,7 +1837,7 @@ def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, A
         facts=all_facts(),
         existing_candidates=inbox,
     )
-    visible = merge_visible_candidates(inbox, report["candidates"])
+    visible = merge_visible_candidates(inbox, report["candidates"], report=report)
     return varieties, visible, report
 
 
@@ -1927,7 +1948,7 @@ def landscape_context(
     region = region if region in allowed_regions else "global"
     intelligence_state = intelligence_state if intelligence_state in allowed_states else "all"
     return {
-        **get_domain_services(DATA_DIR).landscape.landscape_context(berry_id),
+        **_output_landscape_service().landscape_context(berry_id),
         "berry_label": berry_label(berry_id),
         "selected_region": region,
         "selected_intelligence_state": intelligence_state,
@@ -1975,7 +1996,7 @@ def all_signals() -> list[dict[str, Any]]:
     corpus = get_request_corpus()
     if corpus is not None:
         return corpus.signals
-    return get_repositories(DATA_DIR, SCHEMAS_DIR).signals.list()
+    return _social_eligible_outputs(get_repositories(DATA_DIR, SCHEMAS_DIR).signals.list())
 
 
 def signal_by_id(signal_id: str) -> dict[str, Any] | None:
@@ -2000,7 +2021,7 @@ def all_assessments() -> list[dict[str, Any]]:
     corpus = get_request_corpus()
     if corpus is not None:
         return corpus.assessments
-    return get_repositories(DATA_DIR, SCHEMAS_DIR).assessments.list()
+    return _social_eligible_outputs(get_repositories(DATA_DIR, SCHEMAS_DIR).assessments.list())
 
 
 def assessment_by_id(assessment_id: str) -> dict[str, Any] | None:
@@ -2029,7 +2050,7 @@ def all_recommendations() -> list[dict[str, Any]]:
     corpus = get_request_corpus()
     if corpus is not None:
         return corpus.recommendations
-    return get_repositories(DATA_DIR, SCHEMAS_DIR).recommendations.list()
+    return _social_eligible_outputs(get_repositories(DATA_DIR, SCHEMAS_DIR).recommendations.list())
 
 
 def recommendation_by_id(recommendation_id: str) -> dict[str, Any] | None:
@@ -2874,6 +2895,14 @@ def entity_list(
                 context["variety_cards"], params={**dict(request.query_params), **context["filters"]}, state=state,
                 entities=entities_idx, relationships=relationships, regions=region_rows,
             ))
+            if AUTHORING_MODE:
+                name_queue = variety_navigation.candidate_queue(visible_candidates, {
+                    key: request.query_params.get(key, "") for key in ("q", "berry", "company", "letter")
+                })
+                context["discovered_names"] = name_queue["candidates"]
+                context["discovered_name_query"] = urlencode({
+                    key: request.query_params.get(key, "") for key in ("q", "berry", "company", "letter")
+                })
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
         context["growing_geographies"] = sorted({row["geography_id"]: row["country"] for row in region_rows if row["kind"] == "variety"}.items(), key=lambda row: row[1].casefold())
@@ -8219,6 +8248,8 @@ def report_archive_route(report_id: str) -> RedirectResponse:
 @app.get("/reports/{report_id}/export.pdf")
 def report_export_pdf_route(report_id: str) -> Response:
     record = _load_report_or_404(report_id)
+    if not _social_eligible_outputs([record]):
+        raise HTTPException(status_code=409, detail="This report cites a deleted source. Regenerate it before exporting.")
     scope = _scope_from_record(record)
     packet, coverage = _build_packet_and_coverage(scope)
     pdf_bytes = render_report_pdf(record, packet, coverage)
@@ -10438,6 +10469,10 @@ from app.company_routes import router as company_router
 app.include_router(company_router)
 from app.landscape_routes import router as landscape_router
 app.include_router(landscape_router)
+from app.landscape_explorer_routes import router as landscape_explorer_router
+app.include_router(landscape_explorer_router)
+from app.social_routes import router as social_router
+app.include_router(social_router)
 from app.learn_routes import router as learn_router
 app.include_router(learn_router)
 from app.monitor_routes import router as monitor_router

@@ -1,0 +1,109 @@
+{
+  "measured_at": "2026-10-07T07:27:26.021174+00:00",
+  "environment": "Windows laptop; existing Python venv; native Codex in-app browser",
+  "data_version": "ef36ff4511c8cb1b",
+  "scope": {
+    "predicate": "",
+    "evidence": "reviewed",
+    "status": "all",
+    "view": "portrait",
+    "window": "all",
+    "time": "documented",
+    "question": "markets",
+    "theme": "light",
+    "berry": "berry-blueberry",
+    "countries": [
+      "geography-chile",
+      "geography-china",
+      "geography-peru"
+    ],
+    "focus": "",
+    "q": "",
+    "start": "",
+    "end": "",
+    "limit": 100,
+    "edge": ""
+  },
+  "coverage": {
+    "nodes": 53,
+    "relationships": 82,
+    "sources": 47,
+    "genetic_location_links": 0,
+    "company_location_links": 10,
+    "event_dated": 16,
+    "undated_for_window": 0,
+    "hidden_nodes": 0,
+    "hidden_relationships": 0,
+    "truncated_display": false,
+    "complete_export": true,
+    "excluded": {
+      "missing_endpoints": 0,
+      "unavailable_sources": 3
+    },
+    "partial": true
+  },
+  "http_api_ms": [
+    354.74,
+    302.51,
+    286.93
+  ],
+  "json_payload_bytes": 711662,
+  "browser": {
+    "desktop_viewport": [
+      1280,
+      720
+    ],
+    "mobile_viewport": [
+      390,
+      844
+    ],
+    "mobile_document_width": 375,
+    "horizontal_phone_overflow": false,
+    "desktop_light_dark_reviewed": true,
+    "phone_light_dark_reviewed": true,
+    "source_names_to_existing_review_queue": true,
+    "searched_directory_for_prelude": true,
+    "briefing_layout_reviewed": true
+  },
+  "export_parity": {
+    "relationships": 82,
+    "sources": 47,
+    "csv_relationship_source_rows": 97,
+    "svg_dimensions": "0 0 1200 21454",
+    "checks": "Native HTML/SVG/CSV downloads; all relationship/source IDs, version and scope; SVG XML parses; HTML visually reviewed"
+  },
+  "catalog_audit": {
+    "catalog_count": 64,
+    "reviewed_sources_scanned": 1269,
+    "source_named_identities": 99,
+    "catalog_matches": 31,
+    "names_awaiting_review": 68,
+    "per_berry": {
+      "berry-blueberry": {
+        "catalog": 41,
+        "source_named": 90,
+        "awaiting_review": 66
+      },
+      "berry-strawberry": {
+        "catalog": 6,
+        "source_named": 0,
+        "awaiting_review": 0
+      },
+      "berry-raspberry": {
+        "catalog": 12,
+        "source_named": 9,
+        "awaiting_review": 2
+      },
+      "berry-blackberry": {
+        "catalog": 5,
+        "source_named": 0,
+        "awaiting_review": 0
+      }
+    }
+  },
+  "limits": [
+    "No maximum-size synthetic browser run; bounded maximum-size backend fixture passes.",
+    "Stored-summary recall audit is not a full-web benchmark.",
+    "Private candidate inbox is isolated from this preview; human decisions preserved."
+  ]
+}

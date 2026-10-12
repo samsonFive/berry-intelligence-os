@@ -1,0 +1,13 @@
+{% extends "glasshouse_base.html" %}
+{% block title %}Adjust landscape selection · Berry Intelligence{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/landscape_explorer.css?v=1">{% endblock %}
+{% block content %}
+<section class="lx" data-theme="light">
+  <p class="lx-eyebrow">LANDSCAPE EXPLORER</p>
+  <h1>Adjust your selection</h1>
+  <div class="lx-card" role="alert"><p class="lx-lead">{{ message }}</p>
+    <p>Your records haven’t changed. Use your browser’s Back button to adjust the filters, or start again with the default blueberry scope.</p>
+    <a href="/landscapes/explorer">Reset landscape selection →</a>
+  </div>
+</section>
+{% endblock %}

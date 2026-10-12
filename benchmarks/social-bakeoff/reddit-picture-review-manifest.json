@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-07",
+  "reason": "User requested the picture missing from the first Reddit post",
+  "case_id": "reddit-picture-review-2026-10-07",
+  "task": "reddit-comments",
+  "params": {
+    "url": "https://www.reddit.com/r/YogurtBowls/comments/1x000rf/cute_breakfast_for_a_better_day_p/",
+    "trim": false
+  },
+  "expected_native_id": "t3_1x000rf",
+  "maximum_additional_requests": 1,
+  "cumulative_attempt_ceiling": 41,
+  "maximum_total_consumed_free_credits": 40,
+  "minimum_remaining_free_credits": 10,
+  "maximum_request_credits": 1,
+  "cash_spend_usd": 0,
+  "retries": 0,
+  "pages": 1,
+  "media_downloads": false,
+  "official_documentation": "https://docs.sociavault.com/api-reference/reddit/post-comments"
+}
