@@ -2,9 +2,11 @@
 
 **October 12: phone field-table context.** Native 412px review reproduced row
 names disappearing during horizontal table scroll. The name column is now
-pinned; 21 affected checks and the complete public build pass. Final visual
-verification is pending after the browser URL safety check and expired Edge app
-approval. Parent #394 is all-green / 4,635 tests. See the
+pinned; 21 affected checks and the complete public build pass. Approved Edge
+review now verifies pinned names and headers at 412px, and a second repair
+wraps the company column fully at the right edge. Initial #395 CI is all-green /
+4,635 tests; the refinement needs fresh current-head CI. Parent #394 is also
+all-green / 4,635 tests. See the
 [row-context review](docs/v2/VARIETY-FIELD-ROW-CONTEXT-REVIEW.md).
 
 **October 12: recovery lease repair.** Review preparation reproduced a backup
