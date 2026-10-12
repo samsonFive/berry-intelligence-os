@@ -1,5 +1,12 @@
 # Project Status
 
+**October 12: recovery lease repair.** Review preparation reproduced a backup
+that archived its own collection lock. New backups omit that process lease;
+legacy recovery verifies it but does not recreate it or replace a live target
+owner. All 18 focused tests and the full public build pass. A real 79-file local
+inbox restore preserves all 32 pending copies and reacquires the lease. This is
+not a production backup. See [recovery review](docs/v2/REVIEW-RUNTIME-RECOVERY-REVIEW.md).
+
 **October 12: Cornell photo references.** Three existing raspberry profiles and
 the Dickens strawberry candidate gain separately captioned source photographs.
 Photo-reference gaps fall from 53 to 50 of 64 catalog profiles; other field gaps
