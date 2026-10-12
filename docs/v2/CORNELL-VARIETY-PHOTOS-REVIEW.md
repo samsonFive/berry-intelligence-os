@@ -63,6 +63,15 @@ The initial parent PR #392 full run found one older heading assertion:
 tests pass all 16; the pushed parent and this child each require fresh current-head
 CI. Local checks do not substitute for that requirement.
 
+The initial child full run on `cb6761ae057c47d2d9d3956bd8206cf9c11ef2a1`
+reported **4,630 passed / one failed / 11 skipped / two warnings**. Its existing
+whole-manifest regression still expected 1,557 observations and the previous
+crop totals. The expectation now includes the four caption observations:
+1,561 total, with 730 strawberry and 262 raspberry occurrences. The 77-entry
+plan and its incomplete/unavailable/identity-hold counts remain unchanged.
+All **31 portfolio/photo regression tests pass**, one existing ReportLab warning,
+54.68 seconds. The repaired head requires a fresh complete CI run.
+
 All 2,771 original data JSON files, parent data, the expansion guide, visual guide,
 31 requirements and their order, 32 pending source copies and original pending
 draft are preserved. Source/catalog review, independent human name recall and
