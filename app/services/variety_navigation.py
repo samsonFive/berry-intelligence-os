@@ -5,6 +5,11 @@ import unicodedata
 from app.services import company_directory, map_regions, personal_digest
 
 ROLE_PREDICATES = {"owns", "develops", "licenses", "grows", "trials", "markets", "distributes"}
+ROLE_LABELS = {
+    'develops': 'Breeder', 'owns': 'Rights holder', 'licenses': 'Licensee',
+    'markets': 'Marketer', 'grows': 'Grower', 'distributes': 'Distributor',
+    'trials': 'Trial operator',
+}
 
 
 def _search_text(value):
@@ -20,6 +25,27 @@ def company_actors(variety_id, relationships, entities):
         and row.get("predicate") in ROLE_PREDICATES
         and entities.get(row.get("subject_id"), {}).get("entity_type") in {"company", "brand", "breeding_program"}
     }
+
+
+def program_variety_rows(entity_id, entities, relationships):
+    """Recorded program/brand links when no company portfolio is available.
+
+    This navigation view does not fabricate a company dossier or locations.
+    """
+    if entities.get(entity_id, {}).get('entity_type') not in {'brand', 'breeding_program'}:
+        return []
+    from app.services.variety_universe.coverage import BERRY_LABELS
+    rows = []
+    for variety in entities.values():
+        if variety.get('entity_type') != 'variety' or entity_id not in company_actors(variety['id'], relationships, entities):
+            continue
+        roles = {ROLE_LABELS[rel['predicate']] for rel in relationships
+                 if rel.get('subject_id') == entity_id and rel.get('object_id') == variety['id']
+                 and rel.get('status') == 'active' and rel.get('predicate') in ROLE_LABELS}
+        rows.append({'id': variety['id'], 'name': variety['name'],
+                     'href': '/entities/variety/' + variety['id'], 'roles': sorted(roles),
+                     'berries': [BERRY_LABELS.get(b, b) for b in variety.get('berry_ids') or []]})
+    return sorted(rows, key=lambda row: (row['name'].casefold(), row['id']))
 
 
 def region_rows(entities, relationships, records, inbox_dir, authoring):

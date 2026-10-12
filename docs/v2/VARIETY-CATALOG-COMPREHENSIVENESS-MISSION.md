@@ -1,15 +1,15 @@
 # Variety catalog: comprehensive, source-linked coverage
 
-## Current work — October 9, 2026
+## Current work — October 10, 2026
 
 The source-to-catalog omission is being repaired across all four berries; the
 mission remains open. Existing discovery, original-source observations, patent
 links and photo previews feed review without silently approving identities,
 aliases, roles, traits, regions or rights.
 
-The [latest source review](RUTGERS-ORIGINAL-FILING-REVIEW.md) records
-378 bounded sections / 1,549 name occurrences / 88 matched occurrences / 1,461
-requiring review, 1,124 public candidate keys and 64 unchanged canonical varieties.
+The [latest source review](CHANDLER-ORIGINAL-FILING-REVIEW.md) records
+380 bounded sections / 1,557 name occurrences / 88 matched occurrences / 1,469
+requiring review, 1,126 public candidate keys and 64 unchanged canonical varieties.
 Photo references total 122 with no new reuse approvals. The 77-entry company
 plan retains 14 incomplete checks, one unavailable source and two identity holds.
 
@@ -18,9 +18,10 @@ entries searchable by unresolved organization wording. 228 entries still lack
 identity assignments. Source mentions do not approve company roles or rights.
 
 The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
-shows actual catalog gaps: 53/64 without photo references, 36/64 without
-patent/PVR references, 33/64 without cited traits and 14/64 without company
-role links. Counts are scoped field presence, not current rights, independent
+shows actual catalog gaps: 53/64 without photo references, 35/64 without
+patent/PVR references, 33/64 without cited traits and 10/64 without linked
+organizations after the [active-role correction](VARIETY-PROFILE-ORGANIZATION-REVIEW.md).
+Counts are scoped field presence, not current rights, independent
 measurement or catalog completeness. Phone visual verification remains.
 
 Continue accessible original corpus acquisition, complete current/historical

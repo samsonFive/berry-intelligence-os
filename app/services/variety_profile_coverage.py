@@ -7,18 +7,15 @@ from collections import defaultdict
 from urllib.parse import quote
 
 from app.services.berries.variety import variety_patent_link
+from app.services.variety_navigation import ROLE_LABELS, company_actors
 from app.services.variety_photos import gallery, source_photos
 from app.services.variety_portfolio_coverage import reconcile_portfolios
 from app.services.variety_universe.coverage import BERRY_LABELS, RIGHTS_SOURCE_TYPES
 
-ROLE_LABELS = {
-    'develops': 'Breeder', 'owns': 'Rights holder', 'licenses': 'Licensee',
-    'markets': 'Marketer', 'grows': 'Grower', 'distributes': 'Distributor',
-}
 GAPS = (
     ('all', 'All profiles'), ('photos', 'No photo reference'),
     ('rights', 'No patent / PVR reference'), ('traits', 'No cited trait entry'),
-    ('companies', 'No company role link'),
+    ('companies', 'No linked company / program'),
 )
 
 
@@ -38,6 +35,11 @@ def profile_field_coverage(*, varieties, entities, relationships, published_evid
                  if e.get('id') and e.get('status') == 'published'}
     rights_by_variety = defaultdict(list)
     roles_by_variety = defaultdict(list)
+    # Use the same organization scope as the directory's company/list filters.
+    # Check each edge below too: an active breeder link never validates a
+    # proposed ownership link for that same organization.
+    actors_by_variety = {v['id']: company_actors(v['id'], relationships, index)
+                        for v in varieties}
     source_by_variety = defaultdict(list)
     fact_traits_by_variety = defaultdict(set)
     for fact in facts:
@@ -62,7 +64,9 @@ def profile_field_coverage(*, varieties, entities, relationships, published_evid
                 rights_by_variety[entity_id].append(evidence)
     for relationship in relationships:
         party = index.get(relationship.get('subject_id'))
-        if relationship.get('predicate') in ROLE_LABELS and party and party.get('entity_type') == 'company':
+        if (relationship.get('status') == 'active'
+                and relationship.get('predicate') in ROLE_LABELS and party
+                and party['id'] in actors_by_variety.get(relationship.get('object_id'), ())):
             roles_by_variety[relationship.get('object_id')].append({
                 'name': party['name'], 'role': ROLE_LABELS[relationship['predicate']],
                 'href': _href(party),

@@ -1,10 +1,10 @@
 # Intelligence Coverage Matrix
 
-## Current variety follow-up — October 9, 2026
+## Current variety follow-up — October 10, 2026
 
-The [bounded four-berry register intake](REGISTER-LIST-52-INTAKE-REVIEW.md)
-records 376 source sections / 1,544 name occurrences / 88 catalog-matched
-occurrences / 1,456 requiring review; 1,121 public-source-derived candidate keys. The catalog remains 64 varieties and photo
+The [latest bounded source review](CHANDLER-ORIGINAL-FILING-REVIEW.md)
+records 380 source sections / 1,557 name occurrences / 88 catalog-matched
+occurrences / 1,469 requiring review; 1,126 public-source-derived candidate keys. The catalog remains 64 varieties and photo
 references total 122. Source name observations and pending copies do not raise
 trusted evidence maturity, create approved identities or prove complete coverage.
 
@@ -24,9 +24,10 @@ use the specific entry rather than every program in the source. These mentions
 do not approve breeder/owner roles or change canonical counts.
 
 The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
-shows actual catalog gaps: 53/64 without photo references, 36/64 without
-patent/PVR references, 33/64 without cited traits and 14/64 without company
-role links. Counts are scoped field presence, not current rights, independent
+shows actual catalog gaps: 53/64 without photo references, 35/64 without
+patent/PVR references, 33/64 without cited traits and 10/64 without linked
+organizations after the [active-role correction](VARIETY-PROFILE-ORGANIZATION-REVIEW.md).
+Counts are scoped field presence, not current rights, independent
 measurement or catalog completeness. Phone visual verification remains.
 
 The established evidence-class matrix below retains its original as-of dates

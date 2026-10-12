@@ -1,5 +1,13 @@
 # Find the missing information in variety profiles
 
+**Current organization correction (October 10):** Active company, brand and
+breeding-program links now match the directory; trial operators are included and
+proposed/inactive edges are excluded. The current 64-profile inventory has
+53 missing photo references, 35 missing patent/PVR references, 33 missing cited
+trait entries and 10 missing organization links. See the
+[organization review](VARIETY-PROFILE-ORGANIZATION-REVIEW.md). The original
+October 9 measurements and screenshots below are retained as historical proof.
+
 Variety coverage now includes a dense, alphabetical field table for each catalog
 profile. Search by name, scope by berry, or show profiles without photo references,
 patent/PVR references, cited traits or company role links. The variety and company
@@ -26,7 +34,7 @@ The permission-aware photo gallery remains authoritative for user photo edits.
 This is presentation over existing records, without new schemas, qualification,
 canonical authoring, provider calls, footprint queries or persisted conclusions.
 
-## Actual gaps and browser checks
+## Original October 9 gaps and browser checks
 
 Among the current **64 catalog profiles**, **53 have no photo reference, 36 have
 no patent/PVR reference, 33 have no cited trait entry and 14 have no company role
