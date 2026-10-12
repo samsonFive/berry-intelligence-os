@@ -1,0 +1,77 @@
+{
+  "scope": "Active recorded organization roles in the read-only profile inventory",
+  "canonical_profiles": 64,
+  "baseline_missing": {
+    "photos": 53,
+    "rights": 35,
+    "traits": 33,
+    "companies": 14
+  },
+  "corrected_missing": {
+    "photos": 53,
+    "rights": 35,
+    "traits": 33,
+    "companies": 10
+  },
+  "corrected_false_gaps": [
+    "Crimson Night",
+    "Crimson Treasure",
+    "Double Gold",
+    "Rutgers D'Light"
+  ],
+  "profiles_with_role_changes": 27,
+  "photo_rights_trait_rows_unchanged": true,
+  "legacy_filter_key_preserved": true,
+  "original_canonical_json_preserved": 2771,
+  "parent_data_preserved": true,
+  "expansion_guide_preserved": true,
+  "requirement_ids_and_order_preserved": 31,
+  "visual_guide_unchanged": true,
+  "pending_human_name_reviews": 32,
+  "human_expected_lists_completed": 0,
+  "pending_draft_preserved": true,
+  "source_or_catalog_decisions_created": 0,
+  "static_pages": 1755,
+  "private_markers_absent": true,
+  "pagefind": "passed in final complete build",
+  "prior_local_environment_errors": {
+    "passed": 55,
+    "fixture_errors": 17,
+    "reason": "Access denied to default pytest temporary directory; fresh workspace-local directories used for retry"
+  },
+  "targeted_tests": "72 passed, 1 warning in 84244.30s (23:24:04)",
+  "program_targeted_tests": "77 passed, 1 warning in 365.55s (0:06:05)",
+  "parent_pr": 391,
+  "parent_head": "67ea7901cc2856c2b6ee2cb575952428a639de6e",
+  "parent_all_four": "SUCCESS",
+  "parent_full_tests": {
+    "passed": 4622,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 943.55
+  },
+  "native_browser": {
+    "port": 18579,
+    "previous_inventory_port": 18578,
+    "profile": "Rutgers D'Light",
+    "program": "Rutgers NJAES Strawberry Breeding Program",
+    "corrected_row": true,
+    "missing_organization_filter_count": 10,
+    "review_forms_submitted": 0,
+    "program_overview_and_tab_link_count": 1,
+    "company_portfolio_not_fabricated": true,
+    "phone_verified": false,
+    "screenshot": "rutgers-program-link.png"
+  },
+  "child_full_ci_required": true,
+  "merge_or_deploy": false,
+  "remaining": [
+    "CAT-01",
+    "CAT-02",
+    "TD-116",
+    "LAND-02",
+    "REL-01",
+    "Actual phone review",
+    "Human source/name and catalog review"
+  ]
+}

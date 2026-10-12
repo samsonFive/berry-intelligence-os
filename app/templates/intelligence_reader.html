@@ -23,6 +23,7 @@
 
 <div class="intel-reader">
   <article class="intel-reader-main">
+    {% include '_source_reading_notice.html' %}
     {% if reader_content.notice %}<p class="sh-note" role="status">{{ reader_content.notice }}</p>{% endif %}
     <div class="intel-card-meta">
       <span class="badge intel-trust-{{ item.trust }}">{{ item.trust_label }}</span>
@@ -38,7 +39,7 @@
       {% if paragraphs %}
         <div class="intel-body">
           {% for paragraph in paragraphs %}
-            <p id="{{ paragraph.locator }}"><small class="locator">{{ paragraph.locator }}</small> {{ paragraph.text }}</p>
+            {% if paragraph.heading_level %}<h3 class="publisher-heading" id="{{ paragraph.locator }}"><small class="locator">{{ paragraph.locator }}</small> {{ paragraph.text }}</h3>{% else %}<p id="{{ paragraph.locator }}"><small class="locator">{{ paragraph.locator }}</small> {{ paragraph.text }}</p>{% endif %}
           {% endfor %}
         </div>
       {% elif reader_content.summary %}

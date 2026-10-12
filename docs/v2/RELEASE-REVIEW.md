@@ -1,6 +1,6 @@
 # Berry Intelligence release review
 
-The approved redesign and consolidation is implemented in one canonical-base draft: [PR #312](https://github.com/samsonFive/berry-intelligence-os/pull/312). This is the release for review before merge or deployment. Production has not been changed. The final PR head must have all four required checks green; the PR records the exact final head and run without a self-referential documentation commit.
+The approved redesign and consolidation was integrated through [PR #312](https://github.com/samsonFive/berry-intelligence-os/pull/312), merged October 6, 2026 after user acceptance. An October 7 fetch verifies canonical 7962ac04dd05855985f51596f3f8070f19990a75. The acceptance evidence below describes that release; production deployment was not reverified during the later variety-coverage work. The subsequent Landscape/variety draft stack still requires current-head checks and the blueberry feedback checkpoint before merge or deployment.
 
 ## News imagery correction after desktop review
 

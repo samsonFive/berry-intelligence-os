@@ -1,0 +1,168 @@
+{
+  "scope": "Offline unreviewed copies; no app hydration, model call or persisted candidates.",
+  "baseline_head": "b09d98a89d48e8396fede480b6f00f6751a968b5",
+  "pending_copies": 32,
+  "before_mention_occurrences": 28,
+  "after_mention_occurrences": 35,
+  "added_explicit_profile_fields": 8,
+  "removed_generic_type_false_leads": 1,
+  "changed_sources": [
+    {
+      "evidence_id": "ev-uaex-blueberry-trial-2024",
+      "source_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/ar-fruit-veg-nut-update-blog/posts/2024-blueberry-variety-trial.aspx",
+      "body_sha256": "21863dc85ddb373ab5524c4bd43300197047eee6e68ea72e7c6d90f96c545c16",
+      "source_review": "pending",
+      "before": [
+        [
+          "Rabbiteye",
+          "berry-blueberry",
+          null
+        ]
+      ],
+      "after": []
+    },
+    {
+      "evidence_id": "ev-uf-breeding-colossus",
+      "source_url": "https://www.blueberrybreeding.com/colossus",
+      "body_sha256": "67f164dea81a88e941b5c3e349c04cc829e20242f4d118522c01943e6ad849e2",
+      "source_review": "pending",
+      "before": [],
+      "after": [
+        [
+          "Colossus",
+          "berry-blueberry",
+          "FL11-35"
+        ]
+      ]
+    },
+    {
+      "evidence_id": "ev-uf-breeding-emerald",
+      "source_url": "https://www.blueberrybreeding.com/emerald",
+      "body_sha256": "576a6dd55c9a70561927511aa84a0d50ccb6bc81df48e974628b4141d30ca355",
+      "source_review": "pending",
+      "before": [],
+      "after": [
+        [
+          "Emerald",
+          "berry-blueberry",
+          "FL 95-209a"
+        ]
+      ]
+    },
+    {
+      "evidence_id": "ev-uf-breeding-farthing",
+      "source_url": "https://www.blueberrybreeding.com/farthing",
+      "body_sha256": "db2cca02af0e7412b62766bae35c7dcc7afbd7a11cb05438c983160d75e68fec",
+      "source_review": "pending",
+      "before": [],
+      "after": [
+        [
+          "Farthing",
+          "berry-blueberry",
+          "FL00-75"
+        ]
+      ]
+    },
+    {
+      "evidence_id": "ev-uf-breeding-jewel",
+      "source_url": "https://www.blueberrybreeding.com/jewel",
+      "body_sha256": "dec82c70b75fa21c6e31d82a59e1385b3161785c019748badae056f120267c70",
+      "source_review": "pending",
+      "before": [],
+      "after": [
+        [
+          "Jewel",
+          "berry-blueberry",
+          "FL92-176"
+        ]
+      ]
+    },
+    {
+      "evidence_id": "ev-uf-breeding-meadowlark",
+      "source_url": "https://www.blueberrybreeding.com/meadowlark-fl01-173",
+      "body_sha256": "1662adf9673b78131f7eddcef7fe636acd8a420a459aa22c9db06f6738935bfc",
+      "source_review": "pending",
+      "before": [],
+      "after": [
+        [
+          "Meadowlark",
+          "berry-blueberry",
+          "FL01-173"
+        ]
+      ]
+    },
+    {
+      "evidence_id": "ev-uf-breeding-optimus",
+      "source_url": "https://www.blueberrybreeding.com/optimus",
+      "body_sha256": "8d65444744405cc9c67e0ac4ad7e9d139bd449ddeb0b51d421fb907262f39b3e",
+      "source_review": "pending",
+      "before": [],
+      "after": [
+        [
+          "Optimus",
+          "berry-blueberry",
+          "FL08-262"
+        ]
+      ]
+    },
+    {
+      "evidence_id": "ev-uf-breeding-patrecia",
+      "source_url": "https://www.blueberrybreeding.com/patrecia",
+      "body_sha256": "6a83ec67e67591f7759204b8339f64ba8f7b80e99400b09c0db414fff9e08b1d",
+      "source_review": "pending",
+      "before": [],
+      "after": [
+        [
+          "Patrecia",
+          "berry-blueberry",
+          "UF52-20"
+        ]
+      ]
+    },
+    {
+      "evidence_id": "ev-uf-breeding-sentinel",
+      "source_url": "https://www.blueberrybreeding.com/sentinel",
+      "body_sha256": "e34f43ce97eca39196ac46a9d1787fffeb192b6df75976db999f42fce34c309f",
+      "source_review": "pending",
+      "before": [],
+      "after": [
+        [
+          "Sentinel",
+          "berry-blueberry",
+          "FL11-155"
+        ]
+      ]
+    }
+  ],
+  "independent_human_recall_score": null,
+  "new_source_decisions": 0,
+  "new_extraction_ready_ids": [],
+  "original_data_json_preserved": 2771,
+  "canonical_guide_preserved": true,
+  "private_copy_payloads_and_real_pending_article_preserved": true,
+  "affected_tests": {
+    "passed": 104,
+    "warnings": 1,
+    "seconds": 118.69
+  },
+  "static": {
+    "pages": 1755,
+    "pagefind": "PASS",
+    "unpublished_id_title_exclusion": "PASS"
+  },
+  "browser": {
+    "profile_field": "fictional isolated supported-Article fixture; unsent forms",
+    "actual_hortifrut": "24 declarations: 23 candidates plus Keepsake catalog link"
+  },
+  "portfolio": {
+    "sections": 355,
+    "occurrences": 1132,
+    "catalog_matches": 64,
+    "review_needs": 1068,
+    "public_candidate_keys": 788,
+    "actual_preview_candidate_keys": 789,
+    "canonical_varieties": 64
+  },
+  "full_mission_complete": false,
+  "merge_or_deploy": false
+}

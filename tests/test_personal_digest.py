@@ -192,8 +192,19 @@ def test_live_cached_reader_shows_original_separate_from_summary_and_review(work
     assert "Original publisher paragraph, not the summary." in response.text
     assert 'data-personal-mode="article" aria-pressed="true"' in response.text
     assert "Unreviewed" in response.text and "Read original at publisher" in response.text
+    assert 'action="/varieties/discover-source/ev-raw"' in response.text
     assert '/review/ev-raw/publish' not in response.text
     assert client.get("/intelligence/ev-raw?personal=1").status_code == 200
+
+
+def test_persisted_full_text_is_readable_and_offers_private_name_check(workspace):
+    client, _ = workspace
+    row = article('ev-full-text', article={'full_text':'Blackberry varieties include Full Text Lead. This is publisher text.'})
+    save_bundle(main.INBOX_DIR, {'today':'2026-09-20', 'records':[row]})
+    response = client.get('/api/intelligence/ev-full-text/reader?personal=1')
+    assert response.status_code == 200 and 'class="article-prose"' in response.text
+    assert 'Blackberry varieties include Full Text Lead.' in response.text
+    assert 'action="/varieties/discover-source/ev-full-text"' in response.text
 
 
 def test_summary_and_access_wall_never_masquerade_as_original(workspace):
@@ -202,6 +213,7 @@ def test_summary_and_access_wall_never_masquerade_as_original(workspace):
     for item_id in ["ev-thin", "ev-wall"]:
         text = client.get(f"/api/intelligence/{item_id}/reader?personal=1").text
         assert 'class="article-prose"' not in text and "Article text isn’t available" in text
+        assert '/varieties/discover-source/' not in text
 
 
 def test_capture_only_on_explicit_action_and_uses_existing_capture_store(workspace, monkeypatch):
@@ -216,6 +228,36 @@ def test_capture_only_on_explicit_action_and_uses_existing_capture_store(workspa
     response = client.post("/api/digest/ev-digest/capture")
     assert response.status_code == 200 and "Publisher original from the requested capture." in response.text
     assert called == ["ev-digest"]
+
+
+def test_patent_document_hierarchy_refresh_and_private_trust_boundaries(workspace, monkeypatch):
+    from app.services import feed_first_reader as reader
+    from app.services.patent_reader import patent_document
+    from tests.test_patent_reader_document import HTML, URL
+    client, repos = workspace
+    before = repos.evidence.get("ev-digest")
+    document = patent_document(HTML, URL)
+    capture = {"ok": True, "item_id": before["id"], "requested_url": before["source_url"], "content_kind": "patent",
+               "passages": [r["text"] for r in document["blocks"] if r["kind"] != "heading"],
+               "document_blocks": document["blocks"] + [{"kind": "paragraph", "text": '<img src=x onerror="bad">'}], "availability": "partial"}
+    reader.save_capture(main.INBOX_DIR, before["id"], capture)
+    path = reader.capture_path(main.INBOX_DIR, before["id"])
+    stored = path.read_bytes()
+    calls = []
+    monkeypatch.setattr(reader, "capture_item", lambda *args, **kwargs: calls.append(kwargs))
+    response = client.get("/api/intelligence/ev-digest/reader?personal=1")
+    assert response.status_code == 200 and calls == [] and path.read_bytes() == stored
+    assert 'id="reader-document-claims" tabindex="-1">Claims (1)</h3>' in response.text and "<h4>COMPARISON</h4>" in response.text
+    assert '>Site-specific result</td>' in response.text and "source claims, not reviewed facts" in response.text
+    assert "&lt;img src=x" in response.text and '<img src=x onerror="bad">' not in response.text
+    assert "Reload source text" in response.text and "Read original at publisher" in response.text
+    assert client.post("/api/digest/ev-digest/capture?refresh=1").status_code == 200
+    assert calls == [{"refresh": True}] and repos.evidence.get("ev-digest") == before
+    monkeypatch.setattr(main, "AUTHORING_MODE", False)
+    public = client.get("/api/intelligence/ev-digest/reader?personal=1")
+    assert "as described and illustrated" not in public.text and "Reload source text" not in public.text
+    assert '/varieties/discover-source/' not in public.text
+    assert client.post("/api/digest/ev-digest/capture?refresh=1").status_code == 403
 
 
 def test_subscriptions_route_populates_digest_then_unsubscribe_keeps_save(workspace):

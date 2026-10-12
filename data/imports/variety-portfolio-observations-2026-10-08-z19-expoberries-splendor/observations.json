@@ -1,0 +1,287 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-expoberries-patent-expb3181",
+      "title": "Expoberries — EXPB3181 original US plant patent",
+      "url": "https://patents.google.com/patent/USPP32907P2/en",
+      "company_ids": [
+        "company-expoberries"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2021-03-23",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal denomination in the original heading, description and single claim. Parent/comparator names accounted separately; related-document suggestions excluded from portfolio scope.",
+      "limitations": "This is one historical patent document, not a complete company portfolio or current rights search. Google legal/expiry assumptions are not copied. Patent applicant/assignee is distinct from inventor; no breeder role, brand equivalence, traits, identity, reuse permission or growing footprint approved.",
+      "names": [
+        {
+          "candidate_name": "EXPB3181",
+          "denomination": "EXPB3181",
+          "breeder_code": "EXPB3181",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://patentimages.storage.googleapis.com/5e/49/91/3bc4f1bd737322/USPP32907.pdf",
+          "application_number": "16/602,486",
+          "grant_number": "USPP32907P2",
+          "jurisdiction": "US",
+          "application_date": "2019-10-17",
+          "grant_date": "2021-03-23",
+          "portfolio_context": "Literal patent denomination and claim. Expoberries is the historical applicant/assignee; Jose Maurilio Rodriguez Mesa is the named inventor. Marketing-name equivalence, present rights, licensed roles, trial performance and commercial growing regions need separate review.",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/ae/34/ee/7a6a24220e39a3/USPP032907-20210323-D00005.png",
+              "source_url": "https://patentimages.storage.googleapis.com/5e/49/91/3bc4f1bd737322/USPP32907.pdf",
+              "named_variety": "EXPB3181",
+              "berry_id": "berry-blackberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-08",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Expoberries · USPP32907P2 · photographer not credited",
+              "caption": "Figure 5 identifies fruit of EXPB3181. Original monochrome patent scan; not a color or quality comparison.",
+              "reuse_note": "Patent hosting does not establish photograph reuse permission; private session choice only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [
+          {
+            "label": "Kiowa",
+            "reason": "Parent or comparator in the patent description, not an Expoberries release identified by this document."
+          },
+          {
+            "label": "SP709",
+            "reason": "Parent or comparator in the patent description, not an Expoberries release identified by this document."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_claim_and_fruit_viewer",
+        "capture_sha256": "06c69aac6d23cc433d7eccce46cdcb235d7c898b1a06bf92633ef7a736c9f031",
+        "bytes": 14829,
+        "heading_and_claim_read": true,
+        "fruit_figure": 5,
+        "fruit_visual_review": true,
+        "figure_width": 1732,
+        "figure_height": 1587,
+        "pdf_url": "https://patentimages.storage.googleapis.com/5e/49/91/3bc4f1bd737322/USPP32907.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "pdf_screenshot_limitation": "Web PDF screenshot returned cache miss; no visual PDF page-count or claim-page assertion. Original PDF remains linked."
+      }
+    },
+    {
+      "id": "portfolio-expoberries-patent-expr02",
+      "title": "Expoberries — EXPR02 original US plant patent",
+      "url": "https://patents.google.com/patent/USPP32948P2/en",
+      "company_ids": [
+        "company-expoberries"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "published_date": "2021-04-06",
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One literal denomination in the original heading, description and single claim. Parent/comparator names accounted separately; related-document suggestions excluded from portfolio scope.",
+      "limitations": "This is one historical patent document, not a complete company portfolio or current rights search. Google legal/expiry assumptions are not copied. Patent applicant/assignee is distinct from inventor; no breeder role, brand equivalence, traits, identity, reuse permission or growing footprint approved.",
+      "names": [
+        {
+          "candidate_name": "EXPR02",
+          "denomination": "EXPR02",
+          "breeder_code": "EXPR02",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/21/ab/f1/e08ee6fcaf714e/USPP32948.pdf",
+          "application_number": "16/602,485",
+          "grant_number": "USPP32948P2",
+          "jurisdiction": "US",
+          "application_date": "2019-10-17",
+          "grant_date": "2021-04-06",
+          "portfolio_context": "Literal patent denomination and claim. Expoberries is the historical applicant/assignee; Jose Maurilio Rodriguez Mesa is the named inventor. Marketing-name equivalence, present rights, licensed roles, trial performance and commercial growing regions need separate review.",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/e0/f0/9f/612299af9f139f/USPP032948-20210406-D00006.png",
+              "source_url": "https://patentimages.storage.googleapis.com/21/ab/f1/e08ee6fcaf714e/USPP32948.pdf",
+              "named_variety": "EXPR02",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-08",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Expoberries · USPP32948P2 · photographer not credited",
+              "caption": "Figure 6 identifies fruit of EXPR02. Original monochrome patent scan; not a color or quality comparison.",
+              "reuse_note": "Patent hosting does not establish photograph reuse permission; private session choice only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "SP804",
+            "reason": "Parent or comparator in the patent description, not an Expoberries release identified by this document."
+          },
+          {
+            "label": "SP821",
+            "reason": "Parent or comparator in the patent description, not an Expoberries release identified by this document."
+          },
+          {
+            "label": "Autumn Bliss",
+            "reason": "Parent or comparator in the patent description, not an Expoberries release identified by this document."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_patent_heading_description_claim_and_fruit_viewer",
+        "capture_sha256": "77846e5a052bcfd6e9e233a4514e6770e60e849f8617801b8bdf8524fbf36290",
+        "bytes": 25161,
+        "heading_and_claim_read": true,
+        "fruit_figure": 6,
+        "fruit_visual_review": true,
+        "figure_width": 1920,
+        "figure_height": 1845,
+        "pdf_url": "https://patentimages.storage.googleapis.com/21/ab/f1/e08ee6fcaf714e/USPP32948.pdf",
+        "all_pdf_pages_visually_reviewed": false,
+        "pdf_screenshot_limitation": "Web PDF screenshot returned cache miss; no visual PDF page-count or claim-page assertion. Original PDF remains linked."
+      }
+    },
+    {
+      "id": "portfolio-splendor-original-current",
+      "title": "Splendor Produce — original genetics overview",
+      "url": "https://splendorproduce.com/actualmente/",
+      "company_ids": [
+        "company-splendor-produce"
+      ],
+      "berry_ids": [
+        "berry-blackberry",
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original page text; no cultivar-by-cultivar list.",
+      "limitations": "The company describes its own blackberry/raspberry genetics but does not name cultivars on these checked pages. Splendor Genetics is a program/business label, not a variety. Crop product cards, generic fruit pictures, seasons and places do not identify cultivars or establish variety-level growing regions. The provisional company and saved user fields are not changed.",
+      "names": [],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [
+          {
+            "label": "Unnamed blackberry varieties",
+            "reason": "Crop, unnamed inventory, business/program label or crop-season context; no explicit cultivar identity."
+          },
+          {
+            "label": "Unnamed raspberry varieties",
+            "reason": "Crop, unnamed inventory, business/program label or crop-season context; no explicit cultivar identity."
+          },
+          {
+            "label": "Splendor Genetics",
+            "reason": "Crop, unnamed inventory, business/program label or crop-season context; no explicit cultivar identity."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_original_company_page",
+        "capture_sha256": "7ded1908a99fb3eda3dc3888d3f95e7c2e2da53da92d2338ca906c3fd255caba",
+        "bytes": 986,
+        "body_read": true,
+        "graphical_products_and_seasons_visually_checked": false
+      }
+    },
+    {
+      "id": "portfolio-splendor-original-about",
+      "title": "Splendor Produce — original company and breeding context",
+      "url": "https://splendorproduce.com/nosotros/",
+      "company_ids": [
+        "company-splendor-produce"
+      ],
+      "berry_ids": [
+        "berry-blackberry",
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original page text; no cultivar-by-cultivar list.",
+      "limitations": "The company describes its own blackberry/raspberry genetics but does not name cultivars on these checked pages. Splendor Genetics is a program/business label, not a variety. Crop product cards, generic fruit pictures, seasons and places do not identify cultivars or establish variety-level growing regions. The provisional company and saved user fields are not changed.",
+      "names": [],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": [
+          {
+            "label": "Unnamed Mexican plant varieties",
+            "reason": "Crop, unnamed inventory, business/program label or crop-season context; no explicit cultivar identity."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_original_company_page",
+        "capture_sha256": "bc804dd00e3c893db95b86c91941c893ed03d9453709f9e4558d5f97525a5283",
+        "bytes": 1295,
+        "body_read": true,
+        "graphical_products_and_seasons_visually_checked": false
+      }
+    },
+    {
+      "id": "portfolio-splendor-original-products",
+      "title": "Splendor Produce — original product cards and crop seasons",
+      "url": "https://splendorproduce.com/productos/",
+      "company_ids": [
+        "company-splendor-produce"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-strawberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete original page text; all five graphical product cards and the harvest chart visually checked.",
+      "limitations": "The company describes its own blackberry/raspberry genetics but does not name cultivars on these checked pages. Splendor Genetics is a program/business label, not a variety. Crop product cards, generic fruit pictures, seasons and places do not identify cultivars or establish variety-level growing regions. The provisional company and saved user fields are not changed.",
+      "names": [],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "Frambuesas",
+            "reason": "Crop, unnamed inventory, business/program label or crop-season context; no explicit cultivar identity."
+          },
+          {
+            "label": "Fresas",
+            "reason": "Crop, unnamed inventory, business/program label or crop-season context; no explicit cultivar identity."
+          },
+          {
+            "label": "Arándanos",
+            "reason": "Crop, unnamed inventory, business/program label or crop-season context; no explicit cultivar identity."
+          },
+          {
+            "label": "Aguacates",
+            "reason": "Crop, unnamed inventory, business/program label or crop-season context; no explicit cultivar identity."
+          },
+          {
+            "label": "Moras",
+            "reason": "Crop, unnamed inventory, business/program label or crop-season context; no explicit cultivar identity."
+          },
+          {
+            "label": "Crop harvest chart",
+            "reason": "Crop, unnamed inventory, business/program label or crop-season context; no explicit cultivar identity."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "native_browser_original_company_page",
+        "capture_sha256": "31f4e558de24a84e29d26c187d56cc40660a99e8b6c76d1ee93616b9111c74be",
+        "bytes": 255,
+        "body_read": true,
+        "graphical_products_and_seasons_visually_checked": true
+      }
+    }
+  ]
+}

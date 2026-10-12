@@ -1,5 +1,43 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+## Current work — October 12, 2026
+
+The source-to-catalog omission is being repaired across all four berries; the
+mission remains open. Existing discovery, original-source observations, patent
+links and photo previews feed review without silently approving identities,
+aliases, roles, traits, regions or rights.
+
+The [latest photo review](CORNELL-VARIETY-PHOTOS-REVIEW.md) records
+384 bounded sections / 1,561 name occurrences / 91 matched occurrences / 1,470
+requiring review, 1,126 public candidate keys and 64 unchanged canonical varieties.
+Photo references total 126 with no new reuse approvals. The 77-entry company
+plan retains 14 incomplete checks, one unavailable source and two identity holds.
+
+The register has 160 entries linked to 20 existing organizations and 60 further
+entries searchable by unresolved organization wording. 228 entries still lack
+identity assignments. Source mentions do not approve company roles or rights.
+
+The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
+shows actual catalog gaps: 50/64 without photo references, 35/64 without
+patent/PVR references, 33/64 without cited traits and 10/64 without linked
+organizations after the [active-role correction](VARIETY-PROFILE-ORGANIZATION-REVIEW.md).
+Counts are scoped field presence, not current rights, independent
+measurement or catalog completeness. Native Edge now verifies the 412px field
+table, pinned names, wrapping company names and sticky headers. Current launch,
+audit and isolated recovery evidence are in the
+[combined review](CURRENT-BLUEBERRY-CATALOG-REVIEW.md).
+
+Continue accessible original corpus acquisition, complete current/historical
+portfolios, cited profiles, current official rights and attributed photos. The
+32 pending source copies and independently supplied expected-name packet still
+need human review; no independent recall score is established. Synthetic recall
+results do not substitute for that decision.
+
+The [requirements checklist](REDESIGN-REQUIREMENTS-CHECKLIST.md) owns CAT-01,
+CAT-02, LAND-02 and release gates. The original mission scope below is unchanged.
+[Historical research and checks](VARIETY-CATALOG-COMPREHENSIVENESS-MISSION-HISTORY.md)
+preserve the removed chronological preamble verbatim.
+
 User direction, October 6–7, 2026: the Hortifrut omission is a warning about
 system-wide recall. Build toward the most comprehensive berry variety resource
 available, without confusing a discovered name with an approved identity or
@@ -23,7 +61,7 @@ promoting source assertions into verified roles, traits or growing footprints.
 - [x] Provide a repeatable audit: `scripts/audit_variety_catalog_coverage.py` and
   `artifacts/landscape-explorer-blueberry/variety-catalog-audit.json`.
 
-Current stored-source audit: **99 explicit named identities, 31 catalog matches,
+Earlier October 7 stored-source audit: **99 explicit named identities, 31 catalog matches,
 68 names awaiting identity review**, before loading any operator-private candidate
 inbox. Earlier discovery returned 62 mentions and 34 candidates. This is a recall
 improvement, not 68 newly approved varieties. Source names may include aliases
@@ -38,6 +76,44 @@ Private photo-import candidates and user edits remain in the operator's existing
 inbox; the isolated preview does not copy, replace or erase that state.
 
 ## Next acquisition and reconciliation work
+
+October 7 first portfolio slice: a 77-row registry source plan and ten dated primary
+page/berry sections now use the existing candidate workflow. Nine readable sections
+contain 93 name occurrences: 11 catalog matches and 82 review needs. They add 50
+candidates beyond the stored-source audit (118 combined before private inbox state).
+Five registry rows have some coverage; 72 need primary checks. This begins the
+manifest/reconciliation/freshness work below; those global tasks remain incomplete.
+See [first portfolio review](VARIETY-PORTFOLIO-COVERAGE-REVIEW.md) and its body-free
+audit. Other-berry Landscape rollout stays behind the blueberry gate.
+
+October 7 expansion adds 182 observations from seven further page sections.
+Combined primary scope: 275 occurrences / 25 catalog matches / 250 review needs;
+239 combined candidates before private state, including 171 additional primary
+names. Eleven registry rows have some checks; 66 need initial primary checks.
+Accounting includes 31 excluded product cards and explicit shared-code/label
+warnings. Oregon nursery pagination was exhausted at 36 visible entries, and its
+saved Commission website is flagged without overwrite. This remains manual,
+bounded enumeration; global completeness, historic coverage and recall scoring
+are unfinished. See [expanded review](VARIETY-PORTFOLIO-EXPANSION-REVIEW.md).
+
+October 7 program/nursery follow-up adds 106 occurrences from NIWA, Vissers,
+Limgroup and all nine current ABZ assortment pages. Combined scope is 381
+occurrences / 25 catalog matches / 356 review needs in 32 dated sections. Existing
+discovery derives 341 candidate keys before private state (68 stored-source plus
+273 additional primary-source keys). Fifteen registry rows have some checked pages;
+62 need initial primary checks. Three species-ambiguous clone cards are excluded,
+and experimental/nursery/F1 contexts stay explicit. Current ABZ pages do not resolve
+its unreadable historical PDF. See [program portfolio review](VARIETY-PROGRAM-PORTFOLIOS-REVIEW.md).
+
+October 7 recall diagnostic adds 24 curated offline cases across all berries,
+codes, F1 labels, identity/provenance, tables, Spanish/Polish and body-only names.
+Source-based snippets are synthetic, not independently human-verified. Two
+summary defects are repaired: detection improves from 46/64 expected occurrences
+and one unexpected name to 50/64 and zero unexpected names. Later table/Spanish/Polish repairs reach 60/64 with zero extras; the original
+raw-body case still misses four names. Selected article paragraphs/full text
+now have an explicit private Reader action, tested separately from that fixture. Corpus/portfolio/catalog counts are unchanged. The benchmark
+task below remains open for independent review, real captures and qualification.
+See VARIETY-NAME-RECALL-DIAGNOSTIC-V1.md.
 
 - [ ] Build a per-company/per-berry source manifest from the approved competitor
   list, with primary breeder portfolios, university releases, trial reports,
@@ -73,6 +149,18 @@ inbox; the isolated preview does not copy, replace or erase that state.
 - [ ] Compare against reference resources before making a public superlative.
   Report specific strengths and gaps; no invented global completeness percentage.
 
+October 7 blueberry comparison now accounts for the native GRIN Vaccinium
+name/synonym export: 2,113 accessions, including 95 other-genus hits; 315 are
+source-classified Cultivar. Four checked blueberry species supply 178 records /
+148 names, with 133 missing exact catalog/queue names, 13 queued and two catalog
+text matches before private state. The 53 generic hybrid labels remain crop
+questions; 80 other-taxon cultivars and 1,798 other-material records are excluded.
+An individual private handoff connects scoped missing names to existing identity
+review without approving identities or overwriting user state. Scope, original
+IDs, source capture date and exclusions remain visible. See
+VARIETY-BLUEBERRY-GERMPLASM-COVERAGE-REVIEW.md. This closes the missing blueberry
+reference comparison, not the worldwide comparison/completeness requirement.
+
 ## Primary reference sources checked for planning
 
 - [Hortifrut genetic development](https://www.hortifrut.com/innovation/genetic-development/):
@@ -95,3 +183,35 @@ it does not authorize rollout of other berries in Landscape Explorer. Continue
 the catalog mission through acquisition, verification and draft PRs under the
 existing human trust gates. Obtain required access or approval only when actually
 needed. No merge or deployment is part of this review checkpoint.
+
+
+## October 9 follow-up: Rutgers original filing and historical names
+
+See [original Rutgers filing review](RUTGERS-ORIGINAL-FILING-REVIEW.md). One focal
+grant plus four separate parent/comparison mentions are now discoverable, including
+the source's explicit NJ09-2-1 / Rutgers D'Light pairing. No catalog alias, entity,
+company role, current right, region or image permission is approved automatically.
+The bounded audit is now 378 sections /1,549 occurrences /88 catalog matches /
+1,461 needing review /1,124 source-derived candidate keys. All 31 requirements and
+their order are retained; CAT-01, CAT-02, TD-116 and REL-01 stay open. Current and
+historical portfolio completeness, original current rights, human authoring,
+independent recall, phone review and integrated release preparation remain.
+
+
+## October 9 follow-up: human variety-name review packet
+
+The [human name-review worksheet](VARIETY-HUMAN-RECALL-PACKET-REVIEW.md) now
+prepares all32 retained Article copies with blank expected lists. A read-only
+captured-text view hides stored summaries and approval controls. Browser-local
+drafts and partial JSON export are verified with fictional sources; none of the
+actual32 expected lists is completed. Offline assembly verifies source fingerprints,
+refuses unfinished/shortened inputs and uses the existing scorer without a
+qualification marker. Source acceptance, catalog authoring and independent
+benchmark qualification remain separate. This prepares the human packet; it does
+not complete the human-owned recall requirement. Full scope, phone, blueberry
+feedback and integrated release gates remain open. All31 requirement IDs/order stay.
+
+
+## October 10 UTC: original Chandler source follow-up
+
+Original claim/code references and seven separate parent/comparison observations retain existing candidate anchors, crop boundaries and human decisions. The bounded audit is 380 sections /1,557 occurrences /88 matched /1,469 requiring review /1,126 derived keys, with 64 canonical varieties and 122 unchanged photo references. Parent #390 passes all four required checks /4,618 tests; this child needs fresh CI. The actual 32-source human worksheet remains unfinished. Full corpus/portfolio/rights/profile coverage, independent human recall and catalog authoring, phone review, blueberry feedback and integrated release remain open. See [Chandler source review](CHANDLER-ORIGINAL-FILING-REVIEW.md). No merge/deploy or other-berry Landscape rollout.

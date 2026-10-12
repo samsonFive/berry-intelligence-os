@@ -68,6 +68,7 @@ def catalog(entities, *, logos=None, profiles=None, state=None):
         row["tier_choices"] = assignment_tiers(row["tier"])
         row["lists"] = [group for group in lists if key in group.get("company_ids", [])]
         row["edited"] = any(field in override for field in ("website", "linkedin", "socials"))
+        row["website_edited"] = "website" in override
         row["website"] = public_source_url(row.get("website"))
         row["linkedin"] = public_source_url(row.get("linkedin"))
         row["socials"] = [{**s, "url": public_source_url(s.get("url"))} for s in row.get("socials") or []]

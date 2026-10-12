@@ -32,6 +32,17 @@ def test_merge_capture_does_not_invent_body_when_empty():
     assert "article" not in merged
 
 
+def test_cached_passages_fill_blank_rows_but_preserve_existing_article_text():
+    capture = {"passages": ["Publisher text from the selected cache."], "availability": "excerpt_only"}
+    empty = {"id": "live-1", "article": {"paragraphs": [{"text": " "}]}}
+    assert merge_capture(empty, capture)["article"]["paragraphs"] == [{"text": capture["passages"][0]}]
+    assert empty["article"]["paragraphs"] == [{"text": " "}]
+    edited = {"id": "live-1", "article": {"paragraphs": [{"text": "My existing source text", "locator": "p1"}]}}
+    assert merge_capture(edited, capture)["article"] == edited["article"]
+    full_text = {"id": "live-1", "article": {"full_text": "Existing full-text artifact."}}
+    assert merge_capture(full_text, capture)["article"] == full_text["article"]
+
+
 def test_classify_capture_labels_partial_and_blocked():
     assert classify_capture([], status_code=200) == "metadata_only"
     assert classify_capture(["Please log in to continue. Subscribe to continue reading."], status_code=403) == "blocked"

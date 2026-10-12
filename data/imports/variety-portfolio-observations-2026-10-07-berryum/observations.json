@@ -1,0 +1,171 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-berryum-blackberry-products",
+      "title": "BerrYum - six named blackberry products and labeled fruit photos",
+      "url": "https://www.berryneo.com/en/varieties-berryum/",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "brand-berryum"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Six current product cards checked on their individual product pages. The comparison chart contains these six base labels and the separate Loch Ness comparator.",
+      "limitations": "This is a bounded current page, not a lifetime release portfolio. BerrYum remains a brand, not an inferred company or breeder. Sibling product cards repeat names; production calendar repeats Furia and Kalika by growing system and does not add cultivars. Loch Ness is not a BerrYum product. No raspberry names are supplied by this page. Marketed/base label pairs and image associations remain unreviewed. Some thumbnail links point to other varieties, so photos use individual product-page labels. Publisher photos require written consent; none is recorded.",
+      "names": [
+        {
+          "candidate_name": "FURIA",
+          "trade_name": "BerrYum FURIA",
+          "display_label": "BerrYum FURIA",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.berryneo.com/en/berryum-furia-variety/",
+          "portfolio_context": "Literal branded product label and matching base label in the publisher comparison chart. A marketed name, not an approved denomination or alias. No traits, roles, rights or growing regions are approved.",
+          "photos": [
+            {
+              "image_url": "https://www.berryneo.com/wp-content/uploads/2021/05/moras_berryum_furia2.png",
+              "source_url": "https://www.berryneo.com/en/berryum-furia-variety/",
+              "credit": "Berryneo / BerrYum · Photographer not credited",
+              "caption": "Fruit photo labeled BerrYum FURIA on its individual product page.",
+              "named_variety": "BerrYum FURIA",
+              "berry_id": "berry-blackberry",
+              "reuse": "unknown",
+              "license_url": "https://www.berryneo.com/en/legal-notice/",
+              "reuse_note": "Publisher legal notice requires written consent to reproduce images. No permission recorded. This individually labeled fruit image was visually checked; logo artwork and misdirected thumbnail links were not used.",
+              "checked_on": "2026-10-07",
+              "kind": "fruit"
+            }
+          ]
+        },
+        {
+          "candidate_name": "EQUA",
+          "trade_name": "BerrYum EQUA",
+          "display_label": "BerrYum EQUA",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.berryneo.com/en/berryum-equa-variety/",
+          "portfolio_context": "Literal branded product label and matching base label in the publisher comparison chart. A marketed name, not an approved denomination or alias. No traits, roles, rights or growing regions are approved.",
+          "photos": [
+            {
+              "image_url": "https://www.berryneo.com/wp-content/uploads/2022/09/moras_berryum_equa2.png",
+              "source_url": "https://www.berryneo.com/en/berryum-equa-variety/",
+              "credit": "Berryneo / BerrYum · Photographer not credited",
+              "caption": "Fruit photo labeled BerrYum EQUA on its individual product page.",
+              "named_variety": "BerrYum EQUA",
+              "berry_id": "berry-blackberry",
+              "reuse": "unknown",
+              "license_url": "https://www.berryneo.com/en/legal-notice/",
+              "reuse_note": "Publisher legal notice requires written consent to reproduce images. No permission recorded. This individually labeled fruit image was visually checked; logo artwork and misdirected thumbnail links were not used.",
+              "checked_on": "2026-10-07",
+              "kind": "fruit"
+            }
+          ]
+        },
+        {
+          "candidate_name": "NEMUS",
+          "trade_name": "BerrYum NEMUS",
+          "display_label": "BerrYum NEMUS",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.berryneo.com/en/berryum-nemus-variety/",
+          "portfolio_context": "Literal branded product label and matching base label in the publisher comparison chart. A marketed name, not an approved denomination or alias. No traits, roles, rights or growing regions are approved.",
+          "photos": [
+            {
+              "image_url": "https://www.berryneo.com/wp-content/uploads/2022/09/moras_berryum_nemus2.png",
+              "source_url": "https://www.berryneo.com/en/berryum-nemus-variety/",
+              "credit": "Berryneo / BerrYum · Photographer not credited",
+              "caption": "Fruit photo labeled BerrYum NEMUS on its individual product page.",
+              "named_variety": "BerrYum NEMUS",
+              "berry_id": "berry-blackberry",
+              "reuse": "unknown",
+              "license_url": "https://www.berryneo.com/en/legal-notice/",
+              "reuse_note": "Publisher legal notice requires written consent to reproduce images. No permission recorded. This individually labeled fruit image was visually checked; logo artwork and misdirected thumbnail links were not used.",
+              "checked_on": "2026-10-07",
+              "kind": "fruit"
+            }
+          ]
+        },
+        {
+          "candidate_name": "KALIKA",
+          "trade_name": "BerrYum KALIKA",
+          "display_label": "BerrYum KALIKA",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.berryneo.com/en/berryum-kalika-variety/",
+          "portfolio_context": "Literal branded product label and matching base label in the publisher comparison chart. A marketed name, not an approved denomination or alias. No traits, roles, rights or growing regions are approved.",
+          "photos": [
+            {
+              "image_url": "https://www.berryneo.com/wp-content/uploads/2022/09/moras_berryum_kalika.png",
+              "source_url": "https://www.berryneo.com/en/berryum-kalika-variety/",
+              "credit": "Berryneo / BerrYum · Photographer not credited",
+              "caption": "Fruit photo labeled BerrYum KALIKA on its individual product page.",
+              "named_variety": "BerrYum KALIKA",
+              "berry_id": "berry-blackberry",
+              "reuse": "unknown",
+              "license_url": "https://www.berryneo.com/en/legal-notice/",
+              "reuse_note": "Publisher legal notice requires written consent to reproduce images. No permission recorded. This individually labeled fruit image was visually checked; logo artwork and misdirected thumbnail links were not used.",
+              "checked_on": "2026-10-07",
+              "kind": "fruit"
+            }
+          ]
+        },
+        {
+          "candidate_name": "INDRA",
+          "trade_name": "BerrYum INDRA",
+          "display_label": "BerrYum INDRA",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.berryneo.com/en/berryum-indra-variety/",
+          "portfolio_context": "Literal branded product label and matching base label in the publisher comparison chart. A marketed name, not an approved denomination or alias. No traits, roles, rights or growing regions are approved.",
+          "photos": [
+            {
+              "image_url": "https://www.berryneo.com/wp-content/uploads/2025/09/moras_berryum_indra_en.webp",
+              "source_url": "https://www.berryneo.com/en/berryum-indra-variety/",
+              "credit": "Berryneo / BerrYum · Photographer not credited",
+              "caption": "Fruit photo labeled BerrYum INDRA on its individual product page.",
+              "named_variety": "BerrYum INDRA",
+              "berry_id": "berry-blackberry",
+              "reuse": "unknown",
+              "license_url": "https://www.berryneo.com/en/legal-notice/",
+              "reuse_note": "Publisher legal notice requires written consent to reproduce images. No permission recorded. This individually labeled fruit image was visually checked; logo artwork and misdirected thumbnail links were not used.",
+              "checked_on": "2026-10-07",
+              "kind": "fruit"
+            }
+          ]
+        },
+        {
+          "candidate_name": "KROLA",
+          "trade_name": "BerrYum KROLA",
+          "display_label": "BerrYum KROLA",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.berryneo.com/en/berryum-krola-variety/",
+          "portfolio_context": "Literal branded product label and matching base label in the publisher comparison chart. A marketed name, not an approved denomination or alias. No traits, roles, rights or growing regions are approved.",
+          "photos": [
+            {
+              "image_url": "https://www.berryneo.com/wp-content/uploads/2025/09/moras_berryum_krola.png",
+              "source_url": "https://www.berryneo.com/en/berryum-krola-variety/",
+              "credit": "Berryneo / BerrYum · Photographer not credited",
+              "caption": "Fruit photo labeled BerrYum KROLA on its individual product page.",
+              "named_variety": "BerrYum KROLA",
+              "berry_id": "berry-blackberry",
+              "reuse": "unknown",
+              "license_url": "https://www.berryneo.com/en/legal-notice/",
+              "reuse_note": "Publisher legal notice requires written consent to reproduce images. No permission recorded. This individually labeled fruit image was visually checked; logo artwork and misdirected thumbnail links were not used.",
+              "checked_on": "2026-10-07",
+              "kind": "fruit"
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [
+          {
+            "label": "LOCH NESS",
+            "reason": "Comparison-chart benchmark, not one of the six BerrYum product cards. No BerrYum ownership or release relationship established.",
+            "url": "https://www.berryneo.com/en/varieties-berryum/"
+          }
+        ]
+      }
+    }
+  ]
+}

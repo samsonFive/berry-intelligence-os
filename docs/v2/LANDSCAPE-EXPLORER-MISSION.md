@@ -1,5 +1,131 @@
 # Landscape Explorer — blueberry review checkpoint
 
+## Milestone B authorized — October 12, 2026
+
+### Canonical integration — October 12
+
+Canonical advanced to `7360c5821c009484381394ed8afa9fb91e322a50` with the
+separately accepted Social Listening work in PR #314. Its conflicts with this
+draft suppressed the saved-view head's PR validation; this was verified through
+GitHub's `CONFLICTING`/`DIRTY` state, not treated as a successful check.
+Four conflicts retain both company links and both dated status/debt histories.
+The canonical expansion guide is unchanged and all 31 requirement IDs remain.
+The lease defect is renumbered TD-119 because canonical reserves TD-117 for
+Social Listening and TD-118 for NABC/USHBC identity; the repair is unchanged.
+
+Explorer now consumes the existing canonical deleted-source output policy for
+evidence and relationships. Explicit deletions hold dependent new output;
+unavailability alone does not. Cache/source scope updates, and canonical history
+remains untouched. **149 integration tests pass**, one existing warning,
+**105.72 seconds**, including Social routes/output policy and corpus coverage.
+Fresh integrated-head CI and the final native/release gates remain required.
+
+### Saved Explorer selections — implementation follow-up
+
+Explorer now reuses `inbox/landscape_views.json`, the existing analyst saved-view
+facility. Additive typed Explorer rows store whitelisted selectors, never source
+bodies or trust decisions. Existing overview rows remain unchanged. Save/update,
+save-as-new, archive and restore retain atomic writes, history and optimistic
+revision checks; editing through the wrong surface cannot convert a saved view.
+The overview's existing archive/restore controls also retain Explorer selectors.
+
+Reopening validates current IDs and loads fresh records. Relative date presets
+roll forward; custom dates remain explicit. Broken, archived or unavailable views
+produce a recovery page rather than silently resetting or overwriting state.
+Applied scope and selected focus/evidence are saved only by explicit POST; links
+to other saved views are not rewritten by the current selection. These remain
+the existing shared single-analyst workspace views, not a new multi-user store.
+
+**91 Explorer/workspace tests pass**, one existing ReportLab warning,
+**20.01 seconds**. Tests cover source refresh, rolling dates without a write,
+legacy preservation, copy/conflict/archive/restore, corrupt-store protection,
+repeated country inputs, cross-site rejection, authoring and session login,
+and the actual JavaScript controller. The trusted **1,755-page build** passes
+Pagefind and unpublished-draft exclusion. Native review remains pending after
+the recorded Edge activation failure; PDF, traits, final browser/performance/CI
+and separate release approval remain. No production state was written.
+
+### All berries and paired landscapes — implementation follow-up
+
+The same draft now adds All berries and side-by-side two-crop comparison.
+Each crop is scoped independently before stable IDs are combined; shared
+companies/programs are highlighted, and cultivar IDs remain distinct.
+Explicit relationship crop tags override broader actor tags. Comparison scope
+persists across Landscape, Changes, Explain, relationship table and exports;
+opening one crop clears incompatible genetics/evidence selection.
+
+Coverage disclosures show each crop separately. The complete All berries
+selection contains **183 distinct links / 95 sources / 126 nodes**. Blueberry
+versus strawberry has **165 / 85 / 106**, with eleven common actors; raspberry
+versus blackberry has **34 / 26 / 39**, with five. None has a direct variety or
+program location record; company locations remain separate. These are recorded
+coverage counts, not market size, influence, or a completeness score.
+
+The final related regression run passes **123 tests**, one existing ReportLab
+warning, **75.50 seconds**. The trusted static build passes **1,755 pages**,
+Pagefind and unpublished-draft exclusion. The preceding four-crop head
+`60e7350bee64283d60d2929637ac67752a58d7fb` passes all four required checks,
+run `38308443014`: **4,640 passed / 11 skipped / two warnings / 983.53 seconds**.
+The comparison update needs its own exact-head CI after push.
+
+Cold bundle construction on the actual fixture-excluded Windows/Python 3.13
+corpus takes **1.71 seconds All berries**, **1.48 blueberry–strawberry**, and
+**0.43 raspberry–blackberry**. The compact browser payload is approximately
+397 / 359 / 91 KB; it omits duplicate server-rendered tables while preserving
+all nodes, edges and sources. This is backend measurement, not native browser
+interactivity proof. Edge twice returned **“failed to activate captured window”**;
+visual comparison review remains pending and no screenshot success is claimed.
+
+Saved Explorer views, downloadable PDF, sourced trait/sensory context, remaining
+native phone/themes/performance review, current-head CI and the final release
+review remain. The original source/catalog and independent human-review work
+also remains open; no trust decisions, merge or deployment were made.
+
+The user explicitly answered **“Approve the blueberry checkpoint”** after
+review delivery in draft #396. The feedback gate is satisfied. Continue the
+remaining berries, comparison, saved Explorer views and downloadable PDF on
+that consolidated draft; no merge or deployment was approved.
+
+The first shared rollout exposes only the app's four existing berry categories.
+The same engine, evidence boundary and complete exports serve each crop; no
+berry-specific store or new category is added. Non-blueberry defaults use all
+recorded countries instead of borrowing the blueberry example's markets.
+Explicit user country selections remain unchanged. Initial regression found
+and repaired a collision with shared template context; all 52 Explorer tests
+pass after the correction. The subsequent focus guard preserves company focus
+but clears incompatible genetics when changing crops; direct wrong-crop genetic
+focus receives a recoverable error. All **53 Explorer regressions pass**, one
+existing warning, 10.18 seconds, including the production browser controller.
+
+Native Edge verified the four choices, a populated raspberry default and a
+real selector/Apply transition to strawberry retaining all-country scope.
+Screenshots with browser chrome remain in the private review inbox. Phone,
+blackberry, theme and completed-milestone walkthroughs remain.
+
+Actual all-country source coverage remains uneven: blueberry has 159 links /
+79 sources / 40 varieties, strawberry 20 / 19 / 6, raspberry 27 / 20 / 11, and
+blackberry 14 / 14 / 5. All four have zero direct variety/program-location links;
+company locations are not substituted. Measured backend bundle construction is
+0.09–0.36 seconds in this local corpus, not a browser-interaction measurement.
+Remaining native rollout review, All berries, two-berry comparison, existing trait/sensory
+integration where supported, saved views, PDF, final UX/performance and fresh
+exact-head CI remain. The whole catalog and source/human-review work also remains.
+
+The historical checkpoint contract below is retained; its pending-feedback
+statements are superseded only by this explicit approval. Release approval and
+all source/identity/claim/qualification gates remain separate.
+
+Use the [October 12 combined review](CURRENT-BLUEBERRY-CATALOG-REVIEW.md) for
+current launch links, source/catalog counts, phone and isolated recovery proof.
+Blueberry feedback and separate merge/deploy approval remain required.
+
+October 9 integrated checkpoint: [current review handoff](BLUEBERRY-INTEGRATED-REVIEW-HANDOFF.md)
+supersedes the earlier preview/artifact links for the stacked candidate. It includes
+the denser portfolio roles, corrected focus/evidence URL restoration, current
+visual workflow/reporting guide and verified native briefing downloads. Parent
+#373 is all-green; the new draft's exact-head checks remain a separate gate.
+Blueberry feedback, other-berry rollout and merge/deploy gates remain open.
+
 **Mission remains open. Milestone A is the current review candidate; Milestone B is explicitly gated on user feedback. Do not enable other berries, merge or deploy at this checkpoint.** The full approved scope is retained verbatim in [the executable brief](LANDSCAPE-EXPLORER-BRIEF.md). This document is the durable resume checklist, not a replacement or narrowing of that brief.
 
 ## Identity and existing architecture
@@ -84,3 +210,9 @@ Variety schemas, CPVO backends or trusted records. Human decisions win on replay
 - [x] Source-linked candidate visibility in evidence, directory and review queue.
 - [x] Final revised desktop/mobile/theme review and local regression. Exact-head GitHub check results are recorded in draft PR #313 at delivery.
 - [ ] User review of the revised blueberry checkpoint before other-berry rollout.
+
+October 8 source-catalog continuation: NIAB/Bayer/Masiá name histories and five
+held photos now reach private review/company context. Code display is repaired
+without role or alias approval. See NIAB-BAYER-MASIA-VARIETY-REVIEW.md for exact
+source scopes, tests and remaining gaps. The blueberry user checkpoint above
+remains required; no other-berry Landscape rollout or merge/deploy.

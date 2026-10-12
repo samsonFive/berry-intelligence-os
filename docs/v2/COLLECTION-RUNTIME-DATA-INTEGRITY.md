@@ -11,7 +11,7 @@ This document describes paths the code actually reads and writes.
 | Publication and Atomic Evidence drafts | `inbox/evidence/*.json` | GITIGNORED; WORKTREE-LOCAL without runtime env; VPS-PERSISTENT in Docker | BACKED UP; IRREPLACEABLE review/provenance |
 | Discovered items and source health | `inbox/discovered_media/*.json`, `_state/*.json` | GITIGNORED; VPS-PERSISTENT when mounted | BACKED UP; items mostly RECREATABLE, first-seen/health history is not |
 | Raw media and transcripts | `inbox/discovered_media/_media`, `_transcripts`, `_normalized_transcripts` | GITIGNORED; VPS-PERSISTENT | BACKED UP; raw media often RECREATABLE, transcript provenance retained |
-| Collection attempts/retries/runs/lock | `inbox/operations/items`, `runs`, `collection.lock` | GITIGNORED; VPS-PERSISTENT except live lock | BACKED UP; run history retained, lock RECREATABLE |
+| Collection attempts/retries/runs/lock | `inbox/operations/items`, `runs`, `collection.lock` | GITIGNORED; VPS-PERSISTENT except live lock | Run history BACKED UP; exact live lease excluded and RECREATABLE |
 | Patent/CPVO/trade/weather state | `inbox/operations/{patent_monitor,cpvo_registry,trade_intelligence,weather_intelligence}/state.json` | GITIGNORED; VPS-PERSISTENT | BACKED UP; seen indexes RECREATABLE, history retained |
 | Cron logs | deployed `inbox/operations/cron-logs` | GITIGNORED; VPS-PERSISTENT | BACKED UP; old worktree-local default retired |
 | Signal candidates and audit | `inbox/signal_candidates`, `inbox/signal_candidate_audit` | GITIGNORED; VPS-PERSISTENT | BACKED UP; decisions IRREPLACEABLE |
@@ -21,6 +21,13 @@ This document describes paths the code actually reads and writes.
 
 `data/` and `inbox/` are the complete mutable backup scope. Secrets live in
 `deploy/.env` or process environment and are deliberately outside it.
+
+The live `inbox/operations/collection.lock` is process ownership, not analyst
+state. New backups exclude that exact path while retaining similarly named
+history files. Legacy archives remain fully verified; recovery omits lease
+replay and reports the actual restored count separately. It does not remove a
+live destination lease. See [the recovery repair](REVIEW-RUNTIME-RECOVERY-REVIEW.md)
+for the reproduced defect and local proof; this is not a new production backup.
 
 ## Inbox durability and isolation
 

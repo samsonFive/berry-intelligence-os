@@ -1,0 +1,1244 @@
+{
+  "schema_version": "variety-name-recall-v1",
+  "created_date": "2026-10-07",
+  "review_status": "Agent-curated diagnostic; not independently human-verified or model-qualified",
+  "scope": "24 bounded offline cases. Source-based summaries, tables and translations are synthetic paraphrases of checked factual names; controls are invented. Expected lists were authored separately from discovery output. Not live-page extraction, a statistical web sample, or evidence for catalog promotion.",
+  "reference_checks": {
+    "https://www.hortifrut.com/innovation/genetic-development/": "2026-10-07",
+    "https://en.niwabrzezna.pl/varieties/": "2026-10-07",
+    "https://www.abzseeds.com/semi-double-flower": "2026-10-07 browser review in program portfolio slice; web reader unavailable",
+    "https://www.vissers.com/en/raspberryplants": "2026-10-07 browser review in program portfolio slice"
+  },
+  "cases": [
+    {
+      "id": "hortifrut-eleven",
+      "format": "summary_list",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://www.hortifrut.com/innovation/genetic-development/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-hortifrut-eleven",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Blueberry varieties including Prelude, Daybreak, Stellar, Candycrunch, Apolo, Bliss, Temptation, Robust, Envy, Keepsake and Sensation.",
+            "source_url": "https://www.hortifrut.com/innovation/genetic-development/",
+            "berry_ids": [
+              "berry-blueberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Prelude",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-eleven"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Daybreak",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-eleven"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Stellar",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-eleven"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Candycrunch",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-eleven"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Apolo",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-eleven"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Bliss",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-eleven"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Temptation",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-eleven"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Robust",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-eleven"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Envy",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-eleven"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Keepsake",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-eleven"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Sensation",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-eleven"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        }
+      ]
+    },
+    {
+      "id": "hortifrut-licensed",
+      "format": "quoted_license",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://www.hortifrut.com/innovation/genetic-development/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-hortifrut-licensed",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Blueberry varieties are described. The company licenses 'Rocio' and 'Corona'. It also licenses 'Draper', 'Aurora', 'Liberty' and 'Osorno'.",
+            "source_url": "https://www.hortifrut.com/innovation/genetic-development/",
+            "berry_ids": [
+              "berry-blueberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Rocio",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-licensed"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Corona",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-licensed"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Draper",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-licensed"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Aurora",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-licensed"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Liberty",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-licensed"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Osorno",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-licensed"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        }
+      ]
+    },
+    {
+      "id": "hortifrut-blackberry",
+      "format": "summary_list",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://www.hortifrut.com/innovation/genetic-development/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-hortifrut-blackberry",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Blackberry varieties including Camila and Amara.",
+            "source_url": "https://www.hortifrut.com/innovation/genetic-development/",
+            "berry_ids": [
+              "berry-blueberry",
+              "berry-blackberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Camila",
+          "berry_id": "berry-blackberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-blackberry"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Amara",
+          "berry_id": "berry-blackberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-blackberry"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        }
+      ]
+    },
+    {
+      "id": "hortifrut-pacific",
+      "format": "summary_list",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://www.hortifrut.com/innovation/genetic-development/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-hortifrut-pacific",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Raspberry varieties include Pacific Deluxe, Pacific Royale, Pacific Majesty, Pacific Scarlet and Pacific Gema.",
+            "source_url": "https://www.hortifrut.com/innovation/genetic-development/",
+            "berry_ids": [
+              "berry-raspberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Pacific Deluxe",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-pacific"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Pacific Royale",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-pacific"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Pacific Majesty",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-pacific"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Pacific Scarlet",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-pacific"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Pacific Gema",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-hortifrut-pacific"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        }
+      ]
+    },
+    {
+      "id": "niwa-red",
+      "format": "summary_list",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://en.niwabrzezna.pl/varieties/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-niwa-red",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Raspberry varieties include Delniwa, Husaria, Baron and Magnat.",
+            "source_url": "https://en.niwabrzezna.pl/varieties/",
+            "berry_ids": [
+              "berry-raspberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Delniwa",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-niwa-red"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Husaria",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-niwa-red"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Baron",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-niwa-red"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Magnat",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-niwa-red"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        }
+      ]
+    },
+    {
+      "id": "niwa-black-raspberry",
+      "format": "summary_list",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://en.niwabrzezna.pl/varieties/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-niwa-black-raspberry",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Black raspberry varieties include Megan and Selena.",
+            "source_url": "https://en.niwabrzezna.pl/varieties/",
+            "berry_ids": [
+              "berry-raspberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Megan",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-niwa-black-raspberry"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Selena",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-niwa-black-raspberry"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        }
+      ]
+    },
+    {
+      "id": "niwa-blackberry",
+      "format": "summary_list",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://en.niwabrzezna.pl/varieties/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-niwa-blackberry",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Blackberry varieties include Glorniwa, Juhas, Maryna and Jagna.",
+            "source_url": "https://en.niwabrzezna.pl/varieties/",
+            "berry_ids": [
+              "berry-blackberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Glorniwa",
+          "berry_id": "berry-blackberry",
+          "evidence_ids": [
+            "ev-recall-niwa-blackberry"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Juhas",
+          "berry_id": "berry-blackberry",
+          "evidence_ids": [
+            "ev-recall-niwa-blackberry"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Maryna",
+          "berry_id": "berry-blackberry",
+          "evidence_ids": [
+            "ev-recall-niwa-blackberry"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Jagna",
+          "berry_id": "berry-blackberry",
+          "evidence_ids": [
+            "ev-recall-niwa-blackberry"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        }
+      ]
+    },
+    {
+      "id": "niwa-strawberry",
+      "format": "summary_list",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://en.niwabrzezna.pl/varieties/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-niwa-strawberry",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Strawberry varieties include Alfa Centauri, Niwa Amarant, Beskid, Alka Niwa and Remiz Niwa.",
+            "source_url": "https://en.niwabrzezna.pl/varieties/",
+            "berry_ids": [
+              "berry-strawberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Alfa Centauri",
+          "berry_id": "berry-strawberry",
+          "evidence_ids": [
+            "ev-recall-niwa-strawberry"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Niwa Amarant",
+          "berry_id": "berry-strawberry",
+          "evidence_ids": [
+            "ev-recall-niwa-strawberry"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Beskid",
+          "berry_id": "berry-strawberry",
+          "evidence_ids": [
+            "ev-recall-niwa-strawberry"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Alka Niwa",
+          "berry_id": "berry-strawberry",
+          "evidence_ids": [
+            "ev-recall-niwa-strawberry"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Remiz Niwa",
+          "berry_id": "berry-strawberry",
+          "evidence_ids": [
+            "ev-recall-niwa-strawberry"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        }
+      ]
+    },
+    {
+      "id": "niwa-codes",
+      "format": "name_code_pairs",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://en.niwabrzezna.pl/varieties/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-niwa-codes",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Raspberry selection codes including Baron \"NR 1849002\" and Magnat \"NR 1616002\".",
+            "source_url": "https://en.niwabrzezna.pl/varieties/",
+            "berry_ids": [
+              "berry-raspberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Baron",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "NR 1849002",
+          "evidence_ids": [
+            "ev-recall-niwa-codes"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Magnat",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "NR 1616002",
+          "evidence_ids": [
+            "ev-recall-niwa-codes"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        }
+      ]
+    },
+    {
+      "id": "abz-f1-labels",
+      "format": "brand_suffix_list",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://www.abzseeds.com/semi-double-flower"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-abz-f1-labels",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Strawberry varieties include Summer Breeze Snow F1, Summer Breeze Cherry Blossom F1 and Summer Breeze Rose F1.",
+            "source_url": "https://www.abzseeds.com/semi-double-flower",
+            "berry_ids": [
+              "berry-strawberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Summer Breeze Snow F1",
+          "berry_id": "berry-strawberry",
+          "evidence_ids": [
+            "ev-recall-abz-f1-labels"
+          ],
+          "source_url": "https://www.abzseeds.com/semi-double-flower"
+        },
+        {
+          "name": "Summer Breeze Cherry Blossom F1",
+          "berry_id": "berry-strawberry",
+          "evidence_ids": [
+            "ev-recall-abz-f1-labels"
+          ],
+          "source_url": "https://www.abzseeds.com/semi-double-flower"
+        },
+        {
+          "name": "Summer Breeze Rose F1",
+          "berry_id": "berry-strawberry",
+          "evidence_ids": [
+            "ev-recall-abz-f1-labels"
+          ],
+          "source_url": "https://www.abzseeds.com/semi-double-flower"
+        }
+      ]
+    },
+    {
+      "id": "vissers-product-links",
+      "format": "structured_suggestions",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://www.vissers.com/en/raspberryplants"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-vissers-product-links",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Nursery product headings are recorded as suggestions.",
+            "source_url": "https://www.vissers.com/en/raspberryplants",
+            "berry_ids": [
+              "berry-raspberry"
+            ],
+            "entity_link_suggestions": [
+              {
+                "name": "Glen Ample",
+                "role": "variety"
+              },
+              {
+                "name": "Glen Dee",
+                "role": "variety"
+              }
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Glen Ample",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-vissers-product-links"
+          ],
+          "source_url": "https://www.vissers.com/en/raspberryplants"
+        },
+        {
+          "name": "Glen Dee",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-vissers-product-links"
+          ],
+          "source_url": "https://www.vissers.com/en/raspberryplants"
+        }
+      ]
+    },
+    {
+      "id": "mixed-table",
+      "format": "table",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://en.niwabrzezna.pl/varieties/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-mixed-table",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Crop | Name | Code\nRed raspberry | Baron | NR 1849002\nBlack raspberry | Megan | NR 1711902\nBlackberry | Juhas | NR 1728801\nStrawberry | Beskid | NT 141114",
+            "source_url": "https://en.niwabrzezna.pl/varieties/",
+            "berry_ids": [
+              "berry-raspberry",
+              "berry-blackberry",
+              "berry-strawberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Baron",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "NR 1849002",
+          "evidence_ids": [
+            "ev-recall-mixed-table"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Megan",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "NR 1711902",
+          "evidence_ids": [
+            "ev-recall-mixed-table"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Juhas",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "NR 1728801",
+          "evidence_ids": [
+            "ev-recall-mixed-table"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Beskid",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "NT 141114",
+          "evidence_ids": [
+            "ev-recall-mixed-table"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        }
+      ]
+    },
+    {
+      "id": "spanish-list",
+      "format": "multilingual_list",
+      "language": "es",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://www.hortifrut.com/innovation/genetic-development/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-spanish-list",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Variedades de arándano: Prelude, Daybreak y Stellar.",
+            "source_url": "https://www.hortifrut.com/innovation/genetic-development/",
+            "berry_ids": [
+              "berry-blueberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Prelude",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-spanish-list"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Daybreak",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-spanish-list"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "name": "Stellar",
+          "berry_id": "berry-blueberry",
+          "evidence_ids": [
+            "ev-recall-spanish-list"
+          ],
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/"
+        }
+      ]
+    },
+    {
+      "id": "polish-list",
+      "format": "multilingual_list",
+      "language": "pl",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://en.niwabrzezna.pl/varieties/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-polish-list",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Odmiany maliny: Delniwa, Husaria i Baron.",
+            "source_url": "https://en.niwabrzezna.pl/varieties/",
+            "berry_ids": [
+              "berry-raspberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Delniwa",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-polish-list"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Husaria",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-polish-list"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Baron",
+          "berry_id": "berry-raspberry",
+          "evidence_ids": [
+            "ev-recall-polish-list"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        }
+      ]
+    },
+    {
+      "id": "body-only",
+      "format": "body_only",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://en.niwabrzezna.pl/varieties/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-body-only",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "The source describes its breeding portfolio.",
+            "source_url": "https://en.niwabrzezna.pl/varieties/",
+            "berry_ids": [
+              "berry-blackberry"
+            ],
+            "body": "Blackberry varieties include Glorniwa, Juhas, Maryna and Jagna."
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Glorniwa",
+          "berry_id": "berry-blackberry",
+          "evidence_ids": [
+            "ev-recall-body-only"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Juhas",
+          "berry_id": "berry-blackberry",
+          "evidence_ids": [
+            "ev-recall-body-only"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Maryna",
+          "berry_id": "berry-blackberry",
+          "evidence_ids": [
+            "ev-recall-body-only"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        },
+        {
+          "name": "Jagna",
+          "berry_id": "berry-blackberry",
+          "evidence_ids": [
+            "ev-recall-body-only"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        }
+      ]
+    },
+    {
+      "id": "exact-alias",
+      "format": "identity",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-exact-alias",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Blueberry varieties including Test Trade.",
+            "source_url": "https://example.test/alias",
+            "berry_ids": [
+              "berry-blueberry"
+            ]
+          }
+        ],
+        "varieties": [
+          {
+            "id": "variety-test-denomination",
+            "name": "Test Denomination",
+            "aliases": [
+              "Test Trade"
+            ],
+            "berry_ids": [
+              "berry-blueberry"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        {
+          "name": "Test Trade",
+          "berry_id": "berry-blueberry",
+          "disposition": "already_canonical",
+          "canonical_variety_id": "variety-test-denomination",
+          "evidence_ids": [
+            "ev-recall-exact-alias"
+          ],
+          "source_url": "https://example.test/alias"
+        }
+      ]
+    },
+    {
+      "id": "ambiguous-alias",
+      "format": "identity",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-ambiguous-alias",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Blueberry varieties including Shared Test.",
+            "source_url": "https://example.test/ambiguous",
+            "berry_ids": [
+              "berry-blueberry"
+            ]
+          }
+        ],
+        "varieties": [
+          {
+            "id": "variety-test-a",
+            "name": "Test Alpha",
+            "aliases": [
+              "Shared Test"
+            ],
+            "berry_ids": [
+              "berry-blueberry"
+            ]
+          },
+          {
+            "id": "variety-test-b",
+            "name": "Test Beta",
+            "aliases": [
+              "Shared Test"
+            ],
+            "berry_ids": [
+              "berry-blueberry"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        {
+          "name": "Shared Test",
+          "berry_id": "berry-blueberry",
+          "disposition": "possible_alias",
+          "canonical_variety_id": null,
+          "evidence_ids": [
+            "ev-recall-ambiguous-alias"
+          ],
+          "source_url": "https://example.test/ambiguous"
+        }
+      ]
+    },
+    {
+      "id": "berry-mismatch",
+      "format": "identity",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-berry-mismatch",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Strawberry varieties including Shared Test.",
+            "source_url": "https://example.test/cross-species",
+            "berry_ids": [
+              "berry-strawberry"
+            ]
+          }
+        ],
+        "varieties": [
+          {
+            "id": "variety-test-blue",
+            "name": "Shared Test",
+            "aliases": [],
+            "berry_ids": [
+              "berry-blueberry"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        {
+          "name": "Shared Test",
+          "berry_id": "berry-strawberry",
+          "disposition": "berry_mismatch",
+          "canonical_variety_id": null,
+          "evidence_ids": [
+            "ev-recall-berry-mismatch"
+          ],
+          "source_url": "https://example.test/cross-species"
+        }
+      ]
+    },
+    {
+      "id": "generic-types",
+      "format": "negative",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-generic-types",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Strawberry varieties such as June-bearing, everbearing and day-neutral types.",
+            "source_url": "https://example.test/types",
+            "berry_ids": [
+              "berry-strawberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": []
+    },
+    {
+      "id": "geography-list",
+      "format": "negative",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-geography-list",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Blueberry varieties including Florida, California and Spain.",
+            "source_url": "https://example.test/places",
+            "berry_ids": [
+              "berry-blueberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": []
+    },
+    {
+      "id": "brand-only",
+      "format": "negative",
+      "language": "en",
+      "fixture_kind": "synthetic_control",
+      "reference_urls": [],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-brand-only",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Patio Pleasure and Home Harvest are assortment groups, not identified cultivars.",
+            "source_url": "https://example.test/brand",
+            "berry_ids": [
+              "berry-strawberry"
+            ],
+            "commercial_observation": {
+              "brand": "Test Packaging"
+            }
+          }
+        ],
+        "varieties": []
+      },
+      "expected": []
+    },
+    {
+      "id": "mixed-untyped",
+      "format": "negative",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://en.niwabrzezna.pl/varieties/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-mixed-untyped",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Varieties including Delniwa and Glorniwa.",
+            "source_url": "https://en.niwabrzezna.pl/varieties/",
+            "berry_ids": [
+              "berry-raspberry",
+              "berry-blackberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [],
+      "required_exclusion_reasons": [
+        "berry_not_established"
+      ]
+    },
+    {
+      "id": "unpublished",
+      "format": "negative",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://www.hortifrut.com/innovation/genetic-development/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-unpublished",
+            "status": "in_review",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Blueberry varieties including Prelude and Daybreak.",
+            "source_url": "https://www.hortifrut.com/innovation/genetic-development/",
+            "berry_ids": [
+              "berry-blueberry"
+            ]
+          }
+        ],
+        "varieties": []
+      },
+      "expected": []
+    },
+    {
+      "id": "code-two-sources",
+      "format": "provenance",
+      "language": "en",
+      "fixture_kind": "synthetic_source_based",
+      "reference_urls": [
+        "https://en.niwabrzezna.pl/varieties/"
+      ],
+      "inputs": {
+        "evidence": [
+          {
+            "id": "ev-recall-code-two-sources",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Recall fixture",
+            "summary": "Raspberry selection codes including Baron \"NR1849002\".",
+            "source_url": "https://en.niwabrzezna.pl/varieties/",
+            "berry_ids": [
+              "berry-raspberry"
+            ]
+          },
+          {
+            "id": "ev-recall-code-second",
+            "status": "published",
+            "source_type": "company_press_release",
+            "title": "Second synthetic record",
+            "summary": "Raspberry selection codes including Baron \"NR1849002\".",
+            "berry_ids": [
+              "berry-raspberry"
+            ],
+            "source_url": "https://en.niwabrzezna.pl/clones/"
+          }
+        ],
+        "varieties": []
+      },
+      "expected": [
+        {
+          "name": "Baron",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "NR1849002",
+          "evidence_ids": [
+            "ev-recall-code-two-sources",
+            "ev-recall-code-second"
+          ],
+          "source_url": "https://en.niwabrzezna.pl/varieties/"
+        }
+      ]
+    }
+  ]
+}

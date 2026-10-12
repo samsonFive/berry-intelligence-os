@@ -104,7 +104,8 @@ async def save_landscape_view(request: Request):
                 raise ValueError("Saved Landscape view is unavailable")
             filters, name = original["filters"], original["name"]
         row = landscape_workspace.save_view(main.INBOX_DIR, name=name, filters=filters, view_id=key,
-                                            revision=str(form.get("revision") or "0"), archive=action == "archive")
+                                            revision=str(form.get("revision") or "0"), archive=action == "archive",
+                                            kind="overview" if action == "save" else None)
     except ValueError as exc:
         raise HTTPException(409 if "another window" in str(exc) else 422, str(exc)) from exc
     return RedirectResponse("/landscapes" if action == "archive" else landscape_workspace.view_href(row), status_code=303)

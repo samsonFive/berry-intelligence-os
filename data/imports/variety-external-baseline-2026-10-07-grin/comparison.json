@@ -1,0 +1,3809 @@
+{
+  "kind": "unreviewed_external_germplasm_comparison",
+  "id": "grin-vaccinium-cultivars",
+  "source_title": "USDA National Plant Germplasm System (GRIN)",
+  "source_url": "https://npgsweb.ars-grin.gov/gringlobal/search",
+  "checked_on": "2026-10-07",
+  "query": {
+    "scientific_name": "Vaccinium",
+    "include_historical": true,
+    "row_limit": 10000,
+    "match_mode": "Any part of scientific name or synonyms",
+    "improvement_level_filter": null
+  },
+  "input_sha256": "4c39cc37a8a432a5ef153f44d72187c614c79ef173161ba65c73fc7712c15c7d",
+  "values_sha256": "928dfca1826284ff28ce9c446070aaea82f52c4bf162fb8a42b97e4462eedfdd",
+  "taxonomy_scope": {
+    "Vaccinium corymbosum L.": {
+      "common_name": "Highbush blueberry",
+      "url": "https://npgsweb.ars-grin.gov/gringlobal/taxon/taxonomydetail?id=41002"
+    },
+    "Vaccinium virgatum Aiton": {
+      "common_name": "Rabbit-eye blueberry",
+      "url": "https://npgsweb.ars-grin.gov/gringlobal/taxon/taxonomydetail?id=41068"
+    },
+    "Vaccinium angustifolium Aiton": {
+      "common_name": "Lowbush blueberry",
+      "url": "https://npgsweb.ars-grin.gov/gringlobal/taxon/taxonomydetail?id=40981"
+    },
+    "Vaccinium darrowii Camp": {
+      "common_name": "Darrow's blueberry",
+      "url": "https://npgsweb.ars-grin.gov/gringlobal/taxon/taxonomydetail?id=41007"
+    }
+  },
+  "improvement_levels": {
+    "Breeding material": 200,
+    "Clone": 1,
+    "Cultivar": 315,
+    "Cultivated material": 87,
+    "Genetic material": 20,
+    "Uncertain improvement status": 24,
+    "Unknown": 82,
+    "Wild material": 1384
+  },
+  "observed_genera": {
+    "Agapetes": 8,
+    "Cuphea": 3,
+    "Daboecia": 8,
+    "Disterigma": 4,
+    "Gaultheria": 14,
+    "Gaylussacia": 30,
+    "Ilex": 7,
+    "Lyonia": 13,
+    "Sphyrospermum": 4,
+    "Symphysia": 4,
+    "Vaccinium": 2018
+  },
+  "dispositions": {
+    "crop_unresolved": 57,
+    "other_material": 1798,
+    "blueberry": 178,
+    "other_taxon_cultivar": 80
+  },
+  "other_taxon_cultivars": {
+    "Vaccinium crassifolium Andrews": 3,
+    "Vaccinium macrocarpon Aiton": 56,
+    "Vaccinium myrtillus L.": 1,
+    "Vaccinium ovatum Pursh": 1,
+    "Vaccinium reticulatum Sm.": 4,
+    "Vaccinium vitis-idaea L.": 15
+  },
+  "totals": {
+    "export_rows": 2113,
+    "reported_stocks": 2113,
+    "stock_organism_keys": 2113,
+    "distinct_cultivar_labels": 200,
+    "genus_label_keys": 201,
+    "source_cultivar_records": 315,
+    "source_distinct_cultivar_labels": 273,
+    "compared_records": 178,
+    "unresolved_crop_records": 57,
+    "vaccinium_records": 2018,
+    "other_genus_records": 95
+  },
+  "entries": [
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Aliceblue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554959",
+          "accession": "PI 554959",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Angola",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554850",
+          "accession": "PI 554850",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Arlen",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 638379",
+          "accession": "PI 638379",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Aron",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554865",
+          "accession": "PI 554865",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Ascorba",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618260",
+          "accession": "PI 618260",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Ashworth",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554789",
+          "accession": "PI 554789",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Atlantic",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554798",
+          "accession": "PI 554798",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Augusta",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554666",
+          "accession": "PI 554666",
+          "organism": "Vaccinium angustifolium Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Austin",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618169",
+          "accession": "PI 618169",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Avonblue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554949",
+          "accession": "PI 554949",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Beckyblue",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554956",
+          "accession": "PI 554956",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554960",
+          "accession": "PI 554960",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Berkeley",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554828",
+          "accession": "PI 554828",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554883",
+          "accession": "PI 554883",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Biloxi",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 618193",
+          "accession": "PI 618193",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 618232",
+          "accession": "PI 618232",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Black Giant",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554708",
+          "accession": "PI 554708",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Bladen",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618033",
+          "accession": "PI 618033",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Blomidon",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554664",
+          "accession": "PI 554664",
+          "organism": "Vaccinium angustifolium Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Blue Ridge",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554869",
+          "accession": "PI 554869",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Bluebelle",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554697",
+          "accession": "PI 554697",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Bluechip",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554860",
+          "accession": "PI 554860",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Bluecrop",
+      "export_rows": 3,
+      "references": [
+        {
+          "unique_name": "PI 554827",
+          "accession": "PI 554827",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554885",
+          "accession": "PI 554885",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 618097",
+          "accession": "PI 618097",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Bluegem",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554718",
+          "accession": "PI 554718",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Bluegold",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 618034",
+          "accession": "PI 618034",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 618098",
+          "accession": "PI 618098",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Bluehaven",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554847",
+          "accession": "PI 554847",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554884",
+          "accession": "PI 554884",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Bluejay",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554846",
+          "accession": "PI 554846",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554886",
+          "accession": "PI 554886",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Blueray",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554799",
+          "accession": "PI 554799",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554887",
+          "accession": "PI 554887",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Bluesfest",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 679663",
+          "accession": "PI 679663",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Bluetta",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554837",
+          "accession": "PI 554837",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554888",
+          "accession": "PI 554888",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Bonita",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554719",
+          "accession": "PI 554719",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Bonus",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666839",
+          "accession": "PI 666839",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Bounty",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554859",
+          "accession": "PI 554859",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Brightwell",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554703",
+          "accession": "PI 554703",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Brigitta",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618166",
+          "accession": "PI 618166",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Briteblue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554702",
+          "accession": "PI 554702",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Brunswick",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554665",
+          "accession": "PI 554665",
+          "organism": "Vaccinium angustifolium Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Burgundy",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 690340",
+          "accession": "PI 690340",
+          "organism": "Vaccinium angustifolium Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Burlington",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554800",
+          "accession": "PI 554800",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Cabot",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554826",
+          "accession": "PI 554826",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554889",
+          "accession": "PI 554889",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Callaway",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554699",
+          "accession": "PI 554699",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Cape Fear",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554951",
+          "accession": "PI 554951",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Caroline Blue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618262",
+          "accession": "PI 618262",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Centurion",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554715",
+          "accession": "PI 554715",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Chandler",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657260",
+          "accession": "PI 657260",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Chanticleer",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 638765",
+          "accession": "PI 638765",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Chaucer",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657219",
+          "accession": "PI 657219",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Chippewa",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618162",
+          "accession": "PI 618162",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Choice",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554720",
+          "accession": "PI 554720",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Clara",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554711",
+          "accession": "PI 554711",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 698277",
+          "accession": "PI 698277",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Climax",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554700",
+          "accession": "PI 554700",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Coastal",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554705",
+          "accession": "PI 554705",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Collins",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554842",
+          "accession": "PI 554842",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554890",
+          "accession": "PI 554890",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Columbus",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657150",
+          "accession": "PI 657150",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Concord",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554801",
+          "accession": "PI 554801",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Cooper",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618235",
+          "accession": "PI 618235",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Coville",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554829",
+          "accession": "PI 554829",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Crabbe IV",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554864",
+          "accession": "PI 554864",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Craven",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666666",
+          "accession": "PI 666666",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Croatan",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554852",
+          "accession": "PI 554852",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Darrow",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618035",
+          "accession": "PI 618035",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "De Soto",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 641332",
+          "accession": "PI 641332",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Delite",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554696",
+          "accession": "PI 554696",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Dixi",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554802",
+          "accession": "PI 554802",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554891",
+          "accession": "PI 554891",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Dixieblue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 641331",
+          "accession": "PI 641331",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Draper",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666840",
+          "accession": "PI 666840",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Duke",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554872",
+          "accession": "PI 554872",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554892",
+          "accession": "PI 554892",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Dunphy",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 686957",
+          "accession": "PI 686957",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Duplin",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657220",
+          "accession": "PI 657220",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Earliblue",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554830",
+          "accession": "PI 554830",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554893",
+          "accession": "PI 554893",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Early May",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554712",
+          "accession": "PI 554712",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Echo",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 682654",
+          "accession": "PI 682654",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 709632",
+          "accession": "PI 709632",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Elizabeth",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554866",
+          "accession": "PI 554866",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Elliott",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554871",
+          "accession": "PI 554871",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554894",
+          "accession": "PI 554894",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Ethel",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554694",
+          "accession": "PI 554694",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Evelyn",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554803",
+          "accession": "PI 554803",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Everblue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 638326",
+          "accession": "PI 638326",
+          "organism": "Vaccinium darrowii Camp ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Flordablue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554957",
+          "accession": "PI 554957",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Friendship",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666838",
+          "accession": "PI 666838",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Fundy",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 638380",
+          "accession": "PI 638380",
+          "organism": "Vaccinium angustifolium Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Garden Blue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657217",
+          "accession": "PI 657217",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Gem",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554838",
+          "accession": "PI 554838",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Georgiagem",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554873",
+          "accession": "PI 554873",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Goldtraube 74",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618259",
+          "accession": "PI 618259",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Grover",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554804",
+          "accession": "PI 554804",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Gulfcoast",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 618165",
+          "accession": "PI 618165",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 618233",
+          "accession": "PI 618233",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Gumbo",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 684915",
+          "accession": "PI 684915",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Gupton",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 641333",
+          "accession": "PI 641333",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Hagood",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554695",
+          "accession": "PI 554695",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Hannah s Choice",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657259",
+          "accession": "PI 657259",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Harding",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554831",
+          "accession": "PI 554831",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Harrison",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554849",
+          "accession": "PI 554849",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Herbert",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554805",
+          "accession": "PI 554805",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554895",
+          "accession": "PI 554895",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Homebell",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554709",
+          "accession": "PI 554709",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Ira",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657152",
+          "accession": "PI 657152",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Ivanhoe",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554807",
+          "accession": "PI 554807",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554896",
+          "accession": "PI 554896",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Jersey",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554808",
+          "accession": "PI 554808",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554897",
+          "accession": "PI 554897",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Jewel",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 679633",
+          "accession": "PI 679633",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Johnblue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 638325",
+          "accession": "PI 638325",
+          "organism": "Vaccinium darrowii Camp ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Johnston",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554809",
+          "accession": "PI 554809",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Joselyn",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666841",
+          "accession": "PI 666841",
+          "organism": "Vaccinium angustifolium Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Jubilee",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618195",
+          "accession": "PI 618195",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "June",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554810",
+          "accession": "PI 554810",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Ka-Bluey",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666717",
+          "accession": "PI 666717",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Katharine",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554811",
+          "accession": "PI 554811",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 686958",
+          "accession": "PI 686958",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Laniera",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554835",
+          "accession": "PI 554835",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554836",
+          "accession": "PI 554836",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Lateblue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554840",
+          "accession": "PI 554840",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Legacy",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618164",
+          "accession": "PI 618164",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Lenoir",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666667",
+          "accession": "PI 666667",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Leslie",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666842",
+          "accession": "PI 666842",
+          "organism": "Vaccinium angustifolium Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Little Giant",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618161",
+          "accession": "PI 618161",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Magnolia",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618194",
+          "accession": "PI 618194",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Marimba",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618167",
+          "accession": "PI 618167",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Meader",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554832",
+          "accession": "PI 554832",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 638764",
+          "accession": "PI 638764",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Mini Blues",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 672098",
+          "accession": "PI 672098",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Misty",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 555317",
+          "accession": "PI 555317",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Montgomery",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657151",
+          "accession": "PI 657151",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Morrow",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554863",
+          "accession": "PI 554863",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Muffin Man",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 687223",
+          "accession": "PI 687223",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Murphy",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554851",
+          "accession": "PI 554851",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Myers",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554710",
+          "accession": "PI 554710",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "NC 2140",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657254",
+          "accession": "PI 657254",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "NC 2492",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657250",
+          "accession": "PI 657250",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "NC 3408",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657253",
+          "accession": "PI 657253",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Nelson",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 618100",
+          "accession": "PI 618100",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 698276",
+          "accession": "PI 698276",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Northblue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554942",
+          "accession": "PI 554942",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Northcountry",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554953",
+          "accession": "PI 554953",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Northland",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554952",
+          "accession": "PI 554952",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Northsky",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554943",
+          "accession": "PI 554943",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Nui",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666655",
+          "accession": "PI 666655",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "O'Neal",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554944",
+          "accession": "PI 554944",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Olympia",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554812",
+          "accession": "PI 554812",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Onslow",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657154",
+          "accession": "PI 657154",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Ornablue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554954",
+          "accession": "PI 554954",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Owen",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554707",
+          "accession": "PI 554707",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Ozarkblue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666656",
+          "accession": "PI 666656",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Pacific",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554813",
+          "accession": "PI 554813",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Pacific Blue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554878",
+          "accession": "PI 554878",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Pamlico",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 641328",
+          "accession": "PI 641328",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Patriot",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554839",
+          "accession": "PI 554839",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554843",
+          "accession": "PI 554843",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Pearl River",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618234",
+          "accession": "PI 618234",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Pearl River",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618192",
+          "accession": "PI 618192",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Pemberton",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554814",
+          "accession": "PI 554814",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554898",
+          "accession": "PI 554898",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Pender",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657218",
+          "accession": "PI 657218",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Perpetua",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 674714",
+          "accession": "PI 674714",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 709633",
+          "accession": "PI 709633",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Pink Champagne",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 641329",
+          "accession": "PI 641329",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Pink Lemonade",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 641330",
+          "accession": "PI 641330",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Pioneer",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554815",
+          "accession": "PI 554815",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 686959",
+          "accession": "PI 686959",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Polaris",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618163",
+          "accession": "PI 618163",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Polen 38",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618261",
+          "accession": "PI 618261",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Powderblue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554721",
+          "accession": "PI 554721",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Premier",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554717",
+          "accession": "PI 554717",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Rancocas",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554816",
+          "accession": "PI 554816",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Reka",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618168",
+          "accession": "PI 618168",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Reveille",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554879",
+          "accession": "PI 554879",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Rubel",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554817",
+          "accession": "PI 554817",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Ruby Carpet",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666843",
+          "accession": "PI 666843",
+          "organism": "Vaccinium angustifolium Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Sam",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 686960",
+          "accession": "PI 686960",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Sampson",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666673",
+          "accession": "PI 666673",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Satilla",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554706",
+          "accession": "PI 554706",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Scammell",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554818",
+          "accession": "PI 554818",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Sharpblue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554948",
+          "accession": "PI 554948",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Shirley",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554819",
+          "accession": "PI 554819",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Sierra",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618099",
+          "accession": "PI 618099",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Snowflake",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 704125",
+          "accession": "PI 704125",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Southland",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554701",
+          "accession": "PI 554701",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Spartan",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554845",
+          "accession": "PI 554845",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 554899",
+          "accession": "PI 554899",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "St. Cloud",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666837",
+          "accession": "PI 666837",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Stanley",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554820",
+          "accession": "PI 554820",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Summit",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618181",
+          "accession": "PI 618181",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Sunrise",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618024",
+          "accession": "PI 618024",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Sunshine Blue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 555316",
+          "accession": "PI 555316",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Suwannee",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554714",
+          "accession": "PI 554714",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Tifblue",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554698",
+          "accession": "PI 554698",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Top Hat",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554955",
+          "accession": "PI 554955",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Toro",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618023",
+          "accession": "PI 618023",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "US 508",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 666658",
+          "accession": "PI 666658",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 666677",
+          "accession": "PI 666677",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "US 612",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618270",
+          "accession": "PI 618270",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "US 673",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 638334",
+          "accession": "PI 638334",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "US 693",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 638328",
+          "accession": "PI 638328",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "US 717",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 618271",
+          "accession": "PI 618271",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "US 74",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666676",
+          "accession": "PI 666676",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "US 75",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 666675",
+          "accession": "PI 666675",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "US 845",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 638330",
+          "accession": "PI 638330",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "US 847",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 638331",
+          "accession": "PI 638331",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "US 848",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 638332",
+          "accession": "PI 638332",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "US 851",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 638337",
+          "accession": "PI 638337",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "USDA-Spiers",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 702606",
+          "accession": "PI 702606",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 702675",
+          "accession": "PI 702675",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "V. corymbosum NC 3314",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657245",
+          "accession": "PI 657245",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "V. corymbosum NC 3327",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657255",
+          "accession": "PI 657255",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "V. corymbosum NC 4348",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657252",
+          "accession": "PI 657252",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "V. corymbosum NC 4396",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657251",
+          "accession": "PI 657251",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "V. corymbosum New Jersey NC 3308",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657247",
+          "accession": "PI 657247",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "V. corymbosum New Jersey NC 4043",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657246",
+          "accession": "PI 657246",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "V. hybrid",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657240",
+          "accession": "PI 657240",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "V. macrocarpon x V. ovatum vama 056",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 660968",
+          "accession": "PI 660968",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "crop_unresolved",
+      "name": "Vorsa's Vortex",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 682657",
+          "accession": "PI 682657",
+          "organism": "Vaccinium hybr.",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Walker",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554713",
+          "accession": "PI 554713",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Wareham",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554821",
+          "accession": "PI 554821",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Washington",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554822",
+          "accession": "PI 554822",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Weymouth",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554823",
+          "accession": "PI 554823",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Wolcott",
+      "export_rows": 2,
+      "references": [
+        {
+          "unique_name": "PI 554848",
+          "accession": "PI 554848",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        },
+        {
+          "unique_name": "PI 614082",
+          "accession": "PI 614082",
+          "organism": "Vaccinium corymbosum L. ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Woodard",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 554704",
+          "accession": "PI 554704",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    },
+    {
+      "genus": "Vaccinium",
+      "berry_scope": "blueberry",
+      "name": "Yadkin",
+      "export_rows": 1,
+      "references": [
+        {
+          "unique_name": "PI 657153",
+          "accession": "PI 657153",
+          "organism": "Vaccinium virgatum Aiton ",
+          "institutional_name": "COR",
+          "datasets": [],
+          "other_cultivar_labels": [],
+          "improvement_level": "Cultivar"
+        }
+      ]
+    }
+  ]
+}

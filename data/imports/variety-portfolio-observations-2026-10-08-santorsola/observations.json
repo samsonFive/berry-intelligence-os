@@ -1,0 +1,199 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-santorsola-current-strawberry",
+      "title": "Sant’Orsola — named strawberry breeding list",
+      "url": "https://www.santorsola.com/sperimentazione-e-breeding/",
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 1 strawberry labels in the named currently available raspberry/strawberry list on this page.",
+      "limitations": "The live page describes these as currently available bred varieties and uses patent wording. The linked technical sheets and original rights documents have not been read in this check; no legal status, breeder/owner role, trait or planting region is approved. The programme’s 2002 origin and experimental-field location are not publication dates or variety growing footprints. The hero, vigour icon and world-map illustration do not identify a named variety and are withheld.",
+      "names": [
+        {
+          "candidate_name": "Delfi",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-delfi.pdf",
+          "portfolio_context": "Listed on Sant’Orsola’s live breeding page. The name-specific technical sheet is linked for follow-up; its contents and any rights claim remain unchecked."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_primary_page_body_read",
+        "heading": "Lamponi e fragole Sant’Orsola: tutte le varietà",
+        "full_technical_sheets_checked": false,
+        "rights_documents_checked": false
+      }
+    },
+    {
+      "id": "portfolio-santorsola-current-raspberry",
+      "title": "Sant’Orsola — named raspberry breeding list",
+      "url": "https://www.santorsola.com/sperimentazione-e-breeding/",
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All 10 raspberry labels in the named currently available raspberry/strawberry list on this page.",
+      "limitations": "The live page describes these as currently available bred varieties and uses patent wording. The linked technical sheets and original rights documents have not been read in this check; no legal status, breeder/owner role, trait or planting region is approved. The programme’s 2002 origin and experimental-field location are not publication dates or variety growing footprints. The hero, vigour icon and world-map illustration do not identify a named variety and are withheld.",
+      "names": [
+        {
+          "candidate_name": "Amaranta",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-amaranta.pdf",
+          "portfolio_context": "Listed on Sant’Orsola’s live breeding page. The name-specific technical sheet is linked for follow-up; its contents and any rights claim remain unchecked."
+        },
+        {
+          "candidate_name": "Atena",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-atena.pdf",
+          "portfolio_context": "Listed on Sant’Orsola’s live breeding page. The name-specific technical sheet is linked for follow-up; its contents and any rights claim remain unchecked."
+        },
+        {
+          "candidate_name": "Dafne",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-dafne.pdf",
+          "portfolio_context": "Listed on Sant’Orsola’s live breeding page. The name-specific technical sheet is linked for follow-up; its contents and any rights claim remain unchecked."
+        },
+        {
+          "candidate_name": "Dolomia Plus",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/dolomia-plus-it.pdf",
+          "portfolio_context": "Listed on Sant’Orsola’s live breeding page. The name-specific technical sheet is linked for follow-up; its contents and any rights claim remain unchecked."
+        },
+        {
+          "candidate_name": "Ofelia",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2024/02/schede-tecniche-ofelia.pdf",
+          "portfolio_context": "Listed on Sant’Orsola’s live breeding page. The name-specific technical sheet is linked for follow-up; its contents and any rights claim remain unchecked."
+        },
+        {
+          "candidate_name": "Evita",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-evita.pdf",
+          "portfolio_context": "Listed on Sant’Orsola’s live breeding page. The name-specific technical sheet is linked for follow-up; its contents and any rights claim remain unchecked."
+        },
+        {
+          "candidate_name": "Lagorai Plus",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-lagorai-plus.pdf",
+          "portfolio_context": "Listed on Sant’Orsola’s live breeding page. The name-specific technical sheet is linked for follow-up; its contents and any rights claim remain unchecked."
+        },
+        {
+          "candidate_name": "Sungold",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/schede-tecniche-sungold-ita.pdf",
+          "portfolio_context": "Listed on Sant’Orsola’s live breeding page. The name-specific technical sheet is linked for follow-up; its contents and any rights claim remain unchecked."
+        },
+        {
+          "candidate_name": "Titania",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-titania.pdf",
+          "portfolio_context": "Listed on Sant’Orsola’s live breeding page. The name-specific technical sheet is linked for follow-up; its contents and any rights claim remain unchecked."
+        },
+        {
+          "candidate_name": "Vajolet",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-vajolet.pdf",
+          "portfolio_context": "Listed on Sant’Orsola’s live breeding page. The name-specific technical sheet is linked for follow-up; its contents and any rights claim remain unchecked."
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_primary_page_body_read",
+        "heading": "Lamponi e fragole Sant’Orsola: tutte le varietà",
+        "full_technical_sheets_checked": false,
+        "rights_documents_checked": false
+      }
+    },
+    {
+      "id": "portfolio-santorsola-technical-sheet-followup",
+      "title": "Sant’Orsola — technical sheets and rights still to check",
+      "url": "https://www.santorsola.com/sperimentazione-e-breeding/",
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Eleven named technical-sheet links observed on the live list; document contents not yet reviewed.",
+      "limitations": "The page’s patent wording is a claim, not a verified filing or grant. Technical-sheet pictures, codes, traits and rights links need original-document review before use. No variety-specific photo is established by the page’s generic imagery.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_primary_link_list_read",
+        "linked_documents": [
+          {
+            "name": "Delfi",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-delfi.pdf"
+          },
+          {
+            "name": "Amaranta",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-amaranta.pdf"
+          },
+          {
+            "name": "Atena",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-atena.pdf"
+          },
+          {
+            "name": "Dafne",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-dafne.pdf"
+          },
+          {
+            "name": "Dolomia Plus",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/dolomia-plus-it.pdf"
+          },
+          {
+            "name": "Ofelia",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2024/02/schede-tecniche-ofelia.pdf"
+          },
+          {
+            "name": "Evita",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-evita.pdf"
+          },
+          {
+            "name": "Lagorai Plus",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-lagorai-plus.pdf"
+          },
+          {
+            "name": "Sungold",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/12/schede-tecniche-sungold-ita.pdf"
+          },
+          {
+            "name": "Titania",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-titania.pdf"
+          },
+          {
+            "name": "Vajolet",
+            "url": "https://www.santorsola.com/2020/wp-content/uploads/2021/02/schede-tecniche-vajolet.pdf"
+          }
+        ],
+        "full_technical_sheets_checked": false
+      }
+    }
+  ]
+}
