@@ -1,6 +1,6 @@
 # Technical Debt Register
 
-## Current catalog debt — October 9, 2026
+## Current catalog debt — October 10, 2026
 
 TD-116 remains open. Source-name discovery, original patent links and attributed
 photo references improve coverage but do not establish complete portfolios,
@@ -21,9 +21,10 @@ an absent company dossier no longer hides source discoveries.
 TD-116 remains open for complete portfolios, profiles and independent recall.
 
 The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
-shows actual catalog gaps: 53/64 without photo references, 36/64 without
-patent/PVR references, 33/64 without cited traits and 14/64 without company
-role links. Counts are scoped field presence, not current rights, independent
+shows actual catalog gaps: 53/64 without photo references, 35/64 without
+patent/PVR references, 33/64 without cited traits and 10/64 without linked
+organizations after the [active-role correction](VARIETY-PROFILE-ORGANIZATION-REVIEW.md).
+Counts are scoped field presence, not current rights, independent
 measurement or catalog completeness. Phone visual verification remains.
 
 The active/resolved debt rows and dated proof below remain unchanged.

@@ -3711,6 +3711,10 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     )
     from app.company_routes import profile_context
     company_ui = profile_context(request, entity_id, world["existing"])
+    from app.services.variety_navigation import program_variety_rows
+    portfolio = (backbone or {}).get("portfolio")
+    linked_varieties = (portfolio or {}).get("variety_rows", []) if portfolio else program_variety_rows(
+        entity_id, entities_by_id, relationships)
     return templates.TemplateResponse(
         request=request,
         name="feed_first_company_legacy.html" if request.query_params.get("view") == "dossier" else "feed_first_company.html",
@@ -3738,7 +3742,8 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "related_entities": (seed or {}).get("related_entities") or [],
             "growing_profile": growing_profile,
             "dossier": dossier,
-            "company_source_varieties": company_source_varieties(entity_id, (backbone or {}).get("portfolio"))
+            "company_linked_varieties": linked_varieties,
+            "company_source_varieties": company_source_varieties(entity_id, {"variety_rows": linked_varieties})
                 if request.query_params.get("tab") == "varieties" else None,
             "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
             "monogram": (seed or {}).get("monogram") or name[:2].upper(),

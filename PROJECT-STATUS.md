@@ -1,5 +1,13 @@
 # Project Status
 
+**October 10: profile organization correction.** The inventory now uses active
+company, brand and breeding-program links, including trial operators. Four false
+missing-link flags are repaired; 10 of 64 profiles still lack an organization
+link. Data and human gates remain unchanged. See the
+[organization review](docs/v2/VARIETY-PROFILE-ORGANIZATION-REVIEW.md).
+Browser review also found and repaired program overview/tab counts that omitted
+existing active variety links when a company portfolio was unavailable.
+
 **October 10 UTC: original Chandler filing follow-up.** The retained strawberry lead gains original claim/code references, with seven separately scoped parent/comparison observations and an original-assignee warning. 62 affected tests and the 1,755-page public build pass; parent draft #390 passes all four checks /4,618 tests. No canonical additions, photo permissions or human approvals. Full scope and remaining gates: [Chandler filing review](docs/v2/CHANDLER-ORIGINAL-FILING-REVIEW.md).
 
 **October 9: human name-review packet prepared.** All32 retained copies now have a private source-only worksheet, browser-local drafts and export into the existing offline diagnostic. Real human answers remain unfinished; no source/catalog approval or benchmark qualification is created. Parent#389 passes all four checks /4,597 tests. See [human packet review](docs/v2/VARIETY-HUMAN-RECALL-PACKET-REVIEW.md).
@@ -81,9 +89,9 @@ there rather than reconstructing the mission from historical progress reports.
   the guide now traces source names through identity review, separate catalog
   authoring and profile enrichment, with links to the existing private workflows.
 
-The [latest bounded audit](docs/v2/REGISTER-LIST-52-INTAKE-REVIEW.md) has
-376 source sections / 1,544 name occurrences / 88 matched occurrences / 1,456
-requiring review, with 1,121 public-source-derived candidate keys and 64 unchanged
+The [latest bounded audit](docs/v2/CHANDLER-ORIGINAL-FILING-REVIEW.md) has
+380 source sections / 1,557 name occurrences / 88 matched occurrences / 1,469
+requiring review, with 1,126 public-source-derived candidate keys and 64 unchanged
 canonical varieties. There are 122 photo references; the eight UF photos have unknown
 reuse permission and remain excluded from public static output. Source mentions
 are not approved varieties or a global completeness measure.

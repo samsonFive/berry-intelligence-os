@@ -4,12 +4,21 @@ This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.
 
-## Current checkpoint — October 9, 2026
+## Current checkpoint — October 10, 2026
 
 The original redesign/consolidation release was accepted and integrated in
 [PR #312](https://github.com/samsonFive/berry-intelligence-os/pull/312). The later
 Landscape/catalog work is an unmerged draft stack. The visual guide is delivered
 at `/guide`; this checklist still owns outstanding requirements.
+
+The [profile organization correction](VARIETY-PROFILE-ORGANIZATION-REVIEW.md)
+aligns the field inventory with active company, brand and breeding-program links,
+including trial operators. Four false missing-link flags are repaired; 10 of
+64 catalog profiles still lack organization links. Source mentions do not create
+roles, and all original records, user edits and human review gates remain intact.
+The same correction now includes the program overview and Varieties tab: an
+existing active link is shown in both, without creating a company portfolio or
+promoting source-only names.
 
 | Remaining requirement | Next action | Required evidence or decision |
 |---|---|---|

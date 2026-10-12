@@ -33,8 +33,8 @@ def test_citation_and_explicit_roles_count_without_claiming_current_rights_or_in
     company={'id':'company-breeder','entity_type':'company','name':'Source Company'}
     patent={'id':'patent-uspp99999','entity_type':'patent','name':'Granted patent','aliases':['USPP99999']}
     view=inventory(v,extra_entities=[company,patent],relationships=[
-        {'subject_id':company['id'],'object_id':v['id'],'predicate':'develops'},
-        {'subject_id':company['id'],'object_id':v['id'],'predicate':'owns'}],
+        {'subject_id':company['id'],'object_id':v['id'],'predicate':'develops','status':'active'},
+        {'subject_id':company['id'],'object_id':v['id'],'predicate':'owns','status':'active'}],
         published_evidence=[{'id':'published','status':'published','source_type':'company_press_release'},
                             {'id':'rights','status':'published','source_type':'patent_record','entity_ids':[v['id']]}])
     row=view['rows'][0]
@@ -42,6 +42,62 @@ def test_citation_and_explicit_roles_count_without_claiming_current_rights_or_in
     assert {r['role'] for r in row['company_links']}=={'Breeder','Rights holder'}
     assert row['missing']==['photos']
     assert 'current_rights' not in row and 'trusted_traits' not in row
+
+
+def test_active_company_brand_and_program_roles_match_directory_actors_without_promoting_proposals():
+    from app.services.variety_navigation import company_actors
+    v=variety()
+    actors=[{'id':'company-field','entity_type':'company','name':'Field Company'},
+            {'id':'brand-field','entity_type':'brand','name':'Field Brand'},
+            {'id':'program-field','entity_type':'breeding_program','name':'Field Program'},
+            {'id':'person-field','entity_type':'person','name':'Field Person'}]
+    relationships=[{'subject_id':actors[0]['id'],'object_id':v['id'],'predicate':'develops','status':'active'},
+                   {'subject_id':actors[0]['id'],'object_id':v['id'],'predicate':'owns','status':'proposed'},
+                   {'subject_id':actors[1]['id'],'object_id':v['id'],'predicate':'markets','status':'active'},
+                   {'subject_id':actors[2]['id'],'object_id':v['id'],'predicate':'trials','status':'active'},
+                   {'subject_id':actors[2]['id'],'object_id':v['id'],'predicate':'owns','status':'inactive'},
+                   {'subject_id':actors[3]['id'],'object_id':v['id'],'predicate':'develops','status':'active'},
+                   {'subject_id':'missing','object_id':v['id'],'predicate':'develops','status':'active'},
+                   {'subject_id':actors[0]['id'],'object_id':'other-variety','predicate':'distributes','status':'active'}]
+    before=deepcopy(relationships)
+    row=inventory(v,extra_entities=actors,relationships=relationships)['rows'][0]
+    assert {(r['name'],r['role']) for r in row['company_links']}=={
+        ('Field Company','Breeder'),('Field Brand','Marketer'),('Field Program','Trial operator')}
+    assert 'companies' not in row['missing']
+    index={a['id']:a for a in actors}
+    assert company_actors(v['id'],relationships,index)=={'company-field','brand-field','program-field'}
+    assert {r['href'] for r in row['company_links']}=={
+        '/entities/company/company-field','/entities/brand/brand-field','/entities/breeding_program/program-field'}
+    assert relationships==before
+
+
+def test_program_breeder_link_fills_only_the_organization_gap_and_keeps_role_filter_scope():
+    v=variety(breeder='Stored program wording')
+    program={'id':'program-field','entity_type':'breeding_program','name':'Field Program'}
+    relationship={'subject_id':program['id'],'object_id':v['id'],'predicate':'develops','status':'active'}
+    row=inventory(v,extra_entities=[program],relationships=[relationship])['rows'][0]
+    assert row['missing']==['photos','rights','traits'] and not row['breeder_text_only']
+    assert inventory(v,extra_entities=[program],relationships=[relationship],filters={'profile_gap':'companies'})['rows']==[]
+    for state in ('proposed','inactive',None):
+        rel={**relationship,'status':state}
+        row=inventory(v,extra_entities=[program],relationships=[rel])['rows'][0]
+        assert row['company_links']==[] and row['breeder_text_only'] and 'companies' in row['missing']
+
+
+def test_existing_rutgers_dlight_program_is_not_reported_as_a_missing_company_link():
+    import json
+    from pathlib import Path
+    root=Path(__file__).resolve().parents[1]
+    paths=['data/entities/varieties/variety-rutgers-dlight.json',
+           'data/entities/breeding_programs/breeding_program-njaes-rutgers-strawberry.json',
+           'data/relationships/rel-njaes-rutgers-develops-dlight.json']
+    original=[(root/path).read_bytes() for path in paths]
+    v,program,relationship=[json.loads(body) for body in original]
+    row=inventory(v,extra_entities=[program],relationships=[relationship])['rows'][0]
+    assert row['company_links']==[{'name':program['name'],'role':'Breeder',
+        'href':'/entities/breeding_program/'+program['id']}]
+    assert 'companies' not in row['missing'] and not row['breeder_text_only']
+    assert original==[(root/path).read_bytes() for path in paths]
 
 
 def test_explicit_rights_record_pointer_counts_without_inventing_a_number_match():
@@ -165,6 +221,7 @@ def test_live_table_is_read_only_and_absent_outside_authoring(monkeypatch,tmp_pa
     assert response.status_code==200
     assert 'What each variety profile needs' in response.text and '1 permission unconfirmed' in response.text
     assert '1 unreviewed source' in response.text and 'No cited traits' in response.text
+    assert 'Companies &amp; programs' in response.text and 'No linked company / program' in response.text
     # Counts and profile handoffs do not expose or load the source image asset.
     assert 'https://example.org/photo.jpg' not in response.text
     assert before=={p.relative_to(tmp_path):p.read_bytes() for p in tmp_path.rglob('*') if p.is_file()}
