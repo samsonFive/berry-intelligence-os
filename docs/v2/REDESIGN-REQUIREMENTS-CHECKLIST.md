@@ -11,6 +11,14 @@ The original redesign/consolidation release was accepted and integrated in
 Landscape/catalog work is an unmerged draft stack. The visual guide is delivered
 at `/guide`; this checklist still owns outstanding requirements.
 
+Combined release preparation now includes the [recovery lease repair](REVIEW-RUNTIME-RECOVERY-REVIEW.md):
+18 focused checks and a 79-file local inbox restore preserve the 32 pending source
+copies and original draft while omitting process ownership. The final committed
+package, complete review-runtime recovery, actual browser/phone review and
+exact-head CI still need matching evidence. This local proof does not replace
+the required production backup or authorize deployment. All 31 requirement IDs
+and their order remain unchanged.
+
 The [Cornell photo follow-up](CORNELL-VARIETY-PHOTOS-REVIEW.md) adds four
 source-captioned photo references with unknown reuse, including three existing
 raspberry profiles and the Dickens strawberry candidate. Catalog photo gaps fall

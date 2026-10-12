@@ -1,5 +1,16 @@
 # Technical Debt Register
 
+### TD-117 — Restored backup replays the collection lease
+
+| Field | Current evidence |
+|---|---|
+| Status / owner | active — draft fix; ops/platform |
+| Reproduced defect | Backup under `pipeline_lock` includes its own live `inbox/operations/collection.lock`; recovery can block collection for six hours. |
+| Draft repair | Exact-path exclusion on new archives; full integrity verification but no lease replay on legacy restore. Existing target owners and same-named history files remain unchanged. |
+| Verification | 18 focused tests; record validation and full public build; 79-file actual local inbox recovery with 32 pending copies and successful new lease acquisition. |
+| Remaining | Fresh exact-head CI, final code package and complete review-runtime rehearsal; real production backup before approved deployment. No merge/deploy or source/catalog approval. |
+| Review | [Recovery review](REVIEW-RUNTIME-RECOVERY-REVIEW.md). Earlier TD-047 proof remains dated history. |
+
 ## Current catalog debt — October 12, 2026
 
 The [Cornell photo follow-up](CORNELL-VARIETY-PHOTOS-REVIEW.md) adds four
