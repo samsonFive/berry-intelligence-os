@@ -65,11 +65,14 @@ Browser review verifies the 17-gap table, Ponca and FC13-113 references, and the
 NSG 203 candidate's original filing plus unresolved Marimbella association.
 The candidate's **Original claim** link now opens the inspected claim page,
 matching its label. No identity or source-review form was submitted. Required
-exact-head CI remains the draft merge gate; local checks do not replace it.
+exact-head CI passed at `7eec508f`: all four checks succeed, with 5,032 passed,
+11 skipped and two existing warnings. The subsequent Fontana addition requires
+fresh checks on its updated draft head; local checks do not replace them.
 
-The tested main release at 1fb75b61 remains unchanged while final approval is
-pending. All 31 requirement IDs/order, human source/name worksheets, source,
+The separately approved platform release #398 is merged at `a2a6b4ad` and
+verified live. This catalog/patent work remains an undeployed draft. All 31
+requirement IDs/order, human source/name worksheets, source,
 identity, catalog, Atomic, qualification and photo gates remain. Current legal
 status, ownership, traits, growing regions and photo reuse are not established
 by these filings. CAT-01/CAT-02 and the broader approved goal remain open.
-No merge or production deployment occurs.
+No merge or production deployment of this source work occurs.
