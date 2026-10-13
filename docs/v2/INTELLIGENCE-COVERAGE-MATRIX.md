@@ -6,6 +6,18 @@ and indexed Packer Sustainability Insights discovery. These are unreviewed sourc
 coverage paths, not measured recall or new trusted intelligence. Search lag,
 Packer server rejection and sitemap modification-date limitations remain explicit.
 
+## Four-berry original patent sources — October 13, 2026
+
+Six original documents add five existing-profile references plus the unresolved
+NSG 203 filing and 29 separately discoverable parent/comparison names. Claims
+link directly to visually checked pages. No nearby name inherits a focal grant,
+company role, trait or image. See [the source review](FOUR-BERRY-ORIGINAL-PATENT-SOURCES-REVIEW.md).
+The bounded audit is 407 sections /1,607 occurrences /110 matches /1,497 review
+needs and 1,141 public-derived candidate keys. Canonical varieties remain 64;
+profiles without patent/PVR references are 17 in the copied preview. Current
+rights, comprehensive portfolios and actual human identity/catalog decisions
+remain open. The tested release398 is unchanged and requires final approval.
+
 ## Original Florida patent references — October 13, 2026
 
 Seven existing number-only profiles gain unreviewed original-document pointers:
