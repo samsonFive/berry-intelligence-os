@@ -10,6 +10,7 @@ jsonschema==4.25.0
 python-multipart==0.0.20
 feedparser==6.0.11
 httpx==0.28.1
+langid==1.1.6
 itsdangerous==2.2.0
 openpyxl==3.1.5
 requests==2.32.3

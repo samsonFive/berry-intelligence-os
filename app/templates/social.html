@@ -1,6 +1,6 @@
 {% extends "glasshouse_base.html" %}
 {% block title %}Social Listening · Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/social.css?v=9">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/social.css?v=10">{% endblock %}
 {% block content %}
 {% set f=bundle.filters %}
 {% set berry_labels={'all':'All berries','berry-blueberry':'Blueberries','berry-strawberry':'Strawberries','berry-raspberry':'Raspberries','berry-blackberry':'Blackberries'} %}
@@ -9,6 +9,7 @@
 <div class="social-workspace" data-social>
 {% set news_only=bundle.records and bundle.records|selectattr('discovery_method','equalto','supplementary-news-rss-title-only')|list|length==bundle.count %}
 <header class="social-heading"><div><h1>Social Listening <span class="social-chip">{{ 'Trial collection' if trial_preview and f.mode=='live' else mode_label(f.mode) }}</span></h1><p>{{ 'Made-up examples to review the workspace. No live monitoring data yet.' if f.mode=='fixture' else 'News-feed titles only. No consumer comments or images were collected.' if news_only else 'Real posts collected for this trial. No ongoing monitoring. Undated posts show the saved date.' if trial_preview else berry_labels[f.berry]+' posts, retail sightings and what people are saying.' }}</p></div><div><a href="/social/briefing?{{ bundle.url.split('?')[1] }}" target="_blank" rel="noopener">Briefing ↗</a><a href="/social/export?{{ bundle.url.split('?')[1] }}">Export</a><a href="/landscapes/explorer">Landscape →</a></div></header>
+{% include 'social_collection.html' %}
 <form class="social-filters" method="get"><input type="hidden" name="view" value="{{ f.view }}"><label>Berry<select name="berry">{% for berry,label in berry_labels.items() %}<option value="{{ berry }}"{% if f.berry==berry %} selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
 <label>Data<select name="mode">{% for mode in ['live','imported','manual','fixture'] %}<option value="{{ mode }}"{% if f.mode==mode %} selected{% endif %}>{{ mode_label(mode) }}</option>{% endfor %}</select></label>
 <label>Platform<select name="source"><option value="">All platforms</option>{% for source in platforms %}<option{% if f.source==source %} selected{% endif %}>{{ source }}</option>{% endfor %}</select></label>
@@ -44,4 +45,4 @@
 <details class="social-panel"><summary>Further exploration</summary><p>Planned views: variety footprint, competitive attention, conversation networks, market comparison, and the journey from announcement to retail sighting to consumer reaction.</p><p>Connections will distinguish names mentioned together, reported purchases, package labels and verified relationships, with supporting posts you can inspect. These views are design previews.</p></details>
 <script type="application/json" id="social-bundle">{{ bundle|tojson }}</script>
 </div>{% endblock %}
-{% block scripts %}<script src="/static/social.js?v=10"></script>{% endblock %}
+{% block scripts %}<script src="/static/social.js?v=12"></script>{% endblock %}

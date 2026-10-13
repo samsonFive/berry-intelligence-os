@@ -2036,3 +2036,5 @@ Apify follow-up2026-10-07: Free-account real Facebook/LinkedIn/Instagram runs an
 
 
 Social deleted-source follow-up (user approved October 8 local time): new-output exclusion is implemented for explicit deleted receipts and transitive published dependencies, with canonical history retained and saved-report PDF export blocked until regeneration. See SOCIAL-DELETED-SOURCE-OUTPUT-POLICY.md. This narrows the published-output gap in TD-117; source deletion refresh, rights/retention qualification and independent accuracy remain open. No automatic trust-state retraction or unattended collection.
+
+October 12 manual social production: operator purchased the approved one-time credit pack. See [manual collection](SOCIAL-MANUAL-PRODUCTION.md). Manual prepaid collection is a separate guarded path; no scheduler, top-up, API integration sprint or trial-guard bypass. Independent language/role accuracy, representative platform coverage, redisplay rights and ongoing deletion refresh remain open. Short or non-English unreadable records stay pending.

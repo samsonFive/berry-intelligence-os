@@ -139,7 +139,17 @@
       "cadence_seconds": 86400,
       "runner": "scripts/social_intelligence.py collect --source bluesky --query blueberries --language en --market US --max-pages 1 --enable",
       "state": "operations/pipelines/social_intelligence/runs",
-      "notes": "All-berry workspace approved after blueberry layout review on 2026-10-07. Disabled/unscheduled. Explicit enablement requires access/retention review; shared runtime lock and bounded request/page budgets. No paid activation. One-off free-credit trials are separate, predeclared and private."
+      "notes": "Original public-API collector remains disabled/unscheduled. Manual prepaid collection is a separate operator-authorized pipeline; free-credit trial guards remain unchanged."
+    },
+    {
+      "id": "social_manual_prepaid",
+      "enabled": false,
+      "scheduled": false,
+      "schedule_entrypoint": false,
+      "cadence_seconds": null,
+      "runner": "POST /api/social/collection/start",
+      "state": "social/manual-credit-ledger.json",
+      "notes": "Manual collection requires BIOS_SOCIAL_MANUAL_COLLECTION=true and privately configured SociaVault credentials. Operator approved one $29 pack on October 12, 2026; no automatic purchases or top-ups. Runtime job health is stored in the existing social jobs index. Shared runtime lock, durable request reservations, 40 requests/update, 200/month, 1000 lifetime and 100-credit reserve. No recurring schedule, AI text export, trust promotion or corporate integration API."
     }
   ]
 }

@@ -2,7 +2,7 @@
 import json
 import os
 from pathlib import Path
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
 from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 from app.services.social_intelligence.store import Store, now
 from app.services.social_intelligence.aggregate import bundle, href, VIEWS
@@ -12,6 +12,32 @@ from app.services.social_intelligence.profiles import saved_profiles,save_profil
 
 router=APIRouter()
 ROOT=Path(__file__).resolve().parents[1]
+
+@router.get('/api/social/collection/status')
+def collection_status():
+    main,_=context()
+    from app.services.social_intelligence.manual_collection import status
+    try:return JSONResponse(status(main.INBOX_DIR),headers={'Cache-Control':'private, no-store'})
+    except (ValueError,OSError):raise HTTPException(409,'Collection settings need operator repair') from None
+
+@router.post('/api/social/collection/preview')
+async def collection_preview(request:Request):
+    payload=await mutation(request)
+    from app.services.social_intelligence.manual_collection import plan
+    try:return plan(payload)
+    except ValueError as exc:raise HTTPException(422,str(exc)) from exc
+
+@router.post('/api/social/collection/start')
+async def collection_start(request:Request,background_tasks:BackgroundTasks):
+    payload=await mutation(request);main,_=context()
+    from app.services.social_intelligence.manual_collection import queue,run
+    from app.services.social_intelligence.adapters import AccessBlocked
+    from app.services.collection_runner import CollectionLockedError
+    try:job,created=queue(main.INBOX_DIR,payload)
+    except (AccessBlocked,CollectionLockedError) as exc:raise HTTPException(409,str(exc)) from exc
+    except ValueError as exc:raise HTTPException(422,str(exc)) from exc
+    if created:background_tasks.add_task(run,main.INBOX_DIR,job['id'],main.all_entities())
+    return JSONResponse({'job':job,'reused':not created},status_code=202 if created else 200)
 
 def context():
     from app import main
@@ -71,7 +97,10 @@ def media(key:str,media_id:str):
 
 async def mutation(request):
     context()
-    if request.headers.get('origin')!=str(request.base_url).rstrip('/'):
+    # An explicit operator origin avoids trusting arbitrary forwarded headers
+    # and supports the existing TLS proxy's HTTP upstream connection.
+    expected_origin=os.environ.get('BIOS_PUBLIC_ORIGIN') or str(request.base_url).rstrip('/')
+    if request.headers.get('origin')!=expected_origin:
         raise HTTPException(403,'Same-origin action required')
     body=bytearray()
     async for chunk in request.stream():
