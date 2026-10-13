@@ -4,76 +4,51 @@ This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.
 
-## Current checkpoint — October 12, 2026
+## Current release review — October 13 UTC, 2026
 
-The user explicitly approved the blueberry checkpoint on October 12. LAND-02
-now proceeds to the retained milestone B scope on draft #396; source/identity
-and release decisions remain separate. The first four-crop rollout and focus
-guard pass 53 Explorer tests, with native raspberry-to-strawberry scope review.
-All berries and two-crop comparison now have implementation and 123 related
-regressions; complete exports retain crop/source scope. Traits/sensory context
-where supported, PDF and final browser/performance/CI remain; saved Explorer
-selections now reuse the existing store with 91 passing persistence/auth tests; the full scope is
-not reduced to the selector rollout.
+The blueberry checkpoint was approved October 12. Draft #396 now implements
+the remaining four-crop Landscape scope: All berries, paired comparison,
+existing-store saved selections, cited traits, shared company marks/lists and
+complete PDF/HTML/SVG/CSV exports. The visual guide has twelve section cards,
+four workflow steps and six reporting choices. No repeated blueberry feedback
+or local review-download approval is required.
 
-Use the [current combined review](CURRENT-BLUEBERRY-CATALOG-REVIEW.md) for
-launch links, fresh source counts, native phone proof and authenticated
-isolated restart/recovery/rollback evidence. The original 31 IDs/order and
-the satisfied blueberry feedback gate is recorded; release approval remains separate.
+Application head `ec80d8afdb6dbc1558c05d292d250d03296c3c24` passed an
+authenticated isolated host rehearsal: fifteen sections, twelve crop/format
+exports, original register references, restart preservation, 2,961-file empty
+target recovery and prior-image rollback. The 32 pending source copies and
+original draft remain protected. A separate fresh production backup verifies
+14,051 files; the live application and its configuration were unchanged.
 
-The original redesign/consolidation release was accepted and integrated in
-[PR #312](https://github.com/samsonFive/berry-intelligence-os/pull/312). The later
-Landscape/catalog work is an unmerged draft stack. The visual guide is delivered
-at `/guide`; this checklist still owns outstanding requirements.
+Its full CI found one historical test-corpus boundary failure (4,954 passed /
+11 skipped / two warnings). The correction explicitly compares the journal's
+actual before/after corpus and separately checks that saved operator IDs,
+rejections, notes and photos survive the later register capture. Forty related
+tests pass. Fresh checks on the corrected review head still gate release.
 
-The [phone row-context correction](VARIETY-FIELD-ROW-CONTEXT-REVIEW.md) follows
-actual 412px native review of the guide and field inventory. Names disappeared
-when the table was panned; the pinned-column fix passes 21 existing checks and
-the full public build. Following explicit Edge approval, final native 412px
-review verifies pinned names, headers and full wrapping company names. A
-browser-found column refinement is included; its fresh current-head CI remains.
-Parent #394 is all-green / 4,635 tests, with a verified 2,956-file isolated
-complete restore. Initial #395 CI is all-green / 4,635 tests. Current child CI,
-final package/combined browser checks and human
-blueberry/release decisions remain gates. All 31 IDs/order and scope stay intact.
+The [current combined review](CURRENT-BLUEBERRY-CATALOG-REVIEW.md) and
+[release review](RELEASE-REVIEW.md) distinguish these current results from the
+accepted October 6 redesign in PR #312 and its historical evidence. All 31
+requirement IDs and their order remain unchanged. CAT-01/CAT-02 remain open;
+bounded source coverage is not global completeness. Source, identity, catalog,
+Atomic, qualification and photo decisions remain separate human gates. Merge
+and production deployment require subsequent release approval.
 
-Combined release preparation now includes the [recovery lease repair](REVIEW-RUNTIME-RECOVERY-REVIEW.md):
-18 focused checks and a 79-file local inbox restore preserve the 32 pending source
-copies and original draft while omitting process ownership. The final committed
-package, complete review-runtime recovery, actual browser/phone review and
-exact-head CI still need matching evidence. This local proof does not replace
-the required production backup or authorize deployment. All 31 requirement IDs
-and their order remain unchanged.
-
-The [Cornell photo follow-up](CORNELL-VARIETY-PHOTOS-REVIEW.md) adds four
-source-captioned photo references with unknown reuse, including three existing
-raspberry profiles and the Dickens strawberry candidate. Catalog photo gaps fall
-to 50/64; rights 35, cited traits 33 and organization gaps 10 are unchanged.
-The current bounded audit has 384 sections / 1,561 occurrences / 91 matches /
-1,470 review needs, with 1,126 candidate keys and 126 photo references. Original
-records and all human decisions remain intact. CAT-01/CAT-02 and release gates
-remain open; these are references, not image reuse or identity approvals.
-
-The [profile organization correction](VARIETY-PROFILE-ORGANIZATION-REVIEW.md)
-aligns the field inventory with active company, brand and breeding-program links,
-including trial operators. Four false missing-link flags are repaired; 10 of
-64 catalog profiles still lack organization links. Source mentions do not create
-roles, and all original records, user edits and human review gates remain intact.
-The same correction now includes the program overview and Varieties tab: an
-existing active link is shown in both, without creating a company portfolio or
-promoting source-only names.
+The remaining-work summary follows; detailed implementation history below is
+dated evidence, not a new approval request.
 
 | Remaining requirement | Next action | Required evidence or decision |
 |---|---|---|
 | CAT-01: source names reach catalog review | Recover accessible original text and reconcile every named cultivar without silent omissions | Preserved source passages; independently supplied multi-berry expected names; actual human identity/catalog decisions |
 | CAT-02: comprehensive variety resource | Complete current and historical company/program portfolios, profiles, rights and attributed photos | Scope/accounting for every source; documented unresolved identities and missing text; current official rights; reviewed canonical records |
-| LAND-02: revised Landscape Explorer | Review the dense blueberry version, then implement and verify the remaining brief | Explicit user blueberry feedback before other berries; meaningful narrative, saved views/export and source handoffs |
+| LAND-02: revised Landscape Explorer | Finish corrected-head checks and release review of the implemented four-crop brief | Blueberry continuation approved; meaningful narrative, saved views/complete exports, source handoffs and honest measured performance |
 | REL-01: tested release | Integrate approved drafts, reconcile canonical and verify the combined release | Current-head required CI, browser review, data/edit preservation, reviewable release and actual backup/rollback readiness; separate merge/deploy approval |
 
 Current bounded portfolio/photo evidence is in
-[Cornell photo review](CORNELL-VARIETY-PHOTOS-REVIEW.md): 384 sections, 1,561
-name occurrences, 91 matched occurrences, 1,470 requiring review, 1,126 public
-derived candidate keys and 64 unchanged canonical varieties. There are 126
+[the four-berry reference review](CPVO-REFERENCE-COHORT-REVIEW.md): 395 sections,
+1,572 name occurrences, 102 matched occurrences and 1,470 requiring review,
+with 64 unchanged canonical varieties. Repeated captures are observations,
+not additional cultivars or independent corroboration. There are 126
 photo references; the eight UF and four Cornell photos remain permission-held. These are source
 observations, not a global census or approved catalog growth.
 
@@ -135,7 +110,7 @@ table and implementation sequence below are preserved.
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | Live/public visual guide has twelve purpose cards, four analyst workflow steps, worked example, six output explanations and distinct review lifecycle. The current guide includes Social Listening, four-crop Landscape, saved selections and complete PDF/HTML/SVG/CSV reporting; public/live boundaries remain distinct. Eighteen existing guide/static regressions pass. The [variety workflow explainer](VARIETY-WORKFLOW-EXPLAINER-REVIEW.md) adds four steps from source name through identity review and separate catalog authoring to a sourced profile, with existing private handoffs. M38 proof remains dated evidence. Prior October 12 review of eleven cards is dated evidence. Updated twelve-card desktop review and 412px emulation verify the refreshed guide; six outputs now use balanced three/two/one-column layouts. Responsive emulation is distinguished from a physical-phone test. | Visual guide delivered, including current capability limits; final exact-head release and current phone gates apply. |
-| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | October 7 fetch verifies canonical 7962ac04dd05855985f51596f3f8070f19990a75, PR #312 merged October 6 after user acceptance. Earlier M38 authenticated restart, 2,798-file verified restore and isolated prior-image rollback passed; the visual guide and requirements audit are delivered. | Production deployment is not reverified in this source-coverage mission. The later Landscape/variety drafts retain current-head CI and blueberry feedback/release gates before merge or deployment. Actual production backup remains required before an approved deployment. October 12 native 412px field-table review passes. Preceding head53b83e1e packages3677 committed Docker inputs and passes all four checks/4938 tests. Its authenticated isolated fifteen-route/twelve-crop-export/restart/2959-file recovery/previous-image rollback rehearsal preserves32 pending copies. A fresh on-host production backup verifies14051 files and prior image/configuration without restart. These dated results do not verify the newer imported-reference projection, which needs its own current-head CI/package/rehearsal. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Canonical `7360c5821c009484381394ed8afa9fb91e322a50` was reconciled before this candidate, preserving the governing guide. Application head ec80d8af has a verified 3,679-file committed package and authenticated fifteen-section/twelve-export/restart/2,961-file recovery/prior-image rollback rehearsal. Thirty-two pending source copies and original draft are preserved. A fresh actual production backup verifies 14,051 files and records the available previous image/configuration without restarting or editing production. See RELEASE-REVIEW.md. | ec80 full CI found one historical replay-test boundary error; 4,954 passed. Forty corrected replay/reference checks pass. Required fresh checks on the corrected head and a final canonical/head reconciliation remain. No deployment, merge or independent human source/catalog decision is implied by these results. |
 
 ## Historical implementation sequence
 
