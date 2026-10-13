@@ -10,7 +10,7 @@ import tarfile
 import tempfile
 
 DOCKER_PATHS = ("Dockerfile", "app", "schemas", "scripts", "benchmarks", "data",
-                "requirements-web.txt", "docker-entrypoint.sh")
+                "requirements-web.txt", "docker-entrypoint.sh", "docs/v2/social-source-access.json")
 
 
 def package(repo: Path, ref: str, output: Path) -> dict:
