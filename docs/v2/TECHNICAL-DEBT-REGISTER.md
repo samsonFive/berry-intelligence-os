@@ -6,7 +6,7 @@ The [source-disclosure repair](PUBLISHER-DISCLOSURE-SOURCE-REVIEW.md) reproduces
 23 cultivar entries omitted from an original public page before detection runs.
 The bounded, source-anchored repair retains all 23 on exact-response replay,
 while excluding menus/templates and preserving older captures and review gates.
-Eighty tests and desktop/412px review pass. Implementation is in review;
+Eighty-one tests and desktop/412px review pass. Implementation is in review;
 its required CI remains. Twenty additional source copies are pending, not
 authenticity decisions or catalog additions. Broader TD-116 remains open.
 

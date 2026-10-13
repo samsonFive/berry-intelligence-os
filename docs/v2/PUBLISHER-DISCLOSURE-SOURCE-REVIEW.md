@@ -11,7 +11,7 @@ that those entries are missing from every existing portfolio observation.
 The acquisition repair retains publisher disclosure text only when a public
 control and region have a unique reciprocal ID pair, or use native
 details/summary, within a section anchored to exact already extracted prose.
-Navigation, sidebars, headers/footers, templates, hard-hidden ancestors,
+Navigation, sidebars, headers/footers, templates, hard-hidden ancestors and descendants,
 interactive forms, broken/duplicate IDs and unanchored widgets stay excluded.
 Literal printed names, codes, line breaks, repeated section labels and source
 order survive. Fully retained lists are not duplicated. An oversized disclosure
@@ -57,11 +57,16 @@ are retained; capture does not establish historical authenticity. The original
 No trusted Evidence was mutated, no new extraction-ready IDs were created and
 no analyst decision was recorded. No private runtime was uploaded to the host.
 
-Eighty acquisition, disclosure, recovery, publication-fidelity and Operations tests
-pass (8.34 seconds, one existing ReportLab warning). They exercise multiple
+Eighty-one acquisition, disclosure, recovery, publication-fidelity and Operations tests
+pass (6.16 seconds, one existing ReportLab warning). They exercise multiple
 sections, printed codes/order, native details, excluded navigation/templates,
 hidden ancestors, malformed links, duplicate IDs, bounds, retained-list
-idempotency, partially retained panel ordering, source hashes/indexes and existing review gates. The new code still
+idempotency, partially retained panel ordering, hidden/script descendants inside
+otherwise valid paragraphs, source hashes/indexes and existing review gates. A
+final synthetic exclusion check reproduced hidden script/span text entering a
+valid list; the correction removes those descendants while preserving visible
+text and tails. Exact-response replay still produces the same pending23-name
+copy byte-for-byte. The new code still
 requires its own required CI and release checks.
 
 The parent Landscape release, PR #396 head

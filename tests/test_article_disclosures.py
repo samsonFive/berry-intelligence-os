@@ -73,6 +73,17 @@ def test_partially_retained_panel_keeps_list_after_its_existing_prose():
         'Varieties', LEAD, 'Goldenstar ‘FC-123’', ENDING]
 
 
+def test_hidden_and_script_descendants_cannot_supply_false_cultivar_names():
+    content = ('Goldenstar ‘FC-123’<script>Scriptstar FAKE-1</script>'
+               '<style>Stylestar FAKE-2</style><template>Templatestar FAKE-3</template>'
+               '<span hidden>Hiddenstar FAKE-4</span>'
+               '<span aria-hidden="true">Ariahiddenstar FAKE-5</span>'
+               '<br>Morningstar ‘FC-456’')
+    source = f'<section><p>{LEAD}</p>{disclosure("a", "ta", content)}</section>'
+    assert retained_disclosure_passages(source, [LEAD]) == [
+        LEAD, 'Varieties', 'Goldenstar ‘FC-123’\nMorningstar ‘FC-456’']
+
+
 def test_unbounded_disclosure_fails_instead_of_silently_dropping_text():
     source = f'<section><p>{LEAD}</p>{disclosure("a", "ta", "x" * 100001)}</section>'
     with pytest.raises(ValueError, match='bounded capture limit'):

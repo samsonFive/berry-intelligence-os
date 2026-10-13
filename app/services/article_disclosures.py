@@ -22,6 +22,9 @@ def _excluded(node):
 
 def _text(node):
     copy = deepcopy(node)
+    for child in list(copy.iterdescendants()):
+        if _excluded(child):
+            child.drop_tree()
     for br in copy.iter('br'):
         br.tag = 'span'
         br.text = '\n'
