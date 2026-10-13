@@ -6,6 +6,18 @@ and indexed Packer Sustainability Insights discovery. These are unreviewed sourc
 coverage paths, not measured recall or new trusted intelligence. Search lag,
 Packer server rejection and sitemap modification-date limitations remain explicit.
 
+## Current Pairwise named-product refresh — October 13, 2026
+
+The [Fontana source review](FONTANA-SOURCE-COVERAGE-REVIEW.md) adds one explicitly
+named blackberry and two attributed, reuse-unconfirmed photo references from
+the current original company product page. The earlier unnamed product source
+is preserved. An unnamed seedless development product is not merged with it.
+The bounded audit is 408 sections /1,608 occurrences /110 catalog matches /
+1,498 review needs and 1,142 public-derived candidate keys. Canonical varieties
+remain 64. Current/historical completeness, legal denomination, company roles,
+traits, growing regions and reuse remain separate review work. Source drafts
+#399/#400 are separate from the verified live platform release #398.
+
 ## Four-berry original patent sources — October 13, 2026
 
 Six original documents add five existing-profile references plus the unresolved
@@ -16,7 +28,7 @@ The bounded audit is 407 sections /1,607 occurrences /110 matches /1,497 review
 needs and 1,141 public-derived candidate keys. Canonical varieties remain 64;
 profiles without patent/PVR references are 17 in the copied preview. Current
 rights, comprehensive portfolios and actual human identity/catalog decisions
-remain open. The tested release398 is unchanged and requires final approval.
+remain open. This source batch remains separate from the verified live platform.
 
 ## Original Florida patent references — October 13, 2026
 

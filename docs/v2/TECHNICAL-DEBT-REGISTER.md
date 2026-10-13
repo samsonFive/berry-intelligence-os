@@ -13,6 +13,15 @@ listing matches and uncertain publisher body structure remain explicit limits.
 The enabled-but-inactive broader collection timer remains stopped. These probes
 do not establish complete publisher-section coverage or measured recall.
 
+**TD-116 current source refresh — October 13:** The original current Pairwise
+Products page now explicitly names Fontana; its earlier unnamed product page
+stays intact. One candidate and two reuse-unconfirmed image references are
+retained without inventing identity equivalences, rights, roles or footprints.
+The bounded audit has 408 sections /1,608 observations /1,142 derived keys;
+64 canonical varieties and existing human decisions remain unchanged. See
+FONTANA-SOURCE-COVERAGE-REVIEW.md. Current/historical coverage and human
+catalog/recall work remain open; the live platform release is separate.
+
 ### TD-121 — Cultivar denominations misclassified as breeding codes
 
 The [original patent follow-up](UF-ORIGINAL-PATENT-REFERENCE-REVIEW.md) reproduces
@@ -23,7 +32,7 @@ codes, real conflicting pairs and saved human decisions. Forty-two targeted test
 pass, and all seven original documents reach their existing profile projection
 against the complete corpus. Full CI/browser review remain. No canonical identity,
 alias, ownership, current-rights or model-qualification decision changes. The
-tested release awaiting approval is unchanged; CAT-01/CAT-02 remain open.
+source follow-up remains separate from live release #398; CAT-01/CAT-02 stay open.
 
 ### TD-120 — Publisher disclosure lists disappear from captured source text
 

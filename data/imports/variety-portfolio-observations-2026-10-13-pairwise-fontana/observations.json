@@ -1,0 +1,78 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-pairwise-fontana-original-products",
+      "title": "Pairwise — Fontana compact blackberry",
+      "url": "https://www.pairwise.com/products",
+      "company_ids": [
+        "company-pairwise"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-13",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Complete original product page: one explicitly named blackberry; separate unnamed seedless development product excluded.",
+      "limitations": "Fontana is a source-reported commercial variety name, with no legal denomination, selection code or dated release provided. The unnamed seedless product is not an alias. Marketing claims, company roles, availability, growing regions, rights and photo reuse are not approved. A checked product page is not a complete historical company portfolio.",
+      "names": [
+        {
+          "candidate_name": "Fontana",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.pairwise.com/products",
+          "source_company_ids": [
+            "company-pairwise"
+          ],
+          "source_company_context": "Pairwise names this blackberry in its own product page; this is not approved breeding, ownership or licensing evidence.",
+          "portfolio_context": "Company describes a compact, early-cropping blackberry and reports a height of 3.5–5 feet. Its production comparisons are qualified to new systems in California and Latin America. These are unreviewed company assertions; the locations are not approved growing footprints. No publication date or legal denomination is supplied. The separate seedless development product is unnamed.",
+          "photos": [
+            {
+              "image_url": "https://cdn.prod.website-files.com/6874cea54ece5e92ced0627c/6ac521c653517888352e4516_asdasdsss.avif",
+              "source_url": "https://www.pairwise.com/products",
+              "named_variety": "Fontana",
+              "berry_id": "berry-blackberry",
+              "credit": "Pairwise product page; photographer not credited",
+              "caption": "Fontana compact blackberries on the plant",
+              "kind": "plant",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-13",
+              "reuse_note": "Exact source alt text identifies Fontana. No image-specific license established; retain attribution and private session preview gate."
+            },
+            {
+              "image_url": "https://cdn.prod.website-files.com/6874cea54ece5e92ced0627c/690a403a58c32cc11158f41f_Blackberry%20Color.avif",
+              "source_url": "https://www.pairwise.com/products",
+              "named_variety": "Fontana",
+              "berry_id": "berry-blackberry",
+              "credit": "Pairwise product page; photographer not credited",
+              "caption": "Hand holding a clamshell of fresh Fontana blackberries",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-13",
+              "reuse_note": "Exact source alt text identifies Fontana. No image-specific license established; retain attribution and private session preview gate."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Seedless blackberry",
+            "reason": "Unnamed development product; no cultivar identity or equivalence to Fontana established."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "bounded_original_html_capture_and_native_full_page_review",
+        "capture_sha256": "2c9e2ff264d34e36ab59434f62a74bb07060fe9b67f9d4358e7c5df0adfd2b0d",
+        "capture_bytes": 100099,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    }
+  ]
+}
