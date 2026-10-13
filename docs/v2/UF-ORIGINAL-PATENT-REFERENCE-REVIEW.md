@@ -43,6 +43,15 @@ portfolio sections, 49 register observations and saved candidate state links all
 seven existing profiles without persisting decisions. Full CI and browser review
 still gate this follow-up draft.
 
+The first full CI run passed 5,028 tests but found one genuine ambiguity
+regression: two commercial labels for one denomination must also hold its
+original register reference. The repair consults only pairings asserted by
+other sources and does not invent a commercial label for a legal-name-only
+record. All 59 affected tests now pass, including that existing regression,
+the actual CPVO profile handoff and saved human decisions. Fresh full CI on
+the repaired head remains required. Browser coverage shows 22 profiles without
+patent/PVR references, down from 29; the seven references remain unreviewed.
+
 This work is isolated from the tested software release at 1fb75b61, which remains
 unchanged while awaiting release approval. All 31 requirements, the original
 32-source human worksheets and broader CAT-01/CAT-02 work remain. Public metadata
