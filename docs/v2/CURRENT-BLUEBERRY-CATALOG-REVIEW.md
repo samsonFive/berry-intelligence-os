@@ -3,7 +3,9 @@
 **October 12 continuation:** The user explicitly approved blueberry. The same
 draft #396 now proceeds through Milestone B; all four crops, All berries and
 two-crop comparison and existing-store saved views have implementation and
-deterministic checks. PDF, sourced traits and native/final release checks remain. The dated checkpoint
+deterministic checks. Complete PDF exports, cited traits, shared company filters
+and saved-view browser checks are implemented. Broader performance and final
+current-code release checks remain. The dated checkpoint
 and isolated be5d6f5 host rehearsal below are prior evidence, not verification of
 the newer comparison code. See [current mission](LANDSCAPE-EXPLORER-MISSION.md).
 No merge or deployment was approved.

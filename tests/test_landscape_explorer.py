@@ -494,6 +494,25 @@ def test_saved_explorer_revision_copy_archive_restore_and_surface_safety(client_
     assert row['kind']=='explorer' and row['filters']['berry']=='all' and row['filters']['q']=='Alpha' and row['revision']==4
 
 
+def test_apply_new_scope_clears_saved_evidence_without_overwriting_view(client_world):
+    from app.services import landscape_workspace as workspace
+    from urllib.parse import parse_qs,urlsplit
+    import re
+    created=client_world.post('/landscapes/explorer/views',data={'name':'Evidence watch','berry':'berry-blueberry','countries':'','focus':'company-a','edge':'r-license'},follow_redirects=False)
+    key=parse_qs(urlsplit(created.headers['location']).query)['saved_view'][0]
+    path=main.INBOX_DIR/workspace.VIEW_FILE
+    before=path.read_bytes()
+    page=client_world.get(created.headers['location'])
+    scope_form=re.search(r'<form class="lx-filters".*?</form>',page.text,re.S).group()
+    assert 'name="edge" value=""' in scope_form
+    applied=client_world.get('/api/landscapes/explorer',params={'saved_view':key,'predicate':'operates_in','edge':''})
+    assert applied.status_code==200 and applied.json()['filters']['edge']==''
+    assert {row['id'] for row in applied.json()['edges']}=={'r-peru','r-chile'}
+    assert path.read_bytes()==before
+    reopened=client_world.get('/api'+created.headers['location']).json()
+    assert reopened['filters']['edge']=='r-license' and reopened['filters']['predicate']==''
+
+
 def test_saved_explorer_validation_and_cross_site_writes_do_not_change_store(client_world):
     from app.services import landscape_workspace as workspace
     path=main.INBOX_DIR/workspace.VIEW_FILE

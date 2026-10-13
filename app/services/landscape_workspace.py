@@ -16,7 +16,7 @@ from app.services.variety_workspace import ROLE_BUCKETS
 
 SECTIONS = {"companies": "Companies", "varieties": "Varieties", "sources": "Latest sources", "signals": "Signals", "assessments": "Assessments"}
 FIELDS = ("berry", "company", "variety", "countries", "list", "tier", "favorites", "window", "start", "end", "section")
-EXPLORER_FIELDS = ("berry", "compare", "pair", "countries", "q", "predicate", "evidence", "status", "window", "time", "start", "end", "focus", "edge", "view", "theme", "limit")
+EXPLORER_FIELDS = ("berry", "compare", "pair", "countries", "q", "predicate", "evidence", "status", "window", "time", "start", "end", "focus", "edge", "view", "theme", "limit", "favorites", "tier", "list")
 VIEW_FILE = "landscape_views.json"
 
 
