@@ -43,6 +43,18 @@ Automatic keyless News runs on the restored 15-minute dispatcher; idle News page
 observe completed captures without a manual refresh. Berries Australia RSS was
 verified with 10 publisher articles after a transient 507; server retries are bounded.
 
+## Four-berry original patent sources — October 13, 2026
+
+Six original documents add five existing-profile references plus the unresolved
+NSG 203 filing and 29 separately discoverable parent/comparison names. Claims
+link directly to visually checked pages. No nearby name inherits a focal grant,
+company role, trait or image. See [the source review](FOUR-BERRY-ORIGINAL-PATENT-SOURCES-REVIEW.md).
+The bounded audit is 407 sections /1,607 occurrences /110 matches /1,497 review
+needs and 1,141 public-derived candidate keys. Canonical varieties remain 64;
+profiles without patent/PVR references are 17 in the copied preview. Current
+rights, comprehensive portfolios and actual human identity/catalog decisions
+remain open. The tested release398 is unchanged and requires final approval.
+
 ## Original Florida patent references — October 13, 2026
 
 Seven existing number-only profiles gain unreviewed original-document pointers:
