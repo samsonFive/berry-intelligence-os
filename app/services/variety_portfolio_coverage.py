@@ -159,7 +159,10 @@ def _identity_pair_notes(sources):
             mention_label = label or row["candidate_name"]
             label_mentions.setdefault((row["berry_id"], fold_identity(mention_label)), []).append(
                 (source["id"], _key(row), code))
-            if code and label:
+            # A denomination-only register row does not assert a second
+            # commercial label. Keep it in cross-source mention/code checks
+            # below, but do not invent a code-to-trade-name pairing to itself.
+            if code and label and fold_identity(code) != fold_identity(label):
                 scope = (companies, row["berry_id"])
                 codes.setdefault((*scope, fold_identity(code)), set()).add(label)
                 labels.setdefault((*scope, fold_identity(label)), set()).add(code)

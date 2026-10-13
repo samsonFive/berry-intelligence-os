@@ -1,0 +1,48 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-cpvo-original-plablue-1542-recheck",
+      "title": "CPVO register: Plablue 1542, application 20182072",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20182072&denomination=Plablue%201542&denominationSearchType=equals",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": ["berry-blueberry"],
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One original public CPVO search result and its application details; not a registry-wide search",
+      "limitations": "Unreviewed recheck of the same numbered application in the August 26 import snapshot, not independent corroboration. The public record's reported status and expiry are not an independent current-rights assessment. No alias, party role, growing location or reuse permission is approved.",
+      "capture_reference": {
+        "observed_query_url": "https://online.plantvarieties.eu/publicSearch?denomination=Plablue%201542&denominationSearchType=equals",
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20182072&denomination=Plablue%201542&denominationSearchType=equals",
+        "query_results_observed": 1,
+        "reported_species": "Vaccinium corymbosum L.",
+        "reported_upov_code": "VACCI_COR",
+        "reported_application_status": "Granted",
+        "reported_title_status": "Approved",
+        "reported_expiration_date_native": "31/12/2053",
+        "reported_applicant": "Plantas de Navarra S.A.",
+        "reported_breeder": "Plantas de Navarra S.A. (PLANASA) - Sociedad Unipersonal",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "imported_registry_reference": true,
+      "names": [
+        {
+          "candidate_name": "Plablue 1542",
+          "denomination": "Plablue 1542",
+          "breeder_code": "15.09.003",
+          "berry_id": "berry-blueberry",
+          "application_number": "20182072",
+          "application_date": "2018-08-09",
+          "grant_number": "63750",
+          "grant_date": "2023-04-17",
+          "source_company_ids": ["company-planasa"],
+          "source_company_context": "The original register details name Plantas de Navarra in applicant and breeder fields. This is source context, not a new approved party role.",
+          "portfolio_context": "Original CPVO application details rechecked October 13 UTC. The query returned one Plablue 1542 record, application 20182072 and title 63750. This repeats the same application captured in the August 26 import; it is not independent corroboration. The source reports granted/approved status and a 31 December 2053 expiry, which require separate current-rights review. The source's breeder reference 15.09.003 is not added as a canonical alias."
+        }
+      ],
+      "accounting": {"observed_items": 1, "reported_items": 1, "exclusions": []}
+    }
+  ]
+}
