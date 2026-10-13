@@ -30,6 +30,21 @@ See [daily usability fixes](NEWS-ACCESS-USABILITY-FIXES.md).
   publisher-resolution/capture coverage; per-user preferences/digests, roles and
   account administration. Current analyst state remains shared.
 
+## October 13 printed-code follow-up
+
+The [printed-code source review](PRINTED-CODE-REGISTER-FOLLOWUP.md) retains
+all six original-code queries for five reference-gap profiles, one original
+CPVO filing under its literal denomination, the unresolved Baridi code
+conflict, related/comparison names and two attributed Ervin photo references.
+The photos remain held for permission and the RedSayra/legal-name association
+remains unapproved. All 64 profiles and 332 protected preview files are
+byte-preserved. 79 affected checks and record validation pass; catalog #400
+needs fresh checks on the next pushed head. CAT-01/CAT-02 remain open.
+
+Platform #401 independently passes all four required checks: 5,030 passed,
+11 skipped and two existing warnings. Its release and new analyst activation
+await the requested user approval; no deployment is inferred from source work.
+
 ## Current release and source work — October 13 UTC, 2026
 
 The separately approved platform release #398 is merged at `a2a6b4ad` and live
