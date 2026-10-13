@@ -1,29 +1,28 @@
-# Current blueberry and variety-catalog review
+# Current Landscape and variety-catalog review
 
-**Latest October 13 UTC recheck:** [The four-berry reference cohort](CPVO-REFERENCE-COHORT-REVIEW.md) checks ten more original applications and preserves distinct Cargo records, source-reported status and earlier captures. The bounded audit is 395 sections / 1,572 names / 102 matches / 1,470 review needs; repeated checks do not create varieties or independent corroboration. The preceding 45e5c60a projection has green 4,951-test CI. The new cohort/history changes need fresh current-head checks and release rehearsal.
+Draft [#396](https://github.com/samsonFive/berry-intelligence-os/pull/396)
+contains the approved four-crop continuation and catalog/reference follow-up.
+Blueberry feedback was approved October 12; remaining local review downloads
+are authorized. The current release state is in [RELEASE-REVIEW.md](RELEASE-REVIEW.md).
 
-**October 13 UTC follow-up:** [Original register references](IMPORTED-REGISTER-REFERENCE-REVIEW.md) now project42 numbered imported observations through existing identity checks into private profiles and their field inventory. A live one-record CPVO recheck retains original metadata and source URLs without approving current rights or the additional breeder code. The current bounded audit is385 sections/1562 occurrences/92 matches/1470 review needs; the64-profile field gaps are50 photos/29 patent-PVR references/33 cited traits/10 organizations. Preceding release head53b83e1e has green4938-test CI and successful authenticated host/recovery/rollback plus a14051-file production backup; the newer projection requires fresh checks and release rehearsal. Nothing merged/deployed.
+All berries, paired comparison, shared favorites/tiers/lists, saved Explorer
+views, cited traits and complete PDF/HTML/SVG/CSV are implemented and browser
+reviewed. The guide explains twelve sections, four workflow steps and six
+output choices. The four-berry CPVO recheck keeps different applications
+separate and preserves older capture URLs/statuses; register wording remains
+unreviewed and does not establish current legal rights.
 
-**October 12 continuation:** The user explicitly approved blueberry. The same
-draft #396 now proceeds through Milestone B; all four crops, All berries and
-two-crop comparison and existing-store saved views have implementation and
-deterministic checks. Complete PDF exports, cited traits, shared company filters
-and saved-view browser checks are implemented. Broader performance and final
-current-code release checks remain. The dated checkpoint
-and isolated be5d6f5 host rehearsal below are prior evidence, not verification of
-the newer comparison code. See [current mission](LANDSCAPE-EXPLORER-MISSION.md).
-No merge or deployment was approved.
+The bounded audit has 395 sections / 1,572 named occurrences / 102 matched /
+1,470 requiring review; the catalog remains 64. Profile gaps are 50 photos,
+29 patent/PVR references, 33 cited traits and 10 organization links. There are
+126 photo references; a reference does not grant image reuse permission.
 
-The denser blueberry Landscape, source-linked variety discovery and visual
-workflow guide are ready for review together. The catalog is still incomplete;
-discovered names, source copies and photo references remain behind their
-existing human decisions. This candidate is not merged or deployed.
-
-This handoff supersedes the October 9 launch links and counts in
-[the earlier handoff](BLUEBERRY-INTEGRATED-REVIEW-HANDOFF.md). That document
-retains its dated walkthrough and exports. The complete
-[31-requirement checklist](REDESIGN-REQUIREMENTS-CHECKLIST.md) and
-[Landscape brief](LANDSCAPE-EXPLORER-BRIEF.md) retain the original scope.
+The exact ec80d8af application/package passed authenticated host review,
+restart, 2,961-file recovery and prior-image rollback. A fresh separate actual
+production backup verifies 14,051 files. The full CI found one historical
+test-corpus boundary error; the corrected test and saved-operator regression
+pass with 40 related checks. Fresh corrected-head CI remains required.
+Neither merge nor deployment occurred.
 
 ## Open the current review
 
@@ -136,20 +135,23 @@ in the ignored inbox, outside the PR and code package.
 
 ## Remaining work and decisions
 
-CAT-01/CAT-02/TD-116 remain open for original-text acquisition, full current and
-historic portfolios, official current rights, sourced profiles/regions/media,
-human identity/catalog authoring and independently reviewed recall. The 32-copy
-worksheet must be completed by a human before scoring; the agent does not invent
-expected answers or treat capture as source acceptance.
+LAND-02's four-crop features and visual guide are delivered. Browser observations
+on this PC measure 1.70 ms controller setup, 5.40 ms Kwanza highlighting and
+10.20 ms Advanced Berry Breeding highlighting. These exclude response transfer,
+layout/paint and total interaction latency. Local cold/warm request timings and
+payload sizes are recorded in the release review; no full end-to-end two-second
+claim is made. The finite release still needs corrected-head CI and final review.
 
-LAND-02 remains at the blueberry review checkpoint. The retained brief still
-requires later berry rollout, comparison, saved Explorer views and downloadable
-PDF after feedback. Final canonical-base CI, package identity and review
-acceptance remain release gates. The older accepted redesign release is history,
-not automatic approval of these new changes.
+CAT-01/CAT-02/TD-116 remain open for original-text acquisition, complete current
+and historical portfolios, verified current rights, sourced profiles/regions/media,
+human identity/catalog authoring and independently reviewed recall. Fourteen of
+77 supplied subjects have incomplete lists, one has unavailable sources and two
+labels have identity holds. The 32 human expected-name worksheets are unfinished.
+Those decisions are not completed by collecting more references or running tests.
 
-Before an approved deployment, make and verify a **fresh actual production
-backup**, record the prior image/configuration and preserve persistent user
-data. The isolated recovery above is not that production backup. No merge,
-deployment, new public preview, recurring collection or extraction qualification
-is authorized by this handoff.
+The production backup above is current preparation, not approval to replace live
+code. At an approved deployment, recheck canonical/head, backup freshness and the
+available prior image/configuration. Preserve persistent records/user edits and
+one worker. Restore data only for an actual data regression; otherwise revert
+the image. No merge, deployment, new public preview, recurring collection or
+extraction qualification is authorized by this review packet.

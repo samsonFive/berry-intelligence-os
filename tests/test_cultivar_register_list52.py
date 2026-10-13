@@ -32,9 +32,13 @@ def test_checked_headings_account_for_referrals_and_unresolved_glyphs():
 
 def test_register_replay_preserves_prior_ids_and_rejected_operator_record():
     sources = load_portfolio_observations(DATA)
-    prior_sources = [s for s in sources if not s['id'].startswith(PREFIX)]
+    # Compare the actual before/after journal-import corpus. Later register
+    # rechecks are not part of its "before" state: their first-derived spelling
+    # and source-based ID need not match an earlier transient projection.
+    journal_sources = [s for s in sources if s['checked_on'] <= '2026-10-09']
+    prior_sources = [s for s in journal_sources if not s['id'].startswith(PREFIX)]
     _, old = reconcile_portfolios(sources=prior_sources, varieties=[], entities=[], candidates=[])
-    _, added = reconcile_portfolios(sources=sources, varieties=[], entities=[], candidates=[])
+    _, added = reconcile_portfolios(sources=journal_sources, varieties=[], entities=[], candidates=[])
     by_key = {(c['candidate_name'], c['berry_id']): c for c in added}
     assert all(by_key[c['candidate_name'], c['berry_id']]['id'] == c['id'] for c in old)
     human = deepcopy(next(c for c in old if c['candidate_name'] == 'Colossus' and c['berry_id'] == 'berry-blueberry'))
@@ -49,6 +53,26 @@ def test_register_replay_preserves_prior_ids_and_rejected_operator_record():
     colossus = next(n for n in register['names'] if n['candidate_name'] == 'Colossus')
     assert colossus['catalog_id'] is None and colossus['status'] == 'previously_rejected'
     assert colossus['product_url'].endswith('#page=12')
+
+
+def test_later_register_capture_preserves_saved_journal_candidate_identity():
+    sources = load_portfolio_observations(DATA)
+    _, journal = reconcile_portfolios(
+        sources=[s for s in sources if s['checked_on'] <= '2026-10-09'],
+        varieties=[], entities=[], candidates=[])
+    human = deepcopy(next(c for c in journal if c['candidate_name'] == 'DrisBlueSeventeen'))
+    human.update(status='rejected', human_gated=True, identity_state='rejected',
+                 review_notes='Retain operator decision', photos=[{'operator_choice': 'Retain'}])
+    original = deepcopy(human)
+    rows, replay = reconcile_portfolios(sources=sources, varieties=[], entities=[], candidates=[human])
+    actual = next(c for c in replay if c['id'] == human['id'])
+    fields = ('id', 'candidate_name', 'berry_id', 'status', 'human_gated',
+              'identity_state', 'review_notes', 'photos', 'aliases', 'registration')
+    assert all(actual[k] == original[k] for k in fields) and human == original
+    recheck = next(r for r in rows if r['id'] == 'portfolio-cpvo-reference-recheck-20183441')
+    name = next(n for n in recheck['names'] if n['candidate_name'] == 'Drisblueseventeen')
+    assert name['candidate_id'] == human['id'] and name['status'] == 'previously_rejected'
+    assert name['catalog_id'] is None
 
 
 def test_journal_rights_citations_are_not_original_official_filings():
