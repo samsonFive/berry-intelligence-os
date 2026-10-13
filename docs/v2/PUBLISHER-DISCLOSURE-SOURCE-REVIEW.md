@@ -1,0 +1,72 @@
+# Preserve cultivar lists in expandable publisher sections
+
+## Result — October 13 UTC, 2026
+
+The original Fall Creek Commercial Platforms page contains 23 cultivar entries
+in public expandable sections. Precision article extraction captured surrounding
+prose while silently omitting all 23. Switching to recall mode still omitted
+later sections. This is a source-text problem before name detection, not proof
+that those entries are missing from every existing portfolio observation.
+
+The acquisition repair retains publisher disclosure text only when a public
+control and region have a unique reciprocal ID pair, or use native
+details/summary, within a section anchored to exact already extracted prose.
+Navigation, sidebars, headers/footers, templates, hard-hidden ancestors,
+interactive forms, broken/duplicate IDs and unanchored widgets stay excluded.
+Literal printed names, codes, line breaks, repeated section labels and source
+order survive. Fully retained lists are not duplicated. An oversized disclosure
+fails the capture explicitly instead of returning silently shortened text.
+
+The acquisition version is `article-acquisition-v4`. It applies to new captures;
+existing stored articles, operator edits and source-review decisions are not
+rewritten. The source-review stylesheet preserves captured line breaks, so a
+multiline cultivar list renders as separate readable lines instead of one blurb.
+No model, Source onboarding, catalog authoring, alias, role or trust action runs.
+
+## Actual source proof and review
+
+The exact privately retained public response was replayed offline. The old
+capture has none of the 23 specified cultivar labels; the repaired capture has
+all 23, including their printed codes. Its 35 indexed paragraphs contain 454
+words, compared with 391 words previously. This is a bounded source-list
+preservation test, not an independent detector recall score or global coverage
+claim. The labels/codes remain unreviewed source assertions.
+
+Original response:
+[Fall Creek Commercial Platforms](https://fallcreekcatalogs.com/commercial-platforms/).
+Response SHA-256:
+`2207a462d727a9d5ca928f4c94089295e75c6564160745cc47a85becf17e725d`.
+The full response, source bodies and audit passages remain in ignored inbox.
+Only a synthetic structural fixture is committed.
+
+The repaired copy is a separate **pending proposal**. The previous saved copy
+is byte-identical. A separate copied-data browser runtime displays all three
+cultivar sections without summaries, detector suggestions or decision controls.
+Desktop review verifies four distinct lines in the first group. At 412×844
+responsive emulation the document and scroll widths both measure 397px; the
+viewport is reset. This is not a physical-phone test. No review form was submitted.
+
+## Acquisition batch and gates
+
+Twenty-two previously unattempted, stored high-availability HTML URLs were
+captured through the existing bounded acquisition command: 20 pending copies,
+one removed URL and one no-usable-body result. Copies remain in a separate local
+review inbox. Current-page, changed-content and ambiguous-match classifications
+are retained; capture does not establish historical authenticity. The original
+32-copy independent-name worksheet packet and its source copies are unchanged.
+No trusted Evidence was mutated, no new extraction-ready IDs were created and
+no analyst decision was recorded. No private runtime was uploaded to the host.
+
+Eighty acquisition, disclosure, recovery, publication-fidelity and Operations tests
+pass (8.34 seconds, one existing ReportLab warning). They exercise multiple
+sections, printed codes/order, native details, excluded navigation/templates,
+hidden ancestors, malformed links, duplicate IDs, bounds, retained-list
+idempotency, partially retained panel ordering, source hashes/indexes and existing review gates. The new code still
+requires its own required CI and release checks.
+
+The parent Landscape release, PR #396 head
+`aa6a68fb32ee1059316a4de89f9f3766febdf1a2`, passes all four checks in run
+`38355308016`: 4,956 passed / 11 skipped / two existing warnings / 687.62 seconds.
+That is parent evidence, not verification of this newer acquisition code.
+All 31 requirements, CAT-01/CAT-02, full portfolio/current-rights/profile/media
+scope and unfinished independent human name review remain. No merge or deployment.

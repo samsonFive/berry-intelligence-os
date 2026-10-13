@@ -1,5 +1,17 @@
 # Intelligence Coverage Matrix
 
+## Source disclosure fidelity — October 13 UTC, 2026
+
+The [publisher disclosure repair](PUBLISHER-DISCLOSURE-SOURCE-REVIEW.md) preserves
+23 literal cultivar entries previously omitted from a captured public page.
+New captures retain source ordering and printed codes; the original copy is
+unchanged and the repaired proposal remains pending. A separate 22-URL capture
+batch adds 20 pending local copies, with one removed and one thin-body outcome.
+No trusted maturity, source authenticity, model qualification or catalog identity
+is promoted. Existing 32-source human recall work remains unfinished. The bounded
+portfolio audit remains 395 sections / 1,572 occurrences / 102 matches / 1,470 review needs;
+capture text and portfolio observations are separate populations.
+
 ## Four-berry register recheck — October 13 UTC, 2026
 
 The [bounded reference cohort](CPVO-REFERENCE-COHORT-REVIEW.md) adds ten original

@@ -32,7 +32,7 @@ import trafilatura
 
 from app.services.google_news_url import resolve_google_news_url
 
-ARTICLE_ACQUISITION_VERSION = "article-acquisition-v3"
+ARTICLE_ACQUISITION_VERSION = "article-acquisition-v4"
 ARTICLE_FETCH_TIMEOUT_SECONDS = 20
 ARTICLE_FETCH_USER_AGENT = "berry-intelligence-os-article-acquisition/1.0"
 MIN_BODY_CHARS = 200
@@ -448,6 +448,14 @@ def fetch_article(url: str, *, timeout: float = ARTICLE_FETCH_TIMEOUT_SECONDS) -
         )
 
     paragraphs = _split_paragraphs(body_text, title=extracted.get("title"))
+    from app.services.article_disclosures import retained_disclosure_passages
+    try:
+        retained = retained_disclosure_passages(extraction_html, [p.text for p in paragraphs])
+    except ValueError as exc:
+        raise ArticleAcquisitionError(str(exc), category="empty_body") from exc
+    if retained != [p.text for p in paragraphs]:
+        paragraphs = tuple(ArticleParagraph(i, text) for i, text in enumerate(retained))
+        body_text = "\n\n".join(retained)
     from app.services.article_structure import publisher_heading_levels
     headings = publisher_heading_levels(extraction_html, [paragraph.text for paragraph in paragraphs])
     paragraphs = tuple(ArticleParagraph(p.index, p.text, headings.get(p.index)) for p in paragraphs)
