@@ -1,5 +1,16 @@
 # Technical Debt Register
 
+### Release package follow-up — October 13 UTC
+
+The first current-code isolated Docker build reproduced a packaging omission:
+canonical Social Listening added `COPY docs/v2/social-source-access.json`, but
+the release archive still used the older explicit inputs. The archive now
+includes that committed public configuration, with a regression that checks
+every local COPY input in the current Dockerfile. Private runtimes remain
+excluded. The failed build occurred before a new review container started;
+production and existing review containers were untouched. Fresh exact-head CI
+and a successful rebuilt host rehearsal are required; no release is inferred.
+
 ### TD-119 — Restored backup replays the collection lease
 
 The draft originally used TD-117; canonical now reserves TD-117 for Social

@@ -1,4 +1,6 @@
 import hashlib
+from pathlib import Path
+import shlex
 import subprocess
 import tarfile
 
@@ -20,9 +22,10 @@ def fixture_repo(tmp_path):
     git(repo, "config", "core.autocrlf", "true")
     for name in DOCKER_PATHS:
         path = repo / name
-        if name not in {"Dockerfile", "requirements-web.txt", "docker-entrypoint.sh"}:
-            path.mkdir()
+        if name not in {"Dockerfile", "requirements-web.txt", "docker-entrypoint.sh", "docs/v2/social-source-access.json"}:
+            path.mkdir(parents=True)
             path = path / "fixture.txt"
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(b"#!/bin/sh\nexit 0\n" if name == "docker-entrypoint.sh" else b"committed fixture\n")
     (repo / "inbox").mkdir()
     (repo / "inbox" / "private.txt").write_text("Private runtime must stay out")
@@ -45,6 +48,24 @@ def test_windows_configuration_preserves_commit_bytes_and_modes(tmp_path):
         assert tar.extractfile("app/fixture.txt").read() == b"committed fixture\n"
         assert tar.extractfile("docker-entrypoint.sh").read() == b"#!/bin/sh\nexit 0\n"
         assert tar.getmember("docker-entrypoint.sh").mode & 0o111
+
+
+def test_every_current_docker_copy_input_is_in_release_package(tmp_path):
+    repo = fixture_repo(tmp_path)
+    dockerfile = (Path(__file__).resolve().parents[1] / "Dockerfile").read_text()
+    (repo / "Dockerfile").write_text(dockerfile)
+    git(repo, "add", "Dockerfile")
+    git(repo, "commit", "-m", "Current Docker build contract")
+    output = tmp_path / "current-docker-candidate.tar.gz"
+    package(repo, "HEAD", output)
+    with tarfile.open(output) as tar:
+        names = tar.getnames()
+        for line in dockerfile.splitlines():
+            if line.startswith("COPY "):
+                for source in shlex.split(line)[1:-1]:
+                    assert source in names or any(name.startswith(source + "/") for name in names), source
+        assert tar.extractfile("docs/v2/social-source-access.json").read() == b"committed fixture\n"
+        assert not any(name.startswith("inbox/") for name in names)
 
 
 def test_existing_release_package_is_preserved(tmp_path):
