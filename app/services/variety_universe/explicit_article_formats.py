@@ -33,6 +33,65 @@ def profile_heading_crop_ids(text):
     return [_CROPS[heading.group("crop").casefold()]] if heading else []
 
 
+def declared_article_list_rows(text, *, name_token, title_crop_ids=()):
+    """Literal rows below a varieties/cultivars heading, not general names.
+
+    Crop comes from an explicit list heading or an unambiguous source title
+    consistent with the whole document. Publication tags cannot scope a list.
+    A prose/malformed row ends the list. Names and quoted printed codes remain
+    distinct assertions; this does not establish aliases, roles or rights.
+    """
+    header = re.compile(rf"\s*(?:(?P<crop>(?i:{'|'.join(_CROPS)}))\s+)?(?i:varieties|cultivars)\s*:?\s*")
+    category = re.compile(r"\s*(?i:(?:high|mid|medium|low|no|zero|(?:mid|medium)[ -]high|very[ -]low)[ -]chill)\s*:?\s*")
+    token = name_token.replace(r"\-", r"\-\u2010\u2011")
+    code = r"[A-Za-z0-9][A-Za-z0-9. \-]{0,59}"
+    row_pattern = re.compile(
+        rf"\s*(?P<name>{token})(?:\s+(?P<code>'{code}'|\"{code}\"|‘{code}’|“{code}”))?\s*")
+    document_crops = paragraph_crop_ids(text)
+    title_crop = (list(title_crop_ids)[0] if len(title_crop_ids) == 1
+                  and all(crop in title_crop_ids for crop in document_crops) else "")
+    leads, excluded = [], []
+    active, crop, count, heading = False, "", 0, ""
+    for line in text.splitlines():
+        if not line.strip():
+            continue
+        match = header.fullmatch(line)
+        if match:
+            active, count, heading = True, 0, line.strip()
+            crop = _CROPS[match.group('crop').casefold()] if match.group('crop') else title_crop
+            continue
+        if not active:
+            continue
+        if category.fullmatch(line):
+            continue
+        # Decorative marks do not become part of an identity string. Keep
+        # the complete literal line in context, including any TM text.
+        clean = line.replace('®', '').replace('™', '')
+        if len(clean) > 160:
+            active = False
+            continue
+        item = row_pattern.fullmatch(clean)
+        if not item or re.search(r"\b(?:no|not|never|without|none)\b", clean, re.I):
+            active = False
+            continue
+        printed_code = (item.group('code') or '').strip("'\"‘’“” ")
+        if printed_code and not re.search(r"\d", printed_code):
+            active = False
+            continue
+        if count == 1024:
+            excluded.append({'name':heading,'reason':'article_list_limit'})
+            active = False
+            continue
+        count += 1
+        if not crop:
+            excluded.append({'name':item.group('name'),'reason':'berry_not_established'})
+            continue
+        leads.append({'name':item.group('name'),'berry_id':crop,'breeder_code':printed_code,
+                      'kind':'article_declared_variety_row',
+                      'context':(heading+'\n'+line.strip())[:240]})
+    return leads, excluded
+
+
 def explicit_article_formats(text, *, name_token, profile_crop_ids=()):
     """Return source assertions of names, never roles/traits/rights or aliases."""
     leads, excluded = [], []

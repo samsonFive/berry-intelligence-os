@@ -1,5 +1,39 @@
 # Preserve cultivar lists in expandable publisher sections
 
+## Downstream list detection — October 13, 2026
+
+Preserving the source text exposed a second omission: the existing name detector
+did not recognize the publisher's labelled, line-by-line cultivar lists. On the
+same unchanged pending Fall Creek copy, the detector at `f93aa702` returned zero
+mentions. The current detector returns all 23 printed entries: ten match existing
+catalog records and thirteen need identity review. These are not thirteen newly
+approved varieties or necessarily thirteen new candidate keys.
+
+The generic repair starts only under a literal Varieties/Cultivars heading.
+Crop must be explicit in that heading or established by one unambiguous captured
+article title consistent with the document. Publication tags cannot supply crop.
+Chill categories are not names; prose, negation and malformed rows stop a list.
+Quoted printed codes remain separate from names. Decorative registered/trademark
+symbols do not enter names, but literal `EverlastTM` remains unchanged. The
+1,024-row bound is reported explicitly. No alias, breeder, ownership, rights,
+trait, geography or trusted catalog record is inferred.
+
+Twenty-one synthetic parser/integration tests pass, including all four crops,
+mixed documents, malformed/oversized lists, prior human rejection/notes/photos,
+Reader and candidate routes, read-only GETs, explicit additive persistence and
+public/private exclusion. The preceding affected-suite run passed 80 tests.
+Native desktop and 412px viewport review of a clearly fictional pending draft
+shows three names in the Reader and the original name/code/source handoff in
+candidate review. No approval form was submitted; the original 32-copy human
+worksheet packet and canonical 64 varieties remain unchanged. The real-copy
+before/after diagnostic is not independent human recall qualification.
+
+This detector change is additional to the verified capture release below and
+requires a fresh pushed-head check set. The capture release at `f93aa702` passed
+all four required checks (run `38363385489`, 4,972 passed / 11 skipped / two
+existing warnings) and an isolated host rehearsal. That evidence does not cover
+this later parser change. No merge or deployment.
+
 ## Result — October 13 UTC, 2026
 
 The original Fall Creek Commercial Platforms page contains 23 cultivar entries

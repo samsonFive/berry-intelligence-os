@@ -6,12 +6,18 @@ do not complete independent human review or prove catalog completeness.
 
 ## Current release review — October 13 UTC, 2026
 
-The parent draft #396 now passes all four required checks on aa6a68fb:
-4,956 passed / 11 skipped / two existing warnings / 687.62 seconds. The separately
-verified [source-disclosure defect](PUBLISHER-DISCLOSURE-SOURCE-REVIEW.md) is being
-repaired in a child draft; it needs its own CI. Twenty more source copies and
-one repaired proposal remain pending in separate local review inboxes. The
-original 32-source worksheets, all 31 IDs/order and actual human decisions remain.
+The parent draft #396 passes all four required checks on aa6a68fb:
+4,956 passed / 11 skipped / two existing warnings. Child draft #398's capture
+repair at f93aa702 also passes all four checks: 4,972 passed / 11 skipped / two
+existing warnings, plus isolated host/restart/recovery/rollback verification.
+The subsequent [labelled-list detection repair](PUBLISHER-DISCLOSURE-SOURCE-REVIEW.md)
+now finds 23 printed entries where that detector returned zero on the same
+unchanged pending copy. Twenty-one synthetic parser/integration tests and native
+desktop/412px review pass; this later change still requires fresh pushed-head CI.
+Ten entries match existing varieties; thirteen need review, not automatic catalog
+creation. Twenty more source copies and one repaired proposal remain pending in
+separate local review inboxes. The original 32-source worksheets, all 31 IDs/order,
+canonical 64 varieties and actual human decisions remain unchanged.
 
 The blueberry checkpoint was approved October 12. Draft #396 now implements
 the remaining four-crop Landscape scope: All berries, paired comparison,

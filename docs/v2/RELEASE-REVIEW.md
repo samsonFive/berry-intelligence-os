@@ -1,5 +1,18 @@
 # Berry Intelligence release review
 
+## Current child draft #398 — October 13, 2026
+
+The source-disclosure capture release at f93aa702 passes all four required
+checks (4,972 passed / 11 skipped / two existing warnings) and the isolated
+authenticated host, export, restart, backup/restore and prior-image rehearsal.
+The subsequent labelled-list detector repair has 21 passing synthetic
+parser/integration tests and native desktop/412px review. On an unchanged pending
+source copy it finds 23 printed entries instead of zero, without approving any
+source or variety. This later change needs its own fresh pushed-head checks and
+release package verification. See [the bounded source review](PUBLISHER-DISCLOSURE-SOURCE-REVIEW.md).
+All 31 requirements remain; CAT-01/CAT-02 and independent human review are open.
+No merge or production deployment is authorized by these results.
+
 ## Current draft #396 — October 13 UTC, 2026
 
 Landscape now supports all four existing crops, All berries and two-crop

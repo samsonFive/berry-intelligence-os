@@ -489,7 +489,7 @@ def _declared_names(summary, record, blocked, *, source_text=False):
     """Explicit declarations only; the same grammar is used in both paths."""
     if source_text:
         from app.services.variety_universe.explicit_article_formats import (
-            explicit_article_formats, paragraph_crop_ids, profile_heading_crop_ids,
+            declared_article_list_rows, explicit_article_formats, paragraph_crop_ids, profile_heading_crop_ids,
         )
         mentions, exclusions = [], []
         # Profile fields may use an explicit crop in the captured source title,
@@ -499,6 +499,14 @@ def _declared_names(summary, record, blocked, *, source_text=False):
         if any(crop not in title_crops for crop in document_crops):
             # A multi-crop article title cannot scope every later profile field.
             title_crops = []
+        listed, excluded = declared_article_list_rows(summary, name_token=_NAMED_TOKEN, title_crop_ids=title_crops)
+        exclusions.extend({**row, 'record_id':record['id']} for row in excluded)
+        for row in listed:
+            name = _clean_name(row['name'])
+            if not _is_stop_name(name, blocked):
+                mentions.append(_mention(name=name, berry_id=row['berry_id'], kind=row['kind'],
+                    evidence=record, fact=None, context=row['context'],
+                    extra={'breeder_code':row['breeder_code']} if row.get('breeder_code') else None))
         profile_crops, heading_index = [], -5
         for paragraph_index, paragraph in enumerate(re.split(r"\n\s*\n", summary)):
             heading_crops = profile_heading_crop_ids(paragraph)

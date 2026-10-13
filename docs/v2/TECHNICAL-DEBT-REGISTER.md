@@ -6,9 +6,14 @@ The [source-disclosure repair](PUBLISHER-DISCLOSURE-SOURCE-REVIEW.md) reproduces
 23 cultivar entries omitted from an original public page before detection runs.
 The bounded, source-anchored repair retains all 23 on exact-response replay,
 while excluding menus/templates and preserving older captures and review gates.
-Eighty-one tests and desktop/412px review pass. Implementation is in review;
-its required CI remains. Twenty additional source copies are pending, not
-authenticity decisions or catalog additions. Broader TD-116 remains open.
+The capture release passes all four required checks at f93aa702 (4,972 tests)
+and an isolated host rehearsal. Its repaired text also exposed missing downstream
+list-format detection: zero names before, all 23 after the current generic parser
+repair. Ten match catalog records; thirteen need review. Twenty-one synthetic
+parser/integration tests and desktop/412px review pass; fresh required checks for
+that later change remain. Twenty additional source copies are pending, not
+authenticity decisions or catalog additions. Independent human recall and broader
+TD-116 remain open.
 
 ### Repeated register captures — October 13 UTC
 

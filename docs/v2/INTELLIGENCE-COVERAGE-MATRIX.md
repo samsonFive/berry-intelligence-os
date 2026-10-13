@@ -12,6 +12,14 @@ is promoted. Existing 32-source human recall work remains unfinished. The bounde
 portfolio audit remains 395 sections / 1,572 occurrences / 102 matches / 1,470 review needs;
 capture text and portfolio observations are separate populations.
 
+The retained list also exposed a downstream format gap. On the same unchanged
+pending copy, labelled-list detection now finds 23 names instead of zero, with
+printed codes and original source context retained. Ten match existing catalog
+records; thirteen need identity review. The generic four-crop parser is tested
+through private Reader/review routes, but this diagnostic neither independently
+scores recall nor increases approved catalog coverage. Canonical varieties remain
+64; no company roles, rights, traits, growing regions or photo permissions change.
+
 ## Four-berry register recheck — October 13 UTC, 2026
 
 The [bounded reference cohort](CPVO-REFERENCE-COHORT-REVIEW.md) adds ten original
