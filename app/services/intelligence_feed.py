@@ -463,7 +463,10 @@ def article_paragraphs(record: dict[str, Any]) -> list[dict[str, Any]]:
             text = str(paragraph).strip()
             locator = f"p{index}"
         if text:
-            out.append({"locator": locator, "text": text})
+            row = {"locator": locator, "text": text}
+            if isinstance(paragraph, dict) and type(paragraph.get("heading_level")) is int and 2 <= paragraph["heading_level"] <= 6:
+                row["heading_level"] = paragraph["heading_level"]
+            out.append(row)
     return out
 
 

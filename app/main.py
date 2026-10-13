@@ -286,7 +286,7 @@ from app.services.variety_workspace import (
 from app.services.variety_universe.candidates import (
     VarietyCandidateError,
     apply_identity_decision,
-    candidate_by_id,
+    candidate_by_id as variety_candidate_by_id,
     identity_issues_for_variety,
     load_variety_candidates,
     persist_variety_candidates,
@@ -946,7 +946,8 @@ def nav_work_template_context(request: Request) -> dict[str, Any]:
 
     ui_context = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     variety_workspace = (request.url.path.startswith("/entities/variety") and request.query_params.get("view") != "legacy") or request.url.path == "/varieties/candidates" or request.url.path.startswith("/landscapes/explorer")
-    if variety_workspace or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
+    personal_reader = request.url.path.startswith("/intelligence/") and request.query_params.get("personal") == "1"
+    if variety_workspace or personal_reader or str(getattr(request.url, "path", "") or "").startswith(("/api/", "/news-packets", "/variety-seeds", "/reports", "/brief-pack", "/war-room", "/learn")) or request.url.path in {"/today", "/digest", "/saved", "/briefings", "/readout", "/landscapes", "/monitor", "/operations", "/review-ops", "/collection-ops", "/coverage-assurance"}:
         return {
             "nav_work_counts": {},
             "ui_context": ui_context,
@@ -1828,17 +1829,50 @@ def variety_candidate_universe() -> tuple[list[dict[str, Any]], list[dict[str, A
     GET never writes inbox or trusted data. Discovered rows are proposed
     Variety Candidates, never canonical Varieties.
     """
-    varieties = [entity for entity in all_entities() if entity.get("entity_type") == "variety"]
+    entities = all_entities()
+    varieties = [entity for entity in entities if entity.get("entity_type") == "variety"]
     inbox = load_variety_candidates(INBOX_DIR) if AUTHORING_MODE else []
+    published = published_evidence()
+    article_sources, article_counts = [], None
+    if AUTHORING_MODE:
+        from app.services.variety_universe.article_sources import available_article_sources
+        article_sources, article_counts = available_article_sources(
+            published, INBOX_DIR, pending=list_drafts())
     report = build_discovered_candidates(
         varieties=varieties,
-        entities=all_entities(),
-        published_evidence=published_evidence(),
+        entities=entities,
+        published_evidence=published,
         facts=all_facts(),
         existing_candidates=inbox,
+        source_text_records=article_sources,
     )
+    if article_counts is not None:
+        report["article_sources"] = article_counts
     visible = merge_visible_candidates(inbox, report["candidates"], report=report)
+    if AUTHORING_MODE:
+        from app.services.variety_portfolio_coverage import load_portfolio_observations, reconcile_portfolios
+        try:
+            _portfolio_sources, visible = reconcile_portfolios(
+                sources=load_portfolio_observations(DATA_DIR), varieties=varieties,
+                entities=entities, candidates=visible,
+            )
+            report["portfolio_sources"] = _portfolio_sources
+        except ValueError as exc:
+            report["portfolio_error"] = str(exc)
     return varieties, visible, report
+
+
+def company_source_varieties(entity_id: str, portfolio: dict | None) -> dict | None:
+    """Private, read-only source names; never part of trusted portfolio metrics."""
+    if not AUTHORING_MODE:
+        return None
+    from app.services.company_variety_discoveries import company_variety_discoveries
+    _varieties, _candidates, report = variety_candidate_universe()
+    return company_variety_discoveries(
+        entity_id=entity_id, sources=report.get("portfolio_sources", []),
+        linked_variety_ids={row["id"] for row in (portfolio or {}).get("variety_rows", [])},
+        error=report.get("portfolio_error", ""),
+    )
 
 
 def all_relationships() -> list[dict[str, Any]]:
@@ -2896,6 +2930,16 @@ def entity_list(
                 entities=entities_idx, relationships=relationships, regions=region_rows,
             ))
             if AUTHORING_MODE:
+                from app.services import variety_photos, company_directory
+                from app.services.variety_portfolio_coverage import load_portfolio_observations
+                photo_sources = load_portfolio_observations(DATA_DIR)
+                photo_profiles = company_directory.load_profiles(INBOX_DIR)["profiles"]
+                for card in context["variety_rows"]:
+                    target = entities_idx.get(card["id"], {})
+                    card["photos"] = variety_photos.gallery(target, authoring=True,
+                        sourced=variety_photos.source_photos(target, sources=photo_sources, varieties=varieties_all),
+                        profile=photo_profiles.get(card["id"]))
+            if AUTHORING_MODE:
                 name_queue = variety_navigation.candidate_queue(visible_candidates, {
                     key: request.query_params.get(key, "") for key in ("q", "berry", "company", "letter")
                 })
@@ -3187,10 +3231,33 @@ def entity_synthesis_context(
     }
     if entity.get("entity_type") == "variety":
         all_patents = [e for e in entities.values() if e.get("entity_type") == "patent"]
-        breeding_program_id = (entity.get("attributes") or {}).get("breeding_program_id")
+        variety_attributes = entity.get("attributes") or {}
+        breeding_program_id = variety_attributes.get("breeding_program_id") or variety_attributes.get("breeding_program")
         context["variety_trait_profile"] = variety_trait_profile(entity, entities)
         context["variety_patent_link"] = variety_patent_link(entity, all_patents)
-        context["variety_breeding_program"] = entities.get(breeding_program_id) if breeding_program_id else None
+        breeding_program = entities.get(breeding_program_id) if isinstance(breeding_program_id, str) else None
+        context["variety_breeding_program"] = breeding_program if breeding_program and breeding_program.get("entity_type") == "breeding_program" else None
+        context["variety_original_patents"] = []
+        context["variety_original_patent_error"] = False
+        if AUTHORING_MODE and include_pending:
+            from app.services.variety_patent_references import original_patent_references, load_registry_filing_observations
+            from app.services.variety_portfolio_coverage import load_portfolio_observations
+            try:
+                filing_sources = load_portfolio_observations(DATA_DIR)
+                try:
+                    filing_sources += load_registry_filing_observations(DATA_DIR)
+                except ValueError:
+                    # An invalid imported register reference must not suppress
+                    # otherwise available original filing links.
+                    context["variety_original_patent_error"] = True
+                context["variety_original_patents"] = original_patent_references(
+                    variety=entity,
+                    varieties=[e for e in entities.values() if e.get("entity_type") == "variety"],
+                    entities=list(entities.values()), candidates=load_variety_candidates(INBOX_DIR),
+                    sources=filing_sources,
+                )
+            except ValueError:
+                context["variety_original_patent_error"] = True
     if entity.get("entity_type") == "company":
         context.update(
             company_profile_context(
@@ -3317,6 +3384,51 @@ def variety_coverage_page(request: Request) -> HTMLResponse:
         "unresolved": len(corpus_report["unresolved"]),
         "exclusions": len(corpus_report["exclusions"]),
     }
+    coverage["article_sources"] = corpus_report.get("article_sources")
+    if AUTHORING_MODE and corpus_report.get("portfolio_error"):
+        coverage["portfolio_error"] = corpus_report["portfolio_error"]
+    elif AUTHORING_MODE:
+        from app.services.variety_portfolio_coverage import load_portfolio_observations, portfolio_coverage, source_content_coverage
+        from app.services import company_directory
+        try:
+            entities = all_entities()
+            profile_records = company_directory.load_profiles(INBOX_DIR)["profiles"]
+            portfolio_sources = load_portfolio_observations(DATA_DIR)
+            company_catalog = company_directory.catalog(
+                {row["id"]: row for row in entities},
+                profiles=profile_records,
+            )
+            coverage["portfolios"] = portfolio_coverage(
+                data_dir=DATA_DIR, sources=portfolio_sources,
+                varieties=varieties, entities=entities, candidates=candidates,
+                filters=dict(request.query_params), company_catalog=company_catalog,
+            )
+            coverage["portfolios"]["source_content"] = source_content_coverage(published_evidence())
+            from app.services.variety_profile_coverage import profile_field_coverage
+            from app.services.variety_patent_references import load_registry_filing_observations
+            try:
+                registry_references = load_registry_filing_observations(DATA_DIR)
+            except ValueError:
+                registry_references = []
+                coverage["registry_reference_error"] = True
+            coverage["profile_fields"] = profile_field_coverage(
+                varieties=varieties, entities=entities, relationships=all_relationships(),
+                facts=all_facts(),
+                published_evidence=published_evidence(), portfolio_sources=portfolio_sources,
+                reference_sources=registry_references,
+                reconciled_sources=corpus_report.get("portfolio_sources"),
+                candidates=candidates, profiles=profile_records,
+                filters=dict(request.query_params),
+            )
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+    if AUTHORING_MODE:
+        from app.services.variety_external_coverage import load_external_baselines, external_coverage_view
+        try:
+            coverage["external"] = external_coverage_view(baselines=load_external_baselines(DATA_DIR),
+                varieties=varieties, candidates=candidates, filters=dict(request.query_params))
+        except (ValueError, KeyError, TypeError, OSError):
+            coverage["external_error"] = "The saved public comparison needs checking. Catalog and identity review remain available."
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
     response = templates.TemplateResponse(
         request=request,
@@ -3333,22 +3445,57 @@ def variety_coverage_page(request: Request) -> HTMLResponse:
     return response
 
 
+@app.post("/varieties/external/identity-lead")
+def variety_external_identity_lead(request: Request, baseline_id: str = Form(...), name: str = Form(...), input_sha256: str = Form(...)) -> RedirectResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(403, "Identity leads require the analyst workspace")
+    from app.personal_digest_routes import require_edit
+    from app.services.variety_external_coverage import load_external_baselines, prepare_blueberry_identity_lead
+    require_edit(request)
+    varieties, candidates, _report = variety_candidate_universe()
+    try:
+        plan = prepare_blueberry_identity_lead(baselines=load_external_baselines(DATA_DIR), baseline_id=baseline_id,
+            name=name, input_sha256=input_sha256, varieties=varieties, candidates=candidates)
+    except (ValueError, KeyError, TypeError, OSError) as exc:
+        raise HTTPException(422, "The source lead needs checking. Refresh the comparison and verify its crop before continuing.") from exc
+    if plan["candidate"]:
+        persist_variety_candidates([plan["candidate"]], inbox_dir=INBOX_DIR)
+    return RedirectResponse(plan["href"], status_code=303)
+
+
 @app.get("/varieties/candidates", response_class=HTMLResponse)
 def variety_candidates_page(request: Request) -> HTMLResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Variety candidates are authoring-only")
     _varieties, candidates, _report = variety_candidate_universe()
+    source_text_report = None
+    if request.query_params.get('discovery') == 'source-text' and request.query_params.get('source'):
+        from app.personal_digest_routes import source_variety_report
+        from app.services.variety_universe.corpus_discovery import source_catalog_coverage
+        _main, selected_report = source_variety_report(request.query_params['source'], existing_candidates=candidates)
+        candidates = merge_visible_candidates(candidates, selected_report['candidates'], report=selected_report)
+        source_text_report = source_catalog_coverage(selected_report).get(request.query_params['source'], [])
     from app.services.variety_navigation import candidate_queue
     try:
         queue = candidate_queue(candidates, dict(request.query_params))
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
     ui = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    from app.services import variety_photos, company_directory
+    profiles = company_directory.load_profiles(INBOX_DIR)["profiles"]
+    queue["candidates"] = [dict(row) for row in queue["candidates"]]
+    for row in queue["candidates"]:
+        row["photos"] = variety_photos.gallery(row, authoring=True,
+            sourced=variety_photos.source_photos(row, candidate=True), profile=profiles.get(row["id"]))
     response = templates.TemplateResponse(
         request=request,
         name="variety_candidates.html",
         context={
             **queue,
+            "catalog_handoffs": {row["id"]: _variety_catalog_handoff(row, _varieties) for row in queue["candidates"]},
+            "portfolio_error": _report.get("portfolio_error"),
+            "source_text_report": source_text_report,
+            "article_sources": _report.get("article_sources"),
             "candidate_entities": entity_index(),
             "authoring_mode": AUTHORING_MODE,
             "static_build": False,
@@ -3369,16 +3516,18 @@ def variety_candidate_decision(
     decision: str = Form(...),
     reviewer: str = Form(""),
     notes: str = Form(""),
+    return_to: str = Form(""),
 ) -> RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Variety-candidate decisions are only available in authoring mode")
-    candidate = candidate_by_id(INBOX_DIR, candidate_id)
+    from app.personal_digest_routes import require_edit
+    require_edit(request)
+    candidate = variety_candidate_by_id(INBOX_DIR, candidate_id)
     if candidate is None:
         _varieties, visible, _report = variety_candidate_universe()
         candidate = next((row for row in visible if row.get("id") == candidate_id), None)
         if candidate is None:
             raise HTTPException(status_code=404, detail="Variety candidate not found")
-        persist_variety_candidates([candidate], inbox_dir=INBOX_DIR, overwrite=False)
     try:
         updated = apply_identity_decision(
             candidate,
@@ -3389,7 +3538,29 @@ def variety_candidate_decision(
     except VarietyCandidateError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     persist_variety_candidates([updated], inbox_dir=INBOX_DIR, overwrite=True)
-    return RedirectResponse(url="/varieties/candidates", status_code=303)
+    from urllib.parse import urlsplit
+    try:
+        parts = urlsplit(return_to)
+        safe = not parts.scheme and not parts.netloc and parts.path == "/varieties/candidates" and "\\" not in return_to and not any(ord(c) < 32 for c in return_to)
+    except ValueError:
+        safe = False
+    target = return_to if safe else "/varieties/candidates"
+    return RedirectResponse(url=target, status_code=303)
+
+
+def _variety_catalog_handoff(candidate, varieties):
+    from app.services.variety_catalog_handoff import catalog_handoff
+    return catalog_handoff(candidate, varieties)
+
+
+def _catalog_intake_candidate(candidate_id: str):
+    if not AUTHORING_MODE:
+        raise HTTPException(403, "Catalog preparation requires the analyst workspace")
+    varieties, visible, _report = variety_candidate_universe()
+    candidate = next((row for row in visible if row.get("id") == candidate_id), None)
+    if candidate is None:
+        raise HTTPException(404, "Variety candidate not found")
+    return candidate, varieties
 
 
 @app.get("/entities/variety/compare", response_class=HTMLResponse)
@@ -3500,6 +3671,7 @@ def company_portfolio_page(request: Request, entity_id: str) -> HTMLResponse:
         name="company_portfolio.html",
         context={
             "portfolio": portfolio,
+            "company_source_varieties": company_source_varieties(entity_id, portfolio),
             "berries": BERRIES,
             "authoring_mode": AUTHORING_MODE,
             "ui_context": ui,
@@ -3574,6 +3746,10 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
     )
     from app.company_routes import profile_context
     company_ui = profile_context(request, entity_id, world["existing"])
+    from app.services.variety_navigation import program_variety_rows
+    portfolio = (backbone or {}).get("portfolio")
+    linked_varieties = (portfolio or {}).get("variety_rows", []) if portfolio else program_variety_rows(
+        entity_id, entities_by_id, relationships)
     return templates.TemplateResponse(
         request=request,
         name="feed_first_company_legacy.html" if request.query_params.get("view") == "dossier" else "feed_first_company.html",
@@ -3601,6 +3777,9 @@ def _feed_first_company_response(request: Request, entity_id: str) -> HTMLRespon
             "related_entities": (seed or {}).get("related_entities") or [],
             "growing_profile": growing_profile,
             "dossier": dossier,
+            "company_linked_varieties": linked_varieties,
+            "company_source_varieties": company_source_varieties(entity_id, {"variety_rows": linked_varieties})
+                if request.query_params.get("tab") == "varieties" else None,
             "legacy_href": f"/entities/company/{entity_id}?view=legacy" if trusted else "",
             "monogram": (seed or {}).get("monogram") or name[:2].upper(),
             "logo_url": (logo_override_url(INBOX_DIR, entity_id) if AUTHORING_MODE else "") or (seed or {}).get("logo_url") or "",
@@ -3805,6 +3984,13 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
             if entity_type == "variety" and request.query_params.get("view") != "legacy":
                 from app.services.variety_navigation import region_rows
                 synthesis["growing_regions"] = [row for row in region_rows(entities, all_relationships(), published_evidence(), INBOX_DIR, AUTHORING_MODE) if row["entity_id"] == entity_id]
+                if AUTHORING_MODE:
+                    from app.services import variety_photos, company_directory
+                    from app.services.variety_portfolio_coverage import load_portfolio_observations
+                    synthesis["photo_gallery"] = variety_photos.gallery(entity, authoring=True,
+                        sourced=variety_photos.source_photos(entity, sources=load_portfolio_observations(DATA_DIR),
+                            varieties=[row for row in entities.values() if row.get("entity_type") == "variety"]),
+                        profile=company_directory.load_profiles(INBOX_DIR)["profiles"].get(entity_id))
                 template_name = "variety_profile.html"
             response = templates.TemplateResponse(
                 request=request,
@@ -6580,6 +6766,9 @@ def _intelligence_page_context(
     values: dict[str, Any] | None = None,
     overlay: bool = False,
 ) -> dict[str, Any]:
+    if AUTHORING_MODE:
+        from app.services.source_reading import reviewed_original_for_reading
+        record = reviewed_original_for_reading(record, INBOX_DIR)
     entities = entity_index()
     source_index = _source_index()
     if overlay:
@@ -6641,13 +6830,15 @@ def _intelligence_page_context(
 
 @app.get("/intelligence/{item_id}", response_class=HTMLResponse)
 def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
-    record = _load_intelligence_record(item_id)
-    if request.query_params.get("personal") == "1" or record is None:
-        from app.personal_digest_routes import reader_context
-        from app.services.personal_digest import source_records
-        personal_record = source_records(published_evidence(), INBOX_DIR, include_private=AUTHORING_MODE).get(item_id)
+    personal = request.query_params.get("personal") == "1"
+    record = None if personal else _load_intelligence_record(item_id)
+    if personal or record is None:
+        from app.personal_digest_routes import reader_context, personal_source_record
+        personal_record = personal_source_record(item_id)
         if personal_record is not None:
             return templates.TemplateResponse(request=request, name="personal_reader_page.html", context=reader_context(request, personal_record))
+        if personal:
+            raise HTTPException(status_code=404, detail="Story not available")
     if record is None:
         raise HTTPException(status_code=404, detail="Intelligence item not found")
     return templates.TemplateResponse(
@@ -6659,13 +6850,15 @@ def intelligence_reader(request: Request, item_id: str) -> HTMLResponse:
 
 @app.get("/api/intelligence/{item_id}/reader", response_class=HTMLResponse)
 def intelligence_reader_fragment(request: Request, item_id: str) -> HTMLResponse:
-    record = _load_intelligence_record(item_id)
-    if request.query_params.get("personal") == "1" or record is None:
-        from app.personal_digest_routes import reader_context
-        from app.services.personal_digest import source_records
-        personal_record = source_records(published_evidence(), INBOX_DIR, include_private=AUTHORING_MODE).get(item_id)
+    personal = request.query_params.get("personal") == "1"
+    record = None if personal else _load_intelligence_record(item_id)
+    if personal or record is None:
+        from app.personal_digest_routes import reader_context, personal_source_record
+        personal_record = personal_source_record(item_id)
         if personal_record is not None:
             return templates.TemplateResponse(request=request, name="_personal_reader.html", context=reader_context(request, personal_record))
+        if personal:
+            raise HTTPException(status_code=404, detail="Story not available")
     if record is None:
         raise HTTPException(status_code=404, detail="Intelligence item not found")
     return templates.TemplateResponse(
@@ -9337,9 +9530,25 @@ def intake_form(
     request: Request,
     type: str = "article_or_url",
     created: str | None = None,
+    catalog_candidate: str = "",
 ) -> HTMLResponse:
     if type not in INTAKE_TYPES:
         type = "article_or_url"
+    preparation = None
+    form_values = None
+    if catalog_candidate:
+        candidate, varieties = _catalog_intake_candidate(catalog_candidate)
+        plan = _variety_catalog_handoff(candidate, varieties)
+        if not plan["ready"]:
+            raise HTTPException(409, plan["reason"])
+        type = "article_or_url"
+        preparation = {"candidate": candidate, **plan}
+        form_values = {"title": f"Catalog source review: {candidate['candidate_name']}",
+                       "source_url": plan["source_choices"][0]["url"] if plan["source_choices"] else "",
+                       "source_name": candidate.get("source_label") or "", "summary": "",
+                       "published_date": "", "suggested_varieties": candidate["candidate_name"],
+                       "suggested_competitors": "", "why_it_matters": "",
+                       "submitted_by": session_username(request) or review_username() or ""}
     return templates.TemplateResponse(
         request=request,
         name="intake.html",
@@ -9349,7 +9558,8 @@ def intake_form(
             "drafts": list_drafts(),
             "created_id": created,
             "error": None,
-            "form_values": None,
+            "form_values": form_values,
+            "catalog_preparation": preparation,
             "authoring_mode": AUTHORING_MODE,
         },
     )
@@ -9369,10 +9579,29 @@ def intake_submit(
     submitted_by: str = Form(""),
     suggested_competitors: str = Form(""),
     suggested_varieties: str = Form(""),
+    catalog_candidate: str = Form(""),
+    catalog_decision_digest: str = Form(""),
     attachment: UploadFile | None = File(None),
 ) -> HTMLResponse | RedirectResponse:
     if not AUTHORING_MODE:
         raise HTTPException(status_code=403, detail="Intake is only available in authoring mode")
+
+    preparation = None
+    if catalog_candidate:
+        from app.personal_digest_routes import require_edit
+        from app.services.variety_catalog_handoff import validate_handoff
+        require_edit(request)
+        candidate, varieties = _catalog_intake_candidate(catalog_candidate)
+        try:
+            plan = validate_handoff(candidate, varieties, catalog_decision_digest)
+        except ValueError as exc:
+            raise HTTPException(409, str(exc)) from exc
+        preparation = {"candidate": candidate, **plan}
+        if intake_type != "article_or_url" or split_list(suggested_varieties) != [candidate["candidate_name"]]:
+            raise HTTPException(400, "Keep this source review scoped to the reviewed variety name")
+        from app.services.map_regions import public_source_url
+        if not public_source_url(source_url):
+            raise HTTPException(400, "Provide a public source URL for this variety")
 
     if intake_type not in INTAKE_TYPES:
         intake_type = "article_or_url"
@@ -9400,6 +9629,7 @@ def intake_submit(
                 "created_id": None,
                 "error": " ".join(errors),
                 "authoring_mode": AUTHORING_MODE,
+                "catalog_preparation": preparation,
                 "form_values": {
                     "title": title,
                     "source_url": source_url,
@@ -9410,6 +9640,7 @@ def intake_submit(
                     "submitted_by": submitted_by,
                     "suggested_competitors": suggested_competitors,
                     "suggested_varieties": suggested_varieties,
+                    "why_it_matters": why_it_matters,
                 },
             },
             status_code=400,
@@ -9445,7 +9676,12 @@ def intake_submit(
         "tags": [],
         "priority": None,
     }
+    if preparation:
+        record.update({"evidence_role": "publication_artifact", "berry_ids": [candidate["berry_id"]],
+                       "catalog_handoff": {"candidate_id": catalog_candidate, "decision_digest": catalog_decision_digest}})
     save_draft(record)
+    if preparation:
+        return RedirectResponse(url=f"/review/{draft_id}", status_code=303)
     return RedirectResponse(url=f"/intake?type={intake_type}&created={draft_id}", status_code=303)
 
 
@@ -9607,7 +9843,7 @@ def _default_review_values(draft: dict[str, Any]) -> dict[str, Any]:
         if tag and tag not in tags:
             tags.append(tag)
     berries = list(draft.get("berry_ids") or [])
-    for berry_id in enrichment.get("suggested_berry_ids") or []:
+    for berry_id in ([] if draft.get("catalog_handoff") else enrichment.get("suggested_berry_ids") or []):
         if berry_id and berry_id not in berries:
             berries.append(berry_id)
     return {
@@ -9708,7 +9944,10 @@ def _review_context(
             berry_labels=BERRIES,
             sources=load_sources(),
         )
+        checked_scope = {key: deepcopy(values.get(key)) for key in ("berries", "varieties")} if draft.get("catalog_handoff") else None
         values = apply_dossier_prefill(values, publication_dossier)
+        if checked_scope is not None:
+            values.update(checked_scope)
     return {
         "draft": draft,
         "parent": parent,
@@ -9769,6 +10008,17 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
 
     form = await request.form()
 
+    if draft.get("catalog_handoff"):
+        from app.personal_digest_routes import require_edit
+        from app.services.variety_catalog_handoff import validate_handoff
+        require_edit(request)
+        handoff = draft["catalog_handoff"]
+        candidate, varieties_current = _catalog_intake_candidate(handoff["candidate_id"])
+        try:
+            validate_handoff(candidate, varieties_current, handoff["decision_digest"])
+        except ValueError as exc:
+            raise HTTPException(409, str(exc)) from exc
+
     def field(name: str, default: str = "") -> str:
         value = form.get(name, default)
         return value if isinstance(value, str) else default
@@ -9790,6 +10040,12 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
     reviewer = field("reviewer").strip()
     return_to = _safe_review_return(field("return_to"), fallback="")
     selected_berries = [b for b in form.getlist("berries") if isinstance(b, str)]
+    if draft.get("catalog_handoff"):
+        from app.services.map_regions import public_source_url
+        if varieties != [candidate["candidate_name"]] or selected_berries != [candidate["berry_id"]]:
+            raise HTTPException(400, "Keep this review scoped to the checked variety name and berry. Return to identity review to change them.")
+        if not public_source_url(source_url):
+            raise HTTPException(400, "Provide a public source URL for this variety")
     if draft.get("evidence_role") == "atomic_evidence" and summary:
         title = summary[:160]
         # Reviewers may edit the proposed statement and supported links, but
@@ -9945,6 +10201,7 @@ async def review_publish(request: Request, draft_id: str) -> HTMLResponse | Redi
                 strategic_question_text=strategic_question_text,
                 reviewer=reviewer,
                 existing_entity_ids=preserved_entity_ids,
+                catalog_variety_scope=(candidate["candidate_name"], candidate["berry_id"]) if draft.get("catalog_handoff") else None,
             )
         )
     except DuplicateRecord:
@@ -10467,6 +10724,8 @@ from app.map_region_routes import router as map_region_router
 app.include_router(map_region_router)
 from app.company_routes import router as company_router
 app.include_router(company_router)
+from app.variety_photo_routes import router as variety_photo_router
+app.include_router(variety_photo_router)
 from app.landscape_routes import router as landscape_router
 app.include_router(landscape_router)
 from app.landscape_explorer_routes import router as landscape_explorer_router

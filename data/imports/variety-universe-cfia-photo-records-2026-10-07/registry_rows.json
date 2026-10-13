@@ -1,0 +1,88 @@
+{
+  "pilot": "variety-universe-cfia-photo-records-2026-10-07",
+  "notes": [
+    "Two bounded original Canadian strawberry records, rechecked on 2026-10-07. Import fixture only; not trusted Evidence or a complete registry.",
+    "No aliases, party roles, source collection onboarding or growing footprints are approved. Separate code candidates overlap uncoded AVA labels; identity review must reconcile them.",
+    "Use the existing additive import_variety_universe_pilot.py workflow. Existing private decisions are preserved; importing does not create canonical varieties or approve claims."
+  ],
+  "rows": [
+    {
+      "candidate_name": "ASF219",
+      "denomination": "ASF219",
+      "trade_name": "Ava Star",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cfia-pbr-public-record",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CFIA - ASF219",
+      "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011777e.shtml",
+      "jurisdiction": "Canada",
+      "geography_id": "geography-canada",
+      "applicant": "Angus Soft Fruits Ltd.",
+      "aliases": [],
+      "proposed_relationships": [],
+      "application_number": "20-10143",
+      "application_date": "2020-04-14",
+      "grant_number": "6522",
+      "grant_date": "2022-02-04",
+      "registration_status": "Rights surrendered - 2024-02-04 (source record; not independently reviewed)",
+      "expiration_date": "",
+      "knowledge": {
+        "rights_surrendered_on": "2024-02-04",
+        "checked_on": "2026-10-07",
+        "breeder_named_by_source": "David Griffiths",
+        "source_modified_on_native": "2023-09-18",
+        "comparison_names": [
+          "Flamenco",
+          "Sweet Eve",
+          "SG 134",
+          "Amandine",
+          "Avarosa"
+        ],
+        "limitations": "Original Canadian record, not a current worldwide legal conclusion. Rights surrendered and compulsory-licensing exemption expiry are separately labeled; neither populates patent/PBR expiry. Both rechecked pages display 2023-09-18 as modified despite a reported 2024 surrender; an earlier ASF219 native capture displayed 2026-10-01. Keep the observed date discrepancy, not a freshness conclusion. Check date is not publication or release. Denomination/trade-name pairing and applicant/breeder are source assertions, not human-approved aliases or roles.",
+        "source_modified_observations": [
+          "2026-10-01",
+          "2023-09-18"
+        ],
+        "compulsory_licensing_exemption_expires_on": "2024-02-04"
+      }
+    },
+    {
+      "candidate_name": "ASF218",
+      "denomination": "ASF218",
+      "trade_name": "Ava Blush",
+      "berry_id": "berry-strawberry",
+      "source_id": "source-cfia-pbr-public-record",
+      "source_type": "plant_breeders_rights_record",
+      "source_tier": "tier_1_registry",
+      "source_label": "CFIA - ASF218",
+      "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011776e.shtml",
+      "jurisdiction": "Canada",
+      "geography_id": "geography-canada",
+      "applicant": "Angus Soft Fruits Ltd.",
+      "aliases": [],
+      "proposed_relationships": [],
+      "application_number": "20-10142",
+      "application_date": "2020-04-14",
+      "grant_number": "6521",
+      "grant_date": "2022-02-04",
+      "registration_status": "Rights surrendered - 2024-02-04 (source record; not independently reviewed)",
+      "expiration_date": "",
+      "knowledge": {
+        "rights_surrendered_on": "2024-02-04",
+        "checked_on": "2026-10-07",
+        "breeder_named_by_source": "David Griffiths",
+        "source_modified_on_native": "2023-09-18",
+        "comparison_names": [
+          "Flamenco",
+          "CIR 104"
+        ],
+        "limitations": "Original Canadian record, not a current worldwide legal conclusion. Rights surrendered and compulsory-licensing exemption expiry are separately labeled; neither populates patent/PBR expiry. Both rechecked pages display 2023-09-18 as modified despite a reported 2024 surrender; an earlier ASF219 native capture displayed 2026-10-01. Keep the observed date discrepancy, not a freshness conclusion. Check date is not publication or release. Denomination/trade-name pairing and applicant/breeder are source assertions, not human-approved aliases or roles.",
+        "source_modified_observations": [
+          "2023-09-18"
+        ],
+        "compulsory_licensing_exemption_expires_on": "2024-02-04"
+      }
+    }
+  ]
+}

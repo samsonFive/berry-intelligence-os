@@ -1,0 +1,347 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-blackventure-original-lowchill",
+      "title": "Black Venture Farm — original low-chill varieties",
+      "url": "https://blackventurefarm.com/#page-3",
+      "company_ids": [
+        "company-black-venture-farm"
+      ],
+      "berry_ids": [
+        "berry-blackberry",
+        "berry-raspberry",
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete Our Low-Chill Varieties panel on the original Variety Development page; literal labels grouped by the visually checked crop panels.",
+      "limitations": "This bounded original page is not a complete historical or worldwide portfolio. Commercial and pipeline source scopes remain distinct. No exact publication/release date, current rights, company role, approved traits or growing footprint inferred. Generic berry backdrops are not named variety photographs.",
+      "names": [
+        {
+          "candidate_name": "Urani",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "Urani",
+          "portfolio_context": "Original Black Venture Farm Our Low-Chill Varieties panel names this offering. Printed crop-cycle, harvest timing and approximate yields remain unreviewed company claims, not approved traits or growing regions.",
+          "photos": [
+            {
+              "named_variety": "Urani",
+              "berry_id": "berry-blackberry",
+              "kind": "fruit",
+              "image_url": "https://blackventurefarm.com/_assets/media/5fc5ebf729d0035cc12ae38d9f5b9f7c.png",
+              "source_url": "https://blackventurefarm.com/#page-3",
+              "credit": "Black Venture Farm — original named low-chill variety panel; photographer not individually credited",
+              "caption": "Urani fruit image paired with its name in the original Black Venture Farm low-chill panel. Original cutout asset; site layout may crop it.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named source layout and exact observed image asset visually checked. No reuse grant established. Private session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Aketzali",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "Aketzali",
+          "portfolio_context": "Original Black Venture Farm Our Low-Chill Varieties panel names this offering. Printed crop-cycle, harvest timing and approximate yields remain unreviewed company claims, not approved traits or growing regions.",
+          "photos": [
+            {
+              "named_variety": "Aketzali",
+              "berry_id": "berry-blackberry",
+              "kind": "fruit",
+              "image_url": "https://blackventurefarm.com/_assets/media/9de5abfdda25d11232c961d748846e49.png",
+              "source_url": "https://blackventurefarm.com/#page-3",
+              "credit": "Black Venture Farm — original named low-chill variety panel; photographer not individually credited",
+              "caption": "Aketzali fruit image paired with its name in the original Black Venture Farm low-chill panel. Original cutout asset; site layout may crop it.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named source layout and exact observed image asset visually checked. No reuse grant established. Private session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Amelali",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "Amelali",
+          "portfolio_context": "Original Black Venture Farm Our Low-Chill Varieties panel names this offering. Printed crop-cycle, harvest timing and approximate yields remain unreviewed company claims, not approved traits or growing regions.",
+          "photos": [
+            {
+              "named_variety": "Amelali",
+              "berry_id": "berry-blackberry",
+              "kind": "fruit",
+              "image_url": "https://blackventurefarm.com/_assets/media/fc5a2eaca37cad9bdbbc867f17c3153e.png",
+              "source_url": "https://blackventurefarm.com/#page-3",
+              "credit": "Black Venture Farm — original named low-chill variety panel; photographer not individually credited",
+              "caption": "Amelali fruit image paired with its name in the original Black Venture Farm low-chill panel. Original cutout asset; site layout may crop it.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named source layout and exact observed image asset visually checked. No reuse grant established. Private session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Regina",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "Regina",
+          "portfolio_context": "Original Black Venture Farm Our Low-Chill Varieties panel names this offering. Printed crop-cycle, harvest timing and approximate yields remain unreviewed company claims, not approved traits or growing regions.",
+          "photos": [
+            {
+              "named_variety": "Regina",
+              "berry_id": "berry-blackberry",
+              "kind": "fruit",
+              "image_url": "https://blackventurefarm.com/_assets/media/8b53804e3cd1edf590e14ea894f78c44.png",
+              "source_url": "https://blackventurefarm.com/#page-3",
+              "credit": "Black Venture Farm — original named low-chill variety panel; photographer not individually credited",
+              "caption": "Regina fruit image paired with its name in the original Black Venture Farm low-chill panel. Original cutout asset; site layout may crop it.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named source layout and exact observed image asset visually checked. No reuse grant established. Private session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Antonia",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "Antonia",
+          "portfolio_context": "Original Black Venture Farm Our Low-Chill Varieties panel names this offering. Printed crop-cycle, harvest timing and approximate yields remain unreviewed company claims, not approved traits or growing regions.",
+          "photos": [
+            {
+              "named_variety": "Antonia",
+              "berry_id": "berry-blackberry",
+              "kind": "fruit",
+              "image_url": "https://blackventurefarm.com/_assets/media/8d729f50ae7e01f1bac0dbe3ba09c444.png",
+              "source_url": "https://blackventurefarm.com/#page-3",
+              "credit": "Black Venture Farm — original named low-chill variety panel; photographer not individually credited",
+              "caption": "Antonia fruit image paired with its name in the original Black Venture Farm low-chill panel. Original cutout asset; site layout may crop it.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named source layout and exact observed image asset visually checked. No reuse grant established. Private session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Lilou",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "Lilou",
+          "portfolio_context": "Original Black Venture Farm Our Low-Chill Varieties panel names this offering. Printed crop-cycle, harvest timing and approximate yields remain unreviewed company claims, not approved traits or growing regions.",
+          "photos": [
+            {
+              "named_variety": "Lilou",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "image_url": "https://blackventurefarm.com/_assets/media/c446cdd0eae16019eba53f1ee805a9ce.png",
+              "source_url": "https://blackventurefarm.com/#page-3",
+              "credit": "Black Venture Farm — original named low-chill variety panel; photographer not individually credited",
+              "caption": "Lilou fruit image paired with its name in the original Black Venture Farm low-chill panel. Original cutout asset; site layout may crop it.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named source layout and exact observed image asset visually checked. No reuse grant established. Private session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Dani",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "Dani",
+          "portfolio_context": "Original Black Venture Farm Our Low-Chill Varieties panel names this offering. Printed crop-cycle, harvest timing and approximate yields remain unreviewed company claims, not approved traits or growing regions.",
+          "photos": [
+            {
+              "named_variety": "Dani",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "image_url": "https://blackventurefarm.com/_assets/media/20fc824245248349f5cc614dc4557cbd.png",
+              "source_url": "https://blackventurefarm.com/#page-3",
+              "credit": "Black Venture Farm — original named low-chill variety panel; photographer not individually credited",
+              "caption": "Dani fruit image paired with its name in the original Black Venture Farm low-chill panel. Original cutout asset; site layout may crop it.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named source layout and exact observed image asset visually checked. No reuse grant established. Private session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Frida",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "Frida",
+          "portfolio_context": "Original Black Venture Farm Our Low-Chill Varieties panel names this offering. Printed crop-cycle, harvest timing and approximate yields remain unreviewed company claims, not approved traits or growing regions.",
+          "photos": [
+            {
+              "named_variety": "Frida",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "image_url": "https://blackventurefarm.com/_assets/media/bb199df94549f2c83370900eac7313da.png",
+              "source_url": "https://blackventurefarm.com/#page-3",
+              "credit": "Black Venture Farm — original named low-chill variety panel; photographer not individually credited",
+              "caption": "Frida fruit image paired with its name in the original Black Venture Farm low-chill panel. Original cutout asset; site layout may crop it.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named source layout and exact observed image asset visually checked. No reuse grant established. Private session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Monarca",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "Monarca",
+          "portfolio_context": "Original Black Venture Farm Our Low-Chill Varieties panel names this offering. Printed crop-cycle, harvest timing and approximate yields remain unreviewed company claims, not approved traits or growing regions.",
+          "photos": [
+            {
+              "named_variety": "Monarca",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "image_url": "https://blackventurefarm.com/_assets/media/761cc02ecbf433ea59c03824409a00ad.png",
+              "source_url": "https://blackventurefarm.com/#page-3",
+              "credit": "Black Venture Farm — original named low-chill variety panel; photographer not individually credited",
+              "caption": "Monarca fruit image paired with its name in the original Black Venture Farm low-chill panel. Original cutout asset; site layout may crop it.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Named source layout and exact observed image asset visually checked. No reuse grant established. Private session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Alma",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "Alma",
+          "portfolio_context": "Original Black Venture Farm Our Low-Chill Varieties panel names this offering. Printed crop-cycle, harvest timing and approximate yields remain unreviewed company claims, not approved traits or growing regions."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true,
+        "crop_panels_visually_checked": true,
+        "named_photos_visually_checked": true
+      },
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-blackventure-original-pipeline",
+      "title": "Black Venture Farm — original pipeline selections",
+      "url": "https://blackventurefarm.com/#page-3",
+      "company_ids": [
+        "company-black-venture-farm"
+      ],
+      "berry_ids": [
+        "berry-blackberry",
+        "berry-strawberry",
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete Pipeline Varieties panel on the original Variety Development page; literal labels grouped by the visually checked crop panels.",
+      "limitations": "This bounded original page is not a complete historical or worldwide portfolio. Commercial and pipeline source scopes remain distinct. No exact publication/release date, current rights, company role, approved traits or growing footprint inferred. Generic berry backdrops are not named variety photographs.",
+      "names": [
+        {
+          "candidate_name": "PBBlack 1832-16",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "PBBlack 1832-16 · Pipeline selection",
+          "portfolio_context": "Original Black Venture Farm Pipeline Varieties panel identifies this experimental selection. It is not an approved denomination, alias, released cultivar or confirmed commercial offering."
+        },
+        {
+          "candidate_name": "Z1843-29",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "Z1843-29 · Pipeline selection",
+          "portfolio_context": "Original Black Venture Farm Pipeline Varieties panel identifies this experimental selection. It is not an approved denomination, alias, released cultivar or confirmed commercial offering."
+        },
+        {
+          "candidate_name": "PBBlack1839-25",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "PBBlack1839-25 · Pipeline selection",
+          "portfolio_context": "Original Black Venture Farm Pipeline Varieties panel identifies this experimental selection. It is not an approved denomination, alias, released cultivar or confirmed commercial offering."
+        },
+        {
+          "candidate_name": "Z601-169",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "Z601-169 · Pipeline selection",
+          "portfolio_context": "Original Black Venture Farm Pipeline Varieties panel identifies this experimental selection. It is not an approved denomination, alias, released cultivar or confirmed commercial offering."
+        },
+        {
+          "candidate_name": "Z1949-17",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "Z1949-17 · Pipeline selection",
+          "portfolio_context": "Original Black Venture Farm Pipeline Varieties panel identifies this experimental selection. It is not an approved denomination, alias, released cultivar or confirmed commercial offering."
+        },
+        {
+          "candidate_name": "S1714-145",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "S1714-145 · Pipeline selection",
+          "portfolio_context": "Original Black Venture Farm Pipeline Varieties panel identifies this experimental selection. It is not an approved denomination, alias, released cultivar or confirmed commercial offering."
+        },
+        {
+          "candidate_name": "S19111-139",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "S19111-139 · Pipeline selection",
+          "portfolio_context": "Original Black Venture Farm Pipeline Varieties panel identifies this experimental selection. It is not an approved denomination, alias, released cultivar or confirmed commercial offering."
+        },
+        {
+          "candidate_name": "S19111-125",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "S19111-125 · Pipeline selection",
+          "portfolio_context": "Original Black Venture Farm Pipeline Varieties panel identifies this experimental selection. It is not an approved denomination, alias, released cultivar or confirmed commercial offering."
+        },
+        {
+          "candidate_name": "A1924-23",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "A1924-23 · Pipeline selection",
+          "portfolio_context": "Original Black Venture Farm Pipeline Varieties panel identifies this experimental selection. It is not an approved denomination, alias, released cultivar or confirmed commercial offering."
+        },
+        {
+          "candidate_name": "A1924-53",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "A1924-53 · Pipeline selection",
+          "portfolio_context": "Original Black Venture Farm Pipeline Varieties panel identifies this experimental selection. It is not an approved denomination, alias, released cultivar or confirmed commercial offering."
+        },
+        {
+          "candidate_name": "A1924-35",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blackventurefarm.com/#page-3",
+          "display_label": "A1924-35 · Pipeline selection",
+          "portfolio_context": "Original Black Venture Farm Pipeline Varieties panel identifies this experimental selection. It is not an approved denomination, alias, released cultivar or confirmed commercial offering."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_native_body",
+        "body_read": true,
+        "crop_panels_visually_checked": true,
+        "named_photos_visually_checked": false
+      },
+      "accounting": {
+        "observed_items": 11,
+        "exclusions": []
+      }
+    }
+  ]
+}

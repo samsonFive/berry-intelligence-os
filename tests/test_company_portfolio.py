@@ -225,12 +225,14 @@ def test_portfolio_does_not_leak_pending_content():
     assert "signal_candidate" not in page.text.casefold()
 
 
-def test_portfolio_uses_card_grid_not_wide_table():
+def test_reviewed_portfolio_keeps_card_grid_separate_from_source_discoveries():
     client = TestClient(app)
     page = client.get("/entities/company/company-planasa/portfolio")
     assert page.status_code == 200
-    assert "<table" not in page.text
-    assert "balanced-card-grid" in page.text
+    reviewed_section = page.text.split('id="portfolio-varieties"', 1)[1].split('</section>', 1)[0]
+    assert "<table" not in reviewed_section
+    assert "balanced-card-grid" in reviewed_section
+    assert "company-source-table" in page.text
 
 
 def test_portfolio_deep_link_reload_is_stable():

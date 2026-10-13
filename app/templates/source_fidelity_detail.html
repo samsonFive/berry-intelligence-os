@@ -1,6 +1,9 @@
 {% extends "source_review_base.html" %}
-{% block title %}Source Authenticity — {{ trusted.title }}{% endblock %}
+{% block title %}{% if request.query_params.get('name_review') == '1' %}Name review — {{ artifact.source_title or 'Saved source copy' }}{% else %}Source Authenticity — {{ trusted.title }}{% endif %}{% endblock %}
 {% block source_review_content %}
+{% if request.query_params.get('name_review') == '1' %}
+{% include "_source_copy_name_review.html" %}
+{% else %}
 <section class="page-heading">
   <div>
     <p class="eyebrow">OPERATIONS · SOURCE AUTHENTICITY</p>
@@ -79,7 +82,13 @@
         {% endfor %}
       {% else %}
         {% for paragraph in reader.paragraphs %}
-        <p><strong>Paragraph {{ paragraph.index }}</strong><br>{{ paragraph.text }}</p>
+        {% if paragraph.heading_level == 4 %}
+        <h4 data-source-paragraph="{{ paragraph.index }}" title="Source paragraph {{ paragraph.index }}">{{ paragraph.text }}</h4>
+        {% elif paragraph.heading_level == 5 %}
+        <h5 data-source-paragraph="{{ paragraph.index }}" title="Source paragraph {{ paragraph.index }}">{{ paragraph.text }}</h5>
+        {% else %}
+        <p data-source-paragraph="{{ paragraph.index }}" title="Source paragraph {{ paragraph.index }}">{{ paragraph.text }}</p>
+        {% endif %}
         {% else %}
         <p>No article text was recovered.</p>
         {% endfor %}
@@ -99,7 +108,7 @@
     {% endfor %}
   </ul>
 </details>
-<details class="fidelity-consequences"><summary>What accepting this copy changes</summary><p>The recovered text becomes available for separately authorized extraction. The original summary, publication status and statement decisions remain unchanged. No extraction runs automatically.</p><dl class="v2-compare-roles"><dt>Source completeness</dt><dd>{{ consequences.completeness_before }} → {{ consequences.completeness_after }}</dd><dt>Extraction readiness</dt><dd>{{ consequences.readiness_before }} → {{ consequences.readiness_after }}</dd></dl></details>
+<details class="fidelity-consequences"><summary>What accepting this copy changes</summary><p>Accepted article text can be read in the private reader and checked for named varieties. Those names still need identity review. Extraction remains separately authorized; none runs automatically. The original summary, publication status and statement decisions remain unchanged.</p><dl class="v2-compare-roles"><dt>Source completeness</dt><dd>{{ consequences.completeness_before }} → {{ consequences.completeness_after }}</dd><dt>Extraction readiness</dt><dd>{{ consequences.readiness_before }} → {{ consequences.readiness_after }}</dd></dl></details>
 
 <section class="card fidelity-decision" data-fidelity-decision>
   <h2>Decision</h2>
@@ -127,4 +136,5 @@
   <p class="shortcut-help">Shortcuts (disabled while typing): A accept · R reject · I investigate · N next · P previous. Accept still requires confirmation; decisions apply to one source at a time.</p>
 </section>
 
+{% endif %}
 {% endblock %}

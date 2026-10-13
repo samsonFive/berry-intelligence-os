@@ -1,0 +1,649 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-masia-current-strawberries",
+      "title": "Masiá Ciscar — current strawberry cards",
+      "url": "https://www.masiaciscar.es/freson/",
+      "company_ids": [
+        "company-masia-ciscar"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Six named strawberry cards; a bounded current page, not a lifetime portfolio.",
+      "limitations": "Leyre is retained literally; no alias to the spreadsheet spelling Leya. The Palmeritas image is reused under Cleopatra, so both associations are withheld. Generic header and harvest-calendar images are excluded. No rights, traits or growing regions are approved.",
+      "names": [
+        {
+          "candidate_name": "Cleopatra",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed in Masiá Ciscar’s current strawberry product cards. Breeder, rights holder and availability need review."
+        },
+        {
+          "candidate_name": "Leticia",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed in Masiá Ciscar’s current strawberry product cards. Breeder, rights holder and availability need review.",
+          "photos": [
+            {
+              "named_variety": "Leticia",
+              "berry_id": "berry-strawberry",
+              "image_url": "https://www.masiaciscar.es/wp-content/uploads/2025/07/masia_freson_leticia@2x.webp",
+              "source_url": "https://www.masiaciscar.es/freson/",
+              "credit": "Masiá Ciscar · Photographer not credited",
+              "caption": "Leticia: fruit pictured on its named source page",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Photo visually checked in the exact named product card; empty alt text, with a matching filename. Permission is not recorded. Private tab-session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Leyre",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed in Masiá Ciscar’s current strawberry product cards. Breeder, rights holder and availability need review.",
+          "photos": [
+            {
+              "named_variety": "Leyre",
+              "berry_id": "berry-strawberry",
+              "image_url": "https://www.masiaciscar.es/wp-content/uploads/2025/07/masia_freson_leyre@2x.webp",
+              "source_url": "https://www.masiaciscar.es/freson/",
+              "credit": "Masiá Ciscar · Photographer not credited",
+              "caption": "Leyre: fruit pictured on its named source page",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Photo visually checked in the exact named product card; empty alt text, with a matching filename. Permission is not recorded. Private tab-session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Shyra",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed in Masiá Ciscar’s current strawberry product cards. Breeder, rights holder and availability need review.",
+          "photos": [
+            {
+              "named_variety": "Shyra",
+              "berry_id": "berry-strawberry",
+              "image_url": "https://www.masiaciscar.es/wp-content/uploads/2025/07/masia_freson_shyra@2x.webp",
+              "source_url": "https://www.masiaciscar.es/freson/",
+              "credit": "Masiá Ciscar · Photographer not credited",
+              "caption": "Shyra: fruit pictured on its named source page",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Photo visually checked in the exact named product card; empty alt text, with a matching filename. Permission is not recorded. Private tab-session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Chelsea",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed in Masiá Ciscar’s current strawberry product cards. Breeder, rights holder and availability need review.",
+          "photos": [
+            {
+              "named_variety": "Chelsea",
+              "berry_id": "berry-strawberry",
+              "image_url": "https://www.masiaciscar.es/wp-content/uploads/2025/07/masia_freson_chelsea@2x.webp",
+              "source_url": "https://www.masiaciscar.es/freson/",
+              "credit": "Masiá Ciscar · Photographer not credited",
+              "caption": "Chelsea: fruit pictured on its named source page",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Photo visually checked in the exact named product card; empty alt text, with a matching filename. Permission is not recorded. Private tab-session preview only."
+            }
+          ]
+        },
+        {
+          "candidate_name": "Palmeritas",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed in Masiá Ciscar’s current strawberry product cards. Breeder, rights holder and availability need review."
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_named_card_review",
+        "visible_card_count": 6,
+        "photo_verified_names": [
+          "Leticia",
+          "Leyre",
+          "Shyra",
+          "Chelsea"
+        ],
+        "withheld_shared_asset": "https://www.masiaciscar.es/wp-content/uploads/2025/07/masia_freson_palmeritas@2x.webp",
+        "withheld_shared_labels": [
+          "Cleopatra",
+          "Palmeritas"
+        ]
+      }
+    },
+    {
+      "id": "portfolio-masia-2019-strawberry-release",
+      "title": "Masiá Ciscar — five strawberries named in 2019",
+      "url": "https://www.masiaciscar.es/masia-ciscar-acude-a-fruit-logistica/",
+      "company_ids": [
+        "company-masia-ciscar"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Five literal strawberry names in the historical release paragraph.",
+      "limitations": "Selene appears in this historical paragraph but not the checked current six-card page. The source also cites a shortened original link, which was not followed; this is not independent corroboration. Unnamed raspberry/blueberry crops and event statistics are not variety identities.",
+      "names": [
+        {
+          "candidate_name": "Leyre",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in Masiá Ciscar’s February 2019 Fruit Logística report; historical source context, not current availability."
+        },
+        {
+          "candidate_name": "Selene",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in Masiá Ciscar’s February 2019 Fruit Logística report; historical source context, not current availability."
+        },
+        {
+          "candidate_name": "Palmeritas",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in Masiá Ciscar’s February 2019 Fruit Logística report; historical source context, not current availability."
+        },
+        {
+          "candidate_name": "Leticia",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in Masiá Ciscar’s February 2019 Fruit Logística report; historical source context, not current availability."
+        },
+        {
+          "candidate_name": "Chelsea",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Named in Masiá Ciscar’s February 2019 Fruit Logística report; historical source context, not current availability."
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": []
+      },
+      "published_date": "2019-02-26",
+      "capture_reference": {
+        "method": "official_page_body_review",
+        "original_short_link": "https://bit.ly/2tsSNgY",
+        "short_link_followed": false
+      }
+    },
+    {
+      "id": "portfolio-masia-other-berry-crop-headings",
+      "title": "Masiá Ciscar — other berries, varieties not named",
+      "url": "https://www.masiaciscar.es/berries/",
+      "company_ids": [
+        "company-masia-ciscar"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Three crop headings on the other-berries product page; no named cultivars in its body.",
+      "limitations": "An empty cultivar list on this page does not mean the company grows no varieties. Generic fruit pictures, calendar and nutritional claims are not cultivar evidence.",
+      "names": [],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [
+          {
+            "label": "Arándanos",
+            "reason": "Crop category, not a named cultivar."
+          },
+          {
+            "label": "Frambuesas",
+            "reason": "Crop category, not a named cultivar."
+          },
+          {
+            "label": "Moras",
+            "reason": "Crop category, not a named cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-niab-transferred-strawberry-names",
+      "title": "NIAB — six strawberries in the transferred programme",
+      "url": "https://www.niab.com/services/plant-breeding/niab-east-malling-fruit-varieties/strawberries",
+      "company_ids": [
+        "company-niab",
+        "company-bayer"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Six names in the programme-transfer paragraph, separated from the legacy propagator table below it.",
+      "limitations": "This is an attributed transfer statement, not a reviewed owner/breeder relationship or legal filing. Malling trademark symbols are retained in source context, not treated as patent identifiers. No transfer of NIAB raspberry varieties is inferred.",
+      "names": [
+        {
+          "candidate_name": "Malling Centenary",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB identifies this strawberry programme as transferred to Bayer in early 2024. Historical breeding and current commercial roles must be reviewed separately."
+        },
+        {
+          "candidate_name": "Malling Ace",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB identifies this strawberry programme as transferred to Bayer in early 2024. Historical breeding and current commercial roles must be reviewed separately."
+        },
+        {
+          "candidate_name": "Malling Allure",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB identifies this strawberry programme as transferred to Bayer in early 2024. Historical breeding and current commercial roles must be reviewed separately."
+        },
+        {
+          "candidate_name": "Malling Vitality",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB identifies this strawberry programme as transferred to Bayer in early 2024. Historical breeding and current commercial roles must be reviewed separately."
+        },
+        {
+          "candidate_name": "Malling Supreme",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB identifies this strawberry programme as transferred to Bayer in early 2024. Historical breeding and current commercial roles must be reviewed separately."
+        },
+        {
+          "candidate_name": "Malling Champion",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB identifies this strawberry programme as transferred to Bayer in early 2024. Historical breeding and current commercial roles must be reviewed separately."
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "official_page_body_review",
+        "source_section": "programme-transfer paragraph",
+        "source_trademark": "Malling™"
+      }
+    },
+    {
+      "id": "portfolio-niab-legacy-strawberry-table",
+      "title": "NIAB — ten legacy strawberry names",
+      "url": "https://www.niab.com/services/plant-breeding/niab-east-malling-fruit-varieties/strawberries",
+      "company_ids": [
+        "company-niab"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Ten unique cultivar labels across 56 propagator rows; repeated propagators are not additional varieties.",
+      "limitations": "Propagator territories do not establish growing acreage or company operating regions. Legacy table is not attributed to Bayer. Contact details were not imported. Breeding, licensing and current rights remain human-reviewed.",
+      "names": [
+        {
+          "candidate_name": "Alice",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB lists this variety in its legacy strawberry propagator table, separately from the programme transferred to Bayer."
+        },
+        {
+          "candidate_name": "Cupid",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB lists this variety in its legacy strawberry propagator table, separately from the programme transferred to Bayer."
+        },
+        {
+          "candidate_name": "Elegance",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB lists this variety in its legacy strawberry propagator table, separately from the programme transferred to Bayer."
+        },
+        {
+          "candidate_name": "Fenella",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB lists this variety in its legacy strawberry propagator table, separately from the programme transferred to Bayer."
+        },
+        {
+          "candidate_name": "Finesse",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB lists this variety in its legacy strawberry propagator table, separately from the programme transferred to Bayer."
+        },
+        {
+          "candidate_name": "Flamenco",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB lists this variety in its legacy strawberry propagator table, separately from the programme transferred to Bayer."
+        },
+        {
+          "candidate_name": "Florence",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB lists this variety in its legacy strawberry propagator table, separately from the programme transferred to Bayer."
+        },
+        {
+          "candidate_name": "Lucy",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB lists this variety in its legacy strawberry propagator table, separately from the programme transferred to Bayer."
+        },
+        {
+          "candidate_name": "Sweetheart",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB lists this variety in its legacy strawberry propagator table, separately from the programme transferred to Bayer."
+        },
+        {
+          "candidate_name": "Vibrant",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "NIAB lists this variety in its legacy strawberry propagator table, separately from the programme transferred to Bayer."
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "official_page_table_review",
+        "propagator_rows": 56,
+        "unique_variety_labels": 10,
+        "repeated_variety_rows": 46
+      }
+    },
+    {
+      "id": "portfolio-niab-other-raspberry-names",
+      "title": "NIAB — five other raspberry names",
+      "url": "https://www.niab.com/services/plant-breeding/niab-east-malling-fruit-varieties/raspberries/other-raspberries",
+      "company_ids": [
+        "company-niab"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Five explicit names in the other-raspberries list.",
+      "limitations": "Generic Raspberries image is excluded because it does not identify a cultivar. The linked propagator page was not retrieved. This bounded list does not exhaust NIAB’s raspberry history.",
+      "names": [
+        {
+          "candidate_name": "Autumn Amber",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Listed on NIAB’s other-raspberries page; publisher attribution awaits relationship review."
+        },
+        {
+          "candidate_name": "Autumn Treasure",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Listed on NIAB’s other-raspberries page; publisher attribution awaits relationship review."
+        },
+        {
+          "candidate_name": "Malling Freya",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Listed on NIAB’s other-raspberries page; publisher attribution awaits relationship review."
+        },
+        {
+          "candidate_name": "Malling Juno",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Listed on NIAB’s other-raspberries page; publisher attribution awaits relationship review."
+        },
+        {
+          "candidate_name": "Octavia",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Listed on NIAB’s other-raspberries page; publisher attribution awaits relationship review."
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-niab-bella-current-page",
+      "title": "NIAB — Malling Bella named product page",
+      "url": "https://www.niab.com/mallingtm-bellar",
+      "company_ids": [
+        "company-niab"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One named raspberry product and its exact source photograph.",
+      "limitations": "No problems reported is not tested resistance. Adaptation and marketing claims do not establish growing footprints. Release year 2017 does not date this current page. No patent/PBR status is inferred.",
+      "names": [
+        {
+          "candidate_name": "Malling Bella",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "NIAB’s dedicated Malling™ Bella® page reports release in 2017. Release year is not the page publication date. It explicitly says disease-resistance testing has not been undertaken.",
+          "display_label": "Malling™ Bella®",
+          "photos": [
+            {
+              "named_variety": "Malling Bella",
+              "berry_id": "berry-raspberry",
+              "image_url": "https://www.niab.com/sites/default/files/styles/crop_420x315_scaled/public/content/pages/images/Malling%20Bella.jpg?h=04fa2cfc&itok=fytBRKMu",
+              "source_url": "https://www.niab.com/mallingtm-bellar",
+              "credit": "NIAB · Photographer not credited",
+              "caption": "Malling Bella: fruit pictured on its named source page",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Visually checked fruit photo beside the Malling™ Bella® heading, with alt text Malling Bella® raspberries. Photographer and reuse permission are not recorded; private tab-session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_product_review",
+        "image_alt": "Malling Bella® raspberries",
+        "release_year_reported": 2017
+      }
+    },
+    {
+      "id": "portfolio-niab-bella-charm-2017-release",
+      "title": "NIAB — Malling Bella and Charm launch report",
+      "url": "https://www.niab.com/news-views/news/news-new-raspberry-varieties-malling-bella-and-malling-charm-launched",
+      "company_ids": [
+        "company-niab"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Two raspberry names in the historical launch report.",
+      "limitations": "The photo caption names both varieties together and is not assigned separately. Consortium members are not automatically marked as breeders or owners. No Bayer raspberry ownership is inferred.",
+      "names": [
+        {
+          "candidate_name": "Malling Bella",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Named in NIAB EMR’s October 2017 raspberry launch report. Consortium membership and historical availability do not establish present rights or ownership."
+        },
+        {
+          "candidate_name": "Malling Charm",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Named in NIAB EMR’s October 2017 raspberry launch report. Consortium membership and historical availability do not establish present rights or ownership."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      },
+      "published_date": "2017-10-12"
+    },
+    {
+      "id": "portfolio-niab-bella-technical-text",
+      "title": "NIAB — Malling Bella technical sheet, visual check pending",
+      "url": "https://www.niab.com/sites/default/files/imce_uploads/MallingFruits/malling-bella-tech-sheet.pdf",
+      "company_ids": [
+        "company-niab"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_program_report",
+      "capture_status": "partial",
+      "enumerated_scope": "Extracted text from both PDF pages; visual page rendering failed, so chart labels require follow-up.",
+      "limitations": "PDF visual review is incomplete. 2016 and 2020 trial dates are not publication or release dates. Trademark ownership is separate from variety ownership. No traits, yield, geographic footprint or rights are approved; embedded photos are withheld.",
+      "names": [
+        {
+          "candidate_name": "Malling Bella",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Technical-sheet subject Malling Bella; Kweli and Imara are chart comparators. A Bayer Group trademark footnote concerns the Malling brand, not proven cultivar ownership."
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [
+          {
+            "label": "Kweli",
+            "reason": "Chart comparator, not a NIAB portfolio or ownership assertion."
+          },
+          {
+            "label": "Imara",
+            "reason": "Chart comparator, not a NIAB portfolio or ownership assertion."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "pdf_text_review",
+        "pages_text_checked": 2,
+        "pages_visually_checked": 0,
+        "visual_failure": "PDF screenshot retrieval returned cache miss"
+      }
+    },
+    {
+      "id": "portfolio-bayer-uk-strawberry-index",
+      "title": "Bayer De Ruiter — seven UK strawberry product headings",
+      "url": "https://www.vegetables.bayer.com/gb/en-uk/products/strawberry.html",
+      "company_ids": [
+        "company-bayer"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Seven literal product headings in the UK index; no claim about all markets or historic portfolio.",
+      "limitations": "Unrendered filter placeholders are not variety names. STR14 is mentioned as an industry comparator, not as a code for Malling Centenary. Product descriptions and marketing metrics stay unreviewed; generic images are withheld.",
+      "names": [
+        {
+          "candidate_name": "Baya Solara",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed in Bayer De Ruiter’s current UK strawberry product index. A commercial listing is not a verified original breeder or legal rights-holder relationship."
+        },
+        {
+          "candidate_name": "Malling Vitality",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed in Bayer De Ruiter’s current UK strawberry product index. A commercial listing is not a verified original breeder or legal rights-holder relationship."
+        },
+        {
+          "candidate_name": "Malling Champion",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed in Bayer De Ruiter’s current UK strawberry product index. A commercial listing is not a verified original breeder or legal rights-holder relationship."
+        },
+        {
+          "candidate_name": "Malling Supreme",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed in Bayer De Ruiter’s current UK strawberry product index. A commercial listing is not a verified original breeder or legal rights-holder relationship."
+        },
+        {
+          "candidate_name": "Malling Centenary",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed in Bayer De Ruiter’s current UK strawberry product index. A commercial listing is not a verified original breeder or legal rights-holder relationship."
+        },
+        {
+          "candidate_name": "Malling Allure",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed in Bayer De Ruiter’s current UK strawberry product index. A commercial listing is not a verified original breeder or legal rights-holder relationship."
+        },
+        {
+          "candidate_name": "Malling Ace",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Listed in Bayer De Ruiter’s current UK strawberry product index. A commercial listing is not a verified original breeder or legal rights-holder relationship."
+        }
+      ],
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": [
+          {
+            "label": "STR14",
+            "reason": "Industry-standard comparator in Centenary description, not Centenary’s breeder code or an additional product heading."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-bayer-baya-solara-release",
+      "title": "Bayer — Baya Solara / EM2836 introduction",
+      "url": "https://www.vegetables.bayer.com/gb/en-uk/knowledge-centre/news/introducing-de-ruiter-first-strawberry-variety.html",
+      "company_ids": [
+        "company-bayer"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One explicit name/code pairing in the dated Bayer release body.",
+      "limitations": "Conditional approval language is retained. The release is not an official registry or grant and does not approve aliases, performance claims or actual growing regions. Current index lacks this code, so only this source reference supplies it.",
+      "names": [
+        {
+          "candidate_name": "Baya Solara",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Bayer’s January 2026 release pairs Baya Solara with EM2836 and explicitly says “Subject to approval”. Check current official registration before treating it as approved.",
+          "breeder_code": "EM2836",
+          "trade_name": "Baya Solara",
+          "display_label": "Baya Solara · EM2836"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "published_date": "2026-01-05",
+      "capture_reference": {
+        "method": "official_release_body_review",
+        "approval_footnote": "Subject to approval"
+      }
+    },
+    {
+      "id": "portfolio-g-berries-retrieval-gap",
+      "title": "G Berries — website retrieval pending",
+      "url": "https://www.gberries.it/",
+      "company_ids": [
+        "company-g-berries"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "unreadable",
+      "enumerated_scope": "Homepage retrieval attempt; no page body or variety list read.",
+      "limitations": "Text retrieval failed. This does not establish that the company has no varieties or that the website is globally unavailable. Browser/manual recovery remains open; no names were guessed from other companies or search snippets.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "official_homepage_text_attempt",
+        "body_read": false
+      }
+    }
+  ]
+}

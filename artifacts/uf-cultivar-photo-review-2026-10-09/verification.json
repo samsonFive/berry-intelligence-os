@@ -1,0 +1,146 @@
+{
+  "scope": "Eight focal source photos; not complete portfolios, traits or rights verification.",
+  "native_original_pages_checked": 8,
+  "source_asset_sizes": "199x179 or 199x180; source-provided URLs unchanged",
+  "photos": [
+    {
+      "source_id": "portfolio-uf-profile-photo-colossus",
+      "catalog_id": "variety-colossus",
+      "photo_id": "source-photo-3324409826f440c4a03d",
+      "source_url": "https://www.blueberrybreeding.com/colossus",
+      "asset_url": "https://static.wixstatic.com/media/b1af78_3d871477f6e64f0bbd300154e3c56474~mv2_d_1868_2353_s_2.jpg/v1/crop/x_0,y_329,w_1868,h_1694/fill/w_199,h_179,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/11-35%20fruit%20raceme%20fruit%20on%20leafless%20ste.jpg",
+      "reuse": "unknown",
+      "default_image_loaded": false,
+      "public_gallery": []
+    },
+    {
+      "source_id": "portfolio-uf-profile-photo-emerald",
+      "catalog_id": "variety-emerald",
+      "photo_id": "source-photo-5e3d829bab42502d5e92",
+      "source_url": "https://www.blueberrybreeding.com/emerald",
+      "asset_url": "https://static.wixstatic.com/media/b1af78_3ca351aa0bc14515ab4842363d0c2145~mv2_d_2624_3936_s_4_2.jpg/v1/fill/w_199,h_179,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/b1af78_3ca351aa0bc14515ab4842363d0c2145~mv2_d_2624_3936_s_4_2.jpg",
+      "reuse": "unknown",
+      "default_image_loaded": false,
+      "public_gallery": []
+    },
+    {
+      "source_id": "portfolio-uf-profile-photo-farthing",
+      "catalog_id": "variety-farthing",
+      "photo_id": "source-photo-d9f4bf8e4e329627f125",
+      "source_url": "https://www.blueberrybreeding.com/farthing",
+      "asset_url": "https://static.wixstatic.com/media/b1af78_9bd3b77f98124b66ae0d08e70e81ad4b~mv2_d_2624_3936_s_4_2.jpg/v1/fill/w_199,h_180,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/b1af78_9bd3b77f98124b66ae0d08e70e81ad4b~mv2_d_2624_3936_s_4_2.jpg",
+      "reuse": "unknown",
+      "default_image_loaded": false,
+      "public_gallery": []
+    },
+    {
+      "source_id": "portfolio-uf-profile-photo-jewel",
+      "catalog_id": "variety-jewel",
+      "photo_id": "source-photo-48ef6062dce4b3350a4d",
+      "source_url": "https://www.blueberrybreeding.com/jewel",
+      "asset_url": "https://static.wixstatic.com/media/b1af78_2bd27be9dcf440c9b6a6654a0aae06e6~mv2_d_2624_3936_s_4_2.jpg/v1/fill/w_199,h_180,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/b1af78_2bd27be9dcf440c9b6a6654a0aae06e6~mv2_d_2624_3936_s_4_2.jpg",
+      "reuse": "unknown",
+      "default_image_loaded": false,
+      "public_gallery": []
+    },
+    {
+      "source_id": "portfolio-uf-profile-photo-meadowlark",
+      "catalog_id": "variety-meadowlark",
+      "photo_id": "source-photo-221fd6e1389ae304f2f1",
+      "source_url": "https://www.blueberrybreeding.com/meadowlark-fl01-173",
+      "asset_url": "https://static.wixstatic.com/media/b1af78_5e372b0e839a42d49f56d7a773685b09~mv2.jpg/v1/fill/w_199,h_179,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/b1af78_5e372b0e839a42d49f56d7a773685b09~mv2.jpg",
+      "reuse": "unknown",
+      "default_image_loaded": false,
+      "public_gallery": []
+    },
+    {
+      "source_id": "portfolio-uf-profile-photo-optimus",
+      "catalog_id": "variety-optimus",
+      "photo_id": "source-photo-25b414922165a8485b77",
+      "source_url": "https://www.blueberrybreeding.com/optimus",
+      "asset_url": "https://static.wixstatic.com/media/b1af78_f910c2b379bb4294bd32e7fb802ada5d~mv2.png/v1/crop/x_7,y_0,w_533,h_483/fill/w_199,h_179,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/b1af78_f910c2b379bb4294bd32e7fb802ada5d~mv2.png",
+      "reuse": "unknown",
+      "default_image_loaded": false,
+      "public_gallery": []
+    },
+    {
+      "source_id": "portfolio-uf-profile-photo-patrecia",
+      "catalog_id": "variety-patrecia",
+      "photo_id": "source-photo-5c17c3d1ed402130f388",
+      "source_url": "https://www.blueberrybreeding.com/patrecia",
+      "asset_url": "https://static.wixstatic.com/media/b1af78_0bf6a71a3a924ed1847655f4afed20ed~mv2.jpg/v1/fill/w_199,h_179,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/b1af78_0bf6a71a3a924ed1847655f4afed20ed~mv2.jpg",
+      "reuse": "unknown",
+      "default_image_loaded": false,
+      "public_gallery": []
+    },
+    {
+      "source_id": "portfolio-uf-profile-photo-sentinel",
+      "catalog_id": "variety-sentinel",
+      "photo_id": "source-photo-580b349596c33c33f16d",
+      "source_url": "https://www.blueberrybreeding.com/sentinel",
+      "asset_url": "https://static.wixstatic.com/media/b1af78_db246ccfbdc2435dacfbf50423070d2f~mv2.jpg/v1/crop/x_0,y_64,w_1272,h_1154/fill/w_199,h_179,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IMG_7610_edited.jpg",
+      "reuse": "unknown",
+      "default_image_loaded": false,
+      "public_gallery": []
+    }
+  ],
+  "total_photo_references": 122,
+  "new_reuse_approvals": 0,
+  "canonical_varieties": 64,
+  "new_canonical_varieties": 0,
+  "portfolio": {
+    "source_sections": 363,
+    "readable_sections": 270,
+    "unreadable_sections": 14,
+    "follow_up_sections": 107,
+    "names": 1140,
+    "catalog_matches": 72,
+    "needs_review": 1068,
+    "registry_entries": 77,
+    "registry_entries_checked": 60,
+    "registry_entries_partial_checks": 14,
+    "registry_entries_unavailable": 1,
+    "registry_entries_not_started": 0,
+    "registry_entries_identity_hold": 2
+  },
+  "public_derived_candidate_keys": 788,
+  "actual_private_preview_keys": 789,
+  "tests": {
+    "passed": 92,
+    "warnings": 1,
+    "seconds": 106.05,
+    "initial_failure": "One old 1132-occurrence assertion; corrected to measured 1140 / blueberry301."
+  },
+  "records": "PASS",
+  "static_pages": 1755,
+  "pagefind": "PASS",
+  "native_app": {
+    "Colossus": "Default held; approved reveal loaded199x179; hide restored held state",
+    "Patrecia": "Default held; reveal loaded199x179; reload retained only session preview with permission unconfirmed; hide restored held state",
+    "source_or_identity_forms_submitted": false
+  },
+  "original_data_json_preserved": 2771,
+  "canonical_guide_unchanged": true,
+  "pending_source_copies": 32,
+  "new_human_source_decisions": 0,
+  "new_extraction_ready_ids": [],
+  "real_pending_draft_bytes_preserved": true,
+  "full_mission_complete": false,
+  "merge_or_deploy": false,
+  "static_new_held_asset_scan": {
+    "terminal_exit_code": 1,
+    "matches": 0,
+    "session_consumed": true
+  },
+  "parent_draft": {
+    "number": 378,
+    "head": "188c4ded47e0e95cedfec948f7778253965119e5",
+    "required_checks": "all four SUCCESS",
+    "tests": {
+      "passed": 4553,
+      "skipped": 11,
+      "warnings": 2,
+      "seconds": 775.79
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-chandler-original-us-grant",
+      "title": "Chandler strawberry — original US plant patent",
+      "url": "https://patents.google.com/patent/USPP5262P/en",
+      "company_ids": [],
+      "berry_ids": ["berry-strawberry"],
+      "checked_on": "2026-10-09",
+      "published_date": "1984-07-24",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "source_type": "plant_patent",
+      "enumerated_scope": "One claimed cultivar with two source-reported selection designations; not a current company portfolio.",
+      "limitations": "Historical filing only. Identity, current rights, company roles, traits, regions and photo reuse require separate review.",
+      "review_warnings": ["The original assignee is the Regents of the University of California. Google's UCSD label does not establish a campus or current rights holder."],
+      "names": [
+        {
+          "candidate_name": "Chandler",
+          "denomination": "Chandler",
+          "breeder_code": "Cal 77.32-103",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "source_company_context": "Historical assignee: Regents of the University of California; campus/program identity unassigned.",
+          "product_url": "https://patentimages.storage.googleapis.com/86/81/a4/8befc39fa5ecd4/USPP5262.pdf#page=1",
+          "application_number": "452,699",
+          "grant_number": "USPP5262P",
+          "jurisdiction": "US",
+          "application_date": "1982-12-23",
+          "grant_date": "1984-07-24",
+          "portfolio_context": "Page 1 pairs Chandler with Cal 77.32-103 and later selection C24. Claim 1 is in column 2. Figure 3 on page 2 depicts fruit. These naming associations are unreviewed."
+        }
+      ],
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": [
+          {"label": "Douglas", "reason": "Parent, separately discoverable; not covered by this grant."},
+          {"label": "Cal 72.361-105 / C55", "reason": "Parent code pairing, separately discoverable; not covered by this grant."},
+          {"label": "Tioga", "reason": "Comparison variety, separately discoverable."},
+          {"label": "Aliso", "reason": "Comparison variety, separately discoverable."},
+          {"label": "Tufts", "reason": "Comparison variety, separately discoverable."},
+          {"label": "Aiko", "reason": "Comparison variety, separately discoverable."},
+          {"label": "Pajaro", "reason": "Comparison variety, separately discoverable."}
+        ]
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/86/81/a4/8befc39fa5ecd4/USPP5262.pdf",
+        "claim_url": "https://patents.google.com/patent/USPP5262P/en#claims",
+        "figures_url": "https://patentimages.storage.googleapis.com/86/81/a4/8befc39fa5ecd4/USPP5262.pdf#page=2",
+        "sha256": "10996964d2d1df8950c225e7426df47c3caa4f47f5adea27b2f57f4a80093620",
+        "page_count": 2,
+        "text_extracted_pages": [1, 2],
+        "visually_reviewed_pages": [1, 2],
+        "claim_page": 1,
+        "claim_column": 2,
+        "fruit_figure": 3,
+        "fruit_page": 2,
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-chandler-original-historical-mentions",
+      "title": "Chandler patent — parent and comparison varieties",
+      "url": "https://patents.google.com/patent/USPP5262P/en",
+      "company_ids": [],
+      "berry_ids": ["berry-strawberry"],
+      "checked_on": "2026-10-09",
+      "published_date": "1984-07-24",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "source_type": "historical_document_mentions",
+      "enumerated_scope": "Seven parent/comparison identities mentioned in one historical filing. Code pairings are not separate cultivars.",
+      "limitations": "Names inherit no Chandler grant, figures, company role or current rights. Earlier cited grants remain unchecked.",
+      "names": [
+        {"candidate_name": "Douglas", "berry_id": "berry-strawberry", "source_company_ids": [], "portfolio_context": "Parent; earlier patent 4,487 is cited but not independently verified here."},
+        {"candidate_name": "Cal 72.361-105", "breeder_code": "C55", "berry_id": "berry-strawberry", "source_company_ids": [], "portfolio_context": "Parent; the document pairs these codes and cites earlier patent 4,481, still unchecked."},
+        {"candidate_name": "Tioga", "berry_id": "berry-strawberry", "source_company_ids": [], "portfolio_context": "Comparison cultivar."},
+        {"candidate_name": "Aliso", "berry_id": "berry-strawberry", "source_company_ids": [], "portfolio_context": "Comparison cultivar."},
+        {"candidate_name": "Tufts", "berry_id": "berry-strawberry", "source_company_ids": [], "portfolio_context": "Comparison cultivar."},
+        {"candidate_name": "Aiko", "berry_id": "berry-strawberry", "source_company_ids": [], "portfolio_context": "Comparison cultivar."},
+        {"candidate_name": "Pajaro", "berry_id": "berry-strawberry", "source_company_ids": [], "portfolio_context": "Comparison cultivar."}
+      ],
+      "accounting": {"observed_items": 7, "exclusions": []},
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/86/81/a4/8befc39fa5ecd4/USPP5262.pdf#page=1",
+        "sha256": "10996964d2d1df8950c225e7426df47c3caa4f47f5adea27b2f57f4a80093620",
+        "page_count": 2,
+        "visually_reviewed_pages": [1, 2],
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    }
+  ]
+}

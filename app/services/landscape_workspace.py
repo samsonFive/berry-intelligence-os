@@ -16,6 +16,7 @@ from app.services.variety_workspace import ROLE_BUCKETS
 
 SECTIONS = {"companies": "Companies", "varieties": "Varieties", "sources": "Latest sources", "signals": "Signals", "assessments": "Assessments"}
 FIELDS = ("berry", "company", "variety", "countries", "list", "tier", "favorites", "window", "start", "end", "section")
+EXPLORER_FIELDS = ("berry", "compare", "pair", "countries", "q", "predicate", "evidence", "status", "window", "time", "start", "end", "focus", "edge", "view", "theme", "limit", "favorites", "tier", "list")
 VIEW_FILE = "landscape_views.json"
 
 
@@ -196,17 +197,21 @@ def load_views(inbox_dir):
     for key, row in result["views"].items():
         if (not isinstance(row, dict) or row.get("id") != key or not isinstance(row.get("name"), str)
                 or not isinstance(row.get("filters"), dict) or type(row.get("revision")) is not int
-                or row["revision"] < 1 or type(row.get("archived")) is not bool):
+                or row["revision"] < 1 or type(row.get("archived")) is not bool
+                or row.get("kind", "overview") not in {"overview", "explorer"}):
             raise ValueError("Saved Landscape views cannot be read; restore the file before editing")
     return result
 
 
 @serialized_write
-def save_view(inbox_dir, *, name, filters, view_id="", revision="0", archive=False):
+def save_view(inbox_dir, *, name, filters, view_id="", revision="0", archive=False, kind=None):
     state = load_views(inbox_dir)
     if view_id and view_id not in state["views"]:
         raise ValueError("Saved Landscape view is unavailable")
     before = state["views"].get(view_id) or {"revision": 0}
+    kind = kind or before.get("kind", "overview")
+    if kind not in {"overview", "explorer"} or view_id and kind != before.get("kind", "overview"):
+        raise ValueError("Open this saved view in its original Landscape surface before updating it")
     if str(before["revision"]) != str(revision):
         raise ValueError("Saved view changed in another window; reload before saving")
     name = str(name).strip()
@@ -215,8 +220,11 @@ def save_view(inbox_dir, *, name, filters, view_id="", revision="0", archive=Fal
     if not archive and any(key != view_id and not row.get("archived") and row["name"].casefold() == name.casefold() for key, row in state["views"].items()):
         raise ValueError("This view name already exists; choose it to update its scope")
     key = view_id or "lview-" + uuid4().hex
-    row = {"id": key, "name": name, "filters": {field: str(filters.get(field) or "") for field in FIELDS},
+    fields = EXPLORER_FIELDS if kind == "explorer" else FIELDS
+    row = {"id": key, "name": name, "filters": {field: str(filters.get(field) or "") for field in fields},
            "revision": before["revision"] + 1, "archived": archive, "updated_at": datetime.now(UTC).isoformat()}
+    if kind == "explorer":
+        row["kind"] = kind
     state["views"][key] = row
     state["history"].append({"view_id": key, "before": before, "after": row})
     atomic_json(Path(inbox_dir) / VIEW_FILE, state)
@@ -224,4 +232,6 @@ def save_view(inbox_dir, *, name, filters, view_id="", revision="0", archive=Fal
 
 
 def view_href(row):
+    if row.get("kind") == "explorer":
+        return "/landscapes/explorer?" + urlencode({"saved_view": row["id"]})
     return "/landscapes?" + urlencode({**row["filters"], "configured": "1", "saved_view": row["id"]})

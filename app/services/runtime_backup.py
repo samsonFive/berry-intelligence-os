@@ -15,6 +15,9 @@ BACKUP_FORMAT_VERSION = 1
 MUTABLE_ROOTS = ("data", "inbox")
 EXCLUDED_NAMES = {".env", ".env.local", "secrets", "credentials"}
 SECRET_FILE_STEMS = {"secret", "secrets", "credential", "credentials", "api-key", "api_key", "token", "tokens"}
+# A lease belongs to the running process, not to recoverable analyst state.
+# Match its complete runtime path so similarly named records/history survive.
+EPHEMERAL_RUNTIME_PATHS = frozenset({"inbox/operations/collection.lock"})
 
 
 class RuntimeBackupError(RuntimeError):
@@ -48,6 +51,8 @@ def _safe_files(runtime_dir: Path) -> Iterable[tuple[Path, str]]:
             if not path.is_file() or path.is_symlink():
                 continue
             relative = path.relative_to(root).as_posix()
+            if relative in EPHEMERAL_RUNTIME_PATHS:
+                continue
             parts = PurePosixPath(relative).parts
             if any(_is_sensitive_component(part) for part in parts):
                 continue
@@ -220,13 +225,17 @@ def verify_backup(archive: Path) -> dict[str, Any]:
 
 def restore_backup(archive: Path, target_runtime_dir: Path, *, require_empty: bool = True) -> dict[str, Any]:
     manifest = verify_backup(archive)
+    # Older format-v1 backups included their own live lease. Verify its bytes
+    # above, but never recreate that process ownership in the recovery target.
+    entries = [entry for entry in manifest["files"] if entry["path"] not in EPHEMERAL_RUNTIME_PATHS]
+    skipped = [entry["path"] for entry in manifest["files"] if entry["path"] in EPHEMERAL_RUNTIME_PATHS]
     target = target_runtime_dir.resolve()
     if require_empty and target.exists() and any(target.iterdir()):
         raise RuntimeBackupError(f"restore target is not empty: {target}")
     target.mkdir(parents=True, exist_ok=True)
     with tarfile.open(archive, "r:gz") as tar:
         _, members = _validated_members(tar)
-        for entry in manifest["files"]:
+        for entry in entries:
             member = members[entry["path"]]
             destination = (target / Path(*PurePosixPath(entry["path"]).parts)).resolve()
             if target != destination and target not in destination.parents:
@@ -238,8 +247,12 @@ def restore_backup(archive: Path, target_runtime_dir: Path, *, require_empty: bo
             with destination.open("xb") as output:
                 output.write(source.read())
             destination.chmod(int(entry["mode"]))
-    for entry in manifest["files"]:
+    for entry in entries:
         restored = target / Path(*PurePosixPath(entry["path"]).parts)
         if _sha256(restored) != entry["sha256"]:
             raise RuntimeBackupError(f"restore verification failed: {entry['path']}")
+    if skipped:
+        # files remains the immutable archive inventory; report the actual
+        # restored count separately rather than claiming the lease was copied.
+        return {**manifest, "restore": {"verified_files": len(entries), "skipped_ephemeral_paths": skipped}}
     return manifest

@@ -54,6 +54,8 @@ def test_berry_id_for_species_maps_real_cpvo_species_strings() -> None:
     assert berry_id_for_species("Fragaria x ananassa Duchesne ex Rozier") == "berry-strawberry"
     assert berry_id_for_species("Vaccinium corymbosum L.") == "berry-blueberry"
     assert berry_id_for_species("Rubus idaeus L.") == "berry-raspberry"
+    assert berry_id_for_species("Rubus occidentalis L.") == "berry-raspberry"
+    assert berry_id_for_species("Rubus subg. Rubus") == "berry-blackberry"
     assert berry_id_for_species("Gerbera L.") is None
     assert berry_id_for_species(None) is None
     assert berry_id_for_species("") is None
@@ -65,6 +67,37 @@ def test_canonical_filing_id_is_deterministic_and_distinguishes_office() -> None
     c = canonical_filing_id(20180001, "Bundessortenamt")
     assert a == b
     assert a != c
+
+
+def test_monitor_keeps_black_raspberry_and_blackberry_separate_without_overwriting_review(tmp_path):
+    data_dir, inbox = tmp_path / "data", tmp_path / "inbox"
+    folder = data_dir / "entities" / "varieties"
+    folder.mkdir(parents=True)
+    cases = [("Fixture black raspberry", "Rubus occidentalis L.", "berry-raspberry", 99000001),
+             ("Fixture blackberry", "Rubus subg. Rubus", "berry-blackberry", 99000002)]
+    for name, species, berry, number in cases:
+        (folder / f"variety-{number}.json").write_text(json.dumps({"id": f"variety-{number}",
+            "record_type": "entity", "entity_type": "variety", "name": name, "berry_ids": [berry], "status": "active"}))
+    canonical_before = {p.name: p.read_bytes() for p in folder.iterdir()}
+    def search(name):
+        case = next(c for c in cases if c[0] == name)
+        return [_row(denomination=name, speciesName=case[1], applicationNumber=case[3])]
+    first = run_cpvo_registry_monitor(data_dir=data_dir, inbox_dir=inbox, search=search)
+    assert len(first["created"]) == 2
+    drafts = {json.loads(p.read_text())["cpvo_filing"]["denomination"]: p for p in (inbox / "evidence").glob("*.json")}
+    for name, _, berry, _ in cases:
+        draft = json.loads(drafts[name].read_text())
+        assert draft["berry_ids"] == [berry]
+        assert draft["status"] == "draft" and draft["verification_state"] == "unverified" and not draft["validated"]
+    edited_path = drafts["Fixture black raspberry"]
+    edited = json.loads(edited_path.read_text())
+    edited["review_notes"] = "Operator correction and notes must survive rediscovery"
+    edited_path.write_text(json.dumps(edited))
+    before = edited_path.read_bytes()
+    second = run_cpvo_registry_monitor(data_dir=data_dir, inbox_dir=inbox, search=search)
+    assert second["created"] == [] and second["duplicates"] == 2
+    assert edited_path.read_bytes() == before
+    assert {p.name: p.read_bytes() for p in folder.iterdir()} == canonical_before
 
 
 def test_normalize_row_never_confuses_denomination_with_species() -> None:

@@ -1,0 +1,49 @@
+{
+  "scope": "Explicit supported-Article recall scoring only; synthetic controls; no acquisition or trust changes.",
+  "affected_tests": {
+    "passed": 54,
+    "warnings": 1,
+    "seconds": 4.77
+  },
+  "original_fixture_sha256": "f396b65542d20afcc7963a105cf12ac42d2a0351cc8a5c686a7d9b9b8f5fbac3",
+  "original_fixture_unchanged": true,
+  "original_fixture_summary": {
+    "cases": 24,
+    "cases_passed": 23,
+    "expected_name_occurrences": 64,
+    "detected_name_occurrences": 60,
+    "missed_name_occurrences": 4,
+    "fully_correct_name_occurrences": 60,
+    "returned_name_occurrences": 60,
+    "unexpected_name_occurrences": 0,
+    "unresolved_name_occurrences": 2,
+    "name_recall": 0.9375,
+    "name_precision": 1.0,
+    "errors": {
+      "name_missing": 4
+    }
+  },
+  "parent_fixture_comparison": "Exact text after Git CRLF/LF normalization; no Git diff; current raw SHA matches CLI input.",
+  "expected_names_required": true,
+  "unfinished_cli_expectations_emit_no_score": true,
+  "explicit_source_text_input_required": true,
+  "input_mutation_guard": "deepcopy",
+  "private_human_packet": {
+    "sources": 32,
+    "filled_expected_lists": 0,
+    "human_reviewers": 0,
+    "source_decisions": 0,
+    "recall_score": null,
+    "packet_sha256": "489bbf4b7a055b8d15b3b303bd49ae98afc248fc9ca078ee8063e749774a67e3"
+  },
+  "original_data_json_preserved": 2771,
+  "canonical_guide_unchanged": true,
+  "private_copy_payloads_and_real_pending_article_preserved": true,
+  "new_canonical_records": 0,
+  "model_calls": 0,
+  "qualification_markers_created": 0,
+  "local_static_rerun": false,
+  "reason": "Offline script and tests only; no rendering or app changes.",
+  "full_mission_complete": false,
+  "merge_or_deploy": false
+}

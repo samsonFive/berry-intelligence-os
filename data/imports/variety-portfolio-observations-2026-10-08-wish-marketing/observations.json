@@ -1,0 +1,498 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-wish-2019-blackberry-growers",
+      "title": "Wish Farms — historical grower blackberry announcement",
+      "url": "https://www.wishfarms.com/newsroom-item/wish-farms-anticipating-june-boom-for-blackberries/",
+      "company_ids": [
+        "company-wish-farms"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_newsroom",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Four named blackberries in a 2019 company announcement about its aligned growers; not a breeder portfolio or current growing confirmation.",
+      "limitations": "Keep the displayed publication date and differing article dateline separately. PrimeArk 45 spelling does not approve an alias for Prime-Ark 45. Shared farm/branch/fruit photos are not identified as individual varieties; do not assign them. Southeastern farm context does not establish every named variety's footprint. No legal status, breeder role, traits or current release inferred.",
+      "names": [
+        {
+          "candidate_name": "PrimeArk 45",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.wishfarms.com/newsroom-item/wish-farms-anticipating-june-boom-for-blackberries/",
+          "portfolio_context": "Named in a 2019 Wish Farms announcement about its aligned growers. This records historical supply context, not Wish Farms breeding ownership or current growing confirmation. The page displays 6 May 2019; its article dateline is 7 May 2019. Keep literal PrimeArk 45 spelling; an alias for Prime-Ark 45 still needs review."
+        },
+        {
+          "candidate_name": "Osage",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.wishfarms.com/newsroom-item/wish-farms-anticipating-june-boom-for-blackberries/",
+          "portfolio_context": "Named in a 2019 Wish Farms announcement about its aligned growers. This records historical supply context, not Wish Farms breeding ownership or current growing confirmation. The page displays 6 May 2019; its article dateline is 7 May 2019."
+        },
+        {
+          "candidate_name": "Ouachita",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.wishfarms.com/newsroom-item/wish-farms-anticipating-june-boom-for-blackberries/",
+          "portfolio_context": "Named in a 2019 Wish Farms announcement about its aligned growers. This records historical supply context, not Wish Farms breeding ownership or current growing confirmation. The page displays 6 May 2019; its article dateline is 7 May 2019."
+        },
+        {
+          "candidate_name": "Natchez",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.wishfarms.com/newsroom-item/wish-farms-anticipating-june-boom-for-blackberries/",
+          "portfolio_context": "Named in a 2019 Wish Farms announcement about its aligned growers. This records historical supply context, not Wish Farms breeding ownership or current growing confirmation. The page displays 6 May 2019; its article dateline is 7 May 2019."
+        }
+      ],
+      "capture_reference": {
+        "method": "complete_original_primary_article_and_native_browser_body_review",
+        "article_dateline": "2019-05-07"
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": []
+      },
+      "published_date": "2019-05-06"
+    },
+    {
+      "id": "portfolio-gap-wish-misty-redirect",
+      "title": "Wish Farms — older grower page now redirects",
+      "url": "https://www.wishfarms.com/our-growers/misty-ranch/",
+      "company_ids": [
+        "company-wish-farms"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "grower_profile",
+      "capture_status": "unreadable",
+      "enumerated_scope": "Older Misty Ranch URL redirects to the generic growers page. Its old named-variety body is no longer available at the original link.",
+      "limitations": "The search cache still exposes an older grower list, but the original URL now redirects to a generic current growers page without those names. Do not import cached names or its claimed Pink-A-Boo/Pearl equivalence as a verified current source. No zero-portfolio claim.",
+      "names": [],
+      "capture_reference": {
+        "method": "native_browser_redirect_and_complete_current_body_review",
+        "resolved_url": "https://wishfarms.com/our-growers/",
+        "cached_identity_leads_only": [
+          "Monterey",
+          "Cabrillo",
+          "Frontera",
+          "Florida Beauty",
+          "Pink-A-Boo Pineberries",
+          "Pearl",
+          "PrimeArk45",
+          "Kwanzaa",
+          "Kweli",
+          "Rafiki"
+        ]
+      },
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-gap-wish-2026-caneberry-pipeline",
+      "title": "Wish Farms — unnamed caneberry trial pipeline",
+      "url": "https://wishfarms.com/from-trial-plot-to-consumer-how-berry-sweet-researchs-new-caneberry-genetics-are-built-for-todays-supply-chain/",
+      "company_ids": [
+        "company-wish-farms"
+      ],
+      "berry_ids": [
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_newsroom",
+      "capture_status": "partial",
+      "enumerated_scope": "Company-reported raspberry/blackberry trial pipeline; no named release or selection codes disclosed.",
+      "limitations": "Three leading raspberry selections and two standout blackberry selections remain unnamed. Breeding-program company, people, trial locations, metrics and claimed improvements do not become cultivar identities, traits, approved roles or growing footprints. No invented selection labels.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_primary_article_body_review"
+      },
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "published_date": "2026-04-09"
+    },
+    {
+      "id": "portfolio-gap-gempack-current-crops",
+      "title": "Gem-Pack — current berry product categories",
+      "url": "https://www.gem-packberries.com/en/gems",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Product/crop labels checked; no literal cultivar list disclosed.",
+      "limitations": "Crop sections and generic nutrition/season images disclose no cultivar denominations. Follow the original product catalog separately; no generic crop photo assigned to a variety.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_primary_web_body_review_and_visible_product_catalog_link_followed"
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "Strawberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Blueberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Raspberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Blackberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gap-gempack-packaging-catalog",
+      "title": "Gem-Pack — original packaging catalog",
+      "url": "https://api.gem-packberries.com/wp-content/uploads/2024/02/product-catalog.pdf",
+      "company_ids": [
+        "company-gem-pack-berries"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Five distinct LABEL entries checked across 36 packaging/SKU rows in the complete one-page catalog. LABEL entries describe brands and packs, not cultivar denominations.",
+      "limitations": "Brand labels, pack types, UPC/GTINs and retail units are not cultivars. The printed January 2024 update is a revision, not a verified publication date. No named variety photos or rights established.",
+      "names": [],
+      "capture_reference": {
+        "method": "original_pdf_text_and_complete_page_visual_review",
+        "sha256": "51bd8acd51f4d2e6fa3562c7f6ca7ec68a9dcf47847d3d6ccfeb944a7a35d92b",
+        "page_count": 1,
+        "visually_checked_pages": [
+          1
+        ],
+        "sheet_revision": "Last Updated Jan 2024",
+        "publication_date_verified": false,
+        "packaging_rows": 36
+      },
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": [
+          {
+            "label": "Gem-Pack Berries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Mainland",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Fresh",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Red Blossom",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Winter Frost",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gap-surexport-current-brands",
+      "title": "Surexport — current brands and crop categories",
+      "url": "https://surexport.es/en/",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Product/crop labels checked; no literal cultivar list disclosed.",
+      "limitations": "Two labels are explicitly brands and four headings are crop categories. Unique/proprietary claims do not disclose cultivar denominations. No invented identity or company breeding/rights approval.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_primary_web_body_review"
+      },
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "Doñarosa",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Berry Sensations",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Strawberry",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Raspberry",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Blueberry",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Blackberry",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gap-surexport-research",
+      "title": "Surexport — research page without named varieties",
+      "url": "https://surexport.es/en/quality/research-development/",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Primary page reviewed; named-variety coverage remains incomplete.",
+      "limitations": "General research and North American scientist collaboration statements do not identify any cultivar or breeder, and are not a completed company portfolio.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_primary_web_body_review"
+      },
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-gap-surexport-blueberry",
+      "title": "Surexport — blueberry product page",
+      "url": "https://surexport.es/en/products/blueberry/",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Primary page reviewed; named-variety coverage remains incomplete.",
+      "limitations": "Generic crop page discusses selected varieties without naming them; nutrition and quality language is not approved cultivar data.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_primary_web_body_review"
+      },
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-gap-surexport-blackberry",
+      "title": "Surexport — blackberry product page",
+      "url": "https://surexport.es/en/products/blackberry/",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Primary page reviewed; named-variety coverage remains incomplete.",
+      "limitations": "Proprietary-variety claim without a denomination; do not infer releases, traits or rights. Native follow-up resolved raspberry and strawberry web-reader timeouts; those pages remain partial for cultivar identities.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_primary_web_body_review"
+      },
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-gap-perfection-current-crops",
+      "title": "Perfection Fresh — marketed berry product categories",
+      "url": "https://www.perfection.com.au/perfection-berries",
+      "company_ids": [
+        "company-perfection-fresh"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Product/crop labels checked; no literal cultivar list disclosed.",
+      "limitations": "Four marketed crop categories disclose no literal cultivar denominations; general quality, nutrition and country claims do not identify cultivars or approve traits/regions.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_primary_web_body_review"
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "Perfection Raspberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Perfection Blueberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Perfection Strawberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Perfection Blackberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gap-perfection-raspberry",
+      "title": "Perfection Fresh — unnamed exclusive raspberry product",
+      "url": "https://www.perfection.com.au/produce/perfection-raspberries",
+      "company_ids": [
+        "company-perfection-fresh"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Primary page reviewed; named-variety coverage remains incomplete.",
+      "limitations": "The old product page calls its product an exclusive unique variety but provides only Perfection Raspberries and Berry Perfection market labels. No denomination or identity inferred.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_primary_web_body_review"
+      },
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-gap-pairwise-blackberry-products",
+      "title": "Pairwise — blackberry trait product labels",
+      "url": "https://www.pairwise.com/collaborations-and-products",
+      "company_ids": [
+        "company-pairwise"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Product/crop labels checked; no literal cultivar list disclosed.",
+      "limitations": "Blackberry product trait labels do not disclose cultivar names or selection codes. Fulcrum is a gene-editing platform, not a variety. Pitless cherry, leafy greens and row crop partnerships are outside this berry-name scope. Tool/trait patent-family totals are not named cultivar patent references.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_primary_product_and_blackberry_sections_body_review"
+      },
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Seedless blackberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          },
+          {
+            "label": "Compact blackberries",
+            "reason": "Market label or crop/trait category, not a literal cultivar denomination."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-gap-surexport-raspberry",
+      "title": "Surexport — raspberry product page",
+      "url": "https://surexport.es/en/products/raspberry/",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Primary page reviewed; named-variety coverage remains incomplete.",
+      "limitations": "The native page is accessible, resolving the web-reader timeout, but its generic crop and proprietary-variety statements disclose no cultivar names or codes. No zero-portfolio claim, traits, rights or generic-photo assignment.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_native_browser_body_review"
+      },
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-gap-surexport-strawberry",
+      "title": "Surexport — strawberry product page",
+      "url": "https://surexport.es/en/products/strawberry/",
+      "company_ids": [
+        "company-surexport"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "company_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Primary page reviewed; named-variety coverage remains incomplete.",
+      "limitations": "The native page is accessible, resolving the web-reader timeout, but its generic crop and proprietary-variety statements disclose no cultivar names or codes. No zero-portfolio claim, traits, rights or generic-photo assignment.",
+      "names": [],
+      "capture_reference": {
+        "method": "complete_original_native_browser_body_review"
+      },
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,256 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-cbc-visible-cultivars",
+      "title": "California Berry Cultivars - visible cultivar index and product pages",
+      "url": "https://cultivars.cbcberry.com/",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "All eleven indexed product labels in the unfiltered English Home view, each checked on its individual product page.",
+      "limitations": "The company homepage says 12+ cultivars. Eleven visible products do not account for that minimum or its lifetime portfolio. Comparison names, traits, trials and growing regions are separate unreviewed context. No aliases, release dates, rights, company roles or photos are approved. Comparator labels Monterey, Cabrillo, Fronteras, Portola, Ruby June, San andreas and Bounty are not counted as CBC products.",
+      "names": [
+        {
+          "candidate_name": "Alturas",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/alturas",
+          "portfolio_context": "Publisher description: Premium day-neutral strawberry. Marketing claim, not an approved trait."
+        },
+        {
+          "candidate_name": "Adelanto",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/adelanto",
+          "portfolio_context": "Publisher description: Ultra-early short-day strawberry. Marketing claim, not an approved trait."
+        },
+        {
+          "candidate_name": "Alhambra",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/alhambra",
+          "portfolio_context": "Publisher description: Premium summer-plant day-neutral strawberry. Marketing claim, not an approved trait."
+        },
+        {
+          "candidate_name": "Artesia",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/artesia",
+          "portfolio_context": "Publisher description: Premium organic day-neutral strawberry. Marketing claim, not an approved trait."
+        },
+        {
+          "candidate_name": "Belvedere",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/belvedere",
+          "portfolio_context": "Publisher description: Early yielding excellence. Marketing claim, not an approved trait."
+        },
+        {
+          "candidate_name": "Brisbane",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/brisbane",
+          "portfolio_context": "Publisher description: Moderate day-neutral with excellent appearance and superior taste. Marketing claim, not an approved trait."
+        },
+        {
+          "candidate_name": "Castaic",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/castaic",
+          "portfolio_context": "Publisher description: High-yielding short-day leader. Marketing claim, not an approved trait."
+        },
+        {
+          "candidate_name": "Carpinteria",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/carpinteria",
+          "portfolio_context": "Publisher description: High-yielding day-neutral with superior disease resistance. Marketing claim, not an approved trait."
+        },
+        {
+          "candidate_name": "Sweet Carolina",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/sweet-carolina",
+          "portfolio_context": "Publisher description: Early-yielding day-neutral with strong disease resistance. Marketing claim, not an approved trait."
+        },
+        {
+          "candidate_name": "Dunsmuir",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/dunsmuir",
+          "portfolio_context": "Publisher description: High-yield Fusarium-resistant short-day strawberry. Marketing claim, not an approved trait."
+        },
+        {
+          "candidate_name": "Elcano",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://cultivars.cbcberry.com/elcano",
+          "portfolio_context": "Publisher description: Large fruit, high firmness short-day strawberry. Marketing claim, not an approved trait. Product text pairs Elcano with CBC027; identity awaits review.",
+          "breeder_code": "CBC027",
+          "trade_name": "Elcano"
+        }
+      ],
+      "accounting": {
+        "observed_items": 11,
+        "reported_items": 12,
+        "reported_scope": "minimum cultivars (homepage states 12+)",
+        "exclusions": []
+      }
+    },
+    {
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-angus-soft-fruits"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-raspberry"
+      ],
+      "source_type": "breeder_catalog",
+      "id": "portfolio-ava-named-varieties",
+      "title": "AVA Berries - named strawberry and raspberry list",
+      "url": "https://www.avaberries.com/varieties/",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The named Varieties page: five strawberry labels and two raspberry labels. This accounts for this page only.",
+      "limitations": "Not a complete lifetime release list. Dalicia, Dalacia and Alicia spellings disagree across publisher pages; no aliases, release dates, traits, growing regions, rights or photos are approved. Technical sheets are separately checked leads, not rights grants.",
+      "names": [
+        {
+          "candidate_name": "AVA Dalicia",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.avaberries.com/varieties/",
+          "portfolio_context": "Literal label in the named berry section; marketed name, identity and company role remain unreviewed. Angus carousel says AVA Dalacia; AVA breeding text says AVA Alicia. Do not accept these as aliases without a human identity check."
+        },
+        {
+          "candidate_name": "AVA Catalina",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.avaberries.com/varieties/",
+          "portfolio_context": "Literal label in the named berry section; marketed name, identity and company role remain unreviewed."
+        },
+        {
+          "candidate_name": "AVA Blush",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.avaberries.com/varieties/",
+          "portfolio_context": "Literal label in the named berry section; marketed name, identity and company role remain unreviewed."
+        },
+        {
+          "candidate_name": "AVA Star",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.avaberries.com/varieties/",
+          "portfolio_context": "Literal label in the named berry section; marketed name, identity and company role remain unreviewed."
+        },
+        {
+          "candidate_name": "AVA Rosa",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.avaberries.com/varieties/",
+          "portfolio_context": "Literal label in the named berry section; marketed name, identity and company role remain unreviewed."
+        },
+        {
+          "candidate_name": "AVA Dali",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.avaberries.com/varieties/",
+          "portfolio_context": "Literal label in the named berry section; marketed name, identity and company role remain unreviewed."
+        },
+        {
+          "candidate_name": "AVA Monet",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.avaberries.com/varieties/",
+          "portfolio_context": "Literal label in the named berry section; marketed name, identity and company role remain unreviewed."
+        }
+      ],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": []
+      }
+    },
+    {
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-angus-soft-fruits"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-raspberry"
+      ],
+      "source_type": "breeder_catalog",
+      "id": "portfolio-angus-ava-carousel",
+      "title": "Angus Soft Fruits - AVA visual variety carousel",
+      "url": "https://www.angussoftfruits.co.uk/breeding/",
+      "capture_status": "partial",
+      "enumerated_scope": "Seven visual labels, including first, middle and final slide groups; Next was disabled at the final group. Six labels have separately explicit berry sections on the linked AVA Varieties page.",
+      "limitations": "The seventh label AVA Dalacia has no independently established berry/identity in this carousel. AVA Dalicia and AVA Alicia are separate literal labels, not approved aliases. Homepage Magnum is outside this carousel and has unresolved crop/current-release scope. Brand graphics are not fruit photos and reuse is not established.",
+      "names": [
+        {
+          "candidate_name": "AVA Monet",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Exact carousel label also present in the berry-specific section of https://www.avaberries.com/varieties/; identity and company role remain unreviewed."
+        },
+        {
+          "candidate_name": "AVA Dali",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Exact carousel label also present in the berry-specific section of https://www.avaberries.com/varieties/; identity and company role remain unreviewed."
+        },
+        {
+          "candidate_name": "AVA Catalina",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Exact carousel label also present in the berry-specific section of https://www.avaberries.com/varieties/; identity and company role remain unreviewed."
+        },
+        {
+          "candidate_name": "AVA Star",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Exact carousel label also present in the berry-specific section of https://www.avaberries.com/varieties/; identity and company role remain unreviewed."
+        },
+        {
+          "candidate_name": "AVA Rosa",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Exact carousel label also present in the berry-specific section of https://www.avaberries.com/varieties/; identity and company role remain unreviewed."
+        },
+        {
+          "candidate_name": "AVA Blush",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Exact carousel label also present in the berry-specific section of https://www.avaberries.com/varieties/; identity and company role remain unreviewed."
+        }
+      ],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [
+          {
+            "label": "AVA Dalacia",
+            "reason": "Visual label only: crop and identity unresolved. Do not equate with AVA Dalicia or AVA Alicia.",
+            "url": "https://www.angussoftfruits.co.uk/breeding/"
+          }
+        ]
+      },
+      "company_site_note": {
+        "company_id": "company-angus-soft-fruits",
+        "stored_url": "https://www.angussoftfruits.com/",
+        "suggested_url": "https://www.angussoftfruits.co.uk/",
+        "reference_url": "https://www.angussoftfruits.co.uk/breeding/",
+        "reason": "Stored .com site timed out; the accessible official Angus .co.uk breeding page links to the AVA program. Suggestion only; preserve analyst website edits."
+      }
+    },
+    {
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-angus-soft-fruits"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "id": "portfolio-ava-breeding-alicia-label",
+      "title": "AVA Berries - additional Alicia spelling in breeding text",
+      "url": "https://www.avaberries.com/breeding/",
+      "capture_status": "partial",
+      "enumerated_scope": "One additional literal spelling in the short-day strawberry paragraph. Other named labels on this page are already represented in the separate Varieties-page observation.",
+      "limitations": "AVA Alicia is retained separately from AVA Dalicia and the carousel AVA Dalacia. The dated marketing paragraph is not an independently verified release date, identity, trait or growing footprint.",
+      "names": [
+        {
+          "candidate_name": "AVA Alicia",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.avaberries.com/breeding/",
+          "portfolio_context": "Literal name in the short-day strawberry paragraph. Identity/spelling discrepancy with AVA Dalicia and AVA Dalacia remains unresolved."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-cbc-resource-september-alturas-2026",
+      "title": "CBC — Alturas 2026 district comparison",
+      "url": "https://www.cbcberry.com/docs/resources/2026/fall-updates/Alturas26District_EN.pdf",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_program_report",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The complete one-page season update; one literal cultivar name. District averages, shipper reports and company trials use different denominators.",
+      "limitations": "Shipper reports, trial results and district-average denominators differ; estimated weekly series and organic split are not independently verified market share. No exact publication day printed; September context comes from the Resources index. Bounded document only; no complete company portfolio, rights, traits, nursery roles or growing region approved. No publication day inferred from event/season or URL. No poster graphics imported as cultivar photographs.",
+      "names": [
+        {
+          "candidate_name": "Alturas",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/fall-updates/Alturas26District_EN.pdf",
+          "portfolio_context": "Alturas is named in the 2026 season update. The 20% acreage / 28% trays and 1.56x figures are publisher comparisons, not independently verified market share or a universal yield trait."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_document_complete_visual_review",
+        "sha256": "0f36ce3e670fa91ca018f2c845a7a07fdefec68e5536ddddf670937a1768d7af",
+        "bytes": 454748,
+        "all_pages_read": true,
+        "pages": 1,
+        "visually_checked_pages": [
+          1
+        ]
+      },
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-cbc-resource-oxnard-cultivars-2026",
+      "title": "CBC — Oxnard cultivar field-day poster, 2026",
+      "url": "https://www.cbcberry.com/docs/resources/2026/oxnard-mar/Ox26FldDayPst_EN.jpeg",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_program_report",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The complete original cultivar poster; three named CBC cultivars and the separately accounted outside comparator Fronteras.",
+      "limitations": "Trial years, grower acreage, nursery availability and resistance are publisher claims. Logos, banners and QR are not named fruit photographs. No exact publication day printed. Bounded document only; no complete company portfolio, rights, traits, nursery roles or growing region approved. No publication day inferred from event/season or URL. No poster graphics imported as cultivar photographs.",
+      "names": [
+        {
+          "candidate_name": "Adelanto",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/oxnard-mar/Ox26FldDayPst_EN.jpeg",
+          "portfolio_context": "Named cultivar in the original Oxnard poster. Plot trials and grower reports have different years, protocols and acreage. Performance, planting guidance, availability and nursery claims remain unreviewed."
+        },
+        {
+          "candidate_name": "Belvedere",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/oxnard-mar/Ox26FldDayPst_EN.jpeg",
+          "portfolio_context": "Named cultivar in the original Oxnard poster. Plot trials and grower reports have different years, protocols and acreage. Performance, planting guidance, availability and nursery claims remain unreviewed."
+        },
+        {
+          "candidate_name": "Castaic",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/oxnard-mar/Ox26FldDayPst_EN.jpeg",
+          "portfolio_context": "Named cultivar in the original Oxnard poster. Plot trials and grower reports have different years, protocols and acreage. Performance, planting guidance, availability and nursery claims remain unreviewed."
+        }
+      ],
+      "capture_reference": {
+        "method": "original_document_complete_visual_review",
+        "sha256": "76a3125ff01a5812dc07fbbab8dff74613d4555591d8b790b778ca99566eebff",
+        "bytes": 1452451,
+        "all_pages_read": true,
+        "width": 2250,
+        "height": 3000
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "Fronteras",
+            "reason": "Outside comparator, not a CBC-owned cultivar."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-cbc-resource-oxnard-grower-codes-2026",
+      "title": "CBC — Oxnard grower selection trials, 2026",
+      "url": "https://www.cbcberry.com/docs/resources/2026/oxnard-mar/Ox26GwrPst_EN.jpeg",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_program_report",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The complete original grower-trial poster; four literal field codes, not commercial cultivar names. Logo, sponsor and QR graphics are not variety photographs.",
+      "limitations": "Poster uses field codes only; mapping to Dunsmuir/CBC029, CBC030, CBC045 and CBC043 is in separate May handout and not approved. Keep trial protocols/years and grower value estimates separate; no current footprint, commercial release or photo inferred. Bounded document only; no complete company portfolio, rights, traits, nursery roles or growing region approved. No publication day inferred from event/season or URL. No poster graphics imported as cultivar photographs.",
+      "names": [
+        {
+          "candidate_name": "118.060-601",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/oxnard-mar/Ox26GwrPst_EN.jpeg",
+          "portfolio_context": "Literal field code in the Oxnard grower-trial poster. Grower-reported December 2025–February 2026 production and replicated company plots are separate comparisons; estimated value is not actual revenue. This poster does not name a cultivar or approve commercial release. The separate May handout pairs this code with Dunsmuir / CBC029; this poster prints only the field code. Check both originals before combining identities.",
+          "breeder_code": "118.060-601"
+        },
+        {
+          "candidate_name": "118.066-601",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/oxnard-mar/Ox26GwrPst_EN.jpeg",
+          "portfolio_context": "Literal field code in the Oxnard grower-trial poster. Grower-reported December 2025–February 2026 production and replicated company plots are separate comparisons; estimated value is not actual revenue. This poster does not name a cultivar or approve commercial release. The separate May handout pairs this code with CBC030; this poster prints only the field code. Check both originals before combining identities.",
+          "breeder_code": "118.066-601"
+        },
+        {
+          "candidate_name": "121.008-601",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/oxnard-mar/Ox26GwrPst_EN.jpeg",
+          "portfolio_context": "Literal field code in the Oxnard grower-trial poster. Grower-reported December 2025–February 2026 production and replicated company plots are separate comparisons; estimated value is not actual revenue. This poster does not name a cultivar or approve commercial release. The separate May handout pairs this code with CBC045; this poster prints only the field code. Check both originals before combining identities.",
+          "breeder_code": "121.008-601"
+        },
+        {
+          "candidate_name": "121.257-605",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.cbcberry.com/docs/resources/2026/oxnard-mar/Ox26GwrPst_EN.jpeg",
+          "portfolio_context": "Literal field code in the Oxnard grower-trial poster. Grower-reported December 2025–February 2026 production and replicated company plots are separate comparisons; estimated value is not actual revenue. This poster does not name a cultivar or approve commercial release. The separate May handout pairs this code with CBC043; this poster prints only the field code. Check both originals before combining identities.",
+          "breeder_code": "121.257-605"
+        }
+      ],
+      "capture_reference": {
+        "method": "original_document_complete_visual_review",
+        "sha256": "53f793cbc5a7e087b44696c74f5d5fd97e53c673c605e6cbb6ac7f2af9989c55",
+        "bytes": 1668346,
+        "all_pages_read": true,
+        "width": 3000,
+        "height": 3000
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": []
+      }
+    }
+  ]
+}

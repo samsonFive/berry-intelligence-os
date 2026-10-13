@@ -1,0 +1,106 @@
+{
+  "summary": {
+    "source_sections": 378,
+    "readable_sections": 274,
+    "unreadable_sections": 14,
+    "follow_up_sections": 118,
+    "names": 1549,
+    "catalog_matches": 88,
+    "needs_review": 1461,
+    "registry_entries": 77,
+    "registry_entries_checked": 60,
+    "registry_entries_partial_checks": 14,
+    "registry_entries_unavailable": 1,
+    "registry_entries_not_started": 0,
+    "registry_entries_identity_hold": 2
+  },
+  "candidate_counts": {
+    "stored_source_candidates": 63,
+    "combined_candidates": 1124,
+    "additional_primary_portfolio_candidates": 1061
+  },
+  "original_document": {
+    "url": "https://patentimages.storage.googleapis.com/73/02/f2/e85c5faf790f1a/USPP33784.pdf",
+    "sha256": "c64256350cc8221a8ab2d5e5d5a414f304dbeaa6d8a2f7664c1a039d5d7f73c2",
+    "page_count": 7,
+    "visually_reviewed_pages": [
+      1,
+      2,
+      3,
+      4,
+      6
+    ]
+  },
+  "verification": {
+    "targeted_tests": {
+      "passed": 52,
+      "warnings": 1,
+      "seconds": 60.76
+    },
+    "initial_run": {
+      "passed": 51,
+      "failed": 1,
+      "reason": "Manifest total and strawberry denominator predated five new observations"
+    },
+    "record_validation": "passed",
+    "static_pages": 1755,
+    "pagefind": "passed",
+    "all_html_new_private_markers_absent": true,
+    "checked_markers": [
+      "portfolio-rutgers-original-grant-nj09-2-1",
+      "portfolio-rutgers-original-grant-historical-mentions",
+      "patents.google.com/patent/USPP33784P2",
+      "e85c5faf790f1a/USPP33784.pdf",
+      "NJ6-13-1",
+      "NJ03-232-2"
+    ],
+    "all_31_requirement_ids_and_order_preserved": true,
+    "prior_head_data_files_preserved": 2830,
+    "original_canonical_json_preserved": 2771,
+    "canonical_expansion_guide_preserved": true,
+    "pending_copies_preserved": 32,
+    "source_decisions_created": 0,
+    "pending_draft_sha256": "deb45f2e3836c96e5f3fb13abaf9dc15c86930f1a0a9cb495f347a033cf822e4"
+  },
+  "native_browser": {
+    "tab": 62,
+    "port": 18575,
+    "rutgers_matches": 6,
+    "candidate_total": 1124,
+    "original_claim_visible": true,
+    "original_register_reference_preserved": true,
+    "trade_name_visible": true,
+    "possible_canonical_match_visible": true,
+    "applicant_breeder_unassigned": true,
+    "submitted_review_forms": 0,
+    "screenshot": "queue-claim-and-alias-review.png"
+  },
+  "canonical_varieties": 64,
+  "photo_references": 122,
+  "new_reuse_approvals": 0,
+  "new_canonical_records": 0,
+  "new_aliases": 0,
+  "new_roles": 0,
+  "current_legal_status_verified": false,
+  "full_goal_remaining": [
+    "CAT-01",
+    "CAT-02",
+    "TD-116",
+    "LAND-02",
+    "REL-01",
+    "actual phone verification"
+  ],
+  "fresh_new_head_checks_required": true,
+  "merge_or_deploy": false,
+  "parent_387": {
+    "head": "04768b44282f141274c6f0d41d8eb0fd25e04291",
+    "all_four": "SUCCESS",
+    "python_tests": {
+      "passed": 4591,
+      "skipped": 11,
+      "warnings": 2,
+      "seconds": 938.87
+    }
+  },
+  "parent_388": "FULL_SUITE_PENDING"
+}

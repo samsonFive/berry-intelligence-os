@@ -1,0 +1,828 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-berriesoeste-original-current-menu",
+      "title": "Berries del Oeste — original current variety menu",
+      "url": "https://www.berriesdeloeste.com/",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete expanded named-variety menu, all seven linked profiles, original homepage and family-label exclusions.",
+      "limitations": "Bounded original current-menu/profile/brochure review, not a complete historical or worldwide portfolio. Marketing performance, resistance, taste, postharvest and organic-suitability wording remains unreviewed company claims. No approved traits, growing region, company role, release/publication date or current legal status inferred. Upload paths and trademark symbols do not establish dates or plant-rights grants.",
+      "names": [
+        {
+          "candidate_name": "Aurea",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/aurea/",
+          "portfolio_context": "Named strawberry in the original current menu; linked individual description checked. Source listing is not a reviewed company role or catalog identity."
+        },
+        {
+          "candidate_name": "Arwen",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/arwen/",
+          "portfolio_context": "Named strawberry in the original current menu; linked individual description checked. Source listing is not a reviewed company role or catalog identity."
+        },
+        {
+          "candidate_name": "Jacqueline",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/jacqueline/",
+          "portfolio_context": "Named strawberry in the original current menu; linked individual description checked. Source listing is not a reviewed company role or catalog identity."
+        },
+        {
+          "candidate_name": "Mérida",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/merida/",
+          "portfolio_context": "Named strawberry in the original current menu; linked individual description checked. Source listing is not a reviewed company role or catalog identity."
+        },
+        {
+          "candidate_name": "Inás",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/inas/",
+          "portfolio_context": "Named strawberry in the original current menu; linked individual description checked. Source listing is not a reviewed company role or catalog identity."
+        },
+        {
+          "candidate_name": "Lourdesa",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/lourdesa/",
+          "portfolio_context": "Named strawberry in the original current menu; linked individual description checked. Source listing is not a reviewed company role or catalog identity."
+        },
+        {
+          "candidate_name": "Cibeles",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/cibeles/",
+          "portfolio_context": "Named strawberry in the original current menu; linked individual description checked. Source listing is not a reviewed company role or catalog identity."
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": [
+          {
+            "label": "Esenzia Savour",
+            "reason": "Original source calls this a strawberry family, not a separate cultivar."
+          },
+          {
+            "label": "Iguazú Savour",
+            "reason": "Homepage/family-gallery marketing group; not a separate named cultivar."
+          },
+          {
+            "label": "Iguazú",
+            "reason": "Mérida and Inás descriptions explicitly call it a flavor group, not another variety."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "complete_original_native_page_and_expanded_menu",
+        "linked_variety_pages_read": 7,
+        "family_context_url": "https://www.berriesdeloeste.com/esenzia-savour/",
+        "homepage_aurea_card_label_issue": "Homepage Aurea brochure URL has a Lourdesa download label; destination original names Áurea. Neither is assigned to Lourdesa.",
+        "photo_table_spelling_note": "The original photo appears to read Awen; existing saved operator transcription reads Arwen. Original profiles/brochures read Arwen. No alias or stored spelling is changed."
+      }
+    },
+    {
+      "id": "portfolio-berriesoeste-original-aurea-profile",
+      "title": "Berries del Oeste — Aurea original profile",
+      "url": "https://www.berriesdeloeste.com/aurea/",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original individual strawberry page; named gallery and all source-described sections read.",
+      "limitations": "Bounded original current-menu/profile/brochure review, not a complete historical or worldwide portfolio. Marketing performance, resistance, taste, postharvest and organic-suitability wording remains unreviewed company claims. No approved traits, growing region, company role, release/publication date or current legal status inferred. Upload paths and trademark symbols do not establish dates or plant-rights grants.",
+      "names": [
+        {
+          "candidate_name": "Aurea",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/aurea/",
+          "portfolio_context": "Original named strawberry profile describes plant, production and fruit characteristics as company assertions. Images are explicitly labeled with this source name; attribution and permission remain separate. Brochures print Áurea; website prints Aurea. Original spellings remain in their source references; no alias approval. ",
+          "photos": [
+            {
+              "named_variety": "Aurea",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2026/10/aurea-01.jpg",
+              "source_url": "https://www.berriesdeloeste.com/aurea/",
+              "credit": "Berries del Oeste — original Aurea photo gallery; photographer not individually credited",
+              "caption": "Aurea fruit photograph in the original named variety gallery, image 1.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Aurea",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2026/10/aurea-02-1.jpg",
+              "source_url": "https://www.berriesdeloeste.com/aurea/",
+              "credit": "Berries del Oeste — original Aurea photo gallery; photographer not individually credited",
+              "caption": "Aurea fruit photograph in the original named variety gallery, image 2.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Aurea",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2026/10/aurea-03.jpg",
+              "source_url": "https://www.berriesdeloeste.com/aurea/",
+              "credit": "Berries del Oeste — original Aurea photo gallery; photographer not individually credited",
+              "caption": "Aurea fruit photograph in the original named variety gallery, image 3.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "complete_original_native_page_and_gallery",
+        "named_gallery_images": 3,
+        "content_sha256": "52103ac8bdddcfbc45d301d7e024dfe6152aaf7a647a3da6f4e584ef44b53245",
+        "photo_reuse_verified": false
+      }
+    },
+    {
+      "id": "portfolio-berriesoeste-original-arwen-profile",
+      "title": "Berries del Oeste — Arwen original profile",
+      "url": "https://www.berriesdeloeste.com/arwen/",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original individual strawberry page; named gallery and all source-described sections read.",
+      "limitations": "Bounded original current-menu/profile/brochure review, not a complete historical or worldwide portfolio. Marketing performance, resistance, taste, postharvest and organic-suitability wording remains unreviewed company claims. No approved traits, growing region, company role, release/publication date or current legal status inferred. Upload paths and trademark symbols do not establish dates or plant-rights grants.",
+      "names": [
+        {
+          "candidate_name": "Arwen",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/arwen/",
+          "portfolio_context": "Original named strawberry profile describes plant, production and fruit characteristics as company assertions. Images are explicitly labeled with this source name; attribution and permission remain separate. ",
+          "photos": [
+            {
+              "named_variety": "Arwen",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-arwen-052.jpg",
+              "source_url": "https://www.berriesdeloeste.com/arwen/",
+              "credit": "Berries del Oeste — original Arwen photo gallery; photographer not individually credited",
+              "caption": "Arwen fruit photograph in the original named variety gallery, image 1.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Arwen",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-arwen-002.jpg",
+              "source_url": "https://www.berriesdeloeste.com/arwen/",
+              "credit": "Berries del Oeste — original Arwen photo gallery; photographer not individually credited",
+              "caption": "Arwen fruit photograph in the original named variety gallery, image 2.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Arwen",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-arwen-049.jpg",
+              "source_url": "https://www.berriesdeloeste.com/arwen/",
+              "credit": "Berries del Oeste — original Arwen photo gallery; photographer not individually credited",
+              "caption": "Arwen fruit photograph in the original named variety gallery, image 3.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "complete_original_native_page_and_gallery",
+        "named_gallery_images": 3,
+        "content_sha256": "b5d463269a4926cc14e187024933333b991f3d38fe1cec3ad1fa7fbfc97210fe",
+        "photo_reuse_verified": false
+      }
+    },
+    {
+      "id": "portfolio-berriesoeste-original-jacqueline-profile",
+      "title": "Berries del Oeste — Jacqueline original profile",
+      "url": "https://www.berriesdeloeste.com/jacqueline/",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original individual strawberry page; named gallery and all source-described sections read.",
+      "limitations": "Bounded original current-menu/profile/brochure review, not a complete historical or worldwide portfolio. Marketing performance, resistance, taste, postharvest and organic-suitability wording remains unreviewed company claims. No approved traits, growing region, company role, release/publication date or current legal status inferred. Upload paths and trademark symbols do not establish dates or plant-rights grants.",
+      "names": [
+        {
+          "candidate_name": "Jacqueline",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/jacqueline/",
+          "portfolio_context": "Original named strawberry profile describes plant, production and fruit characteristics as company assertions. Images are explicitly labeled with this source name; attribution and permission remain separate. ",
+          "photos": [
+            {
+              "named_variety": "Jacqueline",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-jacq-018.jpg",
+              "source_url": "https://www.berriesdeloeste.com/jacqueline/",
+              "credit": "Berries del Oeste — original Jacqueline photo gallery; photographer not individually credited",
+              "caption": "Jacqueline fruit photograph in the original named variety gallery, image 1.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Jacqueline",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-jacq-043.jpg",
+              "source_url": "https://www.berriesdeloeste.com/jacqueline/",
+              "credit": "Berries del Oeste — original Jacqueline photo gallery; photographer not individually credited",
+              "caption": "Jacqueline fruit photograph in the original named variety gallery, image 2.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Jacqueline",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-jacq-004.jpg",
+              "source_url": "https://www.berriesdeloeste.com/jacqueline/",
+              "credit": "Berries del Oeste — original Jacqueline photo gallery; photographer not individually credited",
+              "caption": "Jacqueline fruit photograph in the original named variety gallery, image 3.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "complete_original_native_page_and_gallery",
+        "named_gallery_images": 3,
+        "content_sha256": "b74b3ac81ecefa551a4883bfe73deafdc3da16b2a8e06c9b05843f0e574babba",
+        "photo_reuse_verified": false
+      }
+    },
+    {
+      "id": "portfolio-berriesoeste-original-merida-profile",
+      "title": "Berries del Oeste — Mérida original profile",
+      "url": "https://www.berriesdeloeste.com/merida/",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original individual strawberry page; named gallery and all source-described sections read.",
+      "limitations": "Bounded original current-menu/profile/brochure review, not a complete historical or worldwide portfolio. Marketing performance, resistance, taste, postharvest and organic-suitability wording remains unreviewed company claims. No approved traits, growing region, company role, release/publication date or current legal status inferred. Upload paths and trademark symbols do not establish dates or plant-rights grants.",
+      "names": [
+        {
+          "candidate_name": "Mérida",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/merida/",
+          "portfolio_context": "Original named strawberry profile describes plant, production and fruit characteristics as company assertions. Images are explicitly labeled with this source name; attribution and permission remain separate. ",
+          "photos": [
+            {
+              "named_variety": "Mérida",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-merida-013.jpg",
+              "source_url": "https://www.berriesdeloeste.com/merida/",
+              "credit": "Berries del Oeste — original Mérida photo gallery; photographer not individually credited",
+              "caption": "Mérida fruit photograph in the original named variety gallery, image 1.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Mérida",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-merida-046.jpg",
+              "source_url": "https://www.berriesdeloeste.com/merida/",
+              "credit": "Berries del Oeste — original Mérida photo gallery; photographer not individually credited",
+              "caption": "Mérida fruit photograph in the original named variety gallery, image 2.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Mérida",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-merida-023.jpg",
+              "source_url": "https://www.berriesdeloeste.com/merida/",
+              "credit": "Berries del Oeste — original Mérida photo gallery; photographer not individually credited",
+              "caption": "Mérida fruit photograph in the original named variety gallery, image 3.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "complete_original_native_page_and_gallery",
+        "named_gallery_images": 3,
+        "content_sha256": "fda9ddf9906a1721d95c113aaa7139de96ca4d8055240ad148bd17760d76572e",
+        "photo_reuse_verified": false
+      }
+    },
+    {
+      "id": "portfolio-berriesoeste-original-inas-profile",
+      "title": "Berries del Oeste — Inás original profile",
+      "url": "https://www.berriesdeloeste.com/inas/",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original individual strawberry page; named gallery and all source-described sections read.",
+      "limitations": "Bounded original current-menu/profile/brochure review, not a complete historical or worldwide portfolio. Marketing performance, resistance, taste, postharvest and organic-suitability wording remains unreviewed company claims. No approved traits, growing region, company role, release/publication date or current legal status inferred. Upload paths and trademark symbols do not establish dates or plant-rights grants.",
+      "names": [
+        {
+          "candidate_name": "Inás",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/inas/",
+          "portfolio_context": "Original named strawberry profile describes plant, production and fruit characteristics as company assertions. Images are explicitly labeled with this source name; attribution and permission remain separate. ",
+          "photos": [
+            {
+              "named_variety": "Inás",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-inas-023.jpg",
+              "source_url": "https://www.berriesdeloeste.com/inas/",
+              "credit": "Berries del Oeste — original Inás photo gallery; photographer not individually credited",
+              "caption": "Inás fruit photograph in the original named variety gallery, image 1.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Inás",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-inas-046.jpg",
+              "source_url": "https://www.berriesdeloeste.com/inas/",
+              "credit": "Berries del Oeste — original Inás photo gallery; photographer not individually credited",
+              "caption": "Inás fruit photograph in the original named variety gallery, image 2.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Inás",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-inas-006.jpg",
+              "source_url": "https://www.berriesdeloeste.com/inas/",
+              "credit": "Berries del Oeste — original Inás photo gallery; photographer not individually credited",
+              "caption": "Inás fruit photograph in the original named variety gallery, image 3.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "complete_original_native_page_and_gallery",
+        "named_gallery_images": 3,
+        "content_sha256": "1035bc81ab63ab9cc152b1e385c8a7090a625c00d2197ae506d333a2373c35f1",
+        "photo_reuse_verified": false
+      }
+    },
+    {
+      "id": "portfolio-berriesoeste-original-lourdesa-profile",
+      "title": "Berries del Oeste — Lourdesa original profile",
+      "url": "https://www.berriesdeloeste.com/lourdesa/",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original individual strawberry page; named gallery and all source-described sections read.",
+      "limitations": "Bounded original current-menu/profile/brochure review, not a complete historical or worldwide portfolio. Marketing performance, resistance, taste, postharvest and organic-suitability wording remains unreviewed company claims. No approved traits, growing region, company role, release/publication date or current legal status inferred. Upload paths and trademark symbols do not establish dates or plant-rights grants.",
+      "names": [
+        {
+          "candidate_name": "Lourdesa",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/lourdesa/",
+          "portfolio_context": "Original named strawberry profile describes plant, production and fruit characteristics as company assertions. Images are explicitly labeled with this source name; attribution and permission remain separate. ",
+          "photos": [
+            {
+              "named_variety": "Lourdesa",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-lourdesa-003.jpg",
+              "source_url": "https://www.berriesdeloeste.com/lourdesa/",
+              "credit": "Berries del Oeste — original Lourdesa photo gallery; photographer not individually credited",
+              "caption": "Lourdesa fruit photograph in the original named variety gallery, image 1.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Lourdesa",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-lourdesa-004.jpg",
+              "source_url": "https://www.berriesdeloeste.com/lourdesa/",
+              "credit": "Berries del Oeste — original Lourdesa photo gallery; photographer not individually credited",
+              "caption": "Lourdesa fruit photograph in the original named variety gallery, image 2.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Lourdesa",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2022/10/berries-lourdesa-005.jpg",
+              "source_url": "https://www.berriesdeloeste.com/lourdesa/",
+              "credit": "Berries del Oeste — original Lourdesa photo gallery; photographer not individually credited",
+              "caption": "Lourdesa fruit photograph in the original named variety gallery, image 3.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "complete_original_native_page_and_gallery",
+        "named_gallery_images": 3,
+        "content_sha256": "5ed5f8ed430539c1e320ae302a35ae51e81e0fa1d821ce6535ad9e69736e6ef8",
+        "photo_reuse_verified": false
+      }
+    },
+    {
+      "id": "portfolio-berriesoeste-original-cibeles-profile",
+      "title": "Berries del Oeste — Cibeles original profile",
+      "url": "https://www.berriesdeloeste.com/cibeles/",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Complete original individual strawberry page; named gallery and all source-described sections read.",
+      "limitations": "Bounded original current-menu/profile/brochure review, not a complete historical or worldwide portfolio. Marketing performance, resistance, taste, postharvest and organic-suitability wording remains unreviewed company claims. No approved traits, growing region, company role, release/publication date or current legal status inferred. Upload paths and trademark symbols do not establish dates or plant-rights grants.",
+      "names": [
+        {
+          "candidate_name": "Cibeles",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/cibeles/",
+          "portfolio_context": "Original named strawberry profile describes plant, production and fruit characteristics as company assertions. Images are explicitly labeled with this source name; attribution and permission remain separate. ",
+          "photos": [
+            {
+              "named_variety": "Cibeles",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2024/10/berries-cibeles-003.jpg",
+              "source_url": "https://www.berriesdeloeste.com/cibeles/",
+              "credit": "Berries del Oeste — original Cibeles photo gallery; photographer not individually credited",
+              "caption": "Cibeles fruit photograph in the original named variety gallery, image 1.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Cibeles",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2024/10/berries-cibeles-004.jpg",
+              "source_url": "https://www.berriesdeloeste.com/cibeles/",
+              "credit": "Berries del Oeste — original Cibeles photo gallery; photographer not individually credited",
+              "caption": "Cibeles fruit photograph in the original named variety gallery, image 2.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            },
+            {
+              "named_variety": "Cibeles",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "image_url": "https://www.berriesdeloeste.com/wp-content/uploads/2024/10/berries-cibeles-005.jpg",
+              "source_url": "https://www.berriesdeloeste.com/cibeles/",
+              "credit": "Berries del Oeste — original Cibeles photo gallery; photographer not individually credited",
+              "caption": "Cibeles fruit photograph in the original named variety gallery, image 3.",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-08",
+              "reuse_note": "Original named gallery, crop and exact linked assets visually checked. No reuse grant established; private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "complete_original_native_page_and_gallery",
+        "named_gallery_images": 3,
+        "content_sha256": "dc9aa53ca3c6903ee145cf9058693dfd5abc5ed51ef61b89a5052ec58d7ff3cc",
+        "photo_reuse_verified": false
+      }
+    },
+    {
+      "id": "portfolio-berriesoeste-original-arwen-home-brochure",
+      "title": "Berries del Oeste — Arwen original home-linked brochure",
+      "url": "https://www.berriesdeloeste.com/wp-content/uploads/2025/09/arwen-esp.pdf",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "technical_sheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Entire original 6-page strawberry brochure; all pages read and visually checked.",
+      "limitations": "Bounded original current-menu/profile/brochure review, not a complete historical or worldwide portfolio. Marketing performance, resistance, taste, postharvest and organic-suitability wording remains unreviewed company claims. No approved traits, growing region, company role, release/publication date or current legal status inferred. Upload paths and trademark symbols do not establish dates or plant-rights grants.",
+      "names": [
+        {
+          "candidate_name": "Arwen",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/wp-content/uploads/2025/09/arwen-esp.pdf",
+          "portfolio_context": "Original strawberry brochure prints Arwen. Named performance and fruit claims remain unreviewed. No publication/release date or plant-rights grant inferred from the asset path or trademark mark. "
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 6,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "sha256": "7eb90861292fa359aacf041400f6b371ce27a06a71c38586c98c312852f7706b",
+        "current_legal_status_verified": false,
+        "photo_reuse_verified": false
+      }
+    },
+    {
+      "id": "portfolio-berriesoeste-original-aurea-home-brochure",
+      "title": "Berries del Oeste — Áurea original home-linked brochure",
+      "url": "https://www.berriesdeloeste.com/wp-content/uploads/2025/09/aurea-esp.pdf",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "technical_sheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Entire original 6-page strawberry brochure; all pages read and visually checked.",
+      "limitations": "Bounded original current-menu/profile/brochure review, not a complete historical or worldwide portfolio. Marketing performance, resistance, taste, postharvest and organic-suitability wording remains unreviewed company claims. No approved traits, growing region, company role, release/publication date or current legal status inferred. Upload paths and trademark symbols do not establish dates or plant-rights grants.",
+      "names": [
+        {
+          "candidate_name": "Áurea",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/wp-content/uploads/2025/09/aurea-esp.pdf",
+          "portfolio_context": "Original strawberry brochure prints Áurea. Named performance and fruit claims remain unreviewed. No publication/release date or plant-rights grant inferred from the asset path or trademark mark. "
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 6,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "sha256": "5eb86f826a5984fbadbdae839eac7ce918babdf8921c4a0bde8d6aa5624d0ab4",
+        "current_legal_status_verified": false,
+        "photo_reuse_verified": false
+      }
+    },
+    {
+      "id": "portfolio-berriesoeste-original-lourdesa-home-brochure",
+      "title": "Berries del Oeste — Lourdesa original home-linked brochure",
+      "url": "https://www.berriesdeloeste.com/wp-content/uploads/2025/09/lourdesa-esp.pdf",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "technical_sheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Entire original 6-page strawberry brochure; all pages read and visually checked.",
+      "limitations": "Bounded original current-menu/profile/brochure review, not a complete historical or worldwide portfolio. Marketing performance, resistance, taste, postharvest and organic-suitability wording remains unreviewed company claims. No approved traits, growing region, company role, release/publication date or current legal status inferred. Upload paths and trademark symbols do not establish dates or plant-rights grants.",
+      "names": [
+        {
+          "candidate_name": "Lourdesa",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/wp-content/uploads/2025/09/lourdesa-esp.pdf",
+          "portfolio_context": "Original strawberry brochure prints Lourdesa. Named performance and fruit claims remain unreviewed. No publication/release date or plant-rights grant inferred from the asset path or trademark mark. "
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 6,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "sha256": "fd254cdc32b58bc107b7a814d0c8080090c72aea62e027cb91eafd091acc1743",
+        "current_legal_status_verified": false,
+        "photo_reuse_verified": false
+      }
+    },
+    {
+      "id": "portfolio-berriesoeste-original-cibeles-home-brochure",
+      "title": "Berries del Oeste — Cibeles original home-linked brochure",
+      "url": "https://www.berriesdeloeste.com/wp-content/uploads/2025/09/cibeles-esp.pdf",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "technical_sheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Entire original 6-page strawberry brochure; all pages read and visually checked.",
+      "limitations": "Bounded original current-menu/profile/brochure review, not a complete historical or worldwide portfolio. Marketing performance, resistance, taste, postharvest and organic-suitability wording remains unreviewed company claims. No approved traits, growing region, company role, release/publication date or current legal status inferred. Upload paths and trademark symbols do not establish dates or plant-rights grants.",
+      "names": [
+        {
+          "candidate_name": "Cibeles",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/wp-content/uploads/2025/09/cibeles-esp.pdf",
+          "portfolio_context": "Original strawberry brochure prints Cibeles. Named performance and fruit claims remain unreviewed. No publication/release date or plant-rights grant inferred from the asset path or trademark mark. "
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "complete_original_pdf_text_and_visual",
+        "pages": 6,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "sha256": "a6b273a78a6d39f4387af1e6506d9c40518a2e4f64d6b3ccd3cee2c71c33f3d9",
+        "current_legal_status_verified": false,
+        "photo_reuse_verified": false
+      }
+    },
+    {
+      "id": "portfolio-berriesoeste-original-aurea-current-brochure",
+      "title": "Berries del Oeste — Áurea original profile-linked brochure",
+      "url": "https://www.berriesdeloeste.com/wp-content/uploads/2026/10/aurea-esp.pdf",
+      "company_ids": [
+        "company-berries-del-oeste"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-08",
+      "source_type": "technical_sheet",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Entire original 5-page strawberry brochure; all pages read and visually checked.",
+      "limitations": "Bounded original current-menu/profile/brochure review, not a complete historical or worldwide portfolio. Marketing performance, resistance, taste, postharvest and organic-suitability wording remains unreviewed company claims. No approved traits, growing region, company role, release/publication date or current legal status inferred. Upload paths and trademark symbols do not establish dates or plant-rights grants.",
+      "names": [
+        {
+          "candidate_name": "Áurea",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.berriesdeloeste.com/wp-content/uploads/2026/10/aurea-esp.pdf",
+          "portfolio_context": "Original strawberry brochure prints Áurea. Named performance and fruit claims remain unreviewed. No publication/release date or plant-rights grant inferred from the asset path or trademark mark. Profile-linked five-page image-only version is distinct from the home-linked six-page Áurea brochure; both original URLs retained."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "complete_original_image_only_pdf_visual",
+        "pages": 5,
+        "visually_checked_pages": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "sha256": "0bef5bf19d55899bb9c503fd43eda122613d5b3c9dbde99b3faf9f90ddc35a5c",
+        "current_legal_status_verified": false,
+        "photo_reuse_verified": false
+      }
+    }
+  ]
+}

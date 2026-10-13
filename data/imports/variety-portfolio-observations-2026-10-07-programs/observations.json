@@ -1,0 +1,1456 @@
+{
+  "schema_version": 1,
+  "kind": "unreviewed_portfolio_name_observations",
+  "checked_on": "2026-10-07",
+  "method": "Manual public-page enumeration from current product headings, tabs and explicit species groups. Body-free name metadata only; no source, identity or atomic approval.",
+  "sources": [
+    {
+      "id": "portfolio-niwa-varieties",
+      "title": "NIWA — named varieties and coded selections",
+      "url": "https://en.niwabrzezna.pl/varieties/",
+      "company_ids": [
+        "company-niwa-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-blackberry",
+        "berry-raspberry",
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 18 linked names in red/yellow/purple/black raspberry, blackberry and strawberry groups.",
+      "limitations": "Black raspberry remains raspberry. Named code pairs are source assertions, not confirmed aliases or official denominations. Several links point to clone pages; this listing does not establish commercial release, ownership, rights or growing regions.",
+      "names": [
+        {
+          "candidate_name": "Delniwa",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Delniwa",
+          "portfolio_context": "Variety page listing",
+          "product_url": "https://en.niwabrzezna.pl/odmiany/maliny/delniwa/"
+        },
+        {
+          "candidate_name": "Husaria",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Husaria",
+          "portfolio_context": "Variety page listing",
+          "product_url": "https://en.niwabrzezna.pl/odmiany/maliny/husaria/"
+        },
+        {
+          "candidate_name": "NR 1849002",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "Baron",
+          "breeder_code": "NR 1849002",
+          "display_label": "Baron (NR 1849002)",
+          "portfolio_context": "Code/name pairing · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/klony/maliny/nr-1849002/"
+        },
+        {
+          "candidate_name": "NR 1616002",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "Magnat",
+          "breeder_code": "NR 1616002",
+          "display_label": "Magnat (NR 1616002)",
+          "portfolio_context": "Code/name pairing · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/klony/maliny/nr-1616002/"
+        },
+        {
+          "candidate_name": "Glorniwa",
+          "berry_id": "berry-blackberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Glorniwa",
+          "portfolio_context": "Variety page listing",
+          "product_url": "https://en.niwabrzezna.pl/odmiany/jezyny/glorniwa/"
+        },
+        {
+          "candidate_name": "NR 1728801",
+          "berry_id": "berry-blackberry",
+          "denomination": "",
+          "trade_name": "Juhas",
+          "breeder_code": "NR 1728801",
+          "display_label": "Juhas (NR 1728801)",
+          "portfolio_context": "Code/name pairing · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/klony/jezyny/nr-1728801/"
+        },
+        {
+          "candidate_name": "NR 1716009",
+          "berry_id": "berry-blackberry",
+          "denomination": "",
+          "trade_name": "Maryna",
+          "breeder_code": "NR 1716009",
+          "display_label": "Maryna (NR 1716009)",
+          "portfolio_context": "Code/name pairing · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/klony/jezyny/r-1716009/"
+        },
+        {
+          "candidate_name": "NR 1811401",
+          "berry_id": "berry-blackberry",
+          "denomination": "",
+          "trade_name": "Jagna",
+          "breeder_code": "NR 1811401",
+          "display_label": "Jagna (NR 1811401)",
+          "portfolio_context": "Code/name pairing · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/clones/blackberries/nr-1811401/"
+        },
+        {
+          "candidate_name": "Promyk",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Promyk",
+          "portfolio_context": "Variety page listing",
+          "product_url": "https://en.niwabrzezna.pl/odmiany/maliny/promyk/"
+        },
+        {
+          "candidate_name": "Jantar",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Jantar",
+          "portfolio_context": "Variety page listing",
+          "product_url": "https://en.niwabrzezna.pl/odmiany/maliny/jantar/"
+        },
+        {
+          "candidate_name": "Heban",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Heban",
+          "portfolio_context": "Variety page listing",
+          "product_url": "https://en.niwabrzezna.pl/odmiany/maliny/heban/"
+        },
+        {
+          "candidate_name": "NR 1711902",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "Megan",
+          "breeder_code": "NR 1711902",
+          "display_label": "Megan (NR 1711902)",
+          "portfolio_context": "Code/name pairing · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/klony/maliny/r-1711902/"
+        },
+        {
+          "candidate_name": "NR 1825501",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "Selena",
+          "breeder_code": "NR 1825501",
+          "display_label": "Selena (NR 1825501)",
+          "portfolio_context": "Code/name pairing · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/klony/maliny/nr-1825501/"
+        },
+        {
+          "candidate_name": "Alfa Centauri",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Alfa Centauri",
+          "portfolio_context": "Variety page listing",
+          "product_url": "https://en.niwabrzezna.pl/odmiany/truskawki/alfa-centauri/"
+        },
+        {
+          "candidate_name": "Niwa Amarant",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Niwa Amarant",
+          "portfolio_context": "Variety page listing",
+          "product_url": "https://en.niwabrzezna.pl/odmiany/truskawki/amarant-niwa/"
+        },
+        {
+          "candidate_name": "NT 141114",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "Beskid",
+          "breeder_code": "NT 141114",
+          "display_label": "Beskid (NT 141114)",
+          "portfolio_context": "Code/name pairing · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/klony/truskawki/nt-141114/"
+        },
+        {
+          "candidate_name": "NT 140081",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "Alka Niwa",
+          "breeder_code": "NT 140081",
+          "display_label": "Alka Niwa (NT 140081)",
+          "portfolio_context": "Code/name pairing · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/klony/truskawki/nt-140081/"
+        },
+        {
+          "candidate_name": "NT 203105",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "Remiz Niwa",
+          "breeder_code": "NT 203105",
+          "display_label": "Remiz Niwa (NT 203105)",
+          "portfolio_context": "Code/name pairing · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/klony/truskawki/nt-203105/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 18,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-niwa-clones",
+      "title": "NIWA — experimental clone listings",
+      "url": "https://en.niwabrzezna.pl/clones/",
+      "company_ids": [
+        "company-niwa-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-blueberry",
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All ten clone cards: seven explicitly raspberry/blueberry selections; three species-ambiguous cards excluded.",
+      "limitations": "Clone labels are not automatic released cultivars. The same NR 1849002 code also appears paired with Baron in the Varieties page; both sources stay visible for identity review. No traits or regions approved.",
+      "names": [
+        {
+          "candidate_name": "NR 1849002",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "NR 1849002",
+          "display_label": "NR 1849002",
+          "portfolio_context": "Clone selection · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/clones/raspberries/nr-1849002/"
+        },
+        {
+          "candidate_name": "NR 1755301",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "NR 1755301",
+          "display_label": "NR 1755301",
+          "portfolio_context": "Clone selection · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/clones/raspberries/r-1755301/"
+        },
+        {
+          "candidate_name": "NV 1200",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "NV 1200",
+          "display_label": "NV 1200",
+          "portfolio_context": "Clone selection · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/clones/blueberries/v-1200/"
+        },
+        {
+          "candidate_name": "NV 136004",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "NV 136004",
+          "display_label": "NV 136004",
+          "portfolio_context": "Clone selection · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/clones/blueberries/v-136004/"
+        },
+        {
+          "candidate_name": "NV 130708",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "NV 130708",
+          "display_label": "NV 130708",
+          "portfolio_context": "Clone selection · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/clones/blueberries/v-130708/"
+        },
+        {
+          "candidate_name": "NV 133401",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "NV 133401",
+          "display_label": "NV 133401",
+          "portfolio_context": "Clone selection · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/clones/blueberries/v-133401/"
+        },
+        {
+          "candidate_name": "NV 137602",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "NV 137602",
+          "display_label": "NV 137602",
+          "portfolio_context": "Clone selection · release unverified",
+          "product_url": "https://en.niwabrzezna.pl/clones/blueberries/v-137602/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "exclusions": [
+          {
+            "label": "NL 180106",
+            "url": "https://en.niwabrzezna.pl/clones/berries/l-180106/",
+            "reason": "Species only labeled “Berries”; one of the four supported crops is not established in this listing."
+          },
+          {
+            "label": "NL 183601",
+            "url": "https://en.niwabrzezna.pl/clones/berries/l-183601/",
+            "reason": "Species only labeled “Berries”; one of the four supported crops is not established in this listing."
+          },
+          {
+            "label": "NL 180122",
+            "url": "https://en.niwabrzezna.pl/clones/berries/l-180122/",
+            "reason": "Species only labeled “Berries”; one of the four supported crops is not established in this listing."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-vissers-strawberry",
+      "title": "Vissers — strawberry nursery assortment",
+      "url": "https://www.vissers.com/en/strawberryplants",
+      "company_ids": [
+        "company-vissers-plant-innovators"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "nursery_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 49 live product-heading links in the unfiltered strawberry page; images, anchors and navigation are not additional names.",
+      "limitations": "Own, licensed and public varieties appear together; nursery supply does not prove breeding or rights ownership. Code/name pairs and promotional traits need review. The separately linked flipbook remains unenumerated.",
+      "names": [
+        {
+          "candidate_name": "Sandra",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Sandra",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/sandra"
+        },
+        {
+          "candidate_name": "Arianna",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Arianna",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/arianna"
+        },
+        {
+          "candidate_name": "Rendezvous",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Rendezvous",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/rendezvous"
+        },
+        {
+          "candidate_name": "Lambada",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Lambada",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/lambada"
+        },
+        {
+          "candidate_name": "Alba",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Alba",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/alba"
+        },
+        {
+          "candidate_name": "P241102",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "Cory",
+          "breeder_code": "P241102",
+          "display_label": "Cory® \"P241102\"",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/cory-p241102"
+        },
+        {
+          "candidate_name": "Gariguette",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Gariguette",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/gariguette"
+        },
+        {
+          "candidate_name": "Daroyal",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Daroyal",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/daroyal"
+        },
+        {
+          "candidate_name": "Honeoye",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Honeoye",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/honeoye"
+        },
+        {
+          "candidate_name": "Romina",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Romina",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/romina"
+        },
+        {
+          "candidate_name": "Darselect",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Darselect",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/darselect"
+        },
+        {
+          "candidate_name": "Kimberly",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Kimberly®",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/kimberly"
+        },
+        {
+          "candidate_name": "Vima Zanta",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Vima® Zanta",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/vima-zanta"
+        },
+        {
+          "candidate_name": "Korona",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Korona",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/korona"
+        },
+        {
+          "candidate_name": "Elianny",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Elianny",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/elianny"
+        },
+        {
+          "candidate_name": "Malling Centenary",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Malling™ Centenary",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/malling-centenary"
+        },
+        {
+          "candidate_name": "Magnum Marionnet 97",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Magnum® Marionnet 97",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/magnum"
+        },
+        {
+          "candidate_name": "Senga Sengana",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Senga Sengana",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/senga-sengana"
+        },
+        {
+          "candidate_name": "Renaissance",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Renaissance",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/renaissance"
+        },
+        {
+          "candidate_name": "NF633",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "Tea",
+          "breeder_code": "NF633",
+          "display_label": "Tea® NF633",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/tea"
+        },
+        {
+          "candidate_name": "Asia",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Asia",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/asia"
+        },
+        {
+          "candidate_name": "181727",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "Meggy",
+          "breeder_code": "181727",
+          "display_label": "Meggy® \"181727\"",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/meggy-181727"
+        },
+        {
+          "candidate_name": "Elsanta",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Elsanta",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/elsanta"
+        },
+        {
+          "candidate_name": "Mieze Schindler",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Mieze Schindler",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/mieze-schindler"
+        },
+        {
+          "candidate_name": "Ananas",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Ananas",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/ananas"
+        },
+        {
+          "candidate_name": "Snow White",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Snow White",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/snow-white"
+        },
+        {
+          "candidate_name": "Lola",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Lola",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/lola"
+        },
+        {
+          "candidate_name": "Elegance",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Elegance",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/elegance"
+        },
+        {
+          "candidate_name": "Federica",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Federica",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/federica"
+        },
+        {
+          "candidate_name": "Symphony",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Symphony",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/symphony"
+        },
+        {
+          "candidate_name": "Vima Tarda",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Vima® Tarda",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/vima-tarda"
+        },
+        {
+          "candidate_name": "Fenella",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Fenella",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/fenella"
+        },
+        {
+          "candidate_name": "Florence",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Florence",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/florence"
+        },
+        {
+          "candidate_name": "Fernando",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Fernando",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/fernando"
+        },
+        {
+          "candidate_name": "G14527",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "Talia",
+          "breeder_code": "G14527",
+          "display_label": "Talia® G14527",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/talia"
+        },
+        {
+          "candidate_name": "Vima Xima",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Vima® Xima",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/vima-xima"
+        },
+        {
+          "candidate_name": "P061105",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "Destiny",
+          "breeder_code": "P061105",
+          "display_label": "Destiny® \"P061105\"",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/p061105"
+        },
+        {
+          "candidate_name": "Malwina",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Malwina",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/malwina"
+        },
+        {
+          "candidate_name": "P061103",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "Harmony",
+          "breeder_code": "P061103",
+          "display_label": "Harmony® \"P061103\"",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/p061103v"
+        },
+        {
+          "candidate_name": "Portola",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Portola",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/portola"
+        },
+        {
+          "candidate_name": "Vima Rina",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Vima® Rina",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/vima-rina"
+        },
+        {
+          "candidate_name": "Selva",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Selva",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/selva"
+        },
+        {
+          "candidate_name": "Mara des Bois",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Mara des Bois",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/mara-des-bois"
+        },
+        {
+          "candidate_name": "Ostara",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Ostara",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/ostara"
+        },
+        {
+          "candidate_name": "Cabrillo",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Cabrillo",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/cabrillo"
+        },
+        {
+          "candidate_name": "Diamante",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Diamante",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/diamante"
+        },
+        {
+          "candidate_name": "Albion",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Albion",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/albion"
+        },
+        {
+          "candidate_name": "San Andreas",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "San Andreas",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/san-andreas"
+        },
+        {
+          "candidate_name": "Monterey",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Monterey",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/strawberryplants/monterey"
+        }
+      ],
+      "accounting": {
+        "observed_items": 49,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-vissers-raspberry",
+      "title": "Vissers — raspberry nursery assortment",
+      "url": "https://www.vissers.com/en/raspberryplants",
+      "company_ids": [
+        "company-vissers-plant-innovators"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "nursery_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 6 live product-heading links in the unfiltered raspberry page; images, anchors and navigation are not additional names.",
+      "limitations": "Own, licensed and public varieties appear together; nursery supply does not prove breeding or rights ownership. Code/name pairs and promotional traits need review. The separately linked flipbook remains unenumerated. Live page has six entries; cached search copy also named Primeberry Sugana. Absence is not withdrawal, rejection or deletion.",
+      "names": [
+        {
+          "candidate_name": "Glen Ample",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Glen Ample",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/raspberryplants/glen-ample"
+        },
+        {
+          "candidate_name": "Glen Dee",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Glen Dee",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/raspberryplants/glen-dee"
+        },
+        {
+          "candidate_name": "Willamette",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Willamette",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/raspberryplants/willamette"
+        },
+        {
+          "candidate_name": "Tulameen",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Tulameen",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/raspberryplants/tulameen"
+        },
+        {
+          "candidate_name": "Meeker",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Meeker",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/raspberryplants/meeker"
+        },
+        {
+          "candidate_name": "Heritage",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Heritage",
+          "portfolio_context": "Nursery listing · breeder unverified",
+          "product_url": "https://www.vissers.com/en/raspberryplants/heritage"
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-limgroup-clonal",
+      "title": "Limgroup — clonal strawberry assortment",
+      "url": "https://en.limgroup.eu/strawberries",
+      "company_ids": [
+        "company-limgroup"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 3 visible unfiltered product cards in this section; overview and brochure headings excluded.",
+      "limitations": "Current primary-page names only. Historic cultivars, linked brochures, rights and traits need separate checks. Climate/cultivation filters are promotional suitability, not evidence of planted growing regions.",
+      "names": [
+        {
+          "candidate_name": "Limvalnera",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Limvalnera",
+          "portfolio_context": "Listed in the clonal strawberry section.",
+          "product_url": "https://en.limgroup.eu/strawberry/limvalnera"
+        },
+        {
+          "candidate_name": "Limalexia",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Limalexia",
+          "portfolio_context": "Listed in the clonal strawberry section.",
+          "product_url": "https://en.limgroup.eu/strawberry/limalexia"
+        },
+        {
+          "candidate_name": "Limadela",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Limadela",
+          "portfolio_context": "Listed in the clonal strawberry section.",
+          "product_url": "https://en.limgroup.eu/strawberry/limadela"
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-limgroup-hybrid",
+      "title": "Limgroup — hybrid strawberry assortment",
+      "url": "https://en.limgroup.eu/f1-hybrid-strawberries",
+      "company_ids": [
+        "company-limgroup"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 2 visible unfiltered product cards in this section; overview and brochure headings excluded.",
+      "limitations": "Current primary-page names only. Historic cultivars, linked brochures, rights and traits need separate checks. Climate/cultivation filters are promotional suitability, not evidence of planted growing regions.",
+      "names": [
+        {
+          "candidate_name": "Limore Fizz",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Limore Fizz",
+          "portfolio_context": "Listed in the F1 hybrid strawberry section.",
+          "product_url": "https://en.limgroup.eu/strawberry/limore-fizz"
+        },
+        {
+          "candidate_name": "Limore One",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Limore One",
+          "portfolio_context": "Listed in the F1 hybrid strawberry section.",
+          "product_url": "https://en.limgroup.eu/strawberry/limore-one"
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-abz-1",
+      "title": "ABZ — greenhouse strawberries",
+      "url": "https://www.abzseeds.com/high-tech-greenhouse",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 1 named product tabs in this page; no series headings or image filenames imported.",
+      "limitations": "These nine pages cover the three fresh-market and six garden/patio sections currently linked from the new primary overview. F1 labels do not establish official denominations or aliases. Historical assortment/PDF coverage remains unresolved; no promotional traits or planted regions approved.",
+      "names": [
+        {
+          "candidate_name": "Soraya F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Soraya F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/high-tech-greenhouse"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "entry_url": "https://www.abzseeds.com/nl/versmarkt-hightech-kasteelt?hsLang=en"
+    },
+    {
+      "id": "portfolio-abz-2",
+      "title": "ABZ — tunnel strawberries",
+      "url": "https://www.abzseeds.com/tunnel-cultivation",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 1 named product tabs in this page; no series headings or image filenames imported.",
+      "limitations": "These nine pages cover the three fresh-market and six garden/patio sections currently linked from the new primary overview. F1 labels do not establish official denominations or aliases. Historical assortment/PDF coverage remains unresolved; no promotional traits or planted regions approved.",
+      "names": [
+        {
+          "candidate_name": "Estavana F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Estavana F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/tunnel-cultivation"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "entry_url": "https://www.abzseeds.com/nl/versmarkt-tunnel-teelt?hsLang=en"
+    },
+    {
+      "id": "portfolio-abz-3",
+      "title": "ABZ — open-field strawberries",
+      "url": "https://www.abzseeds.com/open-soil",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 1 named product tabs in this page; no series headings or image filenames imported.",
+      "limitations": "These nine pages cover the three fresh-market and six garden/patio sections currently linked from the new primary overview. F1 labels do not establish official denominations or aliases. Historical assortment/PDF coverage remains unresolved; no promotional traits or planted regions approved.",
+      "names": [
+        {
+          "candidate_name": "Rowena F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Rowena F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/open-soil"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "entry_url": "https://www.abzseeds.com/nl/versmarkt-volle-grond?hsLang=en"
+    },
+    {
+      "id": "portfolio-abz-4",
+      "title": "ABZ — Patio Pleasure strawberries",
+      "url": "https://www.abzseeds.com/sierteelt-patio-pleasure",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 3 named product tabs in this page; no series headings or image filenames imported.",
+      "limitations": "These nine pages cover the three fresh-market and six garden/patio sections currently linked from the new primary overview. F1 labels do not establish official denominations or aliases. Historical assortment/PDF coverage remains unresolved; no promotional traits or planted regions approved.",
+      "names": [
+        {
+          "candidate_name": "Delizz F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Delizz® F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/sierteelt-patio-pleasure"
+        },
+        {
+          "candidate_name": "Queeny F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Queeny F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/sierteelt-patio-pleasure"
+        },
+        {
+          "candidate_name": "Lizzy F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Lizzy F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/sierteelt-patio-pleasure"
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      },
+      "entry_url": "https://www.abzseeds.com/nl/sierteelt-patio-pleasure?hsLang=en"
+    },
+    {
+      "id": "portfolio-abz-5",
+      "title": "ABZ — Home Harvest strawberries",
+      "url": "https://www.abzseeds.com/homegrown",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 2 named product tabs in this page; no series headings or image filenames imported.",
+      "limitations": "These nine pages cover the three fresh-market and six garden/patio sections currently linked from the new primary overview. F1 labels do not establish official denominations or aliases. Historical assortment/PDF coverage remains unresolved; no promotional traits or planted regions approved.",
+      "names": [
+        {
+          "candidate_name": "Elan F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Elan F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/homegrown"
+        },
+        {
+          "candidate_name": "Milan F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Milan F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/homegrown"
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      },
+      "entry_url": "https://www.abzseeds.com/nl/sierteelt-home-harvest?hsLang=en"
+    },
+    {
+      "id": "portfolio-abz-6",
+      "title": "ABZ — Early & Compact strawberries",
+      "url": "https://www.abzseeds.com/early-compact",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 3 named product tabs in this page; no series headings or image filenames imported.",
+      "limitations": "These nine pages cover the three fresh-market and six garden/patio sections currently linked from the new primary overview. F1 labels do not establish official denominations or aliases. Historical assortment/PDF coverage remains unresolved; no promotional traits or planted regions approved.",
+      "names": [
+        {
+          "candidate_name": "Loran F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Loran F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/early-compact"
+        },
+        {
+          "candidate_name": "Merlan F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Merlan F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/early-compact"
+        },
+        {
+          "candidate_name": "Tristan F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Tristan F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/early-compact"
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      },
+      "entry_url": "https://www.abzseeds.com/nl/sierteelt-early-compact-bedding?hsLang=en"
+    },
+    {
+      "id": "portfolio-abz-7",
+      "title": "ABZ — Hanging Basket strawberries",
+      "url": "https://www.abzseeds.com/hanging-basket",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 4 named product tabs in this page; no series headings or image filenames imported.",
+      "limitations": "These nine pages cover the three fresh-market and six garden/patio sections currently linked from the new primary overview. F1 labels do not establish official denominations or aliases. Historical assortment/PDF coverage remains unresolved; no promotional traits or planted regions approved.",
+      "names": [
+        {
+          "candidate_name": "Beltran F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Beltran F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/hanging-basket"
+        },
+        {
+          "candidate_name": "Frisan F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Frisan F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/hanging-basket"
+        },
+        {
+          "candidate_name": "Roman F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Roman F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/hanging-basket"
+        },
+        {
+          "candidate_name": "Ruby Ann F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Ruby Ann F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/hanging-basket"
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": []
+      },
+      "entry_url": "https://www.abzseeds.com/nl/sierteelt-hanging-basket?hsLang=en"
+    },
+    {
+      "id": "portfolio-abz-8",
+      "title": "ABZ — Large Flower strawberries",
+      "url": "https://www.abzseeds.com/large-flower",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 3 named product tabs in this page; no series headings or image filenames imported.",
+      "limitations": "These nine pages cover the three fresh-market and six garden/patio sections currently linked from the new primary overview. F1 labels do not establish official denominations or aliases. Historical assortment/PDF coverage remains unresolved; no promotional traits or planted regions approved.",
+      "names": [
+        {
+          "candidate_name": "Montana F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Montana F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/large-flower"
+        },
+        {
+          "candidate_name": "Gasana F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Gasana F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/large-flower"
+        },
+        {
+          "candidate_name": "Toscana F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Toscana F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/large-flower"
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      },
+      "entry_url": "https://www.abzseeds.com/nl/sierteelt-large-flower?hsLang=en"
+    },
+    {
+      "id": "portfolio-abz-9",
+      "title": "ABZ — Semi-Double Flower strawberries",
+      "url": "https://www.abzseeds.com/semi-double-flower",
+      "company_ids": [
+        "company-abz-seeds"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T09:40:10.945037+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 3 named product tabs in this page; no series headings or image filenames imported.",
+      "limitations": "These nine pages cover the three fresh-market and six garden/patio sections currently linked from the new primary overview. F1 labels do not establish official denominations or aliases. Historical assortment/PDF coverage remains unresolved; no promotional traits or planted regions approved.",
+      "names": [
+        {
+          "candidate_name": "Summer Breeze Snow F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Summer Breeze Snow F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/semi-double-flower"
+        },
+        {
+          "candidate_name": "Summer Breeze Cherry Blossom F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Summer Breeze Cherry Blossom F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/semi-double-flower"
+        },
+        {
+          "candidate_name": "Summer Breeze Rose F1",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Summer Breeze Rose F1",
+          "portfolio_context": "F1 label · aliases unverified",
+          "product_url": "https://www.abzseeds.com/semi-double-flower"
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      },
+      "entry_url": "https://www.abzseeds.com/nl/sierteelt-semi-double-flower?hsLang=en"
+    }
+  ]
+}

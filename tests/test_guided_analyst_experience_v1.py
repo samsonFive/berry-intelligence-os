@@ -182,6 +182,14 @@ def test_guide_is_read_only_orientation(monkeypatch, tmp_path: Path) -> None:
     assert "Reopened briefs resolve current records" in html
     assert "PDF captures the report at export time" in html
     assert 'href="/today"' in html
+    assert 'href="/landscapes/explorer"' in html
+    assert 'href="/landscapes"' in html
+    assert "PDF · Printable HTML · SVG · CSV" in html
+    assert "Saved Explorer views reopen current data" in html
+    assert 'href="/social"' in html and 'representative market sentiment' in html
+    assert "other berries await feedback" not in html
+    assert 'href="/source-fidelity"' in html
+    assert "Accepting text does not approve identities or individual statements" in html
     assert "name=\"decision\"" not in html
     assert "<form" not in html or 'action="/login"' not in html
     assert list(inbox.iterdir()) == []

@@ -1,0 +1,33 @@
+{
+  "version": "ef36ff4511c8cb1b",
+  "coverage": {
+    "nodes": 53,
+    "relationships": 82,
+    "sources": 47,
+    "genetic_location_links": 0,
+    "company_location_links": 10,
+    "event_dated": 16,
+    "undated_for_window": 0,
+    "hidden_nodes": 0,
+    "hidden_relationships": 0,
+    "truncated_display": false,
+    "complete_export": true,
+    "excluded": {
+      "missing_endpoints": 0,
+      "unavailable_sources": 3
+    },
+    "partial": true
+  },
+  "association_rows": 97,
+  "exact_relationship_source_parity": true,
+  "source_urls_preserved": true,
+  "svg_xml_valid": true,
+  "api_bytes": 711429,
+  "api_response_ms": [
+    423.92,
+    338.22,
+    313.96
+  ],
+  "environment": "Windows local Python FastAPI; existing canonical data; isolated private inbox; loopback",
+  "pending_source_copies_accepted_by_this_review": 0
+}

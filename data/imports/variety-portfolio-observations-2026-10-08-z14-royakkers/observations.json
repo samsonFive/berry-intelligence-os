@@ -1,0 +1,331 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-royakkers-original-strawberry-fruit",
+      "title": "Royakkers — strawberry fruit",
+      "url": "https://www.softfruit.be/en/products/fruit/strawberries/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-royakkers"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The complete English strawberry fruit page explicitly lists two varieties Royakkers grows.",
+      "limitations": "Only the two explicit grower-list names are enumerated; this is not a complete historical or nursery portfolio. Generic fruit and plant images lack named-variety captions and are excluded. Growing practices, harvest duration, area and promotional descriptions are not approved variety traits. Current rights, breeder, owner, releases, geographic footprint and publication date remain unverified.",
+      "names": [
+        {
+          "candidate_name": "Elsanta",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.softfruit.be/en/products/fruit/strawberries/",
+          "portfolio_context": "Royakkers lists Elsanta as a strawberry variety it grows. This grower listing does not establish breeding, ownership, nursery supply, licensing or a confirmed growing footprint. No publication date is printed."
+        },
+        {
+          "candidate_name": "Portola",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.softfruit.be/en/products/fruit/strawberries/",
+          "portfolio_context": "Royakkers lists Portola as a strawberry variety it grows. This grower listing does not establish breeding, ownership, nursery supply, licensing or a confirmed growing footprint. No publication date is printed."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "page_read": true,
+        "sha256": "57268eedaa10ddbae311ae0d8dff2e3abd53d325355f5887f713aac6fed422e6",
+        "bytes": 5641,
+        "named_varieties_found": 2,
+        "language": "en",
+        "nursery_detail_rendered": null,
+        "attempted_url": ""
+      }
+    },
+    {
+      "id": "portfolio-royakkers-original-raspberry-fruit",
+      "title": "Royakkers — raspberry fruit",
+      "url": "https://www.softfruit.be/en/products/fruit/raspberries/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-royakkers"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete English raspberry fruit page; grower description without cultivar names.",
+      "limitations": "No named cultivar was captured in this bounded source. An unnamed range is not an empty portfolio. Generic fruit and plant images lack named-variety captions and are excluded. Growing practices, harvest duration, area and promotional descriptions are not approved variety traits. Current rights, breeder, owner, releases, geographic footprint and publication date remain unverified.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "page_read": true,
+        "sha256": "ee90aa68bcbf515162ac68b767d0fc8fc666839c5ee5b3a4eabb7105c86f1ed1",
+        "bytes": 6066,
+        "named_varieties_found": 0,
+        "language": "en",
+        "nursery_detail_rendered": null,
+        "attempted_url": ""
+      }
+    },
+    {
+      "id": "portfolio-royakkers-original-english-raspberry-nursery-gap",
+      "title": "Royakkers — english raspberry nursery gap",
+      "url": "https://www.softfruit.be/en/products/plants/frambozen/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-royakkers"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "nursery_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Linked English raspberry nursery path rendered homepage content instead of nursery detail.",
+      "limitations": "No named cultivar was captured in this bounded source. An unnamed range is not an empty portfolio. Homepage content was shown at the attempted nursery path. No HTTP redirect or response-status claim is made. Generic fruit and plant images lack named-variety captions and are excluded. Growing practices, harvest duration, area and promotional descriptions are not approved variety traits. Current rights, breeder, owner, releases, geographic footprint and publication date remain unverified.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "page_read": true,
+        "sha256": "9593cfb545a77f01a263c35ebf22670f90414a48c5f42247a9d237462bef634c",
+        "bytes": 5448,
+        "named_varieties_found": 0,
+        "language": "en",
+        "nursery_detail_rendered": false,
+        "attempted_url": "https://www.softfruit.be/en/products/plants/frambozen/"
+      }
+    },
+    {
+      "id": "portfolio-royakkers-original-english-plant-index",
+      "title": "Royakkers — english plant index",
+      "url": "https://www.softfruit.be/en/products/plants/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-royakkers"
+      ],
+      "berry_ids": [
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "nursery_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete English fruit-plant index; no cultivar assortment named.",
+      "limitations": "No named cultivar was captured in this bounded source. An unnamed range is not an empty portfolio. Generic fruit and plant images lack named-variety captions and are excluded. Growing practices, harvest duration, area and promotional descriptions are not approved variety traits. Current rights, breeder, owner, releases, geographic footprint and publication date remain unverified.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "page_read": true,
+        "sha256": "f1298df6d188b1385489ed13322258b12577473b326985ed15c2d0b23aea02a6",
+        "bytes": 3847,
+        "named_varieties_found": 0,
+        "language": "en",
+        "nursery_detail_rendered": null,
+        "attempted_url": ""
+      }
+    },
+    {
+      "id": "portfolio-royakkers-original-explore-program",
+      "title": "Royakkers — explore program",
+      "url": "https://www.softfruit.be/en/royakkers-explore/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-royakkers"
+      ],
+      "berry_ids": [
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "company_program_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete Royakkers Explore research-program page; no named releases or selections.",
+      "limitations": "No named cultivar was captured in this bounded source. An unnamed range is not an empty portfolio. Royakkers Explore is a research department, not a cultivar or evidence of released selections. Generic fruit and plant images lack named-variety captions and are excluded. Growing practices, harvest duration, area and promotional descriptions are not approved variety traits. Current rights, breeder, owner, releases, geographic footprint and publication date remain unverified.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "page_read": true,
+        "sha256": "ebbfa908941e4513bff1108c71cb9bd373ba40a1949075d6e09e6dc438500fc9",
+        "bytes": 3826,
+        "named_varieties_found": 0,
+        "language": "en",
+        "nursery_detail_rendered": null,
+        "attempted_url": ""
+      }
+    },
+    {
+      "id": "portfolio-royakkers-original-blackberry-fruit",
+      "title": "Royakkers — blackberry fruit",
+      "url": "https://www.softfruit.be/en/products/fruit/blackberries/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-royakkers"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete English blackberry fruit page; grower description without cultivar names.",
+      "limitations": "No named cultivar was captured in this bounded source. An unnamed range is not an empty portfolio. Generic fruit and plant images lack named-variety captions and are excluded. Growing practices, harvest duration, area and promotional descriptions are not approved variety traits. Current rights, breeder, owner, releases, geographic footprint and publication date remain unverified.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "page_read": true,
+        "sha256": "3dc8bcd048fb87d4f193441e6be328fa5cf72a5b045af847ed8165157551bd67",
+        "bytes": 6657,
+        "named_varieties_found": 0,
+        "language": "en",
+        "nursery_detail_rendered": null,
+        "attempted_url": ""
+      }
+    },
+    {
+      "id": "portfolio-royakkers-original-english-blackberry-nursery-gap",
+      "title": "Royakkers — english blackberry nursery gap",
+      "url": "https://www.softfruit.be/en/products/plants/braambessen/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-royakkers"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "nursery_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Linked English blackberry nursery path rendered homepage content instead of nursery detail.",
+      "limitations": "No named cultivar was captured in this bounded source. An unnamed range is not an empty portfolio. Homepage content was shown at the attempted nursery path. No HTTP redirect or response-status claim is made. Generic fruit and plant images lack named-variety captions and are excluded. Growing practices, harvest duration, area and promotional descriptions are not approved variety traits. Current rights, breeder, owner, releases, geographic footprint and publication date remain unverified.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "page_read": true,
+        "sha256": "a7132b90c4a68649d123db5d1989ccee59dc3331c5cec2d837df91327064dad8",
+        "bytes": 1582,
+        "named_varieties_found": 0,
+        "language": "en",
+        "nursery_detail_rendered": false,
+        "attempted_url": "https://www.softfruit.be/en/products/plants/braambessen/"
+      }
+    },
+    {
+      "id": "portfolio-royakkers-original-dutch-plant-index",
+      "title": "Royakkers — dutch plant index",
+      "url": "https://www.softfruit.be/producten/planten/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-royakkers"
+      ],
+      "berry_ids": [
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "source_type": "nursery_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete Dutch plant index and observed links to raspberry and blackberry nursery pages.",
+      "limitations": "No named cultivar was captured in this bounded source. An unnamed range is not an empty portfolio. Generic fruit and plant images lack named-variety captions and are excluded. Growing practices, harvest duration, area and promotional descriptions are not approved variety traits. Current rights, breeder, owner, releases, geographic footprint and publication date remain unverified.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "page_read": true,
+        "sha256": "c689e6c10340c93dc77134c5e884088701b2a484721eef0821e4bf6f4d7233a6",
+        "bytes": 5172,
+        "named_varieties_found": 0,
+        "language": "nl",
+        "nursery_detail_rendered": null,
+        "attempted_url": ""
+      }
+    },
+    {
+      "id": "portfolio-royakkers-original-dutch-raspberry-nursery",
+      "title": "Royakkers — dutch raspberry nursery",
+      "url": "https://www.softfruit.be/producten/planten/frambozenplanten/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-royakkers"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "nursery_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete Dutch raspberry nursery detail; plant preparation, advice and follow-up without cultivar names.",
+      "limitations": "No named cultivar was captured in this bounded source. An unnamed range is not an empty portfolio. Generic fruit and plant images lack named-variety captions and are excluded. Growing practices, harvest duration, area and promotional descriptions are not approved variety traits. Current rights, breeder, owner, releases, geographic footprint and publication date remain unverified.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "page_read": true,
+        "sha256": "79831d0117ca1836d497942c4248ca5e5d0329876c0124657f196a3aea00902d",
+        "bytes": 5670,
+        "named_varieties_found": 0,
+        "language": "nl",
+        "nursery_detail_rendered": null,
+        "attempted_url": ""
+      }
+    },
+    {
+      "id": "portfolio-royakkers-original-dutch-blackberry-nursery",
+      "title": "Royakkers — dutch blackberry nursery",
+      "url": "https://www.softfruit.be/producten/planten/bramenplanten/",
+      "checked_on": "2026-10-08",
+      "company_ids": [
+        "company-royakkers"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "nursery_catalog",
+      "capture_status": "partial",
+      "enumerated_scope": "Complete Dutch blackberry nursery detail; plant preparation, advice and follow-up without cultivar names.",
+      "limitations": "No named cultivar was captured in this bounded source. An unnamed range is not an empty portfolio. Generic fruit and plant images lack named-variety captions and are excluded. Growing practices, harvest duration, area and promotional descriptions are not approved variety traits. Current rights, breeder, owner, releases, geographic footprint and publication date remain unverified.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "native_browser_public_dom_review",
+        "page_read": true,
+        "sha256": "4965129c1137d8a303f1bad71a79d753ca5e9122011ec73f8c18ade057b0da86",
+        "bytes": 5327,
+        "named_varieties_found": 0,
+        "language": "nl",
+        "nursery_detail_rendered": null,
+        "attempted_url": ""
+      }
+    }
+  ]
+}
