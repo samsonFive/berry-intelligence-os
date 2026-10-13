@@ -69,6 +69,13 @@ text and tails. Exact-response replay still produces the same pending23-name
 copy byte-for-byte. The new code still
 requires its own required CI and release checks.
 
+The initial full run on f499d8b8 passed 4,969 tests and failed two adjacent
+tests that still expected acquisition v3. Their body, heading, menu-exclusion
+and publication-date checks passed; the version assertions now expect v4.
+All eight article test files plus the affected review/recovery suites pass:
+160 tests / 99 existing Python 3.13 dependency warnings / 9.13 seconds.
+Fresh checks on the corrected head remain mandatory.
+
 The parent Landscape release, PR #396 head
 `aa6a68fb32ee1059316a4de89f9f3766febdf1a2`, passes all four checks in run
 `38355308016`: 4,956 passed / 11 skipped / two existing warnings / 687.62 seconds.

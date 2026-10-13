@@ -48,7 +48,7 @@ def test_mis_tagged_report_retains_paragraphs_and_headings_not_menu(monkeypatch)
     assert 'Menu-only sentinel' not in body.full_text and 'Footer-only sentinel' not in body.full_text
     assert {p.text for p in body.paragraphs if p.heading_level} == {'Trial design','Harvest observations'}
     assert [p.index for p in body.paragraphs] == list(range(len(body.paragraphs)))
-    assert body.as_dict()['acquisition']['version'] == 'article-acquisition-v3'
+    assert body.as_dict()['acquisition']['version'] == 'article-acquisition-v4'
     assert len(calls) == 2
 
 
