@@ -1,5 +1,22 @@
 # Berry Intelligence release review
 
+## Combined release on current canonical — October 13, 2026
+
+The complete Landscape/source/catalog review changes are reconciled onto
+canonical `642bc55657bb2b2e15c0d50bd72dd4686bbca4d3`, including the merged manual
+Social Listening controls. The fourteen existing feature commits replay cleanly;
+the Social Listening service/routes/assets/templates, manual pipeline settings,
+deployment configuration and tests remain identical to canonical. The pinned
+`langid` dependency is retained alongside the existing streaming dependency.
+The governing expansion guide and all 31 requirement IDs/order are preserved.
+
+This combined release needs fresh exact-head CI, browser review and isolated
+host verification. Earlier source/Landscape checks are dated component evidence,
+not a substitute. See [the reconciliation review](CANONICAL-RELEASE-INTEGRATION-REVIEW.md).
+CAT-01/CAT-02 and human source/identity/catalog/qualification/photo gates remain
+open. The tested software milestone does not imply a globally complete database.
+Production merge and deployment remain separate approval steps.
+
 ## Current child draft #398 — October 13, 2026
 
 The source-disclosure capture release at f93aa702 passes all four required

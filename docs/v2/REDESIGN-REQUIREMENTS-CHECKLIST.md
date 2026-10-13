@@ -6,6 +6,13 @@ do not complete independent human review or prove catalog completeness.
 
 ## Current release review — October 13 UTC, 2026
 
+The combined review is reconciled onto canonical `642bc556`, retaining the merged
+manual Social Listening controls, their guarded provider behavior and pinned
+language dependency. The governing guide and all 31 IDs/order remain unchanged.
+The [combined release](CANONICAL-RELEASE-INTEGRATION-REVIEW.md) needs its own
+exact-head checks and release rehearsal; the earlier results below are component
+evidence. Broad catalog completion and actual human decisions remain distinct.
+
 The parent draft #396 passes all four required checks on aa6a68fb:
 4,956 passed / 11 skipped / two existing warnings. Child draft #398's capture
 repair at f93aa702 also passes all four checks: 4,972 passed / 11 skipped / two
