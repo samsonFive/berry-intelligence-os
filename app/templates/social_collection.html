@@ -1,0 +1,11 @@
+<details class="social-panel" data-collection-panel><summary>Collect fresh posts <span class="social-chip" data-collection-credit-label>Manual update</span></summary>
+<p>Run an update when you need it. Browsing does not collect or spend credits.</p>
+<form data-collection-form class="social-filters">
+<label>Berry<select name="berry"><option value="all">All berries</option>{% for key,label in berry_labels.items() if key!='all' %}<option value="{{ key }}">{{ label }}</option>{% endfor %}</select></label>
+<label>Search scope<select name="perspective"><option value="both">Corporate + consumer</option><option value="corporate">Corporate / agtech</option><option value="consumer">Consumer / food use</option></select></label>
+<label>Period<select name="period"><option value="week">Past week</option><option value="month">Past month</option></select></label>
+<fieldset><legend>Platforms</legend>{% for source in ['reddit','instagram','linkedin','x','facebook','youtube','tiktok'] %}<label><input type="checkbox" name="platforms" value="{{ source }}"{% if source in ['reddit','instagram','linkedin','x','facebook'] %} checked{% endif %}>{{ 'LinkedIn' if source=='linkedin' else 'X' if source=='x' else source|title }}</label>{% endfor %}</fieldset>
+<button type="submit">Preview update</button><button type="button" data-collection-start disabled>Collect now</button>
+</form><p data-collection-plan role="status"></p><p data-collection-state role="status" aria-live="polite"></p>
+<div data-collection-results></div><a href="/social?mode=live&amp;berry=all" data-collection-refresh hidden>Show updated posts →</a>
+</details>

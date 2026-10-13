@@ -2,6 +2,41 @@
   'use strict';
   const root=document.querySelector('[data-social]'); if(!root) return;
   const records=[...root.querySelectorAll('[data-social-record]')];
+  const collectionForm=root.querySelector('[data-collection-form]');
+  const collectButton=root.querySelector('[data-collection-start]');
+  const collectionPlan=root.querySelector('[data-collection-plan]');
+  const collectionState=root.querySelector('[data-collection-state]');
+  let approvedCollection=null;
+  function collectionOptions(){const form=new FormData(collectionForm);return {berry:form.get('berry'),perspective:form.get('perspective'),period:form.get('period'),platforms:form.getAll('platforms')};}
+  collectionForm?.addEventListener('change',()=>{approvedCollection=null;collectButton.disabled=true;collectionPlan.textContent='Preview the updated choices before collecting.';});
+  collectionForm?.addEventListener('submit',async event=>{
+    event.preventDefault();collectButton.disabled=true;approvedCollection=null;
+    try{const selected=await post('/api/social/collection/preview',collectionOptions());approvedCollection=selected.options;collectionPlan.textContent=`Up to ${selected.max_credits} credits · ${selected.queries.length} bounded requests. ${selected.note}`;
+      const response=await fetch('/api/social/collection/status',{credentials:'same-origin',cache:'no-store'});const current=await response.json();
+      if(!response.ok)throw new Error(current.detail||'Collection status unavailable');
+      collectButton.disabled=!current.enabled||current.halted;collectionState.textContent=current.enabled?'Ready to collect. The same scope is reused for 24 hours.':'Collection is not enabled by the operator.';
+    }catch(error){collectionState.textContent=error.message;}
+  });
+  async function refreshCollection(){
+    const response=await fetch('/api/social/collection/status',{credentials:'same-origin',cache:'no-store'});const data=await response.json();
+    if(!response.ok)throw new Error(data.detail||'Collection status unavailable');
+    root.querySelector('[data-collection-credit-label]').textContent=data.balance===null?'Manual update':`${data.balance.toLocaleString()} credits · last checked`;
+    const container=root.querySelector('[data-collection-results]');container.replaceChildren();
+    for(const job of data.jobs.slice(0,3)){
+      const detail=document.createElement('details');const heading=document.createElement('summary');heading.textContent=`${new Date(job.started_at).toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'2-digit'})} · ${job.status} · ${job.results.length}/${job.plan.queries.length} requests · ${job.results.reduce((n,r)=>n+(r.new||0),0)} new records`;detail.append(heading);
+      const list=document.createElement('ul');for(const result of job.results){const item=document.createElement('li');item.textContent=`${result.source} · ${result.scope} · ${result.berry.replace('berry-','')}: ${result.readable_relevant} readable relevant matches, ${result.new||0} new records${result.pending_english?`, ${result.pending_english} awaiting English review`:''}${result.reason?` · ${result.reason}`:''}`;list.append(item);}detail.append(list);container.append(detail);
+    }
+    return data;
+  }
+  collectButton?.addEventListener('click',async()=>{
+    if(!approvedCollection)return;collectButton.disabled=true;collectionState.textContent='Starting the update. You can keep browsing.';
+    try{const result=await post('/api/social/collection/start',approvedCollection);const key=result.job.id;let count=0;
+      const poll=async()=>{try{const data=await refreshCollection();const job=data.jobs.find(j=>j.id===key);if(job&&!['queued','running'].includes(job.status)){collectionState.textContent=`Update ${job.status}. ${result.reused?'Existing results reused without new requests.':''}`;root.querySelector('[data-collection-refresh]').hidden=false;return;}
+        if(++count<300)setTimeout(poll,3000);else collectionState.textContent='Update still pending; reopen collection results to check. No automatic retry.';
+      }catch(error){collectionState.textContent=error.message+' Reopen results to check; do not retry blindly.';}};await poll();
+    }catch(error){collectionState.textContent=error.message;}
+  });
+  root.querySelector('[data-collection-panel]')?.addEventListener('toggle',event=>{if(event.target.open)refreshCollection().catch(error=>{collectionState.textContent=error.message;});});
   const profileStatus=root.querySelector('[data-social-profile-status]');
   const profileForm=root.querySelector('[data-social-profile-save]');
   profileForm?.addEventListener('submit',async event=>{

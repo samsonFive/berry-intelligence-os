@@ -11,6 +11,10 @@ services:
       BIOS_BACKUP_DIR: /app/backups
       BIOS_MODE: authoring
       ENABLE_SOURCE_POLLING: "false"
+      # Explicit operator-triggered prepaid social requests; never a scheduler.
+      BIOS_SOCIAL_MANUAL_COLLECTION: ${BIOS_SOCIAL_MANUAL_COLLECTION:-false}
+      SOCIAVAULT_API_KEY: ${SOCIAVAULT_API_KEY:-}
+      BIOS_PUBLIC_ORIGIN: ${BIOS_PUBLIC_ORIGIN:-}
       BIOS_REVIEW_USERNAME: ${BIOS_REVIEW_USERNAME:?set BIOS_REVIEW_USERNAME in deploy/.env}
       BIOS_REVIEW_PASSWORD: ${BIOS_REVIEW_PASSWORD:?set BIOS_REVIEW_PASSWORD in deploy/.env}
       BIOS_SESSION_SECRET: ${BIOS_SESSION_SECRET:?set BIOS_SESSION_SECRET in deploy/.env}

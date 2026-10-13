@@ -6,6 +6,7 @@ jsonschema==4.25.0
 python-multipart==0.0.20
 feedparser==6.0.11
 httpx==0.28.1
+langid==1.1.6
 # trafilatura -- readable-article-text extraction for
 # app/services/article_acquisition.py (Article Ingestion vertical slice).
 # Pulls in lxml/courlan/htmldate/justext as its own transitive
