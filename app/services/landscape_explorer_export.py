@@ -23,6 +23,14 @@ def crop_label(edge):
     return " / ".join(key.removeprefix("berry-").title() for key in edge.get("berry_ids", []))
 
 
+def scope_slug(bundle):
+    filters = bundle["filters"]
+    if filters["berry"] == "all":
+        return "all-berries"
+    first = filters["berry"].removeprefix("berry-")
+    return first + "-vs-" + filters["compare"].removeprefix("berry-") if filters.get("pair") else first
+
+
 def _crop_panels(bundle):
     """Full comparison, not only the rows inside the screen display limit."""
     e = lambda value: escape(str(value or ""), quote=True)
