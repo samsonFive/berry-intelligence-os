@@ -2,6 +2,41 @@
 
 ## Milestone B authorized — October 12, 2026
 
+### Cited variety traits and sensory context
+
+The Explorer now reuses existing `variety_trait_profile` rows without changing
+the Variety backend, schemas, CPVO adapter or canonical records. A variety focus
+opens a compact, initially collapsed set of cited trait details. Values, units,
+reporting party and recorded conditions remain literal. Owner/marketer claims,
+trial measurements, registry descriptions, independent/trade reports and
+unresolved reports keep distinct labels; no cross-trial or cross-crop ranking
+is calculated. Missing conditions and references remain explicit gaps.
+
+Every trait reference must be eligible in the complete selected source scope;
+hidden, missing, deleted or disallowed sources cannot qualify a trait. Profile
+qualifications also require all existing variety source references in scope.
+The same context enters PDF, HTML and SVG, with qualifications beside the
+variety's first row. CSV remains the labeled relationship/source transfer, not
+a new trait schema. Engine version `landscape-4` invalidates older projections.
+
+Actual browser review distinguishes Blue Maldiva's three owner claims from
+Colossus's six reported trial details. Explicit Brix/firmness/flavour/yield units
+and the unexplained post-storage firmness note are retained. Three-column
+desktop cards become one column at 412px, with 397px document/scroll width and
+no horizontal overflow; emulation is not a physical-phone test. Latest PDFs
+retain the same 82/34/183 relationships and 47/26/95 sources; their full reference
+appendices now occupy 35/21/81 pages. Rendered trait, sensory, qualification and
+final pages were inspected. **107 related tests pass**, one existing warning,
+**22.37s**; **15 final export tests pass**, one warning, **7.61s**.
+
+The preceding PDF/guide head `5403f917d4ae7dda42874c269da5c7967683769f`
+passes all four required checks, run `38332543044`: **4,918 passed /11 skipped
+/two warnings /697.79s**. The earlier PDF-only run was cancelled by the later
+push and is not a successful full-suite proof. This trait change requires its
+own fresh check set. Personal-filter applicability, broader performance,
+remaining source/catalog work and final current-code release review stay open;
+there is no merge/deployment or human source/identity/trait approval here.
+
 ### Current guide and restart acceptance
 
 Actual browser actions update the copied saved-view name, archive/restore it,

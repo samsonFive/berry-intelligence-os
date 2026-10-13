@@ -68,6 +68,31 @@
     root.querySelectorAll('[data-focus]').forEach(a => { if (a.dataset.focus === id) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
     root.querySelectorAll('[data-relationship]').forEach(row => row.classList.toggle('is-neighbor', row.dataset.subject === id || row.dataset.object === id));
     const section = root.querySelector('.lx-focus'); section.hidden = bundle.filters.view === 'explain';
+    const traits = root.querySelector('[data-trait-context]');
+    traits.hidden = node.type !== 'variety';
+    traits.replaceChildren();
+    if (node.type === 'variety') {
+      const rows = node.traits || [];
+      traits.append(el('summary', `Traits & sensory context · ${rows.length ? rows.length + ' cited details' : 'no cited details in this selection'}`));
+      traits.append(el('p', 'Reports and measurements retain their original source and conditions. Different trials, scales and marketing claims are not a common ranking.', 'lx-muted'));
+      if (node.trait_note) traits.append(el('p', 'Profile note: ' + node.trait_note, 'lx-trait-note'));
+      const grid = el('div', null, 'lx-trait-grid');
+      rows.forEach(row => {
+        const item = el('article', null, 'lx-trait-row');
+        item.append(el('h3', row.trait_name), el('p', row.display_value), el('b', row.source_kind));
+        if (row.units) item.append(el('small', 'Units: ' + row.units));
+        item.append(el('small', `${row.asserted_by || 'Reporting party not recorded'} · ${row.conditions || 'Conditions not recorded'}`));
+        row.evidence_ids.forEach(sid => {
+          const source = sources.get(sid);
+          item.append(el('small', `Source ${source.number}: ${source.source_name} · Published ${source.published || 'not recorded'} · ${source.review}`), sourceLink(source));
+        });
+        grid.append(item);
+      });
+      traits.append(grid);
+      if (!rows.length) traits.append(el('p', 'No existing trait or sensory details have complete source references in this selection. This does not establish that the variety lacks those characteristics.'));
+      if (node.unavailable_trait_count) traits.append(el('small', `${node.unavailable_trait_count} stored details have incomplete values/references or fall outside this source selection.`));
+      const profile = el('a', 'Open full variety profile →'); profile.href = '/entities/variety/' + encodeURIComponent(id); traits.append(profile);
+    }
     root.querySelector('[data-focus-title]').textContent = node.label;
     const diagram = root.querySelector('[data-focus-diagram]'); diagram.replaceChildren();
     related.slice(0, showAll ? related.length : 6).forEach(edge => {

@@ -31,6 +31,10 @@ def scope_slug(bundle):
     return first + "-vs-" + filters["compare"].removeprefix("berry-") if filters.get("pair") else first
 
 
+def trait_rows(bundle):
+    return [(node, row) for node in bundle["nodes"].values() for row in node.get("traits", [])]
+
+
 def _crop_panels(bundle):
     """Full comparison, not only the rows inside the screen display limit."""
     e = lambda value: escape(str(value or ""), quote=True)
@@ -121,6 +125,19 @@ def svg_export(bundle):
         y += row_height + 16
     if not bundle["edges"]:
         parts.append(text("No supported relationships match this selection.", 30, y)); y += 35
+    if trait_rows(bundle):
+        parts.append(text("Cited variety traits and sensory context", 30, y, size=21, weight="bold")); y += 30
+        content, y = lines("Source claims and measurements keep their conditions; different trials and scales are not a common ranking.", 30, y, width=130); parts.append(content)
+        seen_notes = set()
+        for node, row in trait_rows(bundle):
+            content, y = lines(node["label"] + " / " + row["trait_name"] + ": " + row["display_value"], 30, y, width=130); parts.append(content)
+            if row["units"]:
+                content, y = lines("Units: " + row["units"], 30, y, width=130); parts.append(content)
+            content, y = lines(row["source_kind"] + " / " + (row["asserted_by"] or "Reporting party not recorded") + " / " + (row["conditions"] or "Conditions not recorded"), 30, y, width=130); parts.append(content)
+            parts.append(text("Sources " + " ".join(f"[{sources[sid]['number']}]" for sid in row["evidence_ids"]), 30, y)); y += 25
+            if node.get("trait_note") and node["id"] not in seen_notes:
+                content, y = lines(node["label"] + " profile note: " + node["trait_note"] + " Sources " + " ".join(f"[{sources[sid]['number']}]" for sid in node["trait_note_evidence_ids"]), 30, y, width=130); parts.append(content); y += 12
+                seen_notes.add(node["id"])
     parts.append(text("Numbered source notes", 30, y, size=21, weight="bold")); y += 30
     for source in bundle["sources"]:
         content, y = lines(f"[{source['number']}] {source['title']} · {source['id']} · {source['review']}", 30, y, width=130); parts.append(content)
@@ -150,7 +167,20 @@ def html_export(bundle, *, return_url=""):
     market_rows = ''.join('<tr><th>' + e(row['actor']['label']) + '</th>' + ''.join('<td>' +
         '<br>'.join(e(edge['location_label']) + ' ' + ' '.join(f'<a href="#source-{refs[sid]}">[{refs[sid]}]</a>' for sid in edge['evidence_ids']) for edge in market['edges']) + '</td>' for market in row['markets']) + '</tr>' for row in bundle.get('market_rows', []))
     matrix = '<table><thead><tr><th>Company</th>' + ''.join('<th>' + e(lane['label']) + '</th>' for lane in bundle['lanes']) + '</tr></thead><tbody>' + market_rows + '</tbody></table><p>Company locations are not variety growing footprints. Blank cells mean no location record in this scope.</p>'
-    lanes = _crop_panels(bundle) + takeaways + matrix
+    traits = ""
+    if trait_rows(bundle):
+        traits = '<h2>Cited variety traits and sensory context</h2><p>Source claims and measurements keep their conditions; different trials and scales are not a common ranking.</p><table><thead><tr><th>Variety / trait</th><th>Reported value</th><th>Basis / conditions / sources</th></tr></thead><tbody>'
+        seen_notes = set()
+        for node, row in trait_rows(bundle):
+            citations = " ".join(f'<a href="#source-{refs[sid]}">[{refs[sid]}]</a>' for sid in row["evidence_ids"])
+            note = ""
+            if node.get("trait_note") and node["id"] not in seen_notes:
+                note_refs = " ".join(f'<a href="#source-{refs[sid]}">[{refs[sid]}]</a>' for sid in node["trait_note_evidence_ids"])
+                note = '<p>Variety profile note: ' + e(node["trait_note"]) + ' ' + note_refs + '</p>'
+                seen_notes.add(node["id"])
+            traits += '<tr><th>' + e(node["label"]) + '<small>' + e(row["trait_name"]) + '</small></th><td>' + e(row["display_value"]) + ('<small>Units: ' + e(row["units"]) + '</small>' if row["units"] else '') + note + '</td><td>' + e(row["source_kind"]) + '<br>' + e(row["asserted_by"] or "Reporting party not recorded") + '<br>' + e(row["conditions"] or "Conditions not recorded") + '<br>' + citations + '</td></tr>'
+        traits += '</tbody></table>'
+    lanes = _crop_panels(bundle) + takeaways + matrix + traits
     return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' + f'<title>{e(bundle["title"])}</title>' + '''<style>
 body{font:15px/1.5 Arial,sans-serif;color:#193d2e;background:#f3f7ee;margin:0}main{max-width:1180px;margin:auto;padding:32px}h1{font-size:36px;line-height:1.15;margin:6px 0 18px}h2{font-size:24px;margin-top:32px}h3{font-size:18px}a{color:#17603e;overflow-wrap:anywhere}small{display:block;font-size:12px;color:#4c6254}.lead{font-size:18px}.scope{padding:18px;background:#e3edd9;border-left:5px solid #467638}.lanes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.lane{background:white;border:1px solid #a7bea0;border-radius:10px;padding:14px}table{width:100%;border-collapse:collapse;background:white;font-size:13px}th,td{padding:12px;border:1px solid #bdcdb7;text-align:left;vertical-align:top}th{width:17%}tr{break-inside:avoid}thead{display:table-header-group}li{margin-bottom:14px}#sources>li{break-inside:avoid;padding:10px 0;border-bottom:1px solid #b7c9ac}.notes{background:#fff5de;padding:18px;border:1px solid #d9be85}@media print{body{background:white}main{padding:0;max-width:none}h2{break-after:avoid}a{color:#193d2e}button{display:none}.new-page{break-before:page}@page{size:A4 landscape;margin:14mm}}
 </style><main>''' + f'<p>BERRY INTELLIGENCE · LANDSCAPE BRIEFING</p><h1>{e(bundle["title"])}</h1><div class="scope"><p class="lead">{e(_meta(bundle))}</p><p>Generated {e(bundle["generated_at"])} · Data version {e(bundle["version"])} · {len(bundle["edges"])} relationships · {len(bundle["sources"])} source records · {bundle["independence"]["independent_source_count"]} source origins</p><p>Complete selected scope is included below, including connections hidden by screen limits. This is a frozen export; the return link loads current data.</p><a href="{e(return_url or bundle["url"])}">Return to the selected landscape</a></div><h2>Landscape portrait</h2><div class="portrait">{lanes}</div><p>Legend: Documented = active registry relationship, not claim verification. Disputed = conflict or review required. Historical = retained historical record; an end date is not implied.</p><h2>{e(bundle["explanation"]["question"])}</h2><ol>{findings or "<li>No supported findings match this selection.</li>"}</ol><h2>Changes</h2><p>{e(bundle["explanation"]["changes"])}</p><h2>Possible implications</h2><p>{e(bundle["explanation"]["implications"][0])}</p><h2>Unknowns and boundaries</h2><ul class="notes">' + "".join(f'<li>{e(warning)}</li>' for warning in bundle["warnings"]) + f'</ul><h2 class="new-page">All selected relationships</h2><table><thead><tr><th>From</th><th>Relationship / status</th><th>To</th><th>Scope and clocks</th><th>Evidence and notes</th></tr></thead><tbody>{"".join(rows)}</tbody></table><h2 class="new-page">Numbered source notes</h2><ol id="sources">{sources}</ol></main></html>'

@@ -1,6 +1,6 @@
 {% extends "glasshouse_base.html" %}
 {% block title %}Landscape Explorer · Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/landscape_explorer.css?v=6">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/landscape_explorer.css?v=7">{% endblock %}
 {% block content %}
 {% set f = bundle.filters %}
 {% set visible_ids = bundle.visible_nodes|map(attribute="id")|list %}
@@ -33,6 +33,7 @@
     <div class="lx-content">
   <section class="lx-focus" aria-label="Selected neighborhood"{% if not f.focus %} hidden{% endif %}><div class="lx-section-heading"><h2 data-focus-title>{% if f.focus in bundle.nodes %}{{ bundle.nodes[f.focus].label }}{% else %}Selected neighborhood{% endif %}</h2><a data-reset-focus href="{{ href(f, focus='', edge='') }}">Clear focus</a></div><p>Select a role to inspect its source. Connected varieties are not automatically assigned to company locations.</p><div data-focus-diagram>{% for edge in focus_edges %}<div class="lx-connection" data-neighborhood-edge="{{ edge.id }}">{{ endpoint(edge.subject_id) }}<button type="button" class="lx-edge" data-edge="{{ edge.id }}">{{ edge.role }} →<small>{{ edge.status_label }}</small>{% if edge.caveat %}<small>{{ edge.caveat }}</small>{% endif %}</button>{{ endpoint(edge.object_id) }}</div>{% else %}<p>No connections match this focus and scope. Try all countries or clear another filter.</p>{% endfor %}</div></section>
 
+    <details class="lx-traits" data-trait-context hidden></details>
     {% if f.view == 'compare' %}{% include 'partials/landscape_comparison.html' %}
     {% elif f.view == 'portrait' %}
       <div class="lx-section-heading"><h2>Who is connected to each market?</h2><a href="/explorer?berry={{ '' if f.berry == 'all' or f.pair == '1' else f.berry }}&countries={{ f.countries|join(',') }}">Geography map →</a></div><p class="lx-muted">One row per company. Country cells explain the recorded presence; a blank cell means no location record in this scope.</p>
@@ -67,4 +68,4 @@
   <script type="application/json" id="landscape-bundle">{{ browser_bundle|tojson }}</script>
 </div>
 {% endblock %}
-{% block scripts %}<script src="/static/landscape_explorer.js?v=7"></script>{% endblock %}
+{% block scripts %}<script src="/static/landscape_explorer.js?v=8"></script>{% endblock %}
