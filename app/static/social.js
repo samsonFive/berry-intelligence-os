@@ -7,6 +7,7 @@
   const collectionPlan=root.querySelector('[data-collection-plan]');
   const collectionState=root.querySelector('[data-collection-state]');
   let approvedCollection=null;
+  const collectionLabel=state=>({live:'Complete',partial:'Completed with gaps',queued:'Queued',running:'Collecting',blocked:'Stopped',failed:'Failed'}[state]||state);
   function collectionOptions(){const form=new FormData(collectionForm);return {berry:form.get('berry'),perspective:form.get('perspective'),period:form.get('period'),platforms:form.getAll('platforms')};}
   collectionForm?.addEventListener('change',()=>{approvedCollection=null;collectButton.disabled=true;collectionPlan.textContent='Preview the updated choices before collecting.';});
   collectionForm?.addEventListener('submit',async event=>{
@@ -23,7 +24,7 @@
     root.querySelector('[data-collection-credit-label]').textContent=data.balance===null?'Manual update':`${data.balance.toLocaleString()} credits · last checked`;
     const container=root.querySelector('[data-collection-results]');container.replaceChildren();
     for(const job of data.jobs.slice(0,3)){
-      const detail=document.createElement('details');const heading=document.createElement('summary');heading.textContent=`${new Date(job.started_at).toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'2-digit'})} · ${job.status} · ${job.results.length}/${job.plan.queries.length} requests · ${job.results.reduce((n,r)=>n+(r.new||0),0)} new records`;detail.append(heading);
+      const detail=document.createElement('details');const heading=document.createElement('summary');heading.textContent=`${new Date(job.started_at).toLocaleDateString('en-US',{month:'2-digit',day:'2-digit',year:'2-digit'})} · ${collectionLabel(job.status)} · ${job.results.length}/${job.plan.queries.length} requests · ${job.results.reduce((n,r)=>n+(r.new||0),0)} new records`;detail.append(heading);
       const list=document.createElement('ul');for(const result of job.results){const item=document.createElement('li');item.textContent=`${result.source} · ${result.scope} · ${result.berry.replace('berry-','')}: ${result.readable_relevant} readable relevant matches, ${result.new||0} new records${result.pending_english?`, ${result.pending_english} awaiting English review`:''}${result.reason?` · ${result.reason}`:''}`;list.append(item);}detail.append(list);container.append(detail);
     }
     return data;
@@ -31,7 +32,7 @@
   collectButton?.addEventListener('click',async()=>{
     if(!approvedCollection)return;collectButton.disabled=true;collectionState.textContent='Starting the update. You can keep browsing.';
     try{const result=await post('/api/social/collection/start',approvedCollection);const key=result.job.id;let count=0;
-      const poll=async()=>{try{const data=await refreshCollection();const job=data.jobs.find(j=>j.id===key);if(job&&!['queued','running'].includes(job.status)){collectionState.textContent=`Update ${job.status}. ${result.reused?'Existing results reused without new requests.':''}`;root.querySelector('[data-collection-refresh]').hidden=false;return;}
+      const poll=async()=>{try{const data=await refreshCollection();const job=data.jobs.find(j=>j.id===key);if(job&&!['queued','running'].includes(job.status)){collectionState.textContent=`${collectionLabel(job.status)}. ${result.reused?'Existing results reused without new requests.':''}`;root.querySelector('[data-collection-refresh]').hidden=false;return;}
         if(++count<300)setTimeout(poll,3000);else collectionState.textContent='Update still pending; reopen collection results to check. No automatic retry.';
       }catch(error){collectionState.textContent=error.message+' Reopen results to check; do not retry blindly.';}};await poll();
     }catch(error){collectionState.textContent=error.message;}

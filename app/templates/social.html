@@ -1,6 +1,6 @@
 {% extends "glasshouse_base.html" %}
 {% block title %}Social Listening · Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/social.css?v=9">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/social.css?v=10">{% endblock %}
 {% block content %}
 {% set f=bundle.filters %}
 {% set berry_labels={'all':'All berries','berry-blueberry':'Blueberries','berry-strawberry':'Strawberries','berry-raspberry':'Raspberries','berry-blackberry':'Blackberries'} %}
@@ -45,4 +45,4 @@
 <details class="social-panel"><summary>Further exploration</summary><p>Planned views: variety footprint, competitive attention, conversation networks, market comparison, and the journey from announcement to retail sighting to consumer reaction.</p><p>Connections will distinguish names mentioned together, reported purchases, package labels and verified relationships, with supporting posts you can inspect. These views are design previews.</p></details>
 <script type="application/json" id="social-bundle">{{ bundle|tojson }}</script>
 </div>{% endblock %}
-{% block scripts %}<script src="/static/social.js?v=11"></script>{% endblock %}
+{% block scripts %}<script src="/static/social.js?v=12"></script>{% endblock %}
