@@ -1,5 +1,16 @@
 # Technical Debt Register
 
+### Repeated register captures — October 13 UTC
+
+The [four-berry recheck](CPVO-REFERENCE-COHORT-REVIEW.md) distinguishes Cargo's
+withdrawn application from its later numbered title and exposes source-reported
+status. Repeat captures now share one reference display row, with original
+links and dated/changed context retained. Different authorities, applications
+and grants cannot coalesce. No trust state or canonical identity is changed.
+Sixty-five related and 26 final history tests pass; current-head CI and release
+package/rehearsal remain required. Broader portfolio/current-rights/recall debt
+and all actual human review decisions remain open.
+
 ### Original register projection blocker — October 13 UTC
 
 The [reference review](IMPORTED-REGISTER-REFERENCE-REVIEW.md) reproduces and
