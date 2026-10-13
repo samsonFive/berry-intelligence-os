@@ -4,6 +4,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, Response, RedirectResp
 
 from app.services import landscape_explorer as explorer
 from app.services import landscape_explorer_export as exports
+from app.services.landscape_explorer_pdf import pdf_export
 from app.services.landscape_explorer_map import overview
 from app.services.berries.landscape import SEED_FIXTURE_ENTITY_IDS, SEED_FIXTURE_EVIDENCE_IDS
 from app.services.variety_universe.coverage import BERRY_ORDER
@@ -94,12 +95,13 @@ def briefing(request: Request):
 def export(request: Request, format: str):
     _, _, bundle, _ = context(request)
     generators = {"html": (lambda b: exports.html_export(b, return_url=str(request.base_url).rstrip("/") + b["url"]), "text/html; charset=utf-8"),
-                  "svg": (exports.svg_export, "image/svg+xml"), "csv": (exports.csv_export, "text/csv; charset=utf-8")}
+                  "svg": (exports.svg_export, "image/svg+xml"), "csv": (exports.csv_export, "text/csv; charset=utf-8"),
+                  "pdf": (lambda b: pdf_export(b, return_url=str(request.base_url).rstrip("/")+b["url"]), "application/pdf")}
     if format not in generators:
-        raise HTTPException(404, "Choose HTML, SVG or CSV.")
+        raise HTTPException(404, "Choose PDF, HTML, SVG or CSV.")
     generate, media_type = generators[format]
     return Response(generate(bundle), media_type=media_type, headers={
-        "Content-Disposition": f'attachment; filename="{bundle["filters"]["berry"].removeprefix("berry-")}-landscape-{bundle["version"]}.{format}"',
+        "Content-Disposition": f'attachment; filename="{exports.scope_slug(bundle)}-landscape-{bundle["version"]}.{format}"',
         "Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff",
     })
 

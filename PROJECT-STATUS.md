@@ -1,5 +1,15 @@
 # Project Status
 
+**October 12–13: Landscape PDFs and actual browser exports.** Draft #396 now
+offers server-rendered PDF snapshots with cited takeaways, market/comparison
+tables and the complete evidence appendix. Scope, crop identity, three dates,
+review boundaries and source URLs remain intact. PDF/HTML/SVG/CSV browser
+downloads were parsed on the isolated review copy; 100 focused tests pass.
+All berries and blueberry–strawberry walkthroughs are complete. Prior f363bf
+head has all four CI checks green (4,909 tests); this PDF change requires a fresh
+check set. Sourced traits, saved-view persistence walkthrough, guide refresh
+and final tested-release review remain. No merge/deployment.
+
 **October 12: saved Explorer views reuse the existing store.** Draft #396 adds
 typed selector rows with update/copy/archive/restore, optimistic conflicts and
 fresh-data reopening. Existing overview rows and history are preserved; no

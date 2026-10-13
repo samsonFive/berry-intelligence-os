@@ -1,6 +1,35 @@
-# Landscape Explorer — blueberry review checkpoint
+# Landscape Explorer — approved four-crop continuation
 
 ## Milestone B authorized — October 12, 2026
+
+### Complete PDF snapshots and browser downloads
+
+PDF is now a server-rendered download alongside HTML, SVG and CSV. It uses the
+same authenticated, policy-filtered bundle, with dated scope, cited takeaways,
+market/comparison tables, complete connections beyond screen limits, numbered
+context notes and original-source links. Exact repeated notes share a numbered
+entry without merging relationships. Crop/review status, event/publication/
+capture clocks, identities, source notes and qualifications remain explicit.
+Pinned, licensed Noto fonts support accented names; CJK uses standard CID fonts.
+Generation requires no browser, external upload, provider or data mutation.
+
+Real copied-data examples contain 82 links/47 sources (default blueberry),
+34/26 (raspberry–blackberry), and 183/95 (All berries). Their complete reference
+appendices produce 31, 20 and 71 pages respectively; these are full evidence
+snapshots, not short executive summaries. Poppler review covers typography,
+table breaks, numbered source notes, final pages and a fictional Unicode/long
+text stress case. Browser downloads of PDF/HTML/SVG/CSV retain the paired scope;
+parsed CSV contains all 34 distinct relationship IDs. Filenames identify both
+crops or All berries. No pending draft or original runtime was changed.
+
+Local focused regression: **100 passed**, one existing ReportLab warning,
+**17.97 seconds**. Restricted Windows socket initialization required running
+the loopback preview/TestClient outside the sandbox; both use the isolated
+copied runtime or deterministic fixtures. The blueberry–strawberry and All
+berries walkthrough also completed. Fresh pushed-head CI, sourced traits,
+saved update/archive/restore/restart walkthrough, guide refresh and final
+release review remain. Local review downloads are explicitly approved by the
+user; this is not merge/deployment or trust approval.
 
 ### Actual browser walkthrough and density repair
 
