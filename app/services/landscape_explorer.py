@@ -20,8 +20,9 @@ from app.services.source_independence import independence_report
 from app.services.variety_universe.corpus_discovery import discover_corpus_variety_mentions, source_catalog_coverage
 from app.services.variety_universe.coverage import BERRY_ORDER
 from app.services.berries.variety import variety_trait_profile
+from app.services import company_directory, personal_digest
 
-ENGINE_VERSION = "landscape-4"
+ENGINE_VERSION = "landscape-5"
 GENETIC_TYPES = {"variety", "breeding_program"}
 ACTOR_TYPES = {"company", "breeding_program", "variety"}
 ROLE_LABELS = {"develops": "Breeder / developer", "owns": "Owner / rights holder",
@@ -47,7 +48,7 @@ def _values(params, key):
     return sorted({part.strip() for value in values for part in str(value).split(",") if part.strip()})
 
 
-def selection(params, entities, *, today=None):
+def selection(params, entities, *, today=None, state=None):
     today = today or date.today()
     # Generic service accepts known berries; the route exposes the app's four crop categories.
     berry = str(params.get("berry") or "berry-blueberry")
@@ -81,6 +82,12 @@ def selection(params, entities, *, today=None):
              "question": tuple(QUESTIONS), "theme": ("light", "dark")}
     defaults = {key: values[0] for key, values in enums.items()}
     result = {key: str(params.get(key, defaults[key])) for key in enums}
+    result.update({key: str(params.get(key) or "") for key in ("favorites", "tier", "list")})
+    if result["favorites"] not in {"", "1"} or result["tier"] not in {"", *company_directory.TIERS}:
+        raise ValueError("Choose supported company favorites and tiers.")
+    lists = {row["id"]: row for row in personal_digest.company_lists(state or {})}
+    if result["list"] and result["list"] not in lists:
+        raise ValueError("This company list is unavailable or archived. Choose a current list.")
     if any(result[key] not in values for key, values in enums.items()):
         raise ValueError("A landscape filter is invalid.")
     start, end = "", ""
@@ -159,23 +166,25 @@ def _location_label(row):
     return "Location reported · check source"
 
 
-def build_bundle(entities, relationships, evidence, params, *, today=None):
+def build_bundle(entities, relationships, evidence, params, *, today=None, state=None):
     """Complete selected scope; visibility limits apply only to the web portrait.
 
     Fingerprinting includes deletions and source edits, not a TTL. Cached values
     are copied so a caller cannot poison later UI/export responses.
     """
     today = today or date.today()
-    filters = selection(params, entities, today=today)
+    state = state or {}
+    filters = selection(params, entities, today=today, state=state)
     fingerprint = hashlib.sha256(json.dumps([ENGINE_VERSION, entities, sorted(relationships, key=lambda r: r["id"]),
                                             sorted(evidence, key=lambda r: r["id"])], sort_keys=True, default=str).encode()).hexdigest()
-    cache_key = fingerprint + json.dumps(filters, sort_keys=True) + today.isoformat()
+    mark_signature = {key: state.get(key) or {} for key in ("entity_favorites", "entity_tiers", "company_lists")}
+    cache_key = fingerprint + json.dumps([filters, mark_signature], sort_keys=True) + today.isoformat()
     with _CACHE_LOCK:
         if cache_key in _CACHE:
             _CACHE.move_to_end(cache_key)
             return deepcopy(_CACHE[cache_key])
     if filters["berry"] == "all" or filters["pair"]:
-        bundle = _combined_bundle(entities, relationships, evidence, filters, fingerprint, today)
+        bundle = _combined_bundle(entities, relationships, evidence, filters, fingerprint, today, state)
         _remember(cache_key, bundle)
         return bundle
     records = {row["id"]: row for row in evidence if row.get("status") == "published" or
@@ -258,7 +267,8 @@ def build_bundle(entities, relationships, evidence, params, *, today=None):
         query = filters["q"].casefold()
         matches = {key for key in reached if query in " ".join([str(entities[key].get("name", "")), *[str(a) for a in entities[key].get("aliases", [])]]).casefold()}
         edges = [edge for edge in edges if {edge["subject_id"], edge["object_id"]} & matches]
-    bundle = _assemble_bundle(entities, relationships, records, filters, edges, fingerprint, excluded)
+    edges, company_scope = _company_scope(edges, candidates, entities, filters, state)
+    bundle = _assemble_bundle(entities, relationships, records, filters, edges, fingerprint, excluded, company_scope)
     _remember(cache_key, bundle)
     return bundle
 
@@ -284,7 +294,46 @@ def _trait_value(value):
     return "Not recorded" if value is None else str(value)
 
 
-def _assemble_bundle(entities, relationships, records, filters, edges, fingerprint, excluded):
+def _company_scope(edges, candidates, entities, filters, state):
+    active = bool(filters["favorites"] or filters["tier"] or filters["list"])
+    labels = (["Favorites"] if filters["favorites"] else []) + ([company_directory.TIERS[filters["tier"]]] if filters["tier"] else [])
+    if filters["list"]:
+        labels.append(next(str(row.get("name") or "Unnamed company list") for row in personal_digest.company_lists(state) if row["id"] == filters["list"]))
+    context = {"active": active, "labels": labels, "basis": []}
+    if not active:
+        return edges, context
+    matching = {key for key, row in entities.items() if row.get("entity_type") in {"company", "breeding_program"}
+                and company_directory.matches_marks([key], state, favorites=filters["favorites"], tier=filters["tier"], list_id=filters["list"])}
+    scope, ownership = set(matching), {}
+    changed = True
+    while changed:
+        changed = False
+        for edge in candidates:
+            if (edge["predicate"] == "owns" and edge["subject_id"] in scope
+                    and entities[edge["object_id"]].get("entity_type") == "breeding_program"
+                    and (filters["status"] == "all" or edge["status"] == filters["status"])):
+                ownership[edge["id"]] = edge
+                if edge["object_id"] not in scope:
+                    scope.add(edge["object_id"]); changed = True
+    selected = [edge for edge in edges if {edge["subject_id"], edge["object_id"]} & scope]
+    # Keep complete ownership paths to a selected program, even when a role
+    # filter hides those edges. Their sources remain explicit context, not new
+    # inferred relationships or transferred breeder/owner roles.
+    needed = {key for edge in selected for key in (edge["subject_id"], edge["object_id"])}
+    while True:
+        parents = {edge["subject_id"] for edge in ownership.values() if edge["object_id"] in needed}
+        if parents <= needed:
+            break
+        needed.update(parents)
+    selected_ids = {edge["id"] for edge in selected}
+    context["basis"] = [{**deepcopy(edge), "label": entities[edge["subject_id"]].get("name", edge["subject_id"]) + " has a recorded ownership link to " + entities[edge["object_id"]].get("name", edge["object_id"]),
+                         "subject_label": entities[edge["subject_id"]].get("name", edge["subject_id"]), "object_label": entities[edge["object_id"]].get("name", edge["object_id"]),
+                         "subject_identity_status": entities[edge["subject_id"]].get("status") or "Not recorded", "object_identity_status": entities[edge["object_id"]].get("status") or "Not recorded"}
+                        for edge in ownership.values() if edge["object_id"] in needed and edge["id"] not in selected_ids]
+    return selected, context
+
+
+def _assemble_bundle(entities, relationships, records, filters, edges, fingerprint, excluded, company_scope=None):
     """One projection shared by single-crop, union and comparison exports."""
     used = {key for edge in edges for key in (edge["subject_id"], edge["object_id"])}
     node_rows = [{"id": key, "label": entities[key].get("name") or key, "type": entities[key]["entity_type"],
@@ -294,7 +343,8 @@ def _assemble_bundle(entities, relationships, records, filters, edges, fingerpri
                   "evidence_ids": sorted({sid for edge in edges if key in {edge["subject_id"], edge["object_id"]} for sid in edge["evidence_ids"]})}
                  for key in sorted(used, key=lambda key: (entities[key].get("name", key).casefold(), key))]
     nodes = {row["id"]: row for row in node_rows}
-    sources = [_source(records[key]) for key in sorted({sid for edge in edges for sid in edge["evidence_ids"]})]
+    company_scope = company_scope or {"active": False, "labels": [], "basis": []}
+    sources = [_source(records[key]) for key in sorted({sid for edge in [*edges, *company_scope["basis"]] for sid in edge["evidence_ids"]})]
     for number, source in enumerate(sources, 1):
         source["number"] = number
     # Reuse stored variety traits, with every cited source eligible in this
@@ -382,12 +432,13 @@ def _assemble_bundle(entities, relationships, records, filters, edges, fingerpri
                            "hidden_nodes": len(nodes) - len(visible_nodes), "hidden_relationships": len(edges) - len(visible_edges),
                            "truncated_display": len(edges) != len(visible_edges), "complete_export": True,
                            "excluded": excluded, "partial": True}}
+    bundle["company_scope"] = company_scope
     bundle["explanation"] = explain(bundle)
     add_portrait_context(bundle, entities, records)
     return bundle
 
 
-def _combined_bundle(entities, relationships, evidence, filters, fingerprint, today):
+def _combined_bundle(entities, relationships, evidence, filters, fingerprint, today, state):
     """Union already-scoped crop bundles, never traverse a cross-crop shortcut.
 
     Stable registry IDs deduplicate shared actors and edges. Crop membership is
@@ -404,7 +455,7 @@ def _combined_bundle(entities, relationships, evidence, filters, fingerprint, to
         child = build_bundle(entities, relationships, evidence,
                              {**filters, "countries": ",".join(filters["countries"]),
                               "berry": crop, "view": "portrait", "pair": "", "focus": focus, "edge": "",
-                              "limit": max(20, filters["limit"] // 2) if filters["view"] == "compare" else filters["limit"]}, today=today)
+                              "limit": max(20, filters["limit"] // 2) if filters["view"] == "compare" else filters["limit"]}, today=today, state=state)
         panels.append(child)
         for edge in child["edges"]:
             if edge["id"] not in edges:
@@ -416,8 +467,18 @@ def _combined_bundle(entities, relationships, evidence, filters, fingerprint, to
     # These diagnostics overlap across crops; do not add them as distinct records.
     excluded = {key: max((p["coverage"]["excluded"][key] for p in panels), default=0)
                 for key in ("missing_endpoints", "unavailable_sources")}
+    basis = {}
+    for panel in panels:
+        for edge in panel["company_scope"]["basis"]:
+            if edge["id"] not in edges:
+                if edge["id"] not in basis:
+                    basis[edge["id"]] = {**deepcopy(edge), "berry_ids": []}
+                basis[edge["id"]]["berry_ids"].extend(key for key in edge["berry_ids"] if key not in basis[edge["id"]]["berry_ids"])
+    company_scope = {"active": panels[0]["company_scope"]["active"] if panels else False,
+                     "labels": panels[0]["company_scope"]["labels"] if panels else [],
+                     "basis": list(basis.values())}
     bundle = _assemble_bundle(entities, relationships, records, filters,
-                              [edges[key] for key in sorted(edges)], fingerprint, excluded)
+                              [edges[key] for key in sorted(edges)], fingerprint, excluded, company_scope)
     bundle["coverage"]["excluded_count_basis"] = "Largest per-crop diagnostic; crop diagnostics overlap, so these are not distinct excluded-record totals."
     common = set.intersection(*[{key for key, row in p["nodes"].items()
                                 if row["type"] in {"company", "breeding_program"}} for p in panels]) if panels else set()

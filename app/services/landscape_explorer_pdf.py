@@ -106,6 +106,10 @@ def pdf_export(bundle, *, return_url=""):
              p("Complete selected scope. Screen limits do not remove connections from this snapshot. Saved views reopen current data; this export remains dated.", "meta")]
     link = return_url or bundle["url"]
     story.append(Paragraph(f'<link href="{escape(link, {chr(34): "&quot;"})}" color="#286f42">Return to this selection with current data</link>', styles["source"]))
+    if bundle.get("company_scope", {}).get("active"):
+        story.append(p("Company scope includes matching companies/programs and programs linked through recorded ownership. Connected parties can appear; marks do not approve evidence.", "meta"))
+        for edge in bundle["company_scope"]["basis"]:
+            story.append(p(edge["label"] + " / " + edge["status_label"] + " / " + edge["review"] + (" / " + edge["caveat"] if edge["caveat"] else "") + " Sources " + refs(edge), "meta"))
     for insight in bundle.get("insights", []):
         story += [p(insight["title"], "h2"), p(insight["text"], "takeaway"), p(insight["next_step"], "meta"),
                   p("Sources: " + " ".join(f"[{sources[sid]['number']}]" for sid in insight["evidence_ids"]), "meta")]

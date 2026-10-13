@@ -8,10 +8,34 @@ from app.services.landscape_explorer_pdf import pdf_export
 from app.services.landscape_explorer_map import overview
 from app.services.berries.landscape import SEED_FIXTURE_ENTITY_IDS, SEED_FIXTURE_EVIDENCE_IDS
 from app.services.variety_universe.coverage import BERRY_ORDER
-from app.services import landscape_workspace as workspace
+from app.services import landscape_workspace as workspace, feed_first, company_directory, personal_digest
 from app.personal_digest_routes import require_edit
+import json
 
 router = APIRouter()
+
+
+def company_state(inbox):
+    path = feed_first.state_path(inbox)
+    if path.exists():
+        try:
+            raw = json.loads(path.read_text(encoding="utf-8"))
+            if not isinstance(raw, dict):
+                raise ValueError()
+            for field in ("entity_favorites", "entity_tiers", "company_lists"):
+                if raw.get(field) is not None and not isinstance(raw[field], dict):
+                    raise ValueError()
+            if any(value is not None and not isinstance(value, str) for value in (raw.get("entity_tiers") or {}).values()):
+                raise ValueError()
+            for group in (raw.get("company_lists") or {}).values():
+                if not isinstance(group, dict) or not isinstance(group.get("company_ids") or [], list) or any(not isinstance(key, str) for key in group.get("company_ids") or []):
+                    raise ValueError()
+        except (OSError, ValueError, TypeError):
+            raise ValueError("Company preferences cannot be read. Restore the saved preferences before using this view.") from None
+        state = feed_first.empty_state()
+        state.update({key: raw.get(key, state[key]) for key in state})
+        return state
+    return feed_first.empty_state()
 
 
 def context(request, params=None):
@@ -39,7 +63,8 @@ def context(request, params=None):
     evidence = [row for row in main._social_eligible_outputs(main.all_evidence()) if row["id"] not in SEED_FIXTURE_EVIDENCE_IDS]
     relationships = main._social_eligible_outputs(main.all_relationships())
     try:
-        bundle = explorer.build_bundle(entities, relationships, evidence, params)
+        state = company_state(main.INBOX_DIR)
+        bundle = explorer.build_bundle(entities, relationships, evidence, params, state=state)
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
     if bundle["filters"]["edge"] and bundle["filters"]["edge"] not in {row["id"] for row in bundle["edges"]}:
@@ -48,13 +73,13 @@ def context(request, params=None):
         bundle["filters"]["saved_view"] = selected_view["id"]
         bundle["url"] = explorer.href(bundle["filters"])
         bundle["saved_view"] = {key: selected_view[key] for key in ("id", "name", "revision")}
-    return main, entities, bundle, store
+    return main, entities, bundle, store, state
 
 
 @router.get("/landscapes/explorer", response_class=HTMLResponse)
 def page(request: Request):
     try:
-        main, entities, bundle, store = context(request)
+        main, entities, bundle, store, state = context(request)
     except HTTPException as exc:
         if exc.status_code != 422:
             raise
@@ -64,9 +89,16 @@ def page(request: Request):
         }, status_code=422, headers={"Cache-Control": "private, no-store"})
     choices = sorted([row for row in entities.values() if row.get("entity_type") == "geography"], key=lambda row: row.get("name", row["id"]))
     source_lookup = {row["id"]: row for row in bundle["sources"]}
+    groups = personal_digest.company_lists(state)
+    actor_marks = {key: {"favorite": bool((state.get("entity_favorites") or {}).get(key)),
+                         "tier": company_directory.TIERS.get((state.get("entity_tiers") or {}).get(key) or "untiered", "Existing tier"),
+                         "lists": [row["name"] for row in groups if key in row.get("company_ids", [])]}
+                   for key, row in bundle["nodes"].items() if row["type"] in {"company", "breeding_program"}}
     focus_edges = [row for row in bundle["edges"] if bundle["filters"]["focus"] in {row["subject_id"], row["object_id"]}]
     return main.templates.TemplateResponse(request, "landscape_explorer.html", {
-        "authoring_mode": main.AUTHORING_MODE, "bundle": bundle, "browser_bundle": explorer.browser_bundle(bundle), "countries": choices,
+        "authoring_mode": main.AUTHORING_MODE, "bundle": bundle, "browser_bundle": {**explorer.browser_bundle(bundle), "actor_marks": actor_marks}, "countries": choices,
+        "actor_marks": actor_marks, "company_lists": groups,
+        "company_tiers": {**company_directory.CURRENT_TIERS, **({bundle["filters"]["tier"]: company_directory.TIERS[bundle["filters"]["tier"]]} if bundle["filters"]["tier"] else {})},
         "explorer_berries": [entities[key] for key in BERRY_ORDER if key in entities and entities[key].get("entity_type") == "berry"],
         "roles": explorer.ROLE_LABELS, "questions": explorer.QUESTIONS, "href": explorer.href,
         "source_lookup": source_lookup, "focus_edges": focus_edges,
@@ -80,20 +112,20 @@ def page(request: Request):
 
 @router.get("/api/landscapes/explorer")
 def api(request: Request):
-    _, _, bundle, _ = context(request)
+    _, _, bundle, _, _ = context(request)
     return JSONResponse(bundle, headers={"Cache-Control": "private, no-store"})
 
 
 @router.get("/landscapes/explorer/briefing", response_class=HTMLResponse)
 def briefing(request: Request):
-    _, _, bundle, _ = context(request)
+    _, _, bundle, _, _ = context(request)
     return HTMLResponse(exports.html_export(bundle, return_url=str(request.base_url).rstrip("/") + bundle["url"]),
                         headers={"Cache-Control": "private, no-store"})
 
 
 @router.get("/landscapes/explorer/export/{format}")
 def export(request: Request, format: str):
-    _, _, bundle, _ = context(request)
+    _, _, bundle, _, _ = context(request)
     generators = {"html": (lambda b: exports.html_export(b, return_url=str(request.base_url).rstrip("/") + b["url"]), "text/html; charset=utf-8"),
                   "svg": (exports.svg_export, "image/svg+xml"), "csv": (exports.csv_export, "text/csv; charset=utf-8"),
                   "pdf": (lambda b: pdf_export(b, return_url=str(request.base_url).rstrip("/")+b["url"]), "application/pdf")}
@@ -117,7 +149,7 @@ async def save_explorer_view(request: Request):
     key = str(form.get("view_id") or "")
     try:
         if action in {"save", "copy"}:
-            _, _, bundle, _ = context(request, form)
+            _, _, bundle, _, _ = context(request, form)
             filters = {**bundle["filters"], "countries": ",".join(bundle["filters"]["countries"])}
             name = str(form.get("name") or "")
             if action == "copy":

@@ -2,6 +2,38 @@
 
 ## Milestone B authorized — October 12, 2026
 
+### Shared company tracking and applied saved scope
+
+Favorites, tiers and active company lists now use the existing personal state
+throughout single-crop, All and paired Landscape selections, saved selectors
+and PDF/HTML/SVG/CSV exports. All selected marks must match one registered
+company or program. Recorded ownership can connect that actor to a breeding
+program; it never transfers breeder roles, approves identity, expands to owned
+companies or establishes growing locations. If a role filter hides the
+ownership path, its exact status, qualifications and sources remain explicit
+scope context. CSV labels those rows separately from selected relationships.
+Membership changes invalidate the projection without changing canonical data;
+corrupt preferences return a recoverable error without resetting user state.
+
+Native crop controls remain pending until Apply. Selecting a focus while a
+different crop is pending cannot silently save that pending crop; Apply clears
+incompatible genetics focus and stale evidence without overwriting the saved
+view. Actual copied-runtime browser review saves the applied blueberry scope
+despite a pending Strawberry choice. A company favorite, Tier 1 and a new
+review list created through Companies produce 13 Hortifrut connections and
+seven sources in Landscape. The nine-page PDF and 17-association CSV retain
+all 13 IDs and the selected scope. Desktop and 412px emulation have no page
+overflow; screenshots and preferences remain in the isolated review copy.
+
+**120 focused tests pass**, one existing ReportLab warning, **20.11s**.
+The preceding trait head `c7f728b92ca5726f85bdc009e7d7ea827d7f05f0`
+passes all four required checks in run `38334825050`: **4,924 passed /11
+skipped /two warnings /980.81s**. These company-filter changes require fresh
+checks on their pushed head. Broader performance, remaining source/catalog
+work and the final current-code release rehearsal remain open. User approval
+for local review downloads is recorded; no merge, deployment or human trust
+decision is inferred.
+
 ### Cited variety traits and sensory context
 
 The Explorer now reuses existing `variety_trait_profile` rows without changing

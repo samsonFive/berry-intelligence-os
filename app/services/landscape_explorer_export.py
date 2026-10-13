@@ -16,7 +16,8 @@ def _meta(bundle):
     role = ROLE_LABELS.get(f["predicate"], "All roles")
     clock = {"documented": "First captured / newly documented", "published": "Source publication", "event": "Recorded event / effective date"}[f["time"]]
     window = f"{f['start']} to {f['end']}" if f["start"] else "All recorded dates"
-    return f"{countries} · {focus} · {policy} · {status} · {role} · Search: {f['q'] or 'none'} · {clock}: {window}"
+    company_scope = " · Company scope: " + " / ".join(bundle["company_scope"]["labels"]) if bundle.get("company_scope", {}).get("active") else ""
+    return f"{countries} · {focus} · {policy} · {status} · {role} · Search: {f['q'] or 'none'} · {clock}: {window}" + company_scope
 
 
 def crop_label(edge):
@@ -56,16 +57,19 @@ def _crop_panels(bundle):
 def csv_export(bundle):
     output = StringIO(newline="")
     writer = csv.writer(output)
-    writer.writerow(["data_version", "relationship_id", "subject_id", "subject", "predicate", "object_id", "object", "status", "scope", "caveat", "effective_date", "first_seen_source_capture", "source_number", "evidence_id", "source_title", "source_url", "source_review", "published_date", "captured_date", "relationship_notes", "subject_identity_status", "object_identity_status", "berry_id", "country_filters", "focus_id", "date_clock", "window_start", "window_end", "generated_at", "relationship_berry_scopes"])
+    writer.writerow(["data_version", "relationship_id", "subject_id", "subject", "predicate", "object_id", "object", "status", "scope", "caveat", "effective_date", "first_seen_source_capture", "source_number", "evidence_id", "source_title", "source_url", "source_review", "published_date", "captured_date", "relationship_notes", "subject_identity_status", "object_identity_status", "berry_id", "country_filters", "focus_id", "date_clock", "window_start", "window_end", "generated_at", "relationship_berry_scopes", "row_kind", "favorites_filter", "tier_filter", "company_list_filter"])
     sources = {row["id"]: row for row in bundle["sources"]}
     def cell(value):
         value = str(value or "")
         return "'" + value if value.lstrip().startswith(("=", "+", "-", "@", "\t", "\r")) else value
-    for edge in bundle["edges"]:
+    rows = [(edge, "relationship") for edge in bundle["edges"]] + [(edge, "company_scope_context") for edge in bundle.get("company_scope", {}).get("basis", [])]
+    for edge, row_kind in rows:
+        left = bundle["nodes"].get(edge["subject_id"]) or {"label": edge["subject_label"], "identity_status": edge["subject_identity_status"]}
+        right = bundle["nodes"].get(edge["object_id"]) or {"label": edge["object_label"], "identity_status": edge["object_identity_status"]}
         for sid in edge["evidence_ids"]:
             source = sources[sid]
             f = bundle["filters"]
-            writer.writerow([cell(value) for value in [bundle["version"], edge["id"], edge["subject_id"], bundle["nodes"][edge["subject_id"]]["label"], edge["predicate"], edge["object_id"], bundle["nodes"][edge["object_id"]]["label"], edge["status"], edge["scope_kind"], edge["caveat"], edge["effective"], edge["first_seen"], source["number"], sid, source["title"], source["url"], source["review"], source["published"], source["captured"], edge["notes"], bundle["nodes"][edge["subject_id"]]["identity_status"], bundle["nodes"][edge["object_id"]]["identity_status"], f["berry"], ",".join(f["countries"]), f["focus"], f["time"], f["start"], f["end"], bundle["generated_at"], ",".join(edge.get("berry_ids", []))]])
+            writer.writerow([cell(value) for value in [bundle["version"], edge["id"], edge["subject_id"], left["label"], edge["predicate"], edge["object_id"], right["label"], edge["status"], edge["scope_kind"], edge["caveat"], edge["effective"], edge["first_seen"], source["number"], sid, source["title"], source["url"], source["review"], source["published"], source["captured"], edge["notes"], left["identity_status"], right["identity_status"], f["berry"], ",".join(f["countries"]), f["focus"], f["time"], f["start"], f["end"], bundle["generated_at"], ",".join(edge.get("berry_ids", [])), row_kind, f.get("favorites", ""), f.get("tier", ""), f.get("list", "")]])
     return "\ufeff" + output.getvalue()
 
 
@@ -125,6 +129,8 @@ def svg_export(bundle):
         y += row_height + 16
     if not bundle["edges"]:
         parts.append(text("No supported relationships match this selection.", 30, y)); y += 35
+    for edge in bundle.get("company_scope", {}).get("basis", []):
+        content, y = lines("Company scope context: " + edge["label"] + " / " + edge["status_label"] + " / " + edge["review"] + " / " + (edge["caveat"] or "No role caveat recorded") + " Sources " + " ".join(f"[{sources[sid]['number']}]" for sid in edge["evidence_ids"]), 30, y, width=130); parts.append(content); y += 12
     if trait_rows(bundle):
         parts.append(text("Cited variety traits and sensory context", 30, y, size=21, weight="bold")); y += 30
         content, y = lines("Source claims and measurements keep their conditions; different trials and scales are not a common ranking.", 30, y, width=130); parts.append(content)
@@ -181,6 +187,9 @@ def html_export(bundle, *, return_url=""):
             traits += '<tr><th>' + e(node["label"]) + '<small>' + e(row["trait_name"]) + '</small></th><td>' + e(row["display_value"]) + ('<small>Units: ' + e(row["units"]) + '</small>' if row["units"] else '') + note + '</td><td>' + e(row["source_kind"]) + '<br>' + e(row["asserted_by"] or "Reporting party not recorded") + '<br>' + e(row["conditions"] or "Conditions not recorded") + '<br>' + citations + '</td></tr>'
         traits += '</tbody></table>'
     lanes = _crop_panels(bundle) + takeaways + matrix + traits
+    if bundle.get("company_scope", {}).get("active"):
+        basis = ''.join('<li>' + e(edge["label"]) + ' / ' + e(edge["status_label"]) + ' / ' + e(edge["review"]) + ' / ' + e(edge["caveat"]) + ' ' + ' '.join(f'<a href="#source-{refs[sid]}">[{refs[sid]}]</a>' for sid in edge["evidence_ids"]) + '</li>' for edge in bundle["company_scope"]["basis"])
+        lanes += '<h2>Company scope context</h2><p>Matching companies/programs and programs linked through recorded ownership. Connected parties can appear; marks do not approve evidence.</p><ul>' + basis + '</ul>'
     return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' + f'<title>{e(bundle["title"])}</title>' + '''<style>
 body{font:15px/1.5 Arial,sans-serif;color:#193d2e;background:#f3f7ee;margin:0}main{max-width:1180px;margin:auto;padding:32px}h1{font-size:36px;line-height:1.15;margin:6px 0 18px}h2{font-size:24px;margin-top:32px}h3{font-size:18px}a{color:#17603e;overflow-wrap:anywhere}small{display:block;font-size:12px;color:#4c6254}.lead{font-size:18px}.scope{padding:18px;background:#e3edd9;border-left:5px solid #467638}.lanes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.lane{background:white;border:1px solid #a7bea0;border-radius:10px;padding:14px}table{width:100%;border-collapse:collapse;background:white;font-size:13px}th,td{padding:12px;border:1px solid #bdcdb7;text-align:left;vertical-align:top}th{width:17%}tr{break-inside:avoid}thead{display:table-header-group}li{margin-bottom:14px}#sources>li{break-inside:avoid;padding:10px 0;border-bottom:1px solid #b7c9ac}.notes{background:#fff5de;padding:18px;border:1px solid #d9be85}@media print{body{background:white}main{padding:0;max-width:none}h2{break-after:avoid}a{color:#193d2e}button{display:none}.new-page{break-before:page}@page{size:A4 landscape;margin:14mm}}
 </style><main>''' + f'<p>BERRY INTELLIGENCE · LANDSCAPE BRIEFING</p><h1>{e(bundle["title"])}</h1><div class="scope"><p class="lead">{e(_meta(bundle))}</p><p>Generated {e(bundle["generated_at"])} · Data version {e(bundle["version"])} · {len(bundle["edges"])} relationships · {len(bundle["sources"])} source records · {bundle["independence"]["independent_source_count"]} source origins</p><p>Complete selected scope is included below, including connections hidden by screen limits. This is a frozen export; the return link loads current data.</p><a href="{e(return_url or bundle["url"])}">Return to the selected landscape</a></div><h2>Landscape portrait</h2><div class="portrait">{lanes}</div><p>Legend: Documented = active registry relationship, not claim verification. Disputed = conflict or review required. Historical = retained historical record; an end date is not implied.</p><h2>{e(bundle["explanation"]["question"])}</h2><ol>{findings or "<li>No supported findings match this selection.</li>"}</ol><h2>Changes</h2><p>{e(bundle["explanation"]["changes"])}</p><h2>Possible implications</h2><p>{e(bundle["explanation"]["implications"][0])}</p><h2>Unknowns and boundaries</h2><ul class="notes">' + "".join(f'<li>{e(warning)}</li>' for warning in bundle["warnings"]) + f'</ul><h2 class="new-page">All selected relationships</h2><table><thead><tr><th>From</th><th>Relationship / status</th><th>To</th><th>Scope and clocks</th><th>Evidence and notes</th></tr></thead><tbody>{"".join(rows)}</tbody></table><h2 class="new-page">Numbered source notes</h2><ol id="sources">{sources}</ol></main></html>'

@@ -94,6 +94,11 @@
       const profile = el('a', 'Open full variety profile →'); profile.href = '/entities/variety/' + encodeURIComponent(id); traits.append(profile);
     }
     root.querySelector('[data-focus-title]').textContent = node.label;
+    const marks = bundle.actor_marks?.[id];
+    if (marks) {
+      const labels = [...(marks.favorite ? ['Favorite'] : []), ...(marks.tier !== 'Untiered' ? [marks.tier] : []), ...(marks.lists.length ? [marks.lists.length + ' lists'] : [])];
+      if (labels.length) root.querySelector('[data-focus-title]').append(el('small', labels.join(' · '), 'lx-actor-marks'));
+    }
     const diagram = root.querySelector('[data-focus-diagram]'); diagram.replaceChildren();
     related.slice(0, showAll ? related.length : 6).forEach(edge => {
       const row = el('div', null, 'lx-connection');
@@ -116,15 +121,21 @@
     if (event.target.closest('[data-clear-edge]')) { setURL('edge', ''); panel.hidden = true; root.removeAttribute('data-evidence-open'); content.replaceChildren(el('p', 'Select a connection to inspect its sources.', 'lx-lead')); root.querySelectorAll('.is-selected').forEach(row => row.classList.remove('is-selected')); }
   });
   root.addEventListener('keydown', event => { if (event.key === 'Escape') root.querySelector('[data-clear-edge]').click(); });
-  root.addEventListener('change', event => {
-    if (event.target.name !== 'berry' && event.target.name !== 'compare') return;
+  function clearIncompatiblePendingFocus() {
     const focusInput = root.querySelector('[data-scope-form] [name=focus]');
     const focused = bundle.nodes[focusInput.value];
-    const first = event.target.name === 'berry' ? event.target.value : bundle.filters.berry;
-    const second = event.target.name === 'compare' ? event.target.value : bundle.filters.compare;
+    const first = root.querySelector('[data-scope-form] [name=berry]').value;
+    const second = root.querySelector('[data-scope-form] [name=compare]').value;
     const scope = bundle.filters.pair === '1' || bundle.filters.view === 'compare' ? [first, second] : [first];
     if (first !== 'all' && focused && ['variety', 'breeding_program'].includes(focused.type) && focused.berry_ids?.length && !focused.berry_ids.some(key => scope.includes(key))) focusInput.value = '';
-    bundle.filters[event.target.name] = event.target.value;
+  }
+  root.addEventListener('change', event => {
+    if (event.target.name === 'berry' || event.target.name === 'compare') clearIncompatiblePendingFocus();
+    // Keep the rendered bundle and saved selectors on the applied scope.
+    // Native controls become authoritative only when Apply reloads the page.
+  });
+  root.addEventListener('submit', event => {
+    if (event.target.matches('[data-scope-form]')) clearIncompatiblePendingFocus();
   });
   const windowControl = root.querySelector('[data-scope-form] [name=window]');
   function customDates() { root.querySelectorAll('[data-custom-date]').forEach(label => { label.hidden = windowControl.value !== 'custom'; }); }
