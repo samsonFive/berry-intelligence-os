@@ -282,8 +282,9 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert 'class="glass-header"' in guide_html and "data-pagefind-body" in guide_html
     assert "Build a brief →" not in guide_html
     assert "Brief pack" in guide_html and "live workspace" in guide_html
-    assert guide_html.count('class="guide-workspace guide-accent-') == 11
-    assert guide_html.count('class="guide-availability"') == 13
+    assert guide_html.count('class="guide-workspace guide-accent-') == 12
+    assert guide_html.count('class="guide-availability"') == 14
+    assert 'href="/social"' not in guide_html
     assert 'id="variety-workflow"' in guide_html
     assert "Coverage, candidate decisions and catalog authoring are available in the live analyst workspace." in guide_html
     assert "/varieties/coverage#profile-field-coverage" not in guide_html

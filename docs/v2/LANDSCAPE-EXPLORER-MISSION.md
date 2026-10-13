@@ -2,6 +2,27 @@
 
 ## Milestone B authorized — October 12, 2026
 
+### Current guide and restart acceptance
+
+Actual browser actions update the copied saved-view name, archive/restore it,
+and save a separately filtered Driscoll comparison. Both crop selectors, search,
+company focus and Victoria evidence survive a deliberate process restart. The
+copied Landscape store stays byte-identical across that restart (SHA-256
+`c18bc304f96d6f813811c39369a106ce70f7c28866b73b0ac06646d2df5d0ada`).
+This demonstrates private saved-selection persistence, not new intelligence or
+production changes.
+
+The visual guide now has twelve section purpose cards, including canonical
+Social Listening and its bounded-sample limits. Landscape explains four crops,
+All and paired comparison, refreshed saved selections and complete dated PDF/
+HTML/SVG/CSV outputs. Six reporting choices use three balanced columns on
+desktop, two at intermediate widths and one on phones. Desktop rendering and
+412×844 emulation were inspected; the 397px document has no horizontal overflow.
+Viewport overrides are reset. Existing guide/static regression: **18 passed**,
+one existing warning, **55.59 seconds**. Public output describes private tools
+without linking to their unavailable private routes. Fresh exact-head CI and
+final release review remain; no merge/deployment.
+
 ### Complete PDF snapshots and browser downloads
 
 PDF is now a server-rendered download alongside HTML, SVG and CSV. It uses the
