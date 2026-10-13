@@ -1,5 +1,7 @@
 # Current blueberry and variety-catalog review
 
+**Latest October 13 UTC recheck:** [The four-berry reference cohort](CPVO-REFERENCE-COHORT-REVIEW.md) checks ten more original applications and preserves distinct Cargo records, source-reported status and earlier captures. The bounded audit is 395 sections / 1,572 names / 102 matches / 1,470 review needs; repeated checks do not create varieties or independent corroboration. The preceding 45e5c60a projection has green 4,951-test CI. The new cohort/history changes need fresh current-head checks and release rehearsal.
+
 **October 13 UTC follow-up:** [Original register references](IMPORTED-REGISTER-REFERENCE-REVIEW.md) now project42 numbered imported observations through existing identity checks into private profiles and their field inventory. A live one-record CPVO recheck retains original metadata and source URLs without approving current rights or the additional breeder code. The current bounded audit is385 sections/1562 occurrences/92 matches/1470 review needs; the64-profile field gaps are50 photos/29 patent-PVR references/33 cited traits/10 organizations. Preceding release head53b83e1e has green4938-test CI and successful authenticated host/recovery/rollback plus a14051-file production backup; the newer projection requires fresh checks and release rehearsal. Nothing merged/deployed.
 
 **October 12 continuation:** The user explicitly approved blueberry. The same

@@ -60,7 +60,7 @@ def load_registry_filing_observations(data_dir: Path):
                     "url": url, "checked_on": checked, "source_type": "national_register",
                     "company_ids": [], "berry_ids": [row["berry_id"]], "capture_status": "names_enumerated",
                     "enumerated_scope": "Single numbered imported register result, not a complete registry",
-                    "limitations": context, "imported_registry_reference": True,
+                    "limitations": context, "imported_registry_reference": True, "import_snapshot_projection": True,
                     "names": [{"candidate_name": name, "berry_id": row["berry_id"],
                                **{key: row.get(key) or "" for key in keys},
                                "grant_date": grant_date, "portfolio_context": context}],
@@ -96,7 +96,7 @@ def original_patent_references(*, variety, varieties, entities, candidates, sour
                                   entities=entities, candidates=candidates,
                                   source_ids={s["id"] for s in rights})
     source_ids = {s["id"] for s in rights}
-    refs = {}
+    refs = []
     for source in rows:
         if source["id"] not in source_ids:
             continue
@@ -107,8 +107,7 @@ def original_patent_references(*, variety, varieties, entities, candidates, sour
             if not url:
                 continue
             capture = source.get("capture_reference") or {}
-            key = (url, name.get("grant_number") or name.get("application_number") or "")
-            refs[key] = {
+            refs.append({
                 "source_id": source["id"], "title": source["title"], "url": url,
                 "number": name.get("grant_number") or name.get("application_number") or "",
                 "published_date": source.get("published_date") or name.get("grant_date") or "",
@@ -122,5 +121,41 @@ def original_patent_references(*, variety, varieties, entities, candidates, sour
                 "application_date": name.get("application_date") or "",
                 "grant_number": name.get("grant_number") or "",
                 "date_label": "Grant date" if source.get("imported_registry_reference") and not source.get("published_date") else "Published",
-            }
-    return sorted(refs.values(), key=lambda r: (r["published_date"], r["checked_on"], r["title"]), reverse=True)
+                "recorded_status": capture.get("reported_application_status") if isinstance(capture.get("reported_application_status"), str) else "",
+                "from_import_snapshot": bool(source.get("import_snapshot_projection")),
+            })
+    return _group_register_captures(refs)
+
+
+def _group_register_captures(refs):
+    """One private display row per explicit registry application/grant pair.
+
+    This groups dated captures, never varieties, jurisdictions or trust states.
+    All earlier source URLs/context remain available; different application or
+    grant identifiers stay separate even when the cultivar name is identical.
+    """
+    groups = {}
+    for ref in refs:
+        if ref["reference_kind"] == "register" and ref["application_number"]:
+            key = ("register", urlsplit(ref["url"]).hostname.casefold(), ref["application_number"], ref["grant_number"])
+        else:
+            key = ("filing", ref["url"], ref["number"])
+        groups.setdefault(key, []).append(ref)
+    result = []
+    for key, captures in groups.items():
+        if key[0] == "register":
+            captures.sort(key=lambda r: (r["checked_on"], not r["from_import_snapshot"], r["url"]), reverse=True)
+            winner, *earlier = captures
+            def signature(row):
+                return tuple(row.get(field) for field in ("url", "checked_on", "context", "application_date", "published_date", "date_label", "recorded_status", "document_url", "claim_url", "figures_url"))
+            seen = {signature(winner)}
+            retained = []
+            for row in earlier:
+                value = signature(row)
+                if value not in seen:
+                    retained.append(row); seen.add(value)
+            result.append({**winner, "earlier_captures": retained})
+        else:
+            # Preserve the original exact-URL/number filing deduplication.
+            result.append({**captures[-1], "earlier_captures": []})
+    return sorted(result, key=lambda r: (r["published_date"], r["checked_on"], r["title"]), reverse=True)

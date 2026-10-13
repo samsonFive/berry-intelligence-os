@@ -46,6 +46,46 @@ def test_source_publication_date_is_not_mislabeled_as_a_grant_date(tmp_path):
     assert ref['published_date']=='2026-07-01' and ref['date_label']=='Published'
     assert sources[0]['names'][0]['grant_date']=='2023-04-17'
 
+
+def test_same_numbered_register_record_keeps_latest_capture_and_earlier_urls(tmp_path):
+    snapshot(tmp_path,[ROW]); older=load_registry_filing_observations(tmp_path)[0]
+    latest=deepcopy(older)
+    latest.update(id='fresh-application',url='https://example.test/application/APP123',checked_on='2026-10-13',
+                  import_snapshot_projection=False,capture_reference={'reported_application_status':'Withdrawn'})
+    latest['names'][0]['portfolio_context']='Fresh source wording; unreviewed'
+    before=deepcopy([older,latest])
+    refs=project([older,latest])
+    assert len(refs)==1 and refs[0]['url']==latest['url'] and refs[0]['recorded_status']=='Withdrawn'
+    assert refs[0]['earlier_captures'][0]['url']==older['url']
+    assert refs[0]['earlier_captures'][0]['checked_on']=='2026-08-26'
+    assert [older,latest]==before
+    assert not {'current_rights','legal_status','trusted'} & refs[0].keys()
+
+
+def test_different_application_grant_and_authority_identifiers_never_coalesce(tmp_path):
+    snapshot(tmp_path,[ROW]); initial=load_registry_filing_observations(tmp_path)[0]
+    other_app=deepcopy(initial);other_app['id']='other-app'
+    other_app['names'][0].update(application_number='APP999',grant_number='',grant_date='')
+    other_grant=deepcopy(initial);other_grant['id']='other-grant'
+    other_grant['names'][0]['grant_number']='GRANT999'
+    other_authority=deepcopy(initial);other_authority.update(id='other-authority',url='https://another.test/APP123')
+    refs=project([initial,other_app,other_grant,other_authority])
+    assert len(refs)==4
+    assert {r['application_number'] for r in refs}=={'APP123','APP999'}
+    assert {r['grant_number'] for r in refs}=={'GRANT456','GRANT999',''}
+
+
+def test_same_day_changed_status_and_dates_remain_in_earlier_capture_context(tmp_path):
+    snapshot(tmp_path,[ROW]); first=load_registry_filing_observations(tmp_path)[0]
+    second=deepcopy(first);second['id']='same-day-recheck'
+    second['names'][0]['application_date']='2018-08-10'
+    second['capture_reference']={'reported_application_status':'Withdrawn'}
+    result=project([first,second])
+    assert len(result)==1 and len(result[0]['earlier_captures'])==1
+    all_captures=[result[0],*result[0]['earlier_captures']]
+    assert {r['application_date'] for r in all_captures}=={'2018-08-09','2018-08-10'}
+    assert {r['recorded_status'] for r in all_captures}=={'','Withdrawn'}
+
 @pytest.mark.parametrize('identity,status',[('distinct','reviewed'),('rejected','rejected')])
 def test_imported_reference_does_not_override_saved_human_identity(tmp_path,identity,status):
     snapshot(tmp_path,[ROW])
@@ -141,4 +181,16 @@ def test_bad_import_does_not_hide_available_original_filing_links(monkeypatch,tm
     html=TestClient(main.app).get('/entities/variety/variety-colossus').text
     assert 'https://patents.google.com/patent/USPP33802P3/en#claims' in html
     assert 'Filing and register references could not be fully loaded' in html
+    assert not list(tmp_path.rglob('*.json'))
+
+
+def test_actual_cargo_keeps_withdrawn_application_distinct_from_numbered_title(monkeypatch,tmp_path):
+    monkeypatch.setattr(main,'INBOX_DIR',tmp_path)
+    monkeypatch.setattr(main,'AUTHORING_MODE',True)
+    for suffix in ('','?view=legacy'):
+        html=TestClient(main.app).get('/entities/variety/variety-cargo'+suffix).text
+        assert 'Application 20120850' in html and 'Grant 55030' in html
+        assert 'Withdrawn' in html and 'Granted' in html
+        assert 'Earlier captures' in html and 'independent corroboration' in html
+        assert 'registerId=20120850' in html and 'registerId=20131319' in html
     assert not list(tmp_path.rglob('*.json'))

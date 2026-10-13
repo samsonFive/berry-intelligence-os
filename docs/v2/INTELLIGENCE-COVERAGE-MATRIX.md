@@ -1,5 +1,16 @@
 # Intelligence Coverage Matrix
 
+## Four-berry register recheck — October 13 UTC, 2026
+
+The [bounded reference cohort](CPVO-REFERENCE-COHORT-REVIEW.md) adds ten original
+application rechecks across nine more existing names, extending Plablue 1542.
+Same-name non-berry entries are excluded by exact application/species. Private
+reference rows retain reported statuses and group repeat captures with their
+earlier URLs/dates available; different applications/authorities remain separate.
+The current bounded audit is 395 sections /1,572 occurrences /102 matches /
+1,470 review needs, including repeated checks. Canonical varieties remain 64;
+trusted maturity and human decisions are unchanged. Fresh release checks remain.
+
 ## Original register projection — October 13 UTC, 2026
 
 The [register-reference follow-up](IMPORTED-REGISTER-REFERENCE-REVIEW.md) fixes
