@@ -19,8 +19,9 @@ from app.services.geography_hierarchy import geography_descendants
 from app.services.source_independence import independence_report
 from app.services.variety_universe.corpus_discovery import discover_corpus_variety_mentions, source_catalog_coverage
 from app.services.variety_universe.coverage import BERRY_ORDER
+from app.services.berries.variety import variety_trait_profile
 
-ENGINE_VERSION = "landscape-3"
+ENGINE_VERSION = "landscape-4"
 GENETIC_TYPES = {"variety", "breeding_program"}
 ACTOR_TYPES = {"company", "breeding_program", "variety"}
 ROLE_LABELS = {"develops": "Breeder / developer", "owns": "Owner / rights holder",
@@ -275,6 +276,14 @@ def browser_bundle(bundle):
             "crop_scopes": [{"id": c["id"], "edge_ids": c["edge_ids"]} for c in bundle.get("crop_scopes", [])]}
 
 
+def _trait_value(value):
+    if isinstance(value, dict):
+        return "; ".join(str(key).replace("_", " ") + ": " + _trait_value(item) for key, item in value.items())
+    if isinstance(value, list):
+        return "; ".join(_trait_value(item) for item in value)
+    return "Not recorded" if value is None else str(value)
+
+
 def _assemble_bundle(entities, relationships, records, filters, edges, fingerprint, excluded):
     """One projection shared by single-crop, union and comparison exports."""
     used = {key for edge in edges for key in (edge["subject_id"], edge["object_id"])}
@@ -288,6 +297,33 @@ def _assemble_bundle(entities, relationships, records, filters, edges, fingerpri
     sources = [_source(records[key]) for key in sorted({sid for edge in edges for sid in edge["evidence_ids"]})]
     for number, source in enumerate(sources, 1):
         source["number"] = number
+    # Reuse stored variety traits, with every cited source eligible in this
+    # exact selection. Never rank incomparable measurements or infer geography.
+    available_sources = {source["id"] for source in sources}
+    provenance_labels = {"owner_or_marketer_claim": "Owner / marketer claim",
+                         "named_trial_measurement": "Reported trial measurement",
+                         "regulatory_or_registry_record": "Registry description",
+                         "independent_report": "Independent report",
+                         "trade_press_report": "Trade press report",
+                         "unresolved": "Unresolved report"}
+    for node in node_rows:
+        if node["type"] != "variety":
+            continue
+        entity = entities[node["id"]]
+        rows = variety_trait_profile(entity, entities)
+        node["traits"] = []
+        for row, original in zip(rows, (entity.get("attributes") or {}).get("traits") or []):
+            citations = list(dict.fromkeys(row["evidence_ids"]))
+            if not citations or not set(citations) <= available_sources or row["value"] in (None, ""):
+                continue
+            node["traits"].append({**deepcopy(row), "evidence_ids": citations, "display_value": _trait_value(row["value"]),
+                "units": _trait_value(original["units"]) if original.get("units") else "",
+                "trait_name": row["trait_name"] if row["trait_name"] and not str(row["trait_name"]).startswith("trait-") else "Reported characteristic",
+                "source_kind": provenance_labels.get(row["provenance"], "Source basis not specified")})
+        node["unavailable_trait_count"] = len(rows) - len(node["traits"])
+        note_refs = set(entity.get("evidence_ids") or [])
+        node["trait_note"] = str((entity.get("attributes") or {}).get("note") or "") if node["traits"] and note_refs and note_refs <= available_sources else ""
+        node["trait_note_evidence_ids"] = sorted(note_refs) if node["trait_note"] else []
     # Independence is an origin count, never a confidence score or fact approval.
     independence = independence_report([records[row["id"]] for row in sources])
     for edge in edges:

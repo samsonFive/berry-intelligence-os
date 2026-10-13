@@ -18,6 +18,7 @@ const focusSection = new Element(), diagram = new Element(), title = new Element
 const field = new Element(), windowControl = new Element(), reset = new Element();
 const clear = new Element();
 const savedFocus = new Element(), savedEdge = new Element();
+const traitContext = new Element();
 savedFocus.name = 'focus'; savedEdge.name = 'edge';
 const savedLink = {dataset:{savedView:''},href:'http://localhost/landscapes/explorer?saved_view=existing'};
 root.querySelectorAll = selector => {
@@ -34,6 +35,7 @@ const selectors = {'[data-evidence-content]':content, '.lx-evidence':panel,
   '[data-scope-form] [name=focus]':field, '[data-clear-edge]':clear, '.lx-focus':focusSection,
   '[data-focus-title]':title, '[data-focus-diagram]':diagram,
   '.lx-focus [data-reset-focus]':reset, '[data-scope-form] [name=window]':windowControl};
+selectors['[data-trait-context]'] = traitContext;
 root.querySelector = selector => {
   assert.ok(selector in selectors, 'Unexpected DOM dependency: ' + selector);
   return selectors[selector];

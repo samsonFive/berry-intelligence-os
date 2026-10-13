@@ -17,7 +17,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, CondPageBreak
 
 from app.services.report_builder.pdf_export import _styles as report_styles
-from app.services.landscape_explorer_export import _meta, crop_label
+from app.services.landscape_explorer_export import _meta, crop_label, trait_rows
 
 _FONT_LOCK = RLock()
 _FONTS = Path(__file__).resolve().parents[1] / "assets" / "pdf-fonts"
@@ -193,6 +193,21 @@ def pdf_export(bundle, *, return_url=""):
                   p("Exact repeated notes appear once. Each connection above identifies its note; separate relationships and source review states are retained.", "meta")]
         for notes, number in note_numbers.items():
             story += [p("Context note " + str(number), "source_title"), p(notes, "cell"), Spacer(1, 8)]
+    if trait_rows(bundle):
+        story += [CondPageBreak(110), p("Cited variety traits and sensory context", "h2"),
+                  p("Source claims and measurements keep their conditions; different trials and scales are not a common ranking. Numbers are not generalized beyond their cited scope.", "meta")]
+        rows = [[p(label, "cell_name") for label in ("Variety / trait", "Reported value", "Basis / conditions / sources")]]
+        seen_notes = set()
+        for node, row in trait_rows(bundle):
+            citations = " ".join(f"[{sources[sid]['number']}]" for sid in row["evidence_ids"])
+            value = [p(row["display_value"] + ("\nUnits: " + row["units"] if row["units"] else ""), "cell")]
+            if node.get("trait_note") and node["id"] not in seen_notes:
+                note_refs = " ".join(f"[{sources[sid]['number']}]" for sid in node["trait_note_evidence_ids"])
+                value.append(p("Variety profile note: " + node["trait_note"] + " Sources " + note_refs, "cell_meta"))
+                seen_notes.add(node["id"])
+            rows.append([p(node["label"] + "\n" + row["trait_name"], "cell_name"), value,
+                         p(row["source_kind"] + "\n" + (row["asserted_by"] or "Reporting party not recorded") + "\n" + (row["conditions"] or "Conditions not recorded") + "\nSources " + citations, "cell_meta")])
+        story.append(table(rows, [doc.width*.25, doc.width*.4, doc.width*.35]))
     story += [CondPageBreak(110), p(bundle["explanation"]["question"], "h2")]
     for finding in bundle["explanation"]["findings"]:
         story += [p(finding["text"], "body"), p("Sources " + " ".join(f"[{sources[sid]['number']}]" for sid in finding["evidence_ids"]), "meta")]
