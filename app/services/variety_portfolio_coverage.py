@@ -174,7 +174,9 @@ def _identity_pair_notes(sources):
             # A denomination-only register row does not assert a second
             # commercial label. Keep it in cross-source mention/code checks
             # below, but do not invent a code-to-trade-name pairing to itself.
-            if code and label and fold_identity(code) != fold_identity(label):
+            legal_name_only = (row.get("denomination") and not row.get("trade_name")
+                               and fold_identity(row["denomination"]) == fold_identity(label))
+            if code and label and fold_identity(code) != fold_identity(label) and not legal_name_only:
                 scope = (companies, row["berry_id"])
                 codes.setdefault((*scope, fold_identity(code)), set()).add(label)
                 labels.setdefault((*scope, fold_identity(label)), set()).add(code)
@@ -186,6 +188,13 @@ def _identity_pair_notes(sources):
             code, label, denomination_only = _asserted_pair(row)
             messages = []
             paired_labels = codes.get((*scope, fold_identity(code or "")), set())
+            # A repeated denomination asserts no code/name pair of its own,
+            # but other sources may explicitly use that identifier as a code.
+            # Their conflicting labels must still hold the original reference,
+            # including when it separately records another breeder code.
+            denomination = row.get("denomination")
+            if denomination and fold_identity(denomination) == fold_identity(label):
+                paired_labels = paired_labels | codes.get((*scope, fold_identity(denomination)), set())
             paired_codes = labels.get((*scope, fold_identity(label or "")), set())
             if len({fold_identity(value) for value in paired_labels}) > 1:
                 messages.append("This code appears with multiple labels: " + ", ".join(sorted(paired_labels)) + ". Check the pairing before accepting aliases.")
