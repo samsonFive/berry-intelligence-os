@@ -1,6 +1,85 @@
 # Berry Intelligence release review
 
-The approved redesign and consolidation is implemented in one canonical-base draft: [PR #312](https://github.com/samsonFive/berry-intelligence-os/pull/312). This is the release for review before merge or deployment. Production has not been changed. The final PR head must have all four required checks green; the PR records the exact final head and run without a self-referential documentation commit.
+## Current draft #396 — October 13 UTC, 2026
+
+Landscape now supports all four existing crops, All berries and two-crop
+comparison while keeping genetics and source status distinct. Shared company
+favorites, tiers and lists scope every view/export; saved selections use the
+existing revision-checked private store. PDF, HTML, SVG and CSV retain the full
+selected evidence even when the portrait is bounded. Existing cited traits
+retain their source, conditions, units and limitations. The updated `/guide`
+explains twelve sections, four workflow steps and six reporting choices.
+
+The private variety workflow exposes source-named gaps, persistent alphabet
+navigation, attributable photo references and original patent/PVR click-throughs.
+Recent original register rechecks distinguish applications/grants and reported
+statuses, grouping repeated captures while retaining every earlier URL/date and
+status change. No source wording approves a variety, alias, company role, growing
+region, current right or photo permission. All 31 requirements are retained in
+[the durable checklist](REDESIGN-REQUIREMENTS-CHECKLIST.md).
+
+Review on this PC: [Landscape](http://127.0.0.1:18580/landscapes/explorer),
+[coverage](http://127.0.0.1:18580/varieties/coverage#profile-field-coverage),
+[candidate review](http://127.0.0.1:18580/varieties/candidates) and
+[the visual explainer](http://127.0.0.1:18580/guide). This is an isolated recovered
+runtime with collection disabled. It does not overwrite production or the
+original review workspace. These loopback links are for this PC, not mobile.
+
+### Verification and recovery
+
+- Application/package head: `ec80d8afdb6dbc1558c05d292d250d03296c3c24`;
+  branch `feature/blueberry-catalog-release-review`;
+  reconciled canonical `7360c5821c009484381394ed8afa9fb91e322a50`.
+- Exact committed package: 3,679 verified files, SHA-256
+  `cd5fdb199d052b97d348fe5eee0e192a40c16639f135af669eaac4409aef82e6`.
+- Separate authenticated loopback host review: fifteen sections, twelve
+  crop/format exports, Cargo's distinct applications and older capture history,
+  restart with marks/list/edit retained, 2,961-file empty-target recovery and
+  previous-production-image rollback. All 32 pending source copies and the
+  original draft remain protected. No provider collection calls or human
+  review decisions were made by this rehearsal.
+- Fresh actual production backup: 14,051 files hash-verified, process lease
+  excluded; available prior image and configuration recorded privately.
+  Production container/configuration did not change or restart.
+- ec80 full CI: three required checks passed; Python had one historical
+  replay-test corpus boundary failure, 4,954 passed / 11 skipped / two warnings.
+  Forty corrected replay/portfolio/reference tests pass locally. Fresh exact-head
+  Change scope, Repository integrity, Static public safety and Python tests
+  remain required. Prior 45e5c60a all-green / 4,951 is dated evidence only.
+- Native desktop and 412px emulation covered comparison, applied saved scope,
+  company filters, complete downloads, guide and original references. Current
+  Cargo phone document/scroll widths are both 397px; emulation was reset.
+  This is not a physical-phone test.
+- Local All-berries requests: 1.262s cold, 0.228/0.223s warm, 1,563,094-byte HTML;
+  Blueberry/Strawberry 0.949s cold, 0.229/0.342s warm, 1,320,430 bytes;
+  Raspberry/Blackberry 0.452s cold, 0.181/0.201s warm, 942,912 bytes.
+  Native All controller setup 1.70ms; Kwanza/Advanced Berry Breeding highlights
+  5.40/10.20ms. Server and controller timings exclude complete transfer/paint
+  latency; they do not prove an end-to-end two-second budget.
+
+### Remaining work and release boundary
+
+The catalog still has 64 canonical varieties. The bounded portfolio audit has
+395 sections / 1,572 occurrences / 102 matches / 1,470 requiring review, including
+repeated captures. Fourteen supplied subjects have partial lists, one has
+unavailable sources and two have identity holds. Source-body acquisition,
+full current/historical portfolios, current legal verification, missing profile
+fields and independent human recall remain; 32 expected-name worksheets are
+unfinished. No global completeness or web-leading claim is supported.
+
+The user approved blueberry continuation and local review downloads. No routine
+checkpoint pause is needed. Final release review, merge and production deployment
+remain separate. Before an approved deployment, reconcile the exact base/head,
+verify a fresh production backup and available rollback image/configuration,
+preserve persistent edits/data and one worker, then check login and selected
+workflows. Revert the image for an application regression; restore data only
+for an actual data regression. No merge or deployment occurred here.
+
+## Historical accepted redesign — October 6, 2026
+
+The approved redesign/consolidation was integrated through
+[PR #312](https://github.com/samsonFive/berry-intelligence-os/pull/312).
+The following evidence describes that historical release, not the current draft.
 
 ## News imagery correction after desktop review
 

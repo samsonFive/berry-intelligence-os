@@ -1,0 +1,445 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-cpvo-reference-recheck-20141879",
+      "title": "CPVO register: Melissa, application 20141879",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20141879&denomination=Melissa&denominationSearchType=equals",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One original numbered CPVO application, matched to its denomination and species; not registry-wide coverage",
+      "limitations": "Unreviewed source metadata only. Same-name non-berry entries are excluded. No legal status, alias, party role, growing region or reuse permission is approved.",
+      "capture_reference": {
+        "observed_query_url": "https://online.plantvarieties.eu/publicSearch?denomination=Melissa&denominationSearchType=equals",
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20141879&denomination=Melissa&denominationSearchType=equals",
+        "reported_species": "Fragaria x ananassa Duchesne ex Rozier",
+        "reported_upov_code": "FRAGA_ANA",
+        "reported_application_status": "Granted",
+        "reported_applicant": "Nova Siri Genetics S.r.l.",
+        "reported_expiration_date_native": "31/12/2042",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "imported_registry_reference": true,
+      "names": [
+        {
+          "candidate_name": "Melissa",
+          "denomination": "Melissa",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "488xf-11-03",
+          "application_number": "20141879",
+          "application_date": "2014-07-23",
+          "grant_number": "45319",
+          "grant_date": "2017-02-06",
+          "portfolio_context": "Public CPVO application 20141879 rechecked October 13 UTC. The register reports granted; this is unreviewed source wording, not independent current-rights approval. Exact application and species distinguish this record from same-name entries. The original August 26 import remains available."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-cpvo-reference-recheck-20183441",
+      "title": "CPVO register: Drisblueseventeen, application 20183441",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20183441&denomination=Drisblueseventeen&denominationSearchType=equals",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One original numbered CPVO application, matched to its denomination and species; not registry-wide coverage",
+      "limitations": "Unreviewed source metadata only. Same-name non-berry entries are excluded. No legal status, alias, party role, growing region or reuse permission is approved.",
+      "capture_reference": {
+        "observed_query_url": "https://online.plantvarieties.eu/publicSearch?denomination=Drisblueseventeen&denominationSearchType=equals",
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20183441&denomination=Drisblueseventeen&denominationSearchType=equals",
+        "reported_species": "Vaccinium corymbosum L.",
+        "reported_upov_code": "VACCI_COR",
+        "reported_application_status": "Granted",
+        "reported_applicant": "Driscoll's Inc.",
+        "reported_expiration_date_native": "31/12/2053",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "imported_registry_reference": true,
+      "names": [
+        {
+          "candidate_name": "Drisblueseventeen",
+          "denomination": "Drisblueseventeen",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "4j 5",
+          "application_number": "20183441",
+          "application_date": "2018-12-17",
+          "grant_number": "63757",
+          "grant_date": "2023-04-17",
+          "portfolio_context": "Public CPVO application 20183441 rechecked October 13 UTC. The register reports granted; this is unreviewed source wording, not independent current-rights approval. Exact application and species distinguish this record from same-name entries. The original August 26 import remains available."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-cpvo-reference-recheck-20131684",
+      "title": "CPVO register: Last Call, application 20131684",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20131684&denomination=Last%20Call&denominationSearchType=equals",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One original numbered CPVO application, matched to its denomination and species; not registry-wide coverage",
+      "limitations": "Unreviewed source metadata only. Same-name non-berry entries are excluded. No legal status, alias, party role, growing region or reuse permission is approved.",
+      "capture_reference": {
+        "observed_query_url": "https://online.plantvarieties.eu/publicSearch?denomination=Last%20Call&denominationSearchType=equals",
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20131684&denomination=Last%20Call&denominationSearchType=equals",
+        "reported_species": "Vaccinium corymbosum L.",
+        "reported_upov_code": "VACCI_COR",
+        "reported_application_status": "Granted",
+        "reported_applicant": "Fall Creek Farm and Nursery Inc.",
+        "reported_expiration_date_native": "31/12/2050",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "imported_registry_reference": true,
+      "names": [
+        {
+          "candidate_name": "Last Call",
+          "denomination": "Last Call",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "zf06-288",
+          "application_number": "20131684",
+          "application_date": "2013-06-24",
+          "grant_number": "55032",
+          "grant_date": "2020-04-20",
+          "portfolio_context": "Public CPVO application 20131684 rechecked October 13 UTC. The register reports granted; this is unreviewed source wording, not independent current-rights approval. Exact application and species distinguish this record from same-name entries. The original August 26 import remains available."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-cpvo-reference-recheck-20062430",
+      "title": "CPVO register: Ouachita, application 20062430",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20062430&denomination=Ouachita&denominationSearchType=equals",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One original numbered CPVO application, matched to its denomination and species; not registry-wide coverage",
+      "limitations": "Unreviewed source metadata only. Same-name non-berry entries are excluded. No legal status, alias, party role, growing region or reuse permission is approved.",
+      "capture_reference": {
+        "observed_query_url": "https://online.plantvarieties.eu/publicSearch?denomination=Ouachita&denominationSearchType=equals",
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20062430&denomination=Ouachita&denominationSearchType=equals",
+        "reported_species": "Rubus subg. Rubus",
+        "reported_upov_code": "RUBUS_EUB",
+        "reported_application_status": "Granted",
+        "reported_applicant": "The Board of Trustees of the University of Arkansas",
+        "reported_expiration_date_native": "31/12/2042",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "imported_registry_reference": true,
+      "names": [
+        {
+          "candidate_name": "Ouachita",
+          "denomination": "Ouachita",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "ouachita",
+          "application_number": "20062430",
+          "application_date": "2007-03-29",
+          "grant_number": "32662",
+          "grant_date": "2012-05-07",
+          "portfolio_context": "Public CPVO application 20062430 rechecked October 13 UTC. The register reports granted; this is unreviewed source wording, not independent current-rights approval. Exact application and species distinguish this record from same-name entries. The original August 26 import remains available."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-cpvo-reference-recheck-20221344",
+      "title": "CPVO register: FC11-164, application 20221344",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20221344&denomination=FC11-164&denominationSearchType=equals",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One original numbered CPVO application, matched to its denomination and species; not registry-wide coverage",
+      "limitations": "Unreviewed source metadata only. Same-name non-berry entries are excluded. No legal status, alias, party role, growing region or reuse permission is approved.",
+      "capture_reference": {
+        "observed_query_url": "https://online.plantvarieties.eu/publicSearch?denomination=FC11-164&denominationSearchType=equals",
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20221344&denomination=FC11-164&denominationSearchType=equals",
+        "reported_species": "Vaccinium corymbosum L.",
+        "reported_upov_code": "VACCI_COR",
+        "reported_application_status": "Active application",
+        "reported_applicant": "Fall Creek Farm and Nursery Inc.",
+        "reported_expiration_date_native": "",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "imported_registry_reference": true,
+      "names": [
+        {
+          "candidate_name": "FC11-164",
+          "denomination": "FC11-164",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "fc11-164",
+          "application_number": "20221344",
+          "application_date": "2022-05-31",
+          "grant_number": "",
+          "grant_date": "",
+          "portfolio_context": "Public CPVO application 20221344 rechecked October 13 UTC. The register reports active application; this is unreviewed source wording, not independent current-rights approval. Exact application and species distinguish this record from same-name entries. The original August 26 import remains available."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-cpvo-reference-recheck-20170246",
+      "title": "CPVO register: Rafiki, application 20170246",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20170246&denomination=Rafiki&denominationSearchType=equals",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One original numbered CPVO application, matched to its denomination and species; not registry-wide coverage",
+      "limitations": "Unreviewed source metadata only. Same-name non-berry entries are excluded. No legal status, alias, party role, growing region or reuse permission is approved.",
+      "capture_reference": {
+        "observed_query_url": "https://online.plantvarieties.eu/publicSearch?denomination=Rafiki&denominationSearchType=equals",
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20170246&denomination=Rafiki&denominationSearchType=equals",
+        "reported_species": "Rubus idaeus L.",
+        "reported_upov_code": "RUBUS_IDA",
+        "reported_application_status": "Granted",
+        "reported_applicant": "Allberry B.V.",
+        "reported_expiration_date_native": "31/12/2050",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "imported_registry_reference": true,
+      "names": [
+        {
+          "candidate_name": "Rafiki",
+          "denomination": "Rafiki",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "abb 122",
+          "application_number": "20170246",
+          "application_date": "2017-01-27",
+          "grant_number": "54201",
+          "grant_date": "2020-02-03",
+          "portfolio_context": "Public CPVO application 20170246 rechecked October 13 UTC. The register reports granted; this is unreviewed source wording, not independent current-rights approval. Exact application and species distinguish this record from same-name entries. The original August 26 import remains available."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-cpvo-reference-recheck-20170244",
+      "title": "CPVO register: Sarafina, application 20170244",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20170244&denomination=Sarafina&denominationSearchType=equals",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One original numbered CPVO application, matched to its denomination and species; not registry-wide coverage",
+      "limitations": "Unreviewed source metadata only. Same-name non-berry entries are excluded. No legal status, alias, party role, growing region or reuse permission is approved.",
+      "capture_reference": {
+        "observed_query_url": "https://online.plantvarieties.eu/publicSearch?denomination=Sarafina&denominationSearchType=equals",
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20170244&denomination=Sarafina&denominationSearchType=equals",
+        "reported_species": "Rubus idaeus L.",
+        "reported_upov_code": "RUBUS_IDA",
+        "reported_application_status": "Granted",
+        "reported_applicant": "Allberry B.V.",
+        "reported_expiration_date_native": "31/12/2050",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "imported_registry_reference": true,
+      "names": [
+        {
+          "candidate_name": "Sarafina",
+          "denomination": "Sarafina",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "abb 120",
+          "application_number": "20170244",
+          "application_date": "2017-01-27",
+          "grant_number": "54200",
+          "grant_date": "2020-02-03",
+          "portfolio_context": "Public CPVO application 20170244 rechecked October 13 UTC. The register reports granted; this is unreviewed source wording, not independent current-rights approval. Exact application and species distinguish this record from same-name entries. The original August 26 import remains available."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-cpvo-reference-recheck-20170245",
+      "title": "CPVO register: Shani, application 20170245",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20170245&denomination=Shani&denominationSearchType=equals",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One original numbered CPVO application, matched to its denomination and species; not registry-wide coverage",
+      "limitations": "Unreviewed source metadata only. Same-name non-berry entries are excluded. No legal status, alias, party role, growing region or reuse permission is approved.",
+      "capture_reference": {
+        "observed_query_url": "https://online.plantvarieties.eu/publicSearch?denomination=Shani&denominationSearchType=equals",
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20170245&denomination=Shani&denominationSearchType=equals",
+        "reported_species": "Rubus idaeus L.",
+        "reported_upov_code": "RUBUS_IDA",
+        "reported_application_status": "Granted",
+        "reported_applicant": "Allberry B.V.",
+        "reported_expiration_date_native": "31/12/2050",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "imported_registry_reference": true,
+      "names": [
+        {
+          "candidate_name": "Shani",
+          "denomination": "Shani",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "abb 121",
+          "application_number": "20170245",
+          "application_date": "2017-01-27",
+          "grant_number": "54383",
+          "grant_date": "2020-03-02",
+          "portfolio_context": "Public CPVO application 20170245 rechecked October 13 UTC. The register reports granted; this is unreviewed source wording, not independent current-rights approval. Exact application and species distinguish this record from same-name entries. The original August 26 import remains available."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-cpvo-reference-recheck-20120850",
+      "title": "CPVO register: Cargo, application 20120850",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20120850&denomination=Cargo&denominationSearchType=equals",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One original numbered CPVO application, matched to its denomination and species; not registry-wide coverage",
+      "limitations": "Unreviewed source metadata only. Same-name non-berry entries are excluded. No legal status, alias, party role, growing region or reuse permission is approved.",
+      "capture_reference": {
+        "observed_query_url": "https://online.plantvarieties.eu/publicSearch?denomination=Cargo&denominationSearchType=equals",
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20120850&denomination=Cargo&denominationSearchType=equals",
+        "reported_species": "Vaccinium corymbosum L.",
+        "reported_upov_code": "VACCI_COR",
+        "reported_application_status": "Withdrawn",
+        "reported_applicant": "Fall Creek Farm and Nursery Inc.",
+        "reported_expiration_date_native": "",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "imported_registry_reference": true,
+      "names": [
+        {
+          "candidate_name": "Cargo",
+          "denomination": "Cargo",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "zf05-157",
+          "application_number": "20120850",
+          "application_date": "2012-04-19",
+          "grant_number": "",
+          "grant_date": "",
+          "portfolio_context": "Public CPVO application 20120850 rechecked October 13 UTC. The register reports withdrawn; this is unreviewed source wording, not independent current-rights approval. Exact application and species distinguish this record from same-name entries. The original August 26 import remains available."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-cpvo-reference-recheck-20131319",
+      "title": "CPVO register: Cargo, application 20131319",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20131319&denomination=Cargo&denominationSearchType=equals",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One original numbered CPVO application, matched to its denomination and species; not registry-wide coverage",
+      "limitations": "Unreviewed source metadata only. Same-name non-berry entries are excluded. No legal status, alias, party role, growing region or reuse permission is approved.",
+      "capture_reference": {
+        "observed_query_url": "https://online.plantvarieties.eu/publicSearch?denomination=Cargo&denominationSearchType=equals",
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20131319&denomination=Cargo&denominationSearchType=equals",
+        "reported_species": "Vaccinium corymbosum L.",
+        "reported_upov_code": "VACCI_COR",
+        "reported_application_status": "Granted",
+        "reported_applicant": "Fall Creek Farm and Nursery Inc.",
+        "reported_expiration_date_native": "31/12/2050",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "imported_registry_reference": true,
+      "names": [
+        {
+          "candidate_name": "Cargo",
+          "denomination": "Cargo",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "zf05-157",
+          "application_number": "20131319",
+          "application_date": "2013-05-15",
+          "grant_number": "55030",
+          "grant_date": "2020-04-20",
+          "portfolio_context": "Public CPVO application 20131319 rechecked October 13 UTC. The register reports granted; this is unreviewed source wording, not independent current-rights approval. Exact application and species distinguish this record from same-name entries. The original August 26 import remains available."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    }
+  ]
+}

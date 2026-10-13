@@ -1,5 +1,181 @@
 # Project Status
 
+**October 12–13: Landscape PDFs and actual browser exports.** Draft #396 now
+offers server-rendered PDF snapshots with cited takeaways, market/comparison
+tables and the complete evidence appendix. Scope, crop identity, three dates,
+review boundaries and source URLs remain intact. PDF/HTML/SVG/CSV browser
+downloads were parsed on the isolated review copy; 100 focused tests pass.
+All berries and blueberry–strawberry walkthroughs are complete. Prior f363bf
+head has all four CI checks green (4,909 tests); this PDF change requires a fresh
+check set. Sourced traits, saved-view persistence walkthrough, guide refresh
+and final tested-release review remain. No merge/deployment.
+
+**October 12: saved Explorer views reuse the existing store.** Draft #396 adds
+typed selector rows with update/copy/archive/restore, optimistic conflicts and
+fresh-data reopening. Existing overview rows and history are preserved; no
+source body or trust decision is saved. Relative dates roll forward. 91 tests
+and the trusted 1,755-page build pass. Native review, PDF, sourced traits and
+fresh exact-head CI/final release checks remain. No merge/deploy.
+
+**October 12: All berries and comparison implemented on the approved mission.**
+Draft #396 now combines individually scoped crops, highlights common registry
+actors and keeps genetics distinct. Pair scope carries through all views and
+HTML/SVG/CSV exports. All berries has 183 links / 95 sources; comparison is
+bounded with complete exports. 123 related tests and the 1,755-page trusted
+build pass. Prior four-crop head CI is green /4,640 tests; this update needs
+fresh CI. Edge activation failed twice, leaving native comparison review open.
+Saved views, PDF, sourced traits and final review remain. No merge/deploy.
+
+**October 12: blueberry approved; Landscape milestone B active.** The user
+explicitly approved the blueberry checkpoint. The same draft #396 now begins
+the four existing crop rollout, retaining explicit countries and crop-specific
+genetic identities/roles. Native raspberry-to-strawberry Apply works; 53 Explorer
+tests pass. All berries, comparison, sourced trait/sensory context, saved views,
+PDF, remaining browser/performance checks and fresh CI remain. No merge or
+deployment approval was given. See the [mission](docs/v2/LANDSCAPE-EXPLORER-MISSION.md).
+
+**October 12: consolidated review preparation.** The current application package
+ran authenticated on isolated mounts on the existing host. Fifteen routes,
+restart-preserved edits/tracking, a verified 2,959-file empty-target restore and
+previous-image rollback pass; all 32 source copies remain pending and production
+is unchanged. Application-head CI passes all four checks / 4,635 tests; the
+canonical-base consolidation needs its own CI and human blueberry/release decisions.
+See the [current combined handoff](docs/v2/CURRENT-BLUEBERRY-CATALOG-REVIEW.md).
+
+**October 12: phone field-table context.** Native 412px review reproduced row
+names disappearing during horizontal table scroll. The name column is now
+pinned; 21 affected checks and the complete public build pass. Approved Edge
+review now verifies pinned names and headers at 412px, and a second repair
+wraps the company column fully at the right edge. Initial #395 CI is all-green /
+4,635 tests; the refinement needs fresh current-head CI. Parent #394 is also
+all-green / 4,635 tests. See the
+[row-context review](docs/v2/VARIETY-FIELD-ROW-CONTEXT-REVIEW.md).
+
+**October 12: recovery lease repair.** Review preparation reproduced a backup
+that archived its own collection lock. New backups omit that process lease;
+legacy recovery verifies it but does not recreate it or replace a live target
+owner. All 18 focused tests and the full public build pass. A real 79-file local
+inbox restore preserves all 32 pending copies and reacquires the lease. This is
+not a production backup. See [recovery review](docs/v2/REVIEW-RUNTIME-RECOVERY-REVIEW.md).
+
+**October 12: Cornell photo references.** Three existing raspberry profiles and
+the Dickens strawberry candidate gain separately captioned source photographs.
+Photo-reference gaps fall from 53 to 50 of 64 catalog profiles; other field gaps
+and all canonical records remain unchanged. All four photos stay permission-held
+with private session preview. The 50 affected tests, record validation and full
+1,755-page public build pass. Fresh parent/child CI and phone review remain;
+see [Cornell photo review](docs/v2/CORNELL-VARIETY-PHOTOS-REVIEW.md).
+
+**October 10: profile organization correction.** The inventory now uses active
+company, brand and breeding-program links, including trial operators. Four false
+missing-link flags are repaired; 10 of 64 profiles still lack an organization
+link. Data and human gates remain unchanged. See the
+[organization review](docs/v2/VARIETY-PROFILE-ORGANIZATION-REVIEW.md).
+Browser review also found and repaired program overview/tab counts that omitted
+existing active variety links when a company portfolio was unavailable.
+
+**October 10 UTC: original Chandler filing follow-up.** The retained strawberry lead gains original claim/code references, with seven separately scoped parent/comparison observations and an original-assignee warning. 62 affected tests and the 1,755-page public build pass; parent draft #390 passes all four checks /4,618 tests. No canonical additions, photo permissions or human approvals. Full scope and remaining gates: [Chandler filing review](docs/v2/CHANDLER-ORIGINAL-FILING-REVIEW.md).
+
+**October 9: human name-review packet prepared.** All32 retained copies now have a private source-only worksheet, browser-local drafts and export into the existing offline diagnostic. Real human answers remain unfinished; no source/catalog approval or benchmark qualification is created. Parent#389 passes all four checks /4,597 tests. See [human packet review](docs/v2/VARIETY-HUMAN-RECALL-PACKET-REVIEW.md).
+
+**October 9: original Rutgers filing follow-up.** NJ09-2-1 / Rutgers D'Light naming, original claim and separate historical parent/comparison leads now reach private identity review. 52 targeted checks and record validation pass; no canonical edits or new photo permissions. Parent #387 passes all four checks, including 4,591 tests. Full scope and remaining review/release gates: [Rutgers filing review](docs/v2/RUTGERS-ORIGINAL-FILING-REVIEW.md).
+
+## Current checkpoint — October 9, 2026
+
+The approved Glasshouse redesign and section consolidation were integrated in
+[PR #312](https://github.com/samsonFive/berry-intelligence-os/pull/312).
+The visual explainer of site sections, analyst workflow and reporting is at
+`/guide`. Later Landscape and catalog improvements remain draft work; no merge
+or deployment is included in the current mission phase.
+
+The [durable requirements checklist](docs/v2/REDESIGN-REQUIREMENTS-CHECKLIST.md)
+retains all 31 accepted requirements, their evidence and remaining work. Start
+there rather than reconstructing the mission from historical progress reports.
+
+## Outstanding work
+
+| Area | Current state | Next action |
+|---|---|---|
+| Variety coverage | CAT-01/CAT-02/TD-116 open; source discovery and review handoffs work, but complete portfolios, corpus, rights and independent recall remain incomplete | Continue acquisition/reconciliation; retain every missing-source and identity gap; obtain actual human decisions through existing review |
+| Blueberry Landscape | Dense revised checkpoint and visual guide available; user feedback pending | Obtain blueberry feedback before remaining-berry rollout; finish and verify the full retained brief |
+| Integrated release | Post-redesign improvements form an unmerged draft stack | Reconcile canonical, test/browser-review the combined release and prepare backup/rollback proof before requesting merge/deploy approval |
+
+## Latest reviewable changes
+
+- [Searchable organization context](docs/v2/SEARCHABLE-ORIGIN-ORGANIZATIONS-REVIEW.md):
+  72 additional register entries gain attributed organization descriptions.
+  160 entries now link to 20 existing organizations; another 60 have searchable
+  unresolved organization wording. 228 remain unassigned. Original identities,
+  roles and all human gates remain unchanged. Browser review found and repaired
+  a breeding-program Varieties-tab crash. 74 source/navigation and 54 repair checks
+  pass; post-fix public build and data/runtime preservation pass. Fresh CI pending.
+
+- [Entry-level company context](docs/v2/ENTRY-COMPANY-SOURCE-CONTEXT-REVIEW.md):
+  company tables and joint source/company filters use each original entry.
+  148 register entries now have context for 18 organizations; eight Costa entries
+  retain both Costa Berry International and UF. 240 entries remain unassigned.
+  71 affected checks and the full public build pass; fresh draft-head CI is required.
+
+- [Four-berry register intake](docs/v2/REGISTER-LIST-52-INTAKE-REVIEW.md):
+  388 unreviewed heading observations, eight referrals and two held codes add
+  321 candidate keys. 48 affected checks and the 1,755-page public build pass;
+  prior IDs, original records and operator edits are preserved. Per-entry company
+  associations and body/parent recall remain open. Repaired draft #386 passes all
+  four required checks, including 4,580 tests; initial failure evidence is retained.
+
+- [Original Lewis pedigree](docs/v2/LEWIS-ORIGINAL-PEDIGREE-REVIEW.md):
+  eleven historical review leads from an original diagram, with all earlier IDs
+  and human decisions preserved; one unclear code remains held. 44 affected
+  checks pass. Draft #385 passes all four checks, including 4,576 Python tests.
+
+
+- [Original patent/profile links](docs/v2/ORIGINAL-PATENT-PROFILE-LINKS-REVIEW.md):
+  original claims/document/illustration links, recorded breeding-program and
+  patent fields, and preserved human distinct/rejected decisions. 59 targeted
+  checks pass. Draft #384 passes all four checks, including 4,574 Python tests.
+- Drafts #382 and #383 both pass all four checks, including 4,565 tests each.
+
+
+- [Draft #377](https://github.com/samsonFive/berry-intelligence-os/pull/377):
+  explicit article/profile name detection; all required checks pass.
+- [Draft #378](https://github.com/samsonFive/berry-intelligence-os/pull/378):
+  audit explicitly supplied Article text against separate expected names;
+  all required checks pass (4,553 passed / 11 skipped / two warnings).
+- [Draft #379](https://github.com/samsonFive/berry-intelligence-os/pull/379):
+  eight attributed UF cultivar photo references using the existing session-only
+  permission-held preview; all required checks pass (4,553 passed / 11 skipped /
+  two warnings).
+- [Draft #381](https://github.com/samsonFive/berry-intelligence-os/pull/381),
+  [profile-field coverage review](docs/v2/VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md):
+  a dense per-variety inventory with gap filters, protected photo edits and cited
+  trait/role/reference counts. All four CI checks pass (4,563 passed / 11 skipped /
+  two warnings). Actual desktop review is
+  complete. Phone visual verification remains before the combined release.
+- [Variety workflow explainer](docs/v2/VARIETY-WORKFLOW-EXPLAINER-REVIEW.md):
+  the guide now traces source names through identity review, separate catalog
+  authoring and profile enrichment, with links to the existing private workflows.
+
+The [latest bounded audit](docs/v2/CHANDLER-ORIGINAL-FILING-REVIEW.md) has
+380 source sections / 1,557 name occurrences / 88 matched occurrences / 1,469
+requiring review, with 1,126 public-source-derived candidate keys and 64 unchanged
+canonical varieties. There are 122 photo references; the eight UF photos have unknown
+reuse permission and remain excluded from public static output. Source mentions
+are not approved varieties or a global completeness measure.
+
+The 32 captured copies remain pending source review. The independent expected-name
+packet is unfinished and has no human recall score. Preserve original data,
+user edits, original URLs and source/identity/claim/extraction/photo gates.
+
+[Full prior status history](PROJECT-STATUS-HISTORY.md) retains the original
+status document verbatim, including dated production proof and decisions.
+Historical deployments and CI runs are not current release approval.
+
+## Retained canonical checkpoint history
+
+The following canonical status text is dated prior context. PR #314 is now
+merged into canonical; this draft retains its Social Listening implementation
+and safety boundaries. The current approved Landscape status is above.
+
 ## Landscape Explorer — blueberry review checkpoint (2026-10-06)
 
 Additive work on `feature/landscape-explorer`, based on canonical `7962ac04dd05855985f51596f3f8070f19990a75`, implements the blueberry portrait, typed genetics exploration, separate change clocks, deterministic cited explanations and complete HTML/SVG/CSV exports. Draft PR #313 is the blueberry review checkpoint, not merged or deployed; its description records final exact-head checks. Real default Chile/China/Peru coverage has 53 nodes, 82 relationships and 47 sources; no direct genetics-location links are recorded, so company presence and genetics context are visibly separate. Human review and existing data/user state are unchanged. See [mission and resume checklist](docs/v2/LANDSCAPE-EXPLORER-MISSION.md) and [review packet](docs/v2/LANDSCAPE-EXPLORER-REVIEW.md). **Stop after the tested blueberry review packet; the full mission and all Milestone B work remain open pending explicit feedback.**

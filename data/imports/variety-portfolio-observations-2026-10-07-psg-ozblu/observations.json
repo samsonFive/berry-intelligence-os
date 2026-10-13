@@ -1,0 +1,368 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-psg-rejoice-homepage-slide",
+      "title": "Plant Sciences Genetics — Rejoice code on homepage slide",
+      "url": "https://www.plantsciencesgenetics.com/homepage",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The second of six homepage slides, selected and read in the native browser; one literal code. Other slides and regional catalogs are outside this denominator.",
+      "limitations": "Bounded source observations, not a complete historical or current company portfolio. No canonical aliases, roles, traits, rights or actual growing footprint approved. Check date is not publication date. Rejoice is a market identity/platform, not an additional cultivar. The two literal code forms are not automatically merged or approved as aliases.",
+      "capture_reference": {
+        "method": "native_primary_page_review"
+      },
+      "names": [
+        {
+          "candidate_name": "PS-BK3-17.006-13",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://www.plantsciencesgenetics.com/homepage",
+          "portfolio_context": "The second homepage slide pairs Rejoice with PS-BK3-17.006-13 and links the Rejoice platform. Retain literal code; its difference from BK3-17.006-13 on the linked FAQ needs identity review.",
+          "breeder_code": "PS-BK3-17.006-13",
+          "trade_name": "Rejoice",
+          "display_label": "Rejoice"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-psg-rejoice-varietal-faq",
+      "title": "Rejoice — first variety code and platform distinction",
+      "url": "https://rejoiceblackberry.com/varietal/",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Varietal page and opened variety-or-brand FAQ; one explicitly named first-variety code. Future pipeline varieties are unnamed and not invented.",
+      "limitations": "Bounded source observations, not a complete historical or current company portfolio. No canonical aliases, roles, traits, rights or actual growing footprint approved. Check date is not publication date. Sell-sheet destinations retained, but PDF bodies not read. BK6-13 in filenames is not a new code or alias. Brix specifications differ between page sections; all traits, trial/commercial regions, license/member roles and rights stay unreviewed.",
+      "capture_reference": {
+        "method": "native_primary_page_review",
+        "brand_scope": "Market identity for first named variety; intended future family of offerings",
+        "sell_sheet_urls": [
+          "https://rejoiceblackberry.com/wp-content/uploads/2026/07/PSG_rejoice_BK6-13_Sell-Sheet-ENG-v1.0.pdf",
+          "https://rejoiceblackberry.com/wp-content/uploads/2026/07/PSG_rejoice_BK6-13_Sell-Sheet-SPAN-v1.0.pdf"
+        ],
+        "sell_sheet_bodies_checked": false
+      },
+      "names": [
+        {
+          "candidate_name": "BK3-17.006-13",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://rejoiceblackberry.com/varietal/",
+          "portfolio_context": "The opened variety-or-brand FAQ identifies BK3-17.006-13 as the first PSG blackberry currently marketed through Rejoice, which may expand to other offerings. Brand association is a source claim; PS-prefixed homepage code remains a separate unresolved literal lead.",
+          "breeder_code": "BK3-17.006-13",
+          "trade_name": "Rejoice",
+          "display_label": "Rejoice",
+          "photos": [
+            {
+              "image_url": "https://rejoiceblackberry.com/wp-content/uploads/2026/07/PSG-0001_PSG_Rejoice_Identity_and_Website_Development_Drip_Still.jpg",
+              "source_url": "https://rejoiceblackberry.com/varietal/",
+              "credit": "Plant Sciences Genetics / Rejoice varietal page · Photographer not credited",
+              "named_variety": "BK3-17.006-13",
+              "berry_id": "berry-blackberry",
+              "kind": "fruit",
+              "caption": "BK3-17.006-13: fruit image presented on the current Rejoice varietal page",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Named current-variety FAQ and fruit image checked together. Publisher attribution only; independent cultivar authentication and image-specific reuse permission unconfirmed. Not an image for all future Rejoice varieties. Private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-psg-selection-strawberry",
+      "title": "Plant Sciences Genetics — strawberry catalog loading gap",
+      "url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Strawberry",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "unreadable",
+      "enumerated_scope": "Original crop selection page opened; country control contains only disabled placeholder, card skeletons and no named results.",
+      "limitations": "Bounded source observations, not a complete historical or current company portfolio. No canonical aliases, roles, traits, rights or actual growing footprint approved. Check date is not publication date. Catalog failed to initialize its map in native browser. No country selection or complete named list available. This is an unreadable catalog, not a zero-variety result.",
+      "capture_reference": {
+        "method": "native_page_catalog_attempt",
+        "names_returned": false,
+        "limitation": "Map initialization failed after multiple attempts; country options and named cards unavailable"
+      },
+      "names": []
+    },
+    {
+      "id": "portfolio-psg-selection-blackberry",
+      "title": "Plant Sciences Genetics — blackberry catalog loading gap",
+      "url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Blackberry",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "unreadable",
+      "enumerated_scope": "Original crop selection page opened; country control contains only disabled placeholder, card skeletons and no named results.",
+      "limitations": "Bounded source observations, not a complete historical or current company portfolio. No canonical aliases, roles, traits, rights or actual growing footprint approved. Check date is not publication date. Catalog failed to initialize its map in native browser. No country selection or complete named list available. This is an unreadable catalog, not a zero-variety result.",
+      "capture_reference": {
+        "method": "native_page_catalog_attempt",
+        "names_returned": false,
+        "limitation": "Map initialization failed after multiple attempts; country options and named cards unavailable"
+      },
+      "names": []
+    },
+    {
+      "id": "portfolio-psg-selection-raspberry",
+      "title": "Plant Sciences Genetics — raspberry catalog loading gap",
+      "url": "https://www.plantsciencesgenetics.com/variety-selection?cropName=Raspberry",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "unreadable",
+      "enumerated_scope": "Original crop selection page opened; country control contains only disabled placeholder, card skeletons and no named results.",
+      "limitations": "Bounded source observations, not a complete historical or current company portfolio. No canonical aliases, roles, traits, rights or actual growing footprint approved. Check date is not publication date. Catalog failed to initialize its map in native browser. No country selection or complete named list available. This is an unreadable catalog, not a zero-variety result.",
+      "capture_reference": {
+        "method": "native_page_catalog_attempt",
+        "names_returned": false,
+        "limitation": "Map initialization failed after multiple attempts; country options and named cards unavailable"
+      },
+      "names": []
+    },
+    {
+      "id": "portfolio-ozblu-consumer-product-panels",
+      "title": "OZblu — consumer product grades and pack labels",
+      "url": "https://www.ozblu.com/our-blueberries/",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "company_product_page",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Product-grade and pack-panel headings on current consumer page; eight labels, none an explicit cultivar denomination.",
+      "limitations": "Bounded source observations, not a complete historical or current company portfolio. No canonical aliases, roles, traits, rights or actual growing footprint approved. Check date is not publication date. Standard, Premium, Organic and Jumbo are consumer grades; Shaker, Tube, Clamshell and Paper Cup are pack types. No current cultivar list or portfolio-absence conclusion. Generic images are not assigned to named historical varieties.",
+      "capture_reference": {
+        "method": "native_primary_page_review"
+      },
+      "names": [],
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": [
+          {
+            "label": "Standard",
+            "reason": "Consumer grade, not a cultivar name."
+          },
+          {
+            "label": "Premium",
+            "reason": "Consumer grade, not a cultivar name."
+          },
+          {
+            "label": "Organic",
+            "reason": "Consumer grade, not a cultivar name."
+          },
+          {
+            "label": "Jumbo",
+            "reason": "Consumer grade, not a cultivar name."
+          },
+          {
+            "label": "Shaker",
+            "reason": "Packaging format, not a cultivar name."
+          },
+          {
+            "label": "Tube",
+            "reason": "Packaging format, not a cultivar name."
+          },
+          {
+            "label": "Clamshell",
+            "reason": "Packaging format, not a cultivar name."
+          },
+          {
+            "label": "Paper Cup",
+            "reason": "Packaging format, not a cultivar name."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-ozblu-2018-five-varieties",
+      "title": "OZblu — five varieties in 2018 joint-venture release",
+      "url": "https://www.ozblu.com/news/migiva-group-ozblu-merger/",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "company_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Five explicitly listed varieties in the article body; unrelated article-carousel names and generic hero image excluded.",
+      "limitations": "Bounded source observations, not a complete historical or current company portfolio. No canonical aliases, roles, traits, rights or actual growing footprint approved. Check date is not publication date. Historical publisher-issued release, not an official registry. OZblu America is a venture and OZblu an umbrella brand; neither is an extra cultivar.",
+      "capture_reference": {
+        "method": "native_primary_page_review"
+      },
+      "names": [
+        {
+          "candidate_name": "OZ Magnifica",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.ozblu.com/news/migiva-group-ozblu-merger/",
+          "portfolio_context": "Named in the publisher-issued January 16, 2018 release. Brand portfolio association only; historical listing does not establish current availability, breeder/owner/license roles, rights or actual country plantings."
+        },
+        {
+          "candidate_name": "OZ Bella",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.ozblu.com/news/migiva-group-ozblu-merger/",
+          "portfolio_context": "Named in the publisher-issued January 16, 2018 release. Brand portfolio association only; historical listing does not establish current availability, breeder/owner/license roles, rights or actual country plantings."
+        },
+        {
+          "candidate_name": "OZ Bonita",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.ozblu.com/news/migiva-group-ozblu-merger/",
+          "portfolio_context": "Named in the publisher-issued January 16, 2018 release. Brand portfolio association only; historical listing does not establish current availability, breeder/owner/license roles, rights or actual country plantings."
+        },
+        {
+          "candidate_name": "OZ Julieta",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.ozblu.com/news/migiva-group-ozblu-merger/",
+          "portfolio_context": "Named in the publisher-issued January 16, 2018 release. Brand portfolio association only; historical listing does not establish current availability, breeder/owner/license roles, rights or actual country plantings."
+        },
+        {
+          "candidate_name": "OZ Magica",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.ozblu.com/news/migiva-group-ozblu-merger/",
+          "portfolio_context": "Named in the publisher-issued January 16, 2018 release. Brand portfolio association only; historical listing does not establish current availability, breeder/owner/license roles, rights or actual country plantings."
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": []
+      },
+      "published_date": "2018-01-16"
+    },
+    {
+      "id": "portfolio-ozblu-eb12-19-caption",
+      "title": "OZblu — EB 12-19 article caption and package mismatch",
+      "url": "https://www.ozblu.com/news/more-records-for-ozblu-this-time-its-a-speed-record/",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "company_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Article body/caption checked; one literal named code. Related articles and package label are context, not extra portfolio identities.",
+      "limitations": "Bounded source observations, not a complete historical or current company portfolio. No canonical aliases, roles, traits, rights or actual growing footprint approved. Check date is not publication date. Image association is unresolved. No gallery photo or EB 12-19 = OZ Magnifica alias. Historical commercial statements and source price/volume assertions remain unreviewed.",
+      "capture_reference": {
+        "method": "native_primary_page_review",
+        "photo_mismatch": {
+          "caption": "Variety is EB 12-19",
+          "package_label": "VARIETY: MAGNIFICA",
+          "image_url": "https://www.ozblu.com/wp-content/uploads/2018/09/WhatsApp-Image-2018-09-19-at-05.25.461-1024x885.jpeg",
+          "disposition": "Withheld from gallery pending explicit identity/photo review; no automatic alias"
+        }
+      },
+      "names": [
+        {
+          "candidate_name": "EB 12-19",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.ozblu.com/news/more-records-for-ozblu-this-time-its-a-speed-record/",
+          "portfolio_context": "The article caption identifies EB 12-19; the pictured carton reads VARIETY: MAGNIFICA. Preserve the literal caption lead without approving a code/name alias or assigning the conflicted image.",
+          "breeder_code": "EB 12-19"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "published_date": "2018-09-20"
+    },
+    {
+      "id": "portfolio-ozblu-magica-2023-release",
+      "title": "OZblu — Magica named fruit image and comparison context",
+      "url": "https://www.ozblu.com/news/ozblu-continues-its-winning-steak-with-magica/",
+      "checked_on": "2026-10-07",
+      "company_ids": [
+        "brand-ozblu"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "company_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "One publisher-associated variety; two named competitor comparisons excluded. Related article carousel outside this denominator.",
+      "limitations": "Bounded source observations, not a complete historical or current company portfolio. No canonical aliases, roles, traits, rights or actual growing footprint approved. Check date is not publication date. Arana and Sekoya Pop are competitor comparators; Family Tree Farms Jumbo is an offer without varietal breakdown. Referenced Qeneto charts, pricing, yields and IP assertions are not independently verified facts or official rights.",
+      "capture_reference": {
+        "method": "native_primary_page_review"
+      },
+      "names": [
+        {
+          "candidate_name": "OZblu Magica",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.ozblu.com/news/ozblu-continues-its-winning-steak-with-magica/",
+          "portfolio_context": "Publisher identifies OZblu Magica in article body and named fruit-image alternative text. Keep literal OZblu Magica form separate from historical OZ Magica pending identity review; no automatic brand-prefix alias.",
+          "photos": [
+            {
+              "image_url": "https://www.ozblu.com/wp-content/uploads/2023/06/OZblu%C2%AE-Continues-its-Winning-Streak-with-Magica-1024x683.jpg",
+              "source_url": "https://www.ozblu.com/news/ozblu-continues-its-winning-steak-with-magica/",
+              "credit": "OZblu article · Photographer not credited",
+              "named_variety": "OZblu Magica",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "caption": "OZblu Magica: publisher-attributed blueberries in hand",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-07",
+              "reuse_note": "Native article heading, named image alternative text and original 1024 × 683 fruit photo checked. Publisher attribution is not independent cultivar authentication; image-specific reuse permission unconfirmed. Private session preview only."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": [
+          {
+            "label": "Arana",
+            "reason": "Competitor comparator, not an OZblu variety."
+          },
+          {
+            "label": "Sekoya Pop",
+            "reason": "Competitor comparator, not an OZblu variety."
+          }
+        ]
+      },
+      "published_date": "2023-06-21"
+    }
+  ]
+}

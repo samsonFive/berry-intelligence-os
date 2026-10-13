@@ -1,0 +1,167 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-hutton-legacy-raspberry-list",
+      "title": "James Hutton Institute — legacy raspberry listing",
+      "url": "https://fruitbreeding.hutton.ac.uk/raspberry/varieties",
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T14:01:06.636428Z",
+      "company_ids": [
+        "company-james-hutton-institute"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "breeder_release_record",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "All six linked entries on the legacy raspberry listing. Product links retain the literal URLs published in this listing.",
+      "limitations": "A legacy six-entry list, not the full 23-cultivar lifetime portfolio. Linked profiles contain historical rights, trial and market wording that is not treated as current or approved. Names in linked profile bodies and pedigrees require separate accounting. No publication day is established.",
+      "names": [
+        {
+          "candidate_name": "Glen Ample",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://fruitbreeding.hutton.ac.uk/RaspberryGlenAmple.asp",
+          "portfolio_context": "Legacy listing entry · unreviewed"
+        },
+        {
+          "candidate_name": "Glen Lyon",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://fruitbreeding.hutton.ac.uk/RaspberryGlenLyon.asp",
+          "portfolio_context": "Legacy listing entry · unreviewed"
+        },
+        {
+          "candidate_name": "Glen Magna",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://fruitbreeding.hutton.ac.uk/RaspberryGlenMagna.asp",
+          "portfolio_context": "Legacy listing entry · unreviewed"
+        },
+        {
+          "candidate_name": "Glen Rosa",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://fruitbreeding.hutton.ac.uk/RaspberryGlenRosa.asp",
+          "portfolio_context": "Legacy listing entry · unreviewed"
+        },
+        {
+          "candidate_name": "Glen Shee",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://fruitbreeding.hutton.ac.uk/RaspberryGlenShee.asp",
+          "portfolio_context": "Legacy listing entry · unreviewed"
+        },
+        {
+          "candidate_name": "Glen Doll",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://fruitbreeding.hutton.ac.uk/RaspberryGlenDoll.asp",
+          "portfolio_context": "Legacy listing entry · unreviewed"
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-usda-lewis-2001-paper",
+      "title": "USDA ARS — Lewis raspberry release paper (2001)",
+      "url": "https://www.ars.usda.gov/ARSUserFiles/1718/PDF/2001/Lewismanuscript.pdf",
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T14:01:06.636428Z",
+      "company_ids": [
+        "company-usda"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "breeder_release_record",
+      "capture_status": "partial",
+      "enumerated_scope": "Thirteen named cultivar/release/comparator contexts in the four-page paper text and tables; two parent codes and one bibliography-only cultivar title are excluded from this bounded scope.",
+      "limitations": "Partial source check: the pedigree diagram has not been visually accounted for. The web PDF reader returned text, but a direct public PDF retrieval returned HTTP 502, so no complete visual capture is claimed. Lewis is paired with ORUS 576-47 here; a current Hutton overview also names Lewis, and their identity remains unresolved. Comparators are not USDA breeder assignments. The printed year 2001 and acceptance dates do not establish a publication day. No traits, rights, current availability or growing regions are approved.",
+      "names": [
+        {
+          "candidate_name": "ORUS 576-47",
+          "breeder_code": "ORUS 576-47",
+          "trade_name": "Lewis",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Lewis release paper, 2001 · code/name pairing unreviewed"
+        },
+        {
+          "candidate_name": "Coho",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Related release mentioned in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Meeker",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Willamette",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Chilcotin",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Chilliwack",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Comox",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Glen Ample",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Tulameen",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Qualicum",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Southland",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Fairview",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        },
+        {
+          "candidate_name": "Skeena",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Trial comparator or discussion in 2001 paper · unreviewed"
+        }
+      ],
+      "accounting": {
+        "observed_items": 16,
+        "exclusions": [
+          {
+            "label": "ORUS 1570",
+            "reason": "Parent selection code in the origin paragraph; pedigree-only material is outside this release/comparator scope."
+          },
+          {
+            "label": "ORUS 1748",
+            "reason": "Parent selection code in the origin paragraph; pedigree-only material is outside this release/comparator scope."
+          },
+          {
+            "label": "Centennial",
+            "reason": "Bibliography-only cultivar title; the referenced release paper remains a separate source check."
+          }
+        ]
+      }
+    }
+  ]
+}

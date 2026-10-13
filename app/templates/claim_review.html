@@ -36,7 +36,8 @@
     <input type="hidden" name="proposed_statement" value="{{ candidate_statement }}">
     <input type="hidden" name="origin" value="{{ origin }}">
     <input type="hidden" name="return_to" value="{{ return_to }}">
-    <input type="hidden" name="reviewer" value="{{ reviewer }}">
+    <label for="claim-reviewer">Reviewer *</label>
+    <input id="claim-reviewer" type="text" name="reviewer" value="{{ reviewer }}" required autocomplete="name">
     <label for="claim-statement"><strong>Proposed factual statement</strong></label>
     <textarea id="claim-statement" name="statement" rows="4" style="width:100%; max-width:720px;" required>{{ candidate_statement }}</textarea>
     <p class="v2-meta">Edit above if needed, then Approve. Editing is recorded automatically -- no separate step.</p>
@@ -59,7 +60,8 @@
   </form>
 
   <form method="post" action="/review/{{ evidence.id }}/claim/reject" style="margin-top:0.75rem;">
-    <input type="hidden" name="reviewer" value="{{ reviewer }}">
+    <label for="claim-reject-reviewer">Reviewer for leaving claim unapproved *</label>
+    <input id="claim-reject-reviewer" type="text" name="reviewer" value="{{ reviewer }}" required autocomplete="name">
     <input type="hidden" name="return_to" value="{{ return_to }}">
     <input type="hidden" name="reason" value="No distinct factual claim in this source">
     <button class="v2-btn" type="submit">No claim to approve -- leave as approved source only</button>

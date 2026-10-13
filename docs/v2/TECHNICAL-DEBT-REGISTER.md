@@ -1,6 +1,93 @@
 # Technical Debt Register
 
-Living register for **current** Intelligence OS V2 debt. This is not a changelog.
+### Repeated register captures — October 13 UTC
+
+The [four-berry recheck](CPVO-REFERENCE-COHORT-REVIEW.md) distinguishes Cargo's
+withdrawn application from its later numbered title and exposes source-reported
+status. Repeat captures now share one reference display row, with original
+links and dated/changed context retained. Different authorities, applications
+and grants cannot coalesce. No trust state or canonical identity is changed.
+Sixty-five related and 26 final history tests pass; current-head CI and release
+package/rehearsal remain required. Broader portfolio/current-rights/recall debt
+and all actual human review decisions remain open.
+
+### Original register projection blocker — October 13 UTC
+
+The [reference review](IMPORTED-REGISTER-REFERENCE-REVIEW.md) reproduces and
+repairs existing numbered register imports being absent from private profiles
+and profile-field inventory. The live CPVO recheck also exposed a denomination
+being falsely treated as a second commercial label; only that invented
+self-pairing is removed. Cross-source conflicts and human decisions remain
+enforced. No domain schema, resolver, CPVO adapter or trusted records change.
+Sixty-eight related tests and thirteen final date tests pass; fresh current-head
+CI and release rehearsal remain. Broader rights/portfolio/recall/media debt
+and all human reviews remain open.
+
+### Release package follow-up — October 13 UTC
+
+The first current-code isolated Docker build reproduced a packaging omission:
+canonical Social Listening added `COPY docs/v2/social-source-access.json`, but
+the release archive still used the older explicit inputs. The archive now
+includes that committed public configuration, with a regression that checks
+every local COPY input in the current Dockerfile. Private runtimes remain
+excluded. The failed build occurred before a new review container started;
+production and existing review containers were untouched. Fresh exact-head CI
+and a successful rebuilt host rehearsal are required; no release is inferred.
+
+### TD-119 — Restored backup replays the collection lease
+
+The draft originally used TD-117; canonical now reserves TD-117 for Social
+Listening debt and TD-118 for NABC/USHBC identity. The lease defect is TD-119;
+its reproduced evidence and repair are unchanged.
+
+| Field | Current evidence |
+|---|---|
+| Status / owner | active — draft fix; ops/platform |
+| Reproduced defect | Backup under `pipeline_lock` includes its own live `inbox/operations/collection.lock`; recovery can block collection for six hours. |
+| Draft repair | Exact-path exclusion on new archives; full integrity verification but no lease replay on legacy restore. Existing target owners and same-named history files remain unchanged. |
+| Verification | 18 focused tests; record validation and full public build; 79-file actual local inbox recovery with 32 pending copies and successful new lease acquisition. |
+| Remaining | Fresh exact-head CI, final code package and complete review-runtime rehearsal; real production backup before approved deployment. No merge/deploy or source/catalog approval. |
+| Review | [Recovery review](REVIEW-RUNTIME-RECOVERY-REVIEW.md). Earlier TD-047 proof remains dated history. |
+
+## Current catalog debt — October 12, 2026
+
+The [Cornell photo follow-up](CORNELL-VARIETY-PHOTOS-REVIEW.md) adds four
+permission-held references, reducing missing catalog photo references from 53
+to 50 of 64 profiles. Rights, traits and organization rows are unchanged. Source
+captions do not approve identities or reuse; current portfolios, independently
+reviewed recall and actual human catalog decisions remain incomplete. TD-116
+remains open and evidence-class maturity counts below are unchanged.
+
+TD-116 remains open. Source-name discovery, original patent links and attributed
+photo references improve coverage but do not establish complete portfolios,
+current rights, independent human recall or approved catalog growth. See the
+[catalog mission](VARIETY-CATALOG-COMPREHENSIVENESS-MISSION.md) and
+[latest four-berry original-source evidence](REGISTER-LIST-52-INTAKE-REVIEW.md).
+The 388 checked heading observations add 321 candidate keys, while body/parent
+recall, per-entry company associations and all human catalog decisions remain open.
+
+The mixed-program source association blocker is addressed by [entry-level
+company context](ENTRY-COMPANY-SOURCE-CONTEXT-REVIEW.md), shared by candidate
+filters, company tables and coverage counts. The [searchable organization
+follow-up](SEARCHABLE-ORIGIN-ORGANIZATIONS-REVIEW.md) retains 160 entries with 168
+source associations across 20 existing organizations; 60 further entries have
+unresolved organization wording. 228 remain unassigned. Source context never
+approves company roles. The breeding-program varieties-tab crash is also fixed;
+an absent company dossier no longer hides source discoveries.
+TD-116 remains open for complete portfolios, profiles and independent recall.
+
+The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
+shows actual catalog gaps: 50/64 without photo references, 35/64 without
+patent/PVR references, 33/64 without cited traits and 10/64 without linked
+organizations after the [active-role correction](VARIETY-PROFILE-ORGANIZATION-REVIEW.md).
+Counts are scoped field presence, not current rights, independent
+measurement or catalog completeness. Phone visual verification remains.
+
+The active/resolved debt rows and dated proof below remain unchanged.
+[Historical progress updates](TECHNICAL-DEBT-REGISTER-HISTORY.md) preserve the
+previous introductory updates verbatim. Do not reopen resolved UI-lane items or
+change evidence maturity to disguise gaps.
+
 Historical work that is already shipped stays out of ACTIVE unless it still
 hurts operators or trust.
 
@@ -2003,13 +2090,745 @@ Status: open; owner: canonical entity authoring. `company-ushbc` currently inclu
 
 ### TD-116 — Variety catalog recall is not portfolio-complete
 
+October 8 selected-article discovery repair: the app recovered 18 original
+Hortifrut paragraphs with 24 named varieties, but the quick check initially
+found only two. Quoted positive declarations and paragraph-local crop scope
+now return all 24 with correct berries and no extras. Existing records remain
+unchanged; this repairs automation rather than counting manual coverage again.
+A negated-list false positive exposed by new tests is corrected. 103 affected
+tests pass (73.88s, one existing warning); records validate. Native selected
+preview shows 24 names / 23 candidates plus the existing Keepsake catalog link;
+Raspberry filtering retains article context and returns five Pacific names.
+No real review decision or candidate write. The unchanged summary diagnostic
+still has 23/24 cases and 60/64 names; no global recall claim or fixture shortcut.
+Default audit remains 255 sections / 972 occurrences / 707 proposed keys /
+64 mixed-status catalog records, 23 registry enumeration gaps and 58 follow-ups.
+Parent #355 has all four green checks (4,341 tests); this repair needs its own
+exact-head checks. See VARIETY-ARTICLE-QUOTED-LISTS-REVIEW.md. CAT-01/CAT-02 /
+TD-116, acquisition, independent recall, rights/photos, human catalog and release
+remain open. No merge/deploy or other-berry Landscape rollout.
+
+October 8 original company-source gaps: eleven bounded checks cover Singrow,
+Biogea, The Berry Collective, Fruitist and Grupo HerEs. Ten readable partial
+pages and one native DNS failure remain explicit gaps. Brands, input products,
+trial producers and generic Sekoya context are excluded from cultivar identity;
+original crop/date/company scope stays intact. No candidates or photos added.
+Actual audit: 255 sections / 972 occurrences / 62 text matches / 910 review needs;
+707 proposal keys / 64 mixed-status catalog records. 54/77 registry entries have
+some names checked; 23 enumeration gaps remain, with 58 source follow-ups.
+63 affected tests pass (68.23s, one existing warning); records validate; all
+2,771 baseline JSON files and the expansion guide remain unchanged. Native
+private coverage shows exclusions and incomplete source plans without writes.
+Parent #354 is green (4,336 tests); draft #355 also passes all four checks
+(4,341 tests / 11 skipped / two warnings, 441.39s).
+See REGISTRY-ORIGINAL-SOURCE-GAPS-REVIEW.md. CAT-01/CAT-02/TD-116, acquisition,
+independent recall, rights/photos, human catalog and combined release remain
+open. No merge/deploy or other-berry Landscape rollout.
+
+October 8 variety search correction: native review reproduced Merida failing to
+find Mérida. Candidate navigation now ignores accents only during search,
+retaining literal stored spellings, code punctuation, non-Latin letters, IDs,
+user aliases/decisions and company/crop/source/status filters. 55 focused tests
+pass (102.43s, one existing warning); the updated browser returns the correct
+scoped entry with its original name and unresolved identity intact. No data,
+schema or rights/reuse changes. Parent draft #353 passes all four required checks
+(4,331 tests); search draft #354 also passes all four checks (4,336 tests). See
+VARIETY-ACCENT-SEARCH-REVIEW.md. CAT-01/CAT-02/TD-116 and combined release remain
+open. No merge/deploy or other-berry Landscape rollout.
+
+October 8 Berries del Oeste originals: seven named strawberries now appear in
+the company source table, with exact review links and 21 attributed photo
+references. All seven original profiles, the family context and five brochures
+(29 pages, including two distinct Áurea versions) were read and visually checked.
+Marketing families are excluded from cultivar counts; original spellings and
+claims stay provisional. No identity, alias, company role, traits, geography or
+current-rights approval. Photos remain hidden, unknown reuse and private to the
+session preview choice; no public image publication.
+Real audit: 244 sections / 972 occurrences / 62 catalog text matches / 910 review
+needs; 707 proposed keys (63 stored / 644 primary). Catalog remains 64 mixed-status.
+54/77 registry entries partly checked; 23 named-enumeration gaps and 47 source
+follow-ups remain. 68 affected tests pass (63.90s, one existing warning); original
+2,771 JSON files and expansion guide preserved. Native company search, exact
+Áurea handoff, both brochure URLs and photo reveal/refresh/hide verified. Phone
+acceptance remains unverified. Parent #352 has all four green checks (4,327 tests);
+this child requires its own exact-head full checks. See
+BERRIESOESTE-ORIGINAL-VARIETIES-REVIEW.md. CAT-01/CAT-02/TD-116, independent recall,
+rights depth and human catalog authoring remain open. No merge/deploy or
+other-berry Landscape rollout.
+
+October 8 Black Venture Farm original portfolio continuation: the complete
+low-chill and pipeline panels add 21 literal names/codes across four crops.
+The company table labels 11 pipeline selections separately from ten offerings,
+supports code search and exact review handoff. Nine original named cutout photos
+retain attribution, hidden default, unknown reuse and session-only preview.
+A compact keyboard-accessible zoom control makes padded source images usable
+without altering source assets, persisting permission or approving identity.
+No company role, release date, trait, region or rights decision is inferred.
+Real audit: 231 sections / 953 occurrences / 62 text matches / 891 review needs /
+700 proposed keys (63 stored / 637 primary); catalog remains 64 mixed-status.
+53/77 registry entries partly checked, 24 enumeration gaps, 47 source follow-ups.
+85 focused tests pass (79.43s, one existing warning); records validate; all 2,771
+original JSON files and expansion guide unchanged. Native table/code search,
+actual Urani handoff, photo reveal/refresh/hide and zoom checked. Parent #351 has
+all four green checks (4,323 tests); this child needs exact-head full checks.
+See BLACKVENTURE-ORIGINAL-VARIETIES-REVIEW.md. CAT-01/CAT-02/TD-116 remain open:
+source/code/rights depth, remaining photos, independent recall and human catalog
+authoring. No completeness claim, merge/deploy or other-berry Landscape rollout.
+
+October 8 EU Plants original YANA continuation: all ten pages of original
+USPP34772P3 were read and visually checked, including its single cultivar claim
+and seven drawing plates. The existing company Varieties table links one named
+raspberry proposal to exact identity review and original patent/claim references.
+Nine comparator/reference labels stay outside the company offering enumeration.
+Figure 1 has literal attribution and a visually checked original photo, unknown
+reuse, hidden default and private session-only Ignore permission / Hide photo.
+Printed applicant/assignee, priority and publication dates are historical source
+fields, not current legal status, approved company roles or trait/region records.
+Real audit: 229 sections / 932 occurrences / 62 text matches / 870 review needs /
+679 proposed keys (63 stored / 616 primary); catalog remains 64 mixed-status.
+52/77 registry entries partly checked, 25 enumeration gaps, 47 source follow-ups.
+81 focused tests pass (45.71s, one existing warning); records validate; all 2,771
+original JSON files and expansion guide are unchanged. Native company handoff,
+original references and photo reveal/refresh/hide verified. Parent #350 has all
+four green checks (4,319 tests); this child needs its own exact-head full checks.
+See EUPLANTS-YANA-ORIGINAL-PATENT-REVIEW.md. CAT-01/CAT-02/TD-116, current-rights
+verification, embedded technical-sheet photos, independent recall and human
+catalog authoring remain open. No merge/deploy or other-berry Landscape rollout.
+
+October 8 IQ Berries source/photo continuation: the complete original homepage
+and all seven cultivar detail pages provide fourteen occurrences for seven
+blueberry offerings, with original source links and contextual code search.
+Each has a visually checked named fruit photograph, source attribution, unknown
+reuse, hidden default and session-only Ignore permission / Hide photo. No
+permission, company role, rights, trait, region or commercial-name alias approved.
+Seasonal diagrams stay available at the original source; generic hero/logos are
+not variety photos. Original labels/code pairings remain verbatim; no dates are
+guessed from image paths, selection wording or an incomplete trial-yield sentence.
+Real audit: 228 sections / 931 occurrences / 62 text matches / 869 review needs /
+678 proposed keys (63 stored / 615 primary); catalog remains 64 mixed-status.
+51/77 registry entries partly checked, 26 enumeration gaps, 47 source follow-ups.
+90 focused tests pass (43.40s, one existing warning); records validate; all 2,771
+original JSON files and the expansion guide are unchanged. Native company table,
+T11-319 search, exact MEGAEARLY handoff and photo loading/refresh/hide verified.
+Parent #349 has all four green checks (4,315 tests). This draft requires its own
+exact-head full checks. See IQBERRIES-ORIGINAL-VARIETIES-REVIEW.md. CAT-01/CAT-02/
+TD-116, embedded PDF photos, current-rights depth, independent recall and human
+catalog authoring remain open. No merge/deploy or other-berry Landscape rollout.
+
+October 8 original rights-source continuation: three complete original PDFs
+(12 pages, text and every page visually checked) add five name occurrences for
+Enrosadira, ALEL045 and ALEL111. Existing Enrosadira identity/anchor is retained;
+the two official code proposals stay separate from EasyStar/EasyRock until human
+identity review. Dated printed register details are not verified current rights,
+company roles or trait approvals. One attributed Enrosadira patent photo has
+unknown reuse: hidden by default, session-only Ignore permission / Hide photo.
+Native reveal, refresh, hide and both original register links pass desktop review.
+Real audit: 220 sections / 917 occurrences / 62 text matches / 855 review needs /
+671 proposed keys (63 stored / 608 primary); catalog remains 64 mixed-status.
+50/77 registry entries partly checked, 27 enumeration gaps, 47 source follow-ups.
+The only backend change fixes original national-register source classification
+using the existing tier; it does not approve the source or current legal status.
+86 focused tests pass (44.06s, one existing warning); records validate; all 2,771
+original JSON files and the expansion guide are unchanged. Parent #348 has four
+green checks (4,310 tests). This draft requires its own exact-head full checks.
+See ORIGINAL-RIGHTS-SOURCE-LINKS-REVIEW.md. Embedded technical-sheet photos,
+independent recall and human catalog authoring remain open under CAT-01/CAT-02/
+TD-116. No merge/deploy or other-berry Landscape rollout.
+
+October 8 G-Berries original-source recovery: the earlier failed homepage
+capture is superseded by an original native-browser read, preserving its
+historical version. Three explicit crop selectors, GIL page and six complete
+original PDFs (18 pages, all visually checked) provide fifteen named occurrences
+for eight offering labels. Company code search finds ALEL045/EasyStar and
+ALEL111/EasyRock without approving denomination or aliases. Program/club labels,
+nurseries and legacy comparison-table varieties are not extra company offerings.
+PDF Tafí and website Tafì spellings remain source-specific; no human identity
+approval. Original sheet links expose brochure details; patent wording is not
+an official register finding. Named PDF photos remain source leads requiring
+private embedded-document image support/reuse review, with no new assets.
+Real audit: 217 sections / 912 occurrences / 62 text matches / 850 review needs /
+669 proposed keys (63 stored / 606 primary); catalog remains 64 mixed-status.
+50/77 registry entries partly checked; 27 need enumeration; 47 source follow-ups,
+including G-Berries' unnamed blackberry program. All prior anchors and 1,992
+original JSON files, user decisions/notes/registration and expansion guide remain
+unchanged. 60 focused tests pass (34.07s; one existing warning); native code search
+and exact EasyStar handoff pass. This draft needs its own pushed-head checks.
+Parent draft #347 is green: 4,304 passed / 11 skipped / 2 warnings.
+See GBERRIES-ORIGINAL-VARIETIES-REVIEW.md. CAT-01/CAT-02/TD-116 remain open;
+no global completeness claim, merge, deployment or other-berry Landscape rollout.
+
+October 8 Mattivi source/photo continuation: twelve original portfolio and
+detail pages provide sixteen named occurrences for eight offering labels
+across all four berries. Six displayed name/code pairs remain contextual and
+searchable in the company table, without approving aliases or PBR claims.
+Codes are not counted as extra cultivars; Duke is a maturity comparator.
+Four named raspberry-card photos are credited to Mattivi with original links,
+unknown reuse, hidden defaults and session-only preview. No permission saves.
+Real audit: 207 sections / 897 occurrences / 62 text matches / 835 review needs /
+663 candidate keys (63 stored / 600 primary proposals); catalog 64. Registry:
+49/77 partly checked, 28 rows still need named-variety enumeration, 45 source
+follow-ups. Photos: 45 references / 44 unknown reuse / zero new public approvals.
+All prior IDs, stored registration, aliases, notes and human decisions survive.
+Native table alphabet/code search/reset/berry filter and exact Nives handoff
+pass; photo rendering, refresh and Hide verified. Phone acceptance unverified.
+79 focused tests pass (53.25s; one existing warning); records validate; all
+1,992 original JSON files and expansion guide unchanged. Parent draft #346
+has all four green exact-head checks (4,298 tests). This draft requires its
+own pushed-head checks. See MATTIVI-SOURCE-VARIETIES-REVIEW.md. CAT-01/CAT-02/
+TD-116 remain open. No merge/deploy or other-berry Landscape rollout.
+
+October 8 grower-source continuation: eleven complete-page checks add 53
+literal name occurrences for FreshKampo, California Giant and Cuna de Platero.
+Language spellings, ambiguous newsletter wording, historical dates and the
+separate summer strawberry calendar stay explicit. A Cupla image from its
+named page has source attribution but unknown reuse: hidden by default, with
+session-only Ignore permission / Hide photo verified. No permission is saved.
+Real audit: 195 sections / 881 occurrences / 62 text matches / 819 review needs /
+655 candidate keys; catalog 64. Registry: 48/77 partly checked, 29 rows still
+need named-variety enumeration, with 45 source follow-ups. Batch ordering
+preserves every existing provisional ID, including Cleopatra. Human rejection,
+registration and user edits win. Final focused tests: 75 passed / one existing
+warning in 41.23 seconds. Native alphabet/search/reset, blueberry company
+scope, exact Cupla handoff, photo rendering/refresh/hide pass desktop review.
+Records validate; all 1,992 original JSON files and expansion guide unchanged.
+Parent draft #345 has four green checks (4,291 tests); this draft needs its own
+pushed-head checks. See GROWER-SOURCE-VARIETIES-REVIEW.md. CAT-01/CAT-02/TD-116
+remain open. No merge/deploy or other-berry Landscape rollout.
+
+October 8 Wish Farms / market-source continuation: fourteen bounded sections
+add the four blackberry names in Wish Farms' 2019 grower announcement. Original
+publication date and differing article dateline remain separate. Existing IDs,
+registration and human decisions win; no inferred spelling aliases or roles.
+Gem-Pack's complete original packaging sheet contains labels, not cultivar
+denominations. Surexport, Perfection and Pairwise categories, brands and trait
+labels remain coverage gaps. A company with zero captured names now gets an
+upfront explanation that its varieties may still be missing.
+Real audit: 184 sections / 828 occurrences / 58 text matches / 770 review needs /
+636 candidate keys; catalog 64. Registry: 45/77 partly checked, 32 rows still
+need named-variety enumeration, with 43 source follow-ups. No new gallery assets
+or public photo approvals. Final focused tests: 77 passed / one existing warning
+in 55.94 seconds. Native Wish search/alphabet/reset and candidate/source handoff,
+and Surexport's six read pages / zero captured names, pass desktop review.
+Records validate; all 1,992 original JSON files and expansion guide unchanged.
+Parent draft #344 has four green checks (4,285 tests); this draft needs its own
+pushed-head checks. See WISH-FARMS-MARKET-SOURCE-VARIETIES-REVIEW.md.
+CAT-01/CAT-02/TD-116 remain open. No merge/deploy or other-berry rollout.
+
+October 8 Family Tree Farms / Miyoshi source continuation: eight bounded
+source sections add four historical Family Tree Farms blueberry labels and
+Miyoshi's 19FAG-1 / Berry Pop SAKURA source pairing. Existing Star identity,
+saved registration and human decisions win; Snow Chaser remains separate from
+Snowchaser pending review. Product categories, comparator Benihope and cached
+Japanese labels are excluded. Current inaccessible pages remain explicit gaps.
+Real audit: 170 sections / 824 occurrences / 57 text matches / 767 review needs /
+635 candidate keys; catalog 64. Registry: 44/77 partly checked, 33 initial checks
+and 30 source follow-ups remain. No new photo assets or public image approvals.
+Company search, alphabet/reset and candidate handoff pass native browser review.
+Review badges use plain language and patent cautions appear only for patents.
+All 94 final focused tests pass (57.32s); records and all 1,992 original JSON
+files validate/preserve. The expansion guide is unchanged. Parent draft #343's
+four exact-head gates are green (4,280 tests); this draft needs its own gates.
+CAT-01/CAT-02/TD-116 remain open. No merge/deploy or other-berry rollout.
+See FAMILYTREE-MIYOSHI-SOURCE-VARIETIES-REVIEW.md. Earlier counts are historical.
+
+
+October 8 source-specific patent continuation: later original patent
+references now show their own claim links and filing/grant metadata without
+replacing existing candidate IDs or saved registration, aliases or decisions.
+Lagorai Plus and Dafne original PDFs are fully read/visually checked; Ofelia SO
+now has all nine pages checked. Two small named fruit thumbnails remain held
+for unknown reuse, with session-only preview. Current company snapshots no
+longer say their technical sheets are unread. Sun Belle's brand-only page and
+Well-Pict's DNS failure remain explicit source gaps, not empty portfolios.
+Real audit: 162 sections / 819 occurrences / 57 text matches / 762 review needs /
+631 keys; catalog 64. Registry: 42/77 partly checked, 35 initial checks and 24
+follow-ups open. Photos: 40 references / 39 reuse unknown / zero new public.
+All 103 final focused tests pass; private browser review confirms hidden,
+session preview, reload and Hide behavior. Phone acceptance remains unverified.
+Parent #342 is green (4,274 tests); this draft needs its own pushed-head gates.
+CAT-01/CAT-02/TD-116 remain open. No merge/deploy or other-berry rollout.
+See VARIETY-SOURCE-PATENT-LINKS-REVIEW.md.
+
+
+October 8 Sant’Orsola original-document continuation: eleven visually
+checked technical sheets and the original Ofelia SO patent add twelve source
+observations, claim/filing links and one held low-resolution fruit photo.
+Ofelia and Ofelia SO stay separate; all eleven older candidate links survive.
+Real audit: 158 sections / 817 occurrences / 57 text matches / 760 review needs /
+631 candidate keys. Catalog stays 64. Registry: 42/77 partly checked, 35 initial
+checks and 22 capture follow-ups open. Photos: 38 references / 37 reuse-unknown /
+zero newly approved public. Twenty-one PDF photo objects remain document links,
+not gallery assets. No aliases, rights status, traits, roles or growing regions
+approved. Native session preview/hide passes; records and 1,992-file preservation
+pass. See SANTORSOLA-DOCUMENT-REFERENCES-REVIEW.md. Parent #341 exact-head gates
+are green (4,270 tests); this draft requires its own pushed-head checks.
+No merge/deploy or other-berry Landscape rollout; CAT-01/CAT-02/TD-116 stay open.
+
+Earlier checkpoints below are historical; current counts are those above.
+
+
+October 8 Sant’Orsola continuation: the live breeding page adds eleven
+name observations, including Delfi and ten raspberry labels, with exact linked
+technical-sheet URLs. Two enumerated crop sections and one explicit document
+follow-up bring the real audit to 146 sections / 805 occurrences / 57 text
+matches / 748 review needs / 630 candidate keys. Catalog stays 64; 42/77
+registry rows have some enumeration, 35 initial checks and 22 follow-ups remain.
+Photos remain 37 references / 36 reuse-unconfirmed / zero newly approved public.
+The technical sheets are linked but not yet read; no patent status, aliases,
+roles, traits or growing region is approved. Native company search and scoped
+coverage handoff are reviewed. All 37 focused checks, record validation and
+1,992-original-JSON preservation pass. See SANTORSOLA-VARIETY-REVIEW.md.
+Draft #340 is pushed and all four exact-head checks pass (4,267 tests); this
+continuation requires its own exact-head checks. No merge, deployment or
+other-berry Landscape rollout. CAT-01/CAT-02/TD-116 remain open.
+
+Earlier checkpoints below are historical. Current source denominators and
+delivery state are those above; a checked page is not a complete portfolio.
+
+
+October 8 BerryWorld/Oishii/Queensland continuation: eleven sections add 57
+source-name occurrences and one permission-held Koyo photo. Regional/brand and
+historical labels remain separate; the Queensland abstract's seven-versus-six
+count conflict is retained. Company coverage links now scope sources, counts
+and registry rows and preserve the company through filter submissions. Native
+desktop review and 88 unique focused tests pass; phone verification remains open.
+Records and original 1,992 JSON preservation pass. Real audit: 143 sections /
+794 occurrences / 57 text matches / 737 review needs / 619 keys, catalog 64;
+41/77 partly checked, 36 initial checks and 21 follow-ups remain. Photos 37,
+36 reuse-unconfirmed, zero newly approved public. See
+BERRYWORLD-OISHII-QUEENSLAND-VARIETY-REVIEW.md. Drafts338/339 are pushed and
+all four exact-head checks pass (4,202/4,260 tests). This next continuation
+still requires its own draft and exact-head checks; no merge, deployment or
+other-berry Landscape rollout. CAT-01/CAT-02/TD-116 remain open.
+
+Earlier checkpoints below are historical; their local-only/approval-pending
+delivery descriptions are superseded by the pushed drafts above.
+
+
+October 8 NIAB/Bayer/Masiá source continuation: 12 sections add 44 name
+occurrences and five held fruit photos. NIAB's transferred strawberries stay
+separate from legacy names and raspberries; Bayer trademark ownership does not
+approve cultivar ownership. Baya Solara/EM2836 retains Subject to approval, and
+later source codes now appear in the company table. Shared Masia photo withheld;
+historical Selene retained; crop headings, propagator repeats and comparators
+excluded. 112 unique local tests, records, session JavaScript and preservation
+pass; 1,992 original JSON unchanged. Desktop photo/control/code review passes;
+mobile sizing could not be applied and remains unverified for this continuation.
+Audit: 132 sections / 737 occurrences / 53 matches / 684 review needs / 573 keys;
+38/77 partly checked, 39 initial checks and 20 follow-ups; catalog 64, photos
+36/35 held/zero newly approved public. See NIAB-BAYER-MASIA-VARIETY-REVIEW.md.
+CAT-01/CAT-02/TD-116 and full redesign/release remain open. Local only; pinned
+parent push approval unanswered, no new draft/remote CI, merge/deploy or
+other-berry Landscape rollout.
+
+
+**October 7 CFIA source-code photos:** Two original strawberry records and four
+held photographs add dated review context. Exact source-code/berry matching
+permits private candidate previews while uncoded AVA pairings and canonical
+associations retain their identity gate. Native desktop/360px phone review also
+repairs tall-image caption overlap and selected-card visibility. Additive
+private import/replay preserves all prior records and decisions; no human trust
+approvals or canonical additions. 144 relevant local tests and records pass.
+Catalog 64; 55 sections / 542 occurrences / 34 matches / 508 review needs /
+452 derived candidate keys; 14 photos, 13 held, zero approved public. Fifty-five
+initial checks, seven follow-ups and broader independent recall remain open.
+See CFIA-CODED-VARIETY-PHOTO-REVIEW.md; exact-head CI is recorded on the draft.
+
+**October 7 crop-scoped authoring:** The checked distinct-candidate workflow now
+permits separate same-name varieties in known disjoint berry crops. Same-crop,
+unknown-crop and ambiguous duplicate guards remain; registration collisions are
+still flagged regardless crop. Source review preserves checked scope rather
+than expanding it from review aids. Native isolated fictional acceptance plus
+74 focused regressions verifies original-record preservation and separate
+source/claim gates. No real identity/source decisions, catalog additions or
+coverage-count changes. This supersedes the authoring blocker below; broader
+CAT-01/CAT-02/TD-116 remain open. See VARIETY-CROP-SCOPED-CATALOG-REVIEW.md.
+
+October 7 release/patent photo follow-up: three source-labeled images from
+the USDA Keepsake strawberry release and FC11-164 patent figure now reach private
+galleries with individual session-only Ignore permission controls. Strawberry
+Keepsake stays separate from blueberry Keepsake. A misleading cross-crop catalog
+shortcut is corrected; catalog preparation remains blocked until crop-specific
+creation can preserve the generic writer's duplicate guard. No saved permission,
+human identity, canonical variety, rights or region decision changes.
+106 focused checks, session JavaScript and record validation pass; native desktop
+loads and reversible photo choices are verified without runtime file changes.
+Current coverage: 64 catalog varieties, 53 sections, 540 occurrences, 34 text
+matches, 506 review needs, 450 derived candidate keys before private state.
+Ten source photos: nine held and zero approved public; 55 initial company checks
+and seven follow-ups remain. Mobile acceptance of these new views is unverified.
+See VARIETY-RELEASE-PATENT-PHOTO-REVIEW.md. CAT-01/CAT-02/TD-116 remain open;
+exact-head CI is recorded with the draft. No merge/deploy/other-berry rollout.
+
+
+October 7 patent Reader repair: a real FC11-164 source capture returned only a
+legal-event note while its original document contained an abstract, description
+and claim. The shared live Reader now preserves bounded plain-text document
+sections, headings, lists and table cells, with section jumps and explicit
+Reload source text. A failed same-source refresh preserves the previous capture;
+source edits and human review gates remain intact. This private reading aid does
+not approve identity, traits, rights or legal status, and does not appear in the
+readonly/static snapshot. Google Patents semantic HTML is supported; other
+registry formats and full PDF text remain coverage gaps. No domain schema,
+canonical variety record, model qualification or collection setting changes.
+See PATENT-READER-DOCUMENT-REVIEW.md. The parent recall draft #334 passes all four
+required checks on 42b7cac: 4,159 passed / 11 skipped / two existing warnings.
+The 60/64 synthetic recall diagnostic retains four body-only misses, and actual
+catalog/portfolio counts stay unchanged; CAT-01/CAT-02/TD-116 remain open.
+No merge, deployment or other-berry Landscape rollout is authorized here.
+
+
+October 7 explicit-list recall follow-up: the unchanged 24-case diagnostic now
+finds 60 of 64 expected name occurrences (previously 50), with zero unexpected
+names and 23 cases passing every specified check. Mixed crop/name/code tables
+and explicit Spanish/Polish declarations preserve each crop, whole name, code
+and original source URL. Unknown/malformed rows are held; article bodies and
+unpublished drafts are not scanned. Human rejections and edits remain intact.
+This synthetic diagnostic is not independently human-verified, model
+qualification or a global completeness measure. Four body-only misses remain.
+
+The actual stored-source audit is unchanged: 1,269 sources / 95 observations /
+32 text matches / 63 review needs. Catalog remains 64; primary occurrences
+537 / matches 33 / review needs 504 in 51 sections; derived candidate keys 448
+before private state. Of 77 registry rows, 22 have some enumerated checks and
+55 still need initial checks; seven source follow-ups remain. Seven source-labeled
+photos (six held, zero approved public photos) and the session-only Ignore
+permission control from draft #333 are retained. That exact parent head passes
+all four checks: 4,138 passed / 11 skipped / two existing warnings.
+
+The final focused regression and this draft's executable CI are recorded with
+the PR; no source approval, identity decision, canonical addition, merge,
+deployment or other-berry Landscape rollout is implied. CAT-01/CAT-02/TD-116
+remain open. See VARIETY-EXPLICIT-LIST-RECALL-REVIEW.md and the retained session
+photo behavior in VARIETY-SESSION-PHOTO-PREVIEW.md.
+
+October 7 executable photo follow-up: private gallery/thumbnail/editor support
+and one correctly credited source-labeled Columbia Star photo are implemented.
+Corrections/removals survive source refreshes through existing profile history;
+same-name/different-berry and ambiguous associations are blocked. Unknown reuse
+stays link-only and all new associations stay out of readonly/static output.
+Broad photo population, public human publication, source completeness, verified
+catalog identities and rights/claims depth remain open; this does not resolve
+TD-116. See VARIETY-ATTRIBUTED-PHOTO-COVERAGE.md.
+
+October 7 named-photo follow-up: properly attributed photographs of the actual
+variety are an explicit part of rich profiles, with compact directory/review
+previews and larger expanded views. Source photos need a recorded caption,
+credit, reuse basis and identity association; collected article illustrations
+do not establish named-variety photo coverage. This remains open; no new assets
+or trusted associations were created. See VARIETY-ATTRIBUTED-PHOTO-COVERAGE.md.
+
+October 7 review usability/rights follow-up: floating alphabet, phone picker
+and List top / Filters address the long candidate queue without changing its
+decisions or identity store. Candidate details retain recorded dates and link
+stored tier-1 patent/PVR or registry sources. Registry indexes remain indexes;
+portfolio sources are not relabeled legal records. Full patent/PVR coverage,
+original-document and claim-level provenance, dated jurisdiction/status checks,
+actual catalog authoring and independently scored recall remain open. No source
+observations or trusted records were added in this UI slice. See
+VARIETY-REVIEW-QUICK-NAVIGATION.md; TD-116 remains active.
+
+October 7 visual historical-source follow-up: all 38 pages of a UGA public
+presentation are accounted for, including two handwritten photograph labels
+missed by extracted text. Eleven unreviewed name/code observations add ten
+candidate keys; Alapaha remains an explicit ambiguous-label exclusion. Three
+named blueberries and six experimental ornamental selections keep separate
+contexts; Premier and T-959 are photo-only leads, and T-959 is not an approved
+Titan alias. Primary totals are 506 occurrences / 33 catalog matches / 473
+review needs in 46 sections, with 423 derived candidate keys before private
+state. Canonical catalog remains 64; 57 initial registry checks and four source
+gaps remain. GRIN now has 132 missing exact names / 14 queued / two catalog
+matches before private state, because Premier has a primary-source lead.
+Portfolio-derived references no longer become official registry attribution;
+stored human records are preserved. 86 focused/static tests pass. Parent #328 passed
+all four exact-head gates (4,100 passed / 11 skipped / two warnings). This draft's
+CI is pending; no trust promotion, merge, deployment or Milestone B rollout.
+See VARIETY-HISTORICAL-BLUEBERRY-VISUAL-REVIEW.md.
+
+October 7 blueberry public comparison adds an independently counted GRIN
+baseline: 2,113 search results, 178 checked-species Cultivar records / 148 names,
+53 unresolved hybrid labels, and explicit other-taxon/material exclusions.
+133 scoped names have no exact catalog/queue match, 13 match queued names and
+two match catalog text before private state. An individual additive private
+identity-review handoff makes scoped missing names actionable; generic hybrids
+withhold crop/matching and existing human decisions/edits win. Catalog 64,
+primary 495/33/462, 413 derived candidate keys, 57 initial checks and four source
+gaps remain. 77 focused checks, record validation and desktop/phone review pass;
+draft CI is pending, parent #327 has four green gates (4,083 / 11 skipped).
+No Source onboarding or trust decisions. See
+VARIETY-BLUEBERRY-GERMPLASM-COVERAGE-REVIEW.md. Original release/rights checks,
+hybrid resolution, actual authoring, independent recall and rich profiles keep
+TD-116 open.
+
+October 7 independent public comparison: a native GDR Fragaria/Rubus CSV has
+26,905 rows representing 6,453 collection keys and 2,372 genus/name pairs.
+2,267 lack exact catalog/queue name matches before private state. Existing
+coverage UI now exposes missing labels with search, pagination and source
+identifiers. This does not import or approve labels as released varieties;
+canonical 64 and primary 495/33/462 remain unchanged. Raw export is ignored.
+50 focused checks and record validation pass; parent #326 has four green gates
+(4,070 passed / 11 skipped). Vaccinium baseline, 57 initial registry checks,
+four source gaps, actual human identity authoring and cited profile depth remain.
+See VARIETY-EXTERNAL-GERMPLASM-COVERAGE-REVIEW.md; TD-116 is still open.
+
+October 7 historical identity follow-up: 495/33/462 primary occurrences in 45
+sections; 413 candidate keys before private state, catalog 64. Shared labels
+with differing/missing codes now expose unresolved source pairings and withhold
+unconfirmed matches, preserving human decisions and edits. Six Hutton legacy
+entries do not close its 23-cultivar lifetime portfolio. The USDA Lewis PDF is
+partial pending visual pedigree accounting after direct retrieval returned 502.
+Four source gaps and 57 initial registry checks remain. Parent #325 passed four
+gates (4,063 passed / 11 skipped). Independent recall, actual catalog authoring
+and cited profile depth remain open. See VARIETY-HISTORICAL-IDENTITY-COVERAGE-REVIEW.md.
+
+October 7 public-program follow-up: 476/33/443 primary occurrences in 43
+sections; 20 registry rows have some checks, 57 need initial checks. Combined
+candidate keys before private state 399; catalog stays 64. Three explicit source
+gaps stay visible, including a 23-cultivar lifetime claim with only nine names
+and UGA's inaccessible licensing list. Wild breeding material, genome names and
+species are not silently converted into released cultivars. 37 related checks
+pass; parent #324 has four green gates (4,056 passed / 11 skipped). Full portfolios,
+acquisition, independent recall, human authoring and cited profile depth remain
+open. See VARIETY-PUBLIC-PROGRAM-COVERAGE-REVIEW.md.
+
+October 7 acquisition follow-up: the guarded four-source pilot retrieved two
+pending current copies; the university trial returned no readable body and
+HortWeek blocked access. Native comparison caught an article date taken from
+latest-news chrome. Shared article acquisition v2 now accepts explicit
+publication metadata/marked article dates and leaves unsupported dates unknown.
+The fresh two-source run records June 8 for BluGenix and unknown for SEKOYA;
+zero trusted changes, analyst decisions or new readiness. 93 related tests
+pass. The date defect is repaired for new captures; old artifacts are retained,
+and human fidelity review, further acquisition, table/multilingual recall and
+the remaining 60 initial source checks stay open. See
+ARTICLE-PUBLICATION-DATE-FIDELITY-REVIEW.md.
+
+October 7 UC Davis/source-content follow-up: 456 occurrences / 33 matches /
+423 review needs in 39 sections; 17 registry rows have some checks, 60 need
+initial checks. Combined candidate keys before private state: 383. Two ambiguous
+historical labels stay excluded with reasons. Existing websites and analyst
+edit/clear now carry into the source plan. Older canonical published records have
+1,198 unavailable bodies and 71 access screens; this excludes pending news.
+Full-text acquisition must be addressed separately from extraction recall via
+existing guarded workflows. No canonical additions or trust decisions.
+See VARIETY-SOURCE-COVERAGE-REVIEW.md. Prior numbers below are historical.
+
+October 7 university/historical follow-up: 30 additional source occurrences and
+a nonduplicating 18-name Arkansas refresh. Primary total 411/33/378 in 37 sections;
+16 of 77 registry rows have some checks, 61 need initial checks. Candidate keys
+before private state: 355; canonical catalog and stored-source counts unchanged.
+Historic dates and selection-code/trade-name uncertainty remain explicit. Current
+pages do not account for all historical releases. No automatic aliases or human
+approval. Existing discovery still misses some Cornell summary names even where
+the catalog already has them; source reconciliation is not a general recall fix.
+See VARIETY-UNIVERSITY-PORTFOLIOS-REVIEW.md. Prior numbers below are historical.
+
+October 7 title precision follow-up: five real headline mistakes are repaired
+without deleting saved decisions. Stored-source audit: 95 observations / 32
+catalog matches / 63 candidates; 336 combined candidate keys before private
+state. Catalog and primary portfolio counts are unchanged. Targeted 14-case
+diagnostic passes 13 cases with one F1 miss; original diagnostic retains 14
+table/multilingual/body misses. Catalog totals no longer imply blanket trust.
+Observed phone table overflow is fixed. Independent scoring, 62 initial primary
+checks, historical coverage, rights/aliases and rich profiles remain open.
+See VARIETY-TITLE-PRECISION-REVIEW.md; prior counts below are historical.
+
+October 7 diagnostic: 24 curated synthetic four-berry cases improve from 46/64
+expected names plus one unexpected name to 50/64 and zero unexpected names after
+spaced-code/long-F1 summary repairs. Tables, Spanish, Polish and body-only text
+still miss 14 names. This is not independently human-verified or qualification.
+Actual canonical additions remain open: distinct is not catalog creation.
+#320 connects explicit identity decisions to existing human source review,
+which can create an unverified entity; statements remain separately reviewed.
+See VARIETY-NAME-RECALL-DIAGNOSTIC-V1.md and VARIETY-CATALOG-REVIEW-HANDOFF.md.
+
+October 7 correctness follow-up: primary portfolio work found that the CPVO
+species map misclassified black raspberry (`Rubus occidentalis L.`). The narrow
+correction follows USDA and the existing raspberry entity, affects new draft
+context only, and preserves operator edits and existing filings. Older private
+tags, if affected, require explicit review. This does not widen registry queries
+or close portfolio completeness debt. See VARIETY-REGISTRY-SPECIES-CORRECTION.md.
+
 | Field | Value |
 |---|---|
 | Status | Open; immediate stored-summary recall and visibility repaired |
+| Portfolio follow-up | October 7 program/nursery slice retains 77 registry rows and 32 dated sections: 381 source occurrences, 25 catalog matches, 356 review needs; 273 keys additional to stored-source discovery (341 combined before private state). Fifteen registry rows have some checks; 62 need primary checks. Page accounting excludes 31 prior product cards and three species-ambiguous clone cards with reasons. Code/label discrepancies, nursery/experimental context, historical unreadable sources and the Oregon website mismatch stay explicit. Full portfolios, rights checks, manual recall scoring and human canonical additions remain; see VARIETY-PROGRAM-PORTFOLIOS-REVIEW.md. |
 | Evidence | October 7 corpus audit: 64 canonical varieties, 1,269 published sources, 99 explicit named identities, 31 exact catalog matches and 68 candidate names before private inbox state. Hortifrut's 11 names and MBG's 16 code/name pairs were largely absent from discovery. Shared explicit-list parsing and existing candidate workflow now account for them; this does not approve new identities or roles. |
 | Risk | A visible source portfolio can exceed catalog coverage, misleading users about competitors' genetics. Other berries, tables, multilingual catalogs, truncated text and aliases remain under-reconciled. Generic descriptors and brand/code combinations can produce false positives without a benchmark. |
 | Next | Complete per-breeder/per-berry portfolio reconciliation, authoritative-source freshness manifest, manually verified recall benchmark and human canonical-authoring handoff. Use existing intake/qualified extraction; preserve operator decisions and data. See VARIETY-CATALOG-COMPREHENSIVENESS-MISSION.md and the repeatable audit artifact. |
 
+
+**TD-116 catalog handoff follow-up (October 7):** The missing candidate-to-authoring navigation is addressed through existing human intake/publication review, which already supports unverified match/create. A reviewed distinct candidate can prepare source review, and current identity/catalog checks block stale decisions or duplicates before writes. Candidate history remains private; source/claim gates stay separate. No new writer/schema or real canonical additions. The 62 primary checks, independently scored recall, unresolved formats/languages, historical depth and rich profiles remain open. See VARIETY-CATALOG-REVIEW-HANDOFF.md.
+
+**October 7 local TD-116 source-coverage follow-up:**
+
+Five bounded sections add ASD/Benning/Inka's source coverage and two held,
+credited blueberry photos. Current scope is 60 sections / 554 mentions /
+34 text matches / 520 review needs / 461 derived keys; 16 photos, 15 held,
+zero approved public. Catalog stays 64. 25 of 77 subjects have some page
+enumeration and 52 lack an initial checked section; no complete-portfolio
+claim. Seven capture/accounting follow-ups, named Benning planting sources,
+Inka's historical report, independent recall and profile depth remain open.
+67 tests and records pass; native Matías session preview is verified.
+Delivery is on a separate local branch. Preceding 0ce865d push awaits specific user
+authorization after two automatic approval-review rejections; no new PR/CI.
+TD-116 remains open. See COMPANY-NAMED-PHOTO-COVERAGE-REVIEW.md.
+
+**October 7 local European TD-116 follow-up:** CIV/Hansabred/Nova Siri add six
+bounded sections, 40 names and four held attributed photos. Current totals:
+66 sections / 594 mentions / 36 text matches / 558 review needs / 495 derived
+keys; 28/77 subjects with some enumeration, 49 lacking initial checks; photos
+20, unknown-reuse holds 19, approved public zero. Catalog stays 64. 71 local
+regressions, records and native desktop/phone preview pass; existing records
+and review/permission state unchanged. Source-reported identifiers, code/name
+pairs, wild-hybrid use and comparators remain separate from canonical facts.
+Seven source gaps, linked technical sheets, full histories, official rights,
+independent recall and profile depth remain open. Delivery is local pending
+specific parent-push approval after automatic rejection; no new PR/CI.
+See EUROPEAN-PORTFOLIO-NAME-PHOTO-REVIEW.md; TD-116 remains open.
+
+**October 7 local CIV sheet TD-116 follow-up:** Eleven body attempts retain
+nine name observations and four separate, unreviewed code leads. Comparison
+mentions do not become own portfolio entries; protection symbols do not
+become verified rights. Seven sections have bounded enumeration, two remain
+partial and two unreadable. Current totals are 77 sections / 603 mentions /
+36 text matches / 567 review needs / 499 keys; 49 initial subject checks and
+eleven source gaps remain. All existing 1,992 JSON files unchanged; catalog 64,
+photos 20/19 held/zero approved public. 72 focused tests, records and native
+candidate review pass. Official verification, historical completeness,
+independent recall and profile depth remain open; TD-116 is not resolved.
+See CIV-TECHNICAL-SHEET-IDENTITY-REVIEW.md. Local follow-up only; exact parent
+push approval remains pending after automatic rejection. No new PR/CI.
+
+**October 7 local Mountain Blue/Costa TD-116 follow-up:** Seven sections add
+28 observations and three held images; unnamed placeholders and repeated
+panels do not become extra cultivars. Conflicting Dazzle photo filename is
+retained without photo assignment; SI-145 and Nebula retain capture/taxon limits.
+Current scope: 84 sections / 631 occurrences / 42 text matches / 589 review
+needs / 511 keys. 47 initial checks and twelve source gaps remain. All 1,992
+original JSON unchanged, catalog 64; photos 23/22 held/zero approved public.
+Four new plus 61 existing regressions, records and native Bounty preview pass.
+Complete portfolios, independent recall and rich profiles/official rights stay
+open. See MOUNTAIN-BLUE-COSTA-PORTFOLIO-REVIEW.md. TD-116 remains open; local
+delivery pending exact parent push approval, no new PR/CI or rollout.
+
+**October 7 local PSG/OZblu TD-116 follow-up:** Nine bounded sections add nine
+name observations and two held photos. Three original PSG catalogs fail to
+load and remain unreadable; current consumer grades/packs are not varieties.
+Rejoice code forms/platform scope and EB 12-19 caption/package conflict stay
+unresolved, without aliases or photo reassignment. Magica's exact existing
+catalog alias is reused. Desktop photo/context columns and phone stacking
+remove the profile's empty band; 52 profile/photo tests and native session
+controls pass; another 32 public-snapshot/portfolio tests pass. All 1,992 original JSON unchanged; catalog 64. Latest scope:
+93 sections / 640 occurrences / 44 text matches / 596 review needs / 518 keys;
+45 initial checks and 15 source follow-ups remain. Photos 25/24 held/zero public.
+Full historical coverage, independent recall and profile/rights depth remain
+open. See PSG-OZBLU-PORTFOLIO-PHOTO-REVIEW.md. TD-116 remains open, local-only
+pending parent push approval; no new PR/CI, merge/deploy or Landscape rollout.
+
+**TD-116 local patent/source recheck:** October 7 local patent/source recheck: eight original blueberry filing subjects
+reuse existing catalog identities; wrong PP25,358 ornamental subject excluded.
+OZblu old mapping redirect and blank Rejoice English PDF remain source gaps.
+40 focused checks pass; records validate and original 1,992 JSON unchanged.
+Latest totals: 104 sections / 648 occurrences / 52 catalog text matches /
+596 review needs / 518 candidate keys; 32/77 subjects partly checked, 45
+initial checks and 17 follow-ups remain. Blueberry 185, strawberry 306,
+raspberry 101, blackberry 56. Catalog 64; photos 25/24 held/zero public.
+See docs/v2/OZBLU-PATENT-SOURCE-RECHECK.md (or same-directory note).
+CAT-01/CAT-02/TD-116 and full mission stay open. Local-only pending parent
+push approval; no new PR/CI, merge/deploy or Landscape rollout.
+
+October 7 selected-article follow-up: the private Reader can find explicit
+variety names in one stored/cached article and send new names to identity review.
+Catalog matches and earlier human decisions remain intact; publication status,
+original URLs and declaration context stay visible. Filters/alphabet preserve
+article scope; no provider calls, global body hydration or automatic approval.
+The unchanged summary diagnostic remains 60/64, four raw-body misses, zero extras;
+selected-article behavior has separate tests, not a new global recall claim.
+Default coverage stays 104 sections / 648 occurrences / 518 candidate keys;
+45 initial company checks, 17 follow-ups and CAT-01/CAT-02/TD-116 stay open.
+See VARIETY-SELECTED-ARTICLE-REVIEW.md. Local only pending pinned-parent push
+approval; no new PR/CI, merge/deploy or other-berry Landscape rollout.
+
+**TD-116 October 8 source continuation:**
+October 8 local source continuation (checks begun October 7): Marionnet/FNM/
+NC State add 16 bounded sections, 45 occurrences and six held fruit photos.
+Marvella MAR118/MAR109 and Marly photo captions stay unresolved; Pink Star
+codes stay separate. FNM catalog-body names include menu omissions; Noelia
+is raspberry. NC State recommendations are separate from release records;
+Ervin/NC 740 pairing and source dates remain unreviewed. 66 affected checks
+pass, plus six overlapping final checks; records and original 1,992 JSON
+preservation pass. Latest audit: 120 sections / 693 occurrences / 53 catalog
+text matches / 640 review needs / 546 keys; 35/77 subjects partly checked,
+42 initial checks and 18 source follow-ups remain. Blueberry 185, strawberry
+328, raspberry 113, blackberry 67. Catalog 64; photos 31/30 held/zero newly
+approved public. See MARIONNET-FNM-NCSTATE-PORTFOLIO-REVIEW.md. CAT-01/CAT-02/
+TD-116 and full redesign/release goal remain open. Local-only; pinned-parent
+push approval unanswered, no new PR/CI, merge/deploy or Landscape rollout.
+
+**TD-116 October 8 company source visibility:**
+October 8 company-page visibility fix: private company Varieties tabs and
+detailed portfolios now show additional names from checked sources in a compact
+searchable table, with berry/alphabet navigation and exact review destinations.
+Catalog matches do not approve company roles; repeated sources retain provenance,
+different codes stay separate, and rejected names stay closed. Public/static
+views exclude this list. No acquisition or canonical/review/permission writes;
+1,992 original JSON files unchanged. Coverage remains 120 sections / 693 name
+occurrences / 546 keys / catalog 64, with 42 initial checks and 18 follow-ups.
+See COMPANY-SOURCE-VARIETY-VISIBILITY-REVIEW.md; CAT-01/CAT-02/TD-116 remain open.
+Local only; exact pinned-parent push approval unanswered, no new PR/remote CI,
+merge/deploy or other-berry Landscape rollout.
+
+**October 9 original patent/profile follow-up:** Recorded `us_plant_patent`
+and `breeding_program` fields now render; private reconciled filing links lead
+to actual claims/documents/figures. Shared reconciliation now respects a saved
+human distinct/rejected decision over an exact name match. One original
+Colossus grant is explicitly page-accounted; no legal-status, identity, role,
+trait, region or image-reuse approval is inferred. The 59 affected checks pass.
+See ORIGINAL-PATENT-PROFILE-LINKS-REVIEW.md. CAT-01/CAT-02/TD-116 remain open;
+complete portfolios, official current rights, independently reviewed recall,
+human catalog authoring and the integrated release are still required.
+
+**October 9 original USDA pedigree follow-up:** The earlier Lewis paper PDF
+access gap is resolved by reading all four original pages. Eleven historical
+review leads from Figure 2 retain source context, earlier candidate IDs and
+operator decisions. A code with unclear punctuation stays held; no current USDA
+release, legal status, ancestry edge or photo permission is inferred. The 44
+affected checks pass. See LEWIS-ORIGINAL-PEDIGREE-REVIEW.md. CAT-01/CAT-02/TD-116
+remain open; full portfolios, independent recall, human catalog authoring,
+phone verification and the integrated release still require completion.
+
+
+## October 9 follow-up: Rutgers original filing and historical names
+
+See [original Rutgers filing review](RUTGERS-ORIGINAL-FILING-REVIEW.md). One focal
+grant plus four separate parent/comparison mentions are now discoverable, including
+the source's explicit NJ09-2-1 / Rutgers D'Light pairing. No catalog alias, entity,
+company role, current right, region or image permission is approved automatically.
+The bounded audit is now 378 sections /1,549 occurrences /88 catalog matches /
+1,461 needing review /1,124 source-derived candidate keys. All 31 requirements and
+their order are retained; CAT-01, CAT-02, TD-116 and REL-01 stay open. Current and
+historical portfolio completeness, original current rights, human authoring,
+independent recall, phone review and integrated release preparation remain.
+
+
+## October 9 follow-up: human variety-name review packet
+
+The [human name-review worksheet](VARIETY-HUMAN-RECALL-PACKET-REVIEW.md) now
+prepares all32 retained Article copies with blank expected lists. A read-only
+captured-text view hides stored summaries and approval controls. Browser-local
+drafts and partial JSON export are verified with fictional sources; none of the
+actual32 expected lists is completed. Offline assembly verifies source fingerprints,
+refuses unfinished/shortened inputs and uses the existing scorer without a
+qualification marker. Source acceptance, catalog authoring and independent
+benchmark qualification remain separate. This prepares the human packet; it does
+not complete the human-owned recall requirement. Full scope, phone, blueberry
+feedback and integrated release gates remain open. All31 requirement IDs/order stay.
+
+
+## October 10 UTC: original Chandler source follow-up
+
+Original claim/code references and seven separate parent/comparison observations retain existing candidate anchors, crop boundaries and human decisions. The bounded audit is 380 sections /1,557 occurrences /88 matched /1,469 requiring review /1,126 derived keys, with 64 canonical varieties and 122 unchanged photo references. Parent #390 passes all four required checks /4,618 tests; this child needs fresh CI. The actual 32-source human worksheet remains unfinished. Full corpus/portfolio/rights/profile coverage, independent human recall and catalog authoring, phone review, blueberry feedback and integrated release remain open. See [Chandler source review](CHANDLER-ORIGINAL-FILING-REVIEW.md). No merge/deploy or other-berry Landscape rollout.
 
 ## October 7 follow-up: translation-first UI and actual SociaVault trial
 

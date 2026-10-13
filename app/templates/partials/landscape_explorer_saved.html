@@ -1,0 +1,13 @@
+<details class="lx-saved" id="landscape-saved"><summary>Saved Explorer views{% if selected_view %} · {{ selected_view.name }}{% endif %}</summary>
+  <p>Save the applied selection to reopen it with current data. Filter changes are saved only when you update the view. Export a briefing to keep a dated snapshot.</p>
+  <form method="post" action="/landscapes/explorer/views" data-save-selection>
+    {% for key,value in f.items() if key in explorer_fields or key == 'saved_view' %}<input type="hidden" name="{{ key }}" value="{{ value|join(',') if key == 'countries' else value }}">{% endfor %}
+    {% if selected_view %}<input type="hidden" name="view_id" value="{{ selected_view.id }}"><input type="hidden" name="revision" value="{{ selected_view.revision }}">{% endif %}
+    <label>View name<input type="text" name="name" maxlength="80" required value="{{ selected_view.name if selected_view else '' }}" placeholder="e.g. Raspberry licensing watch"></label>
+    <button type="submit" name="action" value="save">{{ 'Update saved view' if selected_view else 'Save this view' }}</button>
+    {% if selected_view %}<button type="submit" name="action" value="copy">Save as new view</button><small>Use a different name to save a new view.</small>{% endif %}
+  </form>
+  <div class="lx-saved-list">{% for row in saved_views if not row.archived %}<div><a href="{{ row.href }}" data-saved-view>{{ row.name }}</a><form method="post" action="/landscapes/explorer/views"><input type="hidden" name="view_id" value="{{ row.id }}"><input type="hidden" name="revision" value="{{ row.revision }}"><button name="action" value="archive">Archive</button></form></div>{% else %}<p>No saved Explorer views yet.</p>{% endfor %}</div>
+  <details><summary>Archived views</summary>{% for row in saved_views if row.archived %}<form method="post" action="/landscapes/explorer/views"><input type="hidden" name="view_id" value="{{ row.id }}"><input type="hidden" name="revision" value="{{ row.revision }}">{{ row.name }} <button name="action" value="restore">Restore</button></form>{% else %}<p>No archived Explorer views.</p>{% endfor %}</details>
+  <a href="/landscapes#landscape-saved">All saved Landscape views →</a>
+</details>

@@ -1,0 +1,510 @@
+{
+  "schema_version": 1,
+  "kind": "unreviewed_portfolio_name_observations",
+  "checked_on": "2026-10-07",
+  "method": "Manual public-page and historical PDF name enumeration; original URLs and literal code/name labels. Unreviewed metadata only: no source onboarding, canonical identity, role, rights or claim approval.",
+  "sources": [
+    {
+      "company_ids": [
+        "breeding_program-cornell-berry"
+      ],
+      "checked_on": "2026-10-07",
+      "review_state": "unreviewed",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "id": "portfolio-cornell-current-licensing",
+      "title": "Cornell current licensing catalogue: raspberry and strawberry headings",
+      "url": "https://ctl.cornell.edu/plant-varieties-catalog/fruits/",
+      "enumerated_scope": "Six raspberry and three strawberry variety headings only. Other crops and comparison names in prose excluded. Golden Blush, Red Raspberries and June-Bearing are group headings, not variety entries.",
+      "limitations": "Current listing is not complete historical releases, official denomination, ownership or growing footprint proof. No traits or image licensing inferred.",
+      "names": [
+        {
+          "candidate_name": "Double Gold",
+          "berry_id": "berry-raspberry",
+          "display_label": "Double Gold",
+          "portfolio_context": "Current university licensing catalogue heading"
+        },
+        {
+          "candidate_name": "Crimson Beauty",
+          "berry_id": "berry-raspberry",
+          "display_label": "Crimson Beauty",
+          "portfolio_context": "Current university licensing catalogue heading"
+        },
+        {
+          "candidate_name": "Crimson Blush",
+          "berry_id": "berry-raspberry",
+          "display_label": "Crimson Blush",
+          "portfolio_context": "Current university licensing catalogue heading"
+        },
+        {
+          "candidate_name": "Crimson Treasure",
+          "berry_id": "berry-raspberry",
+          "display_label": "Crimson Treasure",
+          "portfolio_context": "Current university licensing catalogue heading"
+        },
+        {
+          "candidate_name": "Crimson Giant",
+          "berry_id": "berry-raspberry",
+          "display_label": "Crimson Giant",
+          "portfolio_context": "Current university licensing catalogue heading"
+        },
+        {
+          "candidate_name": "Crimson Night",
+          "berry_id": "berry-raspberry",
+          "display_label": "Crimson Night",
+          "portfolio_context": "Current university licensing catalogue heading"
+        },
+        {
+          "candidate_name": "Dickens",
+          "berry_id": "berry-strawberry",
+          "display_label": "Dickens",
+          "portfolio_context": "Current university licensing catalogue heading"
+        },
+        {
+          "candidate_name": "Herriot",
+          "berry_id": "berry-strawberry",
+          "display_label": "Herriot",
+          "portfolio_context": "Current university licensing catalogue heading"
+        },
+        {
+          "candidate_name": "Archer",
+          "berry_id": "berry-strawberry",
+          "display_label": "Archer",
+          "portfolio_context": "Current university licensing catalogue heading"
+        }
+      ],
+      "observed_at": "2026-10-07T11:32:50.019958+00:00",
+      "berry_ids": [
+        "berry-raspberry",
+        "berry-strawberry"
+      ]
+    },
+    {
+      "company_ids": [
+        "breeding_program-cornell-berry"
+      ],
+      "checked_on": "2026-10-07",
+      "review_state": "unreviewed",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "id": "portfolio-cornell-raspberry-chart-2018",
+      "title": "Cornell raspberry chart: historical six-row name/code list",
+      "url": "https://ctl.cornell.edu/wp-content/uploads/Raspberry_Chart_2018.pdf",
+      "enumerated_scope": "All six names and D-codes in the chart, confirmed on PDF page two. First page repeats six names in a harvest chart and is not counted again.",
+      "limitations": "The filename is historical context, not a publication date assertion. Code/name pairings are source assertions, not confirmed aliases or official denominations. Adaptability map is not planted-area evidence; no region/traits/contact details imported.",
+      "names": [
+        {
+          "candidate_name": "Prelude",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "D-2256",
+          "display_label": "Prelude (D-2256)",
+          "portfolio_context": "Historical chart · name/code pair"
+        },
+        {
+          "candidate_name": "Encore",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "D-2255",
+          "display_label": "Encore (D-2255)",
+          "portfolio_context": "Historical chart · name/code pair"
+        },
+        {
+          "candidate_name": "Crimson Giant",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "D-4330",
+          "display_label": "Crimson Giant (D-4330)",
+          "portfolio_context": "Historical chart · name/code pair"
+        },
+        {
+          "candidate_name": "Crimson Night",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "D-4770",
+          "display_label": "Crimson Night (D-4770)",
+          "portfolio_context": "Historical chart · name/code pair"
+        },
+        {
+          "candidate_name": "Double Gold",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "D-4778",
+          "display_label": "Double Gold (D-4778)",
+          "portfolio_context": "Historical chart · name/code pair"
+        },
+        {
+          "candidate_name": "Crimson Treasure",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "D-6958",
+          "display_label": "Crimson Treasure (D-6958)",
+          "portfolio_context": "Historical chart · name/code pair"
+        }
+      ],
+      "observed_at": "2026-10-07T11:32:50.019979+00:00",
+      "berry_ids": [
+        "berry-raspberry"
+      ]
+    },
+    {
+      "company_ids": [
+        "breeding_program-cornell-berry"
+      ],
+      "checked_on": "2026-10-07",
+      "review_state": "unreviewed",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "id": "portfolio-cornell-historical-release-2012",
+      "title": "Cornell 2012 release: named new and prior berry releases",
+      "url": "https://news.cornell.edu/stories/2012/04/cornell-releases-two-new-raspberry-varieties",
+      "published_date": "2012-04-30",
+      "enumerated_scope": "Two focal raspberry releases and three explicitly named prior releases; no seedling counts or broad unnamed groups counted.",
+      "limitations": "Historical release announcement is not current catalogue, current licensing, legal rights or growing-region evidence. The original stored Google News URL is retained unchanged; this direct publisher URL is additional provenance only.",
+      "names": [
+        {
+          "candidate_name": "Double Gold",
+          "berry_id": "berry-raspberry",
+          "display_label": "Double Gold",
+          "portfolio_context": "Historical primary release announcement"
+        },
+        {
+          "candidate_name": "Crimson Night",
+          "berry_id": "berry-raspberry",
+          "display_label": "Crimson Night",
+          "portfolio_context": "Historical primary release announcement"
+        },
+        {
+          "candidate_name": "Crimson Giant",
+          "berry_id": "berry-raspberry",
+          "display_label": "Crimson Giant",
+          "portfolio_context": "Historical primary release announcement"
+        },
+        {
+          "candidate_name": "Purple Wonder",
+          "berry_id": "berry-strawberry",
+          "display_label": "Purple Wonder",
+          "portfolio_context": "Historical primary release announcement"
+        },
+        {
+          "candidate_name": "Herriot",
+          "berry_id": "berry-strawberry",
+          "display_label": "Herriot",
+          "portfolio_context": "Historical primary release announcement"
+        }
+      ],
+      "observed_at": "2026-10-07T11:32:50.019984+00:00",
+      "berry_ids": [
+        "berry-raspberry",
+        "berry-strawberry"
+      ]
+    },
+    {
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T11:32:50.019988+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "id": "portfolio-arkansas-current-blackberry",
+      "title": "Arkansas — current blackberry names and codes",
+      "url": "https://aaes.uada.edu/fruit-breeding/blackberries/",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "enumerated_scope": "All nine displayed variety sections and their adjacent Cultivar codes. The page separately reports 43 varieties developed; that program total is not the number of product sections on this page.",
+      "limitations": "Name/code pairings require identity review. This page is not a complete historical portfolio. No patent status, release date, ownership, performance, imagery rights or planted region is approved. Current page and older extension records describe different release years for some entries; no date is selected automatically.",
+      "accounting": {
+        "observed_items": 9,
+        "exclusions": []
+      },
+      "names": [
+        {
+          "candidate_name": "A-2718T",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "A-2718T",
+          "trade_name": "Sweet-Ark Immaculate",
+          "display_label": "Sweet-Ark® Immaculate",
+          "portfolio_context": "Code/name pair · unreviewed",
+          "product_url": "https://aaes.uada.edu/files/2024/03/Sweet-Ark-Immaculate-A-2718T-Release-Flyer-6867520d1deea77d.pdf"
+        },
+        {
+          "candidate_name": "APF-268",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "APF-268",
+          "trade_name": "Prime-Ark Horizon",
+          "display_label": "Prime-Ark® Horizon",
+          "portfolio_context": "Code/name pair · unreviewed",
+          "product_url": "https://aaes.uada.edu/files/2021/01/Prime-Ark-Horizon-release-flyer.pdf"
+        },
+        {
+          "candidate_name": "A-2538T",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "A-2538T",
+          "trade_name": "Sweet-Ark Ponca",
+          "display_label": "Sweet-Ark™ Ponca",
+          "portfolio_context": "Code/name pair · unreviewed"
+        },
+        {
+          "candidate_name": "A-2428T",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "A-2428T",
+          "trade_name": "Sweet-Ark Caddo",
+          "display_label": "Sweet-Ark™ Caddo",
+          "portfolio_context": "Code/name pair · unreviewed",
+          "product_url": "https://aaes.uada.edu/files/2019/02/Caddo-Release-flyer.pdf"
+        },
+        {
+          "candidate_name": "APF-190T",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "APF-190T",
+          "trade_name": "Prime-Ark Traveler",
+          "display_label": "Prime-Ark® Traveler",
+          "portfolio_context": "Code/name pair · unreviewed",
+          "product_url": "https://journals.ashs.org/hortsci/abstract/journals/hortsci/51/10/article-p1287.xml"
+        },
+        {
+          "candidate_name": "APF-153T",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "APF-153T",
+          "trade_name": "Prime-Ark Freedom",
+          "display_label": "Prime-Ark® Freedom",
+          "portfolio_context": "Code/name pair · unreviewed",
+          "product_url": "https://journals.ashs.org/hortsci/view/journals/hortsci/49/8/article-p1097.xml"
+        },
+        {
+          "candidate_name": "A-2362T",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "A-2362T",
+          "trade_name": "Osage",
+          "display_label": "Osage",
+          "portfolio_context": "Code/name pair · unreviewed",
+          "product_url": "https://journals.ashs.org/hortsci/view/journals/hortsci/48/7/article-p909.xml"
+        },
+        {
+          "candidate_name": "APF-45",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "APF-45",
+          "trade_name": "Prime-Ark 45",
+          "display_label": "Prime-Ark® 45",
+          "portfolio_context": "Code/name pair · unreviewed",
+          "product_url": "https://journals.ashs.org/hortsci/view/journals/hortsci/46/4/article-p670.xml"
+        },
+        {
+          "candidate_name": "A-2241T",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "A-2241T",
+          "trade_name": "Natchez",
+          "display_label": "Natchez",
+          "portfolio_context": "Code/name pair · unreviewed"
+        }
+      ]
+    },
+    {
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T11:32:50.019988+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "id": "portfolio-arkansas-current-blueberry",
+      "title": "Arkansas — current blueberry listing",
+      "url": "https://aaes.uada.edu/fruit-breeding/blueberries/",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "enumerated_scope": "The single named variety heading, Norman, on the current blueberry page.",
+      "limitations": "One visible page entry is not complete historical blueberry coverage. Traits, chilling, release year and planted areas remain source assertions requiring separate review.",
+      "names": [
+        {
+          "candidate_name": "Norman",
+          "berry_id": "berry-blueberry",
+          "display_label": "Norman",
+          "portfolio_context": "Current university listing",
+          "product_url": "http://hortsci.ashspublications.org/content/53/5/737.full"
+        }
+      ]
+    },
+    {
+      "id": "portfolio-arkansas-blackberry",
+      "title": "Arkansas Extension — blackberry releases",
+      "url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/blackberries-production.aspx",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "checked_on": "2026-10-07",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Ten floricane, five primocane and three historic table names",
+      "limitations": "This extension section retains ten floricane, five primocane and three historical entries; newer current AAES listings are reconciled separately. Source name occurrences can repeat across those pages. Historical sheet links are additional provenance, not current rights, availability, performance, release-date or growing-region approval.",
+      "names": [
+        {
+          "candidate_name": "Apache",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Apache",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/Apache.pdf",
+          "portfolio_context": "University extension cultivar list; current rights and availability unreviewed"
+        },
+        {
+          "candidate_name": "Arapaho",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Arapaho",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/Arapaho.pdf",
+          "portfolio_context": "University extension cultivar list; current rights and availability unreviewed"
+        },
+        {
+          "candidate_name": "Chickasaw",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Chickasaw",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/Chickasaw.pdf",
+          "portfolio_context": "University extension cultivar list; current rights and availability unreviewed"
+        },
+        {
+          "candidate_name": "Choctaw",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Choctaw",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/Choctaw.pdf",
+          "portfolio_context": "University extension cultivar list; current rights and availability unreviewed"
+        },
+        {
+          "candidate_name": "Kiowa",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Kiowa",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/Kiowa.pdf",
+          "portfolio_context": "University extension cultivar list; current rights and availability unreviewed"
+        },
+        {
+          "candidate_name": "Natchez",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Natchez",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/Natchez.pdf",
+          "portfolio_context": "University extension cultivar list; current rights and availability unreviewed"
+        },
+        {
+          "candidate_name": "Navaho",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Navaho",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/Navaho.pdf",
+          "portfolio_context": "University extension cultivar list; current rights and availability unreviewed"
+        },
+        {
+          "candidate_name": "Osage",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Osage",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/osage.pdf",
+          "portfolio_context": "University extension cultivar list; current rights and availability unreviewed"
+        },
+        {
+          "candidate_name": "Ouachita",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Ouachita",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/Ouachita.pdf",
+          "portfolio_context": "University extension cultivar list; current rights and availability unreviewed"
+        },
+        {
+          "candidate_name": "Shawnee",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Shawnee",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/shawnee.pdf",
+          "portfolio_context": "University extension cultivar list; current rights and availability unreviewed"
+        },
+        {
+          "candidate_name": "Prime-Ark 45",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Prime-Ark® 45",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/PrimeArk45.pdf",
+          "portfolio_context": "University extension cultivar list; brand/code identity and current rights unreviewed"
+        },
+        {
+          "candidate_name": "Prime-Ark Freedom",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Prime-Ark® Freedom",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/Prime_Freedom.pdf",
+          "portfolio_context": "University extension cultivar list; brand/code identity and current rights unreviewed"
+        },
+        {
+          "candidate_name": "Prime-Ark Traveler",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Prime-Ark® Traveler",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/2015_0204-Prime-Ark-Traveler-Blackberry-Popular-Description-Clark.pdf",
+          "portfolio_context": "University extension cultivar list; brand/code identity and current rights unreviewed"
+        },
+        {
+          "candidate_name": "Prime-Jan",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Prime-Jan®",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/PrimeJan.pdf",
+          "portfolio_context": "University extension cultivar list; brand/code identity and current rights unreviewed"
+        },
+        {
+          "candidate_name": "Prime-Jim",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Prime-Jim®",
+          "product_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/docs/PrimeJim.pdf",
+          "portfolio_context": "University extension cultivar list; brand/code identity and current rights unreviewed"
+        },
+        {
+          "candidate_name": "Cherokee",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Cherokee",
+          "portfolio_context": "Historical university table entry; current rights, supply and performance not established"
+        },
+        {
+          "candidate_name": "Comanche",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Comanche",
+          "portfolio_context": "Historical university table entry; current rights, supply and performance not established"
+        },
+        {
+          "candidate_name": "Cheyenne",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "",
+          "trade_name": "",
+          "display_label": "Cheyenne",
+          "portfolio_context": "Historical university table entry; current rights, supply and performance not established"
+        }
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "observed_at": "2026-10-07T11:32:50.019988+00:00",
+      "accounting": {
+        "observed_items": 18,
+        "exclusions": []
+      }
+    }
+  ]
+}

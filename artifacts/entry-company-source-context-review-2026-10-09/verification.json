@@ -1,0 +1,3166 @@
+{
+  "scope": "Literal Origin organization context only; human identity and roles remain unapproved.",
+  "entries_with_company_context": 148,
+  "entry_company_associations": 156,
+  "entries_still_without_company_context": 240,
+  "source_sections": 8,
+  "name_observations": 388,
+  "by_company": {
+    "company-university-of-arkansas": 2,
+    "company-driscolls": 82,
+    "company-plant-sciences-genetics": 11,
+    "company-berry-blue-llc": 3,
+    "company-costa-berry-international": 8,
+    "company-university-of-florida": 13,
+    "company-fall-creek-farm-and-nursery": 1,
+    "company-mountain-blue-orchards": 2,
+    "company-planasa": 5,
+    "company-sant-orsola": 3,
+    "company-james-hutton-institute": 3,
+    "company-civ-italy": 4,
+    "company-angus-soft-fruits": 3,
+    "company-california-berry-cultivars": 1,
+    "company-fresh-forward": 4,
+    "company-flevo-berry": 2,
+    "company-niab": 5,
+    "company-nova-siri-genetics": 4
+  },
+  "by_berry": {
+    "berry-blackberry": 9,
+    "berry-blueberry": 23,
+    "berry-raspberry": 20,
+    "berry-strawberry": 96
+  },
+  "mapped_entries": [
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "A-2500TN",
+      "berry_id": "berry-blackberry",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "organizations_as_read": [
+        "University of Arkansas"
+      ],
+      "pdf_page": 9
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "APF-404T",
+      "berry_id": "berry-blackberry",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "organizations_as_read": [
+        "University of Arkansas"
+      ],
+      "pdf_page": 9
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "DrisBlackThirty",
+      "berry_id": "berry-blackberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 9
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "DrisBlackThirtyOne",
+      "berry_id": "berry-blackberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 9
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "DrisBlackTwentyFive",
+      "berry_id": "berry-blackberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 9
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "DrisBlackTwentyNine",
+      "berry_id": "berry-blackberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 9
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "DrisBlackTwentySeven",
+      "berry_id": "berry-blackberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 10
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "DrisBlackTwentySix",
+      "berry_id": "berry-blackberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 10
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "PS-BK3-17.006-13",
+      "berry_id": "berry-blackberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "organizations_as_read": [
+        "Plant Sciences"
+      ],
+      "pdf_page": 10
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "BB14-232PT-2",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-berry-blue-llc"
+      ],
+      "organizations_as_read": [
+        "Berry Blue"
+      ],
+      "pdf_page": 10
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "BB14-321NA-1",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-berry-blue-llc"
+      ],
+      "organizations_as_read": [
+        "Berry Blue"
+      ],
+      "pdf_page": 11
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "BB17-321PT-1",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-berry-blue-llc"
+      ],
+      "organizations_as_read": [
+        "Berry Blue"
+      ],
+      "pdf_page": 11
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "C12-069",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-costa-berry-international",
+        "company-university-of-florida"
+      ],
+      "organizations_as_read": [
+        "Costa Berry International",
+        "University of Florida"
+      ],
+      "pdf_page": 11
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "C12-122",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-costa-berry-international",
+        "company-university-of-florida"
+      ],
+      "organizations_as_read": [
+        "Costa Berry International",
+        "University of Florida"
+      ],
+      "pdf_page": 11
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "C13-051",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-costa-berry-international",
+        "company-university-of-florida"
+      ],
+      "organizations_as_read": [
+        "Costa Berry International",
+        "University of Florida"
+      ],
+      "pdf_page": 11
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "C14-409",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-costa-berry-international",
+        "company-university-of-florida"
+      ],
+      "organizations_as_read": [
+        "Costa Berry International",
+        "University of Florida"
+      ],
+      "pdf_page": 11
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "C14-771",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-costa-berry-international",
+        "company-university-of-florida"
+      ],
+      "organizations_as_read": [
+        "Costa Berry International",
+        "University of Florida"
+      ],
+      "pdf_page": 11
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "C15-143",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-costa-berry-international",
+        "company-university-of-florida"
+      ],
+      "organizations_as_read": [
+        "Costa Berry International",
+        "University of Florida"
+      ],
+      "pdf_page": 11
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "C15-268",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-costa-berry-international",
+        "company-university-of-florida"
+      ],
+      "organizations_as_read": [
+        "Costa Berry International",
+        "University of Florida"
+      ],
+      "pdf_page": 11
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "C15-270",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-costa-berry-international",
+        "company-university-of-florida"
+      ],
+      "organizations_as_read": [
+        "Costa Berry International",
+        "University of Florida"
+      ],
+      "pdf_page": 11
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "Colossus",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "organizations_as_read": [
+        "University of Florida"
+      ],
+      "pdf_page": 12
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "DrisBlueTwentyEight",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 12
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "DrisBlueTwentyFour",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 12
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "DrisBlueTwentyNine",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 12
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "DrisBlueTwentySeven",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 12
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "DrisBlueTwentySix",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 12
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "FC11-164",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "organizations_as_read": [
+        "Fall Creek Farm & Nursery"
+      ],
+      "pdf_page": 12
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "FL09-216",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "organizations_as_read": [
+        "University of Florida"
+      ],
+      "pdf_page": 12
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "FL11-137",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "organizations_as_read": [
+        "University of Florida"
+      ],
+      "pdf_page": 12
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "FL12-236",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "organizations_as_read": [
+        "University of Florida"
+      ],
+      "pdf_page": 13
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "Ridley 0803",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-mountain-blue-orchards"
+      ],
+      "organizations_as_read": [
+        "Mountain Blue Orchards"
+      ],
+      "pdf_page": 14
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "Ridley 2503",
+      "berry_id": "berry-blueberry",
+      "company_ids": [
+        "company-mountain-blue-orchards"
+      ],
+      "organizations_as_read": [
+        "Mountain Blue Orchards"
+      ],
+      "pdf_page": 14
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Adelita",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "organizations_as_read": [
+        "Plantas De Navarra"
+      ],
+      "pdf_page": 50
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Atena",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "organizations_as_read": [
+        "Sant’Orsola"
+      ],
+      "pdf_page": 50
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Bonnie Lewis",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-james-hutton-institute"
+      ],
+      "organizations_as_read": [
+        "James Hutton Institute"
+      ],
+      "pdf_page": 50
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Dafne",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "organizations_as_read": [
+        "Sant’Orsola"
+      ],
+      "pdf_page": 50
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "DrisRaspEight",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 50
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "DrisRaspFifteen",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 50
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "DrisRaspFourteen",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 50
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "DrisRaspSeventeen",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 50
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "DrisRaspThirteen",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 51
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "DrisRaspTwelve",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 51
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "DrisRaspTwenty",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 51
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "DrisRaspTwentyOne",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 51
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "DrisRaspTwentyThree",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 51
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "DrisRaspTwentyTwo",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 51
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Evita",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-sant-orsola"
+      ],
+      "organizations_as_read": [
+        "Sant’Orsola"
+      ],
+      "pdf_page": 51
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Glen Mor",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-james-hutton-institute"
+      ],
+      "organizations_as_read": [
+        "James Hutton Institute"
+      ],
+      "pdf_page": 51
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "PS-06.024-27",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "organizations_as_read": [
+        "Plant Sciences"
+      ],
+      "pdf_page": 52
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "PS-08.019-25",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "organizations_as_read": [
+        "Plant Sciences"
+      ],
+      "pdf_page": 52
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "PS-9514",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "organizations_as_read": [
+        "Plant Sciences"
+      ],
+      "pdf_page": 52
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Skye",
+      "berry_id": "berry-raspberry",
+      "company_ids": [
+        "company-james-hutton-institute"
+      ],
+      "organizations_as_read": [
+        "James Hutton Institute"
+      ],
+      "pdf_page": 52
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Aprica",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "organizations_as_read": [
+        "Consorzio Italiano Vivaisti"
+      ],
+      "pdf_page": 53
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "ASF218",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-angus-soft-fruits"
+      ],
+      "organizations_as_read": [
+        "Angus Soft Fruits"
+      ],
+      "pdf_page": 53
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "ASF219",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-angus-soft-fruits"
+      ],
+      "organizations_as_read": [
+        "Angus Soft Fruits"
+      ],
+      "pdf_page": 53
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Avarosa",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-angus-soft-fruits"
+      ],
+      "organizations_as_read": [
+        "Angus Soft Fruits"
+      ],
+      "pdf_page": 54
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "CBC005",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-california-berry-cultivars"
+      ],
+      "organizations_as_read": [
+        "California Berry Cultivars"
+      ],
+      "pdf_page": 55
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "CIVH413",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "organizations_as_read": [
+        "Consorzio Italiano Vivaisti"
+      ],
+      "pdf_page": 55
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "CIVH725",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "organizations_as_read": [
+        "Consorzio Italiano Vivaisti"
+      ],
+      "pdf_page": 56
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawEighty",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 56
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawEightyEight",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 56
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawEightyFive",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 56
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawEightyFour",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 57
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawEightyNine",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 57
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawEightyOne",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 57
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawEightySeven",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 57
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawEightySix",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 57
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawEightyThree",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 57
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawEightyTwo",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 57
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFifty",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 57
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFiftyEight",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 57
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFiftyFive",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 57
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFiftyFour",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 58
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFiftyNine",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 58
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFiftyOne",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 58
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFiftySeven",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 58
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFiftySix",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 58
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFiftyThree",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 58
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFiftyTwo",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 58
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawForty",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 58
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFortyEight",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 58
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFortyFive",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 58
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFortyFour",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 58
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFortyNine",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 59
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFortySeven",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 59
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFortySix",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 59
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFortyThree",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 59
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawFortyTwo",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 59
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawNinety",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 59
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawNinetyEight",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 59
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawNinetyFive",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 59
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawNinetyFour",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 59
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawNinetyNine",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 60
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawNinetySeven",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 60
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawNinetySix",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 60
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawNinetyThree",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 60
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawNinetyTwo",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 60
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawOneHundred",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 60
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawOneHundredOne",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 60
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawOneHundredThree",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 60
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawOneHundredTwo",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 61
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSeventy",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 61
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSeventyEight",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 61
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSeventyFive",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 61
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSeventyFour",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 61
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSeventyNine",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 61
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSeventyOne",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 61
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSeventySeven",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 61
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSeventySix",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 61
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSeventyThree",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 61
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSeventyTwo",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 61
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSixty",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 62
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSixtyEight",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 62
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSixtyFive",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 62
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSixtyFour",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 62
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSixtyNine",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 62
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSixtyOne",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 62
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSixtySix",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 62
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSixtyThree",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 62
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawSixtyTwo",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "organizations_as_read": [
+        "Driscoll’s"
+      ],
+      "pdf_page": 62
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Fandango",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "organizations_as_read": [
+        "Fresh Forward"
+      ],
+      "pdf_page": 63
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Favori",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-flevo-berry"
+      ],
+      "organizations_as_read": [
+        "Flevo Berry"
+      ],
+      "pdf_page": 63
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "FD 1604",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "organizations_as_read": [
+        "Fresh Forward"
+      ],
+      "pdf_page": 63
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "FL 17.15-86",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-university-of-florida"
+      ],
+      "organizations_as_read": [
+        "University of Florida"
+      ],
+      "pdf_page": 63
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Florice",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-flevo-berry"
+      ],
+      "organizations_as_read": [
+        "Flevo Berry"
+      ],
+      "pdf_page": 63
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Malling Ace",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-niab"
+      ],
+      "organizations_as_read": [
+        "NIAB EMR"
+      ],
+      "pdf_page": 65
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Malling Allure",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-niab"
+      ],
+      "organizations_as_read": [
+        "NIAB EMR"
+      ],
+      "pdf_page": 65
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Malling Champion",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-niab"
+      ],
+      "organizations_as_read": [
+        "NIAB EMR"
+      ],
+      "pdf_page": 65
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Malling Supreme",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-niab"
+      ],
+      "organizations_as_read": [
+        "NIAB EMR"
+      ],
+      "pdf_page": 65
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Malling Vitality",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-niab"
+      ],
+      "organizations_as_read": [
+        "NIAB EMR"
+      ],
+      "pdf_page": 65
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "NSG 203",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-nova-siri-genetics"
+      ],
+      "organizations_as_read": [
+        "Nova Siri Genetics"
+      ],
+      "pdf_page": 66
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "NSG 207",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-nova-siri-genetics"
+      ],
+      "organizations_as_read": [
+        "Nova Siri Genetics"
+      ],
+      "pdf_page": 66
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "NSG 465",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-nova-siri-genetics"
+      ],
+      "organizations_as_read": [
+        "Nova Siri Genetics"
+      ],
+      "pdf_page": 66
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "NSG 9",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-nova-siri-genetics"
+      ],
+      "organizations_as_read": [
+        "Nova Siri Genetics"
+      ],
+      "pdf_page": 66
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "PE-11.2171",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "organizations_as_read": [
+        "Plant Sciences"
+      ],
+      "pdf_page": 66
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "PE-11.2175",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "organizations_as_read": [
+        "Plant Sciences"
+      ],
+      "pdf_page": 66
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "PE-13.119.024",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "organizations_as_read": [
+        "Plant Sciences"
+      ],
+      "pdf_page": 67
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "PE-13.177.011",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "organizations_as_read": [
+        "Plant Sciences"
+      ],
+      "pdf_page": 67
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "PE-7.2059",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "organizations_as_read": [
+        "Plant Sciences"
+      ],
+      "pdf_page": 67
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "PEP-12.6010",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "organizations_as_read": [
+        "Plant Sciences"
+      ],
+      "pdf_page": 67
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Plared 0822",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "organizations_as_read": [
+        "Plantas de Navarra"
+      ],
+      "pdf_page": 67
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Plared 0949",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "organizations_as_read": [
+        "Plantas de Navarra"
+      ],
+      "pdf_page": 67
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Plared 0955",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "organizations_as_read": [
+        "Plantas de Navarra"
+      ],
+      "pdf_page": 67
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Plared 1075",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "organizations_as_read": [
+        "Plantas de Navarra"
+      ],
+      "pdf_page": 67
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "PS-10.1160",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "organizations_as_read": [
+        "Plant Sciences"
+      ],
+      "pdf_page": 68
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Ritmo",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "organizations_as_read": [
+        "Fresh Forward"
+      ],
+      "pdf_page": 68
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Sibilla",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "organizations_as_read": [
+        "Consorzio Italiano Vivaisti"
+      ],
+      "pdf_page": 69
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Twist",
+      "berry_id": "berry-strawberry",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "organizations_as_read": [
+        "Fresh Forward"
+      ],
+      "pdf_page": 70
+    }
+  ],
+  "held_entries": [
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "América",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "Celestial",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "Cituni",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "DrisBlackTwentyEight",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "PBBlack1832-16",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "PBBlack1852-15",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "Thunderhead",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "Voscke",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-main",
+      "candidate_name": "Zodiac",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "Capella",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "CAU-01",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "DW18-04",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "FV1901",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "FV1904",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "FV1906",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "FV1907",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "FV1908",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "NS 15-14",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "NS 15-15",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "NS 16-6",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "RB A063",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "RB A097",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-1093",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-1241",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-1987",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-1996",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-889",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-896",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TH-920",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TO-1719",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "TO-3097",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-main",
+      "candidate_name": "USDA-Spiers",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "ABB 123",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "ABB 132",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "ABB 135",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "ABB 136",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Addison",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Autumn Glory",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "BP 1522",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "BT RasTwo",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Diamond Jubilee",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "EMR 20171",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "EMR 20172",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Enrosadira",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Erika",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Finnberry",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Koplinberry",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "PBB 1473",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "PBBrasp1351",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Pearl",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Rafiki",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Sapphire",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Sarafina",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Shani",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "candidate_name": "Wengi",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "AAC Audrey",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "AAC Evelyn",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "AAC Kate",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Alicia",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Ashley Jay",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-10.3169",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-10.3181",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-11.3205",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-11.3209",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-12.3241",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-12.3258",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-12.3266",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-4.352",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-6.3016",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-9.3128",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "BG-9.3147",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Bounty",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Camila",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Caprice",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "CIVL519",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Constitution",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Discovery",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Dr. Duncan",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "DrisStrawNinetyOne",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "EMS 1409",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "EMS 1415",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "FPS-14_540-041",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "FPS-14_552-008",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "GB96",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "JFK44",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Lady Emma",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "LBR 96.1",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Limalexia",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Lucretia",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Magellan",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Malibu",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "NJ08-08-6",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "NJ09-2-1",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "NJ99-204-1",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "NSG 120",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Octavia",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Omaha",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "P061103V",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "P061105",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Plared 15105",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Playa",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "QBC-1",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Resolution",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SB_12_53-118",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SB_13_177-015",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SB_14_223-007",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SB_14_225-001",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SGS 73.1",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Sharktooth",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SRE36",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SRV36",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SSL 93",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Stata",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Sweet Eve 2",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "SWV 25",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Taia",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Tochigi i37Go",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Tochigi iW1Go",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "UC Eclipse",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Wenatchee",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-main",
+      "candidate_name": "Yotsuboshi",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-addenda",
+      "candidate_name": "A-2454T",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-addenda",
+      "candidate_name": "A-2491T",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-addenda",
+      "candidate_name": "A-2524T",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-addenda",
+      "candidate_name": "APF-122",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-addenda",
+      "candidate_name": "APF-238T",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-addenda",
+      "candidate_name": "APF-268",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-addenda",
+      "candidate_name": "C08-141",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-addenda",
+      "candidate_name": "DrisBlackFour",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-addenda",
+      "candidate_name": "DrisBlackSix",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-addenda",
+      "candidate_name": "DrisBlackThree",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-addenda",
+      "candidate_name": "DrisBlackTwo",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-addenda",
+      "candidate_name": "Jandrie",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blackberry-addenda",
+      "candidate_name": "PBB 1616T",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "BB05-259MI-15",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "BB05-268MI-152",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "BB06-507MI-52",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "BB15-214PO-3",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "C03-158",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "C04-014",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueEighteen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueEleven",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueFifteen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueFive",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueFour",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueFourteen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueNine",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueNineteen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueOne",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueSeven",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueSeventeen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueSix",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueSixteen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueTen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueThirteen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueThree",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueTwenty",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueTwentyFive",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueTwentyOne",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueTwentyThree",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueTwentyTwo",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "DrisBlueTwo",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "EB 10-1",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "EB 9-4",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "FC13-122",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "FCM12-038",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "FCM12-097",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Hoogi045",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "MG07876-15-003",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "MG09768-05-002",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "MG11543-23-004",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "MG11654-24-001",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 13-1",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 13-4",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 13-5",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 13-6",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 14-1",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 14-3",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 14-4",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 14-5",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 14-7",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 15-13",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 15-22",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 15-5",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 16-15",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 16-18",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 16-2",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "NS 16-8",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "OBF0604",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "OBF0622",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "OBF0627",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Ridley 0808",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Ridley 1212",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Ridley 1602",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Ridley 1607",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Ridley 1702",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Ridley 1812",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Ridley 3402",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Ridley 4408",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Ridley 4514",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Ridley 4609",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Ryoku NH-11",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Ryoku NH-12",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Ryoku NH-13",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "TH-917",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "TH-921",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "TH-948",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "Velluto Blue",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-blueberry-addenda",
+      "candidate_name": "ZF08-029",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-addenda",
+      "candidate_name": "BC92915",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-addenda",
+      "candidate_name": "PBBRasp1348",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-addenda",
+      "candidate_name": "PBBRasp1381",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "BG-4316",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawEight",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawEighteen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawEleven",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawFifteen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawFive",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawFour",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawFourteen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawNine",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawNineteen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawOne",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawSeven",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawSeventeen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawSix",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawTen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawThirteen",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawThree",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawTwelve",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawTwenty",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawTwentyEight",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawTwentyFive",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawTwentyFour",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawTwentyOne",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawTwentySeven",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawTwentySix",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawTwentyThree",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawTwentyTwo",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    },
+    {
+      "source_id": "portfolio-register52-2024-strawberry-addenda",
+      "candidate_name": "DrisStrawTwo",
+      "reason": "No checked Origin organization mapping: addendum, unavailable passage, unresolved organization identity or extraction spelling."
+    }
+  ],
+  "prior_snapshot_bytes_preserved": true,
+  "canonical_writes": 0,
+  "human_decisions_created": 0,
+  "summary": {
+    "source_sections": 376,
+    "readable_sections": 272,
+    "unreadable_sections": 14,
+    "follow_up_sections": 118,
+    "names": 1544,
+    "catalog_matches": 88,
+    "needs_review": 1456,
+    "registry_entries": 77,
+    "registry_entries_checked": 60,
+    "registry_entries_partial_checks": 14,
+    "registry_entries_unavailable": 1,
+    "registry_entries_not_started": 0,
+    "registry_entries_identity_hold": 2
+  },
+  "candidate_counts": {
+    "stored_source_candidates": 63,
+    "combined_candidates": 1121,
+    "additional_primary_portfolio_candidates": 1058
+  },
+  "tests": {
+    "passed": 71,
+    "warnings": 1,
+    "seconds": 109.19
+  },
+  "initial_code_tests": {
+    "passed": 54,
+    "warnings": 1,
+    "seconds": 70.16
+  },
+  "discarded_intermediate_tests": {
+    "passed": 68,
+    "warnings": 1,
+    "seconds": 116.87,
+    "accepted_as_final_verification": false,
+    "reason": "Follow-up files moved before the running handle was consumed; restored branch rerun71 is authoritative."
+  },
+  "record_validation": "passed",
+  "static": {
+    "pages": 1755,
+    "pagefind": "passed",
+    "draft_leak_check": "passed",
+    "all_html_new_private_markers_absent": true,
+    "markers": [
+      "Organizations named in this entry:",
+      "This is source context; company roles and current rights still need review.",
+      "portfolio-register52-2024-",
+      "jujube.nmsu.edu/documents/2024-fruit-cultivar-registration-52-hortsci-article-p1220.pdf"
+    ]
+  },
+  "canonical_varieties": 64,
+  "photo_references": 122,
+  "native_private_candidates": 1121,
+  "native_original_runtime_candidates": 1122,
+  "native_browser": {
+    "tab": 61,
+    "company_filter_matches_entry": true,
+    "source_page_link_and_candidate_id_preserved": true,
+    "company_profile_handoff_checked": true,
+    "hutton_source_names": 15,
+    "hutton_reviewed_links": 0,
+    "hutton_source_sections": 3,
+    "hutton_followup_sections": 2,
+    "review_forms_submitted": 0,
+    "screenshots": [
+      "bonnie-company-context.png",
+      "hutton-source-varieties.png",
+      "hutton-source-table.png"
+    ]
+  },
+  "preservation": {
+    "original_json_files": 2771,
+    "expansion_guide_unchanged": true,
+    "pending_copies": 32,
+    "pending_draft_sha256": "deb45f2e3836c96e5f3fb13abaf9dc15c86930f1a0a9cb495f347a033cf822e4"
+  },
+  "full_ci": "Initial head has three test failures; diagnosed repairs require fresh pushed-head checks.",
+  "merge_or_deploy": false,
+  "requirements_ids_and_order_preserved": [
+    "CAT-01",
+    "CAT-02",
+    "UI-01",
+    "UI-02",
+    "UI-03",
+    "NEWS-01",
+    "NEWS-02",
+    "NEWS-03",
+    "DIGEST-01",
+    "CO-01",
+    "CO-02",
+    "VAR-01",
+    "VAR-02",
+    "MAP-01",
+    "MAP-02",
+    "PACK-01",
+    "PACK-02",
+    "PACK-03",
+    "AUDIT-01",
+    "REPORT-01",
+    "REPORT-02",
+    "REPORT-03",
+    "LAND-01",
+    "LAND-02",
+    "LEARN-01",
+    "LEARN-02",
+    "INT-01",
+    "MON-01",
+    "OPS-01",
+    "GUIDE-01",
+    "REL-01"
+  ],
+  "initial_full_ci": {
+    "head": "2a3f4f4edd76cb96f4dcfa7622cd0375bce42688",
+    "run": 38006524697,
+    "job": 114076504909,
+    "passed": 4587,
+    "failed": 3,
+    "skipped": 11,
+    "warnings": 2,
+    "seconds": 900.77,
+    "checks_success": 3,
+    "checks_failed": 1
+  },
+  "repair_verification": {
+    "combined_followup_workspace_tests": 54,
+    "warnings": 1,
+    "seconds": 111.45,
+    "coverage_assertions_retain_mixed_entry_context": true,
+    "future_date_calculated_at_execution": true,
+    "program_without_company_backbone_route_fixed": true,
+    "permissions_or_trust_gate_changes": false,
+    "fresh_pushed_head_checks_required": true
+  }
+}

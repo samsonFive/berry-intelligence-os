@@ -1,5 +1,65 @@
 # Intelligence Coverage Matrix
 
+## Four-berry register recheck — October 13 UTC, 2026
+
+The [bounded reference cohort](CPVO-REFERENCE-COHORT-REVIEW.md) adds ten original
+application rechecks across nine more existing names, extending Plablue 1542.
+Same-name non-berry entries are excluded by exact application/species. Private
+reference rows retain reported statuses and group repeat captures with their
+earlier URLs/dates available; different applications/authorities remain separate.
+The current bounded audit is 395 sections /1,572 occurrences /102 matches /
+1,470 review needs, including repeated checks. Canonical varieties remain 64;
+trusted maturity and human decisions are unchanged. Fresh release checks remain.
+
+## Original register projection — October 13 UTC, 2026
+
+The [register-reference follow-up](IMPORTED-REGISTER-REFERENCE-REVIEW.md) fixes
+private visibility of existing numbered imports and a reproduced
+denomination-as-commercial-label self-pairing error. Forty-two imported
+observations project through unchanged identity/crop/human decisions; ten
+catalog profiles have such references. A live one-record CPVO recheck retains
+original application metadata as unreviewed source context, not current-rights
+or new-alias approval. The current bounded audit is 385 sections /1,562 names /
+92 matched /1,470 needing review; canonical varieties remain 64. Profile gaps
+are 50 photos /29 patent-PVR references /33 cited traits /10 organizations.
+This narrows field visibility gaps without increasing trusted maturity.
+
+## Current variety follow-up — October 12, 2026
+
+The [latest bounded photo review](CORNELL-VARIETY-PHOTOS-REVIEW.md)
+records 384 source sections / 1,561 name occurrences / 91 catalog-matched
+occurrences / 1,470 requiring review; 1,126 public-source-derived candidate keys. The catalog remains 64 varieties and photo
+references total 126. Source name observations and pending copies do not raise
+trusted evidence maturity, create approved identities or prove complete coverage.
+
+The [2024 cultivar register acquisition review](REGISTER-LIST-52-ACQUISITION-REVIEW.md)
+recovers a university-hosted original journal copy covering all four berry crops.
+Its checked first-name headings and addenda now supply 388 unreviewed observations,
+accounted separately from eight referrals and two held codes. Body/parent/trade-name
+recall and per-entry company links remain partial. Historical rights references
+are not current official-rights checks. This intake does not promote any
+evidence-class maturity cell below.
+
+The [searchable organization follow-up](SEARCHABLE-ORIGIN-ORGANIZATIONS-REVIEW.md)
+retains 168 unreviewed organization associations across 160 register entries and
+20 existing organizations, plus 60 searchable unresolved organization contexts.
+228 entries still have no assignment. Company filters
+use the specific entry rather than every program in the source. These mentions
+do not approve breeder/owner roles or change canonical counts.
+
+The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) now
+shows actual catalog gaps: 50/64 without photo references, 35/64 without
+patent/PVR references, 33/64 without cited traits and 10/64 without linked
+organizations after the [active-role correction](VARIETY-PROFILE-ORGANIZATION-REVIEW.md).
+Counts are scoped field presence, not current rights, independent
+measurement or catalog completeness. Phone visual verification remains.
+
+The established evidence-class matrix below retains its original as-of dates
+and classifications; it is not a newly measured production snapshot.
+[Historical acquisition updates](INTELLIGENCE-COVERAGE-MATRIX-HISTORY.md)
+preserve the prior chronological preamble verbatim. Full portfolio, corpus,
+independent recall, current rights and human catalog authoring remain open.
+
 Living **coverage-control** document for
 `docs/v2/INTELLIGENCE-EXPANSION-BUILD-GUIDE.md`. Counts come from committed
 records and `data/configuration/sources.json`. This is not marketing.
@@ -629,6 +689,71 @@ re-running the inventory. Inbox drafts stay out of the class table.
 
 
 **October 4 in-app agency refresh:** An explicit Eurostat check returned the same four-country/eight-figure 2025 strawberry area/production reference scope, preserving original units, flags, source update and check dates. Its country references are human-selected private context, never canonical Facts or recall/coverage maturity changes. USDA references and unsupported country/crop gaps remain untouched; broader FAOSTAT/national/research population is still partial. See MISSION-32-OFFICIAL-STATISTICS-REFRESH-REVIEW.md.
+
+
+**October 7 program/nursery portfolio follow-up:** Additional primary pages add
+106 occurrences, including experimental selections and all nine current ABZ
+assortment sections. Combined body-free audit accounts for 381 occurrences in 32
+sections, with 341 candidate keys before private state. Fifteen of 77 registry
+rows have some checks; 62 need initial primary checks. Three species-ambiguous
+clone cards are excluded, and nursery listings never establish breeder ownership.
+The canonical catalog and all trust maturity classifications remain unchanged.
+Historical releases, profiles, rights, refresh and an independent benchmark remain.
+See VARIETY-PROGRAM-PORTFOLIOS-REVIEW.md.
+
+**October 7 species correctness follow-up:** New CPVO drafts for black raspberry
+(`Rubus occidentalis L.`) now use raspberry context, matching USDA nomenclature
+and the existing berry entity. This corrects classification rather than adding
+coverage or trust. Existing records and private review state are not rewritten;
+older affected tags need explicit review. See VARIETY-REGISTRY-SPECIES-CORRECTION.md.
+
+**October 7 primary portfolio expansion:** Seventeen dated page sections now
+contain 275 manually enumerated source name occurrences across four berries.
+Twenty-five match catalog identities; 250 require review. The body-free audit
+derives 239 candidate keys (68 stored-source plus 171 additional primary names),
+before private inbox state. Eleven of 77 registry rows have some primary checks;
+66 still need checks. This is not a measured extraction recall score, completed
+global portfolio denominator, automatic collector or canonical maturity increase.
+Mixed-crop exclusions, paginated capture scope, literal code/name discrepancies
+and the Oregon nursery/Commission site mismatch remain reviewable. All 64
+canonical varieties and existing evidence/rights/role gates remain unchanged.
+See VARIETY-PORTFOLIO-EXPANSION-REVIEW.md.
+
+
+**October 7 reviewed catalog handoff:** Candidate identity review now links to existing source intake and human publication/claim decisions. This is workflow delivery, not a source acquisition or canonical coverage increase: 64 real existing catalog entries and 341 combined candidate keys before private state remain unchanged. Fictional browser additions exist only in an isolated ignored runtime. Remaining portfolios and rich/independently checked coverage stay open. See VARIETY-CATALOG-REVIEW-HANDOFF.md.
+
+
+## October 9 follow-up: Rutgers original filing and historical names
+
+See [original Rutgers filing review](RUTGERS-ORIGINAL-FILING-REVIEW.md). One focal
+grant plus four separate parent/comparison mentions are now discoverable, including
+the source's explicit NJ09-2-1 / Rutgers D'Light pairing. No catalog alias, entity,
+company role, current right, region or image permission is approved automatically.
+The bounded audit is now 378 sections /1,549 occurrences /88 catalog matches /
+1,461 needing review /1,124 source-derived candidate keys. All 31 requirements and
+their order are retained; CAT-01, CAT-02, TD-116 and REL-01 stay open. Current and
+historical portfolio completeness, original current rights, human authoring,
+independent recall, phone review and integrated release preparation remain.
+
+
+## October 9 follow-up: human variety-name review packet
+
+The [human name-review worksheet](VARIETY-HUMAN-RECALL-PACKET-REVIEW.md) now
+prepares all32 retained Article copies with blank expected lists. A read-only
+captured-text view hides stored summaries and approval controls. Browser-local
+drafts and partial JSON export are verified with fictional sources; none of the
+actual32 expected lists is completed. Offline assembly verifies source fingerprints,
+refuses unfinished/shortened inputs and uses the existing scorer without a
+qualification marker. Source acceptance, catalog authoring and independent
+benchmark qualification remain separate. This prepares the human packet; it does
+not complete the human-owned recall requirement. Full scope, phone, blueberry
+feedback and integrated release gates remain open. All31 requirement IDs/order stay.
+
+
+## October 10 UTC: original Chandler source follow-up
+
+Original claim/code references and seven separate parent/comparison observations retain existing candidate anchors, crop boundaries and human decisions. The bounded audit is 380 sections /1,557 occurrences /88 matched /1,469 requiring review /1,126 derived keys, with 64 canonical varieties and 122 unchanged photo references. Parent #390 passes all four required checks /4,618 tests; this child needs fresh CI. The actual 32-source human worksheet remains unfinished. Full corpus/portfolio/rights/profile coverage, independent human recall and catalog authoring, phone review, blueberry feedback and integrated release remain open. See [Chandler source review](CHANDLER-ORIGINAL-FILING-REVIEW.md). No merge/deploy or other-berry Landscape rollout.
+
 # Social blueberry pilot coverage — 2026-10-07
 
 Bake-off addendum:93unique real news titles under EN/ES/JA feed locales;4/4identities preserved on one real news repeat. PT/ZH feeds were blocked redirects; original language and purchase geography were not inferred. Two saved official Bluesky live-tail connections yielded zero blueberry matches. These isolated tests add no canonical Evidence or consumer-coverage maturity. Vendor capabilities remain documentation-only; see `SOCIAL-MONITORING-BAKEOFF.md` for counts/blockers/unmet checks.

@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import re
+from itertools import combinations
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
@@ -38,12 +39,27 @@ LABELS = {
 
 REDIRECTS_RELATIVE = Path("configuration") / "entity-identity-redirects.json"
 _MIN_FOLD = 3
+_BERRY_IDS = {"berry-blueberry", "berry-strawberry", "berry-raspberry", "berry-blackberry"}
 _DUPLICATE_ID_RE = re.compile(r"-(?:2|copy|duplicate|old)$", re.IGNORECASE)
 _ID_FIELD_KEYS = ("entity_ids", "company_ids", "variety_ids", "geography_ids")
 
 
 def fold_name(value: str | None) -> str:
     return _fold(value or "")
+
+
+def recorded_berry_ids(record: dict[str, Any]) -> set[str]:
+    values = record.get("berry_ids") or []
+    if isinstance(values, str):
+        values = [values]
+    elif not isinstance(values, (list, tuple, set)):
+        values = []
+    return {value for value in [*values, record.get("berry_id")] if isinstance(value, str) and value in _BERRY_IDS}
+
+
+def berry_scopes_disjoint(left: dict[str, Any], right: dict[str, Any]) -> bool:
+    a, b = recorded_berry_ids(left), recorded_berry_ids(right)
+    return bool(a and b and a.isdisjoint(b))
 
 
 def load_identity_redirects(data_dir: Path | None) -> list[dict[str, Any]]:
@@ -134,8 +150,14 @@ def match_named_entity(
     name: str,
     entity_type: str,
     entities: list[dict[str, Any]],
+    *,
+    berry_id: str = "",
 ) -> tuple[dict[str, Any] | None, tuple[str, ...]]:
-    """Exact folded name/alias match. Multiple hits stay ambiguous."""
+    """Exact folded name/alias match. Multiple hits stay ambiguous.
+
+    Explicit berry context excludes disjoint recorded variety crops only;
+    unknown crop stays a possible match. Default matching remains unscoped.
+    """
     query = (name or "").strip()
     if not query:
         return None, ()
@@ -146,6 +168,8 @@ def match_named_entity(
     seen: set[str] = set()
     for row in entities:
         if row.get("entity_type") != entity_type or not row.get("id"):
+            continue
+        if entity_type == "variety" and berry_scopes_disjoint({"berry_id": berry_id}, row):
             continue
         canonical, aliases = _names_for_entity(row)
         surfaces = [canonical, *aliases]
@@ -392,10 +416,13 @@ def audit_entity_identity(
         variety_seen.add(key)
         variety_issues.append(issue)
 
+    variety_index = {row["id"]: row for row in living_varieties}
     for folded, rows in _variety_phrase_buckets(living_varieties).items():
-        ids = [item[0] for item in rows]
-        if len(ids) > 1:
-            roles = {item[1] for item in rows}
+        for left, right in combinations(rows, 2):
+            if berry_scopes_disjoint(variety_index[left[0]], variety_index[right[0]]):
+                continue
+            ids = [left[0], right[0]]
+            roles = {left[1], right[1]}
             reason = "alias_collision"
             if roles <= {"breeder_code"} or "breeder_code" in roles and len(roles) <= 2:
                 reason = "breeder_code_collision"
@@ -438,6 +465,8 @@ def audit_entity_identity(
             variety_id = str(variety["id"])
             if cand_regs and cand_regs & _registration_ids(variety):
                 matches.append(variety_id)
+                continue
+            if berry_scopes_disjoint(candidate, variety):
                 continue
             for text, _role in candidate_query_names(candidate):
                 folded = fold_identity(text)

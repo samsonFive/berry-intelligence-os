@@ -42,13 +42,15 @@ BODY_STATE_LABELS = {
 }
 
 
-def article_full_text(record: dict[str, Any]) -> str:
+def article_full_text(record: dict[str, Any], *, preserve_line_breaks: bool = False) -> str:
     from app.services.intelligence_feed import article_paragraphs
     paragraphs = article_paragraphs(record)
     if paragraphs:
-        return "\n\n".join(decode_html_text(row.get("text") or "") for row in paragraphs if row.get("text"))
+        return "\n\n".join(decode_html_text(row.get("text") or "", preserve_line_breaks=preserve_line_breaks)
+                           for row in paragraphs if row.get("text"))
     article = record.get("article") if isinstance(record.get("article"), dict) else {}
-    return decode_html_text(article.get("full_text") if isinstance(article, dict) else "")
+    return decode_html_text(article.get("full_text") if isinstance(article, dict) else "",
+                            preserve_line_breaks=preserve_line_breaks)
 
 
 def looks_like_interstitial(text: str) -> bool:

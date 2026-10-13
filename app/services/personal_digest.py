@@ -44,7 +44,8 @@ def retained_news(inbox_dir: Path) -> list[dict[str, Any]]:
     return list(records.values())
 
 
-def source_records(published: list[dict[str, Any]], inbox_dir: Path, *, include_private: bool = True) -> dict[str, dict[str, Any]]:
+def source_records(published: list[dict[str, Any]], inbox_dir: Path, *, include_private: bool = True,
+                   pending=None, metadata_only: bool = False) -> dict[str, dict[str, Any]]:
     records = {str(row["id"]): row for row in retained_news(inbox_dir)} if include_private else {}
     for row in published:
         if not row.get("id") or row.get("status") != "published":
@@ -57,9 +58,29 @@ def source_records(published: list[dict[str, Any]], inbox_dir: Path, *, include_
         if image and not feed_first.safe_image_url(row):
             row = {**row, "article": {**(row.get("article") or {}), "image_url": image}}
         records[item_id] = row
+    if include_private and pending is not None:
+        from app.services.publication_sources import active_publication_record, inactive_publication_record
+        canonical_ids = {str(row['id']) for row in published if row.get('id') and row.get('status') == 'published'}
+        for original in pending:
+            key = str(original.get('id') or '')
+            if key in canonical_ids:
+                continue
+            if inactive_publication_record(original):
+                records.pop(key, None)
+                continue
+            record = active_publication_record(original)
+            if record is None:
+                continue
+            cached = records.get(key)
+            if cached and cached.get('source_url') != record.get('source_url'):
+                continue
+            records[key] = record
     if include_private:
         from app.services.feed_first_reader import attach_capture_previews
         records = attach_capture_previews(records, inbox_dir)
+    if metadata_only:
+        from app.services.publication_sources import source_preview
+        records = {key: source_preview(row) for key, row in records.items()}
     return records
 
 
@@ -146,6 +167,10 @@ def digest_model(*, records: dict[str, dict[str, Any]], entities: dict[str, dict
             raise ValueError("Choose valid start and end dates") from None
         if start and end and start > end:
             raise ValueError("Start date must come before end date")
+    # Accept the News/Map berry IDs as well as Digest's crop names so a
+    # carried scope keeps the same meaning and selected filter controls.
+    filters["berry"] = ",".join(dict.fromkeys(
+        key.strip().removeprefix("berry-") for key in filters["berry"].split(",") if key.strip()))
     berries = set(filter(None, filters["berry"].split(",")))
     countries = set(filter(None, filters["country"].split(",")))
     universe = dict(records)

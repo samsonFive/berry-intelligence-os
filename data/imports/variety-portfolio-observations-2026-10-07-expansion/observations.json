@@ -1,0 +1,1917 @@
+{
+  "schema_version": 1,
+  "kind": "unreviewed_portfolio_name_observations",
+  "checked_on": "2026-10-07",
+  "method": "Manual primary-page enumeration, including live public product cards and pagination. Factual name metadata only; no full bodies, no source or atomic approval.",
+  "sources": [
+    {
+      "id": "portfolio-fall-creek-blueberry",
+      "title": "Fall Creek — commercial blueberry catalog",
+      "url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T08:45:33+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 38 product headings in the unfiltered commercial blueberry page; climate/filter headings excluded.",
+      "limitations": "Current page names only. Includes cultivars from other programs; listing does not establish breeder, ownership, licensing or planted regions. Historic releases and regional catalogs still need checks.",
+      "names": [
+        {
+          "candidate_name": "FC14-062",
+          "berry_id": "berry-blueberry",
+          "denomination": "FC14-062",
+          "trade_name": "ArabellaBlue",
+          "breeder_code": "FC14-062",
+          "display_label": "ArabellaBlue"
+        },
+        {
+          "candidate_name": "Aurora",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Aurora"
+        },
+        {
+          "candidate_name": "Bluecrop",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Bluecrop"
+        },
+        {
+          "candidate_name": "Bluegold",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Bluegold"
+        },
+        {
+          "candidate_name": "Calypso",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Calypso"
+        },
+        {
+          "candidate_name": "Cargo",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Cargo"
+        },
+        {
+          "candidate_name": "Clockwork",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Clockwork"
+        },
+        {
+          "candidate_name": "Duke",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Duke"
+        },
+        {
+          "candidate_name": "Elliott",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Elliott"
+        },
+        {
+          "candidate_name": "Last Call",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Last Call"
+        },
+        {
+          "candidate_name": "Liberty",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Liberty"
+        },
+        {
+          "candidate_name": "FC11-118",
+          "berry_id": "berry-blueberry",
+          "denomination": "FC11-118",
+          "trade_name": "LoretoBlue",
+          "breeder_code": "FC11-118",
+          "display_label": "LoretoBlue"
+        },
+        {
+          "candidate_name": "FC12-205",
+          "berry_id": "berry-blueberry",
+          "denomination": "FC12-205",
+          "trade_name": "LunaBlue",
+          "breeder_code": "FC12-205",
+          "display_label": "LunaBlue"
+        },
+        {
+          "candidate_name": "Northland",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Northland"
+        },
+        {
+          "candidate_name": "Top Shelf",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Top Shelf"
+        },
+        {
+          "candidate_name": "Toro",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Toro"
+        },
+        {
+          "candidate_name": "ZF08-070",
+          "berry_id": "berry-blueberry",
+          "denomination": "ZF08-070",
+          "trade_name": "Valor",
+          "breeder_code": "ZF08-070",
+          "display_label": "Valor"
+        },
+        {
+          "candidate_name": "Draper",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Draper"
+        },
+        {
+          "candidate_name": "ZF08-029",
+          "berry_id": "berry-blueberry",
+          "denomination": "ZF08-029",
+          "trade_name": "PeachyBlue",
+          "breeder_code": "ZF08-029",
+          "display_label": "PeachyBlue"
+        },
+        {
+          "candidate_name": "Blue Ribbon",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Blue Ribbon"
+        },
+        {
+          "candidate_name": "Legacy",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Legacy"
+        },
+        {
+          "candidate_name": "O’Neal",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "O’Neal"
+        },
+        {
+          "candidate_name": "TH-1008",
+          "berry_id": "berry-blueberry",
+          "denomination": "TH-1008",
+          "trade_name": "OlympusBlue",
+          "breeder_code": "TH-1008",
+          "display_label": "OlympusBlue"
+        },
+        {
+          "candidate_name": "Suziblue",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Suziblue"
+        },
+        {
+          "candidate_name": "Emerald",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Emerald"
+        },
+        {
+          "candidate_name": "Jewel",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Jewel"
+        },
+        {
+          "candidate_name": "FL01-173",
+          "berry_id": "berry-blueberry",
+          "denomination": "FL01-173",
+          "trade_name": "Meadowlark",
+          "breeder_code": "FL01-173",
+          "display_label": "Meadowlark"
+        },
+        {
+          "candidate_name": "Misty",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Misty"
+        },
+        {
+          "candidate_name": "Rebel",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Rebel"
+        },
+        {
+          "candidate_name": "Snowchaser",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Snowchaser"
+        },
+        {
+          "candidate_name": "Star",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Star"
+        },
+        {
+          "candidate_name": "Ventura",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Ventura"
+        },
+        {
+          "candidate_name": "FCM14-057",
+          "berry_id": "berry-blueberry",
+          "denomination": "FCM14-057",
+          "trade_name": "Apex",
+          "breeder_code": "FCM14-057",
+          "display_label": "Apex"
+        },
+        {
+          "candidate_name": "FCM14-031",
+          "berry_id": "berry-blueberry",
+          "denomination": "FCM14-031",
+          "trade_name": "AzraBlue",
+          "breeder_code": "FCM14-031",
+          "display_label": "AzraBlue"
+        },
+        {
+          "candidate_name": "FCM12-038",
+          "berry_id": "berry-blueberry",
+          "denomination": "FCM12-038",
+          "trade_name": "KeplerBlue",
+          "breeder_code": "FCM12-038",
+          "display_label": "KeplerBlue"
+        },
+        {
+          "candidate_name": "FCM12-045",
+          "berry_id": "berry-blueberry",
+          "denomination": "FCM12-045",
+          "trade_name": "AtlasBlue",
+          "breeder_code": "FCM12-045",
+          "display_label": "AtlasBlue"
+        },
+        {
+          "candidate_name": "FCM12-087",
+          "berry_id": "berry-blueberry",
+          "denomination": "FCM12-087",
+          "trade_name": "BiancaBlue",
+          "breeder_code": "FCM12-087",
+          "display_label": "BiancaBlue"
+        },
+        {
+          "candidate_name": "Biloxi",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Biloxi"
+        }
+      ],
+      "accounting": {
+        "observed_items": 38,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-fresh-forward-strawberry",
+      "title": "Fresh Forward — strawberry navigation portfolio",
+      "url": "https://www.fresh-forward.nl/en/our-varieties/B",
+      "company_ids": [
+        "company-fresh-forward"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T08:45:33+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 15 strawberry product links in the footer, checked against the page’s stated Strawberries (15) total. Five product cards are on page 1.",
+      "limitations": "Names enumerated from the full strawberry navigation, not all three pages of product traits. Apple navigation is outside this scope. FE2015/Twist is a displayed pair, not an approved alias.",
+      "names": [
+        {
+          "candidate_name": "Allegro",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Allegro"
+        },
+        {
+          "candidate_name": "Cadenza",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Cadenza"
+        },
+        {
+          "candidate_name": "Calinda",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Calinda"
+        },
+        {
+          "candidate_name": "Fandango",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Fandango"
+        },
+        {
+          "candidate_name": "Jenkka",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Jenkka"
+        },
+        {
+          "candidate_name": "Lambada",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Lambada"
+        },
+        {
+          "candidate_name": "Opera",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Opera"
+        },
+        {
+          "candidate_name": "Parlando",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Parlando"
+        },
+        {
+          "candidate_name": "Polka",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Polka"
+        },
+        {
+          "candidate_name": "Ravellia",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Ravellia"
+        },
+        {
+          "candidate_name": "Rumba",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Rumba"
+        },
+        {
+          "candidate_name": "Salsa",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Salsa"
+        },
+        {
+          "candidate_name": "Sonata",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Sonata"
+        },
+        {
+          "candidate_name": "FE2015",
+          "berry_id": "berry-strawberry",
+          "denomination": "FE2015",
+          "trade_name": "Twist",
+          "breeder_code": "FE2015",
+          "display_label": "Twist"
+        },
+        {
+          "candidate_name": "Verdi",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Verdi"
+        }
+      ],
+      "accounting": {
+        "observed_items": 15,
+        "reported_items": 15,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-flevo-strawberry-current",
+      "title": "Flevo Berry — current strawberry product list",
+      "url": "https://flevoberry.nl/Varieties/",
+      "company_ids": [
+        "company-flevo-berry"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T08:45:33+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 15 linked strawberry product cards in the unfiltered live page.",
+      "limitations": "Page enumeration only; detailed traits and rights still require source-backed review. Two older names in the introduction are retained in a separate historical section.",
+      "names": [
+        {
+          "candidate_name": "Dahli",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Dahli"
+        },
+        {
+          "candidate_name": "Flair",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Flair"
+        },
+        {
+          "candidate_name": "Falco",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Falco"
+        },
+        {
+          "candidate_name": "Sonsation",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Sonsation"
+        },
+        {
+          "candidate_name": "Magnus",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Magnus"
+        },
+        {
+          "candidate_name": "Faith",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Faith"
+        },
+        {
+          "candidate_name": "Furore",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Furore"
+        },
+        {
+          "candidate_name": "Florice",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Florice"
+        },
+        {
+          "candidate_name": "Bravura",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Bravura"
+        },
+        {
+          "candidate_name": "Hademar",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Hademar"
+        },
+        {
+          "candidate_name": "Favori",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Favori"
+        },
+        {
+          "candidate_name": "Finette",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Finette"
+        },
+        {
+          "candidate_name": "Fardao",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Fardao"
+        },
+        {
+          "candidate_name": "Ferris",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Ferris"
+        },
+        {
+          "candidate_name": "Flynt",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Flynt"
+        }
+      ],
+      "accounting": {
+        "observed_items": 15,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-flevo-strawberry-older",
+      "title": "Flevo Berry — older strawberry names",
+      "url": "https://flevoberry.nl/Varieties/",
+      "company_ids": [
+        "company-flevo-berry"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T08:45:33+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Two older varieties explicitly named in the introductory paragraph.",
+      "limitations": "The source says these names are no longer supported. This is attributed portfolio context, not a verified rights status, withdrawal date or instruction to delete an existing variety.",
+      "names": [
+        {
+          "candidate_name": "Fleurette",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Fleurette",
+          "portfolio_context": "Older variety; source says no longer supported"
+        },
+        {
+          "candidate_name": "Sussette",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Sussette",
+          "portfolio_context": "Older variety; source says no longer supported"
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-planasa-us-products",
+      "title": "Planasa — US product catalog",
+      "url": "https://planasa.com/us/tienda/",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "berry_ids": [
+        "berry-blackberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T08:45:33+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 53 live shop product cards, including explicit exclusions. Berry categories are read from product cards; uncategorized Spanish labels use matching US cards only where both label and code agree.",
+      "limitations": "Product cards are source assertions, not approved aliases or roles. US Black Rainier repeats the Black Sultana code, while the Spanish card uses a different code. Keep both readings unresolved. Winter labeling is not a second proven cultivar. Regional listings are not planted footprints. Demoiselle remains excluded pending a clear species source.",
+      "names": [
+        {
+          "candidate_name": "Plared 18009",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Plared 18009",
+          "product_url": "https://planasa.com/us/variety/plared-18009-10/"
+        },
+        {
+          "candidate_name": "Plapink 14103",
+          "berry_id": "berry-raspberry",
+          "denomination": "Plapink 14103",
+          "trade_name": "Pink Hudson (WINTER)",
+          "breeder_code": "",
+          "display_label": "Pink Hudson (WINTER)",
+          "product_url": "https://planasa.com/us/variety/pink-hudson-winter/"
+        },
+        {
+          "candidate_name": "Plapink 14103",
+          "berry_id": "berry-raspberry",
+          "denomination": "Plapink 14103",
+          "trade_name": "Pink Hudson",
+          "breeder_code": "",
+          "display_label": "Pink Hudson",
+          "product_url": "https://planasa.com/us/variety/pink-hudson/"
+        },
+        {
+          "candidate_name": "Plapink 14116",
+          "berry_id": "berry-raspberry",
+          "denomination": "Plapink 14116",
+          "trade_name": "Pink Yaqui",
+          "breeder_code": "",
+          "display_label": "Pink Yaqui",
+          "product_url": "https://planasa.com/us/variety/pink-yaqui/"
+        },
+        {
+          "candidate_name": "Adelita",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Adelita",
+          "product_url": "https://planasa.com/us/variety/adelita/"
+        },
+        {
+          "candidate_name": "Plapink 1304",
+          "berry_id": "berry-raspberry",
+          "denomination": "Plapink 1304",
+          "trade_name": "Pink Rosita",
+          "breeder_code": "",
+          "display_label": "Pink Rosita",
+          "product_url": "https://planasa.com/us/variety/pink-rosita/"
+        },
+        {
+          "candidate_name": "Plapink 0740",
+          "berry_id": "berry-raspberry",
+          "denomination": "Plapink 0740",
+          "trade_name": "PinkRosalita",
+          "breeder_code": "",
+          "display_label": "PinkRosalita",
+          "product_url": "https://planasa.com/us/variety/pinkrosalita/"
+        },
+        {
+          "candidate_name": "Lupita",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Lupita",
+          "product_url": "https://planasa.com/us/variety/lupita/"
+        },
+        {
+          "candidate_name": "Plablack 15157",
+          "berry_id": "berry-blackberry",
+          "denomination": "Plablack 15157",
+          "trade_name": "Black Sultana",
+          "breeder_code": "",
+          "display_label": "Black Sultana",
+          "product_url": "https://planasa.com/us/variety/black-sultana/"
+        },
+        {
+          "candidate_name": "Plablack 15157",
+          "berry_id": "berry-blackberry",
+          "denomination": "Plablack 15157",
+          "trade_name": "Black Rainier",
+          "breeder_code": "",
+          "display_label": "Black Rainier",
+          "product_url": "https://planasa.com/us/variety/black-sultana-copy/"
+        },
+        {
+          "candidate_name": "Plablue 1545",
+          "berry_id": "berry-blueberry",
+          "denomination": "Plablue 1545",
+          "trade_name": "Blue Manila",
+          "breeder_code": "",
+          "display_label": "Blue Manila",
+          "product_url": "https://planasa.com/us/variety/blue-manila/"
+        },
+        {
+          "candidate_name": "Plablue 1502",
+          "berry_id": "berry-blueberry",
+          "denomination": "Plablue 1502",
+          "trade_name": "Blue Madeira",
+          "breeder_code": "",
+          "display_label": "Blue Madeira",
+          "product_url": "https://planasa.com/us/variety/blue-madeira/"
+        },
+        {
+          "candidate_name": "Plablue 1542",
+          "berry_id": "berry-blueberry",
+          "denomination": "Plablue 1542",
+          "trade_name": "Blue Maldiva",
+          "breeder_code": "",
+          "display_label": "Blue Maldiva",
+          "product_url": "https://planasa.com/us/variety/blue-maldiva/"
+        },
+        {
+          "candidate_name": "Plablue 15122",
+          "berry_id": "berry-blueberry",
+          "denomination": "Plablue 15122",
+          "trade_name": "Blue Malibu",
+          "breeder_code": "",
+          "display_label": "Blue Malibu",
+          "product_url": "https://planasa.com/us/variety/blue-malibu/"
+        },
+        {
+          "candidate_name": "Plablue 1549",
+          "berry_id": "berry-blueberry",
+          "denomination": "Plablue 1549",
+          "trade_name": "Blue Marina",
+          "breeder_code": "",
+          "display_label": "Blue Marina",
+          "product_url": "https://planasa.com/us/variety/blue-marina/"
+        },
+        {
+          "candidate_name": "Plablue 1525",
+          "berry_id": "berry-blueberry",
+          "denomination": "Plablue 1525",
+          "trade_name": "Blue Masirah",
+          "breeder_code": "",
+          "display_label": "Blue Masirah",
+          "product_url": "https://planasa.com/us/variety/blue-masirah/"
+        },
+        {
+          "candidate_name": "Plared 15121",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 15121",
+          "trade_name": "RedSayra",
+          "breeder_code": "",
+          "display_label": "RedSayra",
+          "product_url": "https://planasa.com/us/variety/redsayra/"
+        },
+        {
+          "candidate_name": "Plared 13120",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 13120",
+          "trade_name": "Red Samantha",
+          "breeder_code": "",
+          "display_label": "Red Samantha",
+          "product_url": "https://planasa.com/us/variety/red-samantha/"
+        },
+        {
+          "candidate_name": "Plared 15105",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 15105",
+          "trade_name": "Red Orizaba",
+          "breeder_code": "",
+          "display_label": "Red Orizaba",
+          "product_url": "https://planasa.com/us/variety/red-orizaba/"
+        },
+        {
+          "candidate_name": "DA50",
+          "berry_id": "berry-strawberry",
+          "denomination": "DA50",
+          "trade_name": "Dream",
+          "breeder_code": "DA50",
+          "display_label": "Dream",
+          "product_url": "https://planasa.com/us/variety/dream/"
+        },
+        {
+          "candidate_name": "Plared 13101",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 13101",
+          "trade_name": "Red Makalu",
+          "breeder_code": "",
+          "display_label": "Red Makalu",
+          "product_url": "https://planasa.com/us/variety/red-makalu/"
+        },
+        {
+          "candidate_name": "Plared 64",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 64",
+          "trade_name": "Red Himalaya",
+          "breeder_code": "",
+          "display_label": "Red Himalaya",
+          "product_url": "https://planasa.com/us/variety/red-himalaya/"
+        },
+        {
+          "candidate_name": "Plared 15107",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Plared 15107",
+          "product_url": "https://planasa.com/us/variety/plared-15107/"
+        },
+        {
+          "candidate_name": "Amandine",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Amandine",
+          "product_url": "https://planasa.com/us/variety/amandine/"
+        },
+        {
+          "candidate_name": "Sabrosa",
+          "berry_id": "berry-strawberry",
+          "denomination": "Sabrosa",
+          "trade_name": "Candonga",
+          "breeder_code": "",
+          "display_label": "Candonga",
+          "product_url": "https://planasa.com/us/variety/candonga/"
+        },
+        {
+          "candidate_name": "Daroyal",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Daroyal",
+          "product_url": "https://planasa.com/us/variety/daroyal/"
+        },
+        {
+          "candidate_name": "Darselect",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Darselect",
+          "product_url": "https://planasa.com/us/variety/darselect/"
+        },
+        {
+          "candidate_name": "DA46",
+          "berry_id": "berry-strawberry",
+          "denomination": "DA46",
+          "trade_name": "Deluxe",
+          "breeder_code": "DA46",
+          "display_label": "Deluxe",
+          "product_url": "https://planasa.com/us/variety/deluxe/"
+        },
+        {
+          "candidate_name": "Plared 54",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 54",
+          "trade_name": "Diablesse",
+          "breeder_code": "",
+          "display_label": "Diablesse",
+          "product_url": "https://planasa.com/us/variety/diablesse/"
+        },
+        {
+          "candidate_name": "Donna",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Donna",
+          "product_url": "https://planasa.com/us/variety/donna/"
+        },
+        {
+          "candidate_name": "Plared 56",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 56",
+          "trade_name": "Duchesse",
+          "breeder_code": "",
+          "display_label": "Duchesse",
+          "product_url": "https://planasa.com/us/variety/duchesse/"
+        },
+        {
+          "candidate_name": "Plared 1525",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Plared 1525",
+          "product_url": "https://planasa.com/us/variety/plared-1525/"
+        },
+        {
+          "candidate_name": "Plared 1075",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 1075",
+          "trade_name": "Red Sayma",
+          "breeder_code": "",
+          "display_label": "Red Sayma",
+          "product_url": "https://planasa.com/us/variety/red-sayma/"
+        },
+        {
+          "candidate_name": "Plared 0822",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 0822",
+          "trade_name": "RedSalma",
+          "breeder_code": "",
+          "display_label": "RedSalma",
+          "product_url": "https://planasa.com/us/variety/redsalma/"
+        },
+        {
+          "candidate_name": "Plared 0639",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 0639",
+          "trade_name": "RedSara",
+          "breeder_code": "",
+          "display_label": "RedSara",
+          "product_url": "https://planasa.com/us/variety/redsara/"
+        },
+        {
+          "candidate_name": "Sabrina",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Sabrina",
+          "product_url": "https://planasa.com/us/variety/sabrina/"
+        },
+        {
+          "candidate_name": "Plared 0955",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 0955",
+          "trade_name": "Savana",
+          "breeder_code": "",
+          "display_label": "Savana",
+          "product_url": "https://planasa.com/us/variety/savana/"
+        },
+        {
+          "candidate_name": "Plared 0949",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 0949",
+          "trade_name": "Sayulita",
+          "breeder_code": "",
+          "display_label": "Sayulita",
+          "product_url": "https://planasa.com/us/variety/sayulita/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 53,
+        "exclusions": [
+          {
+            "label": "Baby Endive",
+            "url": "https://planasa.com/us/variety/baby-endive/",
+            "reason": "Non-berry product: endivies"
+          },
+          {
+            "label": "Cipres",
+            "url": "https://planasa.com/us/variety/cipres/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Curly Endive",
+            "url": "https://planasa.com/us/variety/curly-endive/",
+            "reason": "Non-berry product: endivies"
+          },
+          {
+            "label": "Darbella",
+            "url": "https://planasa.com/us/variety/darbella/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Dariana",
+            "url": "https://planasa.com/us/variety/dariana/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Darlise",
+            "url": "https://planasa.com/us/variety/darlise/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Darvador",
+            "url": "https://planasa.com/us/variety/darvador/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Darzilla",
+            "url": "https://planasa.com/us/variety/darzilla/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Garcúa",
+            "url": "https://planasa.com/us/variety/garcua/",
+            "reason": "Non-berry product: garlic"
+          },
+          {
+            "label": "Gardacho",
+            "url": "https://planasa.com/us/variety/gardacho/",
+            "reason": "Non-berry product: garlic"
+          },
+          {
+            "label": "Gardos",
+            "url": "https://planasa.com/us/variety/gardos/",
+            "reason": "Non-berry product: garlic"
+          },
+          {
+            "label": "Garpek",
+            "url": "https://planasa.com/us/variety/garpek/",
+            "reason": "Non-berry product: garlic"
+          },
+          {
+            "label": "Placosesp",
+            "url": "https://planasa.com/us/variety/placosesp/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Red Endive",
+            "url": "https://planasa.com/us/variety/red-endive/",
+            "reason": "Non-berry product: endivies"
+          },
+          {
+            "label": "White Endive",
+            "url": "https://planasa.com/us/variety/white-endive/",
+            "reason": "Non-berry product: endivies"
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-planasa-es-products",
+      "title": "Planasa — Spanish product catalog",
+      "url": "https://planasa.com/es/tienda-2/",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "berry_ids": [
+        "berry-blackberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T08:45:33+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "breeder_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 54 live shop product cards, including explicit exclusions. Berry categories are read from product cards; uncategorized Spanish labels use matching US cards only where both label and code agree.",
+      "limitations": "Product cards are source assertions, not approved aliases or roles. US Black Rainier repeats the Black Sultana code, while the Spanish card uses a different code. Keep both readings unresolved. Winter labeling is not a second proven cultivar. Regional listings are not planted footprints. Demoiselle remains excluded pending a clear species source.",
+      "names": [
+        {
+          "candidate_name": "Plared 18009",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Plared 18009",
+          "product_url": "https://planasa.com/es/variedad/plared-18009-5/"
+        },
+        {
+          "candidate_name": "Plapink 14103",
+          "berry_id": "berry-raspberry",
+          "denomination": "Plapink 14103",
+          "trade_name": "Pink Hudson (WINTER)",
+          "breeder_code": "",
+          "display_label": "Pink Hudson (WINTER)",
+          "product_url": "https://planasa.com/es/variedad/pink-hudson-2/"
+        },
+        {
+          "candidate_name": "Plapink 16130",
+          "berry_id": "berry-raspberry",
+          "denomination": "Plapink 16130",
+          "trade_name": "Pink Loira",
+          "breeder_code": "",
+          "display_label": "Pink Loira",
+          "product_url": "https://planasa.com/es/variedad/pink-loira/"
+        },
+        {
+          "candidate_name": "Plapink 14103",
+          "berry_id": "berry-raspberry",
+          "denomination": "Plapink 14103",
+          "trade_name": "Pink Hudson",
+          "breeder_code": "",
+          "display_label": "Pink Hudson",
+          "product_url": "https://planasa.com/es/variedad/pink-hudson/"
+        },
+        {
+          "candidate_name": "Plapink 14116",
+          "berry_id": "berry-raspberry",
+          "denomination": "Plapink 14116",
+          "trade_name": "Pink Yaqui",
+          "breeder_code": "",
+          "display_label": "Pink Yaqui",
+          "product_url": "https://planasa.com/es/variedad/plapink-14116/"
+        },
+        {
+          "candidate_name": "Adelita",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Adelita",
+          "product_url": "https://planasa.com/es/variedad/adelita/"
+        },
+        {
+          "candidate_name": "Plapink 1304",
+          "berry_id": "berry-raspberry",
+          "denomination": "Plapink 1304",
+          "trade_name": "Pink Rosita",
+          "breeder_code": "",
+          "display_label": "Pink Rosita",
+          "product_url": "https://planasa.com/es/variedad/pink-rosita/"
+        },
+        {
+          "candidate_name": "Plapink 0740",
+          "berry_id": "berry-raspberry",
+          "denomination": "Plapink 0740",
+          "trade_name": "PinkRosalita",
+          "breeder_code": "",
+          "display_label": "PinkRosalita",
+          "product_url": "https://planasa.com/es/variedad/pinkrosalita/"
+        },
+        {
+          "candidate_name": "Lupita",
+          "berry_id": "berry-raspberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Lupita",
+          "product_url": "https://planasa.com/es/variedad/lupita/"
+        },
+        {
+          "candidate_name": "Plablack 15157",
+          "berry_id": "berry-blackberry",
+          "denomination": "Plablack 15157",
+          "trade_name": "Black Sultana",
+          "breeder_code": "",
+          "display_label": "Black Sultana",
+          "product_url": "https://planasa.com/es/variedad/black-sultana/"
+        },
+        {
+          "candidate_name": "Black Yosemite",
+          "berry_id": "berry-blackberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Black Yosemite",
+          "product_url": "https://planasa.com/es/variedad/black-yosemite/"
+        },
+        {
+          "candidate_name": "Plablack 1939",
+          "berry_id": "berry-blackberry",
+          "denomination": "Plablack 1939",
+          "trade_name": "Black Iguazú",
+          "breeder_code": "",
+          "display_label": "Black Iguazú",
+          "product_url": "https://planasa.com/es/variedad/black-iguazu/"
+        },
+        {
+          "candidate_name": "Plablack 1737",
+          "berry_id": "berry-blackberry",
+          "denomination": "Plablack 1737",
+          "trade_name": "Black Rainier",
+          "breeder_code": "",
+          "display_label": "Black Rainier",
+          "product_url": "https://planasa.com/es/variedad/black-rainier/"
+        },
+        {
+          "candidate_name": "Plablue 1545",
+          "berry_id": "berry-blueberry",
+          "denomination": "Plablue 1545",
+          "trade_name": "Blue Manila",
+          "breeder_code": "",
+          "display_label": "Blue Manila",
+          "product_url": "https://planasa.com/es/variedad/blue-manila/"
+        },
+        {
+          "candidate_name": "Plablue 1502",
+          "berry_id": "berry-blueberry",
+          "denomination": "Plablue 1502",
+          "trade_name": "Blue Madeira",
+          "breeder_code": "",
+          "display_label": "Blue Madeira",
+          "product_url": "https://planasa.com/es/variedad/blue-madeira/"
+        },
+        {
+          "candidate_name": "Plablue 1542",
+          "berry_id": "berry-blueberry",
+          "denomination": "Plablue 1542",
+          "trade_name": "Blue Maldiva",
+          "breeder_code": "",
+          "display_label": "Blue Maldiva",
+          "product_url": "https://planasa.com/es/variedad/blue-maldiva/"
+        },
+        {
+          "candidate_name": "Plablue 15122",
+          "berry_id": "berry-blueberry",
+          "denomination": "Plablue 15122",
+          "trade_name": "Blue Malibu",
+          "breeder_code": "",
+          "display_label": "Blue Malibu",
+          "product_url": "https://planasa.com/es/variedad/blue-malibu/"
+        },
+        {
+          "candidate_name": "Plablue 1549",
+          "berry_id": "berry-blueberry",
+          "denomination": "Plablue 1549",
+          "trade_name": "Blue Marina",
+          "breeder_code": "",
+          "display_label": "Blue Marina",
+          "product_url": "https://planasa.com/es/variedad/blue-marina/"
+        },
+        {
+          "candidate_name": "Plablue 1525",
+          "berry_id": "berry-blueberry",
+          "denomination": "Plablue 1525",
+          "trade_name": "Blue Masirah",
+          "breeder_code": "",
+          "display_label": "Blue Masirah",
+          "product_url": "https://planasa.com/es/variedad/blue-masirah/"
+        },
+        {
+          "candidate_name": "Plared 15121",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 15121",
+          "trade_name": "RedSayra",
+          "breeder_code": "",
+          "display_label": "RedSayra",
+          "product_url": "https://planasa.com/es/variedad/redsayra/"
+        },
+        {
+          "candidate_name": "Plared 13120",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 13120",
+          "trade_name": "Red Samantha",
+          "breeder_code": "",
+          "display_label": "Red Samantha",
+          "product_url": "https://planasa.com/es/variedad/red-samantha/"
+        },
+        {
+          "candidate_name": "Plared 15105",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 15105",
+          "trade_name": "Red Orizaba",
+          "breeder_code": "",
+          "display_label": "Red Orizaba",
+          "product_url": "https://planasa.com/es/variedad/plared-15105/"
+        },
+        {
+          "candidate_name": "DA50",
+          "berry_id": "berry-strawberry",
+          "denomination": "DA50",
+          "trade_name": "Dream",
+          "breeder_code": "DA50",
+          "display_label": "Dream",
+          "product_url": "https://planasa.com/es/variedad/dream/"
+        },
+        {
+          "candidate_name": "Amandine",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Amandine",
+          "product_url": "https://planasa.com/es/variedad/amandine/"
+        },
+        {
+          "candidate_name": "Sabrosa",
+          "berry_id": "berry-strawberry",
+          "denomination": "Sabrosa",
+          "trade_name": "Candonga",
+          "breeder_code": "",
+          "display_label": "Candonga",
+          "product_url": "https://planasa.com/es/variedad/candonga/"
+        },
+        {
+          "candidate_name": "Daroyal",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Daroyal",
+          "product_url": "https://planasa.com/es/variedad/daroyal/"
+        },
+        {
+          "candidate_name": "Darselect",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Darselect",
+          "product_url": "https://planasa.com/es/variedad/darselect/"
+        },
+        {
+          "candidate_name": "DA46",
+          "berry_id": "berry-strawberry",
+          "denomination": "DA46",
+          "trade_name": "Deluxe",
+          "breeder_code": "DA46",
+          "display_label": "Deluxe",
+          "product_url": "https://planasa.com/es/variedad/deluxe/"
+        },
+        {
+          "candidate_name": "Plared 54",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 54",
+          "trade_name": "Diablesse",
+          "breeder_code": "",
+          "display_label": "Diablesse",
+          "product_url": "https://planasa.com/es/variedad/diablesse/"
+        },
+        {
+          "candidate_name": "Donna",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Donna",
+          "product_url": "https://planasa.com/es/variedad/donna/"
+        },
+        {
+          "candidate_name": "Plared 56",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 56",
+          "trade_name": "Duchesse",
+          "breeder_code": "",
+          "display_label": "Duchesse",
+          "product_url": "https://planasa.com/es/variedad/duchesse/"
+        },
+        {
+          "candidate_name": "Plared 1525",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Plared 1525",
+          "product_url": "https://planasa.com/es/variedad/plared-1525/"
+        },
+        {
+          "candidate_name": "Plared 1075",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 1075",
+          "trade_name": "Red Sayma",
+          "breeder_code": "",
+          "display_label": "Red Sayma",
+          "product_url": "https://planasa.com/es/variedad/red-sayma/"
+        },
+        {
+          "candidate_name": "Plared 0822",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 0822",
+          "trade_name": "RedSalma",
+          "breeder_code": "",
+          "display_label": "RedSalma",
+          "product_url": "https://planasa.com/es/variedad/redsalma/"
+        },
+        {
+          "candidate_name": "Plared 0639",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 0639",
+          "trade_name": "RedSara",
+          "breeder_code": "",
+          "display_label": "RedSara",
+          "product_url": "https://planasa.com/es/variedad/redsara/"
+        },
+        {
+          "candidate_name": "Sabrina",
+          "berry_id": "berry-strawberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Sabrina",
+          "product_url": "https://planasa.com/es/variedad/sabrina/"
+        },
+        {
+          "candidate_name": "Plared 0955",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 0955",
+          "trade_name": "Savana",
+          "breeder_code": "",
+          "display_label": "Savana",
+          "product_url": "https://planasa.com/es/variedad/savana/"
+        },
+        {
+          "candidate_name": "Plared 0949",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 0949",
+          "trade_name": "Sayulita",
+          "breeder_code": "",
+          "display_label": "Sayulita",
+          "product_url": "https://planasa.com/es/variedad/sayulita/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 54,
+        "exclusions": [
+          {
+            "label": "Demoiselle",
+            "url": "https://planasa.com/es/variedad/demoiselle-4/",
+            "reason": "Species is not established by the captured card; needs a species check."
+          },
+          {
+            "label": "Endibia baby",
+            "url": "https://planasa.com/es/variedad/endibia-baby/",
+            "reason": "Non-berry product: endibia"
+          },
+          {
+            "label": "Cipres",
+            "url": "https://planasa.com/es/variedad/cipres/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Endibia rizada",
+            "url": "https://planasa.com/es/variedad/endibia-rizada/",
+            "reason": "Non-berry product: endibia"
+          },
+          {
+            "label": "Darbella",
+            "url": "https://planasa.com/es/variedad/darbella/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Dariana",
+            "url": "https://planasa.com/es/variedad/dariana/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Darlise",
+            "url": "https://planasa.com/es/variedad/darlise/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Darvador",
+            "url": "https://planasa.com/es/variedad/darvador/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Darzilla",
+            "url": "https://planasa.com/es/variedad/darzilla/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Garcúa",
+            "url": "https://planasa.com/es/variedad/garcua/",
+            "reason": "Non-berry product: garlic"
+          },
+          {
+            "label": "Gardacho",
+            "url": "https://planasa.com/es/variedad/gardacho/",
+            "reason": "Non-berry product: garlic"
+          },
+          {
+            "label": "Gardos",
+            "url": "https://planasa.com/es/variedad/gardos/",
+            "reason": "Non-berry product: garlic"
+          },
+          {
+            "label": "Garpek",
+            "url": "https://planasa.com/es/variedad/garpek/",
+            "reason": "Non-berry product: garlic"
+          },
+          {
+            "label": "Placosesp",
+            "url": "https://planasa.com/es/variedad/placosesp/",
+            "reason": "Non-berry product: asparagus"
+          },
+          {
+            "label": "Endibia roja",
+            "url": "https://planasa.com/es/variedad/endibia-roja/",
+            "reason": "Non-berry product: endibia"
+          },
+          {
+            "label": "Endibia blanca",
+            "url": "https://planasa.com/es/variedad/endibia-blanca/",
+            "reason": "Non-berry product: endibia"
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-oregon-blueberry-products",
+      "title": "Oregon Blueberry nursery — expanded blueberry catalog",
+      "url": "https://www.oblueberry.com/varieties/",
+      "company_ids": [
+        "company-oregon-blueberry"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-07",
+      "observed_at": "2026-10-07T08:45:33+00:00",
+      "capture_status": "names_enumerated",
+      "source_type": "nursery_catalog",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 36 cards after repeatedly loading more until the load-more control disappeared.",
+      "limitations": "Nursery listings include public and partner varieties; no breeder, owner or licensing role is inferred. This completes the visible page pagination, not the entire historic nursery catalog or its flipbook. Codes are transcribed literally; punctuation differences need review.",
+      "names": [
+        {
+          "candidate_name": "OBG-18064",
+          "berry_id": "berry-blueberry",
+          "denomination": "OBG-18064",
+          "trade_name": "OBG-Astoria",
+          "breeder_code": "OBG-18064",
+          "display_label": "OBG-Astoria",
+          "product_url": "https://www.oblueberry.com/variety/obg-astoria-obg-18064/"
+        },
+        {
+          "candidate_name": "OBG-20062",
+          "berry_id": "berry-blueberry",
+          "denomination": "OBG-20062",
+          "trade_name": "OBG-Belair",
+          "breeder_code": "OBG-20062",
+          "display_label": "OBG-Belair",
+          "product_url": "https://www.oblueberry.com/variety/obg-belair/"
+        },
+        {
+          "candidate_name": "OBG-16252",
+          "berry_id": "berry-blueberry",
+          "denomination": "OBG-16252",
+          "trade_name": "OBG-Raptor",
+          "breeder_code": "OBG-16252",
+          "display_label": "OBG-Raptor",
+          "product_url": "https://www.oblueberry.com/variety/raptor/"
+        },
+        {
+          "candidate_name": "OBG-20010",
+          "berry_id": "berry-blueberry",
+          "denomination": "OBG-20010",
+          "trade_name": "OBG-Sirocco",
+          "breeder_code": "OBG-20010",
+          "display_label": "OBG-Sirocco",
+          "product_url": "https://www.oblueberry.com/variety/obg-20010/"
+        },
+        {
+          "candidate_name": "Sentinel",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Sentinel",
+          "product_url": "https://www.oblueberry.com/variety/sentinel/"
+        },
+        {
+          "candidate_name": "FL11-51",
+          "berry_id": "berry-blueberry",
+          "denomination": "FL11-51",
+          "trade_name": "Albus",
+          "breeder_code": "FL11-51",
+          "display_label": "Albus",
+          "product_url": "https://www.oblueberry.com/variety/albus/"
+        },
+        {
+          "candidate_name": "FL07-399",
+          "berry_id": "berry-blueberry",
+          "denomination": "FL07-399",
+          "trade_name": "Arcadia",
+          "breeder_code": "FL07-399",
+          "display_label": "Arcadia",
+          "product_url": "https://www.oblueberry.com/variety/arcadia/"
+        },
+        {
+          "candidate_name": "FL06-203",
+          "berry_id": "berry-blueberry",
+          "denomination": "FL06-203",
+          "trade_name": "Avanti",
+          "breeder_code": "FL06-203",
+          "display_label": "Avanti",
+          "product_url": "https://www.oblueberry.com/variety/avanti/"
+        },
+        {
+          "candidate_name": "Biloxi",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Biloxi",
+          "product_url": "https://www.oblueberry.com/variety/biloxi/"
+        },
+        {
+          "candidate_name": "Bluecrop",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Bluecrop",
+          "product_url": "https://www.oblueberry.com/variety/bluecrop/"
+        },
+        {
+          "candidate_name": "Bluejay",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Bluejay",
+          "product_url": "https://www.oblueberry.com/variety/bluejay/"
+        },
+        {
+          "candidate_name": "Calypso",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Calypso",
+          "product_url": "https://www.oblueberry.com/variety/calypso/"
+        },
+        {
+          "candidate_name": "TH-621",
+          "berry_id": "berry-blueberry",
+          "denomination": "TH-621",
+          "trade_name": "Camellia",
+          "breeder_code": "TH-621",
+          "display_label": "Camellia",
+          "product_url": "https://www.oblueberry.com/variety/camellia/"
+        },
+        {
+          "candidate_name": "Chandler",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Chandler",
+          "product_url": "https://www.oblueberry.com/variety/chandler/"
+        },
+        {
+          "candidate_name": "Colossus",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Colossus",
+          "product_url": "https://www.oblueberry.com/variety/colossus/"
+        },
+        {
+          "candidate_name": "Columbus",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Columbus",
+          "product_url": "https://www.oblueberry.com/variety/columbus/"
+        },
+        {
+          "candidate_name": "Duke",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Duke",
+          "product_url": "https://www.oblueberry.com/variety/duke/"
+        },
+        {
+          "candidate_name": "Elliott",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Elliott",
+          "product_url": "https://www.oblueberry.com/variety/elliott/"
+        },
+        {
+          "candidate_name": "FL06-377",
+          "berry_id": "berry-blueberry",
+          "denomination": "FL06-377",
+          "trade_name": "Endura",
+          "breeder_code": "FL06-377",
+          "display_label": "Endura",
+          "product_url": "https://www.oblueberry.com/variety/endura/"
+        },
+        {
+          "candidate_name": "Falcon",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Falcon",
+          "product_url": "https://www.oblueberry.com/variety/falcon/"
+        },
+        {
+          "candidate_name": "FL98-325",
+          "berry_id": "berry-blueberry",
+          "denomination": "FL98-325",
+          "trade_name": "Indigocrisp",
+          "breeder_code": "FL98-325",
+          "display_label": "Indigocrisp",
+          "product_url": "https://www.oblueberry.com/variety/indigocrisp/"
+        },
+        {
+          "candidate_name": "FL02-40",
+          "berry_id": "berry-blueberry",
+          "denomination": "FL02-40",
+          "trade_name": "Kestrel",
+          "breeder_code": "FL02-40",
+          "display_label": "Kestrel",
+          "product_url": "https://www.oblueberry.com/variety/kestrel/"
+        },
+        {
+          "candidate_name": "T-1101",
+          "berry_id": "berry-blueberry",
+          "denomination": "T-1101",
+          "trade_name": "Krewer",
+          "breeder_code": "",
+          "display_label": "Krewer",
+          "product_url": "https://www.oblueberry.com/variety/krewer/"
+        },
+        {
+          "candidate_name": "Legacy",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Legacy",
+          "product_url": "https://www.oblueberry.com/variety/legacy/"
+        },
+        {
+          "candidate_name": "FL01-173",
+          "berry_id": "berry-blueberry",
+          "denomination": "FL01-173",
+          "trade_name": "Meadowlark",
+          "breeder_code": "FL01-173",
+          "display_label": "Meadowlark",
+          "product_url": "https://www.oblueberry.com/variety/meadowlark/"
+        },
+        {
+          "candidate_name": "OBF0604",
+          "berry_id": "berry-blueberry",
+          "denomination": "OBF0604",
+          "trade_name": "MegasBlue",
+          "breeder_code": "OBF0604",
+          "display_label": "MegasBlue",
+          "product_url": "https://www.oblueberry.com/variety/megasblue/"
+        },
+        {
+          "candidate_name": "Mini Blues",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Mini Blues",
+          "product_url": "https://www.oblueberry.com/variety/mini-blues/"
+        },
+        {
+          "candidate_name": "New Hanover",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "New Hanover",
+          "product_url": "https://www.oblueberry.com/variety/new-hanover/"
+        },
+        {
+          "candidate_name": "O’Neal",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "O’Neal",
+          "product_url": "https://www.oblueberry.com/variety/oneal/"
+        },
+        {
+          "candidate_name": "Osorno",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Osorno",
+          "product_url": "https://www.oblueberry.com/variety/osorno/"
+        },
+        {
+          "candidate_name": "Pink Lemonade",
+          "berry_id": "berry-blueberry",
+          "denomination": "",
+          "trade_name": "",
+          "breeder_code": "",
+          "display_label": "Pink Lemonade",
+          "product_url": "https://www.oblueberry.com/variety/pink-lemonade/"
+        },
+        {
+          "candidate_name": "TH-642",
+          "berry_id": "berry-blueberry",
+          "denomination": "TH-642",
+          "trade_name": "Rebel",
+          "breeder_code": "TH-642",
+          "display_label": "Rebel",
+          "product_url": "https://www.oblueberry.com/variety/rebel/"
+        },
+        {
+          "candidate_name": "TH-730",
+          "berry_id": "berry-blueberry",
+          "denomination": "TH-730",
+          "trade_name": "Suziblue",
+          "breeder_code": "TH-730",
+          "display_label": "Suziblue",
+          "product_url": "https://www.oblueberry.com/variety/suziblue/"
+        },
+        {
+          "candidate_name": "T-959",
+          "berry_id": "berry-blueberry",
+          "denomination": "T-959",
+          "trade_name": "Titan",
+          "breeder_code": "",
+          "display_label": "Titan",
+          "product_url": "https://www.oblueberry.com/variety/titan/"
+        },
+        {
+          "candidate_name": "OBF0622",
+          "berry_id": "berry-blueberry",
+          "denomination": "OBF0622",
+          "trade_name": "Titanium",
+          "breeder_code": "OBF0622",
+          "display_label": "Titanium",
+          "product_url": "https://www.oblueberry.com/variety/titanium/"
+        },
+        {
+          "candidate_name": "T-584",
+          "berry_id": "berry-blueberry",
+          "denomination": "T-584",
+          "trade_name": "Vernon",
+          "breeder_code": "",
+          "display_label": "Vernon",
+          "product_url": "https://www.oblueberry.com/variety/vernon/"
+        }
+      ],
+      "accounting": {
+        "observed_items": 36,
+        "exclusions": []
+      },
+      "company_site_note": {
+        "company_id": "company-oregon-blueberry",
+        "stored_url": "https://oregonblueberry.com/",
+        "suggested_url": "https://www.oblueberry.com/",
+        "reason": "The saved website belongs to Oregon Blueberry Commission. This portfolio is the Oregon Blueberry nursery site. Company profile correction still needs review; no saved field was overwritten.",
+        "reference_url": "https://oregonblueberry.com/"
+      }
+    }
+  ]
+}

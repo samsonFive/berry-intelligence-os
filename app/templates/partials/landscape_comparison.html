@@ -1,0 +1,16 @@
+<div class="lx-section-heading"><h2>Two crop landscapes, one scope</h2><span>{{ bundle.common_actor_ids|length }} shared companies / programs</span></div>
+<p class="lx-muted">Companies and programs linked to both crops are highlighted. Varieties remain separate; a company's location does not prove a cultivar grows there. Open a role to check its sources.</p>
+<div class="lx-comparison">
+{% for crop in bundle.crop_scopes %}<section class="lx-crop-panel" aria-label="{{ crop.label }} landscape comparison">
+  <header><h3>{{ crop.label }}</h3><p>{{ crop.coverage.relationships }} links · {{ crop.coverage.sources }} sources</p><a href="{{ crop.url }}" data-crop-link="{{ crop.id }}">Open crop landscape →</a></header>
+  <div class="lx-table-scroll"><table><thead><tr><th>Company / program</th><th>Genetics roles & places</th></tr></thead><tbody>
+  {% for node in bundle.nodes.values() if node.id in crop.node_ids and node.id in crop.visible_ids and node.type in ['company','breeding_program'] %}
+  <tr data-node="{{ node.id }}"{% if node.id in bundle.common_actor_ids %} class="lx-common-actor"{% endif %}><th>{{ endpoint(node.id) }}{% if node.id in bundle.common_actor_ids %}<small class="lx-crop-tag">{{ 'Shared program' if node.type == 'breeding_program' else 'Shared company' }}</small>{% endif %}{% if node.identity_note %}<small>{{ node.identity_note }}</small>{% endif %}</th><td>
+  {% for edge in bundle.edges if edge.id in crop.edge_ids and node.id in [edge.subject_id,edge.object_id] %}<button type="button" class="lx-edge lx-mini-edge {{ edge.status }}" data-edge="{{ edge.id }}">{% if edge.subject_id == node.id %}{{ edge.role }} → {{ bundle.nodes[edge.object_id].label }}{% else %}{{ edge.label }}{% endif %}{% if edge.status != 'active' %}<small>{{ edge.status_label }}</small>{% endif %}{% if edge.caveat %}<small>{{ edge.caveat }}</small>{% endif %}</button>{% endfor %}
+  </td></tr>{% else %}<tr><td colspan="2">No sourced company or program connections match this crop and scope. Try all countries or clear another filter.</td></tr>{% endfor %}
+  </tbody></table></div>
+  <details class="lx-table-disclosure"><summary>Connected catalog varieties</summary><div class="lx-variety-chips">{% for node in bundle.nodes.values() if node.id in crop.node_ids and node.id in crop.visible_ids and node.type == 'variety' %}{{ endpoint(node.id) }}{% else %}<small>No catalog varieties are visible in this scope.</small>{% endfor %}</div></details>
+  {% if crop.coverage.truncated_display %}<p>{{ crop.coverage.hidden_nodes }} nodes / {{ crop.coverage.hidden_relationships }} links hidden in this panel. <a href="{{ href(f, limit=f.limit + 100) }}">Show more →</a></p>{% endif %}
+  <footer>{{ crop.coverage.genetic_location_links }} direct variety / program location links. Company locations do not establish where varieties grow.</footer>
+</section>{% endfor %}
+</div>

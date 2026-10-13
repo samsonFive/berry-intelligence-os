@@ -1,0 +1,131 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-usda-keepsake-2019-news",
+      "title": "USDA ARS - Keepsake strawberry release news and labeled photos",
+      "url": "https://www.ars.usda.gov/news-events/news/research-news/2019/a-new-ars-strawberry-is-a-keepsake/",
+      "checked_on": "2026-10-07",
+      "published_date": "2019-12-09",
+      "company_ids": [
+        "company-usda"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "official_release",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "The focal Keepsake release and explicitly named prior USDA Flavorfest release in this news article. Four comparison cultivars remain exclusions from this release scope.",
+      "limitations": "Bounded news article, not complete Beltsville portfolio. Keepsake strawberry is not the catalog Keepsake blueberry or its breeder code. No release date, patent, trait, role, growing region or identity is approved. Photos were natively checked; original news page does not name the photographer or record image-specific reuse. ARS Image Gallery terms are not applied automatically to news assets.",
+      "names": [
+        {
+          "candidate_name": "Keepsake",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.ars.usda.gov/news-events/news/research-news/2019/a-new-ars-strawberry-is-a-keepsake/",
+          "photos": [
+            {
+              "image_url": "https://www.ars.usda.gov/ARSUserFiles/oc/pr/2019/keepsakestrawberries191209.jpg",
+              "source_url": "https://www.ars.usda.gov/news-events/news/research-news/2019/a-new-ars-strawberry-is-a-keepsake/",
+              "credit": "USDA Agricultural Research Service · Photographer not credited",
+              "caption": "Keepsake strawberries on a vine",
+              "named_variety": "Keepsake",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Named ARS news photo, visually checked. Image-specific reuse and individual photographer credit are not established. The ARS Image Gallery policy is not automatically applied to these news assets.",
+              "checked_on": "2026-10-07",
+              "kind": "plant"
+            },
+            {
+              "image_url": "https://www.ars.usda.gov/ARSUserFiles/oc/pr/2019/keepsake191209.jpg",
+              "source_url": "https://www.ars.usda.gov/news-events/news/research-news/2019/a-new-ars-strawberry-is-a-keepsake/",
+              "credit": "USDA Agricultural Research Service · Photographer not credited",
+              "caption": "Keepsake strawberries in a container",
+              "named_variety": "Keepsake",
+              "berry_id": "berry-strawberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Named ARS news photo, visually checked. Image-specific reuse and individual photographer credit are not established. The ARS Image Gallery policy is not automatically applied to these news assets.",
+              "checked_on": "2026-10-07",
+              "kind": "fruit"
+            }
+          ]
+        },
+        {
+          "candidate_name": "Flavorfest",
+          "berry_id": "berry-strawberry",
+          "portfolio_context": "Literal prior USDA strawberry release named in the Keepsake news article. Dates, traits and parentage remain unreviewed."
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "Chandler",
+            "reason": "Comparison cultivar, outside the focal/prior USDA release scope captured here. No USDA release relationship inferred.",
+            "url": "https://www.ars.usda.gov/news-events/news/research-news/2019/a-new-ars-strawberry-is-a-keepsake/"
+          },
+          {
+            "label": "Camarosa",
+            "reason": "Comparison cultivar, outside the focal/prior USDA release scope captured here. No USDA release relationship inferred.",
+            "url": "https://www.ars.usda.gov/news-events/news/research-news/2019/a-new-ars-strawberry-is-a-keepsake/"
+          },
+          {
+            "label": "Allstar",
+            "reason": "Comparison cultivar, outside the focal/prior USDA release scope captured here. No USDA release relationship inferred.",
+            "url": "https://www.ars.usda.gov/news-events/news/research-news/2019/a-new-ars-strawberry-is-a-keepsake/"
+          },
+          {
+            "label": "Earliglow",
+            "reason": "Comparison cultivar, outside the focal/prior USDA release scope captured here. No USDA release relationship inferred.",
+            "url": "https://www.ars.usda.gov/news-events/news/research-news/2019/a-new-ars-strawberry-is-a-keepsake/"
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-fc11-164-patent-figure1",
+      "title": "USPP34903P2 - FC11-164 named patent photograph",
+      "url": "https://patents.google.com/patent/USPP34903P2/en",
+      "checked_on": "2026-10-07",
+      "published_date": "2023-01-10",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_figure_reference",
+      "capture_status": "names_enumerated",
+      "enumerated_scope": "Only the focal FC11-164 identity explicitly named in patent figure 1. This is a photo/document reference, not a full Fall Creek portfolio or official registration import.",
+      "limitations": "Existing evidence links the filing to Fall Creek; no company role, identity, alias, trait, legal status or growing region is approved. Other cultivar comparisons and parentage in the patent body are outside this figure-only scope. The native 1828x1488 figure is a grayscale reproduction of a dated trial sample, not proof of typical fruit color. Photographer and reuse permission are unestablished; publication in a patent does not automatically grant reuse. No commercial alias is inferred from handwritten labels.",
+      "names": [
+        {
+          "candidate_name": "FC11-164",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patents.google.com/patent/USPP34903P2/en",
+          "portfolio_context": "Literal code in figure 1 and its document caption. Exact catalog text association is separate from human identity or rights review.",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/1f/ee/15/8c485edf5aa8d4/USPP034903-20230110-D00001.png",
+              "source_url": "https://patents.google.com/patent/USPP34903P2/en",
+              "credit": "USPP34903P2 patent document, reproduced by Google Patents; photographer not credited",
+              "caption": "Patent figure 1: FC11-164 fruit with scale and Pantone colors; source caption places the sample in Lowell, Oregon, photographed July 30, 2020. Published figure is grayscale.",
+              "named_variety": "FC11-164",
+              "berry_id": "berry-blueberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reuse basis or permission established. Publication of a patent does not itself approve reuse of the underlying photograph. Keep held; session-only user choice remains separate from saved permission/publication.",
+              "kind": "fruit",
+              "checked_on": "2026-10-07"
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      }
+    }
+  ]
+}
