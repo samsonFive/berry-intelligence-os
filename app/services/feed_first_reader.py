@@ -391,6 +391,8 @@ def _bounded_public_response(url: str, http: httpx.Client, *, limit: int):
 
 
 def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dict[str, Any]:
+    from app.services.google_news_url import resolve_google_news_url
+    url = resolve_google_news_url(url)
     if not is_public_http_url(url):
         return empty_capture(url, reason="url-not-public")
     closer = None
@@ -400,6 +402,8 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
         closer = http
     try:
         final, raw, headers, encoding, status_code, limited = _bounded_public_response(url, http, limit=MAX_BYTES)
+        if (urlparse(final).hostname or "").casefold() in {"news.google.com", "consent.google.com", "accounts.google.com"}:
+            return empty_capture(final, reason="blocked")
         if status_code >= 400:
             capture = empty_capture(final, reason="blocked" if status_code in {401, 403, 451} else f"http-{status_code}")
             capture["status_code"] = status_code
@@ -454,7 +458,7 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
             "reason": "response-size-limit" if limited else "document-text-limit" if document_limited else "article-text-limit" if passage_limited else "" if availability != "error" else f"http-{status_code}",
             "truncated": limited or document_limited or passage_limited,
             "headline": headline,
-            "passages": passages,
+            "passages": [] if availability == "blocked" else passages,
             "heading_levels": {str(index): level for index, level in heading_levels.items()},
             "images": images,
             "content_kind": "patent" if document else "article",
@@ -550,7 +554,7 @@ def capture_item(
     item_id = str(record.get("id") or "")
     existing = load_capture(inbox_dir, item_id) if item_id else None
     matching_existing = bool(existing and existing.get("ok") and existing.get("requested_url", str(record.get("source_url") or "")) == str(record.get("source_url") or ""))
-    if matching_existing and not refresh:
+    if matching_existing and not refresh and not looks_like_interstitial(" ".join(existing.get("passages") or [])):
         return existing
     url = str(record.get("source_url") or "")
     capture = fetch_public_article(url, client=client)
@@ -649,7 +653,8 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
     if record.get("source_url") and captured_source and captured_source != record["source_url"]:
         return record
     merged = dict(record)
-    passages = display_reader_passages([str(row) for row in (capture.get("passages") or []) if str(row).strip()])
+    blocked = capture.get("availability") == "blocked" or looks_like_interstitial(" ".join(capture.get("passages") or []))
+    passages = [] if blocked else display_reader_passages([str(row) for row in (capture.get("passages") or []) if str(row).strip()])
     if passages:
         article = dict(merged.get("article") or {}) if isinstance(merged.get("article"), dict) else {}
         existing = article.get("paragraphs") if isinstance(article.get("paragraphs"), list) else []
@@ -683,7 +688,7 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
     if capture.get("content_kind"):
         merged["content_kind"] = capture.get("content_kind")
     merged["reader_capture"] = {
-        "availability": capture.get("availability"),
+        "availability": "blocked" if blocked else capture.get("availability"),
         "frame_allowed": capture.get("frame_allowed"),
         "reader_modes": capture.get("reader_modes") or ["structured_fallback"],
         "method": capture.get("method"),

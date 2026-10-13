@@ -167,10 +167,12 @@ def reader_context(request: Request, record: dict):
     from app.services.source_body import reader_content
     from app.services.news_workspace import source_reviewed, escalations
     from app.services.statement_workspace import present_statements
+    capture = None
     if main.AUTHORING_MODE:
         from app.services.source_reading import reviewed_original_for_reading
         record = reviewed_original_for_reading(record, main.INBOX_DIR)
-        record = merge_capture(record, load_capture(main.INBOX_DIR, str(record["id"])))
+        capture = load_capture(main.INBOX_DIR, str(record["id"]))
+        record = merge_capture(record, capture)
     context = main._feed_first_world() if main.AUTHORING_MODE else {"entities": main.all_entities(), "state": feed_first.empty_state()}
     entities = {str(row["id"]): row for row in context["entities"] if row.get("id")}
     card = feed_first.present_item(record, entities_by_id=entities, state=context["state"], filters=feed_first.parse_filters({}))
@@ -185,6 +187,22 @@ def reader_context(request: Request, record: dict):
     from app.services.article_structure import display_article_blocks
     article_blocks = display_article_blocks(record, paragraphs)
     card["source_url"] = card["source_url"] if is_public_http_url(card["source_url"]) else ""
+    from app.services.google_news_url import resolve_google_news_url, is_google_news_wrapper
+    source_url = card["source_url"]
+    direct_url = resolve_google_news_url(source_url)
+    if capture and (capture.get("requested_url") or capture.get("url")) == source_url:
+        final_url = str(capture.get("url") or "")
+        if is_public_http_url(final_url) and not is_google_news_wrapper(final_url) and urlsplit(final_url).hostname not in {"consent.google.com", "accounts.google.com"}:
+            direct_url = final_url
+    card["source_url"] = direct_url if is_public_http_url(direct_url) else source_url
+    card["source_link_label"] = "Open source link" if is_google_news_wrapper(card["source_url"]) else "Read original at publisher"
+    home = str(record.get("origin_publisher_url") or "")
+    card["publisher_home_url"] = home if is_public_http_url(home) and home != card["source_url"] and is_google_news_wrapper(card["source_url"]) else ""
+    if not card["publisher_home_url"] and is_google_news_wrapper(card["source_url"]):
+        source = next((row for row in main.load_sources() if row.get("id") == record.get("source_id")), {})
+        home = str(source.get("url") or "")
+        if is_public_http_url(home) and not is_google_news_wrapper(home):
+            card["publisher_home_url"] = home
     entry = ((analyst_queue.load_state(main.INBOX_DIR).get("reading") or {}).get(str(record["id"])) or {}) if main.AUTHORING_MODE else {}
     statement_reviews = present_statements(card["statements"], {str(record["id"]): record}, context["entities"], return_to="/statements") if main.AUTHORING_MODE else []
     article_varieties = []
@@ -221,7 +239,9 @@ def digest_capture(request: Request, item_id: str):
         capture = capture_item(main.INBOX_DIR, record)
     view = reader_context(request, record)
     if isinstance(capture, dict) and not capture.get("ok"):
-        view["capture_message"] = "Source text could not be loaded. Any previously captured text is still shown; you can try again or read at the publisher."
+        view["capture_message"] = ("The source returned a consent or access page instead of article text. Use the source links above to read it."
+                                   if capture.get("availability") == "blocked" else
+                                   "Source text could not be loaded. Any previously captured text is still shown; use the source links above or try again.")
     return main.templates.TemplateResponse(request=request, name="_personal_reader.html", context=view)
 
 

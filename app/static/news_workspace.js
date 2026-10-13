@@ -34,25 +34,36 @@
   });
   var button = document.querySelector('[data-news-refresh]'), status = document.querySelector('[data-news-refresh-status]');
   var timer;
+  var refreshDeadline;
   function poll() {
-    fetch('/api/news/refresh', {credentials: 'same-origin'}).then(function (res) {
+    fetch('/api/news/refresh', {credentials: 'same-origin', cache: 'no-store'}).then(function (res) {
       if (!res.ok) throw new Error('Could not check refresh status.');
       return res.json();
     }).then(function (state) {
-      if (state.status === 'queued' || state.status === 'running') {
+      if (!state.status || state.status === 'queued' || state.status === 'running') {
+        if (Date.now() > refreshDeadline) {
+          button.disabled = false;
+          status.textContent = 'News is taking longer than expected. Try refreshing again.';
+          return;
+        }
         status.textContent = 'Checking public news sources…';
         timer = setTimeout(poll, 2500);
       } else {
         button.disabled = false;
         status.textContent = state.message || 'Refresh finished.';
         if (state.status === 'ready' || state.status === 'partial') {
-          var link = document.createElement('a'); link.href = window.location.href;
-          link.textContent = ' Show updated feed'; status.appendChild(link);
+          status.textContent = 'Showing updated news…';
+          var latest = new URL(window.location.href);
+          latest.searchParams.delete('page');
+          latest.searchParams.delete('story');
+          latest.searchParams.delete('item');
+          window.location.replace(latest.toString());
         }
       }
     }).catch(function (error) { button.disabled = false; status.textContent = error.message; });
   }
   if (button) button.addEventListener('click', function () {
+    refreshDeadline = Date.now() + 600000;
     button.disabled = true; status.textContent = 'Starting news capture…';
     fetch('/api/news/refresh', {method: 'POST', credentials: 'same-origin'}).then(function (res) {
       if (!res.ok) throw new Error('News refresh could not start. Try again.');

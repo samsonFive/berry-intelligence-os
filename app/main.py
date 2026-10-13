@@ -1245,7 +1245,11 @@ async def login_submit(
             username=presented_username,
             error=LOGIN_THROTTLED,
         )
-    if credentials_match(presented_username, password):
+    from app.services.analyst_accounts import account_credentials_match, first_login_destination
+    operator_login = credentials_match(presented_username, password)
+    if operator_login or account_credentials_match(INBOX_DIR, presented_username, password):
+        if not operator_login:
+            destination = first_login_destination(INBOX_DIR, presented_username, destination)
         establish_session(request, presented_username)
         clear_login_failures(request)
         return RedirectResponse(url=destination, status_code=303)

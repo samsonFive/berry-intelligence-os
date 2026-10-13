@@ -4,6 +4,32 @@ This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.
 
+## October 13 live usability feedback
+
+Platform #398 is now released on the live site. The following additional user
+requests are tracked independently of catalog #400 and the retained 31
+requirements below; no existing requirement or human gate is removed.
+See [daily usability fixes](NEWS-ACCESS-USABILITY-FIXES.md).
+
+- [x] Implement additional analyst login and first-successful-login Help while
+  retaining the existing operator account. The requested new account is staged
+  privately with a hash; no plaintext credential enters the repository.
+- [ ] After this candidate passes current-head CI and release review, install
+  Chris.H additively on the live host and verify first-login Help.
+- [x] One-click News capture automatically displays the newest matching feed;
+  scope is preserved. Native isolated browser proof and four JavaScript
+  completion/error/timeout scenarios are recorded privately.
+- [x] Exclude Google consent pages from new and stored Reader content; show
+  clearly labeled source and available publisher links with a readable summary
+  when original article text cannot be recovered.
+- [x] Fix measured repeated News metadata/relevance work: identical 784 matches
+  over 1,270 local review records, 2.630 s to 0.478 s on the warmed data path.
+- [ ] Release this candidate after review; validate live response times and
+  account/source behavior. No new deployment has occurred for these changes.
+- [ ] Separate follow-ups: wider performance budgets and job contention;
+  publisher-resolution/capture coverage; per-user preferences/digests, roles and
+  account administration. Current analyst state remains shared.
+
 ## Current release review — October 13 UTC, 2026
 
 The combined review is reconciled onto canonical `642bc556`, retaining the merged
