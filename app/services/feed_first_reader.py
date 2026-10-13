@@ -391,6 +391,8 @@ def _bounded_public_response(url: str, http: httpx.Client, *, limit: int):
 
 
 def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dict[str, Any]:
+    if not is_public_http_url(url):
+        return empty_capture(url, reason="url-not-public")
     from app.services.google_news_url import resolve_google_news_url
     url = resolve_google_news_url(url)
     if not is_public_http_url(url):
@@ -544,6 +546,12 @@ def load_captures(inbox_dir: Path) -> dict[str, dict[str, Any]]:
     return out
 
 
+def _capture_passages(capture: dict[str, Any] | None) -> list[str]:
+    """Malformed saved artifacts are unavailable, never stringified as prose."""
+    rows = (capture or {}).get("passages")
+    return rows if isinstance(rows, list) and all(isinstance(row, str) for row in rows) else []
+
+
 def capture_item(
     inbox_dir: Path,
     record: dict[str, Any],
@@ -554,7 +562,7 @@ def capture_item(
     item_id = str(record.get("id") or "")
     existing = load_capture(inbox_dir, item_id) if item_id else None
     matching_existing = bool(existing and existing.get("ok") and existing.get("requested_url", str(record.get("source_url") or "")) == str(record.get("source_url") or ""))
-    if matching_existing and not refresh and not looks_like_interstitial(" ".join(existing.get("passages") or [])):
+    if matching_existing and not refresh and _capture_passages(existing) and not looks_like_interstitial(" ".join(_capture_passages(existing))):
         return existing
     url = str(record.get("source_url") or "")
     capture = fetch_public_article(url, client=client)
@@ -653,8 +661,9 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
     if record.get("source_url") and captured_source and captured_source != record["source_url"]:
         return record
     merged = dict(record)
-    blocked = capture.get("availability") == "blocked" or looks_like_interstitial(" ".join(capture.get("passages") or []))
-    passages = [] if blocked else display_reader_passages([str(row) for row in (capture.get("passages") or []) if str(row).strip()])
+    saved_passages = _capture_passages(capture)
+    blocked = capture.get("availability") == "blocked" or looks_like_interstitial(" ".join(saved_passages))
+    passages = [] if blocked else display_reader_passages([row for row in saved_passages if row.strip()])
     if passages:
         article = dict(merged.get("article") or {}) if isinstance(merged.get("article"), dict) else {}
         existing = article.get("paragraphs") if isinstance(article.get("paragraphs"), list) else []

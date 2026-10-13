@@ -52,7 +52,11 @@ same 784 matching stories and identical displayed IDs/order before and after:
 | Metadata plus feed model | 2.630 s | 1.861 s | 0.478 s |
 
 This is a local data-path comparison, not a production page-load guarantee.
-The final affected Python suite passed 142 checks. Four JavaScript refresh
+The final affected Python suite, including capture bounds and source-to-variety
+checks, passed 199 checks. Full CI initially exposed two regressions: malformed
+capture passages and malformed URL decoding. Both now fail safely as unavailable
+content; the complete required suite must pass on the corrected head.
+Four JavaScript refresh
 scenarios passed. Native isolated browser review confirms a newly captured,
 relevant story appears after one click, with its berry scope retained, and
 Google consent text is excluded from the Reader. Fixtures explicitly identify
