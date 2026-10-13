@@ -2,16 +2,19 @@
 {% if variety_original_patents %}
 <div class="variety-original-patents" aria-label="Original filing references">
   <h3>Original filing references</h3>
-  <p class="context-limit">Read the filing's wording, claims and illustrations. These unreviewed links do not confirm current rights, ownership or growing regions.</p>
+  <p class="context-limit">Open original filings and stored register references. These unreviewed links do not confirm current rights, ownership or growing regions.</p>
   <ul class="entity-links">
   {% for ref in variety_original_patents %}<li>
     <strong>{{ ref.number or ref.title }}</strong> <span class="v2-mark v2-mark-pending">Unreviewed reference</span>
-    {% if ref.published_date %}<span class="draft-meta">Published {{ ref.published_date|us_date }}</span>{% else %}<span class="draft-meta">Publication date unavailable</span>{% endif %}
-    <div><a href="{{ ref.url }}" target="_blank" rel="noopener noreferrer">Filing page ↗</a>{% if ref.claim_url %} · <a href="{{ ref.claim_url }}" target="_blank" rel="noopener noreferrer">Claims ↗</a>{% endif %}{% if ref.document_url %} · <a href="{{ ref.document_url }}" target="_blank" rel="noopener noreferrer">Original document ↗</a>{% endif %}{% if ref.figures_url %} · <a href="{{ ref.figures_url }}" target="_blank" rel="noopener noreferrer">Illustrations ↗</a>{% endif %}</div>
-    <details><summary>Document scope</summary><p>{{ ref.context }}</p><small>Source checked {{ ref.checked_on|us_date }}. Publication dates describe the filing; its current legal status is not verified.</small></details>
+    <div class="draft-meta">{{ ref.title }}</div>
+    {% if ref.reference_kind == 'register' %}<div class="draft-meta">Source captured {{ ref.checked_on|us_date }}</div>{% endif %}
+    {% if ref.published_date %}<span class="draft-meta">{{ ref.date_label }} {{ ref.published_date|us_date }}</span>{% else %}<span class="draft-meta">Recorded date unavailable</span>{% endif %}
+    {% if ref.reference_kind == 'register' %}<div class="draft-meta">{% if ref.application_number %}Application {{ ref.application_number }}{% if ref.application_date %} · Filed {{ ref.application_date|us_date }}{% endif %}{% endif %}{% if ref.grant_number %} · Grant {{ ref.grant_number }}{% endif %}</div>{% endif %}
+    <div><a href="{{ ref.url }}" target="_blank" rel="noopener noreferrer">{{ 'Register page' if ref.reference_kind == 'register' else 'Filing page' }} ↗</a>{% if ref.claim_url %} · <a href="{{ ref.claim_url }}" target="_blank" rel="noopener noreferrer">Claims ↗</a>{% endif %}{% if ref.document_url %} · <a href="{{ ref.document_url }}" target="_blank" rel="noopener noreferrer">Original document ↗</a>{% endif %}{% if ref.figures_url %} · <a href="{{ ref.figures_url }}" target="_blank" rel="noopener noreferrer">Illustrations ↗</a>{% endif %}</div>
+    <details><summary>Document scope</summary><p>{{ ref.context }}</p><small>Source checked {{ ref.checked_on|us_date }}. Dates describe the stored filing or register record; current legal status is not verified.</small></details>
   </li>{% endfor %}
   </ul>
 </div>
 {% endif %}
-{% if variety_original_patent_error %}<p class="context-limit">Original filing references are unavailable. <a href="/varieties/coverage">Check source coverage →</a></p>{% endif %}
+{% if variety_original_patent_error %}<p class="context-limit">Filing and register references could not be fully loaded. <a href="/varieties/coverage">Check source coverage →</a></p>{% endif %}
 {% endif %}

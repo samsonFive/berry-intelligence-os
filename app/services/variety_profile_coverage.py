@@ -24,7 +24,7 @@ def _href(entity):
 
 
 def profile_field_coverage(*, varieties, entities, relationships, published_evidence,
-                           facts=(), portfolio_sources=(), reconciled_sources=None,
+                           facts=(), portfolio_sources=(), reference_sources=(), reconciled_sources=None,
                            candidates=(), profiles=None, filters=None):
     """Inventory actual profile fields; preserve missing and unreviewed states."""
     profiles = profiles or {}
@@ -55,8 +55,8 @@ def profile_field_coverage(*, varieties, entities, relationships, published_evid
                     fact_traits_by_variety[vid].add(fact['id'])
     # Reuse identity/code discrepancy and saved human decision handling across
     # the entire source set, independent of the separate portfolio table filter.
-    if reconciled_sources is None:
-        reconciled_sources, _ = reconcile_portfolios(sources=portfolio_sources,
+    if reconciled_sources is None or reference_sources:
+        reconciled_sources, _ = reconcile_portfolios(sources=[*portfolio_sources, *reference_sources],
             varieties=varieties, entities=entities, candidates=candidates)
     for evidence in published.values():
         if evidence.get('source_type') in RIGHTS_SOURCE_TYPES:

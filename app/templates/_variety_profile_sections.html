@@ -86,7 +86,7 @@
         {% if entity.attributes.patent_number %}{{ entity.attributes.patent_number }}{% endif %}{% if entity.attributes.us_plant_patent and entity.attributes.us_plant_patent != entity.attributes.patent_number %}{% if entity.attributes.patent_number %} · {% endif %}{{ entity.attributes.us_plant_patent }}{% endif %}
         <small>Recorded reference · current rights not verified.</small>
       {% elif variety_original_patents %}
-        Original documents below.
+        Unreviewed source references below.
       {% else %}
         No patent reference linked.
       {% endif %}

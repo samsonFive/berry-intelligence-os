@@ -3240,14 +3240,21 @@ def entity_synthesis_context(
         context["variety_original_patents"] = []
         context["variety_original_patent_error"] = False
         if AUTHORING_MODE and include_pending:
-            from app.services.variety_patent_references import original_patent_references
+            from app.services.variety_patent_references import original_patent_references, load_registry_filing_observations
             from app.services.variety_portfolio_coverage import load_portfolio_observations
             try:
+                filing_sources = load_portfolio_observations(DATA_DIR)
+                try:
+                    filing_sources += load_registry_filing_observations(DATA_DIR)
+                except ValueError:
+                    # An invalid imported register reference must not suppress
+                    # otherwise available original filing links.
+                    context["variety_original_patent_error"] = True
                 context["variety_original_patents"] = original_patent_references(
                     variety=entity,
                     varieties=[e for e in entities.values() if e.get("entity_type") == "variety"],
                     entities=list(entities.values()), candidates=load_variety_candidates(INBOX_DIR),
-                    sources=load_portfolio_observations(DATA_DIR),
+                    sources=filing_sources,
                 )
             except ValueError:
                 context["variety_original_patent_error"] = True
@@ -3398,10 +3405,17 @@ def variety_coverage_page(request: Request) -> HTMLResponse:
             )
             coverage["portfolios"]["source_content"] = source_content_coverage(published_evidence())
             from app.services.variety_profile_coverage import profile_field_coverage
+            from app.services.variety_patent_references import load_registry_filing_observations
+            try:
+                registry_references = load_registry_filing_observations(DATA_DIR)
+            except ValueError:
+                registry_references = []
+                coverage["registry_reference_error"] = True
             coverage["profile_fields"] = profile_field_coverage(
                 varieties=varieties, entities=entities, relationships=all_relationships(),
                 facts=all_facts(),
                 published_evidence=published_evidence(), portfolio_sources=portfolio_sources,
+                reference_sources=registry_references,
                 reconciled_sources=corpus_report.get("portfolio_sources"),
                 candidates=candidates, profiles=profile_records,
                 filters=dict(request.query_params),

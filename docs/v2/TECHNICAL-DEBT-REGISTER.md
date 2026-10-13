@@ -1,5 +1,17 @@
 # Technical Debt Register
 
+### Original register projection blocker — October 13 UTC
+
+The [reference review](IMPORTED-REGISTER-REFERENCE-REVIEW.md) reproduces and
+repairs existing numbered register imports being absent from private profiles
+and profile-field inventory. The live CPVO recheck also exposed a denomination
+being falsely treated as a second commercial label; only that invented
+self-pairing is removed. Cross-source conflicts and human decisions remain
+enforced. No domain schema, resolver, CPVO adapter or trusted records change.
+Sixty-eight related tests and thirteen final date tests pass; fresh current-head
+CI and release rehearsal remain. Broader rights/portfolio/recall/media debt
+and all human reviews remain open.
+
 ### Release package follow-up — October 13 UTC
 
 The first current-code isolated Docker build reproduced a packaging omission:

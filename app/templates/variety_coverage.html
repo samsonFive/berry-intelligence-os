@@ -24,6 +24,7 @@
 {% if coverage.external_error %}<p class="portfolio-limit" role="alert">{{ coverage.external_error }}</p>{% endif %}
 {% if coverage.external and coverage.external.reports %}{% include "_variety_external_coverage.html" %}{% endif %}
 {% endif %}
+{% if coverage.registry_reference_error and authoring_mode and not static_build %}<p class="portfolio-limit" role="alert">Some stored register references could not be loaded. The profile inventory below uses the available references.</p>{% endif %}
 {% if coverage.profile_fields and authoring_mode and not static_build %}{% include "_variety_profile_coverage.html" %}{% endif %}
 <details class="portfolio-plan"><summary>Existing catalog detail · {{ coverage.totals.canonical_varieties }} varieties</summary>
 

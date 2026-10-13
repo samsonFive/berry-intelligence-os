@@ -1,5 +1,18 @@
 # Intelligence Coverage Matrix
 
+## Original register projection — October 13 UTC, 2026
+
+The [register-reference follow-up](IMPORTED-REGISTER-REFERENCE-REVIEW.md) fixes
+private visibility of existing numbered imports and a reproduced
+denomination-as-commercial-label self-pairing error. Forty-two imported
+observations project through unchanged identity/crop/human decisions; ten
+catalog profiles have such references. A live one-record CPVO recheck retains
+original application metadata as unreviewed source context, not current-rights
+or new-alias approval. The current bounded audit is 385 sections /1,562 names /
+92 matched /1,470 needing review; canonical varieties remain 64. Profile gaps
+are 50 photos /29 patent-PVR references /33 cited traits /10 organizations.
+This narrows field visibility gaps without increasing trusted maturity.
+
 ## Current variety follow-up — October 12, 2026
 
 The [latest bounded photo review](CORNELL-VARIETY-PHOTOS-REVIEW.md)
