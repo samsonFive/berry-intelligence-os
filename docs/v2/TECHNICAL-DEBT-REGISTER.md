@@ -13,6 +13,18 @@ listing matches and uncertain publisher body structure remain explicit limits.
 The enabled-but-inactive broader collection timer remains stopped. These probes
 do not establish complete publisher-section coverage or measured recall.
 
+### TD-121 — Cultivar denominations misclassified as breeding codes
+
+The [original patent follow-up](UF-ORIGINAL-PATENT-REFERENCE-REVIEW.md) reproduces
+an erroneous conflict between the filing name Emerald and the existing selection
+code FL 95-209a. A denomination repeating its name is neither another breeding
+code nor a statement that a code is absent. The correction retains explicit
+codes, real conflicting pairs and saved human decisions. Forty-two targeted tests
+pass, and all seven original documents reach their existing profile projection
+against the complete corpus. Full CI/browser review remain. No canonical identity,
+alias, ownership, current-rights or model-qualification decision changes. The
+tested release awaiting approval is unchanged; CAT-01/CAT-02 remain open.
+
 ### TD-120 — Publisher disclosure lists disappear from captured source text
 
 The [source-disclosure repair](PUBLISHER-DISCLOSURE-SOURCE-REVIEW.md) reproduces

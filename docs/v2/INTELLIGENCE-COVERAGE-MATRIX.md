@@ -6,6 +6,19 @@ and indexed Packer Sustainability Insights discovery. These are unreviewed sourc
 coverage paths, not measured recall or new trusted intelligence. Search lag,
 Packer server rejection and sitemap modification-date limitations remain explicit.
 
+## Original Florida patent references — October 13, 2026
+
+Seven existing number-only profiles gain unreviewed original-document pointers:
+Emerald, Farthing, Jewel, Meadowlark, Optimus, Patrecia and Sentinel. First-page
+visual checks retain printed names/codes, numbers and historical dates. A false
+name-as-code conflict is corrected without approving aliases or legal status;
+all seven match existing profiles against the full corpus. See
+[the bounded review](UF-ORIGINAL-PATENT-REFERENCE-REVIEW.md). This is reference
+coverage, not new varieties or current-rights verification. Canonical varieties
+remain 64; the 52 pending local source copies and original 32 human worksheets
+retain their separate gates. Broader completeness and media/trait/region work
+remain open.
+
 ## Source disclosure fidelity — October 13 UTC, 2026
 
 The [publisher disclosure repair](PUBLISHER-DISCLOSURE-SOURCE-REVIEW.md) preserves
