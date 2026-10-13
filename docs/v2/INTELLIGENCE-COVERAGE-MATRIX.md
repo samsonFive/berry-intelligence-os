@@ -31,6 +31,18 @@ Automatic keyless News runs on the restored 15-minute dispatcher; idle News page
 observe completed captures without a manual refresh. Berries Australia RSS was
 verified with 10 publisher articles after a transient 507; server retries are bounded.
 
+## Printed-code follow-up — October 13, 2026
+
+Six exact public-register checks cover five previously unknown profiles. One
+original Plared 15121 filing is retained; its RedSayra association stays held.
+Five empty code results do not establish absent rights. Conflicting Baridi
+codes remain unresolved; documented ABB spacing no longer creates false holds.
+Two named Ervin photo references remain held for reuse. See
+[source review](PRINTED-CODE-REGISTER-FOLLOWUP.md). Measured observation scope is
+426 sections / 1,639 occurrences / 119 existing matches / 1,520 review needs;
+these are not approved-variety or intelligence-recall counts. 64 profiles,
+source maturity, qualification and human gates remain unchanged.
+
 ## Whole missing-reference cohort — October 13, 2026
 
 The [cohort review](REFERENCE-GAP-COHORT-REVIEW.md) accounts for all 17 starting
