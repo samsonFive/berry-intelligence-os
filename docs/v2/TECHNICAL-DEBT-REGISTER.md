@@ -13,6 +13,17 @@ listing matches and uncertain publisher body structure remain explicit limits.
 The enabled-but-inactive broader collection timer remains stopped. These probes
 do not establish complete publisher-section coverage or measured recall.
 
+**TD-116 whole reference-gap cohort — October 13:** All 17 starting profiles are
+accounted for, including one explicit fictional seed, four unapproved naming
+associations and eight bounded unknowns. Four existing profiles gain original
+CPVO/US/Ukrainian references; the copied preview's reference gap falls from
+17 to 13. Twenty-two other-crop homonyms are excluded. Application, title,
+rights-registration and publication dates keep their distinct meanings.
+All 332 protected files and 64 stored profiles remain unchanged. See
+REFERENCE-GAP-COHORT-REVIEW.md. TD-116/CAT-01/CAT-02 remain open: source codes,
+other jurisdictions, current/historical portfolios, source/identity/catalog
+review, traits, attributed photos, regions and independent human recall remain.
+
 **TD-116 current source refresh — October 13:** The original current Pairwise
 Products page now explicitly names Fontana; its earlier unnamed product page
 stays intact. One candidate and two reuse-unconfirmed image references are

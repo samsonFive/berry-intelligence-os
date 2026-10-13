@@ -6,6 +6,22 @@ and indexed Packer Sustainability Insights discovery. These are unreviewed sourc
 coverage paths, not measured recall or new trusted intelligence. Search lag,
 Packer server rejection and sitemap modification-date limitations remain explicit.
 
+## Whole missing-reference cohort — October 13, 2026
+
+The [cohort review](REFERENCE-GAP-COHORT-REVIEW.md) accounts for all 17 starting
+profiles: four gain original references, four name associations stay held,
+eight remain unknown in the bounded name searches, and one fictional seed is
+preserved/excluded from research. Twenty-three exact CPVO queries return two
+matching berry records and 22 other-crop homonyms. Three original US filings
+and the Ukrainian raspberry register section retain document identities and
+date meanings; no alias, current legal status or company role is approved.
+Nine sections add 19 observations, including 12 separate parent/comparison names.
+Current totals are 417 sections /1,627 occurrences /114 matches /1,513 review
+needs and 1,151 source-derived keys. The copied preview has 13 profiles without
+patent/PVR references, down from 17; other gaps remain 50 photos/33 traits/ten
+linked organizations. All 64 stored profiles and 332 protected files retain
+their bytes. Source drafts remain separate from the live platform #398.
+
 ## Current Pairwise named-product refresh — October 13, 2026
 
 The [Fontana source review](FONTANA-SOURCE-COVERAGE-REVIEW.md) adds one explicitly
