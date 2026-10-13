@@ -39,6 +39,24 @@ def test_default_all_berries_and_date_limitations():
     assert not any(q['source']=='instagram' and q['scope']=='corporate' for q in p['queries'])
     with pytest.raises(ValueError):m.plan({'platforms':list(m.SOURCES)})
 
+def test_platform_order_does_not_bypass_duplicate_scope():
+    a=m.plan({'platforms':['reddit','x']});b=m.plan({'platforms':['x','reddit']})
+    assert a['fingerprint']==b['fingerprint'] and a['queries']==b['queries']
+
+@pytest.mark.parametrize('source',['facebook','youtube','x'])
+def test_missing_platform_schema_is_failure_not_zero(configured,tmp_path,source):
+    payload={'berry':'berry-blueberry','perspective':'corporate' if source=='facebook' else 'consumer','platforms':[source]}
+    job,_=m.queue(tmp_path,payload)
+    client=Client([6010,6009,6009,6008] if source=='facebook' else [6010,6009],payload={'success':True,'data':{'unexpected':[]}})
+    m.run(tmp_path,job['id'],ENTITIES,client)
+    result=Store(tmp_path).job(job['id'])['results'][0]
+    assert result['state']=='failed' and result['returned'] is None
+    assert 'not zero' in result['reason']
+
+def test_reported_nested_cost_halts_even_before_settlement(configured,tmp_path):
+    job,_=m.queue(tmp_path,options());client=Client([6010,6010],payload={'success':True,'data':{'posts':{},'credits_charged':2}})
+    m.run(tmp_path,job['id'],ENTITIES,client);assert m.status(tmp_path)['halted']
+
 def test_restart_duplicate_click_reuses_without_requests(configured,tmp_path):
     job,new=m.queue(tmp_path,options());assert new
     with pytest.raises(AccessBlocked):m.queue(tmp_path,options())

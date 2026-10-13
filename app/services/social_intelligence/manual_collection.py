@@ -38,6 +38,7 @@ def plan(payload):
         raise ValueError('Unsupported collection scope')
     if not isinstance(sources,list) or not sources or any(s not in SOURCES for s in sources) or len(set(sources))!=len(sources):
         raise ValueError('Choose supported platforms once each')
+    sources=[s for s in SOURCES if s in sources]
     queries=[]; stamp=datetime.now(timezone.utc)
     for source in sources:
         if source=='facebook':
@@ -155,11 +156,16 @@ def run(inbox,key,entities,client=None):
                 result={'source':query['source'],'scope':query['scope'],'berry':query['berry'],'state':'failed','returned':None,'stored':0,'readable_relevant':0}
                 try:
                     code,payload=client._read('/v1/scrape/'+TASKS[query['task']][0],query['params'])
-                    after=client.account(); cost=payload.get('credits_used',payload.get('data',{}).get('credits_used'))
+                    after=client.account(); root=payload.get('data',{})
+                    if not isinstance(root,dict):raise AccessBlocked('Unrecognized response schema; not zero activity')
+                    costs=[p.get(field) for p in (payload,root) for field in ('credits_used','credits_charged')]
                     ledger.update(balance=after,checked_at=now());receipt.update(balance_before=before,balance_after=after,state='completed')
-                    if before-after>1 or isinstance(cost,(int,float)) and cost>1:
+                    if before-after>1 or any(isinstance(cost,(int,float)) and cost>1 for cost in costs):
                         ledger['halted']=True;raise AccessBlocked('Unexpected credit cost; remaining requests stopped')
                     if code!=200:raise AccessBlocked('Provider HTTP '+str(code)+'; not zero activity')
+                    required={'facebook':('posts',),'youtube':('videos','shorts','lives'),'x':('result',)}.get(query['source'])
+                    if required and not any(field in root for field in required):
+                        raise AccessBlocked('Unrecognized platform schema; not zero activity')
                     mapped=normalize(payload,query['task']); result['returned']=mapped['returned_items']
                     prior={r['id']:r for r in store.records(mode='live')}
                     rows=[]
