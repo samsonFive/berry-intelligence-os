@@ -261,11 +261,14 @@ def requested_sustainability_hit(hit: DiscoveryHit) -> bool:
 
 
 def requested_sustainability_record(record: dict[str, Any]) -> bool:
+    if record.get("acquisition_lane") != "specialist_rss":
+        return False
     provenance = record.get("discovery_provenance") or {}
     feed = feed_by_query_id(str(provenance.get("query_id") or ""))
+    if not feed or feed.get("coverage") != "sustainability":
+        return False
     hosts = {hostname(record.get(key) or "") for key in ("source_url", "origin_publisher_url")}
-    return bool(feed and feed.get("coverage") == "sustainability"
-                and record.get("acquisition_lane") == "specialist_rss" and feed["host"] in hosts)
+    return feed["host"] in hosts
 
 
 @dataclass
