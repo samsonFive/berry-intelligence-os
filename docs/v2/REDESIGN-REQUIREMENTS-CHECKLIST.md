@@ -1,5 +1,16 @@
 # Redesign and consolidation requirements
 
+## Current release audit and review packet — October 13, 2026
+
+The [release audit](RELEASE-REVIEW.md) now distinguishes live #398, tested #401
+awaiting release approval, and undeployed catalog #400. All 31 original IDs and
+accepted descriptions remain. The original 32-case independent-name worksheet
+was too short for the current 52-source reviewer copy; the offline scorer would
+correctly refuse it. A fresh private 52-source worksheet now covers the exact
+captured inputs with blank answers and current saved-copy links. The original
+worksheet/capture hashes and all 332 protected files are retained. No human
+decision or four-crop independent recall score is created by this preparation.
+
 ## October 13 original-paper follow-through
 
 The [CAS paper review](CAS-ORIGINAL-PAPER-SOURCE-REVIEW.md) recovers Hawaii-4 and

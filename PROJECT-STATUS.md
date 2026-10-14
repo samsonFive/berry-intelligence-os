@@ -1,5 +1,41 @@
 # Project Status
 
+## Current delivery and review status — October 13, 2026
+
+- **Live platform:** [#398](https://github.com/samsonFive/berry-intelligence-os/pull/398)
+  is merged at `a2a6b4ad` and deployed at intel.johnnyaceii.com. The exact tested
+  tree passed all four required checks and 5,023 tests; production rehearsal,
+  exports, preservation and rollback receipts are recorded. A fresh read-only
+  check confirms the released image is still running. The visual explainer is
+  at `/guide`, including site purposes, analyst workflow and reporting choices.
+- **News/access release candidate:** [#401](https://github.com/samsonFive/berry-intelligence-os/pull/401)
+  at `8739a6c3` passes all four checks and 5,030 tests. First-login Help,
+  one-click refreshed News, consent-page rejection, visible publisher navigation
+  and measured News performance fixes are ready. The requested account is staged
+  privately. Merge, deployment and account activation await the requested user
+  release approval. The workspace remains shared.
+- **Catalog draft:** [#400](https://github.com/samsonFive/berry-intelligence-os/pull/400)
+  adds original four-berry filing/photo/name references. Its latest source
+  supplement is `1dd38525`; three required checks pass and full Python validation
+  is running. No catalog enrichment is deployed. Research names and commercial
+  codes do not automatically approve identities, roles, rights or image reuse.
+- **Open requirements:** CAT-01/CAT-02 retain current/historical source coverage,
+  source fidelity, human identity/catalog authoring, current rights, profile
+  fields and independent recall. VAR-01 retains unclear photo spellings and
+  provisional associations. The reviewer copy has 52 source artifacts and the
+  original 32 independent worksheets; these are separate human gates.
+
+A fresh 52-source name-review worksheet is prepared privately for the current
+source set. It preserves the original 32-case worksheet and capture hashes;
+no answers, approvals or qualification markers are supplied. This resolves the
+old packet's source-count mismatch, not the independent human review itself.
+
+The [31-row requirements checklist](docs/v2/REDESIGN-REQUIREMENTS-CHECKLIST.md)
+retains the full approved scope. [Release review](docs/v2/RELEASE-REVIEW.md)
+distinguishes delivered software from incomplete content and pending approval.
+Earlier entries below are dated implementation history, not current blockers or
+new permission requests. Blueberry continuation was approved October 12.
+
 **October 12–13: Landscape PDFs and actual browser exports.** Draft #396 now
 offers server-rendered PDF snapshots with cited takeaways, market/comparison
 tables and the complete evidence appendix. Scope, crop identity, three dates,
