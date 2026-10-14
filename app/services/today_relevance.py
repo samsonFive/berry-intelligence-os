@@ -159,6 +159,10 @@ def noise_reason(
 
 
 def today_noise_reason(hit: DiscoveryHit, *, named_entity: bool) -> str | None:
+    from app.services.industry_pulse.specialist_feeds import requested_sustainability_hit
+
+    if requested_sustainability_hit(hit):
+        return None
     return noise_reason(
         title=hit.title,
         snippet=hit.snippet,
@@ -219,6 +223,10 @@ def filter_today_records(
     kept: list[dict[str, Any]] = []
     dropped = 0
     for row in records:
+        from app.services.industry_pulse.specialist_feeds import requested_sustainability_record
+        if requested_sustainability_record(row):
+            kept.append(row)
+            continue
         hay = f"{row.get('title') or ''} {row.get('summary') or ''}"
         named = False
         for entity in entities:

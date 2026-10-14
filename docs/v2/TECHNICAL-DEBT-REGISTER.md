@@ -1,5 +1,11 @@
 # Technical Debt Register
 
+October 14, 2026 sustainability sourcing: [access contract](SUSTAINABILITY-SOURCE-COVERAGE.md).
+Open limitations: The Packer rejects direct production-host requests (403), so
+indexed discovery cannot guarantee section completeness or reader body recovery.
+Watershed's sitemap reports modification dates; accurate original-publication
+chronology depends on publisher/index metadata. These paths do not establish recall.
+
 ### TD-120 — Publisher disclosure lists disappear from captured source text
 
 The [source-disclosure repair](PUBLISHER-DISCLOSURE-SOURCE-REVIEW.md) reproduces

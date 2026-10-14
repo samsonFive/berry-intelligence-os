@@ -12,6 +12,7 @@ from app.services.industry_pulse.models import DiscoveryHit
 from app.services.industry_pulse.qualify import QualificationIndex, qualify_hit
 from app.services import company_source_scope
 from app.services.company_source_scope import source_reviewed
+from app.services.industry_pulse.specialist_feeds import requested_sustainability_record
 
 NEWS_TYPES = {
     "news_search", "trade_press", "web_article", "company_press_release", "company_website",
@@ -118,7 +119,7 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
                            and record.get("media_format") == "web_article")
         if (record.get("source_type") not in NEWS_TYPES and not article_capture) or "structural" in (record.get("tags") or []):
             continue
-        if not _qualifying_news(str(record.get("title") or ""), str(record.get("summary") or ""),
+        if not requested_sustainability_record(record) and not _qualifying_news(str(record.get("title") or ""), str(record.get("summary") or ""),
                                 str(record.get("source_url") or ""), str(record.get("published_date") or ""), company_names, variety_names):
             continue
         stamp = parse_stamp(record.get("published_date"))

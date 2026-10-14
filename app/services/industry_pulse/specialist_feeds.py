@@ -16,6 +16,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Iterable
 from urllib.parse import urlparse
+from urllib.parse import quote_plus
 
 from app.services.industry_pulse.matrix import GEO_EDITIONS, PulseQuery
 from app.services.industry_pulse.models import DiscoveryHit
@@ -31,6 +32,31 @@ from app.services.recall_audit.classify import hostname
 # Bounded first-class specialist catalog. Prefer publisher RSS, then the
 # already-verified site-restricted Google News search path. No HTML scrape.
 WEEK_SPECIALIST_FEEDS: tuple[dict[str, str], ...] = (
+    {
+        "id": "feed:trellis-sustainability", "label": "Trellis",
+        "source_id": "source-trellis-sustainability", "host": "trellis.net",
+        "feed_url": "https://trellis.net/feed/", "adapter": "article_rss",
+        "geography": "global", "coverage": "sustainability",
+    },
+    {
+        "id": "feed:watershed-blog", "label": "Watershed Blog",
+        "source_id": "source-watershed-blog", "host": "watershed.com",
+        "feed_url": "https://news.google.com/rss/search?q=" + quote_plus("site:watershed.com/blog") + "&hl=en-US&gl=US&ceid=US:en",
+        "adapter": "news_search_rss", "geography": "global", "coverage": "sustainability",
+    },
+    {
+        "id": "feed:packer-sustainability-insights", "label": "The Packer — Sustainability Insights",
+        "source_id": "source-packer-sustainability-insights", "host": "thepacker.com",
+        "feed_url": "https://news.google.com/rss/search?q=" + quote_plus('site:thepacker.com "Sustainability Insights"') + "&hl=en-US&gl=US&ceid=US:en",
+        "adapter": "news_search_rss", "geography": "americas", "coverage": "sustainability",
+        "access_note": "Publisher rejects server requests (403); indexed discovery only, no bypass.",
+    },
+    {
+        "id": "feed:agfunder-climate-sustainability", "label": "AgFunderNews — Climate & Sustainability",
+        "source_id": "source-agfunder-climate-sustainability", "host": "agfundernews.com",
+        "feed_url": "https://agfundernews.com/category/climate-sustainability/feed/",
+        "adapter": "article_rss", "geography": "global", "coverage": "sustainability",
+    },
     {
         "id": "feed:fruitnet",
         "label": "Fruitnet",
@@ -222,6 +248,24 @@ def feed_by_query_id(query_id: str) -> dict[str, str] | None:
         if query_id == feed["id"] or query_id.startswith(feed["id"] + ":"):
             return feed
     return None
+
+
+def requested_sustainability_hit(hit: DiscoveryHit) -> bool:
+    """Only the operator-selected feeds expand beyond berry-only discovery."""
+    feed = feed_by_query_id(hit.query_id)
+    return bool(
+        hit.provider == "specialist_rss" and feed
+        and feed.get("coverage") == "sustainability"
+        and hit.source_domain.removeprefix("www.") == feed["host"]
+    )
+
+
+def requested_sustainability_record(record: dict[str, Any]) -> bool:
+    provenance = record.get("discovery_provenance") or {}
+    feed = feed_by_query_id(str(provenance.get("query_id") or ""))
+    hosts = {hostname(record.get(key) or "") for key in ("source_url", "origin_publisher_url")}
+    return bool(feed and feed.get("coverage") == "sustainability"
+                and record.get("acquisition_lane") == "specialist_rss" and feed["host"] in hosts)
 
 
 @dataclass
