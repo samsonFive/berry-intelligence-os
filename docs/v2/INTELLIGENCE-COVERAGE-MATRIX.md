@@ -6,6 +6,15 @@ and indexed Packer Sustainability Insights discovery. These are unreviewed sourc
 coverage paths, not measured recall or new trusted intelligence. Search lag,
 Packer server rejection and sitemap modification-date limitations remain explicit.
 
+## Original-paper follow-through — October 13, 2026
+
+The CAS institutional announcement's original paper supplies two previously
+omitted strawberry research-material names, Hawaii-4 and Benihoppe. Source context
+does not establish breeding or commercial roles. The company release portfolio
+remains partial. See [original-paper review](CAS-ORIGINAL-PAPER-SOURCE-REVIEW.md).
+Current bounded scope: 427 sections / 1,641 occurrences / 119 existing matches /
+1,522 review needs. All 64 stored profiles and human gates remain unchanged.
+
 ## Printed-code follow-up — October 13, 2026
 
 Six exact public-register checks cover five previously unknown profiles. One
