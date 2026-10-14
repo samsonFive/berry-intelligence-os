@@ -52,6 +52,67 @@ The entire mission remains open; this software release does not approve research
 The following sections retain original evidence and earlier states. The verified
 status above takes precedence where a historical release statement is superseded.
 
+### Historical release audit — October 13, 2026 (superseded)
+
+The platform features were released independently of ongoing catalog research.
+[#398](https://github.com/samsonFive/berry-intelligence-os/pull/398) merged at
+`a2a6b4adc8ab5409d0675f1435ca3bb3dbe276bc`. Its exact tested `1fb75b61` tree
+is deployed at intel.johnnyaceii.com. All four checks passed, including 5,023
+tests. Production-data rehearsal covered 17 authenticated routes and 12 exports;
+final live checks covered seven main routes and all four Landscape formats.
+14,057 existing files and all 3,933 social rows/schema were preserved. The final
+14,060-file backup and previous image/configuration remain available for rollback.
+A fresh read-only image inspection still confirms the released image is running.
+
+[#401](https://github.com/samsonFive/berry-intelligence-os/pull/401), head
+`8739a6c3`, is a separate tested candidate with all four checks and 5,030 tests
+passed. New analyst login/first-login Help, one-click News refresh, safe reader
+fallbacks and immediate News performance fixes await user release approval.
+The requested account is staged privately and is not live. A new account grants
+existing shared analyst access; it does not imply private preferences or roles.
+
+Catalog [#400](https://github.com/samsonFive/berry-intelligence-os/pull/400) stays
+a separate draft. Earlier head `1d7e17bc` passed all four checks; the original-paper
+supplement `1dd38525` has three checks passed with Python validation running.
+Required checks must be green on the eventual current head. No original-source,
+identity, catalog, Atomic, extraction-qualification or photo gate is approved by
+CI or by this document. Blueberry continuation was explicitly approved October 12.
+
+### Accepted scope and remaining work
+
+The [requirements checklist](REDESIGN-REQUIREMENTS-CHECKLIST.md) preserves every
+one of the 31 original IDs, accepted descriptions and their ordering.
+
+| Requirement family | Delivered software and evidence | Remaining work or limit |
+| --- | --- | --- |
+| UI-01–03, NEWS-01–03 | Shared Glasshouse shell, dense News/grid, images and reader; dated native desktop/mobile checks and current release suite | Existing source text stays literal; missing original text and inaccessible publishers remain explicit. Reader reliability improvements in #401 await release. |
+| DIGEST-01, CO-01–02 | Digest/reading queue/subscribed lists, A–Z companies, independent favorites/tiers/lists, editable profiles and company-only People | Shared analyst state remains; no per-user isolation is claimed. |
+| VAR-01–02, MAP-01–02 | Photo import review, region authoring/prefill, country map, dense A–Z region tables, cited statistics/research and exports | Unclear photo cells, provisional associations and source-backed content require human decisions; a country entry is not a confirmed acreage or growing footprint. |
+| PACK-01–03 | Live 77-subject list; versioned packet schema, reviewed/all toggle, date range, export history and required fresh capture | Capture errors stay visible. Export freshness does not guarantee every publisher has new news or accessible full text. |
+| AUDIT-01, INT-01, MON-01, OPS-01 | Section/workflow inventory and consolidated task homes preserve specialist routes and distinct review actions | Actual publication, statement, signal and source-authenticity decisions remain separate human work. |
+| REPORT-01–03, LAND-01–02 | Reports/Meeting Prep, customizable four-crop Landscape, comparison, saved views and complete cited PDF/HTML/SVG/CSV outputs | Source/catalog completeness is separate from the released platform. No unreviewed mention is promoted into a verified trait or role. |
+| LEARN-01–02 | Visual/interactive Learn plus selected-text research, cited editable drafts and retained origin; deterministic provider-contract tests | Fresh paid research requires explicit initiation and available provider access. Learn does not create Facts automatically. |
+| GUIDE-01 | Live `/guide` explains twelve sections, four analyst steps, six reporting outputs and the separate variety workflow | Guide describes capability limits; it does not certify every live provider or every source. |
+| CAT-01–02 | Source-to-variety discovery, original references, review/intake, profile-field coverage and preserved decisions | Current/historical coverage, 52 pending source artifacts, 32 independent worksheets, identity/catalog authoring, current rights and missing profile fields remain open. |
+| REL-01 | #398 deployed with exact-tree verification, backup, preservation and rollback evidence | #401 and catalog enrichment require their own release approvals and current-head checks. |
+
+The independent expected-name worksheet must be filled from the original sources
+by a real reviewer, without using parser results as its answer key. Source fidelity
+approval does not approve an identity, catalog record, statement or extraction
+model. The current bounded 427-section inventory is not an internet-wide census.
+No claim of global or web-leading completeness is supported.
+
+The original 32-case worksheet no longer covers the 52-source reviewer copy;
+the scorer correctly refuses a shortened source list. A fresh private worksheet
+now includes all 52 exact captured sources and points to the current isolated
+reader. All answers are blank. The original 32 cases and their capture hashes
+remain preserved, and all 332 protected files still match the prior backup.
+This packet is predominantly blueberry-focused; it is not proof of independent
+four-crop recall or permission to skip any source/identity gate.
+
+The detailed reviews below are preserved dated history. Their earlier pending
+deployment and blueberry-gate statements do not supersede the current state above.
+
 ## Combined release on current canonical — October 13, 2026
 
 The complete Landscape/source/catalog review changes are reconciled onto
