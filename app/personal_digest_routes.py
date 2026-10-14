@@ -86,10 +86,15 @@ def personal_source_record(item_id: str, *, records=None):
     from app.services.publication_sources import active_publication_record, inactive_publication_record
     if not feed_first.SAFE_ID_RE.fullmatch(item_id):
         return None
+    def with_preview(record):
+        if record is None or not main.AUTHORING_MODE:
+            return record
+        from app.services.feed_first_reader import attach_capture_previews
+        return attach_capture_previews({item_id: record}, main.INBOX_DIR)[item_id]
     # Resolve just this source; no per-story preview checks for the whole feed.
     published = next((row for row in main.published_evidence() if row.get("id") == item_id), None)
     if published is not None:
-        return published  # Never replace canonical prose with a pending version.
+        return with_preview(published)  # Canonical prose remains authoritative.
     record = (records or {}).get(item_id)
     if main.AUTHORING_MODE:
         retained = digest.retained_news(main.INBOX_DIR, selected_id=item_id)
@@ -102,8 +107,8 @@ def personal_source_record(item_id: str, *, records=None):
         draft = active_publication_record(original)
         if (draft is not None and draft["id"] == item_id
                 and (record is None or draft.get("source_url") == record.get("source_url"))):
-            return draft
-    return record
+            return with_preview(draft)
+    return with_preview(record)
 
 
 def known_story(item_id: str, records, context, reading):

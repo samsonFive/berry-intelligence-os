@@ -48,6 +48,8 @@ def test_article_reporting_about_consent_is_not_stripped():
     source = "Researchers reported that cookie settings and the Accept All button confused website visitors."
     assert reader.display_reader_passages([source]) == [source]
     assert reader.display_reader_passages(["Growers discussed new blueberry cookies sold through local retailers."]) == ["Growers discussed new blueberry cookies sold through local retailers."]
+    food = "We use cookies made with raspberries to prepare seasonal desserts for customers."
+    assert reader.display_reader_passages([food]) == [food]
 
 
 def test_dialogs_are_omitted_without_hiding_real_article():
@@ -85,6 +87,20 @@ def test_new_capture_can_replace_old_consent_only_in_display_projection():
     assert record == before
 
 
+@pytest.mark.parametrize("host", ["consent.google.com", "accounts.google.com", "news.google.com"])
+def test_old_successful_google_shell_is_blocked_even_without_known_wall_phrases(tmp_path, monkeypatch, host):
+    old = {"ok": True, "availability": "full", "requested_url": URL,
+           "url": "https://" + host + "/access", "passages": ["General services information appears here in an unfamiliar language and contains no recognized notice wording."]}
+    record = {"id": "story", "source_url": URL}
+    reader.save_capture(tmp_path, "story", old)
+    assert not reader.merge_capture(record, old).get("article")
+    assert reader.merge_capture(record, old)["reader_capture"]["availability"] == "blocked"
+    calls = []
+    monkeypatch.setattr(reader, "fetch_public_article", lambda url, **kw: (calls.append(url) or {"ok": True, "availability": "partial", "url": url, "passages": [PROSE]}))
+    refreshed = reader.capture_item(tmp_path, record)
+    assert calls == [URL] and refreshed["url"] == URL and refreshed["passages"] == [PROSE]
+
+
 def test_repeated_concurrent_openings_share_capture_and_changed_url_retries(tmp_path, monkeypatch):
     calls = []
     def capture(url, **kwargs):
@@ -109,6 +125,12 @@ def test_failed_opening_is_bounded_and_explicit_retry_bypasses_cooldown(tmp_path
     assert calls == [URL]
     reader.capture_item(tmp_path, record, refresh=True)
     assert calls == [URL, URL]
+
+
+@pytest.mark.parametrize("url", ["https://[broken", "http://127.0.0.1/private", "javascript:alert(1)"])
+def test_malformed_or_private_source_cannot_break_automatic_capture(tmp_path, url):
+    capture = reader.capture_item(tmp_path, {"id": "story", "source_url": url})
+    assert not capture["ok"] and capture["reason"] == "url-not-public"
 
 
 def test_live_account_schema_and_first_login_history_survive_additive_migration(tmp_path):

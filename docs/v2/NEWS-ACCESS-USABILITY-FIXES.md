@@ -23,9 +23,12 @@ This mission does not release the separate variety-catalog research drafts.
   Source reporting about consent controls remains readable. Known dialog
   containers are excluded during HTML parsing. Original Evidence, source
   history and analyst wording remain unchanged on disk.
+  Old captures ending at Google News/consent/account hosts are rejected even
+  when marked successful or written in an unrecognized language.
 - Direct publisher links remain visible above the article. Locally decodable
   Google wrappers resolve directly. Other wrappers may resolve through one
-  recorded publisher page, requiring a unique exact-headline article link on
+  recorded publisher page and at most one publisher-declared RSS/Atom feed,
+  requiring a unique exact-headline article link on
   that publisher's domain. No article URL is guessed or a homepage substituted
   as article text. A restriction or unresolved link produces an honest fallback.
 - Concurrent opens share a bounded capture. A recent failed automatic capture

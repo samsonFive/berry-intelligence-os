@@ -23,13 +23,13 @@ from urllib.parse import parse_qs, unquote, urljoin, urlparse
 import httpx
 
 from app.services.html_text import decode_html_text
-from app.services.source_body import clean_reader_text, looks_like_interstitial
+from app.services.source_body import clean_reader_text, google_access_page, looks_like_interstitial
 
 CAPTURE_SUBDIR = "feed_first_reader"
 MAX_BYTES = 800_000
 FETCH_TIMEOUT = 4.0
 MAX_REDIRECTS = 5
-CAPTURE_VERSION = 2
+CAPTURE_VERSION = 3
 FAILED_CAPTURE_RETRY_SECONDS = 60
 _capture_locks = WeakValueDictionary()
 _capture_lock_guard = Lock()
@@ -412,7 +412,7 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
         closer = http
     try:
         final, raw, headers, encoding, status_code, limited = _bounded_public_response(url, http, limit=MAX_BYTES)
-        if (urlparse(final).hostname or "").casefold() in {"news.google.com", "consent.google.com", "accounts.google.com"}:
+        if google_access_page(final):
             return empty_capture(final, reason="blocked")
         if status_code >= 400:
             capture = empty_capture(final, reason="blocked" if status_code in {401, 403, 451} else f"http-{status_code}")
@@ -588,7 +588,8 @@ def _capture_item(inbox_dir, record, *, client=None, refresh=False):
     source_url = str(record.get("source_url") or "")
     same_source = bool(existing and (existing.get("requested_url") or existing.get("url")) == source_url)
     cleaned = display_reader_passages(_capture_passages(existing))
-    matching_existing = bool(same_source and existing.get("ok") and cleaned and not looks_like_interstitial(" ".join(cleaned)))
+    matching_existing = bool(same_source and existing.get("ok") and not google_access_page(existing.get("url"))
+                             and cleaned and not looks_like_interstitial(" ".join(cleaned)))
     if matching_existing and not refresh:
         return existing
     if same_source and not refresh and existing.get("capture_version") == CAPTURE_VERSION and not existing.get("ok"):
@@ -598,8 +599,9 @@ def _capture_item(inbox_dir, record, *, client=None, refresh=False):
             return existing
     url = str(record.get("source_url") or "")
     from app.services.google_news_url import is_google_news_wrapper, resolve_google_news_url
-    target = resolve_google_news_url(url)
-    if is_google_news_wrapper(target):
+    public = is_public_http_url(url)
+    target = resolve_google_news_url(url) if public else url
+    if public and is_google_news_wrapper(target):
         target = _publisher_target(record, client=client)
         capture = fetch_public_article(target, client=client) if target else empty_capture(url, reason="blocked")
     else:
@@ -613,7 +615,7 @@ def _capture_item(inbox_dir, record, *, client=None, refresh=False):
 
 
 def _publisher_target(record, *, client=None):
-    """Try one recorded publisher page, requiring a unique exact headline link."""
+    """Try the recorded publisher page and one declared feed; exact title only."""
     home = str(record.get("origin_publisher_url") or "")
     if not is_public_http_url(home):
         return ""
@@ -629,8 +631,19 @@ def _publisher_target(record, *, client=None):
             html = raw.decode(encoding, errors="replace")
         except LookupError:
             html = raw.decode("utf-8", errors="replace")
-        from app.services.publisher_link_resolution import publisher_article_link
-        return publisher_article_link(html, final, record.get("title"), record.get("source_name"))
+        from app.services.publisher_link_resolution import (
+            declared_publisher_feed, publisher_article_link, publisher_feed_article_link,
+        )
+        target = publisher_article_link(html, final, record.get("title"), record.get("source_name"))
+        if target:
+            return target
+        feed = declared_publisher_feed(html, final)
+        if feed:
+            feed_final, raw, _, _, status, _ = _bounded_public_response(feed, http, limit=MAX_BYTES)
+            if (status < 400 and (urlparse(feed_final).hostname or "").casefold().removeprefix("www.")
+                    == (urlparse(final).hostname or "").casefold().removeprefix("www.")):
+                return publisher_feed_article_link(raw, final, record.get("title"), record.get("source_name"))
+        return ""
     except (ValueError, httpx.HTTPError):
         return ""
     finally:
@@ -728,7 +741,7 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
     merged = dict(record)
     saved_passages = _capture_passages(capture)
     passages = display_reader_passages(saved_passages)
-    blocked = (capture.get("availability") == "blocked" or looks_like_interstitial(" ".join(passages))
+    blocked = (capture.get("availability") == "blocked" or google_access_page(capture.get("url")) or looks_like_interstitial(" ".join(passages))
                or (not passages and looks_like_interstitial(" ".join(saved_passages))))
     if blocked:
         passages = []
@@ -759,7 +772,7 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
                 merged["reader_document_blocks"] = display_document_blocks(capture.get("document_blocks"))
         if not merged.get("summary") and passages:
             merged["summary"] = passages[0][:280]
-    images = [row for row in (capture.get("images") or []) if isinstance(row, dict) and row.get("url")]
+    images = [] if blocked else [row for row in (capture.get("images") or []) if isinstance(row, dict) and row.get("url")]
     if images:
         merged["images"] = images
         article = dict(merged.get("article") or {}) if isinstance(merged.get("article"), dict) else {}
@@ -770,8 +783,8 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
         merged["content_kind"] = capture.get("content_kind")
     merged["reader_capture"] = {
         "availability": "blocked" if blocked else capture.get("availability"),
-        "frame_allowed": capture.get("frame_allowed"),
-        "reader_modes": capture.get("reader_modes") or ["structured_fallback"],
+        "frame_allowed": False if blocked else capture.get("frame_allowed"),
+        "reader_modes": ["structured_fallback"] if blocked else capture.get("reader_modes") or ["structured_fallback"],
         "method": capture.get("method"),
         "retrieved_at": capture.get("retrieved_at"),
         "reason": capture.get("reason") or "",

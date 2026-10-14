@@ -160,17 +160,21 @@ def test_today_uses_authoritative_freshness_contract(monkeypatch) -> None:
     assert freshness["counts"]["overdue"] == 2
 
 
-def test_login_lands_on_today_and_preserves_deep_link(monkeypatch) -> None:
+def test_first_login_opens_help_then_today_and_preserves_deep_link(monkeypatch, tmp_path) -> None:
     from tests.test_remote_auth import OPERATOR, PASSWORD, _client, _enable_remote
 
     assert DEFAULT_NEXT_PATH == "/today"
     assert safe_next_path("") == "/today"
     assert safe_next_path("/pending") == "/pending"
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
     _enable_remote(monkeypatch)
     client = _client()
     landed = client.post("/login", data={"username": OPERATOR, "password": PASSWORD})
     assert landed.status_code == 303
-    assert landed.headers["location"] == "/today"
+    assert landed.headers["location"] == "/guide"
+    client.post("/logout")
+    returned = client.post("/login", data={"username": OPERATOR, "password": PASSWORD})
+    assert returned.headers["location"] == "/today"
     deep = client.post("/login", data={"username": OPERATOR, "password": PASSWORD, "next": "/pending"})
     assert deep.headers["location"] == "/pending"
 

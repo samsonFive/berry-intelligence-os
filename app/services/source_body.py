@@ -6,6 +6,7 @@ This module does not fetch URLs and does not invent article text.
 from __future__ import annotations
 
 from typing import Any
+from urllib.parse import urlsplit
 
 from app.services.html_text import decode_html_text
 import re
@@ -69,7 +70,17 @@ def reader_ui_message(text: str) -> bool:
     # A quote discussing a consent interface remains source reporting.
     if re.search(r"\b(?:said|reported|explained|described|researchers|study|investigation)\b", normalized):
         return False
-    return any(signal in normalized for signal in READER_UI_SIGNALS)
+    for signal in READER_UI_SIGNALS:
+        if signal not in normalized:
+            continue
+        if signal == "we use cookies" and len(normalized.split()) > 4 and not re.search(
+                r"\b(?:data|website|site|browser|privacy|ads|analytics|consent|tracking|experience|device)\b", normalized):
+            continue  # Food cookies are not a website consent notice.
+        if signal == "this is the first time you visited" and not re.search(
+                r"\b(?:website|site|page|popup|pop-up|dialog)\b", normalized):
+            continue
+        return True
+    return False
 
 
 def clean_reader_text(text: str) -> str:
@@ -93,6 +104,16 @@ BODY_STATE_LABELS = {
     "access_limited": "ACCESS-LIMITED",
     "interstitial": "CONSENT / INTERSTITIAL / BOT WALL",
 }
+
+
+def google_access_page(url: str) -> bool:
+    """Known Google shells are not publisher articles, regardless of wording."""
+    try:
+        return (urlsplit(str(url or "")).hostname or "").casefold().rstrip(".") in {
+            "news.google.com", "consent.google.com", "accounts.google.com",
+        }
+    except ValueError:
+        return False
 
 
 def article_full_text(record: dict[str, Any], *, preserve_line_breaks: bool = False) -> str:
