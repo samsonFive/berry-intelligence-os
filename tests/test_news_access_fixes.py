@@ -21,7 +21,7 @@ def test_additional_login_preserves_operator_and_first_login_opens_help(tmp_path
     monkeypatch.setenv("BIOS_BASIC_AUTH", "false")
     reset_login_failures()
     accounts.create_account(tmp_path, "new.analyst", "new-test-password")
-    assert "new-test-password" not in accounts.account_path(tmp_path).read_text()
+    assert b"new-test-password" not in accounts.account_path(tmp_path).read_bytes()
     client = TestClient(main.app, follow_redirects=False)
     assert client.post("/login", data={"username": "new.analyst", "password": "wrong"}).status_code == 200
     assert accounts.load_accounts(tmp_path)["new.analyst"]["first_login"] is True
@@ -33,16 +33,17 @@ def test_additional_login_preserves_operator_and_first_login_opens_help(tmp_path
     assert again.headers["location"] == "/today?window=7d"
     client.post("/logout")
     old = client.post("/login", data={"username": "existing-analyst", "password": "existing-test-password"})
-    assert old.headers["location"] == "/today"
+    assert old.headers["location"] == "/guide"
     with pytest.raises(ValueError, match="already exists"):
         accounts.create_account(tmp_path, "new.analyst", "replacement")
     client.post("/logout")
-    store = accounts.load_accounts(tmp_path)
-    store["new.analyst"]["enabled"] = False
-    accounts.account_path(tmp_path).write_text(json.dumps(store))
+    accounts.set_account_enabled(tmp_path, "new.analyst", False)
     assert client.post("/login", data={"username": "new.analyst", "password": "new-test-password"}).status_code == 200
     accounts.account_path(tmp_path).write_text("corrupt account store")
-    assert client.post("/login", data={"username": "existing-analyst", "password": "existing-test-password"}).headers["location"] == "/today"
+    assert accounts.account_credentials_match(tmp_path, "new.analyst", "new-test-password") is False
+    unavailable = client.post("/login", data={"username": "existing-analyst", "password": "existing-test-password"})
+    assert unavailable.status_code == 503 and "temporarily unavailable" in unavailable.text
+    assert "sqlite" not in unavailable.text and "corrupt account store" not in unavailable.text
 
 
 def test_unicode_credentials_can_use_hash_login_without_comparison_errors(tmp_path, monkeypatch):

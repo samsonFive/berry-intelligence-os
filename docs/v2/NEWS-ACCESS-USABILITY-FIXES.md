@@ -1,80 +1,101 @@
-# Analyst access and everyday News fixes
+# News, reader, performance and analyst accounts
 
-The October 13 user feedback asks for an additional analyst, Help on first
-login, fresh news in one click, real source text instead of Google consent
-boilerplate, clear publisher navigation, and a faster application.
+The October 14 continuation authorizes completing and releasing the everyday
+News fixes and adding Julio.A to the same live instance. Chris.H and Julio.A
+have been provisioned additively; plaintext passwords are never committed.
+This mission does not release the separate variety-catalog research drafts.
 
-This release is independent of the variety catalog/source research drafts.
-Platform PR #398 is already released; catalog PR #400 remains a separate draft.
-The new changes need their own current-head CI and release approval.
+## Resulting workflow
 
-## Delivered in this candidate
+- Clicking **News** explicitly starts public-news collection, then displays the
+  newest results automatically. The page consumes the refresh marker so the
+  resulting reload cannot start another collection. **Refresh news** also takes
+  one click and preserves berry, country, date and review filters, resetting
+  pagination/story selection. Failed and partial collection stay visible.
+- Clicking a story immediately opens the existing shared Reader. If useful
+  source text is missing, its JavaScript automatically calls the capture POST;
+  another content-loading click is unnecessary. Cached useful text appears
+  directly. Loading, failure, a clearly labeled synopsis, retry and publisher
+  links remain usable. Late retrieval cannot replace another story. Retrieval
+  never publishes or confirms source claims.
+- Consent, Accept All/Reject All, ad-blocker and first-visit notices are omitted
+  at display time wherever they occur, including mixed or old saved text.
+  Source reporting about consent controls remains readable. Known dialog
+  containers are excluded during HTML parsing. Original Evidence, source
+  history and analyst wording remain unchanged on disk.
+- Direct publisher links remain visible above the article. Locally decodable
+  Google wrappers resolve directly. Other wrappers may resolve through one
+  recorded publisher page, requiring a unique exact-headline article link on
+  that publisher's domain. No article URL is guessed or a homepage substituted
+  as article text. A restriction or unresolved link produces an honest fallback.
+- Concurrent opens share a bounded capture. A recent failed automatic capture
+  has a 60-second cooldown; explicit retry bypasses it. Successful cached text
+  is reused only for the matching source, and a failed reload preserves useful
+  earlier capture text. Capture reads and network responses are bounded.
 
-- Additional analyst logins preserve the existing environment-based operator
-  login. Passwords use salted scrypt hashes in the private runtime. New accounts
-  open `/guide` on their first successful sign-in; later sign-ins honor the
-  safe requested destination. Incorrect passwords do not consume onboarding.
-  Account creation refuses duplicate usernames and unreadable existing stores.
-  Disabled additional accounts lose authenticated access on their next request.
-- One **Refresh news** click collects news and automatically displays the
-  updated feed. Berry, country, date and review filters remain selected; page
-  and story selection reset so the newest matching news is shown first.
-  Failure stays visible, without an automatic reload or false success.
-  A transient unavailable status is retried within a bounded ten-minute window,
-  rather than being reported as a completed refresh.
-- Reader capture decodes locally resolvable Google News links, checks each
-  network redirect, and rejects unresolved Google/consent pages. Expanded
-  consent detection also protects previously stored bodies and capture files
-  at display time, without rewriting source or review history.
-- A visible source link sits beside the Reader actions. An exact matching
-  capture may provide the final publisher URL. Unresolved wrappers are labeled
-  **Open source link**; a separately recorded publisher website is offered
-  where available. No guessed article URL is substituted. When original text
-  is unavailable, the available summary remains readable and clearly labeled.
-- Unchanged pending metadata is cached privately with a 16 MB serialized-metadata budget.
-  Every file is rechecked for identity, size, modification and change timestamps.
-  Edits, rejections, deletions and new files appear on the next read. Relevance
-  decisions are cached by exact input text/URL/date and current company/variety
-  names. Trust, filters, marks and entity assignments are still evaluated anew.
+## Performance
 
-## Validation and practical limits
+Unchanged pending metadata is privately cached under a 16 MB budget and checked
+against exact file identity, size, modification and change timestamps. Changed
+records, removals and review states are read again. Relevance decisions are
+cached by actual source text/URL/date and current company/variety names; trust,
+filters, marks and entity assignments remain current.
 
-Read-only production probes measured News at 2.675/2.735 seconds; Companies at
-0.281 seconds and Help at 0.072 seconds. Profiling found repeated pending-file
-parsing and relevance regex work in the News data path.
+Selected reading/capture no longer builds the whole feed or checks every
+source's thumbnail. News refresh publishes its collected stories without
+waiting for thumbnail downloads or live translation/model calls. Existing
+cached translations still apply. The authenticated live server warms the
+read-only News metadata/relevance caches during startup, moving the first
+request's cold computation before users are served. Warm-up performs no
+collection, trust decisions or persistence and cannot prevent server startup.
 
-On the existing isolated local release copy, 1,270 source records produced the
-same 784 matching stories and identical displayed IDs/order before and after:
+On an isolated copy of the live runtime (3,264 sources; 1,493 matching News
+stories), baseline and candidate produced identical matching IDs and order:
 
-| Data path | Before, warmed | Candidate, cold | Candidate, warmed |
-| --- | ---: | ---: | ---: |
-| Metadata | 0.771 s | 0.403 s | 0.396 s |
-| Metadata plus feed model | 2.630 s | 1.861 s | 0.478 s |
+| Route | Baseline | Candidate |
+| --- | ---: | ---: |
+| News, warm | 2.96–3.05 s | 0.60–0.73 s |
+| Selected reader shell | 0.25–0.33 s | 0.20–0.27 s |
+| Help | 0.09 s | 0.06 s |
 
-This is a local data-path comparison, not a production page-load guarantee.
-The final affected Python suite, including capture bounds and source-to-variety
-checks, passed 199 checks. Full CI initially exposed two regressions: malformed
-capture passages and malformed URL decoding. Both now fail safely as unavailable
-content; the complete required suite must pass on the corrected head.
-Four JavaScript refresh
-scenarios passed. Native isolated browser review confirms a newly captured,
-relevant story appears after one click, with its berry scope retained, and
-Google consent text is excluded from the Reader. Fixtures explicitly identify
-themselves; they are not production news. Record validation passed.
-The production-side candidate benchmark was rejected by automatic approval
-review; no candidate code was executed in the live container. Private receipts,
-browser fixtures, screenshots and credentials stay under ignored `inbox/`.
+These are backend measurements on the same private snapshot, not a promise
+about arbitrary networks or publisher response times. The initial cold News
+computation is roughly three seconds and is addressed by startup warming.
+The release receipt must record final live timings and health verification.
 
-The existing analyst workspace remains shared. Separate private digests,
-per-user preferences, roles, administrative user management and multiple-worker
-write coordination belong in a dedicated multi-user mission. These logins do
-not imply tenant isolation. The supplied new account is staged privately and
-must be installed additively in production after release approval.
+## Accounts and runtime preservation
 
-An unresolved Google wrapper, paywall or access restriction may still prevent
-full-text capture. The Reader reports that limitation and offers recorded
-source/publisher links; it never presents boilerplate as the original article.
-A separate acquisition mission should address reliable publisher identity and
-capture coverage. A wider performance mission should measure cold/warm route
-budgets, mobile/network latency, background-job contention and large-corpus
-scaling; the measured immediate News bottlenecks are addressed here.
+Accounts use the existing private `inbox/auth/users.sqlite3`, compatible with
+the first Chris.H release. The additive `enabled` column preserves salted
+scrypt password hashes and first-login timestamps. No JSON account store
+replaces production accounts. Existing operator authentication remains.
+Each user's first successful login opens `/guide`; subsequent logins honor
+the safe destination. Incorrect passwords never consume onboarding. Disabled
+accounts lose access; duplicate creation and unreadable stores fail safely.
+
+The analyst workspace remains shared. Roles, tenant isolation and per-user
+digests/preferences are separate product work. Account data, candidate runtime
+copies, browser fixtures, backups and receipts remain private. Deployment uses
+the current persistent runtime mounts and a verified backup/rollback; it never
+uploads local intelligence or overwrites production review state.
+
+## Validation and remaining limits
+
+The affected regression tests cover old account-schema migration, concurrent
+first login/capture, original-source preservation, malformed captures, Google
+and publisher resolution, shared-reader filtering, automatic loading/fallback,
+read-only warming and authentication. JavaScript scenarios cover one-click
+refresh, bounded status polling, automatic retrieval, duplicate prevention,
+stale-story cancellation and failure fallback. Browser review uses explicitly
+labeled synthetic stories and demonstrates both automatic clean-text retrieval
+and consent-only fallback. Canonical record validation passes.
+
+Required current-head CI remains the merge gate: Change scope, Repository
+integrity, Static public safety and Python tests. Full live verification follows
+the image switch and checks account preservation, first-login behavior, health,
+real reader capture, one-click collection and before/after page timings.
+
+Paywalls, publisher outages and unresolved wrapper identities can still prevent
+capture. Those pages expose source links and a clear unavailable-text state.
+Mobile/network performance, long-term corpus scaling and wider route contention
+remain measurable follow-up work; they are not hidden by freshness or trust labels.

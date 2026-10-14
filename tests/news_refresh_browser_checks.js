@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const script = fs.readFileSync('app/static/news_workspace.js', 'utf8');
 
-async function scenario(states, expire=false) {
+async function scenario(states, expire=false, fromNavigation=false) {
   let redirect, posts=0, now=0;
   const scheduled=[], listeners={};
   const button={disabled:false, addEventListener:(name, callback)=>listeners[name]=callback};
@@ -15,7 +15,7 @@ async function scenario(states, expire=false) {
     if (selector==='[data-news-refresh-status]') return status;
     return null;
   }, querySelectorAll:()=>[]};
-  const window={location:{href:'https://example.org/today?berry=berry-blueberry&window=7d&view=unreviewed&page=3&story=old',replace:value=>redirect=value},addEventListener:()=>{}};
+  const window={location:{href:'https://example.org/today?berry=berry-blueberry&window=7d&view=unreviewed&page=3&story=old'+(fromNavigation?'&refresh=1':''),replace:value=>redirect=value},history:{state:{},replaceState(state,title,url){window.location.href=url.toString();}},addEventListener:()=>{}};
   class TestDate extends Date {static now(){return now;}}
   const fetch=async (url, options)=>{
     if (options.method==='POST') {posts++; return {ok:true};}
@@ -23,7 +23,7 @@ async function scenario(states, expire=false) {
     return {ok:true,json:async()=>states.shift() || {}};
   };
   vm.runInNewContext(script,{document,window,fetch,URL,Intl,Date:TestDate,setTimeout:callback=>scheduled.push(callback),clearTimeout:()=>{}});
-  listeners.click();
+  if (!fromNavigation) listeners.click();
   await new Promise(setImmediate);
   for (let i=0;i<10 && scheduled.length;i++) {
     if(expire) now=600001;
@@ -51,5 +51,8 @@ async function scenario(states, expire=false) {
   assert.equal(missing.redirect,undefined);
   assert.equal(missing.button.disabled,false);
   assert.match(missing.status.textContent,/longer than expected/);
-  console.log('4 refresh scenarios passed: transient status, ready/partial, failure, bounded timeout.');
+  const navigation=await scenario([{status:'ready'}],false,true);
+  assert.equal(new URL(navigation.redirect).searchParams.has('refresh'),false);
+  assert.equal(new URL(navigation.redirect).searchParams.get('berry'),'berry-blueberry');
+  console.log('5 refresh scenarios passed: ready/partial, failure, bounded timeout and one-click News navigation.');
 })().catch(error=>{console.error(error);process.exitCode=1;});

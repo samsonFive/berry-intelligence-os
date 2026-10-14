@@ -1,29 +1,49 @@
-"""Additional analyst logins in the private runtime; workspace data stays shared."""
+"""Private SQLite accounts, compatible with the first live account release."""
 from __future__ import annotations
 
+from contextlib import contextmanager
 from datetime import UTC, datetime
 import hashlib
 import hmac
-import json
+import os
 import secrets
+import sqlite3
 from pathlib import Path
-
-from app.services.analyst_state_io import atomic_json, serialized_write
 
 
 def account_path(inbox_dir: Path) -> Path:
-    return Path(inbox_dir) / "auth" / "analyst_accounts.json"
+    return Path(inbox_dir) / "auth" / "users.sqlite3"
+
+
+@contextmanager
+def _database(inbox_dir: Path):
+    path = account_path(inbox_dir)
+    path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    descriptor = os.open(path, os.O_CREAT | os.O_WRONLY, 0o600)
+    os.close(descriptor)
+    db = sqlite3.connect(path, timeout=10)
+    try:
+        # Serialize additive migrations and retain every existing hash/timestamp.
+        with db:
+            db.execute("BEGIN IMMEDIATE")
+            db.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password_hash TEXT, first_login_at TEXT)")
+            columns = {row[1] for row in db.execute("PRAGMA table_info(users)")}
+            if "enabled" not in columns:
+                db.execute("ALTER TABLE users ADD COLUMN enabled INTEGER NOT NULL DEFAULT 1")
+        yield db
+    finally:
+        db.close()
 
 
 def load_accounts(inbox_dir: Path, *, strict: bool = False) -> dict:
-    try:
-        payload = json.loads(account_path(inbox_dir).read_text(encoding="utf-8"))
-        if not isinstance(payload, dict):
-            raise ValueError("Invalid account store")
-        return payload
-    except FileNotFoundError:
+    if not account_path(inbox_dir).exists():
         return {}
-    except (OSError, ValueError):
+    try:
+        with _database(inbox_dir) as db:
+            return {username: {"enabled": bool(enabled), "first_login": first_login is None,
+                               "first_login_at": first_login}
+                    for username, first_login, enabled in db.execute("SELECT username, first_login_at, enabled FROM users")}
+    except (OSError, sqlite3.DatabaseError):
         if strict:
             raise ValueError("Account store could not be read; existing accounts were preserved") from None
         return {}
@@ -34,7 +54,6 @@ def password_digest(password: str, salt: str) -> str:
                           n=16384, r=8, p=1, dklen=32).hex()
 
 
-@serialized_write
 def create_account(inbox_dir: Path, username: str, password: str) -> None:
     username = username.strip()
     if not username or len(username) > 100 or any(ord(c) < 32 for c in username):
@@ -42,37 +61,49 @@ def create_account(inbox_dir: Path, username: str, password: str) -> None:
     if not password or len(password.encode("utf-8")) > 1024:
         raise ValueError("Invalid password")
     from app.runtime_config import review_username
-    accounts = load_accounts(inbox_dir, strict=True)
-    if username == review_username() or username in accounts:
+    if username == review_username():
         raise ValueError("Username already exists")
     salt = secrets.token_hex(16)
-    accounts[username] = {"salt": salt, "password_hash": password_digest(password, salt),
-                          "enabled": True, "first_login": True,
-                          "created_at": datetime.now(UTC).isoformat()}
-    atomic_json(account_path(inbox_dir), accounts)
-    # This file never belongs in source control or public/static output.
-    account_path(inbox_dir).chmod(0o600)
+    encoded = f"scrypt${salt}${password_digest(password, salt)}"
+    try:
+        with _database(inbox_dir) as db:
+            with db:
+                db.execute("INSERT INTO users (username, password_hash) VALUES (?, ?)", (username, encoded))
+    except sqlite3.IntegrityError:
+        raise ValueError("Username already exists") from None
+    except (OSError, sqlite3.DatabaseError):
+        raise ValueError("Account store could not be read; existing accounts were preserved") from None
 
 
 def account_credentials_match(inbox_dir: Path, username: str, password: str) -> bool:
-    account = load_accounts(inbox_dir).get(username)
-    if not isinstance(account, dict) or account.get("enabled") is not True:
-        return False
-    if len(password.encode("utf-8")) > 1024:
+    from app.runtime_config import review_username
+    if username == review_username() or not account_path(inbox_dir).exists() or len(password.encode("utf-8")) > 1024:
         return False
     try:
-        return hmac.compare_digest(password_digest(password, account["salt"]), account["password_hash"])
-    except (KeyError, TypeError, ValueError):
+        with _database(inbox_dir) as db:
+            account = db.execute("SELECT password_hash, enabled FROM users WHERE username = ?", (username,)).fetchone()
+        if not account or not account[0] or not account[1]:
+            return False
+        method, salt, digest = account[0].split("$")
+        return method == "scrypt" and hmac.compare_digest(password_digest(password, salt), digest)
+    except (OSError, sqlite3.DatabaseError, TypeError, ValueError):
         return False
 
 
-@serialized_write
 def first_login_destination(inbox_dir: Path, username: str, destination: str) -> str:
-    accounts = load_accounts(inbox_dir, strict=True)
-    account = accounts.get(username)
-    if not isinstance(account, dict) or not account.get("first_login"):
-        return destination
-    account["first_login"] = False
-    account["first_login_at"] = datetime.now(UTC).isoformat()
-    atomic_json(account_path(inbox_dir), accounts)
-    return "/guide"
+    try:
+        with _database(inbox_dir) as db:
+            with db:
+                db.execute("INSERT OR IGNORE INTO users (username) VALUES (?)", (username,))
+                updated = db.execute("UPDATE users SET first_login_at = ? WHERE username = ? AND first_login_at IS NULL",
+                                     (datetime.now(UTC).isoformat(), username)).rowcount
+    except (OSError, sqlite3.DatabaseError):
+        raise ValueError("Account store could not be read; existing accounts were preserved") from None
+    return "/guide" if updated else destination
+
+
+def set_account_enabled(inbox_dir: Path, username: str, enabled: bool) -> None:
+    with _database(inbox_dir) as db:
+        with db:
+            if not db.execute("UPDATE users SET enabled = ? WHERE username = ?", (int(enabled), username)).rowcount:
+                raise ValueError("Account not found")

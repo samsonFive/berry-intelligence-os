@@ -15,18 +15,24 @@ from time import monotonic
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+from threading import Lock, RLock
+from weakref import WeakValueDictionary
 from html import unescape
 from urllib.parse import parse_qs, unquote, urljoin, urlparse
 
 import httpx
 
 from app.services.html_text import decode_html_text
-from app.services.source_body import looks_like_interstitial
+from app.services.source_body import clean_reader_text, looks_like_interstitial
 
 CAPTURE_SUBDIR = "feed_first_reader"
 MAX_BYTES = 800_000
 FETCH_TIMEOUT = 4.0
 MAX_REDIRECTS = 5
+CAPTURE_VERSION = 2
+FAILED_CAPTURE_RETRY_SECONDS = 60
+_capture_locks = WeakValueDictionary()
+_capture_lock_guard = Lock()
 USER_AGENT = "BerryIntelligenceOS-Reader/1.0 (+https://github.com/samsonFive/berry-intelligence-os)"
 _SKIP_PREVIEW_HOSTS = {
     "example.test",
@@ -114,7 +120,7 @@ def suppress_leading_boilerplate(passages: list[str]) -> list[str]:
 
 def display_reader_passages(passages: list[str]) -> list[str]:
     """Project stored/cached passages for display without mutating raw captures."""
-    return suppress_leading_boilerplate(passages)
+    return [cleaned for row in passages if isinstance(row, str) and (cleaned := clean_reader_text(row))]
 
 
 def capture_path(inbox_dir: Path, item_id: str) -> Path:
@@ -174,6 +180,8 @@ def paragraphs_from_html(html: str, *, limit: int | None = 24) -> list[str]:
     try:
         tree = html_parser.fromstring(cleaned)
         for node in tree.xpath("//nav | //aside | //footer | //template | //*[@hidden] | //*[@aria-hidden='true']"):
+            node.drop_tree()
+        for node in tree.xpath("//*[@role='dialog' or @aria-modal='true' or @id='onetrust-banner-sdk' or @id='didomi-host' or @id='cookie-banner' or @id='cookie-consent']"):
             node.drop_tree()
         roots = tree.xpath("//article") or tree.xpath("//main")
         cleaned = "\n".join(html_parser.tostring(node, encoding="unicode") for node in roots) if roots else html_parser.tostring(tree, encoding="unicode")
@@ -445,6 +453,8 @@ def fetch_public_article(url: str, *, client: httpx.Client | None = None) -> dic
         images = extract_article_images(html)
         allowed = frame_allowed(headers)
         availability = classify_capture(passages, status_code=status_code)
+        if not passages and looks_like_interstitial(decode_html_text(sanitize_reader_html(html))):
+            availability = "blocked"
         document_limited = bool(document and document["truncated"])
         if (limited or document_limited or passage_limited or document) and availability == "full":
             availability = "partial"
@@ -485,6 +495,8 @@ def load_capture(inbox_dir: Path, item_id: str) -> dict[str, Any] | None:
     if not path.exists():
         return None
     try:
+        if path.is_symlink() or path.stat().st_size > 4_000_000:
+            return None
         payload = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return None
@@ -559,18 +571,71 @@ def capture_item(
     client: httpx.Client | None = None,
     refresh: bool = False,
 ) -> dict[str, Any]:
+    # Concurrent openings of the same story share one bounded retrieval.
+    key = (str(Path(inbox_dir).resolve()), str(record.get("id") or record.get("source_url") or ""))
+    with _capture_lock_guard:
+        lock = _capture_locks.get(key)
+        if lock is None:
+            lock = RLock()
+            _capture_locks[key] = lock
+    with lock:
+        return _capture_item(inbox_dir, record, client=client, refresh=refresh)
+
+
+def _capture_item(inbox_dir, record, *, client=None, refresh=False):
     item_id = str(record.get("id") or "")
     existing = load_capture(inbox_dir, item_id) if item_id else None
-    matching_existing = bool(existing and existing.get("ok") and existing.get("requested_url", str(record.get("source_url") or "")) == str(record.get("source_url") or ""))
-    if matching_existing and not refresh and _capture_passages(existing) and not looks_like_interstitial(" ".join(_capture_passages(existing))):
+    source_url = str(record.get("source_url") or "")
+    same_source = bool(existing and (existing.get("requested_url") or existing.get("url")) == source_url)
+    cleaned = display_reader_passages(_capture_passages(existing))
+    matching_existing = bool(same_source and existing.get("ok") and cleaned and not looks_like_interstitial(" ".join(cleaned)))
+    if matching_existing and not refresh:
         return existing
+    if same_source and not refresh and existing.get("capture_version") == CAPTURE_VERSION and not existing.get("ok"):
+        from app.services.chronology import parse_stamp
+        retrieved = parse_stamp(existing.get("retrieved_at"))
+        if retrieved and 0 <= (datetime.now(UTC) - retrieved).total_seconds() < FAILED_CAPTURE_RETRY_SECONDS:
+            return existing
     url = str(record.get("source_url") or "")
-    capture = fetch_public_article(url, client=client)
+    from app.services.google_news_url import is_google_news_wrapper, resolve_google_news_url
+    target = resolve_google_news_url(url)
+    if is_google_news_wrapper(target):
+        target = _publisher_target(record, client=client)
+        capture = fetch_public_article(target, client=client) if target else empty_capture(url, reason="blocked")
+    else:
+        capture = fetch_public_article(target, client=client)
     capture["item_id"] = item_id
     capture["requested_url"] = url
+    capture["capture_version"] = CAPTURE_VERSION
     if item_id and not (matching_existing and not capture.get("ok")):
         save_capture(inbox_dir, item_id, capture)
     return capture
+
+
+def _publisher_target(record, *, client=None):
+    """Try one recorded publisher page, requiring a unique exact headline link."""
+    home = str(record.get("origin_publisher_url") or "")
+    if not is_public_http_url(home):
+        return ""
+    http = client or httpx.Client(timeout=FETCH_TIMEOUT, follow_redirects=False, headers={"User-Agent": USER_AGENT})
+    try:
+        final, raw, _, encoding, status, _ = _bounded_public_response(home, http, limit=MAX_BYTES)
+        if status >= 400:
+            return ""
+        if ((urlparse(final).hostname or "").casefold().removeprefix("www.")
+                != (urlparse(home).hostname or "").casefold().removeprefix("www.")):
+            return ""
+        try:
+            html = raw.decode(encoding, errors="replace")
+        except LookupError:
+            html = raw.decode("utf-8", errors="replace")
+        from app.services.publisher_link_resolution import publisher_article_link
+        return publisher_article_link(html, final, record.get("title"), record.get("source_name"))
+    except (ValueError, httpx.HTTPError):
+        return ""
+    finally:
+        if client is None:
+            http.close()
 
 
 def preview_image_from_html(html: str, page_url: str) -> str:
@@ -662,14 +727,21 @@ def merge_capture(record: dict[str, Any], capture: dict[str, Any] | None) -> dic
         return record
     merged = dict(record)
     saved_passages = _capture_passages(capture)
-    blocked = capture.get("availability") == "blocked" or looks_like_interstitial(" ".join(saved_passages))
-    passages = [] if blocked else display_reader_passages([row for row in saved_passages if row.strip()])
+    passages = display_reader_passages(saved_passages)
+    blocked = (capture.get("availability") == "blocked" or looks_like_interstitial(" ".join(passages))
+               or (not passages and looks_like_interstitial(" ".join(saved_passages))))
+    if blocked:
+        passages = []
     if passages:
         article = dict(merged.get("article") or {}) if isinstance(merged.get("article"), dict) else {}
         existing = article.get("paragraphs") if isinstance(article.get("paragraphs"), list) else []
-        if not str(article.get("full_text") or "").strip() and not any(
+        from app.services.source_body import reader_content
+        replace_interstitial = reader_content(record)["contaminated"]
+        if replace_interstitial or (not str(article.get("full_text") or "").strip() and not any(
                 str(row.get("text") or "").strip() if isinstance(row, dict)
-                else str(row or "").strip() for row in existing):
+                else str(row or "").strip() for row in existing)):
+            if replace_interstitial:
+                article.pop("full_text", None)
             # Bind cached hints to the exact displayed text, including after
             # leading boilerplate removal; never annotate an operator's body.
             original = capture.get("passages") or []

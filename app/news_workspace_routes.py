@@ -71,10 +71,11 @@ def run_refresh(inbox_dir, context, sources):
             bundle = live_feed_bundle(inbox_dir=inbox_dir, entities=context["entities"], sources=sources,
                                       refresh=True, today=utc_today(), official_hosts=context["official_hosts"],
                                       official_host_map=context["official_host_map"], muted_ids=context["muted_entity_ids"],
-                                      enrich_lead=False, enable_perplexity=False, enable_exa=False, enable_apitube=False)
+                                      enrich_lead=False, enable_perplexity=False, enable_exa=False, enable_apitube=False,
+                                      fetch_preview_images=False, translate_live=False)
             errors = bundle.get("lane_errors") or []
-            # Explicit news capture includes bounded thumbnail acquisition too.
-            news_images.collect(inbox_dir, bundle.get("records") or [])
+            # Publish fresh stories immediately. Images and optional translation
+            # must not hold the news view behind additional publisher requests.
             result.update(status="partial" if errors else "ready", story_count=len(bundle.get("records") or []),
                           error_count=len(errors), message="Some sources could not be checked." if errors else "News capture completed.")
     except Exception:

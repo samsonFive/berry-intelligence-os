@@ -57,19 +57,29 @@
           latest.searchParams.delete('page');
           latest.searchParams.delete('story');
           latest.searchParams.delete('item');
+          latest.searchParams.delete('refresh');
           window.location.replace(latest.toString());
         }
       }
     }).catch(function (error) { button.disabled = false; status.textContent = error.message; });
   }
-  if (button) button.addEventListener('click', function () {
+  function beginRefresh() {
+    if (!button || button.disabled) return;
     refreshDeadline = Date.now() + 600000;
     button.disabled = true; status.textContent = 'Starting news capture…';
     fetch('/api/news/refresh', {method: 'POST', credentials: 'same-origin'}).then(function (res) {
       if (!res.ok) throw new Error('News refresh could not start. Try again.');
       poll();
     }).catch(function (error) { button.disabled = false; status.textContent = error.message; });
-  });
+  }
+  if (button) button.addEventListener('click', beginRefresh);
+  // Clicking News is itself an explicit request for fresh news. Consume its
+  // URL marker before the final reload so it cannot start a refresh loop.
+  if (button && ['1', 'true', 'latest'].indexOf(url.searchParams.get('refresh')) !== -1) {
+    url.searchParams.delete('refresh');
+    window.history.replaceState(window.history.state, '', url);
+    beginRefresh();
+  }
   var imagesButton = document.querySelector('[data-news-images]'), imagesTimer;
   function pollImages() {
     fetch('/api/news/images', {credentials: 'same-origin'}).then(function (response) {

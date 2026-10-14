@@ -21,6 +21,12 @@ PASSWORD = "temporary-proof-password"
 SESSION_SECRET = "application-session-secret-not-the-password"
 
 
+@pytest.fixture(autouse=True)
+def isolated_accounts(tmp_path, monkeypatch):
+    from app import main
+    monkeypatch.setattr(main, "INBOX_DIR", tmp_path / "inbox")
+
+
 def _enable_remote(monkeypatch, **overrides: str) -> None:
     monkeypatch.setenv("BIOS_REMOTE_INTERACTIVE", "true")
     monkeypatch.setenv("BIOS_REVIEW_USERNAME", OPERATOR)
@@ -101,7 +107,7 @@ def test_successful_login_creates_session_and_reaches_scanner(monkeypatch) -> No
         data={"username": OPERATOR, "password": PASSWORD, "next": "/work-queue"},
     )
     assert response.status_code == 303
-    assert response.headers["location"] == "/work-queue"
+    assert response.headers["location"] == "/guide"
     cookie = response.headers.get("set-cookie", "")
     assert SESSION_COOKIE_NAME in cookie
     assert "httponly" in cookie.lower()
@@ -112,6 +118,9 @@ def test_successful_login_creates_session_and_reaches_scanner(monkeypatch) -> No
     assert "Live Intelligence" in scanner.text
     assert "Sign out" in scanner.text
     assert "Demo-Operator" in scanner.text or "demo-operator" in scanner.text
+    client.post("/logout")
+    second = client.post("/login", data={"username": OPERATOR, "password": PASSWORD, "next": "/work-queue"})
+    assert second.headers["location"] == "/work-queue"
 
 
 def test_https_session_cookie_is_secure(monkeypatch) -> None:
@@ -168,7 +177,7 @@ def test_unsafe_next_cannot_redirect_externally(monkeypatch) -> None:
         },
     )
     assert response.status_code == 303
-    assert response.headers["location"] == "/today"
+    assert response.headers["location"] == "/guide"
 
 
 def test_missing_session_secret_fails_closed(monkeypatch) -> None:

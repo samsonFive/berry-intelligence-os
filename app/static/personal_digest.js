@@ -3,6 +3,7 @@
   var root = document.body;
   if (!root.hasAttribute("data-personal-digest")) return;
   var reader = null, mode = "article", positions = {}, actionChain = Promise.resolve(), digestDirty = false, lastReaderId = null;
+  var activeCapture = null;
   var status = document.querySelector(".digest-status"), statusTimer;
   function announce(message, panel) {
     var local = panel && panel.querySelector(".reader-action-status");
@@ -43,6 +44,44 @@
     var location = stored ? JSON.parse(stored.textContent) : {};
     positions = location.positions || {};
     applyMode(location.mode === "brief" ? "brief" : "article");
+    if (reader.dataset.autoCapture === "true") {
+      reader.dataset.autoCapture = "false";
+      captureSource(reader, null, false);
+    }
+  }
+  function captureSource(panel, button, refresh) {
+    if (!panel || panel.dataset.captureBusy === "true") return;
+    panel.dataset.captureBusy = "true";
+    var id = panel.dataset.itemId, label = button && button.textContent;
+    if (button) { button.disabled = true; button.textContent = "Loading article…"; }
+    panel.setAttribute("aria-busy", "true");
+    var controller = new AbortController();
+    activeCapture = controller;
+    fetch("/api/digest/" + encodeURIComponent(id) + "/capture" + (refresh ? "?refresh=1" : ""), {
+      method: "POST", credentials: "same-origin", signal: controller.signal
+    }).then(function (response) {
+      if (!response.ok) throw new Error("Article could not be loaded here. Open the publisher link or retry.");
+      return response.text();
+    }).then(function (html) {
+      // Late content must never replace a different story or reopen a closed reader.
+      if (reader !== panel || !panel.isConnected || controller.signal.aborted) return;
+      var selectedMode = mode;
+      panel.outerHTML = html; setupReader(); applyMode(selectedMode);
+    }).catch(function (error) {
+      if (error.name === "AbortError" || reader !== panel || !panel.isConnected) return;
+      var loading = panel.querySelector("[data-reader-loading]");
+      if (loading) loading.textContent = error.message;
+      var heading = panel.querySelector(".article-unavailable h3");
+      if (heading) heading.textContent = "Article text isn’t available here";
+      var retry = panel.querySelector("[data-personal-capture]");
+      if (retry) retry.hidden = false;
+      announce(error.message, panel);
+    }).finally(function () {
+      delete panel.dataset.captureBusy;
+      panel.removeAttribute("aria-busy");
+      if (activeCapture === controller) activeCapture = null;
+      if (button && button.isConnected) { button.disabled = false; button.textContent = label; }
+    });
   }
   function updateButtons(id, decision) {
     document.querySelectorAll('[data-personal-action][data-item-id="' + CSS.escape(id) + '"]').forEach(function (button) {
@@ -100,21 +139,7 @@
     }
     var capture = event.target.closest("[data-personal-capture]");
     if (capture && reader) {
-      var activeReader = reader, id = reader.dataset.itemId;
-      var captureLabel = capture.textContent;
-      capture.disabled = true; capture.textContent = "Loading article…";
-      fetch("/api/digest/" + encodeURIComponent(id) + "/capture" + (capture.dataset.personalRefresh === "true" ? "?refresh=1" : ""), {method: "POST", credentials: "same-origin"}).then(function (response) {
-        if (!response.ok) throw new Error("Article could not be loaded. You can read at the publisher.");
-        return response.text();
-      }).then(function (html) {
-        // A late capture must never replace the next story the user opened.
-        if (reader !== activeReader || !activeReader.isConnected) return;
-        activeReader.outerHTML = html; setupReader(); applyMode("article");
-        if (!reader.querySelector(".article-prose")) {
-          var sourceNotice = reader.querySelector('[data-personal-pane="article"] .reader-action-status');
-          announce(sourceNotice ? sourceNotice.textContent : "Article text could not be loaded here. Use the source links above or the Brief.", reader);
-        }
-      }).catch(function (error) { announce(error.message, activeReader); }).finally(function () { if (capture.isConnected) { capture.disabled = false; capture.textContent = captureLabel; } });
+      captureSource(reader, capture, capture.dataset.personalRefresh === "true");
     }
     if (!event.target.closest(".glass-more")) { var more = document.querySelector(".glass-more"); if (more) more.open = false; }
     document.querySelectorAll(".filter-multi[open]").forEach(function (details) {
@@ -133,7 +158,7 @@
       filters.querySelectorAll('[name="' + name + '"]').forEach(function (checkbox) { checkbox.disabled = true; });
     });
   });
-  document.addEventListener("bios:reader-unloading", function () { remember().catch(function (error) { announce(error.message, reader); }); reader = null; });
+  document.addEventListener("bios:reader-unloading", function () { if (activeCapture) activeCapture.abort(); remember().catch(function (error) { announce(error.message, reader); }); reader = null; });
   document.addEventListener("bios:reader-loaded", setupReader);
   var overlay = document.getElementById("v2ReaderOffcanvas");
   function refreshDigest() {
@@ -159,7 +184,7 @@
     }).catch(function (error) { announce(error.message); });
   }
   if (overlay) {
-    overlay.addEventListener("hide.bs.offcanvas", function () { remember().catch(function (error) { announce(error.message, reader); }); });
+    overlay.addEventListener("hide.bs.offcanvas", function () { if (activeCapture) activeCapture.abort(); remember().catch(function (error) { announce(error.message, reader); }); });
     overlay.addEventListener("hidden.bs.offcanvas", refreshDigest);
   }
   window.addEventListener("pagehide", function () { remember().catch(function () {}); });

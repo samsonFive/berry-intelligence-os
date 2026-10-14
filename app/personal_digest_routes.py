@@ -86,13 +86,15 @@ def personal_source_record(item_id: str, *, records=None):
     from app.services.publication_sources import active_publication_record, inactive_publication_record
     if not feed_first.SAFE_ID_RE.fullmatch(item_id):
         return None
-    # Selected reading resolves original prose; feed cards carry metadata only.
-    full_records = digest.source_records(main.published_evidence(), main.INBOX_DIR,
-                                        include_private=main.AUTHORING_MODE)
-    records = full_records if records is None else {**records, **full_records}
-    record = records.get(item_id)
-    if record is not None and record.get("status") == "published":
-        return record  # Never replace canonical prose with a pending version.
+    # Resolve just this source; no per-story preview checks for the whole feed.
+    published = next((row for row in main.published_evidence() if row.get("id") == item_id), None)
+    if published is not None:
+        return published  # Never replace canonical prose with a pending version.
+    record = (records or {}).get(item_id)
+    if main.AUTHORING_MODE:
+        retained = digest.retained_news(main.INBOX_DIR, selected_id=item_id)
+        if retained:
+            record = retained[0]
     if main.AUTHORING_MODE:
         original = main.get_draft(item_id)
         if original and original.get("id") == item_id and inactive_publication_record(original):
@@ -218,6 +220,7 @@ def reader_context(request: Request, record: dict):
     return_to = request.query_params.get("return_to") or "/digest"
     return_to = return_to if urlsplit(return_to).path == "/statements" and not urlsplit(return_to).netloc and not urlsplit(return_to).scheme else "/digest"
     return {"personal_reader": True, "card": card, "record": record, "article_text": paragraphs, "article_blocks": article_blocks, "document_blocks": document_blocks,
+            "auto_capture": bool(main.AUTHORING_MODE and not paragraphs and card["source_url"] and not record.get("missing_source")),
             "article_available": bool(paragraphs), "reading_entry": entry, "summary": content["summary"],
             "trusted": source_reviewed(record), "escalated_statements": escalations(main.all_facts()).get(str(record["id"]), []),
             "statement_reviews": statement_reviews, "reader_return_to": return_to,
@@ -229,15 +232,16 @@ def reader_context(request: Request, record: dict):
 def digest_capture(request: Request, item_id: str):
     require_edit(request)
     from app.services.feed_first_reader import capture_item
-    main, context, records, _ = world()
-    record = known_story(item_id, records, context, analyst_queue.load_state(main.INBOX_DIR))
-    if record.get("missing_source"):
+    from app import main
+    record = personal_source_record(item_id)
+    if record is None or record.get("missing_source"):
         raise HTTPException(404, "Source no longer available")
     if request.query_params.get("refresh") == "1":
         capture = capture_item(main.INBOX_DIR, record, refresh=True)
     else:
         capture = capture_item(main.INBOX_DIR, record)
     view = reader_context(request, record)
+    view["auto_capture"] = False  # A failed attempt must not start a retry loop.
     if isinstance(capture, dict) and not capture.get("ok"):
         view["capture_message"] = ("The source returned a consent or access page instead of article text. Use the source links above to read it."
                                    if capture.get("availability") == "blocked" else
