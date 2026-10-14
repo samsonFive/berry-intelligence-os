@@ -785,6 +785,8 @@ def live_feed_bundle(
     muted_ids: Iterable[str] | None = None,
     enrich_lead: bool = False,
     acquire_on_miss: bool = True,
+    fetch_preview_images: bool = True,
+    translate_live: bool = True,
 ) -> dict[str, Any]:
     today = today or utc_today()
     now = now or datetime.now(UTC)
@@ -862,8 +864,10 @@ def live_feed_bundle(
     from app.services.feed_first_reader import attach_source_preview_images
     from app.services.feed_first_translate import translate_records
 
-    records = translate_records(records, inbox_dir=inbox_dir)
-    records = attach_source_preview_images(records)
+    records = translate_records(records, inbox_dir=inbox_dir,
+                                **({} if translate_live else {"translator": lambda *args: None}))
+    if fetch_preview_images:
+        records = attach_source_preview_images(records)
     bundle = {
         **empty_bundle(today, fetched_at=now.isoformat(timespec="seconds")),
         **meta,

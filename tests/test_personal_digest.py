@@ -212,7 +212,7 @@ def test_summary_and_access_wall_never_masquerade_as_original(workspace):
     save_bundle(main.INBOX_DIR, {"today": "2026-09-20", "records": [article("ev-thin", summary="Only synopsis", article={"paragraphs": [{"text": "Only synopsis"}]}), article("ev-wall", article={"paragraphs": [{"text": "Verify you are a human. Subscribe to continue reading."}]})]})
     for item_id in ["ev-thin", "ev-wall"]:
         text = client.get(f"/api/intelligence/{item_id}/reader?personal=1").text
-        assert 'class="article-prose"' not in text and "Article text isn’t available" in text
+        assert 'class="article-prose"' not in text and "Loading publisher article" in text
         assert '/varieties/discover-source/' not in text
 
 

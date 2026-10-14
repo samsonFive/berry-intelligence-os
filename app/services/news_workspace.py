@@ -1,5 +1,6 @@
 """Pure News selection over retained source metadata, not a new trust store."""
 from datetime import UTC, datetime, timedelta
+from functools import lru_cache
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from app.services import feed_first, personal_digest
@@ -19,6 +20,20 @@ NEWS_TYPES = {
     "news_article", "newsletter", "industry_report",
 }
 PAGE_SIZE = 36
+
+
+@lru_cache(maxsize=8)
+def _qualification_index(company_names, variety_names):
+    return QualificationIndex.compile(company_names=company_names, variety_names=variety_names)
+
+
+@lru_cache(maxsize=8192)
+def _qualifying_news(title, snippet, url, published_date, company_names, variety_names):
+    # Cache this deterministic metadata decision only. Review decisions, dates,
+    # filters, saved marks and current entity assignments are applied every time.
+    hit = DiscoveryHit(title=title, snippet=snippet, url=url, source_domain="", published_date=published_date,
+                       query_id="news-workspace", query_text="", geography="", berry=None, topic=None, provider="stored-source")
+    return qualify_hit(hit, index=_qualification_index(company_names, variety_names)).qualifying
 
 
 def escalations(facts):
@@ -90,11 +105,9 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
         raise ValueError("Company is unavailable")
     subjects = company_source_scope.candidates(entities, state, filters)
     support = escalations(facts)
-    qualification = QualificationIndex.compile(
-        company_names=[name for row in entities.values() if row.get("entity_type") == "company"
-                       for name in [row.get("name", ""), *(row.get("aliases") or [])]],
-        variety_names=[row.get("name", "") for row in entities.values() if row.get("entity_type") == "variety"],
-    )
+    company_names = tuple(name for row in entities.values() if row.get("entity_type") == "company"
+                          for name in [row.get("name", ""), *(row.get("aliases") or [])])
+    variety_names = tuple(row.get("name", "") for row in entities.values() if row.get("entity_type") == "variety")
     counts = {"trusted": 0, "unreviewed": 0}
     matched = []
     for record in records.values():
@@ -105,10 +118,8 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
                            and record.get("media_format") == "web_article")
         if (record.get("source_type") not in NEWS_TYPES and not article_capture) or "structural" in (record.get("tags") or []):
             continue
-        hit = DiscoveryHit(title=str(record.get("title") or ""), snippet=str(record.get("summary") or ""),
-                           url=str(record.get("source_url") or ""), source_domain="", published_date=record.get("published_date"),
-                           query_id="news-workspace", query_text="", geography="", berry=None, topic=None, provider="stored-source")
-        if not qualify_hit(hit, index=qualification).qualifying:
+        if not _qualifying_news(str(record.get("title") or ""), str(record.get("summary") or ""),
+                                str(record.get("source_url") or ""), str(record.get("published_date") or ""), company_names, variety_names):
             continue
         stamp = parse_stamp(record.get("published_date"))
         # Publication dates, never capture dates. Undated items have their own view.
@@ -159,6 +170,9 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
                    {"article", "transcript", "transcript_excerpt", "images", "reader_capture"}}
         preview["article"] = {"image_url": feed_first.safe_image_url(record)}
         card = feed_first.present_item(preview, entities_by_id=entities, state=state, filters=feed_first.parse_filters({}))
+        from app.services.source_body import looks_like_interstitial
+        if looks_like_interstitial(card["deck"]):
+            card["deck"] = "Article summary unavailable. Open the story for source links."
         from app.services.feed_first_reader import is_public_http_url
         card["source_url"] = card["source_url"] if is_public_http_url(card["source_url"]) else ""
         card.update(trusted=trusted, source_reviewed=source_reviewed(record), escalated_count=len(support.get(card["id"], [])))

@@ -526,11 +526,14 @@ def build_reader(
         readiness=transcript_readiness,
     )
     kind = item["kind"]
-    from app.services.source_body import reader_content
+    from app.services.source_body import reader_content, clean_reader_text
     content = reader_content(record)
     paragraphs = article_paragraphs(record)
     if content["contaminated"]:
         paragraphs = []
+    else:
+        paragraphs = [{**row, "text": cleaned} for row in paragraphs
+                      if (cleaned := clean_reader_text(row.get("text") or ""))]
     segments = load_transcript_segments(inbox_dir, record) if kind == "spoken" else []
     patent = record.get("patent_filing") if isinstance(record.get("patent_filing"), dict) else None
     parent_id = record.get("id")

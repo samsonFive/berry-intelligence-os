@@ -86,13 +86,20 @@ def personal_source_record(item_id: str, *, records=None):
     from app.services.publication_sources import active_publication_record, inactive_publication_record
     if not feed_first.SAFE_ID_RE.fullmatch(item_id):
         return None
-    # Selected reading resolves original prose; feed cards carry metadata only.
-    full_records = digest.source_records(main.published_evidence(), main.INBOX_DIR,
-                                        include_private=main.AUTHORING_MODE)
-    records = full_records if records is None else {**records, **full_records}
-    record = records.get(item_id)
-    if record is not None and record.get("status") == "published":
-        return record  # Never replace canonical prose with a pending version.
+    def with_preview(record):
+        if record is None or not main.AUTHORING_MODE:
+            return record
+        from app.services.feed_first_reader import attach_capture_previews
+        return attach_capture_previews({item_id: record}, main.INBOX_DIR)[item_id]
+    # Resolve just this source; no per-story preview checks for the whole feed.
+    published = next((row for row in main.published_evidence() if row.get("id") == item_id), None)
+    if published is not None:
+        return with_preview(published)  # Canonical prose remains authoritative.
+    record = (records or {}).get(item_id)
+    if main.AUTHORING_MODE:
+        retained = digest.retained_news(main.INBOX_DIR, selected_id=item_id)
+        if retained:
+            record = retained[0]
     if main.AUTHORING_MODE:
         original = main.get_draft(item_id)
         if original and original.get("id") == item_id and inactive_publication_record(original):
@@ -100,8 +107,8 @@ def personal_source_record(item_id: str, *, records=None):
         draft = active_publication_record(original)
         if (draft is not None and draft["id"] == item_id
                 and (record is None or draft.get("source_url") == record.get("source_url"))):
-            return draft
-    return record
+            return with_preview(draft)
+    return with_preview(record)
 
 
 def known_story(item_id: str, records, context, reading):
@@ -167,10 +174,12 @@ def reader_context(request: Request, record: dict):
     from app.services.source_body import reader_content
     from app.services.news_workspace import source_reviewed, escalations
     from app.services.statement_workspace import present_statements
+    capture = None
     if main.AUTHORING_MODE:
         from app.services.source_reading import reviewed_original_for_reading
         record = reviewed_original_for_reading(record, main.INBOX_DIR)
-        record = merge_capture(record, load_capture(main.INBOX_DIR, str(record["id"])))
+        capture = load_capture(main.INBOX_DIR, str(record["id"]))
+        record = merge_capture(record, capture)
     context = main._feed_first_world() if main.AUTHORING_MODE else {"entities": main.all_entities(), "state": feed_first.empty_state()}
     entities = {str(row["id"]): row for row in context["entities"] if row.get("id")}
     card = feed_first.present_item(record, entities_by_id=entities, state=context["state"], filters=feed_first.parse_filters({}))
@@ -185,6 +194,22 @@ def reader_context(request: Request, record: dict):
     from app.services.article_structure import display_article_blocks
     article_blocks = display_article_blocks(record, paragraphs)
     card["source_url"] = card["source_url"] if is_public_http_url(card["source_url"]) else ""
+    from app.services.google_news_url import resolve_google_news_url, is_google_news_wrapper
+    source_url = card["source_url"]
+    direct_url = resolve_google_news_url(source_url)
+    if capture and (capture.get("requested_url") or capture.get("url")) == source_url:
+        final_url = str(capture.get("url") or "")
+        if is_public_http_url(final_url) and not is_google_news_wrapper(final_url) and urlsplit(final_url).hostname not in {"consent.google.com", "accounts.google.com"}:
+            direct_url = final_url
+    card["source_url"] = direct_url if is_public_http_url(direct_url) else source_url
+    card["source_link_label"] = "Open source link" if is_google_news_wrapper(card["source_url"]) else "Read original at publisher"
+    home = str(record.get("origin_publisher_url") or "")
+    card["publisher_home_url"] = home if is_public_http_url(home) and home != card["source_url"] and is_google_news_wrapper(card["source_url"]) else ""
+    if not card["publisher_home_url"] and is_google_news_wrapper(card["source_url"]):
+        source = next((row for row in main.load_sources() if row.get("id") == record.get("source_id")), {})
+        home = str(source.get("url") or "")
+        if is_public_http_url(home) and not is_google_news_wrapper(home):
+            card["publisher_home_url"] = home
     entry = ((analyst_queue.load_state(main.INBOX_DIR).get("reading") or {}).get(str(record["id"])) or {}) if main.AUTHORING_MODE else {}
     statement_reviews = present_statements(card["statements"], {str(record["id"]): record}, context["entities"], return_to="/statements") if main.AUTHORING_MODE else []
     article_varieties = []
@@ -200,6 +225,7 @@ def reader_context(request: Request, record: dict):
     return_to = request.query_params.get("return_to") or "/digest"
     return_to = return_to if urlsplit(return_to).path == "/statements" and not urlsplit(return_to).netloc and not urlsplit(return_to).scheme else "/digest"
     return {"personal_reader": True, "card": card, "record": record, "article_text": paragraphs, "article_blocks": article_blocks, "document_blocks": document_blocks,
+            "auto_capture": bool(main.AUTHORING_MODE and not paragraphs and card["source_url"] and not record.get("missing_source")),
             "article_available": bool(paragraphs), "reading_entry": entry, "summary": content["summary"],
             "trusted": source_reviewed(record), "escalated_statements": escalations(main.all_facts()).get(str(record["id"]), []),
             "statement_reviews": statement_reviews, "reader_return_to": return_to,
@@ -211,17 +237,20 @@ def reader_context(request: Request, record: dict):
 def digest_capture(request: Request, item_id: str):
     require_edit(request)
     from app.services.feed_first_reader import capture_item
-    main, context, records, _ = world()
-    record = known_story(item_id, records, context, analyst_queue.load_state(main.INBOX_DIR))
-    if record.get("missing_source"):
+    from app import main
+    record = personal_source_record(item_id)
+    if record is None or record.get("missing_source"):
         raise HTTPException(404, "Source no longer available")
     if request.query_params.get("refresh") == "1":
         capture = capture_item(main.INBOX_DIR, record, refresh=True)
     else:
         capture = capture_item(main.INBOX_DIR, record)
     view = reader_context(request, record)
+    view["auto_capture"] = False  # A failed attempt must not start a retry loop.
     if isinstance(capture, dict) and not capture.get("ok"):
-        view["capture_message"] = "Source text could not be loaded. Any previously captured text is still shown; you can try again or read at the publisher."
+        view["capture_message"] = ("The source returned a consent or access page instead of article text. Use the source links above to read it."
+                                   if capture.get("availability") == "blocked" else
+                                   "Source text could not be loaded. Any previously captured text is still shown; use the source links above or try again.")
     return main.templates.TemplateResponse(request=request, name="_personal_reader.html", context=view)
 
 

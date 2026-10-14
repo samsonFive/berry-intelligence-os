@@ -6,6 +6,7 @@ This module does not fetch URLs and does not invent article text.
 from __future__ import annotations
 
 from typing import Any
+from urllib.parse import urlsplit
 
 from app.services.html_text import decode_html_text
 import re
@@ -14,6 +15,12 @@ INTERSTITIAL_SIGNALS = (
     "before you continue to google",
     "consent.google.com",
     "we use cookies and data to",
+    "if you choose to accept all",
+    "if you choose to reject all",
+    "deliver and maintain google services",
+    "track outages and protect against spam",
+    "measure audience engagement and site statistics",
+    "show personalized ads, depending on your settings",
     "privacy reminder",
     "i agree to the use of cookies",
     "enable cookies",
@@ -29,7 +36,64 @@ INTERSTITIAL_SIGNALS = (
     "this content is for subscribers only",
     "this website uses a security service to protect against malicious bots",
     "this page is displayed while the website verifies you are not a bot",
+    "you're seeing this because",
+    "you’re seeing this because",
+    "you are seeing this because",
+    "this is the first time you visited",
 )
+
+# UI instructions, not the isolated words "cookies" or "accept" in reporting.
+READER_UI_SIGNALS = (
+    "before you continue", "we use cookies", "this website uses cookies",
+    "this site uses cookies", "if you choose to accept all", "if you choose to reject all",
+    "by clicking accept all", "click accept all", "accept all cookies", "reject all cookies",
+    "manage consent", "cookie preferences", "cookie consent", "manage your cookie",
+    "deliver and maintain google services", "track outages and protect against spam",
+    "measure audience engagement and site statistics", "develop and improve new services",
+    "show personalized ads", "deliver and measure the effectiveness of ads",
+    "non-personalized content and ads", "personalized content and ads",
+    "g.co/privacytools", "you're seeing this because", "you’re seeing this because",
+    "you are seeing this because", "this is the first time you visited",
+    "disable your ad blocker", "blocking our advertisements", "ad blocker detected",
+    "enable javascript", "javascript is required", "please enable cookies",
+    "verify you are a human", "checking your browser before accessing",
+    "please log in to continue", "sign in to continue", "subscribe to continue",
+    "this content is for subscribers", "popup blocked", "pop-up blocked",
+)
+
+
+def reader_ui_message(text: str) -> bool:
+    """Recognize consent/access/first-visit UI, preserving article discussions."""
+    normalized = " ".join(decode_html_text(text).casefold().split())
+    if normalized.strip(" .!:…") in {"accept all", "reject all", "accept cookies", "cookie settings", "privacy settings"}:
+        return True
+    # A quote discussing a consent interface remains source reporting.
+    if re.search(r"\b(?:said|reported|explained|described|researchers|study|investigation)\b", normalized):
+        return False
+    for signal in READER_UI_SIGNALS:
+        if signal not in normalized:
+            continue
+        if signal == "we use cookies" and len(normalized.split()) > 4 and not re.search(
+                r"\b(?:data|website|site|browser|privacy|ads|analytics|consent|tracking|experience|device)\b", normalized):
+            continue  # Food cookies are not a website consent notice.
+        if signal == "this is the first time you visited" and not re.search(
+                r"\b(?:website|site|page|popup|pop-up|dialog)\b", normalized):
+            continue
+        return True
+    return False
+
+
+def clean_reader_text(text: str) -> str:
+    """Display-only omission of UI sentences; retained prose is verbatim."""
+    if not isinstance(text, str):
+        return ""
+    blocks = re.split(r"(\n+|(?<=[.!?])\s+)", text.strip())
+    kept = []
+    for index in range(0, len(blocks), 2):
+        block = blocks[index]
+        if block.strip() and not reader_ui_message(block):
+            kept.append(block + (blocks[index + 1] if index + 1 < len(blocks) else ""))
+    return "".join(kept).strip()
 
 BODY_STATE_LABELS = {
     "body_available": "FULL BODY",
@@ -40,6 +104,16 @@ BODY_STATE_LABELS = {
     "access_limited": "ACCESS-LIMITED",
     "interstitial": "CONSENT / INTERSTITIAL / BOT WALL",
 }
+
+
+def google_access_page(url: str) -> bool:
+    """Known Google shells are not publisher articles, regardless of wording."""
+    try:
+        return (urlsplit(str(url or "")).hostname or "").casefold().rstrip(".") in {
+            "news.google.com", "consent.google.com", "accounts.google.com",
+        }
+    except ValueError:
+        return False
 
 
 def article_full_text(record: dict[str, Any], *, preserve_line_breaks: bool = False) -> str:
@@ -60,7 +134,7 @@ def looks_like_interstitial(text: str) -> bool:
     # An incidental footer is not an access wall. Evaluate independent prose
     # blocks so a real article mentioning a cookie policy remains usable.
     blocks = [b.strip() for b in re.split(r"\n+|(?<=[.!?])\s+", haystack) if b.strip()]
-    wall = [b for b in blocks if any(s in b for s in INTERSTITIAL_SIGNALS)
+    wall = [b for b in blocks if reader_ui_message(b) or any(s in b for s in INTERSTITIAL_SIGNALS)
             or any(s in b for s in ("accept all cookies", "manage consent", "cookie preferences", "reject all cookies"))]
     useful = [b for b in blocks if b not in wall and len(b.split()) >= 12]
     return bool(wall) and (not useful or sum(map(len, wall)) >= len(haystack) * .4)
@@ -70,9 +144,13 @@ def reader_content(record: dict[str, Any]) -> dict[str, Any]:
     """Read-time protection also covers old records without rewriting history."""
     body = classify_source_body(record)
     contaminated = body["state"] == "interstitial"
+    cleaned = clean_reader_text(body["body"])
+    if cleaned and len(cleaned.split()) >= 6 and not looks_like_interstitial(cleaned):
+        body = {**body, "body": cleaned, "state": "body_available" if len(cleaned) >= 400 else "body_partial", "usable_in_app": True}
+        contaminated = False
     candidates = [record.get("summary"), record.get("publisher_description")]
-    summary = next((decode_html_text(s) for s in candidates
-                    if s and not looks_like_interstitial(str(s))), "")
+    summary = next((clean_reader_text(decode_html_text(s)) for s in candidates
+                    if s and clean_reader_text(decode_html_text(s)) and not looks_like_interstitial(clean_reader_text(decode_html_text(s)))), "")
     if contaminated:
         summary = ""
     return {

@@ -2,7 +2,10 @@
 from __future__ import annotations
 
 import json
+from collections import OrderedDict
+from copy import deepcopy
 from pathlib import Path
+from threading import RLock
 
 import ijson
 from ijson.common import ObjectBuilder
@@ -11,6 +14,10 @@ from app.services.feed_first import SAFE_ID_RE, safe_image_url
 
 MAX_DRAFT_BYTES = 16_000_000
 MAX_PREVIEW_BYTES = 256_000
+_preview_cache = OrderedDict()
+_preview_cache_lock = RLock()
+_preview_cache_bytes = 0
+MAX_PREVIEW_CACHE_BYTES = 16_000_000
 PREVIEW_FIELDS = {
     "id", "record_type", "status", "review_state", "evidence_role", "title", "summary", "why_it_matters",
     "source_type", "source_name", "source_id", "source_url", "published_date", "captured_date",
@@ -87,8 +94,36 @@ def _read_preview(path: Path) -> dict:
     return preview
 
 
+def _current_preview(path: Path) -> dict:
+    """Reuse bounded metadata only while this exact file is unchanged."""
+    global _preview_cache_bytes
+    stat = path.stat()
+    key = str(path.resolve())
+    signature = (stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+    with _preview_cache_lock:
+        cached = _preview_cache.get(key)
+        if cached and cached[0] == signature:
+            _preview_cache.move_to_end(key)
+            return deepcopy(cached[1])
+    row = _read_preview(path)
+    after = path.stat()
+    if signature != (after.st_ino, after.st_size, after.st_mtime_ns, after.st_ctime_ns):
+        return _read_preview(path)  # Concurrent write; don't cache this read.
+    size = len(json.dumps(row, ensure_ascii=False).encode("utf-8"))
+    with _preview_cache_lock:
+        previous = _preview_cache.pop(key, None)
+        if previous:
+            _preview_cache_bytes -= previous[2]
+        _preview_cache[key] = (signature, deepcopy(row), size)
+        _preview_cache_bytes += size
+        while _preview_cache_bytes > MAX_PREVIEW_CACHE_BYTES or len(_preview_cache) > 4096:
+            _, removed = _preview_cache.popitem(last=False)
+            _preview_cache_bytes -= removed[2]
+    return row
+
+
 def pending_source_previews(inbox_dir: Path) -> tuple[list[dict], list[dict]]:
-    """Fresh on every read: no stale cache, file mutation or acquisition.
+    """Check every current file; cache only unchanged metadata in private memory.
 
     Includes terminal publication metadata so rejection can suppress an older
     retained feed cache. The caller applies active/terminal publication gates.
@@ -99,7 +134,7 @@ def pending_source_previews(inbox_dir: Path) -> tuple[list[dict], list[dict]]:
             issues.append({"id": path.stem, "reason": "linked-source"})
             continue
         try:
-            row = _read_preview(path)
+            row = _current_preview(path)
             if row.get("id") != path.stem or not SAFE_ID_RE.fullmatch(path.stem):
                 raise ValueError("source-identity-mismatch")
             if row.get("evidence_role") == "publication_artifact":

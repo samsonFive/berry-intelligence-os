@@ -23,7 +23,7 @@ PROGRESS_LABELS = {
 }
 
 
-def retained_news(inbox_dir: Path) -> list[dict[str, Any]]:
+def retained_news(inbox_dir: Path, *, selected_id: str | None = None) -> list[dict[str, Any]]:
     """Read retained daily caches, newest version per exact ID; never fetch."""
     records: dict[str, dict[str, Any]] = {}
     paths = list((Path(inbox_dir) / CACHE_SUBDIR).glob("????-??-??.json")) + list((Path(inbox_dir) / "news_packets" / "captures").glob("packet-*.json"))
@@ -38,6 +38,8 @@ def retained_news(inbox_dir: Path) -> list[dict[str, Any]]:
             if not isinstance(record, dict):
                 continue
             item_id = str(record.get("id") or "")
+            if selected_id is not None and item_id != selected_id:
+                continue
             if feed_first.SAFE_ID_RE.fullmatch(item_id):
                 # Cached discovery is never promoted by a supplied status string.
                 records[item_id] = {**record, "status": "unreviewed"}

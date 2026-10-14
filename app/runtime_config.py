@@ -135,6 +135,6 @@ def credentials_match(username: str, password: str) -> bool:
     expected_password = review_password()
     if not expected_user or not expected_password:
         return False
-    user_ok = secrets.compare_digest(username, expected_user)
-    password_ok = secrets.compare_digest(password, expected_password)
+    user_ok = secrets.compare_digest(username.encode("utf-8"), expected_user.encode("utf-8"))
+    password_ok = secrets.compare_digest(password.encode("utf-8"), expected_password.encode("utf-8"))
     return user_ok and password_ok

@@ -587,6 +587,9 @@ async def lifespan(app: FastAPI):
     task = None
     if "pytest" not in sys.modules and AUTHORING_MODE and SOURCE_POLLING_ENABLED:
         task = asyncio.create_task(source_polling_loop())
+    if "pytest" not in sys.modules and AUTHORING_MODE and remote_interactive_enabled():
+        from app.services.news_warmup import warm_news_cache
+        await asyncio.to_thread(warm_news_cache)
     yield
     if task is not None:
         task.cancel()
@@ -1245,7 +1248,16 @@ async def login_submit(
             username=presented_username,
             error=LOGIN_THROTTLED,
         )
-    if credentials_match(presented_username, password):
+    from app.services.analyst_accounts import account_credentials_match, first_login_destination
+    operator_login = credentials_match(presented_username, password)
+    if operator_login or account_credentials_match(INBOX_DIR, presented_username, password):
+        try:
+            destination = first_login_destination(INBOX_DIR, presented_username, destination)
+        except ValueError:
+            response = _login_page(request, next_path=destination, username=presented_username,
+                                   error="Sign-in is temporarily unavailable. Please try again.")
+            response.status_code = 503
+            return response
         establish_session(request, presented_username)
         clear_login_failures(request)
         return RedirectResponse(url=destination, status_code=303)
