@@ -89,6 +89,13 @@ with a scoped service drop-in and an actual News-cache runner. Berries Australia
 transient 507 now has a bounded retry; persistent publisher errors remain visible.
 These probes do not establish complete publisher-section coverage or measured recall.
 
+**TD-116 original-paper follow-through — October 13:** The CAS announcement
+omitted names present in its original paper. Hawaii-4 and Benihoppe now reach
+identity review as research material; CAS release coverage remains partial and
+no company role, trait, right, footprint or photo permission is approved.
+See CAS-ORIGINAL-PAPER-SOURCE-REVIEW.md. Original-source follow-through and
+independent human recall remain required; volume does not establish completeness.
+
 **TD-116 whole reference-gap cohort — October 13:** All 17 starting profiles are
 accounted for, including one explicit fictional seed, four unapproved naming
 associations and eight bounded unknowns. Four existing profiles gain original

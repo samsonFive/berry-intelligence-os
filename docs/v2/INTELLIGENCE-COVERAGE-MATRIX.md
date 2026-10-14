@@ -43,6 +43,15 @@ Automatic keyless News runs on the restored 15-minute dispatcher; idle News page
 observe completed captures without a manual refresh. Berries Australia RSS was
 verified with 10 publisher articles after a transient 507; server retries are bounded.
 
+## Original-paper follow-through — October 13, 2026
+
+The CAS institutional announcement's original paper supplies two previously
+omitted strawberry research-material names, Hawaii-4 and Benihoppe. Source context
+does not establish breeding or commercial roles. The company release portfolio
+remains partial. See [original-paper review](CAS-ORIGINAL-PAPER-SOURCE-REVIEW.md).
+Current bounded scope: 427 sections / 1,641 occurrences / 119 existing matches /
+1,522 review needs. All 64 stored profiles and human gates remain unchanged.
+
 ## Printed-code follow-up — October 13, 2026
 
 Six exact public-register checks cover five previously unknown profiles. One
