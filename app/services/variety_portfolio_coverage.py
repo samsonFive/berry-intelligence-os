@@ -148,21 +148,35 @@ def _load_portfolio_observations(data_dir: Path):
     return list(latest.values())
 
 
+def _asserted_pair(row):
+    """A cultivar denomination repeating its label is not a breeding code.
+
+    Preserve an explicitly printed breeder code. A denomination-only filing
+    does not assert either a second identifier or the absence of a code.
+    """
+    label = row.get("trade_name") or row["candidate_name"]
+    denomination = row.get("denomination")
+    repeated_name = bool(denomination and fold_identity(denomination) == fold_identity(label))
+    code = (row.get("breeder_code") if repeated_name else denomination or row.get("breeder_code"))
+    return code, label, repeated_name and not code
+
+
 def _identity_pair_notes(sources):
     """Literal source pair discrepancies, not alias decisions or a new resolver."""
     codes, labels, label_mentions = {}, {}, {}
     for source in sources:
         for row in source["names"]:
             companies = tuple(sorted(observation_company_ids(source, row)))
-            code = row.get("denomination") or row.get("breeder_code")
-            label = row.get("trade_name") or row["candidate_name"]
+            code, label, denomination_only = _asserted_pair(row)
             mention_label = label or row["candidate_name"]
             label_mentions.setdefault((row["berry_id"], fold_identity(mention_label)), []).append(
-                (source["id"], _key(row), code))
+                (source["id"], _key(row), code, denomination_only))
             # A denomination-only register row does not assert a second
             # commercial label. Keep it in cross-source mention/code checks
             # below, but do not invent a code-to-trade-name pairing to itself.
-            if code and label and fold_identity(code) != fold_identity(label):
+            legal_name_only = (row.get("denomination") and not row.get("trade_name")
+                               and fold_identity(row["denomination"]) == fold_identity(label))
+            if code and label and fold_identity(code) != fold_identity(label) and not legal_name_only:
                 scope = (companies, row["berry_id"])
                 codes.setdefault((*scope, fold_identity(code)), set()).add(label)
                 labels.setdefault((*scope, fold_identity(label)), set()).add(code)
@@ -171,10 +185,16 @@ def _identity_pair_notes(sources):
         for row in source["names"]:
             companies = tuple(sorted(observation_company_ids(source, row)))
             scope = (companies, row["berry_id"])
-            code = row.get("denomination") or row.get("breeder_code")
-            label = row.get("trade_name") or row["candidate_name"]
+            code, label, denomination_only = _asserted_pair(row)
             messages = []
             paired_labels = codes.get((*scope, fold_identity(code or "")), set())
+            # A repeated denomination asserts no code/name pair of its own,
+            # but other sources may explicitly use that identifier as a code.
+            # Their conflicting labels must still hold the original reference,
+            # including when it separately records another breeder code.
+            denomination = row.get("denomination")
+            if denomination and fold_identity(denomination) == fold_identity(label):
+                paired_labels = paired_labels | codes.get((*scope, fold_identity(denomination)), set())
             paired_codes = labels.get((*scope, fold_identity(label or "")), set())
             if len({fold_identity(value) for value in paired_labels}) > 1:
                 messages.append("This code appears with multiple labels: " + ", ".join(sorted(paired_labels)) + ". Check the pairing before accepting aliases.")
@@ -185,18 +205,22 @@ def _identity_pair_notes(sources):
             # alone do not establish different identities or breeder roles.
             mention_label = label or row["candidate_name"]
             mentions = label_mentions.get((row["berry_id"], fold_identity(mention_label)), [])
-            other_mentions = [m for m in mentions if (m[0] != source["id"] or m[1] != _key(row)
+            other_mentions = [m for m in mentions if not m[3] and (m[0] != source["id"] or m[1] != _key(row)
                               or (code and m[2] and fold_identity(code) != fold_identity(m[2])))
                               and (m[1] != _key(row) or (code and m[2] and fold_identity(code) != fold_identity(m[2])))]
-            if (code and any(not m[2] for m in other_mentions)) or (
-                    not code and any(m[2] for m in other_mentions)):
+            if not denomination_only and ((code and any(not m[2] for m in other_mentions)) or (
+                    not code and any(m[2] for m in other_mentions))):
                 messages.append("This name appears with a code in one source and without it in another. "
                                 "Check whether they refer to the same variety before combining the records.")
             different_codes = {m[2] for m in other_mentions if code and m[2]
                                and fold_identity(m[2]) != fold_identity(code)}
+            if denomination_only:
+                reported_codes = {m[2] for m in other_mentions if m[2]}
+                if len({fold_identity(value) for value in reported_codes}) > 1:
+                    different_codes = reported_codes
             if different_codes:
                 messages.append("Different sources pair this name with different codes: " +
-                                ", ".join(sorted({code, *different_codes})) +
+                                ", ".join(sorted({value for value in (code, *different_codes) if value})) +
                                 ". Check the original records before accepting aliases.")
             notes[(source["id"], _key(row), label or "")] = messages
     return notes
