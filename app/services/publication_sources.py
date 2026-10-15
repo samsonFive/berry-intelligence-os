@@ -27,6 +27,7 @@ PREVIEW_FIELDS = {
     "trust_state", "live", "auto_captured", "validated", "media_type", "media_format", "content_kind",
     "source_language", "original_title", "translated", "translation_pending", "image_url", "image_source_url",
     "preview_image_url", "thumbnail_url", "source_image_url", "origin_publisher_url",
+    "acquisition_lane", "discovery_provenance",
 }
 
 

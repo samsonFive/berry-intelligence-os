@@ -12,13 +12,14 @@ from app.services.industry_pulse.specialist_feeds import (
 )
 from app.services.today_relevance import filter_today_records
 from app.services import news_workspace
+from app.services.personal_digest import source_records
 
 
 FEEDS = [f for f in WEEK_SPECIALIST_FEEDS if f.get('coverage') == 'sustainability']
 
 
 @pytest.mark.parametrize('feed', FEEDS, ids=lambda f: f['id'])
-def test_requested_source_reaches_news_without_inventing_berry_identity(feed):
+def test_requested_source_reaches_news_without_inventing_berry_identity(feed, tmp_path):
     hit = DiscoveryHit(title='Companies cut supply chain emissions with sustainable packaging',
         snippet='A new industry report explores carbon disclosure and climate resilience.',
         url=f"https://{feed['host']}/blog/example", source_domain=feed['host'],
@@ -33,9 +34,20 @@ def test_requested_source_reaches_news_without_inventing_berry_identity(feed):
     assert record['review_state'] == 'UNREVIEWED'
     assert requested_sustainability_record(record)
     assert filter_today_records([record], entities=[])[0] == [record]
+    # Exercise the actual News route's metadata-only projection, not just the
+    # full acquisition record. The preview must keep the source qualification.
+    from app.services.feed_first_live import CACHE_SUBDIR
+    cache = tmp_path / CACHE_SUBDIR / '2026-10-14.json'
+    cache.parent.mkdir(parents=True)
+    cache.write_text(json.dumps({'records': [record]}), encoding='utf-8')
+    previews = source_records([], tmp_path, metadata_only=True)
+    assert requested_sustainability_record(previews[record['id']])
     result = news_workspace.model(records={record['id']: record}, entities={}, relationships=[],
         facts=[], state={}, params={}, now=datetime(2026, 10, 14, 12, tzinfo=UTC))
     assert result['counts']['unreviewed'] == 1
+    preview_result = news_workspace.model(records=previews, entities={}, relationships=[],
+        facts=[], state={}, params={}, now=datetime(2026, 10, 14, 12, tzinfo=UTC))
+    assert preview_result['matching_ids'] == [record['id']]
     record['source_url'] = record['origin_publisher_url'] = 'https://unrequested.example/article'
     assert not requested_sustainability_record(record)
 
