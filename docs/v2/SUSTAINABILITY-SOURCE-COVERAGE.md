@@ -28,3 +28,28 @@ and honest unavailable-content state. Do not bypass its access restriction.
 
 No paid provider or model calls are required. Source items remain private and
 unreviewed until the existing human publication and Atomic Evidence gates.
+
+## Connected-provider checks
+
+Operator-authorized live probes found Exa could return 3,788–7,445 characters
+for three indexed Packer stories, but its Contents endpoint failed for three
+specific recent Sustainability Insights articles. Perplexity Search returned
+3,731 characters for one of those exact recent URLs; section comparison showed
+an omitted section, so this is partial source text, not a complete article.
+APITube returned no matches in the bounded test; the connected NewsCatcher key
+returned HTTP 401 on the separate News API article-search endpoint. These probes
+do not enable automatic paid reader fallback or substitute differently titled
+stories. Private receipts remain under `inbox/operations/publisher_api_probes/`.
+
+The production Compose service omitted `FIRECRAWL_API_KEY`; this release adds
+optional pass-through and documents it in `deploy/.env.example`. Credential
+presence checks found no existing Firecrawl key in the live app, deployment
+environment, local app environments or client configuration. Authentication and
+Packer retrieval must be tested after the operator's existing credential is
+available. A supported adapter or configured variable name is not a working
+provider connection.
+
+The existing `bios-collection.timer` was enabled but inactive when audited.
+Daily Source cadence is configured and initial discovery completed, but News
+refresh remains the active acquisition path while that broader timer is stopped.
+This change does not resume unrelated scheduled collectors.

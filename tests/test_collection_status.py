@@ -276,7 +276,8 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
     # TD-108 as a duplicate of source-freshplaza-global against the same
     # https://www.freshplaza.com/rss.xml feed. The retired record stays in
     # the registry, so sources_configured remains 201.
-    assert report.sources_configured == 205 and report.sources_discoverable == 77
+    # Four requested sustainability Sources add four collection-eligible paths.
+    assert report.sources_configured == 209 and report.sources_discoverable == 81
     assert expected <= {source.source_id for source in report.sources}
 
 

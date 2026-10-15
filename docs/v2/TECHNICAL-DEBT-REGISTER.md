@@ -5,6 +5,11 @@ Open limitations: The Packer rejects direct production-host requests (403), so
 indexed discovery cannot guarantee section completeness or reader body recovery.
 Watershed's sitemap reports modification dates; accurate original-publication
 chronology depends on publisher/index metadata. These paths do not establish recall.
+Firecrawl deployment pass-through is repaired, but an authenticated connection
+still requires the operator's existing key; no credential was found in the
+environments checked. The enabled-but-inactive broader collection timer remains
+stopped. Connected-provider probes recover some Packer text but do not qualify
+complete recent-article coverage or enable automatic paid reader fallback.
 
 ### TD-120 — Publisher disclosure lists disappear from captured source text
 
