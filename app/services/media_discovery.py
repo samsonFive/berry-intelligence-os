@@ -343,14 +343,16 @@ def _fetch_podcast_rss(feed_url: str) -> tuple[Any, bytes]:
                 headers={"User-Agent": MEDIA_DISCOVERY_USER_AGENT},
                 follow_redirects=True,
             )
+            response.raise_for_status()
+        except httpx.HTTPStatusError as exc:
+            if attempt or exc.response.status_code not in {500, 502, 503, 504, 507}:
+                raise
         except (httpx.TimeoutException, httpx.NetworkError):
             if attempt:
                 raise
         else:
-            if response.status_code not in {500, 502, 503, 504, 507} or attempt:
-                break
+            break
         time.sleep(0.5)
-    response.raise_for_status()
     parsed = feedparser.parse(response.content)
     return parsed, response.content
 
