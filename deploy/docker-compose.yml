@@ -41,6 +41,7 @@ services:
       # app to start, and none of these alone schedules any recurring work.
       APITUBE_API_KEY: ${APITUBE_API_KEY:-}
       EXA_API_KEY: ${EXA_API_KEY:-}
+      FIRECRAWL_API_KEY: ${FIRECRAWL_API_KEY:-}
       NEWSCATCHER_API_KEY: ${NEWSCATCHER_API_KEY:-}
     volumes:
       - ${BIOS_DEMO_RUNTIME:-../demo-runtime}/data:/app/runtime/data

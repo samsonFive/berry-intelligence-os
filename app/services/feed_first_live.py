@@ -48,6 +48,7 @@ from app.services.industry_pulse.specialist_feeds import (
     WEEK_SPECIALIST_FEEDS,
     SpecialistRssProvider,
     week_specialist_feed_queries,
+    requested_sustainability_hit,
 )
 from app.services.recall_audit.classify import hostname
 from app.services.industry_pulse.canonical_urls import preferred_url
@@ -552,6 +553,12 @@ def _keep_window_hits(
         sources=sources,
     )
     qualified_rows = [qualify_hit(hit, index=index) for hit in raw]
+    for hit in qualified_rows:
+        if requested_sustainability_hit(hit):
+            hit.qualifying = True
+            hit.qualify_reason = "QUALIFY: operator-requested sustainability source"
+            hit.qualify_reasons = ["operator-requested sustainability source"]
+            hit.editorial_topic = "other_industry"
     relevant, dropped_today_noise = apply_today_relevance(qualified_rows, entities=entities)
     deduped = unique_hits(dedupe_hits(relevant))
     kept: list[DiscoveryHit] = []

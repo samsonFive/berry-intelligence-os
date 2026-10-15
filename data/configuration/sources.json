@@ -5357,5 +5357,124 @@
     "created_at": "2026-09-15",
     "last_checked_at": null,
     "last_status": null
+  },
+  {
+    "id": "source-trellis-sustainability",
+    "type": "rss",
+    "label": "Trellis",
+    "value": "https://trellis.net/feed/",
+    "url": "https://trellis.net",
+    "why_it_matters": "Operator-requested sustainability coverage: climate, supply chains, disclosure, packaging and agricultural innovation. Discovery remains unreviewed; publisher statements are not independent validation.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "daily",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-10-14",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "article_rss",
+      "feed_url": "https://trellis.net/feed/",
+      "feed_url_verified_at": "2026-10-14",
+      "item_limit": 50,
+      "notes": "Verified from production host. No automatic Evidence publication."
+    }
+  },
+  {
+    "id": "source-watershed-blog",
+    "type": "reference",
+    "label": "Watershed Blog",
+    "value": "https://watershed.com/blog/sitemap.xml",
+    "url": "https://watershed.com/blog",
+    "why_it_matters": "Operator-requested sustainability coverage: climate, supply chains, disclosure, packaging and agricultural innovation. Discovery remains unreviewed; publisher statements are not independent validation.",
+    "entity_types": [
+      "company"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "daily",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-10-14",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "sitemap_xml",
+      "feed_url": "https://watershed.com/blog/sitemap.xml",
+      "feed_url_verified_at": "2026-10-14",
+      "item_limit": 50,
+      "notes": "Verified from production host. No automatic Evidence publication. Lastmod is a modification date, not proof of original publication; live News uses indexed publication dates.",
+      "include_url_patterns": [
+        "^https://watershed\\.com/blog/[^/?#]+$"
+      ]
+    }
+  },
+  {
+    "id": "source-packer-sustainability-insights",
+    "type": "reference",
+    "label": "The Packer — Sustainability Insights",
+    "value": "https://news.google.com/rss/search?q=site%3Athepacker.com+%22Sustainability+Insights%22&hl=en-US&gl=US&ceid=US:en",
+    "url": "https://www.thepacker.com/topics/sustainability-insights",
+    "why_it_matters": "Operator-requested sustainability coverage: climate, supply chains, disclosure, packaging and agricultural innovation. Discovery remains unreviewed; publisher statements are not independent validation.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "daily",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-10-14",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=site%3Athepacker.com+%22Sustainability+Insights%22&hl=en-US&gl=US&ceid=US:en",
+      "feed_url_verified_at": "2026-10-14",
+      "item_limit": 50,
+      "notes": "Verified from production host. No automatic Evidence publication. Direct publisher requests return 403; indexed search is not guaranteed to enumerate every section article or recover full text."
+    }
+  },
+  {
+    "id": "source-agfunder-climate-sustainability",
+    "type": "rss",
+    "label": "AgFunderNews — Climate & Sustainability",
+    "value": "https://agfundernews.com/category/climate-sustainability/feed/",
+    "url": "https://agfundernews.com/category/climate-sustainability",
+    "why_it_matters": "Operator-requested sustainability coverage: climate, supply chains, disclosure, packaging and agricultural innovation. Discovery remains unreviewed; publisher statements are not independent validation.",
+    "entity_types": [
+      "trade_press"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "monitoring_priority": "high",
+    "update_cadence": "daily",
+    "linked_competitor_ids": [],
+    "enabled": true,
+    "created_at": "2026-10-14",
+    "last_checked_at": null,
+    "last_status": null,
+    "discovery": {
+      "adapter": "article_rss",
+      "feed_url": "https://agfundernews.com/category/climate-sustainability/feed/",
+      "feed_url_verified_at": "2026-10-14",
+      "item_limit": 50,
+      "notes": "Verified from production host. No automatic Evidence publication."
+    }
   }
 ]

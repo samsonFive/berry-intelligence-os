@@ -2,8 +2,8 @@
 
 Fetches a publisher URL only when it is a public http(s) address. Does not
 bypass paywalls, robots, CSP, or X-Frame-Options. Live Page is offered only
-when the publisher permits framing. Firecrawl / Jina stay unused until those
-keys exist — this is the direct-http lane of the reader bake-off.
+when the publisher permits framing. The connected Firecrawl service is a
+bounded fallback for a selected Packer article when direct retrieval fails.
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ CAPTURE_SUBDIR = "feed_first_reader"
 MAX_BYTES = 800_000
 FETCH_TIMEOUT = 4.0
 MAX_REDIRECTS = 5
-CAPTURE_VERSION = 3
+CAPTURE_VERSION = 4
 FAILED_CAPTURE_RETRY_SECONDS = 60
 _capture_locks = WeakValueDictionary()
 _capture_lock_guard = Lock()
@@ -606,6 +606,12 @@ def _capture_item(inbox_dir, record, *, client=None, refresh=False):
         capture = fetch_public_article(target, client=client) if target else empty_capture(url, reason="blocked")
     else:
         capture = fetch_public_article(target, client=client)
+    if capture.get("availability") != "full":
+        from app.services.firecrawl_reader import capture_packer_article
+        recovered = capture_packer_article(record, refresh=refresh)
+        if recovered and (recovered.get("availability") == "full" or
+                          len(" ".join(recovered.get("passages") or [])) > len(" ".join(capture.get("passages") or []))):
+            capture = recovered
     capture["item_id"] = item_id
     capture["requested_url"] = url
     capture["capture_version"] = CAPTURE_VERSION

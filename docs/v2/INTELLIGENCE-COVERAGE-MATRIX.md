@@ -1,5 +1,11 @@
 # Intelligence Coverage Matrix
 
+October 14, 2026: [Requested sustainability sources](SUSTAINABILITY-SOURCE-COVERAGE.md)
+adds verified Trellis and AgFunderNews category RSS, Watershed blog sitemap discovery,
+and indexed Packer Sustainability Insights discovery. These are unreviewed source
+coverage paths, not measured recall or new trusted intelligence. Search lag,
+Packer server rejection and sitemap modification-date limitations remain explicit.
+
 ## Source disclosure fidelity — October 13 UTC, 2026
 
 The [publisher disclosure repair](PUBLISHER-DISCLOSURE-SOURCE-REVIEW.md) preserves
