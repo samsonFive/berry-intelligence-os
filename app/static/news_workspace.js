@@ -106,5 +106,29 @@
       pollImages();
     }).catch(function (error) { imagesButton.disabled = false; status.textContent = error.message; });
   });
-  window.addEventListener('pagehide', function () { clearTimeout(timer); clearTimeout(imagesTimer); });
+  // Background collection updates stored News. Observe completion without
+  // triggering collection, and update an idle first page without a click.
+  var backgroundTimer, filtersEdited = false, leaving = false;
+  if (filterForm) filterForm.addEventListener('input', function () { filtersEdited = true; });
+  function checkBackground() {
+    if (leaving) return;
+    backgroundTimer = setTimeout(checkBackground, 60000);
+    var current = new URL(window.location.href);
+    if (document.hidden || filtersEdited || (button && button.disabled) ||
+        current.searchParams.has('story') || current.searchParams.has('item') ||
+        Number(current.searchParams.get('page') || 1) > 1 || document.querySelector('.offcanvas.show')) return;
+    fetch('/api/news/refresh', {credentials: 'same-origin', cache: 'no-store'}).then(function (response) {
+      if (!response.ok) return null;
+      return response.json();
+    }).then(function (state) {
+      if (!leaving && !document.hidden && !filtersEdited && state &&
+          ['ready', 'partial'].indexOf(state.status) !== -1 && state.completed_at &&
+          state.completed_at !== root.dataset.newsCompleted &&
+          !new URL(window.location.href).searchParams.has('story') && !document.querySelector('.offcanvas.show')) {
+        window.location.reload();
+      }
+    }).catch(function () { /* A status outage does not interrupt reading. */ });
+  }
+  backgroundTimer = setTimeout(checkBackground, 60000);
+  window.addEventListener('pagehide', function () { leaving = true; clearTimeout(timer); clearTimeout(imagesTimer); clearTimeout(backgroundTimer); });
 })();

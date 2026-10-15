@@ -10,8 +10,10 @@ Firecrawl deployment pass-through is repaired and the operator's existing key
 authenticated successfully against the exact Packer section and recent article.
 Bounded selected-story retrieval is implemented; API failures, missing exact
 listing matches and uncertain publisher body structure remain explicit limits.
-The enabled-but-inactive broader collection timer remains stopped. These probes
-do not establish complete publisher-section coverage or measured recall.
+The stopped timer is restored for keyless News through the existing scheduler,
+with a scoped service drop-in and an actual News-cache runner. Berries Australia's
+transient 507 now has a bounded retry; persistent publisher errors remain visible.
+These probes do not establish complete publisher-section coverage or measured recall.
 
 ### TD-120 — Publisher disclosure lists disappear from captured source text
 
