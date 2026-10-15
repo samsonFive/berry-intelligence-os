@@ -4,6 +4,19 @@ This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.
 
+## October 14 continuation
+
+Verified live canonical `daac479e` includes merged News/access #401, subsequent
+source-reader fixes and automatic News collection #404. Chris.H is enabled with
+first-login Help pending. Read-only live News/Help checks passed before #404;
+their recorded timings describe that earlier release. Catalog #399–400 remains
+a separate undeployed draft.
+The [candidate normalization improvement](CATALOG-NORMALIZATION-PERFORMANCE.md)
+addresses a measured repeated-work bottleneck independently of catalog research;
+TD-122 retains the oversized-page and broader performance work. Every accepted
+requirement and human gate below remains in scope. The October 13 pending-release
+statements below describe the earlier delivery state.
+
 ## October 13 live usability feedback
 
 Platform #398 is now released on the live site. The following additional user
