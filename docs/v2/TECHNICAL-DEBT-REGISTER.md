@@ -2,14 +2,16 @@
 
 October 14, 2026 sustainability sourcing: [access contract](SUSTAINABILITY-SOURCE-COVERAGE.md).
 Open limitations: The Packer rejects direct production-host requests (403), so
-indexed discovery cannot guarantee section completeness or reader body recovery.
+indexed discovery cannot guarantee section completeness. The selected-reader
+Firecrawl fallback now recovers verified exact-story text where available.
 Watershed's sitemap reports modification dates; accurate original-publication
 chronology depends on publisher/index metadata. These paths do not establish recall.
-Firecrawl deployment pass-through is repaired, but an authenticated connection
-still requires the operator's existing key; no credential was found in the
-environments checked. The enabled-but-inactive broader collection timer remains
-stopped. Connected-provider probes recover some Packer text but do not qualify
-complete recent-article coverage or enable automatic paid reader fallback.
+Firecrawl deployment pass-through is repaired and the operator's existing key
+authenticated successfully against the exact Packer section and recent article.
+Bounded selected-story retrieval is implemented; API failures, missing exact
+listing matches and uncertain publisher body structure remain explicit limits.
+The enabled-but-inactive broader collection timer remains stopped. These probes
+do not establish complete publisher-section coverage or measured recall.
 
 ### TD-120 — Publisher disclosure lists disappear from captured source text
 

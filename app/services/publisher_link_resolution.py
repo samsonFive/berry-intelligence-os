@@ -18,6 +18,11 @@ def _headline_key(headline, source_name):
     return _title_key(title)
 
 
+def publisher_headlines_match(expected, actual, source_name=""):
+    target = _headline_key(expected, source_name)
+    return len(target.split()) >= 5 and target == _headline_key(actual, source_name)
+
+
 def publisher_article_link(html, home_url, headline, source_name=""):
     from app.services.feed_first_reader import is_public_http_url
     if not is_public_http_url(home_url):

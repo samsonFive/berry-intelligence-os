@@ -257,7 +257,20 @@ def requested_sustainability_hit(hit: DiscoveryHit) -> bool:
         hit.provider == "specialist_rss" and feed
         and feed.get("coverage") == "sustainability"
         and hit.source_domain.removeprefix("www.") == feed["host"]
+        and _sustainability_article_title(hit.title)
     )
+
+
+def _sustainability_article_title(title: str) -> bool:
+    """Indexed section homepages are discovery surfaces, not reader stories."""
+    value = title.strip().casefold()
+    suffixes = (" - the packer", " - watershed.com", " - agfundernews", " - trellis")
+    while any(value.endswith(suffix) for suffix in suffixes):
+        value = next(value[:-len(suffix)].strip() for suffix in suffixes if value.endswith(suffix))
+    return value not in {
+        "news", "fresh produce industry news", "sustainability insights",
+        "the latest climate tech news", "watershed blog", "climate & sustainability archives",
+    }
 
 
 def requested_sustainability_record(record: dict[str, Any]) -> bool:
@@ -266,6 +279,8 @@ def requested_sustainability_record(record: dict[str, Any]) -> bool:
     provenance = record.get("discovery_provenance") or {}
     feed = feed_by_query_id(str(provenance.get("query_id") or ""))
     if not feed or feed.get("coverage") != "sustainability":
+        return False
+    if not _sustainability_article_title(str(record.get("title") or "")):
         return False
     hosts = {hostname(record.get(key) or "") for key in ("source_url", "origin_publisher_url")}
     return feed["host"] in hosts
