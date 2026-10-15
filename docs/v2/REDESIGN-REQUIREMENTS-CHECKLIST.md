@@ -1,6 +1,17 @@
 # Redesign and consolidation requirements
 
-## Current release audit and review packet — October 13, 2026
+## Current release and continuation — October 14, 2026
+
+Live canonical `c354866d` includes #401 and the subsequent #402–403 source-reader
+fixes. Chris.H is enabled with first-login Help still pending. Read-only live
+News/Help checks pass; News returned in 0.772–0.801 seconds with 60 image elements.
+Catalog #399–400 is reconciled onto that release without changing its source
+observations or approving any human gate. Fresh current-head checks remain
+required. All 31 original IDs, accepted descriptions and ordering are preserved.
+The 52-source worksheet still needs real reviewer answers. See
+[release review](RELEASE-REVIEW.md) for the authoritative release boundary.
+
+## Previous release audit and review packet — October 13, 2026
 
 The [release audit](RELEASE-REVIEW.md) now distinguishes live #398, tested #401
 awaiting release approval, and undeployed catalog #400. All 31 original IDs and
@@ -24,7 +35,7 @@ This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.
 
-## October 13 live usability feedback
+## Live usability feedback — updated October 14, 2026
 
 Platform #398 is now released on the live site. The following additional user
 requests are tracked independently of catalog #400 and the retained 31
@@ -32,10 +43,9 @@ requirements below; no existing requirement or human gate is removed.
 See [daily usability fixes](NEWS-ACCESS-USABILITY-FIXES.md).
 
 - [x] Implement additional analyst login and first-successful-login Help while
-  retaining the existing operator account. The requested new account is staged
-  privately with a hash; no plaintext credential enters the repository.
-- [ ] After this candidate passes current-head CI and release review, install
-  Chris.H additively on the live host and verify first-login Help.
+  retaining the existing operator account and deployed SQLite account history.
+- [x] Chris.H is enabled live. His first-login Help remains pending; verification
+  did not sign in as him or consume the first-login flag.
 - [x] One-click News capture automatically displays the newest matching feed;
   scope is preserved. Native isolated browser proof and four JavaScript
   completion/error/timeout scenarios are recorded privately.
@@ -44,8 +54,9 @@ See [daily usability fixes](NEWS-ACCESS-USABILITY-FIXES.md).
   when original article text cannot be recovered.
 - [x] Fix measured repeated News metadata/relevance work: identical 784 matches
   over 1,270 local review records, 2.630 s to 0.478 s on the warmed data path.
-- [ ] Release this candidate after review; validate live response times and
-  account/source behavior. No new deployment has occurred for these changes.
+- [x] Release #401; verify the newer current deployment, enabled account,
+  live News images, refresh status and response times. Detailed source-reader
+  behavior and access limitations remain documented separately.
 - [ ] Separate follow-ups: wider performance budgets and job contention;
   publisher-resolution/capture coverage; per-user preferences/digests, roles and
   account administration. Current analyst state remains shared.

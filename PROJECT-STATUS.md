@@ -1,5 +1,24 @@
 # Project Status
 
+## Current continuation — October 14, 2026
+
+Live canonical is `c354866d`, including released #401 and subsequent #402–403
+source-reader/sustainability work. Chris.H is enabled; his first successful
+login still opens Help. Read-only live News checks returned HTTP 200 with 60
+article image elements and 0.772–0.801 second backend responses. No production
+code/data was replaced or review decision created during this verification.
+
+Catalog drafts #399–400 are reconciled onto the deployed canonical, retaining
+all newer platform changes and their existing source observations. Fresh
+current-head CI is required; no catalog enrichment is deployed. The complete
+52-source worksheet remains blank and the original 32 cases/hashes are retained.
+Source fidelity, identity, catalog, qualification and photo reuse stay separate
+human gates. All 31 accepted requirements and the governing guide are preserved.
+See the [release review](docs/v2/RELEASE-REVIEW.md) and
+[requirements checklist](docs/v2/REDESIGN-REQUIREMENTS-CHECKLIST.md).
+
+The dated records below retain the earlier delivery state as history.
+
 ## Current delivery and review status — October 13, 2026
 
 - **Live platform:** [#398](https://github.com/samsonFive/berry-intelligence-os/pull/398)

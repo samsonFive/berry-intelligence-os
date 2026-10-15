@@ -1,16 +1,39 @@
 # Berry Intelligence release review
 
-## Authoritative release state — October 13, 2026
+## Authoritative release state — October 14, 2026
+
+The live release is now canonical `c354866d`, including merged News/access
+[#401](https://github.com/samsonFive/berry-intelligence-os/pull/401) and the
+subsequent sustainability/source-reader fixes in #402–403. The running image
+and protected deployment receipt were checked directly; the older #401 package
+must not replace this newer release. No deployment was performed in this check.
+Chris.H is enabled in the existing SQLite account store and still awaits his
+first login, which opens Help. Verification did not consume that onboarding.
+The analyst workspace remains shared.
+
+Authenticated, read-only live checks returned HTTP 200 for health, refresh
+status, News and Help. Two News responses took 0.772 and 0.801 seconds and
+contained 60 article image elements; Help took 0.042 seconds. These are backend
+samples, not mobile/network or publisher-capture guarantees. No collection or
+human review decision was triggered by these checks.
+
+Catalog drafts #399–400 are being reconciled onto this canonical release,
+preserving the newer accounts, News, Firecrawl and sustainability work. They
+remain undeployed and require fresh checks on their reconciled heads. The
+52-source human worksheet remains unanswered; no source, identity, catalog,
+Atomic, qualification or photo permission gate is approved by integration.
+
+### Previous October 13 release record
 
 The platform features were released independently of ongoing catalog research.
 [#398](https://github.com/samsonFive/berry-intelligence-os/pull/398) merged at
 `a2a6b4adc8ab5409d0675f1435ca3bb3dbe276bc`. Its exact tested `1fb75b61` tree
-is deployed at intel.johnnyaceii.com. All four checks passed, including 5,023
+was deployed at intel.johnnyaceii.com. All four checks passed, including 5,023
 tests. Production-data rehearsal covered 17 authenticated routes and 12 exports;
 final live checks covered seven main routes and all four Landscape formats.
 14,057 existing files and all 3,933 social rows/schema were preserved. The final
 14,060-file backup and previous image/configuration remain available for rollback.
-A fresh read-only image inspection still confirms the released image is running.
+Its historical preservation and rollback evidence remains available.
 
 [#401](https://github.com/samsonFive/berry-intelligence-os/pull/401), head
 `8739a6c3`, is a separate tested candidate with all four checks and 5,030 tests
@@ -33,7 +56,7 @@ one of the 31 original IDs, accepted descriptions and their ordering.
 
 | Requirement family | Delivered software and evidence | Remaining work or limit |
 | --- | --- | --- |
-| UI-01–03, NEWS-01–03 | Shared Glasshouse shell, dense News/grid, images and reader; dated native desktop/mobile checks and current release suite | Existing source text stays literal; missing original text and inaccessible publishers remain explicit. Reader reliability improvements in #401 await release. |
+| UI-01–03, NEWS-01–03 | Shared Glasshouse shell, dense News/grid, images and reader; dated native desktop/mobile checks and released #401 reader improvements | Existing source text stays literal; missing original text and inaccessible publishers remain explicit. Wider capture/mobile coverage remains measurable follow-up work. |
 | DIGEST-01, CO-01–02 | Digest/reading queue/subscribed lists, A–Z companies, independent favorites/tiers/lists, editable profiles and company-only People | Shared analyst state remains; no per-user isolation is claimed. |
 | VAR-01–02, MAP-01–02 | Photo import review, region authoring/prefill, country map, dense A–Z region tables, cited statistics/research and exports | Unclear photo cells, provisional associations and source-backed content require human decisions; a country entry is not a confirmed acreage or growing footprint. |
 | PACK-01–03 | Live 77-subject list; versioned packet schema, reviewed/all toggle, date range, export history and required fresh capture | Capture errors stay visible. Export freshness does not guarantee every publisher has new news or accessible full text. |
@@ -42,7 +65,7 @@ one of the 31 original IDs, accepted descriptions and their ordering.
 | LEARN-01–02 | Visual/interactive Learn plus selected-text research, cited editable drafts and retained origin; deterministic provider-contract tests | Fresh paid research requires explicit initiation and available provider access. Learn does not create Facts automatically. |
 | GUIDE-01 | Live `/guide` explains twelve sections, four analyst steps, six reporting outputs and the separate variety workflow | Guide describes capability limits; it does not certify every live provider or every source. |
 | CAT-01–02 | Source-to-variety discovery, original references, review/intake, profile-field coverage and preserved decisions | Current/historical coverage, 52 pending source artifacts, 32 independent worksheets, identity/catalog authoring, current rights and missing profile fields remain open. |
-| REL-01 | #398 deployed with exact-tree verification, backup, preservation and rollback evidence | #401 and catalog enrichment require their own release approvals and current-head checks. |
+| REL-01 | #398 and #401 released; current canonical c354866d verified live with preserved accounts and rollback receipts | Catalog enrichment remains a separate undeployed draft requiring current-head checks and release review. |
 
 The independent expected-name worksheet must be filled from the original sources
 by a real reviewer, without using parser results as its answer key. Source fidelity
