@@ -6,6 +6,67 @@ and indexed Packer Sustainability Insights discovery. These are unreviewed sourc
 coverage paths, not measured recall or new trusted intelligence. Search lag,
 Packer server rejection and sitemap modification-date limitations remain explicit.
 
+## Original-paper follow-through — October 13, 2026
+
+The CAS institutional announcement's original paper supplies two previously
+omitted strawberry research-material names, Hawaii-4 and Benihoppe. Source context
+does not establish breeding or commercial roles. The company release portfolio
+remains partial. See [original-paper review](CAS-ORIGINAL-PAPER-SOURCE-REVIEW.md).
+Current bounded scope: 427 sections / 1,641 occurrences / 119 existing matches /
+1,522 review needs. All 64 stored profiles and human gates remain unchanged.
+
+## Printed-code follow-up — October 13, 2026
+
+Six exact public-register checks cover five previously unknown profiles. One
+original Plared 15121 filing is retained; its RedSayra association stays held.
+Five empty code results do not establish absent rights. Conflicting Baridi
+codes remain unresolved; documented ABB spacing no longer creates false holds.
+Two named Ervin photo references remain held for reuse. See
+[source review](PRINTED-CODE-REGISTER-FOLLOWUP.md). Measured observation scope is
+426 sections / 1,639 occurrences / 119 existing matches / 1,520 review needs;
+these are not approved-variety or intelligence-recall counts. 64 profiles,
+source maturity, qualification and human gates remain unchanged.
+
+## Whole missing-reference cohort — October 13, 2026
+
+The [cohort review](REFERENCE-GAP-COHORT-REVIEW.md) accounts for all 17 starting
+profiles: four gain original references, four name associations stay held,
+eight remain unknown in the bounded name searches, and one fictional seed is
+preserved/excluded from research. Twenty-three exact CPVO queries return two
+matching berry records and 22 other-crop homonyms. Three original US filings
+and the Ukrainian raspberry register section retain document identities and
+date meanings; no alias, current legal status or company role is approved.
+Nine sections add 19 observations, including 12 separate parent/comparison names.
+Current totals are 417 sections /1,627 occurrences /114 matches /1,513 review
+needs and 1,151 source-derived keys. The copied preview has 13 profiles without
+patent/PVR references, down from 17; other gaps remain 50 photos/33 traits/ten
+linked organizations. All 64 stored profiles and 332 protected files retain
+their bytes. Source drafts remain separate from the live platform #398.
+
+## Current Pairwise named-product refresh — October 13, 2026
+
+The [Fontana source review](FONTANA-SOURCE-COVERAGE-REVIEW.md) adds one explicitly
+named blackberry and two attributed, reuse-unconfirmed photo references from
+the current original company product page. The earlier unnamed product source
+is preserved. An unnamed seedless development product is not merged with it.
+The bounded audit is 408 sections /1,608 occurrences /110 catalog matches /
+1,498 review needs and 1,142 public-derived candidate keys. Canonical varieties
+remain 64. Current/historical completeness, legal denomination, company roles,
+traits, growing regions and reuse remain separate review work. Source drafts
+#399/#400 are separate from the verified live platform release #398.
+
+## Four-berry original patent sources — October 13, 2026
+
+Six original documents add five existing-profile references plus the unresolved
+NSG 203 filing and 29 separately discoverable parent/comparison names. Claims
+link directly to visually checked pages. No nearby name inherits a focal grant,
+company role, trait or image. See [the source review](FOUR-BERRY-ORIGINAL-PATENT-SOURCES-REVIEW.md).
+The bounded audit is 407 sections /1,607 occurrences /110 matches /1,497 review
+needs and 1,141 public-derived candidate keys. Canonical varieties remain 64;
+profiles without patent/PVR references are 17 in the copied preview. Current
+rights, comprehensive portfolios and actual human identity/catalog decisions
+remain open. This source batch remains separate from the verified live platform.
+
 ## Original Florida patent references — October 13, 2026
 
 Seven existing number-only profiles gain unreviewed original-document pointers:

@@ -1,0 +1,94 @@
+{
+  "scope": "Five missing-reference profiles, six exact printed-code queries; not a global rights search.",
+  "queries": [
+    {
+      "name": "Baridi",
+      "code": "ABB132",
+      "berry": "berry-raspberry",
+      "source_url": "https://www.abbreeding.nl/variety/baridi/",
+      "search_type": "equals",
+      "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+      "result_count": 0,
+      "matching_berry_rows": 0,
+      "outcome": "no_exact_denomination_result; not evidence of absent rights",
+      "identity_approved": false,
+      "current_rights_verified": false
+    },
+    {
+      "name": "Baridi",
+      "code": "ABB137",
+      "berry": "berry-raspberry",
+      "source_url": "https://www.abbreeding.nl/2025/01/20/discover-the-new-standard-of-abbs-raspberries-at-fruit-logistica-2025/",
+      "search_type": "equals",
+      "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+      "result_count": 0,
+      "matching_berry_rows": 0,
+      "outcome": "no_exact_denomination_result; not evidence of absent rights",
+      "identity_approved": false,
+      "current_rights_verified": false
+    },
+    {
+      "name": "Malaika",
+      "code": "ABB135",
+      "berry": "berry-raspberry",
+      "source_url": "https://www.abbreeding.nl/variety/malaika/",
+      "search_type": "equals",
+      "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+      "result_count": 0,
+      "matching_berry_rows": 0,
+      "outcome": "no_exact_denomination_result; not evidence of absent rights",
+      "identity_approved": false,
+      "current_rights_verified": false
+    },
+    {
+      "name": "Zawadi",
+      "code": "ABB136",
+      "berry": "berry-raspberry",
+      "source_url": "https://www.abbreeding.nl/variety/zawadi/",
+      "search_type": "equals",
+      "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+      "result_count": 0,
+      "matching_berry_rows": 0,
+      "outcome": "no_exact_denomination_result; not evidence of absent rights",
+      "identity_approved": false,
+      "current_rights_verified": false
+    },
+    {
+      "name": "RedSayra",
+      "code": "Plared 15121",
+      "berry": "berry-strawberry",
+      "source_url": "https://planasa.com/us/variety/redsayra/",
+      "search_type": "equals",
+      "response_sha256": "5af7204e224cd7eceffed544d91117143f89bfc0f5ae5db7f9dbdccba8e3e8a6",
+      "result_count": 1,
+      "matching_berry_rows": 1,
+      "outcome": "original_filing_available_name_association_requires_review",
+      "identity_approved": false,
+      "current_rights_verified": false
+    },
+    {
+      "name": "Ervin",
+      "code": "NC 740",
+      "berry": "berry-blackberry",
+      "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+      "search_type": "equals",
+      "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+      "result_count": 0,
+      "matching_berry_rows": 0,
+      "outcome": "no_exact_denomination_result; not evidence of absent rights",
+      "identity_approved": false,
+      "current_rights_verified": false
+    }
+  ],
+  "code_conflicts": [
+    {
+      "name": "Baridi",
+      "current_product_code": "ABB132",
+      "announcement_code": "ABB 137",
+      "resolved": false
+    }
+  ],
+  "canonical_writes": 0,
+  "human_decisions_created": 0,
+  "production_changed": false
+}

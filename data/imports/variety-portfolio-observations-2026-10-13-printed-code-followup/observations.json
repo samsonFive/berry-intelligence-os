@@ -1,0 +1,393 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-printed-code-abb-baridi",
+      "title": "Advanced Berry Breeding — Baridi printed code",
+      "url": "https://www.abbreeding.nl/variety/baridi/",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-13",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal product heading and its printed code; no complete historical program or trait claim.",
+      "limitations": "Names and codes are literal source observations. They do not approve catalog aliases, company roles, trait claims, growing regions, rights or photo reuse.",
+      "capture_reference": {
+        "response_sha256": "8d79317b88c3a33cbb523ee8c57edecab47735777e646faccc07cb37e35430b7",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Baridi",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "ABB132",
+          "portfolio_context": "Baridi is labeled ABB132 on the current product page and ABB 137 in the breeder’s January 2025 announcement. Keep both observations visible; do not silently select a code or approve an alias."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      },
+      "review_warnings": [
+        "Baridi is labeled ABB132 on the current product page and ABB 137 in the breeder’s January 2025 announcement. Keep both observations visible; do not silently select a code or approve an alias."
+      ]
+    },
+    {
+      "id": "portfolio-printed-code-abb-malaika",
+      "title": "Advanced Berry Breeding — Malaika printed code",
+      "url": "https://www.abbreeding.nl/variety/malaika/",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-13",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal product heading and its printed code; no complete historical program or trait claim.",
+      "limitations": "Names and codes are literal source observations. They do not approve catalog aliases, company roles, trait claims, growing regions, rights or photo reuse.",
+      "capture_reference": {
+        "response_sha256": "5f984e21756b00fc7ad6585f48c943b98fa19748e17be348d69999988eecdb36",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Malaika",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "ABB135",
+          "portfolio_context": "The product heading prints this raspberry name and code together; any legal-name equivalence remains subject to identity review."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-printed-code-abb-zawadi",
+      "title": "Advanced Berry Breeding — Zawadi printed code",
+      "url": "https://www.abbreeding.nl/variety/zawadi/",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-13",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal product heading and its printed code; no complete historical program or trait claim.",
+      "limitations": "Names and codes are literal source observations. They do not approve catalog aliases, company roles, trait claims, growing regions, rights or photo reuse.",
+      "capture_reference": {
+        "response_sha256": "2b2d87f33db6bd4d772cadec3862491c6c2122896a313e177554b483fba6ca40",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Zawadi",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "ABB136",
+          "portfolio_context": "The product heading prints this raspberry name and code together; any legal-name equivalence remains subject to identity review."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-printed-code-abb-2025-announcement",
+      "title": "Advanced Berry Breeding — 2025 announcement code conflict",
+      "url": "https://www.abbreeding.nl/2025/01/20/discover-the-new-standard-of-abbs-raspberries-at-fruit-logistica-2025/",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-13",
+      "source_type": "breeder_news",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All three named focal variety bullets. Printed spaces and the conflicting Baridi code are retained.",
+      "limitations": "Names and codes are literal source observations. They do not approve catalog aliases, company roles, trait claims, growing regions, rights or photo reuse.",
+      "capture_reference": {
+        "response_sha256": "823cf701c5316e3b847bb7227b50aebd2ec48a7c55bdc97fc9a101fada4c3194",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Malaika",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "ABB 135",
+          "portfolio_context": "One of the three explicitly named focal varieties in the 2025 announcement; performance claims remain unreviewed."
+        },
+        {
+          "candidate_name": "Zawadi",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "ABB 136",
+          "portfolio_context": "One of the three explicitly named focal varieties in the 2025 announcement; performance claims remain unreviewed."
+        },
+        {
+          "candidate_name": "Baridi",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "ABB 137",
+          "portfolio_context": "Baridi is labeled ABB132 on the current product page and ABB 137 in the breeder’s January 2025 announcement. Keep both observations visible; do not silently select a code or approve an alias."
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "reported_items": 3,
+        "exclusions": []
+      },
+      "published_date": "2025-01-20",
+      "review_warnings": [
+        "Baridi is labeled ABB132 on the current product page and ABB 137 in the breeder’s January 2025 announcement. Keep both observations visible; do not silently select a code or approve an alias."
+      ]
+    },
+    {
+      "id": "portfolio-printed-code-planasa-redsayra",
+      "title": "Planasa — RedSayra and printed Plared 15121 label",
+      "url": "https://planasa.com/us/variety/redsayra/",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-13",
+      "source_type": "company_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Focal product heading and code. Two related navigation varieties are recorded in a separate context section.",
+      "limitations": "Names and codes are literal source observations. They do not approve catalog aliases, company roles, trait claims, growing regions, rights or photo reuse.",
+      "capture_reference": {
+        "response_sha256": "8e6612b8a7574f9e471f2b5d26e16cc3da09d2ed09dfcdecee7172fbfb7fc8ac",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "RedSayra",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "Plared 15121",
+          "portfolio_context": "The focal product heading prints RedSayra with Plared 15121. This company-source association is recorded for human identity review; the separate original CPVO filing is not transferred to the commercial label."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      },
+      "review_warnings": [
+        "RedSayra has no approved Plared 15121 catalog alias. The commercial/legal-name bridge remains held; no grant is attached to RedSayra automatically."
+      ]
+    },
+    {
+      "id": "portfolio-printed-code-planasa-redsayra-related",
+      "title": "Planasa — related navigation beside RedSayra",
+      "url": "https://planasa.com/us/variety/redsayra/",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-13",
+      "source_type": "company_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Both named related-navigation cards, kept separate from the focal product.",
+      "limitations": "Names and codes are literal source observations. They do not approve catalog aliases, company roles, trait claims, growing regions, rights or photo reuse.",
+      "capture_reference": {
+        "response_sha256": "8e6612b8a7574f9e471f2b5d26e16cc3da09d2ed09dfcdecee7172fbfb7fc8ac",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Plared 18009",
+          "berry_id": "berry-strawberry",
+          "denomination": "Plared 18009",
+          "portfolio_context": "Separate related-navigation link; not a RedSayra alias and receives none of its filing, trait or region context."
+        },
+        {
+          "candidate_name": "Red Samantha",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "Plared 13120",
+          "portfolio_context": "A separate related-navigation card prints this name and code. Any equivalence to a registered denomination or another commercial label needs human review; no focal grant or trait context transfers."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "reported_items": 2,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-printed-code-nc-state-ervin",
+      "title": "NC State Extension — Ervin, trial code and named photos",
+      "url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+      "company_ids": [
+        "company-nc-state-university"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-13",
+      "source_type": "research_program_publication",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Focal cultivar, its printed trial code and two named trial-fruit/plant photographs; comparison and person portraits do not become focal identities.",
+      "limitations": "Names and codes are literal source observations. They do not approve catalog aliases, company roles, trait claims, growing regions, rights or photo reuse.",
+      "capture_reference": {
+        "response_sha256": "33d0e757aa524d4880b2c0e16a61a3bb2b49cb32111e956a64b95fcf448346b1",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "photo_scope": {
+          "cultivar_photos": 2,
+          "excluded_people_portraits": 2,
+          "logos_excluded": true,
+          "visually_inspected": true
+        }
+      },
+      "names": [
+        {
+          "candidate_name": "Ervin",
+          "berry_id": "berry-blackberry",
+          "breeder_code": "NC 740",
+          "portfolio_context": "The original program announcement names Ervin and says it was trialed as NC 740. It qualifies yield as moderate, not high; flavor, adaptation and plant performance remain source assertions. The comparison cultivar Von is recorded separately. No patent number is stated; an IP contact is not a patent reference.",
+          "photos": [
+            {
+              "image_url": "https://eit-wagpress-prod.s3.amazonaws.com/media/images/2026-02-NC-740-fruit-in-clamshell.max-1200x700.jpg",
+              "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+              "named_variety": "Ervin",
+              "berry_id": "berry-blackberry",
+              "credit": "NC State Extension; photographer not credited",
+              "caption": "Ervin trial fruit in a container labeled NC 740",
+              "kind": "fruit",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-13",
+              "reuse_note": "Source heading and text identify the pictured NC 740 trial material as Ervin. Native image/label inspected; no image-specific reuse license established. Keep attribution and the private session preview gate."
+            },
+            {
+              "image_url": "https://eit-wagpress-prod.s3.amazonaws.com/media/images/2026-02-Figure-1.-NC740-whole-plant.max-1200x700.jpg",
+              "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+              "named_variety": "Ervin",
+              "berry_id": "berry-blackberry",
+              "credit": "NC State Extension; photographer not credited",
+              "caption": "Ervin trial plants under cover, with a visible NC 740 plot label",
+              "kind": "plant",
+              "reuse": "unknown",
+              "license_url": "",
+              "checked_on": "2026-10-13",
+              "reuse_note": "Source heading and text identify the pictured NC 740 trial material as Ervin. Native image/label inspected; no image-specific reuse license established. Keep attribution and the private session preview gate."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      },
+      "published_date": "2026-02-08"
+    },
+    {
+      "id": "portfolio-printed-code-nc-state-ervin-comparison",
+      "title": "NC State Extension — Von comparison in Ervin announcement",
+      "url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-13",
+      "source_type": "research_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "The single separately named comparison cultivar in the original article; source contacts and the namesake person are not cultivars.",
+      "limitations": "Names and codes are literal source observations. They do not approve catalog aliases, company roles, trait claims, growing regions, rights or photo reuse.",
+      "capture_reference": {
+        "response_sha256": "33d0e757aa524d4880b2c0e16a61a3bb2b49cb32111e956a64b95fcf448346b1",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Von",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Named comparison cultivar for vigor, disease resistance and harvest timing. No Ervin trial code, photo, rights, breeding attribution, trait or growing footprint transfers to Von."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      },
+      "published_date": "2026-02-08"
+    },
+    {
+      "id": "portfolio-printed-code-cpvo-20202126",
+      "title": "CPVO — Plared 15121 original filing and title",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20202126&denomination=Plared+15121&denominationSearchType=equals",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "imported_registry_reference": true,
+      "enumerated_scope": "One exact-code, species-checked original register result, verified against its native application detail page.",
+      "limitations": "Original filing identity is Plared 15121. RedSayra is an unapproved commercial-name association, not the literal register denomination. No ownership, territory, current legal-validity or photo permission determination is made.",
+      "review_warnings": [
+        "Keep the RedSayra/Plared 15121 association held until explicit human identity review."
+      ],
+      "capture_reference": {
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20202126&denomination=Plared+15121&denominationSearchType=equals",
+        "query_results_observed": 1,
+        "response_sha256": "5af7204e224cd7eceffed544d91117143f89bfc0f5ae5db7f9dbdccba8e3e8a6",
+        "reported_species": "Fragaria x ananassa Duchesne ex Rozier",
+        "reported_application_status": "Granted",
+        "reported_title_status": "Approved",
+        "reported_expiration_date": "2048-12-31",
+        "native_detail_verified": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Plared 15121",
+          "denomination": "Plared 15121",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "15.19.231",
+          "application_number": "20202126",
+          "application_date": "2020-09-07",
+          "grant_number": "63205",
+          "grant_date": "2023-02-20",
+          "portfolio_context": "Original CPVO application 20202126, title 63205; native detail confirms dates and literal denomination. Breeder reference 15.19.231 is contextual. The Planasa commercial-name association remains unapproved; no grant is assigned to RedSayra automatically."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    }
+  ]
+}

@@ -13,6 +13,33 @@ listing matches and uncertain publisher body structure remain explicit limits.
 The enabled-but-inactive broader collection timer remains stopped. These probes
 do not establish complete publisher-section coverage or measured recall.
 
+**TD-116 original-paper follow-through — October 13:** The CAS announcement
+omitted names present in its original paper. Hawaii-4 and Benihoppe now reach
+identity review as research material; CAS release coverage remains partial and
+no company role, trait, right, footprint or photo permission is approved.
+See CAS-ORIGINAL-PAPER-SOURCE-REVIEW.md. Original-source follow-through and
+independent human recall remain required; volume does not establish completeness.
+
+**TD-116 whole reference-gap cohort — October 13:** All 17 starting profiles are
+accounted for, including one explicit fictional seed, four unapproved naming
+associations and eight bounded unknowns. Four existing profiles gain original
+CPVO/US/Ukrainian references; the copied preview's reference gap falls from
+17 to 13. Twenty-two other-crop homonyms are excluded. Application, title,
+rights-registration and publication dates keep their distinct meanings.
+All 332 protected files and 64 stored profiles remain unchanged. See
+REFERENCE-GAP-COHORT-REVIEW.md. TD-116/CAT-01/CAT-02 remain open: source codes,
+other jurisdictions, current/historical portfolios, source/identity/catalog
+review, traits, attributed photos, regions and independent human recall remain.
+
+**TD-116 current source refresh — October 13:** The original current Pairwise
+Products page now explicitly names Fontana; its earlier unnamed product page
+stays intact. One candidate and two reuse-unconfirmed image references are
+retained without inventing identity equivalences, rights, roles or footprints.
+The bounded audit has 408 sections /1,608 observations /1,142 derived keys;
+64 canonical varieties and existing human decisions remain unchanged. See
+FONTANA-SOURCE-COVERAGE-REVIEW.md. Current/historical coverage and human
+catalog/recall work remain open; the live platform release is separate.
+
 ### TD-121 — Cultivar denominations misclassified as breeding codes
 
 The [original patent follow-up](UF-ORIGINAL-PATENT-REFERENCE-REVIEW.md) reproduces
@@ -23,7 +50,7 @@ codes, real conflicting pairs and saved human decisions. Forty-two targeted test
 pass, and all seven original documents reach their existing profile projection
 against the complete corpus. Full CI/browser review remain. No canonical identity,
 alias, ownership, current-rights or model-qualification decision changes. The
-tested release awaiting approval is unchanged; CAT-01/CAT-02 remain open.
+source follow-up remains separate from live release #398; CAT-01/CAT-02 stay open.
 
 ### TD-120 — Publisher disclosure lists disappear from captured source text
 
@@ -2902,3 +2929,5 @@ October 12 manual social production: operator purchased the approved one-time cr
 October 13 daily News/access follow-up: measured repeated relevance regex work and unchanged pending metadata parsing are addressed in the independent usability candidate. The local warmed data path falls from 2.630 to 0.478 seconds with identical results; live post-release performance is still unverified. Additional analyst credentials preserve the operator login and first-login Help, but shared analyst state, per-user digests/preferences, role management, multi-worker writes and wider cold/mobile/collection performance remain open. Unresolved Google wrappers and publisher access limits retain explicit fallback links rather than fabricated text. See NEWS-ACCESS-USABILITY-FIXES.md. No candidate deployment or catalog trust change.
 
 October 14 continuation: release authorized for News/reader/performance and Julio.A. The implementation retains the deployed SQLite account store and onboarding history. One News click refreshes and displays results; one story click starts bounded source retrieval automatically. Mixed consent/first-visit notices are filtered in both reader presentations, and undecodable Google wrappers can resolve through a unique exact publisher-headline link. Production-runtime-copy measurements retain all 1,493 matching IDs/order and improve warm News from 2.96–3.05 s to 0.60–0.73 s. Read-only startup warming handles the cold computation. Publisher access limits and mobile/network/large-corpus performance remain disclosed follow-up debt. See NEWS-ACCESS-USABILITY-FIXES.md for the release contract.
+
+October 13 printed-code review: ABB135/ABB 135 and ABB136/ABB 136 source formatting produced false discrepancy holds. The issuer-specific comparison correction preserves literal records, canonical names/aliases and real different-number holds; 79 affected tests pass. The genuine Baridi ABB132/ABB137 conflict, RedSayra/Plared 15121 legal-name review, other-jurisdiction rights, source completeness and photo reuse remain open. Source snapshots and two named Ervin images are review metadata only. See PRINTED-CODE-REGISTER-FOLLOWUP.md. No qualification, canonical profile or production change.

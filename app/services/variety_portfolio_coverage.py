@@ -6,6 +6,7 @@ Evidence, roles or canonical varieties. Human inbox decisions win on replay.
 """
 from datetime import date
 import json
+import re
 from pathlib import Path
 from urllib.parse import urlencode, urlsplit
 
@@ -18,6 +19,18 @@ from app.services.variety_universe.registry_import import build_candidate
 
 def _key(row):
     return fold_identity(row.get("candidate_name", "")), row.get("berry_id", "")
+
+
+def _code_comparison_key(value):
+    """ABB prints its numeric codes both spaced and compact on its own pages.
+
+    Ignore that issuer's formatting separator only in discrepancy checks.
+    Literal records and the canonical name/alias resolver are unchanged.
+    Other prefixes, numeric separators and legal-name identities stay distinct.
+    """
+    key = fold_identity(value)
+    match = re.fullmatch(r"abb\s+(\d+)", key)
+    return "abb" + match.group(1) if match else key
 
 
 def observation_company_ids(source, observation):
@@ -55,7 +68,7 @@ def _coded_label_keys(sources):
             code = row.get("denomination") or row.get("breeder_code")
             label = row.get("trade_name") or row["candidate_name"]
             if code:
-                labels.setdefault((fold_identity(label), row["berry_id"]), set()).add(fold_identity(code))
+                labels.setdefault((fold_identity(label), row["berry_id"]), set()).add(_code_comparison_key(code))
     return {key for key, codes in labels.items() if len(codes) > 1}
 
 
@@ -178,7 +191,7 @@ def _identity_pair_notes(sources):
                                and fold_identity(row["denomination"]) == fold_identity(label))
             if code and label and fold_identity(code) != fold_identity(label) and not legal_name_only:
                 scope = (companies, row["berry_id"])
-                codes.setdefault((*scope, fold_identity(code)), set()).add(label)
+                codes.setdefault((*scope, _code_comparison_key(code)), set()).add(label)
                 labels.setdefault((*scope, fold_identity(label)), set()).add(code)
     notes = {}
     for source in sources:
@@ -187,18 +200,18 @@ def _identity_pair_notes(sources):
             scope = (companies, row["berry_id"])
             code, label, denomination_only = _asserted_pair(row)
             messages = []
-            paired_labels = codes.get((*scope, fold_identity(code or "")), set())
+            paired_labels = codes.get((*scope, _code_comparison_key(code or "")), set())
             # A repeated denomination asserts no code/name pair of its own,
             # but other sources may explicitly use that identifier as a code.
             # Their conflicting labels must still hold the original reference,
             # including when it separately records another breeder code.
             denomination = row.get("denomination")
             if denomination and fold_identity(denomination) == fold_identity(label):
-                paired_labels = paired_labels | codes.get((*scope, fold_identity(denomination)), set())
+                paired_labels = paired_labels | codes.get((*scope, _code_comparison_key(denomination)), set())
             paired_codes = labels.get((*scope, fold_identity(label or "")), set())
             if len({fold_identity(value) for value in paired_labels}) > 1:
                 messages.append("This code appears with multiple labels: " + ", ".join(sorted(paired_labels)) + ". Check the pairing before accepting aliases.")
-            if len({fold_identity(value) for value in paired_codes}) > 1:
+            if len({_code_comparison_key(value) for value in paired_codes}) > 1:
                 messages.append("This label appears with multiple codes: " + ", ".join(sorted(paired_codes)) + ". Keep the identities unresolved until reviewed.")
             # A code-bearing release and an uncoded name in another source are
             # separate leads until a human resolves them. Different companies
@@ -206,17 +219,17 @@ def _identity_pair_notes(sources):
             mention_label = label or row["candidate_name"]
             mentions = label_mentions.get((row["berry_id"], fold_identity(mention_label)), [])
             other_mentions = [m for m in mentions if not m[3] and (m[0] != source["id"] or m[1] != _key(row)
-                              or (code and m[2] and fold_identity(code) != fold_identity(m[2])))
-                              and (m[1] != _key(row) or (code and m[2] and fold_identity(code) != fold_identity(m[2])))]
+                              or (code and m[2] and _code_comparison_key(code) != _code_comparison_key(m[2])))
+                              and (m[1] != _key(row) or (code and m[2] and _code_comparison_key(code) != _code_comparison_key(m[2])))]
             if not denomination_only and ((code and any(not m[2] for m in other_mentions)) or (
                     not code and any(m[2] for m in other_mentions))):
                 messages.append("This name appears with a code in one source and without it in another. "
                                 "Check whether they refer to the same variety before combining the records.")
             different_codes = {m[2] for m in other_mentions if code and m[2]
-                               and fold_identity(m[2]) != fold_identity(code)}
+                               and _code_comparison_key(m[2]) != _code_comparison_key(code)}
             if denomination_only:
                 reported_codes = {m[2] for m in other_mentions if m[2]}
-                if len({fold_identity(value) for value in reported_codes}) > 1:
+                if len({_code_comparison_key(value) for value in reported_codes}) > 1:
                     different_codes = reported_codes
             if different_codes:
                 messages.append("Different sources pair this name with different codes: " +
