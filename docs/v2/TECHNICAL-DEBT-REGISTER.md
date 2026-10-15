@@ -1,5 +1,17 @@
 # Technical Debt Register
 
+### TD-122 — Candidate review rebuilds names and sends oversized pages
+
+October 14: the isolated 1,157-row review page returned about 4.1 MB in 8.066 s;
+one alphabet group returned 257 KB in 6.940 s. Profiling recorded 579,425 repeated
+literal normalization calls. The [bounded text-cache fix](CATALOG-NORMALIZATION-PERFORMANCE.md)
+preserves all matching and review semantics and improves alternating isolated
+discovery runs with identical projections. Status: **partially addressed**;
+large-page rendering, repeated discovery scans, representative live/mobile
+measurements and wider route contention remain open, medium-severity work.
+Changes to names, aliases, codes, crops and human decisions must remain visible
+immediately. Regression: `tests/test_variety_identity_normalization_cache.py`.
+
 October 14, 2026 sustainability sourcing: [access contract](SUSTAINABILITY-SOURCE-COVERAGE.md).
 Open limitations: The Packer rejects direct production-host requests (403), so
 indexed discovery cannot guarantee section completeness. The selected-reader
