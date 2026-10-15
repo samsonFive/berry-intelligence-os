@@ -8,6 +8,7 @@ UNKNOWN. No similarity scores, no model inference.
 
 from __future__ import annotations
 
+from functools import lru_cache
 from typing import Any
 
 from app.services.patent_monitor.entity_link import _fold
@@ -37,8 +38,18 @@ LABELS = {
 _MIN_FOLD = 3
 
 
+@lru_cache(maxsize=4096)
+def _fold_short_identity(value: str) -> str:
+    return _fold(value)
+
+
 def fold_identity(value: str | None) -> str:
-    return _fold(value or "")
+    # Cache only a bounded literal string transformation. Matching, catalog
+    # fields and human decisions are always evaluated from the current records.
+    value = value or ""
+    if isinstance(value, str) and len(value) <= 256:
+        return _fold_short_identity(value)
+    return _fold(value)
 
 
 def _identity_strings(variety: dict[str, Any]) -> list[tuple[str, str]]:
