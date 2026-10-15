@@ -60,7 +60,19 @@ redirect, homepage body or consent text is accepted. Capture reuse and negative
 retry cooldown apply; explicit refresh requests fresh API content. News listing
 requests do not call Firecrawl. Indexed section homepages are excluded as stories.
 
-The existing `bios-collection.timer` was enabled but inactive when audited.
-Daily Source cadence is configured and initial discovery completed, but News
-refresh remains the active acquisition path while that broader timer is stopped.
-This change does not resume unrelated scheduled collectors.
+The existing `bios-collection.timer` was explicitly stopped on August 25 after
+a successful service run; retained systemd logs do not establish who stopped it
+or why. Automatic News is restored through the same timer and pipeline scheduler.
+Install `deploy/systemd/bios-collection.service.d/news.conf` as
+`/etc/systemd/system/bios-collection.service.d/news.conf`, reload systemd and
+enable/start the timer. This activation selects `news_workspace_refresh` only.
+Its 10-minute minimum cadence allows each 15-minute timer tick to collect fresh
+keyless News without alternate-tick skips caused by run completion timestamps.
+Other acquisition/paid/model pipelines retain their existing controls.
+
+The scheduled runner uses the same bounded collector, cache and shared lease as
+manual Refresh. Idle, visible News first pages observe completion every minute
+and update automatically; an open Reader, edited filters or later page defers
+the reload. Berries Australia returned a transient HTTP 507, then returned its
+normal RSS with 10 articles. RSS transport now retries transient server/network
+failures once, with a short delay; persistent failures and 403/429 stay visible.

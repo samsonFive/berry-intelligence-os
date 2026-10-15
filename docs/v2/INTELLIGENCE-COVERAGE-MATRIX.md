@@ -5,6 +5,9 @@ adds verified Trellis and AgFunderNews category RSS, Watershed blog sitemap disc
 and indexed Packer Sustainability Insights discovery. These are unreviewed source
 coverage paths, not measured recall or new trusted intelligence. Search lag,
 Packer server rejection and sitemap modification-date limitations remain explicit.
+Automatic keyless News runs on the restored 15-minute dispatcher; idle News pages
+observe completed captures without a manual refresh. Berries Australia RSS was
+verified with 10 publisher articles after a transient 507; server retries are bounded.
 
 ## Source disclosure fidelity — October 13 UTC, 2026
 

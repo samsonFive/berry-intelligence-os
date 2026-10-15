@@ -73,6 +73,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import time
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
@@ -331,12 +332,24 @@ def _fetch_podcast_rss(feed_url: str) -> tuple[Any, bytes]:
     a crash) -- but does NOT raise on a malformed-but-partially-readable
     feed body, since feedparser is deliberately lenient (`bozo` flag) and a
     feed with one broken tag still usually yields readable <item> entries."""
-    response = httpx.get(
-        feed_url,
-        timeout=MEDIA_DISCOVERY_FETCH_TIMEOUT_SECONDS,
-        headers={"User-Agent": MEDIA_DISCOVERY_USER_AGENT},
-        follow_redirects=True,
-    )
+    # A publisher can briefly return a gateway/storage error (Berries
+    # Australia returned 507). Retry once; access denials and rate limits
+    # stay visible, and persistent failures still reach source health.
+    for attempt in range(2):
+        try:
+            response = httpx.get(
+                feed_url,
+                timeout=MEDIA_DISCOVERY_FETCH_TIMEOUT_SECONDS,
+                headers={"User-Agent": MEDIA_DISCOVERY_USER_AGENT},
+                follow_redirects=True,
+            )
+        except (httpx.TimeoutException, httpx.NetworkError):
+            if attempt:
+                raise
+        else:
+            if response.status_code not in {500, 502, 503, 504, 507} or attempt:
+                break
+        time.sleep(0.5)
     response.raise_for_status()
     parsed = feedparser.parse(response.content)
     return parsed, response.content

@@ -124,12 +124,12 @@
     {
       "id": "news_workspace_refresh",
       "enabled": true,
-      "scheduled": false,
-      "schedule_entrypoint": false,
-      "cadence_seconds": null,
-      "runner": "POST /api/news/refresh",
+      "scheduled": true,
+      "schedule_entrypoint": true,
+      "cadence_seconds": 600,
+      "runner": "scripts/refresh_news_workspace.py",
       "state": "operations/pipelines/news_workspace_refresh/runs",
-      "notes": "Explicit refresh of existing bounded public News discovery lanes, with paid providers disabled. Shared collection lease, metadata previews only, no human-review bypass, canonical writes or scheduled polling."
+      "notes": "Automatic keyless News refresh through the existing 15-minute systemd dispatcher, plus explicit Refresh. A 10-minute minimum cadence avoids skipping alternate timer ticks after run completion. Shared collection lease, metadata only, paid providers disabled; no draft creation, review bypass or canonical writes."
     },
     {
       "id": "social_intelligence",

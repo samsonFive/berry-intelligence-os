@@ -84,9 +84,11 @@ def run_refresh(inbox_dir, context, sources):
     result["completed_at"] = datetime.now(UTC).isoformat()
     atomic_json(refresh_path(inbox_dir), result)
     atomic_json(inbox_dir / "operations" / "pipelines" / "news_workspace_refresh" / "runs" / (started.strftime("%Y%m%dT%H%M%S%fZ") + ".json"), {
-        "pipeline": "news_workspace_refresh", "status": "FAILED" if result["status"] in {"failed", "partial"} else "SUCCESS",
+        "pipeline": "news_workspace_refresh",
+        "outcome": {"failed": "FAILED", "partial": "PARTIAL"}.get(result["status"], "SUCCESS"),
         "started_at": result["started_at"], "completed_at": result["completed_at"],
         "failure_count": result.get("error_count", 0), "items_new": result.get("story_count", 0), "publication_drafts": 0,
+        "counts": {"items_new": result.get("story_count", 0), "publication_drafts_created": 0},
     })
 
 
