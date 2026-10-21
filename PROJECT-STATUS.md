@@ -1,5 +1,24 @@
 # Project Status
 
+## October 21 delivery and catalog reconciliation
+
+The live platform is canonical `c7e78f66`, with News/access, automatic News,
+Gene Editing and the bounded normalization fix #405 released. The performance
+release passed 5,128 tests and normal signed-in HTTPS checks; all accounts and
+9,783 protected files were preserved. Chris.H's first-login Help remains pending.
+The 52-source worksheet and saved sources are accessible on mobile through the
+existing login; browser-local answers do not synchronize between devices.
+
+Catalog #399 and child #400 are reconciled onto this release. Their existing
+feature code, public reference observations and tests are preserved exactly;
+fresh checks on both new heads still gate release review. The local research
+corpus and its 64 profiles are not a replacement for the live runtime, whose
+rehearsal contained 65. No source, identity, canonical record, company role,
+qualified extractor or photo right is approved by this reconciliation.
+Reader performance #407 is a separate draft. CAT-01/CAT-02, independent human
+answers, broader corpus/profile/statistics completeness and TD-122 remain open.
+Older status entries below retain dated evidence and superseded release states.
+
 ## Current continuation — October 14, 2026
 
 Live canonical is `c354866d`, including released #401 and subsequent #402–403
