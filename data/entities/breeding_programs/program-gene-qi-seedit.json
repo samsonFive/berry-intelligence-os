@@ -1,0 +1,37 @@
+{
+  "id": "program-gene-qi-seedit",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "SEEDIT editing platform",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-qi-funding"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-qi-seedit",
+      "name": "SEEDIT editing platform",
+      "company_ids": [
+        "company-qi-biodesign"
+      ],
+      "technology": "RNA-guided nucleases; base editing; prime editing; PrimeRoot",
+      "crop": "Crop-unassigned",
+      "trait": "Multiplex editing; trait discovery",
+      "partner": null,
+      "geography": null,
+      "role": "editing platform",
+      "stage": "Company platform claim",
+      "milestone_date": "2024-12-06",
+      "milestone": "Company financing release describes SEEDIT and reports $75 million total financing.",
+      "evidence_ids": [
+        "ev-gene-qi-funding"
+      ],
+      "berry_ids": [],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Not independent platform benchmarking or evidence of a berry product; primary company domain unavailable."
+    }
+  }
+}

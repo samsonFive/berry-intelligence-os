@@ -1,0 +1,37 @@
+{
+  "id": "program-gene-qi-license",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Qi\u2013Vilmorin genome-editing license",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-qi-license"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-qi-license",
+      "name": "Qi\u2013Vilmorin genome-editing license",
+      "company_ids": [
+        "company-qi-biodesign"
+      ],
+      "technology": "Portfolio of genome-editing tools / CRISPR nuclease",
+      "crop": "Field and vegetable crops",
+      "trait": "Enabling editing",
+      "partner": "Vilmorin & Cie / Limagrain",
+      "geography": "Worldwide IP scope",
+      "role": "editing platform",
+      "stage": "License announced",
+      "milestone_date": "2026-07-31",
+      "milestone": "Partner release describes global access to Qi editing technologies.",
+      "evidence_ids": [
+        "ev-gene-qi-license"
+      ],
+      "berry_ids": [],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Exact nuclease identity, crop-by-crop products, berry application and commercial availability not disclosed."
+    }
+  }
+}

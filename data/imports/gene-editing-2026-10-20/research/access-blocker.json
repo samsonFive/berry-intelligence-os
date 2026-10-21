@@ -1,0 +1,8 @@
+{
+  "executed_at": "2026-10-21",
+  "capability": "Perplexity Search API cross-company follow-up",
+  "query": "Simplot PSI Plant Sciences Genetics PSG Pairwise strawberry blackberry partnership legal restructuring",
+  "http_status": 401,
+  "provider_code": "insufficient_quota",
+  "result": "No results; request rejected. Remaining paid calls stopped."
+}

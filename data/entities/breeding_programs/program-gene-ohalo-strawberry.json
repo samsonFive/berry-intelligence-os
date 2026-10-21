@@ -1,0 +1,43 @@
+{
+  "id": "program-gene-ohalo-strawberry",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Ohalo Strawberry Consortium",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-gene-ohalo-launch",
+    "ev-gene-ohalo-strawberry"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-ohalo-strawberry",
+      "name": "Ohalo Strawberry Consortium",
+      "company_ids": [
+        "company-ohalo"
+      ],
+      "technology": "Proprietary hybrid breeding / uniform true seed",
+      "crop": "Strawberry",
+      "trait": "Flavor; uniform true seed; propagation efficiency",
+      "partner": "BlazerWilkinsonGee; California Giant; Central West Produce; Crown Nursery; Naturipe Berry Growers; Wish Farms",
+      "geography": "Global intended access; trial locations undisclosed",
+      "role": "breeder/germplasm owner; commercialization partner",
+      "stage": "Consortium announced / trials anticipated",
+      "milestone_date": "2025-03-10",
+      "milestone": "Announcement anticipated 2026 field trials and later commercialization.",
+      "evidence_ids": [
+        "ev-gene-ohalo-launch",
+        "ev-gene-ohalo-strawberry"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "No confirmation of completed 2026 trials, named released varieties or sales. Boosted Breeding is not automatically CRISPR."
+    }
+  }
+}

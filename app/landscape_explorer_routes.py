@@ -43,6 +43,19 @@ def context(request, params=None):
     if not main.AUTHORING_MODE:
         raise HTTPException(404, "Landscape Explorer is available in the analyst workspace.")
     params = request.query_params if params is None else params
+    if params.get('topic') == 'gene-editing':
+        from app.services.gene_editing import landscape_model
+        entities = {row['id']: row for row in main.all_entities()}
+        from app.services.publication_sources import pending_source_previews
+        pending, _ = pending_source_previews(main.INBOX_DIR)
+        # Publication identity is canonical; a reviewed record supersedes its draft.
+        records = {r['id']: r for r in pending}
+        records.update({r['id']: r for r in main.all_evidence()})
+        alias_path = main.INBOX_DIR/'gene_editing/evidence_aliases.json'
+        aliases = json.loads(alias_path.read_text(encoding='utf-8')) if alias_path.exists() else {}
+        model = landscape_model(main.DATA_DIR, entities, records.values(), params, evidence_aliases=aliases)
+        return main, entities, {'gene_editing': model, 'version': model['version'],
+                                'url': '/landscapes/explorer?' + model['query']}, {}, {}
     try:
         store = workspace.load_views(main.INBOX_DIR)
         selected_view = store["views"].get(str(params.get("saved_view") or ""))
@@ -87,6 +100,10 @@ def page(request: Request):
         return main.templates.TemplateResponse(request, "landscape_explorer_error.html", {
             "authoring_mode": main.AUTHORING_MODE, "message": exc.detail,
         }, status_code=422, headers={"Cache-Control": "private, no-store"})
+    if 'gene_editing' in bundle:
+        return main.templates.TemplateResponse(request, 'gene_editing_landscape.html', {
+            'model': bundle['gene_editing'], 'authoring_mode': main.AUTHORING_MODE,
+        }, headers={'Cache-Control': 'private, no-store'})
     choices = sorted([row for row in entities.values() if row.get("entity_type") == "geography"], key=lambda row: row.get("name", row["id"]))
     source_lookup = {row["id"]: row for row in bundle["sources"]}
     groups = personal_digest.company_lists(state)
@@ -119,6 +136,9 @@ def api(request: Request):
 @router.get("/landscapes/explorer/briefing", response_class=HTMLResponse)
 def briefing(request: Request):
     _, _, bundle, _, _ = context(request)
+    if 'gene_editing' in bundle:
+        from app.services.gene_editing import html_export
+        return HTMLResponse(html_export(bundle['gene_editing']), headers={'Cache-Control': 'private, no-store'})
     return HTMLResponse(exports.html_export(bundle, return_url=str(request.base_url).rstrip("/") + bundle["url"]),
                         headers={"Cache-Control": "private, no-store"})
 
@@ -126,6 +146,13 @@ def briefing(request: Request):
 @router.get("/landscapes/explorer/export/{format}")
 def export(request: Request, format: str):
     _, _, bundle, _, _ = context(request)
+    if 'gene_editing' in bundle:
+        from app.services import gene_editing
+        if format not in {'csv', 'html'}:
+            raise HTTPException(422, 'This lens supports evidence CSV and printable HTML. Print HTML to PDF in your browser.')
+        generate = gene_editing.csv_export if format == 'csv' else gene_editing.html_export
+        return Response(generate(bundle['gene_editing']), media_type='text/csv' if format == 'csv' else 'text/html',
+            headers={'Content-Disposition': f'attachment; filename="gene-editing-{bundle["version"]}.{format}"', 'Cache-Control': 'private, no-store'})
     generators = {"html": (lambda b: exports.html_export(b, return_url=str(request.base_url).rstrip("/") + b["url"]), "text/html; charset=utf-8"),
                   "svg": (exports.svg_export, "image/svg+xml"), "csv": (exports.csv_export, "text/csv; charset=utf-8"),
                   "pdf": (lambda b: pdf_export(b, return_url=str(request.base_url).rstrip("/")+b["url"]), "application/pdf")}
@@ -143,6 +170,8 @@ async def save_explorer_view(request: Request):
     require_edit(request)
     from app import main
     form = await request.form()
+    if form.get('topic') == 'gene-editing':
+        raise HTTPException(422, 'Save this research lens as a bookmarked URL; saved Explorer views currently support market/genetics selectors.')
     action = str(form.get("action") or "save")
     if action not in {"save", "copy", "archive", "restore"}:
         raise HTTPException(422, "Choose a supported saved-view action.")

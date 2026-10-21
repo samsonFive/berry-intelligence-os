@@ -1,0 +1,41 @@
+{
+  "id": "program-gene-qi-soybean",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "High-oleic soybean / FAD2",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-us-qi",
+    "ev-gene-qi-funding",
+    "ev-gene-qi-rsr-response"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-qi-soybean",
+      "name": "High-oleic soybean / FAD2",
+      "company_ids": [
+        "company-qi-biodesign"
+      ],
+      "technology": "Genome editing / FAD2 target",
+      "crop": "Soybean",
+      "trait": "High oleic acid",
+      "partner": null,
+      "geography": "United States regulatory submission; China reported milestone",
+      "role": "editing platform",
+      "stage": "APHIS regulatory status determination",
+      "milestone_date": "2024-05-29",
+      "milestone": "APHIS response 24-116-02rsr determines the specified soybean is not subject to 7 CFR part 340.",
+      "evidence_ids": [
+        "ev-gene-us-qi",
+        "ev-gene-qi-funding",
+        "ev-gene-qi-rsr-response"
+      ],
+      "berry_ids": [],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "US plant-pest scope only; FDA status, Chinese original certificate and commercial sales not established."
+    }
+  }
+}

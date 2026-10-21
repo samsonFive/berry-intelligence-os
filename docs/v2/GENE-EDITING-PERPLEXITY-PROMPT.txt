@@ -1,0 +1,25 @@
+Use Deep Research. Research the gene-editing and advanced-breeding landscape for berry crops, current through October 21, 2026.
+
+Cover all 11: J.R. Simplot Company / Simplot Plant Sciences; Plant Sciences, Inc. (PSI), distinguishing Plant Sciences Genetics (PSG); Ohalo; Pairwise; Hudson River Biotechnology (HRB); Plantik Biosciences; Fall Creek Farm & Nursery; Planasa; Heritable Agriculture; Qi Biodesign / 齐禾生科; Shandong Shunfeng Biotechnology / 山东舜丰生物科技有限公司 / 舜丰生物.
+
+Prioritize dedicated deep investigation of Simplot, Ohalo and HRB: their previous reports were rate-limited. The other eight have partial responses truncated at an output limit and need targeted verification/gap-filling. Please produce a complete report; if necessary, separate it into company reports rather than truncating.
+
+Use original company/partner announcements, peer-reviewed research, patents and official regulators. Search native Chinese for Qi and Shunfeng. Open underlying sources. Search snippets, AI summaries and syndicated copies of a release are not independent confirmation.
+
+For each company resolve legal entities, aliases, official website/news/research endpoints and parents/subsidiaries. Distinguish ownership, investment and partnership. Document each supported technology, crop program, named variety/product, target trait, partner, program geography (separate from headquarters), stage, dated milestone, commercialization evidence, relevant IP/license and financing. For every substantive claim retain original URL, publisher, publication date, short exact supporting excerpt, attribution and limitations.
+
+Specific checks:
+1. Simplot–PSI's October 28, 2021 strawberry alliance: verify subsequent developments, S4A/S4A-210 and related lines against original APHIS, FDA, Canadian and English records. Separate notices, determinations, planned/completed trials and actual sales. Do not assume every line derives from the PSI alliance.
+2. PSI versus PSG: verify restructuring, legal relationship and germplasm/IP ownership. Neither is Simplot Plant Sciences.
+3. Ohalo: explain Boosted Breeding without automatically equating it with CRISPR. Separate platform claims from the strawberry true-seed consortium. Verify partners, completed 2026 trials, released varieties and sales.
+4. HRB: verify February 6, 2024 single-cell strawberry regeneration, May 26, 2026 Pairwise Fulcrum license, and September 28, 2026 Plantik heat-tolerant strawberry partnership. Website update dates are not announcement dates.
+5. Pairwise: separate soft-seed/seedless, thornless, compact architecture, reported Colombian consumer sales and October 14, 2026 Fontana introduction. Do not assume marketed fruit carries all pipeline traits. Verify PSI/PSG lineage and stages.
+6. Plantik: separate tomato heat-tolerance demonstrations from demonstrated strawberry outcomes.
+7. Fall Creek/Planasa: seek editing evidence and licenses without assuming them. Conventional breeding, genomics, tissue culture and joint events are insufficient.
+8. Heritable: verify genome-edit design capabilities separately from AI strawberry breeding with CIV and Paul J. Mastronardi.
+9. Qi: resolve Beijing/Suzhou entities; verify SEEDIT, specific crop programs, Vilmorin licensing and any berry/blueberry facility. Check original event-specific regulatory decisions: APHIS 24-116-02rsr.pdf appears to be an applicant request, not a decision letter.
+10. Shunfeng: verify BellaGen/bellagen.cn legal equivalence, Cas-SF01/Cas-SF02, KWS licensing and named crop programs. All-crop IP rights do not prove berry activity.
+
+Output: (A) 11-company comparison, (B) program-by-program table, (C) relationships with direct evidence for every edge, (D) numbered original-source bibliography mapping claims to sources, (E) unresolved conflicts/gaps and inaccessible sources.
+
+Use “not established in this research pass” for missing evidence and retain unknowns. Distinguish conventional, AI-assisted and advanced reproductive breeding from editing. Announced, demonstrated, field-tested, regulator-reviewed and commercially available are separate stages. Do not invent programs, feeds, partnerships, launches or approvals. An exemption applies to a specific product, jurisdiction and date; a patent or announcement is not proof of commercialization.

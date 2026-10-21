@@ -13,6 +13,7 @@ from app.services.industry_pulse.qualify import QualificationIndex, qualify_hit
 from app.services import company_source_scope
 from app.services.company_source_scope import source_reviewed
 from app.services.industry_pulse.specialist_feeds import requested_sustainability_record
+from app.services.gene_editing import classify, topic_selection
 
 NEWS_TYPES = {
     "news_search", "trade_press", "web_article", "company_press_release", "company_website",
@@ -50,7 +51,10 @@ def escalations(facts):
 def parameters(params):
     """Retain bookmarked feed/map scope, while normalizing to one News vocabulary."""
     values = {key: str(params.get(key) or "").strip() for key in
-              ("q", "view", "berry", "countries", "company", "list", "tier", "favorites", "window", "start", "end", "tz")}
+              ("q", "view", "berry", "countries", "company", "list", "tier", "favorites", "window", "start", "end", "tz", "source", "adjacent")}
+    values['topic'] = ','.join(topic_selection(params))
+    if values['adjacent'] not in {'', '1'}:
+        raise ValueError('Choose a supported adjacent-crop toggle')
     values["view"] = values["view"] or "unreviewed"
     if values["view"] not in {"trusted", "unreviewed"}:
         raise ValueError("Choose Trusted or Unreviewed")
@@ -112,6 +116,14 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
     counts = {"trusted": 0, "unreviewed": 0}
     matched = []
     for record in records.values():
+        classification = classify(record)
+        if filters['topic']:
+            if not set(filters['topic'].split(',')).intersection(classification['topics']):
+                continue
+            if not filters['adjacent'] and not classification['berry_related']:
+                continue
+        if filters['source'] and filters['source'] != record.get('source_name'):
+            continue
         key = str(record.get("id") or "")
         if key in SEED_FIXTURE_EVIDENCE_IDS or not feed_first.SAFE_ID_RE.fullmatch(key):
             continue
@@ -119,7 +131,7 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
                            and record.get("media_format") == "web_article")
         if (record.get("source_type") not in NEWS_TYPES and not article_capture) or "structural" in (record.get("tags") or []):
             continue
-        if not requested_sustainability_record(record) and not _qualifying_news(str(record.get("title") or ""), str(record.get("summary") or ""),
+        if not (filters['topic'] and classification['topics']) and not requested_sustainability_record(record) and not _qualifying_news(str(record.get("title") or ""), str(record.get("summary") or ""),
                                 str(record.get("source_url") or ""), str(record.get("published_date") or ""), company_names, variety_names):
             continue
         stamp = parse_stamp(record.get("published_date"))
@@ -178,6 +190,7 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
         card["source_url"] = card["source_url"] if is_public_http_url(card["source_url"]) else ""
         card.update(trusted=trusted, source_reviewed=source_reviewed(record), escalated_count=len(support.get(card["id"], [])))
         card["company_mentions"] = mentions
+        card['topic_match'] = classify(record)
         card["entities"] = [row for row in card["entities"] if (entities.get(row["id"]) or {}).get("entity_type") in {"company", "brand", "research_program"}]
         cards.append(card)
     date_label = {'': 'All dated news', 'today': 'Today', '7d': 'Past 7 days', '30d': 'Past 30 days',
@@ -203,6 +216,10 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
         filter_summary.append('Favorite companies')
     if filters['q']:
         filter_summary.append('Search: ' + filters['q'])
+    if filters['topic']:
+        from app.services.gene_editing import TOPICS
+        filter_summary.extend(TOPICS[key] for key in filters['topic'].split(','))
     return {"cards": cards, "matching": len(matched), "matching_ids": [r[0]["id"] for r in matched], "counts": counts, "filters": filters,
             "filter_summary": filter_summary,
-            "page": page, "pages": pages, "lists": lists, "query": query}
+            "page": page, "pages": pages, "lists": lists, "query": query,
+            "source_choices": sorted({r.get('source_name') for r in records.values() if r.get('source_name')})}

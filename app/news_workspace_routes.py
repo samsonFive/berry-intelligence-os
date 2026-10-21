@@ -19,7 +19,7 @@ def news_page(request: Request):
     main, context, records, entities = world()
     params = dict(request.query_params)
     # Native multiselect checkboxes also work without JavaScript.
-    for field in ("berry", "countries"):
+    for field in ("berry", "countries", "topic"):
         selected = request.query_params.getlist(field + "_choice")
         if selected:
             params[field] = ",".join(selected)

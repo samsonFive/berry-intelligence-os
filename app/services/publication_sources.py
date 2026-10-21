@@ -19,6 +19,7 @@ _preview_cache_lock = RLock()
 _preview_cache_bytes = 0
 MAX_PREVIEW_CACHE_BYTES = 16_000_000
 PREVIEW_FIELDS = {
+    "supporting_excerpt", "attribution", "classification", "original_text_excerpt",
     "id", "record_type", "status", "review_state", "evidence_role", "title", "summary", "why_it_matters",
     "source_type", "source_name", "source_id", "source_url", "published_date", "captured_date",
     "accessed_date", "published_at", "published_date_basis", "submitted_by", "reviewed_by", "reviewed_at",

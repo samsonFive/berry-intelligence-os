@@ -1,0 +1,39 @@
+{
+  "id": "program-gene-shunfeng",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Cas-SF01 / Cas-SF02 KWS license",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-shunfeng-kws",
+    "ev-gene-shunfeng-kws-de"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-shunfeng",
+      "name": "Cas-SF01 / Cas-SF02 KWS license",
+      "company_ids": [
+        "company-shandong-shunfeng-biotechnology"
+      ],
+      "technology": "CRISPR Cas-SF01 / Cas-SF02",
+      "crop": "All crop types (license scope)",
+      "trait": "Enabling plant genome editing",
+      "partner": "KWS",
+      "geography": "Worldwide IP scope; Europe breeding context",
+      "role": "editing platform",
+      "stage": "Global license announced",
+      "milestone_date": "2025-09-10",
+      "milestone": "KWS confirms licensing Shunfeng editing technologies.",
+      "evidence_ids": [
+        "ev-gene-shunfeng-kws",
+        "ev-gene-shunfeng-kws-de"
+      ],
+      "berry_ids": [],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Berry program, licensed edited product, commercial sales and original company/news endpoints not established. Language editions are one source."
+    }
+  }
+}

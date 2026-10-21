@@ -1,0 +1,24 @@
+{
+  "id": "company-shandong-shunfeng-biotechnology",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Shandong Shunfeng Biotechnology",
+  "aliases": [
+    "Shunfeng Bio",
+    "ShunFeng Bio",
+    "Shunfeng BioTech",
+    "\u5c71\u4e1c\u821c\u4e30\u751f\u7269\u79d1\u6280\u6709\u9650\u516c\u53f8",
+    "\u821c\u4e30\u751f\u7269"
+  ],
+  "status": "unverified",
+  "description": "Gene Editing & Advanced Breeding monitoring seed. Inclusion is not proof of editing activity or commercialization.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-shunfeng-kws",
+    "ev-gene-shunfeng-kws-de"
+  ],
+  "attributes": {
+    "official_domain": "http://bellagen.cn",
+    "gene_editing_research_ref": "data/imports/gene-editing-2026-10-20/snapshot.json"
+  }
+}

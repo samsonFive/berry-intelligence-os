@@ -2,6 +2,8 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+.gene-*/
+gene-*.log
 .verify-tmp/
 .test-tmp/
 .pkg-test-tmp*/

@@ -1,0 +1,37 @@
+{
+  "id": "program-gene-qi-lab",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Agricultural editing laboratory",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-qi-lab"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-qi-lab",
+      "name": "Agricultural editing laboratory",
+      "company_ids": [
+        "company-qi-biodesign"
+      ],
+      "technology": "SEEDIT / TranC / QBEmax / PrimeRoot",
+      "crop": "Soybean; wheat; rice",
+      "trait": "Agricultural editing research",
+      "partner": null,
+      "geography": "Beijing, China",
+      "role": "editing platform",
+      "stage": "Laboratory approval reported",
+      "milestone_date": "2026-01-21",
+      "milestone": "Beijing science portal reports laboratory approval and five crop safety certificates.",
+      "evidence_ids": [
+        "ev-gene-qi-lab"
+      ],
+      "berry_ids": [],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Chinese official article is not a product-specific approval certificate. A small-berry facility lead in Perplexity remains unverified at original source."
+    }
+  }
+}

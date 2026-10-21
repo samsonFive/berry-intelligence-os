@@ -1,5 +1,21 @@
 # Intelligence Coverage Matrix
 
+October 21, 2026: [Gene Editing & Advanced Breeding](GENE-EDITING-LANDSCAPE.md)
+adds an analyst-only, real-data Explorer lens for all 11 requested seeds, 25
+program/platform records, four pending partnership claims and 30 linked Evidence
+objects (29 new private drafts; one existing Planasa original). Seven companies
+are new; four existing dossiers are preserved. 46 original pages were checked:
+37 readable, five without usable prose, three unavailable and one blocked. Eleven
+company RSS search monitors were verified using the existing free adapter;
+Simplot/Qi discovery and zero-new-item reruns were exercised. Five historical
+publications received deterministic topic provenance without date/trust changes.
+Coverage is **partial research**, not verified commercial intelligence: 22
+Perplexity Search passes exist, eight Deep Research responses are truncated,
+three dedicated deep reports are missing and standalone cross-company follow-ups
+were blocked by exhausted quota. Fall Creek/Planasa editing is not established;
+Heritable's strawberry program is AI breeding without established editing use.
+No Facts, Signals, trusted relationships or trusted publications were added.
+
 October 14, 2026: [Requested sustainability sources](SUSTAINABILITY-SOURCE-COVERAGE.md)
 adds verified Trellis and AgFunderNews category RSS, Watershed blog sitemap discovery,
 and indexed Packer Sustainability Insights discovery. These are unreviewed source

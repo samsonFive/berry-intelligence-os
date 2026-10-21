@@ -1,0 +1,37 @@
+{
+  "id": "program-gene-plantik-tomato",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Tomato heat-tolerance validation",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-hrb-plantik"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-plantik-tomato",
+      "name": "Tomato heat-tolerance validation",
+      "company_ids": [
+        "company-plantik-biosciences"
+      ],
+      "technology": "ATLANTIS target engineering",
+      "crop": "Tomato",
+      "trait": "Heat tolerance",
+      "partner": null,
+      "geography": "United States and Europe (reported demonstrations)",
+      "role": "trait discovery",
+      "stage": "Field demonstrations reported",
+      "milestone_date": "2026-09-28",
+      "milestone": "HRB partnership release describes tomato demonstrations across genetic backgrounds and locations.",
+      "evidence_ids": [
+        "ev-gene-hrb-plantik"
+      ],
+      "berry_ids": [],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Tomato demonstrations cannot establish strawberry heat tolerance; locations, protocols and independent results undisclosed."
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "company-j-r-simplot",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "J.R. Simplot Company",
+  "aliases": [
+    "Simplot",
+    "Simplot Plant Sciences"
+  ],
+  "status": "unverified",
+  "description": "Gene Editing & Advanced Breeding monitoring seed. Inclusion is not proof of editing activity or commercialization.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-simplot-alliance",
+    "ev-gene-simplot-license",
+    "ev-gene-uk-simplot",
+    "ev-gene-us-simplot"
+  ],
+  "attributes": {
+    "official_domain": "https://www.simplot.com",
+    "gene_editing_research_ref": "data/imports/gene-editing-2026-10-20/snapshot.json"
+  }
+}

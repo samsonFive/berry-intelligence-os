@@ -1,0 +1,42 @@
+{
+  "id": "program-gene-pairwise-fontana",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Fontana",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-gene-pairwise-fontana"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-pairwise-fontana",
+      "name": "Fontana",
+      "company_ids": [
+        "company-pairwise",
+        "company-plant-sciences-genetics"
+      ],
+      "technology": "Fulcrum-enabled compact architecture",
+      "crop": "Blackberry",
+      "trait": "Compact architecture; concentrated fruiting",
+      "partner": "Plant Sciences Genetics (PSG)",
+      "geography": null,
+      "role": "editing platform",
+      "stage": "Named product introduced",
+      "milestone_date": "2026-10-14",
+      "milestone": "Pairwise introduced Fontana, built on a PSG variety.",
+      "evidence_ids": [
+        "ev-gene-pairwise-fontana"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "No broad availability by country verified. Thornless and seedless are separate pipeline traits; underlying cultivar identity not fully disclosed."
+    }
+  }
+}

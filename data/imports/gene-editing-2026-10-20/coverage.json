@@ -1,0 +1,163 @@
+{
+  "cutoff": "2026-10-20",
+  "access_date": "2026-10-21",
+  "companies": [
+    {
+      "company": "company-j-r-simplot",
+      "company_name": "J.R. Simplot Company",
+      "deep_report_saved": false,
+      "finish_reason": null,
+      "searches": 2,
+      "search_hits": 16,
+      "programs": 3,
+      "evidence": 4,
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
+    },
+    {
+      "company": "company-plant-sciences-genetics",
+      "company_name": "Plant Sciences, Inc.",
+      "deep_report_saved": true,
+      "finish_reason": "length",
+      "searches": 2,
+      "search_hits": 16,
+      "programs": 3,
+      "evidence": 5,
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps. Original dynamic product/research pages yielded no readable text.",
+      "manual_research_received": "2026-10-21"
+    },
+    {
+      "company": "company-ohalo",
+      "company_name": "Ohalo",
+      "deep_report_saved": false,
+      "finish_reason": null,
+      "searches": 2,
+      "search_hits": 16,
+      "programs": 3,
+      "evidence": 4,
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
+    },
+    {
+      "company": "company-pairwise",
+      "company_name": "Pairwise",
+      "deep_report_saved": true,
+      "finish_reason": "length",
+      "searches": 2,
+      "search_hits": 16,
+      "programs": 5,
+      "evidence": 5,
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
+    },
+    {
+      "company": "company-hudson-river-biotechnology",
+      "company_name": "Hudson River Biotechnology",
+      "deep_report_saved": false,
+      "finish_reason": null,
+      "searches": 2,
+      "search_hits": 16,
+      "programs": 3,
+      "evidence": 5,
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
+    },
+    {
+      "company": "company-plantik-biosciences",
+      "company_name": "Plantik Biosciences",
+      "deep_report_saved": true,
+      "finish_reason": "length",
+      "searches": 2,
+      "search_hits": 16,
+      "programs": 3,
+      "evidence": 4,
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
+    },
+    {
+      "company": "company-fall-creek-farm-and-nursery",
+      "company_name": "Fall Creek Farm & Nursery",
+      "deep_report_saved": true,
+      "finish_reason": "length",
+      "searches": 2,
+      "search_hits": 16,
+      "programs": 1,
+      "evidence": 1,
+      "gaps": "Gene-editing involvement not established in this research pass. Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
+    },
+    {
+      "company": "company-planasa",
+      "company_name": "Planasa",
+      "deep_report_saved": true,
+      "finish_reason": "length",
+      "searches": 2,
+      "search_hits": 16,
+      "programs": 1,
+      "evidence": 1,
+      "gaps": "Gene-editing involvement not established in this research pass. Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
+    },
+    {
+      "company": "company-heritable-agriculture",
+      "company_name": "Heritable Agriculture",
+      "deep_report_saved": true,
+      "finish_reason": "length",
+      "searches": 2,
+      "search_hits": 16,
+      "programs": 1,
+      "evidence": 1,
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps. Original dynamic product/research pages yielded no readable text.",
+      "manual_research_received": "2026-10-21"
+    },
+    {
+      "company": "company-qi-biodesign",
+      "company_name": "Qi Biodesign",
+      "deep_report_saved": true,
+      "finish_reason": "length",
+      "searches": 2,
+      "search_hits": 16,
+      "programs": 6,
+      "evidence": 6,
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
+    },
+    {
+      "company": "company-shandong-shunfeng-biotechnology",
+      "company_name": "Shandong Shunfeng Biotechnology",
+      "deep_report_saved": true,
+      "finish_reason": "length",
+      "searches": 2,
+      "search_hits": 16,
+      "programs": 1,
+      "evidence": 2,
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
+    }
+  ],
+  "saved_deep_report_count": 8,
+  "deep_research_requirement": "INCOMPLETE: three reports absent; eight saved responses have finish_reason=length and need targeted follow-ups.",
+  "blocker": "Perplexity returned HTTP 429 on initial Simplot/Ohalo/HRB deep requests, then HTTP 401 insufficient_quota. No credits purchased or alternate research provider substituted.",
+  "cross_company": "Dedicated investigations include named-partner checks, but additional standalone cross-company queries were blocked by insufficient_quota before obtaining results.",
+  "saved_deep_usage": {
+    "total_tokens": 32180,
+    "reported_total_cost_usd": 12.27567,
+    "limitation": "Lower bound only. Search API adapter does not expose billing. One successful diagnostic Deep Research call was not retained, and the interrupted retry may have incurred usage; their costs are unavailable."
+  },
+  "source_checks": {
+    "blocked": 1,
+    "no_readable_text": 5,
+    "readable": 37,
+    "unavailable": 3
+  },
+  "imported_unique_programs": 25,
+  "relationship_claims": 4,
+  "versioned_evidence": 30,
+  "original_source_candidates": 46,
+  "verified_company_monitors": 11,
+  "trusted_publications_added": 0,
+  "trusted_relationships_added": 0,
+  "manual_research_received": "2026-10-21",
+  "manual_research_company_count": 11,
+  "manual_primary_checks": 4
+}

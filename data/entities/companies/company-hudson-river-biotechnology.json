@@ -1,0 +1,25 @@
+{
+  "id": "company-hudson-river-biotechnology",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Hudson River Biotechnology",
+  "aliases": [
+    "Hudson River Biotechnology B.V."
+  ],
+  "status": "unverified",
+  "description": "Gene Editing & Advanced Breeding monitoring seed. Inclusion is not proof of editing activity or commercialization.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-pairwise-hrb",
+    "ev-gene-hrb-plantik",
+    "ev-gene-hrb-regeneration",
+    "ev-gene-plantik-trade",
+    "ev-gene-plantik-hortidaily"
+  ],
+  "attributes": {
+    "alias_resolution_candidates": ["HRB", "Hudson River"],
+    "alias_resolution_note": "Require explicit plant-biotechnology company context; do not enable geographic/short-name matches globally.",
+    "official_domain": "https://www.hudsonriver.bio",
+    "gene_editing_research_ref": "data/imports/gene-editing-2026-10-20/snapshot.json"
+  }
+}

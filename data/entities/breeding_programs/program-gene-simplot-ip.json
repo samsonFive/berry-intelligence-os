@@ -1,0 +1,37 @@
+{
+  "id": "program-gene-simplot-ip",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Foundational CRISPR agricultural license",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-simplot-license"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-simplot-ip",
+      "name": "Foundational CRISPR agricultural license",
+      "company_ids": [
+        "company-j-r-simplot"
+      ],
+      "technology": "CRISPR-Cas9",
+      "crop": "Crop-unassigned",
+      "trait": "Enabling plant editing",
+      "partner": "Corteva; Broad Institute",
+      "geography": "Worldwide IP scope",
+      "role": "editing platform",
+      "stage": "License announced",
+      "milestone_date": "2018-08-06",
+      "milestone": "Agricultural research/commercial license announced.",
+      "evidence_ids": [
+        "ev-gene-simplot-license"
+      ],
+      "berry_ids": [],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "IP scope is not product approval or commercial availability."
+    }
+  }
+}

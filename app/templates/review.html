@@ -331,6 +331,7 @@
       <div class="form-field" {% if draft.evidence_role == 'atomic_evidence' %}hidden{% endif %}>
         <label for="tags">Tags</label>
         <input id="tags" name="tags" type="text" placeholder="Comma-separated" value="{{ values.tags }}">
+        <small>Topic corrections: add <code>topic-exclude-gene-editing</code> or <code>topic-exclude-advanced-breeding</code> to exclude a false match. Save preserves the correction during future classification backfills.</small>
       </div>
 
       <fieldset class="form-fieldset">

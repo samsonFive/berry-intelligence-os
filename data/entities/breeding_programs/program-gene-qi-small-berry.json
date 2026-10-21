@@ -1,0 +1,41 @@
+{
+  "id": "program-gene-qi-small-berry",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Nanjing small-berry editing innovation center initiative",
+  "status": "unverified",
+  "description": "Research identity; source claims await analyst review.",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-gene-qi-confitop"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-qi-small-berry",
+      "name": "Nanjing small-berry editing innovation center initiative",
+      "company_ids": [
+        "company-qi-biodesign"
+      ],
+      "technology": "Gene editing; crop-specific editor unspecified",
+      "crop": "Small berries / blueberry industry context",
+      "trait": "Targets unspecified",
+      "partner": "Nanjing agricultural high-tech zone; Joyvio-related industry participants",
+      "geography": "Nanjing / Lishui, China",
+      "role": "editing platform",
+      "stage": "Initiative described by investor",
+      "milestone_date": null,
+      "milestone": "Investor describes small-berry editing center and industry-chain initiative.",
+      "evidence_ids": [
+        "ev-gene-qi-confitop"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Not a named edited-blueberry product; facility completion, operating entity, trials and sales unverified."
+    }
+  }
+}

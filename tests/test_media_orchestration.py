@@ -137,6 +137,22 @@ def _setup(tmp_path: Path, *, transcript: dict | None = None, extraction: bool =
     return service, repos, inbox, adapter
 
 
+def test_agricultural_editing_draft_retains_topic_provenance_without_trust_or_crop_inference(tmp_path):
+    service, repos, inbox, _ = _setup(tmp_path)
+    item = _item(title='CRISPR genome editing for heat-tolerant strawberry plants',
+                 description='A plant editing partnership targets strawberry heat tolerance.',media_format='web_article')
+    _write_item(inbox,item)
+    draft=service.prepare_publication_draft(item)
+    saved=json.loads((inbox/'evidence'/f"{draft['id']}.json").read_text(encoding='utf-8'))
+    assert saved['classification']['topics']==['gene-editing']
+    assert saved['classification']['version']=='gene-editing-1'
+    assert saved['classification']['provenance']
+    assert saved['status']=='draft' and saved['published_date']==item['published_date']
+    # Existing metadata enrichment recognizes the explicitly named strawberry;
+    # topic classification must not add other crop assignments or trust.
+    assert saved['berry_ids']==['berry-strawberry'] and repos.evidence.list()==[]
+
+
 def test_discovered_item_creates_one_untrusted_publication_draft_and_dry_run_writes_nothing(tmp_path: Path) -> None:
     service, repos, inbox, _ = _setup(tmp_path)
     item = _item()

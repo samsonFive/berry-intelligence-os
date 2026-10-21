@@ -1,0 +1,37 @@
+{
+  "id": "program-gene-plantik-platform",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "ATLANTIS / PROEDIT",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-plantik-tech"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-plantik-platform",
+      "name": "ATLANTIS / PROEDIT",
+      "company_ids": [
+        "company-plantik-biosciences"
+      ],
+      "technology": "Regulatory-DNA target discovery / CRISPR delivery",
+      "crop": "Crop-unassigned",
+      "trait": "Complex quantitative traits / heat tolerance",
+      "partner": null,
+      "geography": null,
+      "role": "trait discovery; editing platform",
+      "stage": "Platform described",
+      "milestone_date": null,
+      "milestone": "Official technology page describes discovery and genome-editing workflow.",
+      "evidence_ids": [
+        "ev-gene-plantik-tech"
+      ],
+      "berry_ids": [],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Specific target sequence, independent outcomes and crop-specific commercial products not disclosed."
+    }
+  }
+}

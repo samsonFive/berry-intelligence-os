@@ -1,0 +1,41 @@
+{
+  "id": "program-gene-pairwise-compact",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Compact blackberry Colombia market validation",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-gene-pairwise-2026"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-pairwise-compact",
+      "name": "Compact blackberry Colombia market validation",
+      "company_ids": [
+        "company-pairwise"
+      ],
+      "technology": "Fulcrum plant gene editing",
+      "crop": "Blackberry",
+      "trait": "Compact architecture / higher-density production",
+      "partner": "Unnamed production partner and retailers",
+      "geography": "United States and Colombia (trials); Colombia (reported consumer sales)",
+      "role": "editing platform",
+      "stage": "Field trials / limited sales reported",
+      "milestone_date": "2026-01-20",
+      "milestone": "Pairwise reports outdoor trials and edited-blackberry sales to Colombian consumers.",
+      "evidence_ids": [
+        "ev-gene-pairwise-2026"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Exact sale date, volumes, named retailers, genotype and independent performance not established; not a broad seedless launch."
+    }
+  }
+}

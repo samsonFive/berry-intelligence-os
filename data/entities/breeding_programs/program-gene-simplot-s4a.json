@@ -1,0 +1,43 @@
+{
+  "id": "program-gene-simplot-s4a",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "S4A-210 remontant strawberry",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-gene-uk-simplot",
+    "ev-gene-us-simplot"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-simplot-s4a",
+      "name": "S4A-210 remontant strawberry",
+      "company_ids": [
+        "company-j-r-simplot"
+      ],
+      "technology": "CRISPR-Cas9 / Tfl1 knockout",
+      "crop": "Strawberry",
+      "trait": "Longer harvest season / altered flowering",
+      "partner": null,
+      "geography": "England (planned selection trials)",
+      "role": "editing platform",
+      "stage": "Regulatory notice / trials planned",
+      "milestone_date": "2026-08-21",
+      "milestone": "Defra published PBM/26/FRAN/008; notice describes intended line-selection trials.",
+      "evidence_ids": [
+        "ev-gene-uk-simplot",
+        "ev-gene-us-simplot"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "No proof of completed England trials or retail sale. US 2020 scope is not universal approval; no automatic lineage equivalence to every PSI alliance line."
+    }
+  }
+}
