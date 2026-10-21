@@ -4,6 +4,35 @@ This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.
 
+## Verified status — October 21, 2026
+
+Production is canonical `219c739a`, including the released platform redesign,
+News/access #401, automatic News #404 and Gene Editing #406. Chris.H is enabled;
+his originally requested password matches and first-login Help remains pending.
+The 52-source mobile worksheet is available behind the existing site login.
+Neither publishing it nor deployment approval supplies its human review answers.
+See [current release status and remaining work](RELEASE-REVIEW.md).
+
+Performance #405 is reconciled onto this release and requires new-head checks
+before shipping. Catalog #399/#400, actual independent source/name/identity
+review, comprehensive profile/portfolio coverage and wider performance work
+remain open. Market and Learn tools are delivered; source-backed content is
+not universally complete. Older dated notes below retain their historical
+states; they do not reverse verified releases or close human review gates.
+
+## October 14 continuation
+
+Verified live canonical `daac479e` includes merged News/access #401, subsequent
+source-reader fixes and automatic News collection #404. Chris.H is enabled with
+first-login Help pending. Read-only live News/Help checks passed before #404;
+their recorded timings describe that earlier release. Catalog #399–400 remains
+a separate undeployed draft.
+The [candidate normalization improvement](CATALOG-NORMALIZATION-PERFORMANCE.md)
+addresses a measured repeated-work bottleneck independently of catalog research;
+TD-122 retains the oversized-page and broader performance work. Every accepted
+requirement and human gate below remains in scope. The October 13 pending-release
+statements below describe the earlier delivery state.
+
 ## October 13 live usability feedback
 
 Platform #398 is now released on the live site. The following additional user
@@ -14,8 +43,9 @@ See [daily usability fixes](NEWS-ACCESS-USABILITY-FIXES.md).
 - [x] Implement additional analyst login and first-successful-login Help while
   retaining the existing operator account. The requested new account is staged
   privately with a hash; no plaintext credential enters the repository.
-- [ ] After this candidate passes current-head CI and release review, install
-  Chris.H additively on the live host and verify first-login Help.
+- [x] Chris.H is enabled on the live host. October 21 verification confirmed
+  the originally requested password and preserved first-login Help; no sign-in
+  or account reset was performed during verification.
 - [x] One-click News capture automatically displays the newest matching feed;
   scope is preserved. Native isolated browser proof and four JavaScript
   completion/error/timeout scenarios are recorded privately.
@@ -24,8 +54,9 @@ See [daily usability fixes](NEWS-ACCESS-USABILITY-FIXES.md).
   when original article text cannot be recovered.
 - [x] Fix measured repeated News metadata/relevance work: identical 784 matches
   over 1,270 local review records, 2.630 s to 0.478 s on the warmed data path.
-- [ ] Release this candidate after review; validate live response times and
-  account/source behavior. No new deployment has occurred for these changes.
+- [x] News/access #401 is released. Account and source behavior were checked
+  after release; subsequent reader, automatic-News and Gene Editing releases
+  are preserved. Earlier response timings remain dated measurements.
 - [ ] Separate follow-ups: wider performance budgets and job contention;
   publisher-resolution/capture coverage; per-user preferences/digests, roles and
   account administration. Current analyst state remains shared.
@@ -156,7 +187,7 @@ table and implementation sequence below are preserved.
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | Live/public visual guide has twelve purpose cards, four analyst workflow steps, worked example, six output explanations and distinct review lifecycle. The current guide includes Social Listening, four-crop Landscape, saved selections and complete PDF/HTML/SVG/CSV reporting; public/live boundaries remain distinct. Eighteen existing guide/static regressions pass. The [variety workflow explainer](VARIETY-WORKFLOW-EXPLAINER-REVIEW.md) adds four steps from source name through identity review and separate catalog authoring to a sourced profile, with existing private handoffs. M38 proof remains dated evidence. Prior October 12 review of eleven cards is dated evidence. Updated twelve-card desktop review and 412px emulation verify the refreshed guide; six outputs now use balanced three/two/one-column layouts. Responsive emulation is distinguished from a physical-phone test. | Visual guide delivered, including current capability limits; final exact-head release and current phone gates apply. |
-| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Canonical `7360c5821c009484381394ed8afa9fb91e322a50` was reconciled before this candidate, preserving the governing guide. Application head ec80d8af has a verified 3,679-file committed package and authenticated fifteen-section/twelve-export/restart/2,961-file recovery/prior-image rollback rehearsal. Thirty-two pending source copies and original draft are preserved. A fresh actual production backup verifies 14,051 files and records the available previous image/configuration without restarting or editing production. See RELEASE-REVIEW.md. | ec80 full CI found one historical replay-test boundary error; 4,954 passed. Forty corrected replay/reference checks pass. Required fresh checks on the corrected head and a final canonical/head reconciliation remain. No deployment, merge or independent human source/catalog decision is implied by these results. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Platform redesign and News/access releases are live; October 21 production receipt identifies canonical 219c739a. The existing account, provider configuration, runtime mounts and rollback receipts are preserved. The protected mobile worksheet is a separate read-only service. | Performance #405 requires fresh checks and release verification on the reconciled head. Catalog #399/#400 and CAT-01/CAT-02 remain open; deployment approval does not approve source/name/identity/catalog/qualification/photo decisions. |
 
 ## Historical implementation sequence
 
