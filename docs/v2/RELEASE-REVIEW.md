@@ -1,5 +1,57 @@
 # Berry Intelligence release review
 
+## Verified delivery status — October 21, 2026
+
+The production deployment receipt identifies canonical `219c739a3ce621deb9c61d5db358ad7e8a087c20`
+and image `sha256:dbe587a37a65e430bdb00959fc930d8b5f5e0ddad86fa543655933c81306421c`.
+This includes the released platform redesign, News/access #401, subsequent
+reader fixes, automatic News #404 and Gene Editing #406. Historical pending
+release statements below must not be read as current deployment status.
+
+Chris.H is enabled in the existing live account store. The originally requested
+password was verified against the live account without signing in or changing
+his account. First login is still pending and will open Help at `/guide`.
+The analyst workspace is shared; separate logins do not provide per-user data
+isolation. No password or password hash is included in this document.
+
+The protected [mobile source-name worksheet](https://intel.johnnyaceii.com/review-preview/start.html)
+is hosted as an isolated read-only service through the existing site login.
+It includes all 52 retained sources. Source text, capture fingerprints and
+blank review fields were preserved. Answers remain in the reviewer's browser
+and can be downloaded; phone and PC answers do not synchronize automatically.
+Publishing the worksheet did not complete source, name, identity or catalog review.
+
+### Work still required
+
+- Performance #405 is reconciled onto the current canonical release. Required
+  checks on its new head, image rehearsal and release verification remain;
+  the user authorized deploying the reviewed work on October 21. Its cache
+  stores only bounded literal name transformations, never matching decisions.
+- Catalog #399/#400 remains separate and undeployed. Its code must be reconciled
+  and checked against the latest release; source, identity, catalog, Atomic,
+  qualification and image-reuse decisions remain separate human gates.
+- CAT-01/CAT-02 is unfinished: independent source-name answers, unresolved photo
+  import cells, current/historical portfolio reconciliation, official rights,
+  profile fields, attributed photos and source-backed growing regions remain.
+  Bounded candidate discovery is not a globally complete variety database.
+- Market-statistics controls and research exist, but broad country/berry content
+  and individual source/figure approvals remain. Learn provides visual lessons
+  and explicit research drafts, not verified rich media for every possible topic.
+- TD-122 retains oversized candidate pages, repeated discovery scans and wider
+  route/mobile contention. Source-access failures must stay explicit.
+- Older draft PRs include stacked or already-released work. Open-PR count is
+  not an unfinished-feature count; reconcile each before retiring duplicates.
+
+The visual guide at `/guide` describes twelve sections, four analyst workflow
+steps and six reporting outputs, including the separate variety review path.
+All 31 accepted requirement IDs/descriptions remain in the durable checklist.
+The entire mission remains open; this software release does not approve research.
+
+## Dated implementation and release history
+
+The following sections retain original evidence and earlier states. The verified
+status above takes precedence where a historical release statement is superseded.
+
 ## Combined release on current canonical — October 13, 2026
 
 The complete Landscape/source/catalog review changes are reconciled onto
