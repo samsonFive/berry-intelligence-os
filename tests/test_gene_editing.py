@@ -120,7 +120,7 @@ def test_landscape_all_seeds_real_programs_and_evidence_edges():
     assert by_id['company-planasa']['editing_status']=='not established in this research pass'
     assert 'plant-sciences-genetics' in by_id['company-plant-sciences-genetics']['entity_id']
     adjacent=landscape_model(ROOT/'data',entities,records,{'adjacent':'1'})
-    assert adjacent['counts']['programs']==23 and len(adjacent['relationships'])==4
+    assert adjacent['counts']['programs']==25 and len(adjacent['relationships'])==4
     focused=landscape_model(ROOT/'data',entities,records,{'company':'company-hudson-river-biotechnology','adjacent':'1'})
     assert len(focused['companies'])==1 and len(focused['relationships'])==2
     assert 'https://' in csv_export(adjacent)
@@ -190,3 +190,17 @@ def test_source_claims_have_original_provenance_and_no_false_seed_crispr():
     for key in ('ev-gene-planasa-about','ev-gene-fall-creek-collection','ev-gene-heritable-strawberry','ev-gene-ohalo-launch'):
         row=next(r for r in SNAPSHOT['evidence'] if r['id']==key)
         assert 'gene-editing' not in classify(row)['topics']
+
+
+def test_manual_primary_supplement_keeps_regulatory_and_breeding_boundaries():
+    programs = {p['id']: p for p in SNAPSHOT['programs']}
+    soybean = programs['program-gene-qi-soybean']
+    assert soybean['milestone_date'] == '2024-05-29'
+    assert 'ev-gene-qi-rsr-response' in soybean['evidence_ids']
+    assert 'FDA' in soybean['gaps'] and 'commercial sales not established' in soybean['gaps']
+    florida = programs['program-gene-ohalo-florida']
+    assert florida['evidence_ids'] == ['ev-gene-ohalo-florida']
+    assert 'forecast' in florida['stage'] and 'editor unspecified' in florida['technology']
+    berry = programs['program-gene-qi-small-berry']
+    assert berry['milestone_date'] is None
+    assert 'Not a named edited-blueberry product' in berry['gaps']

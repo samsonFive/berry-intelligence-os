@@ -62,6 +62,8 @@ SPECS={
 }
 
 def main():
+    if (BASE/'manual-primary-checks.json').exists():
+        raise SystemExit('Manual supplement exists; preserve the reviewed snapshot. Do not regenerate the initial seed over it.')
     checks=json.loads((BASE/'source-checks.json').read_text(encoding='utf-8'))
     health={r['key']:r for r in checks}
     evidence=[]

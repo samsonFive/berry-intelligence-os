@@ -56,13 +56,13 @@ Saved Deep Research usage reports sum to **32,180 tokens and USD 12.27567**. Thi
 Per-company coverage and evidence gaps are recorded in `coverage.json` and the preview. Key holds:
 
 - Simplot: verify subsequent sales and exact lineage; Defra S4A-210 notice is not proof of completed trials or universal approval.
-- PSI/PSG: resolve the legal split with readable original restructuring records; preserve current registry identity pending review.
+- PSI/PSG: the August 1, 2023 issuer restructuring release is now readable and checked. Preserve registry identity pending review of executed assignments and the legal split.
 - Ohalo: verify actual 2026 consortium trials and released varieties; Boosted Breeding remains distinct from CRISPR.
 - Pairwise: compact Colombian sales, Fontana introduction and seedless/thornless pipeline remain separate, attributed milestones.
 - HRB/Plantik: the 2024 single-cell milestone is enabling technology; tomato demonstrations do not establish strawberry field success or commercialization.
 - Fall Creek/Planasa: gene-editing involvement **not established in this research pass**; commercial conventional breeding is documented.
 - Heritable: AI strawberry breeding is documented; product-page genome-edit design claims were not independently recovered.
-- Qi: the APHIS-hosted RSR PDF is an applicant request, not a decision. Original product/event-specific certificates and the small-berry facility lead remain unresolved; Beijing/Suzhou entities are not legally collapsed.
+- Qi: distinguish the applicant RSR request from the May 29, 2024 APHIS response, now checked. The specified soybean is not subject to 7 CFR part 340; FDA status, original Chinese certificates and sales remain unresolved. A separate investor original supports a Nanjing small-berry editing initiative, without a named edited-blueberry product; Beijing/Suzhou entities are not legally collapsed.
 - Shunfeng: KWS confirms a Cas-SF01/Cas-SF02 license; official domain/legal-equivalence details and berry programs remain unresolved.
 - EU/China: no unverified regulatory endpoint is activated or global approval inferred. The Chinese government science-portal report is not substituted for product-specific regulatory certificates.
 
@@ -78,4 +78,14 @@ Generic extraction initially selected related Fontana content on older Pairwise 
 - Browser: populated comparison, unknowns, pending-source labels, adjacent toggle and linked evidence inspected with rehearsal disabled.
 - Full suite/static build/CI: see the final validation receipt; no merge/deployment is implied by local checks.
 
-Full mission acceptance remains open for manual research completion, PSI/PSG identity review, broader original-source follow-ups and any unresolved validation failures. Stop at this integrated slice; do not expand the monitored roster beyond the requested 11 seeds.
+Full research acceptance remains open for PSI/PSG identity review and broader original-source follow-ups. Do not expand the monitored roster beyond the requested 11 seeds. Johnny authorized live deployment after processing the manual report on October 21; required CI and runtime-preservation gates still apply.
+
+## Manual research intake — October 21, 2026
+
+The user supplied a Perplexity evidence report covering all eleven companies, with its own access limitations and unverified leads. Its claims were treated as research input. No further paid API calls were made. Four newly supplied originals were opened and their substantive text recovered: the APHIS Qi response, PSI/PSG issuer restructuring release, Ohalo Florida disease-resistance agreement, and Confitop investor account. Retained excerpts, URLs and access dates are in `manual-primary-checks.json`; excerpt hashes are explicitly scoped to excerpts rather than full documents.
+
+The supplement adds four private publication-review drafts and four manual source references, two program records, and a guarded update of the untouched Qi soybean program. It does not change trust decisions or create ownership links. Current adjacent-mode coverage is eleven companies, 25 programs, four partnership claims and 30 linked evidence records; the source registry has 265 entries, including 11 company monitors and 45 mission manual references. The domain pack accounts for every source, explicitly excluding manual references from recurring collection templates.
+
+The supplied report does not override originals recovered earlier: the Simplot release, HRB regeneration and licensing announcements, standalone Fontana release, Heritable strawberry PDF and Vilmorin PDF remain stronger than that report's access gaps. Its unrelated search results, spam-like Planasa query URLs and generic corporate profiles were not imported.
+
+Validation after this supplement: 77 focused tests passed, including the previously failing source-count/domain-pack checks and isolated review-session retry. The broad continuation run had 4,251 passes, nine skips and four failures; two were source-inventory expectations, one historical-research freshness assumption, and one Windows file-replacement failure that passed in isolation. This is not a claim of a fresh all-suite green run. Earlier first-stage broad run reached 838 passes before its source-count failure. GitHub CI remains unavailable until an authorized push.

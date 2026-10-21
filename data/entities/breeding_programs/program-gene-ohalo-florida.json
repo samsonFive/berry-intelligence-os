@@ -1,0 +1,41 @@
+{
+  "id": "program-gene-ohalo-florida",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Florida Neopestalotiopsis-resistant strawberry",
+  "status": "unverified",
+  "description": "Research identity; source claims await analyst review.",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-gene-ohalo-florida"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-ohalo-florida",
+      "name": "Florida Neopestalotiopsis-resistant strawberry",
+      "company_ids": [
+        "company-ohalo"
+      ],
+      "technology": "Proprietary advanced breeding; exact editor unspecified",
+      "crop": "Strawberry",
+      "trait": "Neopestalotiopsis resistance",
+      "partner": "UF/IFAS; Florida Foundation Seed Producers; Florida Strawberry Growers Association",
+      "geography": "Florida, United States",
+      "role": "advanced breeding platform",
+      "stage": "Agreement announced / experimental trials forecast",
+      "milestone_date": "2024-12-20",
+      "milestone": "Company reports trait integration; forecast non-commercial experimental trials in 2025.",
+      "evidence_ids": [
+        "ev-gene-ohalo-florida"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Trial completion, named cultivar, sales and CRISPR mechanism not established. Separate from the true-seed consortium."
+    }
+  }
+}

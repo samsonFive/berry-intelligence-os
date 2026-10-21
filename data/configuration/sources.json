@@ -6990,5 +6990,113 @@
     "monitoring_priority": "medium",
     "update_cadence": "weekly",
     "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-qi-rsr-response",
+    "type": "reference",
+    "label": "USDA APHIS · qi-rsr-response",
+    "value": "https://www.aphis.usda.gov/sites/default/files/24-116-02rsr-response.pdf",
+    "url": "https://www.aphis.usda.gov/sites/default/files/24-116-02rsr-response.pdf",
+    "canonical_url": "https://www.aphis.usda.gov/sites/default/files/24-116-02rsr-response.pdf",
+    "publisher": "USDA APHIS",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-qi-biodesign"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21",
+    "last_successful_check": "2026-10-21",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-psi-restructure",
+    "type": "reference",
+    "label": "Plant Sciences, Inc. / Newswire · psi-restructure",
+    "value": "https://www.newswire.com/news/plant-sciences-inc-unveils-restructuring-broadening-north-american-22096147",
+    "url": "https://www.newswire.com/news/plant-sciences-inc-unveils-restructuring-broadening-north-american-22096147",
+    "canonical_url": "https://www.newswire.com/news/plant-sciences-inc-unveils-restructuring-broadening-north-american-22096147",
+    "publisher": "Plant Sciences, Inc. / Newswire",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-plant-sciences-genetics"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21",
+    "last_successful_check": "2026-10-21",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-ohalo-florida",
+    "type": "reference",
+    "label": "Ohalo · ohalo-florida",
+    "value": "https://www.ohalo.com/news/ohalo-x-university-of-florida-disease-resistant-strawberry-neopestalotiopsis",
+    "url": "https://www.ohalo.com/news/ohalo-x-university-of-florida-disease-resistant-strawberry-neopestalotiopsis",
+    "canonical_url": "https://www.ohalo.com/news/ohalo-x-university-of-florida-disease-resistant-strawberry-neopestalotiopsis",
+    "publisher": "Ohalo",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-ohalo"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21",
+    "last_successful_check": "2026-10-21",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-qi-confitop",
+    "type": "reference",
+    "label": "Confitop Capital / 百联挚高资本 · qi-confitop",
+    "value": "https://www.confitopcapital.cn/82.html",
+    "url": "https://www.confitopcapital.cn/82.html",
+    "canonical_url": "https://www.confitopcapital.cn/82.html",
+    "publisher": "Confitop Capital / 百联挚高资本",
+    "language": "zh",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-qi-biodesign"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21",
+    "last_successful_check": "2026-10-21",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
   }
 ]

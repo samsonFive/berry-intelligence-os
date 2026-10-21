@@ -1,8 +1,8 @@
 {
-  "version": "gene-editing-2026-10-20-v1",
+  "version": "gene-editing-2026-10-21-manual-supplement-v2",
   "research_date": "2026-10-20",
   "access_date": "2026-10-21",
-  "research_status": "All 11 companies have Perplexity discovery coverage. Dedicated research and cross-company follow-ups remain incomplete; see coverage and evidence gaps below.",
+  "research_status": "User-supplied manual Perplexity report covers all 11 companies; four new originals checked. Paid API research remains quota-blocked; unresolved primary-record, trial and commercialization gaps remain explicit.",
   "companies": [
     {
       "entity_id": "company-j-r-simplot",
@@ -18,23 +18,26 @@
         "ev-gene-uk-simplot",
         "ev-gene-us-simplot"
       ],
-      "coverage": "iterative Perplexity Search API; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Dedicated Deep Research incomplete after rate limits and exhausted quota."
+      "coverage": "iterative Perplexity Search API; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Dedicated Deep Research incomplete after rate limits and exhausted quota.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "entity_id": "company-plant-sciences-genetics",
       "official_domain": "https://www.plantsciencesgenetics.com",
       "summary": "Simplot–PSI strawberry editing Pairwise–PSI caneberry collaboration Fontana. Source claims remain awaiting analyst review.",
       "headquarters": "Watsonville, California, United States",
-      "identity_notes": "Reuse the existing PSI roster ID. The registry currently combines the PSI label with PSG aliases. Research distinguishes PSI, the 2020/2021 contracting company, from the later PSG genetics organization. Legal split/alias correction awaits analyst review; no additional PSI duplicate or automatic alias merge is made.",
+      "identity_notes": "Reuse the existing PSI roster ID. The registry currently combines the PSI label with PSG aliases. Research distinguishes PSI, the 2020/2021 contracting company, from the later PSG genetics organization. Legal split/alias correction awaits analyst review; no additional PSI duplicate or automatic alias merge is made. Opened August 1, 2023 issuer release distinguishes PSG portfolio/IP holding from PSI contracted research and propagation; executed assignments and ownership percentages remain unverified.",
       "editing_status": "editing capability/program source claims documented",
       "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps. Original dynamic product/research pages yielded no readable text.",
       "evidence_ids": [
         "ev-gene-simplot-alliance",
         "ev-gene-pairwise-psi",
         "ev-gene-pairwise-2026",
-        "ev-gene-pairwise-fontana"
+        "ev-gene-pairwise-fontana",
+        "ev-gene-psi-restructure"
       ],
-      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld."
+      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "entity_id": "company-ohalo",
@@ -47,9 +50,11 @@
       "evidence_ids": [
         "ev-gene-ohalo-boosted",
         "ev-gene-ohalo-launch",
-        "ev-gene-ohalo-strawberry"
+        "ev-gene-ohalo-strawberry",
+        "ev-gene-ohalo-florida"
       ],
-      "coverage": "iterative Perplexity Search API; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Dedicated Deep Research incomplete after rate limits and exhausted quota."
+      "coverage": "iterative Perplexity Search API; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Dedicated Deep Research incomplete after rate limits and exhausted quota.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "entity_id": "company-pairwise",
@@ -66,7 +71,8 @@
         "ev-gene-pairwise-seedless",
         "ev-gene-pairwise-hrb"
       ],
-      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld."
+      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "entity_id": "company-hudson-river-biotechnology",
@@ -83,7 +89,8 @@
         "ev-gene-plantik-trade",
         "ev-gene-plantik-hortidaily"
       ],
-      "coverage": "iterative Perplexity Search API; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Dedicated Deep Research incomplete after rate limits and exhausted quota."
+      "coverage": "iterative Perplexity Search API; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Dedicated Deep Research incomplete after rate limits and exhausted quota.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "entity_id": "company-plantik-biosciences",
@@ -99,7 +106,8 @@
         "ev-gene-plantik-trade",
         "ev-gene-plantik-hortidaily"
       ],
-      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld."
+      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "entity_id": "company-fall-creek-farm-and-nursery",
@@ -112,7 +120,8 @@
       "evidence_ids": [
         "ev-gene-fall-creek-collection"
       ],
-      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld."
+      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "entity_id": "company-planasa",
@@ -125,7 +134,8 @@
       "evidence_ids": [
         "ev-gene-planasa-about"
       ],
-      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld."
+      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "entity_id": "company-heritable-agriculture",
@@ -138,7 +148,8 @@
       "evidence_ids": [
         "ev-gene-heritable-strawberry"
       ],
-      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld."
+      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "entity_id": "company-qi-biodesign",
@@ -152,9 +163,12 @@
         "ev-gene-qi-funding",
         "ev-gene-qi-license",
         "ev-gene-qi-lab",
-        "ev-gene-us-qi"
+        "ev-gene-us-qi",
+        "ev-gene-qi-rsr-response",
+        "ev-gene-qi-confitop"
       ],
-      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld."
+      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "entity_id": "company-shandong-shunfeng-biotechnology",
@@ -168,7 +182,8 @@
         "ev-gene-shunfeng-kws",
         "ev-gene-shunfeng-kws-de"
       ],
-      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld."
+      "coverage": "sonar-deep-research; 2 focused follow-up searches; official sources checked; historical and 2025–2026 coverage. Partial Deep Research response saved (output limit reached); follow-up required; unverified leads withheld.",
+      "manual_research_received": "2026-10-21"
     }
   ],
   "entities": [
@@ -888,17 +903,18 @@
       "partner": null,
       "geography": "United States regulatory submission; China reported milestone",
       "role": "editing platform",
-      "stage": "Regulatory submission; clearance claimed separately",
-      "milestone_date": "2024-12-06",
-      "milestone": "Funding release reports US exemption and Chinese safety certificate; APHIS-hosted May 2024 document is an applicant RSR request.",
+      "stage": "APHIS regulatory status determination",
+      "milestone_date": "2024-05-29",
+      "milestone": "APHIS response 24-116-02rsr determines the specified soybean is not subject to 7 CFR part 340.",
       "evidence_ids": [
         "ev-gene-us-qi",
-        "ev-gene-qi-funding"
+        "ev-gene-qi-funding",
+        "ev-gene-qi-rsr-response"
       ],
       "berry_ids": [],
       "verification": "single_source / awaiting analyst review",
       "last_reviewed": null,
-      "gaps": "Original decision letter/certificate not verified in this pass; do not present applicant request as approval. Commercial sales not established."
+      "gaps": "US plant-pest scope only; FDA status, Chinese original certificate and commercial sales not established."
     },
     {
       "id": "program-gene-qi-wheat",
@@ -993,6 +1009,56 @@
       "verification": "single_source / awaiting analyst review",
       "last_reviewed": null,
       "gaps": "Berry program, licensed edited product, commercial sales and original company/news endpoints not established. Language editions are one source."
+    },
+    {
+      "id": "program-gene-ohalo-florida",
+      "name": "Florida Neopestalotiopsis-resistant strawberry",
+      "company_ids": [
+        "company-ohalo"
+      ],
+      "technology": "Proprietary advanced breeding; exact editor unspecified",
+      "crop": "Strawberry",
+      "trait": "Neopestalotiopsis resistance",
+      "partner": "UF/IFAS; Florida Foundation Seed Producers; Florida Strawberry Growers Association",
+      "geography": "Florida, United States",
+      "role": "advanced breeding platform",
+      "stage": "Agreement announced / experimental trials forecast",
+      "milestone_date": "2024-12-20",
+      "milestone": "Company reports trait integration; forecast non-commercial experimental trials in 2025.",
+      "evidence_ids": [
+        "ev-gene-ohalo-florida"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Trial completion, named cultivar, sales and CRISPR mechanism not established. Separate from the true-seed consortium."
+    },
+    {
+      "id": "program-gene-qi-small-berry",
+      "name": "Nanjing small-berry editing innovation center initiative",
+      "company_ids": [
+        "company-qi-biodesign"
+      ],
+      "technology": "Gene editing; crop-specific editor unspecified",
+      "crop": "Small berries / blueberry industry context",
+      "trait": "Targets unspecified",
+      "partner": "Nanjing agricultural high-tech zone; Joyvio-related industry participants",
+      "geography": "Nanjing / Lishui, China",
+      "role": "editing platform",
+      "stage": "Initiative described by investor",
+      "milestone_date": null,
+      "milestone": "Investor describes small-berry editing center and industry-chain initiative.",
+      "evidence_ids": [
+        "ev-gene-qi-confitop"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Not a named edited-blueberry product; facility completion, operating entity, trials and sales unverified."
     }
   ],
   "program_entities": [
@@ -1743,7 +1809,8 @@
       "berry_ids": [],
       "evidence_ids": [
         "ev-gene-us-qi",
-        "ev-gene-qi-funding"
+        "ev-gene-qi-funding",
+        "ev-gene-qi-rsr-response"
       ],
       "attributes": {
         "gene_editing": {
@@ -1758,17 +1825,18 @@
           "partner": null,
           "geography": "United States regulatory submission; China reported milestone",
           "role": "editing platform",
-          "stage": "Regulatory submission; clearance claimed separately",
-          "milestone_date": "2024-12-06",
-          "milestone": "Funding release reports US exemption and Chinese safety certificate; APHIS-hosted May 2024 document is an applicant RSR request.",
+          "stage": "APHIS regulatory status determination",
+          "milestone_date": "2024-05-29",
+          "milestone": "APHIS response 24-116-02rsr determines the specified soybean is not subject to 7 CFR part 340.",
           "evidence_ids": [
             "ev-gene-us-qi",
-            "ev-gene-qi-funding"
+            "ev-gene-qi-funding",
+            "ev-gene-qi-rsr-response"
           ],
           "berry_ids": [],
           "verification": "single_source / awaiting analyst review",
           "last_reviewed": null,
-          "gaps": "Original decision letter/certificate not verified in this pass; do not present applicant request as approval. Commercial sales not established."
+          "gaps": "US plant-pest scope only; FDA status, Chinese original certificate and commercial sales not established."
         }
       }
     },
@@ -1921,6 +1989,88 @@
           "verification": "single_source / awaiting analyst review",
           "last_reviewed": null,
           "gaps": "Berry program, licensed edited product, commercial sales and original company/news endpoints not established. Language editions are one source."
+        }
+      }
+    },
+    {
+      "id": "program-gene-ohalo-florida",
+      "record_type": "entity",
+      "entity_type": "breeding_program",
+      "name": "Florida Neopestalotiopsis-resistant strawberry",
+      "status": "unverified",
+      "description": "Research identity; source claims await analyst review.",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "evidence_ids": [
+        "ev-gene-ohalo-florida"
+      ],
+      "attributes": {
+        "gene_editing": {
+          "id": "program-gene-ohalo-florida",
+          "name": "Florida Neopestalotiopsis-resistant strawberry",
+          "company_ids": [
+            "company-ohalo"
+          ],
+          "technology": "Proprietary advanced breeding; exact editor unspecified",
+          "crop": "Strawberry",
+          "trait": "Neopestalotiopsis resistance",
+          "partner": "UF/IFAS; Florida Foundation Seed Producers; Florida Strawberry Growers Association",
+          "geography": "Florida, United States",
+          "role": "advanced breeding platform",
+          "stage": "Agreement announced / experimental trials forecast",
+          "milestone_date": "2024-12-20",
+          "milestone": "Company reports trait integration; forecast non-commercial experimental trials in 2025.",
+          "evidence_ids": [
+            "ev-gene-ohalo-florida"
+          ],
+          "berry_ids": [
+            "berry-strawberry"
+          ],
+          "verification": "single_source / awaiting analyst review",
+          "last_reviewed": null,
+          "gaps": "Trial completion, named cultivar, sales and CRISPR mechanism not established. Separate from the true-seed consortium."
+        }
+      }
+    },
+    {
+      "id": "program-gene-qi-small-berry",
+      "record_type": "entity",
+      "entity_type": "breeding_program",
+      "name": "Nanjing small-berry editing innovation center initiative",
+      "status": "unverified",
+      "description": "Research identity; source claims await analyst review.",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "evidence_ids": [
+        "ev-gene-qi-confitop"
+      ],
+      "attributes": {
+        "gene_editing": {
+          "id": "program-gene-qi-small-berry",
+          "name": "Nanjing small-berry editing innovation center initiative",
+          "company_ids": [
+            "company-qi-biodesign"
+          ],
+          "technology": "Gene editing; crop-specific editor unspecified",
+          "crop": "Small berries / blueberry industry context",
+          "trait": "Targets unspecified",
+          "partner": "Nanjing agricultural high-tech zone; Joyvio-related industry participants",
+          "geography": "Nanjing / Lishui, China",
+          "role": "editing platform",
+          "stage": "Initiative described by investor",
+          "milestone_date": null,
+          "milestone": "Investor describes small-berry editing center and industry-chain initiative.",
+          "evidence_ids": [
+            "ev-gene-qi-confitop"
+          ],
+          "berry_ids": [
+            "berry-blueberry"
+          ],
+          "verification": "single_source / awaiting analyst review",
+          "last_reviewed": null,
+          "gaps": "Not a named edited-blueberry product; facility completion, operating entity, trials and sales unverified."
         }
       }
     }
@@ -3972,6 +4122,302 @@
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       }
+    },
+    {
+      "id": "ev-gene-qi-rsr-response",
+      "record_type": "evidence",
+      "status": "in_review",
+      "review_state": "in_review",
+      "evidence_role": "publication_artifact",
+      "source_type": "research_program_publication",
+      "title": "APHIS regulatory status review 24-116-02rsr: Qi high-oleic soybean",
+      "source_name": "USDA APHIS",
+      "source_url": "https://www.aphis.usda.gov/sites/default/files/24-116-02rsr-response.pdf",
+      "published_date": "2024-05-29",
+      "captured_date": "2026-10-21",
+      "summary": "APHIS determined that the specified high-oleic soybean with loss of seed-specific FAD2 function is not subject to 7 CFR part 340. This is a plant-pest regulatory determination, not an FDA decision, berry authorization or proof of sales.",
+      "supporting_excerpt": "Accordingly, your soybean is not subject to the regulations under 7 CFR part 340.",
+      "original_text_excerpt": "Accordingly, your soybean is not subject to the regulations under 7 CFR part 340.",
+      "original_title": "APHIS regulatory status review 24-116-02rsr: Qi high-oleic soybean",
+      "source_language": "en",
+      "attribution": "USDA APHIS original text checked; publication review remains pending",
+      "verification_state": "single_source",
+      "submitted_by": "user-manual-research/2026-10-21",
+      "berry_ids": [],
+      "entity_ids": [
+        "company-qi-biodesign"
+      ],
+      "geography_ids": [],
+      "tags": [
+        "gene-editing-research",
+        "manual-research-supplement"
+      ],
+      "priority": {
+        "reading": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        },
+        "testing": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        },
+        "commercial_position": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        },
+        "monitoring": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        }
+      },
+      "does_not_prove": [
+        "A reported target or platform is not a marketed product.",
+        "Regulatory status applies only to the stated product, jurisdiction and date."
+      ],
+      "source_fidelity": {
+        "method": "web tool substantive original text recovered; excerpt retained",
+        "status": "original_text_checked",
+        "sha256": "c2de13fc50f68a24a5b56130b0f29ad73b321688fbf2aaaa1b042560b3a448db",
+        "hash_scope": "retained excerpt, not full source document"
+      },
+      "article": {
+        "status": "excerpt_only",
+        "full_text": "Accordingly, your soybean is not subject to the regulations under 7 CFR part 340."
+      },
+      "classification": {
+        "version": "gene-editing-1",
+        "topics": [],
+        "relevance": "",
+        "berry_related": false,
+        "reason": "",
+        "excerpt": "Accordingly, your soybean is not subject to the regulations under 7 CFR part 340.",
+        "excerpt_kind": "source_excerpt",
+        "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
+      }
+    },
+    {
+      "id": "ev-gene-psi-restructure",
+      "record_type": "evidence",
+      "status": "in_review",
+      "review_state": "in_review",
+      "evidence_role": "publication_artifact",
+      "source_type": "company_press_release",
+      "title": "PSI announces PSG restructuring and contracted services",
+      "source_name": "Plant Sciences, Inc. / Newswire",
+      "source_url": "https://www.newswire.com/news/plant-sciences-inc-unveils-restructuring-broadening-north-american-22096147",
+      "published_date": "2023-08-01",
+      "captured_date": "2026-10-21",
+      "summary": "The issuer announced PSG would hold berry breeding populations and related IP, while PSI would supply research and propagation under contract. Fifteen populations were described: eight strawberry, three blueberry, two raspberry, one blackberry and one black raspberry. Executed assignments, capitalization and Simplot agreement novation remain unresolved.",
+      "supporting_excerpt": "PSI will serve PSG, under contract, providing research and propagation services to the new entity.",
+      "original_text_excerpt": "PSI will serve PSG, under contract, providing research and propagation services to the new entity.",
+      "original_title": "PSI announces PSG restructuring and contracted services",
+      "source_language": "en",
+      "attribution": "Plant Sciences, Inc. / Newswire original text checked; publication review remains pending",
+      "verification_state": "single_source",
+      "submitted_by": "user-manual-research/2026-10-21",
+      "berry_ids": [],
+      "entity_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "geography_ids": [],
+      "tags": [
+        "gene-editing-research",
+        "manual-research-supplement"
+      ],
+      "priority": {
+        "reading": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        },
+        "testing": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        },
+        "commercial_position": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        },
+        "monitoring": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        }
+      },
+      "does_not_prove": [
+        "A reported target or platform is not a marketed product.",
+        "Regulatory status applies only to the stated product, jurisdiction and date."
+      ],
+      "source_fidelity": {
+        "method": "web tool substantive original text recovered; excerpt retained",
+        "status": "original_text_checked",
+        "sha256": "8094df2574253787a1584e9ed1c3ef81e0f4736c3852e587f2598ed0675e9a93",
+        "hash_scope": "retained excerpt, not full source document"
+      },
+      "article": {
+        "status": "excerpt_only",
+        "full_text": "PSI will serve PSG, under contract, providing research and propagation services to the new entity."
+      },
+      "classification": {
+        "version": "gene-editing-1",
+        "topics": [],
+        "relevance": "",
+        "berry_related": false,
+        "reason": "",
+        "excerpt": "PSI will serve PSG, under contract, providing research and propagation services to the new entity.",
+        "excerpt_kind": "source_excerpt",
+        "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
+      }
+    },
+    {
+      "id": "ev-gene-ohalo-florida",
+      "record_type": "evidence",
+      "status": "in_review",
+      "review_state": "in_review",
+      "evidence_role": "publication_artifact",
+      "source_type": "company_press_release",
+      "title": "Ohalo and Florida partners announce Neopestalotiopsis strawberry agreement",
+      "source_name": "Ohalo",
+      "source_url": "https://www.ohalo.com/news/ohalo-x-university-of-florida-disease-resistant-strawberry-neopestalotiopsis",
+      "published_date": "2024-12-20",
+      "captured_date": "2026-10-21",
+      "summary": "Ohalo announced a development and commercialization agreement with UF/IFAS, Florida Foundation Seed Producers and FSGA. It reports integrating a resistance trait into existing Florida strawberry varieties using proprietary advanced breeding. Non-commercial experimental trials were forecast for 2025; their completion, named releases and sales are not established.",
+      "supporting_excerpt": "These new, resistant varieties will enter non-commercial, experimental trials in 2025.",
+      "original_text_excerpt": "These new, resistant varieties will enter non-commercial, experimental trials in 2025.",
+      "original_title": "Ohalo and Florida partners announce Neopestalotiopsis strawberry agreement",
+      "source_language": "en",
+      "attribution": "Ohalo original text checked; publication review remains pending",
+      "verification_state": "single_source",
+      "submitted_by": "user-manual-research/2026-10-21",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "entity_ids": [
+        "company-ohalo"
+      ],
+      "geography_ids": [],
+      "tags": [
+        "gene-editing-research",
+        "manual-research-supplement",
+        "advanced-breeding"
+      ],
+      "priority": {
+        "reading": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        },
+        "testing": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        },
+        "commercial_position": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        },
+        "monitoring": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        }
+      },
+      "does_not_prove": [
+        "A reported target or platform is not a marketed product.",
+        "Regulatory status applies only to the stated product, jurisdiction and date."
+      ],
+      "source_fidelity": {
+        "method": "web tool substantive original text recovered; excerpt retained",
+        "status": "original_text_checked",
+        "sha256": "4868599601f292d063fc3b2590d414cd25b561040f7902e1b2504668607b3fcc",
+        "hash_scope": "retained excerpt, not full source document"
+      },
+      "article": {
+        "status": "excerpt_only",
+        "full_text": "These new, resistant varieties will enter non-commercial, experimental trials in 2025."
+      },
+      "classification": {
+        "version": "gene-editing-1",
+        "topics": [
+          "advanced-breeding"
+        ],
+        "relevance": "Direct berry development",
+        "berry_related": true,
+        "reason": "Explicit agricultural advanced breeding language",
+        "excerpt": "These new, resistant varieties will enter non-commercial, experimental trials in 2025.",
+        "excerpt_kind": "source_excerpt",
+        "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
+      }
+    },
+    {
+      "id": "ev-gene-qi-confitop",
+      "record_type": "evidence",
+      "status": "in_review",
+      "review_state": "in_review",
+      "evidence_role": "publication_artifact",
+      "source_type": "company_press_release",
+      "title": "Qi investor describes Nanjing small-berry editing initiative",
+      "source_name": "Confitop Capital / 百联挚高资本",
+      "source_url": "https://www.confitopcapital.cn/82.html",
+      "published_date": null,
+      "captured_date": "2026-10-21",
+      "summary": "The investor describes a small-berry gene-editing innovation center and industrialization initiative in Nanjing, linked to the Lishui blueberry industry and Joyvio-related growing, sales and processing. It dates an A+ investment exceeding RMB 100 million to May 2026 in its body text; the page publication date is unknown. No named edited-blueberry cultivar, completed trial or sale is established.",
+      "supporting_excerpt": "小浆果基因编辑创新中心",
+      "original_text_excerpt": "小浆果基因编辑创新中心",
+      "original_title": "Qi investor describes Nanjing small-berry editing initiative",
+      "source_language": "zh",
+      "attribution": "Confitop Capital / 百联挚高资本 original text checked; publication review remains pending",
+      "verification_state": "single_source",
+      "submitted_by": "user-manual-research/2026-10-21",
+      "berry_ids": [],
+      "entity_ids": [
+        "company-qi-biodesign"
+      ],
+      "geography_ids": [],
+      "tags": [
+        "gene-editing-research",
+        "manual-research-supplement",
+        "gene-editing"
+      ],
+      "priority": {
+        "reading": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        },
+        "testing": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        },
+        "commercial_position": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        },
+        "monitoring": {
+          "level": "none",
+          "rationale": "Research import awaiting publication review."
+        }
+      },
+      "does_not_prove": [
+        "A reported target or platform is not a marketed product.",
+        "Regulatory status applies only to the stated product, jurisdiction and date."
+      ],
+      "source_fidelity": {
+        "method": "web tool substantive original text recovered; excerpt retained",
+        "status": "original_text_checked",
+        "sha256": "e21db68297354a8b9c9db504ad28197f4cd519c823275229e8653b59806c17c0",
+        "hash_scope": "retained excerpt, not full source document"
+      },
+      "article": {
+        "status": "excerpt_only",
+        "full_text": "小浆果基因编辑创新中心"
+      },
+      "classification": {
+        "version": "gene-editing-1",
+        "topics": [
+          "gene-editing"
+        ],
+        "relevance": "Direct berry development",
+        "berry_related": true,
+        "reason": "Explicit agricultural editing language",
+        "excerpt": "小浆果基因编辑创新中心",
+        "excerpt_kind": "source_excerpt",
+        "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
+      }
     }
   ],
   "sources": [
@@ -5513,6 +5959,114 @@
       "monitoring_priority": "medium",
       "update_cadence": "weekly",
       "created_at": "2026-10-21"
+    },
+    {
+      "id": "source-gene-qi-rsr-response",
+      "type": "reference",
+      "label": "USDA APHIS · qi-rsr-response",
+      "value": "https://www.aphis.usda.gov/sites/default/files/24-116-02rsr-response.pdf",
+      "url": "https://www.aphis.usda.gov/sites/default/files/24-116-02rsr-response.pdf",
+      "canonical_url": "https://www.aphis.usda.gov/sites/default/files/24-116-02rsr-response.pdf",
+      "publisher": "USDA APHIS",
+      "language": "en",
+      "source_type": "official_or_partner_page",
+      "acquisition_method": "manual_public_page_check",
+      "topic_scope": [
+        "gene-editing",
+        "advanced-breeding"
+      ],
+      "linked_competitor_ids": [
+        "company-qi-biodesign"
+      ],
+      "enabled": false,
+      "last_checked_at": "2026-10-21",
+      "last_successful_check": "2026-10-21",
+      "last_status": "readable",
+      "status": "readable",
+      "feed_status": "RSS/Atom not verified; no feed invented",
+      "monitoring_priority": "medium",
+      "created_at": "2026-10-21"
+    },
+    {
+      "id": "source-gene-psi-restructure",
+      "type": "reference",
+      "label": "Plant Sciences, Inc. / Newswire · psi-restructure",
+      "value": "https://www.newswire.com/news/plant-sciences-inc-unveils-restructuring-broadening-north-american-22096147",
+      "url": "https://www.newswire.com/news/plant-sciences-inc-unveils-restructuring-broadening-north-american-22096147",
+      "canonical_url": "https://www.newswire.com/news/plant-sciences-inc-unveils-restructuring-broadening-north-american-22096147",
+      "publisher": "Plant Sciences, Inc. / Newswire",
+      "language": "en",
+      "source_type": "official_or_partner_page",
+      "acquisition_method": "manual_public_page_check",
+      "topic_scope": [
+        "gene-editing",
+        "advanced-breeding"
+      ],
+      "linked_competitor_ids": [
+        "company-plant-sciences-genetics"
+      ],
+      "enabled": false,
+      "last_checked_at": "2026-10-21",
+      "last_successful_check": "2026-10-21",
+      "last_status": "readable",
+      "status": "readable",
+      "feed_status": "RSS/Atom not verified; no feed invented",
+      "monitoring_priority": "medium",
+      "created_at": "2026-10-21"
+    },
+    {
+      "id": "source-gene-ohalo-florida",
+      "type": "reference",
+      "label": "Ohalo · ohalo-florida",
+      "value": "https://www.ohalo.com/news/ohalo-x-university-of-florida-disease-resistant-strawberry-neopestalotiopsis",
+      "url": "https://www.ohalo.com/news/ohalo-x-university-of-florida-disease-resistant-strawberry-neopestalotiopsis",
+      "canonical_url": "https://www.ohalo.com/news/ohalo-x-university-of-florida-disease-resistant-strawberry-neopestalotiopsis",
+      "publisher": "Ohalo",
+      "language": "en",
+      "source_type": "official_or_partner_page",
+      "acquisition_method": "manual_public_page_check",
+      "topic_scope": [
+        "gene-editing",
+        "advanced-breeding"
+      ],
+      "linked_competitor_ids": [
+        "company-ohalo"
+      ],
+      "enabled": false,
+      "last_checked_at": "2026-10-21",
+      "last_successful_check": "2026-10-21",
+      "last_status": "readable",
+      "status": "readable",
+      "feed_status": "RSS/Atom not verified; no feed invented",
+      "monitoring_priority": "medium",
+      "created_at": "2026-10-21"
+    },
+    {
+      "id": "source-gene-qi-confitop",
+      "type": "reference",
+      "label": "Confitop Capital / 百联挚高资本 · qi-confitop",
+      "value": "https://www.confitopcapital.cn/82.html",
+      "url": "https://www.confitopcapital.cn/82.html",
+      "canonical_url": "https://www.confitopcapital.cn/82.html",
+      "publisher": "Confitop Capital / 百联挚高资本",
+      "language": "zh",
+      "source_type": "official_or_partner_page",
+      "acquisition_method": "manual_public_page_check",
+      "topic_scope": [
+        "gene-editing",
+        "advanced-breeding"
+      ],
+      "linked_competitor_ids": [
+        "company-qi-biodesign"
+      ],
+      "enabled": false,
+      "last_checked_at": "2026-10-21",
+      "last_successful_check": "2026-10-21",
+      "last_status": "readable",
+      "status": "readable",
+      "feed_status": "RSS/Atom not verified; no feed invented",
+      "monitoring_priority": "medium",
+      "created_at": "2026-10-21"
     }
   ],
   "conflicts": [
@@ -5522,6 +6076,9 @@
     "HRB metadata gives 2026-09-25 for older pages; visible article text dates regeneration 2024-02-06 and the Plantik partnership 2026-09-28.",
     "HortiDaily discovery date 2026-10-19 differs from original page publication metadata 2026-10-20; retain original page date.",
     "APHIS-hosted Qi 24-116-02rsr.pdf is an applicant request, not a decision letter. Company claims of exemption remain separately attributed.",
-    "Qi small-berry facility and PSG restructuring leads remain in discovery reports, but original JavaScript pages were unreadable. No unsupported blueberry program or legal merger was imported."
+    "Qi small-berry facility and PSG restructuring leads remain in discovery reports, but original JavaScript pages were unreadable. No unsupported blueberry program or legal merger was imported.",
+    "Manual research supplement: Qi APHIS response dated May 29, 2024 was opened, distinct from the applicant request. Earlier missing-decision notes are superseded for this specific soybean.",
+    "PSI restructuring issuer release was opened: PSG portfolio/IP holding and PSI contracted services are separate roles. No automatic legal entity merge, executed assignment or Simplot agreement novation inferred.",
+    "Confitop investor text supports a small-berry editing initiative, not a released edited-blueberry variety. Earlier unreadable-facility-source gap is partly closed by this separate original investor account."
   ]
 }

@@ -4,26 +4,31 @@ October 21, 2026 — Gene Editing slice ([delivery notes](GENE-EDITING-LANDSCAPE
 
 - **TD-GENE-001, research completion:** Perplexity returned HTTP 429 on three
   dedicated reports and then 401 `insufficient_quota`. All eight saved deep
-  responses have `finish_reason=length`. Complete targeted manual follow-ups,
-  verify original sources and reconcile the report before calling the mission
+  responses have `finish_reason=length`. An all-eleven-company manual report
+  was received October 21; four new originals were checked and integrated.
+  Complete remaining original-record follow-ups before calling the mission
   complete. No top-up or alternate paid provider is authorized.
 - **TD-GENE-002, identity:** the existing PSI entity ID/aliases combine PSI and
-  PSG. Preserve the dossier/ID until original restructuring evidence supports
-  legal-entity and alias reconciliation; do not create another PSI duplicate or
+  PSG. The issuer restructuring release is now checked, but executed legal
+  assignments and capitalization remain unresolved. Preserve the dossier/ID
+  pending legal-entity reconciliation; do not create another PSI duplicate or
   merge Simplot Plant Sciences. Qi Beijing/Suzhou and Shunfeng/BellaGen legal
   relationships likewise retain explicit unresolved notes.
 - **TD-GENE-003, acquisition/regulation:** five original pages lack readable
   prose, three are unavailable and the EU page is blocked. Planasa's advertised
   feeds are empty/unverified. Free company news-search monitoring is configured,
   but it does not prove complete official-newsroom recall or full-body access.
-  Qi product-specific certificates and its small-berry facility lead are not
-  accepted from discovery snippets. No regulatory exemption is global approval.
+  Qi Chinese certificates remain unresolved. Its May 29, 2024 APHIS soybean
+  response and an investor's small-berry initiative account are now checked.
+  Neither proves berry authorization or sales. No exemption is global approval.
 - **TD-GENE-004, review/export scope:** program and relationship source claims
   remain pending research, not trusted graph/Facts. The lens reuses analyst
   routes and CSV/HTML exports; geographic SVG/PDF renderers and saved-view forms
   do not yet support this lens. Keep those limitations explicit rather than
   silently exporting a different scope. Do not deploy or broaden the seed list
-  before Johnny reviews the integrated slice.
+  beyond the requested seeds. Johnny authorized live deployment after research
+  processing on October 21; canonical CI, backup and runtime-preservation gates
+  still apply.
 
 October 14, 2026 sustainability sourcing: [access contract](SUSTAINABILITY-SOURCE-COVERAGE.md).
 Open limitations: The Packer rejects direct production-host requests (403), so

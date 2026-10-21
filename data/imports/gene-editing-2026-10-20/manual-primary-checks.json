@@ -1,0 +1,42 @@
+[
+  {
+    "key": "qi-rsr-response",
+    "url": "https://www.aphis.usda.gov/sites/default/files/24-116-02rsr-response.pdf",
+    "publisher": "USDA APHIS",
+    "access_date": "2026-10-21",
+    "status": "opened_primary",
+    "method": "web tool substantive original text recovered; excerpt retained",
+    "supporting_excerpt": "Accordingly, your soybean is not subject to the regulations under 7 CFR part 340.",
+    "published_date": "2024-05-29"
+  },
+  {
+    "key": "psi-restructure",
+    "url": "https://www.newswire.com/news/plant-sciences-inc-unveils-restructuring-broadening-north-american-22096147",
+    "publisher": "Plant Sciences, Inc. / Newswire",
+    "access_date": "2026-10-21",
+    "status": "opened_primary",
+    "method": "web tool substantive original text recovered; excerpt retained",
+    "supporting_excerpt": "PSI will serve PSG, under contract, providing research and propagation services to the new entity.",
+    "published_date": "2023-08-01"
+  },
+  {
+    "key": "ohalo-florida",
+    "url": "https://www.ohalo.com/news/ohalo-x-university-of-florida-disease-resistant-strawberry-neopestalotiopsis",
+    "publisher": "Ohalo",
+    "access_date": "2026-10-21",
+    "status": "opened_primary",
+    "method": "web tool substantive original text recovered; excerpt retained",
+    "supporting_excerpt": "These new, resistant varieties will enter non-commercial, experimental trials in 2025.",
+    "published_date": "2024-12-20"
+  },
+  {
+    "key": "qi-confitop",
+    "url": "https://www.confitopcapital.cn/82.html",
+    "publisher": "Confitop Capital / \u767e\u8054\u631a\u9ad8\u8d44\u672c",
+    "access_date": "2026-10-21",
+    "status": "opened_primary",
+    "method": "web tool substantive original text recovered; excerpt retained",
+    "supporting_excerpt": "\u5c0f\u6d46\u679c\u57fa\u56e0\u7f16\u8f91\u521b\u65b0\u4e2d\u5fc3",
+    "published_date": null
+  }
+]

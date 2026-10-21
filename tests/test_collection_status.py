@@ -279,7 +279,7 @@ def test_live_source_repository_includes_all_onboarded_sources_generically(tmp_p
     # Four requested sustainability Sources add four collection-eligible paths.
     # Gene Editing adds 41 original-page references and 11 verified, runnable
     # company monitors. Existing Planasa reference is reused rather than copied.
-    assert report.sources_configured == 261 and report.sources_discoverable == 92
+    assert report.sources_configured == 265 and report.sources_discoverable == 92
     assert expected <= {source.source_id for source in report.sources}
 
 

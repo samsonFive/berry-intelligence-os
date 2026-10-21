@@ -1,11 +1,11 @@
 # Intelligence Coverage Matrix
 
 October 21, 2026: [Gene Editing & Advanced Breeding](GENE-EDITING-LANDSCAPE.md)
-adds an analyst-only, real-data Explorer lens for all 11 requested seeds, 23
-program/platform records, four pending partnership claims and 26 linked Evidence
-objects (25 new private drafts; one existing Planasa original). Seven companies
-are new; four existing dossiers are preserved. 42 original pages were attempted:
-33 readable, five without usable prose, three unavailable and one blocked. Eleven
+adds an analyst-only, real-data Explorer lens for all 11 requested seeds, 25
+program/platform records, four pending partnership claims and 30 linked Evidence
+objects (29 new private drafts; one existing Planasa original). Seven companies
+are new; four existing dossiers are preserved. 46 original pages were checked:
+37 readable, five without usable prose, three unavailable and one blocked. Eleven
 company RSS search monitors were verified using the existing free adapter;
 Simplot/Qi discovery and zero-new-item reruns were exercised. Five historical
 publications received deterministic topic provenance without date/trust changes.

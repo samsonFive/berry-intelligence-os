@@ -260,7 +260,9 @@ def test_real_reading_queue_morning_workload_is_smaller_than_unresolved(tmp_path
         href = item.get("href") or ""
         assert href.startswith("/intelligence/") or href.startswith("/threads/")
         age = int(item.get("age_days") or (item.get("primary") or {}).get("age_days") or 0)
-        assert age <= 21 or "watch" in (item.get("why_ranked") or "").casefold() or item.get("is_thread")
+        # Newly captured historical research can need a trust decision even
+        # when its source publication is old; capture does not redates sources.
+        assert age <= 21 or item.get("new_since_last") or "watch" in (item.get("why_ranked") or "").casefold() or item.get("is_thread")
         assert "ABN Lookup" not in (item.get("title") or "")
     top10_titles = [item["title"] for item in brief["reading_buckets"][0]["entries"][:10]]
     assert not any("ABN Lookup" in title for title in top10_titles)

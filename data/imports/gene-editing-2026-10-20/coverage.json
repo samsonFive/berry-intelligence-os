@@ -11,7 +11,8 @@
       "search_hits": 16,
       "programs": 3,
       "evidence": 4,
-      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps."
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "company": "company-plant-sciences-genetics",
@@ -21,8 +22,9 @@
       "searches": 2,
       "search_hits": 16,
       "programs": 3,
-      "evidence": 4,
-      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps. Original dynamic product/research pages yielded no readable text."
+      "evidence": 5,
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps. Original dynamic product/research pages yielded no readable text.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "company": "company-ohalo",
@@ -31,9 +33,10 @@
       "finish_reason": null,
       "searches": 2,
       "search_hits": 16,
-      "programs": 2,
-      "evidence": 3,
-      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps."
+      "programs": 3,
+      "evidence": 4,
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "company": "company-pairwise",
@@ -44,7 +47,8 @@
       "search_hits": 16,
       "programs": 5,
       "evidence": 5,
-      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps."
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "company": "company-hudson-river-biotechnology",
@@ -55,7 +59,8 @@
       "search_hits": 16,
       "programs": 3,
       "evidence": 5,
-      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps."
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "company": "company-plantik-biosciences",
@@ -66,7 +71,8 @@
       "search_hits": 16,
       "programs": 3,
       "evidence": 4,
-      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps."
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "company": "company-fall-creek-farm-and-nursery",
@@ -77,7 +83,8 @@
       "search_hits": 16,
       "programs": 1,
       "evidence": 1,
-      "gaps": "Gene-editing involvement not established in this research pass. Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps."
+      "gaps": "Gene-editing involvement not established in this research pass. Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "company": "company-planasa",
@@ -88,7 +95,8 @@
       "search_hits": 16,
       "programs": 1,
       "evidence": 1,
-      "gaps": "Gene-editing involvement not established in this research pass. Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps."
+      "gaps": "Gene-editing involvement not established in this research pass. Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "company": "company-heritable-agriculture",
@@ -99,7 +107,8 @@
       "search_hits": 16,
       "programs": 1,
       "evidence": 1,
-      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps. Original dynamic product/research pages yielded no readable text."
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps. Original dynamic product/research pages yielded no readable text.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "company": "company-qi-biodesign",
@@ -108,9 +117,10 @@
       "finish_reason": "length",
       "searches": 2,
       "search_hits": 16,
-      "programs": 5,
-      "evidence": 4,
-      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps."
+      "programs": 6,
+      "evidence": 6,
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
     },
     {
       "company": "company-shandong-shunfeng-biotechnology",
@@ -121,7 +131,8 @@
       "search_hits": 16,
       "programs": 1,
       "evidence": 2,
-      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps."
+      "gaps": "Independent trial outcomes, current availability and exact legal/control relationships remain incomplete; see program-specific gaps.",
+      "manual_research_received": "2026-10-21"
     }
   ],
   "saved_deep_report_count": 8,
@@ -136,14 +147,17 @@
   "source_checks": {
     "blocked": 1,
     "no_readable_text": 5,
-    "readable": 33,
+    "readable": 37,
     "unavailable": 3
   },
-  "imported_unique_programs": 23,
+  "imported_unique_programs": 25,
   "relationship_claims": 4,
-  "versioned_evidence": 26,
-  "original_source_candidates": 42,
+  "versioned_evidence": 30,
+  "original_source_candidates": 46,
   "verified_company_monitors": 11,
   "trusted_publications_added": 0,
-  "trusted_relationships_added": 0
+  "trusted_relationships_added": 0,
+  "manual_research_received": "2026-10-21",
+  "manual_research_company_count": 11,
+  "manual_primary_checks": 4
 }

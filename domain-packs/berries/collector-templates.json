@@ -1,7 +1,188 @@
 {
-  "_comment": "V2 Phase 1B (BL-023, docs/v2/10-BACKLOG.md). Templates are generated from and kept in exact source-id parity with data/configuration/sources.json. collector_type separates the platform-level Collector mechanism (rss, keyword_search -- both automatable per docs/v2/02-TARGET-ARCHITECTURE.md Section 7) from reference_manual. All 209 live sources are represented and structurally suitable for templating; none are excluded. Forward Acquisition Coverage Expansion V1 added 20 direct recurring sources on 2026-08-24 (17 RSS and 3 bounded official leaf sitemaps, represented by the existing platform-level rss collector type). Deliberately omitted workspace operational history includes linked_competitor_ids, last_checked_at, last_status, validated_count, purged_count, and created_at.",
-  "excluded_count": 0,
-  "excluded": [],
+  "_comment": "V2 Phase 1B (BL-023, docs/v2/10-BACKLOG.md). Templates are generated from and kept in exact source-id parity with data/configuration/sources.json. collector_type separates the platform-level Collector mechanism (rss, keyword_search -- both automatable per docs/v2/02-TARGET-ARCHITECTURE.md Section 7) from reference_manual. All 265 live sources are accounted for: 220 collector templates and 45 explicitly excluded manual source references. Forward Acquisition Coverage Expansion V1 added 20 direct recurring sources on 2026-08-24 (17 RSS and 3 bounded official leaf sitemaps, represented by the existing platform-level rss collector type). Deliberately omitted workspace operational history includes linked_competitor_ids, last_checked_at, last_status, validated_count, purged_count, and created_at.",
+  "excluded_count": 45,
+  "excluded": [
+  {
+    "id": "source-gene-pairwise-fontana",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-pairwise-seedless",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-pairwise-hrb",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-qi-berry",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-simplot-alliance",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-simplot-license",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-psi-research",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-psi-identity",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-ohalo-boosted",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-ohalo-strawberry",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-ohalo-launch",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-pairwise-home",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-pairwise-news",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-pairwise-psi",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-pairwise-2026",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-hrb-plantik",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-hrb-regeneration",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-hrb-partnering",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-plantik-tech",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-plantik-about",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-plantik-trade",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-plantik-hortidaily",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-fall-creek-collection",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-planasa-about",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-planasa-news",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-heritable-home",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-heritable-products",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-heritable-strawberry",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-qi-funding",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-qi-official",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-qi-license",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-qi-lab",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-shunfeng-official",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-shunfeng-chinese",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-shunfeng-kws",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-shunfeng-kws-de",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-uk-simplot",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-us-qi",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-us-simplot",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-us-fda",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-eu-ngt",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-qi-rsr-response",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-psi-restructure",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-ohalo-florida",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-qi-confitop",
+    "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  }
+],
   "collector_templates": [
     {
       "id": "source-20260806173428-a8b4-michigan-state-university-blueberry-bree-0",
@@ -3794,6 +3975,17 @@
     {"id": "source-trellis-sustainability", "collector_type": "rss", "label": "Trellis", "query_or_url": "https://trellis.net/feed/", "url": "https://trellis.net", "geography_focus": ["global"], "entity_coverage": ["trade_press"], "berry_coverage": [], "monitoring_priority": "high", "update_cadence": "daily", "default_active": true, "notes": "Operator-requested sustainability coverage: climate, supply chains, disclosure, packaging and agricultural innovation. Discovery remains unreviewed; publisher statements are not independent validation."},
     {"id": "source-watershed-blog", "collector_type": "rss", "label": "Watershed Blog", "query_or_url": "https://watershed.com/blog/sitemap.xml", "url": "https://watershed.com/blog", "geography_focus": ["global"], "entity_coverage": ["company"], "berry_coverage": [], "monitoring_priority": "high", "update_cadence": "daily", "default_active": true, "notes": "Operator-requested sustainability coverage: climate, supply chains, disclosure, packaging and agricultural innovation. Discovery remains unreviewed; publisher statements are not independent validation."},
     {"id": "source-packer-sustainability-insights", "collector_type": "keyword_search", "label": "The Packer — Sustainability Insights", "query_or_url": "https://news.google.com/rss/search?q=site%3Athepacker.com+%22Sustainability+Insights%22&hl=en-US&gl=US&ceid=US:en", "url": "https://www.thepacker.com/topics/sustainability-insights", "geography_focus": ["global"], "entity_coverage": ["trade_press"], "berry_coverage": [], "monitoring_priority": "high", "update_cadence": "daily", "default_active": true, "notes": "Operator-requested sustainability coverage: climate, supply chains, disclosure, packaging and agricultural innovation. Discovery remains unreviewed; publisher statements are not independent validation."},
-    {"id": "source-agfunder-climate-sustainability", "collector_type": "rss", "label": "AgFunderNews — Climate & Sustainability", "query_or_url": "https://agfundernews.com/category/climate-sustainability/feed/", "url": "https://agfundernews.com/category/climate-sustainability", "geography_focus": ["global"], "entity_coverage": ["trade_press"], "berry_coverage": [], "monitoring_priority": "high", "update_cadence": "daily", "default_active": true, "notes": "Operator-requested sustainability coverage: climate, supply chains, disclosure, packaging and agricultural innovation. Discovery remains unreviewed; publisher statements are not independent validation."}
+    {"id": "source-agfunder-climate-sustainability", "collector_type": "rss", "label": "AgFunderNews — Climate & Sustainability", "query_or_url": "https://agfundernews.com/category/climate-sustainability/feed/", "url": "https://agfundernews.com/category/climate-sustainability", "geography_focus": ["global"], "entity_coverage": ["trade_press"], "berry_coverage": [], "monitoring_priority": "high", "update_cadence": "daily", "default_active": true, "notes": "Operator-requested sustainability coverage: climate, supply chains, disclosure, packaging and agricultural innovation. Discovery remains unreviewed; publisher statements are not independent validation."},
+    {"id": "source-gene-monitor-simplot", "collector_type": "keyword_search", "label": "Company monitoring · J.R. Simplot Company", "query_or_url": "https://news.google.com/rss/search?q=%22Simplot%22+%28strawberry+OR+breeding+OR+CRISPR%29&hl=en-US&gl=US&ceid=US%3Aen", "url": "https://news.google.com/rss/search?q=%22Simplot%22+%28strawberry+OR+breeding+OR+CRISPR%29&hl=en-US&gl=US&ceid=US%3Aen", "geography_focus": ["global"], "entity_coverage": ["company"], "berry_coverage": [], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Gene-editing mission: company monitoring independent of topic classification; source text and analyst review required."},
+    {"id": "source-gene-monitor-plant-sciences", "collector_type": "keyword_search", "label": "Company monitoring · Plant Sciences, Inc.", "query_or_url": "https://news.google.com/rss/search?q=%28%22Plant+Sciences+Inc%22+OR+%22Plant+Sciences+Genetics%22%29+%28berry+OR+breeding%29&hl=en-US&gl=US&ceid=US%3Aen", "url": "https://news.google.com/rss/search?q=%28%22Plant+Sciences+Inc%22+OR+%22Plant+Sciences+Genetics%22%29+%28berry+OR+breeding%29&hl=en-US&gl=US&ceid=US%3Aen", "geography_focus": ["global"], "entity_coverage": ["company"], "berry_coverage": [], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Gene-editing mission: company monitoring independent of topic classification; source text and analyst review required."},
+    {"id": "source-gene-monitor-ohalo", "collector_type": "keyword_search", "label": "Company monitoring · Ohalo", "query_or_url": "https://news.google.com/rss/search?q=%22Ohalo%22+%28breeding+OR+strawberry+OR+potato%29&hl=en-US&gl=US&ceid=US%3Aen", "url": "https://news.google.com/rss/search?q=%22Ohalo%22+%28breeding+OR+strawberry+OR+potato%29&hl=en-US&gl=US&ceid=US%3Aen", "geography_focus": ["global"], "entity_coverage": ["company"], "berry_coverage": [], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Gene-editing mission: company monitoring independent of topic classification; source text and analyst review required."},
+    {"id": "source-gene-monitor-pairwise", "collector_type": "keyword_search", "label": "Company monitoring · Pairwise", "query_or_url": "https://news.google.com/rss/search?q=%22Pairwise%22+%28plant+OR+berry+OR+CRISPR%29&hl=en-US&gl=US&ceid=US%3Aen", "url": "https://news.google.com/rss/search?q=%22Pairwise%22+%28plant+OR+berry+OR+CRISPR%29&hl=en-US&gl=US&ceid=US%3Aen", "geography_focus": ["global"], "entity_coverage": ["company"], "berry_coverage": [], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Gene-editing mission: company monitoring independent of topic classification; source text and analyst review required."},
+    {"id": "source-gene-monitor-hudson-river", "collector_type": "keyword_search", "label": "Company monitoring · Hudson River Biotechnology", "query_or_url": "https://news.google.com/rss/search?q=%22Hudson+River+Biotechnology%22&hl=en-US&gl=US&ceid=US%3Aen", "url": "https://news.google.com/rss/search?q=%22Hudson+River+Biotechnology%22&hl=en-US&gl=US&ceid=US%3Aen", "geography_focus": ["global"], "entity_coverage": ["company"], "berry_coverage": [], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Gene-editing mission: company monitoring independent of topic classification; source text and analyst review required."},
+    {"id": "source-gene-monitor-plantik", "collector_type": "keyword_search", "label": "Company monitoring · Plantik Biosciences", "query_or_url": "https://news.google.com/rss/search?q=%22Plantik%22+%28plant+OR+strawberry+OR+breeding%29&hl=en-US&gl=US&ceid=US%3Aen", "url": "https://news.google.com/rss/search?q=%22Plantik%22+%28plant+OR+strawberry+OR+breeding%29&hl=en-US&gl=US&ceid=US%3Aen", "geography_focus": ["global"], "entity_coverage": ["company"], "berry_coverage": [], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Gene-editing mission: company monitoring independent of topic classification; source text and analyst review required."},
+    {"id": "source-gene-monitor-fall-creek", "collector_type": "keyword_search", "label": "Company monitoring · Fall Creek Farm & Nursery", "query_or_url": "https://news.google.com/rss/search?q=%22Fall+Creek%22+%28blueberry+OR+nursery%29&hl=en-US&gl=US&ceid=US%3Aen", "url": "https://news.google.com/rss/search?q=%22Fall+Creek%22+%28blueberry+OR+nursery%29&hl=en-US&gl=US&ceid=US%3Aen", "geography_focus": ["global"], "entity_coverage": ["company"], "berry_coverage": [], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Gene-editing mission: company monitoring independent of topic classification; source text and analyst review required."},
+    {"id": "source-gene-monitor-planasa", "collector_type": "keyword_search", "label": "Company monitoring · Planasa", "query_or_url": "https://news.google.com/rss/search?q=%22Planasa%22+%28berry+OR+breeding+OR+nursery%29&hl=en-US&gl=US&ceid=US%3Aen", "url": "https://news.google.com/rss/search?q=%22Planasa%22+%28berry+OR+breeding+OR+nursery%29&hl=en-US&gl=US&ceid=US%3Aen", "geography_focus": ["global"], "entity_coverage": ["company"], "berry_coverage": [], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Gene-editing mission: company monitoring independent of topic classification; source text and analyst review required."},
+    {"id": "source-gene-monitor-heritable", "collector_type": "keyword_search", "label": "Company monitoring · Heritable Agriculture", "query_or_url": "https://news.google.com/rss/search?q=%22Heritable+Agriculture%22&hl=en-US&gl=US&ceid=US%3Aen", "url": "https://news.google.com/rss/search?q=%22Heritable+Agriculture%22&hl=en-US&gl=US&ceid=US%3Aen", "geography_focus": ["global"], "entity_coverage": ["company"], "berry_coverage": [], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Gene-editing mission: company monitoring independent of topic classification; source text and analyst review required."},
+    {"id": "source-gene-monitor-qi-biodesign", "collector_type": "keyword_search", "label": "Company monitoring · Qi Biodesign", "query_or_url": "https://news.google.com/rss/search?q=%22Qi+Biodesign%22+OR+%22%E9%BD%90%E7%A6%BE%E7%94%9F%E7%A7%91%22&hl=en-US&gl=US&ceid=US%3Aen", "url": "https://news.google.com/rss/search?q=%22Qi+Biodesign%22+OR+%22%E9%BD%90%E7%A6%BE%E7%94%9F%E7%A7%91%22&hl=en-US&gl=US&ceid=US%3Aen", "geography_focus": ["global"], "entity_coverage": ["company"], "berry_coverage": [], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Gene-editing mission: company monitoring independent of topic classification; source text and analyst review required."},
+    {"id": "source-gene-monitor-shunfeng", "collector_type": "keyword_search", "label": "Company monitoring · Shandong Shunfeng Biotechnology", "query_or_url": "https://news.google.com/rss/search?q=%22Shunfeng+Bio%22+OR+%22%E8%88%9C%E4%B8%B0%E7%94%9F%E7%89%A9%22&hl=en-US&gl=US&ceid=US%3Aen", "url": "https://news.google.com/rss/search?q=%22Shunfeng+Bio%22+OR+%22%E8%88%9C%E4%B8%B0%E7%94%9F%E7%89%A9%22&hl=en-US&gl=US&ceid=US%3Aen", "geography_focus": ["global"], "entity_coverage": ["company"], "berry_coverage": [], "monitoring_priority": "medium", "update_cadence": "weekly", "default_active": true, "notes": "Gene-editing mission: company monitoring independent of topic classification; source text and analyst review required."}
   ]
 }

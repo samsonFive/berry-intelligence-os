@@ -83,9 +83,10 @@ def test_coverage_mix_and_source_counts_are_selective_not_broad_expansion() -> N
     # sources from Wave 1. Preserve those sources while checking that PR #255
     # still retires only the duplicate FreshPlaza source.
     # Requested sustainability coverage adds two RSS, one sitemap and one search Source.
-    assert len(sources) == 209
-    assert len(discoverable) == 85
-    assert len(eligible) == 81  # Growing Produce remains paused; TD-108 retires the duplicate FreshPlaza Source.
+    # Gene-editing mission adds 45 manual references and 11 company monitors.
+    assert len(sources) == 265
+    assert len(discoverable) == 96
+    assert len(eligible) == 92  # Growing Produce remains paused; TD-108 retires the duplicate FreshPlaza Source.
     assert len(direct_rss) == 38
     assert len(linked_direct) == 23
     assert sum("berry-blueberry" in source.get("berry_ids", []) for source in discoverable) == 68

@@ -429,7 +429,8 @@ def test_all_live_sources_accounted_for() -> None:
     # Wave 1 adds four competitor newsroom feeds: Fruitist, Oishii, OZblu,
     # and Wish Farms.
     # Four operator-requested sustainability sources are included in the registry.
-    assert len(sources) == 209
+    # Gene-editing references and monitors are explicitly accounted for below.
+    assert len(sources) == 265
 
     represented_ids = {t["id"] for t in templates}
     excluded_ids = {e["id"] for e in excluded}
