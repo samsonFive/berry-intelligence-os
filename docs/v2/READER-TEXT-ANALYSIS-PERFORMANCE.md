@@ -17,7 +17,26 @@ dominance threshold. Repeated access-screen text is not deduplicated out of the
 classifier's evidence. Both changes are display/read-time work only: no source
 capture, identity, publication, Atomic or qualification decision changes.
 
+## Metadata-only article fast path
+
+The private article-name audit now checks whether article text exists after
+considering matching human-affirmed recoveries and exact-source Reader captures.
+If there is no text, summary/description/transcript classification cannot make
+that record an eligible article. It skips that display work while retaining the
+known-source count and every other accounting field. Published summary-based
+name discovery remains on its existing separate path. Current article edits and
+captures are considered on every call; no eligibility decision is cached.
+
 ## Evidence
+
+- Two fast-path regressions and the existing captured/pending/declared-article
+  suites pass: 59 tests. Metadata-only and transcript-only inputs retain their
+  accounting, newly added body text is visible immediately, and replacing that
+  body with a consent wall excludes it again.
+- An alternating comparison of the complete 64-profile/1,165-candidate local
+  projection preserves every field except the excluded generated discovery time.
+  Runs without/with the fast path took 6.532/3.790 and 4.202/3.051 seconds.
+  This is local discovery-function evidence, not production page latency.
 
 - 21 focused Reader/source-state tests passed, followed by 98 existing capture,
   Firecrawl, safe URL/redirect, one-click and preview-continuity regressions.
@@ -26,7 +45,11 @@ capture, identity, publication, Atomic or qualification decision changes.
   implementation; all source inputs remain unchanged. The projection digest is
   identical across all four runs. Reader-function times were 0.507/0.587 seconds
   before and 0.316/0.405 seconds after. These are local function timings, not
-  whole-page or production improvements.
+  whole-page or production improvements. The initial Reader-only server
+  comparison preserves all 3,440 Reader results and the 65-profile/1,164-candidate
+  projection, but its timings do not demonstrate a repeatable whole-page speedup.
+  The additional article fast path therefore needs its own server rehearsal and
+  fresh exact-head CI rather than relying on that earlier green head.
 - New regressions retain literal decoded text, fallback priority, mutable
   analyst edits, input immutability and duplicate-wall dominance. A call-count
   check prevents the original repeated summary work returning.

@@ -7,6 +7,12 @@ local records; 119 focused/existing Reader checks pass. Production-size page
 measurements, repeated corpus scans, large HTML and route contention remain open.
 Source/name/identity review and qualification gates are not performance shortcuts.
 
+The same follow-up now avoids Reader classification of metadata-only article
+inputs after checking recoveries and captures. Another 59 focused/existing tests
+and complete 64-profile/1,165-candidate local parity pass. The initial small
+Reader-only server change did not show repeatable page latency improvement;
+the larger fast path requires a new-head server comparison and full CI.
+
 October 21, 2026 — Gene Editing slice ([delivery notes](GENE-EDITING-LANDSCAPE.md)):
 
 - **TD-GENE-001, research completion:** Perplexity returned HTTP 429 on three
