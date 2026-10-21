@@ -2,10 +2,10 @@
 
 ## Verified delivery status — October 21, 2026
 
-The production deployment receipt identifies canonical `219c739a3ce621deb9c61d5db358ad7e8a087c20`
-and image `sha256:dbe587a37a65e430bdb00959fc930d8b5f5e0ddad86fa543655933c81306421c`.
+The production deployment receipt identifies canonical `c7e78f660b4718a40b6b055ae392501d9aa7821f`
+and image `sha256:d6e5e3208d4ae7f003c6c52a1590c070902fdfa91be5128181c60bd0b80c0c40`.
 This includes the released platform redesign, News/access #401, subsequent
-reader fixes, automatic News #404 and Gene Editing #406. Historical pending
+reader fixes, automatic News #404, Gene Editing #406 and performance #405. Historical pending
 release statements below must not be read as current deployment status.
 
 Chris.H is enabled in the existing live account store. The originally requested
@@ -23,13 +23,16 @@ Publishing the worksheet did not complete source, name, identity or catalog revi
 
 ### Work still required
 
-- Performance #405 is reconciled onto the current canonical release. Required
-  checks on its new head, image rehearsal and release verification remain;
-  the user authorized deploying the reviewed work on October 21. Its cache
-  stores only bounded literal name transformations, never matching decisions.
-- Catalog #399/#400 remains separate and undeployed. Its code must be reconciled
-  and checked against the latest release; source, identity, catalog, Atomic,
-  qualification and image-reuse decisions remain separate human gates.
+- Performance #405 is deployed after user approval, 5,128 passing tests and an
+  isolated current-data rehearsal. Ten signed-in HTTPS routes pass; all accounts
+  and 9,783 protected files remain unchanged. Its cache stores only bounded
+  literal name transformations, never matching decisions. Source/qualification
+  benchmarks and schemas remain byte-exact; existing source CRLF is accounted
+  for separately in the image verifier. Reader optimization #407 is a new draft.
+- Catalog #399/#400 remains separate and undeployed. Both drafts are reconciled
+  onto this release, with required checks needed on the new heads. Source,
+  identity, catalog, Atomic, qualification and image-reuse decisions remain
+  separate human gates.
 - CAT-01/CAT-02 is unfinished: independent source-name answers, unresolved photo
   import cells, current/historical portfolio reconciliation, official rights,
   profile fields, attributed photos and source-backed growing regions remain.

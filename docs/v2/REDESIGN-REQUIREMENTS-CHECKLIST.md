@@ -1,5 +1,27 @@
 # Redesign and consolidation requirements
 
+## Verified status — October 21, 2026
+
+Production is canonical `c7e78f66`, including the released platform redesign,
+News/access #401, automatic News #404, Gene Editing #406 and performance #405.
+The latter passed 5,128 tests, an isolated production-data rehearsal and normal
+signed-in HTTPS checks; all accounts and 9,783 protected files were preserved.
+Chris.H remains enabled with first-login Help pending. The 52-source mobile
+worksheet is available behind the existing login; publishing it did not supply
+human source/name review answers.
+
+Catalog #399/#400 is now reconciled onto this live release. New-head required
+checks and review remain before publishing the catalog changes. Reader text
+optimization #407 is a separate draft. CAT-01/CAT-02, current/historical portfolio
+and profile completeness, independent recall and wider TD-122 performance work
+remain open. Research counts below refer to the frozen local review corpus;
+they must not replace or be mistaken for today's live runtime. The live rehearsal
+contained 65 variety profiles, while that retained local corpus contains 64.
+
+The [release status](RELEASE-REVIEW.md) distinguishes software delivery from
+source/identity/catalog/qualification/photo approval. All 31 accepted requirement
+IDs and descriptions remain unchanged. Earlier dated audits below are history.
+
 ## Current release and continuation — October 14, 2026
 
 Live canonical `c354866d` includes #401 and the subsequent #402–403 source-reader
@@ -34,27 +56,6 @@ and 5,030 tests; its release and the staged new account await user approval.
 This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.
-
-## Verified status — October 21, 2026
-
-The [Reader text performance follow-up](READER-TEXT-ANALYSIS-PERFORMANCE.md)
-preserves all Reader output fields on 1,270 retained local records while avoiding
-repeated display work. It remains a separate software change requiring exact-head
-CI and release verification; CAT-01/CAT-02 and the wider TD-122 scope remain open.
-
-Production is canonical `219c739a`, including the released platform redesign,
-News/access #401, automatic News #404 and Gene Editing #406. Chris.H is enabled;
-his originally requested password matches and first-login Help remains pending.
-The 52-source mobile worksheet is available behind the existing site login.
-Neither publishing it nor deployment approval supplies its human review answers.
-See [current release status and remaining work](RELEASE-REVIEW.md).
-
-Performance #405 is reconciled onto this release and requires new-head checks
-before shipping. Catalog #399/#400, actual independent source/name/identity
-review, comprehensive profile/portfolio coverage and wider performance work
-remain open. Market and Learn tools are delivered; source-backed content is
-not universally complete. Older dated notes below retain their historical
-states; they do not reverse verified releases or close human review gates.
 
 ## October 14 continuation
 
@@ -217,7 +218,7 @@ table and implementation sequence below are preserved.
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | Live/public visual guide has twelve purpose cards, four analyst workflow steps, worked example, six output explanations and distinct review lifecycle. The current guide includes Social Listening, four-crop Landscape, saved selections and complete PDF/HTML/SVG/CSV reporting; public/live boundaries remain distinct. Eighteen existing guide/static regressions pass. The [variety workflow explainer](VARIETY-WORKFLOW-EXPLAINER-REVIEW.md) adds four steps from source name through identity review and separate catalog authoring to a sourced profile, with existing private handoffs. M38 proof remains dated evidence. Prior October 12 review of eleven cards is dated evidence. Updated twelve-card desktop review and 412px emulation verify the refreshed guide; six outputs now use balanced three/two/one-column layouts. Responsive emulation is distinguished from a physical-phone test. | Visual guide delivered, including current capability limits; final exact-head release and current phone gates apply. |
-| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Platform redesign and News/access releases are live; October 21 production receipt identifies canonical 219c739a. The existing account, provider configuration, runtime mounts and rollback receipts are preserved. The protected mobile worksheet is a separate read-only service. | Performance #405 requires fresh checks and release verification on the reconciled head. Catalog #399/#400 and CAT-01/CAT-02 remain open; deployment approval does not approve source/name/identity/catalog/qualification/photo decisions. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Platform and News/access releases are live, with Gene Editing and performance #405 retained. October 21 production receipt identifies canonical c7e78f66; 5,128 tests, isolated rehearsal and ten signed-in HTTPS routes pass. Existing accounts and 9,783 protected files were preserved. The mobile worksheet remains read-only. | Reconciled catalog #399/#400 needs current-head CI and review; Reader optimization #407 is a separate draft. CAT-01/CAT-02, independent human answers and source/identity/catalog/qualification/photo decisions remain open. |
 
 ## Historical implementation sequence
 
