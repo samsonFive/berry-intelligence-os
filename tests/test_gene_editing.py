@@ -136,6 +136,19 @@ def test_program_filters_and_native_analyst_program_corrections():
     assert all(p['stage']=='Analyst revised stage' for p in model['programs'])
 
 
+def test_rejected_sources_remove_edges_and_disputes_remain_visible():
+    entities,records=model_data()
+    records=deepcopy(records)
+    next(r for r in records if r['id']=='ev-gene-simplot-alliance')['status']='rejected'
+    next(r for r in records if r['id']=='ev-gene-hrb-plantik')['verification_state']='disputed'
+    model=landscape_model(ROOT/'data',entities,records,{})
+    assert not any(e['id']=='rel-gene-simplot-psi' for e in model['relationships'])
+    assert all('evidence gap' in p['verification'] for p in model['programs'] if p['id']=='program-gene-simplot-psi')
+    assert any('disputed' in e['verification'] for e in model['relationships'] if e['id']=='rel-gene-hrb-plantik')
+    disputed=landscape_model(ROOT/'data',entities,records,{'verification':'disputed'})
+    assert {p['id'] for p in disputed['programs']}=={'program-gene-heat-strawberry'}
+
+
 def test_composed_news_filters_berry_geo_date_source_and_adjacent():
     entities,records=model_data()
     # Compact program has real US/Colombia scope. No HQ geography inference.

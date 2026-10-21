@@ -69,7 +69,8 @@ def landscape_model(data_dir, entities, records, params, *, evidence_aliases=Non
     fields = ('crop', 'role', 'technology', 'trait', 'geography', 'stage', 'verification', 'company', 'adjacent')
     filters = {key: str(params.get(key) or '') for key in fields}
     sources = {r['id']: {**r, 'source_url': r.get('source_url') if is_public_http_url(r.get('source_url') or '') else ''}
-               for r in records if r.get('id')}
+               for r in records if r.get('id') and r.get('status') not in {'rejected', 'archived'}
+               and r.get('review_state') not in {'rejected', 'archived'}}
     for key, target in (evidence_aliases or {}).items():
         if target in sources:
             sources.setdefault(key, sources[target])
@@ -91,11 +92,15 @@ def landscape_model(data_dir, entities, records, params, *, evidence_aliases=Non
                 continue
             if not filters['adjacent'] and not program.get('berry_ids'):
                 continue
-            if any(filters[key] and filters[key].casefold() not in str(program.get(key) or '').casefold()
-                   for key in ('crop', 'role', 'technology', 'trait', 'geography', 'stage', 'verification')):
-                continue
             p = deepcopy(program)
             p['sources'] = [sources[key] for key in p['evidence_ids'] if key in sources]
+            if not p['sources']:
+                p['verification'] = 'evidence gap / source unavailable or rejected'
+            elif any(s.get('verification_state') == 'disputed' for s in p['sources']):
+                p['verification'] = 'disputed source / claim requires review'
+            if any(filters[key] and filters[key].casefold() not in str(p.get(key) or '').casefold()
+                   for key in ('crop', 'role', 'technology', 'trait', 'geography', 'stage', 'verification')):
+                continue
             p['company'] = entity['name']
             p['entity_id'] = entity['id']
             p['company_names'] = ' / '.join(entities[key]['name'] for key in p['company_ids'] if key in entities)
@@ -115,6 +120,7 @@ def landscape_model(data_dir, entities, records, params, *, evidence_aliases=Non
         linked = [sources[key] for key in relation['evidence_ids'] if key in sources]
         if linked:
             relationships.append({**relation, 'sources': linked,
+                                  'verification': 'disputed source / relationship requires review' if any(s.get('verification_state') == 'disputed' for s in linked) else relation['verification'],
                                   'subject': entities[relation['subject_id']]['name'],
                                   'object': entities[relation['object_id']]['name']})
     query = urlencode({'topic': 'gene-editing', **filters})
@@ -137,7 +143,8 @@ def csv_export(model):
     for company in model['companies']:
         programs = company['programs'] or [{'entity_id': company['entity_id'], 'company': company['name'], 'gaps': company['gaps']}]
         for program in programs:
-            for source in program.get('sources') or company['sources'] or [{}]:
+            linked = program['sources'] if 'sources' in program else company['sources']
+            for source in linked or [{}]:
                 cells = [program.get(key) or 'Unknown' for key in EXPORT_FIELDS] + [source.get(key) or '' for key in
                     ('id', 'source_url', 'source_name', 'published_date', 'captured_date', 'supporting_excerpt', 'attribution')]
                 writer.writerow(["'"+str(v) if str(v).lstrip().startswith(('=', '+', '-', '@')) else str(v) for v in cells])
