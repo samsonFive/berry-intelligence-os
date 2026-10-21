@@ -1,5 +1,12 @@
 # Technical Debt Register
 
+October 21 — TD-122 continuation: [Reader text analysis](READER-TEXT-ANALYSIS-PERFORMANCE.md)
+removes repeated summary cleaning and quadratic block membership without caching
+records or changing consent thresholds. All-field parity covers 1,270 retained
+local records; 119 focused/existing Reader checks pass. Production-size page
+measurements, repeated corpus scans, large HTML and route contention remain open.
+Source/name/identity review and qualification gates are not performance shortcuts.
+
 October 21, 2026 — Gene Editing slice ([delivery notes](GENE-EDITING-LANDSCAPE.md)):
 
 - **TD-GENE-001, research completion:** Perplexity returned HTTP 429 on three
