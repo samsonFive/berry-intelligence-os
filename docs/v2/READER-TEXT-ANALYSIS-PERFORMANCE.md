@@ -29,6 +29,13 @@ captures are considered on every call; no eligibility decision is cached.
 
 ## Evidence
 
+- The metadata-only server rehearsal now preserves all 3,440 Reader results and
+  every 65-profile/1,164-candidate field except generated discovery time.
+  Alternating discovery calls take 10.589 / 8.905 and 10.167 / 9.406 seconds
+  without/with the fast path. The current follow-up also fixes the separately
+  measured [entity-profile attribution scan](ENTITY-PROFILE-ATTRIBUTION-PERFORMANCE.md);
+  its whole-page comparison must not be credited solely to Reader cleaning.
+
 - Two fast-path regressions and the existing captured/pending/declared-article
   suites pass: 59 tests. Metadata-only and transcript-only inputs retain their
   accounting, newly added body text is visible immediately, and replacing that

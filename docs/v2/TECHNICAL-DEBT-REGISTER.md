@@ -1,5 +1,14 @@
 # Technical Debt Register
 
+October 21 — selected-profile follow-up: [entity attribution measurements](ENTITY-PROFILE-ATTRIBUTION-PERFORMANCE.md)
+identify a 1,721-story full-catalog attribution scan as the main Emerald delay.
+A selected-entity precheck retains the full matcher for possible matches.
+39 affected tests pass; alternating isolated requests fall from about 41.5 to
+10.4 seconds with byte-identical HTML and preserved current data/accounts.
+Full-context parity also passes with helper functions serialized by stable name.
+Browser/release checks and fresh CI remain; ten-second profiles and broader
+TD-122 work are not considered resolved.
+
 October 21 — TD-122 continuation: [Reader text analysis](READER-TEXT-ANALYSIS-PERFORMANCE.md)
 removes repeated summary cleaning and quadratic block membership without caching
 records or changing consent thresholds. All-field parity covers 1,270 retained

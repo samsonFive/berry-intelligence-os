@@ -436,6 +436,27 @@ def draft_matches_entity(
         # Stored id with only a body mention: still a stored link the analyst
         # or capture path already made. Keep it for recall of tagged drafts.
         return True
+    if not isinstance(record.get("_pending_attribution"), dict):
+        # Body-only mentions never make an untagged draft eligible here. Check
+        # this entity's title/newsroom paths before attributing every catalog
+        # entity across the whole article. Keep full attribution for possible
+        # matches so primary-subject and suggestion rules remain authoritative.
+        # Read catalog values afresh; the caller's display entity may be stale.
+        targets = {
+            key: row for key, row in entities.items()
+            if str(row.get("id") or "") == entity_id
+        }
+        title = _title_text(record)
+        title_match = any(
+            row.get("entity_type") in WATCH_ENTITY_TYPES and _first_method(title, row)
+            for row in targets.values()
+        )
+        source_match = any(
+            str((entities.get(key) or {}).get("id") or "") == entity_id
+            for key in _newsroom_company_ids(record, targets, sources)
+        )
+        if not title_match and not source_match:
+            return False
     attribution = attribute_draft(record, entities, sources=sources)
     primary = attribution.get("primary") or {}
     if str(primary.get("id") or "") == entity_id:
