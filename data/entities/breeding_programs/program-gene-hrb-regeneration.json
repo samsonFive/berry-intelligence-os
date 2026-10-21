@@ -1,0 +1,41 @@
+{
+  "id": "program-gene-hrb-regeneration",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "TiGER strawberry single-cell regeneration",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-gene-hrb-regeneration"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-hrb-regeneration",
+      "name": "TiGER strawberry single-cell regeneration",
+      "company_ids": [
+        "company-hudson-river-biotechnology"
+      ],
+      "technology": "TiGER CRISPR workflow",
+      "crop": "Strawberry",
+      "trait": "Regeneration from edited single cells",
+      "partner": null,
+      "geography": null,
+      "role": "editing platform",
+      "stage": "Company demonstration",
+      "milestone_date": "2024-02-06",
+      "milestone": "HRB announced strawberry regeneration from edited single cells.",
+      "evidence_ids": [
+        "ev-gene-hrb-regeneration"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Original page body dates the announcement February 6, 2024; automated metadata incorrectly suggests September 25, 2026. No marketed cultivar established."
+    }
+  }
+}

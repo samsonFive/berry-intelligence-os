@@ -1,0 +1,294 @@
+[
+  {
+    "slug": "simplot",
+    "query": "\"Simplot\" (strawberry OR breeding OR CRISPR)",
+    "feed_url": "https://news.google.com/rss/search?q=%22Simplot%22+%28strawberry+OR+breeding+OR+CRISPR%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "adapter": "news_search_rss",
+    "checked_at": "2026-10-21T07:27:40.697620+00:00",
+    "http_status": 200,
+    "feed_version": "rss20",
+    "entries": 35,
+    "status": "verified",
+    "sample": [
+      {
+        "title": "Disciplined Genetic Selection Adds Value from Pasture to Plate - Drovers Magazine",
+        "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNbm1LMFlpS2pXd3dmZlpva09lc2Vya2VSVFVQTm1maGU2QjJMODh5bXM2VmlhNk45ZUhYaE1rNThUVHJTU1JMN0pzZ08zWVQ4MGFqRkxuRlRHa3gzT1ZxRENvZUJvNm4wd1V6Qmg5NkphbWI5SVBJMmFfWmx1R01VVFVWSE1Xa3drRC13?oc=5",
+        "published": "Mon, 19 Oct 2026 12:02:24 GMT"
+      },
+      {
+        "title": "Gene-Edited Strawberries From Simplot Clear UK Regulatory Hurdle - Global Agriculture",
+        "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQYUo2aTZJdGJad2ZDODZpWFlMeGFaNXViUEQ4TjV0NEJIUnNLcTgzUXZ2em1HdFA2QWJkSld4bFcxb2dud1NlUjJQclN5WGxCa3lQakR1ZkhLZENLanl4Znoyak41UmdfM2dKVjRlRl9HQ2N3YkprbDFRNDFiRERiekkwR0JPR0gxSEZjal9CYkRRZmF4cGlRRERyU1hzWl9DRExFaHBORmtGdlpSbi1ic0JZUk9iNXZ5TjZtSkIzZw?oc=5",
+        "published": "Sat, 10 Oct 2026 07:00:00 GMT"
+      },
+      {
+        "title": "From spuds to strawberries: Simplot’s new business venture - Boise Dev",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE50QndnRVNHZ1FOeGZhZnhkal9ZRC1mb092X3NpdllQY2ZwOXRrcXZYM3FuRnM0MVI3M1ExWW5VUE85SnlmMndQUlpxT0NZOHhqbDB1TjlYYUVqenhvZ2hzSks1QmRvV3hEOEkwUg?oc=5",
+        "published": "Thu, 28 Oct 2021 07:00:00 GMT"
+      }
+    ]
+  },
+  {
+    "slug": "plant-sciences",
+    "query": "(\"Plant Sciences Inc\" OR \"Plant Sciences Genetics\") (berry OR breeding)",
+    "feed_url": "https://news.google.com/rss/search?q=%28%22Plant+Sciences+Inc%22+OR+%22Plant+Sciences+Genetics%22%29+%28berry+OR+breeding%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "adapter": "news_search_rss",
+    "checked_at": "2026-10-21T07:27:40.698613+00:00",
+    "http_status": 200,
+    "feed_version": "rss20",
+    "entries": 21,
+    "status": "verified",
+    "sample": [
+      {
+        "title": "Weekend Interview preview: Isaac Magaña, Plant Sciences Genetics - www.bluebookservices.com",
+        "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNTE94OW9HcnhxWS1kMWpDMlVPdzVVblZ3RVBnc0w4QmNaOUd4RmtwdUlFbTE4R2hKSGxyaWladHZqY0owc0hzdU5lWlRfS3YwdTlSQmhCTjJLVnE0S1ZDd3VuajlUdUxQaUxBbmJvWk9CU2VJeExFbG5BWkdzQVh2YjZXOUNaWXVhYy1XOXJJRTd3ZFJDb0JhWUNBUGlxLThjeWJONVRlbmhTRk0?oc=5",
+        "published": "Mon, 19 Oct 2026 21:45:56 GMT"
+      },
+      {
+        "title": "PSG opens berry genetics to wider European grower market - Fruitnet",
+        "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOM0RYaWdjdFdxMFdYLVpJcFBHc1pUTjg4X1FESGU3Z3o3djFSRm9QWTAwQU1QZWUtR09kNURIdlhXMHdQcGNzVUk0OGdWYnU3bm5CN1B3eVgxVVIxb1NSUExoQUV2YXNGWU5WX0hfY1F0VFlQajNiZFJ5VmxTUnN5YUVDRWlKREgtTVhHeEtPbzFscU9LQW0yU2RqamhqSUdTb2NobFRHT2QtZw?oc=5",
+        "published": "Fri, 09 Oct 2026 16:31:35 GMT"
+      },
+      {
+        "title": "New Year-Round Premium Blackberry Platform Launched by Plant Sciences Genetics - The Packer",
+        "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPYUJZMkNXY3pHODkxQnptdG9JNkpXeGJiVzJDWk1NY3RRRnBTek1GSmtfM0N4aDR5U3lVdEpLVEw4X3R1Z0xCTlk5T3Y1eVpYOWJueWZhWGdjakwxUFViVlFQUWQzelE2UnRTU3NVLTdGUXgwX05FNldwUzROSzQwTThIY3R3S1dlT0JDcUhrX1lVWXJQNVFLNXNLNUdvZFBxc3NSRmZLelhsQQ?oc=5",
+        "published": "Tue, 04 Aug 2026 07:00:00 GMT"
+      }
+    ]
+  },
+  {
+    "slug": "ohalo",
+    "query": "\"Ohalo\" (breeding OR strawberry OR potato)",
+    "feed_url": "https://news.google.com/rss/search?q=%22Ohalo%22+%28breeding+OR+strawberry+OR+potato%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "adapter": "news_search_rss",
+    "checked_at": "2026-10-21T07:27:40.699507+00:00",
+    "http_status": 200,
+    "feed_version": "rss20",
+    "entries": 21,
+    "status": "verified",
+    "sample": [
+      {
+        "title": "Ohalo® Lands Another Agriculture Industry Veteran, Appointing Rob Dunlop as VP, Global Commercial - PR Newswire",
+        "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxNaV9wU3l4SGlfSjI0WUp3RGNlaGdLZUw5U1RhdDFjYVpvOWFWd3p6Ujg4OC1ibzZaeHc3TWRneTBnQ1FSNHlIWm1OT3ZNWHFveUoxU285VHFkOV9wQVJQRHFQWkdZNTZsT0FhOU1LVC1LSHdZTDFhYk5YTHotVGlNZzFQWTlEalBOSFFwLXhlN1NieWNUbm5iV2ZmQzAwdGtER3p2WThFZjI4NEhaeFFteUhYZjBrQm4zQWhES0htRmRONUt0NnJGMktmbGkyQ3hEUmY3QUEzUC1lSG1UckVSTmhxTV8?oc=5",
+        "published": "Tue, 18 Aug 2026 07:00:00 GMT"
+      },
+      {
+        "title": "Ohalo and Allied Potato Partner to Revolutionize Global Potato Breeding with High-Yield, Disease Resistant Varieties - PotatoPro",
+        "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOMlcxd2gxU19kNUhUakpXdkZLZWV6Szl3akdZUW5HY2ViY3hUbnNualg5Q041dDgtWFVuSjVHN3BMRE9vM213bWIzQWtiNkNQempkQ2JKdEYwX0lKRTZKdmZJZktwVnB2bUNrWG9EZFIwRGdfdGZ4djA4SkhIbXkxeUhQOHFYdnJvWFhyZFNxZm1pX1pFbE5RZExmbVFHbXhFQVZxVnJpRXBLTEhxS2MzcVFHOUlSVFl4Wlg0WXo1Zmo?oc=5",
+        "published": "Fri, 26 Jun 2026 07:00:00 GMT"
+      },
+      {
+        "title": "Ohalo Names Rob Dunlop VP of Global Commercial - iGrow News",
+        "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE53YWFha1lFOXFkdndQb1ZVSU1SclBfRVN0Vk9rVmZMN2pyZkotWUFSWDZ5cGQwNGxyR1lLWUhHMG1OZFprNlZyeHl4VkI5N2RCaHc?oc=5",
+        "published": "Wed, 19 Aug 2026 07:00:00 GMT"
+      }
+    ]
+  },
+  {
+    "slug": "pairwise",
+    "query": "\"Pairwise\" (plant OR berry OR CRISPR)",
+    "feed_url": "https://news.google.com/rss/search?q=%22Pairwise%22+%28plant+OR+berry+OR+CRISPR%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "adapter": "news_search_rss",
+    "checked_at": "2026-10-21T07:27:42.021089+00:00",
+    "http_status": 200,
+    "feed_version": "rss20",
+    "entries": 32,
+    "status": "verified",
+    "sample": [
+      {
+        "title": "Pairwise unveils high-yield blackberry - Fruitnet",
+        "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPSHU0b2dfd011amdsRU5NNlBpR2lsMXl5QWxzSFdPTk1UdmE3d1RueDB1WVo2WEtkcGlURG1FTkxoazFHaXUwT3h3Nm45c19ZcXhHZm1oRDRfN1Q0cmU4Z3pqa3NEYVl0d1RFYXp3ekN1SVg3SHp6aExXUnZGcnJfcmtES3BMNHM0RXNrNWwyNWp5Zw?oc=5",
+        "published": "Tue, 20 Oct 2026 07:47:43 GMT"
+      },
+      {
+        "title": "Pairwise sees ‘dramatic uptick’ in CRISPR licensing as gene editing moves beyond row crops - AgFunderNews",
+        "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNOEFxT3F2SHQ3bXI4d3lHYTM5QzUtazdjSGx6MDdJRUhYUm0xdXo3Q3pDTWRaYWQ3cHN6UldBMV9zU01sRmFLakpaWWozSjF2UGVWc3hlNUVMU1RqN0ZCLWZVaUs5V1FLdDNNUFZqN2xiVndCeDU3RW5JMVpYRUxMMm01c1FYc0h4TXUxQmpNVDdoR0dzeWZhR1d5UHAzcFIyeDA4NGRHM1dWVlVVVDV6ekR2VQ?oc=5",
+        "published": "Tue, 18 Aug 2026 07:00:00 GMT"
+      },
+      {
+        "title": "Pairwise Licenses Fulcrum® CRISPR Platform to Wild Bioscience - GlobeNewswire",
+        "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNWnByaUxaSGJCMFBSbjZaY29naTVXOEM4NWRfTUR4WUlrSk83NkFEdG1ybVNJR2ZqY3d0NEd4cXhJdktKcF9mMDRzWnZTYS1PYk4tWExDYUlEMFVSUVNseE1uMHFwVV9NNHkwazdPVUx0SVNncE1IaGpDcHVhMFRzVkp5R2dxLWppdDN0QVprVUxSbi1ZYk5maURnOGMyLW41U0I5dUJpZ08xUkdHMkw3ZFhwVmhMRk9FcmRON2tId3pRbGJCUkFpak9wNGQ?oc=5",
+        "published": "Mon, 23 Feb 2026 08:00:00 GMT"
+      }
+    ]
+  },
+  {
+    "slug": "hudson-river",
+    "query": "\"Hudson River Biotechnology\"",
+    "feed_url": "https://news.google.com/rss/search?q=%22Hudson+River+Biotechnology%22&hl=en-US&gl=US&ceid=US%3Aen",
+    "adapter": "news_search_rss",
+    "checked_at": "2026-10-21T07:27:42.070285+00:00",
+    "http_status": 200,
+    "feed_version": "rss20",
+    "entries": 25,
+    "status": "verified",
+    "sample": [
+      {
+        "title": "‘Bring us your difficult trait problems’: Biographica, Hudson River partner on crop genome editing - AgFunderNews",
+        "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOTXpKSE41MEFEa1ZBcEtVUmkwM1JIc2hYaUIxbExQT0tpWlp3aTN4UjFiQ3o3TjNDRFI3UUtVQVpVLXNpQ0x6LXR4QkVpR1gyZnpGTTZ3UjJCekprX2NLYUJOM3c2NlN6VUl0MEtsbE9zbDRkR19aZVVwQUxnUWxpVWFmSnVJaFdKOEkxWmJYSUxyR0ZCamJYVEEtc1lac3ktNlBTbmZzV1VRc1BMVUlmcGtQWlFfSlIxNjln?oc=5",
+        "published": "Mon, 21 Sep 2026 07:00:00 GMT"
+      },
+      {
+        "title": "Fitó and Hudson River Biotechnology announce an alliance to accelerate plant breeding - Hortidaily",
+        "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQMVdFa2IwZ01QbDFVM09OMzRUSXRpTHRMVXdOaHc0ZTlEZVNyeTB4MEFfMTZ2TDVuXzBvbnlaWWo2YWlUNzJxXzhNcFF0T0FrOHpJeVd6U1JXQUxXdlQ5TnpuMzA3RTMtWHhvbDJzNFhkaUs4My1zYkhxYVFZdndjS1pQZTF0NmdYdTBIaWFWaU0wY1BWd0xNZG1xRlFHeFBjVU9KNk5LX2F1d2lEME1vdHV3RkduRkR4R0x1M3VBZHk2dzJ5RnhscQ?oc=5",
+        "published": "Mon, 12 Oct 2026 12:20:11 GMT"
+      },
+      {
+        "title": "Fitó and Hudson River Biotechnology partner to accelerate plant breeding innovation - Fruitnet",
+        "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNeDZ2R0FuMXpDd2JKYlBQTTRROUNwaW9HdTAwbTJyZW01V2hnWDlUUjZfUFB4RHY0U0huU3k4ZEVYZERDZUxyQkt6UUZZTU9ZN2otVWR1MWxNTlFzXzBTd2ltMXdjRFRDT2R1ZU91M3dfc09YbUlhZTJZRXoyNmhnY2U3TEVQcnNHc2NnZ2VRaDNyQldUQ2pOVHdQSTVfanI4MHNsWVduS0pqLTlFT3JrUnRGVGhpbVpzNFl6VmtXS3A2d1NUQnRXbDNLQllFdw?oc=5",
+        "published": "Fri, 09 Oct 2026 09:42:30 GMT"
+      }
+    ]
+  },
+  {
+    "slug": "plantik",
+    "query": "\"Plantik\" (plant OR strawberry OR breeding)",
+    "feed_url": "https://news.google.com/rss/search?q=%22Plantik%22+%28plant+OR+strawberry+OR+breeding%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "adapter": "news_search_rss",
+    "checked_at": "2026-10-21T07:27:42.159037+00:00",
+    "http_status": 200,
+    "feed_version": "rss20",
+    "entries": 8,
+    "status": "verified",
+    "sample": [
+      {
+        "title": "Exclusive: Plantik and Hudson River Biotechnology team up to de-risk heat-tolerant strawberries - AgFunderNews",
+        "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPdVRPMVA2MDhyaV9tVFFOenV1OVFScVdCRmN5UUJFWmo4Z1hzMC1mTVNYT2h0WjVtSXNlYlNCQzlBaUZCMUI0enRDTnByOWoxbTNXclpqdGt3aTJaUVI3ckg0MmFQdWRuZEFIWmFYQ3FmOTh6Y1h0UjhvcmVjcF8yOFBGQ0hHTURzVlRJcjVicy1aV3NKaFQxR3ZaNHUtY1pEQVJ2azJSVmEwRDlDQ0JwTkhING54Zm14V1M0?oc=5",
+        "published": "Mon, 28 Sep 2026 07:00:00 GMT"
+      },
+      {
+        "title": "Hudson River and Plantik target heat tolerance in strawberries - Fruitnet",
+        "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQTW02dXp4ZExaTHNwMEpwWjIzcE5xaTFvTHZub0lDeVlZNjgwWExRempaWmdnbFQwZU1PYW9OeDU4aXhzaVJETUo1Q0xnY0ZYNnZNSENEZnA4dC1HUlkzZTZxYjZ1cUtnQUJyelRaWUhfYkg3bXlkTTBTUHhaYjBlR0RLSEwycGpRYUJfLU4tVExhS0I3RFVfakhsYXFUbDRYVVZKbTMxNVJVYVdvcXRabjRR?oc=5",
+        "published": "Tue, 29 Sep 2026 09:36:29 GMT"
+      },
+      {
+        "title": "French-Dutch partnership tackles heat tolerance in strawberries, massive trials slated for 2028 - FreshFruitPortal.com",
+        "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNd1lvekhBVWl5M1B3eFlTcVJZeElqUFpOeThFVTdWTm1tWHU0WmRrMExlX3JDUjY5Z0swUDMwTnhaUFM5X3p6dWtVM1ZUZFVEcnZMWVU2WHpQMjNVcElrWHp0T1otQTNxY2t2Uml3YmJHZnB2bHZoRlNaMEozQWNLZA?oc=5",
+        "published": "Mon, 12 Oct 2026 11:00:03 GMT"
+      }
+    ]
+  },
+  {
+    "slug": "fall-creek",
+    "query": "\"Fall Creek\" (blueberry OR nursery)",
+    "feed_url": "https://news.google.com/rss/search?q=%22Fall+Creek%22+%28blueberry+OR+nursery%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "adapter": "news_search_rss",
+    "checked_at": "2026-10-21T07:27:43.027832+00:00",
+    "http_status": 200,
+    "feed_version": "rss20",
+    "entries": 100,
+    "status": "verified",
+    "sample": [
+      {
+        "title": "Fall Creek’s Paul Nselel: “Better berries can grow demand as well as replace older varieties” - FreshFruitPortal.com",
+        "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFA5VHg1YlE4OS1xdktQa2hNVXBKRU5MUU1QNUhXdElDQmxPTU5FSlpMVnhrVzhmaVBaalotOUxGcDlQRUh6cFlyYTVfVHY2S0ZReDVDSExrV2h1SzFPeEM5ek91SFVhTTY3d1FITEJvbFdQa3VERE9zc3VB?oc=5",
+        "published": "Fri, 16 Oct 2026 11:00:24 GMT"
+      },
+      {
+        "title": "Fall Creek Unveils 2 Blueberry Varieties With Outstanding Storage Performance: Everlast and Sekoya Nova - Produce Report",
+        "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOMjJOTnk1ZGRrOGpET2hfVFFtNnpUVkh3NFpBbjBRallmM1dGby0zS1JTSlZzQmJ3dV9FZnFrOHVaQlRXaHhEY1VjLW5MTGtCSDlkbE1BQk4xSGFtR3BiZkhhdTY1SG04Um1zbi1jeEdzVDBNd0psMmtwSUZwcnlyN3lDaXdQMHlmc0VnLThmbkRHa0pDQjFWWHBoaDZCQWZCNUhLVEstMVJWV05RYi1QS1JCd2Z4MlNJczlySjNueUdRMURf?oc=5",
+        "published": "Fri, 16 Oct 2026 04:10:32 GMT"
+      },
+      {
+        "title": "Fall Creek Nursery Solidifies Business Growth With New Raspberry Deal - Growing Produce",
+        "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOQlNPLXN5ZGlXM09qTWl0TmkxNHBnU2hXQWVZWVRqX0VWZnNFaUVUamRQUFF2M3FWQ1RudHFIMC1RTVRFUHNxNlduYjhvSWJnSUthZUxabE1TdnR3aFR0a2pRMktMc2VrdEV2bEpRcl94bFZ5dUVTSVpIMEVmTkoyUXd2YVdTVzhTUGdkVjJwTjRxTndYeUtWTkhmN2MwYV9oa3pyb1hoNHN1bnd2Q2FKYlR5emp4QTQ?oc=5",
+        "published": "Mon, 05 Oct 2026 12:11:26 GMT"
+      }
+    ]
+  },
+  {
+    "slug": "planasa",
+    "query": "\"Planasa\" (berry OR breeding OR nursery)",
+    "feed_url": "https://news.google.com/rss/search?q=%22Planasa%22+%28berry+OR+breeding+OR+nursery%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "adapter": "news_search_rss",
+    "checked_at": "2026-10-21T07:27:43.067530+00:00",
+    "http_status": 200,
+    "feed_version": "rss20",
+    "entries": 29,
+    "status": "verified",
+    "sample": [
+      {
+        "title": "Planasa will present its full berry selection and latest genetic developments in Madrid - FreshPlaza",
+        "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQTlhDZWNJM2xLamFpZlI0QjhpRkFZMjdGTVhzdlgtXzdKN2NFRmx3eGlNZEEzcHlJTnEwempXRndKeVk0X0RXTlZRRWc3YjlmSXFLZks5STZrOWdGMUNySGdLd0xMZENPbmo2SzF2TmlfRlRBSTNhd2tyV0R2Q2lDc1JvRlc1UXVTaWhHdTFDNHE4RjZqUTR3dnprNUF3QXZ5Z2N5NFB3NDczRlZ3bS13VG8zNlVDeUlrZXZCTmRER3dldFpZdG91bEs5b2M0dERLMUViNjBXa296a1F6eHc?oc=5",
+        "published": "Fri, 25 Sep 2026 14:13:12 GMT"
+      },
+      {
+        "title": "Planasa brings its global berry offering and latest advances in genetics to Fruit Attraction - FreshFruitPortal.com",
+        "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5iT1E1ckF1WEc2WHkxZmJ2MzB5WG9jcExGel80dWxYYnpDeHVXeVpiTzNXTm9kSzNJenVxZV9WbHJsczdRTFdrS3VpeFpDVTVEMjZ5VVRCcGpVM050Y2dFYXZQNFpabkJ2b0E1WDF5RGFrV0swVjRFMzd4bTZtZFE?oc=5",
+        "published": "Wed, 23 Sep 2026 14:16:29 GMT"
+      },
+      {
+        "title": "Fruitnet, Planasa and Fall Creek promote Berry Business Week - Fruitnet",
+        "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNZ0N1VjYzSWxSNUctOFJCd0FNRVgwNVFZX0hvejZCYVl4SDFmS0h4MUpGRzAzdEQ2MVViUkI4c0Q2aU4yQmtWS1ZwaE1oc3dwME5iaWtuQWVPd0pJZkkzS2F4d0pyTWd5SDUxbThNOHZ1b2ZlUFFHdjFlYm50SENWaFJHUzdsM2lBMEVaVm5FeVI4RktqVXF6bS1iQlZLYi0xdTZsWnhwYnNDLW00amc?oc=5",
+        "published": "Thu, 08 Oct 2026 15:46:37 GMT"
+      }
+    ]
+  },
+  {
+    "slug": "heritable",
+    "query": "\"Heritable Agriculture\"",
+    "feed_url": "https://news.google.com/rss/search?q=%22Heritable+Agriculture%22&hl=en-US&gl=US&ceid=US%3Aen",
+    "adapter": "news_search_rss",
+    "checked_at": "2026-10-21T07:27:43.115247+00:00",
+    "http_status": 200,
+    "feed_version": "rss20",
+    "entries": 21,
+    "status": "verified",
+    "sample": [
+      {
+        "title": "Turning AI Plant Science Into a Commercial Tool: Heritable Agriculture’s Next Chapter - The Scoop -",
+        "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOU1psTi02ak9lTUNPSkdUSmJlTGQ3eFpHVnlTdjVYbF92WVJXTHYyZE4xSXBjMFRZOWVkUEgzSVlWOU1Nc04xTmRIUkpxUjNzT3JIb3k2ZFJXQjM1WEIyZkxKZ01KZ0pLNGxuM0RZcEl1LU1kV2FCR0J1TFBITi1RWVdVUWh3eC1mc1dXVzlqOXlheXhHQnpVREVJMkpFMk81YjVUa0xfT002T3dhODJaTnhJWkt2WG0tcV9LdnVWNlhIaUdwU1E?oc=5",
+        "published": "Mon, 27 Jul 2026 07:00:00 GMT"
+      },
+      {
+        "title": "Heritable Agriculture Secures $5M Grant for AI-Driven Crop Resilience in Africa - Business Wire",
+        "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNTXUxVzRNWDZUQWdfcFNydmFkb1Z5ZFIzWU0tMTF0eEJid1pjS1FjRnpvT3pwTl9KVVRwOWZwaVdXX3VxZXVQbkMtZVo3YUZuM3ZvUy00STNGSEhQMFNmSzcyT28yR2xBdHZidXdaQmZjT2dGMXUtYVJMek5rd29ZMHluZ05ub3BQUXd3amhaOFEtYWkwODVHeDd5Z281aXYwUkhSWW53aHB1MnNQM19CSjl3YmYzR0VRME9tcUhOTVV1bG5JLVBYbTk5ZjNZUFJ6VFBLOQ?oc=5",
+        "published": "Wed, 28 Jan 2026 08:00:00 GMT"
+      },
+      {
+        "title": "🎥 Digital twins: Heritable Ag combines AI, genomics and environmental data to slash R&D timelines - AgFunderNews",
+        "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQNU9fSDVqcHhhcWZuSGp6QUVmYzJ4Z1lXYjdzb1ZLdFEtWUpjVm9pX3pvMHBHMEFTQUlZaXZpOThYNUZvYzVjT0tIT1ZpR0FFZzVZbVFoR0xhUmpLWDBLZzVrX0NhNzRnSDUzRzFQQlE0RGkzbVdXblkzdngzRnFWTXZDQjFFdU5XRjZiaU9iRlZNMXVYQVhzUTZVdVgzM1JxcGJ1bGN1VGNkOFduM3pDV2ZER1VOQXU5?oc=5",
+        "published": "Thu, 02 Apr 2026 07:00:00 GMT"
+      }
+    ]
+  },
+  {
+    "slug": "qi-biodesign",
+    "query": "\"Qi Biodesign\" OR \"齐禾生科\"",
+    "feed_url": "https://news.google.com/rss/search?q=%22Qi+Biodesign%22+OR+%22%E9%BD%90%E7%A6%BE%E7%94%9F%E7%A7%91%22&hl=en-US&gl=US&ceid=US%3Aen",
+    "adapter": "news_search_rss",
+    "checked_at": "2026-10-21T07:27:44.014461+00:00",
+    "http_status": 200,
+    "feed_version": "rss20",
+    "entries": 8,
+    "status": "verified",
+    "sample": [
+      {
+        "title": "Limagrain Licenses Genome-Editing Technologies From Qi Biodesign - SeedWorld",
+        "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQdk85NzFhZEF2eGpEb0NhYWVmNk1kVGtRUmlNS2V1dnJ2M21GcW9JSzVWQ0t6MFN2NHJNazBtSmx2MVNNTDg0U1Izekg5c1hkQ0JlMW5yLUhRRXNLWDhiZ2RzcFRsUFVsUXJEMk5WOGlIMXdnSkV2LS1kVWg5Z1NPSG5CWEJubEY4dTcybDlZS3piZw?oc=5",
+        "published": "Tue, 04 Aug 2026 07:00:00 GMT"
+      },
+      {
+        "title": "Limagrain and Qi Biodesign sign worldwide licensing - GlobeNewswire",
+        "url": "https://news.google.com/rss/articles/CBMizgJBVV95cUxOY1FpUXlMV3FncThiVVZyeG96WUhucGt5T0oyOHhKVVIwbHhic1JjMmJRZTJKbmVSUUItSWttamlEalBZVTR1ak1JLThBeU5HVTRLd3BTeVZKeVJPQkxhSjdORkd1eFV5aEJIT2EyaVh0SERQSWVPa1JlWmJydWltY1JzdjR2UkVIZ2tJZUhRcjFRXzFFYVQzWXMtaWxXaUtKaGpiQmYwYW40YmFZaEc3TnNtNEFITF9Vdkh5VW01eWNBYzhIVzRfWlBVcDRmdVpQcDg3cV90SExVRWltbjk0b08wRXFSTzlpc3d1X2lJVFc2U3lsX05XRnRNNHhsSk9TMDZsVzFnZHduZml4X2h0NnlGNGExM1dUd2RpZ25femNHQ0wxb21NeG9KenVJYUZ6aGs2MFhTVzNZYlgwTGw2N09QN3BhZ1lLRTMxZDdB?oc=5",
+        "published": "Fri, 31 Jul 2026 07:00:00 GMT"
+      },
+      {
+        "title": "Limagrain and Qi Biodesign sign licensing agreement for genome editing - Hortidaily",
+        "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNWFNkT2tuT1pZQS1zMUltWUZkdTRmRF9pMkZpdkRlaF95R0puUGw4NHdlYy1iUE0zZndJS0I5UExvV0xxbTQzRzBVQkQ3VEVrVkFRc1J1OEZjNFdyc21nUTFlRXFGcG1EX0FfYmVzMlA5QVEzQkQ5SnJoajQ1aldNa3FqcGxqQmEzZ2kxODhPSEIyMzhuTzAxdFUzNERjenJBeWNUYkk0RkVBdGRfa1dIdC1ua1Q?oc=5",
+        "published": "Fri, 11 Sep 2026 07:00:00 GMT"
+      }
+    ]
+  },
+  {
+    "slug": "shunfeng",
+    "query": "\"Shunfeng Bio\" OR \"舜丰生物\"",
+    "feed_url": "https://news.google.com/rss/search?q=%22Shunfeng+Bio%22+OR+%22%E8%88%9C%E4%B8%B0%E7%94%9F%E7%89%A9%22&hl=en-US&gl=US&ceid=US%3Aen",
+    "adapter": "news_search_rss",
+    "checked_at": "2026-10-21T07:27:44.054692+00:00",
+    "http_status": 200,
+    "feed_version": "rss20",
+    "entries": 0,
+    "status": "verified",
+    "sample": []
+  }
+]

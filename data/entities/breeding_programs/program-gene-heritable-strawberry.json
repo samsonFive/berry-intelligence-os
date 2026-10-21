@@ -1,0 +1,41 @@
+{
+  "id": "program-gene-heritable-strawberry",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Indoor strawberry predictive breeding",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-gene-heritable-strawberry"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-heritable-strawberry",
+      "name": "Indoor strawberry predictive breeding",
+      "company_ids": [
+        "company-heritable-agriculture"
+      ],
+      "technology": "AI-driven predictive breeding (editing not established for this program)",
+      "crop": "Strawberry",
+      "trait": "Taste; disease resistance; yield",
+      "partner": "CIV; Paul J. Mastronardi",
+      "geography": null,
+      "role": "trait discovery; breeder support",
+      "stage": "Partnership announced; publication date unavailable",
+      "milestone_date": null,
+      "milestone": "Company release describes an AI-driven greenhouse/tabletop breeding program.",
+      "evidence_ids": [
+        "ev-gene-heritable-strawberry"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "No named commercial variety, trial location, publication date or CRISPR use in this program established. Product-page genome-edit design claims remain unverified."
+    }
+  }
+}

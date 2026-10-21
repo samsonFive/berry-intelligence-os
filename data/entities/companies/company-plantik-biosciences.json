@@ -1,0 +1,22 @@
+{
+  "id": "company-plantik-biosciences",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Plantik Biosciences",
+  "aliases": [
+    "Plantik"
+  ],
+  "status": "unverified",
+  "description": "Gene Editing & Advanced Breeding monitoring seed. Inclusion is not proof of editing activity or commercialization.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-hrb-plantik",
+    "ev-gene-plantik-tech",
+    "ev-gene-plantik-trade",
+    "ev-gene-plantik-hortidaily"
+  ],
+  "attributes": {
+    "official_domain": "https://www.plantik.bio",
+    "gene_editing_research_ref": "data/imports/gene-editing-2026-10-20/snapshot.json"
+  }
+}

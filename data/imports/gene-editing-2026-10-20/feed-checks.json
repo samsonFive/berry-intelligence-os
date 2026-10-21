@@ -1,0 +1,24 @@
+[
+  {
+    "url": "https://planasa.com/feed/",
+    "advertised_by": [
+      "planasa-about",
+      "planasa-news"
+    ],
+    "checked_at": "2026-10-21T07:21:20.512671+00:00",
+    "http_status": 200,
+    "entries": 0,
+    "status": "unverified"
+  },
+  {
+    "url": "https://planasa.com/comments/feed/",
+    "advertised_by": [
+      "planasa-about",
+      "planasa-news"
+    ],
+    "checked_at": "2026-10-21T07:21:20.513361+00:00",
+    "http_status": 200,
+    "entries": 0,
+    "status": "unverified"
+  }
+]

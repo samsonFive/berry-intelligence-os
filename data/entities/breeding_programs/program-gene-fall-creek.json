@@ -1,0 +1,41 @@
+{
+  "id": "program-gene-fall-creek",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Fall Creek Collection",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [
+    "ev-gene-fall-creek-collection"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-fall-creek",
+      "name": "Fall Creek Collection",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "technology": "Conventional breeding / selection and applied research",
+      "crop": "Blueberry",
+      "trait": "Adaptation across chill levels; grower support",
+      "partner": null,
+      "geography": "US; Mexico; Spain; Netherlands (offered trial-site access)",
+      "role": "breeder/germplasm owner; nursery/propagation",
+      "stage": "Commercial genetics platform described",
+      "milestone_date": null,
+      "milestone": "Company page offers Collection genetics, trial-site access and grower support.",
+      "evidence_ids": [
+        "ev-gene-fall-creek-collection"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Gene-editing involvement not established in this research pass. No edited blueberry line is asserted."
+    }
+  }
+}

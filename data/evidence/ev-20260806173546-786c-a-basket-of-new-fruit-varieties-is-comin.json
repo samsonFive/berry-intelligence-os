@@ -20,7 +20,8 @@
   "relationship_ids": [],
   "strategic_question_ids": [],
   "tags": [
-    "Berry joint venture genetics"
+    "Berry joint venture genetics",
+    "gene-editing"
   ],
   "auto_captured": true,
   "validated": true,
@@ -48,5 +49,18 @@
     "method": "deterministic-title-summary-match",
     "version": "berry-tagging-backfill-v1",
     "applied_at": "2026-08-22"
+  },
+  "classification": {
+    "version": "gene-editing-1",
+    "topics": [
+      "gene-editing"
+    ],
+    "relevance": "Direct berry development",
+    "berry_related": true,
+    "reason": "Explicit agricultural editing language",
+    "excerpt": "A basket of new fruit varieties is coming your way - The Economist Gene-edited fruits like seedless blackberries and stoneless cherries use CRISPR technology to create varieties that would be difficult to achieve through conventional breeding.",
+    "excerpt_kind": "metadata_context",
+    "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored",
+    "classified_at": "2026-10-21T07:43:27.732383+00:00"
   }
 }

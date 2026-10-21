@@ -20,7 +20,8 @@
   "relationship_ids": [],
   "strategic_question_ids": [],
   "tags": [
-    "Blueberry breeding program"
+    "Blueberry breeding program",
+    "advanced-breeding"
   ],
   "auto_captured": true,
   "validated": true,
@@ -43,5 +44,18 @@
     }
   },
   "source_id": "source-20260806173428-3785-blueberry-breeding-program-87",
-  "origin_domain": "frontiersin.org"
+  "origin_domain": "frontiersin.org",
+  "classification": {
+    "version": "gene-editing-1",
+    "topics": [
+      "advanced-breeding"
+    ],
+    "relevance": "Direct berry development",
+    "berry_related": true,
+    "reason": "Explicit agricultural advanced breeding language",
+    "excerpt": "Genomic Selection in an Outcrossing Autotetraploid Fruit Crop: Lessons From Blueberry Breeding - Frontiers Blueberry (Vaccinium corymbosum and hybrids) is a specialty crop, with expanding production and consumption worldwide.",
+    "excerpt_kind": "metadata_context",
+    "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored",
+    "classified_at": "2026-10-21T07:43:27.485449+00:00"
+  }
 }

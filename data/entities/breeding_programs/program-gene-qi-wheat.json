@@ -1,0 +1,39 @@
+{
+  "id": "program-gene-qi-wheat",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Powdery-mildew-resistant wheat",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-qi-funding",
+    "ev-gene-qi-lab"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-qi-wheat",
+      "name": "Powdery-mildew-resistant wheat",
+      "company_ids": [
+        "company-qi-biodesign"
+      ],
+      "technology": "Genome editing",
+      "crop": "Wheat",
+      "trait": "Powdery mildew resistance",
+      "partner": null,
+      "geography": "China (company-reported regulatory milestone)",
+      "role": "editing platform",
+      "stage": "Biosafety certificate reported by company",
+      "milestone_date": "2024-12-06",
+      "milestone": "Company release reports a Chinese safety certificate for edited wheat.",
+      "evidence_ids": [
+        "ev-gene-qi-funding",
+        "ev-gene-qi-lab"
+      ],
+      "berry_ids": [],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Original event-specific certificate, event ID, commercial availability and field outcomes not verified."
+    }
+  }
+}

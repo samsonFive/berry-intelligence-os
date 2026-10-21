@@ -1,0 +1,44 @@
+{
+  "id": "program-gene-pairwise-psi",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Pairwise\u2013PSI caneberry collaboration",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [
+    "berry-blackberry",
+    "berry-raspberry"
+  ],
+  "evidence_ids": [
+    "ev-gene-pairwise-psi"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-pairwise-psi",
+      "name": "Pairwise\u2013PSI caneberry collaboration",
+      "company_ids": [
+        "company-pairwise",
+        "company-plant-sciences-genetics"
+      ],
+      "technology": "Gene editing / Fulcrum",
+      "crop": "Blackberry; red and black raspberry",
+      "trait": "Taste; convenience; shelf life; seasonal availability",
+      "partner": "Pairwise / PSI",
+      "geography": "United States (announced target market)",
+      "role": "editing platform; breeder/germplasm owner; nursery/propagation",
+      "stage": "Collaboration announced",
+      "milestone_date": "2020-04-15",
+      "milestone": "Editing plus germplasm and nursery collaboration announced.",
+      "evidence_ids": [
+        "ev-gene-pairwise-psi"
+      ],
+      "berry_ids": [
+        "berry-blackberry",
+        "berry-raspberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Historical launch expectation is not a named commercial raspberry launch."
+    }
+  }
+}

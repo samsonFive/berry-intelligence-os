@@ -1,0 +1,21 @@
+{
+  "id": "company-heritable-agriculture",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Heritable Agriculture",
+  "aliases": [
+    "heritable.ag"
+  ],
+  "status": "unverified",
+  "description": "Gene Editing & Advanced Breeding monitoring seed. Inclusion is not proof of editing activity or commercialization.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-heritable-strawberry"
+  ],
+  "attributes": {
+    "alias_resolution_candidates": ["Heritable"],
+    "alias_resolution_note": "The adjective heritable alone does not establish a company mention.",
+    "official_domain": "https://heritable.ag",
+    "gene_editing_research_ref": "data/imports/gene-editing-2026-10-20/snapshot.json"
+  }
+}

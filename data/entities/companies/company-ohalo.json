@@ -1,0 +1,22 @@
+{
+  "id": "company-ohalo",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Ohalo",
+  "aliases": [
+    "Ohalo Genetics",
+    "oHalo"
+  ],
+  "status": "unverified",
+  "description": "Gene Editing & Advanced Breeding monitoring seed. Inclusion is not proof of editing activity or commercialization.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-ohalo-boosted",
+    "ev-gene-ohalo-launch",
+    "ev-gene-ohalo-strawberry"
+  ],
+  "attributes": {
+    "official_domain": "https://www.ohalo.com",
+    "gene_editing_research_ref": "data/imports/gene-editing-2026-10-20/snapshot.json"
+  }
+}

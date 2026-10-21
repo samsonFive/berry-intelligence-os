@@ -1,0 +1,46 @@
+{
+  "id": "program-gene-heat-strawberry",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "HRB\u2013Plantik heat-tolerant strawberry",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-gene-hrb-plantik",
+    "ev-gene-plantik-trade",
+    "ev-gene-plantik-hortidaily"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-heat-strawberry",
+      "name": "HRB\u2013Plantik heat-tolerant strawberry",
+      "company_ids": [
+        "company-hudson-river-biotechnology",
+        "company-plantik-biosciences"
+      ],
+      "technology": "ATLANTIS target discovery + BioMaas transgene-free editing",
+      "crop": "Strawberry",
+      "trait": "Heat tolerance",
+      "partner": "Hudson River / Plantik",
+      "geography": null,
+      "role": "trait discovery; editing platform",
+      "stage": "Validation trials underway (company report)",
+      "milestone_date": "2026-09-28",
+      "milestone": "Partnership combines tomato-validated targets with strawberry editing; source reports ongoing validation.",
+      "evidence_ids": [
+        "ev-gene-hrb-plantik",
+        "ev-gene-plantik-trade",
+        "ev-gene-plantik-hortidaily"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "No named cultivar, completed strawberry field results or commercial product. Syndicated coverage is not independent trial evidence."
+    }
+  }
+}

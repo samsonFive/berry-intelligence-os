@@ -1,0 +1,43 @@
+{
+  "id": "program-gene-pairwise-seedless",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Seedless blackberry pipeline",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-gene-pairwise-seedless",
+    "ev-gene-pairwise-2026"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-pairwise-seedless",
+      "name": "Seedless blackberry pipeline",
+      "company_ids": [
+        "company-pairwise"
+      ],
+      "technology": "Fulcrum CRISPR / multiplex editing",
+      "crop": "Blackberry",
+      "trait": "Soft small seeds; separate thornless and compact edits",
+      "partner": null,
+      "geography": null,
+      "role": "editing platform",
+      "stage": "Company demonstration / pipeline",
+      "milestone_date": "2024-06-04",
+      "milestone": "Company announced soft-seed and additional edited traits. January 2026 update still describes seedless greenhouse material.",
+      "evidence_ids": [
+        "ev-gene-pairwise-seedless",
+        "ev-gene-pairwise-2026"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Not literally seed-free. Compact sales do not establish commercial seedless or thornless blackberries."
+    }
+  }
+}

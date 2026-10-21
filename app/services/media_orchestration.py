@@ -352,6 +352,11 @@ class MediaOrchestrationService:
         from app.services.source_completeness import with_source_completeness
 
         draft = with_source_completeness(self._draft_from_item(discovered_item, source, enrich=enrich))
+        from app.services.gene_editing import classify
+        classification = classify(draft)
+        if classification['topics']:
+            draft['classification'] = classification
+            draft['tags'] = list(dict.fromkeys([*draft.get('tags', []), *classification['topics']]))
         errors = self._evidence_errors(draft)
         if errors:
             raise MediaOrchestrationError("publication draft failed Evidence validation: " + "; ".join(errors))

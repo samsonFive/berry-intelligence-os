@@ -1,0 +1,659 @@
+{
+  "company": "Heritable Agriculture heritable.ag genome editing",
+  "executed_at": "2026-10-21T06:57:31.861124+00:00",
+  "query": "Deep investigation of Heritable Agriculture heritable.ag genome editing as of October 20 2026. Resolve official domain, legal identity, aliases, parents and subsidiaries. Investigate plant editing versus conventional/advanced breeding, technologies, crops, berry programs, traits, named products, partners (especially PSI, Simplot, Pairwise, Plantik, HRB, Fall Creek, Planasa), IP licenses, financing, dated historical and latest milestones, program geography distinct from HQ, commercial availability and regulatory status by product/jurisdiction/date. Use original company/partner announcements, papers, patents and regulators; use native Chinese for Chinese companies. Provide source URLs, dates, short exact supporting excerpts, attribution, conflicts and evidence gaps. Do not equate Boosted Breeding with CRISPR or assume all roster companies edit berries. Distinguish announced versus demonstrated/field-tested/commercial. Explicitly say not established in this research pass when evidence is missing. Exclude anything after October 20 2026.",
+  "passes": [
+    {
+      "provider": "perplexity",
+      "query": "Heritable Agriculture heritable.ag genome editing official company identity technology berry breeding CRISPR partnership licensing",
+      "hits": [
+        {
+          "title": "Heritable Agriculture - Making Plants Programmable",
+          "url": "https://heritable.ag/",
+          "snippet": "## Three AI Products Transforming Agriculture and Forestry\nOur platform combines three powerful AI products to deliver insights to seed providers, input companies, agronomists, and ultimately, growers.\n### Predict and Optimize\nForecast which varieties will thrive where, rapidly breed improved varieties, or optimize management with our digital twin models.\n...\nUnlock insights from multi-omic data to pinpoint genes driving important traits like yield, flavor, and disease resistance.\n...\n### Design Genome Edits\nUse our DNA language models to create high-impact genome edits that unlock your crop's full potential.\nCRISPR-ready\n...\n## Artificial Intelligence Meets Plant Science\nOur platform unites advanced AI, plant physiology, data science, agronomy, and statistics to reveal deep insights into plant genetics and growth.\n### Artificial Intelligence\nExclusive models trained on vast genomic and phenotypic datasets to predict outcomes.\n### Multi-omic by Default\nIntegrating diverse data types from genomics, transcriptomics, epigenetics, metabolomics, phenomics, and environmental sources for comprehensive analysis.\n...\nForecasting plant performance, identifying gene function, and predicting regulatory element effects with high accuracy.\n...\nEnterprise-grade cloud infrastructure powering analysis of massive datasets.\n...\nOur AI models analyze vast datasets to deliver predictions that accelerate breeding programs and improve crop performance.\n### Any Species\nFrom major row crops to specialty fruits and vegetables, to forestry, our models work across all species\n...\nOur AI models production and breeding for any plant species, helping growers achieve better yields while delivering superior characteristics including flavor, color, and shape.\nStrawberries\n### Premium Berry Genetics\nWith our AI we're developing strawberries optimized for flavor, shelf life, and disease resistance.\nWe analyze millions of data points to identify the perfect strawberry cultivars for any growing conditions.\n...\nBorn at Google's Moonshot Factory, Heritable has been an independent company since 2024.\nHeritable Agriculture\nAI models for smarter crop production and accelerated breeding.\n...\ncontact@heritable.ag",
+          "published_date": null
+        },
+        {
+          "title": "Your Partner for AI-Powered Agriculture",
+          "url": "https://heritable.ag/products",
+          "snippet": "# Meet Heritable Your Partner for AI-Powered Agriculture\nThree integrated AI products working together to revolutionize how you develop, optimize, and deploy agricultural innovations.\n...\nHeritable combines cutting-edge AI with agricultural expertise to deliver actionable insights across your entire workflow—from gene discovery to field deployment.\nAccession-specific predictions at 10-meter resolution\nDigital twin modeling for any species\nGene discovery with multi-omic data\nEdit designs ready for CRISPR, targeted mutagenesis, or precision breeding\n...\nOur three AI products work seamlessly together to accelerate your agricultural innovation from lab to field.\n...\nForecast which varieties will thrive where, rapidly breed improved varieties, or optimize management with our digital twin models.\n...\n- Works for 25+ crop and tree species\n...\nUnlock insights from multi-omic data to pinpoint genes driving important traits like yield, flavor, and disease resistance.\n...\n- Identify the specific genes controlling high-value traits\n...\nHeritable supports the full process, from field trials to improved plants\n...\n### Design Genome Edits\nUse our AI to create high-impact genome edits that unlock your crop's full potential.\n#### Key Capabilities\n- Designs for CRISPR or targeted mutagenesis\n- Off-target prediction and minimization\n- Multi-gene edit optimization\n- Predicted phenotypic outcome modeling\n- Reduce the search-space of potential edits by up to 99.5%\n#### Use Cases\n- Rapid crop improvement without transgenes\n- Trait stacking for complex improvements\n- Regulatory-compliant gene editing\n- Precision breeding acceleration\n- Prediction of tissue specificity (coming soon)\n- Prediction of stress inducibility (coming soon)\n...\nCompare AI-optimized genome edit designs and select the best candidates based on predicted expression levels.\n...\nAll data encrypted at rest and in transit using industry-standard protocols.\n...\nRole-based permissions and multi-factor authentication ensures only your authorized team members can access sensitive information.\n...\nWe do not sell or share your information.\n...\nJoin leading agricultural companies working with Heritable to accelerate crop development and optimize field performance.",
+          "published_date": null
+        },
+        {
+          "title": "The AI revolution with Heritable, CIV, and Paul J. Mastronardi",
+          "url": "https://heritable.ag/press-releases/heritable-strawberries.pdf",
+          "snippet": "Heritable Agriculture, Paul J. Mastronardi, and CIV (Consorzio Italiano Vivaisti), are proud to announce that they have partnered to develop an advanced strawberry improvement program for greenhouse and tabletop varieties.\nThis partnership represents a trifecta of expertise and capabilities essential for a successful breeding program, marrying the genetics and germplasm knowledge of CIV, the AI-driven breeding models and machine learning expertise of Heritable Agriculture, and the production assets, distribution network, and leadership in indoor strawberry production of Paul J. Mastronardi.\nBy uniting germplasm, AI expertise, and advanced growing capabilities, this collaboration forges a synergy that surpasses what any single entity could accomplish alone.\n...\nThe partnership will use Heritable’s AI-driven predictive breeding technology to: \n●​ Predict crop performance through simulations, before strawberries are \nplanted.\n●​ Optimize traits that are important in greenhouse environments, such as taste, \ndisease resistance, and yield.\n●​ Develop varieties that streamline growth and management practices for \nindoor growers.\n●​ Reduce breeding timelines, bringing superior varieties to market faster.\n...\nHeritable’s AI-driven breeding program optimizes both grower and consumer traits simultaneously, and their breeding simulations and predictions drastically reduce breeding cycle timelines.\nBy partnering with Paul J. Mastronardi for operational and market leadership, and CIV for their worldclass germplasm, Heritable is set to transform the strawberry market.\n...\nHeritable Agriculture’s multi-omic, AI-driven predictive models generalize across species, environments, and traits, making the approach highly adaptable to any operation.\nThe technology extends to crops such as tomatoes, spinach, and peppers, offering an opportunity for growers looking to diversify and innovate.\n...\nAbout Heritable Agriculture \nBorn at X, Alphabet’s moonshot factory, and founded by molecular and computational biologists with extensive experience in plant genetics, Heritable\nAgriculture develops AI-driven crop breeding solutions.\nThe company uses its proprietary AI-driven models to lower the costs and accelerate the time to market for expansive opportunities in the agriculture sector, in this case for indoor agriculture.",
+          "published_date": null
+        },
+        {
+          "title": "8 AI Players to Watch in Crop Breeding - Seed World",
+          "url": "https://www.seedworld.com/us/2026/09/28/ai-crop-breeding-players-watch/",
+          "snippet": "# 8 AI Players to Watch in Crop Breeding\n## Heritable Agriculture\nBased in:** ** California\nAffiliation:** ** Google spin-off\nAmong its services, Heritable Agriculture offers an AI breeding platform that simulates how existing varieties or crosses (breeding) will perform anywhere in the world to 10-meter resolution, speeding up breeding timelines.\nIn addition to modeling on the whole plant level, the firm’s AI tech is identifying genes that control various plant functions.\nHeritable Agriculture CEO Brad Zamft notes they are “filling the gap with our model, taking the performance data and integrating climate and soil data and then we make digital twins of crop plants.\nWe can predict for breeders what crosses to do, what varieties to grow where and they use their experience and intuition to refine that.”\nHeritable recently partnered with Paul J. Mastronardi (a greenhouse operator in Ontario, Canada) and Consorzio Italiano Vivaisti (a strawberry breeder in Italy).\nTraditional breeding programs have not addressed the needs of greenhouse cultivation, but the use of Heritable Agriculture’s platform will focus on maximizing taste, disease resistance, yield and other traits in the greenhouse environment.\nThe new strawberry varieties are expected to reach market by 2028.",
+          "published_date": "2026-09-28"
+        },
+        {
+          "title": "AI-driven biotechnology platform to help breeding - Hortidaily",
+          "url": "https://www.hortidaily.com/article/9702132/ai-driven-biotechnology-platform-to-help-breeding/",
+          "snippet": "Heritable Agriculture, a new independent company born out of Alphabet's moonshot factory, X, has officially launched with a focus on advancing plant breeding and biotechnology, and a special focus on greenhouse crops.\nThe company aims to address the challenges of food security by developing an AI-driven platform designed to enhance crop yields, improve nutritional value, and build resilience to environmental and pathogen stress.\n...\nWith financial backing from FTW Ventures, Mythos Ventures, and the Sunrise and Pioneer funds of SVG Ventures, Heritable Agriculture has built a platform leveraging artificial intelligence (AI), multi-omics data, predictive breeding techniques, and high-throughput gene editing to improve plant performance.\nThe platform offers agricultural partners three primary services: gene identification, gene editing design, and plant performance prediction based on local environmental conditions.\n...\nThe company's platform is designed to make plants programmable, allowing for specific genetic modifications that enhance desired traits such as nutrition, flavor, and color.\nThe team behind Heritable includes plant biologists and machine learning experts, including co-founders Dr. Davide Sosso, Professor Tim Beissinger, and Dan Voytas, a recognized leader in the field of plant gene editing.\n...\nIn addition to its focus on edible crops, Heritable Agriculture is collaborating with ArborGen, a global leader in tree seedling production, to apply its technology to improve loblolly pine trees.\nEarly research suggests that Heritable's AI-driven methods could significantly reduce the time required for tree improvement, helping to address the global demand for timber and other forestry products.\n...\nHeritable's team, led by experts in AI, plant biology, and agricultural research, aims to revolutionize crop improvement by integrating cutting-edge technologies to develop more efficient, resilient, and nutritious plant varieties.",
+          "published_date": "2026-05-07"
+        },
+        {
+          "title": "Heritable Agriculture Launches From X, The Moonshot Factory, to ...",
+          "url": "https://www.businesswire.com/news/home/20250130584800/en/Heritable-Agriculture-Launches-From-X-The-Moonshot-Factory-to-Improve-Crops-and-Sustainably-Feed-the-World",
+          "snippet": "*AI-driven biotechnology platform is designed to improve plants for higher yields, improved nutrition, and a more resilient global food and forestry system*\nMOUNTAIN VIEW, Calif.--(BUSINESS WIRE)--Heritable Agriculture, a project originally founded and incubated inside Alphabet’s moonshot factory, emerged from stealth today as an independent company focused on advancing plant breeding and biotechnology to make the world’s food and agricultural systems more resilient.\nWith investment from FTW Ventures, Mythos Ventures, and both the Sunrise and Pioneer funds of SVG Ventures, Heritable has developed an AI platform to make plants programmable, with the goal to deliver higher yields, improved nutrition, better resilience to pathogen and climate stress, and faster seed breeding cycles at lower cost.\n...\n“Our AI-powered biotechnology platform has potential to address key challenges faced by the agriculture industry, including lowering the costs of crop improvement, boosting yields, enhancing disease resistance, and accelerating the development of new plant varieties.”\nHeritable Agriculture combines advanced AI, the expanding field of multi-omics, new methods in predictive breeding, and high throughput gene editing.\nTogether, these technologies offer groundbreaking new ways to breed plants to perform better in specific environments, or dial up particular properties like nutrition, color, or flavor.\nThe Heritable platform offers agriculture partners three key services: identifying important genes, designing specific edits to manipulate those genes, and predicting plant performance in the context of the local environment and management practices.\n...\nThey have added a fourth co-founder, Dan Voytas, a National Academy of Sciences member who has led the field of plant gene editing both in academia and in industry\nHeritable's vision extends beyond edible plants: they have teamed up with ArborGen, a global provider of tree seedlings, to expedite the development of superior loblolly pine trees.\nInitial research suggests Heritable's AI can halve the time needed for tree improvement.\nBoth companies are now actively integrating this technology into their seedling production.\n...\n“Their ability to generate proprietary data, derive insights across diverse crop species, and build deep industry partnerships will allow them to address one of the most pressing challenges in food production today.\n...\n- Heritable’s website: https://heritable.ag/\n...\nBrad Zamft, press@heritable.ag, 408-475-8462\n...\n**Headquarters:** Mountain View, CA\n**Website:** heritable.ag",
+          "published_date": "2025-01-30"
+        },
+        {
+          "title": "Introducing Heritable Agriculture - Google X Blog",
+          "url": "https://x.company/blog/posts/heritable-agriculture/",
+          "snippet": "# I n t r o d u c i n g H e r i t a b l e A g r i c u l t u r e\nX’s moonshot for advanced plant breeding is now an independent company\n...\nOur work ultimately led us to build new technology to advance the way plants are bred.\nToday, I’m excited to share that our moonshot has evolved into Heritable Agriculture, an independent company with funded from FTW Ventures, Mythos Ventures, and SVG Ventures.\n...\n## A wealth of data ripe for the parsing\nThe flexible, iterative work environment at the moonshot factory, coupled with Google’s AI expertise, ultimately led our team to create a machine learning platform that can uncover critical new details about how plants grow, so we can use these breakthroughs to breed any type of crop to be more sustainable.\n...\n## 'Programming' plants with machine learning\nOur team inside X used advanced computational biology techniques to decode the natural adaptations in plant biodiversity, developing machine learning models that can identify and understand the function of specific genomes in plants.\nBy understanding those genomes, the crops can then be bred with climate-friendly traits for increased yields, lower water requirements, and higher carbon storage capacity in roots and soil.\n...\nWe also spent time getting our hands dirty out in the field.\nIn partnership with researchers and industry leaders, we ran studies across a variety of crops at agricultural sites in California, Wisconsin, and Nebraska, gathering information about everything from the number of kernels in an ear of corn to the bitterness of certain vegetable crops.\n...\n## Food, forestry, and beyond\nFrom our tests, we see a path towards using our technology platform to identify and predict genetic determinants of plant traits like color, taste, water requirements, nitrogen requirements, and even the ability to absorb carbon from the air.\nNow, at Heritable Agriculture, we’re working to help farmers and agriculture companies better understand the specific genomes of plants they will need to yield the healthiest, most abundant crops in their given environments.\nWe’re also excited about the potential for our platform to enable sustainable forestry by re-populating native tree species in deforested areas.\n...\n## Bringing Heritable to more partners around the world\nA “heritable” trait is something that has been inherited by its genome.\nWe chose the name “Heritable Agriculture” as a nod to the power of plants: if you get the genomes of these self-assembling, carbon-negative machines just right, you’ve built an intervention that can scale like nothing else.\nBy optimizing these heritable traits, our vision is to use our technology to bring about a more diverse, abundant, resilient, and nutritious food system across the globe.\nWe’re currently collaborating with partners across the agriculture and forestry industries to bring Heritable Agriculture’s technology to life and advance our mission.\nIf you’re working on advanced crop improvement in the seed, food, or forestry spaces and are interested in learning more, we’d love to talk—reach out to contact@heritable.ag.",
+          "published_date": null
+        },
+        {
+          "title": "Digital twins for crops: Heritable Ag's AI plant-breeding ...",
+          "url": "https://agfundernews.com/digital-twins-heritable-ag-combines-ai-genomics-and-environmental-data-to-slash-rd-timelines",
+          "snippet": "Theoretical physicist turned agtech entrepreneur Brad Zamft, PhD, at Google X spinout Heritable Agriculture, is on a mission to make plant breeding faster and cheaper.\n...\n**BZ**: What Heritable provides is a comprehensive solution to improving crops.\nThis spans the ability to simulate real plants in real fields.\nWe make digital twins, incorporating soil and weather to 10-meter resolution anywhere in the world.\nWe also work on the ability to identify—for traits that are controlled by a few or a few dozen genes—the causative genes, and we’ve shown that we can do that with unprecedented accuracy.\n...\nThis is where we learn from massive improvements in large language models.\nJust like we know the underlying grammar and syntax of human language, Heritable now incorporates the grammar and syntax of the DNA language into our models to understand the exact bases that are controlling these genes.\nSo I think a differentiator for us vs some others in the field is that we provide that comprehensive solution: digital plants growing in digital fields, working on traits that are sometimes controlled by thousands or tens of thousands of genes, and developing a fine tuned understanding of the few important genes for certain traits, understanding the important base pairs for control of those traits.\n...\nIn terms of digital twins, we’ve shown that we can simulate the varieties that our partners have been growing in new environments or environments that they haven’t told us about, and that we have high accuracy in creating that digital twin.\nIn terms of the gene discovery functionalities, we spent a lot of the time while we were at Google X running the full stack.\nSo we would identify a trait, we would run a field trial.\nWe would extract the tissues and sample the tissues, which is not trivial when you’re doing RNA.\nWe would train the model and based off of the omics we would identify the genes, and then we commissioned gene editing.\nThose plants were gene edited, and we watched them grow, and we saw how the genes that we identified actually did have an effect on the trait that we targeted.\nWe’ve done that in three species so far, and the efficiency numbers make it very clear that we have unprecedented level of accuracy in that gene discovery model.\n...\n***AFN*: What’s your business model?**\n**BZ**: We’ll work with anybody who wants to improve crops.\nAnd that takes multiple forms.\nSometimes it’s as simple as giving a license to our software tool that allows breeders that have an existing collection of genetics and have them simulate new environments so that they can increase their market share.\nThey can mitigate climate risk.\nThey can mitigate geopolitical risk.\nSometimes we work in a traditional trait licensing model where we’ll identify the strategy to improve a trait, and then there’ll be a royalty on the improved trait.\nAnd what’s really exciting is our partnership with [indoor grower] Red Sun Farms, where we’re going to create a new, improved strawberry variety.\nTraditionally, when you use linear statistical models, you have to make some sacrifices.\nYou either have to focus extremely on yield, to push yield improvement faster, or other things.\nIf you try to do them both at the same time, you make progress, but you don’t make as rapid progress as you could on either one.\nArtificial intelligence allows us to do better than that.\nWe can make more progress faster on multiple traits.\nAnd in some cases, having the models more constrained by focusing on multiple traits, makes the model better.\nWhat that means is that in our strawberry program, and in many programs, we’re focusing on many traits.\nThese include grower traits, like yield and disease resistance, but it also includes consumer traits like flavor, fruit architecture, and color.\n***AFN*: With your approach, I guess you could use this to inform a traditional breeding process or a gene editing process?**\n**BZ**: That’s right.\nThat’s why I call it the comprehensive solution to crop improvement.\nThere are certain traits that need breeding.\nThey’re called quantitative traits.\nThere’s thousands of low effect size genes that control that trait.\nIt’s not going to be easy to affect that through a CRISPR pipeline, so breeding is here to stay.\nThe incorporation of the environment is an incredibly complicated task, and the way we’ve solved that is through our digital twin simulations.\nThere are also markets that are just not going to tolerate gene editing, either for regulatory reasons or in the court of public opinion.\nNow there are some traits that are really going to be accelerated through a gene editing or other targeted mutagenesis pipeline.\nCRISPR is not the only solution to being able to make and edit exactly where you want.\nSo we also provide the ability to lower the cost and accelerate the timelines of those pipelines.\n***AFN*: Who are you partnering with?**\n**BZ**: We have disclosed partnerships with Syngenta; [German plant breeder] KWS; ArborGen, which is a tree nursery; and Red Sun Farms.\nRecently, we received a $5 million grant from the Gates Foundation to use the entire might and magic of all of the computational tools I just told you about to improve corn for the Sub-Saharan smallholder farmer.\n...\nI’m going to make a bold, ambitious claim: I think we’re going to get a new strawberry variety on supermarket shelves in four years from start to finish for a few million dollars, and this is just the beginning.",
+          "published_date": "2026-04-02"
+        }
+      ],
+      "latency_seconds": 0.851,
+      "request_id": "2d37e855-57b1-424f-89f8-6b9e31d6bdc3"
+    },
+    {
+      "provider": "perplexity",
+      "query": "Heritable Agriculture heritable.ag genome editing 2025 2026 strawberry blueberry genome editing commercialization milestones research evidence",
+      "hits": [
+        {
+          "title": "Ag Genomics Begins to Bear Fruit",
+          "url": "https://www.genengnews.com/topics/omics/ag-genomics-begins-to-bear-fruit/",
+          "snippet": "Heritable Agriculture is adapting genetics from Consorzio Italiano Vivaisti’s (CIV’s) strawberries to grow indoors in Canada.\n...\n# Ag Genomics Begins to Bear Fruit\nGenomics tools—fine-tuned and applied to agriculture—create commercially desirable traits in a fraction of the time required by standard breeding programs\n...\nJuly 9, 2026\n...\nInsights are compressing 30 years of field trials into a single growing season and enabling growers to express specific traits without introducing foreign genes and without hit-and-miss Mendelian hybridization.\n...\n#### CRISPR: Beyond corn and soy\nCRISPR technology is being applied to agrigenomics with the same revolutionary results it created for medicine.\nAs the basis of Pairwise’s Fulcrum™ Platform, it is expanding agrigenomics well beyond the major crops of corn and soybeans.\nRyan Bartlett, PhD\nCTO, Pairwise\nFulcrum technology produced the world’s first seedless blackberry—now in field trials—and a more compact blackberry plant that is commercialized in the Americas.\nWith this compact Fontana blackberry, “Growers can plant more blackberry plants per acre, which helps them be more efficient and produce more yield,” Ryan Bartlett, PhD, CTO, says.\nA thornless blackberry plant is on the horizon.\nThe goal is to “make growers more sustainable and efficient, and to give consumers the opportunity to consume more healthy things, like blackberries,” Bartlett says.\nFast, precision editing will also help plant breeders quickly adjust to climate change.\nFulcrum features plant-specific CRISPR editing that fine-tunes gene expression rather than simply turning genes on or off.\nThe platform includes additional gene editing tools, enzymes, and trait libraries to help breeders design and test changes and quickly advance specific phenotypes into field trials.\nBartlett calls this “traditional breeding on an accelerated basis.”\nWith Fulcrum, these new blackberries were produced in about three years.\nUsing traditional Mendelian breeding would have taken 10 to 40 years.\nGenomics tools coupled with advanced analytics enable growers to plant more per acre.\n[Pairwise]\nThe speed comes from genome editing that generates the desired phenotype in one cycle, eliminating the need for generations of crosses to develop the features growers want.\n...\n#### New opportunities\nHeritable focuses on breeding indoor vegetables and forestry, although it also develops fruits and row crops with strategic partners.\n“The majority of the unmet need comes from placing existing plants in the right places and determining what crosses would make them better,” Zamft says.\nBrad Zamft, PhD\nCEO, Heritable Agriculture\nConsider strawberries.\n“We think we’re going to bring a new strawberry variety to the market—start to finish—within four years.\nThe status quo is around a decade.”\nHeritable can identify desired traits, determine the genes involved, and validate them in growing plants within 18 months, versus 3 to 12 years using traditional methods.\nCurrently, Heritable is adapting genetics from Consorzio Italiano Vivaisti’s (CIV’s) strawberries to grow indoors in Canada.\nTo speed the process, Heritable uses digital field trials and an AI engine developed in-house specifically for agrigenomics.\n...\nIncreasingly accurate correlations of genes to phenotypes shorten the development timeline, Zamft adds.\nFor example, three of the top eight genes Heritable’s team discovered for flowering time in corn proved causative, and three of three in a flavor project for leafy greens.\nIn contrast, he cited a literature analysis that reported that out of 1,671 unique genes that were field-tested across multiple traits, only 22 were identified as validated leads.\nTo produce and commercialize these innovations, Heritable relies on an alliance of partners in which each partner brings vital strengths to the endeavor, from genomics through production, distribution, and sales.\nThe company also engages in trait development with seed developers and growers, and recently launched a software-as-a-service platform to enable users to predict plant performance under multiple variables.\nThe company is also active in commercial forestry, using AI to help breeders make placement and breeding decisions that could shorten the breeding cycle by more than half.\n...\n#### Gene editing = no GMOs\nTherefore, using Verinomics’ Genesis™ gene editing platform, “we identified the self-incompatibility gene and edited it to a self-compatible gene.”\nThe resultant Nonpareil+ is genetically identical to the Nonpareil except that it is self-pollinating.",
+          "published_date": "2026-07-09"
+        },
+        {
+          "title": "Overcoming breeding barriers with genome editing in ...",
+          "url": "https://link.springer.com/article/10.1186/s12870-026-08862-7?error=cookies_not_supported&code=8731e02a-a886-4822-8442-c8eeef1f3915",
+          "snippet": "## Abstract\nTogether, these developments provide a path toward efficient and heritable genome editing in complex polyploid genomes, setting the stage for next-generation precision breeding in crops vital to food, forage, and bioenergy security.\n...\n## Background\nThis review summarizes recent advancements in genome editing across four major autopolyploid crops that are essential to both small- and large-scale agricultural systems worldwide.\nAlthough genome editing has been applied to a broad range of agronomic and biological traits, progress varies substantially across species: potato accounts for most published studies, followed by alfalfa, and sugarcane, whereas blueberry remains largely underexplored, with only a few proof-of-concept reports.\n...\n### Precision breeding applications in autopolyploid crops through genome editing\nBlueberry remains restricted to regeneration from leaf explants and axillary buds, and its *Agrobacterium*- mediated transformation remains inefficient and strongly genotype-dependent.\n...\n#### Shared genome editing applications across crop species\nIn blueberry, similar strategies have been implemented, although overall transformation and editing efficiencies remain comparatively low [43].\nContinued improvements in editing systems, sgRNA expression, and delivery methods will be essential to increaseediting success in recalcitrant crops.\n...\n#### Crop-specific genome editing applications\n##### Blueberry ( Vaccinium corymbosum )\nGenome editing research in blueberry remains limited but has generated significant proof-of-concept outcomes, specifically in regeneration and flowering regulation.\nThe woody nature and long juvenile period of the species make it a challenging yet promising candidate for future improvement (Table 2, Supplementary Table 1, Fig. 1).\nIn flowering regulation, targeting the negative regulator *CENTRORADIALIS* (*VcCEN*) shortened the juvenile phase.\nAlthough initial experiments did not achieve early flowering, succeeding work effectively induced it, implying that genome editing can accelerate reproductive transitions and shorten breeding cycles [102, 103].\nWhile still in early-stage development, genome editing in blueberry reveals technical feasibility for both validation and trait modification.\nContinued progress will rely on advancing transformation and regeneration systems, laying out the groundwork to accelerate precision breeding of high-value cultivars.\n...\n### Technical and biological barriers to efficient genome editing in autopolyploid crops\n#### Genotype-dependent recalcitrance in transformation\nEven among autopolyploid crops, blueberry remain particularly challenging in genome editing due to its exceptionally low transformation and regeneration efficiencies.\n*Agrobacterium tumefaciens*–mediated transformation often yields only a small number of transgenic shoots, and these efficiencies improve only marginally when CRISPR/Cas9 is incorporated [110, 111].\nSome blueberry cultivars are also highly sensitive to antibiotic-based selection: commonly used agents such as kanamycin and hygromycin frequently either fail to suppress non-transgenic escapes or severely inhibit regeneration even at low concentrations [100, 112, 113].\n...\n### Concluding remarks and future trends\nThese achievements demonstrate that precise genome editing is feasible in complex genomes, although routine deployment in breeding pipelines still requires substantial technical innovation.\n...\nAchieving heritable and phenotypically scorable edits requires strategies explicitly tailored to polyploid allele dosage.\nMultiplexed sgRNA systems have consistently improved multi-allelic editing, enabling robust phenotypic outcomes through large deletions or tetra-allelic knockouts.\n...\nFinally, regulatory policies for gene-edited crops are evolving globally, with several countries classifying transgene-free edited lines as non-GMO [176].\n...\nTogether, the convergence of high-resolution genomic resources, improved editing architectures, optimized delivery platforms, and advanced computational tools will enable the next generation of efficient, predictable, and publicly acceptable genome editing applications in autopolyploid crops.",
+          "published_date": "2026-05-09"
+        },
+        {
+          "title": "Your Partner for AI-Powered Agriculture",
+          "url": "https://heritable.ag/products",
+          "snippet": "Heritable combines cutting-edge AI with agricultural expertise to deliver actionable insights across your entire workflow—from gene discovery to field deployment.\n...\nEdit designs ready for CRISPR, targeted mutagenesis, or precision breeding\n...\nHeritable supports the full process, from field trials to improved plants\n...\n### Design Genome Edits\nUse our AI to create high-impact genome edits that unlock your crop's full potential.\n#### Key Capabilities\n- Designs for CRISPR or targeted mutagenesis\n- Off-target prediction and minimization\n- Multi-gene edit optimization\n- Predicted phenotypic outcome modeling\n- Reduce the search-space of potential edits by up to 99.5%\n#### Use Cases\n- Rapid crop improvement without transgenes\n- Trait stacking for complex improvements\n- Regulatory-compliant gene editing\n- Precision breeding acceleration\n- Prediction of tissue specificity (coming soon)\n- Prediction of stress inducibility (coming soon)\n...\nCompare AI-optimized genome edit designs and select the best candidates based on predicted expression levels.",
+          "published_date": null
+        },
+        {
+          "title": "Overcoming breeding barriers with genome editing in autopolyploid ...",
+          "url": "https://link.springer.com/article/10.1186/s12870-026-08862-7?error=cookies_not_supported&code=63e9e686-7a23-443c-b4e9-fe44c8704ffe",
+          "snippet": "## Background\nThis review summarizes recent advancements in genome editing across four major autopolyploid crops that are essential to both small- and large-scale agricultural systems worldwide.\nAlthough genome editing has been applied to a broad range of agronomic and biological traits, progress varies substantially across species: potato accounts for most published studies, followed by alfalfa, and sugarcane, whereas blueberry remains largely underexplored, with only a few proof-of-concept reports.\n...\n### Precision breeding applications in autopolyploid crops through genome editing\nBlueberry remains restricted to regeneration from leaf explants and axillary buds, and its *Agrobacterium*- mediated transformation remains inefficient and strongly genotype-dependent.\n...\n#### Shared genome editing applications across crop species\nIn blueberry, similar strategies have been implemented, although overall transformation and editing efficiencies remain comparatively low [43].\nContinued improvements in editing systems, sgRNA expression, and delivery methods will be essential to increaseediting success in recalcitrant crops.\n...\n#### Crop-specific genome editing applications\n##### Potato ( Solanum tuberosum )\nAlthough these results have been fundamental in accelerating tuber quality improvement, only one cultivar (*StPPO* knockout) has been approved, but it has not yet been commercialized (Gene Editing Tracker: https://crispr-gene-editing-regs-tracker.geneticliteracyproject.org).\n...\n##### Blueberry ( Vaccinium corymbosum )\nGenome editing research in blueberry remains limited but has generated significant proof-of-concept outcomes, specifically in regeneration and flowering regulation.\nThe woody nature and long juvenile period of the species make it a challenging yet promising candidate for future improvement (Table 2, Supplementary Table 1, Fig. 1).\nIn flowering regulation, targeting the negative regulator *CENTRORADIALIS* (*VcCEN*) shortened the juvenile phase.\nAlthough initial experiments did not achieve early flowering, succeeding work effectively induced it, implying that genome editing can accelerate reproductive transitions and shorten breeding cycles [102, 103].\nWhile still in early-stage development, genome editing in blueberry reveals technical feasibility for both validation and trait modification.\nContinued progress will rely on advancing transformation and regeneration systems, laying out the groundwork to accelerate precision breeding of high-value cultivars.\n...\n### Technical and biological barriers to efficient genome editing in autopolyploid crops\n#### Genotype-dependent recalcitrance in transformation\nEven among autopolyploid crops, blueberry remain particularly challenging in genome editing due to its exceptionally low transformation and regeneration efficiencies.\n*Agrobacterium tumefaciens*–mediated transformation often yields only a small number of transgenic shoots, and these efficiencies improve only marginally when CRISPR/Cas9 is incorporated [110, 111].\n...\n### Strategies to overcome barriers to genome editing in autopolyploid crops\n#### Leveraging endogenous promoters to improve editing efficiency\nAlthough early blueberry studies suggested benefits to native promoters [43], stable transformations did not show marked improvements relative to heterologous promoters [102], likely due to limitations of early genome assemblies [145].\n...\n### Concluding remarks and future trends\nHowever, notable progress has been made in targeted modification of traits related to biomass accumulation, lignin content, starch metabolism, flowering control, biotic and abiotic stress tolerance, and quality attributes.\nThese achievements demonstrate that precise genome editing is feasible in complex genomes, although routine deployment in breeding pipelines still requires substantial technical innovation.\n...\nFinally, regulatory policies for gene-edited crops are evolving globally, with several countries classifying transgene-free edited lines as non-GMO [176].\nThis trend has enabled the approval of low-lignin alfalfa in Canada and non-browning potato in Argentina (Gene Editing Tracker: https://crispr-gene-editing-regs-tracker.geneticliteracyproject.org).\n...\nTogether, the convergence of high-resolution genomic resources, improved editing architectures, optimized delivery platforms, and advanced computational tools will enable the next generation of efficient, predictable, and publicly acceptable genome editing applications in autopolyploid crops.",
+          "published_date": "2026-05-09"
+        },
+        {
+          "title": "Heritable Agriculture - Making Plants Programmable",
+          "url": "https://heritable.ag/",
+          "snippet": "# Better AI for Better Crops\n## Three AI Products Transforming Agriculture and Forestry\n### Design Genome Edits\nUse our DNA language models to create high-impact genome edits that unlock your crop's full potential.\nCRISPR-ready\n...\n## Transforming High-Value Crops\nStrawberries\n### Premium Berry Genetics\nWith our AI we're developing strawberries optimized for flavor, shelf life, and disease resistance.\nWe analyze millions of data points to identify the perfect strawberry cultivars for any growing conditions.",
+          "published_date": null
+        },
+        {
+          "title": "Heritable Agriculture - Making Plants Programmable",
+          "url": "https://heritable.ag/press",
+          "snippet": "Heritable Ag named the most talked-about start up of 2025\n...\nCould strawberries grow in Canada year-round?\nAn Ontario greenhouse is trying.\n...\nI sat down with Brad Zamft, the co-founder and CEO of Heritable Agriculture, to take a deep dive into all the science behind the effort to program plants.\n...\nAI-powered breeding targets indoor strawberry cultivation\n...\nHeritable Ag aims to make food crops and tree crops up to 30% more productive\n...\nAugust, 2026\n### Heritable Agriculture, Annogen Agri collaborate on functional annotation to accelerate maize trait development\n...\nJanuary, 2026\n### Heritable Agriculture Secures $5M Grant for AI-Driven Crop Resilience in Africa\n...\nJanuary, 2026\n### Heritable Agriculture and KWS Announce Strategic Collaboration\nRead more\nApril, 2025\n### Heritable Tackles Strawberries\nRead more\nJanuary, 2025\n### Heritable Ag Launches\nRead more",
+          "published_date": null
+        },
+        {
+          "title": "Google's X spins out Heritable Agriculture, a startup using ...",
+          "url": "https://techcrunch.com/2025/02/02/google-x-spins-out-heritable-agriculture-a-startup-using-ai-to-improve-crop-yield/",
+          "snippet": "7:00 AM PST · February 2, 2025\nGoogle’s X “moonshot factory” this week announced its latest graduate.\nHeritable Agriculture is a data- and machine learning-driven startup aiming to improve how crops are grown.\n...\nThe newly independent startup is approaching these global issues by doing what Google does best: analyzing massive datasets through artificial intelligence and machine learning.\n...\nWe did a very good job moving through the gauntlet that is Google X.”\nUsing machine learning, Heritable analyzes plant genomes to determine combinations that could improve crop production.\nBy way of example, Zamft writes, “By understanding those genomes, the crops can then be bred with climate-friendly traits for increased yields, lower water requirements, and higher carbon storage capacity in roots and soil.”\nThe models the company built were tested on thousands of plants, grown to those specifications within a “specialized growth chamber” at X’s Bay Area headquarters.\nThe researchers also conducted field work at sites in California, Nebraska, and Wisconsin.\nZamft explains that CRISPR-fueled gene editing will eventually play a role in making plants “programmable.”\nFor now, however, Heritable is focused on more conventional methods.\n“We’re not developing gene-edited plants, and genetic modification is not on our roadmap,” says Zamft.\n“Gene editing may eventually come, but we’re seeing a huge, unmet need for identifying what to breed and then doing better breeding — crossing a mother and father plant, not using the biotechnology to actually develop the [crop].”\n**Image Credits:** Heritable Agriculture\nThe executive adds that the team is most immediately focused on commercializing the technology.\nZamft did not reveal anything in the way of specific timelines or commercial partners.\nHe did note, however, that Heritable has fittingly raised a seed round, featuring FTW Ventures, Mythos Ventures, and SVG Ventures.\nGoogle is an investor as well, with an undisclosed amount of equity in the young company.",
+          "published_date": "2025-02-02"
+        },
+        {
+          "title": "The AI revolution with Heritable, CIV, and Paul J. Mastronardi",
+          "url": "https://heritable.ag/press-releases/heritable-strawberries.pdf",
+          "snippet": "Heritable Agriculture, Paul J. Mastronardi, and CIV (Consorzio Italiano Vivaisti), are proud to announce that they have partnered to develop an advanced strawberry improvement program for greenhouse and tabletop varieties.\n...\nThe partnership will use Heritable’s AI-driven predictive breeding technology to: \n●​ Predict crop performance through simulations, before strawberries are \nplanted.\n●​ Optimize traits that are important in greenhouse environments, such as taste, \ndisease resistance, and yield.\n...\n●​ Reduce breeding timelines, bringing superior varieties to market faster.",
+          "published_date": null
+        }
+      ],
+      "latency_seconds": 0.806,
+      "request_id": "bf8ade17-e7cb-4cef-b52b-1a3640d9d1be"
+    }
+  ],
+  "deep_research": {
+    "choices": [
+      {
+        "delta": {
+          "content": "",
+          "role": "assistant"
+        },
+        "finish_reason": "length",
+        "index": 0,
+        "message": {
+          "content": "# Heritable Agriculture investigation — cut-off 20 October 2026\n\n## Bottom line\n\n**Heritable Agriculture Inc.** is the California-based independent company at **https://heritable.ag/**. It originated as an Alphabet **X Development LLC** research project, became independent in 2024, and publicly emerged from stealth on **30 January 2025**. It is **not** a subsidiary of Google/Alphabet as of the cut-off, although X was its incubator and transferred a core U.S. patent to it. No subsidiary, controlled affiliate, former corporate name, or separate Chinese legal entity was established in this research pass. [340][343][116]\n\nHeritable is now a commercial **AI crop-improvement platform and services company** with three capabilities: phenotype/environment prediction (“digital twins”), multi-omic gene discovery, and genome-edit design. Its public materials by 2026 expressly offered designs “ready for CRISPR, targeted mutagenesis, or precision breeding,” but that does **not** mean every Heritable program—or particularly its strawberry program—is gene edited. [409][250]\n\nThe strongest product-level conclusion is:\n\n* Heritable has **demonstrated and reportedly validated gene discovery through commissioned edits in three unnamed species**, but has not disclosed those species, genes, edited lines, efficiencies, or independent data.\n* Its only publicly detailed berry program is **strawberry**, using **AI-guided conventional crossing and selection**, not disclosed CRISPR editing.\n* No Heritable-developed seed, plant variety, fruit, tree genotype, or gene-edited plant was commercially available or regulator-authorized under Heritable’s name by **20 October 2026**.\n* Its commercially accessible offering was the **web-based prediction platform/SaaS and associated services**, opened in April 2026.\n* The Simplot–PSI, Pairwise–PSI, Pairwise–HRB, HRB–Plantik, Fall Creek, and Planasa activities are separate from Heritable. No Heritable relationship with any of those entities was established.\n\n---\n\n## 1. Identity, domain, aliases, ownership and corporate structure\n\n| Item | Finding as of 20 Oct 2026 | Date | Short exact support / attribution | Source URL |\n|---|---|---:|---|---|\n| Official domain | **heritable.ag** | Current | Launch release: “**Website: heritable.ag**.” [116] | https://heritable.ag/ |\n| Legal identity | **Heritable Agriculture Inc.** | At least 2024–26 | Company grant release: “**Heritable Agriculture Inc.**” and 930 Brittan Ave., San Carlos. [89] | https://heritable.ag/press-releases/heritable-gates-foundation.pdf |\n| Public/short name | **Heritable Agriculture**; often shortened to **Heritable** or informally **Heritable Ag** | Current | Waterpoint defines “Heritable Agriculture Inc. (‘**Heritable**’).” The company press page uses “Heritable Ag.” [46] | https://www.prnewswire.com/news-releases/waterpoint-lane-leads-strategic-investment-in-heritable-to-accelerate-sustainable-innovation-in-agrifoodtech-302549948.html |\n| Social alias | **@HeritableAg** | Joined May 2024 | Account is titled “Heritable Agriculture.” [38] | https://x.com/HeritableAg |\n| Official status | Independent private company | 2024 onward | Company site: “**independent company since 2024**”; X labels it “**Graduated, Independent Company/2024**.” [110][343] | https://x.company/projects/heritable/ |\n| Former parent/incubator | **X Development LLC**, Alphabet’s moonshot factory; incubator, not present parent | Project through 2024 | X: “moonshot has evolved into Heritable Agriculture, an **independent company**.” [104] | https://x.company/blog/posts/heritable-agriculture/ |\n| Patent-chain relationship to X | X Development owned the core patent application; transferred it to Heritable | Effective 6 Dec 2024; recorded 7 Jan 2025 | Assignment: “**X Development LLC to Heritable Agriculture Inc.**” [121] | https://patents.google.com/patent/US12260938B2/en |\n| Present parent | **None established; Alphabet/Google is not shown as a parent** | Cut-off | X and company both call Heritable independent. No contrary primary corporate record found. [104][343] | https://x.company/projects/heritable/ |\n| Subsidiaries | **Not established in this research pass** | Cut-off | No company, patent, regulator, partner, or financing source identified a controlled subsidiary. | — |\n| Other legal aliases/former names | **Not established in this research pass** | Cut-off | No filed name change or DBA was found. A paid Delaware long-form status/history document was not available in the reviewed public evidence. | https://icis.corp.delaware.gov/ecorp/entitysearch/namesearch.aspx |\n| Jurisdiction/formation details | Exact state of incorporation, file number, incorporation date and good-standing status **not established** | Cut-off | Public materials identify “Inc.” and California locations but do not reproduce a certificate of incorporation. | — |\n| HQ/contact conflict | Early releases: **Mountain View, California**; later operating address: **930 Brittan Ave., San Carlos, CA 94070** | Jan 2025 vs Jan 2026 | Launch metadata says “**Headquarters: Mountain View, CA**”; 2026 release says “**Located in San Carlos, California**.” [100][89] | https://heritable.ag/press-releases/heritable-gates-foundation.pdf |\n| Likely interpretation of address conflict | Mountain View was the launch/HQ or mailing location; San Carlos became the later operating location. A formal HQ relocation filing was not established. | 2025–26 | Job notices repeatedly use San Carlos and 930 Brittan Ave. [90] | https://heritable.ag/jobs/crop-modeler.pdf |\n\n### Important identity exclusions\n\n| Name | Relationship to Heritable |\n|---|---|\n| **Ohalo Genetics / Boosted Breeding** | Separate company and technology. No corporate or program relationship with Heritable was established. |\n| **Heritable Agriculture package/software named “heritable” in R** | Unrelated statistical package. |\n| **“Heritable Architecture”** | Apparent typo in some secondary reporting, not an alias or legal name. |\n| **Google Agriculture / Alphabet Agriculture** | Not an established legal alias. Heritable originated at X but is independent. |\n\n---\n\n## 2. What the technology is—and is not\n\n| Layer | What Heritable claims/offers | Evidence level by cut-off | Exact supporting excerpt |\n|---|---|---|---|\n| Digital twins / phenotype prediction | Predict accession or variety performance from genotype, weather, soil, satellite, environment and management data, including simulated crosses and virtual field trials at claimed 10 m resolution | **Commercial software/service; partner use announced.** Numerical validation datasets largely undisclosed. | “**Accession-specific predictions at 10-meter resolution**” and “**Digital twin modeling for any species**.” [409] |\n| Predictive breeding | Rank germplasm and crosses, reduce physical trials, and accelerate conventional selection | **Used in the Canadian strawberry trials; conventional crosses planned/underway.** | Strawberry program uses simulations to “**Predict crop performance … before strawberries are planted**.” [47] |\n| Multi-omic gene discovery | Integrate DNA, RNA/transcriptomic, epigenetic, metabolomic, phenomic and environmental data to identify candidate causal genes | **Patent, maize publications/data work, and partner research programs; some company-reported validation.** | “Integrating diverse data types from **genomics, transcriptomics, epigenetics, metabolomics, phenomics, and environmental sources**.” [268] |\n| Regulatory-DNA modeling | Sequence/DNA language models to predict cis-regulatory effects and expression-modulating edits | **Product capability and patent claim; Annogen assay collaboration began.** | Annogen will test non-coding variants “**directly in plant protoplasts**.” [160] |\n| Genome-edit design | Design CRISPR/targeted-mutagenesis edits; off-target minimization, multi-gene optimization and predicted phenotypic outcomes | **Commercial design capability; not proof that Heritable itself transformed every plant.** | “**Designs for CRISPR or targeted mutagenesis**”; “**Off-target prediction and minimization**.” [250] |\n| Physical editing | Heritable says it commissioned third parties to make edits selected by its models | **Company-reported demonstration in three undisclosed species; no complete public experimental record.** | Zamft: “**Those plants were gene edited … We’ve done that in three species so far**.” [251] |\n| High-throughput editing | Launch materials combined AI, multi-omics, predictive breeding and “high throughput gene editing” | **Platform/strategy claim**, not evidence of a named commercial edited variety | Launch release uses “**high throughput gene editing**.” [127] |\n| Conventional breeding | Cross a mother and father, use AI to choose parents, environments and selections | **Central to strawberries and likely several quantitative traits.** | 2025 CEO statement: “**crossing a mother and father plant, not using the biotechnology**.” [37] |\n| Marker-assisted selection | KWS-discovered targets may be used in marker-assisted selection as well as editing | **Announced future route**, not a released product | KWS targets “applicable to both **gene editing and marker-assisted selection**.” [139] |\n| Trait licensing / software licensing business model | Software subscriptions/licences and potential royalties on improved traits | **CEO-described commercial model; contract terms undisclosed.** | “Sometimes it’s as simple as giving a **license to our software tool**”; sometimes “a **royalty on the improved trait**.” [265] |\n\n### Conventional breeding versus genome editing\n\nThe February 2025 quote that Heritable was “not developing gene-edited plants” accurately described its immediate commercial focus then, but it is not a permanent description of the platform. By 2026 Heritable publicly marketed edit-design services and the Gates project contemplated multiplex-edit designs. The consistent reading is:\n\n1. **2025 immediate focus:** AI-assisted conventional breeding and variety placement.\n2. **Underlying and demonstrated R&D:** model-selected targets tested through commissioned edits.\n3. **2026 commercial offering:** both conventional/predictive breeding tools **and** edit-design services.\n4. **Product programs:** method depends on program; one must not infer CRISPR merely from Heritable’s participation. [37][250][383]\n\nNor should “precision breeding” automatically be read as gene editing; Heritable uses the phrase across predictive crossing, targeted mutagenesis and CRISPR-ready design contexts.\n\n---\n\n## 3. Core patent and publications\n\n| Record | Dates/status | Owner/authors | Scope and demonstrated result | Limits/gaps | URL |\n|---|---|---|---|---|---|\n| **US 12,260,938 B2, “Machine learning driven gene discovery and gene editing in plants”** | Priority/filed 19 Mar 2021; application published 22 Sep 2022; granted 25 Mar 2025; active | Inventors Bradley Zamft, Vikash Singh, Mathias Voges, Thong Nguyen; assigned first to X Development, then Heritable | Claims deep-learning phenotype prediction, explainable-AI feature ranking, optimal expression profiles and making an edit/perturbation. Specification lists CRISPR/Cas9, Cpf1/Cas12, base editing, CRISPRi/a, RNAi, TALENs and ZFNs. Arabidopsis example uses 728 accessions/620 flowering records and proposes combinatorial regulatory editing. [121] | No named commercial crop or variety; no regulatory authorization; published example lacks numerical edit-to-phenotype validation and field results. | https://patents.google.com/patent/US12260938B2/en |\n| Patent family | US active; EP, JP and CN shown pending; KR and PCT shown ceased | Heritable shown as current assignee | Protects the ML-to-edit workflow internationally where pending/granted | Final claim scope and status outside the US should be checked in each native register; no licence was disclosed | Same URL |\n| **“Population-level gene expression can repeatedly link genes to functions in maize”**, *The Plant Journal* | Published 2024 | Includes Brad Zamft and collaborators | Population gene-expression analysis in maize for linking genes and function [242] | The public evidence reviewed does not establish that every method/result belongs exclusively to Heritable or that it reports a market-ready edit | https://onlinelibrary.wiley.com/doi/10.1111/tpj.16801 |\n| Maize multi-omics trait-prediction work | Public description Feb 2026 | Schnable lab and collaborators | 750 maize lines, two environments and 129 phenotype datasets used to test population-scale RNA-seq trait prediction [222] | Heritable’s exact ownership/contribution and any licensed rights were not established | https://schnablelab.org/peoplepages/jschnable/ |\n| X field-data program | Pre-spinout, approximately 2019–24 | X/Heritable team | X reports **14,000 samples** from field trials in Nebraska, Wisconsin and California. [343] | X does not disclose all seven reported species, raw data, model metrics or edit results | https://x.company/projects/heritable/ |\n\n### IP licences\n\nNo Heritable announcement or patent record reviewed disclosed a **CRISPR nuclease licence**, university licence, Broad/MGH licence, Corteva licence, transformation licence, or exclusive germplasm licence. The confirmed IP transfer is the assignment from **X Development LLC to Heritable Agriculture Inc.** The CIV relationship supplies germplasm to the strawberry collaboration, but the agreement’s licence scope, royalties, territories and variety-right ownership are undisclosed. Therefore those licences are **not established in this research pass**. [121][47]\n\n---\n\n## 4. Crops, trees and traits\n\nHeritable’s website said its models worked across 25+ species and displayed the following species/crop classes. Inclusion means model support or claimed applicability, **not** necessarily a Heritable breeding program, physical edit or product.\n\n| Species/crop displayed by Heritable | Publicly identified program/status | Traits publicly connected to Heritable |\n|---|---|---|\n| Strawberry | CIV–Mastronardi/Red Sun/Vineland conventional indoor breeding trials | Flavor/taste, yield, disease resistance, shelf life/postharvest performance, greenhouse management and year-round production |\n| Maize/corn | X/UNL multi-omics research; Annogen regulatory-variant work; KWS feed-trait program | Gene function; feed quality/digestibility; non-coding regulatory variants |\n| Tomato | Kagome program beginning 2026 | Resistance and susceptibility to an undisclosed major pathogen |\n| Loblolly pine | ArborGen collaboration | Faster genetic improvement; superior seedlings/trees |\n| Vegetables, unspecified | Syngenta portfolio-placement project | Best-performing variety by region/environment |\n| Rapeseed/canola | Platform-supported; no named product/program established | Not established |\n| Spring wheat; winter wheat | Platform-supported; no named product/program established | Not established |\n| Eucalyptus | Platform-supported; no named program established | Not established |\n| Rye | Platform-supported; included generally in KWS cereals/feed context | Feed quality/digestibility broadly announced; species-specific target not disclosed |\n| Kale | Platform-supported only | Not established |\n| Potato | Platform-supported only | Not established |\n| Spring barley; winter barley | Platform-supported; cereals broadly referenced by KWS | Feed traits broadly announced |\n| Cauliflower | Platform-supported only | Not established |\n| Cotton | Platform-supported/JASON-applicable in principle; no named project output | Not established |\n| Grape | Platform-supported only | Not established |\n| Sunflower | Platform-supported only | Not established |\n| Soybean | Platform-supported only | Not established |\n| Avocado | Platform-supported only | Not established |\n| Millet | Platform-supported/JASON-relevant in principle; no named deliverable | Drought/heat resilience generally |\n| Cassava | Platform-supported/JASON-relevant in principle; no named deliverable | Drought/heat resilience generally |\n| Winter oats; spring oats | Platform-supported only | Not established |\n| Pulses | Platform-supported only | Not established |\n| Sugar beet | Platform-supported only | Not established |\n| Groundnut/peanut | Platform-supported/JASON-relevant in principle | Drought/heat resilience generally |\n| Sweet potato | Platform-supported only | Not established |\n| Rice | Platform-supported/JASON-relevant in principle | Drought/heat resilience generally |\n\nThe website’s exact displayed roster includes “rapeseed … eucalyptus … rye … kale … potato … tomato … cauliflower … cotton … grape … sunflower … loblolly … soybean … avocado … millet … cassava … oats … maize … sugar beet … groundnut … sweet potato … rice … strawberry … winter wheat.” [311]\n\n---\n\n## 5. Detailed berry program\n\n| Date | Stage | Parties and geography | Method | Evidence and result | Commercial/regulatory status |\n|---:|---|---|---|---|---|\n| 8 Apr 2025 | Partnership announced | Heritable; **CIV–Consorzio Italiano Vivaisti** of Italy; Paul J. Mastronardi/Red Sun Farms, Ontario",
+          "role": "assistant"
+        }
+      }
+    ],
+    "citations": [
+      "https://heritable.ag/",
+      "https://heritable.ag/products",
+      "https://heritable.ag/careers",
+      "https://heritable.ag/press-releases/heritable-gates-foundation.pdf",
+      "https://www.preqin.com/data/profile/asset/heritable-agriculture-inc-/766603",
+      "https://techcrunch.com/2025/02/02/google-x-spins-out-heritable-agriculture-a-startup-using-ai-to-improve-crop-yield/",
+      "https://heritable.ag/team",
+      "https://heritable.ag/press-releases/heritable-strawberries.pdf",
+      "https://agfundernews.com/digital-twins-heritable-ag-combines-ai-genomics-and-environmental-data-to-slash-rd-timelines",
+      "https://www.genengnews.com/topics/omics/ag-genomics-begins-to-bear-fruit/",
+      "https://www.agnavigator.com/Article/2026/04/02/heritable-ags-dual-mission-to-accelerate-crop-innovation/",
+      "https://www.thepacker.com/news/industry/heritable-agriculture-launches-aim-improve-crops-and-sustainably-feed-world",
+      "https://www.etoday.co.kr/news/view/2595123",
+      "https://heritable.ag/jobs/crop-modeler.pdf",
+      "https://heritable.ag/news",
+      "https://www.vcbacked.co/company/heritable-agriculture",
+      "https://www.caplight.com/company/heritable",
+      "https://x.company/blog/posts/heritable-agriculture/",
+      "https://www.perplexity.ai/page/google-spins-out-heritable-agr-JzNU3IWxRhqLb9KVgFfVhQ",
+      "https://www.killerstartups.com/heritable-agriculture-uses-ai-to-boost-crop-yields/5/",
+      "https://www.prnewswire.com/news-releases/waterpoint-lane-leads-strategic-investment-in-heritable-to-accelerate-sustainable-innovation-in-agrifoodtech-302549948.html",
+      "https://www.linkedin.com/posts/jennburka_startup-venturecapital-plantbiology-activity-7290738667042611201-DOaN",
+      "https://thriveagrifood.com/svg-ventures-thrive-kagome-power-agritech-push/",
+      "https://farmtario.com/crops/the-bid-to-create-the-first-true-greenhouse-strawberry/",
+      "https://heritable.ag/press",
+      "https://www.patsnap.com/resources/blog/rd-blog/gene-editing-patent-landscape-patent-landscape/",
+      "https://www.iaea.org/topics/plant-breeding/publications",
+      "https://x.com/HeritableAg",
+      "https://www.agnavigator.com/Article/2026/01/07/heritable-agriculture-and-kws-target-feed-trait-breakthroughs/",
+      "https://www.ars.usda.gov/research/publications/publication/?seqNo115=134062",
+      "https://www.syngenta.com/sites/default/files/2025-09/250922_Syngenta%20Vegetable%20Seeds%20and%20Heritable%20Agriculture%20collaboration_EN.pdf",
+      "https://www.businesswire.com/news/home/20260128639355/en/Heritable-Agriculture-Secures-$5M-Grant-for-AI-Driven-Crop-Resilience-in-Africa",
+      "https://www.biodiversitylibrary.org/subject/Plant+breeding",
+      "https://www.themodernacre.com/162-making-produce-better-and-faster-through-gene-editing-technology-with-haven-baker-co-founder-a/",
+      "https://www.seedworld.com/us/2026/09/28/ai-crop-breeding-players-watch/",
+      "https://www.linkedin.com/posts/shanethomasag_agtech-agribusiness-agriculture-activity-7403820813344514051-iu6v",
+      "https://planasa.com/us/",
+      "https://www.hortidaily.com/article/9818811/berry-breeding-programs-presented-in-southern-spain/",
+      "https://heritable.ag/senior-genomic-scientist",
+      "https://cran.rstudio.com/web/packages/heritable/heritable.pdf",
+      "https://www.fallcreeknursery.com/es/innovaciones-de-variedades/fall-creek-collection-es",
+      "https://www.hortidaily.com/photos/album/13000/fall-creek-field-forum-meet-greet-planasa-2026-may/",
+      "https://anu-aagi.github.io/heritable/articles/heritable.html",
+      "https://www.ibosummit2025.com/sponsors/",
+      "https://www.ohalo.com/partner",
+      "https://www.ohalo.com/boosted-breeding",
+      "https://www.ohalo.com/",
+      "https://www.ohalo.com/news",
+      "https://www.ohalo.com/ohalo-products/other",
+      "https://www.freshplaza.com/north-america/article/9851709/allied-potato-joins-ohalo-to-develop-boosted-potato-varieties/"
+    ],
+    "created": 1792566037,
+    "id": "resp_202dae14-b4ba-435e-98cc-51848c69cff4",
+    "model": "sonar-deep-research",
+    "object": "chat.completion",
+    "search_results": [
+      {
+        "date": null,
+        "last_updated": "2026-10-14",
+        "place_metadata": null,
+        "snippet": "# Better AI for Better Crops\n## Three AI Products Transforming Agriculture and Forestry\nOur platform combines three powerful AI products to deliver insights to seed providers, input companies, agronomists, and ultimately, growers.\n...\n### Design Genome Edits\nUse our DNA language models to create hig...",
+        "source": "web",
+        "title": "Heritable Agriculture - Making Plants Programmable",
+        "url": "https://heritable.ag/"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-09-18",
+        "place_metadata": null,
+        "snippet": "Heritable combines cutting-edge AI with agricultural expertise to deliver actionable insights across your entire workflow—from gene discovery to field deployment.\n...\nEdit designs ready for CRISPR, targeted mutagenesis, or precision breeding\n...\nUse our AI to create high-impact genome edits that unl...",
+        "source": "web",
+        "title": "Your Partner for AI-Powered Agriculture",
+        "url": "https://heritable.ag/products"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-09-24",
+        "place_metadata": null,
+        "snippet": "# Join Our Team\n## Why Heritable Agriculture?\n### Innovation\nBorn at Google X, we bring cutting-edge AI and gene editing to agriculture",
+        "source": "web",
+        "title": "Careers",
+        "url": "https://heritable.ag/careers"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-04-08",
+        "place_metadata": null,
+        "snippet": "SAN CARLOS, CA — Heritable Agriculture Inc., a leader in AI-driven crop improvement spun out of Google X, announced today that it has received a $4.98M grant from the Gates Foundation.\n...\nHeritable Agriculture Inc. is a company focused on advancing all corners of the agricultural system - all crops...",
+        "source": "web",
+        "title": "2026-01-05 Heritable Gates Foundation Grant Press Release",
+        "url": "https://heritable.ag/press-releases/heritable-gates-foundation.pdf"
+      },
+      {
+        "date": "2025-02-19",
+        "last_updated": "2026-08-15",
+        "place_metadata": null,
+        "snippet": "# Heritable Agriculture Inc.\n## Heritable Agriculture Inc. - overview\nBased in the US, Heritable Agriculture Inc.\nleverages advanced technologies to revolutionize agriculture through artificial intelligence and gene editing, enhancing plant breeding and crop production for sustainable agricultural p...",
+        "source": "web",
+        "title": "Heritable Agriculture Inc. Asset Profile - Preqin",
+        "url": "https://www.preqin.com/data/profile/asset/heritable-agriculture-inc-/766603"
+      },
+      {
+        "date": "2025-02-02",
+        "last_updated": "2026-10-20",
+        "place_metadata": null,
+        "snippet": "# Google’s X spins out Heritable Agriculture, a startup using AI to improve crop yield\nHeritable Agriculture is a data- and machine learning-driven startup aiming to improve how crops are grown.\n...\nUsing machine learning, Heritable analyzes plant genomes to determine combinations that could improve...",
+        "source": "web",
+        "title": "Google's X spins out Heritable Agriculture, a startup using ...",
+        "url": "https://techcrunch.com/2025/02/02/google-x-spins-out-heritable-agriculture-a-startup-using-ai-to-improve-crop-yield/"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-02",
+        "place_metadata": null,
+        "snippet": "Heritable Agriculture - Making Plants Programmable\n...\n# Our Team\nExperts in plant physiology, quantitative genetics, plant breeding, computational biology, machine learning, and synthetic biology",
+        "source": "web",
+        "title": "Our Team",
+        "url": "https://heritable.ag/team"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-07-24",
+        "place_metadata": null,
+        "snippet": "Heritable Agriculture, Paul J. Mastronardi, and CIV (Consorzio Italiano Vivaisti), are proud to announce that they have partnered to develop an advanced strawberry improvement program for greenhouse and tabletop varieties.\n...\nThe partnership will use Heritable’s AI-driven predictive breeding techno...",
+        "source": "web",
+        "title": "The AI revolution with Heritable, CIV, and Paul J. Mastronardi",
+        "url": "https://heritable.ag/press-releases/heritable-strawberries.pdf"
+      },
+      {
+        "date": "2026-04-02",
+        "last_updated": "2026-10-16",
+        "place_metadata": null,
+        "snippet": "Theoretical physicist turned agtech entrepreneur Brad Zamft, PhD, at Google X spinout Heritable Agriculture, is on a mission to make plant breeding faster and cheaper.\n...\n**BZ**: What Heritable provides is a comprehensive solution to improving crops.\nThis spans the ability to simulate real plants i...",
+        "source": "web",
+        "title": "Digital twins for crops: Heritable Ag's AI plant-breeding ...",
+        "url": "https://agfundernews.com/digital-twins-heritable-ag-combines-ai-genomics-and-environmental-data-to-slash-rd-timelines"
+      },
+      {
+        "date": "2026-07-09",
+        "last_updated": "2026-10-21",
+        "place_metadata": null,
+        "snippet": "Fulcrum features plant-specific CRISPR editing that fine-tunes gene expression rather than simply turning genes on or off.\nThe platform includes additional gene editing tools, enzymes, and trait libraries to help breeders design and test changes and quickly advance specific phenotypes into field tri...",
+        "source": "web",
+        "title": "Ag Genomics Begins to Bear Fruit",
+        "url": "https://www.genengnews.com/topics/omics/ag-genomics-begins-to-bear-fruit/"
+      },
+      {
+        "date": "2026-04-02",
+        "last_updated": "2026-10-17",
+        "place_metadata": null,
+        "snippet": "Heritable Agriculture CEO Brad Zamft is on a mission to make biology move faster.\nHis company has built an AI‑powered platform that integrates genomics, multi‑omics data analysis, machine learning and gene editing to effectively make plants “programmable.”\n...\nHeritable’s solution is to create digit...",
+        "source": "web",
+        "title": "Heritable Ag's dual mission to accelerate crop innovation",
+        "url": "https://www.agnavigator.com/Article/2026/04/02/heritable-ags-dual-mission-to-accelerate-crop-innovation/"
+      },
+      {
+        "date": "2025-02-04",
+        "last_updated": "2025-02-07",
+        "place_metadata": null,
+        "snippet": "## The AI-driven biotechnology platform is designed to improve plants for higher yields, improved nutrition and a more resilient global food and forestry system.\nHeritable Agriculture, a project originally founded and incubated inside Alphabet’s R&D facility, emerged from stealth today as an indepen...",
+        "source": "web",
+        "title": "Heritable Agriculture launches with aim to improve crops and sustainably feed the world",
+        "url": "https://www.thepacker.com/news/industry/heritable-agriculture-launches-aim-improve-crops-and-sustainably-feed-world"
+      },
+      {
+        "date": "2026-06-19",
+        "last_updated": "2026-10-14",
+        "place_metadata": null,
+        "snippet": "대표적으로는 구글 모회사 알파벳의 연구조직 ‘X’에서 분사한 농업 스타트업 ‘헤리티블어그리컬처(Heritable Agriculture)’가 꼽힌다.\n이 회사는 AI를 활용해 유전체·환경 데이터를 분석하고 특정 재배 환경에서 생산량과 영양성분, 광합성 효율 등을 높일 수 있는 유전자 변화를 예측함으로써 육종 연구개발 기간과 비용을 크게 줄였다.\n...\n오할로제네틱스는 ‘부스티드 브리딩(Boosted Breeding)’ 기술을 통해 필요한 형질을 더 빠르게 변형시켜 확보할 수 있는 것에 초점을 맞췄다.",
+        "source": "web",
+        "title": "품종 개량에도 활용되는 AI…개발 기간 단축 '선봉' [AI 푸드 혁명 ③]",
+        "url": "https://www.etoday.co.kr/news/view/2595123"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-05-21",
+        "place_metadata": null,
+        "snippet": "| 930 Brittan Ave. San Carlos, CA 94070 | contact@heritable.ag | https://heritable.ag/",
+        "source": "web",
+        "title": "[PDF] 2025-04-14 Crop Modeler JD - Heritable Agriculture",
+        "url": "https://heritable.ag/jobs/crop-modeler.pdf"
+      },
+      {
+        "date": "2024-01-01",
+        "last_updated": "2025-01-27",
+        "place_metadata": null,
+        "snippet": "The University of Nebraska, Lincoln, on Heritable's collaboration with James Schnable's lab to identify genes faster and more effictively with multi-omic datasets.",
+        "source": "web",
+        "title": "Heritable Agriculture",
+        "url": "https://heritable.ag/news"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-14",
+        "place_metadata": null,
+        "snippet": "$5.0M\n...\n## About Heritable Agriculture\nHeritable Agriculture has raised $5.0M in total funding.\nThe most recent round was Grant.\nThe last funding was announced in January 2026.\nWho are Heritable Agriculture's investors?\nHeritable Agriculture's investors include Bill & Melinda Gates Foundation, SVG...",
+        "source": "web",
+        "title": "Heritable Agriculture Funding & Investors - Grant - VCBacked",
+        "url": "https://www.vcbacked.co/company/heritable-agriculture"
+      },
+      {
+        "date": "2024-07-01",
+        "last_updated": "2026-10-13",
+        "place_metadata": null,
+        "snippet": "Grant\nJan 28, 2026\nTotal Funding Raised\n$4.98M\n...\n## Heritable Agriculture Funding Rounds\n|Round|Date|Amount Raised|Valuation|Investors|Sources|\n|--|--|--|--|--|--|\n|Grant|Jan 28, 2026| | | | |\n...\n## Heritable Agriculture Investors\n**Heritable Agriculture investors**\n|Investor|Rounds|\n|--|--|\n|SVG...",
+        "source": "web",
+        "title": "Heritable Agriculture | Valuation, Funding Rounds & Stock ...",
+        "url": "https://www.caplight.com/company/heritable"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-09-24",
+        "place_metadata": null,
+        "snippet": "## 'Programming' plants with machine learning\nOur team inside X used advanced computational biology techniques to decode the natural adaptations in plant biodiversity, developing machine learning models that can identify and understand the function of specific genomes in plants.\nBy understanding tho...",
+        "source": "web",
+        "title": "Introducing Heritable Agriculture - Google X Blog",
+        "url": "https://x.company/blog/posts/heritable-agriculture/"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-17",
+        "place_metadata": null,
+        "snippet": "## Google Spins Out Heritable Agriculture Startup\nBased on reports from Business Wire, Google's X moonshot factory has spun out Heritable Agriculture, an AI-driven biotechnology startup aimed at revolutionizing crop improvement to sustainably feed the world's growing population.\n...\n## Leadership an...",
+        "source": "web",
+        "title": "Perplexity",
+        "url": "https://www.perplexity.ai/page/google-spins-out-heritable-agr-JzNU3IWxRhqLb9KVgFfVhQ"
+      },
+      {
+        "date": "2025-02-10",
+        "last_updated": "2025-02-14",
+        "place_metadata": null,
+        "snippet": "Heritable Agriculture, a startup spun out of Google’s X “moonshot factory,” is using artificial intelligence to improve crop yields and make agriculture more sustainable.\nThe company analyzes plant genomes with machine learning to identify combinations that could lead to better crop production.\n...\n...",
+        "source": "web",
+        "title": "Heritable Agriculture uses AI to boost crop yields",
+        "url": "https://www.killerstartups.com/heritable-agriculture-uses-ai-to-boost-crop-yields/5/"
+      },
+      {
+        "date": "2025-09-09",
+        "last_updated": "2025-09-09",
+        "place_metadata": null,
+        "snippet": "MIAMI, Sept. 9, 2025 /PRNewswire/ -- Waterpoint Lane (\"WPL\"), a premier venture capital and growth equity firm with a proven track record of backing transformative innovation opportunities, proudly announces its lead investor role in Heritable Agriculture Inc.\n(\"Heritable\"), a pioneering company del...",
+        "source": "web",
+        "title": "Waterpoint Lane Leads Strategic Investment in Heritable to Accelerate Sustainable Innovation in Agrifoodtech",
+        "url": "https://www.prnewswire.com/news-releases/waterpoint-lane-leads-strategic-investment-in-heritable-to-accelerate-sustainable-innovation-in-agrifoodtech-302549948.html"
+      },
+      {
+        "date": "2025-01-30",
+        "last_updated": "2025-05-30",
+        "place_metadata": null,
+        "snippet": "🔉 Funding Announcement 🪴 FTW Ventures is excited to announce our lead investment in Heritable Agriculture, a Google X spinout pioneering AI for crop breeding and resiliency.\nWe are thrilled to back Bradley Zamft, Tim Beissinger, and Davide Sosso, an exceptional team with deep industry expertise and ...",
+        "source": "web",
+        "title": "#startup #venturecapital #plantbiology #ai #sustainableagriculture | Jenn Burka | 10 comments",
+        "url": "https://www.linkedin.com/posts/jennburka_startup-venturecapital-plantbiology-activity-7290738667042611201-DOaN"
+      },
+      {
+        "date": "2025-11-12",
+        "last_updated": "2026-10-02",
+        "place_metadata": null,
+        "snippet": "One of SVG’s investees is **Heritable Agriculture**, a U.S. startup that uses AI to analyze plant genetic data to predict traits such as yield and productivity, as well as to run agricultural simulations.\n...\nAfter spinning off, Heritable received investment from SVG Ventures.",
+        "source": "web",
+        "title": "SVG Ventures & Kagome Power a $50M AgriTech Push",
+        "url": "https://thriveagrifood.com/svg-ventures-thrive-kagome-power-agritech-push/"
+      },
+      {
+        "date": "2025-12-18",
+        "last_updated": "2026-10-20",
+        "place_metadata": null,
+        "snippet": "#### Why It Matters\nWorking with Italian strawberry breeding consortium CIV (Consorzio Italiano Vivaisti), artificial intelligence powered crop-breeding company Heritable Agriculture, and Vineland Research and Innovation Centre, Red Sun is developing strawberry varieties bred specifically for indoor...",
+        "source": "web",
+        "title": "The bid to create the first true greenhouse strawberry - Farmtario",
+        "url": "https://farmtario.com/crops/the-bid-to-create-the-first-true-greenhouse-strawberry/"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-09-22",
+        "place_metadata": null,
+        "snippet": "# Heritable in the News\n## Press Releases\n### Heritable Agriculture, Annogen Agri collaborate on functional annotation to accelerate maize trait development",
+        "source": "web",
+        "title": "Heritable Agriculture - Making Plants Programmable",
+        "url": "https://heritable.ag/press"
+      },
+      {
+        "date": "2026-08-25",
+        "last_updated": "2026-10-06",
+        "place_metadata": null,
+        "snippet": "## The records other filings build on\nUS20220301658A12022-09-22\n### Machine learning driven gene discovery and gene editing in plants\nHERITABLE AGRICULTURE INC.\nFiled by Heritable Agriculture, this record ties explainable machine-learning feature-importance methods to gene discovery: it takes gene e...",
+        "source": "web",
+        "title": "Gene Editing Patents: Who Leads, Where the Gaps Are 2026",
+        "url": "https://www.patsnap.com/resources/blog/rd-blog/gene-editing-patent-landscape-patent-landscape/"
+      },
+      {
+        "date": "2021-06-22",
+        "last_updated": "2024-10-21",
+        "place_metadata": null,
+        "snippet": "# Plant breeding publications\n2024\n#### Plant Breeding and Genetics Newsletter, No. 52, January 2024\n...\n#### Efficient Screening Techniques to Identify Mutants with TR4 Resistance in Banana\nThe book consists of 11 chapters for mutation breeding and Fusarium wilt resistance screening in banana.\n...\n...",
+        "source": "web",
+        "title": "Plant breeding publications",
+        "url": "https://www.iaea.org/topics/plant-breeding/publications"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-16",
+        "place_metadata": null,
+        "snippet": "# Heritable Agriculture\n@HeritableAg\nJoined May 2024",
+        "source": "web",
+        "title": "Heritable Agriculture (@HeritableAg) / ...",
+        "url": "https://x.com/HeritableAg"
+      },
+      {
+        "date": "2026-01-07",
+        "last_updated": "2026-10-16",
+        "place_metadata": null,
+        "snippet": "The genes discovered will be applicable to both gene editing and marker-assisted selection, complementing KWS’s traditional breeding expertise.\nThe company believes genome editing could shorten development timelines by 20-30%, accelerating the delivery of improved varieties to market – though with n...",
+        "source": "web",
+        "title": "Heritable Agriculture and KWS target feed trait breakthroughs",
+        "url": "https://www.agnavigator.com/Article/2026/01/07/heritable-agriculture-and-kws-target-feed-trait-breakthroughs/"
+      },
+      {
+        "date": "2026-10-16",
+        "last_updated": "2026-10-16",
+        "place_metadata": null,
+        "snippet": "**Title:** ESTIMATING AND INTERPRETING HERITABILITY FOR PLANT BREEDING: AN UPDATE.\n...\nThis review article discusses these newer methods and how they can be applied to heritability estimation and provides examples of computing code that can be used to obtain heritability estimates and their standard...",
+        "source": "web",
+        "title": "estimating and interpreting heritability for plant breeding - USDA ARS",
+        "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=134062"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-08-12",
+        "place_metadata": null,
+        "snippet": "Heritable was founded at Google X, Alphabet's Moonshot Factory, and is focused on bringing the best of ",
+        "source": "web",
+        "title": "Media Release - syngenta.com",
+        "url": "https://www.syngenta.com/sites/default/files/2025-09/250922_Syngenta%20Vegetable%20Seeds%20and%20Heritable%20Agriculture%20collaboration_EN.pdf"
+      },
+      {
+        "date": "2026-01-28",
+        "last_updated": "2026-10-12",
+        "place_metadata": null,
+        "snippet": "930 Brittan Ave.\n...\n**Headquarters:** Mountain View, CA",
+        "source": "web",
+        "title": "Heritable Agriculture Secures $5M Grant for AI-Driven Crop ...",
+        "url": "https://www.businesswire.com/news/home/20260128639355/en/Heritable-Agriculture-Secures-$5M-Grant-for-AI-Driven-Crop-Resilience-in-Africa"
+      },
+      {
+        "date": "2010-06-01",
+        "last_updated": "2025-05-05",
+        "place_metadata": null,
+        "snippet": "Report of the Third International Conference 1906 on Genetics : hybridisation (the cross-breeding of genera or species), the cross-breeding of varieties, and general plant-breedingBy: International Congress of Genetics London, England) - Wilks, W. (William), - Royal Horticultural Society (Great Brit...",
+        "source": "web",
+        "title": "Plant breeding",
+        "url": "https://www.biodiversitylibrary.org/subject/Plant+breeding"
+      },
+      {
+        "date": "2021-03-09",
+        "last_updated": "2026-10-10",
+        "place_metadata": null,
+        "snippet": "# 162: Making Produce Better and Faster Through Gene-Editing Technology with Haven Baker, Co-Founder and CBO of Pairwise\n...\nis the Chief Business Officer and Co-Founder of Pairwise, an agtech company that has developed the world’s most sophisticated genome editing platform.\nHaven is the former Seni...",
+        "source": "web",
+        "title": "Making Produce Better and Faster Through Gene-Editing Techn…",
+        "url": "https://www.themodernacre.com/162-making-produce-better-and-faster-through-gene-editing-technology-with-haven-baker-co-founder-a/"
+      },
+      {
+        "date": "2026-09-28",
+        "last_updated": "2026-10-20",
+        "place_metadata": null,
+        "snippet": "# 8 AI Players to Watch in Crop Breeding\n## Heritable Agriculture\nBased in:** ** California\nAffiliation:** ** Google spin-off\nAmong its services, Heritable Agriculture offers an AI breeding platform that simulates how existing varieties or crosses (breeding) will perform anywhere in the world to 10-...",
+        "source": "web",
+        "title": "8 AI Players to Watch in Crop Breeding - Seed World",
+        "url": "https://www.seedworld.com/us/2026/09/28/ai-crop-breeding-players-watch/"
+      },
+      {
+        "date": "2025-12-08",
+        "last_updated": "2025-12-26",
+        "place_metadata": null,
+        "snippet": "Image attached.\nInari InnerPlant Beck's Hybrids Cibus Pairwise Tropic GDM LIMAGRAIN KWS Group Stine Seed Company BioLumic Solis Agrosciences DELTAGee Heritable Agriculture Syngenta Gro Alliance Bayer Legacy Agripartners 2. 2025 CropLife 100 Report: Highlights and Analysis Looking at how retailers ma...",
+        "source": "web",
+        "title": "Seed Industry Insights: Structure, Trends & Deals - LinkedIn",
+        "url": "https://www.linkedin.com/posts/shanethomasag_agtech-agribusiness-agriculture-activity-7403820813344514051-iu6v"
+      },
+      {
+        "date": "2024-07-09",
+        "last_updated": "2026-10-03",
+        "place_metadata": null,
+        "snippet": "# BREEDING EXPERTS\nWe leverage key plant traits to develop new breeding varieties that fulfill growers’ commercial and environmental needs.",
+        "source": "web",
+        "title": "HOME",
+        "url": "https://planasa.com/us/"
+      },
+      {
+        "date": "2026-05-04",
+        "last_updated": "2026-05-04",
+        "place_metadata": null,
+        "snippet": "The berry breeding programs of Fall Creek and Planasa were showcased this year during a joint industry event held on 10 March between Seville and Huelva.",
+        "source": "web",
+        "title": "Berry breeding programs presented in southern Spain",
+        "url": "https://www.hortidaily.com/article/9818811/berry-breeding-programs-presented-in-southern-spain/"
+      },
+      {
+        "date": "2024-01-01",
+        "last_updated": "2025-02-25",
+        "place_metadata": null,
+        "snippet": "Copyright © 2024 Heritable Agriculture Inc.\n- All Rights Reserved.",
+        "source": "web",
+        "title": "Heritable Agriculture",
+        "url": "https://heritable.ag/senior-genomic-scientist"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-06-24",
+        "place_metadata": null,
+        "snippet": "H2_Delta_pairwise\nCalculate pairwise heritability of differences between genotypes from model object\nDescription\nInstead of computing heritability on a \"entry-mean\" basis, this method calculates heritability using\n\"entry-differences\".\nEntry here is referring to the genotype, line or variety of inter...",
+        "source": "web",
+        "title": "heritable.pdf",
+        "url": "https://cran.rstudio.com/web/packages/heritable/heritable.pdf"
+      },
+      {
+        "date": null,
+        "last_updated": "2025-11-03",
+        "place_metadata": null,
+        "snippet": "### Descripción general:\nLa Fall Creek® Collection es nuestra nueva y sencilla plataforma de genética de arándano con valor agregado la cual ofrece una transferencia de tecnología y apoyo hortícola a los productores del arándano alrededor del mundo.",
+        "source": "web",
+        "title": "Fall Creek® Collection",
+        "url": "https://www.fallcreeknursery.com/es/innovaciones-de-variedades/fall-creek-collection-es"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-03-26",
+        "place_metadata": null,
+        "snippet": "Fall Creek Team\nPart of the greenhouses at Planasa's facilities.",
+        "source": "web",
+        "title": "Fall Creek Field + Forum & Meet & Greet Planasa 2026, May",
+        "url": "https://www.hortidaily.com/photos/album/13000/fall-creek-field-forum-meet-greet-planasa-2026-may/"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-03",
+        "place_metadata": null,
+        "snippet": "Similar to `H2()`, we can use the `h2()`\nwrapper to compute narrow-sense heritability.\nRemembering to\nspecify:\n- `model`, your `asreml` object\n- `target`, the name of your genotype/varietal/line\nvariable in your model e.g. `\"gen\"`\n- `method`, which method of `h2()` calculation\ndo you want.\nBy defaul...",
+        "source": "web",
+        "title": "heritable • heritable",
+        "url": "https://anu-aagi.github.io/heritable/articles/heritable.html"
+      },
+      {
+        "date": "2016-07-06",
+        "last_updated": "2026-08-07",
+        "place_metadata": null,
+        "snippet": "## Diamond Sponsors\nFall Creek\n**Fall Creek**, a blueberry genetics and nursery company, was founded in Oregon (USA) in 1978.\nA privately held, family company, Fall Creek serves the global fruit industry delivering blueberry genetics, plants, horticultural support, and market intelligence.\nWith whol...",
+        "source": "web",
+        "title": "Sponsors",
+        "url": "https://www.ibosummit2025.com/sponsors/"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-03",
+        "place_metadata": null,
+        "snippet": "Ohalo Announces Strategic Partnership with Allied Potato\n...\n# Partner with Ohalo.\n## Boosted Breeding for your crop.\nBoosted Breeding provides unprecedented improvements in crop yields that may otherwise take millennia to achieve with traditional breeding methods.\n...\n## Contact Us\n**Ohalo Genetics...",
+        "source": "web",
+        "title": "Ohalo I Partner with Us",
+        "url": "https://www.ohalo.com/partner"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-05",
+        "place_metadata": null,
+        "snippet": "# Boosted Breeding. The next revolution in agriculture.\n## Partner with us today\n**Ohalo Genetics™ Boosted Breeding™**\nOhalo Genetics™ offers Boosted Breeding™ and Agile Breeding™ services across a multitude of crops, from potatoes, to corn, to berries, and beyond.\nWorking with global partners, Ohal...",
+        "source": "web",
+        "title": "Ohalo's Boosted Breeding Technology",
+        "url": "https://www.ohalo.com/boosted-breeding"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-03",
+        "place_metadata": null,
+        "snippet": "# Sowing the seeds of tomorrow.\n#### Ohalo Strawberry Consortium\nGroundbreaking collaboration  developing more flavorful strawberries and bringing them to market as true seed.\n...\nBoosted Breeding, which can be applied to nearly every crop on Earth, changes the way plants reproduce, enabling two par...",
+        "source": "web",
+        "title": "Ohalo | Accelerating evolution to unlock nature's potential",
+        "url": "https://www.ohalo.com/"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-03",
+        "place_metadata": null,
+        "snippet": "Ohalo Announces Strategic Partnership with Allied Potato\n...\n### Ohalo and Allied Potato Announce Strategic Partnership to Advance the Future of the Global Potato Industry\n...\n**Ohalo Genetics™ Boosted Breeding™**\nOhalo Genetics™ offers Boosted Breeding™ and Agile Breeding™ services across a multitu...",
+        "source": "web",
+        "title": "News and Resource Hub",
+        "url": "https://www.ohalo.com/news"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-03",
+        "place_metadata": null,
+        "snippet": "Ohalo works directly with Partners to develop and bring to market new VATs.\n...\n**Ohalo Genetics™ Boosted Breeding™**\nOhalo Genetics™ offers Boosted Breeding™ and Agile Breeding™ services across a multitude of crops, from potatoes, to corn, to berries, and beyond.\nWorking with global partners, Ohalo...",
+        "source": "web",
+        "title": "Other",
+        "url": "https://www.ohalo.com/ohalo-products/other"
+      },
+      {
+        "date": "2026-10-19",
+        "last_updated": "2026-10-20",
+        "place_metadata": null,
+        "snippet": "Ohalo and Allied Potato Inc.\nhave announced a partnership to develop and commercialize Ohalo's Boosted® potato varieties.\nThe collaboration combines Ohalo's Boosted Breeding technology with Allied Potato's production and agronomic experience to develop potato varieties with higher yields, enhanced d...",
+        "source": "web",
+        "title": "Allied Potato joins Ohalo to develop Boosted potato varieties",
+        "url": "https://www.freshplaza.com/north-america/article/9851709/allied-potato-joins-ohalo-to-develop-boosted-potato-varieties/"
+      }
+    ],
+    "usage": {
+      "completion_tokens": 3813,
+      "completion_tokens_details": {
+        "reasoning_tokens": 524
+      },
+      "cost": {
+        "input_tokens_cost": 1.3231700000000002,
+        "output_tokens_cost": 0.20748,
+        "request_cost": 0.09263,
+        "total_cost": 1.62328
+      },
+      "prompt_tokens": 200,
+      "search_context_size": "low",
+      "total_tokens": 4013
+    }
+  },
+  "capability": "sonar-deep-research"
+}

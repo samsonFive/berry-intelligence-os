@@ -5476,5 +5476,1519 @@
       "item_limit": 50,
       "notes": "Verified from production host. No automatic Evidence publication."
     }
+  },
+  {
+    "id": "source-gene-pairwise-fontana",
+    "type": "reference",
+    "label": "Pairwise · pairwise-fontana",
+    "value": "https://www.pairwise.com/insights/pairwise-unveils-fontana-blackberry",
+    "url": "https://www.pairwise.com/insights/pairwise-unveils-fontana-blackberry",
+    "canonical_url": "https://www.pairwise.com/insights/pairwise-unveils-fontana-blackberry",
+    "publisher": "Pairwise",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-pairwise",
+      "company-plant-sciences-genetics"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:11:31.517257+00:00",
+    "last_successful_check": "2026-10-21T07:11:31.517257+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-pairwise-seedless",
+    "type": "reference",
+    "label": "Pairwise · pairwise-seedless",
+    "value": "https://www.pairwise.com/insights/pairwise-develops-first-seedless-blackberry-with-transformative-crispr-technology",
+    "url": "https://www.pairwise.com/insights/pairwise-develops-first-seedless-blackberry-with-transformative-crispr-technology",
+    "canonical_url": "https://www.pairwise.com/insights/pairwise-develops-first-seedless-blackberry-with-transformative-crispr-technology",
+    "publisher": "Pairwise",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-pairwise"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:11:31.518777+00:00",
+    "last_successful_check": "2026-10-21T07:11:31.518777+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-pairwise-hrb",
+    "type": "reference",
+    "label": "Pairwise · pairwise-hrb",
+    "value": "https://www.pairwise.com/insights/hudson-river-biotechnology",
+    "url": "https://www.pairwise.com/insights/hudson-river-biotechnology",
+    "canonical_url": "https://www.pairwise.com/insights/hudson-river-biotechnology",
+    "publisher": "Pairwise",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-pairwise",
+      "company-hudson-river-biotechnology"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:11:31.519924+00:00",
+    "last_successful_check": "2026-10-21T07:11:31.519924+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-qi-berry",
+    "type": "reference",
+    "label": "Apricot Capital · qi-berry",
+    "value": "http://www.apricot-capital.com/news.html?id=843",
+    "url": "http://www.apricot-capital.com/news.html?id=843",
+    "canonical_url": "http://www.apricot-capital.com/news.html?id=843",
+    "publisher": "Apricot Capital",
+    "language": "zh",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:11:31.520755+00:00",
+    "last_successful_check": null,
+    "last_status": "no_readable_text",
+    "status": "no_readable_text",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-simplot-alliance",
+    "type": "reference",
+    "label": "Simplot · simplot-alliance",
+    "value": "https://www.simplot.com/company/news/j-r-simplot-company-and-plant-sciences-inc",
+    "url": "https://www.simplot.com/company/news/j-r-simplot-company-and-plant-sciences-inc",
+    "canonical_url": "https://www.simplot.com/company/news/j-r-simplot-company-and-plant-sciences-inc",
+    "publisher": "Simplot",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-j-r-simplot",
+      "company-plant-sciences-genetics"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:19.510510+00:00",
+    "last_successful_check": "2026-10-21T07:06:19.510510+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-simplot-license",
+    "type": "reference",
+    "label": "Simplot · simplot-license",
+    "value": "https://www.simplot.com/company/news/simplot-secures-license-from-corteva-agriscience-mit-harvard",
+    "url": "https://www.simplot.com/company/news/simplot-secures-license-from-corteva-agriscience-mit-harvard",
+    "canonical_url": "https://www.simplot.com/company/news/simplot-secures-license-from-corteva-agriscience-mit-harvard",
+    "publisher": "Simplot",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-j-r-simplot"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:19.511945+00:00",
+    "last_successful_check": "2026-10-21T07:06:19.511945+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-psi-research",
+    "type": "reference",
+    "label": "Plant Sciences Genetics · psi-research",
+    "value": "https://www.plantsciencesgenetics.com/research",
+    "url": "https://www.plantsciencesgenetics.com/research",
+    "canonical_url": "https://www.plantsciencesgenetics.com/research",
+    "publisher": "Plant Sciences Genetics",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:19.512953+00:00",
+    "last_successful_check": null,
+    "last_status": "no_readable_text",
+    "status": "no_readable_text",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-psi-identity",
+    "type": "reference",
+    "label": "Plant Sciences Genetics · psi-identity",
+    "value": "https://www.plantsciencesgenetics.com/about-us",
+    "url": "https://www.plantsciencesgenetics.com/about-us",
+    "canonical_url": "https://www.plantsciencesgenetics.com/about-us",
+    "publisher": "Plant Sciences Genetics",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:19.513889+00:00",
+    "last_successful_check": null,
+    "last_status": "no_readable_text",
+    "status": "no_readable_text",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-ohalo-boosted",
+    "type": "reference",
+    "label": "Ohalo · ohalo-boosted",
+    "value": "https://www.ohalo.com/news/ohalo-announces-the-discovery-of-boosted-breeding",
+    "url": "https://www.ohalo.com/news/ohalo-announces-the-discovery-of-boosted-breeding",
+    "canonical_url": "https://www.ohalo.com/news/ohalo-announces-the-discovery-of-boosted-breeding",
+    "publisher": "Ohalo",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-ohalo"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:22.655378+00:00",
+    "last_successful_check": "2026-10-21T07:06:22.655378+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-ohalo-strawberry",
+    "type": "reference",
+    "label": "Ohalo · ohalo-strawberry",
+    "value": "https://www.ohalo.com/strawberry-consortium",
+    "url": "https://www.ohalo.com/strawberry-consortium",
+    "canonical_url": "https://www.ohalo.com/strawberry-consortium",
+    "publisher": "Ohalo",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-ohalo"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:23.004462+00:00",
+    "last_successful_check": "2026-10-21T07:06:23.004462+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-ohalo-launch",
+    "type": "reference",
+    "label": "Ohalo · ohalo-launch",
+    "value": "https://www.ohalo.com/news/ohalo-strawberry-consortium-launch",
+    "url": "https://www.ohalo.com/news/ohalo-strawberry-consortium-launch",
+    "canonical_url": "https://www.ohalo.com/news/ohalo-strawberry-consortium-launch",
+    "publisher": "Ohalo",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-ohalo"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:23.979724+00:00",
+    "last_successful_check": "2026-10-21T07:06:23.979724+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-pairwise-home",
+    "type": "reference",
+    "label": "Pairwise · pairwise-home",
+    "value": "https://www.pairwise.com/",
+    "url": "https://www.pairwise.com/",
+    "canonical_url": "https://www.pairwise.com/",
+    "publisher": "Pairwise",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:24.426073+00:00",
+    "last_successful_check": "2026-10-21T07:06:24.426073+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-pairwise-news",
+    "type": "reference",
+    "label": "Pairwise · pairwise-news",
+    "value": "https://www.pairwise.com/insights",
+    "url": "https://www.pairwise.com/insights",
+    "canonical_url": "https://www.pairwise.com/insights",
+    "publisher": "Pairwise",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:24.427481+00:00",
+    "last_successful_check": "2026-10-21T07:06:24.427481+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-pairwise-psi",
+    "type": "reference",
+    "label": "Pairwise · pairwise-psi",
+    "value": "https://www.pairwise.com/insights/pairwise-and-plant-sciences-inc-psi-to-partner-to-bring-new-varieties-of-black-raspberries-red-raspberries-and-blackberries-to-market-in-the-u-s",
+    "url": "https://www.pairwise.com/insights/pairwise-and-plant-sciences-inc-psi-to-partner-to-bring-new-varieties-of-black-raspberries-red-raspberries-and-blackberries-to-market-in-the-u-s",
+    "canonical_url": "https://www.pairwise.com/insights/pairwise-and-plant-sciences-inc-psi-to-partner-to-bring-new-varieties-of-black-raspberries-red-raspberries-and-blackberries-to-market-in-the-u-s",
+    "publisher": "Pairwise",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-pairwise",
+      "company-plant-sciences-genetics"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:24.695743+00:00",
+    "last_successful_check": "2026-10-21T07:06:24.695743+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-pairwise-2026",
+    "type": "reference",
+    "label": "Pairwise · pairwise-2026",
+    "value": "https://www.pairwise.com/insights/the-proof-is-in-the-products-january-2026",
+    "url": "https://www.pairwise.com/insights/the-proof-is-in-the-products-january-2026",
+    "canonical_url": "https://www.pairwise.com/insights/the-proof-is-in-the-products-january-2026",
+    "publisher": "Pairwise",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-pairwise",
+      "company-plant-sciences-genetics"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:25.398201+00:00",
+    "last_successful_check": "2026-10-21T07:06:25.398201+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-hrb-plantik",
+    "type": "reference",
+    "label": "Hudson River Biotechnology · hrb-plantik",
+    "value": "https://www.hudsonriver.bio/news/hudson-river-and-plantik-partner-to-enhance-heat-tolerance-in-strawberries",
+    "url": "https://www.hudsonriver.bio/news/hudson-river-and-plantik-partner-to-enhance-heat-tolerance-in-strawberries",
+    "canonical_url": "https://www.hudsonriver.bio/news/hudson-river-and-plantik-partner-to-enhance-heat-tolerance-in-strawberries",
+    "publisher": "Hudson River Biotechnology",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-hudson-river-biotechnology",
+      "company-plantik-biosciences"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:27.595004+00:00",
+    "last_successful_check": "2026-10-21T07:06:27.595004+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-hrb-regeneration",
+    "type": "reference",
+    "label": "Hudson River Biotechnology · hrb-regeneration",
+    "value": "https://www.hudsonriver.bio/news/hrb-achieves-major-crispr-breakthrough-first-ever-regeneration-of-strawberries-from-gene-edited",
+    "url": "https://www.hudsonriver.bio/news/hrb-achieves-major-crispr-breakthrough-first-ever-regeneration-of-strawberries-from-gene-edited",
+    "canonical_url": "https://www.hudsonriver.bio/news/hrb-achieves-major-crispr-breakthrough-first-ever-regeneration-of-strawberries-from-gene-edited",
+    "publisher": "Hudson River Biotechnology",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-hudson-river-biotechnology"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:28.121973+00:00",
+    "last_successful_check": "2026-10-21T07:06:28.121973+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-hrb-partnering",
+    "type": "reference",
+    "label": "Hudson River Biotechnology · hrb-partnering",
+    "value": "https://www.hudsonriver.bio/partnering",
+    "url": "https://www.hudsonriver.bio/partnering",
+    "canonical_url": "https://www.hudsonriver.bio/partnering",
+    "publisher": "Hudson River Biotechnology",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:28.145997+00:00",
+    "last_successful_check": "2026-10-21T07:06:28.145997+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-plantik-tech",
+    "type": "reference",
+    "label": "Plantik Biosciences · plantik-tech",
+    "value": "https://www.plantik.bio/technology/",
+    "url": "https://www.plantik.bio/technology/",
+    "canonical_url": "https://www.plantik.bio/technology/",
+    "publisher": "Plantik Biosciences",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-plantik-biosciences"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:28.263187+00:00",
+    "last_successful_check": "2026-10-21T07:06:28.263187+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-plantik-about",
+    "type": "reference",
+    "label": "Plantik Biosciences · plantik-about",
+    "value": "https://www.plantik.bio/aboutus",
+    "url": "https://www.plantik.bio/aboutus",
+    "canonical_url": "https://www.plantik.bio/aboutus",
+    "publisher": "Plantik Biosciences",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:29.844167+00:00",
+    "last_successful_check": "2026-10-21T07:06:29.844167+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-plantik-trade",
+    "type": "reference",
+    "label": "AgFunderNews · plantik-trade",
+    "value": "https://agfundernews.com/exclusive-plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries",
+    "url": "https://agfundernews.com/exclusive-plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries",
+    "canonical_url": "https://agfundernews.com/exclusive-plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries",
+    "publisher": "AgFunderNews",
+    "language": "en",
+    "source_type": "trade_press",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-plantik-biosciences",
+      "company-hudson-river-biotechnology"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:30.086117+00:00",
+    "last_successful_check": "2026-10-21T07:06:30.086117+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-plantik-hortidaily",
+    "type": "reference",
+    "label": "HortiDaily · plantik-hortidaily",
+    "value": "https://www.hortidaily.com/article/9877481/plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries/",
+    "url": "https://www.hortidaily.com/article/9877481/plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries/",
+    "canonical_url": "https://www.hortidaily.com/article/9877481/plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries/",
+    "publisher": "HortiDaily",
+    "language": "en",
+    "source_type": "trade_press",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-plantik-biosciences",
+      "company-hudson-river-biotechnology"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:32.343787+00:00",
+    "last_successful_check": "2026-10-21T07:06:32.343787+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-fall-creek-collection",
+    "type": "reference",
+    "label": "Fall Creek · fall-creek-collection",
+    "value": "https://www.fallcreeknursery.com/variety-innovations/fall-creek-collection",
+    "url": "https://www.fallcreeknursery.com/variety-innovations/fall-creek-collection",
+    "canonical_url": "https://www.fallcreeknursery.com/variety-innovations/fall-creek-collection",
+    "publisher": "Fall Creek",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-fall-creek-farm-and-nursery"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:32.787407+00:00",
+    "last_successful_check": "2026-10-21T07:06:32.787407+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-planasa-about",
+    "type": "reference",
+    "label": "Planasa · planasa-about",
+    "value": "https://planasa.com/about-us/",
+    "url": "https://planasa.com/about-us/",
+    "canonical_url": "https://planasa.com/about-us/",
+    "publisher": "Planasa",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-planasa"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:33.344455+00:00",
+    "last_successful_check": "2026-10-21T07:06:33.344455+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-planasa-news",
+    "type": "reference",
+    "label": "Planasa · planasa-news",
+    "value": "https://planasa.com/blog/",
+    "url": "https://planasa.com/blog/",
+    "canonical_url": "https://planasa.com/blog/",
+    "publisher": "Planasa",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:34.111098+00:00",
+    "last_successful_check": "2026-10-21T07:06:34.111098+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-heritable-home",
+    "type": "reference",
+    "label": "Heritable Agriculture · heritable-home",
+    "value": "https://heritable.ag/",
+    "url": "https://heritable.ag/",
+    "canonical_url": "https://heritable.ag/",
+    "publisher": "Heritable Agriculture",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:34.701416+00:00",
+    "last_successful_check": null,
+    "last_status": "no_readable_text",
+    "status": "no_readable_text",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-heritable-products",
+    "type": "reference",
+    "label": "Heritable Agriculture · heritable-products",
+    "value": "https://heritable.ag/products",
+    "url": "https://heritable.ag/products",
+    "canonical_url": "https://heritable.ag/products",
+    "publisher": "Heritable Agriculture",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:35.711564+00:00",
+    "last_successful_check": null,
+    "last_status": "no_readable_text",
+    "status": "no_readable_text",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-heritable-strawberry",
+    "type": "reference",
+    "label": "Heritable Agriculture · heritable-strawberry",
+    "value": "https://heritable.ag/press-releases/heritable-strawberries.pdf",
+    "url": "https://heritable.ag/press-releases/heritable-strawberries.pdf",
+    "canonical_url": "https://heritable.ag/press-releases/heritable-strawberries.pdf",
+    "publisher": "Heritable Agriculture",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-heritable-agriculture"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:36.051930+00:00",
+    "last_successful_check": "2026-10-21T07:06:36.051930+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-qi-funding",
+    "type": "reference",
+    "label": "Qi Biodesign / PR Newswire · qi-funding",
+    "value": "https://www.prnewswire.com/news-releases/qi-biodesign-completes-75-million-in-total-funding-to-drive-genome-editing-innovations-302324632.html",
+    "url": "https://www.prnewswire.com/news-releases/qi-biodesign-completes-75-million-in-total-funding-to-drive-genome-editing-innovations-302324632.html",
+    "canonical_url": "https://www.prnewswire.com/news-releases/qi-biodesign-completes-75-million-in-total-funding-to-drive-genome-editing-innovations-302324632.html",
+    "publisher": "Qi Biodesign / PR Newswire",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-qi-biodesign"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:36.725358+00:00",
+    "last_successful_check": "2026-10-21T07:06:36.725358+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-qi-official",
+    "type": "reference",
+    "label": "Qi Biodesign · qi-official",
+    "value": "http://www.qi-biodesign.com/",
+    "url": "http://www.qi-biodesign.com/",
+    "canonical_url": "http://www.qi-biodesign.com/",
+    "publisher": "Qi Biodesign",
+    "language": "zh",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:36.898379+00:00",
+    "last_successful_check": null,
+    "last_status": "unavailable",
+    "status": "unavailable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-qi-license",
+    "type": "reference",
+    "label": "Vilmorin & Cie · qi-license",
+    "value": "https://api.vilmorincie.com/uploads/202607_Press_release_VCO_NGT_EN_229637ccd2.pdf",
+    "url": "https://api.vilmorincie.com/uploads/202607_Press_release_VCO_NGT_EN_229637ccd2.pdf",
+    "canonical_url": "https://api.vilmorincie.com/uploads/202607_Press_release_VCO_NGT_EN_229637ccd2.pdf",
+    "publisher": "Vilmorin & Cie",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-qi-biodesign"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:37.081633+00:00",
+    "last_successful_check": "2026-10-21T07:06:37.081633+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-qi-lab",
+    "type": "reference",
+    "label": "Beijing International Science & Technology Innovation Center · qi-lab",
+    "value": "https://www.ncsti.gov.cn/kjdt/scyq/wlkxc/wldt/202601/t20260121_236092.html",
+    "url": "https://www.ncsti.gov.cn/kjdt/scyq/wlkxc/wldt/202601/t20260121_236092.html",
+    "canonical_url": "https://www.ncsti.gov.cn/kjdt/scyq/wlkxc/wldt/202601/t20260121_236092.html",
+    "publisher": "Beijing International Science & Technology Innovation Center",
+    "language": "zh",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-qi-biodesign"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:39.329680+00:00",
+    "last_successful_check": "2026-10-21T07:06:39.329680+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-shunfeng-official",
+    "type": "reference",
+    "label": "Shunfeng Bio / BellaGen · shunfeng-official",
+    "value": "http://bellagen.cn/en/index.php?catid=18",
+    "url": "http://bellagen.cn/en/index.php?catid=18",
+    "canonical_url": "http://bellagen.cn/en/index.php?catid=18",
+    "publisher": "Shunfeng Bio / BellaGen",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:39.952071+00:00",
+    "last_successful_check": null,
+    "last_status": "unavailable",
+    "status": "unavailable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-shunfeng-chinese",
+    "type": "reference",
+    "label": "舜丰生物 · shunfeng-chinese",
+    "value": "http://bellagen.cn/",
+    "url": "http://bellagen.cn/",
+    "canonical_url": "http://bellagen.cn/",
+    "publisher": "舜丰生物",
+    "language": "zh",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:40.021002+00:00",
+    "last_successful_check": null,
+    "last_status": "unavailable",
+    "status": "unavailable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-shunfeng-kws",
+    "type": "reference",
+    "label": "KWS · shunfeng-kws",
+    "value": "https://www.kws.com/corp/en/media-press/news-2025/kws-and-shunfeng-bio-sign-worldwide-licensing-agreement/",
+    "url": "https://www.kws.com/corp/en/media-press/news-2025/kws-and-shunfeng-bio-sign-worldwide-licensing-agreement/",
+    "canonical_url": "https://www.kws.com/corp/en/media-press/news-2025/kws-and-shunfeng-bio-sign-worldwide-licensing-agreement/",
+    "publisher": "KWS",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-shandong-shunfeng-biotechnology"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:42.482877+00:00",
+    "last_successful_check": "2026-10-21T07:06:42.482877+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-shunfeng-kws-de",
+    "type": "reference",
+    "label": "KWS · shunfeng-kws-de",
+    "value": "https://www.kws.com/corp/de/medien-presse/news-2025/kws-und-shunfeng-bio-unterzeichnen-weltweite-lizenzvereinbarung/",
+    "url": "https://www.kws.com/corp/de/medien-presse/news-2025/kws-und-shunfeng-bio-unterzeichnen-weltweite-lizenzvereinbarung/",
+    "canonical_url": "https://www.kws.com/corp/de/medien-presse/news-2025/kws-und-shunfeng-bio-unterzeichnen-weltweite-lizenzvereinbarung/",
+    "publisher": "KWS",
+    "language": "de",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-shandong-shunfeng-biotechnology"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:44.850785+00:00",
+    "last_successful_check": "2026-10-21T07:06:44.850785+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-uk-simplot",
+    "type": "reference",
+    "label": "Defra · uk-simplot",
+    "value": "https://www.gov.uk/government/publications/precision-bred-organism-marketing-notice-reference-pbm26fran008/precision-bred-organism-marketing-notice-reference-pbm26fran008",
+    "url": "https://www.gov.uk/government/publications/precision-bred-organism-marketing-notice-reference-pbm26fran008/precision-bred-organism-marketing-notice-reference-pbm26fran008",
+    "canonical_url": "https://www.gov.uk/government/publications/precision-bred-organism-marketing-notice-reference-pbm26fran008/precision-bred-organism-marketing-notice-reference-pbm26fran008",
+    "publisher": "Defra",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-j-r-simplot"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:53.186448+00:00",
+    "last_successful_check": "2026-10-21T07:06:53.186448+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-us-qi",
+    "type": "reference",
+    "label": "USDA APHIS · us-qi",
+    "value": "https://www.aphis.usda.gov/sites/default/files/24-116-02rsr.pdf",
+    "url": "https://www.aphis.usda.gov/sites/default/files/24-116-02rsr.pdf",
+    "canonical_url": "https://www.aphis.usda.gov/sites/default/files/24-116-02rsr.pdf",
+    "publisher": "USDA APHIS",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-qi-biodesign"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:53.240307+00:00",
+    "last_successful_check": "2026-10-21T07:06:53.240307+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-us-simplot",
+    "type": "reference",
+    "label": "USDA APHIS · us-simplot",
+    "value": "https://www.aphis.usda.gov/sites/default/files/20-168-05_air_response_signed.pdf",
+    "url": "https://www.aphis.usda.gov/sites/default/files/20-168-05_air_response_signed.pdf",
+    "canonical_url": "https://www.aphis.usda.gov/sites/default/files/20-168-05_air_response_signed.pdf",
+    "publisher": "USDA APHIS",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-j-r-simplot"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:59.616531+00:00",
+    "last_successful_check": "2026-10-21T07:06:59.616531+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-us-fda",
+    "type": "reference",
+    "label": "FDA · us-fda",
+    "value": "https://www.fda.gov/food/agricultural-biotechnology/genome-editing-agricultural-biotechnology",
+    "url": "https://www.fda.gov/food/agricultural-biotechnology/genome-editing-agricultural-biotechnology",
+    "canonical_url": "https://www.fda.gov/food/agricultural-biotechnology/genome-editing-agricultural-biotechnology",
+    "publisher": "FDA",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:06:59.789816+00:00",
+    "last_successful_check": "2026-10-21T07:06:59.789816+00:00",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-eu-ngt",
+    "type": "reference",
+    "label": "European Commission · eu-ngt",
+    "value": "https://food.ec.europa.eu/plants/genetically-modified-organisms/new-techniques-biotechnology_en",
+    "url": "https://food.ec.europa.eu/plants/genetically-modified-organisms/new-techniques-biotechnology_en",
+    "canonical_url": "https://food.ec.europa.eu/plants/genetically-modified-organisms/new-techniques-biotechnology_en",
+    "publisher": "European Commission",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [],
+    "enabled": false,
+    "last_checked_at": "2026-10-21T07:07:01.326873+00:00",
+    "last_successful_check": null,
+    "last_status": "blocked",
+    "status": "blocked",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-monitor-simplot",
+    "type": "rss",
+    "label": "Company monitoring · J.R. Simplot Company",
+    "publisher": "Google News search / original publishers",
+    "language": "en / original publisher language",
+    "value": "https://news.google.com/rss/search?q=%22Simplot%22+%28strawberry+OR+breeding+OR+CRISPR%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "url": "https://news.google.com/rss/search?q=%22Simplot%22+%28strawberry+OR+breeding+OR+CRISPR%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "source_type": "news_search",
+    "acquisition_method": "existing news_search_rss adapter; original article requires acquisition/review",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=%22Simplot%22+%28strawberry+OR+breeding+OR+CRISPR%29&hl=en-US&gl=US&ceid=US%3Aen",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-10-21",
+      "notes": "Company monitoring independent of topic classification. Broad company/crop query; no automatic Gene Editing tag."
+    },
+    "entity_types": [
+      "company"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "topic_scope": [
+      "company-monitoring"
+    ],
+    "linked_competitor_ids": [
+      "company-j-r-simplot"
+    ],
+    "enabled": true,
+    "status": "verified",
+    "last_checked_at": "2026-10-21T07:27:40.697620+00:00",
+    "last_successful_check": "2026-10-21T07:27:40.697620+00:00",
+    "last_status": "ok",
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-monitor-plant-sciences",
+    "type": "rss",
+    "label": "Company monitoring · Plant Sciences, Inc.",
+    "publisher": "Google News search / original publishers",
+    "language": "en / original publisher language",
+    "value": "https://news.google.com/rss/search?q=%28%22Plant+Sciences+Inc%22+OR+%22Plant+Sciences+Genetics%22%29+%28berry+OR+breeding%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "url": "https://news.google.com/rss/search?q=%28%22Plant+Sciences+Inc%22+OR+%22Plant+Sciences+Genetics%22%29+%28berry+OR+breeding%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "source_type": "news_search",
+    "acquisition_method": "existing news_search_rss adapter; original article requires acquisition/review",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=%28%22Plant+Sciences+Inc%22+OR+%22Plant+Sciences+Genetics%22%29+%28berry+OR+breeding%29&hl=en-US&gl=US&ceid=US%3Aen",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-10-21",
+      "notes": "Company monitoring independent of topic classification. Broad company/crop query; no automatic Gene Editing tag."
+    },
+    "entity_types": [
+      "company"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "topic_scope": [
+      "company-monitoring"
+    ],
+    "linked_competitor_ids": [
+      "company-plant-sciences-genetics"
+    ],
+    "enabled": true,
+    "status": "verified",
+    "last_checked_at": "2026-10-21T07:27:40.698613+00:00",
+    "last_successful_check": "2026-10-21T07:27:40.698613+00:00",
+    "last_status": "ok",
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-monitor-ohalo",
+    "type": "rss",
+    "label": "Company monitoring · Ohalo",
+    "publisher": "Google News search / original publishers",
+    "language": "en / original publisher language",
+    "value": "https://news.google.com/rss/search?q=%22Ohalo%22+%28breeding+OR+strawberry+OR+potato%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "url": "https://news.google.com/rss/search?q=%22Ohalo%22+%28breeding+OR+strawberry+OR+potato%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "source_type": "news_search",
+    "acquisition_method": "existing news_search_rss adapter; original article requires acquisition/review",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=%22Ohalo%22+%28breeding+OR+strawberry+OR+potato%29&hl=en-US&gl=US&ceid=US%3Aen",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-10-21",
+      "notes": "Company monitoring independent of topic classification. Broad company/crop query; no automatic Gene Editing tag."
+    },
+    "entity_types": [
+      "company"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "topic_scope": [
+      "company-monitoring"
+    ],
+    "linked_competitor_ids": [
+      "company-ohalo"
+    ],
+    "enabled": true,
+    "status": "verified",
+    "last_checked_at": "2026-10-21T07:27:40.699507+00:00",
+    "last_successful_check": "2026-10-21T07:27:40.699507+00:00",
+    "last_status": "ok",
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-monitor-pairwise",
+    "type": "rss",
+    "label": "Company monitoring · Pairwise",
+    "publisher": "Google News search / original publishers",
+    "language": "en / original publisher language",
+    "value": "https://news.google.com/rss/search?q=%22Pairwise%22+%28plant+OR+berry+OR+CRISPR%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "url": "https://news.google.com/rss/search?q=%22Pairwise%22+%28plant+OR+berry+OR+CRISPR%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "source_type": "news_search",
+    "acquisition_method": "existing news_search_rss adapter; original article requires acquisition/review",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=%22Pairwise%22+%28plant+OR+berry+OR+CRISPR%29&hl=en-US&gl=US&ceid=US%3Aen",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-10-21",
+      "notes": "Company monitoring independent of topic classification. Broad company/crop query; no automatic Gene Editing tag."
+    },
+    "entity_types": [
+      "company"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "topic_scope": [
+      "company-monitoring"
+    ],
+    "linked_competitor_ids": [
+      "company-pairwise"
+    ],
+    "enabled": true,
+    "status": "verified",
+    "last_checked_at": "2026-10-21T07:27:42.021089+00:00",
+    "last_successful_check": "2026-10-21T07:27:42.021089+00:00",
+    "last_status": "ok",
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-monitor-hudson-river",
+    "type": "rss",
+    "label": "Company monitoring · Hudson River Biotechnology",
+    "publisher": "Google News search / original publishers",
+    "language": "en / original publisher language",
+    "value": "https://news.google.com/rss/search?q=%22Hudson+River+Biotechnology%22&hl=en-US&gl=US&ceid=US%3Aen",
+    "url": "https://news.google.com/rss/search?q=%22Hudson+River+Biotechnology%22&hl=en-US&gl=US&ceid=US%3Aen",
+    "source_type": "news_search",
+    "acquisition_method": "existing news_search_rss adapter; original article requires acquisition/review",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=%22Hudson+River+Biotechnology%22&hl=en-US&gl=US&ceid=US%3Aen",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-10-21",
+      "notes": "Company monitoring independent of topic classification. Broad company/crop query; no automatic Gene Editing tag."
+    },
+    "entity_types": [
+      "company"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "topic_scope": [
+      "company-monitoring"
+    ],
+    "linked_competitor_ids": [
+      "company-hudson-river-biotechnology"
+    ],
+    "enabled": true,
+    "status": "verified",
+    "last_checked_at": "2026-10-21T07:27:42.070285+00:00",
+    "last_successful_check": "2026-10-21T07:27:42.070285+00:00",
+    "last_status": "ok",
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-monitor-plantik",
+    "type": "rss",
+    "label": "Company monitoring · Plantik Biosciences",
+    "publisher": "Google News search / original publishers",
+    "language": "en / original publisher language",
+    "value": "https://news.google.com/rss/search?q=%22Plantik%22+%28plant+OR+strawberry+OR+breeding%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "url": "https://news.google.com/rss/search?q=%22Plantik%22+%28plant+OR+strawberry+OR+breeding%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "source_type": "news_search",
+    "acquisition_method": "existing news_search_rss adapter; original article requires acquisition/review",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=%22Plantik%22+%28plant+OR+strawberry+OR+breeding%29&hl=en-US&gl=US&ceid=US%3Aen",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-10-21",
+      "notes": "Company monitoring independent of topic classification. Broad company/crop query; no automatic Gene Editing tag."
+    },
+    "entity_types": [
+      "company"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "topic_scope": [
+      "company-monitoring"
+    ],
+    "linked_competitor_ids": [
+      "company-plantik-biosciences"
+    ],
+    "enabled": true,
+    "status": "verified",
+    "last_checked_at": "2026-10-21T07:27:42.159037+00:00",
+    "last_successful_check": "2026-10-21T07:27:42.159037+00:00",
+    "last_status": "ok",
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-monitor-fall-creek",
+    "type": "rss",
+    "label": "Company monitoring · Fall Creek Farm & Nursery",
+    "publisher": "Google News search / original publishers",
+    "language": "en / original publisher language",
+    "value": "https://news.google.com/rss/search?q=%22Fall+Creek%22+%28blueberry+OR+nursery%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "url": "https://news.google.com/rss/search?q=%22Fall+Creek%22+%28blueberry+OR+nursery%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "source_type": "news_search",
+    "acquisition_method": "existing news_search_rss adapter; original article requires acquisition/review",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=%22Fall+Creek%22+%28blueberry+OR+nursery%29&hl=en-US&gl=US&ceid=US%3Aen",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-10-21",
+      "notes": "Company monitoring independent of topic classification. Broad company/crop query; no automatic Gene Editing tag."
+    },
+    "entity_types": [
+      "company"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "topic_scope": [
+      "company-monitoring"
+    ],
+    "linked_competitor_ids": [
+      "company-fall-creek-farm-and-nursery"
+    ],
+    "enabled": true,
+    "status": "verified",
+    "last_checked_at": "2026-10-21T07:27:43.027832+00:00",
+    "last_successful_check": "2026-10-21T07:27:43.027832+00:00",
+    "last_status": "ok",
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-monitor-planasa",
+    "type": "rss",
+    "label": "Company monitoring · Planasa",
+    "publisher": "Google News search / original publishers",
+    "language": "en / original publisher language",
+    "value": "https://news.google.com/rss/search?q=%22Planasa%22+%28berry+OR+breeding+OR+nursery%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "url": "https://news.google.com/rss/search?q=%22Planasa%22+%28berry+OR+breeding+OR+nursery%29&hl=en-US&gl=US&ceid=US%3Aen",
+    "source_type": "news_search",
+    "acquisition_method": "existing news_search_rss adapter; original article requires acquisition/review",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=%22Planasa%22+%28berry+OR+breeding+OR+nursery%29&hl=en-US&gl=US&ceid=US%3Aen",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-10-21",
+      "notes": "Company monitoring independent of topic classification. Broad company/crop query; no automatic Gene Editing tag."
+    },
+    "entity_types": [
+      "company"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "topic_scope": [
+      "company-monitoring"
+    ],
+    "linked_competitor_ids": [
+      "company-planasa"
+    ],
+    "enabled": true,
+    "status": "verified",
+    "last_checked_at": "2026-10-21T07:27:43.067530+00:00",
+    "last_successful_check": "2026-10-21T07:27:43.067530+00:00",
+    "last_status": "ok",
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-monitor-heritable",
+    "type": "rss",
+    "label": "Company monitoring · Heritable Agriculture",
+    "publisher": "Google News search / original publishers",
+    "language": "en / original publisher language",
+    "value": "https://news.google.com/rss/search?q=%22Heritable+Agriculture%22&hl=en-US&gl=US&ceid=US%3Aen",
+    "url": "https://news.google.com/rss/search?q=%22Heritable+Agriculture%22&hl=en-US&gl=US&ceid=US%3Aen",
+    "source_type": "news_search",
+    "acquisition_method": "existing news_search_rss adapter; original article requires acquisition/review",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=%22Heritable+Agriculture%22&hl=en-US&gl=US&ceid=US%3Aen",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-10-21",
+      "notes": "Company monitoring independent of topic classification. Broad company/crop query; no automatic Gene Editing tag."
+    },
+    "entity_types": [
+      "company"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "topic_scope": [
+      "company-monitoring"
+    ],
+    "linked_competitor_ids": [
+      "company-heritable-agriculture"
+    ],
+    "enabled": true,
+    "status": "verified",
+    "last_checked_at": "2026-10-21T07:27:43.115247+00:00",
+    "last_successful_check": "2026-10-21T07:27:43.115247+00:00",
+    "last_status": "ok",
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-monitor-qi-biodesign",
+    "type": "rss",
+    "label": "Company monitoring · Qi Biodesign",
+    "publisher": "Google News search / original publishers",
+    "language": "en / original publisher language",
+    "value": "https://news.google.com/rss/search?q=%22Qi+Biodesign%22+OR+%22%E9%BD%90%E7%A6%BE%E7%94%9F%E7%A7%91%22&hl=en-US&gl=US&ceid=US%3Aen",
+    "url": "https://news.google.com/rss/search?q=%22Qi+Biodesign%22+OR+%22%E9%BD%90%E7%A6%BE%E7%94%9F%E7%A7%91%22&hl=en-US&gl=US&ceid=US%3Aen",
+    "source_type": "news_search",
+    "acquisition_method": "existing news_search_rss adapter; original article requires acquisition/review",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=%22Qi+Biodesign%22+OR+%22%E9%BD%90%E7%A6%BE%E7%94%9F%E7%A7%91%22&hl=en-US&gl=US&ceid=US%3Aen",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-10-21",
+      "notes": "Company monitoring independent of topic classification. Broad company/crop query; no automatic Gene Editing tag."
+    },
+    "entity_types": [
+      "company"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "topic_scope": [
+      "company-monitoring"
+    ],
+    "linked_competitor_ids": [
+      "company-qi-biodesign"
+    ],
+    "enabled": true,
+    "status": "verified",
+    "last_checked_at": "2026-10-21T07:27:44.014461+00:00",
+    "last_successful_check": "2026-10-21T07:27:44.014461+00:00",
+    "last_status": "ok",
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-monitor-shunfeng",
+    "type": "rss",
+    "label": "Company monitoring · Shandong Shunfeng Biotechnology",
+    "publisher": "Google News search / original publishers",
+    "language": "en / original publisher language",
+    "value": "https://news.google.com/rss/search?q=%22Shunfeng+Bio%22+OR+%22%E8%88%9C%E4%B8%B0%E7%94%9F%E7%89%A9%22&hl=en-US&gl=US&ceid=US%3Aen",
+    "url": "https://news.google.com/rss/search?q=%22Shunfeng+Bio%22+OR+%22%E8%88%9C%E4%B8%B0%E7%94%9F%E7%89%A9%22&hl=en-US&gl=US&ceid=US%3Aen",
+    "source_type": "news_search",
+    "acquisition_method": "existing news_search_rss adapter; original article requires acquisition/review",
+    "discovery": {
+      "adapter": "news_search_rss",
+      "feed_url": "https://news.google.com/rss/search?q=%22Shunfeng+Bio%22+OR+%22%E8%88%9C%E4%B8%B0%E7%94%9F%E7%89%A9%22&hl=en-US&gl=US&ceid=US%3Aen",
+      "item_limit": 10,
+      "feed_url_verified_at": "2026-10-21",
+      "notes": "Company monitoring independent of topic classification. Broad company/crop query; no automatic Gene Editing tag."
+    },
+    "entity_types": [
+      "company"
+    ],
+    "berry_ids": [],
+    "region_coverage": [
+      "global"
+    ],
+    "topic_scope": [
+      "company-monitoring"
+    ],
+    "linked_competitor_ids": [
+      "company-shandong-shunfeng-biotechnology"
+    ],
+    "enabled": true,
+    "status": "verified",
+    "last_checked_at": "2026-10-21T07:27:44.054692+00:00",
+    "last_successful_check": "2026-10-21T07:27:44.054692+00:00",
+    "last_status": "ok",
+    "monitoring_priority": "medium",
+    "update_cadence": "weekly",
+    "created_at": "2026-10-21"
   }
 ]

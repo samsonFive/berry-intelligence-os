@@ -1,0 +1,23 @@
+{
+  "id": "company-qi-biodesign",
+  "record_type": "entity",
+  "entity_type": "company",
+  "name": "Qi Biodesign",
+  "aliases": [
+    "Qi-Biodesign",
+    "\u9f50\u79be\u751f\u79d1"
+  ],
+  "status": "unverified",
+  "description": "Gene Editing & Advanced Breeding monitoring seed. Inclusion is not proof of editing activity or commercialization.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-qi-funding",
+    "ev-gene-qi-license",
+    "ev-gene-qi-lab",
+    "ev-gene-us-qi"
+  ],
+  "attributes": {
+    "official_domain": "http://www.qi-biodesign.com",
+    "gene_editing_research_ref": "data/imports/gene-editing-2026-10-20/snapshot.json"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "program-gene-planasa",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Planasa berry breeding",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [
+    "berry-strawberry",
+    "berry-blueberry",
+    "berry-raspberry",
+    "berry-blackberry"
+  ],
+  "evidence_ids": [
+    "ev-planasa-about-us"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-planasa",
+      "name": "Planasa berry breeding",
+      "company_ids": [
+        "company-planasa"
+      ],
+      "technology": "Traditional breeding plus unspecified modern technology",
+      "crop": "Strawberry; blueberry; raspberry; blackberry",
+      "trait": null,
+      "partner": null,
+      "geography": null,
+      "role": "breeder/germplasm owner; nursery/propagation",
+      "stage": "Breeding / nursery business described",
+      "milestone_date": null,
+      "milestone": "Official company page describes traditional breeding with modern technology.",
+      "evidence_ids": [
+        "ev-gene-planasa-about"
+      ],
+      "berry_ids": [
+        "berry-strawberry",
+        "berry-blueberry",
+        "berry-raspberry",
+        "berry-blackberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Gene-editing involvement not established in this research pass; modern technology does not establish CRISPR."
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "program-gene-ohalo-boosted",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Boosted Breeding platform",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-ohalo-boosted"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-ohalo-boosted",
+      "name": "Boosted Breeding platform",
+      "company_ids": [
+        "company-ohalo"
+      ],
+      "technology": "Boosted Breeding (distinct from CRISPR)",
+      "crop": "Potato; corn; berries",
+      "trait": "Whole-genome parental inheritance; true-seed production",
+      "partner": null,
+      "geography": null,
+      "role": "advanced breeding platform",
+      "stage": "Company platform announcement",
+      "milestone_date": "2024-05-23",
+      "milestone": "Ohalo describes a proprietary reproductive breeding system.",
+      "evidence_ids": [
+        "ev-gene-ohalo-boosted"
+      ],
+      "berry_ids": [],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "Independent yield data, crop-specific launch and mechanistic equivalence to any particular editor not established."
+    }
+  }
+}

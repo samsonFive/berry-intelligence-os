@@ -1,0 +1,659 @@
+{
+  "company": "Plantik Biosciences strawberry heat tolerance",
+  "executed_at": "2026-10-21T06:54:42.340438+00:00",
+  "query": "Deep investigation of Plantik Biosciences strawberry heat tolerance as of October 20 2026. Resolve official domain, legal identity, aliases, parents and subsidiaries. Investigate plant editing versus conventional/advanced breeding, technologies, crops, berry programs, traits, named products, partners (especially PSI, Simplot, Pairwise, Plantik, HRB, Fall Creek, Planasa), IP licenses, financing, dated historical and latest milestones, program geography distinct from HQ, commercial availability and regulatory status by product/jurisdiction/date. Use original company/partner announcements, papers, patents and regulators; use native Chinese for Chinese companies. Provide source URLs, dates, short exact supporting excerpts, attribution, conflicts and evidence gaps. Do not equate Boosted Breeding with CRISPR or assume all roster companies edit berries. Distinguish announced versus demonstrated/field-tested/commercial. Explicitly say not established in this research pass when evidence is missing. Exclude anything after October 20 2026.",
+  "passes": [
+    {
+      "provider": "perplexity",
+      "query": "Plantik Biosciences strawberry heat tolerance official company identity technology berry breeding CRISPR partnership licensing",
+      "hits": [
+        {
+          "title": "Plantik and Hudson River Biotechnology take on heat ...",
+          "url": "https://agfundernews.com/exclusive-plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries",
+          "snippet": "# Exclusive: Plantik and Hudson River Biotechnology team up to de-risk heat-tolerant strawberries\n...\n#### Lotte Westerhof, CSO of Hudson River Biotechnology, with Plantik cofounder Ying Shao. Image credit: Plantik Biosciences\nPlantik Biosciences and Hudson River Biotechnology are partnering to develop heat tolerance in crops, with the goal of producing a validated heat-tolerance trait any strawberry breeder can license.\nBy combining heat-tolerant targets identified and validated by Plantik in tomatoes with “transgene-free” strawberry genome editing methods developed by Hudson River, the companies hope to turn trait discoveries into “improved strawberry varieties.”\nValidation trials are already underway.\nAccording to Plantik cofounder and CEO Ying Shao, heat tolerance is “a must-have trait for many crops across the globe” thanks to the rise in extreme heat events worldwide in recent years.\nStrawberries are among the most exposed crops, as these high temperatures disrupt flowering and fruit set, and damage overall fruit quality.\n...\n#### Performance under high heat\nFrance-based Plantik employs its ATLANTIS machine learning platform to search “the dark genome,” the regulatory stretches of DNA in plants that switch genes on and off.\nIt then edits those regions without inserting any foreign DNA, allowing plant breeders to fast-track development of crops.\nPlantik’s first product is a heat-tolerant tomato, which the company claims it developed in about 12 months instead of the five to eight years required by traditional breeding.\nThe company is currently running demonstrations across greenhouses and fields in the US and Belgium.\n“We have now worked on this trait in multiple tomato crops, from lab tomatoes to now commercial hybrids,” says Shao.\n...\n#### Editing at speed\nHudson River says its BioMaas platform gives breeders access to genome editing without the time and expense of building the R&D in-house.\nThus far the company has focused on tomatoes and strawberries.\n“We have now developed technical capabilities that allow us to very rapidly deploy new traits in those crops, like the heat-tolerant trait,” says Hudson River CEO Fernando Los.\nHe adds that the company can now make complex edits in these crops “in a matter of months.”\nChanges to EU rules, which simplify CRISPR regulations, have also caused “a surge of interest” in the business.\nLos says the open nature of the Hudson River platform is the company’s biggest differentiator.\nBreeders get the technology plus a range of traits, including new proprietary traits like heat tolerance.\nThird-party trait developers such as Plantik get access to Hudson River’s network of breeders.\nIn this specific partnership, BioMass will act “as a bridge” between trait innovators like Plantik and breeders.\nBeginning with strawberries, Plantik will identify which parts of the genome to edit for heat tolerance, and Hudson River makes those edits in the plants.\n“Strawberry is a different story from tomato because it’s genetically much more complex,” says Los.\n“It’s an octoploid species rather than a diploid.\nPropagation is normally done clonaly, so you cannot create seeds; you have to work directly in relevant commercial germplasm, which are all things that we can do.”\nStrawberry is the starting point, and the companies plan to take the approach to other crops later.\nThey are also inviting other companies to bring trait challenges for their own strawberry varieties.\n...\n#### De-risking heat tolerance for breeders\nStrawberry breeders have it hardest, he adds, because they lack the resources to run a full genome editing workflow in-house.\n“What we offer here is essentially de-risking and very cheap access to a piece of technology that’s normally only available to the very largest companies,” says Los.\n“If you reduce the failure rate from 90% to maybe 10% for a breeder, that’s a very good proposition to offer them.”",
+          "published_date": "2026-09-28"
+        },
+        {
+          "title": "Technology — Plantik Biosciences",
+          "url": "https://www.plantik.bio/technology/",
+          "snippet": "# ENGINEERING RESILIENT PLANTS FASTER\nPlantik develops technologies to recover trait and crop diversity vital for a resilient future.\nWe make it faster, because there is no time to wait.\n#### Our Plant Engineering Platform\n# ATLANTIS\n### THE DARK GENOME UNLOCKED\nWith the ATLANTIS™ platform, we answer the ultimate question: **Where should we look at?**\nATLANTIS™ is built on the latest cloud data infrastructure to analyze, discover, and formulate the best strategies to generate trait variations.\nIt makes it possible to explore *the Dark Genome* of the plant, which allows minimal, precise changes to fine-tune gene expression for complex, quantitative traits.\n#### Our (Dark) Genome Editing Tool\n# PROEDIT\n### AN ADVANCED WORKFLOW\nCombined with the targets found using ATLANTIS™, our advanced (dark) genome editing workflow enables precise and effective delivery of the chosen CRISPR machinery.\nOur protocols will bring this breakthrough technology to emerging and diverse crops to increase the resilience of our food system.\n# THERMO-TOLERANCE\nThermotolerance is the ability of a plant to withstand and survive high temperatures.\nTemperature fluctuations can negatively impact plant growth and reduce yield.\nPlantik is dedicated to increasing plant’s resilience under heat stress.",
+          "published_date": null
+        },
+        {
+          "title": "About us",
+          "url": "https://www.plantik.bio/aboutus",
+          "snippet": "About us — Plantik Biosciences\n#### OUR MISSION\n# CREATING RESILIENT CROPS FOR A RESILIENT FUTURE.\nOur team is united by a simple yet powerful mission — to protect our planet by equipping it with resilient, climate-adaptive plants.\nIn doing so, we stand not only for safeguarding the livelihoods of farmers but also for ensuring a more sustainable and secure future for all.\n...\n## MEET OUR TEAM\nWe are a passionate, multi-disciplinary, and international team on a mission to create resilient plants for tomorrow.\nThrough the revolutionary power of Plant Engineering, we aspire to empower individuals and communities to harness the potential of plant genetics, and contribute to a more resilient, sustainable, and secure future for all.\n## “By modifying small and precise targets in the under-explored “dark genome”, we developed heat-resistant tomatoes that could transform lives”\n...\nYing Shao - CEO",
+          "published_date": "2026-03-10"
+        },
+        {
+          "title": "8 AI Players to Watch in Crop Breeding - Seed World",
+          "url": "https://www.seedworld.com/us/2026/09/28/ai-crop-breeding-players-watch/",
+          "snippet": "# 8 AI Players to Watch in Crop Breeding\n## Plantik Biosciences\nBased in: France\nRather than making changes to genes that encode protein, Plantik Biosciences targets the non-coding genes that regulate when and how rigorously a gene functions.\nMaking changes to this ‘regulatory DNA’ enables plants to increase the strength of their response to heat, drought or disease, but permanent activation of stress responses (which can carry a yield or growth penalty) is avoided.\nPlantik’s AI system uses multi-omic data to identify regulatory genetic switches and conduct edits using the chosen CRISPR approach, with an initial focus on tomatoes, corn and soybeans.\nThe business model has a long-term focus on developing traits in-house and licensing them to seed companies, while making revenue in the near term by providing various services.\nPlantik’s co-founders were named in the “Palmarès des inventeurs” at the Paris-Saclay Summit in February 2026.",
+          "published_date": "2026-09-28"
+        },
+        {
+          "title": "Plantik Biosciences",
+          "url": "https://www.plantik.bio/",
+          "snippet": "Plantik Biosciences\n...\n## CLIMATE-RESILIENT CROPS\n...\nResilient plants are at the heart of our fight against climate change.\nPlantik develops technologies to create resilient plants that survive today’s challenges, for a better tomorrow.\n#### OUR TECHNOLOGY\n# DARK GENOME REVOLUTION\nPlants evolve for trait diversity naturally to increase resilience.\nOur Plant Engineering Workflow takes advantage of the latest genomic data and biotechnology breakthroughs to tap into the underexplored genetic variation of plants to create resilience.\n#### RESILIENCE STARTS WITH\n# THERMO-TOLERANCE\nDevastating heatwaves are becoming more frequent than ever.\nPlants are extremely vulnerable to heat stress, which impacts harvest, seed availability, and food security.\nThis is why we are concentrating our efforts first on creating thermotolerant plants.\n...\nWe are proud to have built an international, dynamic, and fun team consisting of dedicated plant scientists, data engineers, and business leaders.\n...\n*hello@plantik.bio*\nStation F\n5 Parvis Alan Turing, 75013 Paris\n...\nLa pépinière GENOPOLE\n4 Rue Pierre Fontaine, 91000 Evry-Courcouronnes\nImmeuble Val De Loire\n4 Passage De La Râpe, 45006 Orléans",
+          "published_date": null
+        },
+        {
+          "title": "Hudson River and Plantik partner to enhance heat tolerance in strawberries",
+          "url": "https://news.agropages.com/News/NewsDetail---59032.htm",
+          "snippet": "# Hudson River and Plantik partner to enhance heat tolerance in strawberries\n...\n#### Hudson River Biotechnology (HRB) Netherlands\nPlant genome-editing technology company Hudson River and plant engineering company Plantik announced a partnership to bring heat tolerance into commercial strawberries.\nThe programme combines heat-tolerance targets identified and validated by Plantik in tomato with the transgene-free strawberry genome-editing methods developed by Hudson River to translate trait discoveries into improved strawberry varieties.\n...\nStrawberry is among the most exposed to high temperatures, disrupting its flowering and fruit set, reducing yield and negatively impacting fruit quality.\nPlantik brings demonstrated expertise in engineering heat tolerance - validated in tomato across multiple genetic backgrounds with field demonstrations currently under way across multiple locations in the US and Europe.\nThis is combined with Hudson River’s proprietary, transgene-free genome-editing method, already tailored to strawberry and well suited for complex traits such as heat tolerance.\nTogether, the two companies plan to improve heat tolerance in strawberries and help breeders protect both productivity and marketable fruit quality given increasingly challenging growing conditions.\n*\"Heat tolerance has become a must-have trait for many crops across the globe.\nPlants' ability to withstand increasingly intensified and repeated heatwaves while preserving yield will continue to be a top priority in the coming years,″ said Ying Shao, Co-Founder and CEO of Plantik.*\nThe partnership brings together unique technologies developed by each company.\nPlantik’s ATLANTIS platform offers proprietary discovery capabilities to identify high-potential targets for engineering complex traits without compromise.\nHudson River’s BioMaas platform enables breeders to access its advanced genome-editing capabilities without having to build the R&D and technology in-house.\nThroughout this collaboration, BioMaas will act as a bridge between trait innovators and breeders – helping trait companies translate their discoveries into crop-specific applications, while giving breeders an accessible route to valuable new traits.\nThrough BioMaas, strawberry breeders will be able to access unique and proprietary traits from specialized discovery companies such as Plantik, helping them expand and accelerate their innovation pipelines.\nThe partnership will tackle the heat tolerance challenge in strawberries as a starting point before applying it in other crops.\n*″This collaboration is a perfect example of how trait knowledge can be leveraged from one crop to another, without the trait needing to be present in the breeder’s germplasm or lengthy backcrossing and selection.\nWith BioMaas, we introduce the desired trait directly into elite germplasm, creating material ready for commercialisation in a single generation,″ said Lotte Westerhof, CSO of Hudson River.*\nValidation trials are already underway between the two companies, who are welcoming trait challenges from companies looking to implement these into their strawberry varieties.",
+          "published_date": null
+        },
+        {
+          "title": "French-Dutch partnership tackles heat tolerance in strawberries, massive trials slated for 2028 - FreshFruitPortal.com",
+          "url": "https://www.freshfruitportal.com/news/2026/10/12/heat-tolerance-strawberry/",
+          "snippet": "French-Dutch partnership tackles heat tolerance in strawberries, massive trials slated for 2028 - FreshFruitPortal.com\n# French-Dutch partnership tackles heat tolerance in strawberries\n...\nTo address this, genetics technology firm Hudson River and engineering French company Plantik are combining gene-editing and elite-germplasm technologies to develop strawberries that can better withstand heat stress.\nFirst commercial field trials are slated for spring and summer 2028.\nThe European firm’s co-founder and CEO Ying Shao told **FreshFruitPortal.com** that her team identified a **tomato genetic region associated with heat tolerance**, which provided the starting point.\n“[The genetic region] is very well conserved across species, which gives us a strong shortcut in terms of where to look in the strawberry genome,” she said.\nPlantik’s proprietary cloud data infrastructure and machine learning platform ATLANTIS has been pivotal to the work, Shao added.\n“Using ATLANTIS, we are able to identify additional, adjacent target regions that also ranked high according to our algorithm and demonstrated high potential,” she said.\n“This combination of a conserved primary target plus newly discovered adjacent targets gives us confidence that the trait will translate effectively.”\n...\n## Beyond heat tolerance\nFruit set is a critical production phase, and **heat can significantly interfere** with it, Shao explained.\nThat is why Plantik plans to evaluate several strawberry performance measures in upcoming trials slated for 2028.\n“Beyond yield, fruit quality may also be altered under heat stress, including berry size shrinking and the sugar content being affected, which is particularly important for consumers in certain markets,” the CEO noted.\nShao said their approach aims to create a **conditional response to heat stress** while minimizing potential effects on normal plant development.\n“The goal is for the plant to have a better mechanism to fight heat **only when the stressor is present, throughout its lifecycle**,” Shao said.\n“When heat stress isn't present, the plant develops and behaves just like the unedited plant.”\nShao stressed that the company also plans to use the technology to reduce the likelihood of unintended effects associated with altering genes, and that other commodities may soon benefit from the process.\n“The next crops in line for trait transfer that are generating strong interest from partners include soybeans, potatoes, pepper, and lettuce”, she said.\n...\n### Hudson River focuses on elite germplasm\nMeanwhile, in Wageningen, Netherlands, Hudson River is tackling the issue directly at its genetic core.\nThe firm uses its BioMaas platform, an advanced, DNA-free plant genome-editing system to refine and enhance elite commercial varieties.",
+          "published_date": "2026-10-12"
+        },
+        {
+          "title": "Two Biotechs Edit Strawberries' \"Dark Genome\" to Survive Hotter Summers",
+          "url": "https://www.global-agriculture.com/ag-tech-research-news/two-biotechs-edit-strawberries-dark-genome-to-survive-hotter-summers/",
+          "snippet": "# Two Biotechs Edit Strawberries’ “Dark Genome” to Survive Hotter Summers\n**29 September 2026, Netherlands:** Two European agricultural biotech companies, Plantik Biosciences of France and Hudson River Biotechnology of the Netherlands, announced on September 28 that they are extending a gene-editing partnership from tomatoes into strawberries, targeting heat tolerance as extreme temperature events become more frequent across major growing regions.\nThe announcement was first reported by AgFunderNews, and validation trials on the edited strawberry material are already underway.\nThe two companies bring complementary pieces of the same puzzle.\nPlantik, based at the Genopole biotech cluster near Paris, has built a machine learning platform called ATLANTIS that scans what scientists call the “dark genome,” the large share of a plant’s DNA that does not directly code for proteins but instead controls when, where and how strongly nearby genes switch on.\nRather than searching for a single gene to disable or insert, ATLANTIS is designed to identify small tweaks to these regulatory regions that adjust a plant’s existing traits without introducing foreign DNA.\nHudson River Biotechnology, based at Wageningen Campus in the Netherlands, supplies the execution side through its BioMaas platform, which performs the actual genome edits in crop tissue using transgene-free methods, meaning the final plant carries no inserted genetic material from another species, only altered versions of its own DNA sequence.\n...\n## From Tomato to Strawberry\nThe strawberry project builds directly on an earlier collaboration between the two companies that produced a heat-tolerant tomato line.\nAccording to the companies, that tomato was developed in roughly 12 months using the ATLANTIS-BioMaas combination, compared with the five to eight years a conventional breeding program would typically need to introduce and stabilize a similar trait.\nThe edited tomato has since shown improved yield preservation under high-heat conditions in real-world trial settings, according to the companies, giving them a proof point to apply the same approach to a new crop.\nStrawberries present a different breeding challenge than tomatoes.\nCommercial strawberry varieties are complex, high-value fruiting plants that are typically propagated clonally rather than from seed, and heat stress during flowering and fruit set can sharply cut both yield and fruit quality, a problem already visible in strawberry-growing regions from California to southern Europe during recent hot growing seasons.\nPlantik cofounder and chief executive Ying Shao said heat tolerance has become “a must-have trait for many crops across the globe” as extreme heat events grow more common, a rationale that applies as much to fruit and vegetable crops as to the row crops that have historically received more breeding investment.\n...\n## Live Newsroom\nNeither company disclosed financial terms of the expanded partnership or named specific funding behind the strawberry work.\n...\nThe approach illustrated by this partnership, editing regulatory DNA rather than protein-coding genes, is part of a broader shift in plant biotechnology that regulators in several markets, including the European Union and India, have begun treating differently from conventional transgenic GM crops, since no foreign gene is inserted into the final plant.\nThat distinction matters commercially: precision-bred or gene-edited varieties of this kind can often reach farmers faster and with a lighter regulatory path than first-generation GM crops, which is part of why venture-backed biotechs are racing to apply the model across specialty and fruit crops, not just the commodity row crops that dominated the first wave of agricultural biotechnology.",
+          "published_date": "2026-09-29"
+        }
+      ],
+      "latency_seconds": 1.283,
+      "request_id": "f46d3086-2e61-42f6-9bb9-95b251585bee"
+    },
+    {
+      "provider": "perplexity",
+      "query": "Plantik Biosciences strawberry heat tolerance 2025 2026 strawberry blueberry genome editing commercialization milestones research evidence",
+      "hits": [
+        {
+          "title": "Plantik and Hudson River Biotechnology team up to de-risk ...",
+          "url": "https://www.hortidaily.com/article/9877481/plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries/",
+          "snippet": "Plantik and Hudson River Biotechnology team up to de-risk heat-tolerant strawberries\n...\nMonday, 19 October 2026\n- Account Manager / Sales\n- Sales agent – Horticulture supplier\n...\n# Plantik and Hudson River Biotechnology team up to de-risk heat-tolerant strawberries\nPlantik Biosciences and Hudson River Biotechnology are partnering to develop heat tolerance in crops, with the goal of producing a validated heat-tolerance trait any strawberry breeder can license.\nBy combining heat-tolerant targets identified and validated by Plantik in tomatoes with \"transgene-free\" strawberry genome editing methods developed by Hudson River, the companies hope to turn trait discoveries into \"improved strawberry varieties.\"\nValidation trials are already underway.\n...\nStrawberries are among the most exposed crops, as these high temperatures disrupt flowering and fruit set, and damage overall fruit quality.\nFrance-based Plantik employs its ATLANTIS machine learning platform to search \"the dark genome,\" the regulatory stretches of DNA in plants that switch genes on and off.\nIt then edits those regions without inserting any foreign DNA, allowing plant breeders to fast-track development of crops.\nPlantik's first product is a heat-tolerant tomato, which the company claims it developed in about 12 months instead of the five to eight years required by traditional breeding.\nThe company is currently running demonstrations across greenhouses and fields in the US and Belgium.\n\"We have now worked on this trait in multiple tomato crops, from lab tomatoes to now commercial hybrids,\" says Shao.\n\"Overall, we see that in the real conditions, the material also performs much better in terms of yield preservation under high heat.\"\n...\nWed 30 Sep 2026",
+          "published_date": "2026-10-19"
+        },
+        {
+          "title": "Plantik Biosciences - Products, Competitors, Financials ...",
+          "url": "https://www.cbinsights.com/company/plantik-biosciences",
+          "snippet": "# Plantik Biosciences\n## Latest Plantik Biosciences News\nPlantik and Hudson River Biotechnology team up to de-risk heat-tolerant strawberries\nSep 30, 2026\nPlantik Biosciences and Hudson River Biotechnology are partnering to develop heat tolerance in crops, with the goal of producing a validated heat-tolerance trait any strawberry breeder can license.\nBy combining heat-tolerant targets identified and validated by Plantik in tomatoes with \"transgene-free\" strawberry genome editing methods developed by Hudson River, the companies hope to turn trait discoveries into \"improved strawberry varieties.\"\nValidation trials are already underway.\nAccording to Plantik cofounder and CEO Ying Shao, heat tolerance is \"a must-have trait for many crops across the globe\" thanks to the rise in extreme heat events worldwide in recent years.\nStrawberries are among the most exposed crops, as these high temperatures disrupt flowering and fruit set, and damage overall fruit quality.\nFrance-based Plantik employs its ATLANTIS machine learning platform to search \"the dark genome,\" the regulatory stretches of DNA in plants that switch genes on and off.\nIt then edits those regions without inserting any foreign DNA, allowing plant breeders to fast-track development of crops.\nPlantik's first product is a heat-tolerant tomato, which the company claims it developed in about 12 months instead of the five to eight years required by traditional breeding.\nThe company is currently running demonstrations across greenhouses and fields in the US and Belgium.\n\"We have now worked on this trait in multiple tomato crops, from lab tomatoes to now commercial hybrids,\" says Shao.\n\"Overall, we see that in the real conditions, the material also performs much better in terms of yield preservation under high heat.\"\nSep 28, 2026\nExclusive: Plantik and Hudson River Biotechnology team up to de-risk heat-tolerant strawberries",
+          "published_date": "2026-09-30"
+        },
+        {
+          "title": "Hudson River and Plantik partner to enhance heat tolerance in strawberries",
+          "url": "https://news.agropages.com/News/NewsDetail---59032.htm",
+          "snippet": "# Hudson River and Plantik partner to enhance heat tolerance in strawberries\nSep. 30, 2026\n...\n#### Hudson River Biotechnology (HRB) Netherlands\nPlant genome-editing technology company Hudson River and plant engineering company Plantik announced a partnership to bring heat tolerance into commercial strawberries.\nThe programme combines heat-tolerance targets identified and validated by Plantik in tomato with the transgene-free strawberry genome-editing methods developed by Hudson River to translate trait discoveries into improved strawberry varieties.\n...\nStrawberry is among the most exposed to high temperatures, disrupting its flowering and fruit set, reducing yield and negatively impacting fruit quality.\nPlantik brings demonstrated expertise in engineering heat tolerance - validated in tomato across multiple genetic backgrounds with field demonstrations currently under way across multiple locations in the US and Europe.\nThis is combined with Hudson River’s proprietary, transgene-free genome-editing method, already tailored to strawberry and well suited for complex traits such as heat tolerance.\nTogether, the two companies plan to improve heat tolerance in strawberries and help breeders protect both productivity and marketable fruit quality given increasingly challenging growing conditions.\n...\nThe partnership brings together unique technologies developed by each company.\nPlantik’s ATLANTIS platform offers proprietary discovery capabilities to identify high-potential targets for engineering complex traits without compromise.\nHudson River’s BioMaas platform enables breeders to access its advanced genome-editing capabilities without having to build the R&D and technology in-house.\nThroughout this collaboration, BioMaas will act as a bridge between trait innovators and breeders – helping trait companies translate their discoveries into crop-specific applications, while giving breeders an accessible route to valuable new traits.\nThrough BioMaas, strawberry breeders will be able to access unique and proprietary traits from specialized discovery companies such as Plantik, helping them expand and accelerate their innovation pipelines.\nThe partnership will tackle the heat tolerance challenge in strawberries as a starting point before applying it in other crops.\n*″This collaboration is a perfect example of how trait knowledge can be leveraged from one crop to another, without the trait needing to be present in the breeder’s germplasm or lengthy backcrossing and selection.\nWith BioMaas, we introduce the desired trait directly into elite germplasm, creating material ready for commercialisation in a single generation,″ said Lotte Westerhof, CSO of Hudson River.*\nValidation trials are already underway between the two companies, who are welcoming trait challenges from companies looking to implement these into their strawberry varieties.",
+          "published_date": null
+        },
+        {
+          "title": "Plantik and Hudson River Target Heat-Tolerant Strawberries | Agroempresario.com",
+          "url": "https://agroempresario.com/publicacion/121962/plantik-and-hudson-river-target-heat-tolerant-strawberries/",
+          "snippet": "# Plantik and Hudson River Target Heat-Tolerant Strawberries\n## The companies are combining genome editing and machine learning to develop a heat-tolerance trait that strawberry breeders could license\n** martes 29 de septiembre de 2026 - 16:07\n**Plantik Biosciences and Hudson River Biotechnology have partnered to develop heat-tolerant strawberries, combining Plantik’s trait discovery technology with Hudson River’s transgene-free genome-editing methods.** The companies aim to validate a heat-tolerance trait that strawberry breeders could license and incorporate into commercial varieties, with validation trials already underway.\nAccording to AgFunderNews, the collaboration will initially focus on strawberries, one of the crops exposed to rising temperatures because extreme heat can disrupt flowering and fruit set while reducing overall fruit quality.\nThe project builds on work already carried out by Plantik in tomatoes.\nThe France-based company uses its **ATLANTIS machine-learning platform** to explore regulatory regions of plant DNA that control how genes are switched on and off.\nPlantik then edits those regions without inserting foreign DNA.\nPlantik’s first product is a **heat-tolerant tomato**, which the company says it developed in approximately 12 months, compared with the five to eight years typically required through traditional breeding.\nDemonstrations are currently taking place in greenhouses and fields in the United States and Belgium.\n“We have now worked on this trait in multiple tomato crops, from lab tomatoes to now commercial hybrids,” Plantik cofounder and CEO Ying Shao told AgFunderNews.\n“Overall, we see that in the real conditions, the material also performs much better in terms of yield preservation under high heat.”\nThe next challenge is transferring that approach to strawberries.\nHudson River Biotechnology will contribute its **BioMaas genome-editing platform**, which is designed to give breeders access to editing technologies without requiring them to build costly research and development capabilities internally.\nHudson River CEO Fernando Los said the company has developed technical capabilities that allow new traits to be introduced into tomatoes and strawberries in a matter of months.\nIn the partnership, Plantik will identify the genomic regions associated with heat tolerance, while Hudson River will carry out the required edits in strawberry plants.\nStrawberries present a greater technical challenge than tomatoes because of their genetic complexity.\n“Strawberry is a different story from tomato because it’s genetically much more complex,” Los said.\n“It’s an octoploid species rather than a diploid.\nPropagation is normally done clonaly, so you cannot create seeds; you have to work directly in relevant commercial germplasm, which are all things that we can do.”\nThe collaboration is designed to reduce the technical and financial risks faced by breeders seeking to introduce complex traits.\n...\n“If you reduce the failure rate from 90% to maybe 10% for a breeder, that’s a very good proposition to offer them.”\nThe companies ultimately want to produce a **validated heat-tolerance trait available for licensing to strawberry breeders**, allowing the technology to reach multiple commercial varieties rather than remaining tied to a single product.\n...\nFor strawberries, improving tolerance to high temperatures could help preserve flowering, fruit development, quality and yields during periods of heat stress.\nStrawberries are only the starting point.\nPlantik and Hudson River plan to apply the same model to other crops and are inviting companies to bring additional trait challenges for strawberry varieties.\nIf the validation process succeeds, the partnership could create a pathway for breeders to access **genome-editing technology and climate-resilience traits** without developing the entire technological platform themselves, accelerating the introduction of new varieties designed for hotter growing conditions.",
+          "published_date": "2026-09-29"
+        },
+        {
+          "title": "French-Dutch partnership tackles heat tolerance in strawberries, massive trials slated for 2028 - FreshFruitPortal.com",
+          "url": "https://www.freshfruitportal.com/news/2026/10/12/heat-tolerance-strawberry/",
+          "snippet": "French-Dutch partnership tackles heat tolerance in strawberries, massive trials slated for 2028 - FreshFruitPortal.com\n# French-Dutch partnership tackles heat tolerance in strawberries\nOctober 12 , 2026\n...\nTo address this, genetics technology firm Hudson River and engineering French company Plantik are combining gene-editing and elite-germplasm technologies to develop strawberries that can better withstand heat stress.\nFirst commercial field trials are slated for spring and summer 2028.\nThe European firm’s co-founder and CEO Ying Shao told **FreshFruitPortal.com** that her team identified a **tomato genetic region associated with heat tolerance**, which provided the starting point.\n“[The genetic region] is very well conserved across species, which gives us a strong shortcut in terms of where to look in the strawberry genome,” she said.\nPlantik’s proprietary cloud data infrastructure and machine learning platform ATLANTIS has been pivotal to the work, Shao added.\n“Using ATLANTIS, we are able to identify additional, adjacent target regions that also ranked high according to our algorithm and demonstrated high potential,” she said.\n“This combination of a conserved primary target plus newly discovered adjacent targets gives us confidence that the trait will translate effectively.”\n...\n## Beyond heat tolerance\nFruit set is a critical production phase, and **heat can significantly interfere** with it, Shao explained.\nThat is why Plantik plans to evaluate several strawberry performance measures in upcoming trials slated for 2028.\n“Beyond yield, fruit quality may also be altered under heat stress, including berry size shrinking and the sugar content being affected, which is particularly important for consumers in certain markets,” the CEO noted.\nShao said their approach aims to create a **conditional response to heat stress** while minimizing potential effects on normal plant development.\n“The goal is for the plant to have a better mechanism to fight heat **only when the stressor is present, throughout its lifecycle**,” Shao said.\n“When heat stress isn't present, the plant develops and behaves just like the unedited plant.”\nShao stressed that the company also plans to use the technology to reduce the likelihood of unintended effects associated with altering genes, and that other commodities may soon benefit from the process.\n...\n### Hudson River focuses on elite germplasm\nFor strawberries, the executive said **Hudson River has tested more than 30 genotypes through its platform ** and has developed methods to address differences in regeneration efficiency among commercial varieties.\n...\nBoth companies expect regulatory requirements to remain smooth sailing.\nWesterhof said the United States already has regulatory pathways for many transgene-free edited crops, while Europe is developing a framework for qualifying Category 1 New Genomic Technique (NGT-1) plants.",
+          "published_date": "2026-10-12"
+        },
+        {
+          "title": "Two Biotechs Edit Strawberries' \"Dark Genome\" to Survive Hotter Summers",
+          "url": "https://www.global-agriculture.com/ag-tech-research-news/two-biotechs-edit-strawberries-dark-genome-to-survive-hotter-summers/",
+          "snippet": "# Two Biotechs Edit Strawberries’ “Dark Genome” to Survive Hotter Summers\n**29 September 2026, Netherlands:** Two European agricultural biotech companies, Plantik Biosciences of France and Hudson River Biotechnology of the Netherlands, announced on September 28 that they are extending a gene-editing partnership from tomatoes into strawberries, targeting heat tolerance as extreme temperature events become more frequent across major growing regions.\nThe announcement was first reported by AgFunderNews, and validation trials on the edited strawberry material are already underway.\nThe two companies bring complementary pieces of the same puzzle.\nPlantik, based at the Genopole biotech cluster near Paris, has built a machine learning platform called ATLANTIS that scans what scientists call the “dark genome,” the large share of a plant’s DNA that does not directly code for proteins but instead controls when, where and how strongly nearby genes switch on.\nRather than searching for a single gene to disable or insert, ATLANTIS is designed to identify small tweaks to these regulatory regions that adjust a plant’s existing traits without introducing foreign DNA.\nHudson River Biotechnology, based at Wageningen Campus in the Netherlands, supplies the execution side through its BioMaas platform, which performs the actual genome edits in crop tissue using transgene-free methods, meaning the final plant carries no inserted genetic material from another species, only altered versions of its own DNA sequence.\n...\n## From Tomato to Strawberry\nThe strawberry project builds directly on an earlier collaboration between the two companies that produced a heat-tolerant tomato line.\nAccording to the companies, that tomato was developed in roughly 12 months using the ATLANTIS-BioMaas combination, compared with the five to eight years a conventional breeding program would typically need to introduce and stabilize a similar trait.\nThe edited tomato has since shown improved yield preservation under high-heat conditions in real-world trial settings, according to the companies, giving them a proof point to apply the same approach to a new crop.\n...\nCommercial strawberry varieties are complex, high-value fruiting plants that are typically propagated clonally rather than from seed, and heat stress during flowering and fruit set can sharply cut both yield and fruit quality, a problem already visible in strawberry-growing regions from California to southern Europe during recent hot growing seasons.\n...\n## Live Newsroom\nNeither company disclosed financial terms of the expanded partnership or named specific funding behind the strawberry work.\nHudson River chief executive Fernando Los and chief of staff Lotte Westerhof, both quoted in the original report, described the company’s ability to execute complex regulatory-region edits in a matter of months once a target is identified, underscoring that the current bottleneck in this style of crop improvement is increasingly the target-discovery step that ATLANTIS is built to speed up, rather than the editing itself.\nThe approach illustrated by this partnership, editing regulatory DNA rather than protein-coding genes, is part of a broader shift in plant biotechnology that regulators in several markets, including the European Union and India, have begun treating differently from conventional transgenic GM crops, since no foreign gene is inserted into the final plant.\nThat distinction matters commercially: precision-bred or gene-edited varieties of this kind can often reach farmers faster and with a lighter regulatory path than first-generation GM crops, which is part of why venture-backed biotechs are racing to apply the model across specialty and fruit crops, not just the commodity row crops that dominated the first wave of agricultural biotechnology.\nFor seed companies, nurseries and horticultural input suppliers serving strawberry and other high-value fruit sectors in India, the Gulf and Southeast Asia, where rising temperatures are already squeezing flowering and fruit-set windows, a validated method for compressing trait development from years to months is a preview of how climate-adaptation traits may increasingly reach the market.",
+          "published_date": "2026-09-29"
+        },
+        {
+          "title": "Technology — Plantik Biosciences",
+          "url": "https://www.plantik.bio/technology",
+          "snippet": "# PROEDIT\n### AN ADVANCED WORKFLOW\nCombined with the targets found using ATLANTIS™, our advanced (dark) genome editing workflow enables precise and effective delivery of the chosen CRISPR machinery.\nOur protocols will bring this breakthrough technology to emerging and diverse crops to increase the resilience of our food system.\n# THERMO-TOLERANCE\nThermotolerance is the ability of a plant to withstand and survive high temperatures.\nTemperature fluctuations can negatively impact plant growth and reduce yield.\nPlantik is dedicated to increasing plant’s resilience under heat stress.",
+          "published_date": null
+        },
+        {
+          "title": "Exogenous regulators enhance strawberry yield under heat stress ...",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/41545448/?fc=None&ff=20260117181000&v=2.18.0.post22+67771e2",
+          "snippet": "# Exogenous regulators enhance strawberry yield under heat stress conditions\nSci Rep. 2026 Jan 16;16(1):5573.\ndoi: 10.1038/s41598-026-35730-z.\n...\n## Abstract\nThis study evaluated the effectiveness of different exogenous chemical treatments in enhancing heat stress tolerance across three strawberry genotypes RABI-3, BARI Strawberry-2, and BARI Strawberry-3 under prolonged summer conditions in Bangladesh.\nA two-factorial completely randomized design (CRD) was conducted from February 2024 to April 2025 with six treatments: control (water), abscisic acid (5 ppm), calcium chloride (10 mM), kaolin (5%), melatonin (10 ppm), and molasses (5%).\nVegetative, physiological, biochemical, and yield parameters were analyzed, and treatment effects were statistically tested at 5% significance level.\nKaolin application significantly improved vegetative growth (plant height and leaf number increased by 15-25% compared to the control) and enhanced photosynthetic activity and antioxidant capacity.\nThe kaolin treated plants also showed a 20-30% yield increase with better fruit size, total soluble solids, and vitamin C content.\nAmong genotypes, BARI Strawberry-3 demonstrated the highest tolerance and yield stability under high-temperature stress.These findings suggest that kaolin spray may offer a cost effective and environmentally sustainable approach to mitigating heat stress in strawberries, with BARI Strawberry-3 representing a promising genotype for future commercial cultivation in warming agro-climatic zones.",
+          "published_date": "2026-01-16"
+        }
+      ],
+      "latency_seconds": 1.368,
+      "request_id": "3e95b388-de3e-4588-8e41-224d4b385c73"
+    }
+  ],
+  "deep_research": {
+    "choices": [
+      {
+        "delta": {
+          "content": "",
+          "role": "assistant"
+        },
+        "finish_reason": "length",
+        "index": 0,
+        "message": {
+          "content": "# Plantik Biosciences and heat-tolerant strawberries — investigation cut-off: **20 October 2026**\n\n## Bottom line\n\n**Plantik Biosciences is a small, independent French SAS whose verified legal entity is PLANTIK BIOSCIENCES, SIREN 853 088 441, and whose official domain is `plantik.bio`.** No parent, controlled subsidiary, alternate legal entity, Chinese affiliate, or acquired company was established in this research pass. Its registered office is in Orléans; its Paris office and Genopole laboratory are operating locations rather than separate companies. [16]\n\n**Its strawberry program is genuinely a genome-editing program—not conventional breeding—but remains precommercial.** Announced on **28 September 2026**, it combines Plantik’s ATLANTIS target-discovery work and tomato heat-tolerance evidence with Hudson River Biotechnology’s transgene-free, protoplast-based strawberry editing/regeneration platform. The parties said validation trials were already underway, but they disclosed no strawberry line name, edit sequence, target gene, quantitative heat result, independent replication, regulator submission, commercial breeder/germplasm partner, sale, or approval. The intended output is a **validated licensable trait**, not yet a finished strawberry cultivar. [31][204]\n\nThe strongest publicly disclosed evidence belongs to Plantik’s **tomato**, not strawberry: controlled heat-wave proof of concept, multi-genotype work, 2026 greenhouse/field demonstrations in Florida, elsewhere in the US, and Belgium, plus a US regulatory inquiry for promoter-edited tomato germplasm. Transferring the trait concept from tomato into octoploid strawberry remains an announced and reportedly trial-stage hypothesis—not a demonstrated commercial strawberry trait. [145][196][200]\n\n---\n\n## 1. Identity, domain, aliases and corporate structure\n\n| Item | Finding as of 20 October 2026 | Date | Short exact supporting excerpt / attribution | Source URL |\n|---|---|---:|---|---|\n| Official domain | **https://www.plantik.bio/** | Current at cut-off | Company site: “Plantik develops technologies to create resilient plants…” [1] | https://www.plantik.bio/ |\n| Legal name | **PLANTIK BIOSCIENCES** | Incorporated 15 Jul 2019; RCS registration 8 Aug 2019 | French registry-derived record: “Dénomination / nom légal: PLANTIK BIOSCIENCES.” [16] | https://www.pappers.fr/entreprise/plantik-biosciences-853088441 |\n| Legal form | **SAS — société par actions simplifiée** | Current | “Forme juridique: SAS, société par actions simplifiée.” [16] | https://www.pappers.fr/entreprise/plantik-biosciences-853088441 |\n| SIREN / RCS / VAT | **853 088 441**; **853 088 441 RCS Orléans**; **FR69853088441** | Current | Registry identifiers. [16] | https://www.pappers.fr/entreprise/plantik-biosciences-853088441 |\n| Status | **Active** | Registry updated 23 Sep 2026 | Registry shows “Active.” [16] | https://www.pappers.fr/entreprise/plantik-biosciences-853088441 |\n| Registered office | **Immeuble Val de Loire, 4 passage de la Râpe, 45000/45006 Orléans, France** | Since 15 Jul 2019 | Company and registry use the same Orléans location, with postcode formatting varying between 45000 and 45006. [16][197] | https://www.pappers.fr/entreprise/plantik-biosciences-853088441 |\n| Paris establishment | **5 Parvis Alan Turing, 75013 Paris** | Created 1 Jan 2021 | Listed as an active secondary establishment; not a separate legal company. [16] | https://www.pappers.fr/entreprise/plantik-biosciences-853088441 |\n| Genopole R&D site | **4 rue Pierre Fontaine, 91000 Évry-Courcouronnes** | Created 5 Sep 2022 | Genopole says: “Ses bureaux sont basés à Station F (Paris) et ses activités de R&D se déroulent à Genopole.” [167] | https://www.genopole.fr/genopolitains/entreprises/plantik/ |\n| Founders | **Ying Shao and Aditya Nayak** | 2019 | Genopole: “Founded by Ying Shao and Aditya Nayak.” [169] | https://www.genopole.com/genopole-citizens/companies/plantik/ |\n| Officers | **Ying Shao, President/CEO; Aditya Prasad Nayak, Directeur général/CTO** | Shao since 2019; Nayak DG from 23 Apr 2024 | Registry lists “SHAO Ying — Président” and “NAYAK Aditya — Directeur général.” [16] | https://www.pappers.fr/entreprise/plantik-biosciences-853088441 |\n| Aliases | **Plantik**, **Plantik Biosciences**; capitalization **PLANTIK BIOSCIENCES** is the legal form | Current | No other registered trade name was found. “Plantik” is ordinary short-form branding, not evidence of another entity. [16] | https://www.pappers.fr/entreprise/plantik-biosciences-853088441 |\n| “Plantik Bioscience” singular | Occasional third-party typo/abbreviation; **not established as a legal alias** | — | Official and registry sources consistently use “Plantik Biosciences.” | https://www.plantik.bio/ |\n| Parent company | **Not established in this research pass** | Through cut-off | Registry identifies no corporate parent; shareholder/beneficial-owner data are access-restricted. [16] | https://www.pappers.fr/entreprise/plantik-biosciences-853088441 |\n| Subsidiaries | **None established in this research pass** | Through cut-off | No subsidiary is identified in the registry or company materials reviewed. [16] | https://www.pappers.fr/entreprise/plantik-biosciences-853088441 |\n| JERIKO PLANTIK | **Not established as parent, subsidiary or operating alias** | 2026 reference | Pappers only infers a “Banque” relationship from documents; that is not evidence of ownership. [16] | https://www.pappers.fr/entreprise/plantik-biosciences-853088441 |\n| Chinese identity/name | **Not applicable/not established** | Through cut-off | No PRC company, Chinese subsidiary, Chinese parent, Chinese legal name or Chinese commercial partner was identified. Therefore no Chinese name should be invented or transliterated. | — |\n\n### Capital and ownership caveat\n\nRegistered capital rose from **€82 at formation**, to **€820 in 2022**, and then to **€1,479.49 by 20 September 2026**. That nominal capital is not the same thing as cumulative investment or valuation. The August 2026 filings record several new-share issuances, but public beneficial-owner information does not reveal who subscribed; therefore the 2026 increase cannot safely be attributed to a named investor. [16]\n\n---\n\n## 2. What Plantik actually does: editing versus breeding\n\n| Technology or term | What the evidence establishes | Editing, conventional breeding, or enabling technology? | Demonstration level by cut-off | Supporting excerpt / source |\n|---|---|---|---|---|\n| **ATLANTIS** | Cloud/data and machine-learning platform combining genomic or multi-omic information to find regulatory “dark genome” targets controlling traits | **Target discovery**, not itself an editing enzyme or breeding method | Used to nominate targets; tomato is the disclosed proof point | Plantik describes modifying “small and precise targets in the under-explored ‘dark genome’”; AgFunder reports ATLANTIS searches regulatory DNA that switches genes on/off. [2][31] |\n| Dark-genome/promoter editing | Plantik targets non-coding regulatory DNA rather than necessarily disrupting a protein-coding gene | **Genome editing**, reportedly without foreign DNA in the final plant | Tomato demonstrated; strawberry only in partnership validation | USDA filing says the final tomato “contains no foreign DNA” and describes CRISPR/Cas-mediated promoter deletion. [145][213] |\n| CRISPR/Cas | Plantik’s tomato regulatory filing explicitly says it used CRISPR/Cas-mediated editing; HRB supplies strawberry editing/regeneration | **Genome editing** | Demonstrated in tomato; HRB separately demonstrated edited-cell regeneration in strawberry | Plantik USDA submission: “Plantik is using CRISPR/cas-mediated…” [145] |\n| Plant Engineering Workflow / Smart Breeding | Umbrella terminology for target identification, editing, validation and accelerated crop development | **Marketing/workflow term**; should not be treated as conventional breeding alone | Platform/service offering | Genopole lists “identification and validation of genetic targets through different CRISPR genome editing systems” plus genome analysis. [225] |\n| Speed breeding | Appears in older descriptions of Plantik’s combined workflow | **Breeding-cycle acceleration**, not proof that a particular product was edited | No strawberry-specific speed-breeding evidence found | Third-party profile describes gene editing, bioinformatics and speed breeding together; it should not be used to infer every program’s exact method. [29] |\n| HRB **BioMaas** | Service platform for transgene-free/DNA-free editing and regeneration of elite commercial germplasm | **Genome-editing deployment platform** | Strawberry platform reportedly tested over 30 genotypes | HRB says breeders can access editing without building the technology in-house; Westerhof described testing “more than 30 genotypes.” [320][321] |\n| HRB **TiGER** | Workflow regenerating a complete strawberry plant from a single edited cell, with automated screening of regeneration conditions | **Editing/regeneration workflow** | Demonstrated in February 2024 | HRB announced “the world's first successful regeneration of strawberry plants from gene-edited single cells.” [308] |\n| HRB hydrogel | Supports individual strawberry protoplasts returning to cell cycle and forming callus | **Regeneration technology** | Claimed operational in strawberry | HRB CSO: “proprietary hydrogel technology” supports protoplast-to-callus development. [321] |\n| Pairwise **Fulcrum®** | Editing tools, enzymes and trait libraries licensed to HRB in May 2026 | **Genome-editing IP/platform licence** | Licensed to HRB generally for vegetables, soft fruit and other species | Agreement gave HRB “access to the Fulcrum® plant gene editing platform.” It does **not** say Pairwise co-owns Plantik’s strawberry trait. [338] |\n| Conventional crossing | Used by commercial breeders such as PSI/PSG, Planasa and Fall Creek alongside newer tools | **Conventional/advanced breeding** | Extensive commercial variety portfolios | PSI describes “traditional crossing techniques, and other technologies”; Planasa says “a mix of traditional breeding methods and modern technology.” [258][238] |\n| Ohalo **Boosted Breeding™** | Changes reproductive inheritance so offspring receive the complete genomes of both parents | Proprietary reproductive/breeding system that can use editing; **not synonymous with CRISPR generally** | Ohalo programs only | Ohalo: offspring “contain all the genes from the mother and all the genes from the father.” Nothing reviewed connects Plantik to Ohalo. [62] |\n\n### Required distinction concerning Boosted Breeding\n\n**Boosted Breeding is Ohalo’s proprietary reproductive system; it is not a generic synonym for CRISPR, promoter editing, gene editing, doubled haploids, F1-hybrid seed, or advanced breeding.** Ohalo says it switches off reproductive circuits so each parent transmits its entire genome. The fact that Ohalo lists “berries” among possible crops does **not** establish that Plantik, HRB, PSI, Simplot, Pairwise, Fall Creek or Planasa uses Boosted Breeding, nor that every company appearing in a berry-industry roster edits berries. [62][68]\n\nNo Plantik–Ohalo partnership or Boosted Breeding licence was established in this research pass.\n\n---\n\n## 3. Plantik crops, traits, programs and named products\n\n| Crop/program | Trait or objective | Method publicly established | Stage by 20 Oct 2026 | Named product/line | Geography distinct from HQ | Commercial availability |\n|---|---|---|---|---|---|---|\n| **Tomato** | Heat tolerance; pollen fertility, flower development, fruit set/yield preservation and potentially pericarp thickness under elevated temperature | CRISPR/Cas promoter editing of a thermomorphogenesis-associated transcription-factor regulatory region; public evidence strongly points to **PIF4-regulatory editing** | Controlled proof of concept completed; work across multiple genetic backgrounds and commercial hybrids; 2026 greenhouse/field demonstrations | No consumer brand or cultivar name disclosed | Florida greenhouse; additional US and Belgium greenhouse/field demonstrations; India and South/Southeast Asia stated as target markets | **Not established**; intended licensing, introgression and eventual commercialization only |\n| **Strawberry** | Conditional heat response intended to protect flowering, fruit set, yield and marketable quality without changing normal growth when heat is absent | Plantik ATLANTIS target nomination + HRB transgene-free strawberry editing/regeneration | Partnership announced; “validation trials already underway”; larger/commercial field trials publicly planned for 2028 | **No line, cultivar, event or brand disclosed** | HRB in Wageningen; actual 2026 validation site not disclosed; 2028 trial geography not firmly disclosed | **No** |\n| **Potato** | Heat tolerance | Joint venture concept: Plantik trait discovery, SolEdits editing, NYZU funding/commercialization | Announced/joint venture; no named variety or disclosed field result found | “Potato Improver” is project/JV wording, not an established retail cultivar | Sweden-linked partners; intended high-heat markets including India | **Not established** |\n| **Quinoa** | Accelerated/resilient breeding | “Modern breeding technologies”; exact edits and targets not publicly specified | Consortium R&D | None disclosed | Netherlands consortium with Wageningen Plant Research, Radicle Crops and Lekker Lupine | **Not established** |\n| **White lupin** | Accelerated breeding | Same consortium; do not infer CRISPR without product-level evidence | Consortium R&D | None disclosed | Netherlands | **Not established** |\n| **Hemp** | Trait discovery/development | Platform reported as applied to hemp; exact product method not disclosed publicly | R&D | None disclosed | University College Dublin relationship reported by secondary source; precise program location/status not established | **Not established** |\n| **Corn/maize** | Regulatory-target datasets / future complex traits | Machine-learning and multi-omic target discovery | Dataset/platform work | None | Not disclosed | **Not established** |\n| **Soybean** | Regulatory-target datasets / future complex traits | Machine-learning and multi-omic target discovery | Dataset/platform work | None | Not disclosed | **Not established** |\n\nThe company’s own/Genopole descriptions specifically identify hemp, quinoa and tomato as platform applications, while a July 2026 interview added tomato, corn and soybean datasets. These references do not establish edited commercial products in every listed crop. [225][203]\n\n---\n\n## 4. Strawberry heat-tolerance program: claim-by-claim evidence grading\n\n| Claim | Status | Evidence and conflict/gap |\n|---|---|---|\n| Plantik and HRB formed a strawberry heat-tolerance partnership | **Announced** | Publicly reported 28 September 2026; corroborated by HRB/industry coverage. [31][204] |\n| The program uses genome editing | **Established as the intended method** | Plantik identifies regulatory targets; HRB makes the edits using a transgene-free strawberry workflow. [31][266] |\n| Strawberry plants have already been edited for Plantik’s heat target | **Reported but details not independently established** | “Validation trials are already underway” implies edited or candidate material exists, but no event, genotype, sequence, image, protocol or data were released. [31] |\n| Heat tolerance has been demonstrated in strawberry | **Not established in this research pass** | All public quantitative efficacy evidence found concerns tomato. No strawberry heat-treatment results, controls, yield figures or peer-reviewed data were located. |\n| The same exact tomato edit is being made in strawberry | **Not established** | The parties say tomato-validated “targets” provide the starting point, but strawberry orthologue, motif, edit and dosage across eight chromosome sets are undisclosed. |\n| The target is strawberry PIF4 | **Plausible inference, not established** | Plantik’s tomato regulatory evidence and the founders’ earlier PIF4 patent point in that direction, but neither company publicly named the strawberry gene. It should not be stated as fact. |\n| The edited strawberry is transgene-free | **Program design/HRB claim, not event-level confirmation** | HRB calls its platform transgene-free/DNA-free; no event-specific molecular dossier was public. [321] |\n| Normal growth is unchanged without heat | **Design goal/CEO claim, not demonstrated strawberry result** | Ying Shao said the goal is a conditional heat response and normal behavior without stress. No strawberry dataset was disclosed. [14] |\n| Multiple elite strawberry genotypes can be edited | **HRB platform demonstration, not Plantik-trait validation** | HRB said it had tested more than 30 genotypes for platform/regeneration performance. That does not mean 30 Plantik heat-tolerant lines. [321] |\n| Breeders can license the trait | **Planned business model** | The stated goal is “a validated heat-tolerance trait any strawberry breeder can license.” No executed breeder licence was disclosed. [31] |\n| Commercial field trials are underway | **No** | Reports say validation trials are underway; the first larger/commercial field trials were planned for spring/summer **2028**. [14] |\n| Commercial fruit is available | **No** | No Plantik/HRB strawberry variety, fruit or planting stock was offered for sale as of the cut-off. |\n| Regulatory clearance exists | **No strawberry-specific clearance found** | No USDA, FDA, UK, Canadian, EU or other Plantik/HRB strawberry filing or decision was identified. |\n| Heat-tolerant strawberry product name | **Not established** | None announced. |\n| Commercial germplasm/breeder partner | **Not established** | “Elite germplasm” is discussed, but the owner/provider is not named. HRB welcomed breeders’ trait challenges; that is not an announced cultivar partner. [204] |\n\n---\n\n## 5. Tomato evidence underpinning the strawberry concept\n\n| Evidence layer | Date | What was demonstrated or claimed | Exact excerpt / attribution | Assessment |\n|---|---:|---|---|---|\n| Controlled proof of concept | Disclosed 23 Oct 2024 | Edited tomato tolerated a seven-day simulated heat wave; comparator reportedly lost about 30% yield | Ying Shao: “it was not affected by the heat wave and maintained the same yield, whereas the wild plant under the heat lost about 30% yield.” [80] | Company-reported controlled result; no peer-reviewed Plantik paper found |\n| Development speed | Disclosed 2024 | Proof of concept in about 12 months versus five–eight years claimed for conventional breeding | Plantik/AgFunder: “12 months instead of the five to eight years required by traditional breeding.” [79] | Company comparison; depends on endpoints and is not a head-to-head breeding trial |\n| Regulatory dossier evidence | 2025 filing, public by 2026 | Reduced thermomorphogenesis, improved pollen viability/germination, normal flowers, increased fruit set/pericarp thickness in some lines, effect across genotypes | USDA submission enumerates those five experimental observations. [145] | Strongest technical public disclosure, but parts of target/location/data are CBI-redacted |\n| Florida demonstration | 26 May 2026 | Multiple edited lines growing under greenhouse production conditions; heat tests forthcoming | Plantik: tomatoes “officially live in Florida” and “will soon undergo the first heat stress tests.” [191] | Establishes planting, not yet outcome at announcement date |\n| Multi-location demonstrations | Summer 2026 | Greenhouse and field demonstrations in US and Belgium; commercial-hybrid backgrounds | Shao: “from lab tomatoes to now commercial hybrids”; “performs much better in terms of yield preservation under high heat.” [web:196",
+          "role": "assistant"
+        }
+      }
+    ],
+    "citations": [
+      "https://www.plantik.bio/",
+      "https://www.plantik.bio/aboutus",
+      "https://www.plantik.bio/technology",
+      "https://www.plantik.bio/company-news",
+      "https://www.plantik.bio/company-news/category/Company+News",
+      "https://www.hortidaily.com/article/9877481/plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries/",
+      "https://agroempresario.com/publicacion/121962/plantik-and-hudson-river-target-heat-tolerant-strawberries/",
+      "https://www.plantik.bio/company-news/plantik-grow-by-sap-podcast",
+      "https://news.agropages.com/News/NewsDetail---59032.htm",
+      "https://www.plantik.bio/thermotolerance",
+      "https://www.cbinsights.com/company/plantik-biosciences",
+      "https://www.global-agriculture.com/ag-tech-research-news/two-biotechs-edit-strawberries-dark-genome-to-survive-hotter-summers/",
+      "https://o.parsers.vc/startup/plantik.bio/",
+      "https://www.freshfruitportal.com/news/2026/10/12/heat-tolerance-strawberry/",
+      "https://insights.tridge.com/speaker-product-news-reports/KJLyFXpzJzgKuB1Gqsm5QUKHGgR43AVdqLA3Jq8qLz7LHdrLknEfQu33",
+      "https://agfundernews.com/exclusive-plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries",
+      "https://www.linkedin.com/posts/soledits_ivas-100-list-2024-potato-improver-activity-7263509767048810497-Frk0",
+      "https://www.plantik.bio/company-news/d8g386f4ubi7z56hw3i0k3ecibp5wo",
+      "https://www.genopole.com/highlights/agenda/partnering-week-2023/",
+      "https://www.linkedin.com/posts/yingshao75_ivas-100-list-2024-potato-improver-activity-7264494202279923714--aK0",
+      "https://agfundernews.com/agrifood-signals-corteva-inari-settle-starbucks-scales-back-green-goals-countries-rethink-climate-reporting",
+      "https://www.seedworld.com/us/2026/09/28/ai-crop-breeding-players-watch/",
+      "https://www.plantik.bio/company-news/plantik-joins-startlife-accelerate",
+      "https://www.seedquest.com/news.php?id_category=176&id_region=10",
+      "https://agfundernews.com/dark-side-of-the-genome-inside-plantiks-mission-to-grow-heat-tolerant-crops-through-genome-editing",
+      "https://www.cbinsights.com/company/pairwise-plants",
+      "https://axomap.com/maps/the-programmable-plant-stack",
+      "https://www.zoominfo.com/c/plantik-biosciences/535498327",
+      "https://www.pappers.fr/entreprise/plantik-biosciences-853088441",
+      "https://www.societe.com/societe/plantik-biosciences-853088441.html",
+      "https://www.thecompanycheck.com/company/b/plantik-biosciences/jiaf7u4jfp9akfigq",
+      "https://www.caplight.com/company/plantik",
+      "https://fundraisingfox.com/companies/plantik",
+      "https://gr.kompass.com/c/plantik-biosciences/fra05p0mr/",
+      "https://bouncewatch.com/company/plantik-biosciences",
+      "https://agfundernews.com/can-editing-the-dark-genome-make-crops-more-heat-tolerant",
+      "https://fundediq.co/plantik-biosciences-plantik-bio-funding/",
+      "https://www.f6s.com/companies/agriculture/france/paris/co",
+      "https://www.f6s.com/companies/agricultural-biotechnology/mo",
+      "https://prospeo.io/c/plantik-biosciences-email-format",
+      "https://www.nongmoproject.org/blog/new-gmo-alert-strawberry-shortcut-what-the-biotech-industry-has-planned-for-your-berries/",
+      "https://www.ohalo.com/boosted-breeding",
+      "https://fundraisingfox.com/companies/ohalo",
+      "https://esgtechreport.com/startups/ohalo-genetics-has-a-plan-to-boost-crop-yields-by-100/",
+      "https://startup.genisisiq.com/ohalo-0043d1/",
+      "https://www.ohalo.com/",
+      "https://www.agnavigator.com/Article/2024/05/24/The-yield-gains-are-insane-.-David-Friedberg-unwraps-Ohalo-s-much-awaited-Boosted-Breeding-tech/",
+      "https://www.ohalo.com/news/ohalo-introduces-boosted-breeding-tm---the-next-revolution-in-agriculture",
+      "https://app.dealroom.co/companies/ohalo_genetics",
+      "https://biobase.whitefordresearch.com/companies/ohalo-genetics"
+    ],
+    "created": 1792565822,
+    "id": "resp_2b740079-5c9d-4a26-b736-b9bea7e33cc8",
+    "model": "sonar-deep-research",
+    "object": "chat.completion",
+    "search_results": [
+      {
+        "date": null,
+        "last_updated": "2026-10-03",
+        "place_metadata": null,
+        "snippet": "## CLIMATE-RESILIENT CROPS\n### FAST\nPlantik develops technologies to create resilient plants that survive today’s challenges, for a better tomorrow.\n...\n# THERMO-TOLERANCE\nDevastating heatwaves are becoming more frequent than ever.\nPlants are extremely vulnerable to heat stress, which impacts harves...",
+        "source": "web",
+        "title": "Plantik Biosciences",
+        "url": "https://www.plantik.bio/"
+      },
+      {
+        "date": "2026-03-10",
+        "last_updated": "2026-09-25",
+        "place_metadata": null,
+        "snippet": "# CREATING RESILIENT CROPS FOR A RESILIENT FUTURE.\n## “By modifying small and precise targets in the under-explored “dark genome”, we developed heat-resistant tomatoes that could transform lives”",
+        "source": "web",
+        "title": "About us",
+        "url": "https://www.plantik.bio/aboutus"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-14",
+        "place_metadata": null,
+        "snippet": "# THERMO-TOLERANCE\nThermotolerance is the ability of a plant to withstand and survive high temperatures.\nTemperature fluctuations can negatively impact plant growth and reduce yield.\nPlantik is dedicated to increasing plant’s resilience under heat stress.",
+        "source": "web",
+        "title": "Technology — Plantik Biosciences",
+        "url": "https://www.plantik.bio/technology"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-07",
+        "place_metadata": null,
+        "snippet": "# AgFunder News Features Plantik's Mission to Develop Heat-Tolerant Crops",
+        "source": "web",
+        "title": "www.plantik.bio · company-newsCompany news — Plantik Biosciences",
+        "url": "https://www.plantik.bio/company-news"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-09-22",
+        "place_metadata": null,
+        "snippet": "# AgFunder News Features Plantik's Mission to Develop Heat-Tolerant Crops",
+        "source": "web",
+        "title": "Company news — Plantik Biosciences",
+        "url": "https://www.plantik.bio/company-news/category/Company+News"
+      },
+      {
+        "date": "2026-10-19",
+        "last_updated": "2026-10-19",
+        "place_metadata": null,
+        "snippet": "# Plantik and Hudson River Biotechnology team up to de-risk heat-tolerant strawberries\nPlantik Biosciences and Hudson River Biotechnology are partnering to develop heat tolerance in crops, with the goal of producing a validated heat-tolerance trait any strawberry breeder can license.\nBy combining he...",
+        "source": "web",
+        "title": "Plantik and Hudson River Biotechnology team up to de-risk ...",
+        "url": "https://www.hortidaily.com/article/9877481/plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries/"
+      },
+      {
+        "date": "2026-09-29",
+        "last_updated": "2026-10-20",
+        "place_metadata": null,
+        "snippet": "# Plantik and Hudson River Target Heat-Tolerant Strawberries\n## The companies are combining genome editing and machine learning to develop a heat-tolerance trait that strawberry breeders could license\n...\n**Plantik Biosciences and Hudson River Biotechnology have partnered to develop heat-tolerant st...",
+        "source": "web",
+        "title": "Plantik and Hudson River Target Heat-Tolerant Strawberries | Agroempresario.com",
+        "url": "https://agroempresario.com/publicacion/121962/plantik-and-hudson-river-target-heat-tolerant-strawberries/"
+      },
+      {
+        "date": "2024-11-08",
+        "last_updated": "2026-03-01",
+        "place_metadata": null,
+        "snippet": "Plantik makes it its mission to spread the word about the importance of (innovation in) plant breeding.",
+        "source": "web",
+        "title": "Plantik on Grow by SAP Podcast — Plantik Biosciences",
+        "url": "https://www.plantik.bio/company-news/plantik-grow-by-sap-podcast"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-03",
+        "place_metadata": null,
+        "snippet": "Plant genome-editing technology company Hudson River and plant engineering company Plantik announced a partnership to bring heat tolerance into commercial strawberries.\nThe programme combines heat-tolerance targets identified and validated by Plantik in tomato with the transgene-free strawberry geno...",
+        "source": "web",
+        "title": "Hudson River and Plantik partner to enhance heat tolerance in strawberries",
+        "url": "https://news.agropages.com/News/NewsDetail---59032.htm"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-14",
+        "place_metadata": null,
+        "snippet": "### Thermotolerance is the ability of a plant to withstand and survive high temperatures.\n...\nPlantik employs its Plant Engineering Workflow to enhance thermotolerance in crops.\nLeveraging its expertise in the *Dark Genome*, Plantik explores untapped genetic regions in plants to improve its response...",
+        "source": "web",
+        "title": "Thermotolerance — Plantik Biosciences",
+        "url": "https://www.plantik.bio/thermotolerance"
+      },
+      {
+        "date": "2026-09-30",
+        "last_updated": "2026-10-17",
+        "place_metadata": null,
+        "snippet": "Plantik Biosciences focuses on developing technologies for creating climate-resilient crops within the biotechnology sector.\nIt offers plant engineering to enhance genetic variation and resilience, particularly against heat stress.\nIts primary offerings include the development of thermotolerant plan...",
+        "source": "web",
+        "title": "Plantik Biosciences - Products, Competitors, Financials ...",
+        "url": "https://www.cbinsights.com/company/plantik-biosciences"
+      },
+      {
+        "date": "2026-09-29",
+        "last_updated": "2026-09-29",
+        "place_metadata": null,
+        "snippet": "**29 September 2026, Netherlands:** Two European agricultural biotech companies, Plantik Biosciences of France and Hudson River Biotechnology of the Netherlands, announced on September 28 that they are extending a gene-editing partnership from tomatoes into strawberries, targeting heat tolerance as ...",
+        "source": "web",
+        "title": "Two Biotechs Edit Strawberries' \"Dark Genome\" to Survive Hotter Summers",
+        "url": "https://www.global-agriculture.com/ag-tech-research-news/two-biotechs-edit-strawberries-dark-genome-to-survive-hotter-summers/"
+      },
+      {
+        "date": "2026-09-03",
+        "last_updated": "2026-09-10",
+        "place_metadata": null,
+        "snippet": "# Plantik Biosciences\nhttps://plantik.bio/\n...\nThrough Smart Breeding Technology, Plantik Biosciences is cutting down the time to create a new plant variety from years to months.",
+        "source": "web",
+        "title": "Plantik Biosciences – Funding, Valuation, Investors, News",
+        "url": "https://o.parsers.vc/startup/plantik.bio/"
+      },
+      {
+        "date": "2026-10-12",
+        "last_updated": "2026-10-19",
+        "place_metadata": null,
+        "snippet": "To address this, genetics technology firm Hudson River and engineering French company Plantik are combining gene-editing and elite-germplasm technologies to develop strawberries that can better withstand heat stress.\nFirst commercial field trials are slated for spring and summer 2028.\nThe European f...",
+        "source": "web",
+        "title": "French-Dutch partnership tackles heat tolerance in strawberries, massive trials slated for 2028 - FreshFruitPortal.com",
+        "url": "https://www.freshfruitportal.com/news/2026/10/12/heat-tolerance-strawberry/"
+      },
+      {
+        "date": "2026-10-12",
+        "last_updated": "2026-10-14",
+        "place_metadata": null,
+        "snippet": "Hudson River and Plantik are developing heat-tolerant strawberry cultivars by combining gene-editing and elite germplasm technologies, with commercial field trials planned for 2028.\nPlantik’s machine learning platform ATLANTIS has identified key genetic regions linked to heat tolerance, enabling tar...",
+        "source": "web",
+        "title": "French-Dutch Collaboration Advances Heat-Tolerant Strawberry Varieties Using Gene Editing and Machine Learning | Tridge Insights",
+        "url": "https://insights.tridge.com/speaker-product-news-reports/KJLyFXpzJzgKuB1Gqsm5QUKHGgR43AVdqLA3Jq8qLz7LHdrLknEfQu33"
+      },
+      {
+        "date": "2026-09-28",
+        "last_updated": "2026-10-20",
+        "place_metadata": null,
+        "snippet": "# Exclusive: Plantik and Hudson River Biotechnology team up to de-risk heat-tolerant strawberries\n...\n#### Lotte Westerhof, CSO of Hudson River Biotechnology, with Plantik cofounder Ying Shao. Image credit: Plantik Biosciences\nPlantik Biosciences and Hudson River Biotechnology are partnering to deve...",
+        "source": "web",
+        "title": "Plantik and Hudson River Biotechnology take on heat ...",
+        "url": "https://agfundernews.com/exclusive-plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries"
+      },
+      {
+        "date": "2024-11-16",
+        "last_updated": "2025-04-08",
+        "place_metadata": null,
+        "snippet": "🌟 Thrilled to announce our new joint venture with Plantik Biosciences and NYZU to develop heat-tolerant potato varieties!\n🧬 Why it matters: • Potato is the world's 4th largest food crop • Global production is growing 3-5% annually, with rapid growth in developing regions like India, China, and Afric...",
+        "source": "web",
+        "title": "IVA's 100 list 2024: Potato Improver | SolEdits",
+        "url": "https://www.linkedin.com/posts/soledits_ivas-100-list-2024-potato-improver-activity-7263509767048810497-Frk0"
+      },
+      {
+        "date": "2024-03-26",
+        "last_updated": "2026-09-24",
+        "place_metadata": null,
+        "snippet": "# Plantik Presents at CROP Innovation & Business Conference in Ghent\n**Ying presented Plantik's work within the awarded TKI consortium**, highlighting the company's progress in accelerating quinoa and lupin breeding in collaboration with Wageningen Plant Research, RADICLE Crops, and Lekker Lupine.\n....",
+        "source": "web",
+        "title": "Plantik Presents at CROP Innovation & Business Conference in Ghent",
+        "url": "https://www.plantik.bio/company-news/d8g386f4ubi7z56hw3i0k3ecibp5wo"
+      },
+      {
+        "date": "2026-03-10",
+        "last_updated": "2026-09-11",
+        "place_metadata": null,
+        "snippet": "# Partnering Week\n## Our startups\n### #GREENTECH\n- Plantik Biosciences\n**Plantik Biosciences** develops innovative technologies to accelerate plant engineering.\nIn particular, it offers validation and proof-of-concept services through an ultra-efficient genome-editing workflow.\n...\n- Collaboration w...",
+        "source": "web",
+        "title": "Partnering Week - Genopole, Innovation Today, Every Day",
+        "url": "https://www.genopole.com/highlights/agenda/partnering-week-2023/"
+      },
+      {
+        "date": "2024-11-19",
+        "last_updated": "2025-10-17",
+        "place_metadata": null,
+        "snippet": "💪 Our latest joint venture opens up a new chapter in Plantik's journey, demonstrating an important way we drive value: by adapting our key climate resilience traits to crucial crops threatened by climate change.\n...\nPotato Improver has been honored with the Royal Swedish Academy of Engineering Scien...",
+        "source": "web",
+        "title": "IVA's 100 list 2024: Potato Improver | Ying Shao",
+        "url": "https://www.linkedin.com/posts/yingshao75_ivas-100-list-2024-potato-improver-activity-7264494202279923714--aK0"
+      },
+      {
+        "date": "2026-10-01",
+        "last_updated": "2026-10-20",
+        "place_metadata": null,
+        "snippet": "# AgriFood Signals: Corteva & Inari settle, Starbucks scales back green goals, countries rethink climate reporting\n#### M&A, IPOs & partnerships\n🇫🇷 🇳🇱 Plantik and Hudson River Biotechnology team up to de-risk heat-tolerant strawberries *AgFunderNews*",
+        "source": "web",
+        "title": "AgriFood Signals: Corteva & Inari settle, Starbucks scales back green goals, countries rethink climate reporting",
+        "url": "https://agfundernews.com/agrifood-signals-corteva-inari-settle-starbucks-scales-back-green-goals-countries-rethink-climate-reporting"
+      },
+      {
+        "date": "2026-09-28",
+        "last_updated": "2026-10-20",
+        "place_metadata": null,
+        "snippet": "# 8 AI Players to Watch in Crop Breeding\n## Plantik Biosciences\nPlantik’s AI system uses multi-omic data to identify regulatory genetic switches and conduct edits using the chosen CRISPR approach, with an initial focus on tomatoes, corn and soybeans.",
+        "source": "web",
+        "title": "8 AI Players to Watch in Crop Breeding - Seed World",
+        "url": "https://www.seedworld.com/us/2026/09/28/ai-crop-breeding-players-watch/"
+      },
+      {
+        "date": "2021-11-09",
+        "last_updated": "2025-07-02",
+        "place_metadata": null,
+        "snippet": "# Plantik joins StartLife Accelerate\nPlantik is among the 9 European startups shortlisted to join the renowned agri-food accelerator, StartLife, in its fall 2020 cohort.",
+        "source": "web",
+        "title": "Plantik joins StartLife Accelerate — Plantik Biosciences",
+        "url": "https://www.plantik.bio/company-news/plantik-joins-startlife-accelerate"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-13",
+        "place_metadata": null,
+        "snippet": "Hudson River and Plantik Biosciences partner to enhance heat tolerance in strawberries",
+        "source": "web",
+        "title": "Central information website for the global seed industry - SeedQuest",
+        "url": "https://www.seedquest.com/news.php?id_category=176&id_region=10"
+      },
+      {
+        "date": "2024-10-23",
+        "last_updated": "2026-10-17",
+        "place_metadata": null,
+        "snippet": "# Dark side of the genome: Inside Plantik’s mission to grow heat-tolerant crops through genome editing\n#### AFN : Why focus on these regulatory regions?\nNow we are establishing local partnerships with companies that cover India and also other South East, South Asian markets.\nThrough GROW, we are est...",
+        "source": "web",
+        "title": "Inside Plantik's mission to grow heat-tolerant crops",
+        "url": "https://agfundernews.com/dark-side-of-the-genome-inside-plantiks-mission-to-grow-heat-tolerant-crops-through-genome-editing"
+      },
+      {
+        "date": "2026-08-18",
+        "last_updated": "2026-10-17",
+        "place_metadata": null,
+        "snippet": "Pairwise is a biotechnology company that focuses on agricultural innovation through CRISPR gene editing.\nThe company has developed a platform for the development of crops with traits such as climate resilience, disease tolerance, and improved nutritional value.\nPairwise works with various partners t...",
+        "source": "web",
+        "title": "Pairwise - Products, Competitors, Financials, Employees ...",
+        "url": "https://www.cbinsights.com/company/pairwise-plants"
+      },
+      {
+        "date": "2026-06-30",
+        "last_updated": "2026-10-14",
+        "place_metadata": null,
+        "snippet": "## AI trait design & predictive breeding platforms\n...\n### Plantik Biosciences\nplantik.bio\nPlantik Biosciences is a Paris-based agritech company developing plant-engineering and genome-editing technologies to create climate-resilient crops, starting with heat-tolerant plants and working from what it...",
+        "source": "web",
+        "title": "The Programmable Plant Stack Landscape",
+        "url": "https://axomap.com/maps/the-programmable-plant-stack"
+      },
+      {
+        "date": null,
+        "last_updated": "2024-09-28",
+        "place_metadata": null,
+        "snippet": "Access to this page has been denied because we believe you are using automation tools to browse the website.",
+        "source": "web",
+        "title": "Please verify you are a human",
+        "url": "https://www.zoominfo.com/c/plantik-biosciences/535498327"
+      },
+      {
+        "date": "2024-04-23",
+        "last_updated": "2026-09-23",
+        "place_metadata": null,
+        "snippet": "# PLANTIK BIOSCIENCES\n## Informations juridiques de PLANTIK BIOSCIENCES\n|SIREN :|853 088 441|\n|--|--|\n|Forme juridique :|SAS, société par actions simplifiée|\n...\n## Activité de PLANTIK BIOSCIENCES\n|Activité principale déclarée :|La recherche, le développement et la commercialisation de nouvelles var...",
+        "source": "web",
+        "title": "Société PLANTIK BIOSCIENCES - Pappers",
+        "url": "https://www.pappers.fr/entreprise/plantik-biosciences-853088441"
+      },
+      {
+        "date": "2019-08-08",
+        "last_updated": "2026-02-18",
+        "place_metadata": null,
+        "snippet": "- FORME JURIDIQUE\n- Société par actions simplifiée Société par actions simplifiée\n...\n- 4 PASSAGE DE LA RAPE IMM VAL.\nDE LOIRE, 45000 ORLEANS 4 PASSAGE DE LA RAPE IMM VAL.\n...\n- Société par actions simplifiée (SAS) Société par actions simplifiée (SAS)\n- Capital social\n- 820,00 € 820,00\n...\n- PLANTIK...",
+        "source": "web",
+        "title": "Société PLANTIK BIOSCIENCES à ORLEANS ...",
+        "url": "https://www.societe.com/societe/plantik-biosciences-853088441.html"
+      },
+      {
+        "date": "2026-02-25",
+        "last_updated": "2026-02-25",
+        "place_metadata": null,
+        "snippet": "Plantik Biosciences has raised **$100 thousand** across 2 funding rounds from investors including EIT Food and Go Grow.\n...\nPlantik Biosciences has successfully raised a total of **$100K** across 2 strategic funding rounds.\nThe most recent funding activity was a Seed round of $100 thousand completed...",
+        "source": "web",
+        "title": "Plantik Biosciences — Company Profile",
+        "url": "https://www.thecompanycheck.com/company/b/plantik-biosciences/jiaf7u4jfp9akfigq"
+      },
+      {
+        "date": "2019-08-01",
+        "last_updated": "2026-09-16",
+        "place_metadata": null,
+        "snippet": "Last Round\nAccelerator\nNov 13, 2024\nTotal Funding Raised\n$2.1M\n...\nPlantik Biosciences is an agritech company that develops climate-resilient crops using next-generation plant engineering and genome-editing technologies.\n...\n## Plantik Biosciences Funding Rounds\nHistorical fundraising activity\n...\n|...",
+        "source": "web",
+        "title": "Plantik Biosciences | Valuation, Funding Rounds & Stock ...",
+        "url": "https://www.caplight.com/company/plantik"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-09-16",
+        "place_metadata": null,
+        "snippet": "## Investors · 4\nEntrepreneur FirstBengaluru · $1M – $7M\nFFFUtrecht\nAgFunderreportedSan Francisco · $10K – $5M\nFuture Food FundreportedUtrecht\n...\n## Timeline · 16\nA TKI consortium composed of Plantik Biosciences, Radicle Crops, Wageningen Plant Research and Lekker Lupine received strategic funding ...",
+        "source": "web",
+        "title": "Plantik — Investors & Founders | Fundraising Fox",
+        "url": "https://fundraisingfox.com/companies/plantik"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-09",
+        "place_metadata": null,
+        "snippet": "Service •\n45000 ORLEANS- France\n...\n|Type|Headquarters|\n|--|--|\n|Year established|2019|\n|Legal form|SAS, société par actions simplifiée|",
+        "source": "web",
+        "title": "Plantik Biosciences - to ORLEANS, France | Kompass",
+        "url": "https://gr.kompass.com/c/plantik-biosciences/fra05p0mr/"
+      },
+      {
+        "date": "2026-04-30",
+        "last_updated": "2026-08-29",
+        "place_metadata": null,
+        "snippet": "The company secured a recent **Seed** investment of **$100.00K** from **AgFunder** as of **01 May 2024**.\n...\n|Funding Stage|Amount|Investors|Lead Investors|Date|\n|--|--|--|--|--|\n|Seed|••••••|1| |01 May 2024|\n|Seed|••••••|-| |01 Nov 2022|\n|Seed|••••••|1| |01 Feb 2022|\n|Support Program|••••••|1|••••...",
+        "source": "web",
+        "title": "Plantik Biosciences - Agriculture, Biotechnology Company Profile ...",
+        "url": "https://bouncewatch.com/company/plantik-biosciences"
+      },
+      {
+        "date": "2026-07-21",
+        "last_updated": "2026-10-20",
+        "place_metadata": null,
+        "snippet": "*[Disclosure: AgFunderNews’ parent company AgFunder is an investor in Plantik Biosciences.]*\n...\n**AN**: I think until now it has really been about funding.\nFor this current round, we have been raising for the last 16 months, and that’s quite a long time.\nEvery hour we spend on fundraising, we are n...",
+        "source": "web",
+        "title": "Can editing the 'dark genome' make crops more heat tolerant?",
+        "url": "https://agfundernews.com/can-editing-the-dark-genome-make-crops-more-heat-tolerant"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-07-23",
+        "place_metadata": null,
+        "snippet": "Plantik Biosciences has raised $100k across 1 round.\nIts most recent round was a Seed of $100k in May 2024.\n...\nSeed\n$100k",
+        "source": "web",
+        "title": "Plantik Biosciences Funding | FundedIQ",
+        "url": "https://fundediq.co/plantik-biosciences-plantik-bio-funding/"
+      },
+      {
+        "date": "2026-10-02",
+        "last_updated": "2026-10-21",
+        "place_metadata": null,
+        "snippet": "## Plantik Biosciences\n### Plant biotech company working on promoter editing technology,\nSee full page People, funding & more\n...\nPlantik Biosciences is developing a smart breeding technology to create new plant varieties 10 times faster, compared to traditional breeding.\n...\nFounded 2019\n$362.3k ra...",
+        "source": "web",
+        "title": "29 Top Agriculture Companies in Paris · August 2026 - F6S",
+        "url": "https://www.f6s.com/companies/agriculture/france/paris/co"
+      },
+      {
+        "date": "2026-10-02",
+        "last_updated": "2026-10-19",
+        "place_metadata": null,
+        "snippet": "## Plantik Biosciences\n### Plant biotech company working on promoter editing technology,\nSee full page People, funding & more\nMeet Ying, Matteo and Aditya that work here\nPlantik Biosciences is developing a smart breeding technology to create new plant varieties 10 times faster, compared to tradition...",
+        "source": "web",
+        "title": "100 Top Agricultural Biotechnology Companies",
+        "url": "https://www.f6s.com/companies/agricultural-biotechnology/mo"
+      },
+      {
+        "date": "2022-12-01",
+        "last_updated": "2026-04-17",
+        "place_metadata": null,
+        "snippet": "Explore Plantik Biosciences's funding history, including investment rounds, total capital raised, and key backers.\n|Funding Date|Round|Amount|Link to Article|\n|--|--|--|--|\n|2022-12-01|2|N/A| |\n|2024-06-14|3|$100,000| |",
+        "source": "web",
+        "title": "Plantik Biosciences Email Formats - Prospeo",
+        "url": "https://prospeo.io/c/plantik-biosciences-email-format"
+      },
+      {
+        "date": "2026-05-15",
+        "last_updated": "2026-10-02",
+        "place_metadata": null,
+        "snippet": "# New GMO Alert: Strawberry Shortcut — What the Biotech Industry Has Planned for Your Berries\n- **Several biotech companies are developing gene-edited strawberries** engineered for durability, longer shelf life and improved flavor.\nNone have reached the commercial food supply.\n...\n## The GMO strawbe...",
+        "source": "web",
+        "title": "New GMO Alert: Strawberry Shortcut — What the Biotech Industry ...",
+        "url": "https://www.nongmoproject.org/blog/new-gmo-alert-strawberry-shortcut-what-the-biotech-industry-has-planned-for-your-berries/"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-05",
+        "place_metadata": null,
+        "snippet": "Ohalo has developed several novel proteins and techniques that switch off the reproductive circuits that cause reproduction to only deliver half the genes from each parent plant.\nAs a result, the offspring – Boosted plants – contain all the genes from the mother and all the genes from the father.\n.....",
+        "source": "web",
+        "title": "Ohalo's Boosted Breeding Technology",
+        "url": "https://www.ohalo.com/boosted-breeding"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-09-29",
+        "place_metadata": null,
+        "snippet": "# Ohalo\n## Company profile\nIts core technology, marketed as Boosted Breeding, uses proteins and gene-editing techniques to switch off the reproductive mechanism that normally splits parental genes during meiosis, so that gametes are clonal and offspring inherit the complete genome of both parents ra...",
+        "source": "web",
+        "title": "Ohalo — Investors & Founders | Fundraising Fox",
+        "url": "https://fundraisingfox.com/companies/ohalo"
+      },
+      {
+        "date": "2026-05-06",
+        "last_updated": "2026-05-30",
+        "place_metadata": null,
+        "snippet": "Ohalo says its platform has produced yield gains of 50% to more than 100% in trials across potatoes, strawberries, and other staple crops.\n...\nThe technology, which the company calls Boosted Breeding, works by interfering with the mechanism that splits a plant’s genome during reproduction.\nIn conven...",
+        "source": "web",
+        "title": "Ohalo Genetics Has a Plan to Boost Crop Yields by 100%",
+        "url": "https://esgtechreport.com/startups/ohalo-genetics-has-a-plan-to-boost-crop-yields-by-100/"
+      },
+      {
+        "date": "2026-08-08",
+        "last_updated": "2026-10-16",
+        "place_metadata": null,
+        "snippet": "Ohalo is a US plant-genetics company based in Aptos, California, founded in 2019 and led by CEO David Friedberg.\nIts Boosted Breeding platform uses gene-editing and machine learning to fix heterosis in seeds, targeting crops such as potato, almond, strawberry, and staple row crops with the promise o...",
+        "source": "web",
+        "title": "Ohalo — Startup Diligence",
+        "url": "https://startup.genisisiq.com/ohalo-0043d1/"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-03",
+        "place_metadata": null,
+        "snippet": "Groundbreaking collaboration  developing more flavorful strawberries and bringing them to market as true seed.\n...\nBoosted Breeding, which can be applied to nearly every crop on Earth, changes the way plants reproduce, enabling two parents to pass on their entire genome to the next generation, creat...",
+        "source": "web",
+        "title": "Ohalo | Accelerating evolution to unlock nature's potential",
+        "url": "https://www.ohalo.com/"
+      },
+      {
+        "date": "2024-05-24",
+        "last_updated": "2026-10-18",
+        "place_metadata": null,
+        "snippet": "## The entrepreneur and investor’s plant-breeding platform Ohalo Genetics is out of stealth mode and out to boost crop yields worldwide.\n...\nOhalo has developed a groundbreaking technology called ‘Boosted Breeding’.\nThis uses CRISPR gene editing to alter the reproductive circuits in parent plants to...",
+        "source": "web",
+        "title": "'The yield gains are insane'. David Friedberg unwraps Ohalo's much ...",
+        "url": "https://www.agnavigator.com/Article/2024/05/24/The-yield-gains-are-insane-.-David-Friedberg-unwraps-Ohalo-s-much-awaited-Boosted-Breeding-tech/"
+      },
+      {
+        "date": "2024-05-17",
+        "last_updated": "2026-10-03",
+        "place_metadata": null,
+        "snippet": "**Ohalo Genetics™ Boosted Breeding™**\nOhalo Genetics™ offers Boosted Breeding™ and Agile Breeding™ services across a multitude of crops, from potatoes, to corn, to berries, and beyond.\nWorking with global partners, Ohalo Genetics uses its Boosted™ breeding services to develop novel Boosted™ varietie...",
+        "source": "web",
+        "title": "Ohalo introduces Boosted Breeding™—the next revolution ...",
+        "url": "https://www.ohalo.com/news/ohalo-introduces-boosted-breeding-tm---the-next-revolution-in-agriculture"
+      },
+      {
+        "date": "2024-01-01",
+        "last_updated": "2026-10-16",
+        "place_metadata": null,
+        "snippet": "Ohalo Genetics is a biotechnology company that has developed a proprietary technology called \"Boosted Breeding\".\nThis technology alters the reproductive process of plants, enabling them to pass on their entire genome to their offspring, rather than the usual random half.\nThis method of asexual repro...",
+        "source": "web",
+        "title": "Ohalo Genetics company information, funding & investors",
+        "url": "https://app.dealroom.co/companies/ohalo_genetics"
+      },
+      {
+        "date": null,
+        "last_updated": "2026-10-08",
+        "place_metadata": null,
+        "snippet": "Ohalo Genetics is a U.S. agricultural biotechnology and plant-breeding company founded in 2019 to develop novel breeding systems and improved plant varieties.\n...\nOhalo's core platform is Boosted Breeding, a plant reproductive-biology approach intended to make offspring inherit the full genome from ...",
+        "source": "web",
+        "title": "Ohalo Genetics — Whiteford Research Biobase",
+        "url": "https://biobase.whitefordresearch.com/companies/ohalo-genetics"
+      }
+    ],
+    "usage": {
+      "completion_tokens": 4517,
+      "completion_tokens_details": {
+        "reasoning_tokens": 451
+      },
+      "cost": {
+        "input_tokens_cost": 0.8884700000000001,
+        "output_tokens_cost": 0.2055,
+        "request_cost": 0.06598,
+        "total_cost": 1.15995
+      },
+      "prompt_tokens": 200,
+      "search_context_size": "low",
+      "total_tokens": 4717
+    }
+  },
+  "capability": "sonar-deep-research"
+}

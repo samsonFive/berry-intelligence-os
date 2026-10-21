@@ -1,0 +1,38 @@
+{
+  "id": "program-gene-pairwise-hrb",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Fulcrum\u2013BioMaas service license",
+  "status": "unverified",
+  "description": "Research program identity; source claims await analyst review.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-pairwise-hrb"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-pairwise-hrb",
+      "name": "Fulcrum\u2013BioMaas service license",
+      "company_ids": [
+        "company-pairwise",
+        "company-hudson-river-biotechnology"
+      ],
+      "technology": "Fulcrum plant gene editing / BioMaas",
+      "crop": "Vegetables; soft fruit; other species",
+      "trait": "Editing and regeneration services",
+      "partner": "Pairwise / Hudson River",
+      "geography": null,
+      "role": "editing platform",
+      "stage": "License announced",
+      "milestone_date": "2026-05-26",
+      "milestone": "HRB licensed Fulcrum for its editing services.",
+      "evidence_ids": [
+        "ev-gene-pairwise-hrb"
+      ],
+      "berry_ids": [],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "gaps": "No named resulting berry variety or product launch. Soft-fruit scope is not a named berry crop."
+    }
+  }
+}
