@@ -1,5 +1,24 @@
 # Redesign and consolidation requirements
 
+## Current status — October 23, 2026
+
+Live canonical `97f9ac3d` includes #409 and the approved #407 performance release.
+The current release adds broader workspace speedups, selected-publisher Reader
+recovery and bounded publisher-first discovery; catalog enrichment is excluded.
+Drafts #399/#400 retain their source/identity safeguards after reconciliation
+with this release, including its presentation memoization. All 31 accepted
+requirement IDs/descriptions/order and the governing guide remain unchanged.
+Seventeen original child feature files are byte-identical; the portfolio service
+adds only the canonical memo import/decorator. Fresh current-head CI and catalog
+release review remain before merge/deploy.
+
+Independent source/name answers, 32 unclear photo cells, CAT-01/CAT-02,
+current/historical portfolio completeness, rights/photos and wider performance
+remain open. The 52-source worksheet is available but no independent answers
+were supplied. A separate on-demand profile optimization has isolated parity
+and timing proof; browser review remains pending and it is not deployed.
+Earlier release measurements below are dated evidence, not today's live state.
+
 ## Verified status — October 22, 2026
 
 Production is canonical `64099c00`, including the approved performance-only

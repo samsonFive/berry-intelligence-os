@@ -1,9 +1,10 @@
 # Current Landscape and variety-catalog review
 
-Draft [#396](https://github.com/samsonFive/berry-intelligence-os/pull/396)
-contains the approved four-crop continuation and catalog/reference follow-up.
-Blueberry feedback was approved October 12; remaining local review downloads
-are authorized. The current release state is in [RELEASE-REVIEW.md](RELEASE-REVIEW.md).
+Landscape's approved four-crop continuation, comparisons, saved views and
+reporting are released. Blueberry feedback was approved October 12; it does
+not require another checkpoint. Catalog/reference enrichment remains separate
+in draft #399/#400. The current release and review boundary is in
+[RELEASE-REVIEW.md](RELEASE-REVIEW.md), updated October 23 for canonical `97f9ac3d`.
 
 All berries, paired comparison, shared favorites/tiers/lists, saved Explorer
 views, cited traits and complete PDF/HTML/SVG/CSV are implemented and browser
@@ -12,12 +13,12 @@ output choices. The four-berry CPVO recheck keeps different applications
 separate and preserves older capture URLs/statuses; register wording remains
 unreviewed and does not establish current legal rights.
 
-The bounded audit has 395 sections / 1,572 named occurrences / 102 matched /
+The retained October 12 bounded audit has 395 sections / 1,572 named occurrences / 102 matched /
 1,470 requiring review; the catalog remains 64. Profile gaps are 50 photos,
 29 patent/PVR references, 33 cited traits and 10 organization links. There are
 126 photo references; a reference does not grant image reuse permission.
 
-The exact ec80d8af application/package passed authenticated host review,
+Historical pre-release proof: the exact ec80d8af application/package passed authenticated host review,
 restart, 2,961-file recovery and prior-image rollback. A fresh separate actual
 production backup verifies 14,051 files. The full CI found one historical
 test-corpus boundary error; the corrected test and saved-operator regression
@@ -26,18 +27,17 @@ Neither merge nor deployment occurred.
 
 ## Open the current review
 
-On this PC, use [Landscape](http://127.0.0.1:18580/landscapes/explorer),
-[Variety coverage](http://127.0.0.1:18580/varieties/coverage#profile-field-coverage),
-[Variety review](http://127.0.0.1:18580/varieties/candidates) and
-[the visual guide](http://127.0.0.1:18580/guide).
+The released platform is available after normal login at
+[Landscape](https://intel.johnnyaceii.com/landscapes/explorer),
+[Variety coverage](https://intel.johnnyaceii.com/varieties/coverage#profile-field-coverage),
+[Variety review](https://intel.johnnyaceii.com/varieties/candidates) and
+[the visual guide](https://intel.johnnyaceii.com/guide). Catalog draft additions
+are not live yet; do not infer their deployment from those links.
 
-The preview binds only to this PC and disables collection. It uses an isolated,
-recovered copy of the review data; it does not write production or the original
-pending-source workspace. These addresses are not a public mobile preview.
-The ignored local launcher is
-`inbox/european-portfolio-followup/field_row_context_live_preview.py`.
-Reobserve its running handle/listener before restarting; do not start a second
-worker against the same runtime.
+The protected [52-source worksheet](https://intel.johnnyaceii.com/review-preview/start.html)
+retains the independent source/name review. Answers are browser-local and can be
+downloaded; hosting it does not create human review decisions. Earlier localhost
+previews are historical. Reobserve any preview process before restarting it.
 
 ## What to review
 
@@ -56,19 +56,19 @@ worker against the same runtime.
    for attributed photos, original patent/PVR references and cited traits.
    Unknown photo reuse stays withheld by default; session preview does not
    create permission or publish an image.
-4. **Does the guide explain the app?** Its eleven section cards explain purpose;
+4. **Does the guide explain the app?** Its twelve section cards explain purpose;
    four analyst steps show the workflow. Six output cards distinguish Meeting
    Prep, a saved brief, an editable report/PDF, a market snapshot, a competitor
    JSON packet and a blueberry Landscape briefing. Live workspaces, refreshed
    selectors and frozen downloads have different behavior.
 5. **Is the briefing useful?** Inspect the Landscape HTML/SVG/CSV output and
    its sources, dates, complete selection and qualifications. Other berries,
-   comparison, saved Explorer views and downloadable PDF are the next milestone
-   after blueberry feedback; the current guide labels those limits.
+   comparison, saved Explorer views and downloadable PDF are implemented and
+   released; the guide explains their current scope and limits.
 
-Blueberry feedback should address readability, trust, usefulness and export
-quality. That acceptance precedes other-berry rollout. Release approval is a
-separate decision.
+Blueberry readability/usefulness acceptance and the subsequent platform release
+are complete. Catalog release approval and independent source/name/identity
+decisions remain separate; neither is supplied by that earlier acceptance.
 
 ## Current coverage, measured October 12
 

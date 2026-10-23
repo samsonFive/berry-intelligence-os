@@ -1,5 +1,34 @@
 # Berry Intelligence release review
 
+## Current release boundary — October 23, 2026
+
+Production is canonical `97f9ac3de5ad9e0518f28bf9f239dc95e2b4ded5`, tested head
+`58d717acdea93e103778033872854ca672095d96`, image
+`sha256:11fe170907bb93e95993f6373f9157b1293bf9213bb6b29e0cc2ad5b9510e2ea`.
+The authoritative receipt is
+`/opt/berry-platform-releases/expanded-candidate-20261023T074225Z/deployed.json`;
+its backup and rollback are retained. This #409 release includes the approved
+#407 work, broader workspace performance, selected-reader recovery and bounded
+publisher-first discovery. The running image matches the receipt. No catalog
+draft or local runtime was uploaded. A normal signed-in read-only probe returned
+Emerald in 5.783/1.882 seconds and the Z candidate group in 1.663 seconds.
+
+Catalog #399/#400 is rebased onto this current release and remains draft and
+undeployed. Source observations, identity rules, all 31 accepted requirement
+definitions/order and the immutable guide are preserved. Seventeen original
+child feature files remain byte-identical; its portfolio service additionally
+retains #409's exact-input memoization. Fresh required checks on both current
+heads and separate catalog release approval remain. The PDF link-label fix
+preserves literal URLs and review state. Historical #407 preservation proof
+below remains dated evidence; it is not a fresh #409 account audit.
+
+The next on-demand name-review performance change is a separate unreleased
+draft with isolated output/data parity. Browser interaction and phone review
+are pending; no visual pass is claimed. CAT-01/CAT-02, independent human review,
+32 unclear photo cells, fuller profile/rights/photo/statistics coverage and
+wider performance remain open. No engineering release substitutes for a human
+source, name, identity, catalog, Atomic, qualification or image-use decision.
+
 ## Verified delivery status — October 22, 2026
 
 Production is canonical `64099c00b95cdf4aaec57cd5eebd07abc66652e5` and image
