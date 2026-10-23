@@ -1,0 +1,417 @@
+{
+  "kind": "bounded_original_reference_cohort_check",
+  "checked_on": "2026-10-13",
+  "scope": "17 starting profiles, known names/accepted aliases in CPVO and individually inspected original documents; not an exhaustive rights search.",
+  "rows": [
+    {
+      "profile_id": "variety-amalia-rossa",
+      "name": "Amalia Rossa",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "queries": [
+        {
+          "name": "Amalia Rossa",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "original_reference_available",
+      "source_id": "portfolio-reference-gap-ukraine-raspberry-202604"
+    },
+    {
+      "profile_id": "variety-baridi",
+      "name": "Baridi",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "queries": [
+        {
+          "name": "Baridi",
+          "mode": "equals",
+          "response_sha256": "e9f63d1ac75d32d5af6da5ba577544ab520bf35dd3624cea3515e8a3a6a3a206",
+          "result_count": 1,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 1
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "reference_not_located_in_bounded_name_queries",
+      "reason": "Same-name non-berry entries excluded; empty exact-name results do not prove absent rights. Printed source codes and other jurisdictions remain follow-up."
+    },
+    {
+      "profile_id": "variety-bk-6-13",
+      "name": "BK 6-13",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "queries": [
+        {
+          "name": "BK 6-13",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "source_name_association_requires_review",
+      "source_id": "portfolio-reference-gap-original-uspp34597p2",
+      "source_denomination": "PS-BK3-17.006-13"
+    },
+    {
+      "profile_id": "variety-crimson-treasure",
+      "name": "Crimson Treasure",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "queries": [
+        {
+          "name": "Crimson Treasure",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "original_reference_available",
+      "source_id": "portfolio-reference-gap-original-uspp32799p2"
+    },
+    {
+      "profile_id": "variety-ervin",
+      "name": "Ervin",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "queries": [
+        {
+          "name": "Ervin",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "reference_not_located_in_bounded_name_queries",
+      "reason": "Same-name non-berry entries excluded; empty exact-name results do not prove absent rights. Printed source codes and other jurisdictions remain follow-up."
+    },
+    {
+      "profile_id": "variety-example-blue",
+      "name": "Example Blue",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "queries": [],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "fictional_seed_excluded",
+      "reason": "Existing entity description explicitly identifies fictional seed data; record preserved."
+    },
+    {
+      "profile_id": "variety-flavia",
+      "name": "Flavia",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "queries": [
+        {
+          "name": "Flavia",
+          "mode": "equals",
+          "response_sha256": "d96e9127bff247e57918b36563a382247e91f794fd2b1a4c34cdf525b8a7e0cd",
+          "result_count": 4,
+          "matching_berry_rows": 1,
+          "other_crop_rows": 3
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "original_reference_available",
+      "source_id": "portfolio-reference-gap-cpvo-20151841"
+    },
+    {
+      "profile_id": "variety-kwanza",
+      "name": "Kwanza",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "queries": [
+        {
+          "name": "Kwanza",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "source_name_association_requires_review",
+      "source_id": "portfolio-reference-gap-original-uspp23914",
+      "source_denomination": "Advabertwee"
+    },
+    {
+      "profile_id": "variety-malaika",
+      "name": "Malaika",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "queries": [
+        {
+          "name": "Malaika",
+          "mode": "equals",
+          "response_sha256": "3704a5863f273ef3c7c42b27f1bf85bd346100391a3a5a4dd77404256f638a1d",
+          "result_count": 1,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 1
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "reference_not_located_in_bounded_name_queries",
+      "reason": "Same-name non-berry entries excluded; empty exact-name results do not prove absent rights. Printed source codes and other jurisdictions remain follow-up."
+    },
+    {
+      "profile_id": "variety-marimbella",
+      "name": "Marimbella",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "queries": [
+        {
+          "name": "Marimbella",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "source_name_association_requires_review",
+      "source_id": "portfolio-original-patent-nsg-203",
+      "source_denomination": "NSG 203"
+    },
+    {
+      "profile_id": "variety-redsayra",
+      "name": "RedSayra",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "queries": [
+        {
+          "name": "RedSayra",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "reference_not_located_in_bounded_name_queries",
+      "reason": "Same-name non-berry entries excluded; empty exact-name results do not prove absent rights. Printed source codes and other jurisdictions remain follow-up."
+    },
+    {
+      "profile_id": "variety-rutgers-dlight",
+      "name": "Rutgers D'Light",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "queries": [
+        {
+          "name": "Rutgers D'Light",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        },
+        {
+          "name": "D'Light",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "source_name_association_requires_review",
+      "source_id": "portfolio-rutgers-original-grant-nj09-2-1",
+      "source_denomination": "NJ09-2-1"
+    },
+    {
+      "profile_id": "variety-sekoya-nova",
+      "name": "SEKOYA Nova",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "queries": [
+        {
+          "name": "SEKOYA Nova",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        },
+        {
+          "name": "SEKOYA® Nova",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        },
+        {
+          "name": "Sekoya Nova",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        },
+        {
+          "name": "FC15-173",
+          "mode": "equals",
+          "response_sha256": "b4b671a7b1b6201868a864d39744973d3aa75775d74f884a56bf0eddc3e5298d",
+          "result_count": 1,
+          "matching_berry_rows": 1,
+          "other_crop_rows": 0
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "original_reference_available",
+      "source_id": "portfolio-reference-gap-cpvo-20252277"
+    },
+    {
+      "profile_id": "variety-twilight",
+      "name": "Twilight",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "queries": [
+        {
+          "name": "BerryWorld Twilight",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        },
+        {
+          "name": "Twilight",
+          "mode": "equals",
+          "response_sha256": "1eedf11aef357bc1f622c83e323509ba02f867258fc85cc32560dc3a9927bf00",
+          "result_count": 6,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 6
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "reference_not_located_in_bounded_name_queries",
+      "reason": "Same-name non-berry entries excluded; empty exact-name results do not prove absent rights. Printed source codes and other jurisdictions remain follow-up."
+    },
+    {
+      "profile_id": "variety-victoria",
+      "name": "Victoria",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "queries": [
+        {
+          "name": "Driscoll's Victoria",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        },
+        {
+          "name": "Victoria",
+          "mode": "equals",
+          "response_sha256": "ad01146f0714d5731e07df2352535d1036fd31fa46dc1147178c540aee46c467",
+          "result_count": 10,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 10
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "reference_not_located_in_bounded_name_queries",
+      "reason": "Same-name non-berry entries excluded; empty exact-name results do not prove absent rights. Printed source codes and other jurisdictions remain follow-up."
+    },
+    {
+      "profile_id": "variety-zara",
+      "name": "Zara",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "queries": [
+        {
+          "name": "Driscoll's Zara",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        },
+        {
+          "name": "Zara",
+          "mode": "equals",
+          "response_sha256": "b72108a7688d46d602e67c5548e0834d0587d6407627fb9b486719168e046246",
+          "result_count": 1,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 1
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "reference_not_located_in_bounded_name_queries",
+      "reason": "Same-name non-berry entries excluded; empty exact-name results do not prove absent rights. Printed source codes and other jurisdictions remain follow-up."
+    },
+    {
+      "profile_id": "variety-zawadi",
+      "name": "Zawadi",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "queries": [
+        {
+          "name": "Zawadi",
+          "mode": "equals",
+          "response_sha256": "ffaec85632f1c1a40bc8729e06e3828e359cbdff393f06b3317c5eb14d717d5d",
+          "result_count": 0,
+          "matching_berry_rows": 0,
+          "other_crop_rows": 0
+        }
+      ],
+      "identity_approved": false,
+      "current_rights_verified": false,
+      "outcome": "reference_not_located_in_bounded_name_queries",
+      "reason": "Same-name non-berry entries excluded; empty exact-name results do not prove absent rights. Printed source codes and other jurisdictions remain follow-up."
+    }
+  ],
+  "canonical_records_changed": false,
+  "human_decisions_created": 0
+}

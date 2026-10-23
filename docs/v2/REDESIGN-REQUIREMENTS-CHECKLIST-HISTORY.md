@@ -939,3 +939,64 @@ Completion means implementation plus appropriate source/data proof, browser revi
 ## Archive boundary
 
 Current work continues in [REDESIGN-REQUIREMENTS-CHECKLIST.md](REDESIGN-REQUIREMENTS-CHECKLIST.md).
+
+
+## October 13 release readiness refresh
+
+Previous preamble and four superseded status rows retained verbatim.
+
+## Current release review — October 13 UTC, 2026
+
+The combined review is reconciled onto canonical `642bc556`, retaining the merged
+manual Social Listening controls, their guarded provider behavior and pinned
+language dependency. The governing guide and all 31 IDs/order remain unchanged.
+The [combined release](CANONICAL-RELEASE-INTEGRATION-REVIEW.md) needs its own
+exact-head checks and release rehearsal; the earlier results below are component
+evidence. Broad catalog completion and actual human decisions remain distinct.
+
+The parent draft #396 passes all four required checks on aa6a68fb:
+4,956 passed / 11 skipped / two existing warnings. Child draft #398's capture
+repair at f93aa702 also passes all four checks: 4,972 passed / 11 skipped / two
+existing warnings, plus isolated host/restart/recovery/rollback verification.
+The subsequent [labelled-list detection repair](PUBLISHER-DISCLOSURE-SOURCE-REVIEW.md)
+now finds 23 printed entries where that detector returned zero on the same
+unchanged pending copy. Twenty-one synthetic parser/integration tests and native
+desktop/412px review pass; this later change still requires fresh pushed-head CI.
+Ten entries match existing varieties; thirteen need review, not automatic catalog
+creation. Twenty more source copies and one repaired proposal remain pending in
+separate local review inboxes. The original 32-source worksheets, all 31 IDs/order,
+canonical 64 varieties and actual human decisions remain unchanged.
+
+The blueberry checkpoint was approved October 12. Draft #396 now implements
+the remaining four-crop Landscape scope: All berries, paired comparison,
+existing-store saved selections, cited traits, shared company marks/lists and
+complete PDF/HTML/SVG/CSV exports. The visual guide has twelve section cards,
+four workflow steps and six reporting choices. No repeated blueberry feedback
+or local review-download approval is required.
+
+Application head `ec80d8afdb6dbc1558c05d292d250d03296c3c24` passed an
+authenticated isolated host rehearsal: fifteen sections, twelve crop/format
+exports, original register references, restart preservation, 2,961-file empty
+target recovery and prior-image rollback. The 32 pending source copies and
+original draft remain protected. A separate fresh production backup verifies
+14,051 files; the live application and its configuration were unchanged.
+
+Its full CI found one historical test-corpus boundary failure (4,954 passed /
+11 skipped / two warnings). The correction explicitly compares the journal's
+actual before/after corpus and separately checks that saved operator IDs,
+rejections, notes and photos survive the later register capture. Forty related
+tests pass. Fresh checks on the corrected review head still gate release.
+
+The [current combined review](CURRENT-BLUEBERRY-CATALOG-REVIEW.md) and
+[release review](RELEASE-REVIEW.md) distinguish these current results from the
+accepted October 6 redesign in PR #312 and its historical evidence. All 31
+requirement IDs and their order remain unchanged. CAT-01/CAT-02 remain open;
+bounded source coverage is not global completeness. Source, identity, catalog,
+Atomic, qualification and photo decisions remain separate human gates. Merge
+and production deployment require subsequent release approval.
+
+
+| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Stored corpus discovery, automatic known-article-text checks plus explicit additive Keep and original portfolio observations feed private identity review. Exact names, dates, codes, provenance and human decisions survive; existing intake retains separate source/claim review. The native Hortifrut capture finds 24 names and the #368 private article audit reaches 103 / 32 catalog matches / 71 discoveries before human decisions, with 750 combined candidate keys in the isolated preview after the original trial image-table observations; see [pending article review](PENDING-ARTICLE-VARIETY-COVERAGE-REVIEW.md). Test-only article hierarchy preview copies are excluded from those coverage counts. Current bounded portfolio audit and preservation proof are in [ROYALBERRIES-CAS-SOURCE-PLAN-REVIEW.md](ROYALBERRIES-CAS-SOURCE-PLAN-REVIEW.md); latest observations are measured by `scripts/audit_variety_portfolios.py`. GDR/GRIN comparisons retain original-name handoff without automatic identity decisions. | The current read-only published audit finds 95 explicit named identity strings / 32 catalog matches / 63 review needs. Saved published records still have zero readable bodies out of 1,269 (1,198 unavailable and 71 access screens), excluding pending/runtime capture. Further acquisition, declaration formats/languages, independently reviewed recall and actual human identity/catalog additions remain. Original synthetic diagnostic reaches 60/64; four legacy raw body fields are intentionally outside the supported Article path. The 32-copy profile diagnostic improves 28 to 35 occurrences, without independent human recall qualification; see [profile-name review](ARTICLE-PROFILE-NAME-RECALL-REVIEW.md). |
+| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | Four-berry original-source coverage, original patent/PDF links, attributed session photo previews, company/program handoffs and analyst website overrides are implemented. Latest bounded audit and source limits are in [current combined review](CURRENT-BLUEBERRY-CATALOG-REVIEW.md): 395 sections, 1,572 occurrences (102 catalog-matched; 1,470 requiring review), 1,126 public-source-derived candidate keys (operator-private state counted separately), 64 unchanged canonical records and 126 photo references with no new reuse approvals. The [profile-field inventory](VARIETY-PROFILE-FIELD-COVERAGE-REVIEW.md) exposes scoped per-variety gaps for photos, patent/PVR references, cited traits and company roles without a completeness score. Offline pending-copy detections are a separate diagnostic, not approved catalog additions. The 77-row source plan distinguishes named, incomplete, unavailable, unstarted and identity/scope holds; no fabricated company closes a gap. Independent GDR/GRIN are scoped collections, not complete global catalogs. | 14 entries have incomplete lists, one has unavailable sources and two supplied labels are held; zero unstarted in the full view does not mean complete portfolios. Existing numbered register references now appear privately in profiles and profile-field inventory; a live one-record CPVO recheck and the denomination self-pairing repair retain human/crop/code gates. Ten profiles have imported/rechecked references, and 29 of64 have no patent/PVR reference. The four-berry source recheck adds ten applications across nine more existing names and keeps source-reported status plus archived captures readable. Sixty-five related and 26 final history regressions pass; the preceding reference projection also passes all four required checks with 4,951 tests. A 1,755-page public-exclusion build passes; see IMPORTED-REGISTER-REFERENCE-REVIEW.md. Full/current/historical release and rights verification, hybrid crop resolution, human catalog authoring, cited traits/images/regions, refresh reconciliation and independently scored recall remain. No global completeness or web-leading claim. |
+| LAND-02 | Evidence-backed multi-berry Landscape, dense narrative, source/variety and dossier handoffs, comparison, saved views and complete visual exports | User explicitly approved blueberry October 12. Consolidated draft #396 enables all four existing crops, All berries and two-crop comparison with distinct genetics and shared actors; 123 related tests and trusted static build pass. Saved Explorer selections reuse the existing revision-checked store, with 91 persistence/auth/controller tests passing. CAT-01/CAT-02 source-name repair remains behind human review. | Complete PDF/HTML/SVG/CSV browser downloads and 100 focused regressions pass; All/comparison and 412px light/dark review are complete. Saved update/archive/restore/copy and restart preservation are browser-verified; the twelve-section guide is refreshed for Social Listening and full Landscape reporting. Existing cited traits/sensory context now preserves source basis, units, conditions and qualifications in Explorer/PDF/HTML/SVG; 107 related and 15 final export tests pass. Shared favorites/tier/list scope and saved-selector fixes pass 120 focused tests; actual copied-runtime browser creation, applied-crop saving, nine-page PDF and 17-association CSV preserve the 13 selected connections. Company marks remain separate from evidence approval. Wider performance, fresh current-head CI and final release review remain against the retained brief. This approval does not authorize merging or deployment. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Canonical `7360c5821c009484381394ed8afa9fb91e322a50` was reconciled before this candidate, preserving the governing guide. Application head ec80d8af has a verified 3,679-file committed package and authenticated fifteen-section/twelve-export/restart/2,961-file recovery/prior-image rollback rehearsal. Thirty-two pending source copies and original draft are preserved. A fresh actual production backup verifies 14,051 files and records the available previous image/configuration without restarting or editing production. See RELEASE-REVIEW.md. | ec80 full CI found one historical replay-test boundary error; 4,954 passed. Forty corrected replay/reference checks pass. Required fresh checks on the corrected head and a final canonical/head reconciliation remain. No deployment, merge or independent human source/catalog decision is implied by these results. |
