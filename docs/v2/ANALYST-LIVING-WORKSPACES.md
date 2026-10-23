@@ -275,3 +275,29 @@ curated document blocks. Update timestamps remain available in date-cell tooltip
 Browser validation used archived 2021, 2025 and 2026 publications: ascending and
 descending chronology and a 2025-only date range passed. A shortcut typed into an
 analyst note stayed text rather than saving; test input was discarded.
+
+
+## Remembered layouts and berry destinations
+
+Document is now labeled Cards (the previous stored view choice remains compatible).
+Grid column borders support pointer/touch dragging and keyboard resizing: Left/
+Right adjust 10px; Shift adjusts 50px. Widths, selected view, source ordering and
+Cards-per-row preference persist in browser-local storage across workspaces and
+reloads. Cards may use fewer columns on a narrow window, retaining the preferred
+count for larger windows. Reset layout restores default widths and automatic
+card count. These preferences are local to this browser, not account-synced.
+
+Four empty, private default berry workspaces are created idempotently in runtime
+storage with stable identities. Existing content/revisions are never overwritten.
+The highlight menu always shows Blueberry B, Blackberry L, Raspberry R and
+Strawberry S before other actions and recent destinations. These keys save the
+preserved selection directly to the corresponding workspace as unverified source
+material. Research & Learn moves to A, Quick save to Q, and Link relationship to
+K to avoid key conflicts; F/N/V/D/O and numbered recent destinations are retained.
+
+Validation: 39 workspace/reader/auth tests passed, including durable berry defaults
+and captures across reopen. Browser checks verified pointer and keyboard column
+resizing, width persistence after reload, remembered Cards selection/column count,
+all four fixed berry shortcut labels, and R saving into Raspberry workspace. The
+preview test placement was undone after verifying its destination. No trusted
+berry or variety schemas or facts were created by these defaults.

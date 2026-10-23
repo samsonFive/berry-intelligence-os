@@ -124,6 +124,18 @@ class Store:
             self.remember(db, token, payload, page)
             return page
 
+    def ensure_berry_workspaces(self):
+        """Durable private destinations; never create trusted berry facts."""
+        result = {}
+        with self.transaction() as db:
+            for berry in ("blueberry", "blackberry", "raspberry", "strawberry"):
+                key = "wp-berry-" + berry
+                page = self.get(key, db)
+                if page is None:
+                    page = self.put(db, "page", {"id": key, "title": berry.title() + " workspace", "parent_id": None, "blocks": [], "feed": {"mode": "any", "paused": True}, "dismissed": [], "created_at": now(), "berry": berry}, "workspace setup")
+                result[berry] = page["id"]
+        return result
+
     @staticmethod
     def block(kind, text="", **fields):
         return {"id": ident("b-"), "type": kind, "text": text, **fields}

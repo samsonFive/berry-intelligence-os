@@ -19,6 +19,7 @@ def context(request, mutate=False):
     if mutate:
         require_edit(request)
     store = living.Store(main.INBOX_DIR)
+    store.ensure_berry_workspaces()
     store.flush()
     actor = main.session_username(request) or main.review_username() or "local analyst"
     return main, store, actor

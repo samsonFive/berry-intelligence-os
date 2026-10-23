@@ -30,6 +30,21 @@ def capture(store, source, **changes):
     return store.capture(payload, source, "analyst", {"company-a": {}, "company-b": {}})
 
 
+def test_default_berry_workspaces_are_durable_and_preserve_captures(store, source):
+    ids = store.ensure_berry_workspaces()
+    assert set(ids) == {"blueberry", "blackberry", "raspberry", "strawberry"}
+    original = store.get(ids["raspberry"])
+    saved = capture(store, source, page_id=ids["raspberry"])
+    assert saved["page"]["id"] == ids["raspberry"]
+    assert saved["item"]["verification_state"] == "unverified"
+    reopened = Store(store.inbox)
+    assert reopened.ensure_berry_workspaces() == ids
+    assert reopened.get(ids["raspberry"])["blocks"] == saved["page"]["blocks"]
+    assert reopened.get(ids["raspberry"])["version"] == saved["page"]["version"]
+    assert reopened.get(ids["blueberry"])["version"] == original["version"]
+    assert len(reopened.rows("page")) == 4
+
+
 def test_restart_exact_occurrence_and_projection(store, source):
     start = source["text"].rindex("Repeated quote.")
     saved = capture(store, source, locator={"start": start})

@@ -11,7 +11,7 @@
   const panel=el('section');panel.className='lw-capture';panel.hidden=true;panel.setAttribute('aria-label','Save selected material');
   const actions=el('div'), status=el('div');status.className='lw-capture-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');panel.append(actions,status);document.body.append(panel);
   let snapshot=null,pending=null,result=null,form=null,unsaved=false,inventory=null,panelHost=document.body,saving=false,varietyBusy=false;
-  const shortcutKeys={'Research & Learn':'l','Quick save':'s','Capture fact':'f','Link relationship':'r','Add note':'n','Choose destination':'d','Open workspace':'o','Close':'escape','Change destination':'d','Undo placement':'u','Retry save':'t','Return to editor':'e','Save / embed article':'s','Variety workspace':'v'};
+  const shortcutKeys={'Research & Learn':'a','Quick save':'q','Capture fact':'f','Link relationship':'k','Add note':'n','Choose destination':'d','Open workspace':'o','Close':'escape','Change destination':'d','Undo placement':'u','Retry save':'t','Return to editor':'e','Save / embed article':'q','Variety workspace':'v'};
   window.livingRememberPage=id=>{try{let ids=JSON.parse(localStorage.getItem('bios:living:recent-pages')||'[]');if(!Array.isArray(ids))ids=[];localStorage.setItem('bios:living:recent-pages',JSON.stringify([id,...ids.filter(value=>value!==id)].slice(0,8)));localStorage.setItem('bios:living:recent',id);}catch(_){}};
   function say(text){status.textContent=text;}
   function setShortcut(b,key){b.querySelector('kbd')?.remove();b.dataset.lwKey=key;b.setAttribute('aria-keyshortcuts',key==='escape'?'Escape':key.toUpperCase());b.append(el('kbd',key==='escape'?'Esc':key.toUpperCase()));}
@@ -30,6 +30,8 @@
     if(!form){pending=null;result=null;showActions();}
   }
   function showActions(){panel.hidden=false;actions.replaceChildren();const learn=document.querySelector('.learn-context-selection');if(learn)learn.hidden=true;say(snapshot?.quote?'Selected text preserved · '+snapshot.quote.length+' characters':'Save readable article to a research page');
+    const berries=el('div');berries.className='lw-berry-destinations';berries.append(el('span','Save to berry workspace'));
+    [['Blueberry','b'],['Blackberry','l'],['Raspberry','r'],['Strawberry','s']].forEach(([name,key])=>{const b=button(name,()=>{snapshot.page_id='wp-berry-'+name.toLowerCase();pending=null;return save(snapshot.kind==='article'?'article':'evidence');},berries);setShortcut(b,key);});actions.append(berries);
     button('Research & Learn',()=>document.querySelector('.learn-context-selection button')?.click());button('Quick save',()=>save(snapshot.kind==='article'?'article':'evidence'));button('Capture fact',()=>editor('statement'));button('Link relationship',()=>editor('relationship'));button('Add note',()=>editor('note'));button('Variety workspace',saveVariety);button('Choose destination',destination);button('Open workspace',async()=>{if(!result)await save(snapshot.kind==='article'?'article':'evidence');if(result)location.assign('/workspaces/'+result.page.id);});button('Close',close);
     showRecentDestinations();
   }

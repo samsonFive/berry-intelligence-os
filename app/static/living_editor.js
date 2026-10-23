@@ -6,8 +6,12 @@
   let inventory, page, items = {}, sources = {}, selected = new Set(), dirty = false, saving = false, timer, feedCards = [], incoming = [], createToken = token();
   let overviewStale=false,materialUpdatedAt='';
   let gridView=localStorage.getItem('bios:living:view')!=='document',expandedRows=new Set();
-  let cardSizer;
+  let cardSizer,layoutSizer;
   let sourceSort=localStorage.getItem('bios:living:source-sort')==='asc'?'asc':'desc';
+  let columnWidths;try{columnWidths=JSON.parse(localStorage.getItem('bios:living:column-widths')||'null');}catch(_){}
+  const columnMinimums=[30,38,80,160,80,100,86,70];
+  if(!Array.isArray(columnWidths)||columnWidths.length!==8||columnWidths.some((v,i)=>!Number.isFinite(v)||v<columnMinimums[i]||v>1200))columnWidths=null;
+  let cardColumns=localStorage.getItem('bios:living:card-columns')||'auto';if(!['auto','1','2','3','4'].includes(cardColumns))cardColumns='auto';
   const status = text => { $('lw-status').textContent = text; };
   function el(tag, text, cls) { const e = document.createElement(tag); if (text !== undefined) e.textContent = text; if (cls) e.className = cls; return e; }
   const findingPreview=el('div',undefined,'lw-finding-preview');findingPreview.id='lw-finding-preview';findingPreview.hidden=true;findingPreview.setAttribute('role','tooltip');document.body.append(findingPreview);let previewTimer;
@@ -61,8 +65,9 @@
     const input = el('textarea'); input.value = block[field] || ''; input.setAttribute('aria-label', block.type + ' ' + field); input.rows = Math.min(15, Math.max(2, input.value.split('\n').length)); input.addEventListener('input', () => { block[field] = input.value; changed(); }); parent.append(input);
   }
   function render() {
-    cardSizer?.disconnect();hideFindingPreview();
+    cardSizer?.disconnect();layoutSizer?.disconnect();hideFindingPreview();
     const host = $('lw-blocks'); host.replaceChildren();host.classList.toggle('lw-card-grid',!gridView);
+    host.style.gridTemplateColumns='';
     page.blocks.forEach((block, index) => {
       const box = el('section', undefined, 'lw-block'); box.dataset.type = block.type; box.id = block.id;box.tabIndex=-1;
       const bar = el('div', undefined, 'lw-block-bar'), label = el('label'), check = el('input'); check.type = 'checkbox'; check.checked = selected.has(block.id); check.addEventListener('change', () => check.checked ? selected.add(block.id) : selected.delete(block.id)); label.append(check, document.createTextNode(block.type)); bar.append(label);
@@ -122,17 +127,26 @@
     });
     if(gridView) renderGrid(host);
     else {
+      const applyCardLayout=()=>{const count=cardColumns==='auto'?(host.clientWidth>=1150?3:host.clientWidth>=600?2:1):Math.min(Number(cardColumns),Math.max(1,Math.floor(host.clientWidth/240)));host.style.gridTemplateColumns='repeat('+count+',minmax(0,1fr))';host.dataset.cardColumns=String(count);};applyCardLayout();layoutSizer=new ResizeObserver(applyCardLayout);layoutSizer.observe(host);
       cardSizer=new ResizeObserver(entries=>entries.forEach(({target})=>{target.style.gridRowEnd='span '+Math.max(1,Math.ceil((target.getBoundingClientRect().height+10)/18));}));
       Array.from(host.children).forEach(card=>cardSizer.observe(card));
     }
     $('lw-grid-view').setAttribute('aria-pressed',String(gridView));$('lw-document-view').setAttribute('aria-pressed',String(!gridView));
     $('lw-row-filter').disabled=!gridView;
+    $('lw-card-columns').value=cardColumns;$('lw-card-columns').disabled=gridView;
     ['lw-source-sort','lw-date-from','lw-date-to','lw-date-clear'].forEach(id=>$(id).disabled=!gridView);$('lw-source-sort').value=sourceSort;
     renderOverview();
   }
   function renderGrid(host) {
     const boxes=Array.from(host.children),table=el('table',undefined,'lw-research-grid');table.setAttribute('aria-label','Curated research grid');
-    const head=el('thead'),header=el('tr');['#','Select','Focus','Development / finding','Perspective','Source','Source date','Details'].forEach(title=>{const th=el('th',title);th.scope='col';header.append(th);});head.append(header);table.append(head);
+    const widths=columnWidths?[...columnWidths]:[32,40,100,Math.max(220,host.clientWidth-542),90,120,90,70],colgroup=el('colgroup');widths.forEach(width=>{const col=el('col');col.style.width=width+'px';colgroup.append(col);});table.append(colgroup);
+    const applyWidths=()=>{Array.from(colgroup.children).forEach((col,i)=>col.style.width=widths[i]+'px');table.style.width=widths.reduce((sum,n)=>sum+n,0)+'px';};applyWidths();
+    const rememberWidths=()=>{columnWidths=[...widths];localStorage.setItem('bios:living:column-widths',JSON.stringify(columnWidths));};
+    const head=el('thead'),header=el('tr');['#','Select','Focus','Development / finding','Perspective','Source','Source date','Details'].forEach((title,index)=>{const th=el('th',title);th.scope='col';
+      const handle=el('span',undefined,'lw-column-resize');handle.tabIndex=0;handle.setAttribute('role','separator');handle.setAttribute('aria-orientation','vertical');handle.setAttribute('aria-label','Resize '+title+' column');handle.setAttribute('aria-valuemin',String(columnMinimums[index]));handle.setAttribute('aria-valuemax','1200');handle.setAttribute('aria-valuenow',String(widths[index]));handle.title='Drag to resize; arrow keys adjust width';
+      const setWidth=value=>{widths[index]=Math.max(columnMinimums[index],Math.min(1200,value));handle.setAttribute('aria-valuenow',String(widths[index]));applyWidths();};
+      handle.onpointerdown=event=>{if(event.button!==0)return;event.preventDefault();hideFindingPreview();const x=event.clientX,start=widths[index];handle.setPointerCapture(event.pointerId);document.body.classList.add('lw-resizing');handle.onpointermove=move=>setWidth(start+move.clientX-x);const end=()=>{handle.onpointermove=null;document.body.classList.remove('lw-resizing');rememberWidths();};handle.onpointerup=end;handle.onlostpointercapture=end;handle.onpointercancel=end;};
+      handle.onkeydown=event=>{if(!['ArrowLeft','ArrowRight'].includes(event.key))return;event.preventDefault();setWidth(widths[index]+(event.key==='ArrowRight'?1:-1)*(event.shiftKey?50:10));rememberWidths();};th.append(handle);header.append(th);});head.append(header);table.append(head);
     const body=el('tbody');
     const dateFor=block=>{const item=items[block.item_id],value=item&&sources[item.source_id]?.published_date;return /^\d{4}-\d{2}-\d{2}/.test(value||'')?value.slice(0,10):'';};
     const updatedFor=block=>items[block.item_id]?.updated_at||page.content_updated_at||'';
@@ -164,6 +178,8 @@
   $('lw-source-sort').onchange=()=>{sourceSort=$('lw-source-sort').value;localStorage.setItem('bios:living:source-sort',sourceSort);render();};$('lw-date-from').oninput=filterGrid;$('lw-date-to').oninput=filterGrid;$('lw-date-clear').onclick=()=>{$('lw-date-from').value='';$('lw-date-to').value='';filterGrid();};
   function setView(grid){gridView=grid;localStorage.setItem('bios:living:view',grid?'grid':'document');render();}
   $('lw-grid-view').onclick=()=>setView(true);$('lw-document-view').onclick=()=>setView(false);
+  $('lw-card-columns').onchange=()=>{cardColumns=$('lw-card-columns').value;localStorage.setItem('bios:living:card-columns',cardColumns);render();};
+  $('lw-layout-reset').onclick=()=>{columnWidths=null;cardColumns='auto';localStorage.removeItem('bios:living:column-widths');localStorage.removeItem('bios:living:card-columns');render();};
   function formatDate(value) {return value?new Date(value).toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'}):'Not generated yet';}
   function jumpLink(text,id) {
     const a=el('a',text);a.href='#'+id;a.addEventListener('click',event=>{const destination=document.getElementById(id);if(!destination)return;event.preventDefault();revealBlock(id);destination.scrollIntoView({behavior:'smooth',block:'start'});destination.focus({preventScroll:true});history.replaceState(null,'','#'+id);});return a;
