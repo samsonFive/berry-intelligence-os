@@ -1,5 +1,22 @@
 # Project Status
 
+## October 23 performance continuation
+
+Live canonical is `97f9ac3d` (#409), including approved #407, broader workspace
+speedups, Reader recovery and publisher-first discovery. Catalog #399/#400 is
+separate and unreleased. The [on-demand variety-profile draft](docs/v2/VARIETY-PROFILE-DEMAND-LOADING.md)
+reduces isolated repeated Emerald requests from about 2.0 to 0.66 seconds while
+preserving all other profile fields, both name findings, accounts and 9,770
+protected JSON files. Reader/classifier/Atomic parity covers 3,462 sources.
+109 affected tests pass. Current-head full CI, browser interaction/phone review
+and final release approval remain; this change has not been deployed.
+
+All accepted requirements remain in the durable checklist. CAT-01/CAT-02,
+independent source/name answers, current/historical completeness, rights/photos,
+statistics coverage and broader TD-122 work remain open. The prior Landscape
+blueberry continuation was approved and its later four-crop features released;
+historical checkpoint notes below do not impose a new pause.
+
 **October 12–13: Landscape PDFs and actual browser exports.** Draft #396 now
 offers server-rendered PDF snapshots with cited takeaways, market/comparison
 tables and the complete evidence appendix. Scope, crop identity, three dates,
