@@ -176,3 +176,21 @@ Changed curated blocks or linked item revisions mark the summary out of date;
 feed arrivals do not regenerate it. Generating the overview leaves curated blocks
 untouched, preserves history and supports retry/stale-version checks. Overview
 text and citation references are included in Markdown/JSON export.
+
+
+## Compact research grid
+
+Pages default to a compact sheet with numbered rows, briefing selection,
+block type, two-line information excerpts, review state, linked source and
+updated date. Expand a row for the existing full source/editor controls;
+Document view preserves the full document layout. View choice is remembered
+locally. A row filter searches the curated page without changing its order or
+saved content. Contents/citation jumps reveal the matching row and clear filters.
+The overview can collapse while retaining its summary/contents tabs.
+
+Validation: 75 targeted regression tests passed; browser checks covered filtering,
+row expansion, selection, document/grid switching and source jump links. A live
+Perplexity probe returned an authentication error in the local environment;
+the preview therefore retains a clearly labeled evidence digest. Deterministic
+provider fixtures verify saved article text, source links, citation scope and the
+approved destination restriction without making CI depend on live credentials.
