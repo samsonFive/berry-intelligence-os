@@ -1,0 +1,155 @@
+# Analyst living workspaces
+
+Private authoring implementation; production deployment and merge are not authorized.
+
+## Review entry points
+
+- `/workspaces`: pages, nested pages, capture inbox and document search.
+- `/workspaces/<page-id>`: portable block editor, incoming feed and page map.
+- `/workspaces/evidence/<evidence-id>`: preserved wording, exact captured passage,
+  attribution, archived article version and interpretation history.
+- Existing article readers expose **Save full article to workspace**. Selecting
+  text exposes Quick save, Capture fact, Link relationship, Add note, destination
+  choice and Open workspace. Existing Research/Learn remains available.
+- Company/entity dossiers and Landscape link to private workspace material.
+
+The editor uses native, accessible form controls and stable JSON blocks rather
+than adding a third-party rich-text editor. This fits the existing server-rendered
+stack without a new JS build/dependency/license surface. Block movement is by
+keyboard-accessible up/down controls. Paragraph, heading, list, checklist,
+callout, evidence, statement, note, hypothesis, article, table, entity/page link,
+feed, map and cited briefing representations remain portable.
+
+## Data and trust
+
+`inbox/living_workspaces/workspace.sqlite3` is a private runtime database;
+`PRAGMA user_version=1` is created lazily. No canonical seed migration is needed.
+Objects, append-only revision history, idempotency receipts and an evidence
+projection outbox share SQLite transactions. Stale page/item writes return 409.
+Atomic evidence-file creation never replaces a file already changed by review.
+Pending outbox operations recover on the next workspace request.
+
+Every capture and nonempty authored note/hypothesis enters the existing
+`inbox/evidence/` review path immediately, with `status=in_review` and
+`verification_state=unverified`. `workspace_capture.nature` separates source
+material, source statement, analyst note and analyst hypothesis. Publication
+review preserves this metadata; saving or publication review does not create a
+trusted Relationship, Fact, Signal or Assessment. A revised interpretation gets
+its own unverified review identity; prior review is not silently transferred.
+
+Sources are immutable content-addressed snapshots. Exact wording, position,
+prefix/suffix, article identity, URL, publisher, publication date and capture time
+remain distinct from editable interpretation. A mismatched/repeated quote with
+no valid position is explicitly unresolved; it never jumps to the first match.
+Multiple placements share an evidence item. Removing/undoing a placement leaves
+that item and its other references intact. Existing evidence review remains the
+door for knowledge-record deletion/publication decisions.
+
+The existing app authoring gate, same-origin mutation checks and session login
+apply. Read-only mode rejects these routes. No sharing route is added. Native
+account semantics remain a shared analyst workspace, not per-page ownership.
+Only escaped text is rendered from source bodies; publisher HTML/iframes never
+execute. Available, partial, excerpt-only and unavailable states follow existing
+reader acquisition metadata. Saving never triggers an LLM or new acquisition.
+
+## Feeds, relationships and synthesis
+
+Feed configurations explicitly store OR/AND across active facets, with OR within
+each facet. Entities, berries, technologies, topics, geographies, sources,
+languages and keywords are configurable. Matching reads existing ingested
+records; no page scheduler, duplicate fetching or paid background research is
+created. Open pages check every 30 seconds and announce changed coverage without
+rewriting the document. Manual refresh, pause, last successful check and failures
+are visible. Published dates remain distinct from discovery dates. Feature is
+an explicit capture; dismissal is only a page preference.
+
+Relationships reuse the current predicate enum, canonical entity IDs and
+explicit From → To direction. Nature, verification, program scope, source
+passage, notes, additional supporting capture IDs and history stay separate.
+Co-mentions create no edge. Hypotheses are dashed and explicitly speculative;
+source statements retain an unverified label. The graph has a legend, search,
+type/status filters, dossier links and an interactive table equivalent. Expanding
+into related workspace/canonical knowledge is explicit and labels outside-page
+material. Withdrawal and revisions preserve history.
+
+Generation uses selected blocks or the curated page. Unfeatured incoming cards
+are excluded. The default is a deterministic cited digest, which works without
+credentials. Optional model synthesis uses the existing untrusted JSON gateway;
+the UI explicitly states which selected material goes to the configured provider.
+Every returned sentence needs citations to selected items; invalid/out-of-scope
+citations are dropped. All model prose remains generated interpretation, with
+speculation labeled, alongside the original grounded digest. Model failures keep
+the digest. Generation does not hold the capture database lock. A new block
+stores source versions, selected block snapshots, page revision and generation
+metadata; previous edited drafts are preserved. Referenced-item changes are
+indicated. Markdown export retains the bibliography and passage URLs; JSON export
+includes blocks, items and archived source versions.
+
+## Local real-source preview
+
+Run in the repository Python environment:
+
+```powershell
+python scripts/preview_living_workspaces.py --research-inbox ../berry-intelligence-os-gene-editing/inbox
+```
+
+Preview: `http://127.0.0.1:18773/workspaces/wp-gene-preview`.
+The process binds loopback, requires the existing session login, disables source
+polling and writes only `inbox/living-preview-v2/`. Local preview sign-in
+instructions are in that ignored directory's `preview-access.txt`; these are
+isolated review credentials, not production credentials.
+
+The setup reuses previously acquired original publisher text and existing
+gene-editing identities/drafts. It never reruns paid research. Pairwise/HRB's
+May 26, 2026 licensing release is embedded in full. Simplot's October 28, 2021
+alliance announcement and Ohalo's March 10, 2025 consortium announcement provide
+additional attributed statements. A comparison table, company link, nested page,
+configured feed, supported licensing claim and cited draft are included. The
+separate, clearly labeled demonstration hypothesis is a synthetic analyst
+question confined to this preview. It asserts no real new partnership.
+
+Walkthrough: expand the article; highlight a passage; Quick save; reload and
+open its evidence link; inspect the preserved marked passage and existing
+review link. Change a statement/add a note without modifying the quote. Inspect
+the map and hypothesis filter. Edit/reorder blocks and nest a page. Feature or
+dismiss incoming coverage. Select blocks and generate a new cited draft; export
+it with its sources. Capture undo removes only its placement.
+
+## Validation and remaining limitations
+
+- 72 targeted tests passed across workspace persistence/retries/concurrency,
+  citation scope, model failure, page-authored notes, source review metadata,
+  existing readers, Digest, remote auth and duplicate/portable publication review.
+- `scripts/validate_records.py` passed. The static build generated 1,794 pages
+  and verified no unpublished draft IDs/titles leaked. JS syntax and diff checks
+  passed. GitHub checks must be assessed on the final PR head before merge.
+- Browser verification exercised mouse selection/one-click capture in the real
+  embedded article, reload persistence, keyboard citation activation and exact
+  source-passage highlighting. Live-feed matching arrivals/nonmatches are covered
+  by integration tests. Physical touch hardware and a production ingestion run
+  were not exercised. No live model call was made; model tests use fixtures.
+- The editor is a native block/form editor, not a full Notion rich-text clone:
+  no collaborative cursor, slash-command rich-text menus or drag gestures.
+- Topic/technology identities absent from the canonical registry may be saved as
+  explicitly unresolved private stubs. These never auto-merge. Feed configuration
+  currently uses taxonomy IDs/keywords with visible match explanations.
+- Living-document exports are Markdown and portable JSON. Existing report PDF
+  workflows remain available separately; this document format has no direct
+  PDF/DOCX renderer. Existing source acquisition limits still apply.
+- Page blocks and source snapshots are separate from existing published-record
+  storage. Back up both the SQLite database and `inbox/evidence/`; private
+  runtime must remain on persistent mounts. Browser recovery drafts assist failed
+  page saves but are not the durable store. Existing account scope is shared.
+- The separate eleven-company gene-editing research mission remains incomplete
+  as documented in `GENE-EDITING-LANDSCAPE.md`. This demonstration does not
+  establish editing programs, commercial availability or research completeness
+  for all watchlist companies.
+
+## Persistence / rollback
+
+Keep the existing data/inbox runtime mounts. On first use the database and tables
+are created without modifying trusted files. Back up the database with SQLite's
+backup API or with the app stopped, and retain the evidence directory. To roll
+back the feature, revert the code while retaining these private runtime files;
+do not delete captured knowledge or replace a production inbox with preview data.
+Public static export never enumerates the workspace database or routes.
