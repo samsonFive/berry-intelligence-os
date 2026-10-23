@@ -10750,3 +10750,6 @@ from app.learn_routes import router as learn_router
 app.include_router(learn_router)
 from app.monitor_routes import router as monitor_router
 app.include_router(monitor_router)
+
+from app.living_workspace_routes import router as living_workspace_router
+app.include_router(living_workspace_router)

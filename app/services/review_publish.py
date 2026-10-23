@@ -366,6 +366,8 @@ class ReviewPublishService:
             "does_not_prove",
             "source_artifact",
             "social_observation",
+            "workspace_capture",
+            "verification_state",
         ):
             if field_name not in request.draft:
                 continue

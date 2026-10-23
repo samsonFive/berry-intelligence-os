@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="/static/berry_os.css">
 {% endblock %}
 {% block content %}
+{% if authoring_mode and not static_build %}<aside class="lw-entity-material" data-lw-entity-material><a href="/workspaces?entity={{ entity.id if entity is defined else company.id if company is defined else '' }}">Linked workspace evidence and analyst hypotheses</a><div data-lw-entity-items></div></aside>{% endif %}
 <div class="berry-os" data-feed-first data-feed-first-entity data-verification="{{ profile.verification_status }}">
   <div class="bos-shell" style="grid-template-columns: 220px minmax(0,1fr);">
     {% include "_feed_first_rail.html" %}
