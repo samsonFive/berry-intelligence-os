@@ -1,0 +1,26 @@
+{% extends 'glasshouse_base.html' %}
+{% block title %}Living workspaces · Berry Intelligence{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/living_workspaces.css?v=1">{% endblock %}
+{% block content %}
+<div class="lw-layout" id="living-workspace" data-page-id="{{ page_id }}">
+  <aside class="lw-sidebar" aria-label="Research pages"><p class="lw-eyebrow">YOUR RESEARCH</p><h1>Living workspaces</h1>
+    <label>Find a page<input id="lw-search" type="search" placeholder="Search pages and notes"></label>
+    <button id="lw-new">+ New page</button><button id="lw-nested">+ Nested page</button>
+    <nav id="lw-pages" aria-label="Pages"></nav><p class="lw-muted">Captures enter the knowledge base as unverified. Source review and claim review remain separate.</p>
+  </aside>
+  <section class="lw-document" aria-label="Page editor">
+    <header class="lw-page-tools"><span id="lw-status" role="status" aria-live="polite">Opening workspace…</span><button id="lw-save">Save / retry</button><button id="lw-restore" hidden>Restore recovery draft</button><button id="lw-history">History</button><a id="lw-export">Export with citations</a><a id="lw-json">Portable JSON</a></header>
+    <div id="lw-welcome"><p class="lw-eyebrow">A PLACE FOR EVIDENCE TO DEVELOP</p><h2>Read. Capture. Connect.</h2><p>Create a page, then save passages and full articles from the reader. Shape the material into your own research document.</p></div>
+    <div id="lw-editor" hidden>
+      <label class="lw-title-label">Page title<textarea id="lw-title" rows="2" placeholder="Untitled page"></textarea></label>
+      <p class="lw-muted">Select blocks for a cited briefing. Move blocks using ↑ / ↓. Changes autosave.</p>
+      <div id="lw-blocks"></div>
+      <div class="lw-insert"><label>Add block<select id="lw-type">{% for type in ['heading','paragraph','bullet','numbered','checklist','callout','note','hypothesis','table','entity','page','feed','map'] %}<option value="{{ type }}">{{ type|title }}</option>{% endfor %}</select></label><button id="lw-add">+ Insert</button><button id="lw-generate">Generate cited draft</button></div>
+      <p class="lw-muted">Drafts use selected captures, or the curated page when none are selected. Incoming feed cards stay outside synthesis until featured.</p>
+    </div>
+  </section>
+  <aside class="lw-feed" aria-label="Page live feed"><p class="lw-eyebrow">INCOMING COVERAGE</p><h2>Following this page</h2><button id="lw-config">Configure feed</button><button id="lw-refresh">Refresh</button><p id="lw-feed-status" role="status"></p><button id="lw-updates" hidden>Show new coverage</button><div id="lw-feed-cards"></div></aside>
+</div>
+<dialog id="lw-dialog"><form method="dialog"><button class="lw-dialog-close" aria-label="Close">×</button></form><div id="lw-dialog-content"></div></dialog>
+{% endblock %}
+{% block scripts %}<script src="/static/living_editor.js?v=1"></script>{% endblock %}
