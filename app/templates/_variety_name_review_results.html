@@ -1,0 +1,15 @@
+<p class="context-limit">Names from sources that may refer to this variety. Review a match before adding it as an alias.</p>
+{% if identity_issues %}
+<p>{{ identity_issues|length }} {{ 'name entry' if identity_issues|length == 1 else 'name entries' }} in the current review list.</p>
+<ul class="entity-links">
+{% for issue in identity_issues %}
+  <li>
+    <span class="badge">{{ issue.identity_label|humanize_label }}</span>
+    <a href="/varieties/candidates#{{ issue.id }}">{{ issue.candidate_name }}</a>
+    {% if issue.jurisdiction %}<span class="draft-meta"> · {{ issue.jurisdiction }}</span>{% endif %}
+  </li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No matching name entries in the current review list. This does not establish complete source coverage.</p>
+{% endif %}
