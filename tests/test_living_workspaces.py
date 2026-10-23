@@ -312,6 +312,37 @@ def test_overview_is_manual_versioned_and_freshness_tracks_material(client, sour
     assert client.get('/api/workspaces/page/' + page["id"]).json()["overview_stale"] is True
 
 
+def test_overview_model_uses_saved_article_and_link_only_from_curated_page(client, source, monkeypatch):
+    from types import SimpleNamespace
+    from app import main
+    from app.services.ai_gateway import untrusted_complete
+    store = Store(main.INBOX_DIR)
+    saved = capture(store, source, kind="article", quote="", text="")
+    other = store.snapshot({"id": "unfeatured", "title": "Excluded"}, "UNFEATURED SECRET", "body_available")
+    prompts = []
+    def complete(prompt, **kwargs):
+        prompts.append(prompt)
+        return SimpleNamespace(parsed={"sentences": [{"text": "The issuer describes research.", "source_ids": [saved["item"]["id"]]}]}, provider="perplexity-agent", model="fixture")
+    monkeypatch.setattr(untrusted_complete, "maybe_untrusted_completer", lambda: complete)
+    monkeypatch.delenv("BIOS_PERPLEXITY_AGENT_BASE_URL", raising=False)
+    page = saved["page"]
+    response = client.post('/api/workspaces/generate/' + page["id"], json={"token": token(), "version": page["version"], "target": "overview", "use_model": True})
+    assert response.status_code == 200, response.text
+    packet = json.loads(prompts[0].split('\n', 1)[1])
+    assert len(packet) == 1
+    assert packet[0]["saved_article_text"] == source["text"]
+    assert packet[0]["source_url"] == source["url"]
+    assert packet[0]["availability"] == source["availability"]
+    assert packet[0]["source_version"] == source["id"]
+    assert other["text"] not in prompts[0]
+    assert response.json()["overview"]["provider"] == "perplexity-agent"
+    monkeypatch.setenv("BIOS_PERPLEXITY_AGENT_BASE_URL", "https://other.example/v1/agent")
+    blocked = client.post('/api/workspaces/generate/' + page["id"], json={"token": token(), "version": response.json()["version"], "target": "overview", "use_model": True})
+    assert blocked.status_code == 200
+    assert len(prompts) == 1
+    assert "approved Perplexity endpoint" in blocked.json()["overview"]["generation_notice"]
+
+
 def test_publication_review_preserves_workspace_nature(monkeypatch, tmp_path):
     from app import main
     from tests.test_review_publish_portability import _restore, _publish, SOURCE_ID

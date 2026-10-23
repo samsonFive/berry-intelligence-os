@@ -165,7 +165,12 @@ source/analyst labels and short excerpts, and links directly to stable block IDs
 Jump links focus the destination and work after reload. The summary is generated
 manually through the existing configured-model option, with a clearly labeled
 compact evidence digest when AI is unavailable or deselected. It uses captured
-statements, passages and notes; full article bodies are not added to model payloads.
+statements, passages and notes. With the AI option selected, saved article blocks
+also contribute their complete stored text, source URL, immutable source version
+and availability label to Perplexity at `https://api.perplexity.ai`. URLs provide
+attribution; the model does not refetch them. Unfeatured sources and incoming
+feed cards are excluded. Custom endpoints cannot receive full-article summaries.
+This full-article destination was explicitly authorized by the operator.
 Last-generated time is stored separately from the last page-material update.
 Changed curated blocks or linked item revisions mark the summary out of date;
 feed arrivals do not regenerate it. Generating the overview leaves curated blocks

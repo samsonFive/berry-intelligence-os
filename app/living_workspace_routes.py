@@ -193,7 +193,16 @@ async def generate(request: Request, page_id: str):
         block = living.compose_overview(page, items, sources) if payload.get("target") == "overview" else living.compose_brief(page, items, sources, payload.get("selected", []))
         if payload.get("use_model"):
             from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
-            block = living.model_narrative(block, items, completer=maybe_untrusted_completer(), style=payload.get("style", "briefing"))
+            from urllib.parse import urlsplit
+            import os
+            from app.services.ai_gateway.perplexity_agent import DEFAULT_PERPLEXITY_AGENT_BASE_URL
+            full_articles = payload.get("target") == "overview"
+            endpoint = os.environ.get("BIOS_PERPLEXITY_AGENT_BASE_URL", DEFAULT_PERPLEXITY_AGENT_BASE_URL)
+            approved = urlsplit(endpoint).scheme == "https" and urlsplit(endpoint).netloc == "api.perplexity.ai"
+            completer = maybe_untrusted_completer() if not full_articles or approved else None
+            block = living.model_narrative(block, items, completer=completer, style=payload.get("style", "briefing"), sources=sources if full_articles else None)
+            if full_articles and not approved:
+                block["generation_notice"] = "Full-article summaries require the approved Perplexity endpoint. Cited evidence digest preserved."
         # No model/network work holds the capture database lock.
         with store.transaction() as db:
             replay = store.replay(db, payload.get("token"), payload)
