@@ -190,7 +190,7 @@ The overview can collapse while retaining its summary/contents tabs.
 
 Validation: 75 targeted regression tests passed; browser checks covered filtering,
 row expansion, selection, document/grid switching and source jump links. A live
-Perplexity probe returned an authentication error in the local environment;
-the preview therefore retains a clearly labeled evidence digest. Deterministic
+Perplexity probe returned HTTP 401 with `insufficient_quota` in the local environment;
+the loaded key matches the operator keys file, but the API project needs credits. The preview retains a clearly labeled evidence digest and an actionable quota notice. Deterministic
 provider fixtures verify saved article text, source links, citation scope and the
 approved destination restriction without making CI depend on live credentials.

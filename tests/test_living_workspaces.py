@@ -187,6 +187,12 @@ def test_model_failure_and_invalid_citations_keep_grounded_digest(store, source)
     result = model_narrative(block, items, completer=valid)
     assert "Generated interpretation of unverified source claims" in result["text"]
     assert result["model"] == "fixture"
+    from app.services.ai_gateway.errors import GatewayAuthError
+    def exhausted(*args, **kwargs):
+        raise GatewayAuthError("HTTP failure (401): insufficient_quota")
+    result = model_narrative(block, items, completer=exhausted)
+    assert "credits are exhausted" in result["generation_notice"]
+    assert "HTTP failure" not in result["generation_notice"]
 
 
 @pytest.fixture

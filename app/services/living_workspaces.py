@@ -399,6 +399,9 @@ def model_narrative(block, items, *, completer=None, style="briefing", sources=N
             raise ValueError("No source-scoped generated sentences returned")
         block["text"] = "# Generated " + style + " (review required)\n\n" + "\n\n".join(sentences) + "\n\n---\n\n" + block["text"]
         block.update(method="configured model + cited evidence digest", provider=result.provider, model=result.model)
-    except Exception:
+    except Exception as exc:
         block["generation_notice"] = "Model generation failed or citations were invalid. Cited evidence digest preserved; retry explicitly."
+        from app.services.ai_gateway.errors import GatewayAuthError
+        if isinstance(exc, GatewayAuthError):
+            block["generation_notice"] = ("Perplexity API credits are exhausted. Add credits to the API project, then regenerate. Cited evidence digest preserved." if "insufficient_quota" in str(exc) else "Perplexity rejected API access. Check the project's API credential and access, then regenerate. Cited evidence digest preserved.")
     return block
