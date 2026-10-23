@@ -6,7 +6,7 @@
   <aside class="lw-sidebar" aria-label="Research pages"><p class="lw-eyebrow">YOUR RESEARCH</p><h1>Living workspaces</h1>
     <label>Find a page<input id="lw-search" type="search" placeholder="Search pages and notes"></label>
     <button id="lw-new">+ New page</button><button id="lw-nested">+ Nested page</button>
-    <nav id="lw-pages" aria-label="Pages"></nav><p class="lw-muted">Captures enter the knowledge base as unverified. Source review and claim review remain separate.</p>
+    <nav id="lw-pages" aria-label="Pages"></nav><p class="lw-muted">Organize sources, compare developments and track open questions.</p>
   </aside>
   <section class="lw-document" aria-label="Page editor">
     <header class="lw-page-tools"><span id="lw-status" role="status" aria-live="polite">Opening workspace…</span><button id="lw-save">Save / retry</button><button id="lw-restore" hidden>Restore recovery draft</button><button id="lw-history">History</button><a id="lw-export">Export with citations</a><a id="lw-json">Portable JSON</a></header>
@@ -23,7 +23,7 @@
         <section id="lw-contents-panel" role="tabpanel" aria-labelledby="lw-contents-tab" hidden><p class="lw-muted">A live index of the curated page. Jump to a section to inspect its full evidence and notes.</p><div id="lw-contents"></div></section>
       </section>
       <div class="lw-view-tools"><div role="group" aria-label="Page display"><button id="lw-grid-view" aria-pressed="true">Grid</button><button id="lw-document-view" aria-pressed="false">Document</button></div><label>Filter rows<input id="lw-row-filter" type="search" placeholder="Search this page"></label><span id="lw-row-count" class="lw-muted"></span></div>
-      <p class="lw-muted">Select rows for a cited briefing. Expand a row to read, edit or reorder its details. Changes autosave.</p>
+      <p class="lw-muted">Explore the developments below. Expand a row for the full source, notes and review details.</p>
       <div id="lw-blocks"></div>
       <div class="lw-insert"><label>Add block<select id="lw-type">{% for type in ['heading','paragraph','bullet','numbered','checklist','callout','note','hypothesis','table','entity','page','feed','map'] %}<option value="{{ type }}">{{ type|title }}</option>{% endfor %}</select></label><button id="lw-add">+ Insert</button><button id="lw-generate">Generate cited draft</button></div>
       <p class="lw-muted">Drafts use selected captures, or the curated page when none are selected. Incoming feed cards stay outside synthesis until featured.</p>

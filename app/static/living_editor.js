@@ -111,7 +111,7 @@
   }
   function renderGrid(host) {
     const boxes=Array.from(host.children),table=el('table',undefined,'lw-research-grid');table.setAttribute('aria-label','Curated research grid');
-    const head=el('thead'),header=el('tr');['#','Select','Type','Information / excerpt','Review state','Source / linked record','Updated','Details'].forEach(title=>{const th=el('th',title);th.scope='col';header.append(th);});head.append(header);table.append(head);
+    const head=el('thead'),header=el('tr');['#','Select','Focus','Development / finding','Perspective','Source','Updated','Details'].forEach(title=>{const th=el('th',title);th.scope='col';header.append(th);});head.append(header);table.append(head);
     const body=el('tbody');
     page.blocks.forEach((block,index)=>{
       const item=items[block.item_id],source=item&&sources[item.source_id],row=el('tr'),detail=el('tr',undefined,'lw-grid-detail'),cell=el('td');cell.colSpan=8;cell.append(boxes[index]);detail.append(cell);detail.hidden=!expandedRows.has(block.id);row.dataset.gridRow=block.id;detail.dataset.gridDetail=block.id;
@@ -124,9 +124,10 @@
       const recordTitle=source?.title||chooseEntity(block.entity_id)?.name||inventory.pages.find(p=>p.id===block.page_id)?.title||'—';
       const content=el('td'),excerpt=el('div',text||recordTitle,'lw-grid-excerpt');excerpt.title=text||recordTitle;content.append(excerpt);
       const sourceCell=el('td');if(item){const link=el('a',recordTitle);link.href='/workspaces/evidence/'+item.id;sourceCell.append(link);}else sourceCell.textContent=recordTitle;
-      const state=el('td',item?(item.withdrawn?'Withdrawn':item.nature.replaceAll('_',' ')+' · '+item.verification_state):'Page content');state.className='lw-grid-state';
+      const state=el('td',item?(item.withdrawn?'Withdrawn':(item.nature==='analyst_hypothesis'?'Open question':item.nature==='analyst_note'?'Analyst view':'Reported')):'Research context');state.className='lw-grid-state';
       const action=el('td'),toggle=button(detail.hidden?'Expand':'Collapse',()=>{detail.hidden=!detail.hidden;detail.hidden?expandedRows.delete(block.id):expandedRows.add(block.id);toggle.textContent=detail.hidden?'Expand':'Collapse';toggle.setAttribute('aria-expanded',String(!detail.hidden));},action);toggle.setAttribute('aria-expanded',String(!detail.hidden));toggle.setAttribute('aria-controls','detail-'+block.id);detail.id='detail-'+block.id;
-      row.append(el('td',String(index+1)),selection,el('td',block.type),content,state,sourceCell,el('td',(item?.updated_at||page.content_updated_at||'').slice(0,10)),action);
+      const focus=(item?.entity_ids||[]).map(id=>chooseEntity(id)?.name).filter(Boolean).join(' / ')||({article:'Article',evidence:'Finding',hypothesis:'Question',table:'Comparison',entity:'Company',page:'Research',briefing:'Brief',callout:'Scope',map:'Connections',feed:'Coverage'})[block.type]||block.type;
+      row.append(el('td',String(index+1)),selection,el('td',focus),content,state,sourceCell,el('td',(item?.updated_at||page.content_updated_at||'').slice(0,10)),action);
       row.dataset.search=[block.type,text,recordTitle,state.textContent].join(' ').toLowerCase();body.append(row,detail);
     });table.append(body);host.replaceChildren(table);filterGrid();
   }
@@ -147,15 +148,15 @@
     const latestMaterial=[materialUpdatedAt||page.content_updated_at||page.updated_at,...Object.values(items).map(i=>i.updated_at||'')].sort().at(-1);$('lw-page-updated').textContent='Page updated · '+formatDate(latestMaterial)+(dirty?' · unsaved edits':'');
     $('lw-summary-date').textContent='Last generated · '+formatDate(overview?.generated_at);
     $('lw-summary-regenerate').textContent=overview?'Regenerate AI summary':'Generate AI summary';
-    $('lw-summary-freshness').textContent=overview?(overviewStale||signature!==overviewLoadedSignature?'Page material has changed since this summary. Regenerate when you are ready.':'Summary reflects the saved material at generation time. Updates are always manual.'):'Compile a source-linked overview of this page. Your full research document stays below.';
+    $('lw-summary-freshness').textContent=overview?(overviewStale||signature!==overviewLoadedSignature?'Page material has changed since this summary. Regenerate when you are ready.':''):'Compile a source-linked overview of this page. Your full research document stays below.';
     const body=$('lw-summary-body');body.replaceChildren();
     if(overview){
-      body.append(el('p',overview.method==='deterministic cited digest'?'Evidence digest · AI model was not used':('AI-assisted overview · '+(overview.model||'configured model')),'lw-eyebrow'));
+      body.append(el('p',overview.method==='deterministic cited digest'?'Evidence digest · AI model was not used':'AI research brief · review required','lw-eyebrow'));
       if(overview.generation_notice)body.append(el('p',overview.generation_notice,'lw-muted'));
       const refs=Object.fromEntries((overview.citations||[]).map(ref=>[ref.number,ref]));
-      const lines=overview.text.split('\n');
+      const lines=overview.text.split('\n');let summarySection=body;
       lines.forEach(line=>{if(!line.trim())return;const heading=/^(#{1,3})\s+/.exec(line),node=el(heading?'h3':'p');const text=heading?line.slice(heading[0].length):line;let offset=0;
-        for(const match of text.matchAll(/\[(\d+)\]/g)){node.append(document.createTextNode(text.slice(offset,match.index)));const ref=refs[match[1]];if(ref){const block=page.blocks.find(b=>b.item_id===ref.item_id);const a=block?jumpLink(match[0],block.id):el('a',match[0]);if(!block)a.href='/workspaces/evidence/'+ref.item_id;a.title=ref.title;node.append(a);}else node.append(document.createTextNode(match[0]));offset=match.index+match[0].length;}node.append(document.createTextNode(text.slice(offset)));body.append(node);
+        for(const match of text.matchAll(/\[(\d+)\]/g)){node.append(document.createTextNode(text.slice(offset,match.index)));const ref=refs[match[1]];if(ref){const block=page.blocks.find(b=>b.item_id===ref.item_id);const a=block?jumpLink(match[0],block.id):el('a',match[0]);if(!block)a.href='/workspaces/evidence/'+ref.item_id;a.title=ref.title;node.append(a);}else node.append(document.createTextNode(match[0]));offset=match.index+match[0].length;}node.append(document.createTextNode(text.slice(offset)));if(heading){summarySection=el('section',undefined,'lw-summary-section');body.append(summarySection);}summarySection.append(node);
       });
     }else body.append(el('p','No summary has been generated yet. Switch to Contents & excerpts to explore the page immediately.','lw-muted'));
     const contents=$('lw-contents');contents.replaceChildren();const table=el('table',undefined,'lw-contents-table'),head=el('tr');['Section','Key excerpt'].forEach(text=>head.append(el('th',text)));table.append(head);
@@ -168,7 +169,7 @@
   const overviewTabs=[$('lw-summary-tab'),$('lw-contents-tab')];
   function collapseOverview(collapsed){document.querySelector('.lw-overview').classList.toggle('lw-overview-collapsed',collapsed);$('lw-overview-toggle').textContent=collapsed?'Expand overview':'Collapse overview';$('lw-overview-toggle').setAttribute('aria-expanded',String(!collapsed));}
   $('lw-overview-toggle').onclick=()=>collapseOverview($('lw-overview-toggle').getAttribute('aria-expanded')==='true');
-  collapseOverview(gridView);
+  collapseOverview(false);
   function selectOverview(index,focus=false){overviewTabs.forEach((tab,i)=>{tab.setAttribute('aria-selected',String(i===index));tab.tabIndex=i===index?0:-1;$(tab.getAttribute('aria-controls')).hidden=i!==index;});if(focus)overviewTabs[index].focus();}
   overviewTabs.forEach((tab,index)=>{tab.onclick=()=>{collapseOverview(false);selectOverview(index);};tab.onkeydown=event=>{if(['ArrowRight','ArrowLeft','Home','End'].includes(event.key)){event.preventDefault();collapseOverview(false);selectOverview(event.key==='Home'?0:event.key==='End'?1:1-index,true);}};});
   let overviewToken=token();

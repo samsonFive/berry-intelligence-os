@@ -194,3 +194,25 @@ Perplexity probe returned HTTP 401 with `insufficient_quota` in the local enviro
 the loaded key matches the operator keys file, but the API project needs credits. The preview retains a clearly labeled evidence digest and an actionable quota notice. Deterministic
 provider fixtures verify saved article text, source links, citation scope and the
 approved destination restriction without making CI depend on live credentials.
+
+
+## Reader-focused intelligence brief
+
+AI page overviews use an editorial structure: The picture, Key developments,
+Why it matters, What to watch, and substantive analyst questions when present.
+Paragraphs retain scoped source citations. A single review notice replaces
+repeated generated/unverified prefixes; full review metadata stays in expanded
+source rows. The supporting deterministic digest remains stored as provenance
+rather than being appended as a second summary. Fallbacks remain explicitly
+labeled and source trust gates are unchanged.
+
+The prompt includes publication dates, distinguishes announcements from outcomes,
+keeps hybrid breeding distinct from gene editing, and restricts implications to
+the supplied material. Model fluency is not evidence of factual correctness;
+human review remains required. The grid foregrounds companies and developments
+rather than internal block types and review-state strings. The overview opens
+by default and uses a compact two-column reading layout on larger screens.
+
+Local workspace regressions: 18 passed. The live preview was regenerated and read
+for usefulness and unsupported inference; operator API credits now permit live
+completion. Prior quota failures remain in revision history.

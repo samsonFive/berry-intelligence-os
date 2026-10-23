@@ -342,6 +342,11 @@ def test_overview_model_uses_saved_article_and_link_only_from_curated_page(clien
     assert packet[0]["source_version"] == source["id"]
     assert other["text"] not in prompts[0]
     assert response.json()["overview"]["provider"] == "perplexity-agent"
+    assert "## Key developments" in response.json()["overview"]["text"]
+    assert "The issuer describes research." in response.json()["overview"]["text"]
+    assert "Generated interpretation" not in response.json()["overview"]["text"]
+    assert "## Evidence limits" not in response.json()["overview"]["text"]
+    assert response.json()["overview"]["supporting_digest"]
     monkeypatch.setenv("BIOS_PERPLEXITY_AGENT_BASE_URL", "https://other.example/v1/agent")
     blocked = client.post('/api/workspaces/generate/' + page["id"], json={"token": token(), "version": response.json()["version"], "target": "overview", "use_model": True})
     assert blocked.status_code == 200
