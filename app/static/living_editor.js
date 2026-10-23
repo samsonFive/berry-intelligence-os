@@ -39,7 +39,7 @@
     if (dirty) await save(); if (dirty) throw Error('Save or recover your current edits before opening another page.');
     const data = await api('/api/workspaces/page/' + id); page = data.page;
     items = Object.fromEntries(data.items.map(i => [i.id, i])); sources = Object.fromEntries(data.sources.map(s => [s.id, s]));
-    $('lw-welcome').hidden = true; $('lw-editor').hidden = false; $('lw-title').value = page.title;
+    $('lw-welcome').hidden = true; $('lw-editor').hidden = false; $('lw-title').value = page.title;requestAnimationFrame(()=>{$('lw-title').style.height='auto';$('lw-title').style.height=$('lw-title').scrollHeight+'px';});
     $('lw-export').href = '/api/workspaces/export/' + id; $('lw-json').href = '/api/workspaces/export/' + id + '?format=json';
     localStorage.setItem('bios:living:recent', id); sidebar(); render(); status('Saved · revision ' + page.version);
     $('lw-restore').hidden = !localStorage.getItem(recoveryKey()); await refreshFeed(true);
@@ -171,7 +171,7 @@
     button('Create page',async()=>{const created=await api('/api/workspaces','POST',{token:createToken,title:title.value,parent_id:nested?page?.id:null,starter:starter.checked});createToken=token();location.assign('/workspaces/'+created.id);},content);
   }
   $('lw-new').onclick=()=>createPage(false);$('lw-nested').onclick=()=>createPage(true);$('lw-search').oninput=sidebar;$('lw-save').onclick=save;
-  $('lw-title').oninput=()=>{page.title=$('lw-title').value;changed();};$('lw-config').onclick=configureFeed;$('lw-refresh').onclick=()=>refreshFeed(true);$('lw-updates').onclick=()=>{showFeed(incoming);$('lw-updates').hidden=true;};
+  $('lw-title').oninput=()=>{page.title=$('lw-title').value;$('lw-title').style.height='auto';$('lw-title').style.height=$('lw-title').scrollHeight+'px';changed();};$('lw-config').onclick=configureFeed;$('lw-refresh').onclick=()=>refreshFeed(true);$('lw-updates').onclick=()=>{showFeed(incoming);$('lw-updates').hidden=true;};
   $('lw-add').onclick=()=>{const type=$('lw-type').value;page.blocks.push({id:'b-'+token(),type,text:'',...(type==='table'?{rows:[['Company','Source statement','Status'],['','','']]}:{})});changed();render();};
   $('lw-history').onclick=()=>page&&showHistory(page.id);
   $('lw-restore').onclick=()=>{const restored=JSON.parse(localStorage.getItem(recoveryKey()));restored.version=page.version;page=restored;$('lw-title').value=page.title;changed();render();$('lw-restore').hidden=true;status('Recovery draft restored. Compare with history before saving.');clearTimeout(timer);};

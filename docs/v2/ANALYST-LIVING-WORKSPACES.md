@@ -125,7 +125,9 @@ it with its sources. Capture undo removes only its placement.
   passed. GitHub checks must be assessed on the final PR head before merge.
 - Browser verification exercised mouse selection/one-click capture in the real
   embedded article, reload persistence, keyboard citation activation and exact
-  source-passage highlighting. Live-feed matching arrivals/nonmatches are covered
+  source-passage highlighting. A 390px layout had no horizontal overflow; the
+  hypothesis filter removed the speculative edge from the table. Live-feed
+  matching arrivals/nonmatches are covered
   by integration tests. Physical touch hardware and a production ingestion run
   were not exercised. No live model call was made; model tests use fixtures.
 - The editor is a native block/form editor, not a full Notion rich-text clone:
