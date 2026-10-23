@@ -1,5 +1,12 @@
 # Reader text analysis: avoid repeated display work
 
+October 23 follow-up: [the broader performance release](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
+adds bounded, private exact-input memoization. Unchanged source projections can
+now be reused between calls; edits invalidate immediately and mutable results
+are copied. The original within-call-only implementation and measurements below
+describe the prior baseline, not the current cache policy. No rendered page,
+human review outcome or identity decision is cached by the Reader projection.
+
 An isolated production-runtime profile after the bounded name-normalization
 improvement recorded 5,004 calls to `reader_content`, taking 8.247 cumulative
 seconds within an instrumented 18.835-second variety-discovery call. These are

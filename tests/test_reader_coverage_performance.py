@@ -175,4 +175,3 @@ def test_failed_publisher_refresh_retains_last_good_articles(monkeypatch,tmp_pat
         reports=coverage.refresh_publisher_coverage(tmp_path,client=client,force=True)
     assert all(r['status']=='failed' for r in reports)
     assert all(coverage.cached_articles(tmp_path,q) for q in coverage.CONFIG)
-
