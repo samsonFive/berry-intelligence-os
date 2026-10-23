@@ -1,5 +1,10 @@
 # Requested sustainability sources — October 14, 2026
 
+Current follow-up: [October 23 performance, reader and publisher coverage](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
+extends selected-publisher API recovery beyond Packer and supplements indexed
+News with publisher-first Watershed/Packer discovery. The initial probes and
+activation history below describe the October 14 implementation.
+
 The operator requested Trellis, Watershed Blog, The Packer Sustainability Insights,
 and AgFunderNews Climate & Sustainability. These are additional unreviewed News
 sources; they do not create Evidence, assign berry identities, or bypass review.

@@ -13,7 +13,9 @@ def warm_news_cache():
         # acquisition, review action or seen-state change during warm-up.
         if main.AUTHORING_MODE:
             main.variety_candidate_universe()
-            main._assemble_morning_brief(mark_seen=False, include_coverage=False)
+            main._assemble_morning_brief(mark_seen=False, include_coverage=True)
+            from app.services.review_workbench import load_publication_transcript_readiness
+            load_publication_transcript_readiness(main.INBOX_DIR)
     except Exception:
         # Optional performance work must never prevent login or health checks.
         logging.getLogger(__name__).warning("News cache warm-up unavailable; the first request will load normally.")

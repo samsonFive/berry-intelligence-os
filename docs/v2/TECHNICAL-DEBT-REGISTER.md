@@ -1,5 +1,12 @@
 # Technical Debt Register
 
+October 23, 2026 follow-up: [Performance, reader and publisher coverage](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
+records measured reductions in Brief, Live Intelligence, Variety and Monitoring
+response times, generic exact-publisher reader recovery, and publisher-first
+Packer/Watershed discovery. Bounded listing coverage, publisher outages/access
+limits and browser/network latency remain explicit operational limits; no
+exhaustive archive recall or automatic trusted publication is claimed.
+
 October 21 — selected-profile follow-up: [entity attribution measurements](ENTITY-PROFILE-ATTRIBUTION-PERFORMANCE.md)
 identify a 1,721-story full-catalog attribution scan as the main Emerald delay.
 A selected-entity precheck retains the full matcher for possible matches.
