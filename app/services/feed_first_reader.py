@@ -3,7 +3,7 @@
 Fetches a publisher URL only when it is a public http(s) address. Does not
 bypass paywalls, robots, CSP, or X-Frame-Options. Live Page is offered only
 when the publisher permits framing. The connected Firecrawl service is a
-bounded fallback for a selected Packer article when direct retrieval fails.
+bounded fallback for a selected publisher article when direct retrieval fails.
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ CAPTURE_SUBDIR = "feed_first_reader"
 MAX_BYTES = 800_000
 FETCH_TIMEOUT = 4.0
 MAX_REDIRECTS = 5
-CAPTURE_VERSION = 4
+CAPTURE_VERSION = 5
 FAILED_CAPTURE_RETRY_SECONDS = 60
 _capture_locks = WeakValueDictionary()
 _capture_lock_guard = Lock()
@@ -600,15 +600,20 @@ def _capture_item(inbox_dir, record, *, client=None, refresh=False):
     url = str(record.get("source_url") or "")
     from app.services.google_news_url import is_google_news_wrapper, resolve_google_news_url
     public = is_public_http_url(url)
-    target = resolve_google_news_url(url) if public else url
+    from app.services.publisher_coverage import cached_publisher_target
+    target = (cached_publisher_target(inbox_dir, record) or resolve_google_news_url(url)) if public else url
     if public and is_google_news_wrapper(target):
         target = _publisher_target(record, client=client)
         capture = fetch_public_article(target, client=client) if target else empty_capture(url, reason="blocked")
     else:
         capture = fetch_public_article(target, client=client)
     if capture.get("availability") != "full":
-        from app.services.firecrawl_reader import capture_packer_article
-        recovered = capture_packer_article(record, refresh=refresh)
+        from app.services.firecrawl_reader import capture_publisher_article
+        candidate_record = record
+        resolved = capture.get('url') or ''
+        if resolved and not google_access_page(resolved):
+            candidate_record = {**record, 'source_url': resolved}
+        recovered = capture_publisher_article(candidate_record, refresh=refresh)
         if recovered and (recovered.get("availability") == "full" or
                           len(" ".join(recovered.get("passages") or [])) > len(" ".join(capture.get("passages") or []))):
             capture = recovered

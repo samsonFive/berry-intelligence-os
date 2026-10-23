@@ -17,6 +17,9 @@ from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 from app.services.media_orchestration import MediaOrchestrationError, publication_draft_id
 from app.services.transcript_evidence import TranscriptArtifact, TranscriptContractError
+from app.services.presentation_memo import ByteMemo, flat_json_signature
+
+_runtime_memo = ByteMemo(max_bytes=32_000_000, max_entries=12, max_item=16_000_000)
 
 
 REVIEW_KINDS = {"all", "atomic", "publication"}
@@ -270,6 +273,10 @@ def _safe_runtime_objects(folder: Path) -> tuple[list[dict[str, Any]], set[str]]
     unreadable: set[str] = set()
     if not folder.exists():
         return records, unreadable
+    signature = flat_json_signature(folder)
+    cached = _runtime_memo.get(signature)
+    if cached is not None:
+        return cached
     for path in sorted(folder.glob("*.json")):
         try:
             payload = json.loads(path.read_text(encoding="utf-8"))
@@ -280,6 +287,8 @@ def _safe_runtime_objects(folder: Path) -> tuple[list[dict[str, Any]], set[str]]
             unreadable.add(path.stem)
             continue
         records.append(payload)
+    if flat_json_signature(folder) == signature:
+        _runtime_memo.put(signature, (records, unreadable))
     return records, unreadable
 
 

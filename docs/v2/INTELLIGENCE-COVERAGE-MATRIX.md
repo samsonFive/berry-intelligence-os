@@ -1,5 +1,11 @@
 # Intelligence Coverage Matrix
 
+October 23, 2026: [Publisher-first coverage and reader recovery](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
+adds verified Watershed blog metadata and bounded Packer section discovery,
+supplemented by indexed results. Candidate checks found 16/15 publisher entries
+respectively; original versus displayed publication-date bases are retained.
+These remain private, unreviewed sources and do not establish exhaustive recall.
+
 October 21, 2026: [Gene Editing & Advanced Breeding](GENE-EDITING-LANDSCAPE.md)
 adds an analyst-only, real-data Explorer lens for all 11 requested seeds, 25
 program/platform records, four pending partnership claims and 30 linked Evidence

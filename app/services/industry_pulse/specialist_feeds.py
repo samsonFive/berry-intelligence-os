@@ -294,6 +294,7 @@ class SpecialistRssProvider:
     feeds: tuple[dict[str, str], ...] = WEEK_SPECIALIST_FEEDS
     fetch: Any = None
     max_pages: int = 1
+    coverage_dir: Any = None
 
     def discover(self, query: PulseQuery) -> list[DiscoveryHit]:
         feed = feed_by_query_id(query.id)
@@ -304,17 +305,37 @@ class SpecialistRssProvider:
                     break
         if feed is None:
             return []
-        parsed, _raw = _fetch_paginated_rss(
-            feed["feed_url"],
-            max_pages=self.max_pages,
-            fetch=self.fetch,
-        )
-        entries = _podcast_rss_entries(parsed)
+        from app.services.publisher_coverage import cached_articles
+        direct = cached_articles(self.coverage_dir, query.id)
+        try:
+            parsed, _raw = _fetch_paginated_rss(
+                feed["feed_url"], max_pages=self.max_pages, fetch=self.fetch,
+            )
+            entries = _podcast_rss_entries(parsed)
+        except Exception:
+            if not direct:
+                raise
+            entries = []  # Verified publisher discovery survives an index outage.
         if feed.get("adapter") == "news_search_rss":
             items = [_normalize_news_search_entry(entry) for entry in entries]
         else:
             items = [_normalize_article_rss_entry(entry) for entry in entries]
         hits = hits_from_news_search_items(items, query=query, provider_name=self.name)
+        if direct:
+            import re
+            from app.services.industry_pulse.models import DiscoveryHit
+            def identity(title, date):
+                text = re.sub(r' - (?:The Packer|watershed\.com|Watershed)$', '', title, flags=re.I)
+                return (' '.join(re.findall(r'\w+', text.casefold())), str(date or '')[:10])
+            known = {identity(row['title'], row['published_date']) for row in direct}
+            hits = [hit for hit in hits if identity(hit.title, hit.published_date) not in known]
+            hits = [DiscoveryHit(title=row['title'], url=row['url'], source_domain=feed['host'],
+                published_date=row['published_date'], snippet=row.get('snippet') or '',
+                query_id=query.id, query_text=query.text, geography=query.geography,
+                berry=None, topic='specialist_feed', provider=self.name,
+                origin_publisher_name=feed['label'], origin_publisher_url=row['url'],
+                provider_metadata={'coverage_source': 'publisher_listing', 'date_basis': row['date_basis']})
+                for row in direct] + hits
         host = feed.get("host") or hostname(feed.get("feed_url"))
         for hit in hits:
             hit.origin_publisher_name = hit.origin_publisher_name or feed.get("label")

@@ -18,9 +18,9 @@ def _headline_key(headline, source_name):
     return _title_key(title)
 
 
-def publisher_headlines_match(expected, actual, source_name=""):
+def publisher_headlines_match(expected, actual, source_name="", *, min_words=5):
     target = _headline_key(expected, source_name)
-    return len(target.split()) >= 5 and target == _headline_key(actual, source_name)
+    return len(target.split()) >= min_words and target == _headline_key(actual, source_name)
 
 
 def publisher_article_link(html, home_url, headline, source_name=""):

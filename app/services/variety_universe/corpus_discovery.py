@@ -926,6 +926,10 @@ def mentions_to_import_rows(mentions: list[dict[str, Any]]) -> list[dict[str, An
     return rows
 
 
+from app.services.presentation_memo import json_call_memo
+
+
+@json_call_memo
 def build_discovered_candidates(
     *,
     varieties: list[dict[str, Any]],

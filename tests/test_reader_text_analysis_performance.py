@@ -36,7 +36,7 @@ def test_reader_retains_summary_priority_literal_text_and_current_edits(summary,
     assert record['review_notes'] == before['review_notes']
 
 
-def test_repeated_summary_analysis_is_avoided_without_cross_record_caching(monkeypatch):
+def test_exact_summary_analysis_is_reused_and_edits_invalidate(monkeypatch):
     original = source_body.clean_reader_text
     seen = []
 
@@ -50,7 +50,14 @@ def test_repeated_summary_analysis_is_avoided_without_cross_record_caching(monke
     assert source_body.reader_content(record)['summary'] == summary
     assert seen.count(summary) == 1
     assert source_body.reader_content(record)['summary'] == summary
-    assert seen.count(summary) == 2
+    assert seen.count(summary) == 1
+    changed = summary + ' The second trial produced different findings.'
+    record['summary'] = changed
+    assert source_body.reader_content(record)['summary'] == changed
+    assert seen.count(changed) == 1
+    record['summary'] = summary
+    assert source_body.reader_content(record)['summary'] == summary
+    assert seen.count(summary) == 1
 
 
 def test_duplicate_wall_blocks_keep_the_original_dominance_threshold():

@@ -12,7 +12,7 @@ def main():
     from app import main as app_main
     from app.news_workspace_routes import run_refresh, refresh_state
 
-    run_refresh(app_main.INBOX_DIR, app_main._feed_first_world(), app_main.load_sources())
+    run_refresh(app_main.INBOX_DIR, app_main._feed_first_world(), app_main.load_sources(), update_publishers=True)
     state = refresh_state(app_main.INBOX_DIR)
     errors = int(state.get("error_count") or 0)
     failed = state.get("status") == "failed"

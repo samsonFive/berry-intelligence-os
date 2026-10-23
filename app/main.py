@@ -6588,10 +6588,12 @@ def work_queue(request: Request, filter: str = "all") -> HTMLResponse:
     )
     reviewer = session_username(request) or review_username() or ""
     source_index = {str(source.get("id")): source for source in load_sources() if source.get("id")}
+    from app.services.draft_attribution import build_attribution_match_index
+    attribution_index = build_attribution_match_index(entities)
     for item in feed["entries"]:
         if not item.get("pending"):
             continue
-        attribution = attribute_draft(item["record"], entities, sources=source_index)
+        attribution = attribute_draft(item["record"], entities, sources=source_index, match_index=attribution_index)
         item["primary_subject"] = attribution.get("primary")
         item["title_companies"] = [
             hit for hit in (attribution.get("suggested") or [])
