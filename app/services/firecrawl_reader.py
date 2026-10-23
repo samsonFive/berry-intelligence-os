@@ -31,6 +31,7 @@ def _packer_url(url, *, article=False):
 
 
 def _scrape(http, url, key, *, fresh=False, listing=False, publisher_host=None):
+    from app.services.article_dedup import normalize_canonical_url
     body = {"url": url, "formats": ["html"], "onlyMainContent": True,
             "timeout": 20000, "maxAge": 0 if fresh else 900000 if listing else 86400000}
     with http.stream("POST", ENDPOINT, json=body,
@@ -57,8 +58,7 @@ def _scrape(http, url, key, *, fresh=False, listing=False, publisher_host=None):
     for field in ("sourceURL", "url", "ogUrl"):
         final = metadata.get(field)
         checked = _publisher_url(final, publisher_host) if publisher_host else _packer_url(final)
-        if final and (not checked or urlsplit(checked).path.rstrip('/') != urlsplit(url).path.rstrip('/')
-                      or urlsplit(checked).query != urlsplit(url).query):
+        if final and (not checked or normalize_canonical_url(checked) != normalize_canonical_url(url)):
             # The API must not silently return a homepage, redirect or another story.
             return None
     return page

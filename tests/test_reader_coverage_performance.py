@@ -96,6 +96,18 @@ def test_google_wrapper_resolves_one_exact_publisher_headline(monkeypatch):
     assert result['url']==URL and calls==[home,URL]
 
 
+@pytest.mark.parametrize('article_id,accepted', [('12',True),('13',False)])
+def test_generic_identity_ignores_tracking_but_preserves_article_parameters(monkeypatch,article_id,accepted):
+    monkeypatch.setenv('FIRECRAWL_API_KEY','fixture-only')
+    target=URL+'?article_id=12&utm_source=feed'
+    def handle(_):
+        return httpx.Response(200,json={'success':True,'data':{'html':BODY,'metadata':{
+            'statusCode':200,'sourceURL':URL+'?article_id='+article_id}}})
+    with httpx.Client(transport=httpx.MockTransport(handle)) as client:
+        result=capture_publisher_article({'title':TITLE,'source_url':target},client=client)
+    assert bool(result)==accepted
+
+
 PACKER='<div class="PagePromo"><div class="PagePromo-title"><a href="https://www.thepacker.com/news/berry-research">'+TITLE+'</a></div><div class="PagePromo-date">September 29, 2026 05:43 AM</div><div class="PagePromo-description">Publisher summary</div></div>'
 WATER_URL='https://watershed.com/blog/field-research'
 
