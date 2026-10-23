@@ -202,6 +202,10 @@ def _identity_pair_notes(sources):
     return notes
 
 
+from app.services.presentation_memo import json_call_memo
+
+
+@json_call_memo
 def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None, source_ids=None):
     """Account for each explicitly enumerated name, retaining source/code identity.
 

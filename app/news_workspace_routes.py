@@ -59,7 +59,7 @@ def refresh_state(inbox_dir: Path):
         return {}
 
 
-def run_refresh(inbox_dir, context, sources):
+def run_refresh(inbox_dir, context, sources, *, update_publishers=False):
     """Reuse the existing bounded public-news collector; disable paid lanes."""
     from app.services.feed_first_live import live_feed_bundle
     from app.services.clock import utc_today
@@ -68,12 +68,18 @@ def run_refresh(inbox_dir, context, sources):
     try:
         with pipeline_lock(inbox_dir, "news_workspace_refresh"):
             atomic_json(refresh_path(inbox_dir), result)
+            if update_publishers:
+                from app.services.publisher_coverage import refresh_publisher_coverage
+                coverage = refresh_publisher_coverage(inbox_dir)
+            else:
+                coverage = []
             bundle = live_feed_bundle(inbox_dir=inbox_dir, entities=context["entities"], sources=sources,
                                       refresh=True, today=utc_today(), official_hosts=context["official_hosts"],
                                       official_host_map=context["official_host_map"], muted_ids=context["muted_entity_ids"],
                                       enrich_lead=False, enable_perplexity=False, enable_exa=False, enable_apitube=False,
                                       fetch_preview_images=False, translate_live=False)
             errors = bundle.get("lane_errors") or []
+            errors = errors + [row for row in coverage if row.get('status') in {'failed', 'partial'}]
             # Publish fresh stories immediately. Images and optional translation
             # must not hold the news view behind additional publisher requests.
             result.update(status="partial" if errors else "ready", story_count=len(bundle.get("records") or []),

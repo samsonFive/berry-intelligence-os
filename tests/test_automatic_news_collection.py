@@ -43,7 +43,7 @@ def test_scheduled_news_uses_same_refresh_and_reports_health(monkeypatch, capsys
     calls = []
     monkeypatch.setattr(main, '_feed_first_world', lambda: {'fixture': True})
     monkeypatch.setattr(main, 'load_sources', lambda: [])
-    monkeypatch.setattr(routes, 'run_refresh', lambda *args: calls.append(args))
+    monkeypatch.setattr(routes, 'run_refresh', lambda *args, **kwargs: calls.append(args))
     monkeypatch.setattr(routes, 'refresh_state', lambda _: {'status': status, 'error_count': errors, 'story_count': 10})
     code = refresh_news_workspace.main()
     payload = json.loads(capsys.readouterr().out)

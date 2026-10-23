@@ -9,6 +9,7 @@ from typing import Any
 from urllib.parse import urlsplit
 
 from app.services.html_text import decode_html_text
+from app.services.presentation_memo import record_memo
 import re
 
 INTERSTITIAL_SIGNALS = (
@@ -143,6 +144,7 @@ def looks_like_interstitial(text: str) -> bool:
     return bool(wall) and (not useful or sum(map(len, wall)) >= len(haystack) * .4)
 
 
+@record_memo(('article', 'summary', 'publisher_description', 'transcript', 'transcript_excerpt', 'media_format', 'discovery_provenance'))
 def reader_content(record: dict[str, Any]) -> dict[str, Any]:
     """Read-time protection also covers old records without rewriting history."""
     body = classify_source_body(record)

@@ -12,7 +12,9 @@ from __future__ import annotations
 
 import re
 from collections import deque
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from functools import lru_cache
+from app.services.presentation_memo import ByteMemo
 from typing import Any
 
 from app.services.deterministic_tagging import BERRY_TERMS, matchers_from_entities
@@ -55,7 +57,7 @@ def _body_text(record: dict[str, Any]) -> str:
     return " ".join(parts)
 
 
-def _needles(entity: dict[str, Any]) -> list[tuple[str, str]]:
+def _needles_raw(entity: dict[str, Any]) -> list[tuple[str, str]]:
     """(folded needle, method) longest first. Legal names keep a distinct method."""
 
     rows: list[tuple[str, str]] = []
@@ -84,6 +86,17 @@ def _needles(entity: dict[str, Any]) -> list[tuple[str, str]]:
     return rows
 
 
+@lru_cache(maxsize=4096)
+def _cached_needles(name, aliases, other):
+    return tuple(_needles_raw({'name': name, 'aliases': aliases, 'also_known_as': other}))
+
+
+def _needles(entity):
+    return list(_cached_needles(str(entity.get('name') or ''),
+        tuple(str(a or '') for a in entity.get('aliases') or []),
+        tuple(str(a or '') for a in entity.get('also_known_as') or [])))
+
+
 def _boundary_search(haystack: str, needle: str) -> bool:
     if not haystack or not needle:
         return False
@@ -103,17 +116,23 @@ class AttributionMatchIndex:
     failures: tuple[int, ...]
     outputs: tuple[tuple[str, ...], ...]
     by_needle: dict[str, tuple[tuple[str, str, int], ...]]
+    memo: Any = field(default_factory=lambda: ByteMemo(max_bytes=16_000_000), compare=False, repr=False)
 
 
 def build_attribution_match_index(entities: dict[str, dict[str, Any]]) -> AttributionMatchIndex:
+    vocabulary = tuple((str(e['id']), tuple(_needles(e))) for e in entities.values()
+        if e.get('entity_type') in WATCH_ENTITY_TYPES and e.get('id'))
+    return _build_attribution_match_index(vocabulary)
+
+
+@lru_cache(maxsize=4)
+def _build_attribution_match_index(vocabulary) -> AttributionMatchIndex:
     """Compile all deterministic entity needles once for a corpus scan."""
 
     by_needle: dict[str, list[tuple[str, str, int]]] = {}
-    for entity in entities.values():
-        if entity.get("entity_type") not in WATCH_ENTITY_TYPES or not entity.get("id"):
-            continue
-        for rank, (needle, method) in enumerate(_needles(entity)):
-            by_needle.setdefault(needle, []).append((str(entity["id"]), method, rank))
+    for entity_id, needles in vocabulary:
+        for rank, (needle, method) in enumerate(needles):
+            by_needle.setdefault(needle, []).append((entity_id, method, rank))
     transitions: list[dict[str, int]] = [{}]
     failures = [0]
     outputs: list[list[str]] = [[]]
@@ -155,6 +174,18 @@ def _indexed_hits(
     *,
     require_boundary: bool = True,
 ) -> dict[str, tuple[int, str, int]]:
+    key = ('1' if require_boundary else '0') + haystack
+    if len(haystack) <= 32_000:
+        cached = index.memo.get(key)
+        if cached is not None:
+            return cached
+    result = _indexed_hits_raw(haystack, index, require_boundary=require_boundary)
+    if len(haystack) <= 32_000:
+        index.memo.put(key, result)
+    return result
+
+
+def _indexed_hits_raw(haystack, index, *, require_boundary=True):
     best: dict[str, tuple[int, str, int]] = {}
     if not haystack:
         return {}

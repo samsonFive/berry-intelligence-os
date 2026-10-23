@@ -826,7 +826,7 @@ def live_feed_bundle(
 
     hits, meta = collect_same_day_hits(
         google_provider=google_provider,
-        specialist_provider=specialist_provider,
+        specialist_provider=specialist_provider or SpecialistRssProvider(coverage_dir=inbox_dir),
         perplexity_provider=perplexity_provider,
         exa_provider=exa_provider,
         apitube_provider=apitube_provider,

@@ -125,11 +125,11 @@ def entity_chips(
     chips: list[dict[str, str]] = []
     seen: set[str] = set()
     ids = list(record.get("entity_ids") or []) + list(enrichment.get("suggested_entity_ids") or [])
-    name_index = by_name or {
+    name_index = by_name or ({
         str(entity.get("name") or "").casefold(): entity
         for entity in entities.values()
         if entity.get("name")
-    }
+    } if record.get("suggested_competitors") else {})
     for entity_id in ids:
         entity = entities.get(entity_id)
         if not entity or entity_id in seen:

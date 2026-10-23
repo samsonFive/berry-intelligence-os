@@ -1120,7 +1120,7 @@ def _watch_activity(
     last_seen: str | None,
     signal_candidates: list[dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
-    watch_entities = _watch_entity_ids(published, state, entities)
+    watch_entities = _watch_entity_ids(published, state, entities, match_index=build_attribution_match_index(entities))
     if not watch_entities:
         return []
     seen_at = _parse_stamp(last_seen)
