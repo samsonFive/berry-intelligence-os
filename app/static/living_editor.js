@@ -7,6 +7,10 @@
   let overviewStale=false,materialUpdatedAt='';
   let gridView=localStorage.getItem('bios:living:view')!=='document',expandedRows=new Set();
   let cardSizer,layoutSizer;
+  let briefingSelection=false;
+  function visibleColumnOrder(){return columnOrder.filter(id=>id!==0&&(id!==1||briefingSelection));}
+  function selectionStatus(){$('lw-selection-mode').textContent=briefingSelection?'Cancel selection ('+selected.size+')':'Select for briefing';$('lw-selection-mode').setAttribute('aria-pressed',String(briefingSelection));$('lw-selection-help').hidden=!briefingSelection;}
+  $('lw-selection-mode').onclick=()=>{if(!page)return;briefingSelection=!briefingSelection;if(!briefingSelection)selected.clear();render();};
   let sourceSort=localStorage.getItem('bios:living:source-sort')==='asc'?'asc':'desc';
   let columnWidths;try{columnWidths=JSON.parse(localStorage.getItem('bios:living:column-widths')||'null');}catch(_){}
   const columnMinimums=[30,38,80,160,80,100,86,70];
@@ -63,6 +67,7 @@
   }
   async function load(id) {
     if (dirty) await save(); if (dirty) throw Error('Save or recover your current edits before opening another page.');
+    if(page?.id!==id){selected.clear();briefingSelection=false;}
     const data = await api('/api/workspaces/page/' + id); page = data.page;overviewLoadedSignature='';overviewStale=data.overview_stale;materialUpdatedAt=data.page_material_updated_at;
     items = Object.fromEntries(data.items.map(i => [i.id, i])); sources = Object.fromEntries(data.sources.map(s => [s.id, s]));
     $('lw-welcome').hidden = true; $('lw-editor').hidden = false; $('lw-title').value = page.title;requestAnimationFrame(()=>{$('lw-title').style.height='auto';$('lw-title').style.height=$('lw-title').scrollHeight+'px';});
@@ -84,7 +89,7 @@
     host.style.gridTemplateColumns='';
     page.blocks.forEach((block, index) => {
       const box = el('section', undefined, 'lw-block'); box.dataset.type = block.type; box.id = block.id;box.tabIndex=-1;
-      const bar = el('div', undefined, 'lw-block-bar'), label = el('label'), check = el('input'); check.type = 'checkbox'; check.checked = selected.has(block.id); check.addEventListener('change', () => check.checked ? selected.add(block.id) : selected.delete(block.id)); label.append(check, document.createTextNode(block.type)); bar.append(label);
+      const bar = el('div', undefined, 'lw-block-bar'), label = el('label'), check = el('input'); check.type = 'checkbox'; check.hidden=!briefingSelection;check.checked = selected.has(block.id);check.setAttribute('aria-label','Include this material in briefing');check.addEventListener('change', () => {check.checked ? selected.add(block.id) : selected.delete(block.id);selectionStatus();}); label.append(check, document.createTextNode(block.type)); bar.append(label);
       function move(delta) { const next = index + delta; if (next < 0 || next >= page.blocks.length) return; [page.blocks[index], page.blocks[next]] = [page.blocks[next], page.blocks[index]]; changed(); render(); document.getElementById(block.id)?.querySelector('button')?.focus(); }
       button('↑', () => move(-1), bar).setAttribute('aria-label', 'Move block up'); button('↓', () => move(1), bar).setAttribute('aria-label', 'Move block down');
       const remove=button('×', () => { page.blocks.splice(index, 1); changed(); render(); }, bar);remove.className='lw-remove';remove.setAttribute('aria-label','Remove placement');remove.title='Remove placement';box.append(bar);
@@ -147,14 +152,15 @@
     }
     $('lw-grid-view').setAttribute('aria-pressed',String(gridView));$('lw-document-view').setAttribute('aria-pressed',String(!gridView));
     $('lw-row-filter').disabled=!gridView;
+    selectionStatus();
     $('lw-card-columns').value=cardColumns;$('lw-card-columns').disabled=gridView;
     ['lw-source-sort','lw-date-from','lw-date-to','lw-date-clear'].forEach(id=>$(id).disabled=!gridView);$('lw-source-sort').value=sourceSort;
     renderOverview();
   }
   function renderGrid(host) {
     const boxes=Array.from(host.children),table=el('table',undefined,'lw-research-grid');table.setAttribute('aria-label','Curated research grid');
-    const widths=columnWidths?[...columnWidths]:[32,40,100,Math.max(220,host.clientWidth-542),90,120,90,70],colgroup=el('colgroup');widths.forEach((width,index)=>{const col=el('col');col.dataset.columnId=String(index);col.style.width=width+'px';colgroup.append(col);});table.append(colgroup);
-    const applyWidths=()=>{Array.from(colgroup.children).forEach(col=>col.style.width=widths[Number(col.dataset.columnId)]+'px');table.style.width=widths.reduce((sum,n)=>sum+n,0)+'px';};applyWidths();
+    const widths=columnWidths?[...columnWidths]:[32,40,100,Math.max(220,host.clientWidth-(briefingSelection?510:470)),90,120,90,70],colgroup=el('colgroup');widths.forEach((width,index)=>{const col=el('col');col.dataset.columnId=String(index);col.style.width=width+'px';colgroup.append(col);});table.append(colgroup);
+    const applyWidths=()=>{Array.from(colgroup.children).forEach(col=>col.style.width=widths[Number(col.dataset.columnId)]+'px');table.style.width=visibleColumnOrder().reduce((sum,id)=>sum+widths[id],0)+'px';};applyWidths();
     const rememberWidths=()=>{columnWidths=[...widths];localStorage.setItem('bios:living:column-widths',JSON.stringify(columnWidths));scheduleLayoutSave();};
 
     const reorder=(from,to)=>{if(from===to)return;const next=columnOrder.filter(id=>id!==from);next.splice(columnOrder.indexOf(to),0,from);columnOrder=next;scheduleLayoutSave();render();};
@@ -165,7 +171,7 @@
         grip.onpointermove=move=>{if(!moved&&Math.abs(move.clientX-startX)+Math.abs(move.clientY-startY)<6)return;moved=true;document.body.classList.add('lw-column-moving');const candidate=document.elementFromPoint(move.clientX,move.clientY)?.closest('th[data-column-id]');if(candidate&&header.contains(candidate)){target=Number(candidate.dataset.columnId);header.querySelectorAll('.lw-column-drop').forEach(e=>e.classList.remove('lw-column-drop'));candidate.classList.add('lw-column-drop');}else{target=null;header.querySelectorAll('.lw-column-drop').forEach(e=>e.classList.remove('lw-column-drop'));}};
         grip.onpointerup=up=>{grip.onlostpointercapture=null;clear();if(grip.hasPointerCapture(up.pointerId))grip.releasePointerCapture(up.pointerId);if(moved&&target!==null)reorder(index,target);};grip.onpointercancel=clear;grip.onlostpointercapture=clear;
       };
-      grip.onkeydown=event=>{if(!event.altKey||!['ArrowLeft','ArrowRight'].includes(event.key))return;event.preventDefault();const position=columnOrder.indexOf(index),target=position+(event.key==='ArrowRight'?1:-1);if(target<0||target>=8)return;reorder(index,columnOrder[target]);document.querySelector('[data-column-id="'+index+'"] .lw-column-drag')?.focus();};th.append(grip);
+      grip.onkeydown=event=>{if(!event.altKey||!['ArrowLeft','ArrowRight'].includes(event.key))return;event.preventDefault();const visible=visibleColumnOrder(),position=visible.indexOf(index),target=position+(event.key==='ArrowRight'?1:-1);if(target<0||target>=visible.length)return;reorder(index,visible[target]);document.querySelector('[data-column-id="'+index+'"] .lw-column-drag')?.focus();};th.append(grip);
       const handle=el('span',undefined,'lw-column-resize');handle.tabIndex=0;handle.setAttribute('role','separator');handle.setAttribute('aria-orientation','vertical');handle.setAttribute('aria-label','Resize '+title+' column');handle.setAttribute('aria-valuemin',String(columnMinimums[index]));handle.setAttribute('aria-valuemax','1200');handle.setAttribute('aria-valuenow',String(widths[index]));handle.title='Drag to resize; arrow keys adjust width';
       const setWidth=value=>{widths[index]=Math.max(columnMinimums[index],Math.min(1200,value));handle.setAttribute('aria-valuenow',String(widths[index]));applyWidths();};
       handle.onpointerdown=event=>{if(event.button!==0)return;event.preventDefault();hideFindingPreview();const x=event.clientX,start=widths[index];handle.setPointerCapture(event.pointerId);document.body.classList.add('lw-resizing');handle.onpointermove=move=>setWidth(start+move.clientX-x);const end=()=>{handle.onpointermove=null;document.body.classList.remove('lw-resizing');rememberWidths();};handle.onpointerup=end;handle.onlostpointercapture=end;handle.onpointercancel=end;};
@@ -175,8 +181,8 @@
     const updatedFor=block=>items[block.item_id]?.updated_at||page.content_updated_at||'';
     const ordered=page.blocks.map((block,index)=>({block,index})).sort((a,b)=>{const ad=dateFor(a.block),bd=dateFor(b.block);if(!ad!==!bd)return ad?-1:1;return (sourceSort==='asc'?ad.localeCompare(bd):bd.localeCompare(ad))||updatedFor(b.block).localeCompare(updatedFor(a.block))||a.index-b.index;});
     ordered.forEach(({block,index},displayIndex)=>{
-      const item=items[block.item_id],source=item&&sources[item.source_id],row=el('tr'),detail=el('tr',undefined,'lw-grid-detail'),cell=el('td');cell.colSpan=8;cell.append(boxes[index]);detail.append(cell);detail.hidden=!expandedRows.has(block.id);row.dataset.gridRow=block.id;detail.dataset.gridDetail=block.id;
-      const check=el('input');check.type='checkbox';check.checked=selected.has(block.id);check.setAttribute('aria-label','Select row '+(displayIndex+1));check.onchange=()=>{check.checked?selected.add(block.id):selected.delete(block.id);boxes[index].querySelector('.lw-block-bar input').checked=check.checked;};
+      const item=items[block.item_id],source=item&&sources[item.source_id],row=el('tr'),detail=el('tr',undefined,'lw-grid-detail'),cell=el('td');cell.colSpan=visibleColumnOrder().length;cell.append(boxes[index]);detail.append(cell);detail.hidden=!expandedRows.has(block.id);row.dataset.gridRow=block.id;detail.dataset.gridDetail=block.id;
+      const check=el('input');check.type='checkbox';check.checked=selected.has(block.id);check.setAttribute('aria-label','Select row '+(displayIndex+1));check.onchange=()=>{check.checked?selected.add(block.id):selected.delete(block.id);boxes[index].querySelector('.lw-block-bar input').checked=check.checked;selectionStatus();};
       const selection=el('td');selection.append(check);
       let text=item?.text||item?.quote||block.text||source?.text||'';
       if(block.type==='table')text=(block.rows||[]).map(r=>r.join(' · ')).join(' / ');
@@ -195,7 +201,7 @@
       row.append(el('td',String(displayIndex+1)),selection,el('td',focus),content,state,sourceCell,dateCell,action);
       row.dataset.search=[block.type,text,recordTitle,state.textContent].join(' ').toLowerCase();body.append(row,detail);
     });table.append(body);
-    for(const row of [colgroup,header,...Array.from(body.children).filter(row=>!row.classList.contains('lw-grid-detail'))]){const cells=Array.from(row.children);columnOrder.forEach(index=>row.append(cells[index]));}
+    for(const row of [colgroup,header,...Array.from(body.children).filter(row=>!row.classList.contains('lw-grid-detail'))]){const cells=Array.from(row.children);row.replaceChildren(...visibleColumnOrder().map(index=>cells[index]));}
     host.replaceChildren(table);filterGrid();
   }
   function filterGrid(){const query=$('lw-row-filter').value.toLowerCase(),from=$('lw-date-from').value,to=$('lw-date-to').value;let count=0;document.querySelectorAll('[data-grid-row]').forEach(row=>{const date=row.dataset.sourceDate;row.hidden=!row.dataset.search.includes(query)||!!((from||to)&&(!date||(from&&date<from)||(to&&date>to)));const detail=document.querySelector('[data-grid-detail="'+row.dataset.gridRow+'"]');detail.hidden=row.hidden||!expandedRows.has(row.dataset.gridRow);if(!row.hidden)count++;});$('lw-row-count').textContent=gridView?count+' / '+page.blocks.length+' rows':page.blocks.length+' blocks';}

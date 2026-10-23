@@ -328,3 +328,21 @@ accounts cannot retrieve it or reuse its retry receipt. Stale writes, malformed
 orders/widths and cross-origin mutations are rejected. Browser checks confirmed
 keyboard and pointer column moves, resizing after moving, and restored order and
 width after reload. Physical second-device access was not exercised.
+
+
+## Reading view and final device-recall checks
+
+The row-number/# column is hidden from the grid. Stable block IDs remain internal
+for links, expansion, capture and history; persisted column IDs stay compatible
+with prior layouts. Normal reading also hides selection checkboxes. Select for
+briefing explicitly enables them in Grid/Cards and explains their purpose: choose
+material for Generate cited draft; no selection means the whole curated page.
+Cancel selection clears the selection, and switching pages clears it as well.
+
+The account-layout regression now writes Grid/view, custom column order and
+widths from one independent client, updates them from a second, and verifies the
+result from the first client, a fresh third client and a reopened SQLite store.
+It also verifies account isolation, retry receipts, stale-write protection and
+rejection of invalid layouts. Browser verification uses separate storage origins
+(127.0.0.1 and localhost), separate signed-in sessions and the same application
+account/backend to check that layout recall does not depend on browser storage.

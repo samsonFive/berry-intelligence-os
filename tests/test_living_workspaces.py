@@ -52,6 +52,12 @@ def test_layout_preferences_follow_account_across_clients_and_reject_stale_write
     assert client.put('/api/workspaces/preferences/layout', json={**payload, "version": 1, "token": token(), "values": {**values, "widths": [1]*8}}).status_code == 422
     assert client.put('/api/workspaces/preferences/layout', json={**payload, "version": 1, "token": token()}, headers={"Origin": "https://hostile.example"}).status_code == 403
     assert other_device.get('/api/workspaces/preferences/layout').json() == saved.json()
+    changed = {**values, "view": "grid", "widths": [32, 40, 100, 510, 90, 120, 110, 70], "order": [0, 1, 6, 3, 2, 4, 5, 7]}
+    updated = other_device.put('/api/workspaces/preferences/layout', json={"version": 1, "values": changed, "token": token()})
+    assert updated.status_code == 200, updated.text
+    assert client.get('/api/workspaces/preferences/layout').json()["values"] == changed
+    assert TestClient(main.app).get('/api/workspaces/preferences/layout').json()["values"] == changed
+    assert Store(main.INBOX_DIR).layout_preferences("alice")["values"] == changed
 
 
 def test_default_berry_workspaces_are_durable_and_preserve_captures(store, source):
