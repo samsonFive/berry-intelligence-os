@@ -7,12 +7,13 @@ at most two declared listing pages every six hours. No generated article text.
 from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime
 import json
+import hashlib
 from pathlib import Path
 import re
 from urllib.parse import urljoin, urlsplit
 
 import httpx
-from lxml import html
+from lxml import html, etree
 
 from app.services.analyst_state_io import atomic_json
 from app.services.firecrawl_reader import PACKER_SECTION, _scrape, _publisher_url
@@ -65,17 +66,22 @@ def fetch_html(http, url):
 
 
 def watershed_links(markup):
+    return list(watershed_cards(markup))
+
+
+def watershed_cards(markup):
     tree = html.fromstring(markup)
-    links = []
+    links = {}
     for anchor in tree.xpath('//a[@href]'):
         url = urljoin(CONFIG['feed:watershed-blog'][1], anchor.get('href'))
         p = urlsplit(url)
         headings = anchor.xpath('.//h2|.//h3')
         if p.hostname != 'watershed.com' or not re.fullmatch(r'/blog/[^/?#]+', p.path) or not headings:
             continue
-        if url not in links:
-            links.append(url)
-    return links[:24]
+        if url not in links and len(links) < 24:
+            stamp = ' '.join(anchor.xpath('.//time/@datetime')) + anchor.text_content()
+            links[url] = hashlib.sha256(stamp.encode('utf-8')).hexdigest()
+    return links
 
 
 def article_metadata(markup, url):
@@ -94,7 +100,8 @@ def article_metadata(markup, url):
                 types = [types]
             if not set(types).intersection({'Article', 'BlogPosting', 'NewsArticle'}):
                 continue
-            declared = row.get('url') or (row.get('mainEntityOfPage') or {}).get('@id')
+            main = row.get('mainEntityOfPage') or {}
+            declared = row.get('url') or (main.get('@id') if isinstance(main, dict) else main)
             if _publisher_url(declared, 'watershed.com', article=True) != url:
                 continue
             try:
@@ -161,14 +168,18 @@ def refresh_publisher_coverage(inbox_dir, *, client=None, force=False):
             try:
                 failures = 0
                 if host == 'watershed.com':
-                    urls = watershed_links(fetch_html(http, listing))
+                    cards = watershed_cards(fetch_html(http, listing))
+                    known = {r['url']: r for r in prior.get('articles', [])}
                     def metadata(url):
+                        if known.get(url, {}).get('listing_signature') == cards[url]:
+                            return known[url]
                         try:
-                            return article_metadata(fetch_html(http, url), url)
-                        except (httpx.HTTPError, ValueError, TypeError):
+                            row = article_metadata(fetch_html(http, url), url)
+                            return {**row, 'listing_signature': cards[url]} if row else None
+                        except (httpx.HTTPError, ValueError, TypeError, etree.ParserError):
                             return None
                     with ThreadPoolExecutor(max_workers=4) as pool:
-                        found = list(pool.map(metadata, urls))
+                        found = list(pool.map(metadata, cards))
                     failures = sum(row is None for row in found)
                     articles = [row for row in found if row]
                 else:
@@ -193,7 +204,7 @@ def refresh_publisher_coverage(inbox_dir, *, client=None, force=False):
                 report.update(status='partial' if failures else 'ready', last_success_at=now.isoformat(),
                     articles=sorted(merged.values(), key=lambda r: r['published_date'], reverse=True)[:80],
                     failure_count=failures, error_class=None, coverage_limit='Bounded publisher listing, not exhaustive archive recall.')
-            except (httpx.HTTPError, ValueError, TypeError) as exc:
+            except (httpx.HTTPError, ValueError, TypeError, etree.ParserError) as exc:
                 report.update(status='failed', failure_count=1, error_class=type(exc).__name__)
             atomic_json(path, report)
             reports.append(report)
@@ -208,6 +219,9 @@ def cached_publisher_target(inbox_dir, record):
     from app.services.publisher_link_resolution import publisher_headlines_match
     from app.services.google_news_url import is_google_news_wrapper
     if not is_google_news_wrapper(record.get('source_url') or ''):
+        return ''
+    from app.services.feed_first_reader import is_public_http_url
+    if not is_public_http_url(record.get('origin_publisher_url') or ''):
         return ''
     host = (urlsplit(record.get('origin_publisher_url') or '').hostname or '').removeprefix('www.')
     found = set()

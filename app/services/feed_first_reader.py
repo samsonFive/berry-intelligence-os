@@ -3,7 +3,7 @@
 Fetches a publisher URL only when it is a public http(s) address. Does not
 bypass paywalls, robots, CSP, or X-Frame-Options. Live Page is offered only
 when the publisher permits framing. The connected Firecrawl service is a
-bounded fallback for a selected Packer article when direct retrieval fails.
+bounded fallback for a selected publisher article when direct retrieval fails.
 """
 
 from __future__ import annotations

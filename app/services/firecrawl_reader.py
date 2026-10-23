@@ -1,4 +1,4 @@
-"""Bounded, opt-in Packer retrieval through the operator's Firecrawl connection.
+"""Bounded selected-publisher retrieval through the operator's Firecrawl connection.
 
 Selected stories only. No crawl, generated text, publication or trust changes.
 """
@@ -129,7 +129,6 @@ def capture_packer_article(record, *, client=None, refresh=False):
 
 def _publisher_url(url, host, *, article=False):
     from app.services.feed_first_reader import is_public_http_url
-    from app.services.article_dedup import normalize_canonical_url
     if not host or not is_public_http_url(str(url or '')):
         return ''
     p = urlsplit(url)

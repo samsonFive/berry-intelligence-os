@@ -1225,18 +1225,27 @@ def _item_path(inbox_dir: Path, item_id: str) -> Path:
     return staging_dir(inbox_dir) / f"{item_id}.json"
 
 
+from app.services.presentation_memo import ByteMemo, flat_json_signature
+_discovered_memo = ByteMemo(max_bytes=32_000_000, max_entries=2, max_item=16_000_000)
+
+
 def list_discovered_items(inbox_dir: Path, source_id: str | None = None) -> list[dict[str, Any]]:
     """Read-only listing of everything currently staged -- used by the CLI
     and by tests, never by scripts/build_static.py."""
     folder = staging_dir(inbox_dir)
     if not folder.exists():
         return []
+    signature = flat_json_signature(folder)
+    cached = _discovered_memo.get(signature)
+    if cached is not None:
+        return [row for row in cached if source_id is None or row.get('source_id') == source_id]
     items = []
     for path in sorted(folder.glob("*.json")):
         record = json.loads(path.read_text(encoding="utf-8"))
-        if source_id is None or record.get("source_id") == source_id:
-            items.append(record)
-    return items
+        items.append(record)
+    if flat_json_signature(folder) == signature:
+        _discovered_memo.put(signature, items)
+    return [row for row in items if source_id is None or row.get('source_id') == source_id]
 
 
 def _load_existing_item(inbox_dir: Path, item_id: str) -> dict[str, Any] | None:

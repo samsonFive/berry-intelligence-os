@@ -133,3 +133,43 @@ def test_watershed_listing_is_bounded_and_excludes_non_blog():
     assert len(coverage.watershed_links(markup))==24
     assert coverage.article_metadata('<script type="application/ld+json">'+json.dumps({'@type':'BlogPosting','url':WATER_URL,'headline':TITLE,'dateModified':'2026-10-22'})+'</script>',WATER_URL) is None
 
+
+def test_file_collection_memo_detects_writes_deletes_and_repairs(tmp_path):
+    from app.services.review_workbench import _safe_runtime_objects
+    folder=tmp_path/'files';folder.mkdir();path=folder/'one.json'
+    path.write_text(json.dumps({'id':'one','status':'draft'}))
+    first,issues=_safe_runtime_objects(folder);first[0]['status']='published'
+    assert not issues and _safe_runtime_objects(folder)[0][0]['status']=='draft'
+    path.write_text(json.dumps({'id':'one','status':'rejected'}))
+    assert _safe_runtime_objects(folder)[0][0]['status']=='rejected'
+    path.write_text('{broken')
+    assert _safe_runtime_objects(folder)==([],{'one'})
+    path.write_text(json.dumps({'id':'one','status':'draft'}))
+    assert _safe_runtime_objects(folder)[1]==set()
+    path.unlink()
+    assert _safe_runtime_objects(folder)==([],set())
+
+
+def test_discovery_cache_keeps_source_filters_and_current_inventory(tmp_path):
+    from app.services.media_discovery import list_discovered_items, staging_dir
+    folder=staging_dir(tmp_path);folder.mkdir(parents=True)
+    for source in ('a','b'):
+        (folder/(source+'.json')).write_text(json.dumps({'id':source,'source_id':source}))
+    assert [r['id'] for r in list_discovered_items(tmp_path,'a')]==['a']
+    assert [r['id'] for r in list_discovered_items(tmp_path,'b')]==['b']
+    (folder/'b.json').unlink()
+    assert list_discovered_items(tmp_path,'b')==[]
+
+
+def test_failed_publisher_refresh_retains_last_good_articles(monkeypatch,tmp_path):
+    stamp=datetime.now(UTC).isoformat()
+    for query_id in coverage.CONFIG:
+        path=coverage.cache_path(tmp_path,query_id);path.parent.mkdir(parents=True,exist_ok=True)
+        host=coverage.CONFIG[query_id][0]
+        path.write_text(json.dumps({'version':1,'last_success_at':stamp,'articles':[{'url':'https://'+host+'/news/article','title':TITLE,'published_date':'2026-10-20','date_basis':'publisher'}]}))
+    monkeypatch.delenv('FIRECRAWL_API_KEY',raising=False)
+    with httpx.Client(transport=httpx.MockTransport(lambda _:httpx.Response(503))) as client:
+        reports=coverage.refresh_publisher_coverage(tmp_path,client=client,force=True)
+    assert all(r['status']=='failed' for r in reports)
+    assert all(coverage.cached_articles(tmp_path,q) for q in coverage.CONFIG)
+

@@ -30,8 +30,9 @@ class ByteMemo:
 
     def put(self, key, value):
         try:
-            size = len(key.encode('utf-8')) + len(json.dumps(value, ensure_ascii=False).encode('utf-8'))
-        except (TypeError, ValueError):
+            size = len(key.encode('utf-8')) + len(json.dumps(value, ensure_ascii=False,
+                default=lambda row: sorted(row) if isinstance(row, set) else row.isoformat()).encode('utf-8'))
+        except (TypeError, ValueError, AttributeError):
             return
         if size > min(self.max_bytes, self.max_item):
             return
@@ -85,3 +86,15 @@ def json_call_memo(function):
         memo.put(key, value)
         return value
     return wrapped
+
+
+def flat_json_signature(folder):
+    """Exact inventory including replacements, deletions and permission changes."""
+    rows = []
+    for path in sorted(folder.glob('*.json')):
+        try:
+            stat = path.stat()
+            rows.append((path.name, stat.st_ino, stat.st_mtime_ns, stat.st_ctime_ns, stat.st_size))
+        except OSError:
+            rows.append((path.name, None))
+    return json.dumps([str(folder.resolve()), rows])
