@@ -346,3 +346,17 @@ It also verifies account isolation, retry receipts, stale-write protection and
 rejection of invalid layouts. Browser verification uses separate storage origins
 (127.0.0.1 and localhost), separate signed-in sessions and the same application
 account/backend to check that layout recall does not depend on browser storage.
+
+Incoming coverage reuses `_news_cards.html`, the News metadata presenter and
+News card styles, with the existing pop-out Reader (Article/Brief, source links,
+reading controls, previous/next and close-to-return). Feature article, Annotate
+and Dismiss on this page stay attached to each card. Refreshed cards announce the
+shared intelligence update event; reader binding is idempotent and resolves the
+current card position after updates. The feed remains private, metadata-only and
+outside synthesis until featured. Publisher access limitations use the existing
+Reader fallback rather than a different workspace reading flow.
+
+Shared-card follow-up validation: 40 workspace/reader/auth tests passed, including
+reader links, save controls, workspace actions and escaped publisher metadata.
+Browser checks covered open, next story, saved article text, access fallback and
+close-to-return. JavaScript syntax and diff checks passed.

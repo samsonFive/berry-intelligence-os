@@ -112,3 +112,12 @@
   .lw-summary-meta {gap:4px;}
   .lw-summary-tools #lw-summary-regenerate {max-width:140px;}
 }
+/* Incoming coverage uses the shared News cards and Reader. */
+#lw-feed-cards .news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:12px}
+#lw-feed-cards .news-card{min-width:0;margin:0;overflow:visible}
+#lw-feed-cards .digest-card-body{padding:12px}
+#lw-feed-cards .news-card h2{font-size:18px;line-height:1.25;margin:5px 0 8px}
+#lw-feed-cards .news-card .card-deck{font-size:13px;line-height:1.45}
+#lw-feed-cards .lw-feed-actions{display:flex;flex-wrap:wrap;gap:6px;border-top:1px solid #d0dcd1;padding-top:8px;margin-top:8px}
+#lw-feed-cards .lw-feed-actions button{font-size:11px;padding:4px 7px}
+.lw-feed #lw-feed-cards{display:block;width:100%}

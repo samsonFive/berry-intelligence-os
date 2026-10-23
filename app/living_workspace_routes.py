@@ -165,14 +165,17 @@ def source(request: Request, article_id: str):
 
 @router.get("/api/workspaces/feed/{page_id}")
 def feed(request: Request, page_id: str):
-    _, store, _ = context(request)
+    main, store, _ = context(request)
     page = store.get(page_id)
     if not page or not page_id.startswith("wp-"):
         raise HTTPException(404, "Page not found")
     if page["feed"].get("paused"):
         return {"state": "paused", "items": [], "last_success": None}
-    _, _, records, _ = world()
-    cards, seen = [], set()
+    _, feed_context, records, entities = world()
+    from app.services import feed_first
+    from app.services.news_workspace import source_reviewed, escalations
+    support = escalations(main.all_facts())
+    cards, news_cards, seen = [], [], set()
     for row in sorted(records.values(), key=lambda r: str(r.get("published_date") or ""), reverse=True):
         if row["id"] in page["dismissed"]:
             continue
@@ -186,7 +189,21 @@ def feed(request: Request, page_id: str):
         seen.add(key)
         seen.add(("title", title_key))
         cards.append({"id": row["id"], "title": row.get("title"), "publisher": row.get("source_name"), "published_date": row.get("published_date"), "discovered_date": row.get("captured_date"), "entity_ids": row.get("entity_ids", []), "matches": matches})
-    return {"state": "active", "last_success": living.now(), "items": cards[:100]}
+        # Use the News presenter and template; hydrate article bodies only in the Reader.
+        preview = {key: value for key, value in row.items() if key not in {"article", "transcript", "transcript_excerpt", "reader_capture", "images"}}
+        preview["article"] = {"image_url": feed_first.safe_image_url(row)}
+        card = feed_first.present_item(preview, entities_by_id=entities, state=feed_context.get("state", {}), filters=feed_first.parse_filters({}))
+        from app.services.feed_first_reader import is_public_http_url
+        from app.services.source_body import looks_like_interstitial
+        card["source_url"] = card["source_url"] if is_public_http_url(card["source_url"]) else ""
+        if looks_like_interstitial(card["deck"]):
+            card["deck"] = "Article summary unavailable. Open the story for source links."
+        card.update(source_reviewed=source_reviewed(row), trusted=source_reviewed(row) and row["id"] in support)
+        news_cards.append(card)
+        if len(cards) == 100:
+            break
+    html = main.templates.get_template("_news_cards.html").render(cards=news_cards, workspace_feed=True, authoring_mode=True)
+    return {"state": "active", "last_success": living.now(), "items": cards, "html": html}
 
 
 @router.post("/api/workspaces/generate/{page_id}")

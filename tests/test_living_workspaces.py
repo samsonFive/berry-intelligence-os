@@ -291,6 +291,18 @@ def test_server_resolves_sources_and_feed_arrivals(client, monkeypatch):
     records["ev-unrelated"] = {"id": "ev-unrelated", "title": "Unrelated"}
     feed = client.get('/api/workspaces/feed/' + page["id"]).json()
     assert [r["id"] for r in feed["items"]] == ["ev-source"]
+    assert 'class="digest-card news-card"' in feed["html"]
+    assert 'data-open-reader href="/intelligence/ev-source?personal=1"' in feed["html"]
+    assert 'data-personal-action="save"' in feed["html"]
+    assert 'data-workspace-feed-action="feature"' in feed["html"]
+    assert 'data-workspace-feed-action="annotate"' in feed["html"]
+    assert 'data-workspace-feed-action="dismiss"' in feed["html"]
+    assert 'Unreviewed' in feed["html"]
+    source_record["title"] = 'Plant genetics <script>alert(1)</script>'
+    source_record["source_name"] = '<script>publisher</script>'
+    escaped = client.get('/api/workspaces/feed/' + page["id"]).json()["html"]
+    assert '<script>alert(1)</script>' not in escaped
+    assert '&lt;script&gt;' in escaped
     brief = client.post('/api/workspaces/generate/' + page["id"], json={"token": token(), "version": page["version"] + 1, "selected": []})
     assert brief.status_code == 200, brief.text
     assert client.get('/api/workspaces/export/' + page["id"]).status_code == 200

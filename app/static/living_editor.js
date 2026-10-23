@@ -297,20 +297,25 @@
     button('Suggest entities from page',()=>{inputs.entity_ids.value=suggestions.join(', ');},content);
     button('Save feed scope',async()=>{fields.forEach(k=>config[k]=inputs[k].value.split(',').map(s=>s.trim()).filter(Boolean));config.mode=mode.value;config.paused=pause.checked;page.feed=config;changed();await save();if(!dirty){$('lw-dialog').close();await refreshFeed(true);}},content);
   }
-  function showFeed(cards) {
-    const host=$('lw-feed-cards');host.replaceChildren(); feedCards=cards;
-    cards.forEach(card=>{const box=el('article',undefined,'lw-feed-card');box.append(el('h3',card.title),el('p',card.publisher+' · Published '+(card.published_date||'unknown')+' · Discovered '+(card.discovered_date||'unknown')),el('p',card.matches.join(' · ')));
-      const read=el('a','Read');read.href='/intelligence/'+card.id;box.append(read);
-      button('Feature article',async()=>{await save();if(dirty)throw Error('Save current edits first');await api('/api/workspaces/capture','POST',{token:token(),page_id:page.id,article_id:card.id,kind:'article'});await load(page.id);},box);
-      button('Annotate',async()=>{const source=await api('/api/workspaces/source/'+card.id);window.openLivingCapture({article_id:card.id,source_id:source.id,quote:'',kind:'note',page_id:page.id});},box);
-      button('Dismiss on this page',()=>{page.dismissed.push(card.id);changed();showFeed(feedCards.filter(c=>c.id!==card.id));},box);host.append(box);
+  function showFeed(data) {
+    const host=$('lw-feed-cards');feedCards=data.items;
+    // Same-origin, autoescaped shared News template, never publisher HTML.
+    host.innerHTML=data.html||'';
+    host.querySelectorAll('[data-workspace-feed-action]').forEach(control=>{
+      control.onclick=async()=>{const box=control.closest('[data-intel-card]'),id=box.dataset.itemId;control.disabled=true;
+        try{if(control.dataset.workspaceFeedAction==='feature'){await save();if(dirty)throw Error('Save current edits first');await api('/api/workspaces/capture','POST',{token:token(),page_id:page.id,article_id:id,kind:'article'});await load(page.id);}
+          else if(control.dataset.workspaceFeedAction==='annotate'){const source=await api('/api/workspaces/source/'+id);window.openLivingCapture({article_id:id,source_id:source.id,quote:'',kind:'note',page_id:page.id});}
+          else{page.dismissed.push(id);changed();feedCards=feedCards.filter(c=>c.id!==id);box.remove();document.dispatchEvent(new Event('bios:intelligence-updated'));}
+        }catch(error){status(error.message);}finally{control.disabled=false;}
+      };
     });
+    document.dispatchEvent(new Event('bios:intelligence-updated'));
   }
   async function refreshFeed(explicit=false) {
     if(!page)return;
     try{const data=await api('/api/workspaces/feed/'+page.id);$('lw-feed-status').textContent=data.state==='paused'?'Feed paused':'Last successful update '+new Date(data.last_success).toLocaleTimeString();
-      if(explicit){showFeed(data.items);$('lw-updates').hidden=true;}
-      else if(JSON.stringify(data.items)!==JSON.stringify(feedCards)){incoming=data.items;$('lw-updates').hidden=false;$('lw-updates').textContent='Coverage changed · show updates';}
+      if(explicit){showFeed(data);$('lw-updates').hidden=true;}
+      else if(JSON.stringify(data.items)!==JSON.stringify(feedCards)){incoming=data;$('lw-updates').hidden=false;$('lw-updates').textContent='Coverage changed · show updates';}
     }catch(e){$('lw-feed-status').textContent='Feed update failed · '+e.message;}
   }
   async function createPage(nested) {
