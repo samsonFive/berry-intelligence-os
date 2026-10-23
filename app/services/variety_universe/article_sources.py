@@ -74,10 +74,16 @@ def available_article_sources(published: list[dict], inbox_dir: Path, *, pending
                         and all(isinstance(text, str) for text in capture["passages"])):
                     record = merge_capture(record, capture)
                     captured = not recovered and not article_full_text(original) and bool(article_full_text(record))
+        # Recoveries and exact-source captures have already been considered.
+        # A record with no article text cannot become an eligible article by
+        # classifying its summary, description or transcript. Do not perform
+        # Reader display work for that metadata-only case.
+        text = article_full_text(record, preserve_line_breaks=True)
+        if not text:
+            continue
         content = reader_content(record)
         if content["state"] not in {"body_available", "body_partial"}:
             continue
-        text = article_full_text(record, preserve_line_breaks=True)
         if len(text) > MAX_ARTICLE_CHARS:
             counts["oversized_sources"] += 1
             continue

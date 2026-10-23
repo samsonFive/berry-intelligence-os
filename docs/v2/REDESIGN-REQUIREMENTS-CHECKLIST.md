@@ -6,6 +6,11 @@ do not complete independent human review or prove catalog completeness.
 
 ## Verified status — October 21, 2026
 
+The [Reader text performance follow-up](READER-TEXT-ANALYSIS-PERFORMANCE.md)
+preserves all Reader output fields on 1,270 retained local records while avoiding
+repeated display work. It remains a separate software change requiring exact-head
+CI and release verification; CAT-01/CAT-02 and the wider TD-122 scope remain open.
+
 Production is canonical `219c739a`, including the released platform redesign,
 News/access #401, automatic News #404 and Gene Editing #406. Chris.H is enabled;
 his originally requested password matches and first-login Help remains pending.

@@ -1,5 +1,27 @@
 # Technical Debt Register
 
+October 21 — selected-profile follow-up: [entity attribution measurements](ENTITY-PROFILE-ATTRIBUTION-PERFORMANCE.md)
+identify a 1,721-story full-catalog attribution scan as the main Emerald delay.
+A selected-entity precheck retains the full matcher for possible matches.
+39 affected tests pass; alternating isolated requests fall from about 41.5 to
+10.4 seconds with byte-identical HTML and preserved current data/accounts.
+Full-context parity also passes with helper functions serialized by stable name.
+Browser/release checks and fresh CI remain; ten-second profiles and broader
+TD-122 work are not considered resolved.
+
+October 21 — TD-122 continuation: [Reader text analysis](READER-TEXT-ANALYSIS-PERFORMANCE.md)
+removes repeated summary cleaning and quadratic block membership without caching
+records or changing consent thresholds. All-field parity covers 1,270 retained
+local records; 119 focused/existing Reader checks pass. Production-size page
+measurements, repeated corpus scans, large HTML and route contention remain open.
+Source/name/identity review and qualification gates are not performance shortcuts.
+
+The same follow-up now avoids Reader classification of metadata-only article
+inputs after checking recoveries and captures. Another 59 focused/existing tests
+and complete 64-profile/1,165-candidate local parity pass. The initial small
+Reader-only server change did not show repeatable page latency improvement;
+the larger fast path requires a new-head server comparison and full CI.
+
 October 21, 2026 — Gene Editing slice ([delivery notes](GENE-EDITING-LANDSCAPE.md)):
 
 - **TD-GENE-001, research completion:** Perplexity returned HTTP 429 on three

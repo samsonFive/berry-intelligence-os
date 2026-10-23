@@ -136,7 +136,10 @@ def looks_like_interstitial(text: str) -> bool:
     blocks = [b.strip() for b in re.split(r"\n+|(?<=[.!?])\s+", haystack) if b.strip()]
     wall = [b for b in blocks if reader_ui_message(b) or any(s in b for s in INTERSTITIAL_SIGNALS)
             or any(s in b for s in ("accept all cookies", "manage consent", "cookie preferences", "reject all cookies"))]
-    useful = [b for b in blocks if b not in wall and len(b.split()) >= 12]
+    # Keep repeated wall blocks for the length threshold, but do membership
+    # checks once per distinct block instead of scanning that list repeatedly.
+    wall_lookup = set(wall)
+    useful = [b for b in blocks if b not in wall_lookup and len(b.split()) >= 12]
     return bool(wall) and (not useful or sum(map(len, wall)) >= len(haystack) * .4)
 
 
@@ -149,8 +152,17 @@ def reader_content(record: dict[str, Any]) -> dict[str, Any]:
         body = {**body, "body": cleaned, "state": "body_available" if len(cleaned) >= 400 else "body_partial", "usable_in_app": True}
         contaminated = False
     candidates = [record.get("summary"), record.get("publisher_description")]
-    summary = next((clean_reader_text(decode_html_text(s)) for s in candidates
-                    if s and clean_reader_text(decode_html_text(s)) and not looks_like_interstitial(clean_reader_text(decode_html_text(s)))), "")
+    summary = ""
+    for candidate in candidates:
+        if not candidate:
+            continue
+        # This display-only transformation used to run up to three times for
+        # the selected summary. Reuse it only within this call; later edits
+        # and source/review decisions are always read again.
+        cleaned_summary = clean_reader_text(decode_html_text(candidate))
+        if cleaned_summary and not looks_like_interstitial(cleaned_summary):
+            summary = cleaned_summary
+            break
     if contaminated:
         summary = ""
     return {
