@@ -231,3 +231,47 @@ Placement removal is an accessible × icon with hover/focus label. Reordering
 controls appear on card hover or keyboard focus and remain visible on touch
 screens. The underlying block order, item references, source text, review gates
 and autosave behavior are unchanged.
+
+
+## Highlight shortcuts and complete findings
+
+The selected-text capture menu shows keyboard hints: L Research & Learn,
+S Quick save, F Capture fact, R Link relationship, N Add note, V Variety workspace,
+D Choose destination, O Open workspace and Escape Close. Recent visited/saved
+workspaces appear as three quick-save destinations on 1–3. Successful-save actions
+also expose O/D/U/Escape for open/change/undo/close. Shortcuts are scoped to the
+visible capture panel; typing fields, modifier combinations, IME composition,
+repeat events and active saves are excluded. Recent page IDs stay browser-local;
+workspace pages and captures retain normal durable storage and review gates.
+
+V reuses or creates the singular Variety workspace and saves the preserved
+selection there as source material, without promoting it to a trusted variety
+record or inventing an entity identity. Existing provenance/retry behavior is
+retained. The preview contains the dedicated workspace; its keyboard test
+placement was undone after verification.
+
+Grid findings expose a full-text hover/focus preview and click/Enter/Space inline
+expansion. Expanded cards show the original selected quote immediately when no
+separate statement exists. Preview content is plain text, scrollable and
+Escape-dismissible. No source text is truncated in stored records.
+
+Validation: 38 capture/workspace, reader and authentication regressions passed;
+JavaScript syntax and diff checks passed. Browser checks confirmed full finding
+focus/click, recent destination hints and V saving the highlighted text to the
+Variety workspace, followed by undo of the test placement.
+
+
+## Source-date chronology
+
+The grid displays source publication date rather than capture/update date. It
+sorts newest source first by default, supports oldest first, and uses most recent
+item update as a secondary sort for equal source dates. Undated source/page
+material sorts last in either direction. From/To date filters are inclusive and
+exclude undated rows when a range is active; Clear dates restores them. Text and
+date filters combine. Source/citation jumps clear filters to reveal their target.
+The sorting direction is remembered locally and does not reorder the underlying
+curated document blocks. Update timestamps remain available in date-cell tooltips.
+
+Browser validation used archived 2021, 2025 and 2026 publications: ascending and
+descending chronology and a 2025-only date range passed. A shortcut typed into an
+analyst note stayed text rather than saving; test input was discarded.

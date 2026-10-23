@@ -1,6 +1,6 @@
 {% extends 'glasshouse_base.html' %}
 {% block title %}Living workspaces · Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/living_workspaces.css?v=1">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/living_workspaces.css?v=5">{% endblock %}
 {% block content %}
 <div class="lw-layout" id="living-workspace" data-page-id="{{ page_id }}">
   <aside class="lw-sidebar" aria-label="Research pages"><p class="lw-eyebrow">YOUR RESEARCH</p><h1>Living workspaces</h1>
@@ -22,7 +22,7 @@
         <section id="lw-summary-panel" role="tabpanel" aria-labelledby="lw-summary-tab"><div class="lw-summary-tools"><p id="lw-summary-date" class="lw-muted"></p><button id="lw-summary-regenerate">Generate AI summary</button></div><p id="lw-summary-freshness" role="status" class="lw-muted"></p><div id="lw-summary-body"></div></section>
         <section id="lw-contents-panel" role="tabpanel" aria-labelledby="lw-contents-tab" hidden><p class="lw-muted">A live index of the curated page. Jump to a section to inspect its full evidence and notes.</p><div id="lw-contents"></div></section>
       </section>
-      <div class="lw-view-tools"><div role="group" aria-label="Page display"><button id="lw-grid-view" aria-pressed="true">Grid</button><button id="lw-document-view" aria-pressed="false">Document</button></div><label>Filter rows<input id="lw-row-filter" type="search" placeholder="Search this page"></label><span id="lw-row-count" class="lw-muted"></span></div>
+      <div class="lw-view-tools"><div role="group" aria-label="Page display"><button id="lw-grid-view" aria-pressed="true">Grid</button><button id="lw-document-view" aria-pressed="false">Document</button></div><label>Filter rows<input id="lw-row-filter" type="search" placeholder="Search this page"></label><span id="lw-row-count" class="lw-muted"></span><div class="lw-date-tools"><label>Source date<select id="lw-source-sort" aria-label="Source date order" title="Source date first; most recently updated breaks ties"><option value="desc">Newest first</option><option value="asc">Oldest first</option></select></label><label>From<input id="lw-date-from" type="date"></label><label>To<input id="lw-date-to" type="date"></label><button id="lw-date-clear">Clear dates</button></div></div>
       <p class="lw-muted">Explore the developments below. Expand a row for the full source, notes and review details.</p>
       <div id="lw-blocks"></div>
       <div class="lw-insert"><label>Add block<select id="lw-type">{% for type in ['heading','paragraph','bullet','numbered','checklist','callout','note','hypothesis','table','entity','page','feed','map'] %}<option value="{{ type }}">{{ type|title }}</option>{% endfor %}</select></label><button id="lw-add">+ Insert</button><button id="lw-generate">Generate cited draft</button></div>
@@ -33,4 +33,4 @@
 </div>
 <dialog id="lw-dialog"><form method="dialog"><button class="lw-dialog-close" aria-label="Close">×</button></form><div id="lw-dialog-content"></div></dialog>
 {% endblock %}
-{% block scripts %}<script src="/static/living_editor.js?v=1"></script>{% endblock %}
+{% block scripts %}<script src="/static/living_editor.js?v=5"></script>{% endblock %}
