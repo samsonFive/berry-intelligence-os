@@ -90,6 +90,10 @@ class Store:
         if old and expected != old["version"]:
             raise Conflict("A newer revision exists. Keep your recovery draft and reload to compare before saving.")
         value = deepcopy(value)
+        if kind == "page":
+            fields = ("title", "blocks", "feed", "parent_id", "dismissed")
+            changed = old is None or any(value.get(k) != old.get(k) for k in fields)
+            value["content_updated_at"] = now() if changed else old.get("content_updated_at", old.get("updated_at"))
         value.update(version=(old["version"] + 1 if old else 1), updated_at=now(), updated_by=actor)
         db.execute("INSERT OR REPLACE INTO objects VALUES(?,?,?,?)", (kind, value["id"], value["version"], encoded(value)))
         db.execute("INSERT INTO history(kind,id,version,actor,at,body) VALUES(?,?,?,?,?,?)", (kind, value["id"], value["version"], actor, now(), encoded(value)))
@@ -318,6 +322,46 @@ def compose_brief(page, items, sources, selected):
         lines.append(f'[{ref["number"]}] {ref["title"]} — {ref["url"]} — /workspaces/evidence/{ref["item_id"]}')
     snapshots = [{k: deepcopy(b[k]) for k in ("id", "type", "text", "rows", "item_id") if k in b} for b in chosen]
     return Store.block("briefing", "\n".join(lines), citations=references, source_versions=versions, generated_at=now(), method="deterministic cited digest", page_version=page["version"], selected_blocks=snapshots, selected_block_ids=[b["id"] for b in chosen])
+
+
+def overview_basis(page, items):
+    """Only curated source material affects summary freshness, never incoming feed."""
+    blocks = [b for b in page["blocks"] if b["type"] not in {"briefing", "feed", "map"}]
+    revisions = {b["item_id"]: items[b["item_id"]]["version"] for b in blocks if b.get("item_id") in items}
+    return digest({"title": page["title"], "blocks": blocks, "item_versions": revisions})
+
+
+def compose_overview(page, items, sources):
+    """Compact overview of captured statements; no new model export scope."""
+    result = compose_brief(page, items, sources, [])
+    refs = {ref["item_id"]: ref for ref in result["citations"]}
+    lines = ["# Page summary", "A source-linked overview of the curated page. Source claims remain unverified; analyst hypotheses remain speculative.", "## Key points"]
+    questions, seen = [], set()
+    for block in page["blocks"]:
+        item = items.get(block.get("item_id"))
+        if not item or item["id"] in seen or item.get("withdrawn") or item["id"] not in refs:
+            continue
+        seen.add(item["id"])
+        ref = refs[item["id"]]
+        text = " ".join((item["text"] or item["quote"]).split())
+        if not text:
+            continue
+        label = "Analyst note" if item["nature"] == "analyst_note" else "Source states (unverified)"
+        sentence = f'{label}: {text[:650]}{"…" if len(text) > 650 else ""} [{ref["number"]}]'
+        if item["nature"] == "analyst_hypothesis":
+            questions.append(f'Analyst hypothesis (speculative): {text[:650]} [{ref["number"]}]')
+        elif len(lines) < 10:
+            lines.append(sentence)
+    if len(lines) == 3:
+        lines.append("No individual source-linked claims are recorded yet. Read saved articles below and capture the passages you want summarized.")
+    if questions:
+        lines.extend(["## Questions & hypotheses", *questions[:4]])
+    tables = [block for block in page["blocks"] if block["type"] == "table"]
+    if tables:
+        lines.extend(["## Comparisons", f'{len(tables)} analyst comparison table(s) are available in Contents & excerpts. Their cells retain analyst interpretation and require supporting evidence.'])
+    lines.extend(["## Evidence limits", "This overview summarizes captured statements and excerpts, rather than full article bodies. It does not independently verify claims or establish commercial outcomes. Incoming feed cards are excluded until featured."])
+    result["text"] = "\n\n".join(lines)
+    return result
 
 
 def model_narrative(block, items, *, completer=None, style="briefing"):

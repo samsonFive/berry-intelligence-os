@@ -13,6 +13,15 @@
     <div id="lw-welcome"><p class="lw-eyebrow">A PLACE FOR EVIDENCE TO DEVELOP</p><h2>Read. Capture. Connect.</h2><p>Create a page, then save passages and full articles from the reader. Shape the material into your own research document.</p></div>
     <div id="lw-editor" hidden>
       <label class="lw-title-label">Page title<textarea id="lw-title" rows="2" placeholder="Untitled page"></textarea></label>
+      <section class="lw-overview" aria-label="Page overview">
+        <div class="lw-overview-head"><p class="lw-eyebrow">PAGE OVERVIEW</p><p id="lw-page-updated" class="lw-muted"></p></div>
+        <div class="lw-overview-tabs" role="tablist" aria-label="Page overview views">
+          <button id="lw-summary-tab" role="tab" aria-selected="true" aria-controls="lw-summary-panel" tabindex="0">AI summary</button>
+          <button id="lw-contents-tab" role="tab" aria-selected="false" aria-controls="lw-contents-panel" tabindex="-1">Contents & excerpts</button>
+        </div>
+        <section id="lw-summary-panel" role="tabpanel" aria-labelledby="lw-summary-tab"><div class="lw-summary-tools"><p id="lw-summary-date" class="lw-muted"></p><button id="lw-summary-regenerate">Generate AI summary</button></div><p id="lw-summary-freshness" role="status" class="lw-muted"></p><div id="lw-summary-body"></div></section>
+        <section id="lw-contents-panel" role="tabpanel" aria-labelledby="lw-contents-tab" hidden><p class="lw-muted">A live index of the curated page. Jump to a section to inspect its full evidence and notes.</p><div id="lw-contents"></div></section>
+      </section>
       <p class="lw-muted">Select blocks for a cited briefing. Move blocks using ↑ / ↓. Changes autosave.</p>
       <div id="lw-blocks"></div>
       <div class="lw-insert"><label>Add block<select id="lw-type">{% for type in ['heading','paragraph','bullet','numbered','checklist','callout','note','hypothesis','table','entity','page','feed','map'] %}<option value="{{ type }}">{{ type|title }}</option>{% endfor %}</select></label><button id="lw-add">+ Insert</button><button id="lw-generate">Generate cited draft</button></div>

@@ -279,6 +279,39 @@ def test_move_is_atomic_idempotent_and_stale_safe(client, source):
     assert store.get(saved["item"]["id"])
 
 
+def test_overview_is_manual_versioned_and_freshness_tracks_material(client, source, monkeypatch):
+    from app import main
+    from app.services.ai_gateway import untrusted_complete
+    monkeypatch.setattr(untrusted_complete, "maybe_untrusted_completer", lambda: None)
+    store = Store(main.INBOX_DIR)
+    captured = capture(store, source)
+    page = captured["page"]
+    payload = {"token": token(), "version": page["version"], "target": "overview", "use_model": True}
+    response = client.post('/api/workspaces/generate/' + page["id"], json=payload)
+    assert response.status_code == 200, response.text
+    summary_page = response.json()
+    assert summary_page["blocks"] == page["blocks"]
+    assert summary_page["content_updated_at"] == page["content_updated_at"]
+    assert summary_page["overview"]["generated_at"]
+    assert summary_page["overview"]["citations"][0]["item_id"] == captured["item"]["id"]
+    assert 'unavailable' in summary_page["overview"]["generation_notice"]
+    assert client.post('/api/workspaces/generate/' + page["id"], json=payload).json() == summary_page
+    loaded = client.get('/api/workspaces/page/' + page["id"]).json()
+    assert loaded["overview_stale"] is False
+    old_overview = summary_page["overview"]
+    summary_page["blocks"].append(store.block("paragraph", "New analyst context"))
+    updated = client.put('/api/workspaces/page/' + page["id"], json=summary_page).json()
+    assert updated["overview"] == old_overview
+    assert updated["content_updated_at"] > page["content_updated_at"]
+    assert client.get('/api/workspaces/page/' + page["id"]).json()["overview_stale"] is True
+    exported = client.get('/api/workspaces/export/' + page["id"]).text
+    assert "Page overview · generated" in exported
+    assert "https://example.org/article" in exported
+    item = store.get(captured["item"]["id"])
+    client.patch('/api/workspaces/item/' + item["id"], json={"version": item["version"], "text": "Revised claim"})
+    assert client.get('/api/workspaces/page/' + page["id"]).json()["overview_stale"] is True
+
+
 def test_publication_review_preserves_workspace_nature(monkeypatch, tmp_path):
     from app import main
     from tests.test_review_publish_portability import _restore, _publish, SOURCE_ID

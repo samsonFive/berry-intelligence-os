@@ -113,7 +113,9 @@ def get_page(request: Request, page_id: str):
         item["verification_state"] = evidence.get("verification_state", "unverified")
         item["review_status"] = evidence.get("status", "in_review")
     source_keys = {i["source_id"] for i in items}
-    return {"page": page, "items": items, "sources": [s for s in store.rows("source") if s["id"] in source_keys]}
+    overview = page.get("overview")
+    updated = max([page.get("content_updated_at", page.get("updated_at", ""))] + [i.get("updated_at", "") for i in items])
+    return {"page": page, "items": items, "sources": [s for s in store.rows("source") if s["id"] in source_keys], "page_material_updated_at": updated, "overview_stale": bool(overview and overview.get("basis") != living.overview_basis(page, {i["id"]: i for i in items}))}
 
 
 @router.put("/api/workspaces/page/{page_id}")
@@ -188,7 +190,7 @@ async def generate(request: Request, page_id: str):
                 raise living.Conflict("Reload the page before generating from a newer revision")
             items = {i["id"]: i for i in store.rows("item", db)}
             sources = {s["id"]: s for s in store.rows("source", db)}
-        block = living.compose_brief(page, items, sources, payload.get("selected", []))
+        block = living.compose_overview(page, items, sources) if payload.get("target") == "overview" else living.compose_brief(page, items, sources, payload.get("selected", []))
         if payload.get("use_model"):
             from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
             block = living.model_narrative(block, items, completer=maybe_untrusted_completer(), style=payload.get("style", "briefing"))
@@ -197,7 +199,10 @@ async def generate(request: Request, page_id: str):
             replay = store.replay(db, payload.get("token"), payload)
             if replay:
                 return replay
-            page["blocks"].append(block)
+            if payload.get("target") == "overview":
+                page["overview"] = {**block, "basis": living.overview_basis(page, items)}
+            else:
+                page["blocks"].append(block)
             page = store.put(db, "page", page, actor, payload.get("version"))
             store.remember(db, payload["token"], payload, page)
             return page
@@ -339,6 +344,11 @@ def export(request: Request, page_id: str):
         items = [i for i in store.rows("item") if i["id"] in keys]
         return {"format_version": 1, "page": page, "items": items, "sources": [s for s in store.rows("source") if s["id"] in {i["source_id"] for i in items}]}
     lines = ["# " + page["title"]]
+    if page.get("overview"):
+        overview = page["overview"]
+        lines.extend(["Page overview · generated " + overview["generated_at"], overview["text"]])
+        for ref in overview.get("citations", []):
+            lines.append(f'[{ref["number"]}] {ref["title"]} — {ref["url"]} — /workspaces/evidence/{ref["item_id"]}')
     for block in page["blocks"]:
         lines.append(block.get("text", ""))
         if block.get("item_id"):

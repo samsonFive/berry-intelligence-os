@@ -117,7 +117,7 @@ it with its sources. Capture undo removes only its placement.
 
 ## Validation and remaining limitations
 
-- 73 targeted tests passed across workspace persistence/retries/concurrency,
+- 74 targeted tests passed across workspace persistence/retries/concurrency,
   citation scope, model failure, page-authored notes, source review metadata,
   existing readers, Digest, remote auth and duplicate/portable publication review.
 - `scripts/validate_records.py` passed. The static build generated 1,794 pages
@@ -155,3 +155,19 @@ backup API or with the app stopped, and retain the evidence directory. To roll
 back the feature, revert the code while retaining these private runtime files;
 do not delete captured knowledge or replace a production inbox with preview data.
 Public static export never enumerates the workspace database or routes.
+
+
+## Page overview follow-up
+
+Every page now has keyboard-accessible **AI summary** and **Contents & excerpts**
+tabs. The contents table follows the current block order, shows section names,
+source/analyst labels and short excerpts, and links directly to stable block IDs.
+Jump links focus the destination and work after reload. The summary is generated
+manually through the existing configured-model option, with a clearly labeled
+compact evidence digest when AI is unavailable or deselected. It uses captured
+statements, passages and notes; full article bodies are not added to model payloads.
+Last-generated time is stored separately from the last page-material update.
+Changed curated blocks or linked item revisions mark the summary out of date;
+feed arrivals do not regenerate it. Generating the overview leaves curated blocks
+untouched, preserves history and supports retry/stale-version checks. Overview
+text and citation references are included in Markdown/JSON export.
