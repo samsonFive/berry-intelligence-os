@@ -7,6 +7,13 @@ Packer/Watershed discovery. Bounded listing coverage, publisher outages/access
 limits and browser/network latency remain explicit operational limits; no
 exhaustive archive recall or automatic trusted publication is claimed.
 
+October 22 — #407 is approved and live at `64099c00`. Both check sets pass
+5,153 tests; ten signed-in HTTPS routes, all 9,816 protected files and account/
+social rows are verified. Emerald returns in 9.867 seconds after removing the
+unrelated pending-attribution scan. Discovery still dominates the remaining
+profile wait; TD-122 remains open. Earlier draft/CI statements below are dated
+implementation evidence rather than current release status.
+
 October 21 — selected-profile follow-up: [entity attribution measurements](ENTITY-PROFILE-ATTRIBUTION-PERFORMANCE.md)
 identify a 1,721-story full-catalog attribution scan as the main Emerald delay.
 A selected-entity precheck retains the full matcher for possible matches.

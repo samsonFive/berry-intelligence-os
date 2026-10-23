@@ -1,54 +1,56 @@
 # Berry Intelligence release review
 
-## Verified delivery status — October 21, 2026
+## Verified delivery status — October 22, 2026
 
-The production deployment receipt identifies canonical `c7e78f660b4718a40b6b055ae392501d9aa7821f`
-and image `sha256:d6e5e3208d4ae7f003c6c52a1590c070902fdfa91be5128181c60bd0b80c0c40`.
-This includes the released platform redesign, News/access #401, subsequent
-reader fixes, automatic News #404, Gene Editing #406 and performance #405. Historical pending
-release statements below must not be read as current deployment status.
+Production is canonical `64099c00b95cdf4aaec57cd5eebd07abc66652e5` and image
+`sha256:cc4ae7d67f259bb1756f4f385b26e0fb84f12a4e3d2100cc6cd59a248a7bccb7`.
+The user approved performance-only #407; its merged tree exactly matches tested
+head `80ecb368`. Both check sets pass with 5,153 tests. It retains the redesign,
+News/access/Reader, automatic News, Gene Editing and normalization releases.
 
-Chris.H is enabled in the existing live account store. The originally requested
-password was verified against the live account without signing in or changing
-his account. First login is still pending and will open Help at `/guide`.
-The analyst workspace is shared; separate logins do not provide per-user data
-isolation. No password or password hash is included in this document.
+A fresh 17,593-file backup is hash-verified; the previous image and operational
+override remain available for rollback. Ten normal operator HTTPS checks pass,
+including News, Help, Companies, Digest, Emerald, Landscape, Gene Editing and
+the mobile worksheet/source. Emerald returned in 9.867 seconds; News in 1.190.
+All 9,816 protected files and every account/social database row are unchanged.
+All seven mounts, provider settings and the Caddy/mobile configuration remain.
+Only the application image and canonical-version metadata changed. No PC runtime
+or catalog drafts were uploaded; no source or human decision was approved.
+
+Chris.H is enabled with first-login Help pending. Verification did not sign in
+as him, consume that flag or inspect password fields. The analyst workspace is
+shared; separate logins do not provide per-user data isolation.
 
 The protected [mobile source-name worksheet](https://intel.johnnyaceii.com/review-preview/start.html)
-is hosted as an isolated read-only service through the existing site login.
-It includes all 52 retained sources. Source text, capture fingerprints and
-blank review fields were preserved. Answers remain in the reviewer's browser
-and can be downloaded; phone and PC answers do not synchronize automatically.
-Publishing the worksheet did not complete source, name, identity or catalog review.
+still includes all 52 retained sources. Answers remain in the reviewer's browser
+and can be downloaded; phone/PC answers do not synchronize automatically. Hosting
+this packet did not complete source, name, identity or catalog review.
 
 ### Work still required
 
-- Performance #405 is deployed after user approval, 5,128 passing tests and an
-  isolated current-data rehearsal. Ten signed-in HTTPS routes pass; all accounts
-  and 9,783 protected files remain unchanged. Its cache stores only bounded
-  literal name transformations, never matching decisions. Source/qualification
-  benchmarks and schemas remain byte-exact; existing source CRLF is accounted
-  for separately in the image verifier. Reader optimization #407 is a new draft.
-- Catalog #399/#400 remains separate and undeployed. Both drafts are reconciled
-  onto this release, with required checks needed on the new heads. Source,
-  identity, catalog, Atomic, qualification and image-reuse decisions remain
-  separate human gates.
-- CAT-01/CAT-02 is unfinished: independent source-name answers, unresolved photo
-  import cells, current/historical portfolio reconciliation, official rights,
-  profile fields, attributed photos and source-backed growing regions remain.
-  Bounded candidate discovery is not a globally complete variety database.
-- Market-statistics controls and research exist, but broad country/berry content
-  and individual source/figure approvals remain. Learn provides visual lessons
-  and explicit research drafts, not verified rich media for every possible topic.
-- TD-122 retains oversized candidate pages, repeated discovery scans and wider
-  route/mobile contention. Source-access failures must stay explicit.
-- Older draft PRs include stacked or already-released work. Open-PR count is
-  not an unfinished-feature count; reconcile each before retiring duplicates.
+- Catalog #399/#400 is reconciled onto this live release; fresh current-head CI
+  and final catalog release review remain. The child now labels a direct PDF
+  link as an original document while preserving its literal URL and unreviewed
+  status. All 18 original feature blobs remain. Existing 29 affected patent,
+  privacy and registry checks pass; they do not replace current-head full CI.
+- CAT-01/CAT-02 retains independent source-name answers, 32 unclear photo import
+  cells, current/historical portfolios, official rights, identity/catalog
+  authoring, cited profile fields, attributed images and growing regions. Bounded
+  discovery is not proof of a globally complete database.
+- Market-statistics controls and research exist; broad country/berry coverage
+  and source/figure approvals remain. Learn supports visual lessons and explicit
+  research drafts, not verified rich media for every topic.
+- TD-122 retains global discovery work, large review pages and wider request
+  contention. Reducing a profile from about 46 seconds to ten does not finish
+  performance work. Source-access failures stay explicit.
+- Source, publication, identity, catalog, Atomic, extraction qualification and
+  photo-use decisions remain separate. The visual guide at `/guide` describes
+  twelve sections, four workflow steps and six reporting outputs and review paths.
+- Older PRs include stacked/already-released work; audit each before retiring
+  duplicates. Original accepted requirements are preserved in the 31-row checklist.
 
-The visual guide at `/guide` describes twelve sections, four analyst workflow
-steps and six reporting outputs, including the separate variety review path.
-All 31 accepted requirement IDs/descriptions remain in the durable checklist.
-The entire mission remains open; this software release does not approve research.
+The overall mission remains active. Historical statuses below describe their
+recorded releases and must not be read as new pending gates or approvals.
 
 ## Dated implementation and release history
 

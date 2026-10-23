@@ -9,24 +9,30 @@ feature is deployed from merged PR #406 (5,115 CI tests passed); this follow-up
 requires its own checked head and runtime receipt. See
 `docs/v2/GENE-EDITING-LANDSCAPE.md` for current counts and retained unknowns.
 
-## October 21 delivery and catalog reconciliation
+## October 22 approved performance release and catalog continuation
 
-The live platform is canonical `c7e78f66`, with News/access, automatic News,
-Gene Editing and the bounded normalization fix #405 released. The performance
-release passed 5,128 tests and normal signed-in HTTPS checks; all accounts and
-9,783 protected files were preserved. Chris.H's first-login Help remains pending.
-The 52-source worksheet and saved sources are accessible on mobile through the
-existing login; browser-local answers do not synchronize between devices.
+Production is canonical `64099c00`, the approved merge of performance #407 at
+exact tested head `80ecb368`. Both required check sets pass with 5,153 tests.
+A fresh 17,593-file backup is verified and the previous image/override retained.
+Normal operator HTTPS checks pass ten routes: Emerald returns in 9.867 seconds
+and News in 1.190 seconds. All 9,816 protected files, account/social database
+rows, provider settings and seven mounts are preserved. Chris.H is enabled;
+his first-login Help is still pending and was not consumed by verification.
+The mobile 52-source worksheet remains available behind the existing login.
+Answers remain browser-local; no independent review answers were supplied.
 
-Catalog #399 and child #400 are reconciled onto this release. Their existing
-feature code, public reference observations and tests are preserved exactly;
-fresh checks on both new heads still gate release review. The local research
-corpus and its 64 profiles are not a replacement for the live runtime, whose
-rehearsal contained 65. No source, identity, canonical record, company role,
-qualified extractor or photo right is approved by this reconciliation.
-Reader performance #407 is a separate draft. CAT-01/CAT-02, independent human
-answers, broader corpus/profile/statistics completeness and TD-122 remain open.
-Older status entries below retain dated evidence and superseded release states.
+Catalog #399/#400 is reconciled onto this live release. Original source metadata,
+identity safeguards, 18 child feature code/data/test blobs and the governing
+guide remain intact. The child also labels direct patent PDFs as original
+documents; 29 affected tests pass. Fresh checks on both reconciled draft heads
+and final catalog release review remain. No catalog enrichment was deployed.
+
+The retained local research copy has 64 profiles; current production has 65.
+It must never replace current runtime data or user edits. CAT-01/CAT-02,
+independent source/name decisions, current/historical coverage, profile fields,
+rights, attributed images, statistics and broader TD-122 performance remain
+open. The nine-second profile is an improvement, not the performance end state.
+Older notes below retain dated evidence and superseded release states.
 
 ## Current continuation — October 14, 2026
 
