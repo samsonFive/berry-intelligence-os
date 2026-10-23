@@ -1,5 +1,13 @@
 # Technical Debt Register
 
+October 23 — selected-variety continuation: [on-demand name review](VARIETY-PROFILE-DEMAND-LOADING.md)
+keeps a catalog-wide audit off the initial profile request. On an isolated
+65-profile production copy with normal startup warm-up, alternating second
+requests fall from 2.071/1.902 to 0.649/0.679 seconds. Other profile fields and
+both name findings match exactly; 9,770 protected JSON files and accounts remain
+unchanged. Reader parity covers 3,462 sources. Browser review, current-head full
+CI and release approval remain. TD-122 is still partially addressed.
+
 October 23, 2026 follow-up: [Performance, reader and publisher coverage](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 records measured reductions in Brief, Live Intelligence, Variety and Monitoring
 response times, generic exact-publisher reader recovery, and publisher-first

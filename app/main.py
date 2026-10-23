@@ -3870,6 +3870,21 @@ async def update_company_logo(
     return RedirectResponse(target, status_code=303)
 
 
+@app.get("/api/varieties/{entity_id}/name-review", response_class=HTMLResponse)
+def variety_name_review(request: Request, entity_id: str) -> HTMLResponse:
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=404, detail="Name review is unavailable")
+    entity = entity_index().get(entity_id)
+    if not entity or entity.get("entity_type") != "variety":
+        raise HTTPException(status_code=404, detail="Variety not found")
+    issues = identity_issues_for_variety(entity_id, variety_candidate_universe()[1])
+    return templates.TemplateResponse(
+        request=request, name="_variety_name_review_results.html",
+        context={"identity_issues": issues},
+        headers={"Cache-Control": "private, no-store", "X-Robots-Tag": "noindex"},
+    )
+
+
 @app.get("/entities/{entity_type}/{entity_id}", response_class=HTMLResponse)
 def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLResponse:
     if entity_type == "geography":
@@ -3931,6 +3946,7 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                 )
             elif entity.get("entity_type") == "variety":
                 synthesis["open_signals"] = open_signals
+                name_review_expanded = AUTHORING_MODE and request.query_params.get("review_names") == "1"
                 story_threads = [
                     item["thread"]
                     for item in synthesis.get("recent_intelligence") or []
@@ -3953,10 +3969,14 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                         evidence_by_id=evidence_idx,
                         identity_issues=identity_issues_for_variety(
                             entity_id,
-                            variety_candidate_universe()[1] if AUTHORING_MODE else [],
+                            variety_candidate_universe()[1] if name_review_expanded else [],
                         ),
                     )
                 )
+                synthesis["identity_issues_deferred"] = AUTHORING_MODE and not name_review_expanded
+                synthesis["identity_issues_expanded"] = name_review_expanded
+                synthesis["identity_issues_url"] = f"/api/varieties/{quote(entity_id, safe='')}/name-review"
+                synthesis["identity_issues_fallback"] = f"/entities/variety/{quote(entity_id, safe='')}?review_names=1#identity-issues"
                 synthesis["growing_profile"] = learn_growing_profile_for_varieties(
                     [entity_id], facts=entity_facts, entities=entities
                 )

@@ -5,19 +5,15 @@
   <details class="variety-context"><summary>UK retail pilot context</summary><p class="brief-window">UK retail pilot named-variety case. Only two listings in that 18-observation pilot named a cultivar. Absence of other UK listings here does not mean this variety is unknown globally.</p></details>
 {% endif %}
 
-{% if identity_issues %}
+{% if identity_issues or identity_issues_deferred or identity_issues_expanded %}
 <section class="v2-company-section" id="identity-issues">
-  <details class="variety-section"><summary>Names needing review</summary><div class="variety-section-body">
-  <p class="context-limit">Inbox candidates that may be this variety. They are not canonical aliases until a reviewer confirms them. This section is live/authoring only.</p>
-  <ul class="entity-links">
-    {% for issue in identity_issues %}
-      <li>
-        <span class="badge">{{ issue.identity_label|humanize_label }}</span>
-        <a href="/varieties/candidates#{{ issue.id }}">{{ issue.candidate_name }}</a>
-        {% if issue.jurisdiction %}<span class="draft-meta"> · {{ issue.jurisdiction }}</span>{% endif %}
-      </li>
-    {% endfor %}
-  </ul>
+  <details class="variety-section"{% if identity_issues_expanded %} open{% endif %}{% if identity_issues_deferred %} data-variety-name-review data-review-url="{{ identity_issues_url }}"{% endif %}><summary>Names needing review</summary><div class="variety-section-body">
+  {% if identity_issues_deferred %}
+    <div data-variety-name-results aria-live="polite"><p role="status">Name matches are checked when you open this section.</p></div>
+    <p><button type="button" class="outline-button" data-variety-name-refresh hidden>Refresh name checks</button> <a href="{{ identity_issues_fallback }}">Open full name review →</a></p>
+  {% else %}
+    {% include '_variety_name_review_results.html' %}
+  {% endif %}
 </div></details></section>
 {% endif %}
 

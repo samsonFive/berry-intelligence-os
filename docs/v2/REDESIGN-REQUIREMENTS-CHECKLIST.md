@@ -1,5 +1,18 @@
 # Redesign and consolidation requirements
 
+## Current continuation — October 23, 2026
+
+Live canonical `97f9ac3d` includes released platform redesign, four-crop Landscape,
+guide, News/access, automatic News, Gene Editing, approved #407 and #409.
+The [on-demand profile performance draft](VARIETY-PROFILE-DEMAND-LOADING.md) has
+109 passing affected tests and isolated real-data parity/timing proof. Browser
+interaction/phone review, current-head full CI and final release approval remain.
+No catalog enrichment is deployed; #399/#400 retains its separate release review.
+All 31 accepted requirement IDs/descriptions/order below remain unchanged.
+CAT-01/CAT-02, independent human answers, 32 unclear photo cells, complete
+current/historical portfolios, rights/photos, profile/statistics coverage and
+broader TD-122 work remain open. Earlier status notes are historical.
+
 This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.
