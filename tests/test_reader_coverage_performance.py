@@ -45,6 +45,8 @@ def test_body_memo_never_hides_changed_source_content():
     assert reader_content(row)['contaminated']
     row['article']['full_text']=TEXT
     assert reader_content(row)['usable_in_app']
+    row['article']['acquisition']={'in_memory_extension': object()}
+    assert reader_content(row)['usable_in_app']  # Unsupported memo input runs uncached.
 
 
 @pytest.mark.parametrize('case', ['valid','wrong-title','wrong-url','wall','warning','missing-url','paywall-excerpt'])

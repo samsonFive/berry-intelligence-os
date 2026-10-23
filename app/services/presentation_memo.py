@@ -52,7 +52,10 @@ def record_memo(fields):
         memo = ByteMemo()
         @wraps(function)
         def wrapped(record):
-            key = json.dumps({k: record[k] for k in fields if k in record}, sort_keys=True, ensure_ascii=False)
+            try:
+                key = json.dumps({k: record[k] for k in fields if k in record}, sort_keys=True, ensure_ascii=False)
+            except (TypeError, ValueError):
+                return function(record)
             if len(key) > 128_000:
                 return function(record)
             cached = memo.get(key)
