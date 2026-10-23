@@ -121,3 +121,19 @@
 #lw-feed-cards .lw-feed-actions{display:flex;flex-wrap:wrap;gap:6px;border-top:1px solid #d0dcd1;padding-top:8px;margin-top:8px}
 #lw-feed-cards .lw-feed-actions button{font-size:11px;padding:4px 7px}
 .lw-feed #lw-feed-cards{display:block;width:100%}
+/* Compact connection controls and workspace tracking. */
+.lw-map-tools{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:2px 0 5px}
+.lw-layout .lw-map-tools>input{flex:1 1 150px;min-width:110px;width:auto;padding:5px 7px;font-size:11px}
+.lw-layout .lw-map-tools>select{flex:1 1 125px;min-width:110px;width:auto;padding:5px 6px;font-size:11px}
+.lw-layout .lw-map-tools>label{display:inline-flex;align-items:center;gap:4px;margin:0;font-size:11px;white-space:nowrap}
+.lw-layout .lw-map-tools input[type=checkbox]{width:auto;margin:0;order:-1;accent-color:#204f39}
+.lw-map-tools+.lw-muted{font-size:10px;line-height:1.35;margin:4px 0 7px}
+.lw-tracked-entities{display:flex;flex-wrap:wrap;gap:6px;margin:7px 0}
+.lw-entity-chip{display:inline-flex;align-items:center;gap:5px;background:#edf4ec;border:1px solid #bfcebf;border-radius:5px;padding:4px 5px 4px 7px;font-size:12px;max-width:100%}
+.lw-entity-chip a{color:#204f39;font-weight:650;overflow-wrap:anywhere}
+.lw-entity-chip small{font-size:9px;color:#52695c}
+.lw-layout .lw-entity-chip button{border:0;background:transparent;padding:0 3px;font-size:17px;line-height:1.2}
+.lw-entity-add{display:flex;align-items:end;gap:6px}
+.lw-layout .lw-entity-add label{flex:1;min-width:0;font-size:10px;margin:4px 0}
+.lw-layout .lw-entity-add input{font-size:12px;padding:5px 7px}
+.lw-layout .lw-entity-add button{font-size:12px;padding:5px 9px;margin-bottom:4px}

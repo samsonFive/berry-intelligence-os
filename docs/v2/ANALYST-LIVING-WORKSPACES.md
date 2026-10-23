@@ -360,3 +360,15 @@ Shared-card follow-up validation: 40 workspace/reader/auth tests passed, includi
 reader links, save controls, workspace actions and escaped publisher metadata.
 Browser checks covered open, next story, saved article text, access fallback and
 close-to-return. JavaScript syntax and diff checks passed.
+
+Connections filters use a compact wrapping toolbar: entity search, review state,
+entity type, hypotheses and related knowledge. The entity card now lists the
+workspace’s configured entity/crop/technology/topic/geography feed scope and
+existing page entity links. Add uses known entity suggestions and saves to the
+appropriate feed facet; remove clears that entity from tracking facets and page
+entity links without editing captured evidence, relationships or trust. Feed
+pause and ANY/ALL matching remain unchanged. Entity notes are collapsed when
+empty. Grid findings also list the tracked entities.
+
+Browser verified entity add, save, reload and remove; the original preview scope
+was restored and persisted. Twenty workspace regressions and JS syntax passed.

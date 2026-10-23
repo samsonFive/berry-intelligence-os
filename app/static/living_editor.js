@@ -83,6 +83,23 @@
   function inputText(block, parent, field = 'text') {
     const input = el('textarea'); input.value = block[field] || ''; input.setAttribute('aria-label', block.type + ' ' + field); input.rows = Math.min(15, Math.max(2, input.value.split('\n').length)); input.addEventListener('input', () => { block[field] = input.value; changed(); }); parent.append(input);
   }
+  const trackingFields=['entity_ids','berry_ids','technology_ids','topic_ids','geography_ids'];
+  function trackedEntityIds(){return [...new Set([...trackingFields.flatMap(field=>page.feed[field]||[]),...page.blocks.filter(b=>b.type==='entity').map(b=>b.entity_id).filter(Boolean)])];}
+  function trackedEntities(host) {
+    const fields=trackingFields,ids=trackedEntityIds();
+    const list=el('div',undefined,'lw-tracked-entities');list.setAttribute('aria-label','Tracked entities');
+    ids.forEach(id=>{const entity=chooseEntity(id),chip=el('span',undefined,'lw-entity-chip'),link=el('a',entity?.name||id);
+      link.href=entity&&!entity.identity_state?'/entities/'+entity.type+'/'+id:'/workspaces?entity='+encodeURIComponent(id);
+      chip.append(link,el('small',entity?.identity_state?'Unresolved':entity?.type||'Entity'));
+      const remove=button('×',()=>{fields.forEach(field=>{if(page.feed[field])page.feed[field]=page.feed[field].filter(value=>value!==id);});page.blocks.filter(b=>b.type==='entity'&&b.entity_id===id).forEach(b=>{b.entity_id='';});changed();render();},chip);
+      remove.setAttribute('aria-label','Stop tracking '+(entity?.name||id));remove.title='Stop tracking '+(entity?.name||id);list.append(chip);
+    });
+    host.append(el('p',ids.length+' entities · feed scope and page links. Captured evidence keeps its entity links.','lw-muted'),list);
+    if(!ids.length)list.append(el('p','No entities tracked yet.','lw-muted'));
+    const add=el('div',undefined,'lw-entity-add');const input=entitySelect('',()=>{},add,'Add entity');input.placeholder='Search name or entity ID';
+    button('Add',()=>{const id=input.value;if(!id||!chooseEntity(id)){input.setCustomValidity('Choose an entity from suggestions.');input.reportValidity();return;}input.setCustomValidity('');const field=({berry:'berry_ids',technology:'technology_ids',topic:'topic_ids',geography:'geography_ids'})[chooseEntity(id).type]||'entity_ids';page.feed[field]=[...new Set([...(page.feed[field]||[]),id])];changed();render();},add);host.append(add);
+    if(page.feed.paused)host.append(el('p','Feed paused · tracked entities are saved for when you resume coverage.','lw-muted'));
+  }
   function render() {
     cardSizer?.disconnect();layoutSizer?.disconnect();hideFindingPreview();
     const host = $('lw-blocks'); host.replaceChildren();host.classList.toggle('lw-card-grid',!gridView);
@@ -94,7 +111,7 @@
       button('↑', () => move(-1), bar).setAttribute('aria-label', 'Move block up'); button('↓', () => move(1), bar).setAttribute('aria-label', 'Move block down');
       const remove=button('×', () => { page.blocks.splice(index, 1); changed(); render(); }, bar);remove.className='lw-remove';remove.setAttribute('aria-label','Remove placement');remove.title='Remove placement';box.append(bar);
       const item = items[block.item_id], source = item && sources[item.source_id];
-      const cardTitle=source?((item.entity_ids?.length?item.entity_ids:source.entity_ids||[]).map(id=>chooseEntity(id)?.name).filter(Boolean).join(' / ')||source.title):({table:'Compare approaches',map:'Connections',feed:'Incoming coverage',briefing:'Saved briefing',callout:'Research scope',note:'Analyst note',hypothesis:'Open question',entity:chooseEntity(block.entity_id)?.name||'Linked entity',page:inventory.pages.find(p=>p.id===block.page_id)?.title||'Related research'})[block.type];
+      const cardTitle=source?((item.entity_ids?.length?item.entity_ids:source.entity_ids||[]).map(id=>chooseEntity(id)?.name).filter(Boolean).join(' / ')||source.title):({table:'Compare approaches',map:'Connections',feed:'Incoming coverage',briefing:'Saved briefing',callout:'Research scope',note:'Analyst note',hypothesis:'Open question',entity:'Tracked entities',page:inventory.pages.find(p=>p.id===block.page_id)?.title||'Related research'})[block.type];
       if(cardTitle)box.append(el('h3',cardTitle,'lw-card-title'));
       if(block.authored){inputText(block,box);const a=el('a','Analyst-authored · unverified · open knowledge item');a.href='/workspaces/evidence/'+block.item_id;box.append(a);}
       else if (item && source) {
@@ -122,8 +139,7 @@
           const tr = el('tr'); row.forEach((value, c) => { const td = el('td'), input = el('input'); input.value = value; input.setAttribute('aria-label', `Row ${r+1}, column ${c+1}`); input.addEventListener('input', () => { block.rows[r][c] = input.value; changed(); }); td.append(input); tr.append(td); }); table.append(tr);
         }); box.append(table); button('+ Row', () => { block.rows.push(block.rows[0].map(() => '')); changed(); render(); }, box); button('+ Column', () => { block.rows.forEach(row => row.push('')); changed(); render(); }, box);
       } else if (block.type === 'entity') {
-        entitySelect(block.entity_id, id => { block.entity_id = id; changed(); render(); }, box, 'Linked company / variety / technology / topic');
-        const entity = chooseEntity(block.entity_id); if (entity) { const link = el('a', entity.name + (entity.identity_state ? ' · unresolved identity' : '')); link.href = entity.identity_state ? '/workspaces?entity=' + entity.id : '/entities/' + entity.type + '/' + entity.id; box.append(link); } inputText(block, box);
+        trackedEntities(box);const notes=el('details');notes.open=!!block.text;notes.append(el('summary',block.text?'Entity notes':'Add entity note'));inputText(block,notes);box.append(notes);
       } else if (block.type === 'page') {
         const select = el('select'); select.append(el('option', 'Choose page')); inventory.pages.forEach(p => { const option = el('option', p.title); option.value = p.id; select.append(option); }); select.value = block.page_id || ''; select.addEventListener('change', () => { block.page_id = select.value; changed(); render(); }); box.append(select); if (block.page_id) { const a = el('a', 'Open linked page'); a.href = '/workspaces/' + block.page_id; box.append(a); }
       } else if (block.type === 'map') { drawMap(box); }
@@ -188,6 +204,7 @@
       if(block.type==='table')text=(block.rows||[]).map(r=>r.join(' · ')).join(' / ');
       if(block.type==='map')text='Relationships, evidence links and analyst hypotheses';
       if(block.type==='feed')text='Incoming coverage · feature articles to curate them';
+      if(block.type==='entity')text=trackedEntityIds().map(id=>chooseEntity(id)?.name||id).join(' · ');
       const recordTitle=source?.title||chooseEntity(block.entity_id)?.name||inventory.pages.find(p=>p.id===block.page_id)?.title||'—';
       const content=el('td'),excerpt=el('button',text||recordTitle,'lw-grid-excerpt');excerpt.type='button';excerpt.setAttribute('aria-expanded','false');excerpt.setAttribute('aria-describedby',findingPreview.id);excerpt.setAttribute('aria-label','Read full finding: '+(text||recordTitle).slice(0,100));
       excerpt.onclick=()=>{const expanded=excerpt.getAttribute('aria-expanded')!=='true';excerpt.setAttribute('aria-expanded',String(expanded));excerpt.classList.toggle('lw-finding-expanded',expanded);hideFindingPreview();};
@@ -265,9 +282,9 @@
   async function showHistory(key) { const data = await api('/api/workspaces/history/' + key), content = modal('Revision history'); data.revisions.forEach(row => { const details = el('details'); details.append(el('summary', 'Revision ' + row.version + ' · ' + row.actor + ' · ' + row.at), el('pre', JSON.stringify(JSON.parse(row.body), null, 2))); content.append(details); }); }
   function drawMap(host) {
     let external=[];const map = el('div', undefined, 'lw-map'), filter = el('input'), hypotheses = el('input'), statusSelect = el('select'), typeSelect = el('select'); filter.placeholder = 'Search or focus a neighborhood'; filter.setAttribute('aria-label', 'Map entity search'); hypotheses.type = 'checkbox'; hypotheses.checked = true;
-    const hlabel = el('label', 'Show analyst hypotheses'); hlabel.append(hypotheses); ['All review states', 'unverified', 'verified_primary', 'disputed'].forEach(v => { const o = el('option', v); o.value = v; statusSelect.append(o); }); statusSelect.setAttribute('aria-label', 'Verification filter');
+    const hlabel = el('label', 'Hypotheses'); hlabel.title='Show analyst hypotheses';hlabel.append(hypotheses); ['All review states', 'unverified', 'verified_primary', 'disputed'].forEach(v => { const o = el('option', v); o.value = v; statusSelect.append(o); }); statusSelect.setAttribute('aria-label', 'Verification filter');
     ['All entity types', ...new Set(inventory.entities.map(e => e.type))].forEach(v => { const o = el('option', v); o.value = v; typeSelect.append(o); }); typeSelect.setAttribute('aria-label', 'Entity type filter');
-    const expandLabel=el('label','Include related knowledge from outside this page'),expand=el('input');expand.type='checkbox';expandLabel.append(expand);expand.addEventListener('change',async()=>{external=expand.checked?(await api('/api/workspaces/related/'+page.id)).items:[];update();});map.append(filter, hlabel, statusSelect, typeSelect, expandLabel, el('p', 'Legend: solid = source statement; dashed = analyst hypothesis. Review state is labeled on every edge.', 'lw-muted')); const drawing = el('div'); map.append(drawing); host.append(map);
+    const expandLabel=el('label','Related knowledge'),expand=el('input');expandLabel.title='Include related knowledge from outside this page';expand.type='checkbox';expandLabel.append(expand);expand.addEventListener('change',async()=>{external=expand.checked?(await api('/api/workspaces/related/'+page.id)).items:[];update();});const tools=el('div',undefined,'lw-map-tools');tools.setAttribute('aria-label','Connection filters');tools.append(filter,statusSelect,typeSelect,hlabel,expandLabel);map.append(tools, el('p', 'Solid: source statement · Dashed: analyst hypothesis · Review state labeled on each edge.', 'lw-muted')); const drawing = el('div'); map.append(drawing); host.append(map);
     function update() {
       drawing.replaceChildren(); const relations = [...Object.values(items),...external].filter(i => i.relation && !i.withdrawn && (hypotheses.checked || i.nature !== 'analyst_hypothesis') && (statusSelect.selectedIndex === 0 || i.verification_state === statusSelect.value)).filter(i => {
         const nodes = [chooseEntity(i.relation.subject_id), chooseEntity(i.relation.object_id)].filter(Boolean);
