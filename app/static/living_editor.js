@@ -6,6 +6,7 @@
   let inventory, page, items = {}, sources = {}, selected = new Set(), dirty = false, saving = false, timer, feedCards = [], incoming = [], createToken = token();
   let overviewStale=false,materialUpdatedAt='';
   let gridView=localStorage.getItem('bios:living:view')!=='document',expandedRows=new Set();
+  let cardSizer;
   const status = text => { $('lw-status').textContent = text; };
   function el(tag, text, cls) { const e = document.createElement(tag); if (text !== undefined) e.textContent = text; if (cls) e.className = cls; return e; }
   function button(text, action, parent) { const e = el('button', text); e.type = 'button'; e.addEventListener('click', () => Promise.resolve().then(action).catch(error)); parent.append(e); return e; }
@@ -55,21 +56,26 @@
     const input = el('textarea'); input.value = block[field] || ''; input.setAttribute('aria-label', block.type + ' ' + field); input.rows = Math.min(15, Math.max(2, input.value.split('\n').length)); input.addEventListener('input', () => { block[field] = input.value; changed(); }); parent.append(input);
   }
   function render() {
-    const host = $('lw-blocks'); host.replaceChildren();
+    cardSizer?.disconnect();
+    const host = $('lw-blocks'); host.replaceChildren();host.classList.toggle('lw-card-grid',!gridView);
     page.blocks.forEach((block, index) => {
       const box = el('section', undefined, 'lw-block'); box.dataset.type = block.type; box.id = block.id;box.tabIndex=-1;
       const bar = el('div', undefined, 'lw-block-bar'), label = el('label'), check = el('input'); check.type = 'checkbox'; check.checked = selected.has(block.id); check.addEventListener('change', () => check.checked ? selected.add(block.id) : selected.delete(block.id)); label.append(check, document.createTextNode(block.type)); bar.append(label);
       function move(delta) { const next = index + delta; if (next < 0 || next >= page.blocks.length) return; [page.blocks[index], page.blocks[next]] = [page.blocks[next], page.blocks[index]]; changed(); render(); document.getElementById(block.id)?.querySelector('button')?.focus(); }
       button('↑', () => move(-1), bar).setAttribute('aria-label', 'Move block up'); button('↓', () => move(1), bar).setAttribute('aria-label', 'Move block down');
-      button('Remove placement', () => { page.blocks.splice(index, 1); changed(); render(); }, bar); box.append(bar);
+      const remove=button('×', () => { page.blocks.splice(index, 1); changed(); render(); }, bar);remove.className='lw-remove';remove.setAttribute('aria-label','Remove placement');remove.title='Remove placement';box.append(bar);
       const item = items[block.item_id], source = item && sources[item.source_id];
+      const cardTitle=source?((item.entity_ids?.length?item.entity_ids:source.entity_ids||[]).map(id=>chooseEntity(id)?.name).filter(Boolean).join(' / ')||source.title):({table:'Compare approaches',map:'Connections',feed:'Incoming coverage',briefing:'Saved briefing',callout:'Research scope',note:'Analyst note',hypothesis:'Open question',entity:chooseEntity(block.entity_id)?.name||'Linked entity',page:inventory.pages.find(p=>p.id===block.page_id)?.title||'Related research'})[block.type];
+      if(cardTitle)box.append(el('h3',cardTitle,'lw-card-title'));
       if(block.authored){inputText(block,box);const a=el('a','Analyst-authored · unverified · open knowledge item');a.href='/workspaces/evidence/'+block.item_id;box.append(a);}
       else if (item && source) {
         box.append(el('p', item.nature.replaceAll('_', ' ') + ' · ' + item.verification_state + (item.withdrawn ? ' · WITHDRAWN' : ''), 'lw-eyebrow'));
-        if (item.quote) box.append(el('blockquote', item.quote));
-        if (item.text) box.append(el('p', item.text)); if (item.note) box.append(el('p', 'Analyst note: ' + item.note));
+        if (item.text) box.append(el('p', item.text,'lw-card-finding'));
+        else if(block.type==='article')box.append(el('p',(source.text||'').replace(/\s+/g,' ').slice(0,220)+(source.text?.length>220?'…':''),'lw-card-finding'));
+        if (item.quote) {const quote=el('details',undefined,'lw-card-support');quote.append(el('summary','Source passage'),el('blockquote',item.quote));box.append(quote);}
+        if (item.note) box.append(el('p', 'Analyst note: ' + item.note));
         const a = el('a', source.title + ' · ' + source.publisher + ' · ' + (source.published_date || 'Date unknown')); a.href = '/workspaces/evidence/' + item.id; box.append(a);
-        const controls = el('div', undefined, 'lw-item-controls'); box.append(controls);
+        const controls = el('div', undefined, 'lw-item-controls'),actions=el('details',undefined,'lw-card-actions');actions.append(el('summary','Evidence actions'),controls);box.append(actions);
         button('Edit statement / note', () => editItem(item), controls); button(item.withdrawn ? 'Restore interpretation' : 'Withdraw interpretation', async () => { const result = await api('/api/workspaces/item/' + item.id, 'PATCH', {version: item.version, withdrawn: !item.withdrawn}); items[item.id] = result; render(); }, controls);
         button('Place on another page', () => placeElsewhere(item), controls);
         const review = el('a', 'Review evidence'); review.href = '/review/' + (item.review_evidence_id||item.id); controls.append(review);
@@ -80,7 +86,7 @@
           details.append(summary, prose); box.append(details);
           if (/^https?:\/\//.test(source.url)) { const link = el('a', 'Open original source'); link.href = source.url; link.target = '_blank'; link.rel = 'noopener noreferrer'; details.append(link); }
         }
-        box.append(el('p', 'Page commentary (does not alter shared evidence)', 'lw-muted')); inputText(block, box);
+        const commentary=el('details',undefined,'lw-card-commentary');commentary.open=!!block.text;commentary.append(el('summary',block.text?'Page notes':'Add page note'));inputText(block,commentary);box.append(commentary);
       } else if (block.type === 'table') {
         const table = el('table', undefined, 'lw-table'); (block.rows || [['Company', 'Source statement', 'Status'], ['', '', '']]).forEach((row, r) => {
           const tr = el('tr'); row.forEach((value, c) => { const td = el('td'), input = el('input'); input.value = value; input.setAttribute('aria-label', `Row ${r+1}, column ${c+1}`); input.addEventListener('input', () => { block.rows[r][c] = input.value; changed(); }); td.append(input); tr.append(td); }); table.append(tr);
@@ -102,9 +108,17 @@
           if (stale) box.append(el('p', 'Referenced evidence changed. Generate a new block to compare; this draft is preserved.', 'lw-relation-label'));
         }
       }
+      if(block.type==='briefing'){
+        const contents=Array.from(box.children).filter(child=>child!==bar&&!child.classList.contains('lw-card-title'));
+        const details=el('details',undefined,'lw-card-briefing');details.append(el('summary','Read / edit saved briefing'));contents.forEach(child=>details.append(child));box.append(el('p',(block.text||'').replace(/^#+\s*/gm,'').replace(/\s+/g,' ').slice(0,190)+'…','lw-muted'),details);
+      }
       host.append(box);
     });
     if(gridView) renderGrid(host);
+    else {
+      cardSizer=new ResizeObserver(entries=>entries.forEach(({target})=>{target.style.gridRowEnd='span '+Math.max(1,Math.ceil((target.getBoundingClientRect().height+10)/18));}));
+      Array.from(host.children).forEach(card=>cardSizer.observe(card));
+    }
     $('lw-grid-view').setAttribute('aria-pressed',String(gridView));$('lw-document-view').setAttribute('aria-pressed',String(!gridView));
     $('lw-row-filter').disabled=!gridView;
     renderOverview();

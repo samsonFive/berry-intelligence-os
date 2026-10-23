@@ -216,3 +216,18 @@ by default and uses a compact two-column reading layout on larger screens.
 Local workspace regressions: 18 passed. The live preview was regenerated and read
 for usefulness and unsupported inference; operator API credits now permit live
 completion. Prior quota failures remain in revision history.
+
+
+## Dense document cards
+
+Document view uses an ordered, responsive card grid: company/section headings,
+compact findings, smaller source attribution, and expandable source passages,
+article text, evidence actions and page notes. Saved briefing bodies are folded
+behind a short preview. Comparison tables and relationship maps receive wider
+cards. Card row spans are measured with ResizeObserver so shorter cards do not
+leave full-row gaps; the observer is disconnected on rerender/view switch.
+
+Placement removal is an accessible × icon with hover/focus label. Reordering
+controls appear on card hover or keyboard focus and remain visible on touch
+screens. The underlying block order, item references, source text, review gates
+and autosave behavior are unchanged.
