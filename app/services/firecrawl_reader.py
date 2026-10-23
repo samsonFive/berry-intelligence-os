@@ -187,11 +187,15 @@ def capture_publisher_article(record, *, client=None, refresh=False):
             roots = tree.xpath('//main')
         certain = len(roots) == 1
         body = roots[0] if certain else tree
+        access_limited = any(marker in body.text_content().casefold() for marker in (
+            'subscribe to continue', 'this content is for subscribers',
+            'sign in to continue', 'log in to continue', 'unlock the full article',
+        ))
         for node in body.xpath('.//nav|.//footer|.//aside|.//form|.//script|.//style|.//*[@role="dialog"]'):
             node.drop_tree()
         article_html = html_parser.tostring(body, encoding='unicode')
         passages = paragraphs_from_html(article_html, limit=None)
-        limited = not certain or bool(page.get('warning')) or len(passages) > 256
+        limited = not certain or access_limited or bool(page.get('warning')) or len(passages) > 256
         passages = passages[:256]
         availability = classify_capture(passages, status_code=200)
         if availability not in {'full', 'partial', 'excerpt_only'}:
@@ -201,7 +205,7 @@ def capture_publisher_article(record, *, client=None, refresh=False):
         from app.services.article_structure import publisher_heading_levels
         levels = publisher_heading_levels(article_html, passages)
         return {'url': target, 'ok': True, 'availability': availability,
-            'reason': 'publisher-body-structure-uncertain' if not certain else 'api-content-warning' if limited else '',
+            'reason': 'publisher-body-structure-uncertain' if not certain else 'publisher-access-limited' if access_limited else 'api-content-warning' if limited else '',
             'truncated': limited, 'headline': headline.strip(), 'passages': passages,
             'heading_levels': {str(i): level for i, level in levels.items()},
             'images': extract_article_images(article_html), 'content_kind': 'article',

@@ -47,7 +47,7 @@ def test_body_memo_never_hides_changed_source_content():
     assert reader_content(row)['usable_in_app']
 
 
-@pytest.mark.parametrize('case', ['valid','wrong-title','wrong-url','wall','warning','missing-url'])
+@pytest.mark.parametrize('case', ['valid','wrong-title','wrong-url','wall','warning','missing-url','paywall-excerpt'])
 def test_generic_reader_uses_exact_publisher_body(monkeypatch, case):
     monkeypatch.setenv('FIRECRAWL_API_KEY','fixture-only')
     calls=[]
@@ -59,6 +59,7 @@ def test_generic_reader_uses_exact_publisher_body(monkeypatch, case):
         if case=='wrong-url':metadata['sourceURL']='https://other.example/news/other'
         if case=='missing-url':metadata.pop('sourceURL')
         if case=='wall':markup='<article><h1>'+TITLE+'</h1><p>Subscribe to continue reading</p></article>'
+        if case=='paywall-excerpt':markup=BODY.replace('</article>','<p>Subscribe to continue reading the complete article</p></article>')
         data={'html':markup,'metadata':metadata}
         if case=='warning':data['warning']='partial extraction'
         return httpx.Response(200,json={'success':True,'data':data})
@@ -70,7 +71,7 @@ def test_generic_reader_uses_exact_publisher_body(monkeypatch, case):
     else:
         assert result['url']==URL and 'Final source paragraph describes the measured field results.' in result['passages']
         assert 'accept all' not in ' '.join(result['passages']).lower()
-        if case=='warning':assert result['availability']!='full'
+        if case in {'warning','paywall-excerpt'}:assert result['availability']!='full'
 
 
 @pytest.mark.parametrize('url', ['http://127.0.0.1/private','https://localhost/page','https://169.254.169.254/metadata','https://publisher.example:444/story'])
