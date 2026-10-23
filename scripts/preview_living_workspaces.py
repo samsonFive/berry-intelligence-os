@@ -84,7 +84,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
     preview = ROOT / "inbox/living-preview-v2"
     page_id = seed(args.research_inbox.resolve(), preview)
-    os.environ.update(BIOS_INBOX_DIR=str(preview), BIOS_MODE="authoring", ENABLE_SOURCE_POLLING="false", BIOS_REMOTE_INTERACTIVE="true", BIOS_REVIEW_USERNAME="local-preview", BIOS_REVIEW_PASSWORD="local-workspace-review", BIOS_SESSION_SECRET=secrets.token_hex(32))
+    secret_path = preview / ".session-secret"
+    if not secret_path.exists():
+        secret_path.write_text(secrets.token_hex(32), encoding="utf-8")
+    os.environ.update(BIOS_INBOX_DIR=str(preview), BIOS_MODE="authoring", ENABLE_SOURCE_POLLING="false", BIOS_REMOTE_INTERACTIVE="true", BIOS_REVIEW_USERNAME="local-preview", BIOS_REVIEW_PASSWORD="local-workspace-review", BIOS_SESSION_SECRET=secret_path.read_text(encoding="utf-8").strip())
     # Preview-only credentials, never copied from production. Access instructions
     # stay in ignored local runtime rather than committed documentation.
     (preview / "preview-access.txt").write_text("Username: local-preview\nPassword: local-workspace-review\n", encoding="utf-8")

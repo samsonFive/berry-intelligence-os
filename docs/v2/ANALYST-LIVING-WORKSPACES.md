@@ -117,7 +117,7 @@ it with its sources. Capture undo removes only its placement.
 
 ## Validation and remaining limitations
 
-- 72 targeted tests passed across workspace persistence/retries/concurrency,
+- 73 targeted tests passed across workspace persistence/retries/concurrency,
   citation scope, model failure, page-authored notes, source review metadata,
   existing readers, Digest, remote auth and duplicate/portable publication review.
 - `scripts/validate_records.py` passed. The static build generated 1,794 pages

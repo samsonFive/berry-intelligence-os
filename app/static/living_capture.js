@@ -38,22 +38,22 @@
     say('Saving…');
     try{result=await api('/api/workspaces/capture','POST',pending);unsaved=false;form?.remove();form=null;localStorage.setItem('bios:living:recent',result.page.id);actions.replaceChildren();
       say('Saved to '+result.page.title+' · unverified');button('Open workspace',()=>location.assign('/workspaces/'+result.page.id));button('Change destination',destination);button('Undo placement',undo);button('Close',close);document.dispatchEvent(new CustomEvent('bios:workspace-captured',{detail:result}));
-    }catch(e){say('Save failed · '+e.message);actions.replaceChildren();button('Retry save',()=>save(kind,extra));button('Return to editor',()=>{pending=null;editor(kind);});button('Close',close);throw e;}
+    }catch(e){say('Save failed · '+e.message);actions.replaceChildren();button('Retry save',()=>save(kind,extra));button('Return to editor',()=>{pending=null;if(form){say('Adjust your preserved input, then save the capture.');form.querySelector('textarea,input')?.focus();}else editor(kind);});button('Close',close);throw e;}
   }
   async function undo(){if(!result)return;const current=(await api('/api/workspaces/page/'+result.page.id)).page;current.blocks=current.blocks.filter(b=>b.id!==result.block_id);const updated=await api('/api/workspaces/page/'+current.id,'PUT',current);say('Placement removed. Shared knowledge and source history remain available.');result=null;pending=null;document.dispatchEvent(new CustomEvent('bios:workspace-captured',{detail:{page:updated}}));}
   async function destination(){
-    await getInventory();form?.remove();form=el('div');form.className='lw-capture-form';panel.append(form);panel.hidden=false;
+    await getInventory();const previousForm=form,previousUnsaved=unsaved;previousForm?.remove();form=el('div');form.className='lw-capture-form';panel.append(form);panel.hidden=false;const restore=()=>{form.remove();form=previousForm;unsaved=previousUnsaved;if(form)panel.append(form);};
     const label=el('label','Destination'),select=el('select');label.append(select);form.append(label);const inbox=el('option','Capture inbox');inbox.value='wp-inbox';select.append(inbox);
     inventory.pages.filter(p=>p.id!=='wp-inbox').forEach(p=>{const o=el('option',p.title);o.value=p.id;select.append(o);});select.value=snapshot.page_id||'wp-inbox';
     const title=field('Or create a page (leave empty to use selection)'),nested=el('input'),nestedLabel=el('label','Create nested beneath selected page');nested.type='checkbox';nestedLabel.append(nested);form.append(nestedLabel);
     const createToken=token();button('Use destination',async()=>{
       let id=select.value;if(title.value.trim()){const p=await api('/api/workspaces','POST',{title:title.value,parent_id:nested.checked&&id!=='wp-inbox'?id:null,starter:false,token:createToken});id=p.id;}
-      if(result){const target=(await api('/api/workspaces/page/'+id)).page;const moved=await api('/api/workspaces/move','POST',{token:token(),from_page:result.page.id,to_page:id,block_id:result.block_id,from_version:result.page.version,to_version:target.version});result.page=moved.page;result.page.id=id;say('Capture moved to '+target.title);document.dispatchEvent(new CustomEvent('bios:workspace-captured',{detail:{page:moved.page,from_page:moved.from_page}}));}
-      snapshot.page_id=id;localStorage.setItem('bios:living:recent',id);unsaved=false;form.remove();form=null;if(!result)showActions();
-    },form);button('Cancel destination',()=>{unsaved=false;form.remove();form=null;},form);
+      if(result){const target=(await api('/api/workspaces/page/'+id)).page;const origin=(await api('/api/workspaces/page/'+result.page.id)).page;const moved=await api('/api/workspaces/move','POST',{token:token(),from_page:result.page.id,to_page:id,block_id:result.block_id,from_version:origin.version,to_version:target.version});result.page=moved.page;result.page.id=id;say('Capture moved to '+target.title);document.dispatchEvent(new CustomEvent('bios:workspace-captured',{detail:{page:moved.page,from_page:moved.from_page}}));}
+      snapshot.page_id=id;pending=null;localStorage.setItem('bios:living:recent',id);restore();if(!result&&!form)showActions();
+    },form);button('Cancel destination',restore,form);
   }
   async function editor(kind){
-    await getInventory();panel.hidden=false;form?.remove();form=el('div');form.className='lw-capture-form';panel.append(form);form.append(el('blockquote',snapshot.quote));
+    if(form&&unsaved){say('Save or discard your current input before changing capture type.');return;}await getInventory();panel.hidden=false;form?.remove();form=el('div');form.className='lw-capture-form';panel.append(form);form.append(el('blockquote',snapshot.quote));
     const text=field(kind==='note'?'Analyst interpretation / question':'Editable statement',kind==='statement'?snapshot.quote:'',true),note=field('Analyst note','',true),entities=field('Associated entities (canonical IDs, comma separated)');
     const options=el('datalist');options.id='lw-capture-entities';inventory.entities.forEach(e=>{const o=el('option',e.name+' · '+e.type+' · '+(e.aliases||[]).join(', '));o.value=e.id;options.append(o);});form.append(options);entities.setAttribute('list',options.id);
     button('Use source entity suggestions',async()=>{const data=await api('/api/workspaces/source/'+snapshot.article_id);entities.value=(data.entity_ids||[]).join(', ');say('Source associations suggested. Co-mentions do not establish relationships.');},form);

@@ -261,6 +261,24 @@ def test_item_revision_has_separate_unverified_review_identity(client, source):
     assert store.get(item["id"])["quote"] == item["quote"]
 
 
+def test_move_is_atomic_idempotent_and_stale_safe(client, source):
+    from app import main
+    store = Store(main.INBOX_DIR)
+    saved = capture(store, source)
+    target = store.create_page("Destination", None, "analyst", token())
+    payload = {"token": token(), "from_page": saved["page"]["id"], "to_page": target["id"], "block_id": saved["block_id"], "from_version": saved["page"]["version"], "to_version": target["version"] - 1}
+    assert client.post('/api/workspaces/move', json=payload).status_code == 409
+    assert store.get(saved["page"]["id"])["blocks"]
+    assert not store.get(target["id"])["blocks"]
+    payload["to_version"] = target["version"]
+    response = client.post('/api/workspaces/move', json=payload)
+    assert response.status_code == 200, response.text
+    assert client.post('/api/workspaces/move', json=payload).json() == response.json()
+    assert not store.get(saved["page"]["id"])["blocks"]
+    assert len(store.get(target["id"])["blocks"]) == 1
+    assert store.get(saved["item"]["id"])
+
+
 def test_publication_review_preserves_workspace_nature(monkeypatch, tmp_path):
     from app import main
     from tests.test_review_publish_portability import _restore, _publish, SOURCE_ID
