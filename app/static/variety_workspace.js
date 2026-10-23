@@ -1,3 +1,38 @@
+// Name-review calculations are secondary to reading the selected variety.
+(() => {
+  document.querySelectorAll('[data-variety-name-review]').forEach(section => {
+    const results = section.querySelector('[data-variety-name-results]');
+    const refresh = section.querySelector('[data-variety-name-refresh]');
+    if (!results || !refresh) return;
+    let loaded = false, pending = false;
+    async function load(force = false) {
+      if (pending || (loaded && !force)) return;
+      pending = true;
+      refresh.disabled = true;
+      results.innerHTML = '<p role="status">Checking source names…</p>';
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 45000);
+      try {
+        const response = await fetch(section.dataset.reviewUrl, {credentials: 'same-origin', signal: controller.signal});
+        if (!response.ok || response.redirected) throw new Error('Name review unavailable');
+        results.innerHTML = await response.text();
+        loaded = true;
+      } catch (_) {
+        loaded = false;
+        results.innerHTML = '<p role="status">Name checks could not be loaded. Try again or open the full name review below.</p>';
+      } finally {
+        clearTimeout(timer);
+        pending = false;
+        refresh.disabled = false;
+      }
+    }
+    refresh.hidden = false;
+    refresh.addEventListener('click', () => load(true));
+    section.addEventListener('toggle', () => { if (section.open) load(); });
+    if (section.open) load();
+  });
+})();
+
 // Keep candidate navigation below the actual shell height, including wrapped mobile nav.
 (() => {
   const bar = document.querySelector('[data-candidate-quick-nav]');
