@@ -1,5 +1,29 @@
 # Project Status
 
+## October 23 current release and catalog reconciliation
+
+Production is canonical `97f9ac3d`, the #409 performance, selected-reader recovery
+and publisher-first discovery release. It includes the approved #407 release;
+its current image and backup/rollback are recorded in the VPS release receipt.
+No catalog drafts or local runtime were deployed. A normal operator read-only
+probe returned Emerald in 5.783 seconds initially and 1.882 on repeat, and the
+Z candidate group in 1.663 seconds. These measurements supersede the historical
+nine-second profile baseline below; they do not establish all-device performance.
+
+Drafts #399/#400 are rebased onto this release, preserving the catalog patches
+and the new exact-input presentation memoization. Seventeen original child
+code/data/test files remain byte-identical; the remaining portfolio service
+differs only by #409's memo import/decorator. The governing guide and all 31
+accepted requirement IDs, descriptions and order remain unchanged. Fresh CI on
+these reconciled heads and catalog release review remain required.
+
+The 52-source worksheet still needs independent human answers. CAT-01/CAT-02,
+32 unclear photo cells, complete current/historical portfolios, sourced profile
+fields, rights/photos, statistics coverage and broader performance remain open.
+An independently measured on-demand name-review optimization is a separate
+performance draft; it is not deployed and has no browser-review pass yet.
+The dated release and preservation evidence below remains historical.
+
 ## October 22 approved performance release and catalog continuation
 
 Production is canonical `64099c00`, the approved merge of performance #407 at
