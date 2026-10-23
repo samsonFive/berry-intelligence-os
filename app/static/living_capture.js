@@ -1,7 +1,7 @@
 (function () {
   'use strict';
-  async function api(path, method='GET', payload) {
-    const response = await fetch(path, {method, credentials:'same-origin', headers:payload?{'Content-Type':'application/json'}:{}, body:payload?JSON.stringify(payload):undefined});
+  async function api(path, method='GET', payload, options={}) {
+    const response = await fetch(path, {...options, method, credentials:'same-origin', headers:payload?{'Content-Type':'application/json'}:{}, body:payload?JSON.stringify(payload):undefined});
     if (response.redirected || response.status===401) throw Error('Your session needs attention. Sign in, then retry; input is preserved.');
     if (!response.headers.get('content-type')?.includes('application/json')) throw Error('The server returned an error ('+response.status+'). Retry; your input is preserved.');
     const data = await response.json(); if(!response.ok)throw Error(typeof data.detail==='string'?data.detail:'The workspace could not save this request.');return data;

@@ -183,8 +183,7 @@ text and citation references are included in Markdown/JSON export.
 Pages default to a compact sheet with numbered rows, briefing selection,
 block type, two-line information excerpts, review state, linked source and
 updated date. Expand a row for the existing full source/editor controls;
-Document view preserves the full document layout. View choice is remembered
-locally. A row filter searches the curated page without changing its order or
+Document view preserves the full document layout. View choice is saved with the app account. A row filter searches the curated page without changing its order or
 saved content. Contents/citation jumps reveal the matching row and clear filters.
 The overview can collapse while retaining its summary/contents tabs.
 
@@ -269,7 +268,7 @@ item update as a secondary sort for equal source dates. Undated source/page
 material sorts last in either direction. From/To date filters are inclusive and
 exclude undated rows when a range is active; Clear dates restores them. Text and
 date filters combine. Source/citation jumps clear filters to reveal their target.
-The sorting direction is remembered locally and does not reorder the underlying
+The sorting direction is saved with the app account and does not reorder the underlying
 curated document blocks. Update timestamps remain available in date-cell tooltips.
 
 Browser validation used archived 2021, 2025 and 2026 publications: ascending and
@@ -281,11 +280,11 @@ analyst note stayed text rather than saving; test input was discarded.
 
 Document is now labeled Cards (the previous stored view choice remains compatible).
 Grid column borders support pointer/touch dragging and keyboard resizing: Left/
-Right adjust 10px; Shift adjusts 50px. Widths, selected view, source ordering and
-Cards-per-row preference persist in browser-local storage across workspaces and
-reloads. Cards may use fewer columns on a narrow window, retaining the preferred
+Right adjust 10px; Shift adjusts 50px. Widths, column order, selected view, source ordering and
+Cards-per-row preference are stored in the app for the signed-in account, across
+workspaces, reloads and devices connected to the same app deployment. Cards may use fewer columns on a narrow window, retaining the preferred
 count for larger windows. Reset layout restores default widths and automatic
-card count. These preferences are local to this browser, not account-synced.
+card count. These preferences follow the signed-in app account; browser values are only an initial migration source.
 
 Four empty, private default berry workspaces are created idempotently in runtime
 storage with stable identities. Existing content/revisions are never overwritten.
@@ -301,3 +300,31 @@ resizing, width persistence after reload, remembered Cards selection/column coun
 all four fixed berry shortcut labels, and R saving into Raspberry workspace. The
 preview test placement was undone after verifying its destination. No trusted
 berry or variety schemas or facts were created by these defaults.
+
+
+## Account layout persistence and column reordering
+
+Authenticated GET/PUT `/api/workspaces/preferences/layout` stores layout values
+under the current app account identity in the private SQLite store. The request
+cannot choose another account. Saved settings include view, widths keyed by
+stable column identity, a permutation of column IDs, card count and source sort.
+A new device reads app settings before rendering; legacy browser values import
+only when the account has no saved settings. Default layouts use null widths.
+
+Revision checks reject simultaneous stale-device writes; idempotency receipts
+make retry after an uncertain response safe. Saves are serialized and survive
+navigation via keepalive requests. Failure/retry status is visible. A stale
+layout asks the user to reload rather than overwriting another device silently.
+Preferences are excluded from generic workspace history access and public output.
+
+Drag a column heading to reorder, or use Alt + Left/Right while its heading is
+focused. Border dragging and keyboard width adjustment remain separate. Widths
+stay associated with column identity when moved. Reordering keeps source dates,
+selection and expansion attached to the correct cells. Reset restores default
+order/widths/card count in the account.
+
+Validation: independent API clients read the same saved account layout; other
+accounts cannot retrieve it or reuse its retry receipt. Stale writes, malformed
+orders/widths and cross-origin mutations are rejected. Browser checks confirmed
+keyboard and pointer column moves, resizing after moving, and restored order and
+width after reload. Physical second-device access was not exercised.

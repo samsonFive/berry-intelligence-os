@@ -30,6 +30,30 @@ def capture(store, source, **changes):
     return store.capture(payload, source, "analyst", {"company-a": {}, "company-b": {}})
 
 
+def test_layout_preferences_follow_account_across_clients_and_reject_stale_writes(client, monkeypatch):
+    from app import main
+    user = ["alice"]
+    monkeypatch.setattr(main, "session_username", lambda request: user[0])
+    values = {"view": "cards", "widths": [32, 40, 100, 420, 90, 120, 90, 70], "order": [0, 1, 3, 2, 4, 5, 6, 7], "card_columns": "3", "source_sort": "asc"}
+    assert client.get('/api/workspaces/preferences/layout').json()["values"] is None
+    payload = {"version": 0, "values": values, "token": token()}
+    saved = client.put('/api/workspaces/preferences/layout', json=payload)
+    assert saved.status_code == 200, saved.text
+    assert client.put('/api/workspaces/preferences/layout', json=payload).json() == saved.json()
+    other_device = TestClient(main.app)
+    assert other_device.get('/api/workspaces/preferences/layout').json()["values"] == values
+    assert other_device.put('/api/workspaces/preferences/layout', json={**payload, "token": token()}).status_code == 409
+    user[0] = "bob"
+    assert other_device.get('/api/workspaces/preferences/layout').json()["values"] is None
+    assert other_device.get('/api/workspaces/history/' + saved.json()["id"]).status_code == 404
+    assert other_device.put('/api/workspaces/preferences/layout', json=payload).status_code == 409
+    user[0] = "alice"
+    assert client.put('/api/workspaces/preferences/layout', json={**payload, "version": 1, "token": token(), "values": {**values, "order": [0]*8}}).status_code == 422
+    assert client.put('/api/workspaces/preferences/layout', json={**payload, "version": 1, "token": token(), "values": {**values, "widths": [1]*8}}).status_code == 422
+    assert client.put('/api/workspaces/preferences/layout', json={**payload, "version": 1, "token": token()}, headers={"Origin": "https://hostile.example"}).status_code == 403
+    assert other_device.get('/api/workspaces/preferences/layout').json() == saved.json()
+
+
 def test_default_berry_workspaces_are_durable_and_preserve_captures(store, source):
     ids = store.ensure_berry_workspaces()
     assert set(ids) == {"blueberry", "blackberry", "raspberry", "strawberry"}

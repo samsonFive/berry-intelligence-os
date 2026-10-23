@@ -136,6 +136,34 @@ class Store:
                 result[berry] = page["id"]
         return result
 
+    def layout_preferences(self, actor):
+        return self.get("layout-" + digest(actor)) or {"version": 0, "values": None}
+
+    def save_layout_preferences(self, actor, payload):
+        values = payload.get("values")
+        if not isinstance(values, dict) or set(values) != {"view", "widths", "order", "card_columns", "source_sort"}:
+            raise ValueError("Invalid layout settings")
+        if values["view"] not in {"grid", "cards"} or values["card_columns"] not in {"auto", "1", "2", "3", "4"} or values["source_sort"] not in {"asc", "desc"}:
+            raise ValueError("Invalid layout setting value")
+        order, widths = values["order"], values["widths"]
+        if not isinstance(order, list) or any(type(n) is not int for n in order) or sorted(order) != list(range(8)):
+            raise ValueError("Column order must contain each column once")
+        minimums = [30, 38, 80, 160, 80, 100, 86, 70]
+        if widths is not None and (not isinstance(widths, list) or len(widths) != 8 or any(type(n) not in (int, float) or not minimums[i] <= n <= 1200 for i, n in enumerate(widths))):
+            raise ValueError("Invalid column widths")
+        identity = "layout-" + digest(actor)
+        request = {**payload, "actor": identity}
+        with self.transaction() as db:
+            replay = self.replay(db, payload.get("token"), request)
+            if replay:
+                return replay
+            old = self.get(identity, db)
+            if (old or {}).get("version", 0) != payload.get("version"):
+                raise Conflict("Layout changed on another device. Reload to use the saved layout before making further changes.")
+            result = self.put(db, "layout", {"id": identity, "values": values}, actor, expected=old["version"] if old else None)
+            self.remember(db, payload["token"], request, result)
+            return result
+
     @staticmethod
     def block(kind, text="", **fields):
         return {"id": ident("b-"), "type": kind, "text": text, **fields}

@@ -98,6 +98,19 @@ async def new_page(request: Request):
     return checked(lambda: store.create_page(data.get("title", ""), data.get("parent_id"), actor, data.get("token"), data.get("starter", False)))
 
 
+@router.get("/api/workspaces/preferences/layout")
+def get_layout_preferences(request: Request):
+    _, store, actor = context(request)
+    return store.layout_preferences(actor)
+
+
+@router.put("/api/workspaces/preferences/layout")
+async def put_layout_preferences(request: Request):
+    _, store, actor = context(request, True)
+    payload = await body(request)
+    return checked(lambda: store.save_layout_preferences(actor, payload))
+
+
 @router.get("/api/workspaces/page/{page_id}")
 def get_page(request: Request, page_id: str):
     main, store, _ = context(request)
@@ -305,6 +318,8 @@ async def entity_stub(request: Request):
 @router.get("/api/workspaces/history/{key}")
 def history(request: Request, key: str):
     _, store, _ = context(request)
+    if key.startswith("layout-"):
+        raise HTTPException(404, "History not found")
     return {"revisions": store.history(key)}
 
 
