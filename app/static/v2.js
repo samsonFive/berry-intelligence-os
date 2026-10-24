@@ -204,7 +204,10 @@
     cards = Array.prototype.slice.call(document.querySelectorAll("[data-intel-card]"));
     active = 0;
   cards.forEach(function (card, index) {
+    if (card.dataset.readerCardBound === "1") return;
+    card.dataset.readerCardBound = "1";
     card.addEventListener("click", function (event) {
+      var index = cards.indexOf(card);
       selectCard(index, { preserveScroll: document.body.hasAttribute("data-personal-digest") });
       if (event.target.closest("form, button, .v2-chip, a:not([data-open-reader])")) return;
       if (event.target.closest("[data-open-reader]") && overlay) {
@@ -215,6 +218,7 @@
     var openers = card.querySelectorAll("[data-open-reader]");
     openers.forEach(function (link) {
       link.addEventListener("click", function (event) {
+        var index = cards.indexOf(card);
         if (!overlay || event.metaKey || event.ctrlKey) return;
         event.preventDefault();
         event.stopPropagation();

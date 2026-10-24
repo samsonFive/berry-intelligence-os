@@ -4,6 +4,7 @@
 {% block title %}{{ name }} · Berry Intelligence{% endblock %}
 {% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=8"><link rel="stylesheet" href="/static/news_workspace.css">{% endblock %}
 {% block content %}
+{% if authoring_mode and not static_build %}<aside class="lw-entity-material" data-lw-entity-material><a href="/workspaces?entity={{ entity.id if entity is defined else company.id if company is defined else '' }}">Linked workspace evidence and analyst hypotheses</a><div data-lw-entity-items></div></aside>{% endif %}
 {% set linked_varieties = company_linked_varieties|default([]) %}
 {% set has_company_portfolio = dossier.backbone and dossier.backbone.portfolio %}
 

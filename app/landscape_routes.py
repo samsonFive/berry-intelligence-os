@@ -76,7 +76,9 @@ def landscape_page(request: Request):
     if selected_view:
         page_query["saved_view"] = selected_view["id"]
     model["source_pagination"] = {page: "/landscapes?" + urlencode({**page_query, "source_page": page}) + "#landscape-sources" for page in (model["source_page"] - 1, model["source_page"] + 1)}
+    from app.services.workspace_landscapes import panel
     return main.templates.TemplateResponse(request=request, name="landscape_workspace.html", context={
+        **panel(main, selected_view["id"] if selected_view else ""),
         **model, "selected_view": selected_view, "authoring_mode": main.AUTHORING_MODE,
         "berries": main.BERRIES, "tiers": company_directory.TIERS, "lists": personal_digest.company_lists(state),
         "scope_choices": {"company": sorted(companies.values(), key=lambda row: row["name"].casefold()),

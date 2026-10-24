@@ -10,6 +10,7 @@
 {% endif %}
 {% endblock %}
 {% block content %}
+{% if authoring_mode and not static_build %}<aside class="lw-entity-material" data-lw-entity-material><a href="/workspaces?entity={{ entity.id if entity is defined else company.id if company is defined else '' }}">Linked workspace evidence and analyst hypotheses</a><div data-lw-entity-items></div></aside>{% endif %}
 {% macro lettermark(name) -%}
 {%- set parts = (name or '?').split() -%}
 {%- if parts|length >= 2 -%}{{ parts[0][0] }}{{ parts[1][0] }}

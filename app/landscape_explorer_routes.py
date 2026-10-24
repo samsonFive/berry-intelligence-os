@@ -101,8 +101,10 @@ def page(request: Request):
             "authoring_mode": main.AUTHORING_MODE, "message": exc.detail,
         }, status_code=422, headers={"Cache-Control": "private, no-store"})
     if 'gene_editing' in bundle:
+        from app.services.workspace_landscapes import panel
         return main.templates.TemplateResponse(request, 'gene_editing_landscape.html', {
             'model': bundle['gene_editing'], 'authoring_mode': main.AUTHORING_MODE,
+            **panel(main, 'gene-editing'),
         }, headers={'Cache-Control': 'private, no-store'})
     choices = sorted([row for row in entities.values() if row.get("entity_type") == "geography"], key=lambda row: row.get("name", row["id"]))
     source_lookup = {row["id"]: row for row in bundle["sources"]}
@@ -112,7 +114,9 @@ def page(request: Request):
                          "lists": [row["name"] for row in groups if key in row.get("company_ids", [])]}
                    for key, row in bundle["nodes"].items() if row["type"] in {"company", "breeding_program"}}
     focus_edges = [row for row in bundle["edges"] if bundle["filters"]["focus"] in {row["subject_id"], row["object_id"]}]
+    from app.services.workspace_landscapes import panel
     return main.templates.TemplateResponse(request, "landscape_explorer.html", {
+        **panel(main, request.query_params.get("saved_view")),
         "authoring_mode": main.AUTHORING_MODE, "bundle": bundle, "browser_bundle": {**explorer.browser_bundle(bundle), "actor_marks": actor_marks}, "countries": choices,
         "actor_marks": actor_marks, "company_lists": groups,
         "company_tiers": {**company_directory.CURRENT_TIERS, **({bundle["filters"]["tier"]: company_directory.TIERS[bundle["filters"]["tier"]]} if bundle["filters"]["tier"] else {})},
