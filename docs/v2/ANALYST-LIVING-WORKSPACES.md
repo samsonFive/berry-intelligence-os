@@ -372,3 +372,47 @@ empty. Grid findings also list the tracked entities.
 
 Browser verified entity add, save, reload and remove; the original preview scope
 was restored and persisted. Twenty workspace regressions and JS syntax passed.
+
+## Linked Landscapes and long-page navigation
+
+Pages retain up to eight Landscape IDs in the private SQLite record. Link from
+either the workspace or a saved Landscape view; the opposite surface derives
+its backlink from that same record. The gene-editing research lens is a built-in
+choice and uses its complete adjacent-inclusive roster. Saved overview and
+Explorer selections keep their stored selectors. Unlinking removes the shared
+association without editing either surface’s canonical evidence or claims.
+Landscape pages expose linked workspace notes, saved-capture counts and the
+current combined brief as explicitly labeled analyst research.
+
+Overview generation resolves current Landscape programs, company scope, source
+references, review states and gaps alongside curated workspace evidence. Each
+Landscape has a distinct citation with an internal jump to its view. Its material
+fingerprint participates in summary freshness; an archived/unavailable view
+shows an error and blocks regeneration until repaired. A generated combined
+brief must cite page evidence and every linked Landscape, and stays subject to
+the compact reading limit. Shared underlying sources are not independent
+corroboration. Generated prose remains review-required. The operator explicitly
+approved sending saved article text, notes and linked Landscape context to
+api.perplexity.ai; a live combined generation succeeded in the isolated preview.
+
+The preview’s original seed had four tracked companies and an invalid legacy
+Ohalo ID. A one-time migration now restores the eleven canonical roster IDs,
+links the breeding lens and copies existing research publications/aliases into
+the isolated preview without replacing later review. All 11 company names
+resolve; the lens shows 25 programs, four partnership claims and 30 sources.
+The migration preserves content and subsequent user removals/unlinks on restart.
+Research access, identity and commercialization gaps remain explicit.
+
+A sticky quick-navigation bar jumps to Overview, Research, Landscapes, Entities,
+Connections and Coverage. It expands the relevant row in Grid view and clears
+filters that would hide the destination. Header/nav measurements keep jump
+positions below both bars; narrow screens scroll the navigation horizontally.
+It changes no saved view preference or canonical record.
+
+Validation: 161 workspace, gene-editing, Landscape overview/Explorer, reader and
+auth checks passed (one existing ReportLab deprecation warning). New regressions
+cover linking from either side, origin rejection, unlinking, source fingerprints,
+required combined citations and one-time roster repair. Browser verification
+confirmed eleven resolved entities, reciprocal research display, successful live
+Perplexity generation with page + Landscape citations and Grid section jumps;
+Cards preference was restored. No merge or production deployment.

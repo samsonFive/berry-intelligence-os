@@ -2,6 +2,7 @@
 {% block title %}Landscape Explorer · Berry Intelligence{% endblock %}
 {% block head_extra %}<link rel="stylesheet" href="/static/landscape_explorer.css?v=8">{% endblock %}
 {% block content %}
+{% include '_landscape_workspace_links.html' %}
 {% if authoring_mode and not static_build %}<aside class="lw-entity-material"><a href="/workspaces">Open living research pages, unverified captures and labeled analyst hypotheses →</a></aside>{% endif %}
 <p style="margin:16px 24px"><a href="/landscapes/explorer?topic=gene-editing">Explore Gene Editing & Advanced Breeding →</a></p>
 {% set f = bundle.filters %}

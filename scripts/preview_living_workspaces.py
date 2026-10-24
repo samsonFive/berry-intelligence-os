@@ -17,6 +17,34 @@ sys.path.insert(0, str(ROOT))
 def seed(research_inbox: Path, preview_inbox: Path):
     from app.services.living_workspaces import Store, compose_brief
     store = Store(preview_inbox)
+    # One-time, explicitly requested roster repair. Later user scope edits survive restart.
+    roster = json.loads((ROOT / 'data/imports/gene-editing-2026-10-20/snapshot.json').read_text(encoding='utf-8'))
+    company_ids = [row['entity_id'] for row in roster['companies']]
+    if len(set(company_ids)) != 11:
+        raise SystemExit('Expected the original eleven-company roster')
+    with store.transaction() as db:
+        page = store.get('wp-gene-preview', db)
+        if page and not store.get('setup-gene-roster-v2', db):
+            page['feed']['entity_ids'] = list(dict.fromkeys([key for key in page['feed'].get('entity_ids', []) if key != 'company-ohalo-genetics'] + company_ids))
+            page['landscape_links'] = list(dict.fromkeys(page.get('landscape_links', []) + ['gene-editing']))
+            store.put(db, 'page', page, 'approved eleven-company preview scope', page['version'])
+            store.put(db, 'setup', {'id': 'setup-gene-roster-v2', 'company_ids': company_ids}, 'preview setup')
+    # Bring over the original private research sources, never overwrite later review.
+    aliases_path = research_inbox / 'gene_editing/evidence_aliases.json'
+    aliases = json.loads(aliases_path.read_text(encoding='utf-8')) if aliases_path.exists() else {}
+    evidence_ids = {key for row in roster['companies'] for key in row.get('evidence_ids', [])}
+    evidence_ids.update(key for row in roster['programs'] for key in row.get('evidence_ids', []))
+    for key in evidence_ids:
+        source = research_inbox / 'evidence' / (aliases.get(key, key) + '.json')
+        target = preview_inbox / 'evidence' / source.name
+        if source.exists() and not target.exists():
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(source.read_bytes())
+    if aliases:
+        target = preview_inbox / 'gene_editing/evidence_aliases.json'
+        if not target.exists():
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(json.dumps(aliases), encoding='utf-8')
     if any(b["type"] == "briefing" for b in (store.get("wp-gene-preview") or {}).get("blocks", [])):
         return "wp-gene-preview"
     entities = {}
@@ -46,7 +74,7 @@ def seed(research_inbox: Path, preview_inbox: Path):
         selected.append((record, store.snapshot(record, text, "body_available")))
     with store.transaction() as db:
         if not store.get("wp-gene-preview", db):
-            store.put(db, "page", {"id": "wp-gene-preview", "title": "Gene Editing & Advanced Breeding", "parent_id": None, "blocks": [store.block("callout", "ISOLATED REVIEW PREVIEW · Public source claims remain unverified. Watchlist membership does not establish an editing program. Earlier 11-company deep research still has documented gaps.")], "feed": {"mode": "any", "paused": False, "entity_ids": ["company-pairwise", "company-hudson-river-biotechnology", "company-j-r-simplot", "company-ohalo"]}, "dismissed": []}, "preview setup")
+            store.put(db, "page", {"id": "wp-gene-preview", "title": "Gene Editing & Advanced Breeding", "parent_id": None, "blocks": [store.block("callout", "ISOLATED REVIEW PREVIEW · Public source claims remain unverified. Watchlist membership does not establish an editing program. Earlier 11-company deep research still has documented gaps.")], "feed": {"mode": "any", "paused": False, "entity_ids": company_ids}, "landscape_links": ["gene-editing"], "dismissed": []}, "preview setup")
     store.flush()
     first = selected[0]
     record, source = first

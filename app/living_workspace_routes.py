@@ -4,12 +4,35 @@ from __future__ import annotations
 import json
 from urllib.parse import urlsplit
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import HTMLResponse, PlainTextResponse
+from fastapi.responses import HTMLResponse, PlainTextResponse, RedirectResponse
 
 from app.personal_digest_routes import require_edit, personal_source_record, world
 from app.services import living_workspaces as living
 
 router = APIRouter()
+
+
+@router.get("/api/workspaces/landscapes")
+def landscape_choices(request: Request):
+    from app.services.workspace_landscapes import choices
+    main, _, _ = context(request)
+    return {"landscapes": choices(main)}
+
+
+@router.post("/workspaces/link-landscape")
+async def link_from_landscape(request: Request):
+    from app.services.workspace_landscapes import choices
+    main, store, actor = context(request, True)
+    form = await request.form()
+    key, page_id = str(form.get("landscape_key") or ""), str(form.get("page_id") or "")
+    option = next((row for row in choices(main) if row["id"] == key), None)
+    page = store.get(page_id)
+    if not option or not page or not page_id.startswith("wp-"):
+        raise HTTPException(422, "Choose an available Landscape and workspace")
+    if key not in page.get("landscape_links", []):
+        page["landscape_links"] = page.get("landscape_links", []) + [key]
+        checked(lambda: store.save_page(page_id, page, actor))
+    return RedirectResponse(option["href"], status_code=303)
 
 
 def context(request, mutate=False):
@@ -128,14 +151,25 @@ def get_page(request: Request, page_id: str):
         item["review_status"] = evidence.get("status", "in_review")
     source_keys = {i["source_id"] for i in items}
     overview = page.get("overview")
+    from app.services.workspace_landscapes import resolve
+    landscape_error = ""
+    try:
+        landscapes = resolve(main, request, page.get("landscape_links", []))
+    except (ValueError, HTTPException) as exc:
+        landscapes, landscape_error = [], str(getattr(exc, "detail", exc))
     updated = max([page.get("content_updated_at", page.get("updated_at", ""))] + [i.get("updated_at", "") for i in items])
-    return {"page": page, "items": items, "sources": [s for s in store.rows("source") if s["id"] in source_keys], "page_material_updated_at": updated, "overview_stale": bool(overview and overview.get("basis") != living.overview_basis(page, {i["id"]: i for i in items}))}
+    return {"page": page, "items": items, "sources": [s for s in store.rows("source") if s["id"] in source_keys], "landscapes": [{k: v for k, v in row.items() if k != "data"} for row in landscapes], "landscape_error": landscape_error, "page_material_updated_at": updated, "overview_stale": bool(overview and (landscape_error or overview.get("basis") != living.overview_basis(page, {i["id"]: i for i in items}, landscapes)))}
 
 
 @router.put("/api/workspaces/page/{page_id}")
 async def save_page(request: Request, page_id: str):
-    _, store, actor = context(request, True)
+    main, store, actor = context(request, True)
     payload = await body(request)
+    if "landscape_links" in payload:
+        from app.services.workspace_landscapes import choices
+        allowed = {row["id"] for row in choices(main)}
+        if not isinstance(payload["landscape_links"], list) or any(not isinstance(key, str) or key not in allowed for key in payload["landscape_links"]):
+            raise HTTPException(422, "Choose an available Landscape")
     page = checked(lambda: store.save_page(page_id, payload, actor))
     store.flush()
     return page
@@ -208,7 +242,7 @@ def feed(request: Request, page_id: str):
 
 @router.post("/api/workspaces/generate/{page_id}")
 async def generate(request: Request, page_id: str):
-    _, store, actor = context(request, True)
+    main, store, actor = context(request, True)
     payload = await body(request)
     payload["page_id"] = page_id
     def create():
@@ -222,6 +256,9 @@ async def generate(request: Request, page_id: str):
             items = {i["id"]: i for i in store.rows("item", db)}
             sources = {s["id"]: s for s in store.rows("source", db)}
         block = living.compose_overview(page, items, sources) if payload.get("target") == "overview" else living.compose_brief(page, items, sources, payload.get("selected", []))
+        from app.services.workspace_landscapes import resolve, add_summary_context
+        landscapes = resolve(main, request, page.get("landscape_links", [])) if payload.get("target") == "overview" else []
+        add_summary_context(block, items, landscapes)
         if payload.get("use_model"):
             from app.services.ai_gateway.untrusted_complete import maybe_untrusted_completer
             from urllib.parse import urlsplit
@@ -240,7 +277,7 @@ async def generate(request: Request, page_id: str):
             if replay:
                 return replay
             if payload.get("target") == "overview":
-                page["overview"] = {**block, "basis": living.overview_basis(page, items)}
+                page["overview"] = {**block, "basis": living.overview_basis(page, items, landscapes)}
             else:
                 page["blocks"].append(block)
             page = store.put(db, "page", page, actor, payload.get("version"))

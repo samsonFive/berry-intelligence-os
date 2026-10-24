@@ -14,6 +14,74 @@ def token():
     return uuid4().hex
 
 
+def test_linked_landscapes_are_bidirectional_cited_and_invalidate_summary(client, monkeypatch):
+    from app import main
+    from app.services import workspace_landscapes as links
+    landscape = {"id": "gene-editing", "title": "Breeding landscape", "href": "/landscapes/explorer?topic=gene-editing&adjacent=1", "basis": "v1", "data": {"companies": [{"name": "Example company"}], "gaps": "No trial outcomes established"}}
+    monkeypatch.setattr(links, "resolve", lambda main, request, keys: [deepcopy(landscape)] if keys else [])
+    page = client.post('/api/workspaces', json={"title": "Combined research", "token": token()}).json()
+    page["landscape_links"] = ["gene-editing"]
+    saved = client.put('/api/workspaces/page/' + page["id"], json=page).json()
+    assert saved["landscape_links"] == ["gene-editing"]
+    assert links.backlinks(main, 'gene-editing')[0]["id"] == page["id"]
+    generated = client.post('/api/workspaces/generate/' + page["id"], json={"token": token(), "version": saved["version"], "target": "overview"}).json()
+    assert generated["overview"]["citations"][0]["kind"] == 'landscape'
+    assert 'Example company' in generated["overview"]["text"]
+    assert not client.get('/api/workspaces/page/' + page["id"]).json()["overview_stale"]
+    landscape["basis"] = 'v2'
+    assert client.get('/api/workspaces/page/' + page["id"]).json()["overview_stale"]
+    generated["landscape_links"] = []
+    assert client.put('/api/workspaces/page/' + page["id"], json=generated).status_code == 200
+    assert links.backlinks(main, 'gene-editing') == []
+    assert client.post('/workspaces/link-landscape', data={"page_id": page["id"], "landscape_key": "gene-editing"}, headers={"Origin": "https://hostile.example"}).status_code == 403
+    relink = client.post('/workspaces/link-landscape', data={"page_id": page["id"], "landscape_key": "gene-editing"}, follow_redirects=False)
+    assert relink.status_code == 303
+    assert client.get('/api/workspaces/page/' + page["id"]).json()["page"]["landscape_links"] == ['gene-editing']
+    generated = client.get('/api/workspaces/page/' + page["id"]).json()["page"]
+    generated["landscape_links"] = ['https://attacker.example']
+    assert client.put('/api/workspaces/page/' + page["id"], json=generated).status_code == 422
+
+
+def test_combined_model_packet_requires_landscape_and_page_citations(store, source):
+    from types import SimpleNamespace
+    from app.services import living_workspaces as living, workspace_landscapes as links
+    saved = capture(store, source)
+    page = saved["page"]
+    items = {saved["item"]["id"]: saved["item"]}
+    block = living.compose_overview(page, items, {source["id"]: source})
+    links.add_summary_context(block, items, [{"id": "gene-editing", "title": "Landscape", "href": "/landscapes/explorer?topic=gene-editing", "basis": "one", "data": {"companies": [], "gaps": "Trials unknown"}}])
+    def complete(prompt, **kwargs):
+        assert 'Trials unknown' in prompt
+        assert 'Repeated quote.' in prompt
+        return SimpleNamespace(parsed={"sentences": [{"text": "The page and landscape leave trial outcomes unknown.", "source_ids": list(items), "section": "What to watch"}]}, provider='test', model='test')
+    result = living.model_narrative(deepcopy(block), items, completer=complete, sources={source["id"]: source})
+    assert result["method"] == 'configured model + cited evidence digest'
+    def omit_landscape(prompt, **kwargs):
+        return SimpleNamespace(parsed={"sentences": [{"text": "Only page evidence.", "source_ids": [saved["item"]["id"]], "section": "Key developments"}]}, provider='test', model='test')
+    rejected = living.model_narrative(deepcopy(block), items, completer=omit_landscape, sources={source["id"]: source})
+    assert 'generation_notice' in rejected
+
+
+def test_preview_repairs_original_eleven_company_scope_once(tmp_path):
+    from scripts.preview_living_workspaces import seed, ROOT
+    preview, research = tmp_path / 'preview', tmp_path / 'research'
+    store = Store(preview)
+    with store.transaction() as db:
+        store.put(db, 'page', {'id': 'wp-gene-preview', 'title': 'User title', 'blocks': [Store.block('briefing', 'Keep my brief')], 'feed': {'mode': 'any', 'paused': False, 'entity_ids': ['company-ohalo-genetics']}, 'dismissed': []}, 'test')
+    seed(research, preview)
+    page = store.get('wp-gene-preview')
+    ids = {row['entity_id'] for row in json.loads((ROOT / 'data/imports/gene-editing-2026-10-20/snapshot.json').read_text(encoding='utf-8'))['companies']}
+    assert len(ids) == 11 and set(page['feed']['entity_ids']) == ids
+    assert page['title'] == 'User title' and page['blocks'][0]['text'] == 'Keep my brief'
+    assert page['landscape_links'] == ['gene-editing']
+    page['feed']['entity_ids'].remove('company-planasa')
+    page['landscape_links'] = []
+    store.save_page(page['id'], page, 'test')
+    seed(research, preview)
+    assert 'company-planasa' not in store.get(page['id'])['feed']['entity_ids']
+    assert store.get(page['id'])['landscape_links'] == []
+
+
 @pytest.fixture
 def store(tmp_path):
     return Store(tmp_path / "inbox")

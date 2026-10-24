@@ -137,3 +137,10 @@
 .lw-layout .lw-entity-add label{flex:1;min-width:0;font-size:10px;margin:4px 0}
 .lw-layout .lw-entity-add input{font-size:12px;padding:5px 7px}
 .lw-layout .lw-entity-add button{font-size:12px;padding:5px 9px;margin-bottom:4px}
+.lw-landscape-links{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:5px 0 10px;font-size:11px}.lw-landscape-links #lw-linked-landscapes{display:contents}.lw-landscape-links button{font-size:11px;padding:4px 7px}.lw-landscape-links .lw-muted{font-size:10px}
+.lw-quick-nav{position:sticky;top:62px;z-index:100;display:flex;gap:5px;align-items:center;max-width:1552px;margin:0 auto;padding:7px 20px;background:#204f39;color:#fff;border-bottom:1px solid #153d29;box-shadow:0 2px 5px #163c2920;overflow-x:auto;scrollbar-width:thin}
+.lw-quick-nav[hidden]{display:none}.lw-quick-nav a{flex-shrink:0;color:#f1f6ef;padding:4px 9px;font-size:12px;text-decoration:none;border-radius:4px;white-space:nowrap}.lw-quick-nav a:hover,.lw-quick-nav a[aria-current]{background:#e5efdf;color:#183e2a}.lw-quick-title{font-size:11px;font-weight:650;max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:auto;padding-right:12px}
+#lw-overview,#lw-blocks,#lw-coverage,#lw-landscape-section,.lw-block{scroll-margin-top:125px}
+@media(max-width:760px){.lw-quick-nav{padding:6px 8px;top:56px}.lw-quick-title{display:none}.lw-quick-nav a{font-size:11px;padding:4px 7px}}
+.lw-quick-nav{top:var(--lw-nav-top,62px);z-index:90}#lw-overview,#lw-blocks,#lw-coverage,#lw-landscape-section,.lw-block{scroll-margin-top:var(--lw-jump-offset,125px)}
+.lw-landscape-research{padding:12px 16px}.lw-landscape-research h2{font:700 17px/1.3 system-ui,sans-serif;margin:0 0 5px}.lw-landscape-research h3{font:700 12px/1.3 system-ui,sans-serif;margin:9px 0 4px;color:#204f39}.lw-landscape-research p{font-size:12px;line-height:1.45;margin:5px 0}.lw-landscape-research small{font-size:10px;color:#52695c}.lw-landscape-research summary{font-size:12px;font-weight:600;padding:5px 0}.lw-landscape-research form{font-size:11px}.lw-landscape-research select,.lw-landscape-research button{font-size:11px;padding:5px 7px}
