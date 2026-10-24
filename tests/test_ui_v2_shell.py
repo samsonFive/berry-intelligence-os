@@ -60,7 +60,7 @@ def test_retained_shell_has_shared_navigation_search_and_reader(monkeypatch, tmp
     assert 'aria-label="Primary"' in html
     assert ">News</a>" in html
     assert ">Map Explorer</a>" in html
-    assert ">Learn</a>" in html
+    assert "<strong>Learn</strong></a>" in html
     assert ">Personal Digest</a>" in html
     assert ">Your workspace</h2>" in html
     assert ">Analysis & action</h2>" in html
