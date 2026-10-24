@@ -4,7 +4,7 @@
   panel.className = "learn-context-selection"; panel.hidden = true;
   panel.setAttribute("role", "group"); panel.setAttribute("aria-label", "Selected text learning actions");
   var action = document.createElement("button"); action.type = "button"; action.textContent = "Research & add to Learn";
-  var dismiss = document.createElement("button"); dismiss.type = "button"; dismiss.textContent = "×"; dismiss.setAttribute("aria-label", "Dismiss learning action");
+  var dismiss = document.createElement("button"); dismiss.type = "button"; dismiss.className = "learn-context-close"; dismiss.textContent = "×"; dismiss.setAttribute("aria-label", "Dismiss learning action");
   panel.append(sample, action, dismiss); document.body.append(panel);
   function selection() {
     var choice = window.getSelection(), anchor = choice && choice.anchorNode, element = anchor && (anchor.nodeType === 1 ? anchor : anchor.parentElement);
