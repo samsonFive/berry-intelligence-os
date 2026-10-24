@@ -9,7 +9,7 @@
   function selection() {
     var choice = window.getSelection(), anchor = choice && choice.anchorNode, element = anchor && (anchor.nodeType === 1 ? anchor : anchor.parentElement);
     // Input fields and private editing forms are deliberately excluded.
-    if (!element || !element.closest("#digest-main, #v2ReaderBody") || element.closest("input, textarea, select, form, pre, .learn-provenance")) return "";
+    if (!element || !element.closest("#digest-main, #v2ReaderBody") || element.closest("input, textarea, select, form, pre, .learn-provenance, .lw-capture, .learn-context-selection")) return "";
     return String(choice).trim().slice(0, 2000);
   }
   function rememberOrigin(reader) {
@@ -32,7 +32,10 @@
     location.assign("/learn/research/new?" + query.toString());
   }
   function showSelection() {
-    selected = selection(); panel.hidden = !selected; sample.textContent = selected;
+    selected = selection(); sample.textContent = selected;
+    // Workspace capture owns eligible article selections; keep Learn as its action.
+    if (window.livingCaptureSelection && window.livingCaptureSelection()) {panel.hidden = true; return;}
+    panel.hidden = !selected;
     var choice = window.getSelection(), anchor = choice && choice.anchorNode;
     var element = anchor && (anchor.nodeType === 1 ? anchor : anchor.parentElement);
     var modal = element && element.closest(".offcanvas.show");
