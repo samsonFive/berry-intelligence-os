@@ -33,3 +33,5 @@
 /* Original publisher section titles: compact hierarchy, no generated headings. */
 .article-prose .publisher-heading{font-size:20px;line-height:1.35;font-weight:750;letter-spacing:-.2px;color:#204b31;margin:25px 0 10px;padding-top:12px;border-top:1px solid #bdd0b1;overflow-wrap:anywhere}.article-prose h4.publisher-heading{font-size:18px}.article-prose .publisher-heading+p{margin-top:0}.article-prose>.publisher-heading:first-child{margin-top:0;padding-top:0;border-top:0}
 @media(max-width:950px){.full-personal-reader .personal-reader-toolbar{top:122px}}
+/* Keep the primary research workflow in its requested reading order. */
+.glass-primary{gap:1px}.glass-primary a{font-size:12px;padding:7px 8px}.glass-primary a strong{font-weight:800}

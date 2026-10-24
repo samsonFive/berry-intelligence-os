@@ -416,3 +416,35 @@ required combined citations and one-time roster repair. Browser verification
 confirmed eleven resolved entities, reciprocal research display, successful live
 Perplexity generation with page + Landscape citations and Grid section jumps;
 Cards preference was restored. No merge or production deployment.
+
+## Social Listening references and navigation
+
+Social Listening’s real/imported/manual post rows and Reader expose Save to
+workspace, using the existing destination/recent-workspace picker and retry/undo
+flow. A social placement stores only its observation ID and mode. Post text is
+resolved from Social Listening on read, not copied into workspace storage,
+history, recovery drafts or model packets. Removed, excluded, expired and fixture
+observations cannot be added; previously saved unavailable observations show a
+placeholder. Opening the post returns to its Social Listening reader. Automatic
+AI summaries exclude social post text. Capturing source statements or promoting
+social observations remains a separate existing review decision.
+
+The product is labeled Workspaces and appears directly in the primary navigation:
+News, Personal Digest, Map Explorer, Social Listening, Workspaces, Landscape,
+Companies, bold Learn, then More. Private authoring entries remain absent from
+public static navigation.
+
+Landscape Explorer uses compact headings/filters/tables and distinct evergreen
+structure, blue analysis/source context and amber gaps/disputes, with matching
+dark-mode colors. The generic workspace banner was removed. Only named/saved
+Landscape views expose their specific workspace association. Gene Editing and
+Advanced Breeding is grouped under Saved Explorer views as the built-in research
+view; saved-view scope behavior is unchanged.
+
+Validation: 172 workspace/social/removal/Landscape/reader/auth regressions passed;
+24 workspace tests passed after final reference validation. JS syntax and diff
+checks passed. Browser verified primary navigation order, bold Learn, removal of
+the generic banner, the named-view grouping and light/dark contrast. The isolated
+preview contains no live social posts; social save/retry/removal and non-copying
+were verified using isolated test records, without collecting or inventing live
+observations. No additional model export permission is inferred for social text.

@@ -1,10 +1,10 @@
 {% extends 'glasshouse_base.html' %}
-{% block title %}Living workspaces · Berry Intelligence{% endblock %}
+{% block title %}Workspaces · Berry Intelligence{% endblock %}
 {% block head_extra %}<link rel="stylesheet" href="/static/news_workspace.css?v=2"><link rel="stylesheet" href="/static/living_workspaces.css?v=12">{% endblock %}
 {% block content %}
 <nav id="lw-quick-nav" class="lw-quick-nav" aria-label="Workspace quick navigation" hidden></nav>
 <div class="lw-layout" id="living-workspace" data-page-id="{{ page_id }}">
-  <aside class="lw-sidebar" aria-label="Research pages"><p class="lw-eyebrow">YOUR RESEARCH</p><h1>Living workspaces</h1>
+  <aside class="lw-sidebar" aria-label="Research pages"><p class="lw-eyebrow">YOUR RESEARCH</p><h1>Workspaces</h1>
     <label>Find a page<input id="lw-search" type="search" placeholder="Search pages and notes"></label>
     <button id="lw-new">+ New page</button><button id="lw-nested">+ Nested page</button>
     <nav id="lw-pages" aria-label="Pages"></nav><p class="lw-muted">Organize sources, compare developments and track open questions.</p>
@@ -35,4 +35,4 @@
 </div>
 <dialog id="lw-dialog"><form method="dialog"><button class="lw-dialog-close" aria-label="Close">×</button></form><div id="lw-dialog-content"></div></dialog>
 {% endblock %}
-{% block scripts %}<script src="/static/living_editor.js?v=13"></script>{% endblock %}
+{% block scripts %}<script src="/static/living_editor.js?v=14"></script>{% endblock %}

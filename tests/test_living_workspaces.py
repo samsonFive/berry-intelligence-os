@@ -82,6 +82,34 @@ def test_preview_repairs_original_eleven_company_scope_once(tmp_path):
     assert store.get(page['id'])['landscape_links'] == []
 
 
+def test_social_workspace_reference_preserves_removal_and_avoids_text_copies(client):
+    from pathlib import Path
+    from app import main
+    from app.services.social_intelligence.store import Store as SocialStore, now
+    fixture = json.loads((Path(__file__).resolve().parents[1] / 'benchmarks/social-blueberry-fixtures.json').read_text(encoding='utf-8'))['records'][0]
+    real = deepcopy(fixture)
+    real.update(mode='manual', native_id='workspace-social-test', text='A source-linked social observation for a private unit test.', language='en', translation=None, collected_at=now())
+    social = SocialStore(main.INBOX_DIR)
+    key = social.ingest([real], main.all_entities())[0]
+    sample = social.ingest([fixture], main.all_entities())[0]
+    page = client.post('/api/workspaces', json={'title': 'Social notes', 'token': token()}).json()
+    payload = {'article_id': key, 'kind': 'social', 'quote': '', 'page_id': page['id'], 'token': token()}
+    assert client.post('/api/workspaces/social', json=payload, headers={'Origin': 'https://hostile.example'}).status_code == 403
+    saved = client.post('/api/workspaces/social', json=payload)
+    assert saved.status_code == 200, saved.text
+    assert client.post('/api/workspaces/social', json=payload).json() == saved.json()
+    loaded = client.get('/api/workspaces/page/' + page['id']).json()
+    assert loaded['social'][0]['text'] == real['text']
+    assert real['text'] not in json.dumps(loaded['page'])
+    assert client.get('/api/workspaces/history/' + page['id']).text.find(real['text']) == -1
+    assert client.post('/api/workspaces/social', json={**payload, 'article_id': sample, 'token': token()}).status_code == 422
+    assert client.post('/api/workspaces/social', json={**payload, 'quote': real['text'], 'token': token()}).status_code == 422
+    assert 'data-social-workspace-save' in client.get('/api/social/' + key + '/reader').text
+    social.remove(key)
+    assert client.get('/api/workspaces/page/' + page['id']).json()['social'] == []
+    assert client.post('/api/workspaces/social', json={**payload, 'token': token()}).status_code == 422
+
+
 @pytest.fixture
 def store(tmp_path):
     return Store(tmp_path / "inbox")

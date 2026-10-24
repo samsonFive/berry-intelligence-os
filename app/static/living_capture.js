@@ -7,11 +7,13 @@
     const data = await response.json(); if(!response.ok)throw Error(typeof data.detail==='string'?data.detail:'The workspace could not save this request.');return data;
   }
   window.livingAPI=api;
+  document.addEventListener('click',event=>{const button=event.target.closest('[data-social-workspace-save]');if(!button)return;event.preventDefault();if(unsaved){say('Save or discard your current input first.');return;}panelHost=button.closest('.offcanvas.show')||document.body;panelHost.append(panel);snapshot={article_id:button.dataset.socialWorkspaceSave,kind:'social',quote:'',page_id:localStorage.getItem('bios:living:recent')||undefined};pending=null;result=null;form?.remove();form=null;actions.replaceChildren();panel.hidden=false;say('Add a source-linked social observation. Post text stays in Social Listening and is excluded from automatic AI summaries.');buttonActionSocial();});
+  function buttonActionSocial(){button('Save post to workspace',()=>save('social'));button('Choose destination',destination);button('Close',close);showRecentDestinations();}
   const el=(tag,text)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;return e;},token=()=>crypto.randomUUID();
   const panel=el('section');panel.className='lw-capture';panel.hidden=true;panel.setAttribute('aria-label','Save selected material');
   const actions=el('div'), status=el('div');status.className='lw-capture-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');panel.append(actions,status);document.body.append(panel);
   let snapshot=null,pending=null,result=null,form=null,unsaved=false,inventory=null,panelHost=document.body,saving=false,varietyBusy=false;
-  const shortcutKeys={'Research & Learn':'a','Quick save':'q','Capture fact':'f','Link relationship':'k','Add note':'n','Choose destination':'d','Open workspace':'o','Close':'escape','Change destination':'d','Undo placement':'u','Retry save':'t','Return to editor':'e','Save / embed article':'q','Variety workspace':'v'};
+  const shortcutKeys={'Research & Learn':'a','Quick save':'q','Capture fact':'f','Link relationship':'k','Add note':'n','Choose destination':'d','Open workspace':'o','Close':'escape','Change destination':'d','Undo placement':'u','Retry save':'t','Return to editor':'e','Save / embed article':'q','Save post to workspace':'q','Variety workspace':'v'};
   window.livingRememberPage=id=>{try{let ids=JSON.parse(localStorage.getItem('bios:living:recent-pages')||'[]');if(!Array.isArray(ids))ids=[];localStorage.setItem('bios:living:recent-pages',JSON.stringify([id,...ids.filter(value=>value!==id)].slice(0,8)));localStorage.setItem('bios:living:recent',id);}catch(_){}};
   function say(text){status.textContent=text;}
   function setShortcut(b,key){b.querySelector('kbd')?.remove();b.dataset.lwKey=key;b.setAttribute('aria-keyshortcuts',key==='escape'?'Escape':key.toUpperCase());b.append(el('kbd',key==='escape'?'Esc':key.toUpperCase()));}
@@ -30,9 +32,10 @@
     if(!form){pending=null;result=null;showActions();}
   }
   function showActions(){panel.hidden=false;actions.replaceChildren();const learn=document.querySelector('.learn-context-selection');if(learn)learn.hidden=true;say(snapshot?.quote?'Selected text preserved · '+snapshot.quote.length+' characters':'Save readable article to a research page');
+    if(snapshot.kind==='social'){say('Add a source-linked social observation to a workspace.');buttonActionSocial();return;}
     const berries=el('div');berries.className='lw-berry-destinations';berries.append(el('span','Save to berry workspace'));
-    [['Blueberry','b'],['Blackberry','l'],['Raspberry','r'],['Strawberry','s']].forEach(([name,key])=>{const b=button(name,()=>{snapshot.page_id='wp-berry-'+name.toLowerCase();pending=null;return save(snapshot.kind==='article'?'article':'evidence');},berries);setShortcut(b,key);});actions.append(berries);
-    button('Research & Learn',()=>document.querySelector('.learn-context-selection button')?.click());button('Quick save',()=>save(snapshot.kind==='article'?'article':'evidence'));button('Capture fact',()=>editor('statement'));button('Link relationship',()=>editor('relationship'));button('Add note',()=>editor('note'));button('Variety workspace',saveVariety);button('Choose destination',destination);button('Open workspace',async()=>{if(!result)await save(snapshot.kind==='article'?'article':'evidence');if(result)location.assign('/workspaces/'+result.page.id);});button('Close',close);
+    [['Blueberry','b'],['Blackberry','l'],['Raspberry','r'],['Strawberry','s']].forEach(([name,key])=>{const b=button(name,()=>{snapshot.page_id='wp-berry-'+name.toLowerCase();pending=null;return save(snapshot.kind==='social'?'social':snapshot.kind==='article'?'article':'evidence');},berries);setShortcut(b,key);});actions.append(berries);
+    button('Research & Learn',()=>document.querySelector('.learn-context-selection button')?.click());button('Quick save',()=>save(snapshot.kind==='social'?'social':snapshot.kind==='article'?'article':'evidence'));button('Capture fact',()=>editor('statement'));button('Link relationship',()=>editor('relationship'));button('Add note',()=>editor('note'));button('Variety workspace',saveVariety);button('Choose destination',destination);button('Open workspace',async()=>{if(!result)await save(snapshot.kind==='social'?'social':snapshot.kind==='article'?'article':'evidence');if(result)location.assign('/workspaces/'+result.page.id);});button('Close',close);
     showRecentDestinations();
   }
   async function showRecentDestinations(){
@@ -42,7 +45,7 @@
       const last=localStorage.getItem('bios:living:recent');const ids=[...new Set([last,...recent,...data.pages.slice().sort((a,b)=>(b.updated_at||'').localeCompare(a.updated_at||'')).map(p=>p.id)].filter(Boolean))];
       const pages=ids.map(id=>data.pages.find(p=>p.id===id)).filter(Boolean).slice(0,3);if(!pages.length)return;
       anchor.append(el('span','Recent workspaces'));
-      pages.forEach((page,index)=>{const b=button(page.title,()=>{snapshot.page_id=page.id;pending=null;return save(snapshot.kind==='article'?'article':'evidence');},anchor);setShortcut(b,String(index+1));b.title='Save selection to '+page.title;});
+      pages.forEach((page,index)=>{const b=button(page.title,()=>{snapshot.page_id=page.id;pending=null;return save(snapshot.kind==='social'?'social':snapshot.kind==='article'?'article':'evidence');},anchor);setShortcut(b,String(index+1));b.title='Save selection to '+page.title;});
     }catch(_){anchor.remove();}
   }
   const varietyCreateToken=token();
@@ -50,7 +53,7 @@
     if(varietyBusy||saving||form)return;varietyBusy=true;
     try{const data=await getInventory();let page=data.pages.find(p=>p.title.trim().toLowerCase()==='variety workspace');
       if(!page)page=await api('/api/workspaces','POST',{title:'Variety workspace',parent_id:null,starter:false,token:varietyCreateToken});
-      snapshot.page_id=page.id;pending=null;await save(snapshot.kind==='article'?'article':'evidence');
+      snapshot.page_id=page.id;pending=null;await save(snapshot.kind==='social'?'social':snapshot.kind==='article'?'article':'evidence');
     }finally{varietyBusy=false;}
   }
   function close(){if(unsaved){say('Unsaved input is preserved. Save it or use Discard input to close.');return;}panel.hidden=true;form?.remove();form=null;window.getSelection()?.removeAllRanges();}
@@ -61,9 +64,9 @@
     if(saving)return;saving=true;
     if(!pending)pending={...structuredClone(snapshot),kind,token:token(),...extra};
     say('Saving…');
-    try{result=await api('/api/workspaces/capture','POST',pending);unsaved=false;form?.remove();form=null;window.livingRememberPage(result.page.id);actions.replaceChildren();
+    try{result=await api(kind==='social'?'/api/workspaces/social':'/api/workspaces/capture','POST',pending);unsaved=false;form?.remove();form=null;window.livingRememberPage(result.page.id);actions.replaceChildren();
       say('Saved to '+result.page.title+' · unverified');button('Open workspace',()=>location.assign('/workspaces/'+result.page.id));button('Change destination',destination);button('Undo placement',undo);button('Close',close);document.dispatchEvent(new CustomEvent('bios:workspace-captured',{detail:result}));
-    }catch(e){say('Save failed · '+e.message);actions.replaceChildren();button('Retry save',()=>save(kind,extra));button('Return to editor',()=>{pending=null;if(form){say('Adjust your preserved input, then save the capture.');form.querySelector('textarea,input')?.focus();}else editor(kind);});button('Close',close);throw e;}finally{saving=false;}
+    }catch(e){say('Save failed · '+e.message);actions.replaceChildren();button('Retry save',()=>save(kind,extra));button('Return to editor',()=>{pending=null;if(kind==='social'){showActions();return;}if(form){say('Adjust your preserved input, then save the capture.');form.querySelector('textarea,input')?.focus();}else editor(kind);});button('Close',close);throw e;}finally{saving=false;}
   }
   async function undo(){if(!result)return;const current=(await api('/api/workspaces/page/'+result.page.id)).page;current.blocks=current.blocks.filter(b=>b.id!==result.block_id);const updated=await api('/api/workspaces/page/'+current.id,'PUT',current);say('Placement removed. Shared knowledge and source history remain available.');result=null;pending=null;showActions();say('Placement removed. Shared knowledge and source history remain available.');document.dispatchEvent(new CustomEvent('bios:workspace-captured',{detail:{page:updated}}));}
   async function destination(){

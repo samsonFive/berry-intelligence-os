@@ -35,10 +35,49 @@ async def link_from_landscape(request: Request):
     return RedirectResponse(option["href"], status_code=303)
 
 
+def social_observations(main):
+    from app.services.social_intelligence.store import Store
+    from datetime import datetime, timedelta, timezone
+    return {row['id']: row for row in Store(main.INBOX_DIR).records() if row['mode'] != 'fixture' and not row.get('output_excluded')
+            and datetime.fromisoformat(row['collected_at'].replace('Z', '+00:00')) + timedelta(days=row['retention_days']) >= datetime.now(timezone.utc)}
+
+
+@router.post('/api/workspaces/social')
+async def add_social_reference(request: Request):
+    main, store, actor = context(request, True)
+    payload = await body(request)
+    key = payload.get('article_id')
+    if set(payload) - {'article_id', 'kind', 'quote', 'page_id', 'token'} or payload.get('quote') or payload.get('kind') != 'social':
+        raise HTTPException(422, 'Save a social reference without copying post text')
+    if not isinstance(key, str) or not isinstance(payload.get('page_id') or 'wp-inbox', str):
+        raise HTTPException(422, 'Choose a social observation and workspace')
+    observation = social_observations(main).get(key)
+    if not observation:
+        raise HTTPException(422, 'Social observation is unavailable or is sample data')
+    def create():
+        with store.transaction() as db:
+            replay = store.replay(db, payload.get('token'), payload)
+            if replay:
+                return replay
+            page_id = payload.get('page_id') or 'wp-inbox'
+            page = store.get(page_id, db)
+            if not page and page_id == 'wp-inbox':
+                page = store.put(db, 'page', {'id': page_id, 'title': 'Capture inbox', 'blocks': [], 'feed': {'mode': 'any', 'paused': True}, 'dismissed': [], 'parent_id': None}, actor)
+            if not page or not page_id.startswith('wp-') or len(page['blocks']) >= 600:
+                raise ValueError('Choose an available workspace with room for another item')
+            block = living.Store.block('social', social_id=key, social_mode=observation['mode'])
+            page['blocks'].append(block)
+            page = store.put(db, 'page', page, actor, page['version'])
+            result = {'page': page, 'block_id': block['id'], 'social_reference': key}
+            store.remember(db, payload.get('token'), payload, result)
+            return result
+    return checked(create)
+
+
 def context(request, mutate=False):
     from app import main
     if not main.AUTHORING_MODE:
-        raise HTTPException(403, "Living workspaces are private analyst material")
+        raise HTTPException(403, "Workspaces are private analyst material")
     if mutate:
         require_edit(request)
     store = living.Store(main.INBOX_DIR)
@@ -158,7 +197,9 @@ def get_page(request: Request, page_id: str):
     except (ValueError, HTTPException) as exc:
         landscapes, landscape_error = [], str(getattr(exc, "detail", exc))
     updated = max([page.get("content_updated_at", page.get("updated_at", ""))] + [i.get("updated_at", "") for i in items])
-    return {"page": page, "items": items, "sources": [s for s in store.rows("source") if s["id"] in source_keys], "landscapes": [{k: v for k, v in row.items() if k != "data"} for row in landscapes], "landscape_error": landscape_error, "page_material_updated_at": updated, "overview_stale": bool(overview and (landscape_error or overview.get("basis") != living.overview_basis(page, {i["id"]: i for i in items}, landscapes)))}
+    social_ids = {b.get('social_id') for b in page['blocks'] if b['type'] == 'social'}
+    social = [{k: row.get(k) for k in ('id', 'text', 'source', 'published_at', 'collected_at', 'mode', 'translation')} for row in social_observations(main).values() if row['id'] in social_ids] if social_ids else []
+    return {"page": page, "items": items, "social": social, "sources": [s for s in store.rows("source") if s["id"] in source_keys], "landscapes": [{k: v for k, v in row.items() if k != "data"} for row in landscapes], "landscape_error": landscape_error, "page_material_updated_at": updated, "overview_stale": bool(overview and (landscape_error or overview.get("basis") != living.overview_basis(page, {i["id"]: i for i in items}, landscapes)))}
 
 
 @router.put("/api/workspaces/page/{page_id}")

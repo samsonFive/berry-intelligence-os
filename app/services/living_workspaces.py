@@ -11,11 +11,12 @@ from datetime import UTC, datetime
 from hashlib import sha256
 import json
 import os
+import re
 from pathlib import Path
 import sqlite3
 from uuid import uuid4
 
-TYPES = {"heading", "paragraph", "bullet", "numbered", "checklist", "callout", "evidence", "statement", "note", "hypothesis", "article", "table", "entity", "page", "feed", "map", "briefing"}
+TYPES = {"heading", "paragraph", "bullet", "numbered", "checklist", "callout", "evidence", "statement", "note", "hypothesis", "article", "table", "entity", "page", "feed", "map", "briefing", "social"}
 FEED_FIELDS = {"entity_ids", "berry_ids", "technology_ids", "topic_ids", "geography_ids", "source_ids", "languages", "keywords"}
 
 
@@ -181,6 +182,8 @@ class Store:
                 if not isinstance(block, dict) or block.get("type") not in TYPES or not isinstance(block.get("id"), str) or block["id"] in ids:
                     raise ValueError("Invalid or duplicate block")
                 ids.add(block["id"])
+                if block['type'] == 'social' and (not isinstance(block.get('social_id'), str) or not re.fullmatch(r'ev-social-[a-f0-9]{24}', block['social_id'])):
+                    raise ValueError('Choose an existing social observation reference')
                 if block["type"] in {"note", "hypothesis"} and (not block.get("item_id") or block.get("authored")) and str(block.get("text") or "").strip():
                     source = self.snapshot({"id": "analyst-" + block["id"], "title": "Analyst-authored " + block["type"], "source_name": actor}, str(block["text"]), "analyst_authored")
                     key = "ev-workspace-" + digest([block["id"], source["id"]])[:32]
