@@ -8,7 +8,7 @@ from urllib.parse import quote
 
 from app.services.berries.variety import variety_patent_link
 from app.services.variety_navigation import ROLE_LABELS, company_actors
-from app.services.variety_photos import gallery, source_photos
+from app.services.variety_photos import catalog_source_photos, gallery
 from app.services.variety_portfolio_coverage import reconcile_portfolios
 from app.services.variety_universe.coverage import BERRY_LABELS, RIGHTS_SOURCE_TYPES
 
@@ -76,6 +76,7 @@ def profile_field_coverage(*, varieties, entities, relationships, published_evid
             if name.get('catalog_id') and not name.get('identity_notes'):
                 source_by_variety[name['catalog_id']].append(source)
 
+    photos_by_variety = catalog_source_photos(sources=portfolio_sources, varieties=varieties)
     rows = []
     for variety in varieties:
         vid = variety['id']
@@ -83,7 +84,7 @@ def profile_field_coverage(*, varieties, entities, relationships, published_evid
         traits = [t for t in attrs.get('traits') or [] if isinstance(t, dict)
                   and t.get('trait') and t.get('value') not in (None, '')]
         cited = sum(1 for t in traits if any(eid in published for eid in t.get('evidence_ids') or []))
-        photos = gallery(variety, sourced=source_photos(variety, sources=portfolio_sources, varieties=varieties),
+        photos = gallery(variety, sourced=photos_by_variety.get(vid, ()),
                          profile=profiles.get(vid), authoring=True)
         patent = variety_patent_link(variety, patents)
         # A number without a linked record is not a usable reference. Neither

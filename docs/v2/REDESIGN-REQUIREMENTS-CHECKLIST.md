@@ -1,5 +1,37 @@
 # Redesign and consolidation requirements
 
+## Current continuation — October 27, 2026
+
+Live canonical `94a3b99b` includes shared Workspaces and the earlier platform,
+Landscape, News/access and performance releases. Only layout settings and
+Personal Digest are account-private; tested Digest isolation remains draft #412.
+Draft #410's original current-base profile/Reader implementation passes all four
+checks, desktop/412-pixel interaction and isolated preservation. Its coverage-page
+photo-lookup extension passes 76 affected tests and preserves identical full
+HTML while reducing repeated responses from 3.93 to 2.81–3.01 seconds. Fresh
+committed-head filter/browser checks and CI remain. Catalog #399/#400 remains a separate reviewed draft
+(5,222 tests), awaiting release approval. No production change is implied.
+
+All 31 original requirement IDs, descriptions and order are retained. Historical
+counts below describe their dated source populations, not the current whole
+database. CAT-01/CAT-02, human source/name/identity decisions, 32 unclear cells,
+current/historical portfolio and profile depth, statistics/Learn media coverage
+and broader performance remain open. The independent 52-source worksheet has
+not been completed by engineering tests.
+
+## Historical continuation — October 23, 2026
+
+Live canonical `97f9ac3d` includes released platform redesign, four-crop Landscape,
+guide, News/access, automatic News, Gene Editing, approved #407 and #409.
+The [on-demand profile performance draft](VARIETY-PROFILE-DEMAND-LOADING.md) has
+109 passing affected tests and isolated real-data parity/timing proof. Browser
+interaction/phone review, current-head full CI and final release approval remain.
+No catalog enrichment is deployed; #399/#400 retains its separate release review.
+All 31 accepted requirement IDs/descriptions/order below remain unchanged.
+CAT-01/CAT-02, independent human answers, 32 unclear photo cells, complete
+current/historical portfolios, rights/photos, profile/statistics coverage and
+broader TD-122 work remain open. Earlier status notes are historical.
+
 This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.
@@ -192,7 +224,7 @@ table and implementation sequence below are preserved.
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | Live/public visual guide has twelve purpose cards, four analyst workflow steps, worked example, six output explanations and distinct review lifecycle. The current guide includes Social Listening, four-crop Landscape, saved selections and complete PDF/HTML/SVG/CSV reporting; public/live boundaries remain distinct. Eighteen existing guide/static regressions pass. The [variety workflow explainer](VARIETY-WORKFLOW-EXPLAINER-REVIEW.md) adds four steps from source name through identity review and separate catalog authoring to a sourced profile, with existing private handoffs. M38 proof remains dated evidence. Prior October 12 review of eleven cards is dated evidence. Updated twelve-card desktop review and 412px emulation verify the refreshed guide; six outputs now use balanced three/two/one-column layouts. Responsive emulation is distinguished from a physical-phone test. | Visual guide delivered, including current capability limits; final exact-head release and current phone gates apply. |
-| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Platform redesign and News/access releases are live; October 21 production receipt identifies canonical 219c739a. The existing account, provider configuration, runtime mounts and rollback receipts are preserved. The protected mobile worksheet is a separate read-only service. | Performance #405 requires fresh checks and release verification on the reconciled head. Catalog #399/#400 and CAT-01/CAT-02 remain open; deployment approval does not approve source/name/identity/catalog/qualification/photo decisions. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Platform redesign, News/access, four-crop Landscape and shared Workspaces are live at canonical `94a3b99b`; existing accounts, provider configuration and persistent runtime remain. Current unreleased drafts have separate current-head evidence. | Final release approval and canonical/current-head CI, backup, preservation and rollback gates apply to #410/#412 and catalog #399/#400. Human source/identity/catalog/rights/photo decisions remain separate. |
 
 ## Historical implementation sequence
 
