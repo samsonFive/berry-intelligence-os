@@ -1,5 +1,14 @@
 # Technical Debt Register
 
+October 28 — TD-116 [three additional profile images](REMAINING-PROFILE-IMAGE-REVIEW.md):
+Eureka, Opi and Eterna gain exact-subject held references, with original claims
+and the comparison-only correction retained. Public64-profile image gaps15→12;
+rights/traits/company gaps13/33/10 stay open. No schema or crop-specific fix is
+needed. Baridi132/137, RedSayra403, independent recall/human decisions, current/
+historical coverage and the remaining sourced profile fields remain unresolved.
+Source release preparation/current65-profile preservation are separate gates;
+platform421's actual approval is pending. No deployment occurred.
+
 October 28 — TD-116 [full-size figure follow-up](FULL-IMAGE-PREVIEW-REVIEW.md):
 four earlier thumbnail references now have guarded larger previews without
 changing source-photo IDs or orphaning user edits/hides/history. Newer captures
