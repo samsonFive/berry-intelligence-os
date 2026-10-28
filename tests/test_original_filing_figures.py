@@ -40,6 +40,9 @@ def test_later_comparisons_and_inconsistent_labels_survive_without_becoming_alia
     assert {'NS 15-5','NS 15-22','NS 16-15','Ivanhoe','Darrow','Patriot','Heerma',
         'Bluetta','Concord','Burlington',"O'Neal",'EB 9-42','EB 8-42','BB-2','BB 2'}<=observed
     for source in sources:
+        if source['source_type']=='plant_patent':
+            # Candidate disclosures use product_url for their Original claim link.
+            assert source['names'][0]['product_url']==source['capture_reference']['claim_url']
         if source['source_type']=='patent_context_names':
             assert not source['company_ids']
             assert all(not n.get('grant_number')and not n.get('application_number')
