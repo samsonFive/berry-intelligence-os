@@ -67,6 +67,24 @@ SPECS={
   'A Simplot presentation hosted by SCRA describes S4A as CRISPR/Cas9 edited and uses the confidential target label Gn1. Its composition and environmental statements remain company assessments; the presentation is not an agency decision or proof of a specific retail SKU.',
   'Remontant Strawberry S4A'),
 }
+ORIGINAL_TITLES={
+ 'fda-meetings':'Premarket Meetings Regarding Food from Genome Edited Plants',
+ 'fda-simplot':'Strawberry (Fragaria x ananassa)',
+ 'fda-pairwise':'Blackberry (Rubus subgenus Rubus)',
+ 'canada-s4a':'List of non-novel products of plant breeding for food use',
+ 'uk-confirmation':'Confirmation of precision bred status reference PBM/26/FRAN/008',
+ 'mara-soybean':'2023 年农业基因编辑生物安全证书（生产应用）批准清单',
+ 'psg-history':'Our Vision / Our Story',
+ 'psg-research':'Cultivar Development / Research and Consulting / Technology Partners',
+ 'heritable-products':'Meet Heritable Your Partner for AI-Powered Agriculture',
+ 'planasa-rd':'R&D',
+ 'uf-ohalo-report':'Developing Molecular Breeding Tools and Resources for Neopestalotiopsis Resistance',
+ 'fall-creek-affiliation':'Whitening fruit by CRISPR/Cas9-mediated homoeolog-specific gene editing of MYB10-1B in strawberry (F. × ananassa)',
+ 'shunfeng-recruitment':'山东舜丰生物科技有限公司招聘简章',
+ 'hrb-financing':'Hudson River raises new financing for novel breeding techniques',
+ 'planasa-owner':'EW GROUP Subsidiary PLANASA Acquires Sweet Corn Breeder Illinois Foundation Seeds',
+ 'simplot-case-study':'Simplot Genome Edited Strawberry S4A',
+}
 
 
 def save(path,value):
@@ -94,7 +112,7 @@ def main():
             raise ValueError('Reinspect source anchor: '+key)
         # Quotes are short, exact anchors; the synopsis above is a paraphrase.
         row=copy.deepcopy(snapshot['evidence'][0])
-        row.update(id='ev-gene-closeout-'+key,title=title,original_title=title,source_name=publisher,source_url=url,
+        row.update(id='ev-gene-closeout-'+key,title=title,original_title=ORIGINAL_TITLES[key],source_name=publisher,source_url=url,
                    published_date=date,captured_date='2026-10-28',summary=summary,supporting_excerpt=anchor,
                    original_text_excerpt=anchor,entity_ids=[ids[c] for c in companies],berry_ids=['berry-'+b for b in berries],
                    geography_ids=[],source_language='zh' if key in {'mara-soybean','shunfeng-recruitment'} else 'en',
