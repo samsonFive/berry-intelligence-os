@@ -47,3 +47,18 @@ not nineteen new cultivars. The 77-subject plan, independent human worksheet,
 canonical catalog and all 31 accepted requirements remain. Full current and
 historical portfolio coverage, original-source access, current rights, reviewed
 identities and catalog authoring remain open under CAT-01/CAT-02 and TD-116.
+
+## Color photos on existing named profiles
+
+The [Malaika](https://www.abbreeding.nl/variety/malaika/) and
+[Zawadi](https://www.abbreeding.nl/variety/zawadi/) product pages also supplied two
+300px color fruit references. Each HTML image has the focal variety's name in
+its `title` attribute; its empty `alt` attribute is not misreported as evidence.
+Both fruit images were visually inspected. Exact source labels allow these
+references onto the existing named profiles without approving patent-code
+aliases. Attribution and unknown reuse remain visible, pixels stay hidden by
+default and the existing session-only preview remains an explicit user action.
+
+Together the two additive imports provide eleven source sections, twenty-one
+name occurrences and six held image references: four under patent denominations
+and two under existing marketed names. No additional canonical variety is created.

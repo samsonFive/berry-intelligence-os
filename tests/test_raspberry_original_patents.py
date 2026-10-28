@@ -100,3 +100,23 @@ def test_existing_rejection_survives_the_new_original_reference():
     assert retained['identity_state'] == 'rejected' and retained['review_notes'] == before['review_notes']
     assert retained['knowledge'] == before['knowledge']
     assert any(s['closed'] for s in rows)
+
+
+def test_exact_named_breeder_photos_fill_profile_references_without_publishing_images():
+    sources = [s for s in load_portfolio_observations(ROOT / 'data')
+               if s['id'].startswith('portfolio-raspberry-product-photo-')]
+    assert len(sources) == 2
+    for source in sources:
+        name = source['names'][0]['candidate_name']
+        variety = json.loads((ROOT / 'data/entities/varieties' / ('variety-' + name.lower() + '.json')).read_text())
+        photos = source_photos(variety, sources=sources, varieties=[variety])
+        assert len(photos) == 1 and photos[0]['named_variety'] == name
+        assert photos[0]['source_url'] == source['url']
+        assert source['capture_reference']['image_source_label_attribute'] == 'title'
+        assert source['capture_reference']['image_width'] == source['capture_reference']['image_height'] == 300
+        assert source['capture_reference']['original_image_visual_reviewed']
+        assert photos[0]['reuse'] == 'unknown'
+        assert not any(p['display_image'] for p in gallery(variety, sourced=photos, authoring=True))
+        assert gallery(variety, sourced=photos, authoring=False) == []
+        assert variety['aliases'] == []
+        assert not any(source['names'][0].get(k) for k in ('grant_number', 'application_number'))

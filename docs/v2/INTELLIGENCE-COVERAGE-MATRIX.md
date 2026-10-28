@@ -19,6 +19,9 @@ three issuer commercial-name/code observations. All nine sections remain
 unreviewed. Allberry/ABB legal identity, Baridi's conflicting code, current rights
 and image reuse remain unresolved. These metadata additions do not constitute
 new approved cultivars, organizations, roles or regions, or independent recall.
+Two additional breeder-labeled color fruit references fill missing photo-source
+fields for Malaika and Zawadi. Their image pixels remain hidden by default with
+unknown reuse. Neither changes a canonical identity or transfers a patent.
 
 October 23, 2026: [Publisher-first coverage and reader recovery](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 adds verified Watershed blog metadata and bounded Packer section discovery,
