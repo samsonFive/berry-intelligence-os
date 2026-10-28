@@ -1,0 +1,38 @@
+{
+  "id": "program-gene-shunfeng-25t93",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Long-juvenile soybean 25T93-1",
+  "status": "unverified",
+  "description": "Research identity; source audit is separate from publication and claim approval.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-closeout-mara-soybean"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-shunfeng-25t93",
+      "name": "Long-juvenile soybean 25T93-1",
+      "company_ids": [
+        "company-shandong-shunfeng-biotechnology"
+      ],
+      "technology": "GmELF3a genome editing",
+      "crop": "Soybean",
+      "trait": "Altered developmental timing",
+      "role": "editing platform",
+      "partner": null,
+      "geography": null,
+      "stage": "Chinese production/application safety certificate",
+      "milestone_date": "2024-01-02",
+      "milestone": "MARA certificate 350 names Shandong Shunfeng; nationwide validity through January 1, 2029.",
+      "evidence_ids": [
+        "ev-gene-closeout-mara-soybean"
+      ],
+      "berry_ids": [],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "research_reviewed_at": "2026-10-28",
+      "gaps": "Not a berry program, actual sale or a certificate for every Shunfeng product."
+    }
+  }
+}

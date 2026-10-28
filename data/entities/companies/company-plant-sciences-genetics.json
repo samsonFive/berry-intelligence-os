@@ -39,6 +39,27 @@
       "row_number": 24,
       "spreadsheet_label": "Plant Sciences",
       "snapshot_ref": "data/imports/competitor-registry-2026-09-15/snapshot.json"
+    },
+    "gene_editing_identity_closeout": {
+      "reviewed_at": "2026-10-28",
+      "kind": "source_scope_audit_not_trust_decision",
+      "scope": "Historical PSI / current PSG monitoring lineage; not one merged legal person",
+      "legal_counterparties": [
+        "Plant Sciences, Inc.",
+        "Plant Sciences Genetics, Inc."
+      ],
+      "sources": [
+        "https://www.newswire.com/news/plant-sciences-inc-unveils-restructuring-broadening-north-american-22096147",
+        "https://www.plantsciencesgenetics.com/about-us",
+        "https://www.plantsciencesgenetics.com/research"
+      ],
+      "unasserted": [
+        "ownership percentages",
+        "control",
+        "executed agreement novation"
+      ],
+      "brand_history": "PSG describes 2024 consolidation; issuer announcement was August 2023",
+      "simplot_investment": "reported by PSG; not a parent/control determination"
     }
   }
 }

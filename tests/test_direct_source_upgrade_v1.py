@@ -84,7 +84,8 @@ def test_coverage_mix_and_source_counts_are_selective_not_broad_expansion() -> N
     # still retires only the duplicate FreshPlaza source.
     # Requested sustainability coverage adds two RSS, one sitemap and one search Source.
     # Gene-editing mission adds 45 manual references and 11 company monitors.
-    assert len(sources) == 265
+    # October 28 closeout adds 13 deduplicated manual references; no new feeds.
+    assert len(sources) == 278
     assert len(discoverable) == 96
     assert len(eligible) == 92  # Growing Produce remains paused; TD-108 retires the duplicate FreshPlaza Source.
     assert len(direct_rss) == 38

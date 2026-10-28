@@ -9,7 +9,8 @@
     "berry-strawberry"
   ],
   "evidence_ids": [
-    "ev-gene-simplot-alliance"
+    "ev-gene-simplot-alliance",
+    "ev-gene-closeout-psg-research"
   ],
   "attributes": {
     "gene_editing": {
@@ -29,14 +30,16 @@
       "milestone_date": "2021-10-28",
       "milestone": "Technology and germplasm alliance announced; launch expectation remains historical.",
       "evidence_ids": [
-        "ev-gene-simplot-alliance"
+        "ev-gene-simplot-alliance",
+        "ev-gene-closeout-psg-research"
       ],
       "berry_ids": [
         "berry-strawberry"
       ],
       "verification": "single_source / awaiting analyst review",
       "last_reviewed": null,
-      "gaps": "No named alliance product, completed launch or current commercial terms verified."
+      "gaps": "Current PSG partner account supports ongoing strawberry editing collaboration; exact contracting novation and S4A cultivar ancestry remain undisclosed.",
+      "research_reviewed_at": "2026-10-28"
     }
   }
 }

@@ -1,5 +1,14 @@
 # Project Status
 
+**October 28: Gene Editing public-source closeout.** All eleven seeds now have
+an original-source audit and explicit claim boundaries: 28 program/platform/
+affiliation rows, 46 source candidates, FDA/Canada/Defra/MARA record recovery,
+current PSG partner confirmation and Heritable edit-design claims. The source
+review packet preserves human publication/Atomic Evidence gates. The original
+feature is deployed from merged PR #406 (5,115 CI tests passed); this follow-up
+requires its own checked head and runtime receipt. See
+`docs/v2/GENE-EDITING-LANDSCAPE.md` for current counts and retained unknowns.
+
 **October 12–13: Landscape PDFs and actual browser exports.** Draft #396 now
 offers server-rendered PDF snapshots with cited takeaways, market/comparison
 tables and the complete evidence appendix. Scope, crop identity, three dates,

@@ -1,0 +1,42 @@
+{
+  "id": "program-gene-fall-creek-paper-affiliation",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Strawberry MYB10-1B paper: Fall Creek author affiliation",
+  "status": "unverified",
+  "description": "Research identity; source audit is separate from publication and claim approval.",
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [
+    "ev-gene-closeout-fall-creek-affiliation"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-fall-creek-paper-affiliation",
+      "name": "Strawberry MYB10-1B paper: Fall Creek author affiliation",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "technology": "CRISPR/Cas9 in published strawberry research",
+      "crop": "Strawberry",
+      "trait": "Fruit coloration (paper); company program not established",
+      "role": "research affiliation only",
+      "partner": null,
+      "geography": null,
+      "stage": "Published research affiliation; corporate program unestablished",
+      "milestone_date": "2025-10-15",
+      "milestone": "PubMed records a Fall Creek affiliation in the strawberry paper.",
+      "evidence_ids": [
+        "ev-gene-closeout-fall-creek-affiliation"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "research_reviewed_at": "2026-10-28",
+      "gaps": "Author affiliation does not establish corporate sponsorship, ownership, a blueberry program or commercial edited fruit. Full publisher text was not recovered in this pass."
+    }
+  }
+}

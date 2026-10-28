@@ -10,7 +10,8 @@
     "berry-raspberry"
   ],
   "evidence_ids": [
-    "ev-gene-pairwise-psi"
+    "ev-gene-pairwise-psi",
+    "ev-gene-closeout-psg-research"
   ],
   "attributes": {
     "gene_editing": {
@@ -30,7 +31,8 @@
       "milestone_date": "2020-04-15",
       "milestone": "Editing plus germplasm and nursery collaboration announced.",
       "evidence_ids": [
-        "ev-gene-pairwise-psi"
+        "ev-gene-pairwise-psi",
+        "ev-gene-closeout-psg-research"
       ],
       "berry_ids": [
         "berry-blackberry",
@@ -38,7 +40,8 @@
       ],
       "verification": "single_source / awaiting analyst review",
       "last_reviewed": null,
-      "gaps": "Historical launch expectation is not a named commercial raspberry launch."
+      "gaps": "Current PSG partner account supports caneberry collaboration; named commercial raspberry varieties and line-level IP allocation not disclosed.",
+      "research_reviewed_at": "2026-10-28"
     }
   }
 }

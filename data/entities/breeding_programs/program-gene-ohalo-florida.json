@@ -9,7 +9,8 @@
     "berry-strawberry"
   ],
   "evidence_ids": [
-    "ev-gene-ohalo-florida"
+    "ev-gene-ohalo-florida",
+    "ev-gene-closeout-uf-ohalo-report"
   ],
   "attributes": {
     "gene_editing": {
@@ -18,24 +19,26 @@
       "company_ids": [
         "company-ohalo"
       ],
-      "technology": "Proprietary advanced breeding; exact editor unspecified",
+      "technology": "DNA-free protoplast genome editing; exact nuclease unspecified",
       "crop": "Strawberry",
       "trait": "Neopestalotiopsis resistance",
       "partner": "UF/IFAS; Florida Foundation Seed Producers; Florida Strawberry Growers Association",
       "geography": "Florida, United States",
       "role": "advanced breeding platform",
-      "stage": "Agreement announced / experimental trials forecast",
+      "stage": "Edited lines generated; growth-room resistance assays reported; field testing selected",
       "milestone_date": "2024-12-20",
-      "milestone": "Company reports trait integration; forecast non-commercial experimental trials in 2025.",
+      "milestone": "UF/FSREF 2024-25 report names Ohalo collaboration, 138 regenerated lines and 20 selections for 2025-26 field trials.",
       "evidence_ids": [
-        "ev-gene-ohalo-florida"
+        "ev-gene-ohalo-florida",
+        "ev-gene-closeout-uf-ohalo-report"
       ],
       "berry_ids": [
         "berry-strawberry"
       ],
       "verification": "single_source / awaiting analyst review",
       "last_reviewed": null,
-      "gaps": "Trial completion, named cultivar, sales and CRISPR mechanism not established. Separate from the true-seed consortium."
+      "gaps": "Field completion, released variety identity and sales not recovered. Methods mention five cultivars while results enumerate four. Distinct from Boosted Breeding and true-seed consortium.",
+      "research_reviewed_at": "2026-10-28"
     }
   }
 }

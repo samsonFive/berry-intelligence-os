@@ -29,35 +29,38 @@ and complete 64-profile/1,165-candidate local parity pass. The initial small
 Reader-only server change did not show repeatable page latency improvement;
 the larger fast path requires a new-head server comparison and full CI.
 
-October 21, 2026 — Gene Editing slice ([delivery notes](GENE-EDITING-LANDSCAPE.md)):
+October 28, 2026 — [Gene Editing source closeout](GENE-EDITING-LANDSCAPE.md):
 
-- **TD-GENE-001, research completion:** Perplexity returned HTTP 429 on three
-  dedicated reports and then 401 `insufficient_quota`. All eight saved deep
-  responses have `finish_reason=length`. An all-eleven-company manual report
-  was received October 21; four new originals were checked and integrated.
-  Complete remaining original-record follow-ups before calling the mission
-  complete. No top-up or alternate paid provider is authorized.
-- **TD-GENE-002, identity:** the existing PSI entity ID/aliases combine PSI and
-  PSG. The issuer restructuring release is now checked, but executed legal
-  assignments and capitalization remain unresolved. Preserve the dossier/ID
-  pending legal-entity reconciliation; do not create another PSI duplicate or
-  merge Simplot Plant Sciences. Qi Beijing/Suzhou and Shunfeng/BellaGen legal
-  relationships likewise retain explicit unresolved notes.
-- **TD-GENE-003, acquisition/regulation:** five original pages lack readable
-  prose, three are unavailable and the EU page is blocked. Planasa's advertised
-  feeds are empty/unverified. Free company news-search monitoring is configured,
-  but it does not prove complete official-newsroom recall or full-body access.
-  Qi Chinese certificates remain unresolved. Its May 29, 2024 APHIS soybean
-  response and an investor's small-berry initiative account are now checked.
-  Neither proves berry authorization or sales. No exemption is global approval.
-- **TD-GENE-004, review/export scope:** program and relationship source claims
-  remain pending research, not trusted graph/Facts. The lens reuses analyst
-  routes and CSV/HTML exports; geographic SVG/PDF renderers and saved-view forms
-  do not yet support this lens. Keep those limitations explicit rather than
-  silently exporting a different scope. Do not deploy or broaden the seed list
-  beyond the requested seeds. Johnny authorized live deployment after research
-  processing on October 21; canonical CI, backup and runtime-preservation gates
-  still apply.
+- **TD-GENE-001 — public-source follow-up completed.** The user-supplied manual
+  research fallback and original-source audit cover all eleven seeds. All 30
+  prior excerpts were rechecked; 16 additional originals are scoped in a dated
+  package. Paid Deep Research responses remain historically truncated and the
+  quota blocker is not rewritten as success. No further paid calls were made.
+- **TD-GENE-002 — public identity scopes reconciled.** PSI and PSG are separate
+  legal counterparties in one retained monitoring dossier. The current PSG
+  account corroborates partner roles and reports Simplot investment, without a
+  control/parent inference. MARA identifies Qi Suzhou separately from Beijing;
+  university-hosted recruitment links Shunfeng to bellagen.cn. Unknown equity,
+  contract novation, IP ownership and separate BellaGen incorporation remain
+  unasserted facts, not invented identity merges or blocked implementation tasks.
+- **TD-GENE-003 — record follow-up completed with bounded access limits.**
+  FDA VPM records, Health Canada S4A, Defra confirmation and MARA soybean
+  certificates are recovered. None is blanket food approval or proof of sales.
+  Rendered PSG/Heritable pages close prior extraction gaps. PubMed bibliographic
+  text was recovered through the web tool despite HTTP blocking; full publisher
+  text, some official endpoints and actual later trials/sales remain unavailable
+  and explicitly unasserted. Monitors do not imply exhaustive recall.
+- **TD-GENE-004 — source audit completed; normal human gates retained.** The
+  46-candidate review packet is prepared. Publication/Atomic Evidence decisions
+  remain human-owned, and runtime decisions supersede snapshots. CSV and
+  printable HTML satisfy this slice's export scope. Native saved views and
+  geographic SVG/PDF are explicitly deferred optional enhancements. No new
+  company universe, model qualification or automatic trusted graph is introduced.
+
+The October 21 feature was merged/deployed with successful current-head checks
+and 5,115 passing tests. The October 28 closeout requires its own CI/release
+receipt. Production preparation/delivery must run as UID 1000, matching the web
+application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
 

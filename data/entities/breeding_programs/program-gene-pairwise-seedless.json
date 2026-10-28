@@ -10,7 +10,9 @@
   ],
   "evidence_ids": [
     "ev-gene-pairwise-seedless",
-    "ev-gene-pairwise-2026"
+    "ev-gene-pairwise-2026",
+    "ev-gene-closeout-fda-meetings",
+    "ev-gene-closeout-fda-pairwise"
   ],
   "attributes": {
     "gene_editing": {
@@ -30,14 +32,17 @@
       "milestone": "Company announced soft-seed and additional edited traits. January 2026 update still describes seedless greenhouse material.",
       "evidence_ids": [
         "ev-gene-pairwise-seedless",
-        "ev-gene-pairwise-2026"
+        "ev-gene-pairwise-2026",
+        "ev-gene-closeout-fda-meetings",
+        "ev-gene-closeout-fda-pairwise"
       ],
       "berry_ids": [
         "berry-blackberry"
       ],
       "verification": "single_source / awaiting analyst review",
       "last_reviewed": null,
-      "gaps": "Not literally seed-free. Compact sales do not establish commercial seedless or thornless blackberries."
+      "gaps": "Not literally seed-free. Compact sales do not establish commercial seedless or thornless blackberries. FDA VPM 0011 covers trait tracks, not a named sold cultivar, approval or proof of a commercial trait stack.",
+      "research_reviewed_at": "2026-10-28"
     }
   }
 }

@@ -9,7 +9,9 @@
     "berry-blackberry"
   ],
   "evidence_ids": [
-    "ev-gene-pairwise-fontana"
+    "ev-gene-pairwise-fontana",
+    "ev-gene-closeout-fda-meetings",
+    "ev-gene-closeout-fda-pairwise"
   ],
   "attributes": {
     "gene_editing": {
@@ -29,14 +31,17 @@
       "milestone_date": "2026-10-14",
       "milestone": "Pairwise introduced Fontana, built on a PSG variety.",
       "evidence_ids": [
-        "ev-gene-pairwise-fontana"
+        "ev-gene-pairwise-fontana",
+        "ev-gene-closeout-fda-meetings",
+        "ev-gene-closeout-fda-pairwise"
       ],
       "berry_ids": [
         "berry-blackberry"
       ],
       "verification": "single_source / awaiting analyst review",
       "last_reviewed": null,
-      "gaps": "No broad availability by country verified. Thornless and seedless are separate pipeline traits; underlying cultivar identity not fully disclosed."
+      "gaps": "No broad availability by country verified. Thornless and seedless are separate pipeline traits; underlying cultivar identity not fully disclosed. FDA VPM 0011 covers trait tracks, not a named sold cultivar, approval or proof of a commercial trait stack.",
+      "research_reviewed_at": "2026-10-28"
     }
   }
 }

@@ -18,6 +18,23 @@
   ],
   "attributes": {
     "official_domain": "http://www.qi-biodesign.com",
-    "gene_editing_research_ref": "data/imports/gene-editing-2026-10-20/snapshot.json"
+    "gene_editing_research_ref": "data/imports/gene-editing-2026-10-20/snapshot.json",
+    "gene_editing_identity_closeout": {
+      "reviewed_at": "2026-10-28",
+      "kind": "source_scope_audit_not_trust_decision",
+      "scope": "Qi brand monitoring; legal counterparties kept distinct",
+      "legal_counterparties": [
+        "Beijing Qi Biodesign Biotechnology Co., Ltd.",
+        "\u82cf\u5dde\u9f50\u79be\u751f\u79d1\u751f\u7269\u79d1\u6280\u6709\u9650\u516c\u53f8"
+      ],
+      "sources": [
+        "https://api.vilmorincie.com/uploads/202607_Press_release_VCO_NGT_EN_229637ccd2.pdf",
+        "https://www.moa.gov.cn/ztzl/zjyqwgz/spxx/202401/P020240118484537271708.pdf"
+      ],
+      "unasserted": [
+        "Beijing/Suzhou parent or subsidiary relationship",
+        "IP ownership chain"
+      ]
+    }
   }
 }

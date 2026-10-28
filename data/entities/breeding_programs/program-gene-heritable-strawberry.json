@@ -9,7 +9,8 @@
     "berry-strawberry"
   ],
   "evidence_ids": [
-    "ev-gene-heritable-strawberry"
+    "ev-gene-heritable-strawberry",
+    "ev-gene-closeout-heritable-products"
   ],
   "attributes": {
     "gene_editing": {
@@ -28,14 +29,16 @@
       "milestone_date": null,
       "milestone": "Company release describes an AI-driven greenhouse/tabletop breeding program.",
       "evidence_ids": [
-        "ev-gene-heritable-strawberry"
+        "ev-gene-heritable-strawberry",
+        "ev-gene-closeout-heritable-products"
       ],
       "berry_ids": [
         "berry-strawberry"
       ],
       "verification": "single_source / awaiting analyst review",
       "last_reviewed": null,
-      "gaps": "No named commercial variety, trial location, publication date or CRISPR use in this program established. Product-page genome-edit design claims remain unverified."
+      "gaps": "Heritable explicitly offers edit design at platform level. Its CIV/Mastronardi strawberry program does not thereby become an edited program; released cultivars and field outcomes remain undisclosed.",
+      "research_reviewed_at": "2026-10-28"
     }
   }
 }

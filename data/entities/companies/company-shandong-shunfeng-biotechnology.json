@@ -19,6 +19,22 @@
   ],
   "attributes": {
     "official_domain": "http://bellagen.cn",
-    "gene_editing_research_ref": "data/imports/gene-editing-2026-10-20/snapshot.json"
+    "gene_editing_research_ref": "data/imports/gene-editing-2026-10-20/snapshot.json",
+    "gene_editing_identity_closeout": {
+      "reviewed_at": "2026-10-28",
+      "kind": "source_scope_audit_not_trust_decision",
+      "scope": "Shandong Shunfeng legal identity; bellagen.cn domain associated by company recruitment material",
+      "legal_counterparties": [
+        "\u5c71\u4e1c\u821c\u4e30\u751f\u7269\u79d1\u6280\u6709\u9650\u516c\u53f8"
+      ],
+      "sources": [
+        "https://www.kws.com/corp/en/media-press/news-2025/kws-and-shunfeng-bio-sign-worldwide-licensing-agreement/",
+        "https://cbs.cau.edu.cn/module/download/downfile.jsp?classid=0&filename=7c00cfc203104491929b69f13b894b22.pdf"
+      ],
+      "unasserted": [
+        "separate BellaGen incorporation",
+        "formal legal rebranding"
+      ]
+    }
   }
 }
