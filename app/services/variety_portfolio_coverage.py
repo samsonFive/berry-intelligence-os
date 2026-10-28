@@ -108,12 +108,15 @@ def _load_portfolio_observations(data_dir: Path):
     """Latest dated observation per section; no network or persisted side effects."""
     latest = {}
     overlays = {}
+    photo_previews = {}
     for path in sorted((data_dir / "imports").glob("variety-portfolio-observations-*/observations.json")):
         payload = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(payload, dict) or payload.get("kind") != "unreviewed_portfolio_name_observations":
             raise ValueError("Unknown portfolio observation format")
         if not isinstance(payload.get("sources"), list):
             raise ValueError("Portfolio observations need a source list")
+        from app.services.variety_photo_previews import read_preview_overlays
+        photo_previews.update(read_preview_overlays(payload))
         scope_overlays = payload.get("warning_scope_overlays", [])
         if not isinstance(scope_overlays, list) or len(scope_overlays) > 100:
             raise ValueError("Warning overlays need a bounded list")
@@ -198,6 +201,9 @@ def _load_portfolio_observations(data_dir: Path):
             old = latest.get(source["id"])
             if old is None or checked >= date.fromisoformat(old["checked_on"]):
                 latest[source["id"]] = source
+    # Both presentation overlays guard the original capture, rather than each
+    # other's derived fields. Neither can suppress a changed operator record.
+    fingerprints = {key: _source_fingerprint(source) for key, source in latest.items()}
     for source_id, overlay in overlays.items():
         if source_id not in latest:
             raise ValueError("Warning placement refers to an unavailable source")
@@ -209,6 +215,8 @@ def _load_portfolio_observations(data_dir: Path):
         scoped = {**current, "review_warning_scopes": overlay["review_warning_scopes"]}
         _validate_warning_scopes(scoped)
         latest[source_id] = scoped
+    from app.services.variety_photo_previews import apply_preview_overlays
+    apply_preview_overlays(latest, photo_previews, fingerprints)
     return list(latest.values())
 
 

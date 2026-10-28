@@ -1,5 +1,17 @@
 # Project Status
 
+## Larger filing previews preserve user photo choices — October 28, 2026
+
+The [full-image follow-up](docs/v2/FULL-IMAGE-PREVIEW-REVIEW.md) adds larger original
+previews for four previously captured filing figures. Fingerprint guards retain
+newer/operator source edits; stable photo IDs preserve saved replacements,
+captions, hidden choices and history. Permission stays unconfirmed and loading
+requires the existing session choice. No canonical schemas, source/name counts
+or human decisions change. The public64-profile seed's 15 reference gaps remain.
+Frozen source draft #422 is verified with 5,305 tests; this child requires its
+own browser/current-head checks and separate catalog release review. Platform
+#421 approval is still pending an actual human reply. No merge/deploy occurred.
+
 ## Original filing figures and remaining catalog work — October 28, 2026
 
 The [filing-figure follow-up](docs/v2/ORIGINAL-FILING-FIGURES-REVIEW.md) checks ten
