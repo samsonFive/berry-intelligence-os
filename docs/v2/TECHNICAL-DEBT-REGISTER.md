@@ -1,5 +1,16 @@
 # Technical Debt Register
 
+October 28 — TD-116 source-provenance follow-through: native inspection found
+an existing Opi-linked Evidence record whose source URL is a2018blogreprint,
+while the new original grant is2013; its publication date must retain the
+meaning of that separate document. An existing Eureka-linked source date is
+its2012filingdate, while the original grant is2015. Hash-guarded private review
+proposals retain both records without rewriting approved metadata. Related
+source records below Rights/IP also need clearer context labeling so source
+publication approval cannot be read as a focal grant/current-rights decision.
+The new direct original claim links and Eureka correction-page note remain
+unreviewed references; identity, source and human metadata gates stay intact.
+
 October 28 — TD-116 [three additional profile images](REMAINING-PROFILE-IMAGE-REVIEW.md):
 Eureka, Opi and Eterna gain exact-subject held references, with original claims
 and the comparison-only correction retained. Public64-profile image gaps15→12;

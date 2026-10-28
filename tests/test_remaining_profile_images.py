@@ -28,6 +28,8 @@ def test_eureka_and_opi_keep_their_own_legal_identity_and_eterna_does_not_gain_a
         assert [r['number'] for r in refs] == ([grant] if grant else [])
         if grant:
             assert refs[0]['claim_url'].endswith('#page='+str(page))
+        if name == 'Eureka':
+            assert 'PDF page 9' in refs[0]['context'] and 'C99-42 comparison' in refs[0]['context']
         photos = source_photos(target, sources=sources, varieties=varieties)
         assert len(photos) == 1 and photos[0]['image_url'].endswith(image)
         assert photos[0]['reuse'] == 'unknown' and not photos[0]['license_url']
