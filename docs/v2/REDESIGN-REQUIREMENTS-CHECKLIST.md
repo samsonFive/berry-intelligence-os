@@ -1,5 +1,17 @@
 # Redesign and consolidation requirements
 
+## Current continuation — October 27, 2026
+
+Live `94a3b99b` includes the approved platform, four-crop Landscape and shared
+Workspaces. Catalog #399/#400, performance #410 and account-scope #412 are tested drafts
+awaiting their separate release approvals. A separate shared-header navigation
+fix follows measured TD-123; it preserves dense layout and existing destinations.
+All 31 original requirement IDs, definitions and order below remain. Existing
+source/identity/current-rights/photo gates, the independent 52-source worksheet,
+32 unclear cells, comprehensive catalog/profile/statistics/Learn coverage and
+final release checks remain explicit. Historical counts/heads below are dated
+evidence, not the current whole database or a new instruction to repeat a gate.
+
 This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.
@@ -383,7 +395,7 @@ refuses unfinished/shortened inputs and uses the existing scorer without a
 qualification marker. Source acceptance, catalog authoring and independent
 benchmark qualification remain separate. This prepares the human packet; it does
 not complete the human-owned recall requirement. Full scope, phone, blueberry
-feedback and integrated release gates remain open. All31 requirement IDs/order stay.
+feedback and integrated release gates remain open. All 31 requirement IDs/order stay.
 
 
 ## October 10 UTC: original Chandler source follow-up

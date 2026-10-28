@@ -1,5 +1,23 @@
 # Technical Debt Register
 
+### TD-123 — Wrapped shell hides section headings after a jump
+
+Observed October 27 on a 412-pixel coverage screen: the shared header ends at
+133px while the filtered profile section lands at 99.86px (heading at 129.20px).
+Fixed per-page offsets do not follow wrapped navigation, font changes or zoom.
+Impact: the section kicker and top of its heading can be obscured; source data
+and review actions remain available. Severity: low; frontend regression, no
+trust or data-loss risk. Status: **in progress** in the shared-navigation draft.
+
+The shared shell now measures its actual header and supplies page-anchor offsets
+through a separate final stylesheet. Candidate and living-document quick-nav
+offsets, inner table scrolling and Reader offsets remain component-owned.
+The script never changes the selected hash, scrolls the page or stores preferences.
+It runs before page-specific navigation. Header resize, font readiness and restored
+pages update the measurement. Automated script behavior and 59 focused shell/profile/candidate regressions
+pass. Actual phone/desktop initial/filter jumps, current-head CI and release
+review remain. Regression: `tests/test_workspace_anchor_offsets.py`.
+
 October 23, 2026 follow-up: [Performance, reader and publisher coverage](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 records measured reductions in Brief, Live Intelligence, Variety and Monitoring
 response times, generic exact-publisher reader recovery, and publisher-first
@@ -2927,7 +2945,7 @@ refuses unfinished/shortened inputs and uses the existing scorer without a
 qualification marker. Source acceptance, catalog authoring and independent
 benchmark qualification remain separate. This prepares the human packet; it does
 not complete the human-owned recall requirement. Full scope, phone, blueberry
-feedback and integrated release gates remain open. All31 requirement IDs/order stay.
+feedback and integrated release gates remain open. All 31 requirement IDs/order stay.
 
 
 ## October 10 UTC: original Chandler source follow-up
