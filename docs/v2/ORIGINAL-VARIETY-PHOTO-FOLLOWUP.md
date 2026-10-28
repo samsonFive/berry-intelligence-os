@@ -42,6 +42,14 @@ The 61 affected photo/rendering/source tests and record validation pass, includi
 comparison position, cross-crop exclusion, private/public boundaries and literal
 dates/labels. Required checks apply to the eventual pushed head.
 
+The full suite also exposed a saved-scope mismatch: catalog rows honored the
+berry-context cookie, but the source-name preview and its Review all handoff
+used only explicit URL parameters. Both now consume the same resolved search,
+berry and company scope as the table, retaining the letter filter. The existing
+filter regression is extended to cover the preview, cookie scope, explicit URL
+override and handoff; no assertion is weakened and no candidate is hidden from
+the unfiltered review queue.
+
 Native browser review passes on an isolated public-seed runtime with a fictional
 account and acquisition disabled. First login opens Help. At a 412px viewport,
 profile photo cards now use the available width: 373px instead of 280px, with a
