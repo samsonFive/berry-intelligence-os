@@ -1,5 +1,16 @@
 # Redesign and consolidation requirements
 
+October 28 — Rights/IP keeps exact original filing references above a collapsed
+Related reports & records group. Reviewed source and Source date distinguish
+publication review from a focal grant or current right. Current/legacy views
+share the same partial; pending titles, links and counts remain private. Sixteen
+focused checks preserve both old Evidence hashes and original claim/correction
+links. Frozen #424 passed5,325 tests and native desktop/phone review. Source
+counts and all31 accepted definitions/order are unchanged; source metadata
+proposals and CAT-01/CAT-02/TD-116 remain open. This UI child requires its own
+browser/CI proof and the catalog stack its own production-data preservation and
+release review. Platform421 actual approval is still pending; no deployment.
+
 October 28 — [Eureka, Opi and Eterna original images](REMAINING-PROFILE-IMAGE-REVIEW.md)
 reduce the public64-profile image-reference gap15→12; rights/traits/company gaps
 remain13/33/10. Two original claims, separate comparisons and the correction

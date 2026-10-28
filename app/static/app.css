@@ -150,6 +150,8 @@ a{color:#3d5c94}
 
 .entity-links{list-style:none;padding:0;display:grid;gap:8px}
 .entity-links li{display:flex;align-items:center;gap:8px}
+.variety-original-patents .entity-links>li,.rights-source-context .entity-links>li{display:block;min-width:0;overflow-wrap:anywhere}
+.rights-source-context .draft-meta{display:block;margin-top:4px}
 
 .trust-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:520px;margin:12px 0}
 .trust-summary div{border:1px solid #e3e7ef;border-radius:7px;padding:10px;text-align:center}

@@ -1,5 +1,22 @@
 # Project Status
 
+## Rights sources separated from original filings — October 28, 2026
+
+The Rights/IP panel now keeps related reports and reprints in a collapsed,
+labeled group below exact filing references. Reviewed source and Source date
+describe the retained publication, without implying a focal grant or current
+rights decision. Both current and legacy profiles use the same presentation;
+pending titles, links and counts stay excluded outside private authoring.
+Sixteen focused checks pass, including unchanged hashes for the older Eureka/
+Opi Evidence records. Their two metadata review proposals remain private and
+unapproved. No source counts, canonical records, schemas or human gates change.
+Frozen source #424 has 5,325 tests and native desktop/phone proof; this UI child
+needs its own browser/CI checks before consolidated catalog release preparation.
+Native active/legacy checks pass at desktop and412px. The check also caught
+legacy filing rows squeezed into narrow columns; scoped stacked rows and a
+stylesheet version update restore readable references. Platform-only #421
+still awaits actual release approval; no deployment occurred.
+
 ## Three more profile image gaps addressed — October 28, 2026
 
 The [remaining-profile cohort](docs/v2/REMAINING-PROFILE-IMAGE-REVIEW.md) adds held

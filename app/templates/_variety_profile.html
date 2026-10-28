@@ -112,29 +112,7 @@
     </dd>
   </dl>
   {% include "_variety_patent_references.html" %}
-  {% if rights_published or rights_drafts %}
-    <ul class="entity-links">
-      {% for row in rights_published %}
-        <li>
-          <span class="v2-mark v2-mark-trusted">Trusted</span>
-          <span class="v2-meta">{{ row.kind }}</span>
-          <a href="{% if static_build %}{{ row.trusted_href }}{% else %}{{ row.href }}{% endif %}" {% if not static_build %}data-open-reader data-item-id="{{ row.id }}"{% endif %}><strong>{{ row.title }}</strong></a>
-          {% if row.published_date %}<span class="draft-meta">{{ row.published_date|us_date }}</span>{% endif %}
-        </li>
-      {% endfor %}
-      {% for row in rights_drafts %}
-        <li>
-          <span class="v2-mark v2-mark-pending">Pending review</span>
-          <span class="v2-meta">{{ row.kind }}</span>
-          {% if static_build %}
-            <strong>{{ row.title }}</strong>
-          {% else %}
-            <a href="{{ row.href }}" data-open-reader data-item-id="{{ row.id }}"><strong>{{ row.title }}</strong></a>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+  {% include "_variety_related_rights_sources.html" %}
 </section>
 
 <section class="v2-company-section" id="commercial-footprint">
