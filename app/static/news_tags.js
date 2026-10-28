@@ -92,7 +92,7 @@
           (state.error || 'Classifying stored articles: '+state.processed+' / '+state.total+'. Results may be incomplete.');
         if (state.status==='ready') {
           var link=document.createElement('a'); link.href=window.location.href; link.textContent=' Show updated news'; status.appendChild(link);
-        } else if (state.status!=='failed' && Date.now()<deadline) poll();
+        } else if (state.status!=='failed' && state.status!=='partial' && Date.now()<deadline) poll();
       }).catch(function (e) {status.hidden=false; status.textContent=e.message+' Use Recheck stored articles to retry.';});
     }, 2000);
   }

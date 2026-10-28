@@ -177,6 +177,13 @@ def effective(record, tags, automatic=None, overrides=None):
         pair = (key, tag['id'])
         original = (tag['id'] in legacy or tag['id'] in (record.get('tags') or [])) and tag['id'] not in exclusions
         present = (automatic or {}).get(pair, original) if automatic is not None else decision(record, tag)[0] or original
+        if tag['id'] in (record.get('tags') or []):
+            present = True  # Preserve existing explicit source mappings.
+        if tag['id'] in exclusions:
+            present = False
+        reviewed = record.get('classification') or {}
+        if tag['id'] in {'gene-editing','advanced-breeding'} and (reviewed.get('reviewed_by') or reviewed.get('origin') == 'analyst'):
+            present = tag['id'] in legacy and tag['id'] not in exclusions
         if (overrides or {}).get(pair, present):
             result.append(tag['id'])
     return result
@@ -230,6 +237,10 @@ def incremental(inbox_dir, records):
     """Use local rules after source persistence; tagging cannot fail ingestion."""
     if exists(inbox_dir):
         try:
+            from app.services import news_tag_semantics
+            if news_tag_semantics.enabled():
+                news_tag_semantics.enqueue(inbox_dir,records,schedule=True)
+                return
             backfill(inbox_dir, records, track_job=False)
         except Exception:
             # backfill records a durable retry/error state and keeps old rows.

@@ -106,7 +106,12 @@ def _classify_stored_tags():
     corpus = {**records, **full}
     if main.AUTHORING_MODE:
         corpus = {key: merge_capture(row, load_capture(main.INBOX_DIR, key)) for key, row in corpus.items()}
-    news_tags.backfill(main.INBOX_DIR, corpus)
+    from app.services import news_tag_semantics
+    if news_tag_semantics.enabled():
+        news_tag_semantics.enqueue(main.INBOX_DIR,corpus)
+        news_tag_semantics.run(main.INBOX_DIR)
+    else:
+        news_tags.backfill(main.INBOX_DIR, corpus)
     from app.services.source_body import article_full_text
     with_body = sum(bool(article_full_text(row)) for row in corpus.values())
     return {'sources': len(corpus), 'with_stored_body': with_body, 'metadata_or_excerpt_only': len(corpus)-with_body}
@@ -176,11 +181,11 @@ def tag_explanations(article: str):
     if not news_tags.exists(main.INBOX_DIR):
         return {'assignments': []}
     with news_tags.database(main.INBOX_DIR) as db:
-        rows = db.execute('''SELECT t.id,t.name,a.rationale,o.present AS manual
+        rows = db.execute('''SELECT t.id,t.name,a.rationale,a.classifier_version,o.present AS manual
             FROM tags t LEFT JOIN automatic a ON a.tag=t.id AND a.article=?
             LEFT JOIN overrides o ON o.tag=t.id AND o.article=?
             WHERE COALESCE(o.present,a.present,0)=1''', (article, article)).fetchall()
-        return {'assignments': [{'id': r['id'], 'name': r['name'], 'origin': 'Manual addition' if r['manual'] is not None else 'Automatic terminology match',
+        return {'assignments': [{'id': r['id'], 'name': r['name'], 'origin': 'Manual addition' if r['manual'] is not None else 'Automatic subject match' if str(r['classifier_version'] or '').startswith('semantic-') else 'Automatic terminology match',
                  'rationale': r['rationale'] or 'Added by an analyst.'} for r in rows]}
 
 
