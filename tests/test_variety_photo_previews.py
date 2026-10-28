@@ -63,6 +63,12 @@ def test_larger_preview_and_scoped_warning_preserve_capture_and_stable_photo_ide
     html = template.render(photo_gallery=gallery, authoring_mode=True, static_build=False)
     assert '<img' not in html and f'data-image-url="{overlay["preview_image_url"]}"' in html
     assert 'Full-size image' in html and 'Permission unconfirmed' in html
+    # Saving only a caption must retain the image currently shown, rather than
+    # silently save the old thumbnail behind the full-size caption.
+    fields = main.templates.env.get_template('_variety_photo_fields.html').render(
+        photo=new, target=target, photo_berries={'berry-raspberry':'Raspberry'},
+        photo_kinds=photos.KINDS, reuse_choices=photos.REUSE, today='2026-10-28')
+    assert f'name="image_url" value="{overlay["preview_image_url"]}"' in fields
     for context in [dict(authoring_mode=False, static_build=False), dict(authoring_mode=True, static_build=True)]:
         assert not template.render(photo_gallery=gallery, **context).strip()
 
