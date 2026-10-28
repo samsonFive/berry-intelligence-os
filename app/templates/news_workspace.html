@@ -1,7 +1,7 @@
 {% extends "glasshouse_base.html" %}
 {% from "_personal_icons.html" import icon, action_icon with context %}
 {% block title %}News — Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/news_workspace.css?v=4">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/news_workspace.css?v=5">{% endblock %}
 {% block content %}
 <div data-news-workspace data-initial-story="{{ initial_story }}" data-news-completed="{{ refresh_state.completed_at or '' }}">
 <header class="digest-heading news-heading"><div><p class="eyebrow">YOUR INDUSTRY, IN VIEW</p><h1>News</h1><p>Scan the latest developments. Open a story to read without losing your place.</p></div><div class="news-heading-actions"><a class="outline-button" href="{{ map_href }}">Explore this scope on the map ↗</a>{% if authoring_mode %}<button type="button" class="outline-button" data-news-images>Load article images</button><button type="button" class="green-button" data-news-refresh>Refresh news</button>{% endif %}</div></header>
@@ -44,4 +44,18 @@
 <dialog data-tag-dialog><form method="dialog"><h2>Add tag</h2><label>Name<input name="name" maxlength="80" required autocomplete="off" data-tag-name></label><p data-tag-matches></p><label>Description (optional)<textarea name="description" maxlength="2000"></textarea></label><p role="status" data-tag-create-status></p><button type="submit" class="green-button" data-create-tag>Create tag</button> <button type="submit" formnovalidate>Cancel</button></form></dialog>
 <p class="digest-status" role="status" aria-live="polite"></p>
 {% endblock %}
-{% block scripts %}<script src="/static/news_workspace.js?v=8"></script><script src="/static/news_tags.js?v=2"></script>{% endblock %}
+{% block scripts %}<script src="/static/news_workspace.js?v=8"></script><script src="/static/news_tags.js?v=3"></script><script src="/static/news_article_tags.js?v=1"></script>{% endblock %}
+
+{% block shared_overlays %}
+<div class="offcanvas offcanvas-end news-tag-drawer" tabindex="-1" id="newsTagDrawer" aria-labelledby="newsTagDrawerTitle" data-news-tag-drawer data-can-edit="{{ '1' if authoring_mode else '0' }}">
+<header class="offcanvas-header"><div><p class="news-tag-eyebrow">ARTICLE TAGS</p><h2 id="newsTagDrawerTitle" data-article-tag-title>Article tags</h2></div><button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close article tags"></button></header>
+<div class="offcanvas-body"><p class="news-tag-source" data-article-tag-source></p>
+<section class="news-tag-reason"><h3>Why this tag?</h3><p data-article-tag-reason role="status">Select a tag to see its supporting text.</p><a href="#" data-filter-article-tag data-select-tag="" hidden>Filter news by this tag ↗</a></section>
+<section class="news-tag-editor"><h3>{{ 'Edit tags' if authoring_mode else 'Assigned tags' }}</h3><p class="news-tag-help">{% if authoring_mode %}Changes apply to this article and are remembered through automatic classification.{% else %}Tags describe subject relevance, not factual verification.{% endif %}</p>
+<label class="news-drawer-tag-search"><span class="visually-hidden">Find an article tag</span><input type="search" data-article-tag-search placeholder="Find a tag to add…" autocomplete="off"></label>
+<div data-article-tag-list>{% for tag in tags %}<div class="news-drawer-tag-row" data-drawer-tag-row="{{ tag.id }}" data-tag-name="{{ tag.name }}"><button type="button" class="news-tag-label" data-drawer-tag-info="{{ tag.id }}">{{ tag.name }}</button>{% if authoring_mode %}<button type="button" class="news-tag-toggle" data-drawer-tag-toggle="{{ tag.id }}" aria-pressed="false" aria-label="Assign {{ tag.name }}">+ Add</button><button type="button" class="news-tag-restore" data-drawer-tag-restore="{{ tag.id }}" title="Clear your correction and restore automatic assignment">Restore automatic</button>{% endif %}</div>{% endfor %}</div>
+<p class="news-tag-save-status" data-article-tag-status role="status" aria-live="polite"></p>
+</section></div></div>
+<script type="application/json" data-news-card-tags>{
+{% for card in cards %}{{ card.id|tojson }}: {{ card.assigned_tags|map(attribute='id')|list|tojson }}{% if not loop.last %},{% endif %}{% endfor %}}</script>
+{% endblock %}

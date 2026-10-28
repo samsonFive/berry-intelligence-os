@@ -180,7 +180,7 @@ def tag_explanations(article: str):
             FROM tags t LEFT JOIN automatic a ON a.tag=t.id AND a.article=?
             LEFT JOIN overrides o ON o.tag=t.id AND o.article=?
             WHERE COALESCE(o.present,a.present,0)=1''', (article, article)).fetchall()
-        return {'assignments': [{'name': r['name'], 'origin': 'Manual addition' if r['manual'] is not None else 'Automatic terminology match',
+        return {'assignments': [{'id': r['id'], 'name': r['name'], 'origin': 'Manual addition' if r['manual'] is not None else 'Automatic terminology match',
                  'rationale': r['rationale'] or 'Added by an analyst.'} for r in rows]}
 
 
@@ -195,7 +195,8 @@ async def edit_tag_assignment(request: Request):
         news_tags.override(main.INBOX_DIR, data['article'], data.get('tag'), data.get('action'), tag_actor(request))
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
-    return {'status': 'saved'}
+    return {'status': 'saved', 'tags': news_tags.effective(records[data['article']],
+        news_tags.catalog(main.INBOX_DIR), *news_tags.snapshot(main.INBOX_DIR))}
 
 
 def refresh_path(inbox_dir: Path):

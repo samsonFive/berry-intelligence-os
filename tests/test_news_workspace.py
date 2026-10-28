@@ -258,9 +258,10 @@ def test_tag_creation_backfill_corrections_explanations_and_guard(workspace):
     tag = response.json()['tag']['id']
     assert workspace.get('/api/news/tags/status').json()['status'] == 'ready'
     payload = {'article':'live-raw', 'tag':tag, 'action':'add'}
-    assert workspace.post('/api/news/tags/assignment', json=payload).status_code == 200
+    assignment = workspace.post('/api/news/tags/assignment', json=payload)
+    assert assignment.status_code == 200 and tag in assignment.json()['tags']
     assert 'live-raw' in workspace.get('/today?tag=' + tag).context['matching_ids']
-    assert any(row['origin'] == 'Manual addition' for row in workspace.get('/api/news/tags/explanations/live-raw').json()['assignments'])
+    assert any(row['id'] == tag and row['origin'] == 'Manual addition' for row in workspace.get('/api/news/tags/explanations/live-raw').json()['assignments'])
     workspace.post('/api/news/tags/classify')
     assert 'live-raw' in workspace.get('/today?tag=' + tag).context['matching_ids']
     workspace.post('/api/news/tags/assignment', json={**payload,'action':'remove'})

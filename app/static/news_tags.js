@@ -62,27 +62,11 @@
           var text=document.createElement('span'); text.textContent=data.tag.name; label.append(checkbox,text);
           panel.querySelector('[data-tag-chips]').appendChild(label);
         }
+        document.dispatchEvent(new CustomEvent('news:tag-created', {detail:data.tag}));
         dialog.close(); status.hidden=false; status.textContent='Tag available. Classifying stored articles…'; poll();
       }).catch(function (e) {dialog.querySelector('[data-tag-create-status]').textContent=e.message;}).finally(function () {button.disabled=false;});
     });
   }
-  document.querySelectorAll('[data-article-tag]').forEach(function (button) {
-    button.addEventListener('click', function () {
-      var message=button.closest('details').querySelector('[data-assignment-status]'); button.disabled=true;
-      post('/assignment', {article:button.dataset.articleTag, tag:button.dataset.tagId, action:button.dataset.tagAction}).then(function () {
-        message.textContent='Correction saved.'; window.location.reload();
-      }).catch(function (e) {message.textContent=e.message; button.disabled=false;});
-    });
-  });
-  document.querySelectorAll('[data-tag-explanations]').forEach(function (details) {
-    details.addEventListener('toggle', function () {
-      if (!details.open || details.dataset.loaded) return;
-      fetch('/api/news/tags/explanations/'+encodeURIComponent(details.dataset.tagExplanations), {credentials:'same-origin'}).then(function (res) {if (!res.ok) throw new Error('Explanations unavailable.'); return res.json();}).then(function (data) {
-        details.querySelector('[data-tag-explanation-text]').textContent=data.assignments.map(function (a) {return a.name+' · '+a.origin+': '+a.rationale;}).join(' — ') || 'No classified assignments yet.';
-        details.dataset.loaded='1';
-      }).catch(function (e) {details.querySelector('[data-tag-explanation-text]').textContent=e.message;});
-    });
-  });
   var manage=panel.querySelector('[data-manage-tags]'), definition=document.querySelector('[data-tag-definition-dialog]');
   if (manage) {
     var chooser=definition.querySelector('[data-definition-id]');

@@ -4,6 +4,8 @@ News now filters the complete accessible retained source collection by stable ta
 
 Selections and the explicit mode are private, durable preferences keyed by the signed-in session account. The single-user local workspace uses `local-analyst`. Explicit URL selections override remembered selections, including `tag=`. Reader navigation and pagination carry the same scope. JavaScript saves preferences through a same-origin POST; native forms still filter without JavaScript. Legacy `topic=gene-editing` and `topic=advanced-breeding` resolve to their existing IDs and retain their adjacent-crop scope. New `tag=` links use effective flat assignments.
 
+Article tags share the compact styling of the source and berry labels. Clicking a tag opens a shared slide-out panel with its supporting text and article assignment controls. A matching `+` button opens the same panel to add tags. An explicit **Filter news by this tag** action remains inside the panel. Assignments update the card in place; closing the panel refreshes an actively tag-filtered feed when needed. Escape closes the panel and returns focus to the card.
+
 ## Runtime migration and backfill
 
 The additive runtime database is `inbox/news_workspace/tags.sqlite3`. It is private and must remain on the existing persistent inbox mount. No canonical Evidence, source claim, Fact, entity identity, review status or production runtime is replaced. Back up the inbox using the existing release procedure before deploying. Preserve this database on rollback to retain corrections and account preferences.
