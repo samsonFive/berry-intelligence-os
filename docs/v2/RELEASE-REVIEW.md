@@ -1,5 +1,33 @@
 # Berry Intelligence release review
 
+## Consolidated catalog candidate — October 28, 2026
+
+The source stack #399/#400/#418/#419/#422/#423/#424/#425 is assembled separately
+from platform-only #421. It adds original filing/claim links, scoped source-name
+accounting, attributed held photo references and larger previews that preserve
+user photo choices. Exact filings remain separate from related reports and
+their source dates. Native active/legacy desktop and412px checks pass.
+
+All30 changed import files are additions relative to canonical e24b566b; no
+existing entities, Evidence, Facts, relationships or schemas change. Startup
+must add missing imports while retaining runtime edits and review decisions.
+No provider call, automatic identity/catalog approval or image-reuse clearance
+is part of this release. The public64-profile research seed must never replace
+the65-profile live runtime. The remaining gaps and independent human worksheets
+remain open; the source audit is not a web-completeness score.
+
+This candidate still requires full checks and a new bounded preservation check
+on a fresh production copy. Earlier #418 and platform #421 receipts do not prove
+this combined catalog release. The planned rehearsal has one job,1GiB/no swap,
+one CPU, no network/ports, read-only root and a ten-minute limit; it must preserve
+all original accounts, user data and existing databases. No production image,
+mount or data is replaced during preparation.
+
+After proof, actual release approval remains necessary before merging/deploying.
+At release time, recheck canonical/CI and the running receipt, take a fresh backup,
+retain the exact current image and persistent mounts for rollback, and deploy
+only the reviewed canonical result. Platform #421 approval remains separate.
+
 ## Current release boundary — October 28, 2026
 
 Production is canonical `e24b566b49e781d4a95d0e457d57c763f47c4741`, image
