@@ -13,7 +13,7 @@
   function selected() {return Array.from(panel.querySelectorAll('[name=tag_choice]:checked')).map(function (el) {return el.value;});}
   function save(tags, mode) {return panel.dataset.canSave === '1' ? post('/preferences', {tags:tags, mode:mode || panel.querySelector('[name=tag_mode]').value}) : Promise.resolve();}
   function navigate(href, tags) {
-    save(tags).then(function () {window.location.assign(href);}).catch(function (e) {status.textContent=e.message;});
+    save(tags).then(function () {window.location.assign(href);}).catch(function (e) {status.hidden=false; status.textContent=e.message;});
   }
   panel.querySelector('[data-tag-search]').addEventListener('input', function (event) {
     var query = event.target.value.toLocaleLowerCase();
@@ -26,7 +26,7 @@
   form.addEventListener('submit', function (event) {
     if (submitting || !form.checkValidity()) return;
     event.preventDefault();
-    save(selected()).then(function () {submitting=true; form.requestSubmit();}).catch(function (e) {status.textContent=e.message;});
+    save(selected()).then(function () {submitting=true; form.requestSubmit();}).catch(function (e) {status.hidden=false; status.textContent=e.message;});
   });
   document.querySelectorAll('[data-clear-tags]').forEach(function (link) {
     link.addEventListener('click', function (event) {event.preventDefault(); navigate(link.href, []);});
@@ -37,7 +37,7 @@
   // Explicit URL state wins over the remembered selection, including an empty tag=.
   var url = new URL(window.location.href);
   if (url.searchParams.has('tag') || url.searchParams.has('topic') || url.searchParams.has('tag_choice')) {
-    save(selected()).catch(function (e) {status.textContent=e.message;});
+    save(selected()).catch(function (e) {status.hidden=false; status.textContent=e.message;});
   }
   var dialog = document.querySelector('[data-tag-dialog]'), add = panel.querySelector('[data-add-tag]');
   function normalize(value) {return value.normalize('NFKC').trim().replace(/\s+/g,' ').toLocaleLowerCase();}
@@ -62,7 +62,7 @@
           var text=document.createElement('span'); text.textContent=data.tag.name; label.append(checkbox,text);
           panel.querySelector('[data-tag-chips]').appendChild(label);
         }
-        dialog.close(); status.textContent='Tag available. Classifying stored articles…'; poll();
+        dialog.close(); status.hidden=false; status.textContent='Tag available. Classifying stored articles…'; poll();
       }).catch(function (e) {dialog.querySelector('[data-tag-create-status]').textContent=e.message;}).finally(function () {button.disabled=false;});
     });
   }
@@ -104,15 +104,15 @@
     if (!deadline) deadline=Date.now()+600000;
     setTimeout(function () {
       fetch('/api/news/tags/status', {credentials:'same-origin', cache:'no-store'}).then(function (res) {if (!res.ok) throw new Error('Could not check classification.'); return res.json();}).then(function (state) {
-        status.textContent = state.status === 'ready' ? 'Stored article classification complete. Reload to show updated assignments.' :
+        status.hidden=false; status.textContent = state.status === 'ready' ? 'Stored article classification complete. Reload to show updated assignments.' :
           (state.error || 'Classifying stored articles: '+state.processed+' / '+state.total+'. Results may be incomplete.');
         if (state.status==='ready') {
           var link=document.createElement('a'); link.href=window.location.href; link.textContent=' Show updated news'; status.appendChild(link);
         } else if (state.status!=='failed' && Date.now()<deadline) poll();
-      }).catch(function (e) {status.textContent=e.message+' Use Recheck stored articles to retry.';});
+      }).catch(function (e) {status.hidden=false; status.textContent=e.message+' Use Recheck stored articles to retry.';});
     }, 2000);
   }
-  function recheck() {post('/classify').then(function () {status.textContent='Classifying stored articles…'; deadline=undefined; poll();}).catch(function (e) {status.textContent=e.message;});}
+  function recheck() {post('/classify').then(function () {status.hidden=false; status.textContent='Classifying stored articles…'; deadline=undefined; poll();}).catch(function (e) {status.hidden=false; status.textContent=e.message;});}
   var retry=panel.querySelector('[data-retry-tags]');
   if (retry) retry.addEventListener('click', recheck);
   if (retry && status.dataset.jobStatus==='pending') recheck();
