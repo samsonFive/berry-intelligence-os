@@ -62,3 +62,13 @@ default and the existing session-only preview remains an explicit user action.
 Together the two additive imports provide eleven source sections, twenty-one
 name occurrences and six held image references: four under patent denominations
 and two under existing marketed names. No additional canonical variety is created.
+
+## Readable reference handoff
+
+Phone review exposed an existing 120px label column squeezing source details
+into a narrow strip beside empty space. At phone widths, candidate details now
+stack labels above full-width values. Each reference has a distinct title and
+boundary, with original/claim links and filing dates visible. Extended source
+context starts collapsed. Identity warnings, unknown-photo permission and the
+separate decision controls remain visible; no review field or action is removed.
+Desktop retains its existing label/value layout and specialized quick navigation.

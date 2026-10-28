@@ -60,3 +60,17 @@
 @media(max-width:900px){.variety-profile-with-photos{display:block}.variety-profile-photos .variety-photo{flex-basis:280px;max-width:100%}}
 
 .variety-profile-main [id]{scroll-margin-top:var(--variety-profile-scroll-offset,100px)}
+
+.candidate-source-ref{border:1px solid #c7d8bd;border-left:3px solid #6b8b55;border-radius:6px;background:#f4f8ef;padding:10px;margin:0 0 10px}
+.candidate-source-links{display:flex;flex-wrap:wrap;gap:5px 12px;align-items:baseline}
+.candidate-source-links>a{font-size:.86rem;font-weight:700}
+.candidate-source-name{margin:5px 0;font-size:.85rem}
+.candidate-filing-dates{font-size:.79rem;line-height:1.5}
+.candidate-source-dates{font-size:.74rem;color:#53674b;margin:5px 0}
+.candidate-source-context>summary{font-size:.78rem;font-weight:600;cursor:pointer}
+.candidate-source-context>p{font-size:.82rem;margin:7px 0 0;line-height:1.45}
+@media(max-width:640px){
+  .candidate-workspace .variety-photo-and-context .v2-role-list{grid-template-columns:minmax(0,1fr);gap:4px}
+  .candidate-workspace .variety-photo-and-context .v2-role-list>dt{font-weight:700;margin-top:8px}
+  .candidate-workspace .variety-photo-and-context .v2-role-list>dd{margin-bottom:9px}
+}
