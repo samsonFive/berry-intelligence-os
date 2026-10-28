@@ -1,5 +1,16 @@
 # Technical Debt Register
 
+October 28 — TD-116 related-source presentation: current and legacy Rights/IP
+views now distinguish reviewed source publications from the exact original
+filings above them. Related reports/reprints start collapsed and retain their
+existing source dates and reader links. Pending source details remain private;
+sixteen focused checks pass, including unchanged hashes for both legacy records.
+The two hash-guarded metadata proposals below still require human review.
+No canonical dates, source approval, rights status or catalog counts change.
+Native active/legacy desktop and412px checks pass. Scoped stacked filing/source
+rows correct the legacy phone's compressed horizontal layout, with an updated
+stylesheet version so existing browser caches receive the fix.
+
 October 28 — TD-116 source-provenance follow-through: native inspection found
 an existing Opi-linked Evidence record whose source URL is a2018blogreprint,
 while the new original grant is2013; its publication date must retain the
