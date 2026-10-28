@@ -86,3 +86,35 @@ boundary, with original/claim links and filing dates visible. Extended source
 context starts collapsed. Identity warnings, unknown-photo permission and the
 separate decision controls remain visible; no review field or action is removed.
 Desktop retains its existing label/value layout and specialized quick navigation.
+
+## Broader named-photo cohort and precise source notes
+
+The [missing-reference cohort](../../data/imports/variety-portfolio-observations-2026-10-28-profile-fruit-cohort/README.md)
+adds thirteen visually checked fruit photographs from original breeder, nursery
+and university pages. Twelve existing profiles gain associated references.
+Rutgers D'Light remains under the existing source-code identity hold; the larger
+gallery image does not create an alias or bypass that decision. Planasa's two
+blocked pages/assets remain recorded access gaps. Two explicitly fictional
+profiles are preserved and excluded from real-variety source research.
+
+The final photo/filing batch contains 29 scoped sections, 39 name occurrences
+and 24 held image references. Nineteen existing profiles gain reference metadata
+across the batch; the public 64-profile seed's missing-photo-reference count falls
+from 49 to 30. This is not a permission-clearance count or independent recall
+measure. The wider inventory now has 456 sections, 1,680 name occurrences,
+140 catalog matches and 1,540 occurrences still requiring review. Rights, traits
+and company-link gaps remain unchanged at 13, 33 and 10 respectively.
+
+Four [warning-placement overlays](../../data/imports/variety-portfolio-observations-2026-10-28-warning-scopes/README.md)
+stop a Lewis warning appearing as ABB 135's own conflict, and a Baridi warning
+appearing as Malaika or Zawadi's own conflict. Literal source-name scopes retain
+focal cautions prominently and other-entry notes within closed source context.
+Original claim links and dates remain outside that secondary context. Whole-source
+coverage retains every warning and follow-up requirement.
+
+The overlays contain no replacement source records. Exact-record fingerprints
+prevent them from replacing operator edits or newer captures; changed sources
+retain their own prominent warnings. Unknown or invalid matching scopes fail
+validation. Existing candidate decisions, notes, identities, images and reuse
+choices are preserved. The 67 affected source, image, rendering and preservation
+tests pass; complete current-head checks are recorded in the draft PR.

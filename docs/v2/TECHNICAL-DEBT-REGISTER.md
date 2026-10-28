@@ -7,6 +7,15 @@ commercial-name associations or Allberry/ABB legal-entity equivalence. Conflicti
 Baridi codes and parent spellings remain explicit; full portfolio coverage,
 canonical authoring, independent recall, current rights and image reuse stay open.
 
+The same follow-up now closes twelve more named-profile photo-reference gaps,
+with a thirteenth university photo still held for code/name review. The public
+seed retains 30 missing-reference profiles (including two declared examples);
+13 rights, 33 cited-trait and 10 company-link gaps remain. These are field
+inventories, not permission or completeness scores. Hash-guarded warning overlays
+preserve source corrections and full-source cautions while reducing unrelated
+candidate warnings; no operator record or human decision is replaced. TD-116
+remains open for source access, identity, complete portfolios and reviewed fields.
+
 October 23, 2026 follow-up: [Performance, reader and publisher coverage](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 records measured reductions in Brief, Live Intelligence, Variety and Monitoring
 response times, generic exact-publisher reader recovery, and publisher-first

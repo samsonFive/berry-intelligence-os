@@ -1,0 +1,766 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-named-photo-cohort-kwanza",
+      "title": "Advanced Berry Breeding - Kwanza attributed fruit photograph",
+      "url": "https://www.abbreeding.nl/variety/kwanza/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal page title, named image/gallery or timeline block and one visually inspected fruit photograph. Site navigation, other varieties, marketing claims and full-portfolio enumeration are excluded.",
+      "limitations": "Photo reference only. All images retain unknown reuse permission; no canonical alias, party role, current rights, trial result, measured trait or growing footprint is approved.",
+      "capture_reference": {
+        "method": "original_focal_page_and_downloaded_image_visual_review",
+        "response_sha256": "69f93c2e83c0f5d0758364f51e418be4881c07fd97865c5971e8eb023c1b4236",
+        "image_sha256": "7f63d9745bc2b46e88f5905114ed79b9bfd2c40b366f383401c870a74014b5af",
+        "image_width": 600,
+        "image_height": 600,
+        "image_alt": "",
+        "image_title": "Kwanza",
+        "image_label_basis": "Focal variety heading and named image title/alt in the same product page",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Kwanza",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.abbreeding.nl/variety/kwanza/",
+          "portfolio_context": "The photograph is attributed to the focal named product page. It does not independently verify identity, measured traits, growing locations, legal rights or reuse permission.",
+          "photos": [
+            {
+              "image_url": "https://www.abbreeding.nl/wp-content/uploads/2024/01/Kwanza.jpg",
+              "source_url": "https://www.abbreeding.nl/variety/kwanza/",
+              "named_variety": "Kwanza",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Advanced Berry Breeding; individual photographer not identified in the checked image caption",
+              "caption": "Kwanza fruit, as shown on Advanced Berry Breeding's variety page.",
+              "reuse_note": "Permission to publish this image has not been established. The existing explicit private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-named-photo-cohort-sarafina",
+      "title": "Advanced Berry Breeding - Sarafina attributed fruit photograph",
+      "url": "https://www.abbreeding.nl/variety/sarafina/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal page title, named image/gallery or timeline block and one visually inspected fruit photograph. Site navigation, other varieties, marketing claims and full-portfolio enumeration are excluded.",
+      "limitations": "Photo reference only. All images retain unknown reuse permission; no canonical alias, party role, current rights, trial result, measured trait or growing footprint is approved.",
+      "capture_reference": {
+        "method": "original_focal_page_and_downloaded_image_visual_review",
+        "response_sha256": "9cd07f6d3fa5195de48a6535f519848db44c92e4c9ba2394779a9502afb4c3ab",
+        "image_sha256": "9e851eea1d6d556f651deab64361ee881586e359eb21344457fdf6f39307a17c",
+        "image_width": 600,
+        "image_height": 600,
+        "image_alt": "",
+        "image_title": "Sarafina",
+        "image_label_basis": "Focal variety heading and named image title/alt in the same product page",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Sarafina",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.abbreeding.nl/variety/sarafina/",
+          "portfolio_context": "The photograph is attributed to the focal named product page. It does not independently verify identity, measured traits, growing locations, legal rights or reuse permission.",
+          "photos": [
+            {
+              "image_url": "https://www.abbreeding.nl/wp-content/uploads/2024/01/Sarafina.jpg",
+              "source_url": "https://www.abbreeding.nl/variety/sarafina/",
+              "named_variety": "Sarafina",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Advanced Berry Breeding; individual photographer not identified in the checked image caption",
+              "caption": "Sarafina fruit, as shown on Advanced Berry Breeding's variety page.",
+              "reuse_note": "Permission to publish this image has not been established. The existing explicit private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-named-photo-cohort-shani",
+      "title": "Advanced Berry Breeding - Shani attributed fruit photograph",
+      "url": "https://www.abbreeding.nl/variety/shani/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal page title, named image/gallery or timeline block and one visually inspected fruit photograph. Site navigation, other varieties, marketing claims and full-portfolio enumeration are excluded.",
+      "limitations": "Photo reference only. All images retain unknown reuse permission; no canonical alias, party role, current rights, trial result, measured trait or growing footprint is approved.",
+      "capture_reference": {
+        "method": "original_focal_page_and_downloaded_image_visual_review",
+        "response_sha256": "164cb583ad6c950f0a8079d9cfb15b1829629666cb62b5a14b85480bb6a5a142",
+        "image_sha256": "ab14921322d990be987b019ce2183df0dd3b9e331f9b3b8e6b9bb8abf42c9109",
+        "image_width": 600,
+        "image_height": 600,
+        "image_alt": "",
+        "image_title": "Shani",
+        "image_label_basis": "Focal variety heading and named image title/alt in the same product page",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Shani",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.abbreeding.nl/variety/shani/",
+          "portfolio_context": "The photograph is attributed to the focal named product page. It does not independently verify identity, measured traits, growing locations, legal rights or reuse permission.",
+          "photos": [
+            {
+              "image_url": "https://www.abbreeding.nl/wp-content/uploads/2024/01/Shani.jpg",
+              "source_url": "https://www.abbreeding.nl/variety/shani/",
+              "named_variety": "Shani",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Advanced Berry Breeding; individual photographer not identified in the checked image caption",
+              "caption": "Shani fruit, as shown on Advanced Berry Breeding's variety page.",
+              "reuse_note": "Permission to publish this image has not been established. The existing explicit private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-named-photo-cohort-rafiki",
+      "title": "Advanced Berry Breeding - Rafiki attributed fruit photograph",
+      "url": "https://www.abbreeding.nl/variety/rafiki/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal page title, named image/gallery or timeline block and one visually inspected fruit photograph. Site navigation, other varieties, marketing claims and full-portfolio enumeration are excluded.",
+      "limitations": "Photo reference only. All images retain unknown reuse permission; no canonical alias, party role, current rights, trial result, measured trait or growing footprint is approved.",
+      "capture_reference": {
+        "method": "original_focal_page_and_downloaded_image_visual_review",
+        "response_sha256": "7e9991e5fd5bc8dd21ef17a8e6d63e8aa0a5a617eb44613deb996b2e0772ab82",
+        "image_sha256": "f33317644df12ff0441e822f7af5a3b50d338ea89aaca0118d2bb9757a484d0a",
+        "image_width": 600,
+        "image_height": 600,
+        "image_alt": "",
+        "image_title": "Rafiki_updated1",
+        "image_label_basis": "Focal variety heading and named image title/alt in the same product page",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Rafiki",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.abbreeding.nl/variety/rafiki/",
+          "portfolio_context": "The photograph is attributed to the focal named product page. It does not independently verify identity, measured traits, growing locations, legal rights or reuse permission.",
+          "photos": [
+            {
+              "image_url": "https://www.abbreeding.nl/wp-content/uploads/2024/09/Rafiki_updated1.jpg",
+              "source_url": "https://www.abbreeding.nl/variety/rafiki/",
+              "named_variety": "Rafiki",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Advanced Berry Breeding; individual photographer not identified in the checked image caption",
+              "caption": "Rafiki fruit, as shown on Advanced Berry Breeding's variety page.",
+              "reuse_note": "Permission to publish this image has not been established. The existing explicit private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-named-photo-cohort-cargo",
+      "title": "Fall Creek Farm & Nursery - Cargo attributed fruit photograph",
+      "url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties/cargo",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal page title, named image/gallery or timeline block and one visually inspected fruit photograph. Site navigation, other varieties, marketing claims and full-portfolio enumeration are excluded.",
+      "limitations": "Photo reference only. All images retain unknown reuse permission; no canonical alias, party role, current rights, trial result, measured trait or growing footprint is approved.",
+      "capture_reference": {
+        "method": "original_focal_page_and_downloaded_image_visual_review",
+        "response_sha256": "6b6ddbe87780d5cfa4430552ee233d1c3afb78e5c1baafd09e826a4f85215784",
+        "image_sha256": "ee120c304d66135b93a88baa4f23bb50b247add69b61c0614c7f404774dc7734",
+        "image_width": 1118,
+        "image_height": 1302,
+        "image_alt": "Cargo mg 5549",
+        "image_title": "",
+        "image_label_basis": "Focal variety heading and named image title/alt in the same product page",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Cargo",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties/cargo",
+          "portfolio_context": "The photograph is attributed to the focal named product page. It does not independently verify identity, measured traits, growing locations, legal rights or reuse permission.",
+          "photos": [
+            {
+              "image_url": "https://www.fallcreeknursery.com/assets/uploads/images/767/cargo_mg_5549__full.jpg",
+              "source_url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties/cargo",
+              "named_variety": "Cargo",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Fall Creek Farm & Nursery; individual photographer not identified in the checked image caption",
+              "caption": "Cargo fruit, as shown on Fall Creek Farm & Nursery's variety page.",
+              "reuse_note": "Permission to publish this image has not been established. The existing explicit private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-named-photo-cohort-last-call",
+      "title": "Fall Creek Farm & Nursery - Last Call attributed fruit photograph",
+      "url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties/last-call",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal page title, named image/gallery or timeline block and one visually inspected fruit photograph. Site navigation, other varieties, marketing claims and full-portfolio enumeration are excluded.",
+      "limitations": "Photo reference only. All images retain unknown reuse permission; no canonical alias, party role, current rights, trial result, measured trait or growing footprint is approved.",
+      "capture_reference": {
+        "method": "original_focal_page_and_downloaded_image_visual_review",
+        "response_sha256": "15caf2984b6b730cb779f8a50e5ae60429ceb806556defdbd60aaf9f2d9dece1",
+        "image_sha256": "22b28222ecf0f3597233391246b774b02eed3e3911cf01db039b59b8b918146c",
+        "image_width": 1118,
+        "image_height": 1302,
+        "image_alt": "Last call in hand",
+        "image_title": "",
+        "image_label_basis": "Focal variety heading and named image title/alt in the same product page",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Last Call",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties/last-call",
+          "portfolio_context": "The photograph is attributed to the focal named product page. It does not independently verify identity, measured traits, growing locations, legal rights or reuse permission.",
+          "photos": [
+            {
+              "image_url": "https://www.fallcreeknursery.com/assets/uploads/images/780/last_call_in_hand__full.jpg",
+              "source_url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties/last-call",
+              "named_variety": "Last Call",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Fall Creek Farm & Nursery; individual photographer not identified in the checked image caption",
+              "caption": "Last Call fruit, as shown on Fall Creek Farm & Nursery's variety page.",
+              "reuse_note": "Permission to publish this image has not been established. The existing explicit private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-named-photo-cohort-top-shelf",
+      "title": "Fall Creek Farm & Nursery - Top Shelf attributed fruit photograph",
+      "url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties/top-shelf",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal page title, named image/gallery or timeline block and one visually inspected fruit photograph. Site navigation, other varieties, marketing claims and full-portfolio enumeration are excluded.",
+      "limitations": "Photo reference only. All images retain unknown reuse permission; no canonical alias, party role, current rights, trial result, measured trait or growing footprint is approved.",
+      "capture_reference": {
+        "method": "original_focal_page_and_downloaded_image_visual_review",
+        "response_sha256": "4657abbbbad710a210d0bb0d1a99c08103309f1a1d4f510e415ec7abe1f602fd",
+        "image_sha256": "7eed40c31af6e16eb4b340bf9bdc1cc2e7de4a09125fac0566790c3041c0ced6",
+        "image_width": 1118,
+        "image_height": 1302,
+        "image_alt": "Top shelf glam shot",
+        "image_title": "",
+        "image_label_basis": "Focal variety heading and named image title/alt in the same product page",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Top Shelf",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties/top-shelf",
+          "portfolio_context": "The photograph is attributed to the focal named product page. It does not independently verify identity, measured traits, growing locations, legal rights or reuse permission.",
+          "photos": [
+            {
+              "image_url": "https://www.fallcreeknursery.com/assets/uploads/images/807/top_shelf_glam_shot__full.jpg",
+              "source_url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties/top-shelf",
+              "named_variety": "Top Shelf",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Fall Creek Farm & Nursery; individual photographer not identified in the checked image caption",
+              "caption": "Top Shelf fruit, as shown on Fall Creek Farm & Nursery's variety page.",
+              "reuse_note": "Permission to publish this image has not been established. The existing explicit private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-named-photo-cohort-blue-ribbon",
+      "title": "Fall Creek Farm & Nursery - Blue Ribbon attributed fruit photograph",
+      "url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties/blue-ribbon",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal page title, named image/gallery or timeline block and one visually inspected fruit photograph. Site navigation, other varieties, marketing claims and full-portfolio enumeration are excluded.",
+      "limitations": "Photo reference only. All images retain unknown reuse permission; no canonical alias, party role, current rights, trial result, measured trait or growing footprint is approved.",
+      "capture_reference": {
+        "method": "original_focal_page_and_downloaded_image_visual_review",
+        "response_sha256": "ac87ed22eb60f4e3356dce92d9c87e62996c997160e8817023f0163597ea5bfb",
+        "image_sha256": "80a11c959d9c8848d417f98798e83e3ba7197d6687ce3561b3727ed810fe4e8c",
+        "image_width": 1118,
+        "image_height": 1302,
+        "image_alt": "Blue ribbon mg 4887 copy",
+        "image_title": "",
+        "image_label_basis": "Focal variety heading and named image title/alt in the same product page",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Blue Ribbon",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties/blue-ribbon",
+          "portfolio_context": "The photograph is attributed to the focal named product page. It does not independently verify identity, measured traits, growing locations, legal rights or reuse permission.",
+          "photos": [
+            {
+              "image_url": "https://www.fallcreeknursery.com/assets/uploads/images/760/blue_ribbon_mg_4887_copy__full.jpg",
+              "source_url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties/blue-ribbon",
+              "named_variety": "Blue Ribbon",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Fall Creek Farm & Nursery; individual photographer not identified in the checked image caption",
+              "caption": "Blue Ribbon fruit, as shown on Fall Creek Farm & Nursery's variety page.",
+              "reuse_note": "Permission to publish this image has not been established. The existing explicit private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-named-photo-cohort-marimbella",
+      "title": "Nova Siri Genetics - Marimbella attributed fruit photograph",
+      "url": "https://www.novasirigenetics.com/marimbella/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-nova-siri-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal page title, named image/gallery or timeline block and one visually inspected fruit photograph. Site navigation, other varieties, marketing claims and full-portfolio enumeration are excluded.",
+      "limitations": "Photo reference only. All images retain unknown reuse permission; no canonical alias, party role, current rights, trial result, measured trait or growing footprint is approved.",
+      "capture_reference": {
+        "method": "original_document_title_named_gallery_and_downloaded_image_visual_review",
+        "response_sha256": "a8e58ccbb6841e2db84042f21cfa1fe93b5d04c6d6b5517b70e70b773a8cc32e",
+        "image_sha256": "ca4c751a196a44fc803b2649a70de9856767ad587f1eccddecf90854d2e9bcd8",
+        "image_width": 340,
+        "image_height": 390,
+        "image_alt": "marinbella_0001_DSC09511",
+        "image_title": "",
+        "image_label_basis": "Document title Marimbella (NSG 203) and named gallery; original image alt spells marinbella",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false,
+        "document_title": "Marimbella® (NSG 203), fragola precoce | Nova Siri Genetics",
+        "h1_label": "Nsg 203"
+      },
+      "names": [
+        {
+          "candidate_name": "Marimbella",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.novasirigenetics.com/marimbella/",
+          "portfolio_context": "The product page pairs Marimbella with NSG 203. Its gallery image alt starts marinbella; that filename spelling is preserved in capture metadata, not added as an alias or used as a new identity.",
+          "photos": [
+            {
+              "image_url": "https://spcdn.shortpixel.ai/spio/ret_img+q_cdnize+to_webp+s_webp/www.novasirigenetics.com/wp-content/uploads/elementor/thumbs/marinbella_0001_DSC09511-rtq4936it5zwtto5mdaohd0qmeky37t3pi1vbax1ks.jpg",
+              "source_url": "https://www.novasirigenetics.com/marimbella/",
+              "named_variety": "Marimbella",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Nova Siri Genetics; individual photographer not identified in the checked image caption",
+              "caption": "Marimbella fruit on the plant, as shown in Nova Siri Genetics’ Marimbella gallery.",
+              "reuse_note": "Permission to publish this image has not been established. The existing explicit private session preview does not grant reuse rights."
+            }
+          ],
+          "breeder_code": "NSG 203"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-named-photo-cohort-melissa",
+      "title": "Nova Siri Genetics - Melissa attributed fruit photograph",
+      "url": "https://www.novasirigenetics.com/melissa/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-nova-siri-genetics"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal page title, named image/gallery or timeline block and one visually inspected fruit photograph. Site navigation, other varieties, marketing claims and full-portfolio enumeration are excluded.",
+      "limitations": "Photo reference only. All images retain unknown reuse permission; no canonical alias, party role, current rights, trial result, measured trait or growing footprint is approved.",
+      "capture_reference": {
+        "method": "original_document_title_named_gallery_and_downloaded_image_visual_review",
+        "response_sha256": "0162df1349a710182c04e94b169a131a879e603556e742b3e7e610c3767b3d55",
+        "image_sha256": "e5a0ccce6fa9940ffdce6f27eaaa7d686088a103f80feb63652de9b31ef3f67a",
+        "image_width": 340,
+        "image_height": 390,
+        "image_alt": "slider-melissa-3b-mod",
+        "image_title": "",
+        "image_label_basis": "Document title Melissa and named gallery images, not the reused NSG203 H1",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false,
+        "document_title": "Melissa, fragola precoce e produttiva | Nova Siri Genetics",
+        "h1_label": "Nsg 203"
+      },
+      "names": [
+        {
+          "candidate_name": "Melissa",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://www.novasirigenetics.com/melissa/",
+          "portfolio_context": "The document title and image gallery identify Melissa. The page reuses an NSG203 heading also found on Marimbella; no cultivar code is taken from that heading or added to Melissa.",
+          "photos": [
+            {
+              "image_url": "https://spcdn.shortpixel.ai/spio/ret_img+q_cdnize+to_webp+s_webp/www.novasirigenetics.com/wp-content/uploads/elementor/thumbs/slider-melissa-3b-mod-rtq46ql1q2s3sx31ccq98yd95q5wugh9dvc64eeh4s.jpg",
+              "source_url": "https://www.novasirigenetics.com/melissa/",
+              "named_variety": "Melissa",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Nova Siri Genetics; individual photographer not identified in the checked image caption",
+              "caption": "Melissa fruit, as shown on Nova Siri Genetics's variety page.",
+              "reuse_note": "Permission to publish this image has not been established. The existing explicit private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-named-photo-cohort-rutgers-dlight",
+      "title": "Rutgers NJAES - Rutgers D'Light attributed fruit photograph",
+      "url": "https://sebsnjaesnews.rutgers.edu/2022/05/bred-for-flavor-njaes-researchers-release-new-rutgers-dlight-strawberry/",
+      "checked_on": "2026-10-28",
+      "source_type": "university_release",
+      "company_ids": [
+        "breeding_program-njaes-rutgers-strawberry"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal page title, named image/gallery or timeline block and one visually inspected fruit photograph. Site navigation, other varieties, marketing claims and full-portfolio enumeration are excluded.",
+      "limitations": "Photo reference only. All images retain unknown reuse permission; no canonical alias, party role, current rights, trial result, measured trait or growing footprint is approved.",
+      "capture_reference": {
+        "method": "original_focal_page_and_downloaded_image_visual_review",
+        "response_sha256": "a8ffb5b7dcc1eed2758040c2132423031cb18bc12c9c587bee26b137b32fcb61",
+        "image_sha256": "9d5e127d1254adeec8ff57ee115dec32424dbc790f3581e65ee13de82d738dd9",
+        "image_width": 1920,
+        "image_height": 1277,
+        "image_alt": "Three Rutgers D'Light strawberries and a ruler",
+        "image_title": "Rutgers D'Light strawberries.",
+        "image_label_basis": "Named gallery alt/title and observed full-size image link in the same figure",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false,
+        "thumbnail_replaced_by_observed_full_size_link": true
+      },
+      "names": [
+        {
+          "candidate_name": "Rutgers D'Light",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://sebsnjaesnews.rutgers.edu/2022/05/bred-for-flavor-njaes-researchers-release-new-rutgers-dlight-strawberry/",
+          "portfolio_context": "The photograph is attributed to the focal named product page. It does not independently verify identity, measured traits, growing locations, legal rights or reuse permission.",
+          "photos": [
+            {
+              "image_url": "https://sebsnjaesnews.rutgers.edu/wp-content/uploads/2022/05/9-02-01-Snyder-trial-June-3-2013_.jpg",
+              "source_url": "https://sebsnjaesnews.rutgers.edu/2022/05/bred-for-flavor-njaes-researchers-release-new-rutgers-dlight-strawberry/",
+              "named_variety": "Rutgers D'Light",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Rutgers NJAES; individual photographer not identified in the checked image caption",
+              "caption": "Rutgers D'Light strawberries from the Rutgers NJAES gallery. The ruler is part of the original photo; this record adds no size measurements.",
+              "reuse_note": "Permission to publish this image has not been established. The existing explicit private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      },
+      "published_date": "2022-05-19"
+    },
+    {
+      "id": "portfolio-named-photo-cohort-berrytech-history",
+      "title": "Berrytech - Amalia Rossa attributed fruit photograph",
+      "url": "https://www.berrytech.it/en/azienda/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_history",
+      "company_ids": [
+        "company-berrytech"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal page title, named image/gallery or timeline block and one visually inspected fruit photograph. Site navigation, other varieties, marketing claims and full-portfolio enumeration are excluded.",
+      "limitations": "Photo reference only. All images retain unknown reuse permission; no canonical alias, party role, current rights, trial result, measured trait or growing footprint is approved.",
+      "capture_reference": {
+        "method": "original_focal_page_and_downloaded_image_visual_review",
+        "response_sha256": "7727cfc901081f7c115e38bbfd45f242d79b5885d361500dd8cf4a3ef4f14f67",
+        "image_sha256": "2b1c2b71255f2aaa164c5611eab54dffcd78b8bd4b64a726607fde0700f2cd9a",
+        "image_width": 768,
+        "image_height": 768,
+        "image_alt": "",
+        "image_title": "",
+        "image_label_basis": "The same timeline block labels Amalia Rossa; its image alt is empty and its filename spells Rosa",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Amalia Rossa",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.berrytech.it/en/azienda/",
+          "portfolio_context": "The timeline names Amalia Rossa beside the image. The shorter Rosa spelling in its filename is not added as a variety alias; the timeline year is not entered as a publication date.",
+          "photos": [
+            {
+              "image_url": "https://www.berrytech.it/wp-content/uploads/2024/09/Amalia-Rosa-history-768x768.png",
+              "source_url": "https://www.berrytech.it/en/azienda/",
+              "named_variety": "Amalia Rossa",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Berrytech; individual photographer not identified in the checked image caption",
+              "caption": "Amalia Rossa fruit shown in Berrytech’s timeline. The original image includes a decorative frame.",
+              "reuse_note": "Permission to publish this image has not been established. The existing explicit private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-named-photo-cohort-flavia",
+      "title": "CIV - Consorzio Italiano Vivaisti - Flavia attributed fruit photograph",
+      "url": "https://civ.it/fragola/flavia/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-civ-italy"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal page title, named image/gallery or timeline block and one visually inspected fruit photograph. Site navigation, other varieties, marketing claims and full-portfolio enumeration are excluded.",
+      "limitations": "Photo reference only. All images retain unknown reuse permission; no canonical alias, party role, current rights, trial result, measured trait or growing footprint is approved.",
+      "capture_reference": {
+        "method": "original_focal_page_and_downloaded_image_visual_review",
+        "response_sha256": "a3d24e302e1ef9dc85b14d33eda744151218d8f5fbe0e69d2653b7846e81163e",
+        "image_sha256": "08d192bb636f58bd6bccd304838f2343e13faafaa41f575588630827df9a55ad",
+        "image_width": 400,
+        "image_height": 400,
+        "image_alt": "",
+        "image_title": "",
+        "image_label_basis": "Focal FLAVIApbr page heading and its featured fruit image; image alt/title are empty",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Flavia",
+          "berry_id": "berry-strawberry",
+          "product_url": "https://civ.it/fragola/flavia/",
+          "portfolio_context": "The photograph is attributed to the focal named product page. It does not independently verify identity, measured traits, growing locations, legal rights or reuse permission.",
+          "photos": [
+            {
+              "image_url": "https://civ.it/wp-content/uploads/2025/01/flavia-still-life.png",
+              "source_url": "https://civ.it/fragola/flavia/",
+              "named_variety": "Flavia",
+              "berry_id": "berry-strawberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "CIV - Consorzio Italiano Vivaisti; individual photographer not identified in the checked image caption",
+              "caption": "Flavia fruit, as pictured on CIV’s variety page. Original transparent cutout.",
+              "reuse_note": "Permission to publish this image has not been established. The existing explicit private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    }
+  ]
+}

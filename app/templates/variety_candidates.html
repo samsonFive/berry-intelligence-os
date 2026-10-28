@@ -76,10 +76,11 @@
           {% if source.grant_date %} · Granted <time datetime="{{ source.grant_date }}">{{ source.grant_date }}</time>{% endif %}
         </div>{% endif %}
         <p class="candidate-source-dates">{% if source.published_date %}Published <time datetime="{{ source.published_date }}">{{ source.published_date }}</time> · {% endif %}Checked <time datetime="{{ source.checked_on }}">{{ source.checked_on }}</time></p>
-        {% if source.portfolio_context or source.source_company_context or (source.source_company_ids and source.companies) %}<details class="candidate-source-context"><summary>Source context</summary>
+        {% if source.portfolio_context or source.source_company_context or source.other_entry_warnings or (source.source_company_ids and source.companies) %}<details class="candidate-source-context"><summary>Source context</summary>
           {% if source.portfolio_context %}<p>{{ source.portfolio_context }}</p>{% endif %}
           {% if source.source_company_ids and source.companies %}<p>Organizations named in this entry: {% for company in source.companies %}<a href="{{ company.href }}">{{ company.name }}</a>{{ ', ' if not loop.last else '' }}{% endfor %}. Company roles still need review.</p>{% endif %}
           {% if source.source_company_context %}<p>{{ source.source_company_context }}</p>{% endif %}
+          {% if source.other_entry_warnings %}<p><b>Notes about other entries in this source</b></p>{% for message in source.other_entry_warnings %}<p>{{ message }}</p>{% endfor %}{% endif %}
         </details>{% endif %}
       </div>{% endfor %}<small>Check the identity and company roles before relying on these sources.{% if row.portfolio_sources|selectattr('source_type', 'equalto', 'plant_patent')|list %} Check current rights separately from the historical filing dates.{% endif %}</small></dd>{% endif %}
     <dt>Registration</dt>
