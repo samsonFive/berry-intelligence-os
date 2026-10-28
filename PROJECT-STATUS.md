@@ -9,7 +9,35 @@ feature is deployed from merged PR #406 (5,115 CI tests passed); this follow-up
 requires its own checked head and runtime receipt. See
 `docs/v2/GENE-EDITING-LANDSCAPE.md` for current counts and retained unknowns.
 
-## October 23 performance continuation
+
+## October 27 performance continuation
+
+Live canonical is `94a3b99b`, including shared Workspaces #408 and the earlier
+redesign, Landscape, News/access and approved performance releases. Workspaces,
+research and company lists/marks are intentionally shared; layout preferences
+and Personal Digest are personal. Digest account isolation is the separate,
+tested draft #412, awaiting final release approval.
+
+The existing #410 profile/Reader change passed current-base CI (5,211 tests),
+ordinary browser interaction, 412-pixel emulation and production-copy parity.
+This continuation profiles the remaining coverage-page cost and removes repeated
+source-photo validation across all catalog profiles. Identity, crop, ambiguous
+name, source code/label and reuse gates remain; there is no cross-request cache.
+All 76 affected photo/profile/portfolio tests pass. The [coverage comparison](docs/v2/VARIETY-COVERAGE-PHOTO-PERFORMANCE.md)
+retains byte-identical full HTML while reducing repeated responses from 3.93
+to 2.81–3.01 seconds. Fresh full CI, committed-head valid-filter/browser and
+release review remain required for the extension.
+
+Catalog #399/#400 remains separate: the corrected phone anchor head `a9e6e7cb`
+passes all required checks (5,222 tests), native desktop/phone review and isolated
+account/data preservation. Its final release approval is pending. None of these
+drafts supplies human name/identity, current-rights, source or photo decisions.
+All 31 accepted requirements remain; CAT-01/CAT-02, the independent 52-source
+worksheet, 32 unclear photo cells, wider statistics/Learn/profile coverage and
+broader performance remain open. Historical checkpoint notes below are not new
+approval requests; the four-crop Landscape milestone is already released.
+
+## Historical October 23 performance continuation
 
 Live canonical is `97f9ac3d` (#409), including approved #407, broader workspace
 speedups, Reader recovery and publisher-first discovery. Catalog #399/#400 is

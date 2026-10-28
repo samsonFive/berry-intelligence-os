@@ -43,7 +43,23 @@ the corresponding isolated VPS rehearsal directories are
 `/opt/berry-platform-releases/source-body-checked-once-prototype-v3-20261023`.
 They contain no human source/name decisions and are not a deployment receipt.
 
-## Remaining release work
+## October 27 current-base review
+
+The original implementation at `022d8774` is reconciled onto released shared
+Workspaces canonical `94a3b99b`. All four required checks pass with 5,211 tests.
+An isolated production-copy rehearsal preserves 65 profiles, 9,774 original
+protected JSON files and accounts; alternating repeated Emerald requests improve
+from 2.087/2.076 to 0.871/0.794 seconds with identical remaining profile fields
+and name findings. Ordinary fixture browser review confirms deferred loading,
+refresh, reopening and the full-page fallback, including 412-pixel containment.
+This is responsive emulation, not a physical-phone test.
+
+A later coverage-page photo-lookup extension is now under separate output/timing
+verification and requires fresh checks on the final updated head. The earlier
+Reader/source parity remains valid; no trust, identity or permission decision is
+created. Final release approval is still required.
+
+## Historical release-work note
 
 Automated route and loader checks cover deferred loading, matching/review-state
 preservation, public exclusion, refresh, escaping, expired logins, timeout and

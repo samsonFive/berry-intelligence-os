@@ -1,5 +1,17 @@
 # Technical Debt Register
 
+October 27 — coverage profiling: the full page measured 6.461 seconds initially
+and 4.036 seconds repeatedly on the isolated 65-profile production copy. Profiling
+identified 8,444 repeated source-photo validations; a request-local catalog lookup
+now applies the same identity/crop/ambiguity/code-label/reuse gates once per source
+photo. All 76 affected checks pass. The [full-output comparison](VARIETY-COVERAGE-PHOTO-PERFORMANCE.md)
+retains identical HTML and reduces repeated responses from 3.93 to 2.81–3.01 s.
+New current-head CI, committed-head populated-filter/browser and final release
+review remain before shipping this extension.
+The prior #410 implementation already passed native desktop/phone review and
+current-base preservation; older browser-pending notes below are historical.
+TD-122 remains partially addressed, including large HTML and other repeated scans.
+
 October 23 — selected-variety continuation: [on-demand name review](VARIETY-PROFILE-DEMAND-LOADING.md)
 keeps a catalog-wide audit off the initial profile request. On an isolated
 65-profile production copy with normal startup warm-up, alternating second
