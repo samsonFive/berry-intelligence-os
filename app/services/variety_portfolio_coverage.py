@@ -5,6 +5,7 @@ the established imports namespace, contain no article bodies, and never create
 Evidence, roles or canonical varieties. Human inbox decisions win on replay.
 """
 from datetime import date
+from hashlib import sha256
 import json
 import re
 from pathlib import Path
@@ -79,15 +80,53 @@ def load_portfolio_observations(data_dir: Path):
         raise ValueError("Stored portfolio observations failed validation; check the dated observations file.") from exc
 
 
+def _source_fingerprint(source):
+    return sha256(json.dumps(source, sort_keys=True, ensure_ascii=False,
+                             separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
+def _validate_warning_scopes(source):
+    warnings = source.get("review_warnings", [])
+    scopes = source.get("review_warning_scopes", [])
+    if not isinstance(scopes, list) or len(scopes) > len(warnings):
+        raise ValueError("Warning scopes must refer to existing source warnings")
+    scoped_messages = set()
+    observed_names = {row["candidate_name"] for row in source["names"]}
+    for scope in scopes:
+        if (not isinstance(scope, dict) or set(scope) != {"message", "candidate_names"}
+                or not isinstance(scope["message"], str) or scope["message"] not in warnings
+                or scope["message"] in scoped_messages
+                or not isinstance(scope["candidate_names"], list)
+                or any(not isinstance(name, str) or name not in observed_names
+                       for name in scope["candidate_names"])
+                or len(scope["candidate_names"]) != len(set(scope["candidate_names"]))):
+            raise ValueError("Warning scopes need a unique source warning and literal source names")
+        scoped_messages.add(scope["message"])
+
+
 def _load_portfolio_observations(data_dir: Path):
     """Latest dated observation per section; no network or persisted side effects."""
     latest = {}
+    overlays = {}
     for path in sorted((data_dir / "imports").glob("variety-portfolio-observations-*/observations.json")):
         payload = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(payload, dict) or payload.get("kind") != "unreviewed_portfolio_name_observations":
             raise ValueError("Unknown portfolio observation format")
         if not isinstance(payload.get("sources"), list):
             raise ValueError("Portfolio observations need a source list")
+        scope_overlays = payload.get("warning_scope_overlays", [])
+        if not isinstance(scope_overlays, list) or len(scope_overlays) > 100:
+            raise ValueError("Warning overlays need a bounded list")
+        for overlay in scope_overlays:
+            if (not isinstance(overlay, dict)
+                    or set(overlay) != {"source_id", "source_fingerprint", "review_warning_scopes"}
+                    or not isinstance(overlay["source_id"], str) or not overlay["source_id"].strip()
+                    or not isinstance(overlay["source_fingerprint"], str)
+                    or not re.fullmatch(r"[0-9a-f]{64}", overlay["source_fingerprint"])
+                    or not isinstance(overlay["review_warning_scopes"], list)
+                    or len(overlay["review_warning_scopes"]) > 8):
+                raise ValueError("Warning overlays need an explicit source and matching record fingerprint")
+            overlays[overlay["source_id"]] = overlay
         for source in payload.get("sources", []):
             if not isinstance(source, dict):
                 raise ValueError("Portfolio source must be an object")
@@ -119,6 +158,7 @@ def _load_portfolio_observations(data_dir: Path):
                     not isinstance(message, str) or not message.strip() or len(message) > 1000
                     for message in warnings):
                 raise ValueError("Source review warnings need short, nonempty text")
+            _validate_warning_scopes(source)
             from app.services.variety_photos import compatible, validate_photo
             for name in source["names"]:
                 if "source_company_ids" in name and (not isinstance(name["source_company_ids"], list) or any(
@@ -158,6 +198,17 @@ def _load_portfolio_observations(data_dir: Path):
             old = latest.get(source["id"])
             if old is None or checked >= date.fromisoformat(old["checked_on"]):
                 latest[source["id"]] = source
+    for source_id, overlay in overlays.items():
+        if source_id not in latest:
+            raise ValueError("Warning placement refers to an unavailable source")
+        current = latest[source_id]
+        if _source_fingerprint(current) != overlay["source_fingerprint"]:
+            # New captures or operator edits win. Keep their original warnings
+            # prominent rather than replacing any part of a changed record.
+            continue
+        scoped = {**current, "review_warning_scopes": overlay["review_warning_scopes"]}
+        _validate_warning_scopes(scoped)
+        latest[source_id] = scoped
     return list(latest.values())
 
 
@@ -303,7 +354,16 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
             if source.get("published_date"):
                 reference["published_date"] = source["published_date"]
             if source.get("review_warnings"):
-                reference["review_warnings"] = list(source["review_warnings"])
+                scopes = {scope["message"]: scope["candidate_names"]
+                          for scope in source.get("review_warning_scopes", [])}
+                # Only an explicit, validated source-name scope changes placement.
+                # Missing scopes retain the conservative, prominent warning.
+                reference["review_warnings"] = [message for message in source["review_warnings"]
+                    if message not in scopes or observation["candidate_name"] in scopes[message]]
+                other_warnings = [message for message in source["review_warnings"]
+                                  if message not in reference["review_warnings"]]
+                if other_warnings:
+                    reference["other_entry_warnings"] = other_warnings
             provenance.setdefault(candidate_key(observation), []).append(reference)
             if status == "needs_review" and candidate is None:
                 lead = observation

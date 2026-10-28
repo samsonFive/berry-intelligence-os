@@ -1,5 +1,5 @@
 {% extends "glasshouse_base.html" %}
-{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=12">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=14">{% endblock %}
 {% block title %}Variety identity review — Berry Intelligence OS{% endblock %}
 {% block content %}
 <div class="company-workspace variety-workspace candidate-workspace">
@@ -57,8 +57,8 @@
   <dl class="v2-role-list">
     <dt>Source</dt><dd>{% if row.source_url %}<a href="{{ row.source_url }}">{{ row.source_url }}</a>{% else %}{{ row.source_label or "Source not recorded" }}{% endif %}</dd>
     {% if row.external_collection %}<dt>Public collection lead</dt><dd><b>{{ row.external_collection.source_name }}</b> · checked {{ row.external_collection.checked_on }}<br><small>{{ row.external_collection.limitations }}</small><details><summary>{{ row.external_collection.references|length }} source collection {{ 'record' if row.external_collection.references|length == 1 else 'records' }}</summary>{% for ref in row.external_collection.references %}<p>{{ ref.unique_name }} · {{ ref.organism }}{% if ref.institutional_name %} · {{ ref.institutional_name }}{% endif %}</p>{% endfor %}</details></dd>{% endif %}
-    <dt>Denomination / code</dt><dd>{{ row.denomination or row.breeder_code or "—" }}{% if row.denomination and row.breeder_code and row.breeder_code != row.denomination %} · {{ row.breeder_code }}{% endif %}</dd>
-    <dt>Applicant / breeder</dt><dd>{{ row.breeder_owner or row.applicant or "—" }}</dd>
+    {% if row.denomination or row.breeder_code %}<dt>Denomination / code</dt><dd>{{ row.denomination or row.breeder_code }}{% if row.denomination and row.breeder_code and row.breeder_code != row.denomination %} · {{ row.breeder_code }}{% endif %}</dd>{% endif %}
+    {% if row.breeder_owner or row.applicant %}<dt>Applicant / breeder</dt><dd>{{ row.breeder_owner or row.applicant }}</dd>{% endif %}
     {% if row.knowledge.company_associations %}<dt>Companies in your registry</dt><dd>{% for item in row.knowledge.company_associations %}<a href="/entities/{{ item.entity_type }}/{{ item.entity_id }}">{{ item.name }}</a>{% if not loop.last %} &middot; {% endif %}{% endfor %}<br>Association supplied in your photos; role and spelling still need confirmation.</dd>{% endif %}
     {% if row.knowledge.source_companies %}<dt>Companies mentioned by the source</dt><dd>{% for item in row.knowledge.source_companies %}<a href="/entities/company/{{ item.entity_id }}">{{ item.name }}</a>{% if not loop.last %} · {% endif %}{% endfor %}<br><small>Source context, not an approved breeder or owner relationship.</small></dd>{% endif %}
     {% set source_ids = ((row.knowledge.evidence_ids or []) + (row.corpus_evidence_ids or []))|unique|list %}{% if source_ids %}<dt>Supporting records</dt><dd>{% for sid in source_ids %}{% if (row.knowledge.source_text_basis and sid in (row.knowledge.evidence_ids or [])) or (filters.discovery and sid == filters.source) %}<a href="/intelligence/{{ sid }}?personal=1">Read article {{ loop.index }} →</a>{% else %}<a href="/evidence/{{ sid }}">Source {{ loop.index }} →</a>{% endif %} {% endfor %}</dd>{% endif %}
@@ -66,18 +66,23 @@
     {% set article_refs = row.corpus_article_text_sources or row.knowledge.article_text_sources %}{% if article_refs %}<dt>Article references</dt><dd><details><summary>{{ article_refs|length }} {{ 'source names' if article_refs|length == 1 else 'sources name' }} this variety</summary>{% for ref in article_refs %}<p>{% if ref.source_url.startswith(('https://', 'http://')) %}<a href="{{ ref.source_url }}" target="_blank" rel="noopener noreferrer">{{ ref.source_label or 'Original article' }} ↗</a>{% else %}{{ ref.source_label or 'Source' }}{% endif %} · {{ 'Source reviewed' if ref.publication_reviewed else 'Unreviewed source' }}</p>{% endfor %}<small>Newly captured text and variety identities are not approved by this check.</small></details></dd>{% endif %}
     {% if row.portfolio_identity_notes %}<dt>Check names before combining</dt><dd>{% for note in row.portfolio_identity_notes %}<p>{{ note }}</p>{% endfor %}</dd>{% endif %}
     {% if row.portfolio_sources %}<dt>Source references</dt><dd>{% for source in row.portfolio_sources %}
-      <p><a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }} ↗</a>{% if source.product_url and source.product_url != source.url %} · <a href="{{ source.product_url }}" target="_blank" rel="noopener noreferrer">{{ 'Original claim' if source.source_type == 'plant_patent' else 'Name reference' }} ↗</a>{% endif %}<br>
-        <b>{{ source.candidate_name }}</b>{% if source.breeder_code and source.breeder_code != source.candidate_name %} · {{ source.breeder_code }}{% endif %}{% if source.trade_name %} · displayed as {{ source.display_label or source.trade_name }}{% endif %}
-        {% if source.source_type == 'plant_patent' and (source.grant_number or source.application_number) %}<br><small>
+      <div class="candidate-source-ref">
+        <div class="candidate-source-links"><a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }} ↗</a>{% if source.product_url and source.product_url != source.url %}<a href="{{ source.product_url }}" target="_blank" rel="noopener noreferrer">{{ 'Original claim' if source.source_type == 'plant_patent' else 'Name reference' }} ↗</a>{% endif %}</div>
+        <p class="candidate-source-name"><b>{{ source.candidate_name }}</b>{% if source.breeder_code and source.breeder_code != source.candidate_name %} · {{ source.breeder_code }}{% endif %}{% if source.trade_name %} · displayed as {{ source.display_label or source.trade_name }}{% endif %}</p>
+        {% if source.source_type == 'plant_patent' and (source.grant_number or source.application_number) %}<div class="candidate-filing-dates">
           {% if source.grant_number %}Patent {{ source.grant_number }}{% endif %}{% if source.jurisdiction %} · {{ source.jurisdiction }}{% endif %}
           {% if source.application_number %} · Filing {{ source.application_number }}{% endif %}
           {% if source.application_date %} · Filed <time datetime="{{ source.application_date }}">{{ source.application_date }}</time>{% endif %}
           {% if source.grant_date %} · Granted <time datetime="{{ source.grant_date }}">{{ source.grant_date }}</time>{% endif %}
-        </small>{% endif %}
-        {% if source.portfolio_context %}<br>{{ source.portfolio_context }}{% endif %}<br><small>{% if source.published_date %}Published <time datetime="{{ source.published_date }}">{{ source.published_date }}</time>. {% endif %}Checked <time datetime="{{ source.checked_on }}">{{ source.checked_on }}</time>.</small>
-        {% if source.source_company_ids and source.companies %}<br><small>Organizations named in this entry: {% for company in source.companies %}<a href="{{ company.href }}">{{ company.name }}</a>{{ ', ' if not loop.last else '' }}{% endfor %}. Company roles still need review.</small>{% endif %}
-        {% if source.source_company_context %}<br><small>{{ source.source_company_context }}</small>{% endif %}
-      </p>{% endfor %}<small>Name observations awaiting review; no company role approved.{% if row.portfolio_sources|selectattr('source_type', 'equalto', 'plant_patent')|list %} Filing dates describe the source document; current rights still need review.{% endif %}</small></dd>{% endif %}
+        </div>{% endif %}
+        <p class="candidate-source-dates">{% if source.published_date %}Published <time datetime="{{ source.published_date }}">{{ source.published_date }}</time> · {% endif %}Checked <time datetime="{{ source.checked_on }}">{{ source.checked_on }}</time></p>
+        {% if source.portfolio_context or source.source_company_context or source.other_entry_warnings or (source.source_company_ids and source.companies) %}<details class="candidate-source-context"><summary>Source context</summary>
+          {% if source.portfolio_context %}<p>{{ source.portfolio_context }}</p>{% endif %}
+          {% if source.source_company_ids and source.companies %}<p>Organizations named in this entry: {% for company in source.companies %}<a href="{{ company.href }}">{{ company.name }}</a>{{ ', ' if not loop.last else '' }}{% endfor %}. Company roles still need review.</p>{% endif %}
+          {% if source.source_company_context %}<p>{{ source.source_company_context }}</p>{% endif %}
+          {% if source.other_entry_warnings %}<p><b>Notes about other entries in this source</b></p>{% for message in source.other_entry_warnings %}<p>{{ message }}</p>{% endfor %}{% endif %}
+        </details>{% endif %}
+      </div>{% endfor %}<small>Check the identity and company roles before relying on these sources.{% if row.portfolio_sources|selectattr('source_type', 'equalto', 'plant_patent')|list %} Check current rights separately from the historical filing dates.{% endif %}</small></dd>{% endif %}
     <dt>Registration</dt>
     <dd>
       {{ row.registration.application_number or "—" }}

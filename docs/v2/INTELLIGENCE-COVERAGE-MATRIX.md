@@ -12,6 +12,30 @@ from human publication/Atomic Evidence decisions. See the dated package and
 review packet for provenance and scope. The following October 21 entry is the
 historical deployment baseline, not the current source count.
 
+October 28, 2026: [raspberry original-document follow-up](RASPBERRY-ORIGINAL-PATENT-REVIEW.md)
+adds four original US filing references with inspected claim pages and four
+source-labeled fruit figures, twelve separate parent/comparison occurrences and
+three issuer commercial-name/code observations. All nine sections remain
+unreviewed. Allberry/ABB legal identity, Baridi's conflicting code, current rights
+and image reuse remain unresolved. These metadata additions do not constitute
+new approved cultivars, organizations, roles or regions, or independent recall.
+Two additional breeder-labeled color fruit references fill missing photo-source
+fields for Malaika and Zawadi. Their image pixels remain hidden by default with
+unknown reuse. Neither changes a canonical identity or transfers a patent.
+
+The final [named-photo cohort](../../data/imports/variety-portfolio-observations-2026-10-28-profile-fruit-cohort/README.md)
+adds thirteen inspected originals, twelve associated with existing profiles and
+one held by the existing Rutgers D'Light code/name check. Across this draft,
+nineteen profiles gain reference metadata and the public seed's missing-photo
+count falls from 49 to 30; none gains reuse permission. Two fictional seed
+profiles are retained outside real-variety research. Planasa asset/page HTTP403
+gaps are explicit. Four non-destructive warning overlays retain focal cautions
+and move notes about other entries into secondary context, preserving all
+whole-source warnings, operator edits and newer captures.
+The bounded inventory is 456 sections / 1,680 name occurrences / 140 catalog
+matches / 1,540 occurrences needing review. These are source observations, not
+independent sources, new cultivars or a completeness score; CAT-01/CAT-02 stay open.
+
 October 23, 2026: [Publisher-first coverage and reader recovery](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 adds verified Watershed blog metadata and bounded Packer section discovery,
 supplemented by indexed results. Candidate checks found 16/15 publisher entries
