@@ -2954,13 +2954,11 @@ def entity_list(
                         sourced=variety_photos.source_photos(target, sources=photo_sources, varieties=varieties_all),
                         profile=photo_profiles.get(card["id"]))
             if AUTHORING_MODE:
-                name_queue = variety_navigation.candidate_queue(visible_candidates, {
-                    key: request.query_params.get(key, "") for key in ("q", "berry", "company", "letter")
-                })
+                name_scope = {key: context["filters"].get(key, "") for key in ("q", "berry", "company")}
+                name_scope["letter"] = request.query_params.get("letter", "")
+                name_queue = variety_navigation.candidate_queue(visible_candidates, name_scope)
                 context["discovered_names"] = name_queue["candidates"]
-                context["discovered_name_query"] = urlencode({
-                    key: request.query_params.get(key, "") for key in ("q", "berry", "company", "letter")
-                })
+                context["discovered_name_query"] = urlencode(name_scope)
         except ValueError as exc:
             raise HTTPException(422, str(exc)) from exc
         context["growing_geographies"] = sorted({row["geography_id"]: row["country"] for row in region_rows if row["kind"] == "variety"}.items(), key=lambda row: row[1].casefold())

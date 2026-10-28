@@ -58,6 +58,11 @@
 .variety-profile-photos figcaption{overflow-wrap:anywhere}
 .variety-profile-main .company-tabs{margin-top:0}
 @media(max-width:900px){.variety-profile-with-photos{display:block}.variety-profile-photos .variety-photo{flex-basis:280px;max-width:100%}}
+@media(max-width:640px){
+  .variety-profile-photos .variety-photo{flex-basis:100%}
+  .variety-profile-photos .variety-photo-frame{height:auto;aspect-ratio:8/5}
+  .variety-profile-photos .variety-photo-frame img{max-height:none}
+}
 
 .variety-profile-main [id]{scroll-margin-top:var(--variety-profile-scroll-offset,100px)}
 

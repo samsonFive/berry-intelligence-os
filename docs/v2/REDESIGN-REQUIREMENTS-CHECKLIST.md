@@ -1,5 +1,29 @@
 # Redesign and consolidation requirements
 
+## Verified delivery and remaining work — October 28, 2026
+
+The live release is canonical `e24b566b`, retaining the platform redesign,
+shared Workspaces, Gene Editing closeout #417 and News Tags #415. The recovered
+server is healthy; temporary review jobs use the bounded offline guard. Only
+layouts and Personal Digest should be account-private; the per-account Digest
+follow-up #412 remains a separate unreleased draft. Other platform performance
+and navigation drafts remain separate from catalog research.
+
+Frozen catalog #418 at `49489128` passes all four checks and 5,300 tests, native
+phone/desktop review and a fresh production-copy preservation check: five
+original accounts, 65 variety profiles, 9,821 protected JSON records and four
+databases retained. Its verified backup has 19,758 files. Production was not
+replaced; release approval and a release-time fresh preflight remain required.
+
+The separate [original-photo follow-up](ORIGINAL-VARIETY-PHOTO-FOLLOWUP.md) adds
+references for eight more existing profiles. Its public seed's photo gaps fall
+from 30 to 22; rights/trait/company gaps remain 13/33/10. Counts are scoped
+observations rather than independent sources or a completeness score. CAT-01/
+CAT-02, current/historical portfolios, the 52-source human worksheet, 32 unclear
+photo cells and human source/identity/catalog/qualification/reuse gates stay open.
+All 31 accepted IDs, descriptions and ordering below remain intact. Earlier
+dated release/verification statements describe their own snapshots.
+
 October 28 source follow-up: [raspberry patent originals](RASPBERRY-ORIGINAL-PATENT-REVIEW.md)
 adds four original filing/claim links and four held, attributed fruit figures.
 Nine unreviewed sections retain nineteen focal, commercial-label and separate

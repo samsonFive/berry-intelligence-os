@@ -1,5 +1,13 @@
 # Technical Debt Register
 
+October 28, later TD-116 [original-photo follow-up](ORIGINAL-VARIETY-PHOTO-FOLLOWUP.md):
+eight further existing profiles gain held image references. Nine photo
+observations use eight image URLs; named comparison positions remain separate,
+flowers are not labeled fruit, and the blueberry Keepsake image stays within
+its crop. The public seed has 22 missing photo references, including two declared
+examples; rights/trait/company gaps remain 13/33/10. No permissions, identities,
+canonical fields or current rights are approved. TD-116 remains open.
+
 October 28 — TD-116 source follow-up: [raspberry original filings](RASPBERRY-ORIGINAL-PATENT-REVIEW.md)
 now link four literal ABB denominations to inspected claims and attributed fruit
 figures. This closes a bounded missing-reference gap, without approving their
