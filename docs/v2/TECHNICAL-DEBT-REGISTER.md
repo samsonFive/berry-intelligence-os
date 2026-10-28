@@ -1,5 +1,16 @@
 # Technical Debt Register
 
+October 28, later TD-116 [filing-figure review](ORIGINAL-FILING-FIGURES-REVIEW.md):
+seven existing profiles gain held full-size technical figures and original claim
+links; the public seed has fifteen remaining image-reference gaps. Forty-seven
+separate context labels preserve later comparisons and source inconsistencies.
+Unknown reuse, current rights, identity/canonical authoring and the independent
+human worksheet remain open. Monochrome/sideways scans are qualified references,
+not substitutes for later sourced color photos. Earlier four ABB image entries
+in #418 retain their original low-resolution thumbnails; a future full-figure
+variant check must preserve those captures and user edits rather than silently
+replace their metadata. No new backend or crop-specific workaround is added.
+
 October 28, later TD-116 [original-photo follow-up](ORIGINAL-VARIETY-PHOTO-FOLLOWUP.md):
 eight further existing profiles gain held image references. Nine photo
 observations use eight image URLs; named comparison positions remain separate,
