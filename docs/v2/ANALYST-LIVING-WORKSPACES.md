@@ -1,6 +1,15 @@
 # Analyst living workspaces
 
-Private authoring implementation; production deployment and merge are not authorized.
+Shared authoring for signed-in analysts. The live canonical `e24b566b` includes
+the released Workspaces feature. Everyone works on the same pages, captures,
+notes and connections; these are not account-owned private notebooks. Workspace
+content stays out of the public static snapshot. Layout preferences and the
+Personal Digest have separate account scope; the Digest follow-up remains its
+own draft and release boundary.
+
+The [visual guide follow-up](WORKSPACES-VISUAL-GUIDE.md) explains capture,
+connection, cited drafts and Markdown/JSON exports. Earlier preview/deployment
+statements below are dated implementation history, not today's live boundary.
 
 ## Review entry points
 
