@@ -32,6 +32,19 @@ CAT-01/CAT-02, independent human answers, 32 unclear photo cells, complete
 current/historical portfolios, rights/photos, profile/statistics coverage and
 broader TD-122 work remain open. Earlier status notes are historical.
 
+## Account scope confirmed — October 27, 2026
+
+Workspaces are shared, collaborative research across signed-in accounts. Only
+layout settings and Personal Digest are account-specific. Company lists,
+favorites, tiers, research and human-review decisions remain shared. Personal
+Digest includes each person's saves, reading progress/position/priority and
+subscriptions to the shared lists. The [implementation and migration review](SHARED-WORKSPACES-PERSONAL-DIGEST.md)
+retains older data and all existing review gates. Its final 76 affected tests,
+two-account browser review and 412-pixel responsive review pass; full current-head
+CI, production-copy preservation and release checks remain. No private Workspace ACL
+mission is implied. All original 31 accepted definitions and ordering below
+remain preserved.
+
 This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.

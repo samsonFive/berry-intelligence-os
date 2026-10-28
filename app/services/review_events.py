@@ -99,6 +99,10 @@ def append_review_event(
     if not re.fullmatch(r"[a-z][a-z0-9_]{1,63}", workflow):
         raise ValueError("invalid review-event workflow")
     root = Path(inbox_dir) / EVENTS_DIRNAME / workflow
+    if workflow == 'reading_queue':
+        from app.services.personal_scope import account_key
+        if account_key():
+            root /= account_key()
     object_key = hashlib.sha256(object_id.encode("utf-8")).hexdigest()[:24]
     object_dir = root / object_key
     previous = load_review_events(inbox_dir, workflow=workflow, object_id=object_id)
@@ -211,6 +215,12 @@ def load_review_events(
         return []
     events: list[dict[str, Any]] = []
     for path in root.rglob("*.json"):
+        relative = path.relative_to(Path(inbox_dir) / EVENTS_DIRNAME).parts
+        if relative[0] == 'reading_queue':
+            from app.services.personal_scope import account_key, legacy_access
+            personal = relative[1].startswith('account-')
+            if (personal and relative[1] != account_key()) or (not personal and not legacy_access()):
+                continue
         try:
             event = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):

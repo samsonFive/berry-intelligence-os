@@ -20,6 +20,14 @@ both name findings match exactly; 9,770 protected JSON files and accounts remain
 unchanged. Reader parity covers 3,462 sources. Browser review, current-head full
 CI and release approval remain. TD-122 is still partially addressed.
 
+October 27 — [shared Workspaces and personal Digest](SHARED-WORKSPACES-PERSONAL-DIGEST.md):
+the user confirms collaborative Workspace content and shared company marks/lists.
+Per-account layouts already ship; Digest saves, reading state and subscriptions
+now have an account-scoped implementation over the existing JSON stores. The
+first 75 affected tests pass. Browser/current-head CI, runtime-preservation and
+release review remain; no production migration or private Workspace ownership
+is claimed. Existing shared legacy reading history is retained explicitly.
+
 October 23, 2026 follow-up: [Performance, reader and publisher coverage](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 records measured reductions in Brief, Live Intelligence, Variety and Monitoring
 response times, generic exact-publisher reader recovery, and publisher-first

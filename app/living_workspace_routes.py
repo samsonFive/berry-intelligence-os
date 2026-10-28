@@ -1,4 +1,4 @@
-"""Authenticated private authoring API for living analyst documents."""
+"""Authenticated team authoring API for shared living analyst documents."""
 from __future__ import annotations
 
 import json
@@ -77,7 +77,7 @@ async def add_social_reference(request: Request):
 def context(request, mutate=False):
     from app import main
     if not main.AUTHORING_MODE:
-        raise HTTPException(403, "Workspaces are private analyst material")
+        raise HTTPException(403, "Workspaces require the signed-in analyst app")
     if mutate:
         require_edit(request)
     store = living.Store(main.INBOX_DIR)

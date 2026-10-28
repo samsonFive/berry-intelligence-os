@@ -54,6 +54,19 @@ statistics coverage and broader TD-122 work remain open. The prior Landscape
 blueberry continuation was approved and its later four-crop features released;
 historical checkpoint notes below do not impose a new pause.
 
+## October 27 account-scope clarification
+
+Live canonical is `94a3b99b`, including released collaborative Workspaces #408.
+The user confirms shared Workspace/research/company-list content; only account
+layouts and Personal Digest are personal. The [Digest account-scope change](docs/v2/SHARED-WORKSPACES-PERSONAL-DIGEST.md)
+is implemented with 76 passing affected tests and explicit legacy preservation.
+Two-account browser and 412-pixel responsive reviews pass. Full current-head CI,
+production-copy preservation and release review remain. The guide now describes
+Workspaces and the shared-versus-personal boundary. Nothing is deployed here.
+Catalog #399/#400 and profile-performance #410 remain separate release drafts.
+Their latest reconciliation preserves the Workspaces release and original
+catalog decisions. CAT-01/CAT-02 and wider coverage work remain open.
+
 **October 12–13: Landscape PDFs and actual browser exports.** Draft #396 now
 offers server-rendered PDF snapshots with cited takeaways, market/comparison
 tables and the complete evidence appendix. Scope, crop identity, three dates,

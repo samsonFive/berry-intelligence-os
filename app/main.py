@@ -727,7 +727,9 @@ def _social_output_signature():
 
 
 def _nav_work_cache_key() -> tuple[Any, ...]:
+    from app.services.personal_scope import account_key
     return (
+        account_key(),
         _social_output_signature(),
         str(INBOX_DIR),
         str(DATA_DIR),
