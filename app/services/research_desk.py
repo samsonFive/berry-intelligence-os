@@ -79,10 +79,12 @@ class ResearchScope:
     unresolved: tuple[str, ...] = ()
     ambiguous: tuple[str, ...] = ()
     interpretation_source: str = "deterministic"
+    tag_ids: tuple[str, ...] = ()
+    tag_mode: str = 'all'
 
     def as_dict(self) -> dict[str, Any]:
         payload = asdict(self)
-        for key in ("geography_ids", "company_ids", "variety_ids", "topics", "unresolved", "ambiguous"):
+        for key in ("geography_ids", "company_ids", "variety_ids", "topics", "unresolved", "ambiguous", "tag_ids"):
             payload[key] = list(payload[key])
         return payload
 
@@ -105,6 +107,8 @@ class ResearchScope:
             unresolved=tuple(str(v) for v in raw.get("unresolved") or []),
             ambiguous=tuple(str(v) for v in raw.get("ambiguous") or []),
             interpretation_source=str(raw.get("interpretation_source") or "deterministic"),
+            tag_ids=tuple(dict.fromkeys(str(v) for v in raw.get('tag_ids') or [])),
+            tag_mode='any' if raw.get('tag_mode') == 'any' else 'all',
         )
 
 
@@ -267,6 +271,8 @@ def interpret_research_scope(
         comparison=comparison or len(company_ids) > 1,
         unresolved=unresolved,
         ambiguous=ambiguous,
+        tag_ids=previous.tag_ids if previous else (),
+        tag_mode=previous.tag_mode if previous else 'all',
     )
 
 

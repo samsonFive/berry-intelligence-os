@@ -150,6 +150,10 @@ def inventory(request: Request):
     main, store, _ = context(request)
     entities = [{"id": row["id"], "name": row.get("name", row["id"]), "type": row.get("entity_type", "topic"), "aliases": row.get("aliases", [])} for row in main.all_entities()]
     entities.extend(store.rows("entity"))
+    from app.services import news_tags
+    known = {row['id'] for row in entities}
+    entities.extend({'id': tag['id'], 'name': tag['name'], 'type': 'topic', 'aliases': []}
+                    for tag in news_tags.catalog(main.INBOX_DIR) if tag['id'] not in known)
     return {"pages": store.rows("page"), "entities": entities, "predicates": predicates(main)}
 
 
@@ -250,11 +254,15 @@ def feed(request: Request, page_id: str):
     from app.services import feed_first
     from app.services.news_workspace import source_reviewed, escalations
     support = escalations(main.all_facts())
+    from app.services import news_tags
+    tag_catalog = news_tags.catalog(main.INBOX_DIR)
+    tag_assignments = news_tags.snapshot(main.INBOX_DIR)
     cards, news_cards, seen = [], [], set()
     for row in sorted(records.values(), key=lambda r: str(r.get("published_date") or ""), reverse=True):
         if row["id"] in page["dismissed"]:
             continue
-        matches = living.feed_matches(row, page["feed"])
+        assigned = news_tags.effective(row, tag_catalog, *tag_assignments)
+        matches = living.feed_matches({**row, 'topic_ids': sorted(set(row.get('topic_ids') or []) | set(assigned))}, page["feed"])
         # Canonical URL, then exact normalized title. No fuzzy evidence merges.
         url = urlsplit(str(row.get("source_url") or ""))
         key = (url.netloc.lower(), url.path.rstrip("/")) if url.netloc else (row["id"],)

@@ -3,7 +3,7 @@ from datetime import UTC, datetime, timedelta
 from functools import lru_cache
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from app.services import feed_first, personal_digest
+from app.services import feed_first, personal_digest, news_tags
 from app.services.chronology import parse_stamp
 from app.services.geography_hierarchy import record_geography_ids, resolve_geography_scope
 from app.services.global_explorer import IntelligenceQuery
@@ -52,7 +52,11 @@ def parameters(params):
     """Retain bookmarked feed/map scope, while normalizing to one News vocabulary."""
     values = {key: str(params.get(key) or "").strip() for key in
               ("q", "view", "berry", "countries", "company", "list", "tier", "favorites", "window", "start", "end", "tz", "source", "adjacent")}
-    values['topic'] = ','.join(topic_selection(params))
+    values['topic'] = str(params.get('tag') if 'tag' in params else params.get('topic') or '').strip()
+    values['tag'] = values['topic']
+    values['tag_mode'] = str(params.get('tag_mode') or 'all')
+    if values['tag_mode'] not in {'all', 'any'}:
+        raise ValueError('Choose All or Any selected tags')
     if values['adjacent'] not in {'', '1'}:
         raise ValueError('Choose a supported adjacent-crop toggle')
     values["view"] = values["view"] or "unreviewed"
@@ -74,8 +78,13 @@ def parameters(params):
     return values
 
 
-def model(*, records, entities, relationships, facts, state, params, now=None):
+def model(*, records, entities, relationships, facts, state, params, now=None, tags=None, tag_assignments=None):
     filters = parameters(params)
+    tags = tags if tags is not None else [dict(id=k, name=v[0], description=v[1], version=1) for k,v in news_tags.SEEDS.items()]
+    selected_tags = set(filter(None, filters['tag'].split(',')))
+    if selected_tags - {t['id'] for t in tags}:
+        raise ValueError('Tag is unavailable')
+    effective = {key: news_tags.effective(record, tags, *(tag_assignments or (None, None))) for key,record in records.items()}
     try:
         zone = ZoneInfo(filters["tz"] or "UTC")
     except (ZoneInfoNotFoundError, ValueError):
@@ -117,10 +126,11 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
     matched = []
     for record in records.values():
         classification = classify(record)
-        if filters['topic']:
-            if not set(filters['topic'].split(',')).intersection(classification['topics']):
+        if selected_tags:
+            assigned = set(effective[record['id']])
+            if not (selected_tags <= assigned if filters['tag_mode'] == 'all' else selected_tags.intersection(assigned)):
                 continue
-            if not filters['adjacent'] and not classification['berry_related']:
+            if 'tag' not in params and selected_tags <= {'gene-editing', 'advanced-breeding'} and not filters['adjacent'] and not classification['berry_related']:
                 continue
         if filters['source'] and filters['source'] != record.get('source_name'):
             continue
@@ -191,6 +201,7 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
         card.update(trusted=trusted, source_reviewed=source_reviewed(record), escalated_count=len(support.get(card["id"], [])))
         card["company_mentions"] = mentions
         card['topic_match'] = classify(record)
+        card['assigned_tags'] = [tag for tag in tags if tag['id'] in effective[record['id']]]
         card["entities"] = [row for row in card["entities"] if (entities.get(row["id"]) or {}).get("entity_type") in {"company", "brand", "research_program"}]
         cards.append(card)
     date_label = {'': 'All dated news', 'today': 'Today', '7d': 'Past 7 days', '30d': 'Past 30 days',
@@ -217,9 +228,9 @@ def model(*, records, entities, relationships, facts, state, params, now=None):
     if filters['q']:
         filter_summary.append('Search: ' + filters['q'])
     if filters['topic']:
-        from app.services.gene_editing import TOPICS
-        filter_summary.extend(TOPICS[key] for key in filters['topic'].split(','))
+        filter_summary.extend(tag['name'] for tag in tags if tag['id'] in selected_tags)
+        filter_summary.append('All selected tags' if filters['tag_mode'] == 'all' else 'Any selected tag')
     return {"cards": cards, "matching": len(matched), "matching_ids": [r[0]["id"] for r in matched], "counts": counts, "filters": filters,
-            "filter_summary": filter_summary,
+            "filter_summary": filter_summary, "tags": tags,
             "page": page, "pages": pages, "lists": lists, "query": query,
             "source_choices": sorted({r.get('source_name') for r in records.values() if r.get('source_name')})}

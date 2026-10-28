@@ -745,6 +745,8 @@ def save_bundle(inbox_dir: Path, bundle: dict[str, Any]) -> Path:
     path = cache_path(inbox_dir, today)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(bundle, indent=2) + "\n", encoding="utf-8")
+    from app.services import news_tags
+    news_tags.incremental(inbox_dir, bundle.get('records') or [])
     return path
 
 

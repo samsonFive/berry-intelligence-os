@@ -1,7 +1,7 @@
 {% extends "glasshouse_base.html" %}
 {% from "_personal_icons.html" import icon, action_icon with context %}
 {% block title %}News — Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/news_workspace.css?v=2">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/news_workspace.css?v=3">{% endblock %}
 {% block content %}
 <div data-news-workspace data-initial-story="{{ initial_story }}" data-news-completed="{{ refresh_state.completed_at or '' }}">
 <header class="digest-heading news-heading"><div><p class="eyebrow">YOUR INDUSTRY, IN VIEW</p><h1>News</h1><p>Scan the latest developments. Open a story to read without losing your place.</p></div><div class="news-heading-actions"><a class="outline-button" href="{{ map_href }}">Explore this scope on the map ↗</a>{% if authoring_mode %}<button type="button" class="outline-button" data-news-images>Load article images</button><button type="button" class="green-button" data-news-refresh>Refresh news</button>{% endif %}</div></header>
@@ -10,7 +10,17 @@
 <details class="news-filter-disclosure" data-news-filter-disclosure open><summary><b>Filters</b><span>{{ filter_summary|join(' · ') }}</span></summary>
 <form action="/today" method="get" class="digest-filters news-filters">
 <input type="hidden" name="view" value="{{ filters.view }}"><input type="hidden" name="tz" value="{{ filters.tz }}" data-news-timezone>
-<label>Topics<select name="topic_choice" multiple aria-label="Topics"><option value="gene-editing" {% if 'gene-editing' in filters.topic.split(',') %}selected{% endif %}>Gene Editing</option><option value="advanced-breeding" {% if 'advanced-breeding' in filters.topic.split(',') %}selected{% endif %}>Advanced Breeding</option></select></label>
+<fieldset class="news-tags" data-tags-panel data-can-save="{{ '1' if authoring_mode else '0' }}"><legend>Tags</legend>
+<input type="hidden" name="tag" value="" data-tag-empty>
+<label>Find tags<input type="search" data-tag-search placeholder="Find a tag" autocomplete="off"></label>
+<div class="news-tag-chips" data-tag-chips>{% for tag in tags %}<label class="news-tag-chip"><input type="checkbox" name="tag_choice" value="{{ tag.id }}" {% if tag.id in filters.tag.split(',') %}checked{% endif %}><span>{{ tag.name }}</span></label>{% endfor %}</div>
+<label>Match<select name="tag_mode" data-tag-mode><option value="all" {% if filters.tag_mode == 'all' %}selected{% endif %}>All selected tags</option><option value="any" {% if filters.tag_mode == 'any' %}selected{% endif %}>Any selected tag</option></select></label>
+<a class="clear-link" data-clear-tags href="{{ clear_tags_href }}">Clear tags · Show all news</a>
+{% if filters.tag %}<a href="{{ tag_research_href }}">Research these tags</a>{% endif %}
+{% if authoring_mode %}<button type="button" class="outline-button" data-add-tag>+ Add tag</button><button type="button" class="clear-link" data-manage-tags>Edit tag definitions</button>{% endif %}
+<p class="reader-note">Tags describe subject relevance. Automatic rules use stored text; limited text and unsupported terminology can cause missed assignments.</p><p role="status" data-tag-status data-job-status="{{ tag_job.status }}">{% if tag_job.status != 'ready' %}Tag classification {{ tag_job.status }} · {{ tag_job.processed }} / {{ tag_job.total }}. Results may be incomplete.{% if tag_job.error %} {{ tag_job.error }}{% endif %}{% else %}Tags filter stories within your other filters.{% endif %}</p>
+{% if authoring_mode %}<button type="button" class="clear-link" data-retry-tags>Recheck stored articles</button>{% endif %}
+</fieldset>
 <label class="company-check"><input type="checkbox" name="adjacent" value="1" {% if filters.adjacent %}checked{% endif %}> Include adjacent crops and crop-unassigned plant platforms</label>
 <label>Publisher<select name="source"><option value="">All publishers</option>{% for label in source_choices %}<option value="{{ label }}" {% if filters.source == label %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
 <a href="/landscapes/explorer?topic=gene-editing">Gene Editing & Advanced Breeding landscape ↗</a>
@@ -22,11 +32,14 @@
 <label>Company tier<select name="tier">{% for value,label in [('','All tiers'),('tier1','Tier 1'),('tier2','Tier 2'),('tier3','Tier 3'),('untiered','Untiered'),('watch','Legacy watch'),('muted','Muted')] %}<option value="{{ value }}" {% if filters.tier == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
 <label>Dates<select name="window" data-digest-window>{% for value,label in [('','All dated news'),('today','Today'),('7d','Past 7 days'),('30d','Past 30 days'),('ytd','Year to date'),('custom','Custom dates'),('undated','Date unavailable')] %}<option value="{{ value }}" {% if filters.window == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
 <div class="custom-dates" {% if filters.window != 'custom' %}hidden{% endif %}><label>From<input type="date" name="start" value="{{ filters.start }}"></label><label>Through<input type="date" name="end" value="{{ filters.end }}"></label></div>
-<button type="submit" class="green-button">Apply</button><a class="clear-link" href="/today?view={{ filters.view }}">Reset</a>
+<button type="submit" class="green-button">Apply</button><a class="clear-link" href="/today?view={{ filters.view }}&tag=" data-clear-tags>Reset</a>
 </form></details>
 <div class="digest-toolbar"><span><b>{{ matching }}</b> matching stories · newest publication first{% if pages > 1 %} · Page {{ page }} of {{ pages }}{% endif %}</span><span class="news-refresh-status" role="status" aria-live="polite" data-news-refresh-status>{{ refresh_state.message or 'Showing stored news' }}{% if refresh_state.completed_at %} · <time datetime="{{ refresh_state.completed_at }}" data-news-local-time>{{ refresh_state.completed_at }}</time>{% endif %}</span></div>
 {% include "_news_cards.html" %}<nav class="digest-pagination" aria-label="News pages">{% if page > 1 %}<a href="{{ pagination[page-1] }}">← Previous</a>{% endif %}<span>Page {{ page }} of {{ pages }}</span>{% if page < pages %}<a href="{{ pagination[page+1] }}">Next →</a>{% endif %}</nav>
 <details class="news-secondary"><summary>Coverage & existing tools</summary><p>Dates use {{ filters.tz }}. Undated news is available in its own date view. Company, berry and region tags describe stored assignments and can miss relevant stories. Refresh checks public news sources; it does not guarantee exhaustive coverage or fetch every full article.</p><p>Map Explorer shares news scope, including company, list, tier and date filters. Location layers and annual market context keep their own time and status scope.</p><a href="/news?view=archive">Previous news archive</a> · <a href="/today?view=legacy">Previous News workspace</a> · <a href="/today?view=briefing">Daily briefing</a> · <a href="/work-queue">Publication review</a></details>
-</div><p class="digest-status" role="status" aria-live="polite"></p>
+</div>
+<dialog data-tag-definition-dialog><form method="dialog"><h2>Edit tag definition</h2><label>Tag<select data-definition-id>{% for tag in tags %}<option value="{{ tag.id }}" data-name="{{ tag.name }}" data-description="{{ tag.description }}">{{ tag.name }}</option>{% endfor %}</select></label><label>Name<input data-definition-name maxlength="80" required></label><label>Description<textarea data-definition-description maxlength="2000"></textarea></label><p>Changing a description rechecks automatic assignments. Manual corrections are retained.</p><p role="status" data-definition-status></p><button type="button" data-save-definition>Save</button><button type="submit" formnovalidate>Cancel</button></form></dialog>
+<dialog data-tag-dialog><form method="dialog"><h2>Add tag</h2><label>Name<input name="name" maxlength="80" required autocomplete="off" data-tag-name></label><p data-tag-matches></p><label>Description (optional)<textarea name="description" maxlength="2000"></textarea></label><p role="status" data-tag-create-status></p><button type="button" class="green-button" data-create-tag>Create tag</button> <button type="submit" formnovalidate>Cancel</button></form></dialog>
+<p class="digest-status" role="status" aria-live="polite"></p>
 {% endblock %}
-{% block scripts %}<script src="/static/news_workspace.js?v=7"></script>{% endblock %}
+{% block scripts %}<script src="/static/news_workspace.js?v=8"></script><script src="/static/news_tags.js?v=1"></script>{% endblock %}

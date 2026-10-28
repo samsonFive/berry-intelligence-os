@@ -8,7 +8,7 @@ from fastapi import APIRouter, BackgroundTasks, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 
 from app.personal_digest_routes import require_edit, world
-from app.services import feed_first, news_workspace, news_images
+from app.services import feed_first, news_workspace, news_images, news_tags
 from app.services.analyst_state_io import atomic_json, serialized_write
 from app.services.pipeline_lock import pipeline_lock
 
@@ -18,8 +18,11 @@ router = APIRouter()
 def news_page(request: Request):
     main, context, records, entities = world()
     params = dict(request.query_params)
+    saved = news_tags.preferences(main.INBOX_DIR, tag_actor(request))
+    if not any(key in params for key in ('tag', 'topic', 'tag_choice', 'topic_choice')):
+        params.update(saved)
     # Native multiselect checkboxes also work without JavaScript.
-    for field in ("berry", "countries", "topic"):
+    for field in ("berry", "countries", "topic", "tag"):
         selected = request.query_params.getlist(field + "_choice")
         if selected:
             params[field] = ",".join(selected)
@@ -27,10 +30,18 @@ def news_page(request: Request):
         params["story"] = params["item"]
     try:
         model = news_workspace.model(records=records, entities=entities, relationships=main.all_relationships(),
-                                     facts=main.all_facts(), state=context["state"], params=params)
+                                     facts=main.all_facts(), state=context["state"], params=params,
+                                     tags=news_tags.catalog(main.INBOX_DIR), tag_assignments=news_tags.snapshot(main.INBOX_DIR))
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
     query = model["filters"]
+    model['tag_research_href'] = '/research?' + urlencode({'tag': query['tag'], 'tag_mode': query['tag_mode'], 'q': 'What does the stored intelligence say about these subjects?'})
+    model['clear_tags_href'] = '/today?' + urlencode({**query, 'tag': '', 'topic': ''})
+    model['any_tags_href'] = '/today?' + urlencode({**query, 'tag_mode': 'any'})
+    model['tag_job'] = news_tags.job_state(main.INBOX_DIR)
+    for card in model['cards']:
+        for tag in card['assigned_tags']:
+            tag['filter_href'] = '/today?' + urlencode({**query, 'tag': ','.join(dict.fromkeys([*filter(None, query['tag'].split(',')), tag['id']]))})
     # Switching review lanes or pages always carries the same scope.
     model["pagination"] = {number: "/today?" + urlencode({**query, "page": number})
                            for number in (model["page"] - 1, model["page"] + 1)}
@@ -46,6 +57,132 @@ def news_page(request: Request):
         "countries": sorted([row for row in entities.values() if row.get("entity_type") == "geography"], key=lambda row: row.get("name", "")),
         "companies": sorted([row for row in entities.values() if row.get("entity_type") in {"company", "person", "brand", "research_program"}], key=lambda row: row.get("name", "")),
     })
+
+
+def tag_actor(request):
+    from app.session_auth import session_username
+    # Single-analyst local mode has its own account; remote users use sessions.
+    return session_username(request) or 'local-analyst'
+
+
+@router.post('/api/news/tags/preferences')
+async def tag_preferences(request: Request):
+    require_edit(request)
+    from app import main
+    data = await request.json()
+    try:
+        return news_tags.preferences(main.INBOX_DIR, tag_actor(request), data.get('tags', []), data.get('mode', 'all'))
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+
+
+def classify_stored_tags():
+    main, context, records, entities = world()
+    # Hydrate stored content only in background work, never on the feed path.
+    from app.services import personal_digest
+    full = personal_digest.source_records(main.published_evidence(), main.INBOX_DIR,
+        include_private=main.AUTHORING_MODE, metadata_only=False)
+    if main.AUTHORING_MODE:
+        from app.services.publication_sources import active_publication_record
+        for key in records.keys() - full.keys():
+            original = main.get_draft(key)
+            source = active_publication_record(original) if original else None
+            if source:
+                full[key] = source
+    from app.services.feed_first_reader import load_capture, merge_capture
+    corpus = {**records, **full}
+    if main.AUTHORING_MODE:
+        corpus = {key: merge_capture(row, load_capture(main.INBOX_DIR, key)) for key, row in corpus.items()}
+    news_tags.backfill(main.INBOX_DIR, corpus)
+    from app.services.source_body import article_full_text
+    with_body = sum(bool(article_full_text(row)) for row in corpus.values())
+    return {'sources': len(corpus), 'with_stored_body': with_body, 'metadata_or_excerpt_only': len(corpus)-with_body}
+
+
+@router.post('/api/news/tags')
+async def create_tag(request: Request, tasks: BackgroundTasks):
+    require_edit(request)
+    from app import main
+    data = await request.json()
+    try:
+        tag = news_tags.create(main.INBOX_DIR, data.get('name', ''), data.get('description', ''))
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    queue_tags(main.INBOX_DIR, tasks)
+    return {'tag': tag, 'status': 'queued'}
+
+
+@router.post('/api/news/tags/definition')
+async def edit_tag_definition(request: Request, tasks: BackgroundTasks):
+    require_edit(request)
+    from app import main
+    data = await request.json()
+    try:
+        changed = news_tags.update(main.INBOX_DIR, data.get('id'), data.get('name', ''), data.get('description', ''))
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    if changed:
+        queue_tags(main.INBOX_DIR, tasks)
+    return {'status': 'queued' if changed else 'saved'}
+
+
+def queue_tags(inbox_dir, tasks):
+    from app.services.chronology import parse_stamp
+    with news_tags.database(inbox_dir) as db:
+        db.execute('BEGIN IMMEDIATE')
+        row = db.execute('SELECT * FROM jobs WHERE id=1').fetchone()
+        started = parse_stamp(row['updated_at']) if row else None
+        if row and row['status'] in {'running', 'queued'} and started and (datetime.now(UTC)-started).total_seconds() < 600:
+            # A tag may have been created after the running worker took its
+            # catalog snapshot. A cached, serialized follow-up covers it.
+            tasks.add_task(classify_stored_tags)
+            return
+        db.execute('INSERT OR REPLACE INTO jobs VALUES(1,?,?,?,?,?)', ('queued', 0, 0, '', news_tags.stamp()))
+    tasks.add_task(classify_stored_tags)
+
+
+@router.post('/api/news/tags/classify')
+def classify_tags(request: Request, tasks: BackgroundTasks):
+    require_edit(request)
+    from app import main
+    queue_tags(main.INBOX_DIR, tasks)
+    return JSONResponse({'status': 'queued'}, status_code=202)
+
+
+@router.get('/api/news/tags/status')
+def tag_status():
+    from app import main
+    return news_tags.job_state(main.INBOX_DIR)
+
+
+@router.get('/api/news/tags/explanations/{article}')
+def tag_explanations(article: str):
+    main, context, records, entities = world()
+    if article not in records:
+        raise HTTPException(404, 'Article is unavailable')
+    if not news_tags.exists(main.INBOX_DIR):
+        return {'assignments': []}
+    with news_tags.database(main.INBOX_DIR) as db:
+        rows = db.execute('''SELECT t.id,t.name,a.rationale,o.present AS manual
+            FROM tags t LEFT JOIN automatic a ON a.tag=t.id AND a.article=?
+            LEFT JOIN overrides o ON o.tag=t.id AND o.article=?
+            WHERE COALESCE(o.present,a.present,0)=1''', (article, article)).fetchall()
+        return {'assignments': [{'name': r['name'], 'origin': 'Manual addition' if r['manual'] is not None else 'Automatic terminology match',
+                 'rationale': r['rationale'] or 'Added by an analyst.'} for r in rows]}
+
+
+@router.post('/api/news/tags/assignment')
+async def edit_tag_assignment(request: Request):
+    require_edit(request)
+    data = await request.json()
+    main, context, records, entities = world()
+    if data.get('article') not in records:
+        raise HTTPException(404, 'Article is unavailable')
+    try:
+        news_tags.override(main.INBOX_DIR, data['article'], data.get('tag'), data.get('action'), tag_actor(request))
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    return {'status': 'saved'}
 
 
 def refresh_path(inbox_dir: Path):
@@ -87,6 +224,8 @@ def run_refresh(inbox_dir, context, sources, *, update_publishers=False):
     except Exception:
         # Provider details and exception traces belong in operations, never UI.
         result.update(status="failed", error_count=1, message="News could not be refreshed. Another collection may be running; try again.")
+    if result.get('status') in {'ready', 'partial'}:
+        classify_stored_tags()
     result["completed_at"] = datetime.now(UTC).isoformat()
     atomic_json(refresh_path(inbox_dir), result)
     atomic_json(inbox_dir / "operations" / "pipelines" / "news_workspace_refresh" / "runs" / (started.strftime("%Y%m%dT%H%M%S%fZ") + ".json"), {
