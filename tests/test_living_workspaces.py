@@ -10,6 +10,20 @@ from fastapi.testclient import TestClient
 from app.services.living_workspaces import Store, Conflict, compose_brief, feed_matches
 
 
+def overview_result(prompt, kwargs, ids, text="The issuer describes research."):
+    from types import SimpleNamespace
+    if "checks" in kwargs["schema"]["properties"]:
+        packet = json.loads(prompt.split("\n", 1)[1])
+        evidence = {row["id"]: row for row in packet["evidence"]}
+        checks = []
+        for index, row in enumerate(packet["paragraphs"]):
+            quotes = [{"source_id": key, "quote": next(evidence[key][field] for field in ("quote", "statement", "saved_article_text") if evidence[key].get(field))[:1000]} for key in row["source_ids"]]
+            checks.append({"paragraph": index, "supported": True, "evidence": quotes})
+        return SimpleNamespace(parsed={"checks": checks}, provider="perplexity-agent", model="fixture")
+    sections = ["The picture", "Key developments", "Key developments", "Why it matters", "What to watch", "What to watch"]
+    return SimpleNamespace(parsed={"sentences": [{"text": text, "source_ids": ids, "section": section} for section in sections]}, provider="perplexity-agent", model="fixture")
+
+
 def token():
     return uuid4().hex
 
@@ -53,7 +67,7 @@ def test_combined_model_packet_requires_landscape_and_page_citations(store, sour
     def complete(prompt, **kwargs):
         assert 'Trials unknown' in prompt
         assert 'Repeated quote.' in prompt
-        return SimpleNamespace(parsed={"sentences": [{"text": "The page and landscape leave trial outcomes unknown.", "source_ids": list(items), "section": "What to watch"}]}, provider='test', model='test')
+        return overview_result(prompt, kwargs, list(items), "The page and landscape leave trial outcomes unknown.")
     result = living.model_narrative(deepcopy(block), items, completer=complete, sources={source["id"]: source})
     assert result["method"] == 'configured model + cited evidence digest'
     def omit_landscape(prompt, **kwargs):
@@ -445,7 +459,10 @@ def test_overview_is_manual_versioned_and_freshness_tracks_material(client, sour
     store = Store(main.INBOX_DIR)
     captured = capture(store, source)
     page = captured["page"]
-    payload = {"token": token(), "version": page["version"], "target": "overview", "use_model": True}
+    unavailable = client.post('/api/workspaces/generate/' + page["id"], json={"token": token(), "version": page["version"], "target": "overview", "use_model": True})
+    assert unavailable.status_code == 422
+    assert store.get(page["id"]) == page
+    payload = {"token": token(), "version": page["version"], "target": "overview", "use_model": False}
     response = client.post('/api/workspaces/generate/' + page["id"], json=payload)
     assert response.status_code == 200, response.text
     summary_page = response.json()
@@ -453,7 +470,6 @@ def test_overview_is_manual_versioned_and_freshness_tracks_material(client, sour
     assert summary_page["content_updated_at"] == page["content_updated_at"]
     assert summary_page["overview"]["generated_at"]
     assert summary_page["overview"]["citations"][0]["item_id"] == captured["item"]["id"]
-    assert 'unavailable' in summary_page["overview"]["generation_notice"]
     assert client.post('/api/workspaces/generate/' + page["id"], json=payload).json() == summary_page
     loaded = client.get('/api/workspaces/page/' + page["id"]).json()
     assert loaded["overview_stale"] is False
@@ -481,7 +497,7 @@ def test_overview_model_uses_saved_article_and_link_only_from_curated_page(clien
     prompts = []
     def complete(prompt, **kwargs):
         prompts.append(prompt)
-        return SimpleNamespace(parsed={"sentences": [{"text": "The issuer describes research.", "source_ids": [saved["item"]["id"]]}]}, provider="perplexity-agent", model="fixture")
+        return overview_result(prompt, kwargs, [saved["item"]["id"]])
     monkeypatch.setattr(untrusted_complete, "maybe_untrusted_completer", lambda: complete)
     monkeypatch.delenv("BIOS_PERPLEXITY_AGENT_BASE_URL", raising=False)
     page = saved["page"]
@@ -502,9 +518,23 @@ def test_overview_model_uses_saved_article_and_link_only_from_curated_page(clien
     assert response.json()["overview"]["supporting_digest"]
     monkeypatch.setenv("BIOS_PERPLEXITY_AGENT_BASE_URL", "https://other.example/v1/agent")
     blocked = client.post('/api/workspaces/generate/' + page["id"], json={"token": token(), "version": response.json()["version"], "target": "overview", "use_model": True})
-    assert blocked.status_code == 200
-    assert len(prompts) == 1
-    assert "approved Perplexity endpoint" in blocked.json()["overview"]["generation_notice"]
+    assert blocked.status_code == 422
+    assert len(prompts) == 2
+    assert "approved Perplexity endpoint" in blocked.json()["detail"]
+    assert client.get('/api/workspaces/page/' + page["id"]).json()["page"]["overview"] == response.json()["overview"]
+
+    monkeypatch.delenv("BIOS_PERPLEXITY_AGENT_BASE_URL")
+    def unsupported(prompt, **kwargs):
+        result = overview_result(prompt, kwargs, [saved["item"]["id"]])
+        if "checks" in result.parsed:
+            result.parsed["checks"][0]["supported"] = False
+        return result
+    monkeypatch.setattr(untrusted_complete, "maybe_untrusted_completer", lambda: unsupported)
+    before = store.get(page["id"])
+    failed = client.post('/api/workspaces/generate/' + page["id"], json={"token": token(), "version": before["version"], "target": "overview", "use_model": True})
+    assert failed.status_code == 422
+    assert "unsupported claims" in failed.json()["detail"]
+    assert store.get(page["id"]) == before
 
 
 def test_publication_review_preserves_workspace_nature(monkeypatch, tmp_path):
