@@ -1,5 +1,28 @@
 # Redesign and consolidation requirements
 
+## Original filing figures and remaining catalog work — October 28, 2026
+
+The [filing-figure follow-up](ORIGINAL-FILING-FIGURES-REVIEW.md) checks ten
+original documents, with twenty scopes and 57 name occurrences: ten subjects
+plus 47 separately retained parents, siblings and comparisons. Twelve held
+image observations use ten full-size figures. Seven existing profiles gain
+figures and direct original claim links; the public 64-profile seed's image
+reference gaps fall from 22 to 15, with rights/trait/company gaps still 13/33/10.
+The corpus now has 484 sections / 1,757 occurrences / 161 matches / 1,596 review
+needs. These are scoped observations, not approved cultivars or cleared images.
+Current-head browser/CI checks precede this separate catalog release review.
+
+The last verified live release remains canonical `e24b566b`. Platform-only #421
+is a separate tested candidate: 5,284 tests, native account/phone checks and a
+fresh-copy preservation check passed. Its five original accounts and 65 live
+profiles are preserved; actual human release approval is pending. This source
+follow-up inherits neither that preservation proof nor its release approval.
+Earlier dates/heads below are historical. Gene Editing #417 and News Tags #415
+are live; the earlier blueberry stop was approved before the released rollout.
+All 31 accepted definitions/order and the immutable expansion guide remain.
+CAT-01/CAT-02, the 52-source independent worksheet, 32 unclear cells, broader
+current/historical coverage and all existing human gates remain open.
+
 ## Verified delivery and remaining work — October 28, 2026
 
 The live release is canonical `e24b566b`, retaining the platform redesign,
@@ -247,8 +270,8 @@ table and implementation sequence below are preserved.
 
 | ID | Accepted requirement | Current evidence / state | Remaining verification or implementation |
 | --- | --- | --- | --- |
-| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Shared discovery handles stored summaries, available article text, labelled lists, enumerated portfolios and original filing references across all four berries. The publisher repair retains 23 printed entries previously lost during capture; downstream detection finds all 23, with ten existing matches and thirteen review leads. Source links, selection context and saved human decisions are retained. | The 52 copied source proposals and original 32 independent expected-name worksheets still need actual human review. Missing text/image tables and unresolved names remain visible. No independent recall score, source acceptance or automatic catalog authoring is claimed. |
-| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | Current bounded audit: 427 source sections, 1,641 occurrences, 119 catalog matches, 1,522 review needs and 1,156 public-derived candidate keys. The copied preview retains 13 profiles without patent/PVR references, 49 without photo references, 33 without cited traits and ten without linked organizations. Canonical profiles remain 64. See CAS-ORIGINAL-PAPER-SOURCE-REVIEW.md, PRINTED-CODE-REGISTER-FOLLOWUP.md and REFERENCE-GAP-COHORT-REVIEW.md. | Complete current/historical portfolios, original corpus, current official rights, reviewed identities/canonical authoring, attributed photos, cited traits/growing regions, refresh reconciliation and independent multi-berry recall remain. The 77-subject plan retains 13 partial checks, one unavailable source and two identity holds. No global completeness or web-leading claim is established. |
+| CAT-01 | Reconcile sources against the variety catalog so visible named varieties cannot disappear silently | Shared discovery retains stored summaries, available article text, labeled lists, primary portfolios and filing references across all four berries. The latest ten-document cohort adds 47 separately scoped parent/sibling/comparison labels alongside ten subjects, including later botanical comparisons and unresolved printed-code forms. The earlier 23-entry publisher repair, source links and saved human decisions remain. See ORIGINAL-FILING-FIGURES-REVIEW.md. | The 52 copied source proposals and original 32 independent expected-name worksheets still need actual human review. Missing text/image tables and unresolved names remain visible. No independent recall score, source acceptance or automatic catalog authoring is claimed. |
+| CAT-02 | Build toward the most comprehensive berry variety resource, with measurable gaps and refreshed provenance | Current bounded audit: 484 sections, 1,757 name occurrences, 161 catalog matches and 1,596 review needs. The public 64-profile seed has 13 missing patent/PVR references, 15 missing image references, 33 missing cited traits and ten missing company links. Seven profiles gain original claim links and monochrome filing figures in the latest cohort; all image permissions remain unapproved. Current live data has 65 profiles and is preserved separately. See ORIGINAL-FILING-FIGURES-REVIEW.md. | Complete current/historical portfolios, original corpus, current official rights, reviewed identities/canonical authoring, attributed photos, cited traits/growing regions, refresh reconciliation and independent multi-berry recall remain. The 77-subject plan retains 13 partial checks, one unavailable source and two identity holds. No global completeness or web-leading claim is established. |
 | UI-01 | Bright, colorful agricultural Glasshouse identity; first berry icon; subtle glass, stronger contrast and hierarchy | Approved Glasshouse identity and first icon across core, intelligence, authoring, public-library and retained shells (M1–21/34/35); source prose stays literal. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-02 | Immersive full-width workspace, compact top navigation, grouped More menu contained within the viewport | Full-width shared top header, contained grouped More, folded specialist destinations; live/private versus generated-public navigation tested (M20/21/35). | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | UI-03 | Dense information with useful headlines, summaries, metadata and collapsed secondary context; plain language | Distinct heading/lead/body/metadata roles, compact cards/tables and secondary disclosures in News, dossiers, Reports, Landscape, Learn, research/review and retained tools (M3–35). New original articles/captures preserve publisher headings; see [article hierarchy review](PUBLISHER-ARTICLE-HIERARCHY-REVIEW.md). Existing body migration remains separately open. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |

@@ -1,5 +1,28 @@
 # Project Status
 
+## Original filing figures and remaining catalog work — October 28, 2026
+
+The [filing-figure follow-up](docs/v2/ORIGINAL-FILING-FIGURES-REVIEW.md) checks ten
+original documents, with twenty scopes and 57 name occurrences: ten subjects
+plus 47 separately retained parents, siblings and comparisons. Twelve held
+image observations use ten full-size figures. Seven existing profiles gain
+figures and direct original claim links; the public 64-profile seed's image
+reference gaps fall from 22 to 15, with rights/trait/company gaps still 13/33/10.
+The corpus now has 484 sections / 1,757 occurrences / 161 matches / 1,596 review
+needs. These are scoped observations, not approved cultivars or cleared images.
+Current-head browser/CI checks precede this separate catalog release review.
+
+The last verified live release remains canonical `e24b566b`. Platform-only #421
+is a separate tested candidate: 5,284 tests, native account/phone checks and a
+fresh-copy preservation check passed. Its five original accounts and 65 live
+profiles are preserved; actual human release approval is pending. This source
+follow-up inherits neither that preservation proof nor its release approval.
+Earlier dates/heads below are historical. Gene Editing #417 and News Tags #415
+are live; the earlier blueberry stop was approved before the released rollout.
+All 31 accepted definitions/order and the immutable expansion guide remain.
+CAT-01/CAT-02, the 52-source independent worksheet, 32 unclear cells, broader
+current/historical coverage and all existing human gates remain open.
+
 **October 28: Gene Editing public-source closeout.** All eleven seeds now have
 an original-source audit and explicit claim boundaries: 28 program/platform/
 affiliation rows, 46 source candidates, FDA/Canada/Defra/MARA record recovery,

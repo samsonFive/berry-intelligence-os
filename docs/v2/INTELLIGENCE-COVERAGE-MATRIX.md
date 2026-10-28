@@ -1,5 +1,16 @@
 # Intelligence Coverage Matrix
 
+October 28, later [original filing figures](ORIGINAL-FILING-FIGURES-REVIEW.md):
+ten original documents yield twenty scoped sections, 57 occurrences and twelve
+held figure observations using ten full-size URLs. Seven existing profiles gain
+references; the public seed has 15 image-reference gaps and unchanged 13/33/10
+rights/trait/company gaps. Original claims, reissue history, comparison panels
+and inconsistent printed codes are retained without approval or role inference.
+Cumulative scope is 484 sections / 1,757 occurrences / 161 matches / 1,596 review
+needs; company checks remain 61 checked / 13 partial / one unavailable / two
+identity holds. Dated counts below retain their earlier populations. This is
+neither a global completeness score nor independent recall qualification.
+
 October 28, 2026, later [original-photo follow-up](ORIGINAL-VARIETY-PHOTO-FOLLOWUP.md):
 eight scoped sections retain twenty occurrences and nine held photo observations
 from eight image URLs. Eight existing profiles gain references; the public

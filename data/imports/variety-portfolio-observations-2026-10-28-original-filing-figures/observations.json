@@ -1,0 +1,1616 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-original-filing-figures-bella",
+      "title": "EB 8-46 — USPP26173P3 original claim and full-size figure",
+      "url": "https://patents.google.com/patent/USPP26173P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2015-12-01",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal denomination, historical issue date, original claim and selected full-size figure. Other description names are retained separately in the context section.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_pdf_description_and_claim_visual_review_with_full_figure",
+        "page_response_sha256": "865c84810b92c29c022947010c529151714c273f69b8dc3e66d8f2b2f768d841",
+        "pdf_url": "https://patentimages.storage.googleapis.com/b3/e7/fb/962abea15650d1/USPP26173.pdf",
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/b3/e7/fb/962abea15650d1/USPP26173.pdf",
+        "pdf_sha256": "0accdc0b662f97e550a8ab9e64202593d9af3718e7996db14afc1293674df33c",
+        "pdf_bytes": 1170616,
+        "pdf_pages": 7,
+        "claim_url": "https://patentimages.storage.googleapis.com/b3/e7/fb/962abea15650d1/USPP26173.pdf#page=4",
+        "claim_page": 4,
+        "figures_url": "https://patentimages.storage.googleapis.com/b3/e7/fb/962abea15650d1/USPP26173.pdf#page=6",
+        "figure": 2,
+        "figure_page": 6,
+        "image_url": "https://patentimages.storage.googleapis.com/37/a6/20/442b9f3e9fb0b5/USPP026173-20151201-D00002.png",
+        "image_sha256": "24853dc265628c054e17f091fd9b702337219db3ccfa8031fd6297fd65e15d5f",
+        "image_width": 2367,
+        "image_height": 2022,
+        "original_claim_read": true,
+        "original_figure_visually_reviewed": true,
+        "visually_reviewed_pages": [
+          2,
+          4
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "image_reproduction": "monochrome",
+        "full_image_link_basis": "Captured source meta itemprop=full, not a guessed URL or an enlarged thumbnail",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "catalog_commercial_label": "Bella",
+        "commercial_label_basis": "Existing canonical alias only, not inferred from this filing"
+      },
+      "names": [
+        {
+          "candidate_name": "EB 8-46",
+          "denomination": "EB 8-46",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/b3/e7/fb/962abea15650d1/USPP26173.pdf",
+          "grant_number": "USPP26173P3",
+          "grant_date": "2015-12-01",
+          "application_date": "2013-11-21",
+          "jurisdiction": "US",
+          "portfolio_context": "Original filing subject: EB 8-46. Its historical claim and figure are linked. The existing catalog associates this code with Bella; the filing does not establish a new commercial-name alias. Source claims, current rights and image use remain separate review decisions.",
+          "photos": [
+            {
+              "named_variety": "EB 8-46",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://patentimages.storage.googleapis.com/37/a6/20/442b9f3e9fb0b5/USPP026173-20151201-D00002.png",
+              "source_url": "https://patentimages.storage.googleapis.com/b3/e7/fb/962abea15650d1/USPP26173.pdf",
+              "caption": "Figure 2: EB 8-46 fruit, a leafy shoot and the printed selection label. Monochrome filing figure.",
+              "credit": "USPP26173P3 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public access to a filing or its figures does not establish photograph reuse permission. This reference remains held; the existing private session preview grants no reuse rights."
+            }
+          ],
+          "breeder_code": "EB 8-46"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-bella-context",
+      "title": "EB 8-46 — separately recorded parent, sibling and comparison names",
+      "url": "https://patents.google.com/patent/USPP26173P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2015-12-01",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Literal named parents, siblings and comparison cultivars from the original description, including later botanical comparisons. Repeated punctuation/case forms, taxonomy, phenotype words, bibliographies and later citing patents are excluded. These are source-name occurrences, not distinct releases.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration. No focal grant/application number or company association is assigned to these entries.",
+      "capture_reference": {
+        "method": "original_description_name_inventory_and_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/b3/e7/fb/962abea15650d1/USPP26173.pdf",
+        "pdf_sha256": "0accdc0b662f97e550a8ab9e64202593d9af3718e7996db14afc1293674df33c",
+        "description_url": "https://patentimages.storage.googleapis.com/b3/e7/fb/962abea15650d1/USPP26173.pdf#page=2",
+        "focal_subject": "EB 8-46",
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "BB-5",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/b3/e7/fb/962abea15650d1/USPP26173.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named seed parent in the original EB 8-46 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "BB-5"
+        },
+        {
+          "candidate_name": "SB-1",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/b3/e7/fb/962abea15650d1/USPP26173.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named pollen parent in the original EB 8-46 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "SB-1"
+        },
+        {
+          "candidate_name": "Sharpeblue",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/b3/e7/fb/962abea15650d1/USPP26173.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named comparison cultivar in the original EB 8-46 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "reported_items": 3,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-bonita",
+      "title": "EB 9-12 — USPP28358P3 original claim and full-size figure",
+      "url": "https://patents.google.com/patent/USPP28358P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2017-09-05",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal denomination, historical issue date, original claim and selected full-size figure. Other description names are retained separately in the context section.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_pdf_description_and_claim_visual_review_with_full_figure",
+        "page_response_sha256": "4c133152f3d9150ce10d68af8cdc90cccafc5802165ac02286a8f6108794a259",
+        "pdf_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf",
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf",
+        "pdf_sha256": "2356072217c8a17f69dc3506a297bba70a8ca98966b7c5899f914915d64b3b8e",
+        "pdf_bytes": 662399,
+        "pdf_pages": 4,
+        "claim_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf#page=3",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf#page=4",
+        "figure": 1,
+        "figure_page": 4,
+        "image_url": "https://patentimages.storage.googleapis.com/7a/ba/7d/c01955545e6770/USPP028358-20170905-D00001.png",
+        "image_sha256": "db8d0f9908973a5ba5f05dceb5913de33a90921d433209bbdba602f76892c320",
+        "image_width": 1875,
+        "image_height": 1191,
+        "original_claim_read": true,
+        "original_figure_visually_reviewed": true,
+        "visually_reviewed_pages": [
+          2,
+          3
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "image_reproduction": "monochrome",
+        "full_image_link_basis": "Captured source meta itemprop=full, not a guessed URL or an enlarged thumbnail",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "catalog_commercial_label": "Bonita",
+        "commercial_label_basis": "Existing canonical alias only, not inferred from this filing"
+      },
+      "names": [
+        {
+          "candidate_name": "EB 9-12",
+          "denomination": "EB 9-12",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf",
+          "grant_number": "USPP28358P3",
+          "grant_date": "2017-09-05",
+          "application_date": "2015-09-28",
+          "jurisdiction": "US",
+          "portfolio_context": "Original filing subject: EB 9-12. Its historical claim and figure are linked. The existing catalog associates this code with Bonita; the filing does not establish a new commercial-name alias. Source claims, current rights and image use remain separate review decisions.",
+          "photos": [
+            {
+              "named_variety": "EB 9-12",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://patentimages.storage.googleapis.com/7a/ba/7d/c01955545e6770/USPP028358-20170905-D00001.png",
+              "source_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf",
+              "caption": "EB 9-12 is on the left; EB 8-46 is on the right. Complete labeled comparison in monochrome; not an isolated specimen.",
+              "credit": "USPP28358P3 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public access to a filing or its figures does not establish photograph reuse permission. This reference remains held; the existing private session preview grants no reuse rights."
+            }
+          ],
+          "breeder_code": "EB 9-12"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-bonita-context",
+      "title": "EB 9-12 — separately recorded parent, sibling and comparison names",
+      "url": "https://patents.google.com/patent/USPP28358P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2017-09-05",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Literal named parents, siblings and comparison cultivars from the original description, including later botanical comparisons. Repeated punctuation/case forms, taxonomy, phenotype words, bibliographies and later citing patents are excluded. These are source-name occurrences, not distinct releases.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration. No focal grant/application number or company association is assigned to these entries.",
+      "capture_reference": {
+        "method": "original_description_name_inventory_and_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf",
+        "pdf_sha256": "2356072217c8a17f69dc3506a297bba70a8ca98966b7c5899f914915d64b3b8e",
+        "description_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf#page=2",
+        "focal_subject": "EB 9-12",
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "BB-2",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named seed-parent label in the original EB 9-12 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "BB-2"
+        },
+        {
+          "candidate_name": "BB 2",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named alternate printed seed-parent label in the original EB 9-12 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "BB 2"
+        },
+        {
+          "candidate_name": "03-6",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named pollen parent in the original EB 9-12 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "03-6"
+        },
+        {
+          "candidate_name": "Ridley 1111",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named comparison cultivar in the original EB 9-12 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "Ridley 1111"
+        },
+        {
+          "candidate_name": "EB 8-46",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named comparison cultivar; right-hand image in the original EB 9-12 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [
+            {
+              "named_variety": "EB 8-46",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://patentimages.storage.googleapis.com/7a/ba/7d/c01955545e6770/USPP028358-20170905-D00001.png",
+              "source_url": "https://patentimages.storage.googleapis.com/c2/d1/6d/a7ef5083692666/USPP28358.pdf",
+              "caption": "EB 8-46 is on the right; the focal EB 9-12 is on the left. Complete monochrome comparison, not a separate or independent photograph.",
+              "credit": "USPP28358P3 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public access to a filing or its figures does not establish photograph reuse permission. This reference remains held; the existing private session preview grants no reuse rights."
+            }
+          ],
+          "breeder_code": "EB 8-46"
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "reported_items": 5,
+        "exclusions": []
+      },
+      "review_warnings": [
+        "The same description prints BB-2 and BB 2 for a seed-parent label. Both literal forms are retained for identity review; no canonical alias or separate release is assumed."
+      ],
+      "review_warning_scopes": [
+        {
+          "message": "The same description prints BB-2 and BB 2 for a seed-parent label. Both literal forms are retained for identity review; no canonical alias or separate release is assumed.",
+          "candidate_names": [
+            "BB-2",
+            "BB 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "portfolio-original-filing-figures-dina",
+      "title": "NS 15-13 — USPP33138P3 original claim and full-size figure",
+      "url": "https://patents.google.com/patent/USPP33138P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2021-06-08",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal denomination, historical issue date, original claim and selected full-size figure. Other description names are retained separately in the context section.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_pdf_description_and_claim_visual_review_with_full_figure",
+        "page_response_sha256": "f9fb796c48f9b61e1beb384b45e1851d60ebc3340752b9df44267d002280e1be",
+        "pdf_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+        "pdf_sha256": "009842d99736bd1a2f5dabfae7156f9b4af6696d10463ca408e177e7dbaaa8d1",
+        "pdf_bytes": 996415,
+        "pdf_pages": 6,
+        "claim_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf#page=4",
+        "claim_page": 4,
+        "figures_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf#page=5",
+        "figure": 1,
+        "figure_page": 5,
+        "image_url": "https://patentimages.storage.googleapis.com/65/ce/bf/84b7f9c2f6cabc/USPP033138-20210608-D00001.png",
+        "image_sha256": "ad2fd447158055277c95ea7b0f878ea1c5f95823102e10d04b9cd3138d418bb9",
+        "image_width": 1486,
+        "image_height": 2065,
+        "original_claim_read": true,
+        "original_figure_visually_reviewed": true,
+        "visually_reviewed_pages": [
+          2,
+          4
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "image_reproduction": "monochrome",
+        "full_image_link_basis": "Captured source meta itemprop=full, not a guessed URL or an enlarged thumbnail",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "catalog_commercial_label": "Dina",
+        "commercial_label_basis": "Existing canonical alias only, not inferred from this filing"
+      },
+      "names": [
+        {
+          "candidate_name": "NS 15-13",
+          "denomination": "NS 15-13",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+          "grant_number": "USPP33138P3",
+          "grant_date": "2021-06-08",
+          "application_date": "2020-08-11",
+          "jurisdiction": "US",
+          "portfolio_context": "Original filing subject: NS 15-13. Its historical claim and figure are linked. The existing catalog associates this code with Dina; the filing does not establish a new commercial-name alias. Source claims, current rights and image use remain separate review decisions.",
+          "photos": [
+            {
+              "named_variety": "NS 15-13",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://patentimages.storage.googleapis.com/65/ce/bf/84b7f9c2f6cabc/USPP033138-20210608-D00001.png",
+              "source_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+              "caption": "Figure 1: NS 15-13 fruit, blooms, leaves, a stem and the printed label. Monochrome filing figure; ruler values are not interpreted.",
+              "credit": "USPP33138P3 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public access to a filing or its figures does not establish photograph reuse permission. This reference remains held; the existing private session preview grants no reuse rights."
+            }
+          ],
+          "breeder_code": "NS 15-13"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-dina-context",
+      "title": "NS 15-13 — separately recorded parent, sibling and comparison names",
+      "url": "https://patents.google.com/patent/USPP33138P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2021-06-08",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Literal named parents, siblings and comparison cultivars from the original description, including later botanical comparisons. Repeated punctuation/case forms, taxonomy, phenotype words, bibliographies and later citing patents are excluded. These are source-name occurrences, not distinct releases.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration. No focal grant/application number or company association is assigned to these entries.",
+      "capture_reference": {
+        "method": "original_description_name_inventory_and_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+        "pdf_sha256": "009842d99736bd1a2f5dabfae7156f9b4af6696d10463ca408e177e7dbaaa8d1",
+        "description_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf#page=2",
+        "focal_subject": "NS 15-13",
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "EB 9-4",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named seed parent in the original NS 15-13 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "EB 9-4"
+        },
+        {
+          "candidate_name": "EB 8-46",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named pollen parent in the original NS 15-13 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "EB 8-46"
+        },
+        {
+          "candidate_name": "NS 15-5",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named sibling comparison in the original NS 15-13 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "NS 15-5"
+        },
+        {
+          "candidate_name": "NS 15-22",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named sibling comparison in the original NS 15-13 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "NS 15-22"
+        },
+        {
+          "candidate_name": "NS 16-15",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named sibling comparison in the original NS 15-13 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "NS 16-15"
+        },
+        {
+          "candidate_name": "Ivanhoe",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named commercial comparison in the original NS 15-13 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        },
+        {
+          "candidate_name": "Darrow",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named commercial comparison in the original NS 15-13 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        },
+        {
+          "candidate_name": "Patriot",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named commercial comparison in the original NS 15-13 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        },
+        {
+          "candidate_name": "Heerma",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named commercial comparison in the original NS 15-13 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        },
+        {
+          "candidate_name": "Bluetta",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/7b/2e/65/946e10d9adca62/USPP33138.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named commercial comparison in the original NS 15-13 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "reported_items": 10,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-elaina",
+      "title": "NS 13-6 — USPP30934P3 original claim and full-size figure",
+      "url": "https://patents.google.com/patent/USPP30934P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2019-10-15",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal denomination, historical issue date, original claim and selected full-size figure. Other description names are retained separately in the context section.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_pdf_description_and_claim_visual_review_with_full_figure",
+        "page_response_sha256": "7222b3ec3d56f181cea655fd6f960d2ba22e11d8cfefb6af74c825492a32cea9",
+        "pdf_url": "https://patentimages.storage.googleapis.com/ab/7f/01/edeba925504488/USPP30934.pdf",
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/ab/7f/01/edeba925504488/USPP30934.pdf",
+        "pdf_sha256": "8230d9d0fa39ec19f190008b72ca136093c78667fda5e8b1a13e17fc836c39f4",
+        "pdf_bytes": 1148205,
+        "pdf_pages": 8,
+        "claim_url": "https://patentimages.storage.googleapis.com/ab/7f/01/edeba925504488/USPP30934.pdf#page=4",
+        "claim_page": 4,
+        "figures_url": "https://patentimages.storage.googleapis.com/ab/7f/01/edeba925504488/USPP30934.pdf#page=5",
+        "figure": 1,
+        "figure_page": 5,
+        "image_url": "https://patentimages.storage.googleapis.com/00/a3/7b/04cd9c3b2a164b/USPP030934-20191015-D00001.png",
+        "image_sha256": "19cc61f56d6ea140623491acc08315c77b663c8b216a04d406aa35f35b70a032",
+        "image_width": 2402,
+        "image_height": 1750,
+        "original_claim_read": true,
+        "original_figure_visually_reviewed": true,
+        "visually_reviewed_pages": [
+          2,
+          4
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "image_reproduction": "monochrome",
+        "full_image_link_basis": "Captured source meta itemprop=full, not a guessed URL or an enlarged thumbnail",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "catalog_commercial_label": "Elaina",
+        "commercial_label_basis": "Existing canonical alias only, not inferred from this filing"
+      },
+      "names": [
+        {
+          "candidate_name": "NS 13-6",
+          "denomination": "NS 13-6",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/ab/7f/01/edeba925504488/USPP30934.pdf",
+          "grant_number": "USPP30934P3",
+          "grant_date": "2019-10-15",
+          "application_date": "2018-02-21",
+          "jurisdiction": "US",
+          "portfolio_context": "Original filing subject: NS 13-6. Its historical claim and figure are linked. The existing catalog associates this code with Elaina; the filing does not establish a new commercial-name alias. Source claims, current rights and image use remain separate review decisions.",
+          "photos": [
+            {
+              "named_variety": "NS 13-6",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://patentimages.storage.googleapis.com/00/a3/7b/04cd9c3b2a164b/USPP030934-20191015-D00001.png",
+              "source_url": "https://patentimages.storage.googleapis.com/ab/7f/01/edeba925504488/USPP30934.pdf",
+              "caption": "Figure 1: NS 13-6 fruit, leaves, blooms and the printed label. Monochrome filing figure, sideways as supplied.",
+              "credit": "USPP30934P3 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public access to a filing or its figures does not establish photograph reuse permission. This reference remains held; the existing private session preview grants no reuse rights."
+            }
+          ],
+          "breeder_code": "NS 13-6"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-elaina-context",
+      "title": "NS 13-6 — separately recorded parent, sibling and comparison names",
+      "url": "https://patents.google.com/patent/USPP30934P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2019-10-15",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Literal named parents, siblings and comparison cultivars from the original description, including later botanical comparisons. Repeated punctuation/case forms, taxonomy, phenotype words, bibliographies and later citing patents are excluded. These are source-name occurrences, not distinct releases.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration. No focal grant/application number or company association is assigned to these entries.",
+      "capture_reference": {
+        "method": "original_description_name_inventory_and_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/ab/7f/01/edeba925504488/USPP30934.pdf",
+        "pdf_sha256": "8230d9d0fa39ec19f190008b72ca136093c78667fda5e8b1a13e17fc836c39f4",
+        "description_url": "https://patentimages.storage.googleapis.com/ab/7f/01/edeba925504488/USPP30934.pdf#page=2",
+        "focal_subject": "NS 13-6",
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "7-26",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/ab/7f/01/edeba925504488/USPP30934.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named seed parent in the original NS 13-6 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "7-26"
+        },
+        {
+          "candidate_name": "8-10",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/ab/7f/01/edeba925504488/USPP30934.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named pollen parent in the original NS 13-6 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "8-10"
+        },
+        {
+          "candidate_name": "EB 8-42",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/ab/7f/01/edeba925504488/USPP30934.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named comparison cultivar in the original NS 13-6 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "EB 8-42"
+        },
+        {
+          "candidate_name": "EB 12-19",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/ab/7f/01/edeba925504488/USPP30934.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named comparison cultivar in the original NS 13-6 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "EB 12-19"
+        },
+        {
+          "candidate_name": "EB 9-42",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/ab/7f/01/edeba925504488/USPP30934.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named inconsistent printed comparison label in the original NS 13-6 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "EB 9-42"
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "reported_items": 5,
+        "exclusions": []
+      },
+      "review_warnings": [
+        "This description prints EB 9-42 once while otherwise comparing EB 8-42. Both labels are retained; the inconsistent label is not corrected or approved as an alias."
+      ],
+      "review_warning_scopes": [
+        {
+          "message": "This description prints EB 9-42 once while otherwise comparing EB 8-42. Both labels are retained; the inconsistent label is not corrected or approved as an alias.",
+          "candidate_names": [
+            "EB 8-42",
+            "EB 9-42"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "portfolio-original-filing-figures-julieta",
+      "title": "EB 8-42 — USPP25858P3 original claim and full-size figure",
+      "url": "https://patents.google.com/patent/USPP25858P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2015-09-08",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal denomination, historical issue date, original claim and selected full-size figure. Other description names are retained separately in the context section.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_pdf_description_and_claim_visual_review_with_full_figure",
+        "page_response_sha256": "7eda399025e2afa76c51a3d99fda274b2e6c1abfd81a3fac389d268bcc18ca3a",
+        "pdf_url": "https://patentimages.storage.googleapis.com/66/94/92/563bc3395fe7ee/USPP25858.pdf",
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/66/94/92/563bc3395fe7ee/USPP25858.pdf",
+        "pdf_sha256": "dfb6ae0b601bc783d9b43b7aeb4bd1e10eb4d90bcfd1d867392e1f63052c3137",
+        "pdf_bytes": 723739,
+        "pdf_pages": 4,
+        "claim_url": "https://patentimages.storage.googleapis.com/66/94/92/563bc3395fe7ee/USPP25858.pdf#page=3",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/66/94/92/563bc3395fe7ee/USPP25858.pdf#page=4",
+        "figure": 1,
+        "figure_page": 4,
+        "image_url": "https://patentimages.storage.googleapis.com/88/71/9d/05578c505aa1a4/USPP025858-20150908-D00001.png",
+        "image_sha256": "b2ae3bfc2699672b56ad92a091579992a260fc48f8673e2a4ac0b35382697b12",
+        "image_width": 2193,
+        "image_height": 3420,
+        "original_claim_read": true,
+        "original_figure_visually_reviewed": true,
+        "visually_reviewed_pages": [
+          2,
+          3
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "image_reproduction": "monochrome",
+        "full_image_link_basis": "Captured source meta itemprop=full, not a guessed URL or an enlarged thumbnail",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "catalog_commercial_label": "Julieta",
+        "commercial_label_basis": "Existing canonical alias only, not inferred from this filing"
+      },
+      "names": [
+        {
+          "candidate_name": "EB 8-42",
+          "denomination": "EB 8-42",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/66/94/92/563bc3395fe7ee/USPP25858.pdf",
+          "grant_number": "USPP25858P3",
+          "grant_date": "2015-09-08",
+          "application_date": "2013-06-12",
+          "jurisdiction": "US",
+          "portfolio_context": "Original filing subject: EB 8-42. Its historical claim and figure are linked. The existing catalog associates this code with Julieta; the filing does not establish a new commercial-name alias. Source claims, current rights and image use remain separate review decisions.",
+          "photos": [
+            {
+              "named_variety": "EB 8-42",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://patentimages.storage.googleapis.com/88/71/9d/05578c505aa1a4/USPP025858-20150908-D00001.png",
+              "source_url": "https://patentimages.storage.googleapis.com/66/94/92/563bc3395fe7ee/USPP25858.pdf",
+              "caption": "EB 8-42 is the lower panel; Sharpeblue is the upper panel, as supplied. Complete monochrome comparison, with sideways labels.",
+              "credit": "USPP25858P3 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public access to a filing or its figures does not establish photograph reuse permission. This reference remains held; the existing private session preview grants no reuse rights."
+            }
+          ],
+          "breeder_code": "EB 8-42"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-julieta-context",
+      "title": "EB 8-42 — separately recorded parent, sibling and comparison names",
+      "url": "https://patents.google.com/patent/USPP25858P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2015-09-08",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Literal named parents, siblings and comparison cultivars from the original description, including later botanical comparisons. Repeated punctuation/case forms, taxonomy, phenotype words, bibliographies and later citing patents are excluded. These are source-name occurrences, not distinct releases.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration. No focal grant/application number or company association is assigned to these entries.",
+      "capture_reference": {
+        "method": "original_description_name_inventory_and_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/66/94/92/563bc3395fe7ee/USPP25858.pdf",
+        "pdf_sha256": "dfb6ae0b601bc783d9b43b7aeb4bd1e10eb4d90bcfd1d867392e1f63052c3137",
+        "description_url": "https://patentimages.storage.googleapis.com/66/94/92/563bc3395fe7ee/USPP25858.pdf#page=2",
+        "focal_subject": "EB 8-42",
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "03-2",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/66/94/92/563bc3395fe7ee/USPP25858.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named seed parent in the original EB 8-42 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "03-2"
+        },
+        {
+          "candidate_name": "SB-1",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/66/94/92/563bc3395fe7ee/USPP25858.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named pollen parent in the original EB 8-42 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "SB-1"
+        },
+        {
+          "candidate_name": "Sharpeblue",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/66/94/92/563bc3395fe7ee/USPP25858.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named comparison cultivar; upper panel in the original EB 8-42 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [
+            {
+              "named_variety": "Sharpeblue",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://patentimages.storage.googleapis.com/88/71/9d/05578c505aa1a4/USPP025858-20150908-D00001.png",
+              "source_url": "https://patentimages.storage.googleapis.com/66/94/92/563bc3395fe7ee/USPP25858.pdf",
+              "caption": "Sharpeblue is the upper panel; focal EB 8-42 is the lower panel, as supplied. Complete monochrome comparison with sideways labels; not an isolated specimen.",
+              "credit": "USPP25858P3 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public access to a filing or its figures does not establish photograph reuse permission. This reference remains held; the existing private session preview grants no reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "reported_items": 3,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-magnifica",
+      "title": "EB 12-19 — USPP27142P3 original claim and full-size figure",
+      "url": "https://patents.google.com/patent/USPP27142P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2016-09-13",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal denomination, historical issue date, original claim and selected full-size figure. Other description names are retained separately in the context section.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_pdf_description_and_claim_visual_review_with_full_figure",
+        "page_response_sha256": "7458abd6aff4aaaad2ee8300ce57b942cccf202fb7550ec5ab2b45af2416002a",
+        "pdf_url": "https://patentimages.storage.googleapis.com/44/8f/c2/e3227a20922601/USPP27142.pdf",
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/44/8f/c2/e3227a20922601/USPP27142.pdf",
+        "pdf_sha256": "d6115de20111afe7da60417a96f715dd8f8329977953cf35a4c7942fee983c74",
+        "pdf_bytes": 1244858,
+        "pdf_pages": 6,
+        "claim_url": "https://patentimages.storage.googleapis.com/44/8f/c2/e3227a20922601/USPP27142.pdf#page=3",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/44/8f/c2/e3227a20922601/USPP27142.pdf#page=6",
+        "figure": 3,
+        "figure_page": 6,
+        "image_url": "https://patentimages.storage.googleapis.com/c8/2c/9c/83bcfc616e9b42/USPP027142-20160913-D00003.png",
+        "image_sha256": "8525dae31b0dd7be2757bb34d3af2056d46c44b519aa4b5b22d408f08a3af36e",
+        "image_width": 1939,
+        "image_height": 2887,
+        "original_claim_read": true,
+        "original_figure_visually_reviewed": true,
+        "visually_reviewed_pages": [
+          2,
+          3
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "image_reproduction": "monochrome",
+        "full_image_link_basis": "Captured source meta itemprop=full, not a guessed URL or an enlarged thumbnail",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "catalog_commercial_label": "Magnifica",
+        "commercial_label_basis": "Existing canonical alias only, not inferred from this filing"
+      },
+      "names": [
+        {
+          "candidate_name": "EB 12-19",
+          "denomination": "EB 12-19",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/44/8f/c2/e3227a20922601/USPP27142.pdf",
+          "grant_number": "USPP27142P3",
+          "grant_date": "2016-09-13",
+          "application_date": "2015-01-28",
+          "jurisdiction": "US",
+          "portfolio_context": "Original filing subject: EB 12-19. Its historical claim and figure are linked. The existing catalog associates this code with Magnifica; the filing does not establish a new commercial-name alias. Source claims, current rights and image use remain separate review decisions.",
+          "photos": [
+            {
+              "named_variety": "EB 12-19",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://patentimages.storage.googleapis.com/c8/2c/9c/83bcfc616e9b42/USPP027142-20160913-D00003.png",
+              "source_url": "https://patentimages.storage.googleapis.com/44/8f/c2/e3227a20922601/USPP27142.pdf",
+              "caption": "Figure 3: EB 12-19 fruit, vegetative stem, leaves and printed label. Monochrome filing figure; ruler values are not interpreted.",
+              "credit": "USPP27142P3 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public access to a filing or its figures does not establish photograph reuse permission. This reference remains held; the existing private session preview grants no reuse rights."
+            }
+          ],
+          "breeder_code": "EB 12-19"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-magnifica-context",
+      "title": "EB 12-19 — separately recorded parent, sibling and comparison names",
+      "url": "https://patents.google.com/patent/USPP27142P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2016-09-13",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Literal named parents, siblings and comparison cultivars from the original description, including later botanical comparisons. Repeated punctuation/case forms, taxonomy, phenotype words, bibliographies and later citing patents are excluded. These are source-name occurrences, not distinct releases.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration. No focal grant/application number or company association is assigned to these entries.",
+      "capture_reference": {
+        "method": "original_description_name_inventory_and_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/44/8f/c2/e3227a20922601/USPP27142.pdf",
+        "pdf_sha256": "d6115de20111afe7da60417a96f715dd8f8329977953cf35a4c7942fee983c74",
+        "description_url": "https://patentimages.storage.googleapis.com/44/8f/c2/e3227a20922601/USPP27142.pdf#page=2",
+        "focal_subject": "EB 12-19",
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "8-19",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/44/8f/c2/e3227a20922601/USPP27142.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named seed parent in the original EB 12-19 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "8-19"
+        },
+        {
+          "candidate_name": "EB 8-1",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/44/8f/c2/e3227a20922601/USPP27142.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named pollen parent in the original EB 12-19 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "EB 8-1"
+        },
+        {
+          "candidate_name": "Sharpeblue",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/44/8f/c2/e3227a20922601/USPP27142.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named comparison cultivar in the original EB 12-19 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "reported_items": 3,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-olivia",
+      "title": "NS 16-2 — USPP32897P3 original claim and full-size figure",
+      "url": "https://patents.google.com/patent/USPP32897P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2021-03-16",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal denomination, historical issue date, original claim and selected full-size figure. Other description names are retained separately in the context section.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_pdf_description_and_claim_visual_review_with_full_figure",
+        "page_response_sha256": "f2c8721cf2722d2b29658c8ebdcb3b3ef9208b8a90278ec25ddbdd96967c93d6",
+        "pdf_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+        "pdf_sha256": "4e2d4e8cc73b450e510cbdb40c0234ae82fb91a44a69c96d8a1c30e1051df2be",
+        "pdf_bytes": 1313291,
+        "pdf_pages": 5,
+        "claim_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf#page=3",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf#page=4",
+        "figure": 1,
+        "figure_page": 4,
+        "image_url": "https://patentimages.storage.googleapis.com/2a/b7/6e/37518e8aa1206b/USPP032897-20210316-D00001.png",
+        "image_sha256": "a73704e89dfd0b646ab1c8c04ea571b56d524123673306a977ad1b28bcd390b1",
+        "image_width": 1921,
+        "image_height": 2504,
+        "original_claim_read": true,
+        "original_figure_visually_reviewed": true,
+        "visually_reviewed_pages": [
+          2,
+          3
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "image_reproduction": "monochrome",
+        "full_image_link_basis": "Captured source meta itemprop=full, not a guessed URL or an enlarged thumbnail",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "catalog_commercial_label": "Olivia",
+        "commercial_label_basis": "Existing canonical alias only, not inferred from this filing"
+      },
+      "names": [
+        {
+          "candidate_name": "NS 16-2",
+          "denomination": "NS 16-2",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+          "grant_number": "USPP32897P3",
+          "grant_date": "2021-03-16",
+          "application_date": "2019-10-29",
+          "jurisdiction": "US",
+          "portfolio_context": "Original filing subject: NS 16-2. Its historical claim and figure are linked. The existing catalog associates this code with Olivia; the filing does not establish a new commercial-name alias. Source claims, current rights and image use remain separate review decisions.",
+          "photos": [
+            {
+              "named_variety": "NS 16-2",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://patentimages.storage.googleapis.com/2a/b7/6e/37518e8aa1206b/USPP032897-20210316-D00001.png",
+              "source_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+              "caption": "Figure 1: NS 16-2 fruit, blooms, leaves, a stem and the printed label. Monochrome filing figure; ruler values are not interpreted.",
+              "credit": "USPP32897P3 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public access to a filing or its figures does not establish photograph reuse permission. This reference remains held; the existing private session preview grants no reuse rights."
+            }
+          ],
+          "breeder_code": "NS 16-2"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-olivia-context",
+      "title": "NS 16-2 — separately recorded parent, sibling and comparison names",
+      "url": "https://patents.google.com/patent/USPP32897P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2021-03-16",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Literal named parents, siblings and comparison cultivars from the original description, including later botanical comparisons. Repeated punctuation/case forms, taxonomy, phenotype words, bibliographies and later citing patents are excluded. These are source-name occurrences, not distinct releases.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration. No focal grant/application number or company association is assigned to these entries.",
+      "capture_reference": {
+        "method": "original_description_name_inventory_and_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+        "pdf_sha256": "4e2d4e8cc73b450e510cbdb40c0234ae82fb91a44a69c96d8a1c30e1051df2be",
+        "description_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf#page=2",
+        "focal_subject": "NS 16-2",
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "EB 9-4",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named seed parent in the original NS 16-2 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "EB 9-4"
+        },
+        {
+          "candidate_name": "EB 8-50",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named pollen parent in the original NS 16-2 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "EB 8-50"
+        },
+        {
+          "candidate_name": "NS 13-4",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named comparison cultivar in the original NS 16-2 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "NS 13-4"
+        },
+        {
+          "candidate_name": "Bluetta",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named commercial comparison in the original NS 16-2 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        },
+        {
+          "candidate_name": "Concord",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named commercial comparison in the original NS 16-2 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        },
+        {
+          "candidate_name": "Burlington",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named commercial comparison in the original NS 16-2 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        },
+        {
+          "candidate_name": "Heerma",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named commercial comparison in the original NS 16-2 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        },
+        {
+          "candidate_name": "O'Neal",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named commercial comparison in the original NS 16-2 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        },
+        {
+          "candidate_name": "Patriot",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/e9/26/a7/44f21b274af0d1/USPP32897.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named commercial comparison in the original NS 16-2 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        }
+      ],
+      "accounting": {
+        "observed_items": 9,
+        "reported_items": 9,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-advabertwee-reissue",
+      "title": "Advabertwee — USRE46030E1 original claim and full-size figure",
+      "url": "https://patents.google.com/patent/USRE46030E1/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2016-06-21",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal denomination, historical issue date, original claim and selected full-size figure. Other description names are retained separately in the context section.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_pdf_description_and_claim_visual_review_with_full_figure",
+        "page_response_sha256": "5ff70cf073689029d192cca9285a12e95511189765e88476d5f6af01777f00a4",
+        "pdf_url": "https://patentimages.storage.googleapis.com/d8/55/90/f3b7ddc61ce4ba/USRE46030.pdf",
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/d8/55/90/f3b7ddc61ce4ba/USRE46030.pdf",
+        "pdf_sha256": "f48f079b4e5e6e7cbc5c3f333c9ef3b895430bab295169845974ac43eeb4d04c",
+        "pdf_bytes": 709467,
+        "pdf_pages": 5,
+        "claim_url": "https://patentimages.storage.googleapis.com/d8/55/90/f3b7ddc61ce4ba/USRE46030.pdf#page=3",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/d8/55/90/f3b7ddc61ce4ba/USRE46030.pdf#page=5",
+        "figure": 2,
+        "figure_page": 5,
+        "image_url": "https://patentimages.storage.googleapis.com/85/19/82/ead9a5570ee704/USRE046030-20160621-D00002.png",
+        "image_sha256": "d3107570f50e50aa69ae9966b5917c4f64cbca49446e900926aa7130621b2b6d",
+        "image_width": 1693,
+        "image_height": 2254,
+        "original_claim_read": true,
+        "original_figure_visually_reviewed": true,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "image_reproduction": "monochrome",
+        "full_image_link_basis": "Captured source meta itemprop=full, not a guessed URL or an enlarged thumbnail",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "document_kind": "reissued_patent",
+        "reported_applicant": "ADVANCED BERRY BREEDING",
+        "reported_assignee": "ADVANCED BERRY BREEDING",
+        "reported_inventors": [
+          "André Smaal",
+          "Gerrit de Weert"
+        ],
+        "original_grant_printed": "PP23,914",
+        "original_grant_issue_date": "2013-09-24",
+        "original_application_filed": "2012-02-10",
+        "original_application_number": "13/385,295",
+        "reissue_does_not_establish_new_variety_release": true
+      },
+      "names": [
+        {
+          "candidate_name": "Advabertwee",
+          "denomination": "Advabertwee",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/d8/55/90/f3b7ddc61ce4ba/USRE46030.pdf",
+          "grant_number": "USRE46030E1",
+          "grant_date": "2016-06-21",
+          "application_date": "2014-12-24",
+          "jurisdiction": "US",
+          "portfolio_context": "Original filing subject: Advabertwee. Its historical claim and figure are linked. Source claims, current rights and image use remain separate review decisions.",
+          "photos": [
+            {
+              "named_variety": "Advabertwee",
+              "berry_id": "berry-raspberry",
+              "image_url": "https://patentimages.storage.googleapis.com/85/19/82/ead9a5570ee704/USRE046030-20160621-D00002.png",
+              "source_url": "https://patentimages.storage.googleapis.com/d8/55/90/f3b7ddc61ce4ba/USRE46030.pdf",
+              "caption": "Sheet 2 shows Advabertwee fruits attached to the plant and picked fruits. Monochrome reproduction from the reissued patent.",
+              "credit": "USRE46030E1 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public access to a filing or its figures does not establish photograph reuse permission. This reference remains held; the existing private session preview grants no reuse rights."
+            }
+          ],
+          "application_number": "14/544,335"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-advabertwee-reissue-context",
+      "title": "Advabertwee — separately recorded parent, sibling and comparison names",
+      "url": "https://patents.google.com/patent/USRE46030E1/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2016-06-21",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Literal named parents, siblings and comparison cultivars from the original description, including later botanical comparisons. Repeated punctuation/case forms, taxonomy, phenotype words, bibliographies and later citing patents are excluded. These are source-name occurrences, not distinct releases.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration. No focal grant/application number or company association is assigned to these entries.",
+      "capture_reference": {
+        "method": "original_description_name_inventory_and_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/d8/55/90/f3b7ddc61ce4ba/USRE46030.pdf",
+        "pdf_sha256": "f48f079b4e5e6e7cbc5c3f333c9ef3b895430bab295169845974ac43eeb4d04c",
+        "description_url": "https://patentimages.storage.googleapis.com/d8/55/90/f3b7ddc61ce4ba/USRE46030.pdf#page=2",
+        "focal_subject": "Advabertwee",
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "207157-12",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/d8/55/90/f3b7ddc61ce4ba/USRE46030.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named seed-parent selection in the original Advabertwee description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "207157-12"
+        },
+        {
+          "candidate_name": "207015",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/d8/55/90/f3b7ddc61ce4ba/USRE46030.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named pollen-parent selection in the original Advabertwee description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "207015"
+        },
+        {
+          "candidate_name": "Polka",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/d8/55/90/f3b7ddc61ce4ba/USRE46030.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named comparison cultivar in the original Advabertwee description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "reported_items": 3,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-advabereen-reissue",
+      "title": "Advabereen — USRE46041E1 original claim and full-size figure",
+      "url": "https://patents.google.com/patent/USRE46041E1/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2016-06-28",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal denomination, historical issue date, original claim and selected full-size figure. Other description names are retained separately in the context section.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_pdf_description_and_claim_visual_review_with_full_figure",
+        "page_response_sha256": "9d015a954ba7b4aeb313f8490763f019e78ff67a00a17120eedaf8c5eee738f6",
+        "pdf_url": "https://patentimages.storage.googleapis.com/24/c9/e4/233cf64304bb25/USRE46041.pdf",
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/24/c9/e4/233cf64304bb25/USRE46041.pdf",
+        "pdf_sha256": "35b1e0a8b29611538cad5c70141da47f31b032cb6d99617e89f768c5062ea6f3",
+        "pdf_bytes": 663875,
+        "pdf_pages": 5,
+        "claim_url": "https://patentimages.storage.googleapis.com/24/c9/e4/233cf64304bb25/USRE46041.pdf#page=3",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/24/c9/e4/233cf64304bb25/USRE46041.pdf#page=5",
+        "figure": 2,
+        "figure_page": 5,
+        "image_url": "https://patentimages.storage.googleapis.com/72/3f/8e/09c2c64e4c1f80/USRE046041-20160628-D00002.png",
+        "image_sha256": "29b440af711a749f3b9d941e8702aade003e2d17398c97938478a79271b2fae5",
+        "image_width": 1777,
+        "image_height": 2044,
+        "original_claim_read": true,
+        "original_figure_visually_reviewed": true,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "image_reproduction": "monochrome",
+        "full_image_link_basis": "Captured source meta itemprop=full, not a guessed URL or an enlarged thumbnail",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "document_kind": "reissued_patent",
+        "reported_applicant": "ADVANCED BERRY BREEDING",
+        "reported_assignee": "ADVANCED BERRY BREEDING",
+        "reported_inventors": [
+          "André Smaal",
+          "Gerrit de Weert"
+        ],
+        "original_grant_printed": "PP23,915",
+        "original_grant_issue_date": "2013-09-24",
+        "original_application_filed": "2012-02-10",
+        "original_application_number": "13/385,280",
+        "reissue_does_not_establish_new_variety_release": true
+      },
+      "names": [
+        {
+          "candidate_name": "Advabereen",
+          "denomination": "Advabereen",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/24/c9/e4/233cf64304bb25/USRE46041.pdf",
+          "grant_number": "USRE46041E1",
+          "grant_date": "2016-06-28",
+          "application_date": "2014-12-24",
+          "jurisdiction": "US",
+          "portfolio_context": "Original filing subject: Advabereen. Its historical claim and figure are linked. Source claims, current rights and image use remain separate review decisions.",
+          "photos": [
+            {
+              "named_variety": "Advabereen",
+              "berry_id": "berry-raspberry",
+              "image_url": "https://patentimages.storage.googleapis.com/72/3f/8e/09c2c64e4c1f80/USRE046041-20160628-D00002.png",
+              "source_url": "https://patentimages.storage.googleapis.com/24/c9/e4/233cf64304bb25/USRE46041.pdf",
+              "caption": "Sheet 2 shows Advabereen fruits attached to the plant and picked fruits. Monochrome reproduction from the reissued patent.",
+              "credit": "USRE46041E1 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public access to a filing or its figures does not establish photograph reuse permission. This reference remains held; the existing private session preview grants no reuse rights."
+            }
+          ],
+          "application_number": "14/544,334"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-advabereen-reissue-context",
+      "title": "Advabereen — separately recorded parent, sibling and comparison names",
+      "url": "https://patents.google.com/patent/USRE46041E1/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2016-06-28",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Literal named parents, siblings and comparison cultivars from the original description, including later botanical comparisons. Repeated punctuation/case forms, taxonomy, phenotype words, bibliographies and later citing patents are excluded. These are source-name occurrences, not distinct releases.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration. No focal grant/application number or company association is assigned to these entries.",
+      "capture_reference": {
+        "method": "original_description_name_inventory_and_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/24/c9/e4/233cf64304bb25/USRE46041.pdf",
+        "pdf_sha256": "35b1e0a8b29611538cad5c70141da47f31b032cb6d99617e89f768c5062ea6f3",
+        "description_url": "https://patentimages.storage.googleapis.com/24/c9/e4/233cf64304bb25/USRE46041.pdf#page=2",
+        "focal_subject": "Advabereen",
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "207005",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/24/c9/e4/233cf64304bb25/USRE46041.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named seed-parent selection in the original Advabereen description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "207005"
+        },
+        {
+          "candidate_name": "207126",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/24/c9/e4/233cf64304bb25/USRE46041.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named pollen-parent selection in the original Advabereen description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": [],
+          "breeder_code": "207126"
+        },
+        {
+          "candidate_name": "Polka",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/24/c9/e4/233cf64304bb25/USRE46041.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named comparison cultivar in the original Advabereen description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "reported_items": 3,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-filing-figures-abb127",
+      "title": "ABB 127 — USPP33576P2 original claim and full-size figure",
+      "url": "https://patents.google.com/patent/USPP33576P2/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2021-10-26",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal denomination, historical issue date, original claim and selected full-size figure. Other description names are retained separately in the context section.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_pdf_description_and_claim_visual_review_with_full_figure",
+        "page_response_sha256": "581b8b92a300c2023eb8e428a3d8f4615532af4448bab10084adbc5eaaafeb2f",
+        "pdf_url": "https://patentimages.storage.googleapis.com/73/58/70/3831481fcc7a8e/USPP33576.pdf",
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/73/58/70/3831481fcc7a8e/USPP33576.pdf",
+        "pdf_sha256": "b05fa35ac71ebc411270dda8485d70e4c153b58830d870b4db6613b5421dfe33",
+        "pdf_bytes": 1022932,
+        "pdf_pages": 5,
+        "claim_url": "https://patentimages.storage.googleapis.com/73/58/70/3831481fcc7a8e/USPP33576.pdf#page=3",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/73/58/70/3831481fcc7a8e/USPP33576.pdf#page=5",
+        "figure": 2,
+        "figure_page": 5,
+        "image_url": "https://patentimages.storage.googleapis.com/8c/9c/9c/90e79b4b83aec5/USPP033576-20211026-D00002.png",
+        "image_sha256": "a1fb4a729514ed41387e8c585d467e03d704ab927d3fe33a627a198b22d77c78",
+        "image_width": 1237,
+        "image_height": 1840,
+        "original_claim_read": true,
+        "original_figure_visually_reviewed": true,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "image_reproduction": "monochrome",
+        "full_image_link_basis": "Captured source meta itemprop=full, not a guessed URL or an enlarged thumbnail",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "reported_applicant": "ALLBERRY B.V.",
+        "reported_assignee": "Allberry B.V.",
+        "reported_inventor": "Niels Arts",
+        "reported_cpvo_application": "2019/3500",
+        "reported_cpvo_application_date": "2019-12-23",
+        "foreign_priority_claimed": false,
+        "cpvo_grant_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "ABB 127",
+          "denomination": "ABB 127",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/73/58/70/3831481fcc7a8e/USPP33576.pdf",
+          "grant_number": "USPP33576P2",
+          "grant_date": "2021-10-26",
+          "application_date": "2020-10-18",
+          "jurisdiction": "US",
+          "portfolio_context": "Original filing subject: ABB 127. Its historical claim and figure are linked. Source claims, current rights and image use remain separate review decisions.",
+          "photos": [
+            {
+              "named_variety": "ABB 127",
+              "berry_id": "berry-raspberry",
+              "image_url": "https://patentimages.storage.googleapis.com/8c/9c/9c/90e79b4b83aec5/USPP033576-20211026-D00002.png",
+              "source_url": "https://patentimages.storage.googleapis.com/73/58/70/3831481fcc7a8e/USPP33576.pdf",
+              "caption": "Sheet 2 shows a close-up of ABB 127 fruit. Monochrome original patent reproduction, not a current marketing photograph.",
+              "credit": "USPP33576P2 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public access to a filing or its figures does not establish photograph reuse permission. This reference remains held; the existing private session preview grants no reuse rights."
+            }
+          ],
+          "application_number": "17/073,376"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      },
+      "review_warnings": [
+        "This grant names Allberry B.V. as applicant/assignee. It does not establish that Allberry and Advanced Berry Breeding are the same legal organization."
+      ]
+    },
+    {
+      "id": "portfolio-original-filing-figures-abb127-context",
+      "title": "ABB 127 — separately recorded parent, sibling and comparison names",
+      "url": "https://patents.google.com/patent/USPP33576P2/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2021-10-26",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Literal named parents, siblings and comparison cultivars from the original description, including later botanical comparisons. Repeated punctuation/case forms, taxonomy, phenotype words, bibliographies and later citing patents are excluded. These are source-name occurrences, not distinct releases.",
+      "limitations": "Historical original-document observations, not current rights verification. No canonical alias, company role, trait, growing region, source publication, individual claim or photograph permission is approved. Online figures are monochrome reproductions; no color, size, yield or quality is inferred from them. Repeated captures, figure variants and references to the same filing are not independent corroboration. No focal grant/application number or company association is assigned to these entries.",
+      "capture_reference": {
+        "method": "original_description_name_inventory_and_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/73/58/70/3831481fcc7a8e/USPP33576.pdf",
+        "pdf_sha256": "b05fa35ac71ebc411270dda8485d70e4c153b58830d870b4db6613b5421dfe33",
+        "description_url": "https://patentimages.storage.googleapis.com/73/58/70/3831481fcc7a8e/USPP33576.pdf#page=2",
+        "focal_subject": "ABB 127",
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Advabertwee",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/73/58/70/3831481fcc7a8e/USPP33576.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named seed parent in the original ABB 127 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        },
+        {
+          "candidate_name": "Advabemap",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/73/58/70/3831481fcc7a8e/USPP33576.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named pollen parent in the original ABB 127 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        },
+        {
+          "candidate_name": "Advabereen",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/73/58/70/3831481fcc7a8e/USPP33576.pdf",
+          "source_company_ids": [],
+          "portfolio_context": "Named comparison cultivar in the original ABB 127 description; not the subject of this claim, an approved alias or an assigned company role.",
+          "photos": []
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "reported_items": 3,
+        "exclusions": []
+      }
+    }
+  ]
+}
