@@ -1,5 +1,38 @@
 # Berry Intelligence release review
 
+## Current release boundary — October 28, 2026
+
+Production is canonical `e24b566b49e781d4a95d0e457d57c763f47c4741`, image
+`sha256:a21d7871066ea65839bc102bb5ac196d65cdc17bcbea13585869cef4a87fc5db`.
+It retains the approved platform redesign, shared Workspaces, Gene Editing
+closeout #417 and News Tags #415. The October 28 memory-exhaustion recovery
+restored the unchanged release; original data/inbox mounts remained in place.
+At 19:00 UTC the app was healthy, login returned HTTP 200, and both disposable
+catalog review jobs had been removed. Login latency is not whole-app performance.
+
+Catalog #399/#400/#418 remains separate and unreleased. Frozen #418 head
+`49489128` has all four required checks and 5,300 passing tests, native
+phone/desktop proof and a fresh current-production-copy preservation result:
+five original accounts, 65 profiles, 9,821 protected JSON records and existing
+contents of four SQLite databases preserved. A 19,758-file verified backup is
+retained. Each SQLite copy is individually consistent; this is not a global
+cross-database transaction or a claim that active production never changes.
+The one-job rehearsal has no network or ports, 1GiB/no-swap, one CPU and a
+ten-minute limit. Its original inefficient check was stopped by exact container
+ID; the corrected one-pass check passed on a new isolated restore.
+
+Separate drafts #410 (performance), #412 (personal Digest), #414 (responsive
+anchors) and #416 (bounded-review tooling) retain their individual release
+boundaries. Shared Workspaces must remain universal; only layout preferences
+and Personal Digest are account-private. The [later original-photo research
+draft](ORIGINAL-VARIETY-PHOTO-FOLLOWUP.md) does not inherit #418's release proof.
+No source, identity, catalog, current-rights, qualification or reuse approval
+is created. Merging/deployment still requires the requested release approval
+and a release-time fresh backup, canonical/check verification and rollback.
+
+Earlier dated boundaries below are historical evidence, not the current live
+version or new approval requests.
+
 ## Current release boundary — October 23, 2026
 
 Production is canonical `97f9ac3de5ad9e0518f28bf9f239dc95e2b4ded5`, tested head

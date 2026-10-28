@@ -1,5 +1,15 @@
 # Intelligence Coverage Matrix
 
+October 28, 2026, later [original-photo follow-up](ORIGINAL-VARIETY-PHOTO-FOLLOWUP.md):
+eight scoped sections retain twenty occurrences and nine held photo observations
+from eight image URLs. Eight existing profiles gain references; the public
+64-profile seed's missing-photo bucket falls from 30 to 22, with rights/trait/
+company gaps unchanged at 13/33/10. Comparison positions, a flower photo,
+cross-crop Keepsake separation, literal dates and photographer credits remain
+explicit. No image reuse or new identity is approved. Cumulative bounded scope:
+464 sections / 1,700 occurrences / 149 matches / 1,551 review needs. The earlier
+456-section snapshot below remains dated evidence; CAT-01/CAT-02 stay open.
+
 October 28, 2026: [Gene Editing source closeout](GENE-EDITING-LANDSCAPE.md)
 retains eleven seeds with 28 program/platform/affiliation rows, four sourced
 partnership claims and 46 publication candidates. All 30 prior excerpts matched
