@@ -448,3 +448,23 @@ the generic banner, the named-view grouping and light/dark contrast. The isolate
 preview contains no live social posts; social save/retry/removal and non-copying
 were verified using isolated test records, without collecting or inventing live
 observations. No additional model export permission is inferred for social text.
+
+## Overview quality checks (2026-10-27)
+
+AI overviews use six paragraphs across The picture, Key developments, Why it
+matters and What to watch, with a 300-word rendered limit. Generated questions,
+extra sections and out-of-scope citations are rejected. A separate model pass
+checks each paragraph against its cited material; supporting quotations must
+match the saved source text exactly after whitespace/case normalization. Every
+linked Landscape and page evidence must be represented. One automatic repair
+attempt is allowed; provider failures are not retried automatically.
+
+A failed AI generation returns an error and preserves the previous overview,
+page version and research. The explicitly selected non-AI evidence digest remains
+available. This adds a model call to successful AI generation and can add a second
+generation/check pair when repair is needed. These are editorial safeguards,
+not factual verification: source claims and AI synthesis still require review.
+
+Incoming coverage cards stretch consistently within each grid row, with aligned
+reader/workspace actions and wrapping source names. The shared News reader and
+card actions are retained.

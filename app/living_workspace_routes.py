@@ -312,6 +312,9 @@ async def generate(request: Request, page_id: str):
             block = living.model_narrative(block, items, completer=completer, style=payload.get("style", "briefing"), sources=sources if full_articles else None)
             if full_articles and not approved:
                 block["generation_notice"] = "Full-article summaries require the approved Perplexity endpoint. Cited evidence digest preserved."
+        if (payload.get("target") == "overview" and payload.get("use_model")
+                and (not block.get("quality_checks") or block.get("method") != "configured model + cited evidence digest")):
+            raise ValueError(block.get("generation_notice", "AI summary quality checks failed.") + " Saved page and previous summary were not changed. You can retry, or turn off AI to compile a source digest.")
         # No model/network work holds the capture database lock.
         with store.transaction() as db:
             replay = store.replay(db, payload.get("token"), payload)
