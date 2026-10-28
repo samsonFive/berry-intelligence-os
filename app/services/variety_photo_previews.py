@@ -17,11 +17,11 @@ def read_preview_overlays(payload):
     if not isinstance(rows, list) or len(rows) > 100:
         raise ValueError("Photo previews need a bounded list")
     keys = {"source_id", "source_fingerprint", "candidate_name", "berry_id",
-            "image_url", "preview_image_url", "checked_on"}
+            "image_url", "preview_image_url", "preview_caption", "checked_on"}
     result = {}
     for row in rows:
         if (not isinstance(row, dict) or set(row) != keys
-                or any(not isinstance(row[k], str) or not row[k].strip() for k in keys)
+                or any(not isinstance(row[k], str) or not row[k].strip() or len(row[k]) > 2000 for k in keys)
                 or not re.fullmatch(r"[0-9a-f]{64}", row["source_fingerprint"])
                 or row["berry_id"] not in {"berry-blueberry", "berry-strawberry", "berry-raspberry", "berry-blackberry"}):
             raise ValueError("Photo previews need an exact source, name, crop and capture fingerprint")
@@ -51,4 +51,5 @@ def apply_preview_overlays(latest, overlays, fingerprints):
         if len(matches) != 1 or matches[0]["reuse"] != "unknown":
             raise ValueError("A larger preview must match one held source photo; reuse remains unconfirmed")
         matches[0]["preview_image_url"] = row["preview_image_url"]
+        matches[0]["preview_caption"] = row["preview_caption"]
         latest[source_id] = source

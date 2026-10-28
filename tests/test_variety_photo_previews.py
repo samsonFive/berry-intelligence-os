@@ -26,7 +26,8 @@ def fixture():
                   names=[dict(candidate_name='One', berry_id='berry-raspberry', photos=[photo])])
     overlay = dict(source_id=source['id'], source_fingerprint=_source_fingerprint(source), candidate_name='One',
                    berry_id='berry-raspberry', image_url=photo['image_url'],
-                   preview_image_url='https://example.test/figure-full.png', checked_on='2026-10-28')
+                   preview_image_url='https://example.test/figure-full.png',
+                   preview_caption='Full-size original named fruit figure', checked_on='2026-10-28')
     target = dict(id='fixture-one', name='One', entity_type='variety', berry_ids=['berry-raspberry'])
     return source, overlay, target
 
@@ -49,11 +50,13 @@ def test_larger_preview_and_scoped_warning_preserve_capture_and_stable_photo_ide
     assert first == second and path.read_bytes() == original and source == before
     assert first[0]['review_warning_scopes'][0]['candidate_names'] == ['One']
     copy = deepcopy(first[0]); del copy['review_warning_scopes']; del copy['names'][0]['photos'][0]['preview_image_url']
+    del copy['names'][0]['photos'][0]['preview_caption']
     assert copy == source
     old = photos.source_photos(target, sources=[source])[0]
     new = photos.source_photos(target, sources=first)[0]
     assert old['id'] == new['id'] and old['image_url'] == new['image_url']
     assert new['preview_image_url'] == overlay['preview_image_url']
+    assert new['caption'] == overlay['preview_caption'] and source['names'][0]['photos'][0]['caption'] == 'Named fruit figure'
     assert new['reuse'] == 'unknown' and not new['license_url']
     gallery = photos.gallery(target, sourced=[new], authoring=True)
     template = main.templates.env.get_template('_variety_photo_gallery.html')
@@ -106,7 +109,7 @@ def test_changed_or_newer_capture_wins_including_permission_and_identity_edits(t
 @pytest.mark.parametrize('change', [dict(preview_image_url='http://127.0.0.1/private'),
     dict(preview_image_url='https://user:password@example.test/image'), dict(preview_image_url=[]),
     dict(source_fingerprint='invalid'), dict(berry_id='wrong'), dict(checked_on='not-a-date'),
-    dict(extra='unexpected')])
+    dict(extra='unexpected'), dict(preview_caption=[]), dict(preview_caption='')])
 def test_invalid_preview_metadata_is_rejected(change):
     _, overlay, _ = fixture()
     with pytest.raises((ValueError, TypeError)):

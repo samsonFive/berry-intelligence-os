@@ -21,6 +21,8 @@ crop and original image URL. A changed or newer capture wins. Original image
 URLs and source-photo IDs remain unchanged so saved edits, hidden-photo choices,
 history and reset/restore behavior still address the same photo. A user override
 uses the user's image and details, without inheriting a larger source variant.
+The larger view's checked caption describes that original; the earlier capture
+caption remains unchanged in its source snapshot.
 Warning-placement overlays are checked against the same original capture.
 
 There are no new source sections or name occurrences. The bounded corpus remains

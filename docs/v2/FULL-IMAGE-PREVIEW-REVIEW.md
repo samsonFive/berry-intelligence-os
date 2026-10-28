@@ -9,6 +9,8 @@ Changing an image URL would change its generated source-photo ID, disconnecting
 saved captions, image replacements, hidden-photo choices and history. Instead,
 an additive, fingerprint-guarded presentation overlay supplies a larger preview.
 The original image URL, photo ID and editable source details remain unchanged.
+The larger view has its own checked caption; it does not describe the displayed
+full-size original as a thumbnail or rewrite the retained capture caption.
 User overrides take precedence; hide, restore and reset still use the same ID.
 A newer or operator-edited source capture wins over the overlay. Warning and
 image overlays independently guard the same original capture.
