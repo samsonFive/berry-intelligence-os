@@ -1,5 +1,22 @@
 # Technical Debt Register
 
+### TD-124 — Unbounded review containers compete with the production VPS
+
+October 28: the prior-boot kernel journal confirms global memory exhaustion
+killed production `uvicorn`; the provider console also showed logging failure.
+Several old app previews had no memory cap. The user authorized recovery and
+an IONOS restart restored the unchanged release and original runtime mounts.
+Old app previews remain stopped; four task previews now have explicit limits.
+The completed navigation preservation receipt was recovered, not rerun blindly.
+
+[Bounded offline rehearsals](../07-static-deployment/BOUNDED-VPS-REHEARSALS.md)
+adds serialization, health/headroom gates, local image pinning, isolated-copy
+validation, network isolation, resource/time limits and exact-container cleanup.
+This guard coordinates its own jobs only. Persistent browser previews still
+require an explicit budget, one-at-a-time operation and cleanup. Broader host
+capacity monitoring and a separate review host remain open; the incident is not
+resolved by weakening data, CI or human review gates.
+
 October 23, 2026 follow-up: [Performance, reader and publisher coverage](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 records measured reductions in Brief, Live Intelligence, Variety and Monitoring
 response times, generic exact-publisher reader recovery, and publisher-first
