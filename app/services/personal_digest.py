@@ -139,7 +139,8 @@ def inclusion(record: dict[str, Any], state: dict[str, Any], reading: dict[str, 
     entry = (reading.get("reading") or {}).get(item_id) or {}
     # Merely remembering a Reader position is not an instruction to enqueue.
     explicit_reading = bool(entry) and ("state" in entry or "action" in entry or "reader_positions" not in entry)
-    if priority in {"high", "medium", "low"} or explicit_reading:
+    from app.services.personal_scope import legacy_access
+    if (legacy_access() and priority in {"high", "medium", "low"}) or explicit_reading:
         origins.append({"key": "queue", "label": "Reading queue"})
     companies = (linked_companies if linked_companies is not None else
                  set(record.get("entity_ids") or []) | set(record.get("company_ids") or []))

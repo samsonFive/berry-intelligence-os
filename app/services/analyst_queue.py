@@ -149,13 +149,15 @@ def load_state(inbox_dir: Path) -> dict[str, dict[str, dict[str, Any]]]:
                 for item_id, value in bucket.items()
                 if isinstance(value, dict) and item_id
             }
-    return out
+    from app.services.personal_scope import project_queue
+    return project_queue(payload, out)
 
 
 def save_state(inbox_dir: Path, state: dict[str, dict[str, dict[str, Any]]]) -> None:
     path = state_path(inbox_dir)
     path.parent.mkdir(parents=True, exist_ok=True)
-    atomic_json(path, state)
+    from app.services.personal_scope import merge_queue, read_for_write
+    atomic_json(path, merge_queue(read_for_write(path), state))
 
 
 def _now() -> str:

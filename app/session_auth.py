@@ -240,14 +240,19 @@ async def remote_auth_middleware(request: Request, call_next):
         from app.services.analyst_accounts import load_accounts
         account = load_accounts(main.INBOX_DIR).get(username)
         if username == review_username() or (isinstance(account, dict) and account.get("enabled") is True):
-            return await call_next(request)
+            from app.services.personal_scope import bind
+            with bind(username, review_username()):
+                return await call_next(request)
         clear_session(request)
         return login_redirect(request)
 
     if basic_auth_enabled():
         parsed = _basic_credentials(request)
         if parsed is not None and credentials_match(*parsed):
-            return await call_next(request)
+            from app.runtime_config import review_username
+            from app.services.personal_scope import bind
+            with bind(parsed[0], review_username()):
+                return await call_next(request)
         return _unauthorized_basic()
 
     return login_redirect(request)
