@@ -7,6 +7,13 @@ Packer/Watershed discovery. Bounded listing coverage, publisher outages/access
 limits and browser/network latency remain explicit operational limits; no
 exhaustive archive recall or automatic trusted publication is claimed.
 
+October 22 — #407 is approved and live at `64099c00`. Both check sets pass
+5,153 tests; ten signed-in HTTPS routes, all 9,816 protected files and account/
+social rows are verified. Emerald returns in 9.867 seconds after removing the
+unrelated pending-attribution scan. Discovery still dominates the remaining
+profile wait; TD-122 remains open. Earlier draft/CI statements below are dated
+implementation evidence rather than current release status.
+
 October 21 — selected-profile follow-up: [entity attribution measurements](ENTITY-PROFILE-ATTRIBUTION-PERFORMANCE.md)
 identify a 1,721-story full-catalog attribution scan as the main Emerald delay.
 A selected-entity precheck retains the full matcher for possible matches.
@@ -89,6 +96,33 @@ with a scoped service drop-in and an actual News-cache runner. Berries Australia
 transient 507 now has a bounded retry; persistent publisher errors remain visible.
 These probes do not establish complete publisher-section coverage or measured recall.
 
+**TD-116 original-paper follow-through — October 13:** The CAS announcement
+omitted names present in its original paper. Hawaii-4 and Benihoppe now reach
+identity review as research material; CAS release coverage remains partial and
+no company role, trait, right, footprint or photo permission is approved.
+See CAS-ORIGINAL-PAPER-SOURCE-REVIEW.md. Original-source follow-through and
+independent human recall remain required; volume does not establish completeness.
+
+**TD-116 whole reference-gap cohort — October 13:** All 17 starting profiles are
+accounted for, including one explicit fictional seed, four unapproved naming
+associations and eight bounded unknowns. Four existing profiles gain original
+CPVO/US/Ukrainian references; the copied preview's reference gap falls from
+17 to 13. Twenty-two other-crop homonyms are excluded. Application, title,
+rights-registration and publication dates keep their distinct meanings.
+All 332 protected files and 64 stored profiles remain unchanged. See
+REFERENCE-GAP-COHORT-REVIEW.md. TD-116/CAT-01/CAT-02 remain open: source codes,
+other jurisdictions, current/historical portfolios, source/identity/catalog
+review, traits, attributed photos, regions and independent human recall remain.
+
+**TD-116 current source refresh — October 13:** The original current Pairwise
+Products page now explicitly names Fontana; its earlier unnamed product page
+stays intact. One candidate and two reuse-unconfirmed image references are
+retained without inventing identity equivalences, rights, roles or footprints.
+The bounded audit has 408 sections /1,608 observations /1,142 derived keys;
+64 canonical varieties and existing human decisions remain unchanged. See
+FONTANA-SOURCE-COVERAGE-REVIEW.md. Current/historical coverage and human
+catalog/recall work remain open; the live platform release is separate.
+
 ### TD-121 — Cultivar denominations misclassified as breeding codes
 
 The [original patent follow-up](UF-ORIGINAL-PATENT-REFERENCE-REVIEW.md) reproduces
@@ -99,7 +133,7 @@ codes, real conflicting pairs and saved human decisions. Forty-two targeted test
 pass, and all seven original documents reach their existing profile projection
 against the complete corpus. Full CI/browser review remain. No canonical identity,
 alias, ownership, current-rights or model-qualification decision changes. The
-tested release awaiting approval is unchanged; CAT-01/CAT-02 remain open.
+source follow-up remains separate from live release #398; CAT-01/CAT-02 stay open.
 
 ### TD-120 — Publisher disclosure lists disappear from captured source text
 
@@ -2985,3 +3019,5 @@ October 23, 2026 — Analyst living workspaces ([delivery notes](ANALYST-LIVING-
 - **TD-LIVING-002, taxonomy identity:** existing canonical IDs/aliases are reused. Missing technology/topic identities remain explicitly unresolved private stubs; there is no automatic canonical-name merge. Feed facets currently expose taxonomy IDs and keywords.
 - **TD-LIVING-003, output/runtime:** Markdown/JSON exports preserve source references; direct living-document PDF/DOCX export is unavailable. Keep the private SQLite database and existing evidence projections on persistent mounts/backups. Account scope follows the existing shared analyst workspace; per-user page ACLs/co-editing are not added.
 - **TD-LIVING-004, external validation:** deterministic/model-fixture synthesis and simulated ingestion arrivals are tested. Live provider synthesis, physical touch hardware and production collection cadence are not verified by this candidate. Prior gene-editing research debt remains open; the preview is not an eleven-company research-completion claim.
+
+October 13 printed-code review: ABB135/ABB 135 and ABB136/ABB 136 source formatting produced false discrepancy holds. The issuer-specific comparison correction preserves literal records, canonical names/aliases and real different-number holds; 79 affected tests pass. The genuine Baridi ABB132/ABB137 conflict, RedSayra/Plared 15121 legal-name review, other-jurisdiction rights, source completeness and photo reuse remain open. Source snapshots and two named Ervin images are review metadata only. See PRINTED-CODE-REGISTER-FOLLOWUP.md. No qualification, canonical profile or production change.

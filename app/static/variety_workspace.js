@@ -23,6 +23,19 @@
   measure();
 })();
 
+// Profile anchors must clear the shell even when its navigation wraps on phones.
+(() => {
+  const profile = document.querySelector('.variety-profile-main');
+  const header = document.querySelector('.glass-header');
+  if (!profile || !header) return;
+  function measure() {
+    profile.style.setProperty('--variety-profile-scroll-offset', `${Math.ceil(header.getBoundingClientRect().height) + 16}px`);
+  }
+  if ('ResizeObserver' in window) new ResizeObserver(measure).observe(header);
+  window.addEventListener('resize', measure);
+  measure();
+})();
+
 // Expand only the section requested by a link; plain disclosures work without JS.
 (() => {
   function reveal() {
