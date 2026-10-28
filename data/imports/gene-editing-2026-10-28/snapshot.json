@@ -4994,7 +4994,7 @@
       "source_url": "https://www.hfpappexternal.fda.gov/scripts/fdcc/?set=GenomeEditedPlants",
       "published_date": null,
       "captured_date": "2026-10-28",
-      "summary": "FDA lists voluntary premarket meetings for Simplot remontant strawberry and Pairwise blackberry traits. FDA explicitly distinguishes a meeting from its evaluation in a completed voluntary premarket consultation. Neither a meeting nor an inventory row proves sales.",
+      "summary": "FDA lists voluntary premarket meetings for genome-edited Simplot remontant strawberry and Pairwise blackberry traits. FDA explicitly distinguishes a meeting from its evaluation in a completed voluntary premarket consultation. Neither a meeting nor an inventory row proves sales.",
       "supporting_excerpt": "not intended to represent an FDA evaluation",
       "original_text_excerpt": "not intended to represent an FDA evaluation",
       "original_title": "Premarket Meetings Regarding Food from Genome Edited Plants",
@@ -5007,10 +5007,13 @@
         "company-j-r-simplot",
         "company-pairwise"
       ],
-      "geography_ids": [],
+      "geography_ids": [
+        "geography-united-states"
+      ],
       "tags": [
         "gene-editing-research",
-        "source-audit-completed"
+        "source-audit-completed",
+        "gene-editing"
       ],
       "priority": {
         "reading": {
@@ -5046,14 +5049,17 @@
       },
       "classification": {
         "version": "gene-editing-1",
-        "topics": [],
-        "relevance": "",
-        "berry_related": false,
-        "reason": "",
+        "topics": [
+          "gene-editing"
+        ],
+        "relevance": "Direct berry development",
+        "berry_related": true,
+        "reason": "Explicit agricultural editing language",
         "excerpt": "not intended to represent an FDA evaluation",
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Regulatory jurisdiction; England uses its UK country container. Not a cultivation or trial footprint.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -5074,7 +5080,7 @@
       "source_url": "https://www.hfpappexternal.fda.gov/scripts/fdcc/?id=0002&set=GenomeEditedPlants",
       "published_date": null,
       "captured_date": "2026-10-28",
-      "summary": "FDA records a December 4, 2024 meeting for strawberry altered flowering and loss-of-function edits in confidential Gn1. The inventory identifies Simplot. This closes the missing FDA-record search, not food approval, commercial availability or an independent Gn1-to-TFL1 identity determination.",
+      "summary": "FDA records a December 4, 2024 meeting for genome-edited strawberry altered flowering and loss-of-function edits in confidential Gn1. The inventory identifies Simplot. This closes the missing FDA-record search, not food approval, commercial availability or an independent Gn1-to-TFL1 identity determination.",
       "supporting_excerpt": "Altered flowering for remontancy",
       "original_text_excerpt": "Altered flowering for remontancy",
       "original_title": "Strawberry (Fragaria x ananassa)",
@@ -5088,10 +5094,13 @@
       "entity_ids": [
         "company-j-r-simplot"
       ],
-      "geography_ids": [],
+      "geography_ids": [
+        "geography-united-states"
+      ],
       "tags": [
         "gene-editing-research",
-        "source-audit-completed"
+        "source-audit-completed",
+        "gene-editing"
       ],
       "priority": {
         "reading": {
@@ -5127,14 +5136,17 @@
       },
       "classification": {
         "version": "gene-editing-1",
-        "topics": [],
-        "relevance": "",
-        "berry_related": false,
-        "reason": "",
+        "topics": [
+          "gene-editing"
+        ],
+        "relevance": "Direct berry development",
+        "berry_related": true,
+        "reason": "Explicit agricultural editing language",
         "excerpt": "Altered flowering for remontancy",
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Regulatory jurisdiction; England uses its UK country container. Not a cultivation or trial footprint.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -5155,7 +5167,7 @@
       "source_url": "https://www.hfpappexternal.fda.gov/scripts/fdcc/?id=0011&set=GenomeEditedPlants",
       "published_date": null,
       "captured_date": "2026-10-28",
-      "summary": "FDA records a July 9, 2026 blackberry meeting concerning compact architecture, reduced prickles and reduced seed lignification. The record does not identify Fontana, a sold cultivar, or a fully stacked commercial product. A VPM is not an FDA food-safety evaluation.",
+      "summary": "FDA records a July 9, 2026 genome-edited blackberry meeting concerning compact architecture, reduced prickles and reduced seed lignification. The record does not identify Fontana, a sold cultivar, or a fully stacked commercial product. A VPM is not an FDA food-safety evaluation.",
       "supporting_excerpt": "reduced seed lignification",
       "original_text_excerpt": "reduced seed lignification",
       "original_title": "Blackberry (Rubus subgenus Rubus)",
@@ -5169,10 +5181,13 @@
       "entity_ids": [
         "company-pairwise"
       ],
-      "geography_ids": [],
+      "geography_ids": [
+        "geography-united-states"
+      ],
       "tags": [
         "gene-editing-research",
-        "source-audit-completed"
+        "source-audit-completed",
+        "gene-editing"
       ],
       "priority": {
         "reading": {
@@ -5208,14 +5223,17 @@
       },
       "classification": {
         "version": "gene-editing-1",
-        "topics": [],
-        "relevance": "",
-        "berry_related": false,
-        "reason": "",
+        "topics": [
+          "gene-editing"
+        ],
+        "relevance": "Direct berry development",
+        "berry_related": true,
+        "reason": "Explicit agricultural editing language",
         "excerpt": "reduced seed lignification",
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Regulatory jurisdiction; England uses its UK country container. Not a cultivation or trial footprint.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -5250,7 +5268,9 @@
       "entity_ids": [
         "company-j-r-simplot"
       ],
-      "geography_ids": [],
+      "geography_ids": [
+        "geography-canada"
+      ],
       "tags": [
         "gene-editing-research",
         "source-audit-completed",
@@ -5300,6 +5320,7 @@
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Regulatory jurisdiction; England uses its UK country container. Not a cultivation or trial footprint.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -5334,7 +5355,9 @@
       "entity_ids": [
         "company-j-r-simplot"
       ],
-      "geography_ids": [],
+      "geography_ids": [
+        "geography-united-kingdom"
+      ],
       "tags": [
         "gene-editing-research",
         "source-audit-completed"
@@ -5381,6 +5404,7 @@
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Regulatory jurisdiction; England uses its UK country container. Not a cultivation or trial footprint.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -5396,7 +5420,7 @@
       "review_state": "in_review",
       "evidence_role": "publication_artifact",
       "source_type": "research_program_publication",
-      "title": "MARA soybean certificates: Shunfeng 25T93-1 and Qi Suzhou P16",
+      "title": "MARA gene-edited soybean certificates: Shunfeng 25T93-1 and Qi Suzhou P16",
       "source_name": "China Ministry of Agriculture and Rural Affairs",
       "source_url": "https://www.moa.gov.cn/ztzl/zjyqwgz/spxx/202401/P020240118484537271708.pdf",
       "published_date": null,
@@ -5414,10 +5438,13 @@
         "company-qi-biodesign",
         "company-shandong-shunfeng-biotechnology"
       ],
-      "geography_ids": [],
+      "geography_ids": [
+        "geography-china"
+      ],
       "tags": [
         "gene-editing-research",
-        "source-audit-completed"
+        "source-audit-completed",
+        "gene-editing"
       ],
       "priority": {
         "reading": {
@@ -5453,14 +5480,17 @@
       },
       "classification": {
         "version": "gene-editing-1",
-        "topics": [],
-        "relevance": "",
+        "topics": [
+          "gene-editing"
+        ],
+        "relevance": "Adjacent crop signal",
         "berry_related": false,
-        "reason": "",
+        "reason": "Explicit agricultural editing language",
         "excerpt": "25T93-1",
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Regulatory jurisdiction; England uses its UK country container. Not a cultivation or trial footprint.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -5541,6 +5571,7 @@
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Program geography not assigned from headquarters.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -5629,6 +5660,7 @@
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Program geography not assigned from headquarters.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -5649,7 +5681,7 @@
       "source_url": "https://heritable.ag/products",
       "published_date": null,
       "captured_date": "2026-10-28",
-      "summary": "Heritable explicitly markets genome-edit design for CRISPR or targeted mutagenesis, off-target prediction and multi-gene optimization. These are company platform claims; the page does not establish use in its CIV/Mastronardi strawberry program, completed field validation, or a released edited strawberry.",
+      "summary": "Heritable explicitly markets plant genome-edit design for CRISPR or targeted mutagenesis, off-target prediction and multi-gene optimization. These are company platform claims; the page does not establish use in its CIV/Mastronardi strawberry program, completed field validation, or a released edited strawberry.",
       "supporting_excerpt": "Designs for CRISPR or targeted mutagenesis",
       "original_text_excerpt": "Designs for CRISPR or targeted mutagenesis",
       "original_title": "Meet Heritable Your Partner for AI-Powered Agriculture",
@@ -5664,7 +5696,8 @@
       "geography_ids": [],
       "tags": [
         "gene-editing-research",
-        "source-audit-completed"
+        "source-audit-completed",
+        "gene-editing"
       ],
       "priority": {
         "reading": {
@@ -5700,14 +5733,17 @@
       },
       "classification": {
         "version": "gene-editing-1",
-        "topics": [],
-        "relevance": "",
+        "topics": [
+          "gene-editing"
+        ],
+        "relevance": "Enabling plant technology",
         "berry_related": false,
-        "reason": "",
+        "reason": "Explicit agricultural editing language",
         "excerpt": "Designs for CRISPR or targeted mutagenesis",
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Program geography not assigned from headquarters.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -5790,6 +5826,7 @@
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Program geography not assigned from headquarters.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -5805,12 +5842,12 @@
       "review_state": "in_review",
       "evidence_role": "publication_artifact",
       "source_type": "research_program_publication",
-      "title": "UF/FSREF reports DNA-free edited strawberry resistance lines",
+      "title": "UF/FSREF reports DNA-free gene-edited strawberry resistance lines",
       "source_name": "Florida Strawberry Research and Education Foundation / UF IFAS",
       "source_url": "https://member.floridastrawberry.org/wp-content/uploads/2025/11/14_FSREF_report_2024-25_S-Lee_2_neopestalotiopsis-resistance.pdf",
       "published_date": null,
       "captured_date": "2026-10-28",
-      "summary": "The UF 2024-25 report names Ohalo as a collaborator in a DNA-free editing system. It reports 138 regenerated lines across four varieties and 20 selected for 2025-26 field testing after growth-room assays. Methods name five cultivars while results enumerate four; no fifth result cohort is inferred. Field completion and commercial launch are not reported.",
+      "summary": "The UF 2024-25 report names Ohalo as a collaborator in a DNA-free genome-editing system for strawberry. It reports 138 regenerated lines across four varieties and 20 selected for 2025-26 field testing after growth-room assays. Methods name five cultivars while results enumerate four; no fifth result cohort is inferred. Field completion and commercial launch are not reported.",
       "supporting_excerpt": "Ohalo Genetics",
       "original_text_excerpt": "Ohalo Genetics",
       "original_title": "Developing Molecular Breeding Tools and Resources for Neopestalotiopsis Resistance",
@@ -5827,7 +5864,8 @@
       "geography_ids": [],
       "tags": [
         "gene-editing-research",
-        "source-audit-completed"
+        "source-audit-completed",
+        "gene-editing"
       ],
       "priority": {
         "reading": {
@@ -5863,14 +5901,17 @@
       },
       "classification": {
         "version": "gene-editing-1",
-        "topics": [],
-        "relevance": "",
-        "berry_related": false,
-        "reason": "",
+        "topics": [
+          "gene-editing"
+        ],
+        "relevance": "Enabling plant technology",
+        "berry_related": true,
+        "reason": "Explicit agricultural editing language",
         "excerpt": "Ohalo Genetics",
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Program geography not assigned from headquarters.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -5955,6 +5996,7 @@
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Program geography not assigned from headquarters.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -6034,6 +6076,7 @@
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Program geography not assigned from headquarters.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -6113,6 +6156,7 @@
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Program geography not assigned from headquarters.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -6192,6 +6236,7 @@
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Program geography not assigned from headquarters.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",
@@ -6276,6 +6321,7 @@
         "excerpt_kind": "source_excerpt",
         "provenance": "deterministic title/summary/excerpt; company membership excluded; analyst exclusion tags honored"
       },
+      "geography_provenance": "Program geography not assigned from headquarters.",
       "research_review": {
         "reviewer": "Codex source audit",
         "date": "2026-10-28",

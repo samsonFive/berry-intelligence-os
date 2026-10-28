@@ -223,6 +223,11 @@ def test_closeout_keeps_source_audit_separate_from_trust_and_product_claims():
     assert programs['program-gene-heritable-edit-design']['berry_ids']==[]
     assert 'Not independent benchmarking' in programs['program-gene-heritable-edit-design']['gaps']
     assert len(programs['program-gene-simplot-s4a']['line_identifiers'])==8
+    for key in ('fda-simplot','fda-pairwise','mara-soybean','heritable-products','uf-ohalo-report'):
+        assert 'gene-editing' in classify(rows['ev-gene-closeout-'+key])['topics']
+    assert not classify(rows['ev-gene-closeout-heritable-products'])['berry_related']
+    assert rows['ev-gene-closeout-fda-simplot']['geography_ids']==['geography-united-states']
+    assert 'Not a cultivation' in rows['ev-gene-closeout-mara-soybean']['geography_provenance']
 
 
 def test_closeout_reconciliation_preserves_analyst_edits_and_is_idempotent(tmp_path):

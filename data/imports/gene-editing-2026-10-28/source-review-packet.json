@@ -336,7 +336,7 @@
     "research_outcome": "source_checked",
     "recommended_next_action": "human_publication_review_if_not_already_reviewed",
     "publication_decision": "not_made",
-    "claim_boundary": "FDA lists voluntary premarket meetings for Simplot remontant strawberry and Pairwise blackberry traits. FDA explicitly distinguishes a meeting from its evaluation in a completed voluntary premarket consultation. Neither a meeting nor an inventory row proves sales.",
+    "claim_boundary": "FDA lists voluntary premarket meetings for genome-edited Simplot remontant strawberry and Pairwise blackberry traits. FDA explicitly distinguishes a meeting from its evaluation in a completed voluntary premarket consultation. Neither a meeting nor an inventory row proves sales.",
     "import_candidate_status": "in_review",
     "runtime_decisions_authoritative": true
   },
@@ -347,7 +347,7 @@
     "research_outcome": "source_checked",
     "recommended_next_action": "human_publication_review_if_not_already_reviewed",
     "publication_decision": "not_made",
-    "claim_boundary": "FDA records a December 4, 2024 meeting for strawberry altered flowering and loss-of-function edits in confidential Gn1. The inventory identifies Simplot. This closes the missing FDA-record search, not food approval, commercial availability or an independent Gn1-to-TFL1 identity determination.",
+    "claim_boundary": "FDA records a December 4, 2024 meeting for genome-edited strawberry altered flowering and loss-of-function edits in confidential Gn1. The inventory identifies Simplot. This closes the missing FDA-record search, not food approval, commercial availability or an independent Gn1-to-TFL1 identity determination.",
     "import_candidate_status": "in_review",
     "runtime_decisions_authoritative": true
   },
@@ -358,7 +358,7 @@
     "research_outcome": "source_checked",
     "recommended_next_action": "human_publication_review_if_not_already_reviewed",
     "publication_decision": "not_made",
-    "claim_boundary": "FDA records a July 9, 2026 blackberry meeting concerning compact architecture, reduced prickles and reduced seed lignification. The record does not identify Fontana, a sold cultivar, or a fully stacked commercial product. A VPM is not an FDA food-safety evaluation.",
+    "claim_boundary": "FDA records a July 9, 2026 genome-edited blackberry meeting concerning compact architecture, reduced prickles and reduced seed lignification. The record does not identify Fontana, a sold cultivar, or a fully stacked commercial product. A VPM is not an FDA food-safety evaluation.",
     "import_candidate_status": "in_review",
     "runtime_decisions_authoritative": true
   },
@@ -424,7 +424,7 @@
     "research_outcome": "source_checked",
     "recommended_next_action": "human_publication_review_if_not_already_reviewed",
     "publication_decision": "not_made",
-    "claim_boundary": "Heritable explicitly markets genome-edit design for CRISPR or targeted mutagenesis, off-target prediction and multi-gene optimization. These are company platform claims; the page does not establish use in its CIV/Mastronardi strawberry program, completed field validation, or a released edited strawberry.",
+    "claim_boundary": "Heritable explicitly markets plant genome-edit design for CRISPR or targeted mutagenesis, off-target prediction and multi-gene optimization. These are company platform claims; the page does not establish use in its CIV/Mastronardi strawberry program, completed field validation, or a released edited strawberry.",
     "import_candidate_status": "in_review",
     "runtime_decisions_authoritative": true
   },
@@ -446,7 +446,7 @@
     "research_outcome": "source_checked",
     "recommended_next_action": "human_publication_review_if_not_already_reviewed",
     "publication_decision": "not_made",
-    "claim_boundary": "The UF 2024-25 report names Ohalo as a collaborator in a DNA-free editing system. It reports 138 regenerated lines across four varieties and 20 selected for 2025-26 field testing after growth-room assays. Methods name five cultivars while results enumerate four; no fifth result cohort is inferred. Field completion and commercial launch are not reported.",
+    "claim_boundary": "The UF 2024-25 report names Ohalo as a collaborator in a DNA-free genome-editing system for strawberry. It reports 138 regenerated lines across four varieties and 20 selected for 2025-26 field testing after growth-room assays. Methods name five cultivars while results enumerate four; no fifth result cohort is inferred. Field completion and commercial launch are not reported.",
     "import_candidate_status": "in_review",
     "runtime_decisions_authoritative": true
   },
