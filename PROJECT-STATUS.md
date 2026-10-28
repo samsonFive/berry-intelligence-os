@@ -1,5 +1,18 @@
 # Project Status
 
+## Three more profile image gaps addressed — October 28, 2026
+
+The [remaining-profile cohort](docs/v2/REMAINING-PROFILE-IMAGE-REVIEW.md) adds held
+original figures for Eureka/Ridley1403 and Opi/Ridley1111, plus Eterna's named
+publisher image. Seven scopes retain13 occurrences, with comparison names and
+the C99-42 correction separate. Public64-profile image-reference gaps fall15→12;
+rights/trait/company gaps stay13/33/10. Corpus491/1770/165/1605; no canonical
+records, aliases, schemas, permission or human review decisions change.
+Final56 affected checks pass; this separate source draft needs native/current-head
+CI and catalog release preparation. Frozen423 passed5,323tests. Live e24 and
+platform421's pending actual approval remain separate; live65profiles are never
+replaced by this research seed. Historical notes below remain dated evidence.
+
 ## Larger filing previews preserve user photo choices — October 28, 2026
 
 The [full-image follow-up](docs/v2/FULL-IMAGE-PREVIEW-REVIEW.md) adds larger original

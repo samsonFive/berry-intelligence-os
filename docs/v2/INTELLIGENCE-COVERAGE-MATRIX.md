@@ -1,5 +1,14 @@
 # Intelligence Coverage Matrix
 
+October 28 — [Eureka/Opi/Eterna source images](REMAINING-PROFILE-IMAGE-REVIEW.md):
+three held image references reduce public64-profile gaps15→12, with rights/trait/
+company gaps unchanged13/33/10. Seven scopes/13occurrences retain two original
+claims, separate parent/comparison names, a narrowly scoped correction and the
+named Eterna publisher image. Cumulative491sections/1770occurrences/165matches/
+1605reviewneeds;77subjects remain61checked13partial1unavailable2identityholds.
+Baridi's image stays identity-held; RedSayra direct403 is recorded, not bypassed.
+These are bounded observations, not independent corroboration or completeness.
+
 October 28 — [Larger filing images](FULL-IMAGE-PREVIEW-REVIEW.md): four retained
 ABB patent figures gain observed full-size variants, with original photo IDs,
 user edits and permission gates preserved. No new source, cultivar, geographic,
