@@ -1800,6 +1800,8 @@ def save_draft(record: dict[str, Any]) -> None:
     folder.mkdir(parents=True, exist_ok=True)
     path = folder / f"{record['id']}.json"
     path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    from app.services import news_tags
+    news_tags.incremental(INBOX_DIR, [record])
 
 
 def save_attachment(draft_id: str, upload: UploadFile) -> dict[str, str]:
@@ -5223,12 +5225,14 @@ RESEARCH_EXAMPLE_PROMPTS = (
 
 
 def _research_scope_display(scope: ResearchScope, entities: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    from app.services import news_tags
+    tag_labels = [tag['name'] for tag in news_tags.catalog(INBOX_DIR) if tag['id'] in scope.tag_ids]
     return {
         "intelligence_type": humanize_label(scope.intelligence_type),
         "berry": BERRIES.get(scope.berry_id or "", ""),
         "companies": [entities[c].get("name") or c for c in scope.company_ids if c in entities],
         "geographies": [entities[g].get("name") or g for g in scope.geography_ids if g in entities],
-        "topics": [humanize_label(topic) for topic in scope.topics],
+        "topics": [humanize_label(topic) for topic in scope.topics] + tag_labels + ([scope.tag_mode.title() + ' selected tags'] if tag_labels else []),
     }
 
 
@@ -5388,12 +5392,27 @@ def _present_research_company_compare(company_ids: list[str]) -> dict[str, Any] 
 def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, Any] | None, dict[str, Any] | None]:
     entities = entity_index()
     evidence = published_evidence()
+    if scope.tag_ids:
+        from app.services import news_tags
+        catalog = news_tags.catalog(INBOX_DIR)
+        if set(scope.tag_ids) - {tag['id'] for tag in catalog}:
+            raise HTTPException(422, 'A selected tag is unavailable')
+        assignments = news_tags.snapshot(INBOX_DIR)
+        wanted = set(scope.tag_ids)
+        def matches_tags(row):
+            assigned = set(news_tags.effective(row, catalog, *assignments))
+            return wanted <= assigned if scope.tag_mode == 'all' else bool(wanted & assigned)
+        evidence = [row for row in evidence if matches_tags(row)]
     facts = all_facts()
     relationships = all_relationships()
     signals = all_signals()
     assessments = all_assessments()
+    if scope.tag_ids:
+        source_ids = {row['id'] for row in evidence}
+        signals = [row for row in signals if source_ids.intersection(row.get('evidence_ids') or [])]
+        assessments = [row for row in assessments if source_ids.intersection(row.get('evidence_ids') or [])]
     market_repo = get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations
-    moves_board = compose_moves_board(inbox_dir=INBOX_DIR) if AUTHORING_MODE else None
+    moves_board = compose_moves_board(inbox_dir=INBOX_DIR) if AUTHORING_MODE and not scope.tag_ids else None
     packet = assemble_research_packet(
         scope,
         entities=entities,
@@ -5402,11 +5421,11 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
         facts=facts,
         signals=signals,
         assessments=assessments,
-        market_context_provider=lambda s: market_context_for_research_scope(market_repo, s),
-        developments_provider=_radar_developments_for_scope if AUTHORING_MODE else None,
-        competitive_moves_provider=(lambda s: _research_competitive_moves(s, moves_board)) if AUTHORING_MODE else None,
+        market_context_provider=(lambda s: market_context_for_research_scope(market_repo, s)) if not scope.tag_ids else None,
+        developments_provider=_radar_developments_for_scope if AUTHORING_MODE and not scope.tag_ids else None,
+        competitive_moves_provider=(lambda s: _research_competitive_moves(s, moves_board)) if AUTHORING_MODE and not scope.tag_ids else None,
     )
-    packet["move_patterns"] = _research_move_patterns(scope, packet.get("competitive_moves") or [], moves_board) if AUTHORING_MODE else []
+    packet["move_patterns"] = _research_move_patterns(scope, packet.get("competitive_moves") or [], moves_board) if AUTHORING_MODE and not scope.tag_ids else []
     comparison_ids = comparison_candidate_ids(
         scope, packet=packet, entities=entities, relationships=relationships
     ) if (scope.comparison or scope.company_ids) else []
@@ -5433,6 +5452,8 @@ def research_desk_page(request: Request) -> HTMLResponse:
             "scope": None,
             "example_prompts": RESEARCH_EXAMPLE_PROMPTS,
             "prefill_question": prefill_question,
+              "prefill_tags": str(request.query_params.get('tag') or ''),
+              "prefill_tag_mode": 'any' if request.query_params.get('tag_mode') == 'any' else 'all',
             "authoring_mode": AUTHORING_MODE,
             "ui_context": ui,
             "static_build": False,
@@ -5447,6 +5468,8 @@ def research_desk_submit(
     request: Request,
     question: str = Form(""),
     previous_scope: str = Form(""),
+    tag: str = Form(''),
+    tag_mode: str = Form('all'),
 ) -> HTMLResponse:
     started = time.monotonic()
     prior = None
@@ -5464,6 +5487,9 @@ def research_desk_submit(
         relationships=all_relationships(),
         previous=prior,
     )
+    if isinstance(tag, str) and tag:
+        from dataclasses import replace
+        scope = replace(scope, tag_ids=tuple(dict.fromkeys(filter(None, tag.split(',')))), tag_mode='any' if tag_mode == 'any' else 'all')
     packet, comparison, decision_support = _research_packet(scope)
     answer = compose_research_answer(packet)
     first_content_ms = round((time.monotonic() - started) * 1000)
@@ -5505,6 +5531,8 @@ async def research_desk_live(request: Request) -> HTMLResponse:
     if not isinstance(raw_scope, dict):
         raise HTTPException(status_code=422, detail="A structured research scope is required")
     scope = ResearchScope.from_dict(raw_scope)
+    if scope.tag_ids:
+        raise HTTPException(422, 'Tag-scoped research uses stored source assignments. Start a new question to check live sources.')
     if not scope.question.strip():
         raise HTTPException(status_code=422, detail="Enter a research question before checking live sources")
     entities = entity_index()

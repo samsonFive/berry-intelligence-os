@@ -9,6 +9,7 @@
     <h1>Ask Berry</h1>
     <p class="rd-hero-copy">Explore your saved intelligence, compare companies and see where more research is needed. Check the web separately when you want fresh sources.</p>
     <form class="rd-ask" method="post" action="/research">
+      {% if prefill_tags %}<input type="hidden" name="tag" value="{{ prefill_tags }}"><input type="hidden" name="tag_mode" value="{{ prefill_tag_mode }}"><p>Search stored sources matching {{ prefill_tag_mode }} selected News tags.</p>{% endif %}
       <label for="rd-question">What do you want to know?</label>
       <div class="rd-ask-row">
         <textarea id="rd-question" name="question" rows="2" autofocus required placeholder="What is Planasa doing in strawberries right now?">{{ prefill_question or '' }}</textarea>
@@ -57,7 +58,7 @@
     </form></details>
   </section>
 
-  {% if authoring_mode %}<div class="rd-live-action"><button id="rd-run-live" type="button">Check latest sources</button><p id="rd-capture-status" role="status">Search the web. Results start unreviewed.</p></div>{% endif %}
+  {% if authoring_mode and not scope.tag_ids %}<div class="rd-live-action"><button id="rd-run-live" type="button">Check latest sources</button><p id="rd-capture-status" role="status">Search the web. Results start unreviewed.</p></div>{% endif %}
   <div id="rd-result" data-live-endpoint="/api/research/live" data-scope="{{ scope_json }}" data-first-content-ms="{{ first_content_ms }}">
     {% include "_research_result.html" %}
   </div>

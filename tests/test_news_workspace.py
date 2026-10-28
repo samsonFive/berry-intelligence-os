@@ -226,3 +226,68 @@ def test_refresh_cross_site_read_only_and_failure_disclosure(workspace, monkeypa
     assert status['status'] == 'failed' and 'SECRET' not in str(status)
     monkeypatch.setattr(main, 'AUTHORING_MODE', False)
     assert workspace.post('/api/news/refresh').status_code == 403
+
+
+def test_tags_remember_each_account_clear_and_legacy_urls(workspace, monkeypatch):
+    from app import news_workspace_routes as routes
+    actor = ['alice']
+    monkeypatch.setattr(routes, 'tag_actor', lambda request: actor[0])
+    assert workspace.post('/api/news/tags/preferences', json={'tags':['markets','retail'], 'mode':'any'}).status_code == 200
+    page = workspace.get('/today')
+    assert page.context['filters']['tag'] == 'markets,retail'
+    assert page.context['filters']['tag_mode'] == 'any'
+    actor[0] = 'bob'
+    assert workspace.get('/today').context['filters']['tag'] == ''
+    assert workspace.post('/api/news/tags/preferences', json={'tags':['genetics'], 'mode':'all'}).status_code == 200
+    actor[0] = 'alice'
+    page = workspace.get('/today?tag=&q=blueberry')
+    assert page.context['filters']['tag'] == ''
+    assert page.context['filters']['q'] == 'blueberry'
+    assert workspace.post('/api/news/tags/preferences', json={'tags':[], 'mode':'any'}).status_code == 200
+    assert workspace.get('/today').context['filters']['tag'] == ''
+    actor[0] = 'bob'
+    assert workspace.get('/today').context['filters']['tag'] == 'genetics'
+    assert workspace.get('/today?topic=gene-editing').status_code == 200
+
+
+def test_tag_creation_backfill_corrections_explanations_and_guard(workspace):
+    from app.services import news_tags
+    assert workspace.post('/api/news/tags', json={'name':' Markets '}).json()['tag']['id'] == 'markets'
+    response = workspace.post('/api/news/tags', json={'name':'Labor'})
+    assert response.status_code == 200
+    tag = response.json()['tag']['id']
+    assert workspace.get('/api/news/tags/status').json()['status'] == 'ready'
+    payload = {'article':'live-raw', 'tag':tag, 'action':'add'}
+    assignment = workspace.post('/api/news/tags/assignment', json=payload)
+    assert assignment.status_code == 200 and tag in assignment.json()['tags']
+    assert 'live-raw' in workspace.get('/today?tag=' + tag).context['matching_ids']
+    assert any(row['id'] == tag and row['origin'] == 'Manual addition' for row in workspace.get('/api/news/tags/explanations/live-raw').json()['assignments'])
+    workspace.post('/api/news/tags/classify')
+    assert 'live-raw' in workspace.get('/today?tag=' + tag).context['matching_ids']
+    workspace.post('/api/news/tags/assignment', json={**payload,'action':'remove'})
+    workspace.post('/api/news/tags/classify')
+    assert workspace.get('/today?tag=' + tag).context['matching'] == 0
+    workspace.post('/api/news/tags/assignment', json={**payload,'action':'automatic'})
+    assert ('live-raw',tag) not in news_tags.snapshot(main.INBOX_DIR)[1]
+    assert workspace.post('/api/news/tags', json={'name':'test'}, headers={'origin':'https://elsewhere.invalid'}).status_code == 403
+    assert workspace.post('/api/news/tags/assignment', json={**payload,'article':'missing'}).status_code == 404
+
+
+def test_research_handoff_keeps_stable_tag_scope_and_source_boundary(workspace, monkeypatch):
+    from app.services.research_desk import ResearchScope
+    from app.services import news_tags
+    row = article(title='Blueberry export prices and supermarket demand')
+    news_tags.backfill(main.INBOX_DIR, [row])
+    news_tags.override(main.INBOX_DIR, row['id'], 'retail', 'add', 'alice')
+    monkeypatch.setattr(main, 'AUTHORING_MODE', False)
+    monkeypatch.setattr(main, 'entity_index', lambda: ENTITIES)
+    monkeypatch.setattr(main, 'published_evidence', lambda: [row])
+    monkeypatch.setattr(main, 'all_signals', lambda: [])
+    monkeypatch.setattr(main, 'all_assessments', lambda: [])
+    scope = ResearchScope.from_dict({'question':'Blueberry news', 'tag_ids':['markets','retail'], 'tag_mode':'all', 'window_days':3650})
+    assert ResearchScope.from_dict(scope.as_dict()).tag_ids == scope.tag_ids
+    packet, _, _ = main._research_packet(scope)
+    assert [item['id'] for item in packet['evidence']] == [row['id']]
+    news_tags.override(main.INBOX_DIR, row['id'], 'markets', 'remove', 'alice')
+    packet, _, _ = main._research_packet(scope)
+    assert packet['evidence'] == []

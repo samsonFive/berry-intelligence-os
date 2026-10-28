@@ -1,0 +1,129 @@
+import json
+
+import pytest
+
+from app.services import news_tags as tags, news_tag_semantics as semantic
+
+
+def source(key='article-one', text='Fruit became expensive after fewer ships arrived.'):
+    return {'id':key,'title':'Berry industry update','summary':text}
+
+
+def completer(calls, *, select='markets', during=None):
+    def complete(prompt, **kwargs):
+        request = json.loads(prompt.split('\n')[-1])
+        assert kwargs['model'] == 'anthropic/claude-haiku-4-5'
+        assert kwargs['max_output_tokens'] == 6000
+        calls.append(request)
+        if during:
+            during()
+        return {'articles':[{'id':row['id'],'assignments':[
+            {'tag_id':select,'support':row['text'][-min(80,len(row['text'])):]}] if select else []}
+            for row in request['articles']]}
+    return complete
+
+
+def test_semantic_assignments_cache_and_manual_race(tmp_path):
+    row = source()
+    tags.backfill(tmp_path,[row])
+    assert 'markets' not in tags.effective(row,tags.catalog(tmp_path),*tags.snapshot(tmp_path))
+    semantic.enqueue(tmp_path,[row])
+    calls=[]
+    def correction():
+        tags.override(tmp_path,row['id'],'markets','remove','alice')
+        tags.override(tmp_path,row['id'],'weather','add','alice')
+    result=semantic.run(tmp_path,complete_json=completer(calls,during=correction))
+    assert result['status']=='ready' and len(calls)==1
+    assigned=tags.effective(row,tags.catalog(tmp_path),*tags.snapshot(tmp_path))
+    assert 'markets' not in assigned and 'weather' in assigned
+    tags.override(tmp_path,row['id'],'markets','automatic','alice')
+    assert 'markets' in tags.effective(row,tags.catalog(tmp_path),*tags.snapshot(tmp_path))
+    semantic.enqueue(tmp_path,[row])
+    assert semantic.run(tmp_path,complete_json=completer(calls))['calls']==0
+    assert len(calls)==1
+    with tags.database(tmp_path,readonly=True) as db:
+        decision=db.execute('SELECT * FROM automatic WHERE article=? AND tag=?',(row['id'],'markets')).fetchone()
+        assert decision['classifier_version'].startswith('semantic-tags-1:perplexity-agent:')
+        assert decision['rationale'] in semantic.projection(row)['text']
+
+
+def test_long_stored_body_is_chunked_and_resumed_without_repeating_calls(tmp_path):
+    row=source()
+    row['article']={'full_text':'The berry nursery reported steady activity. '*210+'Seasonal workers negotiated higher wages.'}
+    semantic.enqueue(tmp_path,[row])
+    calls=[]
+    first=semantic.run(tmp_path,complete_json=completer(calls),max_calls=1,batch_size=1)
+    assert first['status']=='partial' and first['calls']==1
+    assert tags.snapshot(tmp_path)[0]=={}  # No incomplete article decision becomes final.
+    second=semantic.run(tmp_path,complete_json=completer(calls),batch_size=1)
+    assert second['status']=='ready'
+    assert len(calls)==2
+    assert all(len(row['text'])<=semantic.MAX_TEXT for call in calls for row in call['articles'])
+    assert len({r['id'] for call in calls for r in call['articles']})==2
+
+
+@pytest.mark.parametrize('failure',['missing','fabricated','duplicate'])
+def test_malformed_response_preserves_previous_decisions_and_retries(tmp_path,failure):
+    row=source(text='Berry export prices fell this month.')
+    tags.backfill(tmp_path,[row]); before=tags.snapshot(tmp_path)
+    semantic.enqueue(tmp_path,[row])
+    def bad(prompt,**kwargs):
+        item=json.loads(prompt.split('\n')[-1])['articles'][0]
+        if failure=='missing':
+            return {'articles':[]}
+        assignments=[{'tag_id':'markets','support':'A passage absent from the article'}]
+        if failure=='duplicate':
+            return {'articles':[{'id':item['id'],'assignments':[]},{'id':item['id'],'assignments':[]}]}
+        return {'articles':[{'id':item['id'],'assignments':assignments}]}
+    with pytest.raises(ValueError):
+        semantic.run(tmp_path,complete_json=bad)
+    assert tags.snapshot(tmp_path)==before
+    assert tags.job_state(tmp_path)['status']=='failed'
+    assert semantic.run(tmp_path,complete_json=completer([]))['status']=='ready'
+
+
+def test_rename_keeps_cache_definition_update_rechecks_and_negatives_are_explicit(tmp_path):
+    row=source(); calls=[]
+    semantic.enqueue(tmp_path,[row]); semantic.run(tmp_path,complete_json=completer(calls))
+    assert not tags.update(tmp_path,'markets','Market conditions',tags.SEEDS['markets'][1])
+    semantic.enqueue(tmp_path,[row]); assert semantic.run(tmp_path,complete_json=completer(calls))['calls']==0
+    assert tags.update(tmp_path,'markets','Market conditions','Only regional crop insurance claims.')
+    semantic.enqueue(tmp_path,[row]); semantic.run(tmp_path,complete_json=completer(calls,select=None))
+    assert len(calls)==2 and not tags.snapshot(tmp_path)[0][(row['id'],'markets')]
+
+
+def test_source_update_during_provider_call_cannot_commit_stale_result(tmp_path):
+    old=source(); new=source(text='Regional crop insurance changed this year.')
+    semantic.enqueue(tmp_path,[old])
+    once=[False]
+    def change():
+        if not once[0]:
+            once[0]=True; semantic.enqueue(tmp_path,[new])
+    calls=[]
+    semantic.run(tmp_path,complete_json=completer(calls,during=change))
+    assert len(calls)==2
+    with tags.database(tmp_path,readonly=True) as db:
+        row=db.execute('SELECT rationale FROM automatic WHERE article=? AND tag=?',(old['id'],'markets')).fetchone()
+        assert row[0] in semantic.projection(new)['text']
+
+
+def test_incremental_queues_without_running_the_provider_on_the_source_write(tmp_path,monkeypatch):
+    tags.create(tmp_path,'Labor')
+    monkeypatch.setenv('BIOS_NEWS_TAG_CLASSIFIER','semantic')
+    scheduled=[]
+    monkeypatch.setattr(semantic,'start_worker',lambda inbox:scheduled.append(inbox))
+    tags.incremental(tmp_path,[source()])
+    assert scheduled==[tmp_path]
+    with tags.database(tmp_path,readonly=True) as db:
+        assert db.execute('SELECT count(*) FROM tag_pending').fetchone()[0]==1
+
+
+def test_missing_provider_is_visible_and_does_not_erase_rules(tmp_path,monkeypatch):
+    row=source(text='Berry export prices fell this month.')
+    tags.backfill(tmp_path,[row]); before=tags.snapshot(tmp_path)
+    semantic.enqueue(tmp_path,[row])
+    monkeypatch.setattr('app.services.ai_gateway.untrusted_complete.maybe_untrusted_completer',lambda:None)
+    with pytest.raises(ValueError,match='unavailable'):
+        semantic.run(tmp_path)
+    assert tags.snapshot(tmp_path)==before
+    assert 'retained' in tags.job_state(tmp_path)['error']

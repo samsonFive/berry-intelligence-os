@@ -622,6 +622,8 @@ def _capture_item(inbox_dir, record, *, client=None, refresh=False):
     capture["capture_version"] = CAPTURE_VERSION
     if item_id and not (matching_existing and not capture.get("ok")):
         save_capture(inbox_dir, item_id, capture)
+        from app.services import news_tags
+        news_tags.incremental(inbox_dir, [merge_capture(record, capture)])
     return capture
 
 

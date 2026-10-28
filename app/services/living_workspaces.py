@@ -327,7 +327,7 @@ def feed_matches(record, config):
         else:
             values = [record.get("source_id")] if field == "source_ids" else [record.get("source_language")] if field == "languages" else record.get(field) or []
             hits = sorted(set(wanted) & set(values))
-        checks.append(bool(hits))
+        checks.append(set(wanted) <= set(hits) if field == 'topic_ids' and config.get('tag_mode') == 'all' else bool(hits))
         if hits:
             reasons.append(field.replace("_ids", "") + ": " + ", ".join(hits))
     return reasons if checks and (all(checks) if config.get("mode") == "all" else any(checks)) else []
