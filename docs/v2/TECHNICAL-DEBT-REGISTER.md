@@ -1,5 +1,12 @@
 # Technical Debt Register
 
+October 28 — TD-116 source follow-up: [raspberry original filings](RASPBERRY-ORIGINAL-PATENT-REVIEW.md)
+now link four literal ABB denominations to inspected claims and attributed fruit
+figures. This closes a bounded missing-reference gap, without approving their
+commercial-name associations or Allberry/ABB legal-entity equivalence. Conflicting
+Baridi codes and parent spellings remain explicit; full portfolio coverage,
+canonical authoring, independent recall, current rights and image reuse stay open.
+
 October 23, 2026 follow-up: [Performance, reader and publisher coverage](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 records measured reductions in Brief, Live Intelligence, Variety and Monitoring
 response times, generic exact-publisher reader recovery, and publisher-first

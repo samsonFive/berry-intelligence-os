@@ -1,0 +1,590 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-raspberry-original-uspp35834p3",
+      "title": "ABB 132 - original US plant patent USPP35834P3",
+      "url": "https://patents.google.com/patent/USPP35834P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2024-05-28",
+      "source_type": "plant_patent",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One literal focal denomination, original title/application/grant date, claim on PDF page 3, and figure 2. Parent and comparison names are accounted separately; related-document navigation is excluded.",
+      "limitations": "A bounded historical grant-document check, not a current-rights opinion or complete company portfolio. CPVO priority is an application claim, not a verified grant. No canonical alias, organization, role, trait, growing region or photo permission is approved.",
+      "review_warnings": [
+        "Allberry B.V. and Advanced Berry Breeding are not automatically treated as the same legal organization.",
+        "ABB sources pair Baridi with ABB132 and, in a 2025 announcement, ABB 137. The conflict remains unresolved; this patent does not choose a Baridi alias."
+      ],
+      "capture_reference": {
+        "method": "original_pdf_title_description_claim_and_fruit_figure_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/5d/15/88/ebfbe2ca271425/USPP35834.pdf",
+        "pdf_sha256": "8af2dcac1247d267c662c762402dc05a450ee260aa012bdef68ff031eee9dabc",
+        "pdf_bytes": 894855,
+        "pdf_pages": 6,
+        "claim_url": "https://patentimages.storage.googleapis.com/5d/15/88/ebfbe2ca271425/USPP35834.pdf#page=3",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/5d/15/88/ebfbe2ca271425/USPP35834.pdf#page=5",
+        "fruit_figure": 2,
+        "fruit_figure_page": 5,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          5
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "original_claim_read": true,
+        "reported_species": "Rubus idaeus L.",
+        "reported_applicant": "Allberry B.V.",
+        "reported_assignee": "Allberry B.V.",
+        "reported_inventor": "Niels Arts",
+        "cpvo_priority_application": "20221155",
+        "cpvo_priority_date": "2022-05-04",
+        "cpvo_grant_verified": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "ABB 132",
+          "denomination": "ABB 132",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/5d/15/88/ebfbe2ca271425/USPP35834.pdf#page=3",
+          "application_number": "18/445,158",
+          "application_date": "2023-05-02",
+          "grant_number": "USPP35834P3",
+          "grant_date": "2024-05-28",
+          "jurisdiction": "US",
+          "portfolio_context": "The original grant names ABB 132 and lists Allberry B.V. as applicant/assignee and Niels Arts as inventor. These document roles do not establish a canonical company equivalence with Advanced Berry Breeding, a commercial-name alias, or current rights.",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/2e/9f/a2/d0337e1ba7e181/USPP035834-20240528-D00002.png",
+              "source_url": "https://patentimages.storage.googleapis.com/5d/15/88/ebfbe2ca271425/USPP35834.pdf#page=3",
+              "named_variety": "ABB 132",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Allberry B.V. / Niels Arts - USPP35834P3; photographer not credited",
+              "caption": "Figure 2 identifies fruit of ABB 132. Original monochrome patent scan; linked image is a low-resolution source thumbnail, not a color or quality comparison.",
+              "reuse_note": "Public patent hosting does not establish photograph reuse permission. Held by default; existing session-only user choice remains separate."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "reported_items": 1,
+        "reported_scope": "One focal patent denomination, excluding parent/comparison material from focal scope.",
+        "exclusions": [
+          {
+            "label": "22",
+            "reason": "Unpatented seed-parent selection, not a new release. Retained in the separate context section."
+          },
+          {
+            "label": "211157-009",
+            "reason": "Unpatented pollen-parent selection, not a new release. Retained in the separate context section."
+          },
+          {
+            "label": "Advabertwee",
+            "reason": "Comparison cultivar; not the focal patent subject. Retained in the separate context section."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-raspberry-original-uspp35834p3-context",
+      "title": "ABB 132 patent - parent and comparison selections",
+      "url": "https://patentimages.storage.googleapis.com/5d/15/88/ebfbe2ca271425/USPP35834.pdf#page=2",
+      "checked_on": "2026-10-28",
+      "published_date": "2024-05-28",
+      "source_type": "patent_context_names",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Explicit parent and comparison names in the description; separate from the focal claim. Numeric selections and unresolved spellings remain source labels.",
+      "limitations": "No parent or comparator inherits the focal patent, applicant, figures, commercial-name association, trait or growing footprint. Parent patent/reissue citations are leads only; those originals were not inspected in this batch.",
+      "names": [
+        {
+          "candidate_name": "22",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Unpatented seed-parent selection, not a new release."
+        },
+        {
+          "candidate_name": "211157-009",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Unpatented pollen-parent selection, not a new release."
+        },
+        {
+          "candidate_name": "Advabertwee",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Comparison cultivar; not the focal patent subject."
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-raspberry-original-uspp36008p3",
+      "title": "ABB 135 - original US plant patent USPP36008P3",
+      "url": "https://patents.google.com/patent/USPP36008P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2024-07-16",
+      "source_type": "plant_patent",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One literal focal denomination, original title/application/grant date, claim on PDF page 3, and figure 2. Parent and comparison names are accounted separately; related-document navigation is excluded.",
+      "limitations": "A bounded historical grant-document check, not a current-rights opinion or complete company portfolio. CPVO priority is an application claim, not a verified grant. No canonical alias, organization, role, trait, growing region or photo permission is approved.",
+      "review_warnings": [
+        "Allberry B.V. and Advanced Berry Breeding are not automatically treated as the same legal organization."
+      ],
+      "capture_reference": {
+        "method": "original_pdf_title_description_claim_and_fruit_figure_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/5e/c2/e5/8ab4c5bac24357/USPP36008.pdf",
+        "pdf_sha256": "ce593b87656c0a9bec81cc3ecded8d9d4bc5b642cfb5b90ed93e6fdd979f8a41",
+        "pdf_bytes": 601575,
+        "pdf_pages": 5,
+        "claim_url": "https://patentimages.storage.googleapis.com/5e/c2/e5/8ab4c5bac24357/USPP36008.pdf#page=3",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/5e/c2/e5/8ab4c5bac24357/USPP36008.pdf#page=5",
+        "fruit_figure": 2,
+        "fruit_figure_page": 5,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          5
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "original_claim_read": true,
+        "reported_species": "Rubus idaeus L.",
+        "reported_applicant": "Allberry B.V.",
+        "reported_assignee": "Allberry B.V.",
+        "reported_inventor": "Niels Arts",
+        "cpvo_priority_application": "20221158",
+        "cpvo_priority_date": "2022-05-04",
+        "cpvo_grant_verified": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "ABB 135",
+          "denomination": "ABB 135",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/5e/c2/e5/8ab4c5bac24357/USPP36008.pdf#page=3",
+          "application_number": "18/445,160",
+          "application_date": "2023-05-02",
+          "grant_number": "USPP36008P3",
+          "grant_date": "2024-07-16",
+          "jurisdiction": "US",
+          "portfolio_context": "The original grant names ABB 135 and lists Allberry B.V. as applicant/assignee and Niels Arts as inventor. These document roles do not establish a canonical company equivalence with Advanced Berry Breeding, a commercial-name alias, or current rights.",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/99/33/16/bfdf51bb8cc2c2/USPP036008-20240716-D00002.png",
+              "source_url": "https://patentimages.storage.googleapis.com/5e/c2/e5/8ab4c5bac24357/USPP36008.pdf#page=3",
+              "named_variety": "ABB 135",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Allberry B.V. / Niels Arts - USPP36008P3; photographer not credited",
+              "caption": "Figure 2 identifies fruit of ABB 135. Original monochrome patent scan; linked image is a low-resolution source thumbnail, not a color or quality comparison.",
+              "reuse_note": "Public patent hosting does not establish photograph reuse permission. Held by default; existing session-only user choice remains separate."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "reported_items": 1,
+        "reported_scope": "One focal patent denomination, excluding parent/comparison material from focal scope.",
+        "exclusions": [
+          {
+            "label": "Advabertwee",
+            "reason": "Seed parent; not the focal patent subject. Retained in the separate context section."
+          },
+          {
+            "label": "211150-009",
+            "reason": "Unpatented pollen-parent spelling in the summary; the parentage subsection prints 211150-9. Keep the discrepancy for review. Retained in the separate context section."
+          },
+          {
+            "label": "211150-9",
+            "reason": "Alternate literal pollen-parent spelling in the parentage subsection; not an approved alias for 211150-009. Retained in the separate context section."
+          },
+          {
+            "label": "ABB 127",
+            "reason": "Comparison cultivar, not the focal patent subject. Retained in the separate context section."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-raspberry-original-uspp36008p3-context",
+      "title": "ABB 135 patent - parent and comparison selections",
+      "url": "https://patentimages.storage.googleapis.com/5e/c2/e5/8ab4c5bac24357/USPP36008.pdf#page=2",
+      "checked_on": "2026-10-28",
+      "published_date": "2024-07-16",
+      "source_type": "patent_context_names",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Explicit parent and comparison names in the description; separate from the focal claim. Numeric selections and unresolved spellings remain source labels.",
+      "limitations": "No parent or comparator inherits the focal patent, applicant, figures, commercial-name association, trait or growing footprint. Parent patent/reissue citations are leads only; those originals were not inspected in this batch.",
+      "names": [
+        {
+          "candidate_name": "Advabertwee",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Seed parent; not the focal patent subject."
+        },
+        {
+          "candidate_name": "211150-009",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Unpatented pollen-parent spelling in the summary; the parentage subsection prints 211150-9. Keep the discrepancy for review."
+        },
+        {
+          "candidate_name": "211150-9",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Alternate literal pollen-parent spelling in the parentage subsection; not an approved alias for 211150-009."
+        },
+        {
+          "candidate_name": "ABB 127",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Comparison cultivar, not the focal patent subject."
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-raspberry-original-uspp35904p3",
+      "title": "ABB 136 - original US plant patent USPP35904P3",
+      "url": "https://patents.google.com/patent/USPP35904P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2024-07-02",
+      "source_type": "plant_patent",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One literal focal denomination, original title/application/grant date, claim on PDF page 3, and figure 3. Parent and comparison names are accounted separately; related-document navigation is excluded.",
+      "limitations": "A bounded historical grant-document check, not a current-rights opinion or complete company portfolio. CPVO priority is an application claim, not a verified grant. No canonical alias, organization, role, trait, growing region or photo permission is approved.",
+      "review_warnings": [
+        "Allberry B.V. and Advanced Berry Breeding are not automatically treated as the same legal organization."
+      ],
+      "capture_reference": {
+        "method": "original_pdf_title_description_claim_and_fruit_figure_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/86/63/7b/eebfda87cc8d13/USPP35904.pdf",
+        "pdf_sha256": "b8f0b356f589de078c45bb24cfb2727827b63669149dabb46db90e2ff50148f5",
+        "pdf_bytes": 995744,
+        "pdf_pages": 6,
+        "claim_url": "https://patentimages.storage.googleapis.com/86/63/7b/eebfda87cc8d13/USPP35904.pdf#page=3",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/86/63/7b/eebfda87cc8d13/USPP35904.pdf#page=6",
+        "fruit_figure": 3,
+        "fruit_figure_page": 6,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          6
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "original_claim_read": true,
+        "reported_species": "Rubus idaeus L.",
+        "reported_applicant": "Allberry B.V.",
+        "reported_assignee": "Allberry B.V.",
+        "reported_inventor": "Niels Arts",
+        "cpvo_priority_application": "20221159",
+        "cpvo_priority_date": "2022-05-04",
+        "cpvo_grant_verified": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "ABB 136",
+          "denomination": "ABB 136",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/86/63/7b/eebfda87cc8d13/USPP35904.pdf#page=3",
+          "application_number": "18/445,159",
+          "application_date": "2023-05-02",
+          "grant_number": "USPP35904P3",
+          "grant_date": "2024-07-02",
+          "jurisdiction": "US",
+          "portfolio_context": "The original grant names ABB 136 and lists Allberry B.V. as applicant/assignee and Niels Arts as inventor. These document roles do not establish a canonical company equivalence with Advanced Berry Breeding, a commercial-name alias, or current rights.",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/9c/c0/f4/6bd30314b06cc7/USPP035904-20240702-D00003.png",
+              "source_url": "https://patentimages.storage.googleapis.com/86/63/7b/eebfda87cc8d13/USPP35904.pdf#page=3",
+              "named_variety": "ABB 136",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Allberry B.V. / Niels Arts - USPP35904P3; photographer not credited",
+              "caption": "Figure 3 identifies fruit of ABB 136. Original monochrome patent scan; linked image is a low-resolution source thumbnail, not a color or quality comparison.",
+              "reuse_note": "Public patent hosting does not establish photograph reuse permission. Held by default; existing session-only user choice remains separate."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "reported_items": 1,
+        "reported_scope": "One focal patent denomination, excluding parent/comparison material from focal scope.",
+        "exclusions": [
+          {
+            "label": "Advabertwee",
+            "reason": "Seed parent; not the focal patent subject. Retained in the separate context section."
+          },
+          {
+            "label": "211157-6",
+            "reason": "Unpatented pollen-parent selection, not a new release. Retained in the separate context section."
+          },
+          {
+            "label": "ABB 127",
+            "reason": "Comparison cultivar, not the focal patent subject. Retained in the separate context section."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-raspberry-original-uspp35904p3-context",
+      "title": "ABB 136 patent - parent and comparison selections",
+      "url": "https://patentimages.storage.googleapis.com/86/63/7b/eebfda87cc8d13/USPP35904.pdf#page=2",
+      "checked_on": "2026-10-28",
+      "published_date": "2024-07-02",
+      "source_type": "patent_context_names",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Explicit parent and comparison names in the description; separate from the focal claim. Numeric selections and unresolved spellings remain source labels.",
+      "limitations": "No parent or comparator inherits the focal patent, applicant, figures, commercial-name association, trait or growing footprint. Parent patent/reissue citations are leads only; those originals were not inspected in this batch.",
+      "names": [
+        {
+          "candidate_name": "Advabertwee",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Seed parent; not the focal patent subject."
+        },
+        {
+          "candidate_name": "211157-6",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Unpatented pollen-parent selection, not a new release."
+        },
+        {
+          "candidate_name": "ABB 127",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Comparison cultivar, not the focal patent subject."
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-raspberry-original-uspp35872p3",
+      "title": "ABB 128 - original US plant patent USPP35872P3",
+      "url": "https://patents.google.com/patent/USPP35872P3/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2024-06-18",
+      "source_type": "plant_patent",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One literal focal denomination, original title/application/grant date, claim on PDF page 3, and figure 2. Parent and comparison names are accounted separately; related-document navigation is excluded.",
+      "limitations": "A bounded historical grant-document check, not a current-rights opinion or complete company portfolio. CPVO priority is an application claim, not a verified grant. No canonical alias, organization, role, trait, growing region or photo permission is approved.",
+      "review_warnings": [
+        "Allberry B.V. and Advanced Berry Breeding are not automatically treated as the same legal organization."
+      ],
+      "capture_reference": {
+        "method": "original_pdf_title_description_claim_and_fruit_figure_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/31/b9/2a/86d926189feec6/USPP35872.pdf",
+        "pdf_sha256": "f16db260628c8fb3fdb7f3c6cdb19e78584a1be47ef11190d9c04133fbf42116",
+        "pdf_bytes": 859963,
+        "pdf_pages": 5,
+        "claim_url": "https://patentimages.storage.googleapis.com/31/b9/2a/86d926189feec6/USPP35872.pdf#page=3",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/31/b9/2a/86d926189feec6/USPP35872.pdf#page=5",
+        "fruit_figure": 2,
+        "fruit_figure_page": 5,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          5
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "original_claim_read": true,
+        "reported_species": "Rubus idaeus L.",
+        "reported_applicant": "Allberry B.V.",
+        "reported_assignee": "Allberry B.V.",
+        "reported_inventor": "Niels Arts",
+        "cpvo_priority_application": "20221156",
+        "cpvo_priority_date": "2022-05-04",
+        "cpvo_grant_verified": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "ABB 128",
+          "denomination": "ABB 128",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/31/b9/2a/86d926189feec6/USPP35872.pdf#page=3",
+          "application_number": "18/445,157",
+          "application_date": "2023-05-02",
+          "grant_number": "USPP35872P3",
+          "grant_date": "2024-06-18",
+          "jurisdiction": "US",
+          "portfolio_context": "The original grant names ABB 128 and lists Allberry B.V. as applicant/assignee and Niels Arts as inventor. These document roles do not establish a canonical company equivalence with Advanced Berry Breeding, a commercial-name alias, or current rights.",
+          "photos": [
+            {
+              "image_url": "https://patentimages.storage.googleapis.com/71/f2/a9/f8206e8f7df0bd/USPP035872-20240618-D00002.png",
+              "source_url": "https://patentimages.storage.googleapis.com/31/b9/2a/86d926189feec6/USPP35872.pdf#page=3",
+              "named_variety": "ABB 128",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Allberry B.V. / Niels Arts - USPP35872P3; photographer not credited",
+              "caption": "Figure 2 identifies fruit of ABB 128. Original monochrome patent scan; linked image is a low-resolution source thumbnail, not a color or quality comparison.",
+              "reuse_note": "Public patent hosting does not establish photograph reuse permission. Held by default; existing session-only user choice remains separate."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "reported_items": 1,
+        "reported_scope": "One focal patent denomination, excluding parent/comparison material from focal scope.",
+        "exclusions": [
+          {
+            "label": "210001",
+            "reason": "Unpatented seed-parent selection, not a new release. Retained in the separate context section."
+          },
+          {
+            "label": "Advabereen",
+            "reason": "Pollen parent; not the focal patent subject. Retained in the separate context section."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-raspberry-original-uspp35872p3-context",
+      "title": "ABB 128 patent - parent and comparison selections",
+      "url": "https://patentimages.storage.googleapis.com/31/b9/2a/86d926189feec6/USPP35872.pdf#page=2",
+      "checked_on": "2026-10-28",
+      "published_date": "2024-06-18",
+      "source_type": "patent_context_names",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Explicit parent and comparison names in the description; separate from the focal claim. Numeric selections and unresolved spellings remain source labels.",
+      "limitations": "No parent or comparator inherits the focal patent, applicant, figures, commercial-name association, trait or growing footprint. Parent patent/reissue citations are leads only; those originals were not inspected in this batch.",
+      "names": [
+        {
+          "candidate_name": "210001",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Unpatented seed-parent selection, not a new release."
+        },
+        {
+          "candidate_name": "Advabereen",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Pollen parent; not the focal patent subject."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-raspberry-original-abb-2024-launch",
+      "title": "Advanced Berry Breeding - January 2024 commercial launch wording",
+      "url": "https://www.abbreeding.nl/2024/01/24/abb-announces-commercial-launch-three-new-raspberry-varieties/",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-28",
+      "published_date": "2024-01-24",
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Three focal marketed names and the breeder codes printed beside them in the issuer announcement. Navigation, quotations, generic marketing claims and related posts are not extra cultivars.",
+      "limitations": "The company pairs commercial names and prior codes. This source is not a patent or proof that the company is legally identical to Allberry B.V. The conflicting 2025 Baridi code remains visible. No alias, rights, trait, role or region decision is created.",
+      "review_warnings": [
+        "The 2024 launch prints Baridi / ABB132; the retained 2025 announcement prints ABB 137. Keep both observations pending review."
+      ],
+      "capture_reference": {
+        "response_sha256": "d84e86632bd6ee23332701fe01b7efb1f6605fce3d396b6fdb4665f0b1872a84",
+        "method": "issuer_announcement_title_date_and_explicit_three_item_list",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Malaika",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "ABB135",
+          "portfolio_context": "Issuer announcement prints this marketed name and former code together; legal denomination equivalence remains subject to identity review."
+        },
+        {
+          "candidate_name": "Zawadi",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "ABB136",
+          "portfolio_context": "Issuer announcement prints this marketed name and former code together; legal denomination equivalence remains subject to identity review."
+        },
+        {
+          "candidate_name": "Baridi",
+          "berry_id": "berry-raspberry",
+          "breeder_code": "ABB132",
+          "portfolio_context": "Issuer announcement prints this marketed name and former code together; legal denomination equivalence remains subject to identity review."
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "reported_items": 3,
+        "exclusions": []
+      }
+    }
+  ]
+}

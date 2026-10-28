@@ -1,5 +1,12 @@
 # Redesign and consolidation requirements
 
+October 28 source follow-up: [raspberry patent originals](RASPBERRY-ORIGINAL-PATENT-REVIEW.md)
+adds four original filing/claim links and four held, attributed fruit figures.
+Nine unreviewed sections retain nineteen focal, commercial-label and separate
+parent/comparison occurrences. No canonical alias, organization, role, region,
+trait, current right or photo permission is approved; CAT-01/CAT-02 and the
+independent human worksheet remain open. All original requirements below remain.
+
 ## Current status — October 23, 2026
 
 Live canonical `97f9ac3d` includes #409 and the approved #407 performance release.

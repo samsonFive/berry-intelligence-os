@@ -12,6 +12,14 @@ from human publication/Atomic Evidence decisions. See the dated package and
 review packet for provenance and scope. The following October 21 entry is the
 historical deployment baseline, not the current source count.
 
+October 28, 2026: [raspberry original-document follow-up](RASPBERRY-ORIGINAL-PATENT-REVIEW.md)
+adds four original US filing references with inspected claim pages and four
+source-labeled fruit figures, twelve separate parent/comparison occurrences and
+three issuer commercial-name/code observations. All nine sections remain
+unreviewed. Allberry/ABB legal identity, Baridi's conflicting code, current rights
+and image reuse remain unresolved. These metadata additions do not constitute
+new approved cultivars, organizations, roles or regions, or independent recall.
+
 October 23, 2026: [Publisher-first coverage and reader recovery](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 adds verified Watershed blog metadata and bounded Packer section discovery,
 supplemented by indexed results. Candidate checks found 16/15 publisher entries
