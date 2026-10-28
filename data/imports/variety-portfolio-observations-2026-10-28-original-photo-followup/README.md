@@ -20,7 +20,9 @@ Important distinctions:
 - DrisBlueTwentyThree is in the centre of its comparison photo; DrisBlueSeven
   and DrisBlueTwentyTwo remain separately named. Comparators and parents do not
   acquire applicant/company scope or new traits, rights or ancestry edges.
-  Rulers in photographs do not create measurements.
+  The printed `136d5`, Rockinoee, Carlotta, Stella Blue and Regina associations
+  remain source observations, not newly approved aliases. Rulers in photographs
+  do not create measurements.
 - MBG's two named blueberry cards support their respective photo references.
   Literal `Medallio43n` remains an image title/filename, never a cultivar alias.
   No photo is transferred to the strawberry named Keepsake. Upload-directory

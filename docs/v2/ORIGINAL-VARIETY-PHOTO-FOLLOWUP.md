@@ -21,6 +21,9 @@ observations using 8 distinct image URLs**. Nine catalog-matched occurrences
 include one repeated variety in another source's comparison. These are neither
 nine new cultivars nor nine independent images. Full source-wide enumeration
 outside the stated scopes and independent recall remain unfinished.
+Printed comparator code/trade labels (`136d5`, Rockinoee, Carlotta, Stella Blue
+and Regina) are retained alongside their denominations without approving aliases
+or assigning the focal applicant to those entries.
 
 The cumulative bounded source inventory becomes **464 sections / 1,700 name
 occurrences / 149 catalog matches / 1,551 occurrences needing review**. Source

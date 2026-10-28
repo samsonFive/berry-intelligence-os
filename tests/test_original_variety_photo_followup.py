@@ -28,6 +28,13 @@ def test_shared_registry_image_keeps_two_named_positions_without_spreading_to_ot
     assert all(not names[n]['photos'] and observation_company_ids(source,names[n])==[]
                for n in ['DrisBlueOne','136D 2','181C 1'])
     assert observation_company_ids(source,names['DrisBlueSeventeen'])==[]
+    assert names['DrisBlueOne']['trade_name']=='Rockinoee'
+    assert names['DrisBlueSeventeen']['trade_name']=='Carlotta'
+    leaf_source=next(s for s in sources if s['id']==PREFIX+'drisblueseventeen')
+    assert next(n for n in leaf_source['names']if n['candidate_name']=='DrisBlueFifteen')['breeder_code']=='136d5'
+    rosita=next(s for s in sources if s['id']==PREFIX+'drisbluetwentythree')
+    assert {n['candidate_name']:n.get('trade_name') for n in rosita['names'] if n['candidate_name'] in {'DrisBlueSeven','DrisBlueTwentyTwo'}}=={
+        'DrisBlueSeven':'Stella Blue','DrisBlueTwentyTwo':'Regina'}
     assert len(sources)==8 and sum(len(s['names'])for s in sources)==20
     photos=[p for s in sources for n in s['names'] for p in n['photos']]
     assert len(photos)==9 and len({p['image_url']for p in photos})==8

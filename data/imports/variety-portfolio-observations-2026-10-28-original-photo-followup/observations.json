@@ -64,7 +64,8 @@
           "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011322e.shtml",
           "portfolio_context": "Named comparison variety, not the focal applicant variety. Keep the image position and company scope separate.",
           "photos": [],
-          "source_company_ids": []
+          "source_company_ids": [],
+          "breeder_code": "136d5"
         },
         {
           "candidate_name": "DrisBlueFive",
@@ -162,7 +163,8 @@
           "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011965e.shtml",
           "portfolio_context": "Named comparison variety, not the focal applicant variety. Keep the image position and company scope separate.",
           "photos": [],
-          "source_company_ids": []
+          "source_company_ids": [],
+          "trade_name": "Rockinoee"
         },
         {
           "candidate_name": "DrisBlueSeventeen",
@@ -184,7 +186,8 @@
               "reuse_note": "Image visually checked against the original page and its label or caption context. Permission has not been established; private session preview does not grant reuse rights."
             }
           ],
-          "source_company_ids": []
+          "source_company_ids": [],
+          "trade_name": "Carlotta"
         },
         {
           "candidate_name": "136D 2",
@@ -274,7 +277,8 @@
           "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011977e.shtml",
           "portfolio_context": "Named comparison variety, not the focal applicant variety. Keep the image position and company scope separate.",
           "photos": [],
-          "source_company_ids": []
+          "source_company_ids": [],
+          "trade_name": "Stella Blue"
         },
         {
           "candidate_name": "DrisBlueTwentyTwo",
@@ -282,7 +286,8 @@
           "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011977e.shtml",
           "portfolio_context": "Named comparison variety, not the focal applicant variety. Keep the image position and company scope separate.",
           "photos": [],
-          "source_company_ids": []
+          "source_company_ids": [],
+          "trade_name": "Regina"
         },
         {
           "candidate_name": "196H-3",
