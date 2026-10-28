@@ -55,6 +55,17 @@ source/identity/current-rights/photo gates, the independent 52-source worksheet,
 final release checks remain explicit. Historical counts/heads below are dated
 evidence, not the current whole database or a new instruction to repeat a gate.
 
+## Shared Workspaces visual explainer follow-up — October 28
+
+The live `e24b566b` platform includes shared Workspaces. The independent
+[guide follow-up](WORKSPACES-VISUAL-GUIDE.md) adds its capture/connect/brief
+workflow, shared-page scope and Markdown/JSON output to Help. It retains all
+twelve existing section cards and six report cards, with a featured Workspaces
+panel and separate briefing explanation. Static-public regressions and native
+desktop/phone review pass; exact-head checks precede its draft release review. Catalog/photo
+work and Personal Digest account scoping remain separate drafts. All original
+31 requirement IDs, accepted descriptions and ordering remain unchanged.
+
 This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.
@@ -246,8 +257,8 @@ table and implementation sequence below are preserved.
 | INT-01 | Plain-language investigation workspaces without changing review decisions | Intelligence home preserves Statements, Signals/candidates, Assessments, Recommendations, Questions, Research and native authoring. M11–17/20/35 verify named references, literal source text and separate gates. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
-| GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | Live/public visual guide has twelve purpose cards, four analyst workflow steps, worked example, six output explanations and distinct review lifecycle. The current guide includes Social Listening, four-crop Landscape, saved selections and complete PDF/HTML/SVG/CSV reporting; public/live boundaries remain distinct. Eighteen existing guide/static regressions pass. The [variety workflow explainer](VARIETY-WORKFLOW-EXPLAINER-REVIEW.md) adds four steps from source name through identity review and separate catalog authoring to a sourced profile, with existing private handoffs. M38 proof remains dated evidence. Prior October 12 review of eleven cards is dated evidence. Updated twelve-card desktop review and 412px emulation verify the refreshed guide; six outputs now use balanced three/two/one-column layouts. Responsive emulation is distinguished from a physical-phone test. | Visual guide delivered, including current capability limits; final exact-head release and current phone gates apply. |
-| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Platform redesign, News/access, four-crop Landscape and shared Workspaces are live at canonical `94a3b99b`; existing accounts, provider configuration and persistent runtime remain. Current unreleased drafts have separate current-head evidence. | Final release approval and canonical/current-head CI, backup, preservation and rollback gates apply to #410/#412 and catalog #399/#400. Human source/identity/catalog/rights/photo decisions remain separate. |
+| GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | The released guide has twelve section cards, four analyst workflow steps and six reporting choices. The independent shared-Workspaces follow-up adds a featured Capture → Connect → Brief explanation, universal team-page scope, Reader/selection handoffs and a separate Markdown/Portable JSON briefing panel. Existing sections, outputs and source/identity/claim review distinctions remain. See WORKSPACES-VISUAL-GUIDE.md. | The current Workspaces addition is an unreleased guide follow-up with passing static-public regressions. Native desktop/phone review passes; exact-head required checks precede release approval; this does not complete catalog/content or Personal Digest account-scope work. |
+| REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Platform redesign and News/access releases are live; October 21 production receipt identifies canonical 219c739a. The existing account, provider configuration, runtime mounts and rollback receipts are preserved. The protected mobile worksheet is a separate read-only service. | Performance #405 requires fresh checks and release verification on the reconciled head. Catalog #399/#400 and CAT-01/CAT-02 remain open; deployment approval does not approve source/name/identity/catalog/qualification/photo decisions. |
 
 ## Historical implementation sequence
 

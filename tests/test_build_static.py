@@ -282,11 +282,13 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert 'class="glass-header"' in guide_html and "data-pagefind-body" in guide_html
     assert "Build a brief →" not in guide_html
     assert "Brief pack" in guide_html and "live workspace" in guide_html
-    assert guide_html.count('class="guide-workspace guide-accent-') == 13
-    assert guide_html.count('class="guide-availability"') == 15
-    assert '<h3>Workspaces</h3>' in guide_html
+    assert guide_html.count('class="guide-workspace guide-accent-') == 12
+    assert guide_html.count('class="guide-availability"') == 16
+    assert 'id="team-research"' in guide_html and 'id="guide-team-title"' in guide_html
+    assert 'id="guide-workspace-export-title"' in guide_html
     assert 'href="/workspaces"' not in guide_html
-    assert 'Everyone in the analyst app works on the same pages' in guide_html
+    assert 'Markdown · Portable JSON' in guide_html
+    assert 'Every signed-in analyst works on the same pages' in guide_html
     assert 'href="/social"' not in guide_html
     assert 'id="variety-workflow"' in guide_html
     assert "Coverage, candidate decisions and catalog authoring are available in the live analyst workspace." in guide_html
