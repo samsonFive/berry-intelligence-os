@@ -1,5 +1,17 @@
 # Project Status
 
+## Current platform-only review — October 28, 2026
+
+The [integrated platform candidate](docs/v2/PLATFORM-REVIEW-2026-10-28.md) combines
+performance #410, personal Digest #412, responsive navigation #414, bounded
+rehearsals #416 and the shared-Workspaces visual guide #420. Canonical/live
+remains `e24b566b`; catalog #399/#400/#418/#419 is excluded. Shared research,
+company lists/marks and review decisions stay shared; only layouts and Digest
+state are personal. All original 31 accepted definitions and their order remain.
+Individual component checks do not replace combined validation, current-data
+preservation, release approval or release-time backup/rollback checks. Earlier
+status notes below describe their own dated heads and populations.
+
 **October 28: Gene Editing public-source closeout.** All eleven seeds now have
 an original-source audit and explicit claim boundaries: 28 program/platform/
 affiliation rows, 46 source candidates, FDA/Canada/Defra/MARA record recovery,
