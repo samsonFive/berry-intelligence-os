@@ -1,5 +1,13 @@
 # Redesign and consolidation requirements
 
+October 28 — [Larger original filing previews](FULL-IMAGE-PREVIEW-REVIEW.md)
+retain stable photo IDs and existing user captions, replacements, hiding and
+history for four captured figures. No accepted definition, source/name total,
+image permission or review gate changes. The research seed still has15 image
+reference gaps; CAT-01/CAT-02 remain open. Frozen422 passed5,305 tests. This
+follow-up needs its own browser/CI checks and separate catalog release review;
+platform421 remains awaiting actual human approval. All31 definitions below remain.
+
 ## Original filing figures and remaining catalog work — October 28, 2026
 
 The [filing-figure follow-up](ORIGINAL-FILING-FIGURES-REVIEW.md) checks ten

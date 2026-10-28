@@ -84,6 +84,11 @@ def source_photos(target, *, sources=(), candidate=False, varieties=()):
             continue
         for raw in ref.get("photos", []):
             photo = validate_photo(raw)
+            if raw.get("preview_image_url"):
+                from app.services.variety_photo_previews import preview_url
+                photo["preview_image_url"] = preview_url(raw["preview_image_url"])
+                if raw.get("preview_caption"):
+                    photo["caption"] = validate_photo({**raw, "caption": raw["preview_caption"]})["caption"]
             if not compatible(photo, target, candidate=candidate):
                 continue
             code_only = bool(ref.get("identity_notes"))

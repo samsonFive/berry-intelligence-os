@@ -1,5 +1,14 @@
 # Technical Debt Register
 
+October 28 — TD-116 [full-size figure follow-up](FULL-IMAGE-PREVIEW-REVIEW.md):
+four earlier thumbnail references now have guarded larger previews without
+changing source-photo IDs or orphaning user edits/hides/history. Newer captures
+and edited source records win. Reuse and identity remain unconfirmed; no public
+image leakage or automatic fetch is introduced. This closes the implementation
+part of the four-thumbnail follow-up, subject to native/current-head checks;
+15 public-seed image-reference gaps, color-photo enrichment, source/identity
+review and independent recall remain open. Platform421 is a separate review.
+
 October 28, later TD-116 [filing-figure review](ORIGINAL-FILING-FIGURES-REVIEW.md):
 seven existing profiles gain held full-size technical figures and original claim
 links; the public seed has fifteen remaining image-reference gaps. Forty-seven

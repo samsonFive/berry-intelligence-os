@@ -63,6 +63,7 @@ def test_applicant_and_marketing_names_do_not_automatically_acquire_patents_or_p
 
 
 def test_only_exact_legal_identity_gets_its_filing_and_photos_stay_held():
+    captured = json.loads((ROOT / 'data/imports/variety-portfolio-observations-2026-10-28-raspberry-original-patents/observations.json').read_text(encoding='utf-8'))['sources']
     varieties = [{'id': 'v-' + n.replace(' ', '-'), 'entity_type': 'variety', 'name': n,
                   'berry_ids': ['berry-raspberry']} for n in ('ABB 132', 'ABB 135', 'ABB 136', 'ABB 128')]
     for variety in varieties:
@@ -71,7 +72,12 @@ def test_only_exact_legal_identity_gets_its_filing_and_photos_stay_held():
         assert len(refs) == 1 and refs[0]['claim_url'].endswith('#page=3')
         photos = source_photos(variety, sources=batch(), varieties=varieties)
         assert len(photos) == 1 and photos[0]['named_variety'] == variety['name']
-        assert photos[0]['reuse'] == 'unknown' and 'low-resolution' in photos[0]['caption']
+        original = source_photos(variety, sources=captured, varieties=varieties)
+        assert photos[0]['reuse'] == 'unknown' and not photos[0]['license_url']
+        assert 'Full-size monochrome reproduction' in photos[0]['caption']
+        assert 'low-resolution' in original[0]['caption']  # Retained capture, not silently rewritten.
+        assert photos[0]['id'] == original[0]['id'] and photos[0]['image_url'] == original[0]['image_url']
+        assert photos[0]['preview_image_url'] != original[0]['image_url']
         assert gallery(variety, sourced=photos, authoring=False) == []
         assert not any(p['display_image'] for p in gallery(variety, sourced=photos, authoring=True))
 

@@ -1,5 +1,12 @@
 # Intelligence Coverage Matrix
 
+October 28 — [Larger filing images](FULL-IMAGE-PREVIEW-REVIEW.md): four retained
+ABB patent figures gain observed full-size variants, with original photo IDs,
+user edits and permission gates preserved. No new source, cultivar, geographic,
+trait or current-rights coverage is claimed. Corpus484/name-occurrences1757 and
+public64-profile image-reference gaps15 remain unchanged. Raw originals remain
+private; current-head tests/browser review and separate catalog release apply.
+
 October 28, later [original filing figures](ORIGINAL-FILING-FIGURES-REVIEW.md):
 ten original documents yield twenty scoped sections, 57 occurrences and twelve
 held figure observations using ten full-size URLs. Seven existing profiles gain
