@@ -25,7 +25,7 @@ SEEDS = {
     'retail': ('Retail', 'Retailers, stores, online channels, assortment, merchandising and shopper activity.'),
     'corporate': ('Corporate', 'Acquisitions, financing, leadership, ownership, partnerships, licensing and company expansion.'),
     'weather': ('Weather', 'Weather events, growing conditions, forecasts and crop or logistics impacts.'),
-    'genetics': ('Genetics', 'Breeding programs, germplasm, cultivars, varieties and inherited traits.'),
+    'genetics': ('Genetics', 'Breeding programs, germplasm, cultivars, varieties, inherited traits and agricultural genetic technologies, including conventional breeding.'),
     'sustainability': ('Sustainability', 'Resource use, emissions, waste, packaging, biodiversity and environmental practices.'),
 }
 TERMS = {
@@ -85,6 +85,10 @@ def database(inbox_dir, readonly=False):
         for key, (name, description) in SEEDS.items():
             db.execute('INSERT OR IGNORE INTO tags(id,name,normalized,description,matcher_name) VALUES(?,?,?,?,?)',
                        (key, name, normalized(name), description, name))
+        # Upgrade only the original untouched seed definition. Preserve edited
+        # definitions and names; the new version invalidates automatic caches.
+        db.execute('UPDATE tags SET description=?,version=version+1 WHERE id=? AND version=1 AND description=?',
+                   (SEEDS['genetics'][1], 'genetics', 'Breeding programs, germplasm, cultivars, varieties and inherited traits.'))
         db.commit()
         yield db
         db.commit()
