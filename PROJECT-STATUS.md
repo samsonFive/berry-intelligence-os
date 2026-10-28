@@ -67,6 +67,21 @@ Catalog #399/#400 and profile-performance #410 remain separate release drafts.
 Their latest reconciliation preserves the Workspaces release and original
 catalog decisions. CAT-01/CAT-02 and wider coverage work remain open.
 
+## October 27 shared-navigation continuation
+
+Live canonical `94a3b99b` includes shared Workspaces and the earlier platform
+releases. Catalog #399/#400, performance #410 and Personal Digest #412 remain separate
+tested drafts with final release approvals pending. The latest performance head
+`c36c5b10` passes 5,218 tests; catalog `a9e6e7cb` passes 5,222. No deployment is implied.
+
+A separate [navigation fix](docs/v2/RESPONSIVE-SECTION-NAVIGATION.md) addresses
+headings hidden behind wrapped phone navigation. It measures the existing shell
+without changing layout, content, personal state or review gates. TD-123 is
+recorded. Focused regressions and final browser/static/current-head checks remain.
+The wider catalog/source/human/coverage work remains open. Historical notes below
+retain their dates; the blueberry checkpoint and later four-crop milestone were
+already approved/released and require no new checkpoint pause.
+
 **October 12–13: Landscape PDFs and actual browser exports.** Draft #396 now
 offers server-rendered PDF snapshots with cited takeaways, market/comparison
 tables and the complete evidence appendix. Scope, crop identity, three dates,
