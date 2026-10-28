@@ -77,6 +77,19 @@ async def tag_preferences(request: Request):
 
 
 def classify_stored_tags():
+    from app import main
+    try:
+        return _classify_stored_tags()
+    except Exception:
+        state = news_tags.job_state(main.INBOX_DIR)
+        with news_tags.database(main.INBOX_DIR) as db:
+            db.execute('INSERT OR REPLACE INTO jobs VALUES(1,?,?,?,?,?)',
+                ('failed', state.get('processed', 0), state.get('total', 0),
+                 'Stored source classification interrupted. Existing assignments are retained; recheck to resume.', news_tags.stamp()))
+        raise
+
+
+def _classify_stored_tags():
     main, context, records, entities = world()
     # Hydrate stored content only in background work, never on the feed path.
     from app.services import personal_digest

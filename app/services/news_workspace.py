@@ -84,7 +84,8 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
     selected_tags = set(filter(None, filters['tag'].split(',')))
     if selected_tags - {t['id'] for t in tags}:
         raise ValueError('Tag is unavailable')
-    effective = {key: news_tags.effective(record, tags, *(tag_assignments or (None, None))) for key,record in records.items()}
+    effective = ({key: news_tags.effective(record, tags, *(tag_assignments or (None, None))) for key,record in records.items()}
+                 if selected_tags else {})
     try:
         zone = ZoneInfo(filters["tz"] or "UTC")
     except (ZoneInfoNotFoundError, ValueError):
@@ -201,6 +202,8 @@ def model(*, records, entities, relationships, facts, state, params, now=None, t
         card.update(trusted=trusted, source_reviewed=source_reviewed(record), escalated_count=len(support.get(card["id"], [])))
         card["company_mentions"] = mentions
         card['topic_match'] = classify(record)
+        if record['id'] not in effective:
+            effective[record['id']] = news_tags.effective(record, tags, *(tag_assignments or (None, None)))
         card['assigned_tags'] = [tag for tag in tags if tag['id'] in effective[record['id']]]
         card["entities"] = [row for row in card["entities"] if (entities.get(row["id"]) or {}).get("entity_type") in {"company", "brand", "research_program"}]
         cards.append(card)

@@ -50,7 +50,8 @@
         if (name && normalize(chip.textContent).includes(name)) matches.textContent += chip.textContent.trim() + ' · ';
       });
     });
-    dialog.querySelector('[data-create-tag]').addEventListener('click', function () {
+    dialog.querySelector('[data-create-tag]').addEventListener('click', function (event) {
+      event.preventDefault();
       var input=dialog.querySelector('[name=name]');
       if (!input.reportValidity()) return;
       var button=this; button.disabled=true;
@@ -92,7 +93,8 @@
     }
     manage.addEventListener('click',function () {loadDefinition(); definition.showModal();});
     chooser.addEventListener('change',loadDefinition);
-    definition.querySelector('[data-save-definition]').addEventListener('click', function () {
+    definition.querySelector('[data-save-definition]').addEventListener('click', function (event) {
+      event.preventDefault();
       var name=definition.querySelector('[data-definition-name]'); if (!name.reportValidity()) return;
       post('/definition',{id:chooser.value,name:name.value,description:definition.querySelector('[data-definition-description]').value}).then(function () {window.location.reload();}).catch(function (e) {definition.querySelector('[data-definition-status]').textContent=e.message;});
     });

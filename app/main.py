@@ -5412,7 +5412,7 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
         signals = [row for row in signals if source_ids.intersection(row.get('evidence_ids') or [])]
         assessments = [row for row in assessments if source_ids.intersection(row.get('evidence_ids') or [])]
     market_repo = get_repositories(DATA_DIR, SCHEMAS_DIR).market_observations
-    moves_board = compose_moves_board(inbox_dir=INBOX_DIR) if AUTHORING_MODE else None
+    moves_board = compose_moves_board(inbox_dir=INBOX_DIR) if AUTHORING_MODE and not scope.tag_ids else None
     packet = assemble_research_packet(
         scope,
         entities=entities,
@@ -5425,7 +5425,7 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
         developments_provider=_radar_developments_for_scope if AUTHORING_MODE and not scope.tag_ids else None,
         competitive_moves_provider=(lambda s: _research_competitive_moves(s, moves_board)) if AUTHORING_MODE and not scope.tag_ids else None,
     )
-    packet["move_patterns"] = _research_move_patterns(scope, packet.get("competitive_moves") or [], moves_board) if AUTHORING_MODE else []
+    packet["move_patterns"] = _research_move_patterns(scope, packet.get("competitive_moves") or [], moves_board) if AUTHORING_MODE and not scope.tag_ids else []
     comparison_ids = comparison_candidate_ids(
         scope, packet=packet, entities=entities, relationships=relationships
     ) if (scope.comparison or scope.company_ids) else []
@@ -5487,7 +5487,7 @@ def research_desk_submit(
         relationships=all_relationships(),
         previous=prior,
     )
-    if tag:
+    if isinstance(tag, str) and tag:
         from dataclasses import replace
         scope = replace(scope, tag_ids=tuple(dict.fromkeys(filter(None, tag.split(',')))), tag_mode='any' if tag_mode == 'any' else 'all')
     packet, comparison, decision_support = _research_packet(scope)

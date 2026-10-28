@@ -275,7 +275,7 @@ def test_tag_creation_backfill_corrections_explanations_and_guard(workspace):
 def test_research_handoff_keeps_stable_tag_scope_and_source_boundary(workspace, monkeypatch):
     from app.services.research_desk import ResearchScope
     from app.services import news_tags
-    row = article()
+    row = article(title='Blueberry export prices and supermarket demand')
     news_tags.backfill(main.INBOX_DIR, [row])
     news_tags.override(main.INBOX_DIR, row['id'], 'retail', 'add', 'alice')
     monkeypatch.setattr(main, 'AUTHORING_MODE', False)
