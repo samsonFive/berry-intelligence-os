@@ -63,6 +63,20 @@ Together the two additive imports provide eleven source sections, twenty-one
 name occurrences and six held image references: four under patent denominations
 and two under existing marketed names. No additional canonical variety is created.
 
+The separate [SEKOYA story references](../../data/imports/variety-portfolio-observations-2026-10-28-sekoya-named-fruit/README.md)
+add five fruit photographs beside Beauty, Crunch, Grande, Pop and Fiesta in
+the issuer's original timeline. They are attributed by the adjacent named
+paragraph, not by an image label or its empty `alt` attribute. Each downloaded
+image was visually inspected. Nova receives no photo from this page. Grande's
+block says 2013 despite its `2014.png` filename; filenames are not dates.
+
+Across all three imports the final batch contains sixteen scoped sections,
+twenty-six name occurrences and eleven held image references. Seven existing
+named profiles gain photo references, reducing the public 64-profile seed's
+missing-photo-reference count from 49 to 42. This is not the live 65-profile
+inventory, a count of permission-cleared images, independent sources or new
+cultivars. Rights, traits, company roles and reuse approval remain separate.
+
 ## Readable reference handoff
 
 Phone review exposed an existing 120px label column squeezing source details

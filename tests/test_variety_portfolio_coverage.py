@@ -81,14 +81,14 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 1662
+    assert report["summary"]["names"] == 1667
     assert report["summary"]["registry_entries_checked"] == 61
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
         "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [13, 1, 0, 2]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 441, "berry-strawberry": 742, "berry-raspberry": 317, "berry-blackberry": 162}
+        "berry-blueberry": 446, "berry-strawberry": 742, "berry-raspberry": 317, "berry-blackberry": 162}
     sunbelle = next(s for s in report["subjects"] if s["name"] == "SunBelle")
     assert sunbelle["source_status"] == "partial" and not sunbelle["checked"]
     assert sunbelle["named_occurrences"] == 2
@@ -317,7 +317,8 @@ def test_primary_candidates_render_only_in_authoring_and_get_never_persists(monk
     assert "Checked recently" in coverage.text
     candidates = client.get("/varieties/candidates?source=portfolio-uf-strawberry")
     assert candidates.status_code == 200 and "FL 19.66-220" in candidates.text and "Florida Pearl" in candidates.text
-    assert "awaiting review; no company role approved" in candidates.text
+    assert "Check the identity and company roles before relying on these sources." in candidates.text
+    assert "Review decisions do not create new catalog varieties or approve company roles." in candidates.text
     assert list(tmp_path.rglob("*.json")) == []
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
     public = client.get("/varieties/coverage")

@@ -120,3 +120,35 @@ def test_exact_named_breeder_photos_fill_profile_references_without_publishing_i
         assert gallery(variety, sourced=photos, authoring=False) == []
         assert variety['aliases'] == []
         assert not any(source['names'][0].get(k) for k in ('grant_number', 'application_number'))
+
+
+def test_story_photos_reach_only_the_named_profiles_and_do_not_grant_reuse_or_rights():
+    sources = [s for s in load_portfolio_observations(ROOT / 'data')
+               if s['id'].startswith('portfolio-sekoya-story-fruit-')]
+    expected = {'Beauty': '2012.png', 'Crunch': '2013.png', 'Grande': '2014.png',
+                'Pop': '2014_2.png', 'Fiesta': '2023.png'}
+    assert len(sources) == len(expected)
+    varieties = [json.loads((ROOT / 'data/entities/varieties' /
+                            ('variety-sekoya-' + slug.lower() + '.json')).read_text())
+                 for slug in [*expected, 'Nova']]
+    before = deepcopy(varieties)
+    for variety in varieties:
+        suffix = variety['name'].split()[-1]
+        photos = source_photos(variety, sources=sources, varieties=varieties)
+        if suffix == 'Nova':
+            assert photos == []  # A shared platform is not an image attribution.
+            continue
+        assert len(photos) == 1 and photos[0]['named_variety'] == variety['name']
+        assert photos[0]['image_url'].endswith('/' + expected[suffix])
+        assert photos[0]['reuse'] == 'unknown' and photos[0]['license_url'] == ''
+        assert gallery(variety, sourced=photos, authoring=False) == []
+        assert not any(p['display_image'] for p in gallery(variety, sourced=photos, authoring=True))
+        assert original_patent_references(variety=variety, varieties=varieties,
+                                          entities=varieties, candidates=[], sources=sources) == []
+    assert varieties == before
+    assert all(s['review_state'] == 'unreviewed' for s in sources)
+    assert all(s['capture_reference']['image_alt'] == '' for s in sources)
+    assert all(s['capture_reference']['image_label_basis'].startswith('adjacent named paragraph')
+               for s in sources)
+    grande = next(s for s in sources if s['names'][0]['candidate_name'] == 'SEKOYA Grande')
+    assert grande['capture_reference']['source_story_year_label'] == '2013'
