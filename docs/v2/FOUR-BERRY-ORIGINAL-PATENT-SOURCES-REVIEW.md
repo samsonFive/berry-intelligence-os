@@ -76,3 +76,20 @@ identity, catalog, Atomic, qualification and photo gates remain. Current legal
 status, ownership, traits, growing regions and photo reuse are not established
 by these filings. CAT-01/CAT-02 and the broader approved goal remain open.
 No merge or production deployment of this source work occurs.
+
+## October 27 release review follow-up
+
+The current-base browser check reached Emerald's original filing reference and
+confirmed its displayed title, grant number, application and dates against the
+rendered original title page. Its source link and unreviewed status stay visible;
+this is document-reference verification, not a current-rights decision.
+
+At a measured 412-pixel viewport the wrapped shell hid the Rights / IP heading
+after a section jump. Profile anchor spacing now follows the actual header
+height through resize observation; the existing candidate quick navigation is
+unchanged. Profile asset versions are advanced so prior cached assets refresh.
+All 79 affected profile, patent-reference, Reader-document and photo tests pass,
+as does the existing executable photo-session check. Final browser verification,
+fresh current-head CI and the isolated preservation rehearsal are still required
+for this corrected head. No catalog, identity, photo or production decision has
+been made.
