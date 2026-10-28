@@ -127,8 +127,14 @@ def test_scope_snapshot_preserves_every_original_capture_name_warning_and_date()
     for path in sorted((DATA / 'imports').glob('variety-portfolio-observations-*/observations.json')):
         if path.parent.name != FOLDER:
             old.update({s['id']: s for s in json.loads(path.read_text(encoding='utf-8'))['sources']})
-    current = [s for s in load_portfolio_observations(DATA) if 'review_warning_scopes' in s]
+    # This preservation contract covers the four fingerprinted overlays. Later
+    # original captures can carry their own scopes without being old snapshots.
+    overlay = json.loads((DATA / 'imports' / FOLDER / 'observations.json').read_text(encoding='utf-8'))
+    overlay_ids = {s['source_id'] for s in overlay['warning_scope_overlays']}
+    assert len(overlay_ids) == 4
+    current = [s for s in load_portfolio_observations(DATA) if s['id'] in overlay_ids]
     assert len(current) == 4
+    assert {s['id'] for s in current} == overlay_ids
     for source in current:
         assert {k: v for k, v in source.items() if k != 'review_warning_scopes'} == old[source['id']]
     _, candidates = reconcile_portfolios(sources=current, varieties=[], entities=[], candidates=[])
