@@ -1,91 +1,58 @@
-# Gene Editing & Advanced Breeding: integrated research slice
+# Gene Editing & Advanced Breeding: delivery and research closeout
 
-Status: implementation candidate for Johnny's review; **research acceptance is incomplete**. No merge or production deployment is authorized by this slice.
+The implemented eleven-company slice was merged in PR #406 and deployed on October 21, 2026 at https://intel.johnnyaceii.com/landscapes/explorer?topic=gene-editing&adjacent=1. Its four required checks passed; the full CI suite recorded 5,115 passes and 11 skips. The corresponding GitHub Pages workflow also succeeded. A verified runtime backup, authenticated route checks and preservation of accounts, existing records and drafts are recorded in the private deployment receipt. Earlier preview-only statements are superseded by this delivery receipt.
 
-## Open the real-data preview
+The October 28 follow-up completes the public-source closeout and prepares source-review decisions. Its code/data changes require their own current-head CI, merge and live verification; the October 21 receipt is not evidence of this follow-up's deployment.
 
-- Landscape: `http://127.0.0.1:18761/landscapes/explorer?topic=gene-editing`
-- Include adjacent platforms: add `&adjacent=1`.
-- News: `http://127.0.0.1:18761/today?topic=gene-editing`.
-- Comparison/evidence CSV and printable HTML use the existing Explorer export/briefing routes and its analyst authorization gate. This lens does not yet support the existing geographic SVG/PDF renderers; it returns an explicit 422 for those formats. Printable HTML can be printed to PDF by the browser.
+## Current data
 
-The preview uses canonical data and the actual imported private publications, with `BIOS_PUBLICATION_REVIEW_REHEARSAL_UI=0` and `ENABLE_SOURCE_POLLING=false`. There is no mock dataset or generated commercial availability. The branch's ordinary geographic/genetics Explorer remains available from the same page.
+The latest complete package is `data/imports/gene-editing-2026-10-28/snapshot.json`: 11 companies, 28 program/platform/research-affiliation rows, four sourced partnership claims and 46 linked publication candidates. The original October 20 package and October 21 supplement are retained unchanged as historical versions. The latest package references that earlier research rather than copying raw model responses.
 
-## Data and trust
+The closeout adds 16 source candidates, three bounded program/capability/affiliation rows and 13 deduplicated manual source-registry entries. The total registry is 278: 220 templated collectors and 58 explicitly excluded manual references. Eleven company search monitors remain enabled; no new feed, schedule, paid provider or inference call is introduced. Existing company IDs, dossiers, review decisions and publication dates are preserved.
 
-`data/imports/gene-editing-2026-10-20/snapshot.json` is the versioned import package, following the existing dated competitor-registry import convention. It contains 11 resolved roster profiles, 23 unique program/platform descriptions, four partnership claims, 26 Evidence candidates and 53 source configurations. Original-source access checks, feed checks, Perplexity queries/results, conflicts and per-company coverage are adjacent files.
+A prior Planasa original is reused by canonical URL; 46 candidates therefore represent 45 new private drafts across both deliveries and that existing publication. The four relationship claims remain research claims, not automatically trusted canonical relationships. No trusted publication, Fact, Signal, parent/control edge or Atomic Evidence approval is created by this closeout.
 
-The native Entity registry contains seven new monitoring companies and 23 unverified `breeding_program` entities. Existing Pairwise, PSI/PSG, Planasa and Fall Creek records are preserved. Programs retain their research attributes and evidence links. Native program attributes override the frozen snapshot in the lens, so later analyst corrections survive reruns.
+## What the follow-up resolved
 
-The importer created **25 private publication drafts**, preserving an already-captured Planasa original by canonical URL and mapping its research citation to `ev-planasa-about-us`. It added **52 source configurations**: 41 original-page references and 11 runnable company news-search monitors. The import's 26 candidate Evidence objects therefore correspond to 25 new drafts plus one existing publication. Four partnership claims stay explicitly pending in the research snapshot; **zero trusted relationships, Facts, Signals or publications are automatically created**. Source publication review does not automatically approve a program or relationship claim.
+- **Simplot:** original FDA VPM 0002 records the December 4, 2024 remontant-strawberry meeting; FDA explicitly says a VPM is not its evaluation of a developer safety assessment. Health Canada's S4A non-novel listing and anticipated marketing year are now checked. The July 17, 2026 Defra confirmation and August 21 notice reconcile all eight S4A identifiers. These records do not prove sales, food authorization in England or completed English trials. Simplot's SCRA presentation supplies its own S4A/Gn1 association; confidential FDA Gn1 is not independently equated to TFL1 from the FDA record alone.
+- **PSI/PSG:** the issuer's August 2023 restructuring announcement and the rendered PSG history/research pages are now read. PSI contracted services and PSG portfolio/IP holding are distinct roles. PSG describes implementation under its new name in 2024; the announcement date is not silently substituted for implementation. Its current partner page corroborates Simplot strawberry and Pairwise caneberry work. Its statement about Simplot investment does not establish ownership percentages or control. The existing dossier ID is retained as a historical monitoring lineage, not a merged legal person; identity-scope metadata records the separate counterparties.
+- **Pairwise:** FDA VPM 0011 records a July 9, 2026 blackberry meeting covering compact architecture, reduced prickles and reduced seed lignification. It does not identify Fontana or prove that sold fruit carried all three traits. Compact Colombian sales, Fontana introduction and seedless/thornless pipeline milestones stay separate.
+- **Ohalo:** the original UF/FSREF 2024-25 report names Ohalo as an editing-system collaborator. It reports 138 regenerated lines and 20 selections for 2025-26 field testing after growth-room assays. Methods mention five cultivars; results enumerate four, and the discrepancy is retained. This is stronger evidence than an agreement alone but does not establish completed field trials, a named commercial release, or commercial sales. It is a separate DNA-free editing track, not a blanket CRISPR classification of Boosted Breeding or the true-seed consortium.
+- **Heritable:** the rendered product page explicitly offers genome-edit design, CRISPR/targeted-mutagenesis designs, off-target prediction and multi-gene optimization. This closes the missing platform-description gap. It does not demonstrate editing in the CIV/Mastronardi strawberry partnership or independently validate product performance.
+- **Qi:** MARA's original list names 苏州齐禾生科生物科技有限公司 and P16, certificate 351, alongside the already checked APHIS response. The Beijing Vilmorin counterparty and Suzhou certificate holder are identified separately. No Beijing/Suzhou equity or IP ownership chain, or exact P16/APHIS line equivalence, is invented.
+- **Shunfeng:** the same MARA original names 山东舜丰生物科技有限公司 and GmELF3a soybean 25T93-1, certificate 350. Both listed soybean certificates run nationwide from January 2, 2024 through January 1, 2029. University-hosted company recruitment corroborates bellagen.cn association. A separate BellaGen legal company, formal rebranding and a berry program remain unestablished.
+- **Planasa:** the original R&D page explicitly describes molecular markers, phenotyping and crossing. Its issuer IFSI release identifies EW Group membership; the page's May 12, 2026 date and body announcement's May 6 date are retained separately. These sources do not establish berry gene editing.
+- **Fall Creek:** the original PubMed record for PMID 41635864 supplies a Fall Creek author affiliation in a strawberry CRISPR paper (October 15, 2025 publication; January 2026 collection). The record is represented as a research-affiliation row, not corporate sponsorship, a Fall Creek blueberry-editing program or a product. The HTTP fetch was blocked; substantive original bibliographic text was recovered through the web tool. Full publisher text was not recovered.
+- **HRB/Plantik:** existing regeneration, license and tomato-versus-strawberry stage distinctions remain. The original HRB financing announcement now identifies the named investors without inferring control or an undisclosed amount. Successful strawberry heat-tolerance field outcomes remain unreported in the checked evidence.
 
-PSI's existing ID is `company-plant-sciences-genetics`, despite its display name being Plant Sciences, Inc. The existing aliases also include PSG. This mismatch is disclosed rather than silently renaming the dossier or creating a duplicate PSI company. Exact PSI/PSG legal restructuring and subsequent alias/entity reconciliation require source-backed analyst review. Simplot Plant Sciences remains a unit of Simplot for this slice and is never merged with PSI.
+## Source audit and review boundary
 
-## Classification and historical backfill
+`source-audit.json` records 46 source checks: 45 readable captures through public HTTP or rendered browser text, plus one blocked HTTP source whose original bibliographic excerpt was recovered separately. All 30 retained excerpts from the earlier package match the newly recovered original text. Full captures remain private; checked metadata and hashes are versioned. Rendered PSG and Heritable pages close earlier JavaScript extraction gaps. No paid Perplexity calls were made during closeout.
 
-News has multi-select **Gene Editing** and **Advanced Breeding** topics, an explicit adjacent-crop/platform toggle, and publisher filtering. They compose with the existing berry, company, country/region, time, list and tier selectors. Review-lane and pagination URLs retain the same topic scope.
+`source-review-packet.json` supplies a source-level outcome, bounded claim synopsis and next review action for all 46 candidates. This completes the autonomous source audit. It is not a human publication decision, performance validation or Atomic Evidence approval. Actual runtime publication/rejection decisions remain authoritative; already published items are not republished and rejected items are not revived. The repository's human gates remain the normal next workflow, not a missing UI feature.
 
-The deterministic `gene-editing-1` classifier requires explicit editing terms and agricultural context, supports selected local-language terms, rejects medical context and negative evidence statements, and never uses company roster membership as a topic trigger. NGT/NBT/precision-breeding acronyms require editing/regulatory context. Boosted Breeding and AI-driven predictive breeding receive Advanced Breeding without automatic CRISPR labeling. Crop-unassigned platforms retain unknown crop assignments. Default topic results require explicit berry relevance; adjacent signals require the toggle.
+Undisclosed cap tables, executed contracts, unpublished commercial volumes and unreported trial results are closed as **unknown/not established**, with the supported claim boundaries recorded. They are not asserted to be false and are not open-ended tasks to fabricate an answer. No email outreach, account creation, paid subscription or broader company roster is authorized or required.
 
-Each match exposes its reason, supporting text, version and provenance. Existing publication review's Tags field accepts `topic-exclude-gene-editing` and `topic-exclude-advanced-breeding`; those corrections survive classification/backfill and source publication. Explicit analyst-owned classification objects are also preserved. No new review workflow is introduced.
-
-Five historical published records were tagged through the repeatable backfill: two Gene Editing and three Advanced Breeding. Their publication dates and review/trust state are unchanged. The second pass changed zero records. The same check on 25 imported private drafts changed zero records on rerun.
+## Repeatable operations
 
 ```powershell
-python scripts/import_gene_editing.py
-python scripts/backfill_gene_editing.py data/evidence --apply
-python scripts/backfill_gene_editing.py inbox/evidence --apply
+python scripts/audit_gene_editing_closeout.py --fetch
+python scripts/prepare_gene_editing_closeout.py
+python scripts/import_gene_editing.py --snapshot data/imports/gene-editing-2026-10-28/snapshot.json
+python scripts/apply_gene_editing_closeout.py
+python scripts/apply_gene_editing_closeout.py --apply
 ```
 
-`import_gene_editing.py` accepts `--snapshot`, `--data-dir` and `--inbox-dir` for a separate runtime. It takes the existing collection lease, deduplicates IDs and canonical source URLs, only creates missing records, and never overwrites a reviewed/rejected draft, existing entity, program correction or source configuration. It is safe to rerun. Rebuilding the immutable research package is a separate, intentional authoring step; it is not part of runtime import.
+The fetch command accesses public originals only. Preparation consumes inspected captures and validates anchors; it cannot replace original-source checking. Import is add-only and URL-deduplicated. Reconciliation is dry-run by default and updates only unchanged prior program payloads plus an absent, namespaced identity note. Existing analyst corrections win. Source health updates preserve enabled/discovery settings. Production apply requires a verified backup and must run as the unprivileged web application user; running source preparation as root masked an alias-file permission problem during the initial release. Unprivileged candidate and live readability checks are required.
 
-## Source health and acquisition
+## Existing behavior and bounded limitations
 
-42 original-page candidates were checked: **33 readable, five without usable original prose, three unavailable and one blocked**. Readable does not mean independently verified. The Qi investor page returned an unrendered template and is not accepted as small-berry evidence. PSI research/about and Heritable home/products required JavaScript and did not yield usable prose. Qi's official site failed to connect; Shunfeng's English and Chinese sites timed out; the European Commission NGT page was blocked. These references remain disabled with explicit status.
+Gene Editing and Advanced Breeding remain separate News filters. Classification requires agricultural context and explicit terminology, rejects medical contexts and negated evidence claims, never tags by company membership, and respects analyst exclusions. Historical backfill preserves source publication dates and trust. Company monitoring is independent from classification. Default results require berry relevance; adjacent platforms need the explicit toggle. Headquarters is not program geography.
 
-The two RSS links advertised by Planasa's own HTML returned no entries and remain unverified. No official company feed endpoint was invented. Eleven free Google News RSS company queries were verified and configured with the **existing** `news_search_rss` adapter under the existing article/news pipeline. These are ordinary company monitoring, not an alternative provider for Perplexity research. The queries do not automatically classify matches as Gene Editing.
+The integrated Explorer supports comparison, sourced relationship claims, program details, bounded filters, CSV and printable HTML. Native saved-view forms and geographic SVG/PDF renderers are optional future enhancements, not required closeout work; unsupported exports fail explicitly rather than silently changing scope. Browser print-to-PDF remains available. No final research PDF was separately commissioned in this thread.
 
-The existing discovery command was exercised on Simplot and Qi: Simplot returned 35 feed items and staged 10 under its existing bound; Qi returned eight and staged eight; neither had item-level failures. Reruns staged zero new items and recognized all 10/eight existing staged items. Monitoring discovery does not establish full-body acquisition or comprehensive recall. No live collection or paid inference runs on the new page's GET path.
+## Validation record
 
-## Research capability, cost and remaining gaps
+October 21: PR #406 merged at `219c739a3ce621deb9c61d5db358ad7e8a087c20`; current-head checks succeeded, 5,115 Python tests passed, record validation passed, static build produced 1,794 pages with no unpublished IDs/titles, Pages workflow succeeded, live routes passed, backup verified, accounts/data/drafts preserved.
 
-The configured key and existing Perplexity integration were inspected without exposing credentials. All 11 companies have two saved Perplexity Search passes (22 searches, 176 result rows before cross-company deduplication). Eight `sonar-deep-research` responses were saved, but all eight returned `finish_reason=length`: they are **partial**, not complete research reports. Initial Simplot/Ohalo/HRB deep calls received HTTP 429. The account later returned HTTP 401 `insufficient_quota`; further paid calls were stopped. A successful diagnostic Simplot deep response was not retained and does not count toward research acceptance. The standalone cross-company follow-up request was rejected before producing results.
-
-Saved Deep Research usage reports sum to **32,180 tokens and USD 12.27567**. This is a lower bound, not a total bill: the Search adapter does not expose billing; the diagnostic call and interrupted retry have unavailable cost. No subscription, credit purchase, automatic top-up or alternative research-provider substitution was made. Johnny requested a manual Perplexity prompt to supply the missing work through his own interface.
-
-Per-company coverage and evidence gaps are recorded in `coverage.json` and the preview. Key holds:
-
-- Simplot: verify subsequent sales and exact lineage; Defra S4A-210 notice is not proof of completed trials or universal approval.
-- PSI/PSG: the August 1, 2023 issuer restructuring release is now readable and checked. Preserve registry identity pending review of executed assignments and the legal split.
-- Ohalo: verify actual 2026 consortium trials and released varieties; Boosted Breeding remains distinct from CRISPR.
-- Pairwise: compact Colombian sales, Fontana introduction and seedless/thornless pipeline remain separate, attributed milestones.
-- HRB/Plantik: the 2024 single-cell milestone is enabling technology; tomato demonstrations do not establish strawberry field success or commercialization.
-- Fall Creek/Planasa: gene-editing involvement **not established in this research pass**; commercial conventional breeding is documented.
-- Heritable: AI strawberry breeding is documented; product-page genome-edit design claims were not independently recovered.
-- Qi: distinguish the applicant RSR request from the May 29, 2024 APHIS response, now checked. The specified soybean is not subject to 7 CFR part 340; FDA status, original Chinese certificates and sales remain unresolved. A separate investor original supports a Nanjing small-berry editing initiative, without a named edited-blueberry product; Beijing/Suzhou entities are not legally collapsed.
-- Shunfeng: KWS confirms a Cas-SF01/Cas-SF02 license; official domain/legal-equivalence details and berry programs remain unresolved.
-- EU/China: no unverified regulatory endpoint is activated or global approval inferred. The Chinese government science-portal report is not substituted for product-specific regulatory certificates.
-
-Generic extraction initially selected related Fontana content on older Pairwise pages. Original article-content DOM was re-read before selecting evidence. HRB's shared metadata dates were corrected to visible article dates (2024-02-06 and 2026-09-28). HortiDaily's discovery date differed from original metadata; the original page date is retained. These conflicts remain in the snapshot.
-
-## Validation
-
-- Focused suite: 156 passed (Gene Editing, News, existing Landscape Explorer, ingestion and collection status).
-- Record schemas: passed after initial native import.
-- Import second pass: zero companies, programs, publications or sources created; existing records preserved.
-- Backfill second passes: zero changes in trusted historical records and private research drafts.
-- Live API: 11 companies, 23 programs, four partnership claims, 26 linked sources with adjacent mode enabled. Default berry mode: all 11 companies retained, 12 matching programs and three partnership claims.
-- Browser: populated comparison, unknowns, pending-source labels, adjacent toggle and linked evidence inspected with rehearsal disabled.
-- Full suite/static build/CI: see the final validation receipt; no merge/deployment is implied by local checks.
-
-Full research acceptance remains open for PSI/PSG identity review and broader original-source follow-ups. Do not expand the monitored roster beyond the requested 11 seeds. Johnny authorized live deployment after processing the manual report on October 21; required CI and runtime-preservation gates still apply.
-
-## Manual research intake — October 21, 2026
-
-The user supplied a Perplexity evidence report covering all eleven companies, with its own access limitations and unverified leads. Its claims were treated as research input. No further paid API calls were made. Four newly supplied originals were opened and their substantive text recovered: the APHIS Qi response, PSI/PSG issuer restructuring release, Ohalo Florida disease-resistance agreement, and Confitop investor account. Retained excerpts, URLs and access dates are in `manual-primary-checks.json`; excerpt hashes are explicitly scoped to excerpts rather than full documents.
-
-The supplement adds four private publication-review drafts and four manual source references, two program records, and a guarded update of the untouched Qi soybean program. It does not change trust decisions or create ownership links. Current adjacent-mode coverage is eleven companies, 25 programs, four partnership claims and 30 linked evidence records; the source registry has 265 entries, including 11 company monitors and 45 mission manual references. The domain pack accounts for every source, explicitly excluding manual references from recurring collection templates.
-
-The supplied report does not override originals recovered earlier: the Simplot release, HRB regeneration and licensing announcements, standalone Fontana release, Heritable strawberry PDF and Vilmorin PDF remain stronger than that report's access gaps. Its unrelated search results, spam-like Planasa query URLs and generic corporate profiles were not imported.
-
-Validation after this supplement: 77 focused tests passed, including the previously failing source-count/domain-pack checks and isolated review-session retry. The broad continuation run had 4,251 passes, nine skips and four failures; two were source-inventory expectations, one historical-research freshness assumption, and one Windows file-replacement failure that passed in isolation. This is not a claim of a fresh all-suite green run. Earlier first-stage broad run reached 838 passes before its source-count failure. GitHub CI remains unavailable until an authorized push.
+October 28: source audit, idempotent reimport, guarded reconciliation, focused tests, schema/static checks and current-head CI are recorded in the follow-up PR and release receipt. Do not substitute the earlier validation for a later head. The live site's auth, records, source decisions and persistent inbox must remain intact throughout delivery.

@@ -12,7 +12,8 @@
     "berry-blackberry"
   ],
   "evidence_ids": [
-    "ev-planasa-about-us"
+    "ev-gene-planasa-about",
+    "ev-gene-closeout-planasa-rd"
   ],
   "attributes": {
     "gene_editing": {
@@ -21,7 +22,7 @@
       "company_ids": [
         "company-planasa"
       ],
-      "technology": "Traditional breeding plus unspecified modern technology",
+      "technology": "Marker-assisted pre-breeding; phenotyping; conventional crossing",
       "crop": "Strawberry; blueberry; raspberry; blackberry",
       "trait": null,
       "partner": null,
@@ -29,9 +30,10 @@
       "role": "breeder/germplasm owner; nursery/propagation",
       "stage": "Breeding / nursery business described",
       "milestone_date": null,
-      "milestone": "Official company page describes traditional breeding with modern technology.",
+      "milestone": "Original R&D page specifies molecular markers, breeder phenotyping and crossing; editing involvement remains not established.",
       "evidence_ids": [
-        "ev-gene-planasa-about"
+        "ev-gene-planasa-about",
+        "ev-gene-closeout-planasa-rd"
       ],
       "berry_ids": [
         "berry-strawberry",
@@ -41,7 +43,8 @@
       ],
       "verification": "single_source / awaiting analyst review",
       "last_reviewed": null,
-      "gaps": "Gene-editing involvement not established in this research pass; modern technology does not establish CRISPR."
+      "gaps": "No original editing license, edited-berry line or commercial edited product recovered; marker-assisted selection is not CRISPR.",
+      "research_reviewed_at": "2026-10-28"
     }
   }
 }

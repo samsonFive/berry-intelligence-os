@@ -1,0 +1,38 @@
+{
+  "id": "program-gene-heritable-edit-design",
+  "record_type": "entity",
+  "entity_type": "breeding_program",
+  "name": "Heritable genome-edit design capability",
+  "status": "unverified",
+  "description": "Research identity; source audit is separate from publication and claim approval.",
+  "berry_ids": [],
+  "evidence_ids": [
+    "ev-gene-closeout-heritable-products"
+  ],
+  "attributes": {
+    "gene_editing": {
+      "id": "program-gene-heritable-edit-design",
+      "name": "Heritable genome-edit design capability",
+      "company_ids": [
+        "company-heritable-agriculture"
+      ],
+      "technology": "AI-guided CRISPR / targeted-mutagenesis design",
+      "crop": "Crop-unassigned",
+      "trait": "Target discovery; off-target prediction; multi-gene optimization",
+      "role": "trait discovery; editing design platform",
+      "partner": null,
+      "geography": null,
+      "stage": "Company platform claim",
+      "milestone_date": null,
+      "milestone": "Rendered company product page explicitly offers genome-edit design.",
+      "evidence_ids": [
+        "ev-gene-closeout-heritable-products"
+      ],
+      "berry_ids": [],
+      "verification": "single_source / awaiting analyst review",
+      "last_reviewed": null,
+      "research_reviewed_at": "2026-10-28",
+      "gaps": "Not independent benchmarking, a crop-specific edit demonstration or proof of editing in the strawberry partnership."
+    }
+  }
+}

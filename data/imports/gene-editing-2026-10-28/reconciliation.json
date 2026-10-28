@@ -1,0 +1,22 @@
+{
+  "native_programs_updated_under_exact_prior_guard": [
+    "program-gene-simplot-ip",
+    "program-gene-ohalo-boosted",
+    "program-gene-ohalo-strawberry",
+    "program-gene-pairwise-hrb",
+    "program-gene-hrb-regeneration",
+    "program-gene-heat-strawberry",
+    "program-gene-plantik-platform",
+    "program-gene-plantik-tomato",
+    "program-gene-fall-creek",
+    "program-gene-qi-seedit",
+    "program-gene-qi-wheat",
+    "program-gene-qi-license",
+    "program-gene-qi-lab",
+    "program-gene-shunfeng",
+    "program-gene-qi-small-berry"
+  ],
+  "analyst_decisions_overwritten": 0,
+  "human_approvals_created": 0,
+  "paid_calls": 0
+}

@@ -1,5 +1,17 @@
 # Intelligence Coverage Matrix
 
+October 28, 2026: [Gene Editing source closeout](GENE-EDITING-LANDSCAPE.md)
+retains eleven seeds with 28 program/platform/affiliation rows, four sourced
+partnership claims and 46 publication candidates. All 30 prior excerpts matched
+new captures; 16 additional originals close FDA, Canadian, English, Chinese,
+platform and partner-description gaps. There are 45 readable captures and one
+HTTP-blocked PubMed record recovered as original bibliographic text through the
+web tool. The registry adds 13 deduplicated manual references, with no new feeds
+or paid calls. Unknown private facts stay unasserted; source audits are separate
+from human publication/Atomic Evidence decisions. See the dated package and
+review packet for provenance and scope. The following October 21 entry is the
+historical deployment baseline, not the current source count.
+
 October 23, 2026: [Publisher-first coverage and reader recovery](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 adds verified Watershed blog metadata and bounded Packer section discovery,
 supplemented by indexed results. Candidate checks found 16/15 publisher entries

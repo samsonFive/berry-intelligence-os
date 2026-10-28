@@ -10,7 +10,12 @@
   ],
   "evidence_ids": [
     "ev-gene-uk-simplot",
-    "ev-gene-us-simplot"
+    "ev-gene-us-simplot",
+    "ev-gene-closeout-canada-s4a",
+    "ev-gene-closeout-fda-meetings",
+    "ev-gene-closeout-fda-simplot",
+    "ev-gene-closeout-uk-confirmation",
+    "ev-gene-closeout-simplot-case-study"
   ],
   "attributes": {
     "gene_editing": {
@@ -25,19 +30,53 @@
       "partner": null,
       "geography": "England (planned selection trials)",
       "role": "editing platform",
-      "stage": "Regulatory notice / trials planned",
+      "stage": "Precision-bred status confirmed; food meeting/listing separately documented",
       "milestone_date": "2026-08-21",
-      "milestone": "Defra published PBM/26/FRAN/008; notice describes intended line-selection trials.",
+      "milestone": "Defra July 17 confirmation covers eight identifiers; August 21 notice maps the S4A lines and describes planned England selection trials.",
       "evidence_ids": [
         "ev-gene-uk-simplot",
-        "ev-gene-us-simplot"
+        "ev-gene-us-simplot",
+        "ev-gene-closeout-canada-s4a",
+        "ev-gene-closeout-fda-meetings",
+        "ev-gene-closeout-fda-simplot",
+        "ev-gene-closeout-uk-confirmation",
+        "ev-gene-closeout-simplot-case-study"
       ],
       "berry_ids": [
         "berry-strawberry"
       ],
       "verification": "single_source / awaiting analyst review",
       "last_reviewed": null,
-      "gaps": "No proof of completed England trials or retail sale. US 2020 scope is not universal approval; no automatic lineage equivalence to every PSI alliance line."
+      "gaps": "Completed England trials, food authorization and named commercial SKU not recovered. FDA Gn1 is confidential; Simplot presentation supplies the S4A/Gn1 association. No blanket PSI/PSG ancestry asserted.",
+      "regulatory_records": {
+        "England": {
+          "reference": "PBM/26/FRAN/008",
+          "decision_date": "2026-07-17",
+          "notice_date": "2026-08-21",
+          "scope": "precision-bred status"
+        },
+        "Canada": {
+          "identifier": "S4A",
+          "listing_date": "2024-10-24",
+          "scope": "voluntary non-novel list; marketing year anticipated"
+        },
+        "FDA": {
+          "reference": "VPM 0002",
+          "meeting_date": "2024-12-04",
+          "scope": "voluntary meeting; not safety evaluation"
+        }
+      },
+      "line_identifiers": [
+        "S4A-115",
+        "S4A-210",
+        "S4A-293",
+        "S4A-334",
+        "S4A-336",
+        "S4A-444",
+        "S4A-448",
+        "S4A-480"
+      ],
+      "research_reviewed_at": "2026-10-28"
     }
   }
 }

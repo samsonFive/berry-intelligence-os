@@ -14,7 +14,7 @@ from app.services import feed_first, news_workspace
 from scripts.backfill_gene_editing import backfill
 
 ROOT=Path(__file__).resolve().parents[1]
-SNAPSHOT=json.loads((ROOT/'data/imports/gene-editing-2026-10-20/snapshot.json').read_text(encoding='utf-8'))
+SNAPSHOT=json.loads(sorted((ROOT/'data/imports').glob('gene-editing-*/snapshot.json'))[-1].read_text(encoding='utf-8'))
 
 
 @pytest.mark.parametrize('text',[
@@ -120,7 +120,7 @@ def test_landscape_all_seeds_real_programs_and_evidence_edges():
     assert by_id['company-planasa']['editing_status']=='not established in this research pass'
     assert 'plant-sciences-genetics' in by_id['company-plant-sciences-genetics']['entity_id']
     adjacent=landscape_model(ROOT/'data',entities,records,{'adjacent':'1'})
-    assert adjacent['counts']['programs']==25 and len(adjacent['relationships'])==4
+    assert adjacent['counts']['programs']==28 and len(adjacent['relationships'])==4
     focused=landscape_model(ROOT/'data',entities,records,{'company':'company-hudson-river-biotechnology','adjacent':'1'})
     assert len(focused['companies'])==1 and len(focused['relationships'])==2
     assert 'https://' in csv_export(adjacent)
@@ -141,6 +141,11 @@ def test_rejected_sources_remove_edges_and_disputes_remain_visible():
     records=deepcopy(records)
     next(r for r in records if r['id']=='ev-gene-simplot-alliance')['status']='rejected'
     next(r for r in records if r['id']=='ev-gene-hrb-plantik')['verification_state']='disputed'
+    # Rejecting one announcement does not erase a separately sourced current
+    # partner account. Remove both before asserting that the edge disappears.
+    partial=landscape_model(ROOT/'data',entities,records,{})
+    assert any(e['id']=='rel-gene-simplot-psi' for e in partial['relationships'])
+    next(r for r in records if r['id']=='ev-gene-closeout-psg-research')['status']='rejected'
     model=landscape_model(ROOT/'data',entities,records,{})
     assert not any(e['id']=='rel-gene-simplot-psi' for e in model['relationships'])
     assert all('evidence gap' in p['verification'] for p in model['programs'] if p['id']=='program-gene-simplot-psi')
@@ -197,10 +202,63 @@ def test_manual_primary_supplement_keeps_regulatory_and_breeding_boundaries():
     soybean = programs['program-gene-qi-soybean']
     assert soybean['milestone_date'] == '2024-05-29'
     assert 'ev-gene-qi-rsr-response' in soybean['evidence_ids']
-    assert 'FDA' in soybean['gaps'] and 'commercial sales not established' in soybean['gaps']
+    assert 'sales' in soybean['gaps'] and 'P16' in soybean['gaps']
     florida = programs['program-gene-ohalo-florida']
-    assert florida['evidence_ids'] == ['ev-gene-ohalo-florida']
-    assert 'forecast' in florida['stage'] and 'editor unspecified' in florida['technology']
+    assert 'ev-gene-ohalo-florida' in florida['evidence_ids']
+    assert 'ev-gene-closeout-uf-ohalo-report' in florida['evidence_ids']
+    assert 'growth-room' in florida['stage'] and 'nuclease unspecified' in florida['technology']
     berry = programs['program-gene-qi-small-berry']
     assert berry['milestone_date'] is None
     assert 'Not a named edited-blueberry product' in berry['gaps']
+
+
+def test_closeout_keeps_source_audit_separate_from_trust_and_product_claims():
+    rows={r['id']:r for r in SNAPSHOT['evidence']}
+    assert len(rows)==46
+    assert all(r['research_review']['publication_decision']=='not_made' for r in rows.values())
+    assert all(r['status']=='in_review' for r in rows.values())
+    assert 'not an FDA food-safety evaluation' in rows['ev-gene-closeout-fda-pairwise']['summary']
+    programs={p['id']:p for p in SNAPSHOT['programs']}
+    assert 'company program not established' in programs['program-gene-fall-creek-paper-affiliation']['trait']
+    assert programs['program-gene-heritable-edit-design']['berry_ids']==[]
+    assert 'Not independent benchmarking' in programs['program-gene-heritable-edit-design']['gaps']
+    assert len(programs['program-gene-simplot-s4a']['line_identifiers'])==8
+    for key in ('fda-simplot','fda-pairwise','mara-soybean','heritable-products','uf-ohalo-report'):
+        assert 'gene-editing' in classify(rows['ev-gene-closeout-'+key])['topics']
+    assert not classify(rows['ev-gene-closeout-heritable-products'])['berry_related']
+    assert rows['ev-gene-closeout-fda-simplot']['geography_ids']==['geography-united-states']
+    assert 'Not a cultivation' in rows['ev-gene-closeout-mara-soybean']['geography_provenance']
+
+
+def test_closeout_reconciliation_preserves_analyst_edits_and_is_idempotent(tmp_path):
+    from scripts.apply_gene_editing_closeout import reconcile
+    old=json.loads((ROOT/'data/imports/gene-editing-2026-10-20/snapshot.json').read_text(encoding='utf-8'))
+    data=tmp_path/'data';inbox=tmp_path/'inbox'
+    for date,value in [('2026-10-20',old),('2026-10-28',SNAPSHOT)]:
+        path=data/'imports'/('gene-editing-'+date)/'snapshot.json';path.parent.mkdir(parents=True,exist_ok=True)
+        path.write_text(json.dumps(value),encoding='utf-8')
+    old_programs={p['id']:p for p in old['programs']}
+    for key in ('program-gene-simplot-s4a','program-gene-ohalo-florida'):
+        p=deepcopy(old_programs[key])
+        if key.endswith('ohalo-florida'):p['stage']='Analyst correction: preserve this'
+        path=data/'entities/breeding_programs'/(key+'.json');path.parent.mkdir(parents=True,exist_ok=True)
+        path.write_text(json.dumps(dict(id=key,name=p['name'],status='unverified',evidence_ids=p['evidence_ids'],attributes={'gene_editing':p})),encoding='utf-8')
+    for key in ('company-plant-sciences-genetics','company-qi-biodesign','company-shandong-shunfeng-biotechnology'):
+        path=data/'entities/companies'/(key+'.json');path.parent.mkdir(parents=True,exist_ok=True)
+        path.write_text(json.dumps({'id':key,'attributes':{}}),encoding='utf-8')
+    path=data/'configuration/sources.json';path.parent.mkdir(parents=True);path.write_text('[]',encoding='utf-8')
+    first=reconcile(data,inbox,apply=True)
+    assert first['program_updates']==['program-gene-simplot-s4a']
+    assert first['analyst_programs_preserved']==['program-gene-ohalo-florida']
+    second=reconcile(data,inbox,apply=True)
+    assert second['program_updates']==[] and second['identity_notes_added']==[]
+    assert second['publication_decisions']==0 and second['facts_created']==0
+    retained=json.loads((data/'entities/breeding_programs/program-gene-ohalo-florida.json').read_text())
+    assert retained['attributes']['gene_editing']['stage']=='Analyst correction: preserve this'
+
+
+def test_remote_closeout_reconciliation_requires_a_verified_backup(tmp_path,monkeypatch):
+    from scripts.apply_gene_editing_closeout import reconcile
+    monkeypatch.setenv('BIOS_REMOTE_INTERACTIVE','true')
+    with pytest.raises(ValueError,match='verified-backup'):
+        reconcile(tmp_path/'data',tmp_path/'inbox',apply=True)

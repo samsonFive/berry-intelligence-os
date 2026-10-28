@@ -9,7 +9,9 @@
     "berry-blackberry"
   ],
   "evidence_ids": [
-    "ev-gene-pairwise-2026"
+    "ev-gene-pairwise-2026",
+    "ev-gene-closeout-fda-meetings",
+    "ev-gene-closeout-fda-pairwise"
   ],
   "attributes": {
     "gene_editing": {
@@ -28,14 +30,17 @@
       "milestone_date": "2026-01-20",
       "milestone": "Pairwise reports outdoor trials and edited-blackberry sales to Colombian consumers.",
       "evidence_ids": [
-        "ev-gene-pairwise-2026"
+        "ev-gene-pairwise-2026",
+        "ev-gene-closeout-fda-meetings",
+        "ev-gene-closeout-fda-pairwise"
       ],
       "berry_ids": [
         "berry-blackberry"
       ],
       "verification": "single_source / awaiting analyst review",
       "last_reviewed": null,
-      "gaps": "Exact sale date, volumes, named retailers, genotype and independent performance not established; not a broad seedless launch."
+      "gaps": "Exact sale date, volumes, named retailers, genotype and independent performance not established; not a broad seedless launch. FDA VPM 0011 covers trait tracks, not a named sold cultivar, approval or proof of a commercial trait stack.",
+      "research_reviewed_at": "2026-10-28"
     }
   }
 }

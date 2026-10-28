@@ -5657,10 +5657,10 @@
     ],
     "linked_competitor_ids": [],
     "enabled": false,
-    "last_checked_at": "2026-10-21T07:06:19.512953+00:00",
-    "last_successful_check": null,
-    "last_status": "no_readable_text",
-    "status": "no_readable_text",
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
     "feed_status": "RSS/Atom not verified; no feed invented",
     "monitoring_priority": "medium",
     "created_at": "2026-10-21"
@@ -5682,10 +5682,10 @@
     ],
     "linked_competitor_ids": [],
     "enabled": false,
-    "last_checked_at": "2026-10-21T07:06:19.513889+00:00",
-    "last_successful_check": null,
-    "last_status": "no_readable_text",
-    "status": "no_readable_text",
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
     "feed_status": "RSS/Atom not verified; no feed invented",
     "monitoring_priority": "medium",
     "created_at": "2026-10-21"
@@ -6186,10 +6186,10 @@
     ],
     "linked_competitor_ids": [],
     "enabled": false,
-    "last_checked_at": "2026-10-21T07:06:35.711564+00:00",
-    "last_successful_check": null,
-    "last_status": "no_readable_text",
-    "status": "no_readable_text",
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
     "feed_status": "RSS/Atom not verified; no feed invented",
     "monitoring_priority": "medium",
     "created_at": "2026-10-21"
@@ -7093,6 +7093,359 @@
     "enabled": false,
     "last_checked_at": "2026-10-21",
     "last_successful_check": "2026-10-21",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-closeout-fda-meetings",
+    "type": "reference",
+    "label": "FDA · fda-meetings",
+    "value": "https://www.hfpappexternal.fda.gov/scripts/fdcc/?set=GenomeEditedPlants",
+    "url": "https://www.hfpappexternal.fda.gov/scripts/fdcc/?set=GenomeEditedPlants",
+    "canonical_url": "https://www.hfpappexternal.fda.gov/scripts/fdcc/?set=GenomeEditedPlants",
+    "publisher": "FDA",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-j-r-simplot",
+      "company-pairwise"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-closeout-fda-simplot",
+    "type": "reference",
+    "label": "FDA · fda-simplot",
+    "value": "https://www.hfpappexternal.fda.gov/scripts/fdcc/?id=0002&set=GenomeEditedPlants",
+    "url": "https://www.hfpappexternal.fda.gov/scripts/fdcc/?id=0002&set=GenomeEditedPlants",
+    "canonical_url": "https://www.hfpappexternal.fda.gov/scripts/fdcc/?id=0002&set=GenomeEditedPlants",
+    "publisher": "FDA",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-j-r-simplot"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-closeout-fda-pairwise",
+    "type": "reference",
+    "label": "FDA · fda-pairwise",
+    "value": "https://www.hfpappexternal.fda.gov/scripts/fdcc/?id=0011&set=GenomeEditedPlants",
+    "url": "https://www.hfpappexternal.fda.gov/scripts/fdcc/?id=0011&set=GenomeEditedPlants",
+    "canonical_url": "https://www.hfpappexternal.fda.gov/scripts/fdcc/?id=0011&set=GenomeEditedPlants",
+    "publisher": "FDA",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-pairwise"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-closeout-canada-s4a",
+    "type": "reference",
+    "label": "Health Canada · canada-s4a",
+    "value": "https://www.canada.ca/en/health-canada/services/food-nutrition/genetically-modified-foods-other-novel-foods/transparency-initiative/list-non-novel-products-plant-breeding-food-use.html",
+    "url": "https://www.canada.ca/en/health-canada/services/food-nutrition/genetically-modified-foods-other-novel-foods/transparency-initiative/list-non-novel-products-plant-breeding-food-use.html",
+    "canonical_url": "https://www.canada.ca/en/health-canada/services/food-nutrition/genetically-modified-foods-other-novel-foods/transparency-initiative/list-non-novel-products-plant-breeding-food-use.html",
+    "publisher": "Health Canada",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-j-r-simplot"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-closeout-uk-confirmation",
+    "type": "reference",
+    "label": "Defra · uk-confirmation",
+    "value": "https://assets.publishing.service.gov.uk/media/6a731929f0c3e4287c214d25/Precision_bred_confirmation_letter_-_PBM-26-FRAN-008.pdf",
+    "url": "https://assets.publishing.service.gov.uk/media/6a731929f0c3e4287c214d25/Precision_bred_confirmation_letter_-_PBM-26-FRAN-008.pdf",
+    "canonical_url": "https://assets.publishing.service.gov.uk/media/6a731929f0c3e4287c214d25/Precision_bred_confirmation_letter_-_PBM-26-FRAN-008.pdf",
+    "publisher": "Defra",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-j-r-simplot"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-closeout-mara-soybean",
+    "type": "reference",
+    "label": "China Ministry of Agriculture and Rural Affairs · mara-soybean",
+    "value": "https://www.moa.gov.cn/ztzl/zjyqwgz/spxx/202401/P020240118484537271708.pdf",
+    "url": "https://www.moa.gov.cn/ztzl/zjyqwgz/spxx/202401/P020240118484537271708.pdf",
+    "canonical_url": "https://www.moa.gov.cn/ztzl/zjyqwgz/spxx/202401/P020240118484537271708.pdf",
+    "publisher": "China Ministry of Agriculture and Rural Affairs",
+    "language": "zh",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-qi-biodesign",
+      "company-shandong-shunfeng-biotechnology"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-closeout-planasa-rd",
+    "type": "reference",
+    "label": "Planasa · planasa-rd",
+    "value": "https://planasa.com/rd/",
+    "url": "https://planasa.com/rd/",
+    "canonical_url": "https://planasa.com/rd/",
+    "publisher": "Planasa",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-planasa"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-closeout-uf-ohalo-report",
+    "type": "reference",
+    "label": "Florida Strawberry Research and Education Foundation / UF IFAS · uf-ohalo-report",
+    "value": "https://member.floridastrawberry.org/wp-content/uploads/2025/11/14_FSREF_report_2024-25_S-Lee_2_neopestalotiopsis-resistance.pdf",
+    "url": "https://member.floridastrawberry.org/wp-content/uploads/2025/11/14_FSREF_report_2024-25_S-Lee_2_neopestalotiopsis-resistance.pdf",
+    "canonical_url": "https://member.floridastrawberry.org/wp-content/uploads/2025/11/14_FSREF_report_2024-25_S-Lee_2_neopestalotiopsis-resistance.pdf",
+    "publisher": "Florida Strawberry Research and Education Foundation / UF IFAS",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-ohalo"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-closeout-fall-creek-affiliation",
+    "type": "reference",
+    "label": "PubMed / Horticulture Research · fall-creek-affiliation",
+    "value": "https://pubmed.ncbi.nlm.nih.gov/41635864/",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/41635864/",
+    "canonical_url": "https://pubmed.ncbi.nlm.nih.gov/41635864/",
+    "publisher": "PubMed / Horticulture Research",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-fall-creek-farm-and-nursery"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-closeout-shunfeng-recruitment",
+    "type": "reference",
+    "label": "China Agricultural University / Shunfeng · shunfeng-recruitment",
+    "value": "https://cbs.cau.edu.cn/module/download/downfile.jsp?classid=0&filename=7c00cfc203104491929b69f13b894b22.pdf",
+    "url": "https://cbs.cau.edu.cn/module/download/downfile.jsp?classid=0&filename=7c00cfc203104491929b69f13b894b22.pdf",
+    "canonical_url": "https://cbs.cau.edu.cn/module/download/downfile.jsp?classid=0&filename=7c00cfc203104491929b69f13b894b22.pdf",
+    "publisher": "China Agricultural University / Shunfeng",
+    "language": "zh",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-shandong-shunfeng-biotechnology"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-closeout-hrb-financing",
+    "type": "reference",
+    "label": "Hudson River Biotechnology · hrb-financing",
+    "value": "https://www.hudsonriver.bio/news/hudson-river-raises-new-financing-for-novel-breeding-techniques",
+    "url": "https://www.hudsonriver.bio/news/hudson-river-raises-new-financing-for-novel-breeding-techniques",
+    "canonical_url": "https://www.hudsonriver.bio/news/hudson-river-raises-new-financing-for-novel-breeding-techniques",
+    "publisher": "Hudson River Biotechnology",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-hudson-river-biotechnology"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-closeout-planasa-owner",
+    "type": "reference",
+    "label": "Planasa · planasa-owner",
+    "value": "https://planasa.com/planasa-acquires-sweet-corn-breeder-ifsi/",
+    "url": "https://planasa.com/planasa-acquires-sweet-corn-breeder-ifsi/",
+    "canonical_url": "https://planasa.com/planasa-acquires-sweet-corn-breeder-ifsi/",
+    "publisher": "Planasa",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-planasa"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
+    "last_status": "readable",
+    "status": "readable",
+    "feed_status": "RSS/Atom not verified; no feed invented",
+    "monitoring_priority": "medium",
+    "created_at": "2026-10-21"
+  },
+  {
+    "id": "source-gene-closeout-simplot-case-study",
+    "type": "reference",
+    "label": "Simplot / SCRA · simplot-case-study",
+    "value": "https://specialtycropassistance.org/wp-content/uploads/2026/04/S5-1_SCRA2026_Koch_Strawberry_Simplot_CaseStudy_260401.pdf",
+    "url": "https://specialtycropassistance.org/wp-content/uploads/2026/04/S5-1_SCRA2026_Koch_Strawberry_Simplot_CaseStudy_260401.pdf",
+    "canonical_url": "https://specialtycropassistance.org/wp-content/uploads/2026/04/S5-1_SCRA2026_Koch_Strawberry_Simplot_CaseStudy_260401.pdf",
+    "publisher": "Simplot / SCRA",
+    "language": "en",
+    "source_type": "official_or_partner_page",
+    "acquisition_method": "manual_public_page_check",
+    "topic_scope": [
+      "gene-editing",
+      "advanced-breeding"
+    ],
+    "linked_competitor_ids": [
+      "company-j-r-simplot"
+    ],
+    "enabled": false,
+    "last_checked_at": "2026-10-28",
+    "last_successful_check": "2026-10-28",
     "last_status": "readable",
     "status": "readable",
     "feed_status": "RSS/Atom not verified; no feed invented",

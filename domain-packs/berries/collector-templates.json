@@ -1,6 +1,6 @@
 {
-  "_comment": "V2 Phase 1B (BL-023, docs/v2/10-BACKLOG.md). Templates are generated from and kept in exact source-id parity with data/configuration/sources.json. collector_type separates the platform-level Collector mechanism (rss, keyword_search -- both automatable per docs/v2/02-TARGET-ARCHITECTURE.md Section 7) from reference_manual. All 265 live sources are accounted for: 220 collector templates and 45 explicitly excluded manual source references. Forward Acquisition Coverage Expansion V1 added 20 direct recurring sources on 2026-08-24 (17 RSS and 3 bounded official leaf sitemaps, represented by the existing platform-level rss collector type). Deliberately omitted workspace operational history includes linked_competitor_ids, last_checked_at, last_status, validated_count, purged_count, and created_at.",
-  "excluded_count": 45,
+  "_comment": "V2 Phase 1B (BL-023, docs/v2/10-BACKLOG.md). Templates are generated from and kept in exact source-id parity with data/configuration/sources.json. collector_type separates the platform-level Collector mechanism (rss, keyword_search -- both automatable per docs/v2/02-TARGET-ARCHITECTURE.md Section 7) from reference_manual. All 278 live sources are accounted for: 220 collector templates and 58 explicitly excluded manual source references. Forward Acquisition Coverage Expansion V1 added 20 direct recurring sources on 2026-08-24 (17 RSS and 3 bounded official leaf sitemaps, represented by the existing platform-level rss collector type). Deliberately omitted workspace operational history includes linked_competitor_ids, last_checked_at, last_status, validated_count, purged_count, and created_at.",
+  "excluded_count": 58,
   "excluded": [
   {
     "id": "source-gene-pairwise-fontana",
@@ -181,6 +181,58 @@
   {
     "id": "source-gene-qi-confitop",
     "reason": "Gene-editing mission original-source manual reference; no verified recurring feed. Kept in live registry for provenance."
+  },
+  {
+    "id": "source-gene-closeout-fda-meetings",
+    "reason": "October 28 gene-editing closeout: checked original-source manual reference; no recurring feed inferred."
+  },
+  {
+    "id": "source-gene-closeout-fda-simplot",
+    "reason": "October 28 gene-editing closeout: checked original-source manual reference; no recurring feed inferred."
+  },
+  {
+    "id": "source-gene-closeout-fda-pairwise",
+    "reason": "October 28 gene-editing closeout: checked original-source manual reference; no recurring feed inferred."
+  },
+  {
+    "id": "source-gene-closeout-canada-s4a",
+    "reason": "October 28 gene-editing closeout: checked original-source manual reference; no recurring feed inferred."
+  },
+  {
+    "id": "source-gene-closeout-uk-confirmation",
+    "reason": "October 28 gene-editing closeout: checked original-source manual reference; no recurring feed inferred."
+  },
+  {
+    "id": "source-gene-closeout-mara-soybean",
+    "reason": "October 28 gene-editing closeout: checked original-source manual reference; no recurring feed inferred."
+  },
+  {
+    "id": "source-gene-closeout-planasa-rd",
+    "reason": "October 28 gene-editing closeout: checked original-source manual reference; no recurring feed inferred."
+  },
+  {
+    "id": "source-gene-closeout-uf-ohalo-report",
+    "reason": "October 28 gene-editing closeout: checked original-source manual reference; no recurring feed inferred."
+  },
+  {
+    "id": "source-gene-closeout-fall-creek-affiliation",
+    "reason": "October 28 gene-editing closeout: checked original-source manual reference; no recurring feed inferred."
+  },
+  {
+    "id": "source-gene-closeout-shunfeng-recruitment",
+    "reason": "October 28 gene-editing closeout: checked original-source manual reference; no recurring feed inferred."
+  },
+  {
+    "id": "source-gene-closeout-hrb-financing",
+    "reason": "October 28 gene-editing closeout: checked original-source manual reference; no recurring feed inferred."
+  },
+  {
+    "id": "source-gene-closeout-planasa-owner",
+    "reason": "October 28 gene-editing closeout: checked original-source manual reference; no recurring feed inferred."
+  },
+  {
+    "id": "source-gene-closeout-simplot-case-study",
+    "reason": "October 28 gene-editing closeout: checked original-source manual reference; no recurring feed inferred."
   }
 ],
   "collector_templates": [
