@@ -38,7 +38,7 @@ Public-seed profile gaps remain 11 photos, 13 rights references, 33 cited-trait
 entries and ten company links. Its 64 profiles do not replace the separate
 65-profile live runtime.
 
-The final 34 focused checks pass with one existing warning in 55.37 seconds. They cover literal
+The final 61 focused checks pass with one existing warning in 76.42 seconds. They cover literal
 names and dates, brand/unnamed exclusions, every prior saved candidate ID,
 operator rejection/notes/aliases/photo choices, unchanged Kwanza holds and
 private session-photo presentation. The initial route check exposed a missing
@@ -47,7 +47,10 @@ Native review also found that the interview period was absent from its visible
 title. The title and source context now state Autumn 2022 without inventing a
 publication day; a route regression covers this historical-date distinction.
 The old Sun Belle checkpoint test excludes this later batch when replaying its
-historical input; current-corpus preservation is checked separately.
+historical input; current-corpus preservation is checked separately. The whole-
+corpus manifest regression now checks the actual new four-berry denominators
+and Sun Belle/Perfection named-but-incomplete states instead of the old fixed
+source totals.
 
 Native desktop/412px review confirms the attributed 881×1,024 source photo,
 explicit load/hide, visible historical period/context and company-filter scope.
