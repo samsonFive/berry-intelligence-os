@@ -1,5 +1,19 @@
 # Intelligence Coverage Matrix
 
+October 28 — [National berry-rights records](NATIONAL-BERRY-RIGHTS-REVIEW.md)
+add 19 unreviewed scopes / 69 entries across four crops. Two historical bulletins,
+a USDA abstract and an Argentine act retain legal stages, literal numbers and
+name bridges; an earlier notice is unavailable. Corpus: 516 sections / 1,854
+occurrences / 165 matches / 1,689 review needs. Kwanza's newly documented coded/
+uncoded bridge holds its existing photo for name review; public-seed photo gaps
+become 11, with rights/traits/company gaps unchanged at 13/33/10. Raw photos,
+saved user choices and all canonical records remain. Three direct captures
+succeeded and two timed out; 15 selected PDF pages were visually checked.
+Initial 40 affected checks pass; final metadata/native/current-head verification
+is required. This source-only child stays outside frozen release #430. Its
+approval question and the separate #421/#426 scopes remain unchanged. All 31
+accepted definitions/order, the guide and human gates remain.
+
 October28 — [Plablue original filing figures](PLABLUE-ORIGINAL-FIGURES-REVIEW.md):
 six bounded scopes add 15 occurrences, including two subjects and 13 contextual
 parents/comparisons/codes/discrepant labels. Separate full figures/claim anchors
