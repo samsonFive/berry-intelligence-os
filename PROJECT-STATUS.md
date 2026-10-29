@@ -1,5 +1,18 @@
 # Project Status
 
+## Coverage inventory performance — October 28, 2026
+
+The [photo preparation change](docs/v2/COVERAGE-PHOTO-REQUEST-PERFORMANCE.md)
+addresses a measured repeat-work bottleneck while keeping all identity/reuse
+and saved-photo decisions. Alternating local64-profile calls return identical
+40,819-byte inventories: before6.606/4.8731s, after0.5857/0.6256s. These are
+function timings, not a whole-app speed claim. All69 affected checks pass with
+one existing warning; native64-row/filtered/412px/review-handoff checks pass.
+Exact-head CI remains required. This
+separate child does not alter frozen421/426 or their pending actual release
+decisions. Source/profile gap counts and all31 requirement definitions/order
+remain unchanged; production is not modified.
+
 ## Current release and whole-thread audit — October 28, 2026
 
 The [full-thread completion audit](docs/v2/FULL-THREAD-COMPLETION-AUDIT.md) separates

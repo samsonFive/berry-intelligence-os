@@ -163,6 +163,17 @@ application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
 
+October28 coverage follow-up: [request-local photo preparation](COVERAGE-PHOTO-REQUEST-PERFORMANCE.md)
+removes repeated validation and discrepancy calculations from the64-profile
+inventory. Alternating exact-baseline calls return identical40,819-byte results:
+before6.606/4.8731s, after0.5857/0.6256s. All69 affected checks pass with one
+existing warning; native64-row/filtered/phone/review-handoff checks pass and
+exact-head CI remains. The index exists for one
+call only; edits, ambiguity, existing holds and hidden-photo choices stay live.
+No registry/domain schema or trust behavior changes. This improves one measured
+bottleneck; candidate rendering, representative route/runtime timings and wider
+contention remain open. Frozen release421/426 decisions remain separate.
+
 October 14: the isolated 1,157-row review page returned about 4.1 MB in 8.066 s;
 one alphabet group returned 257 KB in 6.940 s. Profiling recorded 579,425 repeated
 literal normalization calls. The [bounded text-cache fix](CATALOG-NORMALIZATION-PERFORMANCE.md)

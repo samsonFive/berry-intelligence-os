@@ -74,21 +74,73 @@ def _exact_candidate_code_photo(photo, target, ref):
                 and photo["source_url"] == (ref.get("product_url") or ref.get("url")))
 
 
-def source_photos(target, *, sources=(), candidate=False, varieties=()):
-    refs = [(None, ref) for ref in target.get("portfolio_sources", [])] if candidate else [
-        (source, name) for source in sources for name in source.get("names", [])]
+def _source_photo(raw, validated=None):
+    photo = dict(validated) if validated is not None else validate_photo(raw)
+    if raw.get("preview_image_url"):
+        from app.services.variety_photo_previews import preview_url
+        photo["preview_image_url"] = preview_url(raw["preview_image_url"])
+        if raw.get("preview_caption"):
+            photo["caption"] = validate_photo({**raw, "caption": raw["preview_caption"]})["caption"]
+    return photo
+
+
+class SourcePhotoIndex:
+    """One coverage call's source preparation; never a cross-request cache.
+
+    Keep the authoritative validators, resolver and discrepancy calculation.
+    Only their repeated work over the same input objects is shared. Candidate
+    photos and saved user overrides continue through their existing paths.
+    """
+
+    def __init__(self, sources, varieties):
+        self.sources, self.varieties = sources, varieties
+        self.refs = [(source, ref) for source in sources for ref in source.get("names", [])]
+        self._validated, self._previews, self._matches = {}, {}, {}
+        self._pair_notes = None
+
+    def require_inputs(self, sources, varieties):
+        if sources is not self.sources or varieties is not self.varieties:
+            raise ValueError("Photo preparation belongs to a different source or catalog snapshot")
+
+    def photo(self, raw, *, preview=False):
+        key = id(raw)
+        if key not in self._validated:
+            self._validated[key] = validate_photo(raw)
+        if not preview:
+            return self._validated[key]
+        if key not in self._previews:
+            self._previews[key] = _source_photo(raw, self._validated[key])
+        return self._previews[key]
+
+    def pair_notes(self):
+        if self._pair_notes is None:
+            from app.services.variety_portfolio_coverage import _identity_pair_notes
+            self._pair_notes = _identity_pair_notes(self.sources)
+        return self._pair_notes
+
+    def matched_ids(self, photo):
+        key = (photo["named_variety"], photo["berry_id"])
+        if key not in self._matches:
+            result = resolve_identity({"candidate_name": key[0], "berry_id": key[1]}, list(self.varieties))
+            self._matches[key] = {row["variety_id"] for row in result["matches"] if row["reason"] == "exact_identity_string"}
+        return self._matches[key]
+
+
+def source_photos(target, *, sources=(), candidate=False, varieties=(), _index=None):
+    if _index is not None:
+        _index.require_inputs(sources, varieties)
+        if candidate:
+            raise ValueError("Catalog photo preparation cannot be used for candidate photos")
+    refs = ([(None, ref) for ref in target.get("portfolio_sources", [])] if candidate else
+            _index.refs if _index is not None else [
+                (source, name) for source in sources for name in source.get("names", [])])
     rows = {}
     pair_notes = None
     for source, ref in refs:
         if ref.get("identity_notes") and not candidate:
             continue
         for raw in ref.get("photos", []):
-            photo = validate_photo(raw)
-            if raw.get("preview_image_url"):
-                from app.services.variety_photo_previews import preview_url
-                photo["preview_image_url"] = preview_url(raw["preview_image_url"])
-                if raw.get("preview_caption"):
-                    photo["caption"] = validate_photo({**raw, "caption": raw["preview_caption"]})["caption"]
+            photo = _index.photo(raw, preview=True) if _index is not None else _source_photo(raw)
             if not compatible(photo, target, candidate=candidate):
                 continue
             code_only = bool(ref.get("identity_notes"))
@@ -99,12 +151,15 @@ def source_photos(target, *, sources=(), candidate=False, varieties=()):
                 # including when only one of those identities is in the catalog.
                 from app.services.variety_portfolio_coverage import _identity_pair_notes, _key
                 if pair_notes is None:
-                    pair_notes = _identity_pair_notes(sources)
+                    pair_notes = _index.pair_notes() if _index is not None else _identity_pair_notes(sources)
                 if pair_notes.get((source["id"], _key(ref), ref.get("trade_name") or ref["candidate_name"]), []):
                     continue
             if not candidate and varieties:
-                result = resolve_identity({"candidate_name": photo["named_variety"], "berry_id": photo["berry_id"]}, list(varieties))
-                ids = {row["variety_id"] for row in result["matches"] if row["reason"] == "exact_identity_string"}
+                if _index is not None:
+                    ids = _index.matched_ids(photo)
+                else:
+                    result = resolve_identity({"candidate_name": photo["named_variety"], "berry_id": photo["berry_id"]}, list(varieties))
+                    ids = {row["variety_id"] for row in result["matches"] if row["reason"] == "exact_identity_string"}
                 if ids != {target["id"]}:
                     continue
             key = "source-photo-" + sha256((photo["source_url"] + "\n" + photo["image_url"]).encode()).hexdigest()[:20]

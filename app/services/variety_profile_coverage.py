@@ -8,7 +8,7 @@ from urllib.parse import quote
 
 from app.services.berries.variety import variety_patent_link
 from app.services.variety_navigation import ROLE_LABELS, company_actors
-from app.services.variety_photos import gallery, source_photos
+from app.services.variety_photos import SourcePhotoIndex, gallery, source_photos
 from app.services.variety_photo_review import photo_identity_reviews
 from app.services.variety_portfolio_coverage import reconcile_portfolios
 from app.services.variety_universe.coverage import BERRY_LABELS, RIGHTS_SOURCE_TYPES
@@ -77,6 +77,7 @@ def profile_field_coverage(*, varieties, entities, relationships, published_evid
             if name.get('catalog_id') and not name.get('identity_notes'):
                 source_by_variety[name['catalog_id']].append(source)
 
+    photo_index = SourcePhotoIndex(portfolio_sources, varieties)
     rows = []
     for variety in varieties:
         vid = variety['id']
@@ -84,8 +85,8 @@ def profile_field_coverage(*, varieties, entities, relationships, published_evid
         traits = [t for t in attrs.get('traits') or [] if isinstance(t, dict)
                   and t.get('trait') and t.get('value') not in (None, '')]
         cited = sum(1 for t in traits if any(eid in published for eid in t.get('evidence_ids') or []))
-        sourced_photos = source_photos(variety, sources=portfolio_sources, varieties=varieties)
-        photo_reviews = photo_identity_reviews(variety, sources=portfolio_sources, varieties=varieties, sourced=sourced_photos)
+        sourced_photos = source_photos(variety, sources=portfolio_sources, varieties=varieties, _index=photo_index)
+        photo_reviews = photo_identity_reviews(variety, sources=portfolio_sources, varieties=varieties, sourced=sourced_photos, _index=photo_index)
         photos = gallery(variety, sourced=sourced_photos,
                          profile=profiles.get(vid), authoring=True)
         patent = variety_patent_link(variety, patents)
