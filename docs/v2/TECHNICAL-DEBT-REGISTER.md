@@ -1,5 +1,14 @@
 # Technical Debt Register
 
+October28 — TD-116 [Plablue original figures](PLABLUE-ORIGINAL-FIGURES-REVIEW.md):
+two original claims and full-size monochrome figures supply held references for
+Blue Manila/Blue Maldiva through existing aliases. Printed 1542/1545 table labels,
+Legacy/Biloxi comparator text and 15.07.018/15.09.003 illustration wording stay
+literal and separately scoped; no value or alias is silently corrected. Public
+photo gaps fall from 12 to 10; other fields remain 13/33/10. Final 34 affected
+checks and native review pass; CI/release gates and CAT-01/CAT-02/TD-116 stay open. No
+canonical data, schema, current-rights, human identity or permission decision.
+
 October28 — TD-116 [held-photo routing](VARIETY-PHOTO-IDENTITY-REVIEW-ROUTING.md):
 an already captured Rutgers D'Light image was correctly identity-held but appeared
 as No photo. Directory/profile/editor/coverage now expose the source and name

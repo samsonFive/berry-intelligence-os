@@ -1,5 +1,16 @@
 # Intelligence Coverage Matrix
 
+October28 — [Plablue original filing figures](PLABLUE-ORIGINAL-FIGURES-REVIEW.md):
+six bounded scopes add 15 occurrences, including two subjects and 13 contextual
+parents/comparisons/codes/discrepant labels. Separate full figures/claim anchors
+reduce public 64-profile photo gaps from 12 to 10; rights/traits/company gaps stay
+13/33/10. Bounded corpus: 497 sections / 1,785 occurrences / 168 matches / 1,617
+review needs; 392 readable / 14 unreadable / 137 follow-up. The 77 subjects remain
+61 checked / 13 partial / one unavailable / two identity holds. Counts are not unique varieties or independent
+verification. No source/identity/trait/region/current-rights/reuse decision or
+new backend is approved. Earlier publisher 403 captures and human worksheets
+remain; native checks pass and separate CI/current-production release proof still applies.
+
 October28 — [Photo identity review routing](VARIETY-PHOTO-IDENTITY-REVIEW-ROUTING.md)
 distinguishes an existing image lead from a missing link. Rutgers D'Light's
 attributed image remains identity-held, with both coded/uncoded leads reachable;
