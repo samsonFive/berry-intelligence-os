@@ -106,6 +106,17 @@ def test_enqueue_cached_content_clears_obsolete_pending_fingerprints(tmp_path):
         assert db.execute('SELECT count(*) FROM tag_pending').fetchone()[0]==0
 
 
+def test_name_only_tags_have_a_definition_and_keep_their_meaning_on_rename(tmp_path):
+    tag=tags.create(tmp_path,'Labor')
+    request=json.loads(semantic.prompt([{'id':'one','text':'Seasonal workers negotiate wages.'}],tags.catalog(tmp_path)).split('\n')[-1])
+    definition=next(t['definition'] for t in request['definitions'] if t['id']==tag['id'])
+    assert definition=='Reporting about Labor.'
+    row=semantic.projection(source())
+    before=semantic.fingerprint(row,tags.catalog(tmp_path))
+    tags.update(tmp_path,tag['id'],'Workforce','')
+    assert semantic.fingerprint(row,tags.catalog(tmp_path))==before
+
+
 def test_long_stored_body_is_chunked_and_resumed_without_repeating_calls(tmp_path):
     row=source()
     row['article']={'full_text':'The berry nursery reported steady activity. '*210+'Seasonal workers negotiated higher wages.'}

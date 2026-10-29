@@ -54,9 +54,13 @@ def configuration():
             'endpoint':os.environ.get('BIOS_PERPLEXITY_AGENT_BASE_URL','https://api.perplexity.ai/v1/agent').strip()}
 
 
+def tag_definition(tag):
+    return tag['description'] or 'Reporting about ' + (tag.get('matcher_name') or tag['name']) + '.'
+
+
 def fingerprint(record, tags):
     definitions = [{'id':t['id'],'name':t.get('matcher_name') or t['name'],
-                    'description':t['description'],'version':t['version']} for t in sorted(tags,key=lambda t:t['id'])]
+                    'description':tag_definition(t),'version':t['version']} for t in sorted(tags,key=lambda t:t['id'])]
     value = [VERSION, configuration(), definitions, record]
     return hashlib.sha256(json.dumps(value,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
 
@@ -140,7 +144,7 @@ def passages(text):
 
 
 def prompt(records, tags):
-    definitions = [{'id':t['id'],'name':t.get('matcher_name') or t['name'],'definition':t['description']} for t in tags]
+    definitions = [{'id':t['id'],'name':t.get('matcher_name') or t['name'],'definition':tag_definition(t)} for t in tags]
     return '''Classify agricultural news by meaning into the supplied flat, independent tag definitions.
 Return every supplied article ID exactly once, including articles with no matching tags (empty assignments).
 Return ALL matching tags, not only the most specific one. A genomic-selection breeding program can
