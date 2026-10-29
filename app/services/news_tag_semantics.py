@@ -146,7 +146,8 @@ def passages(text):
 def prompt(records, tags):
     definitions = [{'id':t['id'],'name':t.get('matcher_name') or t['name'],'definition':tag_definition(t)} for t in tags]
     return '''Classify agricultural news by meaning into the supplied flat, independent tag definitions.
-Return every supplied article ID exactly once, including articles with no matching tags (empty assignments).
+Return an articles object keyed by EVERY supplied article ID. Each value is an array of assignments.
+Sources with no matching tags MUST have an empty array; never omit a key.
 Return ALL matching tags, not only the most specific one. A genomic-selection breeding program can
 independently match both Advanced Breeding and Genetics; evaluate each supplied definition.
 For each positive assignment set support to the ID of a supplied passage from that article.
@@ -166,13 +167,13 @@ An assignment says only that this source discusses this subject. Use empty assig
 
 
 def response_schema(tags, records):
-    schema = json.loads(json.dumps(SCHEMA))
-    article = schema['properties']['articles']['items']['properties']
-    article['id']['enum'] = [r['id'] for r in records]
-    assignment = article['assignments']['items']['properties']
-    assignment['tag_id']['enum'] = [t['id'] for t in tags]
-    assignment['support']['enum'] = sorted({key for r in records for key in passages(r['text'])}) or ['no-support']
-    return schema
+    article = {'type':'object','additionalProperties':False,'required':[r['id'] for r in records],'properties':{}}
+    for record in records:
+        article['properties'][record['id']] = {'type':'array','items':{
+            'type':'object','additionalProperties':False,'required':['tag_id','support'],'properties':{
+                'tag_id':{'type':'string','enum':[t['id'] for t in tags]},
+                'support':{'type':'string','enum':list(passages(record['text'])) or ['no-support']}}}}
+    return {'type':'object','additionalProperties':False,'required':['articles'],'properties':{'articles':article}}
 
 
 def source_passage(text, support):
@@ -211,6 +212,8 @@ def validate(payload, records, tags):
     expected = {r['id']:r for r in records}
     known = {t['id'] for t in tags}
     output = {}
+    if isinstance(payload,dict) and isinstance(payload.get('articles'),dict):
+        payload = {'articles':[{'id':key,'assignments':value} for key,value in payload['articles'].items()]}
     if not isinstance(payload,dict) or not isinstance(payload.get('articles'),list):
         raise ValueError('Incomplete classifier response')
     for row in payload['articles']:
