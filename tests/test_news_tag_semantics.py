@@ -79,6 +79,33 @@ def test_passage_ids_preserve_source_typos_and_reject_unknown_references():
     assert len(spans)>1 and all(len(s)<=600 and s in 'Long stored article. '*1000 for s in spans.values())
 
 
+def test_schema_limits_ids_and_valid_duplicate_labels_are_idempotent():
+    records=[{'id':'one','text':'Berry export prices fell by twenty percent.'}]
+    catalog=[{'id':'markets'}]
+    schema=semantic.response_schema(catalog,records)
+    fields=schema['properties']['articles']['items']['properties']
+    assert fields['id']['enum']==['one']
+    assert fields['assignments']['items']['properties']['tag_id']['enum']==['markets']
+    assert fields['assignments']['items']['properties']['support']['enum']==['p0']
+    item={'tag_id':'markets','support':'p0'}
+    payload={'articles':[{'id':'one','assignments':[item,item]}]}
+    assert semantic.validate(payload,records,catalog)=={'one':{'markets':records[0]['text']}}
+    payload['articles'][0]['assignments'][1]={'tag_id':'markets','support':'fabricated passage'}
+    with pytest.raises(ValueError,match='Unsupported'):
+        semantic.validate(payload,records,catalog)
+
+
+def test_enqueue_cached_content_clears_obsolete_pending_fingerprints(tmp_path):
+    row=source()
+    semantic.enqueue(tmp_path,[row]);semantic.run(tmp_path,complete_json=completer([]))
+    with tags.database(tmp_path) as db:
+        db.execute('INSERT OR REPLACE INTO tag_pending VALUES(?,?)',(row['id'],'obsolete'))
+    semantic.enqueue(tmp_path,[row])
+    assert semantic.run(tmp_path,complete_json=completer([]))['status']=='ready'
+    with tags.database(tmp_path,readonly=True) as db:
+        assert db.execute('SELECT count(*) FROM tag_pending').fetchone()[0]==0
+
+
 def test_long_stored_body_is_chunked_and_resumed_without_repeating_calls(tmp_path):
     row=source()
     row['article']={'full_text':'The berry nursery reported steady activity. '*210+'Seasonal workers negotiated higher wages.'}

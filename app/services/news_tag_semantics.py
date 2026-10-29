@@ -84,6 +84,8 @@ def enqueue(inbox_dir, records, *, schedule=False):
             cached = db.execute('SELECT fingerprint FROM tag_semantic_cache WHERE article=?',(record['id'],)).fetchone()
             if not cached or cached[0] != key:
                 db.execute('INSERT OR REPLACE INTO tag_pending VALUES(?,?)',(record['id'],key))
+            else:
+                db.execute('DELETE FROM tag_pending WHERE article=?',(record['id'],))
     if schedule:
         start_worker(inbox_dir)
 
@@ -159,6 +161,16 @@ An assignment says only that this source discusses this subject. Use empty assig
     for r in records]},ensure_ascii=False)
 
 
+def response_schema(tags, records):
+    schema = json.loads(json.dumps(SCHEMA))
+    article = schema['properties']['articles']['items']['properties']
+    article['id']['enum'] = [r['id'] for r in records]
+    assignment = article['assignments']['items']['properties']
+    assignment['tag_id']['enum'] = [t['id'] for t in tags]
+    assignment['support']['enum'] = sorted({key for r in records for key in passages(r['text'])}) or ['no-support']
+    return schema
+
+
 def source_passage(text, support):
     """Resolve typographic equivalents to the actual contiguous source span.
 
@@ -204,8 +216,8 @@ def validate(payload, records, tags):
         source = expected[row['id']]['text']
         supplied = passages(source)
         for item in row['assignments']:
-            if not isinstance(item,dict) or item.get('tag_id') not in known or item['tag_id'] in positive:
-                raise ValueError('Unexpected or duplicate classifier tag')
+            if not isinstance(item,dict) or item.get('tag_id') not in known:
+                raise ValueError('Unexpected classifier tag')
             reference = item.get('support')
             support = supplied.get(reference) if isinstance(reference,str) else None
             # Exact-quote responses from older integrations remain valid; this
@@ -214,7 +226,7 @@ def validate(payload, records, tags):
                 support = source_passage(source, reference)
             if support is None:
                 raise ValueError('Unsupported classifier passage')
-            positive[item['tag_id']] = support
+            positive.setdefault(item['tag_id'],support)
         output[row['id']] = positive
     if set(output) != set(expected):
         raise ValueError('Missing source decisions')
@@ -267,7 +279,8 @@ def run(inbox_dir, *, complete_json=None, max_calls=MAX_CALLS, batch_size=BATCH_
             # is held while the provider is running. Corrections remain usable.
             decisions = {}
             if units:
-                result = complete_json(prompt([{'id':u['id'],'text':u['text']} for u in units],tags),schema=SCHEMA,model=config['model'],
+                supplied = [{'id':u['id'],'text':u['text']} for u in units]
+                result = complete_json(prompt(supplied,tags),schema=response_schema(tags,supplied),model=config['model'],
                                        provider=config['provider'],max_output_tokens=6000)
                 calls += 1
                 decisions = validate(result.parsed if hasattr(result,'parsed') else result,units,tags)
