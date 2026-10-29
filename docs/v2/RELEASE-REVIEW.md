@@ -1,6 +1,19 @@
 # Berry Intelligence release review
 
-## Consolidated catalog candidate — October 28, 2026
+## Current tested release candidates — October 28, 2026
+
+The [whole-thread completion audit](FULL-THREAD-COMPLETION-AUDIT.md) distinguishes
+delivered platform behavior from continuing catalog research and human decisions.
+Platform #421, head `4cedbdc689750292715a900850d66e3a12c42be0`, passes all four
+required checks with 5,284 tests. Native fictional-account review and its own
+fresh production-copy preservation check pass: five original accounts, 65
+profiles, 9,821 protected JSON files and existing contents of four databases
+preserved. Its candidate image is
+`sha256:0deb06291a72fb45c9b4489c7ba73f905f4dd6d50fdd7922c4bc58d1695c66e0`.
+Per-account Digest, profile demand loading, responsive anchors, bounded review
+tooling and the shared-Workspace guide remain unreleased pending actual approval.
+
+### Consolidated catalog #426
 
 The source stack #399/#400/#418/#419/#422/#423/#424/#425 is assembled separately
 from platform-only #421. It adds original filing/claim links, scoped source-name
@@ -16,17 +29,32 @@ is part of this release. The public64-profile research seed must never replace
 the65-profile live runtime. The remaining gaps and independent human worksheets
 remain open; the source audit is not a web-completeness score.
 
-This candidate still requires full checks and a new bounded preservation check
-on a fresh production copy. Earlier #418 and platform #421 receipts do not prove
-this combined catalog release. The planned rehearsal has one job,1GiB/no swap,
-one CPU, no network/ports, read-only root and a ten-minute limit; it must preserve
-all original accounts, user data and existing databases. No production image,
-mount or data is replaced during preparation.
+Head `87bb0187b03b06bcb54ec03a213c8167c5135651` now passes all four required
+checks with 5,330 tests. Its own bounded rehearsal on a fresh production copy
+passes; this is new proof, not inherited from #418 or #421. The verified backup
+contains 19,838 files and four individually consistent SQLite copies. The
+candidate preserves five original accounts, 65 profiles, 9,821 protected JSON
+files and existing contents of all four databases. Thirty missing import files
+are added in the isolated copy; protected records and human decisions remain.
+Ten routes return 200. Candidate image:
+`sha256:b8b8ebd534dc01abdd5f3cdd5864b58be30fde0c0eba204ed4b363454e9b7839`.
 
-After proof, actual release approval remains necessary before merging/deploying.
+The rehearsal used one job,1GiB/no swap, one CPU, no network/ports, read-only
+root and a ten-minute limit; its exact container was removed. Backup SHA256:
+`82cbc734eedde3836b773214df8c4024b37148f0d0ddd70ebb9f441d91436876`.
+Production image, mounts and data were not replaced. Individual SQLite
+consistency does not assert one global cross-database snapshot.
+
+Actual release approval remains necessary before merging/deploying. Both #421
+and #426 questions were already sent; no affirmative answer has been received.
 At release time, recheck canonical/CI and the running receipt, take a fresh backup,
 retain the exact current image and persistent mounts for rollback, and deploy
 only the reviewed canonical result. Platform #421 approval remains separate.
+
+Later #427 (`fcb8ef74`,5,335tests) and #428 (`d5bb84df`,5,337tests) pass all four
+checks and native review, but are outside the frozen #426 candidate. #427 exposes
+held photos for name review; #428 adds exact Blue Manila/Blue Maldiva originals.
+Neither inherits combined preservation/deployment proof or release approval.
 
 ## Current release boundary — October 28, 2026
 

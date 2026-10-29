@@ -1,6 +1,13 @@
 # Analyst living workspaces
 
-Private authoring implementation; production deployment and merge are not authorized.
+The shared authoring workspace is now live; the earlier implementation notes
+below describe its original review boundary. Workspaces are collaborative across
+authenticated accounts, as the user requested. “Private” in these notes means
+excluded from unauthenticated/static output, not private to an individual
+account. Only layout settings and Personal Digest are intended to be individual;
+the tested Digest follow-up is pending release in #421. See the current
+[full-thread audit](FULL-THREAD-COMPLETION-AUDIT.md) and
+[release boundary](RELEASE-REVIEW.md).
 
 ## Review entry points
 

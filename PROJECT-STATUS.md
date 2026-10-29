@@ -1,5 +1,24 @@
 # Project Status
 
+## Current release and whole-thread audit — October 28, 2026
+
+The [full-thread completion audit](docs/v2/FULL-THREAD-COMPLETION-AUDIT.md) separates
+live delivery, tested pending releases and ongoing content/human decisions.
+Core redesign, shared Workspaces and the approved platform releases are live at
+`e24b566b`. A read-only October29 01:11 UTC check confirms healthy app/login200
+and about2.6GiB available; original release/data remain intact. This is an
+availability check, not signed-in whole-app performance proof.
+
+Platform #421 (`4cedbdc6`,5,284tests) and catalog #426 (`87bb0187`,5,330tests) each
+have all four required checks, native review and their own fresh production-copy
+preservation proof. Actual release approvals already requested remain pending.
+Follow-ups #427 (`fcb8ef74`,5,335tests) and #428 (`d5bb84df`,5,337tests) pass all
+four checks and native review, but do not inherit combined release proof. No
+source follow-up is deployed. The original31 requirement definitions/order
+remain, with later requests accounted separately. CAT-01/CAT-02, independent
+human answers and current rights/profile/content coverage remain open. Older
+checkpoint prose below is dated evidence, superseded where this audit says so.
+
 ## Two more profiles gain checked original figures — October 28, 2026
 
 The [Plablue filing review](docs/v2/PLABLUE-ORIGINAL-FIGURES-REVIEW.md) adds distinct
