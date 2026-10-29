@@ -89,3 +89,24 @@ def test_expired_reference_remains_historical_and_is_defensively_excluded_from_p
     for authoring,static in [(False,False),(False,True),(True,True)]:
         html=template.render(variety_original_patents=refs,authoring_mode=authoring,static_build=static)
         assert 'ZA 20053234'not in html and 'Protection expired'not in html
+
+
+def test_append_keeps_every_saved_candidate_anchor_and_human_field():
+    _, sources, _ = inputs()
+    prior = [s for s in sources if not s['id'].startswith(PREFIX)]
+    _, saved = reconcile_portfolios(sources=prior, varieties=[], entities=[], candidates=[])
+    target = next(c for c in saved if c['candidate_name'] == 'Advabereen')
+    target.update(status='rejected', identity_state='rejected', human_gated=True,
+                  reviewer='Fixture analyst', review_notes='Keep my decision',
+                  aliases=['My retained label'], registration={'status': 'My saved status'})
+    before = deepcopy(saved)
+    _, replay = reconcile_portfolios(sources=sources, varieties=[], entities=[], candidates=saved)
+    by_id = {c['id']: c for c in replay}
+    for original in before:
+        assert original['id'] in by_id
+        # References are additive derived context; saved authoring fields win.
+        for key in ('candidate_name', 'status', 'identity_state', 'human_gated',
+                    'reviewer', 'review_notes', 'aliases', 'registration'):
+            if key in original:
+                assert by_id[original['id']][key] == original[key]
+    assert saved == before

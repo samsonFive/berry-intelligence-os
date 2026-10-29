@@ -33,7 +33,11 @@ def test_original_grant_accounts_for_all_pages_but_only_the_claimed_cultivar():
     assert 'PBR 2020/0331' in s['names'][0]['portfolio_context']
 
 def test_append_preserves_existing_anchors_and_user_authoring_fields():
-    all_sources=load_portfolio_observations(DATA)
+    # Replay this historical append before later national registers also name
+    # YANA. Removing only its original patent from today's full corpus no
+    # longer represents the pre-patent population.
+    all_sources=[s for s in load_portfolio_observations(DATA)
+                 if not s['id'].startswith('portfolio-national-')]
     _,old=reconcile_portfolios(sources=[s for s in all_sources if s['id']!=SOURCE],varieties=[],entities=[],candidates=[])
     _,new=reconcile_portfolios(sources=all_sources,varieties=[],entities=[],candidates=[])
     ids={(c['berry_id'],c['candidate_name']):c['id'] for c in new}

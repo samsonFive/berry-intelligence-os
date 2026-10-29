@@ -10,7 +10,10 @@ DATA = Path(__file__).resolve().parents[1] / 'data'
 
 
 def test_named_cohort_reaches_twelve_existing_profiles_without_changing_identities_or_reuse():
-    sources = load_portfolio_observations(DATA)
+    # Historical cohort eligibility, before the later USDA code/name bridge
+    # adds a Kwanza identity hold. The national-cohort tests check that hold.
+    sources = [s for s in load_portfolio_observations(DATA)
+               if not s['id'].startswith('portfolio-national-')]
     batch = [s for s in sources if s['id'].startswith('portfolio-named-photo-cohort-')]
     assert len(batch) == 13 and sum(len(s['names']) for s in batch) == 13
     varieties = [json.loads(p.read_text(encoding='utf-8')) for p in (DATA/'entities/varieties').glob('*.json')]
