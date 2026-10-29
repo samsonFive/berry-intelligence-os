@@ -1,5 +1,14 @@
 # Intelligence Coverage Matrix
 
+October28 — [Photo identity review routing](VARIETY-PHOTO-IDENTITY-REVIEW-ROUTING.md)
+distinguishes an existing image lead from a missing link. Rutgers D'Light's
+attributed image remains identity-held, with both coded/uncoded leads reachable;
+no source, image clearance or identity is added. Public64-profile gaps12/13/33/10
+and bounded corpus491/1770/165/1605 remain unchanged. Two example profiles remain
+excluded from genuine photo research; source/identity/current-rights review and
+broader historical/current coverage stay open. Frozen426/5330tests and its
+production-copy proof do not extend to this separate draft.
+
 October 28 — [Eureka/Opi/Eterna source images](REMAINING-PROFILE-IMAGE-REVIEW.md):
 three held image references reduce public64-profile gaps15→12, with rights/trait/
 company gaps unchanged13/33/10. Seven scopes/13occurrences retain two original

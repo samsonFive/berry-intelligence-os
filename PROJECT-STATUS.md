@@ -1,5 +1,18 @@
 # Project Status
 
+## Existing photo leads now show the next review action — October 28, 2026
+
+The [photo review routing](docs/v2/VARIETY-PHOTO-IDENTITY-REVIEW-ROUTING.md) exposes
+Rutgers D'Light's already stored photo as awaiting a name check, rather than
+implying another photo search is needed. Directory, current/previous profiles,
+editor and coverage link to coded/uncoded leads together. Identity, gallery,
+reuse, user edits and publication gates remain unchanged. Final47 affected checks
+pass; native/current-head CI still apply. Public64-profile gaps remain12photos/
+13rights/33traits/10company links, including two examples and an identity-held
+Rutgers photo. No new sources or canonical records are added. Frozen catalog426
+passed5330tests and current-copy preservation; platform421 and catalog426 actual
+release approvals remain separately pending. This follow-up is not deployed.
+
 ## Rights sources separated from original filings — October 28, 2026
 
 The Rights/IP panel now keeps related reports and reprints in a collapsed,
