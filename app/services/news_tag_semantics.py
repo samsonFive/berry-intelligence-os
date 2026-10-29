@@ -15,7 +15,7 @@ from uuid import uuid4
 
 from app.services import news_tags
 
-VERSION = 'semantic-tags-2'
+VERSION = 'semantic-tags-3'
 MAX_TEXT = 6000
 MAX_SOURCE_TEXT = 48000
 BATCH_SIZE = 12
@@ -141,6 +141,8 @@ def prompt(records, tags):
     definitions = [{'id':t['id'],'name':t.get('matcher_name') or t['name'],'definition':t['description']} for t in tags]
     return '''Classify agricultural news by meaning into the supplied flat, independent tag definitions.
 Return every supplied article ID exactly once, including articles with no matching tags (empty assignments).
+Return ALL matching tags, not only the most specific one. A genomic-selection breeding program can
+independently match both Advanced Breeding and Genetics; evaluate each supplied definition.
 For each positive assignment set support to the ID of a supplied passage from that article.
 Select the passage that supports this tag. Do not retype, correct, rewrite or paraphrase the passage.
 No literal tag-name occurrence is required: e.g. fruit becoming expensive because shipments decline can be Markets.
