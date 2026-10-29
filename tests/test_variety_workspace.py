@@ -396,6 +396,15 @@ def test_context_bar_filters_variety_index() -> None:
     assert page.status_code == 200
     assert "Zara" in page.text
     assert "DrisBlueSeventeen" not in page.text
+    assert page.context["discovered_names"]
+    assert all(row["berry_id"] == "berry-strawberry" for row in page.context["discovered_names"])
+    assert "berry=berry-strawberry" in page.context["discovered_name_query"]
+    explicit = client.get("/entities/variety?berry=berry-blueberry&letter=D")
+    assert explicit.status_code == 200 and explicit.context["discovered_names"]
+    assert all(row["berry_id"] == "berry-blueberry" and row["candidate_name"].upper().startswith("D")
+               for row in explicit.context["discovered_names"])
+    assert "berry=berry-blueberry" in explicit.context["discovered_name_query"]
+    assert "letter=D" in explicit.context["discovered_name_query"]
     raspberry = TestClient(app)
     raspberry.cookies.set("bios_berry", "berry-raspberry")
     page = raspberry.get("/entities/variety")

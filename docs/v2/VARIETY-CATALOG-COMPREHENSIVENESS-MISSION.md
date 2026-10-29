@@ -1,5 +1,19 @@
 # Variety catalog: comprehensive, source-linked coverage
 
+## Current continuation — October 13, 2026
+
+Blueberry feedback was approved October 12. Four-crop Landscape, comparison,
+saved views, exports and the visual workflow guide are released in #398. The
+catalog scope below remains intact and separate: source/identity/catalog/rights,
+independent recall and profile completeness are still open under CAT-01/CAT-02.
+The latest bounded inventory has 427 sections / 1,641 occurrences / 119 existing
+matches / 1,522 review needs and 64 unchanged stored profiles. The 77-subject plan
+retains 13 partial checks, one unavailable source and two identity holds.
+The reviewer copy has 52 source artifacts and 32 independent worksheets.
+See [current release review](RELEASE-REVIEW.md) and the
+[original-paper supplement](CAS-ORIGINAL-PAPER-SOURCE-REVIEW.md). Earlier counts
+and gate descriptions below remain dated history, not current release blockers.
+
 ## Current work — October 12, 2026
 
 The source-to-catalog omission is being repaired across all four berries; the

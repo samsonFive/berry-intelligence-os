@@ -1,0 +1,860 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "url": "https://patents.google.com/patent/USPP24949P3/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-13",
+      "published_date": "2014-10-07",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-original-patent-crimson-night",
+      "title": "Crimson Night — original US plant patent",
+      "source_type": "plant_patent",
+      "enumerated_scope": "One claimed cultivar; separately enumerated parent, comparison and named bibliography entries do not inherit this filing.",
+      "limitations": "Historical document reference only. Current rights, aliases, roles, traits, regions and photo reuse require separate review.",
+      "names": [
+        {
+          "candidate_name": "Crimson Night",
+          "denomination": "Crimson Night",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/5d/d8/77/80902640c4877d/USPP24949.pdf#page=3",
+          "application_number": "13/694,090",
+          "application_date": "2012-10-30",
+          "grant_number": "USPP24949P3",
+          "grant_date": "2014-10-07",
+          "jurisdiction": "US",
+          "portfolio_context": "Page 2 reports testing designation NY03-56. This is a source-reported naming association, not an approved alias. Grant metadata is checked in the original first page; current legal status and ownership are not established."
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": [
+          {
+            "label": "NY270",
+            "reason": "Maternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "NY357",
+            "reason": "Paternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Heritage",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Caroline",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          }
+        ]
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/5d/d8/77/80902640c4877d/USPP24949.pdf",
+        "sha256": "271a3ebf0639b8062c5ece61c4f4db2cdf186f9a2ab3dbbb0300c21e6f6d9538",
+        "page_count": 7,
+        "claim_url": "https://patents.google.com/patent/USPP24949P3/en#claims",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/5d/d8/77/80902640c4877d/USPP24949.pdf#page=4",
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "text_extraction_limit": ""
+      }
+    },
+    {
+      "url": "https://patents.google.com/patent/USPP24949P3/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-13",
+      "published_date": "2014-10-07",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-original-patent-crimson-night-other-names",
+      "title": "Crimson Night patent — other named varieties",
+      "source_type": "historical_document_mentions",
+      "enumerated_scope": "Distinct parent, comparison and named bibliographic cultivar labels in this document; repeated mentions and focal selection designations are not additional varieties.",
+      "limitations": "These names inherit no focal grant, application, figures, company roles, traits or rights. Bare patent citation numbers are not automatically resolved into variety identities.",
+      "names": [
+        {
+          "candidate_name": "NY270",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/5d/d8/77/80902640c4877d/USPP24949.pdf#page=1",
+          "portfolio_context": "Maternal parent in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "NY357",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/5d/d8/77/80902640c4877d/USPP24949.pdf#page=1",
+          "portfolio_context": "Paternal parent in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Heritage",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/5d/d8/77/80902640c4877d/USPP24949.pdf#page=1",
+          "portfolio_context": "Comparison in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Caroline",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/5d/d8/77/80902640c4877d/USPP24949.pdf#page=2",
+          "portfolio_context": "Comparison in the original document; this source establishes neither this entry's grant nor its current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/5d/d8/77/80902640c4877d/USPP24949.pdf",
+        "sha256": "271a3ebf0639b8062c5ece61c4f4db2cdf186f9a2ab3dbbb0300c21e6f6d9538",
+        "page_count": 7,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "text_extraction_limit": ""
+      }
+    },
+    {
+      "url": "https://patents.google.com/patent/USPP24811P3/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-13",
+      "published_date": "2014-08-26",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-original-patent-double-gold",
+      "title": "Double Gold — original US plant patent",
+      "source_type": "plant_patent",
+      "enumerated_scope": "One claimed cultivar; separately enumerated parent, comparison and named bibliography entries do not inherit this filing.",
+      "limitations": "Historical document reference only. Current rights, aliases, roles, traits, regions and photo reuse require separate review.",
+      "names": [
+        {
+          "candidate_name": "Double Gold",
+          "denomination": "Double Gold",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/56/1e/77/b1bfc0931d208a/USPP24811.pdf#page=3",
+          "application_number": "13/694,084",
+          "application_date": "2012-10-30",
+          "grant_number": "USPP24811P3",
+          "grant_date": "2014-08-26",
+          "jurisdiction": "US",
+          "portfolio_context": "Page 2 reports testing designation NY04-25. This is a source-reported naming association, not an approved alias. Grant metadata is checked in the original first page; current legal status and ownership are not established."
+        }
+      ],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [
+          {
+            "label": "NY319",
+            "reason": "Maternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Graton Gold",
+            "reason": "Paternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Crimson Giant",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Prelude",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Caroline",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Polka",
+            "reason": "Figure comparison; separately discoverable, not covered by the focal grant."
+          }
+        ]
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/56/1e/77/b1bfc0931d208a/USPP24811.pdf",
+        "sha256": "4ef1e9a2c92831822e2887b6268bdc08a368ded8436982297e2e18f25b532359",
+        "page_count": 8,
+        "claim_url": "https://patents.google.com/patent/USPP24811P3/en#claims",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/56/1e/77/b1bfc0931d208a/USPP24811.pdf#page=4",
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "text_extraction_limit": ""
+      }
+    },
+    {
+      "url": "https://patents.google.com/patent/USPP24811P3/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-13",
+      "published_date": "2014-08-26",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-original-patent-double-gold-other-names",
+      "title": "Double Gold patent — other named varieties",
+      "source_type": "historical_document_mentions",
+      "enumerated_scope": "Distinct parent, comparison and named bibliographic cultivar labels in this document; repeated mentions and focal selection designations are not additional varieties.",
+      "limitations": "These names inherit no focal grant, application, figures, company roles, traits or rights. Bare patent citation numbers are not automatically resolved into variety identities.",
+      "names": [
+        {
+          "candidate_name": "NY319",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/56/1e/77/b1bfc0931d208a/USPP24811.pdf#page=1",
+          "portfolio_context": "Maternal parent in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Graton Gold",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/56/1e/77/b1bfc0931d208a/USPP24811.pdf#page=1",
+          "portfolio_context": "Paternal parent in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Crimson Giant",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/56/1e/77/b1bfc0931d208a/USPP24811.pdf#page=2",
+          "portfolio_context": "Comparison in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Prelude",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/56/1e/77/b1bfc0931d208a/USPP24811.pdf#page=2",
+          "portfolio_context": "Comparison in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Caroline",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/56/1e/77/b1bfc0931d208a/USPP24811.pdf#page=2",
+          "portfolio_context": "Comparison in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Polka",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/56/1e/77/b1bfc0931d208a/USPP24811.pdf#page=2",
+          "portfolio_context": "Figure comparison in the original document; this source establishes neither this entry's grant nor its current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/56/1e/77/b1bfc0931d208a/USPP24811.pdf",
+        "sha256": "4ef1e9a2c92831822e2887b6268bdc08a368ded8436982297e2e18f25b532359",
+        "page_count": 8,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "text_extraction_limit": ""
+      }
+    },
+    {
+      "url": "https://patents.google.com/patent/USPP33330P2/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-13",
+      "published_date": "2021-08-10",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-original-patent-ponca",
+      "title": "Ponca — original US plant patent",
+      "source_type": "plant_patent",
+      "enumerated_scope": "One claimed cultivar; separately enumerated parent, comparison and named bibliography entries do not inherit this filing.",
+      "limitations": "Historical document reference only. Current rights, aliases, roles, traits, regions and photo reuse require separate review.",
+      "names": [
+        {
+          "candidate_name": "Ponca",
+          "denomination": "Ponca",
+          "berry_id": "berry-blackberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/44/02/2c/5d4e748a97ab61/USPP33330.pdf#page=4",
+          "application_number": "16/880,798",
+          "application_date": "2020-05-21",
+          "grant_number": "USPP33330P2",
+          "grant_date": "2021-08-10",
+          "jurisdiction": "US",
+          "portfolio_context": "Pages 1-2 report selection designation A-2538T. This is a source-reported naming association, not an approved alias. Grant metadata is checked in the original first page; current legal status and ownership are not established."
+        }
+      ],
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": [
+          {
+            "label": "Ark. 2406",
+            "reason": "Maternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Ark. 2253T",
+            "reason": "Paternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Caddo",
+            "reason": "Comparison and cited release; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Osage",
+            "reason": "Comparison and cited release; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Natchez",
+            "reason": "Cited release; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Ouachita",
+            "reason": "Cited release; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "APF-45",
+            "reason": "Cited release; separately discoverable, not covered by the focal grant."
+          }
+        ]
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/44/02/2c/5d4e748a97ab61/USPP33330.pdf",
+        "sha256": "7569d80e4516b85208073b7ae468e78a572b71f037b6249b3959bb82f19f486a",
+        "page_count": 7,
+        "claim_url": "https://patents.google.com/patent/USPP33330P2/en#claims",
+        "claim_page": 4,
+        "figures_url": "https://patentimages.storage.googleapis.com/44/02/2c/5d4e748a97ab61/USPP33330.pdf#page=5",
+        "visually_reviewed_pages": [
+          1,
+          2,
+          4
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "text_extraction_limit": ""
+      }
+    },
+    {
+      "url": "https://patents.google.com/patent/USPP33330P2/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-13",
+      "published_date": "2021-08-10",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-original-patent-ponca-other-names",
+      "title": "Ponca patent — other named varieties",
+      "source_type": "historical_document_mentions",
+      "enumerated_scope": "Distinct parent, comparison and named bibliographic cultivar labels in this document; repeated mentions and focal selection designations are not additional varieties.",
+      "limitations": "These names inherit no focal grant, application, figures, company roles, traits or rights. Bare patent citation numbers are not automatically resolved into variety identities.",
+      "names": [
+        {
+          "candidate_name": "Ark. 2406",
+          "berry_id": "berry-blackberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/44/02/2c/5d4e748a97ab61/USPP33330.pdf#page=1",
+          "portfolio_context": "Maternal parent in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Ark. 2253T",
+          "berry_id": "berry-blackberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/44/02/2c/5d4e748a97ab61/USPP33330.pdf#page=1",
+          "portfolio_context": "Paternal parent in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Caddo",
+          "berry_id": "berry-blackberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/44/02/2c/5d4e748a97ab61/USPP33330.pdf#page=2",
+          "portfolio_context": "Comparison and cited release in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Osage",
+          "berry_id": "berry-blackberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/44/02/2c/5d4e748a97ab61/USPP33330.pdf#page=2",
+          "portfolio_context": "Comparison and cited release in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Natchez",
+          "berry_id": "berry-blackberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/44/02/2c/5d4e748a97ab61/USPP33330.pdf#page=1",
+          "portfolio_context": "Cited release in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Ouachita",
+          "berry_id": "berry-blackberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/44/02/2c/5d4e748a97ab61/USPP33330.pdf#page=1",
+          "portfolio_context": "Cited release in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "APF-45",
+          "berry_id": "berry-blackberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/44/02/2c/5d4e748a97ab61/USPP33330.pdf#page=1",
+          "portfolio_context": "Cited release in the original document; this source establishes neither this entry's grant nor its current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/44/02/2c/5d4e748a97ab61/USPP33330.pdf",
+        "sha256": "7569d80e4516b85208073b7ae468e78a572b71f037b6249b3959bb82f19f486a",
+        "page_count": 7,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          4
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "text_extraction_limit": ""
+      }
+    },
+    {
+      "url": "https://patents.google.com/patent/USPP31793P3/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-13",
+      "published_date": "2020-05-26",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-original-patent-fc13-083",
+      "title": "FC13-083 — original US plant patent",
+      "source_type": "plant_patent",
+      "enumerated_scope": "One claimed cultivar; separately enumerated parent, comparison and named bibliography entries do not inherit this filing.",
+      "limitations": "Historical document reference only. Current rights, aliases, roles, traits, regions and photo reuse require separate review.",
+      "names": [
+        {
+          "candidate_name": "FC13-083",
+          "denomination": "FC13-083",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/f1/8c/20/516abcfc32a0f4/USPP31793.pdf#page=4",
+          "application_number": "16/350,903",
+          "application_date": "2019-01-30",
+          "grant_number": "USPP31793P3",
+          "grant_date": "2020-05-26",
+          "jurisdiction": "US",
+          "portfolio_context": "The original document uses FC13-083. The catalog already retains this exact selection code as an alias of SEKOYA Crunch. Grant metadata is checked in the original first page; current legal status and ownership are not established."
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": [
+          {
+            "label": "ZF06-050",
+            "reason": "Maternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "ZF06-013",
+            "reason": "Paternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Duke",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Draper",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          }
+        ]
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/f1/8c/20/516abcfc32a0f4/USPP31793.pdf",
+        "sha256": "b5db35e063ed848f5ec32fbcdb9d5c10635b25545b2893661f6bec5618f19252",
+        "page_count": 10,
+        "claim_url": "https://patents.google.com/patent/USPP31793P3/en#claims",
+        "claim_page": 4,
+        "figures_url": "https://patentimages.storage.googleapis.com/f1/8c/20/516abcfc32a0f4/USPP31793.pdf#page=5",
+        "visually_reviewed_pages": [
+          1,
+          2,
+          4
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "text_extraction_limit": ""
+      }
+    },
+    {
+      "url": "https://patents.google.com/patent/USPP31793P3/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-13",
+      "published_date": "2020-05-26",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-original-patent-fc13-083-other-names",
+      "title": "FC13-083 patent — other named varieties",
+      "source_type": "historical_document_mentions",
+      "enumerated_scope": "Distinct parent, comparison and named bibliographic cultivar labels in this document; repeated mentions and focal selection designations are not additional varieties.",
+      "limitations": "These names inherit no focal grant, application, figures, company roles, traits or rights. Bare patent citation numbers are not automatically resolved into variety identities.",
+      "names": [
+        {
+          "candidate_name": "ZF06-050",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/f1/8c/20/516abcfc32a0f4/USPP31793.pdf#page=1",
+          "portfolio_context": "Maternal parent in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "ZF06-013",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/f1/8c/20/516abcfc32a0f4/USPP31793.pdf#page=1",
+          "portfolio_context": "Paternal parent in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Duke",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/f1/8c/20/516abcfc32a0f4/USPP31793.pdf#page=4",
+          "portfolio_context": "Comparison in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Draper",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/f1/8c/20/516abcfc32a0f4/USPP31793.pdf#page=4",
+          "portfolio_context": "Comparison in the original document; this source establishes neither this entry's grant nor its current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/f1/8c/20/516abcfc32a0f4/USPP31793.pdf",
+        "sha256": "b5db35e063ed848f5ec32fbcdb9d5c10635b25545b2893661f6bec5618f19252",
+        "page_count": 10,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          4
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "text_extraction_limit": ""
+      }
+    },
+    {
+      "url": "https://patents.google.com/patent/USPP36431P3/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-13",
+      "published_date": "2025-02-11",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-original-patent-fc13-113",
+      "title": "FC13-113 — original US plant patent",
+      "source_type": "plant_patent",
+      "enumerated_scope": "One claimed cultivar; separately enumerated parent, comparison and named bibliography entries do not inherit this filing.",
+      "limitations": "Historical document reference only. Current rights, aliases, roles, traits, regions and photo reuse require separate review.",
+      "names": [
+        {
+          "candidate_name": "FC13-113",
+          "denomination": "FC13-113",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/3a/54/e8/e226302e1d67b8/USPP36431.pdf#page=4",
+          "application_number": "18/421,345",
+          "application_date": "2024-01-24",
+          "grant_number": "USPP36431P3",
+          "grant_date": "2025-02-11",
+          "jurisdiction": "US",
+          "portfolio_context": "The original document uses FC13-113. The catalog already retains this exact selection code as an alias of SEKOYA Fiesta. Grant metadata is checked in the original first page; current legal status and ownership are not established."
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "ZF06-231",
+            "reason": "Maternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "ZF08-189",
+            "reason": "Paternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Last Call",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Aurora",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Liberty",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          }
+        ]
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/3a/54/e8/e226302e1d67b8/USPP36431.pdf",
+        "sha256": "97ad5ebfc3a0805232ad0265cd953d7ad991bd87f58eaaf8333c4f437e6e844b",
+        "page_count": 11,
+        "claim_url": "https://patents.google.com/patent/USPP36431P3/en#claims",
+        "claim_page": 4,
+        "figures_url": "https://patentimages.storage.googleapis.com/3a/54/e8/e226302e1d67b8/USPP36431.pdf#page=5",
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "text_extraction_limit": "The FC13-113 PDF has no extractable text; original naming and claim pages were visually read."
+      }
+    },
+    {
+      "url": "https://patents.google.com/patent/USPP36431P3/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-13",
+      "published_date": "2025-02-11",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-original-patent-fc13-113-other-names",
+      "title": "FC13-113 patent — other named varieties",
+      "source_type": "historical_document_mentions",
+      "enumerated_scope": "Distinct parent, comparison and named bibliographic cultivar labels in this document; repeated mentions and focal selection designations are not additional varieties.",
+      "limitations": "These names inherit no focal grant, application, figures, company roles, traits or rights. Bare patent citation numbers are not automatically resolved into variety identities.",
+      "names": [
+        {
+          "candidate_name": "ZF06-231",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/3a/54/e8/e226302e1d67b8/USPP36431.pdf#page=1",
+          "portfolio_context": "Maternal parent in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "ZF08-189",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/3a/54/e8/e226302e1d67b8/USPP36431.pdf#page=1",
+          "portfolio_context": "Paternal parent in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Last Call",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/3a/54/e8/e226302e1d67b8/USPP36431.pdf#page=2",
+          "portfolio_context": "Comparison in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Aurora",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/3a/54/e8/e226302e1d67b8/USPP36431.pdf#page=2",
+          "portfolio_context": "Comparison in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "Liberty",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/3a/54/e8/e226302e1d67b8/USPP36431.pdf#page=2",
+          "portfolio_context": "Comparison in the original document; this source establishes neither this entry's grant nor its current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/3a/54/e8/e226302e1d67b8/USPP36431.pdf",
+        "sha256": "97ad5ebfc3a0805232ad0265cd953d7ad991bd87f58eaaf8333c4f437e6e844b",
+        "page_count": 11,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "text_extraction_limit": "The FC13-113 PDF has no extractable text; original naming and claim pages were visually read."
+      }
+    },
+    {
+      "url": "https://patents.google.com/patent/USPP32162P3/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-13",
+      "published_date": "2020-09-08",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-original-patent-nsg-203",
+      "title": "NSG 203 — original US plant patent",
+      "source_type": "plant_patent",
+      "enumerated_scope": "One claimed cultivar; separately enumerated parent, comparison and named bibliography entries do not inherit this filing.",
+      "limitations": "Historical document reference only. Current rights, aliases, roles, traits, regions and photo reuse require separate review.",
+      "names": [
+        {
+          "candidate_name": "NSG 203",
+          "denomination": "NSG 203",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/a4/f0/49/f230f0245fd1e0/USPP32162.pdf#page=4",
+          "application_number": "16/501,366",
+          "application_date": "2019-04-01",
+          "grant_number": "USPP32162P3",
+          "grant_date": "2020-09-08",
+          "jurisdiction": "US",
+          "portfolio_context": "Page 2 reports earlier designation EE14 P 14 203. The patent does not name Marimbella; its commercial association remains a separate source assertion awaiting identity review. Grant metadata is checked in the original first page; current legal status and ownership are not established."
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "CHARLENE",
+            "reason": "Maternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "NSG 1117",
+            "reason": "Paternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "MELISSA",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          }
+        ]
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/a4/f0/49/f230f0245fd1e0/USPP32162.pdf",
+        "sha256": "7797518e544b48005e72969e66233309f4f4c5d8e05eb6ad42ba4cc492c360d7",
+        "page_count": 19,
+        "claim_url": "https://patents.google.com/patent/USPP32162P3/en#claims",
+        "claim_page": 4,
+        "figures_url": "https://patentimages.storage.googleapis.com/a4/f0/49/f230f0245fd1e0/USPP32162.pdf#page=5",
+        "visually_reviewed_pages": [
+          1,
+          2,
+          4
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "text_extraction_limit": ""
+      }
+    },
+    {
+      "url": "https://patents.google.com/patent/USPP32162P3/en",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-13",
+      "published_date": "2020-09-08",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "id": "portfolio-original-patent-nsg-203-other-names",
+      "title": "NSG 203 patent — other named varieties",
+      "source_type": "historical_document_mentions",
+      "enumerated_scope": "Distinct parent, comparison and named bibliographic cultivar labels in this document; repeated mentions and focal selection designations are not additional varieties.",
+      "limitations": "These names inherit no focal grant, application, figures, company roles, traits or rights. Bare patent citation numbers are not automatically resolved into variety identities.",
+      "names": [
+        {
+          "candidate_name": "CHARLENE",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/a4/f0/49/f230f0245fd1e0/USPP32162.pdf#page=1",
+          "portfolio_context": "Maternal parent in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "NSG 1117",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/a4/f0/49/f230f0245fd1e0/USPP32162.pdf#page=1",
+          "portfolio_context": "Paternal parent in the original document; this source establishes neither this entry's grant nor its current rights."
+        },
+        {
+          "candidate_name": "MELISSA",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/a4/f0/49/f230f0245fd1e0/USPP32162.pdf#page=2",
+          "portfolio_context": "Comparison in the original document; this source establishes neither this entry's grant nor its current rights."
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/a4/f0/49/f230f0245fd1e0/USPP32162.pdf",
+        "sha256": "7797518e544b48005e72969e66233309f4f4c5d8e05eb6ad42ba4cc492c360d7",
+        "page_count": 19,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          4
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "text_extraction_limit": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-original-paper-cas-strawberry-materials",
+      "title": "Institute of Botany, CAS — named strawberry research material",
+      "url": "https://link.springer.com/article/10.1186/s13059-021-02385-0",
+      "company_ids": ["company-institute-of-botany-cas"],
+      "berry_ids": ["berry-strawberry"],
+      "checked_on": "2026-10-13",
+      "published_date": "2021-06-03",
+      "source_type": "research_material_names",
+      "capture_status": "partial",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Both named strawberry cultivars in the original paper's Plant materials section. The complete paper was read in the native browser. This is research-use context, not a current or historical cultivar-release portfolio.",
+      "limitations": "Research uses Hawaii-4 and Benihoppe; it does not establish that CAS bred, owns or markets either cultivar. Diploid woodland strawberry and octoploid cultivated strawberry remain distinct biological contexts. No aliases, company roles, traits, rights, growing regions or image reuse are approved. Gene names and fruit-development stages are excluded. CAS release-portfolio coverage remains partial.",
+      "review_warnings": ["Research material, not a CAS breeding release or a complete portfolio. Keep identity and catalog authoring as separate human decisions."],
+      "capture_reference": {
+        "method": "native_browser_visible_original_paper",
+        "capture_sha256": "a71002595ddbebc7ca7d55538726de128a25bc280d0787dfd6dc30e6916dc9da",
+        "bytes": 114731,
+        "doi": "10.1186/s13059-021-02385-0",
+        "announcement_url": "https://ib.cas.cn/2019gb/kyjz2019/202106/t20210604_6079552.html",
+        "affiliation_verified": true,
+        "complete_release_portfolio": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "http_capture_status": "Client challenge rejected; normal native browser navigation exposed the paper. No bypass attempted."
+      },
+      "names": [
+        {
+          "candidate_name": "Hawaii-4",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": ["company-institute-of-botany-cas"],
+          "source_company_context": "Used as diploid woodland strawberry research material by the paper's Institute of Botany researchers; no breeder, owner or commercial role established.",
+          "portfolio_context": "Plant materials names Fragaria vesca cv. Hawaii-4. Experimental fruit-development stages S6, RS1 and RS3 are not varieties. Greenhouse research is not a confirmed growing footprint; the RNA-methylation results are not universal commercial trait claims."
+        },
+        {
+          "candidate_name": "Benihoppe",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": ["company-institute-of-botany-cas"],
+          "source_company_context": "Used as octoploid cultivated strawberry research material by the paper's Institute of Botany researchers; no breeder, owner or commercial role established.",
+          "portfolio_context": "Plant materials names Fragaria × ananassa cv. Benihoppe. Fruit stages SG, LG, Wt, IR and FR are not varieties. No equivalence to a translated name or other spelling, commercial trait, right, photo or growing region is inferred."
+        }
+      ],
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": [
+          {"label": "NCED5", "reason": "Gene name, not a cultivar."},
+          {"label": "ABAR", "reason": "Gene name, not a cultivar."},
+          {"label": "AREB1", "reason": "Gene name, not a cultivar."},
+          {"label": "MTA / MTB", "reason": "Methyltransferase genes, not cultivars."},
+          {"label": "S6 / RS1 / RS3 / SG / LG / Wt / IR / FR", "reason": "Fruit developmental stages, not cultivar names."},
+          {"label": "Research diagrams and mixed assay figures", "reason": "Scientific figures are not automatically attributed cultivar photographs; no photo reuse or crop-profile trait approval."}
+        ]
+      }
+    }
+  ]
+}
