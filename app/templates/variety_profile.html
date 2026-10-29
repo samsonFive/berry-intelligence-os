@@ -1,6 +1,6 @@
 {% extends "glasshouse_base.html" %}
 {% block title %}{{ entity.name }} · Varieties{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=12">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=15">{% endblock %}
 {% block content %}
 {% if authoring_mode and not static_build %}<p class="company-workspace"><a href="/social?entity={{ entity.id }}">Inspect unreviewed social observations for this entity →</a></p>{% endif %}
 <div class="company-workspace variety-workspace">
@@ -15,6 +15,7 @@
 <p><a href="/varieties/photos/catalog/{{ entity.id }}">Edit variety photos →</a></p>
 </aside>{% endif %}
 <div class="variety-profile-main">
+{% include "_variety_photo_identity_reviews.html" %}
 {% if authoring_mode and not static_build and not has_profile_photos %}<p><a href="/varieties/photos/catalog/{{ entity.id }}">Add a credited variety photo →</a></p>{% endif %}
 {% if identity.aliases or identity.package_note %}<details class="variety-context"><summary>Names & identity notes</summary>{% if identity.aliases %}<p>Also known as: {{ identity.aliases|join(', ') }}</p>{% endif %}{% if identity.package_note %}<p>{{ identity.package_note }}</p>{% endif %}</details>{% endif %}
 <nav class="company-tabs" aria-label="Variety sections"><a href="#roles">Company roles</a><a href="#recent-intelligence">News & sources</a><a href="#growing-regions">Growing regions</a><a href="#rights">Rights / IP</a><a href="#variety-intelligence">Performance</a><a href="#commercial-footprint">Retail observations</a><a href="#intelligence-timeline">Timeline</a></nav>
@@ -25,4 +26,4 @@
 </div></div>
 </div>
 {% endblock %}
-{% block scripts %}<script src="/static/variety_workspace.js?v=12"></script>{% endblock %}
+{% block scripts %}<script src="/static/variety_workspace.js?v=13"></script>{% endblock %}

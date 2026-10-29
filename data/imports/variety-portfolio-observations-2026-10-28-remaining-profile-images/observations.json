@@ -1,0 +1,434 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-remaining-profile-images-ridley1403",
+      "title": "Ridley 1403 — original claim and labeled figure",
+      "url": "https://patents.google.com/patent/USPP25432P3/en",
+      "checked_on": "2026-10-28",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One exact legal denomination, original grant/application dates, original claim and Figure 2. Other named selections are separately scoped.",
+      "limitations": "Unreviewed source observations. No new canonical alias, company role, trait, growing region, current-rights verification, publication approval or image reuse permission. Parent and comparison names retain their own scope and never inherit the subject patent. Repeated images or sections from one document are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_title_description_claim_and_full_figure_review",
+        "page_sha256": "5498f4c48ad6c374fcbc57b0358fc4336fa2296f9c4d173e5be661cf1b59488b",
+        "pdf_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf",
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf",
+        "pdf_sha256": "bf539038aac796cf8d728ca9e7b3a1e61f3858ff6cd853255e4bd91860fd87c9",
+        "pdf_pages": 9,
+        "claim_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf#page=4",
+        "claim_page": 4,
+        "figures_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf#page=6",
+        "figure": 2,
+        "figure_page": 6,
+        "image_sha256": "0d4fa9da4300bce821df2bf7726c9cd31d355cc97c5fbde56e78553bf7869d46",
+        "image_pixels": [
+          2428,
+          2212
+        ],
+        "image_url": "https://patentimages.storage.googleapis.com/48/49/25/9f9f85dbc61694/USPP025432-20150414-D00002.png",
+        "visually_reviewed_pages": [
+          1,
+          2,
+          4,
+          9
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "reported_assignee": "Mountain Blue Orchards Pty Ltd",
+        "reported_inventor": "Ridley Bell",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "catalog_commercial_label": "Eureka",
+        "commercial_label_basis": "Existing canonical alias only; Eureka umbrella branding is not equated with every named cultivar.",
+        "correction_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf#page=9",
+        "correction_date": "2016-03-08",
+        "correction_scope": "Table 1 C99-42 comparison column only; not a new focal trait, release or current-rights decision."
+      },
+      "names": [
+        {
+          "candidate_name": "Ridley 1403",
+          "denomination": "Ridley 1403",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf#page=4",
+          "grant_number": "USPP25432P3",
+          "application_number": "13/694,258",
+          "application_date": "2012-11-13",
+          "grant_date": "2015-04-14",
+          "jurisdiction": "US",
+          "portfolio_context": "Original filing subject Ridley 1403. The catalog already associates this name with Eureka; no new trade-name alias or current-rights conclusion is created. PDF page 9 contains the March 2016 correction to the C99-42 comparison column; open the original document to inspect it. This does not change the focal claim or establish a current right.",
+          "photos": [
+            {
+              "named_variety": "Ridley 1403",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://patentimages.storage.googleapis.com/48/49/25/9f9f85dbc61694/USPP025432-20150414-D00002.png",
+              "source_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf#page=6",
+              "caption": "Figure 2 shows Ridley 1403 fruit, a leaf, blooms and the printed selection label. Full-size monochrome original; ruler markings are not interpreted.",
+              "credit": "USPP25432P3 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public availability does not establish permission to reuse this image. Held by default; the explicit browser-session preview does not change review or saved permission."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      },
+      "published_date": "2015-04-14"
+    },
+    {
+      "id": "portfolio-remaining-profile-images-ridley1403-context",
+      "title": "Ridley 1403 — parents, selection code and comparisons",
+      "url": "https://patents.google.com/patent/USPP25432P3/en",
+      "checked_on": "2026-10-28",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Literal parents, discovery designation and comparison names from the description; taxonomy, phenotype terms, bibliographies and later citing documents excluded.",
+      "limitations": "Unreviewed source observations. No new canonical alias, company role, trait, growing region, current-rights verification, publication approval or image reuse permission. Parent and comparison names retain their own scope and never inherit the subject patent. Repeated images or sections from one document are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_description_and_table_name_inventory",
+        "pdf_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf",
+        "pdf_sha256": "bf539038aac796cf8d728ca9e7b3a1e61f3858ff6cd853255e4bd91860fd87c9",
+        "focal_subject": "Ridley 1403",
+        "all_pdf_pages_visually_reviewed": false
+      },
+      "names": [
+        {
+          "candidate_name": "S02-25-05",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf#page=1",
+          "portfolio_context": "Named seed parent in the Ridley 1403 description. Not the subject of this grant, an approved alias, a new release or an assigned company role.",
+          "breeder_code": "S02-25-05"
+        },
+        {
+          "candidate_name": "S03-08-02",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf#page=1",
+          "portfolio_context": "Named pollen parent in the Ridley 1403 description. Not the subject of this grant, an approved alias, a new release or an assigned company role.",
+          "breeder_code": "S03-08-02"
+        },
+        {
+          "candidate_name": "M08-14-03",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf#page=1",
+          "portfolio_context": "Named printed discovery selection designation in the Ridley 1403 description. Not the subject of this grant, an approved alias, a new release or an assigned company role.",
+          "breeder_code": "M08-14-03"
+        },
+        {
+          "candidate_name": "C99-42",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf#page=1",
+          "portfolio_context": "Named comparison cultivar in the Ridley 1403 description. Not the subject of this grant, an approved alias, a new release or an assigned company role."
+        },
+        {
+          "candidate_name": "CO3-158",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf#page=1",
+          "portfolio_context": "Named comparison label as extracted from the original description in the Ridley 1403 description. Not the subject of this grant, an approved alias, a new release or an assigned company role.",
+          "breeder_code": "CO3-158"
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "reported_items": 5,
+        "exclusions": []
+      },
+      "published_date": "2015-04-14",
+      "review_warnings": [
+        "The extraction prints CO3-158 with a round O/zero glyph. Retain the captured label; do not silently normalize it or approve an alias. The printed discovery code M08-14-03 was checked visually because PDF text drops its line-break hyphen."
+      ],
+      "review_warning_scopes": [
+        {
+          "message": "The extraction prints CO3-158 with a round O/zero glyph. Retain the captured label; do not silently normalize it or approve an alias. The printed discovery code M08-14-03 was checked visually because PDF text drops its line-break hyphen.",
+          "candidate_names": [
+            "CO3-158",
+            "M08-14-03"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "portfolio-remaining-profile-images-ridley1111",
+      "title": "Ridley 1111 — original claim and labeled figure",
+      "url": "https://patents.google.com/patent/USPP23572P3/en",
+      "checked_on": "2026-10-28",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One exact legal denomination, original grant/application dates, original claim and Figure 2. Other named selections are separately scoped.",
+      "limitations": "Unreviewed source observations. No new canonical alias, company role, trait, growing region, current-rights verification, publication approval or image reuse permission. Parent and comparison names retain their own scope and never inherit the subject patent. Repeated images or sections from one document are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_title_description_claim_and_full_figure_review",
+        "page_sha256": "78039a4a2488408d4a69aa7d0cdb5757d3a21f90d96ea60cee846e95fba64c9e",
+        "pdf_url": "https://patentimages.storage.googleapis.com/e3/2c/1b/44d5f15b638fdc/USPP23572.pdf",
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/e3/2c/1b/44d5f15b638fdc/USPP23572.pdf",
+        "pdf_sha256": "411c8b2bbd4f5dba9c1e105c71edb7fec6ddca1354fffdec4db18ec44c3a8541",
+        "pdf_pages": 5,
+        "claim_url": "https://patentimages.storage.googleapis.com/e3/2c/1b/44d5f15b638fdc/USPP23572.pdf#page=3",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/e3/2c/1b/44d5f15b638fdc/USPP23572.pdf#page=5",
+        "figure": 2,
+        "figure_page": 5,
+        "image_sha256": "787d9e2dd2ed2cfbb7dc1f61083799a874f2ccde40c61a361ded682f0e95d841",
+        "image_pixels": [
+          2136,
+          1887
+        ],
+        "image_url": "https://patentimages.storage.googleapis.com/17/a2/9d/5035b894282d76/USPP023572-20130430-D00002.png",
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "reported_assignee": "Mountain Blue Orchards PTY Ltd",
+        "reported_inventor": "Ridley Bell",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "catalog_commercial_label": "Opi",
+        "commercial_label_basis": "Existing canonical alias only; Eureka umbrella branding is not equated with every named cultivar."
+      },
+      "names": [
+        {
+          "candidate_name": "Ridley 1111",
+          "denomination": "Ridley 1111",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://patentimages.storage.googleapis.com/e3/2c/1b/44d5f15b638fdc/USPP23572.pdf#page=3",
+          "grant_number": "USPP23572P3",
+          "application_number": "12/930,887",
+          "application_date": "2011-01-18",
+          "grant_date": "2013-04-30",
+          "jurisdiction": "US",
+          "portfolio_context": "Original filing subject Ridley 1111. The catalog already associates this name with Opi; no new trade-name alias or current-rights conclusion is created.",
+          "photos": [
+            {
+              "named_variety": "Ridley 1111",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://patentimages.storage.googleapis.com/17/a2/9d/5035b894282d76/USPP023572-20130430-D00002.png",
+              "source_url": "https://patentimages.storage.googleapis.com/e3/2c/1b/44d5f15b638fdc/USPP23572.pdf#page=5",
+              "caption": "Figure 2 shows Ridley 1111 fruit, a leaf, blooms and the printed selection label. Full-size monochrome original; ruler markings are not interpreted.",
+              "credit": "USPP23572P3 original filing, via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public availability does not establish permission to reuse this image. Held by default; the explicit browser-session preview does not change review or saved permission."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      },
+      "published_date": "2013-04-30"
+    },
+    {
+      "id": "portfolio-remaining-profile-images-ridley1111-context",
+      "title": "Ridley 1111 — parents, selection code and comparisons",
+      "url": "https://patents.google.com/patent/USPP23572P3/en",
+      "checked_on": "2026-10-28",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Literal parents, discovery designation and comparison names from the description; taxonomy, phenotype terms, bibliographies and later citing documents excluded.",
+      "limitations": "Unreviewed source observations. No new canonical alias, company role, trait, growing region, current-rights verification, publication approval or image reuse permission. Parent and comparison names retain their own scope and never inherit the subject patent. Repeated images or sections from one document are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_description_and_table_name_inventory",
+        "pdf_url": "https://patentimages.storage.googleapis.com/e3/2c/1b/44d5f15b638fdc/USPP23572.pdf",
+        "pdf_sha256": "411c8b2bbd4f5dba9c1e105c71edb7fec6ddca1354fffdec4db18ec44c3a8541",
+        "focal_subject": "Ridley 1111",
+        "all_pdf_pages_visually_reviewed": false
+      },
+      "names": [
+        {
+          "candidate_name": "C99-42",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/e3/2c/1b/44d5f15b638fdc/USPP23572.pdf#page=1",
+          "portfolio_context": "Named seed parent and comparison cultivar in the Ridley 1111 description. Not the subject of this grant, an approved alias, a new release or an assigned company role."
+        },
+        {
+          "candidate_name": "Jewel",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/e3/2c/1b/44d5f15b638fdc/USPP23572.pdf#page=1",
+          "portfolio_context": "Named comparison cultivar in the Ridley 1111 description. Not the subject of this grant, an approved alias, a new release or an assigned company role."
+        },
+        {
+          "candidate_name": "Snowchaser",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/e3/2c/1b/44d5f15b638fdc/USPP23572.pdf#page=1",
+          "portfolio_context": "Named comparison cultivar in the Ridley 1111 description. Not the subject of this grant, an approved alias, a new release or an assigned company role."
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "reported_items": 3,
+        "exclusions": []
+      },
+      "published_date": "2013-04-30"
+    },
+    {
+      "id": "portfolio-remaining-profile-images-ridley1403-correction",
+      "title": "Ridley 1403 filing — C99-42 comparison correction",
+      "url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf#page=9",
+      "checked_on": "2026-10-28",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One named comparison column and the correction date; retain the original table and its correction together.",
+      "limitations": "Unreviewed source observations. No new canonical alias, company role, trait, growing region, current-rights verification, publication approval or image reuse permission. Parent and comparison names retain their own scope and never inherit the subject patent. Repeated images or sections from one document are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_certificate_of_correction_visual_review",
+        "pdf_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf",
+        "pdf_sha256": "bf539038aac796cf8d728ca9e7b3a1e61f3858ff6cd853255e4bd91860fd87c9",
+        "pdf_page": 9,
+        "signed_on": "2016-03-08",
+        "original_grant_subject": "Ridley 1403",
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "C99-42",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/3a/ae/b0/3cc14144131dee/USPP25432.pdf#page=9",
+          "portfolio_context": "The 2016 certificate corrects only the C99-42 comparison column in Table 1. This is a document correction, not a new variety release, focal Ridley 1403 trait or grant for C99-42."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      },
+      "published_date": "2016-03-08"
+    },
+    {
+      "id": "portfolio-remaining-profile-images-eterna",
+      "title": "BluGenix Eterna — named-section fruit image",
+      "url": "https://blugenix.com.au/varieties/",
+      "checked_on": "2026-10-28",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One explicitly named Eterna fruit image, within its own cultivar section; exclude other varieties, logos, navigation and repeated smaller image variants.",
+      "limitations": "Unreviewed source observations. No new canonical alias, company role, trait, growing region, current-rights verification, publication approval or image reuse permission. Parent and comparison names retain their own scope and never inherit the subject patent. Repeated images or sections from one document are not independent corroboration.",
+      "capture_reference": {
+        "method": "original_html_named_section_and_image_visual_review",
+        "page_sha256": "0ec205603a326864d3fe2beb6339cdbac71c25e3351c5594aeb95500e46adfaf",
+        "section_data_id": "c0c47ca",
+        "image_source_label_basis": "Named Eterna custom_tab_content ancestor, not filename alone",
+        "image_url": "https://blugenix.com.au/wp-content/uploads/2025/12/Eterna.png",
+        "image_sha256": "801bd8fdbd2693aee4ed320de344c3a4523d472093292581ac85cb4392536a3b",
+        "image_pixels": [
+          527,
+          529
+        ],
+        "published_date_known": false,
+        "image_filename_is_not_publication_date": true,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Eterna",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://blugenix.com.au/varieties/",
+          "portfolio_context": "Eterna is explicitly named in the same cultivar section as the supplied fruit image. Breeding location, performance tables and harvest calendars are not imported as verified traits or growing regions.",
+          "photos": [
+            {
+              "named_variety": "Eterna",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://blugenix.com.au/wp-content/uploads/2025/12/Eterna.png",
+              "source_url": "https://blugenix.com.au/varieties/",
+              "caption": "Eterna berry image supplied in BluGenix’s named variety section. Marketing image; not a size or performance comparison.",
+              "credit": "BluGenix variety catalogue; individual photographer not credited",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Public availability does not establish permission to reuse this image. Held by default; the explicit browser-session preview does not change review or saved permission."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-remaining-profile-images-eterna-context",
+      "title": "BluGenix Eterna — separately named timing comparison",
+      "url": "https://blugenix.com.au/varieties/",
+      "checked_on": "2026-10-28",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One explicitly named comparison within the Eterna section; no source-wide cultivar enumeration or trait transfer.",
+      "limitations": "Unreviewed source observations. No new canonical alias, company role, trait, growing region, current-rights verification, publication approval or image reuse permission. Parent and comparison names retain their own scope and never inherit the subject patent. Repeated images or sections from one document are not independent corroboration.",
+      "capture_reference": {
+        "method": "named_section_comparison_inventory",
+        "page_sha256": "0ec205603a326864d3fe2beb6339cdbac71c25e3351c5594aeb95500e46adfaf",
+        "section_data_id": "c0c47ca"
+      },
+      "names": [
+        {
+          "candidate_name": "Kirra",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://blugenix.com.au/varieties/",
+          "portfolio_context": "Kirra is named as a relative timing comparator inside the Eterna section. No Eterna image, trait, growing location or company role is assigned to Kirra."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    }
+  ]
+}

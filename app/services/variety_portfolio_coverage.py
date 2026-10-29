@@ -5,7 +5,9 @@ the established imports namespace, contain no article bodies, and never create
 Evidence, roles or canonical varieties. Human inbox decisions win on replay.
 """
 from datetime import date
+from hashlib import sha256
 import json
+import re
 from pathlib import Path
 from urllib.parse import urlencode, urlsplit
 
@@ -18,6 +20,18 @@ from app.services.variety_universe.registry_import import build_candidate
 
 def _key(row):
     return fold_identity(row.get("candidate_name", "")), row.get("berry_id", "")
+
+
+def _code_comparison_key(value):
+    """ABB prints its numeric codes both spaced and compact on its own pages.
+
+    Ignore that issuer's formatting separator only in discrepancy checks.
+    Literal records and the canonical name/alias resolver are unchanged.
+    Other prefixes, numeric separators and legal-name identities stay distinct.
+    """
+    key = fold_identity(value)
+    match = re.fullmatch(r"abb\s+(\d+)", key)
+    return "abb" + match.group(1) if match else key
 
 
 def observation_company_ids(source, observation):
@@ -55,7 +69,7 @@ def _coded_label_keys(sources):
             code = row.get("denomination") or row.get("breeder_code")
             label = row.get("trade_name") or row["candidate_name"]
             if code:
-                labels.setdefault((fold_identity(label), row["berry_id"]), set()).add(fold_identity(code))
+                labels.setdefault((fold_identity(label), row["berry_id"]), set()).add(_code_comparison_key(code))
     return {key for key, codes in labels.items() if len(codes) > 1}
 
 
@@ -66,15 +80,56 @@ def load_portfolio_observations(data_dir: Path):
         raise ValueError("Stored portfolio observations failed validation; check the dated observations file.") from exc
 
 
+def _source_fingerprint(source):
+    return sha256(json.dumps(source, sort_keys=True, ensure_ascii=False,
+                             separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
+def _validate_warning_scopes(source):
+    warnings = source.get("review_warnings", [])
+    scopes = source.get("review_warning_scopes", [])
+    if not isinstance(scopes, list) or len(scopes) > len(warnings):
+        raise ValueError("Warning scopes must refer to existing source warnings")
+    scoped_messages = set()
+    observed_names = {row["candidate_name"] for row in source["names"]}
+    for scope in scopes:
+        if (not isinstance(scope, dict) or set(scope) != {"message", "candidate_names"}
+                or not isinstance(scope["message"], str) or scope["message"] not in warnings
+                or scope["message"] in scoped_messages
+                or not isinstance(scope["candidate_names"], list)
+                or any(not isinstance(name, str) or name not in observed_names
+                       for name in scope["candidate_names"])
+                or len(scope["candidate_names"]) != len(set(scope["candidate_names"]))):
+            raise ValueError("Warning scopes need a unique source warning and literal source names")
+        scoped_messages.add(scope["message"])
+
+
 def _load_portfolio_observations(data_dir: Path):
     """Latest dated observation per section; no network or persisted side effects."""
     latest = {}
+    overlays = {}
+    photo_previews = {}
     for path in sorted((data_dir / "imports").glob("variety-portfolio-observations-*/observations.json")):
         payload = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(payload, dict) or payload.get("kind") != "unreviewed_portfolio_name_observations":
             raise ValueError("Unknown portfolio observation format")
         if not isinstance(payload.get("sources"), list):
             raise ValueError("Portfolio observations need a source list")
+        from app.services.variety_photo_previews import read_preview_overlays
+        photo_previews.update(read_preview_overlays(payload))
+        scope_overlays = payload.get("warning_scope_overlays", [])
+        if not isinstance(scope_overlays, list) or len(scope_overlays) > 100:
+            raise ValueError("Warning overlays need a bounded list")
+        for overlay in scope_overlays:
+            if (not isinstance(overlay, dict)
+                    or set(overlay) != {"source_id", "source_fingerprint", "review_warning_scopes"}
+                    or not isinstance(overlay["source_id"], str) or not overlay["source_id"].strip()
+                    or not isinstance(overlay["source_fingerprint"], str)
+                    or not re.fullmatch(r"[0-9a-f]{64}", overlay["source_fingerprint"])
+                    or not isinstance(overlay["review_warning_scopes"], list)
+                    or len(overlay["review_warning_scopes"]) > 8):
+                raise ValueError("Warning overlays need an explicit source and matching record fingerprint")
+            overlays[overlay["source_id"]] = overlay
         for source in payload.get("sources", []):
             if not isinstance(source, dict):
                 raise ValueError("Portfolio source must be an object")
@@ -106,6 +161,7 @@ def _load_portfolio_observations(data_dir: Path):
                     not isinstance(message, str) or not message.strip() or len(message) > 1000
                     for message in warnings):
                 raise ValueError("Source review warnings need short, nonempty text")
+            _validate_warning_scopes(source)
             from app.services.variety_photos import compatible, validate_photo
             for name in source["names"]:
                 if "source_company_ids" in name and (not isinstance(name["source_company_ids"], list) or any(
@@ -145,7 +201,36 @@ def _load_portfolio_observations(data_dir: Path):
             old = latest.get(source["id"])
             if old is None or checked >= date.fromisoformat(old["checked_on"]):
                 latest[source["id"]] = source
+    # Both presentation overlays guard the original capture, rather than each
+    # other's derived fields. Neither can suppress a changed operator record.
+    fingerprints = {key: _source_fingerprint(source) for key, source in latest.items()}
+    for source_id, overlay in overlays.items():
+        if source_id not in latest:
+            raise ValueError("Warning placement refers to an unavailable source")
+        current = latest[source_id]
+        if _source_fingerprint(current) != overlay["source_fingerprint"]:
+            # New captures or operator edits win. Keep their original warnings
+            # prominent rather than replacing any part of a changed record.
+            continue
+        scoped = {**current, "review_warning_scopes": overlay["review_warning_scopes"]}
+        _validate_warning_scopes(scoped)
+        latest[source_id] = scoped
+    from app.services.variety_photo_previews import apply_preview_overlays
+    apply_preview_overlays(latest, photo_previews, fingerprints)
     return list(latest.values())
+
+
+def _asserted_pair(row):
+    """A cultivar denomination repeating its label is not a breeding code.
+
+    Preserve an explicitly printed breeder code. A denomination-only filing
+    does not assert either a second identifier or the absence of a code.
+    """
+    label = row.get("trade_name") or row["candidate_name"]
+    denomination = row.get("denomination")
+    repeated_name = bool(denomination and fold_identity(denomination) == fold_identity(label))
+    code = (row.get("breeder_code") if repeated_name else denomination or row.get("breeder_code"))
+    return code, label, repeated_name and not code
 
 
 def _identity_pair_notes(sources):
@@ -154,49 +239,60 @@ def _identity_pair_notes(sources):
     for source in sources:
         for row in source["names"]:
             companies = tuple(sorted(observation_company_ids(source, row)))
-            code = row.get("denomination") or row.get("breeder_code")
-            label = row.get("trade_name") or row["candidate_name"]
+            code, label, denomination_only = _asserted_pair(row)
             mention_label = label or row["candidate_name"]
             label_mentions.setdefault((row["berry_id"], fold_identity(mention_label)), []).append(
-                (source["id"], _key(row), code))
+                (source["id"], _key(row), code, denomination_only))
             # A denomination-only register row does not assert a second
             # commercial label. Keep it in cross-source mention/code checks
             # below, but do not invent a code-to-trade-name pairing to itself.
-            if code and label and fold_identity(code) != fold_identity(label):
+            legal_name_only = (row.get("denomination") and not row.get("trade_name")
+                               and fold_identity(row["denomination"]) == fold_identity(label))
+            if code and label and fold_identity(code) != fold_identity(label) and not legal_name_only:
                 scope = (companies, row["berry_id"])
-                codes.setdefault((*scope, fold_identity(code)), set()).add(label)
+                codes.setdefault((*scope, _code_comparison_key(code)), set()).add(label)
                 labels.setdefault((*scope, fold_identity(label)), set()).add(code)
     notes = {}
     for source in sources:
         for row in source["names"]:
             companies = tuple(sorted(observation_company_ids(source, row)))
             scope = (companies, row["berry_id"])
-            code = row.get("denomination") or row.get("breeder_code")
-            label = row.get("trade_name") or row["candidate_name"]
+            code, label, denomination_only = _asserted_pair(row)
             messages = []
-            paired_labels = codes.get((*scope, fold_identity(code or "")), set())
+            paired_labels = codes.get((*scope, _code_comparison_key(code or "")), set())
+            # A repeated denomination asserts no code/name pair of its own,
+            # but other sources may explicitly use that identifier as a code.
+            # Their conflicting labels must still hold the original reference,
+            # including when it separately records another breeder code.
+            denomination = row.get("denomination")
+            if denomination and fold_identity(denomination) == fold_identity(label):
+                paired_labels = paired_labels | codes.get((*scope, _code_comparison_key(denomination)), set())
             paired_codes = labels.get((*scope, fold_identity(label or "")), set())
             if len({fold_identity(value) for value in paired_labels}) > 1:
                 messages.append("This code appears with multiple labels: " + ", ".join(sorted(paired_labels)) + ". Check the pairing before accepting aliases.")
-            if len({fold_identity(value) for value in paired_codes}) > 1:
+            if len({_code_comparison_key(value) for value in paired_codes}) > 1:
                 messages.append("This label appears with multiple codes: " + ", ".join(sorted(paired_codes)) + ". Keep the identities unresolved until reviewed.")
             # A code-bearing release and an uncoded name in another source are
             # separate leads until a human resolves them. Different companies
             # alone do not establish different identities or breeder roles.
             mention_label = label or row["candidate_name"]
             mentions = label_mentions.get((row["berry_id"], fold_identity(mention_label)), [])
-            other_mentions = [m for m in mentions if (m[0] != source["id"] or m[1] != _key(row)
-                              or (code and m[2] and fold_identity(code) != fold_identity(m[2])))
-                              and (m[1] != _key(row) or (code and m[2] and fold_identity(code) != fold_identity(m[2])))]
-            if (code and any(not m[2] for m in other_mentions)) or (
-                    not code and any(m[2] for m in other_mentions)):
+            other_mentions = [m for m in mentions if not m[3] and (m[0] != source["id"] or m[1] != _key(row)
+                              or (code and m[2] and _code_comparison_key(code) != _code_comparison_key(m[2])))
+                              and (m[1] != _key(row) or (code and m[2] and _code_comparison_key(code) != _code_comparison_key(m[2])))]
+            if not denomination_only and ((code and any(not m[2] for m in other_mentions)) or (
+                    not code and any(m[2] for m in other_mentions))):
                 messages.append("This name appears with a code in one source and without it in another. "
                                 "Check whether they refer to the same variety before combining the records.")
             different_codes = {m[2] for m in other_mentions if code and m[2]
-                               and fold_identity(m[2]) != fold_identity(code)}
+                               and _code_comparison_key(m[2]) != _code_comparison_key(code)}
+            if denomination_only:
+                reported_codes = {m[2] for m in other_mentions if m[2]}
+                if len({_code_comparison_key(value) for value in reported_codes}) > 1:
+                    different_codes = reported_codes
             if different_codes:
                 messages.append("Different sources pair this name with different codes: " +
-                                ", ".join(sorted({code, *different_codes})) +
+                                ", ".join(sorted({value for value in (code, *different_codes) if value})) +
                                 ". Check the original records before accepting aliases.")
             notes[(source["id"], _key(row), label or "")] = messages
     return notes
@@ -266,7 +362,16 @@ def reconcile_portfolios(*, sources, varieties, entities, candidates, today=None
             if source.get("published_date"):
                 reference["published_date"] = source["published_date"]
             if source.get("review_warnings"):
-                reference["review_warnings"] = list(source["review_warnings"])
+                scopes = {scope["message"]: scope["candidate_names"]
+                          for scope in source.get("review_warning_scopes", [])}
+                # Only an explicit, validated source-name scope changes placement.
+                # Missing scopes retain the conservative, prominent warning.
+                reference["review_warnings"] = [message for message in source["review_warnings"]
+                    if message not in scopes or observation["candidate_name"] in scopes[message]]
+                other_warnings = [message for message in source["review_warnings"]
+                                  if message not in reference["review_warnings"]]
+                if other_warnings:
+                    reference["other_entry_warnings"] = other_warnings
             provenance.setdefault(candidate_key(observation), []).append(reference)
             if status == "needs_review" and candidate is None:
                 lead = observation

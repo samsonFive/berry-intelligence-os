@@ -57,7 +57,9 @@ def test_all_existing_ids_and_human_registration_rejection_survive_the_new_refer
     # This historical batch is tested against its predecessors. Later G-Berries
     # references also name Cupla; including them only in the hypothetical old
     # baseline would make them its first source and test an impossible order.
-    all_sources=[s for s in load_portfolio_observations(DATA) if not s['id'].startswith('portfolio-gberries-')]
+    # Later national registers likewise name Cupla and other cohort entries.
+    all_sources=[s for s in load_portfolio_observations(DATA)
+                 if not s['id'].startswith(('portfolio-gberries-','portfolio-national-'))]
     _,old=reconcile_portfolios(sources=[s for s in all_sources if s['id'] not in IDS],varieties=[],entities=[],candidates=[])
     _,new=reconcile_portfolios(sources=all_sources,varieties=[],entities=[],candidates=[])
     keys={(c['berry_id'],c['candidate_name']):c['id'] for c in new}

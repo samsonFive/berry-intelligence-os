@@ -1,0 +1,11 @@
+{% if photo_identity_reviews and authoring_mode and not static_build %}
+<details class="variety-context photo-identity-review">
+  <summary>Photo found · name match needs review</summary>
+  <p>A source names a photo for this variety, but its identity still needs checking. The photo stays separate from this profile until that is resolved; reuse permission is a separate check.</p>
+  <ul>
+    {% for row in photo_identity_reviews %}<li><strong>{{ row.named_variety }}</strong> · <a href="{{ row.review_href }}">Review name match →</a> · <a href="{{ row.source_url }}" target="_blank" rel="noopener noreferrer">Photo source ↗</a>
+      {% for note in row.review_notes %}<p>{{ note }}</p>{% endfor %}
+    </li>{% endfor %}
+  </ul>
+</details>
+{% endif %}

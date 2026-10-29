@@ -11,6 +11,8 @@ The [visual guide follow-up](WORKSPACES-VISUAL-GUIDE.md) explains capture,
 connection, cited drafts and Markdown/JSON exports. Earlier preview/deployment
 statements below are dated implementation history, not today's live boundary.
 
+“Private” in the historical notes below means excluded from unauthenticated/static output, not private to an individual account. The current tested combined platform is #433; its actual release approval is pending. See [the full-thread audit](FULL-THREAD-COMPLETION-AUDIT.md) and [combined platform review](PLATFORM-COMBINED-RELEASE-REVIEW.md).
+
 ## Review entry points
 
 - `/workspaces`: pages, nested pages, capture inbox and document search.

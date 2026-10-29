@@ -1,0 +1,52 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [],
+  "warning_scope_overlays": [
+    {
+      "source_id": "portfolio-register52-2024-raspberry-main",
+      "source_fingerprint": "a440690a87b3f5284a85da37681b65329aa046fd4932ff80972c3f3bb125d2f5",
+      "review_warning_scopes": [
+        {
+          "message": "Lewis is used for two raspberries. Check Hutton’s Bonnie Lewis and USDA’s older Lewis separately.",
+          "candidate_names": [
+            "Bonnie Lewis"
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "portfolio-register52-2024-raspberry-addenda",
+      "source_fingerprint": "6da1e364cf73b9184f30305ca630dba771b7e0adb0725564ce434dfdbf27a344",
+      "review_warning_scopes": [
+        {
+          "message": "Lewis is used for two raspberries. Check Hutton’s Bonnie Lewis and USDA’s older Lewis separately.",
+          "candidate_names": []
+        }
+      ]
+    },
+    {
+      "source_id": "portfolio-printed-code-abb-2025-announcement",
+      "source_fingerprint": "38cb11ee1ac8dce4898bc4bc22388ec093454c97551f6654462a8a2f9693547c",
+      "review_warning_scopes": [
+        {
+          "message": "Baridi is labeled ABB132 on the current product page and ABB 137 in the breeder’s January 2025 announcement. Keep both observations visible; do not silently select a code or approve an alias.",
+          "candidate_names": [
+            "Baridi"
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "portfolio-raspberry-original-abb-2024-launch",
+      "source_fingerprint": "1d96e7a88dc8bcb042e0316aa9ba54aadd99b4942957260e992ee82f8c69ffa8",
+      "review_warning_scopes": [
+        {
+          "message": "The 2024 launch prints Baridi / ABB132; the retained 2025 announcement prints ABB 137. Keep both observations pending review.",
+          "candidate_names": [
+            "Baridi"
+          ]
+        }
+      ]
+    }
+  ]
+}

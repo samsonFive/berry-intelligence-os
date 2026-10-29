@@ -1,0 +1,24 @@
+{% set published_sources = rights_published or [] %}
+{% set pending_sources = (rights_drafts or []) if authoring_mode and not static_build else [] %}
+{% if published_sources or pending_sources %}
+<details class="variety-context rights-source-context">
+  <summary>Related reports &amp; records · {{ published_sources|length + pending_sources|length }}</summary>
+  <p class="context-limit">These sources can discuss several varieties or republish a filing. Source review is separate from confirming this variety's rights; the dates below belong to the source records.</p>
+  <ul class="entity-links" aria-label="Related rights sources">
+    {% for row in published_sources %}
+    <li>
+      <span class="v2-mark v2-mark-trusted">Reviewed source</span>
+      <a href="{% if static_build %}{{ row.trusted_href }}{% else %}{{ row.href }}{% endif %}" {% if not static_build %}data-open-reader data-item-id="{{ row.id }}"{% endif %}><strong>{{ row.title }}</strong></a>
+      {% if row.published_date %}<span class="draft-meta">Source date {{ row.published_date|us_date }}</span>{% endif %}
+    </li>
+    {% endfor %}
+    {% for row in pending_sources %}
+    <li>
+      <span class="v2-mark v2-mark-pending">Pending review</span>
+      <a href="{{ row.href }}" data-open-reader data-item-id="{{ row.id }}"><strong>{{ row.title }}</strong></a>
+      {% if row.published_date %}<span class="draft-meta">Source date {{ row.published_date|us_date }}</span>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</details>
+{% endif %}

@@ -1,0 +1,300 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-sekoya-story-fruit-beauty",
+      "title": "SEKOYA story - SEKOYA Beauty adjacent fruit photograph",
+      "url": "https://sekoyafruit.com/story/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One named timeline paragraph and the fruit image in that same story block. This is not a complete site or portfolio enumeration. Decorative backgrounds, logos, map and other timeline blocks are excluded.",
+      "limitations": "The photograph is attributed by its adjacent named source paragraph; the image itself has no variety label and the HTML alt is empty. No photo reuse, independently measured traits, growing footprint, company role, legal identity or current rights are approved.",
+      "capture_reference": {
+        "method": "issuer_same_story_block_named_paragraph_and_downloaded_image_visual_review",
+        "response_sha256": "abe99c483c6f84ca1e4dfdd7c14b7b9a0e07dbce986f82bd5c658fdb78f8a921",
+        "image_sha256": "8cade0aaaedd42124ebdd20e9564a2a99e0a24f473b8db86ec755e47e29b46c2",
+        "image_width": 293,
+        "image_height": 339,
+        "source_story_year_label": "2012",
+        "image_label_basis": "adjacent named paragraph in same div.story",
+        "image_alt": "",
+        "original_image_visual_reviewed": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "SEKOYA Beauty",
+          "breeder_code": "FCM12-097",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://sekoyafruit.com/story/",
+          "portfolio_context": "The issuer's 2012 story block names SEKOYA Beauty and FCM12-097 beside this fruit photograph. The code is already retained in the existing catalog; this reference does not create or approve an alias. Image filenames are not treated as historical dates.",
+          "photos": [
+            {
+              "image_url": "https://sekoyafruit.com/wp-content/themes/sekoya/asset/images/2012.png",
+              "source_url": "https://sekoyafruit.com/story/",
+              "named_variety": "SEKOYA Beauty",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "SEKOYA / Fall Creek; photographer not credited",
+              "caption": "Fruit photograph displayed beside SEKOYA Beauty in the issuer's story timeline, with decorative framing. Attribution follows the adjacent named paragraph, not a label within the photograph. No independent trait or size assessment.",
+              "reuse_note": "No reuse permission or license is established by the checked source. Hidden by default; the existing explicit private session preview does not authorize publication."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-sekoya-story-fruit-crunch",
+      "title": "SEKOYA story - SEKOYA Crunch adjacent fruit photograph",
+      "url": "https://sekoyafruit.com/story/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One named timeline paragraph and the fruit image in that same story block. This is not a complete site or portfolio enumeration. Decorative backgrounds, logos, map and other timeline blocks are excluded.",
+      "limitations": "The photograph is attributed by its adjacent named source paragraph; the image itself has no variety label and the HTML alt is empty. No photo reuse, independently measured traits, growing footprint, company role, legal identity or current rights are approved.",
+      "capture_reference": {
+        "method": "issuer_same_story_block_named_paragraph_and_downloaded_image_visual_review",
+        "response_sha256": "abe99c483c6f84ca1e4dfdd7c14b7b9a0e07dbce986f82bd5c658fdb78f8a921",
+        "image_sha256": "06f333c21bf235f18cdedab70967d6962d3fd49626994619bfc68a09e5ba0402",
+        "image_width": 293,
+        "image_height": 339,
+        "source_story_year_label": "2013",
+        "image_label_basis": "adjacent named paragraph in same div.story",
+        "image_alt": "",
+        "original_image_visual_reviewed": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "SEKOYA Crunch",
+          "breeder_code": "FC13-083",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://sekoyafruit.com/story/",
+          "portfolio_context": "The issuer's 2013 story block names SEKOYA Crunch and FC13-083 beside this fruit photograph. The code is already retained in the existing catalog; this reference does not create or approve an alias. Image filenames are not treated as historical dates.",
+          "photos": [
+            {
+              "image_url": "https://sekoyafruit.com/wp-content/themes/sekoya/asset/images/2013.png",
+              "source_url": "https://sekoyafruit.com/story/",
+              "named_variety": "SEKOYA Crunch",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "SEKOYA / Fall Creek; photographer not credited",
+              "caption": "Fruit photograph displayed beside SEKOYA Crunch in the issuer's story timeline, with decorative framing. Attribution follows the adjacent named paragraph, not a label within the photograph. No independent trait or size assessment.",
+              "reuse_note": "No reuse permission or license is established by the checked source. Hidden by default; the existing explicit private session preview does not authorize publication."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-sekoya-story-fruit-grande",
+      "title": "SEKOYA story - SEKOYA Grande adjacent fruit photograph",
+      "url": "https://sekoyafruit.com/story/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One named timeline paragraph and the fruit image in that same story block. This is not a complete site or portfolio enumeration. Decorative backgrounds, logos, map and other timeline blocks are excluded.",
+      "limitations": "The photograph is attributed by its adjacent named source paragraph; the image itself has no variety label and the HTML alt is empty. No photo reuse, independently measured traits, growing footprint, company role, legal identity or current rights are approved.",
+      "capture_reference": {
+        "method": "issuer_same_story_block_named_paragraph_and_downloaded_image_visual_review",
+        "response_sha256": "abe99c483c6f84ca1e4dfdd7c14b7b9a0e07dbce986f82bd5c658fdb78f8a921",
+        "image_sha256": "fcd3624a4d1b3316f358580dfd567cdd5af78b07e77d2e7e5a9c3807f1e1c37d",
+        "image_width": 292,
+        "image_height": 339,
+        "source_story_year_label": "2013",
+        "image_label_basis": "adjacent named paragraph in same div.story",
+        "image_alt": "",
+        "original_image_visual_reviewed": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "SEKOYA Grande",
+          "breeder_code": "FC13-122",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://sekoyafruit.com/story/",
+          "portfolio_context": "The issuer's 2013 story block names SEKOYA Grande and FC13-122 beside this fruit photograph. The code is already retained in the existing catalog; this reference does not create or approve an alias. Image filenames are not treated as historical dates.",
+          "photos": [
+            {
+              "image_url": "https://sekoyafruit.com/wp-content/themes/sekoya/asset/images/2014.png",
+              "source_url": "https://sekoyafruit.com/story/",
+              "named_variety": "SEKOYA Grande",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "SEKOYA / Fall Creek; photographer not credited",
+              "caption": "Fruit photograph displayed beside SEKOYA Grande in the issuer's story timeline, with decorative framing. Attribution follows the adjacent named paragraph, not a label within the photograph. No independent trait or size assessment.",
+              "reuse_note": "No reuse permission or license is established by the checked source. Hidden by default; the existing explicit private session preview does not authorize publication."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-sekoya-story-fruit-pop",
+      "title": "SEKOYA story - SEKOYA Pop adjacent fruit photograph",
+      "url": "https://sekoyafruit.com/story/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One named timeline paragraph and the fruit image in that same story block. This is not a complete site or portfolio enumeration. Decorative backgrounds, logos, map and other timeline blocks are excluded.",
+      "limitations": "The photograph is attributed by its adjacent named source paragraph; the image itself has no variety label and the HTML alt is empty. No photo reuse, independently measured traits, growing footprint, company role, legal identity or current rights are approved.",
+      "capture_reference": {
+        "method": "issuer_same_story_block_named_paragraph_and_downloaded_image_visual_review",
+        "response_sha256": "abe99c483c6f84ca1e4dfdd7c14b7b9a0e07dbce986f82bd5c658fdb78f8a921",
+        "image_sha256": "e8971a6ba66d902b35d935c575ccc96c23bec3d023d0189ce517969ea2f86183",
+        "image_width": 292,
+        "image_height": 339,
+        "source_story_year_label": "2014",
+        "image_label_basis": "adjacent named paragraph in same div.story",
+        "image_alt": "",
+        "original_image_visual_reviewed": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "SEKOYA Pop",
+          "breeder_code": "FCM14-052",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://sekoyafruit.com/story/",
+          "portfolio_context": "The issuer's 2014 story block names SEKOYA Pop and FCM14-052 beside this fruit photograph. The code is already retained in the existing catalog; this reference does not create or approve an alias. Image filenames are not treated as historical dates.",
+          "photos": [
+            {
+              "image_url": "https://sekoyafruit.com/wp-content/themes/sekoya/asset/images/2014_2.png",
+              "source_url": "https://sekoyafruit.com/story/",
+              "named_variety": "SEKOYA Pop",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "SEKOYA / Fall Creek; photographer not credited",
+              "caption": "Fruit photograph displayed beside SEKOYA Pop in the issuer's story timeline, with decorative framing. Attribution follows the adjacent named paragraph, not a label within the photograph. No independent trait or size assessment.",
+              "reuse_note": "No reuse permission or license is established by the checked source. Hidden by default; the existing explicit private session preview does not authorize publication."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-sekoya-story-fruit-fiesta",
+      "title": "SEKOYA story - SEKOYA Fiesta adjacent fruit photograph",
+      "url": "https://sekoyafruit.com/story/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One named timeline paragraph and the fruit image in that same story block. This is not a complete site or portfolio enumeration. Decorative backgrounds, logos, map and other timeline blocks are excluded.",
+      "limitations": "The photograph is attributed by its adjacent named source paragraph; the image itself has no variety label and the HTML alt is empty. No photo reuse, independently measured traits, growing footprint, company role, legal identity or current rights are approved.",
+      "capture_reference": {
+        "method": "issuer_same_story_block_named_paragraph_and_downloaded_image_visual_review",
+        "response_sha256": "abe99c483c6f84ca1e4dfdd7c14b7b9a0e07dbce986f82bd5c658fdb78f8a921",
+        "image_sha256": "0108478416da8ece01707ce0854b2d7db716850d6e639e38d6814444f5004af6",
+        "image_width": 293,
+        "image_height": 339,
+        "source_story_year_label": "2023",
+        "image_label_basis": "adjacent named paragraph in same div.story",
+        "image_alt": "",
+        "original_image_visual_reviewed": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "SEKOYA Fiesta",
+          "breeder_code": "FC13-113",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://sekoyafruit.com/story/",
+          "portfolio_context": "The issuer's 2023 story block names SEKOYA Fiesta and FC13-113 beside this fruit photograph. The code is already retained in the existing catalog; this reference does not create or approve an alias. Image filenames are not treated as historical dates.",
+          "photos": [
+            {
+              "image_url": "https://sekoyafruit.com/wp-content/themes/sekoya/asset/images/2023.png",
+              "source_url": "https://sekoyafruit.com/story/",
+              "named_variety": "SEKOYA Fiesta",
+              "berry_id": "berry-blueberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "SEKOYA / Fall Creek; photographer not credited",
+              "caption": "Fruit photograph displayed beside SEKOYA Fiesta in the issuer's story timeline, with decorative framing. Attribution follows the adjacent named paragraph, not a label within the photograph. No independent trait or size assessment.",
+              "reuse_note": "No reuse permission or license is established by the checked source. Hidden by default; the existing explicit private session preview does not authorize publication."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    }
+  ]
+}

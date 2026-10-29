@@ -1,0 +1,478 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-reference-gap-cpvo-20151841",
+      "title": "CPVO register: Flavia, application 20151841",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20151841&denomination=Flavia&denominationSearchType=equals",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One species-checked original application and native detail page, not a complete register search.",
+      "limitations": "Literal register fields are source observations. Application and title are distinct; current validity, aliases, owners, territories, traits and photo reuse are not approved.",
+      "imported_registry_reference": true,
+      "capture_reference": {
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20151841&denomination=Flavia&denominationSearchType=equals",
+        "observed_query_url": "https://online.plantvarieties.eu/publicSearch?denomination=Flavia&denominationSearchType=equals",
+        "query_results_observed": 4,
+        "reported_species": "Fragaria x ananassa Duchesne ex Rozier",
+        "reported_application_status": "Granted",
+        "reported_title_status": "Approved",
+        "response_sha256": "d96e9127bff247e57918b36563a382247e91f794fd2b1a4c34cdf525b8a7e0cd",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Flavia",
+          "denomination": "Flavia",
+          "berry_id": "berry-strawberry",
+          "breeder_code": "civs940",
+          "application_number": "20151841",
+          "application_date": "2015-08-04",
+          "grant_number": "48746",
+          "grant_date": "2018-04-09",
+          "portfolio_context": "Original CPVO application 20151841, matched to its literal denomination and species. The native source reports granted; this is not an independent legal-status assessment. No new canonical alias or organization role is approved."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-reference-gap-cpvo-20252277",
+      "title": "CPVO register: FC15-173, application 20252277",
+      "url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20252277&denomination=FC15-173&denominationSearchType=equals",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One species-checked original application and native detail page, not a complete register search.",
+      "limitations": "Literal register fields are source observations. Application and title are distinct; current validity, aliases, owners, territories, traits and photo reuse are not approved.",
+      "imported_registry_reference": true,
+      "capture_reference": {
+        "observed_application_url": "https://online.plantvarieties.eu/publicConsultationDetails?registerId=20252277&denomination=FC15-173&denominationSearchType=equals",
+        "observed_query_url": "https://online.plantvarieties.eu/publicSearch?denomination=FC15-173&denominationSearchType=equals",
+        "query_results_observed": 1,
+        "reported_species": "Vaccinium corymbosum L.",
+        "reported_application_status": "Active application",
+        "reported_title_status": "No decision",
+        "response_sha256": "b4b671a7b1b6201868a864d39744973d3aa75775d74f884a56bf0eddc3e5298d",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "FC15-173",
+          "denomination": "FC15-173",
+          "berry_id": "berry-blueberry",
+          "breeder_code": "fc15-173",
+          "application_number": "20252277",
+          "application_date": "2025-10-29",
+          "grant_number": "",
+          "grant_date": "",
+          "portfolio_context": "Original CPVO application 20252277, matched to its literal denomination and species. The native source reports active application; this is not an independent legal-status assessment. No new canonical alias or organization role is approved."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-reference-gap-original-uspp32799p2",
+      "title": "Crimson Treasure — original US plant patent",
+      "url": "https://patents.google.com/patent/USPP32799P2/en",
+      "checked_on": "2026-10-13",
+      "published_date": "2021-02-09",
+      "source_type": "plant_patent",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One claimed denomination; separately enumerated parent/comparison names do not inherit this filing.",
+      "limitations": "Original historical grant reference only. Current validity, aliases, company roles, traits, growing locations and image reuse require separate review.",
+      "names": [
+        {
+          "candidate_name": "Crimson Treasure",
+          "denomination": "Crimson Treasure",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/ff/2f/30/5fc3c6c2a5417d/USPP32799.pdf#page=3",
+          "application_number": "16/602,224",
+          "application_date": "2019-08-29",
+          "grant_number": "USPP32799P2",
+          "grant_date": "2021-02-09",
+          "jurisdiction": "US",
+          "portfolio_context": "The document reports testing designation NY12-30. A separate historical chart uses D-6958; these source identifiers are not added as catalog aliases. Testing location and measured performance remain document-specific claims."
+        }
+      ],
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/ff/2f/30/5fc3c6c2a5417d/USPP32799.pdf",
+        "sha256": "045bbfbde3b12f4313de17618dfdfb80a28e92628196bde7a2bfc77545d93d0b",
+        "page_count": 7,
+        "claim_url": "https://patents.google.com/patent/USPP32799P2/en#claims",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/ff/2f/30/5fc3c6c2a5417d/USPP32799.pdf#page=4",
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": [
+          {
+            "label": "NY02-57",
+            "reason": "Maternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Rafzaqu",
+            "reason": "Paternal parent; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Heritage",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Crimson Giant",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Josephine",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Caroline",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-reference-gap-original-uspp32799p2-other-names",
+      "title": "Crimson Treasure patent — parent/comparison names",
+      "url": "https://patents.google.com/patent/USPP32799P2/en",
+      "checked_on": "2026-10-13",
+      "published_date": "2021-02-09",
+      "source_type": "patent_context_names",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Parent/comparison entries only; testing identifiers for the focal cultivar are not extra cultivars.",
+      "limitations": "Nearby names receive no focal filing number, claim, photograph, trait, role or growing footprint.",
+      "names": [
+        {
+          "candidate_name": "NY02-57",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Maternal parent named in the original document; no focal grant or company role is transferred."
+        },
+        {
+          "candidate_name": "Rafzaqu",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Paternal parent named in the original document; no focal grant or company role is transferred."
+        },
+        {
+          "candidate_name": "Heritage",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Comparison named in the original document; no focal grant or company role is transferred."
+        },
+        {
+          "candidate_name": "Crimson Giant",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Comparison named in the original document; no focal grant or company role is transferred."
+        },
+        {
+          "candidate_name": "Josephine",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Comparison named in the original document; no focal grant or company role is transferred."
+        },
+        {
+          "candidate_name": "Caroline",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Comparison named in the original document; no focal grant or company role is transferred."
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-reference-gap-original-uspp23914",
+      "title": "Advabertwee — original US plant patent",
+      "url": "https://patents.google.com/patent/USPP23914/en",
+      "checked_on": "2026-10-13",
+      "published_date": "2013-09-24",
+      "source_type": "plant_patent",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One claimed denomination; separately enumerated parent/comparison names do not inherit this filing.",
+      "limitations": "Original historical grant reference only. Current validity, aliases, company roles, traits, growing locations and image reuse require separate review.",
+      "names": [
+        {
+          "candidate_name": "Advabertwee",
+          "denomination": "Advabertwee",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://patentimages.storage.googleapis.com/89/51/0c/431f01a2de139f/USPP23914.pdf#page=3",
+          "application_number": "13/385,295",
+          "application_date": "2012-02-10",
+          "grant_number": "USPP23914P2",
+          "grant_date": "2013-09-24",
+          "jurisdiction": "US",
+          "portfolio_context": "The original denomination is Advabertwee. Kwanza was only the research lead to this number; the document does not approve that commercial-name equivalence. Keep these identities separate pending a human decision."
+        }
+      ],
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/89/51/0c/431f01a2de139f/USPP23914.pdf",
+        "sha256": "20f206192d58333c30fbe808ccf490229c6e475fc0175ac5f6f16d7c41e69034",
+        "page_count": 5,
+        "claim_url": "https://patents.google.com/patent/USPP23914/en#claims",
+        "claim_page": 3,
+        "figures_url": "https://patentimages.storage.googleapis.com/89/51/0c/431f01a2de139f/USPP23914.pdf#page=4",
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "207157-12",
+            "reason": "Maternal selection; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "207015",
+            "reason": "Paternal selection; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "Polka",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-reference-gap-original-uspp23914-other-names",
+      "title": "Advabertwee patent — parent/comparison names",
+      "url": "https://patents.google.com/patent/USPP23914/en",
+      "checked_on": "2026-10-13",
+      "published_date": "2013-09-24",
+      "source_type": "patent_context_names",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Parent/comparison entries only; testing identifiers for the focal cultivar are not extra cultivars.",
+      "limitations": "Nearby names receive no focal filing number, claim, photograph, trait, role or growing footprint.",
+      "names": [
+        {
+          "candidate_name": "207157-12",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Maternal selection named in the original document; no focal grant or company role is transferred."
+        },
+        {
+          "candidate_name": "207015",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Paternal selection named in the original document; no focal grant or company role is transferred."
+        },
+        {
+          "candidate_name": "Polka",
+          "berry_id": "berry-raspberry",
+          "portfolio_context": "Comparison named in the original document; no focal grant or company role is transferred."
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-reference-gap-original-uspp34597p2",
+      "title": "PS-BK3-17.006-13 — original US plant patent",
+      "url": "https://patents.google.com/patent/USPP34597P2/en",
+      "checked_on": "2026-10-13",
+      "published_date": "2022-09-20",
+      "source_type": "plant_patent",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One claimed denomination; separately enumerated parent/comparison names do not inherit this filing.",
+      "limitations": "Original historical grant reference only. Current validity, aliases, company roles, traits, growing locations and image reuse require separate review.",
+      "names": [
+        {
+          "candidate_name": "PS-BK3-17.006-13",
+          "denomination": "PS-BK3-17.006-13",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://patentimages.storage.googleapis.com/b9/30/b7/e233d134b19bac/USPP34597.pdf#page=4",
+          "application_number": "17/503,081",
+          "application_date": "2021-10-15",
+          "grant_number": "USPP34597P2",
+          "grant_date": "2022-09-20",
+          "jurisdiction": "US",
+          "portfolio_context": "The original denomination is PS-BK3-17.006-13. The BK 6-13/Rejoice commercial lead is not an approved catalog alias. Parent/comparison names, trial conditions and party assertions do not inherit the focal grant."
+        }
+      ],
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/b9/30/b7/e233d134b19bac/USPP34597.pdf",
+        "sha256": "cc92472ca295485ca104f82a8802113d3057bc2ff9cac835fe27b672003a70da",
+        "page_count": 10,
+        "claim_url": "https://patents.google.com/patent/USPP34597P2/en#claims",
+        "claim_page": 4,
+        "figures_url": "https://patentimages.storage.googleapis.com/b9/30/b7/e233d134b19bac/USPP34597.pdf#page=5",
+        "visually_reviewed_pages": [
+          1,
+          4
+        ],
+        "grant_metadata_verified_in_original": true,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": [
+          {
+            "label": "BK3 14.046-34",
+            "reason": "Maternal selection; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "BK3 14.057-02",
+            "reason": "Paternal selection; separately discoverable, not covered by the focal grant."
+          },
+          {
+            "label": "APF-45",
+            "reason": "Comparison; separately discoverable, not covered by the focal grant."
+          }
+        ]
+      }
+    },
+    {
+      "id": "portfolio-reference-gap-original-uspp34597p2-other-names",
+      "title": "PS-BK3-17.006-13 patent — parent/comparison names",
+      "url": "https://patents.google.com/patent/USPP34597P2/en",
+      "checked_on": "2026-10-13",
+      "published_date": "2022-09-20",
+      "source_type": "patent_context_names",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Parent/comparison entries only; testing identifiers for the focal cultivar are not extra cultivars.",
+      "limitations": "Nearby names receive no focal filing number, claim, photograph, trait, role or growing footprint.",
+      "names": [
+        {
+          "candidate_name": "BK3 14.046-34",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Maternal selection named in the original document; no focal grant or company role is transferred."
+        },
+        {
+          "candidate_name": "BK3 14.057-02",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Paternal selection named in the original document; no focal grant or company role is transferred."
+        },
+        {
+          "candidate_name": "APF-45",
+          "berry_id": "berry-blackberry",
+          "portfolio_context": "Comparison named in the original document; no focal grant or company role is transferred."
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-reference-gap-ukraine-raspberry-202604",
+      "title": "Ukraine April 2026 bulletin — raspberry patent-register entries",
+      "url": "https://sops.gov.ua/uploads/page/buleten/2026/2026.04.pdf#page=27",
+      "checked_on": "2026-10-13",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "imported_registry_reference": true,
+      "enumerated_scope": "Both rows in the Rubus idaeus raspberry section on printed folio 26 / PDF page 27; not every crop in the 119-page bulletin.",
+      "limitations": "The issue identifies April 2026 without an exact publication day. Rights-registration dates are not copied into grant-date fields. Owner code 2816 is not mapped to a company. Current validity, roles, traits and growing regions remain unverified.",
+      "names": [
+        {
+          "candidate_name": "AMALIA ROSSA",
+          "denomination": "AMALIA ROSSA",
+          "berry_id": "berry-raspberry",
+          "application_number": "24296003",
+          "application_date": "2024-11-22",
+          "grant_number": "260174",
+          "grant_date": "",
+          "jurisdiction": "UA",
+          "portfolio_context": "Original raspberry register row lists application 24296003 and patent 260174. Its rights-registration date is 2026-04-17; this is not asserted as an issue/grant date or independent current-validity assessment. Public owner code 2816 is left unresolved."
+        },
+        {
+          "candidate_name": "EROS",
+          "denomination": "EROS",
+          "berry_id": "berry-raspberry",
+          "application_number": "23296008",
+          "application_date": "2023-11-17",
+          "grant_number": "260184",
+          "grant_date": "",
+          "jurisdiction": "UA",
+          "portfolio_context": "Original raspberry register row lists application 23296008 and patent 260184. Its rights-registration date is 2026-04-29; this is not asserted as an issue/grant date or independent current-validity assessment. Public owner code 2816 is left unresolved."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "reported_items": 2,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://sops.gov.ua/uploads/page/buleten/2026/2026.04.pdf",
+        "sha256": "0ad989d2c908676d6ae3717a2ef020a9a6c3dbb155a25b97a9c459da79310e94",
+        "page_count": 119,
+        "visually_reviewed_pages": [
+          1,
+          27
+        ],
+        "reported_species": "Rubus idaeus L.",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    }
+  ]
+}
