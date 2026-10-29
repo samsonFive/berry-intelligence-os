@@ -2946,12 +2946,16 @@ def entity_list(
             if AUTHORING_MODE:
                 from app.services import variety_photos, company_directory
                 from app.services.variety_portfolio_coverage import load_portfolio_observations
+                from app.services.variety_photo_review import photo_identity_reviews
                 photo_sources = load_portfolio_observations(DATA_DIR)
                 photo_profiles = company_directory.load_profiles(INBOX_DIR)["profiles"]
                 for card in context["variety_rows"]:
                     target = entities_idx.get(card["id"], {})
+                    sourced_photos = variety_photos.source_photos(target, sources=photo_sources, varieties=varieties_all)
+                    card["photo_identity_reviews"] = photo_identity_reviews(target, sources=photo_sources,
+                        varieties=varieties_all, sourced=sourced_photos)
                     card["photos"] = variety_photos.gallery(target, authoring=True,
-                        sourced=variety_photos.source_photos(target, sources=photo_sources, varieties=varieties_all),
+                        sourced=sourced_photos,
                         profile=photo_profiles.get(card["id"]))
             if AUTHORING_MODE:
                 name_scope = {key: context["filters"].get(key, "") for key in ("q", "berry", "company")}
@@ -3993,16 +3997,21 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
                     inbox_dir=INBOX_DIR,
                 )
             template_name = "entity.html"
+            if entity_type == "variety" and AUTHORING_MODE:
+                from app.services import variety_photos, company_directory
+                from app.services.variety_portfolio_coverage import load_portfolio_observations
+                from app.services.variety_photo_review import photo_identity_reviews
+                photo_sources = load_portfolio_observations(DATA_DIR)
+                photo_varieties = [row for row in entities.values() if row.get("entity_type") == "variety"]
+                sourced_photos = variety_photos.source_photos(entity, sources=photo_sources, varieties=photo_varieties)
+                synthesis["photo_identity_reviews"] = photo_identity_reviews(entity, sources=photo_sources,
+                    varieties=photo_varieties, sourced=sourced_photos)
+                synthesis["photo_gallery"] = variety_photos.gallery(entity, authoring=True,
+                    sourced=sourced_photos,
+                    profile=company_directory.load_profiles(INBOX_DIR)["profiles"].get(entity_id))
             if entity_type == "variety" and request.query_params.get("view") != "legacy":
                 from app.services.variety_navigation import region_rows
                 synthesis["growing_regions"] = [row for row in region_rows(entities, all_relationships(), published_evidence(), INBOX_DIR, AUTHORING_MODE) if row["entity_id"] == entity_id]
-                if AUTHORING_MODE:
-                    from app.services import variety_photos, company_directory
-                    from app.services.variety_portfolio_coverage import load_portfolio_observations
-                    synthesis["photo_gallery"] = variety_photos.gallery(entity, authoring=True,
-                        sourced=variety_photos.source_photos(entity, sources=load_portfolio_observations(DATA_DIR),
-                            varieties=[row for row in entities.values() if row.get("entity_type") == "variety"]),
-                        profile=company_directory.load_profiles(INBOX_DIR)["profiles"].get(entity_id))
                 template_name = "variety_profile.html"
             response = templates.TemplateResponse(
                 request=request,

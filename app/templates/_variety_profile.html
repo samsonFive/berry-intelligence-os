@@ -37,6 +37,7 @@
     <a class="sh-btn sh-btn-primary" href="#recent-intelligence">Recent intelligence</a>
   </div>
 </section>
+{% include "_variety_photo_identity_reviews.html" %}
 
 {% if not static_build %}<p class="sh-actions"><a class="sh-btn" href="/profiles/{{ entity.id }}/regions">Growing regions · view / edit</a></p>{% endif %}
 {% if entity.description %}

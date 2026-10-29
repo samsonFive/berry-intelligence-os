@@ -1,5 +1,14 @@
 # Redesign and consolidation requirements
 
+October28 — [Held-photo routing](VARIETY-PHOTO-IDENTITY-REVIEW-ROUTING.md) makes an
+already captured Rutgers D'Light photo discoverable for name review across the
+directory, profiles, editor and coverage. It does not link the photo, approve the
+NJ09-2-1 association or change reuse/user choices. All31 definitions/order and
+existing gates remain; source/profile-gap counts are unchanged. Final47 affected
+checks pass; this follow-up requires native/current-head checks and separate
+release review. Frozen426 has5330tests and current-copy preservation. Actual
+platform421/catalog426 release decisions remain pending and are not inferred.
+
 October 28 — Rights/IP keeps exact original filing references above a collapsed
 Related reports & records group. Reviewed source and Source date distinguish
 publication review from a focal grant or current right. Current/legacy views

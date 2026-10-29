@@ -9,11 +9,12 @@ from urllib.parse import quote
 from app.services.berries.variety import variety_patent_link
 from app.services.variety_navigation import ROLE_LABELS, company_actors
 from app.services.variety_photos import gallery, source_photos
+from app.services.variety_photo_review import photo_identity_reviews
 from app.services.variety_portfolio_coverage import reconcile_portfolios
 from app.services.variety_universe.coverage import BERRY_LABELS, RIGHTS_SOURCE_TYPES
 
 GAPS = (
-    ('all', 'All profiles'), ('photos', 'No photo reference'),
+    ('all', 'All profiles'), ('photos', 'Photo not linked'),
     ('rights', 'No patent / PVR reference'), ('traits', 'No cited trait entry'),
     ('companies', 'No linked company / program'),
 )
@@ -83,7 +84,9 @@ def profile_field_coverage(*, varieties, entities, relationships, published_evid
         traits = [t for t in attrs.get('traits') or [] if isinstance(t, dict)
                   and t.get('trait') and t.get('value') not in (None, '')]
         cited = sum(1 for t in traits if any(eid in published for eid in t.get('evidence_ids') or []))
-        photos = gallery(variety, sourced=source_photos(variety, sources=portfolio_sources, varieties=varieties),
+        sourced_photos = source_photos(variety, sources=portfolio_sources, varieties=varieties)
+        photo_reviews = photo_identity_reviews(variety, sources=portfolio_sources, varieties=varieties, sourced=sourced_photos)
+        photos = gallery(variety, sourced=sourced_photos,
                          profile=profiles.get(vid), authoring=True)
         patent = variety_patent_link(variety, patents)
         # A number without a linked record is not a usable reference. Neither
@@ -113,6 +116,7 @@ def profile_field_coverage(*, varieties, entities, relationships, published_evid
             'berry_ids': list(variety.get('berry_ids') or []),
             'status': str(variety.get('status') or 'unverified').replace('_', ' ').title(),
             'photos': len(photos), 'held_photos': sum(p['reuse'] == 'unknown' for p in photos),
+            'photo_identity_reviews': photo_reviews,
             'rights_refs': len(rights_refs), 'unreviewed_rights_refs': len(unreviewed_refs),
             'patent_number_only': bool((attrs.get('patent_number') or attrs.get('us_plant_patent'))
                                       and not patent and not rights_refs and not unreviewed_refs),

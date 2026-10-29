@@ -8,6 +8,7 @@ from fastapi.responses import RedirectResponse
 from app.personal_digest_routes import require_edit
 from app.services import company_directory, variety_photos
 from app.services.variety_portfolio_coverage import load_portfolio_observations
+from app.services.variety_photo_review import photo_identity_reviews
 
 router = APIRouter()
 
@@ -42,15 +43,17 @@ def photo_context(kind, target_id):
         photos = variety_photos.gallery(target, sourced=sourced, profile=profile, authoring=True)
     except ValueError as exc:
         raise HTTPException(422, str(exc)) from exc
-    return main, target, sourced, profile, photos
+    reviews = photo_identity_reviews(target, sources=sources, varieties=varieties, sourced=sourced) if kind == "catalog" else []
+    return main, target, sourced, profile, photos, reviews
 
 
 @router.get("/varieties/photos/{kind}/{target_id}")
 def photo_page(request: Request, kind: str, target_id: str):
-    main, target, sourced, profile, photos = photo_context(kind, target_id)
+    main, target, sourced, profile, photos, reviews = photo_context(kind, target_id)
     hidden = set((profile.get("variety_photo_overrides") or {})) - {row["id"] for row in photos}
     return main.templates.TemplateResponse(request=request, name="variety_photos.html", context={
         "target": target, "kind": kind, "photos": photos, "photo_gallery": photos, "profile": profile,
+        "photo_identity_reviews": reviews,
         "hidden_photos": sorted(hidden), "reuse_choices": variety_photos.REUSE, "photo_kinds": variety_photos.KINDS,
         "photo_berries": {key: main.BERRIES[key] for key in ([target.get("berry_id")] if kind == "candidate" else target.get("berry_ids") or []) if key in main.BERRIES},
         "today": date.today().isoformat(), "authoring_mode": True, "static_build": False,
@@ -61,7 +64,7 @@ def photo_page(request: Request, kind: str, target_id: str):
 @router.post("/varieties/photos/{kind}/{target_id}")
 async def edit_photo(request: Request, kind: str, target_id: str):
     require_edit(request)
-    main, target, sourced, _, _ = photo_context(kind, target_id)
+    main, target, sourced, _, _, _ = photo_context(kind, target_id)
     try:
         variety_photos.edit(main.INBOX_DIR, target=target, payload=dict(await request.form()), sourced=sourced,
                             reviewer=main.session_username(request) or main.review_username() or "")

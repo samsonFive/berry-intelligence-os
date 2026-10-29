@@ -1,5 +1,13 @@
 # Technical Debt Register
 
+October28 — TD-116 [held-photo routing](VARIETY-PHOTO-IDENTITY-REVIEW-ROUTING.md):
+an already captured Rutgers D'Light image was correctly identity-held but appeared
+as No photo. Directory/profile/editor/coverage now expose the source and name
+review action without linking/loading the held image or approving the NJ09-2-1
+association. The handoff keeps coded/uncoded leads together; wrong crops, saved
+hiding and private/public gates remain. Final47 affected checks pass. Counts and
+schemas are unchanged; CAT-01/CAT-02/TD-116 and actual human decisions remain open.
+
 October 28 — TD-116 related-source presentation: current and legacy Rights/IP
 views now distinguish reviewed source publications from the exact original
 filings above them. Related reports/reprints start collapsed and retain their
