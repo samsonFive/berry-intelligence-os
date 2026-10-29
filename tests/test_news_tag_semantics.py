@@ -18,7 +18,7 @@ def completer(calls, *, select='markets', during=None):
         if during:
             during()
         return {'articles':[{'id':row['id'],'assignments':[
-            {'tag_id':select,'support':row['text'][-min(80,len(row['text'])):]}] if select else []}
+            {'tag_id':select,'support':row['passages'][0]['id']}] if select else []}
             for row in request['articles']]}
     return complete
 
@@ -43,7 +43,7 @@ def test_semantic_assignments_cache_and_manual_race(tmp_path):
     assert len(calls)==1
     with tags.database(tmp_path,readonly=True) as db:
         decision=db.execute('SELECT * FROM automatic WHERE article=? AND tag=?',(row['id'],'markets')).fetchone()
-        assert decision['classifier_version'].startswith('semantic-tags-1:perplexity-agent:')
+        assert decision['classifier_version'].startswith(semantic.VERSION+':perplexity-agent:')
         assert decision['rationale'] in semantic.projection(row)['text']
 
 
@@ -67,6 +67,18 @@ def test_typographic_normalization_never_repairs_changed_claims(support):
     assert semantic.source_passage('Exports fell by 20 percent.',support) is None
 
 
+def test_passage_ids_preserve_source_typos_and_reject_unknown_references():
+    source='ndia is facing a structural shortage of fresh raspberries.'
+    records=[{'id':'one','text':source}]
+    payload={'articles':[{'id':'one','assignments':[{'tag_id':'markets','support':'p0'}]}]}
+    assert semantic.validate(payload,records,[{'id':'markets'}])['one']['markets']==source
+    payload['articles'][0]['assignments'][0]['support']='p999'
+    with pytest.raises(ValueError,match='Unsupported'):
+        semantic.validate(payload,records,[{'id':'markets'}])
+    spans=semantic.passages('Long stored article. '*1000)
+    assert len(spans)>1 and all(len(s)<=600 and s in 'Long stored article. '*1000 for s in spans.values())
+
+
 def test_long_stored_body_is_chunked_and_resumed_without_repeating_calls(tmp_path):
     row=source()
     row['article']={'full_text':'The berry nursery reported steady activity. '*210+'Seasonal workers negotiated higher wages.'}
@@ -78,7 +90,7 @@ def test_long_stored_body_is_chunked_and_resumed_without_repeating_calls(tmp_pat
     second=semantic.run(tmp_path,complete_json=completer(calls),batch_size=1)
     assert second['status']=='ready'
     assert len(calls)==2
-    assert all(len(row['text'])<=semantic.MAX_TEXT for call in calls for row in call['articles'])
+    assert all(sum(len(p['text']) for p in row['passages'])<=semantic.MAX_TEXT for call in calls for row in call['articles'])
     assert len({r['id'] for call in calls for r in call['articles']})==2
 
 
