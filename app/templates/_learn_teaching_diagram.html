@@ -10,6 +10,16 @@
 {% elif kind == 'air' %}<path d="M8 22h31q16 0 10-12M8 33h42q13 0 8 12M8 44h23q11 0 7 11"/>
 {% elif kind == 'berry' %}<circle cx="32" cy="34" r="19"/><path d="M25 14q-1-9 7-10 7 0 8 10M21 29h1M33 26h1M44 32h1M25 41h1M37 44h1"/>
 {% elif kind == 'shield' %}<path d="M32 6 52 14v18q0 16-20 26-20-10-20-26V14Z"/><path d="m22 31 7 7 15-16"/>
+{% elif kind == 'sun' %}<circle cx="32" cy="32" r="12"/><path d="M32 3v9M32 52v9M3 32h9M52 32h9M11 11l7 7M46 46l7 7M11 53l7-7M46 18l7-7"/>
+{% elif kind == 'moon' %}<path d="M44 8A24 24 0 1 0 56 44 25 25 0 0 1 44 8Z"/>
+{% elif kind == 'thermometer' %}<path d="M25 36V12a7 7 0 0 1 14 0v24a14 14 0 1 1-14 0ZM32 20v28M46 15h9M46 25h6"/><circle cx="32" cy="48" r="4"/>
+{% elif kind == 'calendar' %}<rect x="9" y="12" width="46" height="43" rx="4"/><path d="M9 24h46M21 6v13M43 6v13m-22 16h7m8 0h7M21 45h7m8 0h7"/>
+{% elif kind == 'roots' %}<path d="M32 5v22M32 21Q11 23 12 7q18-1 20 14Zm0-3Q51 20 52 5q-18-1-20 13ZM6 28h52M32 28v30M32 37 18 47M32 45l14 10M20 45l-7-4M44 53l7-3"/>
+{% elif kind == 'bed' %}<path d="M5 49 17 29h30l12 20M5 49h54M32 29V10M32 22Q16 25 15 12q14-1 17 10Zm0-5q14 2 17-12-14-1-17 12Z"/><circle cx="24" cy="39" r="3"/><path d="M36 37v8M42 37v8"/>
+{% elif kind == 'flower' %}<path d="M32 38v22M32 49q-14 2-16-9 13-1 16 9Z"/><path d="M27 15c-7-18-21 0-10 7-18 5-5 24 6 14 0 18 20 18 18 0 14 9 24-10 7-14 8-16-12-24-15-8Z"/><circle cx="32" cy="26" r="6"/>
+{% elif kind == 'ruler' %}<path d="m9 44 35-35 12 12-35 35ZM20 33l7 7M29 24l7 7M38 15l7 7"/>
+{% elif kind == 'scale' %}<path d="M32 12v44M12 20h40M22 56h20M14 20 5 39h18Zm36 0-9 19h18Z"/>
+{% elif kind == 'trellis' %}<path d="M12 8v50M52 8v50M6 19h52M6 40h52M31 58V15M31 36 19 25M31 28l14-16M31 49l14-13"/>
 {% else %}<path d="m10 20 22-12 22 12v26L32 58 10 46ZM10 20l22 12 22-12M32 32v26"/>{% endif %}
 </svg>
 {% endmacro %}
@@ -18,7 +28,8 @@
   <p class="learn-kicker">ILLUSTRATIVE TEACHING DIAGRAM</p>
   <h2 id="teaching-title">{{ visual.title }}</h2>
   <p class="learn-teaching-intro">{{ visual.intro }}</p>
-  <div class="learn-teaching-steps" role="group" aria-label="Explore the explanation">
+  {% if visual.illustration %}{% include "_learn_curriculum_schematic.html" %}{% endif %}
+  <div class="learn-teaching-steps" role="group" aria-label="{{ 'Explore the process' if visual.mode == 'process' else 'Compare the parts of the explanation' }}">
   {% for step in visual.steps %}<article class="learn-teaching-step">
     <span class="learn-teaching-number" aria-hidden="true">{{ '%02d'|format(loop.index) }}</span>
     {{ teaching_icon(step.icon) }}
@@ -29,5 +40,5 @@
   <div class="learn-teaching-notes" aria-live="polite" aria-atomic="true">{% for step in visual.steps %}<article id="teaching-detail-{{ loop.index0 }}" data-teaching-detail="{{ loop.index0 }}"><h3>{{ step.title }}</h3><p>{{ step.detail }}</p></article>{% endfor %}</div>
   <noscript><p>All explanations are shown; interactive selection requires JavaScript.</p></noscript>
   <p class="learn-teaching-limit">{{ visual.limit }}</p>
-  <footer><small>Original schematic by Berry Intelligence. Sources checked October 2, 2026; no publisher graphics copied.</small>{% for source in visual.sources %}<a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }} ↗</a>{% endfor %}</footer>
+  <footer><small>Original schematic by Berry Intelligence. Sources checked {{ visual.checked_on or 'October 2, 2026' }}; no publisher graphics copied.</small>{% for source in visual.sources %}<a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }} ↗</a>{% endfor %}</footer>
 </section>

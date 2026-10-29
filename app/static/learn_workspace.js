@@ -1,5 +1,16 @@
 (function () {
   "use strict";
+  // Lesson jumps must clear the real, wrapped header at every viewport width.
+  var workspace = document.querySelector("[data-learn-workspace]");
+  var header = document.querySelector(".glass-header");
+  if (workspace && header) {
+    function updateLessonOffset() {
+      workspace.style.setProperty("--learn-header-offset", Math.ceil(header.getBoundingClientRect().height + 16) + "px");
+    }
+    updateLessonOffset();
+    if (window.ResizeObserver) new ResizeObserver(updateLessonOffset).observe(header);
+    else window.addEventListener("resize", updateLessonOffset);
+  }
   function selectTeaching(panel, index) {
     panel.querySelectorAll("[data-teaching-select]").forEach(function (item) {
       item.setAttribute("aria-pressed", String(item.dataset.teachingSelect === index));

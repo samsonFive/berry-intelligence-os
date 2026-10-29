@@ -1,0 +1,61 @@
+<figure class="learn-mechanism" data-curriculum-schematic="{{ visual.illustration }}">
+{% if visual.illustration == 'wax' %}
+  <svg viewBox="0 0 360 180" role="img" aria-labelledby="mechanism-title mechanism-desc">
+    <title id="mechanism-title">Light meeting the wax coating above blueberry skin</title>
+    <desc id="mechanism-desc">Light reaches an irregular wax surface. Some light scatters back; darker pigmented skin lies underneath. Layers are enlarged and not to scale.</desc>
+    <path class="learn-wax-skin" d="M35 128h290v34H35Z"/>
+    <path class="learn-wax-coat" d="m35 126 14-12 11 10 15-19 14 15 16-16 12 19 16-17 14 15 14-18 12 20 16-15 14 12 17-19 13 17 15-11 16 15 15-18 14 11 13-8 14 16Z"/>
+    <path class="learn-light-in" d="m80 31 70 64m-15-2 15 2-3-15"/>
+    <path class="learn-light-out" d="m171 97 44-57m-14 4 14-4-1 14m-34 48 87-26m-13-5 13 5-8 11"/>
+    <text x="37" y="22">Light in</text><text x="214" y="26">Scattered light</text>
+    <text x="43" y="91">Wax</text><text x="45" y="152" class="learn-light-label">Pigmented skin</text>
+  </svg>
+  <figcaption>The outer coating and the skin are different layers. Enlarged schematic; no measured spectrum or thickness.</figcaption>
+{% elif visual.illustration == 'bed' %}
+  <svg viewBox="0 0 360 180" role="img" aria-labelledby="mechanism-title mechanism-desc">
+    <title id="mechanism-title">Cross-section of a covered, raised planting bed</title>
+    <desc id="mechanism-desc">A plant grows through an opening in plastic mulch over a raised bed. A drip line sits below the surface. This is not a tunnel or a dimensioned plan.</desc>
+    <path class="learn-bed-soil" d="m30 151 50-59h200l50 59Z"/>
+    <path class="learn-bed-cover" d="m30 151 50-59h83m35 0h82l50 59"/>
+    <path class="learn-stem" d="M180 102V32m0 30q-31-1-35-25 28-3 35 25Zm0-12q22-2 29-26-27-1-29 26Z"/>
+    <path class="learn-roots" d="M180 102v35m0-24-23 15m23-5 22 16"/>
+    <circle class="learn-drip" cx="127" cy="109" r="7"/>
+    <text x="11" y="71">Plastic mulch</text><text x="211" y="164">Raised bed</text><text x="64" y="171">Drip line</text>
+    <path class="learn-callout" d="m75 75 17 16m18 62 15-35"/>
+  </svg>
+  <figcaption>The cover sits on the bed; water reaches the root area through drip irrigation. Components are illustrative.</figcaption>
+{% elif visual.illustration == 'roots' %}
+  <svg viewBox="0 0 360 180" role="img" aria-labelledby="mechanism-title mechanism-desc">
+    <title id="mechanism-title">The root zone connects plant and soil conditions</title>
+    <desc id="mechanism-desc">Roots extend from a plant into soil containing water-filled spaces. The diagram does not show measured pH, a pathogen or a diagnosed plant.</desc>
+    <path class="learn-bed-soil" d="M20 86h320v79H20Z"/>
+    <path class="learn-stem" d="M173 94V28m0 26q-30 0-35-26 29-2 35 26Zm0-10q25 0 30-26-25-2-30 26Z"/>
+    <path class="learn-roots" d="M173 92v63m0-53-28 18m28-7 30 17m-58-10-19 19m37-13-8 24m41-22 24 15m-50-4 14 20"/>
+    <path class="learn-drip" d="M71 106q-15 19 0 24 15-5 0-24Zm199 13q-14 19 0 24 14-5 0-24Z"/>
+    <text x="229" y="60">Root zone</text><path class="learn-callout" d="m249 66-39 49"/>
+  </svg>
+  <figcaption>{% if concept.slug == 'phytophthora' %}Water-filled soil pores can provide a route for swimming spores. No pathogen is depicted or diagnosed here.{% else %}Acidity and drainage describe different parts of the root environment. A soil test measures what this drawing cannot.{% endif %}</figcaption>
+{% elif visual.illustration == 'trellis' %}
+  <svg viewBox="0 0 360 180" role="img" aria-labelledby="mechanism-title mechanism-desc">
+    <title id="mechanism-title">Canes arranged on a simple support</title>
+    <desc id="mechanism-desc">Two posts support horizontal wires. Branched canes are arranged between them. Heights, pruning cuts and fruiting stages are not specified.</desc>
+    <path class="learn-post" d="M55 25v134M305 25v134"/>
+    <path class="learn-wire" d="M45 61h270M45 114h270"/>
+    <path class="learn-stem" d="M179 160V46m0 48-60-34m60 62 59-62m-59 84-81-30m81-5 55-16"/>
+    <circle class="learn-tie" cx="120" cy="61" r="5"/><circle class="learn-tie" cx="238" cy="61" r="5"/>
+    <text x="71" y="25">Support wires</text><text x="207" y="174">Trained canes</text>
+  </svg>
+  <figcaption>A front view of support and trained growth. A real design follows the crop, growth habit and harvest system.</figcaption>
+{% elif visual.illustration == 'compression' %}
+  <svg viewBox="0 0 360 180" role="img" aria-labelledby="mechanism-title mechanism-desc">
+    <title id="mechanism-title">A simplified fruit compression test</title>
+    <desc id="mechanism-desc">An upper plate moves toward a berry resting on a base. The drawing describes compression, not puncture, and supplies no force or calibration.</desc>
+    <circle class="learn-test-fruit" cx="180" cy="105" r="32"/>
+    <path class="learn-test-plate" d="M137 61h86M135 141h90M180 61V35"/>
+    <path class="learn-light-in" d="M180 7v21m-7-9 7 9 7-9"/>
+    <path class="learn-callout" d="m76 61 52 0m106 80h47"/>
+    <text x="20" y="48">Plate</text><text x="242" y="127">Base</text><text x="143" y="172">Fruit sample</text>
+  </svg>
+  <figcaption>Resistance depends on the test and the sample. This is a qualitative compression schematic, with no numeric result.</figcaption>
+{% endif %}
+</figure>
