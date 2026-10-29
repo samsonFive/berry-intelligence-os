@@ -1,5 +1,7 @@
 # Berry Intelligence release review
 
+October 28 — [Original company-release variety depth](COMPANY-RELEASE-VARIETY-DEPTH.md). Platform433 f1fdd89a passes 5,300 tests/native/fresh live-copy rehearsal and awaits its already-delivered actual release decision. Catalog/platform434 4bade146 passes 5,400 tests/all four checks and native review. This later source-only child adds six scopes / ten occurrences; neither parent’s test or preservation proof approves the new combination. Final 61 affected checks pass with one existing warning in 76.42 seconds. Native desktop/412px review confirms attribution, session image loading/hiding, source context, company filters and the visible Autumn 2022 interview period. Exact-head CI remains required for this child. Existing canonical records, guide, 31 accepted definitions and human gates are preserved. No merge/deployment or repeated/inferred release approval.
+
 ## Latest combined catalog review — October 28, 2026
 
 [Draft #430's combined review](CATALOG-RELEASE-430-REVIEW.md) includes the source
