@@ -21,6 +21,12 @@ existing source/Reader paths. News still preserves its publication order,
 scope, article IDs, images and Reader actions. No new Source, company identity,
 berry assignment, provider, model call or content-coverage claim is added.
 
+The native phone review also found an existing overflow: adding the workspace
+save button squeezed the Reader action row beyond its panel. The shared toolbar
+and Reader header now wrap their controls instead of shrinking or clipping
+them. Desktop layouts retain a single row when space permits. No action is
+hidden or removed; this small layout repair is verified in the real browser.
+
 The regression set includes the observed headline, device/software/corporate
 variants, fruit licensing and patent controls, and mixed orchard technology.
 A real stale-cache read verifies filtered results and counts without refetching
