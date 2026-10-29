@@ -1,5 +1,8 @@
 # Technical Debt Register
 
+October 28 — [Combined platform release review](PLATFORM-COMBINED-RELEASE-REVIEW.md) integrates frozen #421 with #432 for one current acceptance check. Shared research/account-private Digest, on-demand profile work, responsive navigation and the visual guide remain; News relevance and phone Reader wrapping are included. Both documentation histories and all 31 accepted definitions/order are preserved. Catalog/source enrichment stays separate. Combined tests, native review, exact-head CI and a fresh isolated live-data preservation check remain required; no merge/deployment or inherited approval.
+
+October 28 — [News company-name relevance](NEWS-COMPANY-NAME-RELEVANCE.md) addresses a live BlackBerry software-licensing false positive through shared fresh/cached/stored News context checks. Fruit and mixed agricultural technology controls remain; original captures and human feedback are retained. Initial 108 affected tests pass; native/exact-head CI remain. This is partial TD-015 progress for current News, not closure of its separate legacy relevance-screen lane or a universal precision claim.
 October 27 — coverage profiling: the full page measured 6.461 seconds initially
 and 4.036 seconds repeatedly on the isolated 65-profile production copy. Profiling
 identified 8,444 repeated source-photo validations; a request-local catalog lookup

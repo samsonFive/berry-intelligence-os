@@ -35,3 +35,9 @@
 @media(max-width:950px){.full-personal-reader .personal-reader-toolbar{top:122px}}
 /* Keep the primary research workflow in its requested reading order. */
 .glass-primary{gap:1px}.glass-primary a{font-size:12px;padding:7px 8px}.glass-primary a strong{font-weight:800}
+
+/* Shared Reader actions must fit after the workspace-save control is added. */
+.personal-reader-toolbar{flex-wrap:wrap}
+.personal-reader-toolbar>*{flex-shrink:0;max-width:100%}
+.v2-reader-offcanvas .offcanvas-header{gap:8px;flex-wrap:wrap}
+.v2-reader-nav{margin-left:auto;min-width:0;flex-wrap:wrap;justify-content:flex-end}

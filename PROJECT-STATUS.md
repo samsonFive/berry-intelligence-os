@@ -1,5 +1,8 @@
 # Project Status
 
+October 28 — [Combined platform release review](docs/v2/PLATFORM-COMBINED-RELEASE-REVIEW.md) integrates frozen #421 with #432 for one current acceptance check. Shared research/account-private Digest, on-demand profile work, responsive navigation and the visual guide remain; News relevance and phone Reader wrapping are included. Both documentation histories and all 31 accepted definitions/order are preserved. Catalog/source enrichment stays separate. Combined tests, native review, exact-head CI and a fresh isolated live-data preservation check remain required; no merge/deployment or inherited approval.
+
+**October 28: News company-name precision.** A shared context check removes the observed BlackBerry software-licensing mismatch from fresh qualification and cached/stored News while retaining explicit fruit and agricultural technology context. Captures, source text, images and human feedback are preserved; no collection or trust action is added. Initial 108 affected tests pass. Native/current-head CI and separate release review remain required. See [News relevance](docs/v2/NEWS-COMPANY-NAME-RELEVANCE.md).
 ## Current platform-only review — October 28, 2026
 
 The [integrated platform candidate](docs/v2/PLATFORM-REVIEW-2026-10-28.md) combines

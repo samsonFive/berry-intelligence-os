@@ -1,5 +1,8 @@
 # Redesign and consolidation requirements
 
+October 28 — [Combined platform release review](PLATFORM-COMBINED-RELEASE-REVIEW.md) integrates frozen #421 with #432 for one current acceptance check. Shared research/account-private Digest, on-demand profile work, responsive navigation and the visual guide remain; News relevance and phone Reader wrapping are included. Both documentation histories and all 31 accepted definitions/order are preserved. Catalog/source enrichment stays separate. Combined tests, native review, exact-head CI and a fresh isolated live-data preservation check remain required; no merge/deployment or inherited approval.
+
+October 28 — [News company-name relevance](NEWS-COMPANY-NAME-RELEVANCE.md) adds fresh/cached/stored feed controls for a demonstrated software-company mismatch, preserving fruit licensing, agricultural technology, source records, images and user feedback. Initial 108 affected checks pass; native/current-head CI and separate release acceptance remain. All 31 accepted definitions and their order are unchanged; broader relevance and human source/catalog gates remain open.
 ## Current platform-only review — October 28, 2026
 
 The [integrated platform candidate](PLATFORM-REVIEW-2026-10-28.md) combines
