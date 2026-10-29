@@ -94,6 +94,16 @@ def test_long_stored_body_is_chunked_and_resumed_without_repeating_calls(tmp_pat
     assert len({r['id'] for call in calls for r in call['articles']})==2
 
 
+def test_running_progress_includes_cached_sources_from_prior_passes(tmp_path):
+    semantic.enqueue(tmp_path,[source('first')])
+    semantic.run(tmp_path,complete_json=completer([]))
+    semantic.enqueue(tmp_path,[source('second')])
+    progress=[]
+    semantic.run(tmp_path,complete_json=completer([],during=lambda:progress.append(tags.job_state(tmp_path))))
+    assert progress[0]['status']=='running'
+    assert progress[0]['processed']==1 and progress[0]['total']==2
+
+
 @pytest.mark.parametrize('failure',['missing','fabricated','duplicate'])
 def test_malformed_response_preserves_previous_decisions_and_retries(tmp_path,failure):
     row=source(text='Berry export prices fell this month.')

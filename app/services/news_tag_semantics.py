@@ -247,7 +247,8 @@ def run(inbox_dir, *, complete_json=None, max_calls=MAX_CALLS, batch_size=BATCH_
                 total = db.execute('SELECT count(*) FROM tag_sources').fetchone()[0]
                 if not pending:
                     break
-                db.execute('INSERT OR REPLACE INTO jobs VALUES(1,?,?,?,?,?)',('running',completed,total,'',news_tags.stamp()))
+                remaining = db.execute('SELECT count(*) FROM tag_pending').fetchone()[0]
+                db.execute('INSERT OR REPLACE INTO jobs VALUES(1,?,?,?,?,?)',('running',total-remaining,total,'',news_tags.stamp()))
                 db.execute('UPDATE tag_semantic_lease SET expires=? WHERE owner=?',
                            ((datetime.now(UTC)+timedelta(minutes=10)).isoformat(),token))
             records = [json.loads(r['payload']) for r in pending]
