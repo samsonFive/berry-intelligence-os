@@ -8,6 +8,7 @@ from datetime import UTC, datetime, timedelta
 import hashlib
 import json
 import os
+import unicodedata
 from pathlib import Path
 from threading import Lock
 from uuid import uuid4
@@ -134,6 +135,38 @@ An assignment says only that this source discusses this subject. Use empty assig
 ''' + json.dumps({'definitions':definitions,'articles':records},ensure_ascii=False)
 
 
+def source_passage(text, support):
+    """Resolve typographic equivalents to the actual contiguous source span.
+
+    Models sometimes replace curly quotation marks with straight ones. Only
+    Unicode compatibility, quote typography, case and whitespace may differ;
+    words, numbers and all other punctuation must still occur in the source.
+    Store the source's original characters, never the model's rewritten copy.
+    """
+    quotes = str.maketrans({'\u2018':"'", '\u2019':"'", '\u201c':'"', '\u201d':'"'})
+    def fold(value):
+        chars, positions = [], []
+        for index, char in enumerate(value):
+            for normalized in unicodedata.normalize('NFKC', char).casefold().translate(quotes):
+                if normalized.isspace():
+                    if not chars or chars[-1] == ' ':
+                        continue
+                    normalized = ' '
+                chars.append(normalized)
+                positions.append(index)
+        return ''.join(chars).strip(), positions
+    if not isinstance(support, str) or len(support) > 700:
+        return None
+    needle, _ = fold(support.strip())
+    haystack, positions = fold(text)
+    if len(needle) < 8:
+        return None
+    start = haystack.find(needle)
+    if start < 0:
+        return None
+    return text[positions[start]:positions[start+len(needle)-1]+1]
+
+
 def validate(payload, records, tags):
     expected = {r['id']:r for r in records}
     known = {t['id'] for t in tags}
@@ -144,13 +177,12 @@ def validate(payload, records, tags):
         if not isinstance(row,dict) or row.get('id') not in expected or row['id'] in output or not isinstance(row.get('assignments'),list):
             raise ValueError('Unexpected or duplicate source in classifier response')
         positive = {}
-        source = ' '.join(expected[row['id']]['text'].split()).casefold()
+        source = expected[row['id']]['text']
         for item in row['assignments']:
             if not isinstance(item,dict) or item.get('tag_id') not in known or item['tag_id'] in positive:
                 raise ValueError('Unexpected or duplicate classifier tag')
-            support = str(item.get('support') or '').strip()
-            quote = ' '.join(support.split()).casefold()
-            if len(quote)<8 or len(support)>700 or quote not in source:
+            support = source_passage(source, item.get('support'))
+            if support is None:
                 raise ValueError('Unsupported classifier passage')
             positive[item['tag_id']] = support
         output[row['id']] = positive

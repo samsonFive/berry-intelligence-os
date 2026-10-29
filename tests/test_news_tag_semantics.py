@@ -47,6 +47,26 @@ def test_semantic_assignments_cache_and_manual_race(tmp_path):
         assert decision['rationale'] in semantic.projection(row)['text']
 
 
+@pytest.mark.parametrize('source,support',[
+    ("Inka’s Berries licenses its cultivars.", "Inka's Berries licenses its cultivars"),
+    ('The grower reported “higher prices” this week.', 'The grower reported "higher prices"'),
+    ('Exports\u00a0\u00a0fell by ２０ percent.', 'exports fell by 20 percent'),
+])
+def test_typographic_passages_resolve_to_original_source_characters(source,support):
+    passage=semantic.source_passage(source,support)
+    assert passage and passage in source
+    assert semantic.validate({'articles':[{'id':'one','assignments':[{'tag_id':'markets','support':support}]}]},
+        [{'id':'one','text':source}], [{'id':'markets'}])['one']['markets']==passage
+
+
+@pytest.mark.parametrize('support',[
+    'Exports rose by 20 percent', 'Exports fell by 30 percent',
+    'Exports fell ... 20 percent', 'Exports fell by twenty percent',
+])
+def test_typographic_normalization_never_repairs_changed_claims(support):
+    assert semantic.source_passage('Exports fell by 20 percent.',support) is None
+
+
 def test_long_stored_body_is_chunked_and_resumed_without_repeating_calls(tmp_path):
     row=source()
     row['article']={'full_text':'The berry nursery reported steady activity. '*210+'Seasonal workers negotiated higher wages.'}
