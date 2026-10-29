@@ -1,5 +1,7 @@
 # Redesign and consolidation requirements
 
+October 28 — [News company-name relevance](NEWS-COMPANY-NAME-RELEVANCE.md) adds fresh/cached/stored feed controls for a demonstrated software-company mismatch, preserving fruit licensing, agricultural technology, source records, images and user feedback. Initial 108 affected checks pass; native/current-head CI and separate release acceptance remain. All 31 accepted definitions and their order are unchanged; broader relevance and human source/catalog gates remain open.
+
 This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.

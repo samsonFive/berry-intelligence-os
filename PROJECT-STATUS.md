@@ -1,5 +1,7 @@
 # Project Status
 
+**October 28: News company-name precision.** A shared context check removes the observed BlackBerry software-licensing mismatch from fresh qualification and cached/stored News while retaining explicit fruit and agricultural technology context. Captures, source text, images and human feedback are preserved; no collection or trust action is added. Initial 108 affected tests pass. Native/current-head CI and separate release review remain required. See [News relevance](docs/v2/NEWS-COMPANY-NAME-RELEVANCE.md).
+
 **October 28: Gene Editing public-source closeout.** All eleven seeds now have
 an original-source audit and explicit claim boundaries: 28 program/platform/
 affiliation rows, 46 source candidates, FDA/Canada/Defra/MARA record recovery,

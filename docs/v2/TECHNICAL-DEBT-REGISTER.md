@@ -1,5 +1,7 @@
 # Technical Debt Register
 
+October 28 — [News company-name relevance](NEWS-COMPANY-NAME-RELEVANCE.md) addresses a live BlackBerry software-licensing false positive through shared fresh/cached/stored News context checks. Fruit and mixed agricultural technology controls remain; original captures and human feedback are retained. Initial 108 affected tests pass; native/exact-head CI remain. This is partial TD-015 progress for current News, not closure of its separate legacy relevance-screen lane or a universal precision claim.
+
 October 23, 2026 follow-up: [Performance, reader and publisher coverage](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 records measured reductions in Brief, Live Intelligence, Variety and Monitoring
 response times, generic exact-publisher reader recovery, and publisher-first
