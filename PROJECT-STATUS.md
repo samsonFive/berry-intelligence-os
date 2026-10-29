@@ -1,5 +1,18 @@
 # Project Status
 
+## Two more profiles gain checked original figures — October 28, 2026
+
+The [Plablue filing review](docs/v2/PLABLUE-ORIGINAL-FIGURES-REVIEW.md) adds distinct
+held originals for Blue Manila / Plablue 1545 and Blue Maldiva / Plablue 1542. Six
+scopes retain 15 occurrences, with parents, comparisons and real table/caption
+label errors separate. Public 64-profile photo gaps fall from 12 to 10; other gaps
+remain 13 rights / 33 traits / 10 companies. The bounded corpus has 497 sections
+and 1,785 name occurrences: 168 catalog matches and 1,617 review needs. No canonical aliases,
+verified traits, schemas, current rights or reuse permission are changed.
+Final 34 affected checks and native desktop/phone review pass; current-head CI
+and separate release review remain. Frozen #427 has 5,335 tests/native; #426 and
+#421 actual release approvals remain pending. Their live 65-profile proofs are not inherited.
+
 ## Existing photo leads now show the next review action — October 28, 2026
 
 The [photo review routing](docs/v2/VARIETY-PHOTO-IDENTITY-REVIEW-ROUTING.md) exposes

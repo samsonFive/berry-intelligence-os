@@ -1,5 +1,14 @@
 # Redesign and consolidation requirements
 
+October28 — [Plablue original figures](PLABLUE-ORIGINAL-FIGURES-REVIEW.md) add held
+images and exact claims for Blue Manila/Blue Maldiva using existing aliases.
+Six scopes retain 15 occurrences; parents, comparisons and printed label errors
+remain separate. Public 64-profile photo gaps fall from 12 to 10; other fields
+stay 13/33/10. Bounded corpus: 497 / 1,785 / 168 / 1,617. Final 34 affected checks
+and native review pass; current-head CI and separate release review still apply.
+Frozen #427 has 5,335 tests/native; #426/#421 actual approvals remain pending. No accepted definition,
+canonical data, schema, human identity/rights/reuse gate or guide is changed.
+
 October28 — [Held-photo routing](VARIETY-PHOTO-IDENTITY-REVIEW-ROUTING.md) makes an
 already captured Rutgers D'Light photo discoverable for name review across the
 directory, profiles, editor and coverage. It does not link the photo, approve the

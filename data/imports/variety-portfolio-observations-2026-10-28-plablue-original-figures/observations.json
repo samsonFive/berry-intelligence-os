@@ -1,0 +1,436 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-plablue-original-uspp31345p2",
+      "title": "Plablue 1545 — original claim and Figure 9",
+      "url": "https://patents.google.com/patent/USPP31345P2/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2020-01-14",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Exact denomination, cover/application/grant dates, claim on PDF page 4 and Figure 9 on PDF page 13. Only text pages 1–4 and this focal figure are visually checked.",
+      "limitations": "Unreviewed original-source metadata only. Existing catalog aliases locate the subjects; no alias, party role, measured trait, growing location, current legal status or photo reuse is approved. Parents, comparison names and discrepant printed labels never inherit the focal grant or image.",
+      "names": [
+        {
+          "candidate_name": "Plablue 1545",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf#page=4",
+          "portfolio_context": "Original subject Plablue 1545. Existing catalog alias locates Blue Manila; no new commercial-name match is approved. Figure 9 is labeled 15.09.020; the original description explains that designation. PDF page 3 tables describe Plablue 1545 but print Plablue 1542 in the focal row. Keep those table labels separate; do not import their values as verified Plablue 1545 traits.",
+          "denomination": "Plablue 1545",
+          "grant_number": "USPP31345P2",
+          "application_number": "16/501,257",
+          "application_date": "2019-03-13",
+          "grant_date": "2020-01-14",
+          "jurisdiction": "US",
+          "source_company_context": "The original cover names Plantas de Navarra as applicant and assignee. A current owner or stored organization role is not verified.",
+          "photos": [
+            {
+              "named_variety": "Plablue 1545",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://patentimages.storage.googleapis.com/b6/1e/03/6b332ce2847aaa/USPP031345-20200114-D00009.png",
+              "source_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf#page=13",
+              "caption": "Original Figure 9 shows five fruit with the printed 15.09.020 label and a ruler. Full-size monochrome filing photograph; no measurement or verified trait is inferred.",
+              "credit": "USPP31345P2 original filing via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Publication/reuse permission has not been established. A private session preview changes no saved permission or identity decision."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf",
+        "pdf_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf",
+        "pdf_sha256": "6e76d24ddf55b813db907d2fb94fd6d463b4aab0ca02ec7d065879f2a74c27b6",
+        "page_sha256": "c8763e3cbb2a19f9be7c393dce2dff73e04300db6d47918040b0f9e84238bd33",
+        "pdf_pages": 20,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "claim_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf#page=4",
+        "claim_page": 4,
+        "figures_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf#page=13",
+        "figure": 9,
+        "figure_page": 13,
+        "image_url": "https://patentimages.storage.googleapis.com/b6/1e/03/6b332ce2847aaa/USPP031345-20200114-D00009.png",
+        "image_sha256": "b1762c8af95c91e1c437072fee5bbf069d7aab6608fd33e8bf50cb8ddafb5400",
+        "image_pixels": [
+          1648,
+          1223
+        ],
+        "original_image_visual_reviewed": true,
+        "thumbnail_replaced_by_observed_full_size_link": true,
+        "catalog_commercial_label": "Blue Manila",
+        "commercial_label_basis": "Existing canonical alias only; original document denomination and figure label remain literal."
+      },
+      "review_warnings": [
+        "PDF page 3 tables describe Plablue 1545 but print Plablue 1542 in the focal row. Keep those table labels separate; do not import their values as verified Plablue 1545 traits."
+      ]
+    },
+    {
+      "id": "portfolio-plablue-original-uspp31345p2-context",
+      "title": "Plablue 1545 — parents and comparison names",
+      "url": "https://patents.google.com/patent/USPP31345P2/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2020-01-14",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Named parents, comparisons and printed focal designation in visually checked text pages 1–4. Not additional claimed cultivars.",
+      "limitations": "Unreviewed original-source metadata only. Existing catalog aliases locate the subjects; no alias, party role, measured trait, growing location, current legal status or photo reuse is approved. Parents, comparison names and discrepant printed labels never inherit the focal grant or image.",
+      "names": [
+        {
+          "candidate_name": "14.027.001",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf#page=1",
+          "portfolio_context": "Seed parent in this document; no focal grant/image or current right is assigned."
+        },
+        {
+          "candidate_name": "14.049.001",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf#page=1",
+          "portfolio_context": "Pollen parent in this document; no focal grant/image or current right is assigned."
+        },
+        {
+          "candidate_name": "Biloxi",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf#page=2",
+          "portfolio_context": "Comparison variety and separate comparison figures; no focal grant/image is assigned."
+        },
+        {
+          "candidate_name": "Star",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf#page=3",
+          "portfolio_context": "Trial-table comparison only; no focal grant/image or independently verified performance is assigned."
+        },
+        {
+          "candidate_name": "15.09.020",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf#page=3",
+          "portfolio_context": "Focal illustration/breeder designation reported in this document, retained for name review rather than accepted as a new alias or distinct cultivar."
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "reported_items": 5,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf",
+        "pdf_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf",
+        "pdf_sha256": "6e76d24ddf55b813db907d2fb94fd6d463b4aab0ca02ec7d065879f2a74c27b6",
+        "page_sha256": "c8763e3cbb2a19f9be7c393dce2dff73e04300db6d47918040b0f9e84238bd33",
+        "pdf_pages": 20,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-plablue-original-uspp31345p2-printed-labels",
+      "title": "Plablue 1545 — discrepant printed labels",
+      "url": "https://patents.google.com/patent/USPP31345P2/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2020-01-14",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Discrepant table/caption labels only, not legal identities or additional grants.",
+      "limitations": "Unreviewed original-source metadata only. Existing catalog aliases locate the subjects; no alias, party role, measured trait, growing location, current legal status or photo reuse is approved. Parents, comparison names and discrepant printed labels never inherit the focal grant or image.",
+      "names": [
+        {
+          "candidate_name": "Plablue 1542",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf#page=3",
+          "portfolio_context": "Tables 1/2 print this label under headings describing Plablue 1545. Preserve the mismatch; no alias, focal grant, photo or performance value is transferred."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf",
+        "pdf_url": "https://patentimages.storage.googleapis.com/31/69/c3/96399ac7e3d4fc/USPP31345.pdf",
+        "pdf_sha256": "6e76d24ddf55b813db907d2fb94fd6d463b4aab0ca02ec7d065879f2a74c27b6",
+        "page_sha256": "c8763e3cbb2a19f9be7c393dce2dff73e04300db6d47918040b0f9e84238bd33",
+        "pdf_pages": 20,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "review_warnings": [
+        "PDF page 3 tables describe Plablue 1545 but print Plablue 1542 in the focal row. Keep those table labels separate; do not import their values as verified Plablue 1545 traits."
+      ]
+    },
+    {
+      "id": "portfolio-plablue-original-uspp31403p2",
+      "title": "Plablue 1542 — original claim and Figure 9",
+      "url": "https://patents.google.com/patent/USPP31403P2/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2020-01-28",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "plant_patent",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Exact denomination, cover/application/grant dates, claim on PDF page 4 and Figure 9 on PDF page 13. Only text pages 1–4 and this focal figure are visually checked.",
+      "limitations": "Unreviewed original-source metadata only. Existing catalog aliases locate the subjects; no alias, party role, measured trait, growing location, current legal status or photo reuse is approved. Parents, comparison names and discrepant printed labels never inherit the focal grant or image.",
+      "names": [
+        {
+          "candidate_name": "Plablue 1542",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf#page=4",
+          "portfolio_context": "Original subject Plablue 1542. Existing catalog alias locates Blue Maldiva; no new commercial-name match is approved. Figure 9 is labeled 15.09.003; the original description explains that designation. PDF page 3, Table 2 prints Legacy in a comparison row although its heading names Biloxi; page 2, Figure 12 caption prints 15.07.018 while the focal description uses 15.09.003. Do not silently repair either label.",
+          "denomination": "Plablue 1542",
+          "grant_number": "USPP31403P2",
+          "application_number": "16/501,260",
+          "application_date": "2019-03-13",
+          "grant_date": "2020-01-28",
+          "jurisdiction": "US",
+          "source_company_context": "The original cover names Plantas de Navarra as applicant and assignee. A current owner or stored organization role is not verified.",
+          "photos": [
+            {
+              "named_variety": "Plablue 1542",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://patentimages.storage.googleapis.com/55/15/04/31c9bae7224991/USPP031403-20200128-D00009.png",
+              "source_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf#page=13",
+              "caption": "Original Figure 9 shows five fruit with the printed 15.09.003 label and a ruler. Full-size monochrome filing photograph; no measurement or verified trait is inferred.",
+              "credit": "USPP31403P2 original filing via Google Patents; individual photographer not credited",
+              "kind": "drawing",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Publication/reuse permission has not been established. A private session preview changes no saved permission or identity decision."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf",
+        "pdf_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf",
+        "pdf_sha256": "3103c50d42c3cd80f09cc79d557ec4a52abc4cb921f944a69840560d05e501b4",
+        "page_sha256": "40e84e494ff2bfe423e9d0583b53a56fb1d4e31dc65d415cd409eeabc0ae637c",
+        "pdf_pages": 20,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "claim_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf#page=4",
+        "claim_page": 4,
+        "figures_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf#page=13",
+        "figure": 9,
+        "figure_page": 13,
+        "image_url": "https://patentimages.storage.googleapis.com/55/15/04/31c9bae7224991/USPP031403-20200128-D00009.png",
+        "image_sha256": "1393d7f2da55f75f3cab808b267c1a5231a72f9b5d8be33a7c8a267e81c0201f",
+        "image_pixels": [
+          1879,
+          1355
+        ],
+        "original_image_visual_reviewed": true,
+        "thumbnail_replaced_by_observed_full_size_link": true,
+        "catalog_commercial_label": "Blue Maldiva",
+        "commercial_label_basis": "Existing canonical alias only; original document denomination and figure label remain literal."
+      },
+      "review_warnings": [
+        "PDF page 3, Table 2 prints Legacy in a comparison row although its heading names Biloxi; page 2, Figure 12 caption prints 15.07.018 while the focal description uses 15.09.003. Do not silently repair either label."
+      ]
+    },
+    {
+      "id": "portfolio-plablue-original-uspp31403p2-context",
+      "title": "Plablue 1542 — parents and comparison names",
+      "url": "https://patents.google.com/patent/USPP31403P2/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2020-01-28",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Named parents, comparisons and printed focal designation in visually checked text pages 1–4. Not additional claimed cultivars.",
+      "limitations": "Unreviewed original-source metadata only. Existing catalog aliases locate the subjects; no alias, party role, measured trait, growing location, current legal status or photo reuse is approved. Parents, comparison names and discrepant printed labels never inherit the focal grant or image.",
+      "names": [
+        {
+          "candidate_name": "14.027.001",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf#page=1",
+          "portfolio_context": "Seed parent in this document; no focal grant/image or current right is assigned."
+        },
+        {
+          "candidate_name": "14.049.001",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf#page=1",
+          "portfolio_context": "Pollen parent in this document; no focal grant/image or current right is assigned."
+        },
+        {
+          "candidate_name": "Biloxi",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf#page=2",
+          "portfolio_context": "Comparison variety and separate comparison figures; no focal grant/image is assigned."
+        },
+        {
+          "candidate_name": "Star",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf#page=3",
+          "portfolio_context": "Trial-table comparison only; no focal grant/image or independently verified performance is assigned."
+        },
+        {
+          "candidate_name": "15.09.003",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf#page=3",
+          "portfolio_context": "Focal illustration/breeder designation reported in this document, retained for name review rather than accepted as a new alias or distinct cultivar."
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "reported_items": 5,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf",
+        "pdf_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf",
+        "pdf_sha256": "3103c50d42c3cd80f09cc79d557ec4a52abc4cb921f944a69840560d05e501b4",
+        "page_sha256": "40e84e494ff2bfe423e9d0583b53a56fb1d4e31dc65d415cd409eeabc0ae637c",
+        "pdf_pages": 20,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-plablue-original-uspp31403p2-printed-labels",
+      "title": "Plablue 1542 — discrepant printed labels",
+      "url": "https://patents.google.com/patent/USPP31403P2/en",
+      "checked_on": "2026-10-28",
+      "published_date": "2020-01-28",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "patent_context_names",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Discrepant table/caption labels only, not legal identities or additional grants.",
+      "limitations": "Unreviewed original-source metadata only. Existing catalog aliases locate the subjects; no alias, party role, measured trait, growing location, current legal status or photo reuse is approved. Parents, comparison names and discrepant printed labels never inherit the focal grant or image.",
+      "names": [
+        {
+          "candidate_name": "Legacy",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf#page=3",
+          "portfolio_context": "Printed comparator in Table 2, whose heading instead names Biloxi. No equivalence or corrected measurement is inferred."
+        },
+        {
+          "candidate_name": "15.07.018",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf#page=2",
+          "portfolio_context": "Figure 12 description prints this different designation. The focal description and checked Figure 9 use 15.09.003; keep the discrepancy unresolved."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "reported_items": 2,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf",
+        "pdf_url": "https://patentimages.storage.googleapis.com/bd/05/fa/05953747df86e6/USPP31403.pdf",
+        "pdf_sha256": "3103c50d42c3cd80f09cc79d557ec4a52abc4cb921f944a69840560d05e501b4",
+        "page_sha256": "40e84e494ff2bfe423e9d0583b53a56fb1d4e31dc65d415cd409eeabc0ae637c",
+        "pdf_pages": 20,
+        "visually_reviewed_pages": [
+          1,
+          2,
+          3,
+          4,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "review_warnings": [
+        "PDF page 3, Table 2 prints Legacy in a comparison row although its heading names Biloxi; page 2, Figure 12 caption prints 15.07.018 while the focal description uses 15.09.003. Do not silently repair either label."
+      ]
+    }
+  ]
+}
