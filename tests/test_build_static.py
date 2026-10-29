@@ -224,13 +224,21 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert "data-teaching-explorer" in visual_html
     assert "data-pagefind-body" in visual_html  # Pagefind indexes only marked bodies across this site.
     assert 'data-pagefind-meta="description"' in visual_html  # The original summary leads Search previews.
-    assert "learn_workspace.js?v=2" in visual_html
+    assert "learn_workspace.js?v=3" in visual_html
     assert "Special:FilePath/Blueberries.jpg" not in visual_html
     assert "File:Blueberries.jpg" in visual_html  # Unverified reuse is a source link only.
     assert "Research &amp; expand" not in visual_html
     assert "data-bs-target=\"#v2ReaderOffcanvas\"" not in visual_html
     cane_html = (output_dir / "learn" / "primocane-floricane" / "index.html").read_text(encoding="utf-8")
     assert "Steffen Flor" in cane_html and "CC BY 2.5" in cane_html
+    bloom_html = (output_dir / "learn" / "bloom" / "index.html").read_text(encoding="utf-8")
+    assert 'data-curriculum-schematic="wax"' in bloom_html
+    assert "Special:FilePath/Blueberries.jpg" in bloom_html
+    assert "Scott Bauer" in bloom_html and "public domain" in bloom_html
+    assert "Research &amp; expand" not in bloom_html
+    cropping_html = (output_dir / "learn" / "double-cropping" / "index.html").read_text(encoding="utf-8")
+    assert "follow-up crop" in cropping_html
+    assert "Why this explanation was clarified" in cropping_html
 
     search_html = (output_dir / "search" / "index.html").read_text(encoding="utf-8")
     assert 'id="pagefind-js-path"' in search_html

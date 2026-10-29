@@ -82,12 +82,15 @@ is created, and no field enters Competitive Evidence, Signals or Assessments.
 
 ## Review evidence and remaining work
 
-All 114 affected tests pass with one existing ReportLab warning in 17.60 seconds.
+All 130 affected Learn/static tests pass with one existing ReportLab warning in 19.14 seconds.
 They cover the 27-record inventory, original-field/file preservation, idempotent
 copies, human-edit precedence, shared public/static rendering, accessible SVG
 labels, all details before JavaScript and no paid research or private writes on
 lesson reads. These final affected checks include the anchor/spacing changes.
-Exact-head four-check CI remains required and is tracked in the PR review receipt.
+The initial CI static job caught a fixture expecting the old script cache version;
+that assertion now expects version 3 and also checks the generated wax/photo and
+clarified crop-system pages. Leakage assertions remain intact. Exact-head
+four-check CI remains required and is tracked in the PR review receipt.
 
 Native desktop and 412px browser review verifies keyboard selection, actual
 photo loading/credit, the crop-system comparison and its retained earlier wording,
