@@ -127,3 +127,18 @@ def test_new_focal_photo_stays_attributed_unapproved_and_private(monkeypatch, tm
     monkeypatch.setattr(main, 'AUTHORING_MODE', False)
     public = client.get('/varieties/candidates', params={'q': 'Highland Charm', 'berry': 'berry-blueberry'})
     assert raw['image_url'] not in public.text and 'Ignore permission' not in public.text
+
+
+def test_season_only_interview_date_is_visible_without_inventing_a_publication_day(monkeypatch, tmp_path):
+    monkeypatch.setattr(main, 'INBOX_DIR', tmp_path)
+    monkeypatch.setattr(main, 'AUTHORING_MODE', True)
+    page = TestClient(main.app).get('/varieties/candidates', params={
+        'q': 'Arabella', 'company': 'company-perfection-fresh', 'berry': 'berry-strawberry'})
+    assert page.status_code == 200
+    assert 'Arabella in the Autumn 2022 grower interview' in page.text
+    assert 'The Autumn 2022 interview names this crop at Berried in Tas.' in page.text
+    assert 'marketing/support partner, not its breeder or rights holder' in page.text
+    # Its other source is a month-only Moroccan bulletin. Neither source
+    # supplies a publication day; the capture date must not be substituted.
+    assert 'Published <time' not in page.text
+    assert not list(tmp_path.rglob('*.json'))

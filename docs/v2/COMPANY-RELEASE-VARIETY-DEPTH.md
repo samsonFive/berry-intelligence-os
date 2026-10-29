@@ -38,15 +38,22 @@ Public-seed profile gaps remain 11 photos, 13 rights references, 33 cited-trait
 entries and ten company links. Its 64 profiles do not replace the separate
 65-profile live runtime.
 
-The final 33 focused checks pass with one existing warning. They cover literal
+The final 34 focused checks pass with one existing warning in 55.37 seconds. They cover literal
 names and dates, brand/unnamed exclusions, every prior saved candidate ID,
 operator rejection/notes/aliases/photo choices, unchanged Kwanza holds and
 private session-photo presentation. The initial route check exposed a missing
 visible licensing caveat; the source entry now carries it in its own context.
+Native review also found that the interview period was absent from its visible
+title. The title and source context now state Autumn 2022 without inventing a
+publication day; a route regression covers this historical-date distinction.
 The old Sun Belle checkpoint test excludes this later batch when replaying its
 historical input; current-corpus preservation is checked separately.
 
-Exact-head CI and native desktop/phone review are required for this child.
+Native desktop/412px review confirms the attributed 881×1,024 source photo,
+explicit load/hide, visible historical period/context and company-filter scope.
+The 412px page fits within 397px; sticky navigation stays below the 133px header.
+No human identity/source decision was submitted. Exact-head CI remains required
+for this child.
 Platform #433 already passes 5,300 tests and its own fresh live-copy rehearsal;
 catalog/platform #434 passes 5,400 and native review. Those proofs do not approve
 this source child or a changed release. After the intended platform release,
