@@ -145,7 +145,7 @@ def test_live_progress_is_clear_and_private_without_review_state_writes(monkeypa
     page=client.get('/varieties/coverage',params={'company':'company-smart-berries','berry':BLUE})
     assert page.status_code==200
     assert 'tracked entries with named varieties' in page.text
-    assert 'Company source-check progress' in page.text and 'checked, list incomplete' in page.text
+    assert 'Company source-check progress' in page.text and 'entry with source gaps' in page.text
     assert 'Pages checked · varieties not named here' in page.text
     assert 'company lists still need names checked' not in page.text
     assert 'variety_coverage.css?v=9' in page.text
