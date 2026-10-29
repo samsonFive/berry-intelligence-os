@@ -13,8 +13,11 @@ def test_sunbelle_checkpoint_preserves_previous_anchors_and_adds_only_erika():
     # This measures the SunBelle addition against its historical baseline. The
     # later cultivar register independently names Erika; removing her earlier
     # anchor and rebuilding from that later source is not a replay of this step.
+    # The later company-authored supply releases add their own references.
+    # Keep this checkpoint scoped to its historical input rather than treating
+    # additional provenance as removal of an original source anchor.
     sources = [s for s in load_portfolio_observations(DATA)
-               if not s["id"].startswith("portfolio-register52-2024-")]
+               if not s["id"].startswith(("portfolio-register52-2024-", "portfolio-release-depth-"))]
     before = [s for s in sources if not s["id"].startswith(PREFIX)]
     _, old = reconcile_portfolios(sources=before, varieties=[], entities=[], candidates=[])
     rows, new = reconcile_portfolios(sources=sources, varieties=[], entities=[], candidates=[])

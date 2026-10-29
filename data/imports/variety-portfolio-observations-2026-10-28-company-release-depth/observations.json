@@ -1,0 +1,324 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-release-depth-sunbelle-2023-blackberries",
+      "title": "Sun Belle — historical 2023 named blackberry supply release",
+      "url": "https://perishablenews.com/produce/sun-belle-proprietary-blackberries-in-peak-production/",
+      "company_ids": [
+        "company-sunbelle"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-28",
+      "source_type": "company_press_release",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Three literal blackberry names in the complete company-authored release.",
+      "limitations": "Sun Belle is the named author on Perishable News. This historical supply announcement is not independent reporting, a complete portfolio, current availability or a rights record. Its quality and location assertions remain unreviewed. Reprints are not additional independent sources; the release image does not identify individual cultivars.",
+      "names": [
+        {
+          "candidate_name": "Aketzali",
+          "berry_id": "berry-blackberry",
+          "display_label": "Aketzali",
+          "portfolio_context": "Named in the 2023 Sun Belle supply announcement; seasonal Mexico supply remains a historical company assertion."
+        },
+        {
+          "candidate_name": "Amelali",
+          "berry_id": "berry-blackberry",
+          "display_label": "Amelali",
+          "portfolio_context": "Named in the 2023 Sun Belle supply announcement; seasonal Mexico supply remains a historical company assertion."
+        },
+        {
+          "candidate_name": "Erandy",
+          "berry_id": "berry-blackberry",
+          "display_label": "Erandy",
+          "portfolio_context": "Named in the 2023 Sun Belle supply announcement; seasonal Mexico supply remains a historical company assertion."
+        }
+      ],
+      "accounting": {
+        "observed_items": 6,
+        "exclusions": [
+          {
+            "label": "SUN BELLE",
+            "reason": "Company brand, not cultivar."
+          },
+          {
+            "label": "GREEN BELLE",
+            "reason": "Organic brand, not cultivar."
+          },
+          {
+            "label": "University of Arkansas varieties",
+            "reason": "Unnamed group; do not attach every Arkansas cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "direct_original_capture_and_body_review",
+        "http_status": 200,
+        "capture_sha256": "18c0d951beb93c234136f6a3c1006e52c82c6ba71236ecaef8a9f9c75e85a44f",
+        "capture_bytes": 227005,
+        "final_url": "https://perishablenews.com/produce/sun-belle-proprietary-blackberries-in-peak-production/",
+        "author": "Sun Belle",
+        "publication_kind": "company_supplied_release"
+      },
+      "published_date": "2023-05-02"
+    },
+    {
+      "id": "portfolio-release-depth-sunbelle-2025-strawberries",
+      "title": "Sun Belle — four named strawberries in the 2025 winter-program release",
+      "url": "https://perishablenews.com/produce/sun-belle-expands-strawberry-program-with-new-central-florida-winter-crop/",
+      "company_ids": [
+        "company-sunbelle"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-28",
+      "source_type": "company_press_release",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Four printed cultivar/market names in the complete company-authored release.",
+      "limitations": "Company-authored supply plans for the upcoming 2025–2026 winter season do not prove fulfilled supply, present availability, breeding, ownership or current rights. Printed trade labels remain literal names; no underlying denomination/code equivalence is invented. No cultivar photograph is supplied by this article.",
+      "names": [
+        {
+          "candidate_name": "Florida Brilliance",
+          "berry_id": "berry-strawberry",
+          "display_label": "Florida Brilliance",
+          "portfolio_context": "Printed as a strawberry in the announced Florida winter supply program; this remains an unreviewed historical company plan."
+        },
+        {
+          "candidate_name": "Florida Ember",
+          "berry_id": "berry-strawberry",
+          "display_label": "Florida Ember",
+          "portfolio_context": "Printed as a strawberry in the announced Florida winter supply program; this remains an unreviewed historical company plan."
+        },
+        {
+          "candidate_name": "Florida Encore",
+          "berry_id": "berry-strawberry",
+          "display_label": "Florida Encore",
+          "portfolio_context": "Printed as a strawberry in the announced Florida winter supply program; this remains an unreviewed historical company plan."
+        },
+        {
+          "candidate_name": "Sweet Sensation",
+          "berry_id": "berry-strawberry",
+          "display_label": "Sweet Sensation",
+          "portfolio_context": "Printed as a strawberry in the announced Florida winter supply program; this remains an unreviewed historical company plan."
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "direct_original_capture_and_body_review",
+        "http_status": 200,
+        "capture_sha256": "25bbee8bdf6f35822c9332bac8b6db7697942e53cc6c478ee16e63d68890ac2d",
+        "capture_bytes": 228153,
+        "final_url": "https://perishablenews.com/produce/sun-belle-expands-strawberry-program-with-new-central-florida-winter-crop/",
+        "author": "Sun Belle LLC",
+        "publication_kind": "company_supplied_release"
+      },
+      "published_date": "2025-10-09"
+    },
+    {
+      "id": "portfolio-release-depth-sunbelle-2026-premium-label-gap",
+      "title": "Sun Belle — Craveabelles is a premium label, not a named cultivar",
+      "url": "https://perishablenews.com/produce/sun-belle-launches-premium-blackberry-label-craveabelles/",
+      "company_ids": [
+        "company-sunbelle"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-28",
+      "source_type": "company_press_release",
+      "capture_status": "partial",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Complete company-authored premium-label launch; individual selections remain unnamed.",
+      "limitations": "Do not transfer the 2023 cultivar list into the unnamed 2026 premium line. Company-development and quality descriptions do not identify selections, approve traits or prove current rights. The company release is not independent reporting.",
+      "names": [],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": [
+          {
+            "label": "Craveabelles",
+            "reason": "Premium sub-brand, not an individual cultivar."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "direct_original_capture_and_body_review",
+        "http_status": 200,
+        "capture_sha256": "47fab49d008b47c94e6eec7f95f1d98bc67e06b9d3bc66229b964859dbdbb844",
+        "capture_bytes": 230237,
+        "final_url": "https://perishablenews.com/produce/sun-belle-launches-premium-blackberry-label-craveabelles/",
+        "author": "Sun Belle",
+        "publication_kind": "company_supplied_release"
+      },
+      "published_date": "2026-02-19"
+    },
+    {
+      "id": "portfolio-release-depth-hutton-highland-charm-2025",
+      "title": "James Hutton Institute — original Highland Charm announcement",
+      "url": "https://www.hutton.ac.uk/the-james-hutton-institute-introduces-the-first-scotland-bred-blueberry/",
+      "company_ids": [
+        "company-james-hutton-institute"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_release_record",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One named blueberry in the institute’s original announcement.",
+      "limitations": "The July 2025 licensing-process description is not a filing number, grant or current right. Its future retail timing and trial/quality claims remain institute assertions. No code, sister-variety name, Perfection partnership or growing footprint is inferred. The focal announcement photograph is attributed, not independently identity-verified or cleared for reuse.",
+      "names": [
+        {
+          "candidate_name": "Highland Charm",
+          "berry_id": "berry-blueberry",
+          "display_label": "Highland Charm",
+          "portfolio_context": "The July 2025 announcement names this blueberry. Its licensing description does not establish a grant or current right; the sister selection is unnamed.",
+          "photos": [
+            {
+              "image_url": "https://www.hutton.ac.uk/wp-content/uploads/2025/07/blueberry-2-881x1024.jpg",
+              "source_url": "https://www.hutton.ac.uk/the-james-hutton-institute-introduces-the-first-scotland-bred-blueberry/",
+              "credit": "The James Hutton Institute; individual photographer not credited",
+              "caption": "Fruit photograph in the Highland Charm announcement, credited to the institute. Attribution does not independently confirm identity.",
+              "named_variety": "Highland Charm",
+              "berry_id": "berry-blueberry",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "No reuse permission verified. Explicit session preview only; do not publish this image.",
+              "checked_on": "2026-10-28",
+              "kind": "fruit"
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": [
+          {
+            "label": "Unnamed sister variety",
+            "reason": "No printed cultivar name or code; do not invent Highland Bliss or another identity."
+          }
+        ]
+      },
+      "capture_reference": {
+        "method": "direct_original_capture_and_body_review",
+        "http_status": 200,
+        "capture_sha256": "ba7c62663d18cd8a157f5528b1561ea0f7f4358da5a7c5f0e7567234ddcd7efc",
+        "capture_bytes": 239352,
+        "final_url": "https://www.hutton.ac.uk/the-james-hutton-institute-introduces-the-first-scotland-bred-blueberry/",
+        "author": "The James Hutton Institute",
+        "photo_sha256": "f4de95186f5c7fa1d2569b24a2f94c80edc4784dcfc01c272a7921722ad2d9dd"
+      },
+      "published_date": "2025-07-22"
+    },
+    {
+      "id": "portfolio-release-depth-perfection-berriedintas-2022-strawberry",
+      "title": "Berried in Tas — Arabella in the original grower interview",
+      "url": "https://berries.net.au/wp-content/uploads/2024/01/ABJ-Aut-22-RUB-Profile-Richard-Winspear-Berried-in-Tas.pdf#page=1",
+      "company_ids": [
+        "company-perfection-fresh"
+      ],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-28",
+      "source_type": "grower_interview",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One crop-specific name in the complete three-page grower interview.",
+      "limitations": "Historical interview; no current supply, breeding, ownership, alias, legal-rights or growing-footprint approval. Upload path is not publication date. Photographs remain in the original PDF.",
+      "names": [
+        {
+          "candidate_name": "Arabella",
+          "berry_id": "berry-strawberry",
+          "display_label": "Arabella",
+          "portfolio_context": "Berried in Tas names this crop; Perfection Fresh is described as a marketing/support partner, not its breeder or rights holder.",
+          "product_url": "https://berries.net.au/wp-content/uploads/2024/01/ABJ-Aut-22-RUB-Profile-Richard-Winspear-Berried-in-Tas.pdf#page=1",
+          "source_company_ids": [
+            "company-perfection-fresh"
+          ],
+          "source_company_context": "Interview describes Perfection as Berried in Tas’s marketing/support partner."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "direct_original_capture_and_body_review",
+        "http_status": 200,
+        "capture_sha256": "74dc6e3420647441f4ef9f98dd9723ff35c38811614242fa08dcd52f5966521d",
+        "capture_bytes": 1123505,
+        "final_url": "https://berries.net.au/wp-content/uploads/2024/01/ABJ-Aut-22-RUB-Profile-Richard-Winspear-Berried-in-Tas.pdf",
+        "publication_period": "Autumn 2022",
+        "publication_pages": "43–45",
+        "pdf_pages_read": [
+          1,
+          2,
+          3
+        ],
+        "author": "Mark Salter, Fruit Growers Tasmania",
+        "publication_date_precision": "Season and year only; no day invented"
+      }
+    },
+    {
+      "id": "portfolio-release-depth-perfection-berriedintas-2022-raspberry",
+      "title": "Berried in Tas — Kwanza in the original grower interview",
+      "url": "https://berries.net.au/wp-content/uploads/2024/01/ABJ-Aut-22-RUB-Profile-Richard-Winspear-Berried-in-Tas.pdf#page=1",
+      "company_ids": [
+        "company-perfection-fresh"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-28",
+      "source_type": "grower_interview",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One crop-specific name in the complete three-page grower interview.",
+      "limitations": "Historical interview; no current supply, breeding, ownership, alias, legal-rights or growing-footprint approval. Upload path is not publication date. Photographs remain in the original PDF.",
+      "names": [
+        {
+          "candidate_name": "Kwanza",
+          "berry_id": "berry-raspberry",
+          "display_label": "Kwanza",
+          "portfolio_context": "Berried in Tas names this crop; Perfection Fresh is described as a marketing/support partner, not its breeder or rights holder.",
+          "product_url": "https://berries.net.au/wp-content/uploads/2024/01/ABJ-Aut-22-RUB-Profile-Richard-Winspear-Berried-in-Tas.pdf#page=1",
+          "source_company_ids": [
+            "company-perfection-fresh"
+          ],
+          "source_company_context": "Interview describes Perfection as Berried in Tas’s marketing/support partner."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "method": "direct_original_capture_and_body_review",
+        "http_status": 200,
+        "capture_sha256": "74dc6e3420647441f4ef9f98dd9723ff35c38811614242fa08dcd52f5966521d",
+        "capture_bytes": 1123505,
+        "final_url": "https://berries.net.au/wp-content/uploads/2024/01/ABJ-Aut-22-RUB-Profile-Richard-Winspear-Berried-in-Tas.pdf",
+        "publication_period": "Autumn 2022",
+        "publication_pages": "43–45",
+        "pdf_pages_read": [
+          1,
+          2,
+          3
+        ],
+        "author": "Mark Salter, Fruit Growers Tasmania",
+        "publication_date_precision": "Season and year only; no day invented",
+        "named_photo_reference": "https://berries.net.au/wp-content/uploads/2024/01/ABJ-Aut-22-RUB-Profile-Richard-Winspear-Berried-in-Tas.pdf#page=2",
+        "named_photo_credit": "Berried in Tas"
+      }
+    }
+  ]
+}
