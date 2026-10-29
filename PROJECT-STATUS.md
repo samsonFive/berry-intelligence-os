@@ -1,5 +1,18 @@
 # Project Status
 
+## One combined catalog review — October 28, 2026
+
+Existing draft #430 is being consolidated against canonical e24b566b, bringing
+the tested source stack, held-photo review routing, Plablue originals and
+inventory optimization together. See [the acceptance contract](docs/v2/CATALOG-RELEASE-430-REVIEW.md).
+The original15baed4b slice passed all four checks and5,341tests/native review.
+Final combined-head CI and a new bounded production-copy preservation check
+remain before readiness; earlier #426/#421 proofs are not inherited. Thirty-two
+new import files are additions; existing canonical records/schemas/guide and
+all31 accepted definitions/order remain unchanged. Frozen #421/#426 retain
+their separate exact scopes and pending actual release decisions. No merge,
+deployment, human review decision or source permission is inferred.
+
 ## Coverage inventory performance — October 28, 2026
 
 The [photo preparation change](docs/v2/COVERAGE-PHOTO-REQUEST-PERFORMANCE.md)

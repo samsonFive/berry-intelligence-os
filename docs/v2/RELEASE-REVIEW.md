@@ -1,5 +1,18 @@
 # Berry Intelligence release review
 
+## Latest combined catalog review — October 28, 2026
+
+[Draft #430's combined review](CATALOG-RELEASE-430-REVIEW.md) includes the source
+stack through #426 and later #427/#428/#429 plus the coverage inventory fix.
+Its base is being reconciled to canonical e24b566b. The functional slice at
+15baed4b passed all four checks/5,341tests and native review; the final combined
+candidate requires current-head checks and its own fresh production-copy proof.
+There are32 additive import files and no existing canonical record/schema edits.
+Platform #421 remains separate. Frozen #426 and its pending actual approval
+retain their original exact scope; they do not approve the expanded candidate.
+The current PR description and durable ledger record final acceptance receipts.
+Earlier frozen-release evidence below remains valid for its own head only.
+
 ## Current tested release candidates — October 28, 2026
 
 The [whole-thread completion audit](FULL-THREAD-COMPLETION-AUDIT.md) distinguishes
