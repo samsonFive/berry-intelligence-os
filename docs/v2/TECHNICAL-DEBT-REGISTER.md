@@ -1,5 +1,71 @@
 # Technical Debt Register
 
+October 28 — [Combined platform release review](PLATFORM-COMBINED-RELEASE-REVIEW.md) integrates frozen #421 with #432 for one current acceptance check. Shared research/account-private Digest, on-demand profile work, responsive navigation and the visual guide remain; News relevance and phone Reader wrapping are included. Both documentation histories and all 31 accepted definitions/order are preserved. Catalog/source enrichment stays separate. Combined tests, native review, exact-head CI and a fresh isolated live-data preservation check remain required; no merge/deployment or inherited approval.
+
+October 28 — [News company-name relevance](NEWS-COMPANY-NAME-RELEVANCE.md) addresses a live BlackBerry software-licensing false positive through shared fresh/cached/stored News context checks. Fruit and mixed agricultural technology controls remain; original captures and human feedback are retained. Initial 108 affected tests pass; native/exact-head CI remain. This is partial TD-015 progress for current News, not closure of its separate legacy relevance-screen lane or a universal precision claim.
+October 27 — coverage profiling: the full page measured 6.461 seconds initially
+and 4.036 seconds repeatedly on the isolated 65-profile production copy. Profiling
+identified 8,444 repeated source-photo validations; a request-local catalog lookup
+now applies the same identity/crop/ambiguity/code-label/reuse gates once per source
+photo. All 76 affected checks pass. The [full-output comparison](VARIETY-COVERAGE-PHOTO-PERFORMANCE.md)
+retains identical HTML and reduces repeated responses from 3.93 to 2.81–3.01 s.
+New current-head CI, committed-head populated-filter/browser and final release
+review remain before shipping this extension.
+The prior #410 implementation already passed native desktop/phone review and
+current-base preservation; older browser-pending notes below are historical.
+TD-122 remains partially addressed, including large HTML and other repeated scans.
+
+October 23 — selected-variety continuation: [on-demand name review](VARIETY-PROFILE-DEMAND-LOADING.md)
+keeps a catalog-wide audit off the initial profile request. On an isolated
+65-profile production copy with normal startup warm-up, alternating second
+requests fall from 2.071/1.902 to 0.649/0.679 seconds. Other profile fields and
+both name findings match exactly; 9,770 protected JSON files and accounts remain
+unchanged. Reader parity covers 3,462 sources. Browser review, current-head full
+CI and release approval remain. TD-122 is still partially addressed.
+
+October 27 — [shared Workspaces and personal Digest](SHARED-WORKSPACES-PERSONAL-DIGEST.md):
+the user confirms collaborative Workspace content and shared company marks/lists.
+Per-account layouts already ship; Digest saves, reading state and subscriptions
+now have an account-scoped implementation over the existing JSON stores. The
+first 75 affected tests pass. Browser/current-head CI, runtime-preservation and
+release review remain; no production migration or private Workspace ownership
+is claimed. Existing shared legacy reading history is retained explicitly.
+
+### TD-123 — Wrapped shell hides section headings after a jump
+
+Observed October 27 on a 412-pixel coverage screen: the shared header ends at
+133px while the filtered profile section lands at 99.86px (heading at 129.20px).
+Fixed per-page offsets do not follow wrapped navigation, font changes or zoom.
+Impact: the section kicker and top of its heading can be obscured; source data
+and review actions remain available. Severity: low; frontend regression, no
+trust or data-loss risk. Status: **in progress** in the shared-navigation draft.
+
+The shared shell now measures its actual header and supplies page-anchor offsets
+through a separate final stylesheet. Candidate and living-document quick-nav
+offsets, inner table scrolling and Reader offsets remain component-owned.
+The script never changes the selected hash, scrolls the page or stores preferences.
+It runs before page-specific navigation. Header resize, font readiness and restored
+pages update the measurement. Automated script behavior and 59 focused shell/profile/candidate regressions
+pass. Actual phone/desktop initial/filter jumps, current-head CI and release
+review remain. Regression: `tests/test_workspace_anchor_offsets.py`.
+
+### TD-124 — Unbounded review containers compete with the production VPS
+
+October 28: the prior-boot kernel journal confirms global memory exhaustion
+killed production `uvicorn`; the provider console also showed logging failure.
+Several old app previews had no memory cap. The user authorized recovery and
+an IONOS restart restored the unchanged release and original runtime mounts.
+Old app previews remain stopped; four task previews now have explicit limits.
+The completed navigation preservation receipt was recovered, not rerun blindly.
+
+[Bounded offline rehearsals](../07-static-deployment/BOUNDED-VPS-REHEARSALS.md)
+adds serialization, health/headroom gates, local image pinning, isolated-copy
+validation, network isolation, resource/time limits and exact-container cleanup.
+This guard coordinates its own jobs only. Persistent browser previews still
+require an explicit budget, one-at-a-time operation and cleanup. Broader host
+capacity monitoring and a separate review host remain open; the incident is not
+resolved by weakening data, CI or human review gates.
+
 October 23, 2026 follow-up: [Performance, reader and publisher coverage](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 records measured reductions in Brief, Live Intelligence, Variety and Monitoring
 response times, generic exact-publisher reader recovery, and publisher-first
@@ -2927,7 +2993,7 @@ refuses unfinished/shortened inputs and uses the existing scorer without a
 qualification marker. Source acceptance, catalog authoring and independent
 benchmark qualification remain separate. This prepares the human packet; it does
 not complete the human-owned recall requirement. Full scope, phone, blueberry
-feedback and integrated release gates remain open. All31 requirement IDs/order stay.
+feedback and integrated release gates remain open. All 31 requirement IDs/order stay.
 
 
 ## October 10 UTC: original Chandler source follow-up

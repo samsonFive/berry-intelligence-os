@@ -21,6 +21,7 @@ from app.services.coverage_assurance.classes import (
     source_class_of,
 )
 from app.services.industry_pulse.models import DiscoveryHit
+from app.services.crop_name_context import blackberry_company_noise, has_agriculture_context
 from app.services.recall_audit.classify import hostname, publisher_hosts
 
 QUALIFY = "QUALIFY"
@@ -50,10 +51,6 @@ _BLACKBERRY_DEVICE = re.compile(
     r"ip litigation|litigation insider|research in motion|\brim\b|qnx\b|bbm\b|"
     r"smartphone|nasdaq:\s*bb\b|nyse:\s*bb\b"
     r")\b",
-    re.IGNORECASE,
-)
-_FRUIT_BLACKBERRY = re.compile(
-    r"\b(caneberr\w*|cultivar|grower|harvest|fruit|primocane|nursery|seedless)\b",
     re.IGNORECASE,
 )
 _CANNABIS = re.compile(
@@ -281,7 +278,8 @@ def _hard_exclusion(text: str, hit: DiscoveryHit) -> str | None:
         return "Raspberry Pi ambiguity"
     if _CANNABIS.search(text):
         return "cannabis cultivar/product context"
-    if _BLACKBERRY_DEVICE.search(text) and not _FRUIT_BLACKBERRY.search(text):
+    if blackberry_company_noise(text) or (
+            _BLACKBERRY_DEVICE.search(text) and not has_agriculture_context(text)):
         return "BlackBerry device/company ambiguity"
     if _RECIPE_FOOD.search(text):
         return "recipe/foodservice noise"

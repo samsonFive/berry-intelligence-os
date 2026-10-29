@@ -183,16 +183,18 @@ def load_state(inbox_dir: Path) -> dict[str, Any]:
         return empty_state()
     base = empty_state()
     base.update({key: payload.get(key, base[key]) for key in base})
-    return base
+    from app.services.personal_scope import project_feed
+    return project_feed(payload, base)
 
 
 def save_state(inbox_dir: Path, state: dict[str, Any]) -> None:
     from app.services.analyst_state_io import atomic_json
+    from app.services.personal_scope import merge_feed, read_for_write
     path = state_path(inbox_dir)
     path.parent.mkdir(parents=True, exist_ok=True)
     state = dict(state)
     state["updated_at"] = datetime.now(UTC).isoformat(timespec="seconds")
-    atomic_json(path, state)
+    atomic_json(path, merge_feed(read_for_write(path), state))
 
 
 def snapshot_state(inbox_dir: Path) -> Path:

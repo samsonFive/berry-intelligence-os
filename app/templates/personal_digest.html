@@ -3,7 +3,7 @@
 {% from "_personal_icons.html" import icon, action_icon with context %}
 {% block title %}Personal Digest · Berry Intelligence{% endblock %}
 {% block content %}
-<header class="digest-heading"><div><p class="eyebrow">YOUR READING WORKSPACE</p><h1>Personal Digest</h1><p>Saved stories, your reading queue and the company lists you subscribe to.</p></div><a class="outline-button" href="#subscriptions">Manage lists & subscriptions</a></header>
+<header class="digest-heading"><div><p class="eyebrow">YOUR READING WORKSPACE</p><h1>Personal Digest</h1><p>Your saved stories, reading progress and list subscriptions. Company lists are shared; your Digest is personal.</p></div><a class="outline-button" href="#subscriptions">Manage lists & subscriptions</a></header>
 {% if not authoring_mode %}<p class="digest-notice" role="status">Viewing only. Open the local analyst workspace to save stories or update your lists.</p>{% endif %}
 <div class="digest-toolbar" data-digest-counts><span><b>{{ counts.active }}</b> to read <span aria-hidden="true">·</span> {{ counts.completed }} completed <span aria-hidden="true">·</span> {{ counts.total }} total</span><span>Newest published first</span></div>
 {% if authoring_mode and pending_source_issue_count %}<p class="reader-action-status" role="status">Some captured sources couldn’t be listed. <a href="/review-ops">Open Review Operations</a>.</p>{% endif %}

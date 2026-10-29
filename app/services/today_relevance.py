@@ -14,6 +14,7 @@ from typing import Any, Iterable
 from urllib.parse import urlparse
 
 from app.services.article_dedup import normalize_canonical_url, normalize_title
+from app.services.crop_name_context import blackberry_company_noise
 from app.services.industry_pulse.models import DiscoveryHit
 
 _STOP = {
@@ -128,6 +129,8 @@ def noise_reason(
     text = f"{title} {snippet}"
     host = _hostname(source_domain, url)
     path = urlparse(str(url or "")).path if url else ""
+    if blackberry_company_noise(text):
+        return "BlackBerry software-company coverage"
     if host in _JUNK_HOSTS:
         return "content-mill / SEO host"
     if host in _DIRECTORY_HOSTS and not _NEWS_PATH.search(path or "/"):

@@ -1,5 +1,20 @@
 # Project Status
 
+October 28 — [Combined platform release review](docs/v2/PLATFORM-COMBINED-RELEASE-REVIEW.md) integrates frozen #421 with #432 for one current acceptance check. Shared research/account-private Digest, on-demand profile work, responsive navigation and the visual guide remain; News relevance and phone Reader wrapping are included. Both documentation histories and all 31 accepted definitions/order are preserved. Catalog/source enrichment stays separate. Combined tests, native review, exact-head CI and a fresh isolated live-data preservation check remain required; no merge/deployment or inherited approval.
+
+**October 28: News company-name precision.** A shared context check removes the observed BlackBerry software-licensing mismatch from fresh qualification and cached/stored News while retaining explicit fruit and agricultural technology context. Captures, source text, images and human feedback are preserved; no collection or trust action is added. Initial 108 affected tests pass. Native/current-head CI and separate release review remain required. See [News relevance](docs/v2/NEWS-COMPANY-NAME-RELEVANCE.md).
+## Current platform-only review — October 28, 2026
+
+The [integrated platform candidate](docs/v2/PLATFORM-REVIEW-2026-10-28.md) combines
+performance #410, personal Digest #412, responsive navigation #414, bounded
+rehearsals #416 and the shared-Workspaces visual guide #420. Canonical/live
+remains `e24b566b`; catalog #399/#400/#418/#419 is excluded. Shared research,
+company lists/marks and review decisions stay shared; only layouts and Digest
+state are personal. All original 31 accepted definitions and their order remain.
+Individual component checks do not replace combined validation, current-data
+preservation, release approval or release-time backup/rollback checks. Earlier
+status notes below describe their own dated heads and populations.
+
 **October 28: Gene Editing public-source closeout.** All eleven seeds now have
 an original-source audit and explicit claim boundaries: 28 program/platform/
 affiliation rows, 46 source candidates, FDA/Canada/Defra/MARA record recovery,
@@ -8,6 +23,79 @@ review packet preserves human publication/Atomic Evidence gates. The original
 feature is deployed from merged PR #406 (5,115 CI tests passed); this follow-up
 requires its own checked head and runtime receipt. See
 `docs/v2/GENE-EDITING-LANDSCAPE.md` for current counts and retained unknowns.
+
+
+## October 27 performance continuation
+
+Live canonical is `94a3b99b`, including shared Workspaces #408 and the earlier
+redesign, Landscape, News/access and approved performance releases. Workspaces,
+research and company lists/marks are intentionally shared; layout preferences
+and Personal Digest are personal. Digest account isolation is the separate,
+tested draft #412, awaiting final release approval.
+
+The existing #410 profile/Reader change passed current-base CI (5,211 tests),
+ordinary browser interaction, 412-pixel emulation and production-copy parity.
+This continuation profiles the remaining coverage-page cost and removes repeated
+source-photo validation across all catalog profiles. Identity, crop, ambiguous
+name, source code/label and reuse gates remain; there is no cross-request cache.
+All 76 affected photo/profile/portfolio tests pass. The [coverage comparison](docs/v2/VARIETY-COVERAGE-PHOTO-PERFORMANCE.md)
+retains byte-identical full HTML while reducing repeated responses from 3.93
+to 2.81–3.01 seconds. Fresh full CI, committed-head valid-filter/browser and
+release review remain required for the extension.
+
+Catalog #399/#400 remains separate: the corrected phone anchor head `a9e6e7cb`
+passes all required checks (5,222 tests), native desktop/phone review and isolated
+account/data preservation. Its final release approval is pending. None of these
+drafts supplies human name/identity, current-rights, source or photo decisions.
+All 31 accepted requirements remain; CAT-01/CAT-02, the independent 52-source
+worksheet, 32 unclear photo cells, wider statistics/Learn/profile coverage and
+broader performance remain open. Historical checkpoint notes below are not new
+approval requests; the four-crop Landscape milestone is already released.
+
+## Historical October 23 performance continuation
+
+Live canonical is `97f9ac3d` (#409), including approved #407, broader workspace
+speedups, Reader recovery and publisher-first discovery. Catalog #399/#400 is
+separate and unreleased. The [on-demand variety-profile draft](docs/v2/VARIETY-PROFILE-DEMAND-LOADING.md)
+reduces isolated repeated Emerald requests from about 2.0 to 0.66 seconds while
+preserving all other profile fields, both name findings, accounts and 9,770
+protected JSON files. Reader/classifier/Atomic parity covers 3,462 sources.
+109 affected tests pass. Current-head full CI, browser interaction/phone review
+and final release approval remain; this change has not been deployed.
+
+All accepted requirements remain in the durable checklist. CAT-01/CAT-02,
+independent source/name answers, current/historical completeness, rights/photos,
+statistics coverage and broader TD-122 work remain open. The prior Landscape
+blueberry continuation was approved and its later four-crop features released;
+historical checkpoint notes below do not impose a new pause.
+
+## October 27 account-scope clarification
+
+Live canonical is `94a3b99b`, including released collaborative Workspaces #408.
+The user confirms shared Workspace/research/company-list content; only account
+layouts and Personal Digest are personal. The [Digest account-scope change](docs/v2/SHARED-WORKSPACES-PERSONAL-DIGEST.md)
+is implemented with 76 passing affected tests and explicit legacy preservation.
+Two-account browser and 412-pixel responsive reviews pass. Full current-head CI,
+production-copy preservation and release review remain. The guide now describes
+Workspaces and the shared-versus-personal boundary. Nothing is deployed here.
+Catalog #399/#400 and profile-performance #410 remain separate release drafts.
+Their latest reconciliation preserves the Workspaces release and original
+catalog decisions. CAT-01/CAT-02 and wider coverage work remain open.
+
+## October 27 shared-navigation continuation
+
+Live canonical `94a3b99b` includes shared Workspaces and the earlier platform
+releases. Catalog #399/#400, performance #410 and Personal Digest #412 remain separate
+tested drafts with final release approvals pending. The latest performance head
+`c36c5b10` passes 5,218 tests; catalog `a9e6e7cb` passes 5,222. No deployment is implied.
+
+A separate [navigation fix](docs/v2/RESPONSIVE-SECTION-NAVIGATION.md) addresses
+headings hidden behind wrapped phone navigation. It measures the existing shell
+without changing layout, content, personal state or review gates. TD-123 is
+recorded. Focused regressions and final browser/static/current-head checks remain.
+The wider catalog/source/human/coverage work remains open. Historical notes below
+retain their dates; the blueberry checkpoint and later four-crop milestone were
+already approved/released and require no new checkpoint pause.
 
 **October 12–13: Landscape PDFs and actual browser exports.** Draft #396 now
 offers server-rendered PDF snapshots with cited takeaways, market/comparison

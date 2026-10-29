@@ -1,5 +1,86 @@
 # Redesign and consolidation requirements
 
+October 28 — [Combined platform release review](PLATFORM-COMBINED-RELEASE-REVIEW.md) integrates frozen #421 with #432 for one current acceptance check. Shared research/account-private Digest, on-demand profile work, responsive navigation and the visual guide remain; News relevance and phone Reader wrapping are included. Both documentation histories and all 31 accepted definitions/order are preserved. Catalog/source enrichment stays separate. Combined tests, native review, exact-head CI and a fresh isolated live-data preservation check remain required; no merge/deployment or inherited approval.
+
+October 28 — [News company-name relevance](NEWS-COMPANY-NAME-RELEVANCE.md) adds fresh/cached/stored feed controls for a demonstrated software-company mismatch, preserving fruit licensing, agricultural technology, source records, images and user feedback. Initial 108 affected checks pass; native/current-head CI and separate release acceptance remain. All 31 accepted definitions and their order are unchanged; broader relevance and human source/catalog gates remain open.
+## Current platform-only review — October 28, 2026
+
+The [integrated platform candidate](PLATFORM-REVIEW-2026-10-28.md) combines
+performance #410, personal Digest #412, responsive navigation #414, bounded
+rehearsals #416 and the shared-Workspaces visual guide #420. Canonical/live
+remains `e24b566b`; catalog #399/#400/#418/#419 is excluded. Shared research,
+company lists/marks and review decisions stay shared; only layouts and Digest
+state are personal. All original 31 accepted definitions and their order remain.
+Individual component checks do not replace combined validation, current-data
+preservation, release approval or release-time backup/rollback checks. Earlier
+status notes below describe their own dated heads and populations.
+
+## Current continuation — October 27, 2026
+
+Live canonical `94a3b99b` includes shared Workspaces and the earlier platform,
+Landscape, News/access and performance releases. Only layout settings and
+Personal Digest are account-private; tested Digest isolation remains draft #412.
+Draft #410's original current-base profile/Reader implementation passes all four
+checks, desktop/412-pixel interaction and isolated preservation. Its coverage-page
+photo-lookup extension passes 76 affected tests and preserves identical full
+HTML while reducing repeated responses from 3.93 to 2.81–3.01 seconds. Fresh
+committed-head filter/browser checks and CI remain. Catalog #399/#400 remains a separate reviewed draft
+(5,222 tests), awaiting release approval. No production change is implied.
+
+All 31 original requirement IDs, descriptions and order are retained. Historical
+counts below describe their dated source populations, not the current whole
+database. CAT-01/CAT-02, human source/name/identity decisions, 32 unclear cells,
+current/historical portfolio and profile depth, statistics/Learn media coverage
+and broader performance remain open. The independent 52-source worksheet has
+not been completed by engineering tests.
+
+## Historical continuation — October 23, 2026
+
+Live canonical `97f9ac3d` includes released platform redesign, four-crop Landscape,
+guide, News/access, automatic News, Gene Editing, approved #407 and #409.
+The [on-demand profile performance draft](VARIETY-PROFILE-DEMAND-LOADING.md) has
+109 passing affected tests and isolated real-data parity/timing proof. Browser
+interaction/phone review, current-head full CI and final release approval remain.
+No catalog enrichment is deployed; #399/#400 retains its separate release review.
+All 31 accepted requirement IDs/descriptions/order below remain unchanged.
+CAT-01/CAT-02, independent human answers, 32 unclear photo cells, complete
+current/historical portfolios, rights/photos, profile/statistics coverage and
+broader TD-122 work remain open. Earlier status notes are historical.
+
+## Account scope confirmed — October 27, 2026
+
+Workspaces are shared, collaborative research across signed-in accounts. Only
+layout settings and Personal Digest are account-specific. Company lists,
+favorites, tiers, research and human-review decisions remain shared. Personal
+Digest includes each person's saves, reading progress/position/priority and
+subscriptions to the shared lists. The [implementation and migration review](SHARED-WORKSPACES-PERSONAL-DIGEST.md)
+retains older data and all existing review gates. Its final 76 affected tests,
+two-account browser review and 412-pixel responsive review pass; full current-head
+CI, production-copy preservation and release checks remain. No private Workspace ACL
+mission is implied. All original 31 accepted definitions and ordering below
+remain preserved.
+
+Live `94a3b99b` includes the approved platform, four-crop Landscape and shared
+Workspaces. Catalog #399/#400, performance #410 and account-scope #412 are tested drafts
+awaiting their separate release approvals. A separate shared-header navigation
+fix follows measured TD-123; it preserves dense layout and existing destinations.
+All 31 original requirement IDs, definitions and order below remain. Existing
+source/identity/current-rights/photo gates, the independent 52-source worksheet,
+32 unclear cells, comprehensive catalog/profile/statistics/Learn coverage and
+final release checks remain explicit. Historical counts/heads below are dated
+evidence, not the current whole database or a new instruction to repeat a gate.
+
+## Shared Workspaces visual explainer follow-up — October 28
+
+The live `e24b566b` platform includes shared Workspaces. The independent
+[guide follow-up](WORKSPACES-VISUAL-GUIDE.md) adds its capture/connect/brief
+workflow, shared-page scope and Markdown/JSON output to Help. It retains all
+twelve existing section cards and six report cards, with a featured Workspaces
+panel and separate briefing explanation. Static-public regressions and native
+desktop/phone review pass; exact-head checks precede its draft release review. Catalog/photo
+work and Personal Digest account scoping remain separate drafts. All original
+31 requirement IDs, accepted descriptions and ordering remain unchanged.
+
 This is the durable inventory of the user's accepted requirements. Keep every
 ID and its remaining work visible; passing tests or added source observations
 do not complete independent human review or prove catalog completeness.
@@ -191,7 +272,7 @@ table and implementation sequence below are preserved.
 | INT-01 | Plain-language investigation workspaces without changing review decisions | Intelligence home preserves Statements, Signals/candidates, Assessments, Recommendations, Questions, Research and native authoring. M11–17/20/35 verify named references, literal source text and separate gates. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | MON-01 | Consolidate Monitor watches/changes/alerts while retaining distinct intent and action | Monitor consolidates Watches, Alerts and Monitoring plans, retaining marks/list/multi-berry predicates, read/dismiss/pause/resume history and Reader; #283 green and M35 retained shell. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
 | OPS-01 | Consolidate collection, review and quality surfaces without losing specialist tools | Operations consolidates Collect, Review, Data quality and Coverage & health, retaining specialists. Source authenticity (M34) stays separate from publication/statement approval. | Release acceptance recorded in RELEASE-REVIEW.md; source availability and independent human decisions remain explicit. |
-| GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | Live/public visual guide has twelve purpose cards, four analyst workflow steps, worked example, six output explanations and distinct review lifecycle. The current guide includes Social Listening, four-crop Landscape, saved selections and complete PDF/HTML/SVG/CSV reporting; public/live boundaries remain distinct. Eighteen existing guide/static regressions pass. The [variety workflow explainer](VARIETY-WORKFLOW-EXPLAINER-REVIEW.md) adds four steps from source name through identity review and separate catalog authoring to a sourced profile, with existing private handoffs. M38 proof remains dated evidence. Prior October 12 review of eleven cards is dated evidence. Updated twelve-card desktop review and 412px emulation verify the refreshed guide; six outputs now use balanced three/two/one-column layouts. Responsive emulation is distinguished from a physical-phone test. | Visual guide delivered, including current capability limits; final exact-head release and current phone gates apply. |
+| GUIDE-01 | Visual explainer of site sections, analyst workflow and reporting capabilities with clear purpose/how/working state | The released guide has twelve section cards, four analyst workflow steps and six reporting choices. The independent shared-Workspaces follow-up adds a featured Capture → Connect → Brief explanation, universal team-page scope, Reader/selection handoffs and a separate Markdown/Portable JSON briefing panel. Existing sections, outputs and source/identity/claim review distinctions remain. See WORKSPACES-VISUAL-GUIDE.md. | The current Workspaces addition is an unreleased guide follow-up with passing static-public regressions. Native desktop/phone review passes; exact-head required checks precede release approval; this does not complete catalog/content or Personal Digest account-scope work. |
 | REL-01 | Integrate approved stack, reconcile canonical, run all gates and prepare release/rollback plan for intel.johnnyaceii.com | Platform redesign and News/access releases are live; October 21 production receipt identifies canonical 219c739a. The existing account, provider configuration, runtime mounts and rollback receipts are preserved. The protected mobile worksheet is a separate read-only service. | Performance #405 requires fresh checks and release verification on the reconciled head. Catalog #399/#400 and CAT-01/CAT-02 remain open; deployment approval does not approve source/name/identity/catalog/qualification/photo decisions. |
 
 ## Historical implementation sequence
@@ -383,7 +464,7 @@ refuses unfinished/shortened inputs and uses the existing scorer without a
 qualification marker. Source acceptance, catalog authoring and independent
 benchmark qualification remain separate. This prepares the human packet; it does
 not complete the human-owned recall requirement. Full scope, phone, blueberry
-feedback and integrated release gates remain open. All31 requirement IDs/order stay.
+feedback and integrated release gates remain open. All 31 requirement IDs/order stay.
 
 
 ## October 10 UTC: original Chandler source follow-up

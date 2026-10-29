@@ -109,6 +109,40 @@ def source_photos(target, *, sources=(), candidate=False, varieties=()):
     return list(rows.values())
 
 
+def catalog_source_photos(*, sources=(), varieties=()):
+    """Project all catalog photo references in one request-local pass.
+
+    Use the same exact-name, crop, ambiguity and code/label gates as
+    ``source_photos``. Nothing is cached across requests or saved to a profile.
+    """
+    if not varieties:
+        return {}
+    from app.services.variety_portfolio_coverage import _identity_pair_notes, _key
+    targets = {row["id"]: row for row in varieties}
+    rows = {vid: {} for vid in targets}
+    pair_notes = None
+    for source in sources:
+        for ref in source.get("names", []):
+            if ref.get("identity_notes"):
+                continue
+            for raw in ref.get("photos", []):
+                photo = validate_photo(raw)
+                result = resolve_identity({"candidate_name": photo["named_variety"], "berry_id": photo["berry_id"]}, varieties)
+                ids = {match["variety_id"] for match in result["matches"] if match["reason"] == "exact_identity_string"}
+                if len(ids) != 1:
+                    continue
+                vid = next(iter(ids))
+                if not compatible(photo, targets[vid]):
+                    continue
+                if pair_notes is None:
+                    pair_notes = _identity_pair_notes(sources)
+                if pair_notes.get((source["id"], _key(ref), ref.get("trade_name") or ref["candidate_name"]), []):
+                    continue
+                key = "source-photo-" + sha256((photo["source_url"] + "\n" + photo["image_url"]).encode()).hexdigest()[:20]
+                rows[vid][key] = {**photo, "id": key, "origin": "Named by source · not yet reviewed"}
+    return {vid: list(photos.values()) for vid, photos in rows.items()}
+
+
 def gallery(target, *, sourced=(), profile=None, authoring=False):
     # Source captions and private user edits never enter the public snapshot.
     # Public photo publication must use the existing human publication path.

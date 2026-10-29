@@ -1,0 +1,40 @@
+/* Page sections follow the shell height. Keep component-owned scroll offsets
+   (candidate quick nav, living-page quick nav, tables and the Reader) independent. */
+.variety-workspace:not(.candidate-workspace) [id],
+.gx-location-suggestions,
+.digest-subscriptions {
+  scroll-margin-top: var(--glass-anchor-offset, 100px);
+}
+.intelligence-workspace [id],
+.guide-section {
+  scroll-margin-top: var(--glass-anchor-offset, 110px);
+}
+#company-directory-results {
+  scroll-margin-top: var(--glass-anchor-offset, 80px);
+}
+.company-research,
+.company-source-varieties,
+.landscape-panel,
+.learn-pillar {
+  scroll-margin-top: var(--glass-anchor-offset, 90px);
+}
+.lx-focus,
+.lx-evidence {
+  scroll-margin-top: var(--glass-anchor-offset, 85px);
+}
+.sh-body [id] {
+  scroll-margin-top: var(--glass-anchor-offset, 125px);
+}
+.pvs-slice-4 .v2-monitor-section,
+.pvs-slice-4 .ops-section,
+.pvs-slice-3 .v2-monitor-section,
+.pvs-slice-3 .ops-section,
+.pvs-slice-5 .queue-section {
+  scroll-margin-top: var(--glass-anchor-offset, 4.5rem);
+}
+@media (max-width: 760px) {
+  .lx-focus, .lx-evidence { scroll-margin-top: var(--glass-anchor-offset, 130px); }
+}
+@media (max-width: 700px) {
+  .guide-section { scroll-margin-top: var(--glass-anchor-offset, 140px); }
+}
