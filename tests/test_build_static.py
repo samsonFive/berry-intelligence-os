@@ -224,7 +224,7 @@ def test_static_build_excludes_drafts_and_includes_published(monkeypatch, tmp_pa
     assert "data-teaching-explorer" in visual_html
     assert "data-pagefind-body" in visual_html  # Pagefind indexes only marked bodies across this site.
     assert 'data-pagefind-meta="description"' in visual_html  # The original summary leads Search previews.
-    assert "learn_workspace.js?v=3" in visual_html
+    assert "learn_workspace.js?v=4" in visual_html
     assert "Special:FilePath/Blueberries.jpg" not in visual_html
     assert "File:Blueberries.jpg" in visual_html  # Unverified reuse is a source link only.
     assert "Research &amp; expand" not in visual_html
