@@ -3290,3 +3290,6 @@ TD-VARIETY-SOURCE-PARITY-001 October 27 workbench follow-up: user-authorized adm
 
 
 TD-SEARCH-001 October 30 continuation: 395 pooled judgments and ten comparable Google captures remain missing. Semantic review covers all 72 frozen replay quotations but flags 13 issues; this is not semantic acceptance or source-truth certification. Development-query source-ownership, cross-crop, licensing-intent and Raspberry Pi homonym repairs are documented in SEARCH-RESEARCH-QUALITY-V1.md. General entity precision, trial geography, conflict handling and the broader mission remain active. Deployment remains held.
+
+
+TD-SEARCH-001 October 30 resolution checkpoint: all 13 frozen replay citation contexts are handled for regenerated reporting, including four replacement passages, one background reclassification, one irrelevant-candidate exclusion and seven withheld quotations. The conflicting source remains on a quote hold, not truth-approved. Rebased onto canonical 3b0b4acc retaining its photo/coverage/navigation safeguards and verbatim guide. There are still 376 unjudged pairs, ten non-comparable original Google queries, fresh blind holdouts and broader mission acceptance work. Final-head full CI and user review remain required; deployment remains held. Historical snapshots/exports are not rewritten.

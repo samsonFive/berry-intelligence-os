@@ -2980,11 +2980,12 @@ def entity_list(
                 from app.services.variety_photo_review import photo_identity_reviews
                 photo_sources = load_portfolio_observations(DATA_DIR)
                 photo_profiles = company_directory.load_profiles(INBOX_DIR)["profiles"]
+                photo_index = variety_photos.SourcePhotoIndex(photo_sources, varieties_all)
                 for card in context["variety_rows"]:
                     target = entities_idx.get(card["id"], {})
-                    sourced_photos = variety_photos.source_photos(target, sources=photo_sources, varieties=varieties_all)
+                    sourced_photos = variety_photos.source_photos(target, sources=photo_sources, varieties=varieties_all, _index=photo_index)
                     card["photo_identity_reviews"] = photo_identity_reviews(target, sources=photo_sources,
-                        varieties=varieties_all, sourced=sourced_photos)
+                        varieties=varieties_all, sourced=sourced_photos, _index=photo_index)
                     card["photos"] = variety_photos.gallery(target, authoring=True,
                         sourced=sourced_photos,
                         profile=photo_profiles.get(card["id"]))

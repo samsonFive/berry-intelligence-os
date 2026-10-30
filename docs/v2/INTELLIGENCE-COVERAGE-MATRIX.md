@@ -1090,3 +1090,6 @@ October 29, 2026: source-capture progress and organizational related-coverage gr
 
 
 October 30 search-quality evaluation: 121/516 pooled query/source pairs have inspected judgments; 395 remain open. All 72 frozen report quotations have scoped semantic review, with 13 flagged. Related-card prose is excluded from owned article evidence; no source was onboarded and no trait, role, legal status or growing footprint was promoted. Source-truth, general entity precision and trial-geography gaps remain.
+
+
+October 30 citation-resolution continuation: 140/516 pooled pairs now have source-inspected judgments (376 remain). All 13 known quotation contexts are handled for regenerated reporting, with negative holds/verification leads kept distinct from facts. Two legacy held-out cases are now regression cases; fresh blind holdouts remain required. Source-truth and comprehensive portfolio coverage are not certified. Canonical 3b0b4acc safeguards and existing evidence-class counts are retained; no trusted records or growing footprints were added. Deployment remains held.

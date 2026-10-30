@@ -19,7 +19,13 @@
       "support_status": "scope_unverified",
       "new_section": null,
       "new_locator": null,
-      "new_passage_sha256": null
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
     },
     {
       "query": "Ervin blackberry",
@@ -31,7 +37,13 @@
       "support_status": "scope_unverified",
       "new_section": null,
       "new_locator": null,
-      "new_passage_sha256": null
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
     },
     {
       "query": "Ervin blackberry",
@@ -43,7 +55,13 @@
       "support_status": "scope_unverified",
       "new_section": null,
       "new_locator": null,
-      "new_passage_sha256": null
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
     },
     {
       "query": "NC 740 blackberry",
@@ -55,7 +73,13 @@
       "support_status": "body_supported",
       "new_section": "topic_findings",
       "new_locator": "article:9",
-      "new_passage_sha256": "bff34dfc735af326e016962bb01bb44fd25148d26279d0f35a9c322b7c8f97b1"
+      "new_passage_sha256": "bff34dfc735af326e016962bb01bb44fd25148d26279d0f35a9c322b7c8f97b1",
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "The replacement explicitly names Ervin, NC 740 and the researcher's field-trial experience; it no longer attributes whole-program economic value to this cultivar.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
     },
     {
       "query": "Floricane blackberry licensing outside the United States",
@@ -67,7 +91,13 @@
       "support_status": "body_supported",
       "new_section": "topic_background",
       "new_locator": "article:1",
-      "new_passage_sha256": "4e8d7b92045fe1d2c325faac3377c7262a3cf0d86be19ce1430bdc9c4a7727d8"
+      "new_passage_sha256": "4e8d7b92045fe1d2c325faac3377c7262a3cf0d86be19ce1430bdc9c4a7727d8",
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that cultivar identity is background for this licensing question and is not promoted to a direct licensing finding.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
     },
     {
       "query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
@@ -79,7 +109,13 @@
       "support_status": "scope_unverified",
       "new_section": null,
       "new_locator": null,
-      "new_passage_sha256": null
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
     },
     {
       "query": "Blueberry breeding developments",
@@ -91,7 +127,13 @@
       "support_status": "body_supported",
       "new_section": "topic_findings",
       "new_locator": "article:0",
-      "new_passage_sha256": "bdfdfff48b3a59a36e615ef0f72b1abcd8fffe71415264f4d84a28754ab9083e"
+      "new_passage_sha256": "bdfdfff48b3a59a36e615ef0f72b1abcd8fffe71415264f4d84a28754ab9083e",
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "The replacement describes four cultivar introductions at the open day, rather than an opinion about programme quality.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
     },
     {
       "query": "Raspberry developments Europe",
@@ -103,7 +145,13 @@
       "support_status": null,
       "new_section": null,
       "new_locator": null,
-      "new_passage_sha256": null
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the Raspberry Pi policy candidate is excluded from the raspberry crop question.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
     },
     {
       "query": "Sweet-Ark Immaculate blackberry release",
@@ -115,7 +163,13 @@
       "support_status": "source_review_hold",
       "new_section": null,
       "new_locator": null,
-      "new_passage_sha256": null
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
     },
     {
       "query": "Raspberry breeding Scotland",
@@ -127,7 +181,13 @@
       "support_status": "body_supported",
       "new_section": "topic_findings",
       "new_locator": "article:20",
-      "new_passage_sha256": "b20d583a46cf277bcf24a9b657501d3cab87b5228f690bbba51d879a81a76b74"
+      "new_passage_sha256": "b20d583a46cf277bcf24a9b657501d3cab87b5228f690bbba51d879a81a76b74",
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "The replacement describes the raspberry programme, funding, partners and releases, rather than honeyberry traits.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
     },
     {
       "query": "Blueberry machine harvesting trials",
@@ -139,7 +199,13 @@
       "support_status": "body_supported",
       "new_section": "topic_background",
       "new_locator": "article:0",
-      "new_passage_sha256": "ed3364ce645196ab5b04d0e91e4896da7556a6cc82aa63648a691ace4db2da11"
+      "new_passage_sha256": "ed3364ce645196ab5b04d0e91e4896da7556a6cc82aa63648a691ace4db2da11",
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "The owned research prose is retained and the flattened Source attribution/navigation tail is excluded. Percentages remain historical source assertions, not current universal rates.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
     },
     {
       "query": "Raspberry primocane trials United Kingdom",
@@ -151,7 +217,13 @@
       "support_status": "scope_unverified",
       "new_section": null,
       "new_locator": null,
-      "new_passage_sha256": null
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
     },
     {
       "query": "Raspberry primocane trials United Kingdom",
@@ -163,7 +235,13 @@
       "support_status": "scope_unverified",
       "new_section": null,
       "new_locator": null,
-      "new_passage_sha256": null
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
     }
   ],
   "quotation_audits": [
@@ -384,5 +462,11 @@
       "passed": true
     }
   ],
-  "original_run_sha256": "684eb798a5f5f523333f89da53c913188edff39523f9fd48b543a62ada2f4b41"
+  "original_run_sha256": "684eb798a5f5f523333f89da53c913188edff39523f9fd48b543a62ada2f4b41",
+  "handling_review_summary": {
+    "original_contexts_reviewed": 13,
+    "handled_for_reporting": 13,
+    "source_truth_certified": false,
+    "scope": "These 13 frozen-report contexts only. Original snapshots and historical exports are not rewritten; other regenerated content is not globally truth-certified."
+  }
 }

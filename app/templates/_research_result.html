@@ -17,6 +17,8 @@
         </li>
         {% endfor %}
       </ol>
+      {% elif answer.verification_leads %}
+      <p class="rd-empty">Sources were found, but their captured passages require verification for this question. Inspect the verification leads below.</p>
       {% else %}
       <p class="rd-empty">The saved material does not yet support a substantive answer. The gaps below show what is missing.</p>
       {% endif %}
