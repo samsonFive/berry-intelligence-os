@@ -3422,6 +3422,12 @@ def variety_coverage_page(request: Request) -> HTMLResponse:
                 filters=dict(request.query_params), company_catalog=company_catalog,
             )
             coverage["portfolios"]["source_content"] = source_content_coverage(published_evidence())
+            # Large inventories should not ship every closed source body.
+            # Keep small/filtered views inline to avoid needless round trips.
+            coverage["defer_portfolio_details"] = len(coverage["portfolios"]["sources"]) > 40
+            coverage["portfolio_source_query"] = urlencode({
+                key: value for key, value in request.query_params.items() if key != "fragment"
+            })
             from app.services.variety_profile_coverage import profile_field_coverage
             from app.services.variety_patent_references import load_registry_filing_observations
             try:
@@ -3461,6 +3467,48 @@ def variety_coverage_page(request: Request) -> HTMLResponse:
     )
     apply_ui_cookies(response, berry=ui["berry"], feed_view=ui["feed_view"])
     return response
+
+
+@app.get("/varieties/coverage/source/{source_id}", response_class=HTMLResponse)
+def variety_coverage_source_page(request: Request, source_id: str) -> HTMLResponse:
+    """Read one source in the same current filter/review scope; never persist."""
+    if not AUTHORING_MODE:
+        raise HTTPException(403, "Source checks require the analyst workspace")
+    if len(source_id) > 200:
+        raise HTTPException(404, "Source check not found")
+    from app.services import company_directory
+    from app.services.variety_portfolio_coverage import load_portfolio_observations, portfolio_coverage
+    varieties, candidates, _report = variety_candidate_universe()
+    entities = all_entities()
+    filters = {key: value for key, value in request.query_params.items() if key != "fragment"}
+    try:
+        portfolios = portfolio_coverage(
+            data_dir=DATA_DIR, sources=load_portfolio_observations(DATA_DIR),
+            varieties=varieties, entities=entities, candidates=candidates, filters=filters,
+            company_catalog=company_directory.catalog(
+                {row["id"]: row for row in entities},
+                profiles=company_directory.load_profiles(INBOX_DIR)["profiles"],
+            ),
+        )
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    source = next((row for row in portfolios["sources"] if row["id"] == source_id), None)
+    if source is None:
+        raise HTTPException(404, "Source check not found in these filters")
+    fragment = request.query_params.get("fragment") == "1"
+    context = {"source": source, "portfolios": portfolios, "authoring_mode": True,
+               "static_build": False, "berries": BERRIES}
+    headers = {"Cache-Control": "private, no-store", "Vary": "Cookie"}
+    if fragment:
+        headers["X-Berry-Portfolio-Fragment"] = "1"
+    else:
+        context["back_href"] = "/varieties/coverage" + ("?" + urlencode(filters) if filters else "") + "#portfolio-source-" + quote(source_id, safe="")
+        context["ui_context"] = read_ui_context(request, BERRIES, inbox_dir=INBOX_DIR)
+    return templates.TemplateResponse(
+        request=request,
+        name="_variety_portfolio_source_body.html" if fragment else "variety_coverage_source.html",
+        context=context, headers=headers,
+    )
 
 
 @app.post("/varieties/external/identity-lead")

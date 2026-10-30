@@ -1,5 +1,16 @@
 # Intelligence Coverage Matrix
 
+October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
+preservation, all required checks and live/native review. Its522 source sections,
+1,864 name occurrences,27 visual Learn lessons and Map improvements retain their
+original review boundaries; publication of the platform does not approve source
+identities, roles, current rights or photo reuse. Five accounts,65 profiles and
+all existing protected records/databases are preserved. Separate performance441
+passes all four checks /5,471 tests; the
+[source-detail payload follow-up](COVERAGE-SOURCE-DETAILS-PERFORMANCE.md)
+preserves the same source content and adds no coverage. Remaining catalog,
+lesson/media, statistics and human-review gaps are unchanged.
+
 October 30 — [Collection/company coverage lookup performance](COVERAGE-COMPARISON-REQUEST-PERFORMANCE.md)
 is a separate read-only performance follow-up to #440. All comparison outputs,
 source/name counts, crop boundaries and human decisions remain; this adds no

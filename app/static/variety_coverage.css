@@ -21,6 +21,14 @@
 .external-coverage{border-top:2px solid #adc0a3;margin-top:16px;padding-top:6px;scroll-margin-top:130px}.external-table th:first-child{width:32%!important;overflow-wrap:anywhere}.external-table td:nth-child(2){width:36%}.external-table th small{display:block;color:#617356;font-weight:400;margin-top:4px}.external-table p{overflow-wrap:anywhere;line-height:1.4}.external-pagination{display:flex;justify-content:space-between;gap:12px;margin:12px 0}.external-pagination a{min-height:32px;display:inline-flex;align-items:center;font-weight:600}
 .external-coverage .digest-filters label:has(select[name=external_genus]){min-width:210px}.external-table th:first-child{width:28%!important}.external-table td:nth-child(2){width:30%}.external-table td:last-child>form{display:inline-block;margin-left:8px}.external-table form .v2-btn{font-size:.73rem;padding:5px 8px;min-height:30px}@media(max-width:700px){.external-table td:last-child>form{display:block;margin:5px 0 0}.external-table form .v2-btn{min-height:44px}.external-coverage .digest-filters label:has(select[name=external_genus]){min-width:0}}
 .portfolio-source-progress>a{display:inline-flex;align-items:center;min-height:32px;padding:3px 8px;font-weight:600;font-size:.78rem}#portfolio-source-plan{scroll-margin-top:130px}@media(max-width:700px){.portfolio-source-progress>a{min-height:44px}}
+.portfolio-table tr[id^="portfolio-source-"]{scroll-margin-top:var(--glass-anchor-offset,130px)}
+[data-portfolio-source-panel]{padding:5px 0;overflow-wrap:anywhere}
+[data-portfolio-source-panel][aria-busy="true"]{color:#53694c}
+[data-portfolio-source-panel]>p{margin:7px 0;font-size:.78rem;line-height:1.5}
+[data-portfolio-source-panel]>button{margin:0 8px 5px 0}
+.portfolio-source-page h1{overflow-wrap:anywhere;font-size:1.65rem;line-height:1.2}
+.portfolio-source-page>.portfolio-source-body{border:1px solid #b4c6a9;border-radius:8px;background:#fbfff7;padding:10px 14px}
+.portfolio-source-body .portfolio-names small{display:block;color:#617356;font-size:.68rem;line-height:1.4;margin-top:3px}
 .portfolio-heading .v2-company-actions{max-width:100%;flex-wrap:wrap}
 
 .profile-field-coverage{margin:16px 0;border:1px solid #a9bda1;border-radius:10px;background:#fafff5;padding:12px 14px;scroll-margin-top:125px}
