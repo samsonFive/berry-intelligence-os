@@ -11,7 +11,7 @@ import json
 from pathlib import Path
 from urllib.parse import urlencode
 
-from app.services.variety_universe.identity import candidate_query_names, fold_identity, resolve_identity
+from app.services.variety_universe.identity import _MIN_FOLD, _berries, _identity_strings, candidate_query_names, fold_identity
 
 GDR_URL = "https://www.rosaceae.org/tripal_megasearch?datatype=tripal_megasearch_stock"
 GRIN_URL = "https://npgsweb.ars-grin.gov/gringlobal/search"
@@ -242,8 +242,28 @@ def load_external_baselines(data_dir: Path):
     return list(latest.values())
 
 
-def compare_baseline(baseline, *, varieties, candidates):
+def _catalog_name_index(varieties):
+    """Request-local projection of literal identity strings, never a decision.
+
+    Collection comparisons consume only exact-name suggestions from the identity
+    resolver. Preparing its strings once avoids rerunning token-overlap searches
+    for every collection label. Current fields and crop scope still win on every
+    request; nothing is cached across edits or promoted into a catalog identity.
+    """
+    index = defaultdict(list)
+    for variety in varieties:
+        if variety.get("entity_type") not in (None, "variety") or not variety.get("id"):
+            continue
+        berries = _berries(variety)
+        for folded in {fold_identity(text) for text, _role in _identity_strings(variety)}:
+            if len(folded) >= _MIN_FOLD:
+                index[folded].append((str(variety["id"]), variety.get("name") or str(variety["id"]), berries))
+    return index
+
+
+def compare_baseline(baseline, *, varieties, candidates, _catalog_index=None):
     """Live exact-name comparison. Text matches suggest review, never sameness."""
+    catalog_index = _catalog_name_index(varieties) if _catalog_index is None else _catalog_index
     candidate_index = defaultdict(list)
     for candidate in candidates:
         for value, _role in candidate_query_names(candidate):
@@ -253,9 +273,8 @@ def compare_baseline(baseline, *, varieties, candidates):
     entries = []
     for entry in baseline["entries"]:
         berries = (["berry-blueberry"] if entry.get("berry_scope") == "blueberry" else []) if entry["genus"] == "Vaccinium" else GENUS_BERRIES[entry["genus"]]
-        resolution = resolve_identity({"candidate_name": entry["name"], "berry_ids": berries}, varieties) if berries else {"matches": []}
-        catalog = {match["variety_id"]: match["variety_name"] for match in resolution["matches"]
-                   if match["reason"] == "exact_identity_string"}
+        catalog = {vid: name for vid, name, scope in catalog_index.get(fold_identity(entry["name"]), [])
+                   if berries and (not scope or scope.intersection(berries))}
         found = {candidate["id"]: candidate for candidate in candidate_index.get(fold_identity(entry["name"]), [])
                  if candidate.get("berry_id") in berries}
         status = "crop_scope_needed" if not berries else "catalog_name_found" if catalog else "candidate_name_found" if found else "no_name_match"
@@ -307,7 +326,8 @@ def prepare_blueberry_identity_lead(*, baselines, baseline_id, name, input_sha25
 
 
 def external_coverage_view(*, baselines, varieties, candidates, filters):
-    reports = [compare_baseline(row, varieties=varieties, candidates=candidates) for row in baselines]
+    catalog_index = _catalog_name_index(varieties)
+    reports = [compare_baseline(row, varieties=varieties, candidates=candidates, _catalog_index=catalog_index) for row in baselines]
     entries = [row for report in reports for row in report["entries"]]
     q = str(filters.get("external_q", "")).strip()[:200]
     genus = filters.get("external_genus", "")

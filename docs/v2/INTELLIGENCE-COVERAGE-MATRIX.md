@@ -1,5 +1,23 @@
 # Intelligence Coverage Matrix
 
+October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
+preservation, all required checks and live/native review. Its522 source sections,
+1,864 name occurrences,27 visual Learn lessons and Map improvements retain their
+original review boundaries; publication of the platform does not approve source
+identities, roles, current rights or photo reuse. Five accounts,65 profiles and
+all existing protected records/databases are preserved. Separate performance441
+passes all four checks /5,471 tests; the
+[source-detail payload follow-up](COVERAGE-SOURCE-DETAILS-PERFORMANCE.md)
+preserves the same source content and adds no coverage. Remaining catalog,
+lesson/media, statistics and human-review gaps are unchanged.
+
+October 30 — [Collection/company coverage lookup performance](COVERAGE-COMPARISON-REQUEST-PERFORMANCE.md)
+is a separate read-only performance follow-up to #440. All comparison outputs,
+source/name counts, crop boundaries and human decisions remain; this adds no
+source or catalog coverage. The oversized HTML, broader TD-122 and human
+source/name/photo decisions remain open. Its tests and exact-head CI are tracked
+separately from the approved release.
+
 October 30 — [Combined catalog, Learn and Map review](CATALOG-LEARN-MAP-RELEASE-REVIEW.md) reconciles tested draft439 with deployed canonical6fe8bdeb, retaining the approved platform and subsequent Tags code. This new combination needs its own current-head checks, native review and fresh isolated live-data preservation; earlier component proofs and approval questions retain their scopes. No canonical merge or deployment. All original 31 accepted definitions/order remain.
 
 October 30 — [Map reference country coverage](MAP-REFERENCE-COUNTRY-COVERAGE.md) retains a source capture for seven Eurostat strawberry countries / 14 original-unit 2025 figures, adding France, Italy and Poland proposals. This is reference material awaiting explicit selection, not newly published intelligence or approved production estimates. The public reference seed remains seven groups / 14 figures across its existing US and European scope. The research picker reuses 236 existing selectable countries/areas; this measures available research scope, not statistical coverage. France's sourced selector correction adds no Entity, company presence or growing footprint. Missing yields, wider country/crop gaps, other missing boundary codes and actual source decisions remain open. All 136 affected checks and desktop/412px/PDF review pass; exact-head CI remains required for the draft.

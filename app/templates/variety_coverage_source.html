@@ -1,0 +1,11 @@
+{% extends "glasshouse_base.html" %}
+{% block title %}{{ source.title }} — Source check{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_coverage.css?v=11">{% endblock %}
+{% block content %}
+<article class="company-workspace portfolio-source-page">
+  <a href="{{ back_href }}">← Back to coverage</a>
+  <header class="portfolio-heading"><div><p class="eyebrow">VARIETIES · SOURCE CHECK</p><h1>{{ source.title }}</h1><p>Checked {{ source.checked_on }} · {{ source.freshness }}</p></div></header>
+  {% if source.capture_status == 'unreadable' %}<p class="portfolio-limit">Could not read this source. Variety names have not been checked.</p>{% else %}<p class="portfolio-note">{{ source.names|length }} captured {{ 'name occurrence' if source.names|length == 1 else 'name occurrences' }} · {{ source.matched }} catalog {{ 'match' if source.matched == 1 else 'matches' }} · {{ source.needs_review }} {{ 'needs' if source.needs_review == 1 else 'need' }} identity review. A source name is not an approved identity or claim.</p>{% endif %}
+  {% include "_variety_portfolio_source_body.html" %}
+</article>
+{% endblock %}

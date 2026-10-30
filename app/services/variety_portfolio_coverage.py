@@ -490,11 +490,16 @@ def portfolio_coverage(*, data_dir, sources, varieties, entities, candidates, fi
     # existing seed roster. The live caller supplies its analyst-edited catalog;
     # the offline audit has only public fields and never loads private overrides.
     company_catalog = company_directory.catalog(index) if company_catalog is None else company_catalog
+    # Each source's company scope is stable within this read-only projection.
+    # Reuse it across roster entries instead of rebuilding it for every pair.
+    all_source_scopes = [(source, source_company_ids(source)) for source in source_rows]
+    selected_source_scopes = [(source, source_company_ids(source)) for source in selected]
     subjects = []
     for row in registry:
         ids = row.get("canonical_entity_ids") or []
-        all_linked = [source for source in source_rows if source_company_ids(source) & set(ids)]
-        linked = [source for source in selected if source_company_ids(source) & set(ids)]
+        subject_ids = set(ids)
+        all_linked = [source for source, scope in all_source_scopes if scope & subject_ids]
+        linked = [source for source, scope in selected_source_scopes if scope & subject_ids]
         named_sources = [source for source in linked if source["capture_status"] == "names_enumerated" and any(
             set(observation_company_ids(source, name)) & set(ids) for name in source["names"])]
         identity_hold = not ids

@@ -1,5 +1,17 @@
 # Technical Debt Register
 
+October 30 — Explicitly approved combined #440, head0f6bd657, was merged1aef8862
+and deployed with a fresh verified backup, bounded offline rehearsal, repeat
+current-head checks (5,468 passed) and live/native verification. Five accounts,
+65 profiles,9,833 existing protected JSON records,3,191 existing data files and
+four databases remain; only37 missing approved import files were added. Settings,
+mounts, real first-login state and rollback are retained. Draft441 then passes all
+four checks /5,471 tests independently. The separate
+[source-detail rendering follow-up](COVERAGE-SOURCE-DETAILS-PERFORMANCE.md)
+reduces the large public-seed response77.23% while keeping522 visible rows and
+all source content accessible. It is not deployed; server-side TD-122 work and
+human source/name/photo decisions remain. Older candidate notes below are dated.
+
 October 30 — [Combined catalog, Learn and Map review](CATALOG-LEARN-MAP-RELEASE-REVIEW.md) reconciles tested draft439 with deployed canonical6fe8bdeb, retaining the approved platform and subsequent Tags code. This new combination needs its own current-head checks, native review and fresh isolated live-data preservation; earlier component proofs and approval questions retain their scopes. No canonical merge or deployment. All original 31 accepted definitions/order remain.
 
 October 30 — [Country-scoped market references](MAP-REFERENCE-COUNTRY-COVERAGE.md) address a bounded part of the Map geography gap: research now reuses existing selectable countries/areas, saved ISO references survive scoping and later catalog identities, and France's missing boundary code is corrected through explicit source metadata. The raw boundary geometry, canonical geography and Trade/Weather vocabularies are unchanged. Norway and other unresolved boundary codes, wider country/crop statistics and human source decisions remain open. Native desktop/412px and 136 affected checks pass. Snapshot PDF review also removed internal country terminology and false gaps caused by omitted sections. Its older briefing shell still has fewer primary destinations than the main app; destinations remain in More, and consistent reporting navigation remains a presentation follow-up. This draft is outside deployed platform #433.
@@ -255,6 +267,15 @@ receipt. Production preparation/delivery must run as UID 1000, matching the web
 application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
+
+October 30 — Separate [collection/company lookup follow-up](COVERAGE-COMPARISON-REQUEST-PERFORMANCE.md)
+removes repeated exact-name preparation and source/company scope scans within a
+request. Alternating public-seed projections and 12 authenticated fixture
+requests preserve their complete models and exact HTML. Windows function
+timings improve, but route timings are noisy and the 1.76 MB hidden-detail page
+remains. Current-head tests/CI are retained in its separate draft receipt; it
+does not modify the approved #440 image or close TD-122. No domain or human
+review behavior changes.
 
 October28 coverage follow-up: [request-local photo preparation](COVERAGE-PHOTO-REQUEST-PERFORMANCE.md)
 removes repeated validation and discrepancy calculations from the64-profile
