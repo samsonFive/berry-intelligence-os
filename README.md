@@ -145,6 +145,7 @@ safely.
 
 ## Repository map
 
+- `docs/v2/MAP-REFERENCE-COUNTRY-COVERAGE.md` — country-scoped market references, explicit source review and snapshot/PDF coverage
 - `WELCOME.md` — product philosophy
 - `docs/v2/00-README.md` — V2 / Intelligence OS documentation entry point
 - `docs/01-prd/PRD.md` — canonical product requirements

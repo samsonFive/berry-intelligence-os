@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "purpose": "Explicit selector metadata corrections; boundary geometry and canonical intelligence are unchanged.",
+  "overrides": [
+    {
+      "feature_name": "France",
+      "expected_alpha_2": "-99",
+      "expected_alpha_3": "-99",
+      "alpha_2": "FR",
+      "alpha_3": "FRA",
+      "checked_on": "2026-10-28",
+      "sources": [
+        "https://unstats.un.org/unsd/methodology/m49/",
+        "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1?format=JSON&lang=en&freq=A&crops=S0000&geo=FR&time=2025"
+      ]
+    }
+  ]
+}

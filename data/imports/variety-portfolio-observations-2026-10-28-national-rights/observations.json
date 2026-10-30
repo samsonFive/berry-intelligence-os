@@ -1,0 +1,1666 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-national-za-2025-pjv185-applications_received-strawberry",
+      "title": "South Africa — June 2025 bulletin — applications received · strawberry",
+      "url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=3",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All strawberry rows in the visually checked applications received table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. ",
+      "names": [
+        {
+          "candidate_name": "Plared 15105",
+          "denomination": "Plared 15105",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=3",
+          "application_number": "PT 10533",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant PLANASA [1081] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications received. Applicant PLANASA [1081].  Date accepted 2025-03-06; this column is not a filing date and is not stored as one."
+        },
+        {
+          "candidate_name": "Plared 15121",
+          "denomination": "Plared 15121",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=3",
+          "application_number": "PT 10534",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant PLANASA [1081] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications received. Applicant PLANASA [1081].  Date accepted 2025-03-06; this column is not a filing date and is not stored as one."
+        },
+        {
+          "candidate_name": "UCD Finn",
+          "denomination": "UCD Finn",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=3",
+          "application_number": "PT 10498",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant Regents of the Univ. of California [176] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications received. Applicant Regents of the Univ. of California [176].  Date accepted 2025-02-07; this column is not a filing date and is not stored as one."
+        },
+        {
+          "candidate_name": "UCD Moja",
+          "denomination": "UCD Moja",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=3",
+          "application_number": "PT 10497",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant Regents of the Univ. of California [176] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications received. Applicant Regents of the Univ. of California [176].  Date accepted 2025-02-07; this column is not a filing date and is not stored as one."
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf",
+        "pdf_sha256": "ca6ead1b53bc9cf6ae8b86b502d6bf3e9842f7e539456fad8e57c19cb341d0bf",
+        "page": 3,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          10,
+          11
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2025-06",
+        "reported_application_status": "Applications received in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "published_date": "2025-06-20"
+    },
+    {
+      "id": "portfolio-national-za-2025-pjv185-applications_received-blackberry",
+      "title": "South Africa — June 2025 bulletin — applications received · blackberry",
+      "url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=4",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All blackberry rows in the visually checked applications received table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. ",
+      "names": [
+        {
+          "candidate_name": "APF 409T",
+          "denomination": "APF 409T",
+          "berry_id": "berry-blackberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=4",
+          "application_number": "PT 10513",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant University of Arkansas [513] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications received. Applicant University of Arkansas [513].  Date accepted 2025-02-04; this column is not a filing date and is not stored as one."
+        },
+        {
+          "candidate_name": "PBB 1616T",
+          "denomination": "PBB 1616T",
+          "berry_id": "berry-blackberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=4",
+          "application_number": "PT 10517",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant Hortifrut Genetics Limited [2048] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications received. Applicant Hortifrut Genetics Limited [2048].  Date accepted 2025-03-12; this column is not a filing date and is not stored as one."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf",
+        "pdf_sha256": "ca6ead1b53bc9cf6ae8b86b502d6bf3e9842f7e539456fad8e57c19cb341d0bf",
+        "page": 4,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          10,
+          11
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2025-06",
+        "reported_application_status": "Applications received in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "published_date": "2025-06-20"
+    },
+    {
+      "id": "portfolio-national-za-2025-pjv185-applications_received-blueberry",
+      "title": "South Africa — June 2025 bulletin — applications received · blueberry",
+      "url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=4",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All blueberry rows in the visually checked applications received table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. ",
+      "names": [
+        {
+          "candidate_name": "BWPBLUE02",
+          "denomination": "BWPBLUE02",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=4",
+          "application_number": "PT 10539",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant BerryWorld Plus Limited [1750] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications received. Applicant BerryWorld Plus Limited [1750].  Date accepted 2025-03-27; this column is not a filing date and is not stored as one."
+        },
+        {
+          "candidate_name": "Cupla",
+          "denomination": "Cupla",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=4",
+          "application_number": "PT 10514",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant Moguer Cuna de Platero SCA [2044] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications received. Applicant Moguer Cuna de Platero SCA [2044].  Date accepted 2025-02-04; this column is not a filing date and is not stored as one."
+        },
+        {
+          "candidate_name": "FV1905",
+          "denomination": "FV1905",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=4",
+          "application_number": "PT 10501",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant FV B.V. [2043] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications received. Applicant FV B.V. [2043].  Date accepted 2025-02-06; this column is not a filing date and is not stored as one."
+        },
+        {
+          "candidate_name": "FV1907",
+          "denomination": "FV1907",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=4",
+          "application_number": "PT 10502",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant FV B.V. [2043] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications received. Applicant FV B.V. [2043].  Date accepted 2025-02-06; this column is not a filing date and is not stored as one."
+        },
+        {
+          "candidate_name": "FV1908",
+          "denomination": "FV1908",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=4",
+          "application_number": "PT 10503",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant FV B.V. [2043] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications received. Applicant FV B.V. [2043].  Date accepted 2025-02-06; this column is not a filing date and is not stored as one."
+        },
+        {
+          "candidate_name": "Creativa",
+          "denomination": "Creativa",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=4",
+          "application_number": "PT 10515",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant Fondazione Edmund Mach [2045] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications received. Applicant Fondazione Edmund Mach [2045].  Date accepted 2025-03-03; this column is not a filing date and is not stored as one."
+        },
+        {
+          "candidate_name": "Abundia",
+          "denomination": "Abundia",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=4",
+          "application_number": "PT 10516",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant Fondazione Edmund Mach [2045] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications received. Applicant Fondazione Edmund Mach [2045].  Date accepted 2025-03-03; this column is not a filing date and is not stored as one."
+        }
+      ],
+      "accounting": {
+        "observed_items": 7,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf",
+        "pdf_sha256": "ca6ead1b53bc9cf6ae8b86b502d6bf3e9842f7e539456fad8e57c19cb341d0bf",
+        "page": 4,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          10,
+          11
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2025-06",
+        "reported_application_status": "Applications received in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "published_date": "2025-06-20"
+    },
+    {
+      "id": "portfolio-national-za-2025-pjv185-applications_withdrawn-raspberry",
+      "title": "South Africa — June 2025 bulletin — applications withdrawn · raspberry",
+      "url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=5",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All raspberry rows in the visually checked applications withdrawn table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. ",
+      "names": [
+        {
+          "candidate_name": "PBBrasp1348",
+          "denomination": "PBBrasp1348",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=5",
+          "application_number": "PT 9842",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant printed Hortifruit North America [2009] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications withdrawn. Applicant printed Hortifruit North America [2009].  Withdrawal reported 2025-01-22; no grant or current application is inferred."
+        },
+        {
+          "candidate_name": "PBBrasp1381",
+          "denomination": "PBBrasp1381",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=5",
+          "application_number": "PT 9450",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Applicant printed Hortifruit North America [2009] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications withdrawn. Applicant printed Hortifruit North America [2009].  Withdrawal reported 2025-01-22; no grant or current application is inferred."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf",
+        "pdf_sha256": "ca6ead1b53bc9cf6ae8b86b502d6bf3e9842f7e539456fad8e57c19cb341d0bf",
+        "page": 5,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          10,
+          11
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2025-06",
+        "reported_application_status": "Applications withdrawn in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "published_date": "2025-06-20"
+    },
+    {
+      "id": "portfolio-national-za-2025-pjv185-grants_reported-blackberry",
+      "title": "South Africa — June 2025 bulletin — grants reported · blackberry",
+      "url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All blackberry rows in the visually checked grants reported table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. The original prints ZA 20258459 for both Columbia Giant and EMR 20172 under different crops/application numbers. Preserve the duplicate number without merging identities or repairing the document.",
+      "names": [
+        {
+          "candidate_name": "Columbia Giant",
+          "denomination": "Columbia Giant",
+          "berry_id": "berry-blackberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+          "application_number": "PT 9084",
+          "application_date": "",
+          "grant_number": "ZA 20258459",
+          "grant_date": "2025-03-11",
+          "jurisdiction": "ZA",
+          "source_company_context": "Grantee The US of America, represented by Secr of Agric [1112] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Grants reported. Grantee The US of America, represented by Secr of Agric [1112]. The original prints ZA 20258459 for both Columbia Giant and EMR 20172 under different crops/application numbers. Preserve the duplicate number without merging identities or repairing the document. The table prints grant ZA 20258459 dated 2025-03-11 and expiry 2050-03-11. No continuing right through that future date is inferred."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf",
+        "pdf_sha256": "ca6ead1b53bc9cf6ae8b86b502d6bf3e9842f7e539456fad8e57c19cb341d0bf",
+        "page": 10,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          10,
+          11
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2025-06",
+        "reported_application_status": "Grants reported in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "published_date": "2025-06-20"
+    },
+    {
+      "id": "portfolio-national-za-2025-pjv185-grants_reported-raspberry",
+      "title": "South Africa — June 2025 bulletin — grants reported · raspberry",
+      "url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All raspberry rows in the visually checked grants reported table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. ",
+      "names": [
+        {
+          "candidate_name": "EMR 20172",
+          "denomination": "EMR 20172",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+          "application_number": "PT 9415",
+          "application_date": "",
+          "grant_number": "ZA 20258459",
+          "grant_date": "2025-03-11",
+          "jurisdiction": "ZA",
+          "source_company_context": "Grantee NIAB, GB [1800] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Grants reported. Grantee NIAB, GB [1800].  The table prints grant ZA 20258459 dated 2025-03-11 and expiry 2050-03-11. No continuing right through that future date is inferred. The original prints ZA 20258459 for both Columbia Giant and EMR 20172 under different crops/application numbers. Preserve the duplicate number without merging identities or repairing the document."
+        },
+        {
+          "candidate_name": "BT Rasthree",
+          "denomination": "BT Rasthree",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+          "application_number": "PT 9917",
+          "application_date": "",
+          "grant_number": "ZA 20258460",
+          "grant_date": "2025-03-11",
+          "jurisdiction": "ZA",
+          "source_company_context": "Grantee Berrytech, SRL [1971] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Grants reported. Grantee Berrytech, SRL [1971].  The table prints grant ZA 20258460 dated 2025-03-11 and expiry 2050-03-11. No continuing right through that future date is inferred."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf",
+        "pdf_sha256": "ca6ead1b53bc9cf6ae8b86b502d6bf3e9842f7e539456fad8e57c19cb341d0bf",
+        "page": 10,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          10,
+          11
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2025-06",
+        "reported_application_status": "Grants reported in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "published_date": "2025-06-20"
+    },
+    {
+      "id": "portfolio-national-za-2025-pjv185-grants_reported-blueberry",
+      "title": "South Africa — June 2025 bulletin — grants reported · blueberry",
+      "url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All blueberry rows in the visually checked grants reported table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. ",
+      "names": [
+        {
+          "candidate_name": "NS 15-14",
+          "denomination": "NS 15-14",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+          "application_number": "PT 9673",
+          "application_date": "",
+          "grant_number": "ZA 20258420",
+          "grant_date": "2025-01-30",
+          "jurisdiction": "ZA",
+          "source_company_context": "Grantee Next Progeny [1814] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Grants reported. Grantee Next Progeny [1814].  The table prints grant ZA 20258420 dated 2025-01-30 and expiry 2050-01-30. No continuing right through that future date is inferred."
+        },
+        {
+          "candidate_name": "NS 16-16",
+          "denomination": "NS 16-16",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+          "application_number": "PT 9929",
+          "application_date": "",
+          "grant_number": "ZA 20258421",
+          "grant_date": "2025-01-30",
+          "jurisdiction": "ZA",
+          "source_company_context": "Grantee Next Progeny [1814] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Grants reported. Grantee Next Progeny [1814].  The table prints grant ZA 20258421 dated 2025-01-30 and expiry 2050-01-30. No continuing right through that future date is inferred."
+        },
+        {
+          "candidate_name": "Ridley 1702",
+          "denomination": "Ridley 1702",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+          "application_number": "PT 9494",
+          "application_date": "",
+          "grant_number": "ZA 20258422",
+          "grant_date": "2025-01-30",
+          "jurisdiction": "ZA",
+          "source_company_context": "Grantee Mountain Blue Orchards [1700] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Grants reported. Grantee Mountain Blue Orchards [1700].  The table prints grant ZA 20258422 dated 2025-01-30 and expiry 2050-01-30. No continuing right through that future date is inferred."
+        },
+        {
+          "candidate_name": "T11-119",
+          "denomination": "T11-119",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+          "application_number": "PT 10263",
+          "application_date": "",
+          "grant_number": "ZA 20258415",
+          "grant_date": "2025-01-30",
+          "jurisdiction": "ZA",
+          "source_company_context": "Grantee Rolfe Nominees [1758] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Grants reported. Grantee Rolfe Nominees [1758].  The table prints grant ZA 20258415 dated 2025-01-30 and expiry 2050-01-30. No continuing right through that future date is inferred."
+        },
+        {
+          "candidate_name": "T111-219",
+          "denomination": "T111-219",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+          "application_number": "PT 9679",
+          "application_date": "",
+          "grant_number": "ZA 20258416",
+          "grant_date": "2025-01-30",
+          "jurisdiction": "ZA",
+          "source_company_context": "Grantee Rolfe Nominees [1758] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Grants reported. Grantee Rolfe Nominees [1758].  The table prints grant ZA 20258416 dated 2025-01-30 and expiry 2050-01-30. No continuing right through that future date is inferred."
+        },
+        {
+          "candidate_name": "T111-519",
+          "denomination": "T111-519",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+          "application_number": "PT 9681",
+          "application_date": "",
+          "grant_number": "ZA 20258418",
+          "grant_date": "2025-01-30",
+          "jurisdiction": "ZA",
+          "source_company_context": "Grantee Rolfe Nominees [1758] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Grants reported. Grantee Rolfe Nominees [1758].  The table prints grant ZA 20258418 dated 2025-01-30 and expiry 2050-01-30. No continuing right through that future date is inferred. The original repeats ZA 20258418 for these two distinct application/name rows. Do not merge or silently correct them."
+        },
+        {
+          "candidate_name": "T112-219",
+          "denomination": "T112-219",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+          "application_number": "PT 10225",
+          "application_date": "",
+          "grant_number": "ZA 20258418",
+          "grant_date": "2025-01-30",
+          "jurisdiction": "ZA",
+          "source_company_context": "Grantee Rolfe Nominees [1758] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Grants reported. Grantee Rolfe Nominees [1758].  The table prints grant ZA 20258418 dated 2025-01-30 and expiry 2050-01-30. No continuing right through that future date is inferred. The original repeats ZA 20258418 for these two distinct application/name rows. Do not merge or silently correct them."
+        },
+        {
+          "candidate_name": "T11-319",
+          "denomination": "T11-319",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=10",
+          "application_number": "PT 9680",
+          "application_date": "",
+          "grant_number": "ZA 20258417",
+          "grant_date": "2025-01-30",
+          "jurisdiction": "ZA",
+          "source_company_context": "Grantee Rolfe Nominees [1758] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Grants reported. Grantee Rolfe Nominees [1758].  The table prints grant ZA 20258417 dated 2025-01-30 and expiry 2050-01-30. No continuing right through that future date is inferred."
+        }
+      ],
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf",
+        "pdf_sha256": "ca6ead1b53bc9cf6ae8b86b502d6bf3e9842f7e539456fad8e57c19cb341d0bf",
+        "page": 10,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          10,
+          11
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2025-06",
+        "reported_application_status": "Grants reported in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "published_date": "2025-06-20"
+    },
+    {
+      "id": "portfolio-national-za-2025-pjv185-protection_expired-strawberry",
+      "title": "South Africa — June 2025 bulletin — protection expired · strawberry",
+      "url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=11",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All strawberry rows in the visually checked protection expired table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. ",
+      "names": [
+        {
+          "candidate_name": "Camarillo",
+          "denomination": "Camarillo",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf#page=11",
+          "application_number": "",
+          "application_date": "",
+          "grant_number": "ZA 20053234",
+          "grant_date": "",
+          "jurisdiction": "ZA",
+          "source_company_context": "Holder printed Driscoll'S INC. [981] is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Protection expired. Holder printed Driscoll'S INC. [981].  Expiry reported 2025-01-10; no active protection is inferred."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.gov.za/sites/default/files/gcis_document/202506/52883gon6325.pdf",
+        "pdf_sha256": "ca6ead1b53bc9cf6ae8b86b502d6bf3e9842f7e539456fad8e57c19cb341d0bf",
+        "page": 11,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          10,
+          11
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2025-06",
+        "reported_application_status": "Protection expired in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "published_date": "2025-06-20"
+    },
+    {
+      "id": "portfolio-national-ma-2021-bulletin35-applications_filed-strawberry",
+      "title": "Morocco — April 2021 bulletin — applications filed · strawberry",
+      "url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=5",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All strawberry rows in the visually checked applications filed table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. ",
+      "names": [
+        {
+          "candidate_name": "PLARED 64",
+          "denomination": "PLARED 64",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=5",
+          "application_number": "1017/20",
+          "application_date": "2020-10-26",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant printed Plantas de Navara, S.A.U (PLANASA) is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant printed Plantas de Navara, S.A.U (PLANASA).  Filed 2020-10-26. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "PLARED 65",
+          "denomination": "PLARED 65",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=5",
+          "application_number": "1018/20",
+          "application_date": "2020-10-26",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant printed Plantas de Navara, S.A.U (PLANASA) is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant printed Plantas de Navara, S.A.U (PLANASA).  Filed 2020-10-26. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "PLARED 15121",
+          "denomination": "PLARED 15121",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=5",
+          "application_number": "1019/20",
+          "application_date": "2020-10-26",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant printed Plantas de Navara, S.A.U (PLANASA) is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant printed Plantas de Navara, S.A.U (PLANASA).  Filed 2020-10-26. This is an application, not a grant."
+        }
+      ],
+      "accounting": {
+        "observed_items": 3,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf",
+        "pdf_sha256": "ceb4605f9856bb43280382464dd189c0c992af8e75d06a839ebf3dc5ec19eb80",
+        "page": 5,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2021-04",
+        "reported_application_status": "Applications filed in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-national-ma-2021-bulletin35-applications_filed-raspberry",
+      "title": "Morocco — April 2021 bulletin — applications filed · raspberry",
+      "url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=4",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All raspberry rows in the visually checked applications filed table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. Rows span PDF pages 4,6,7,8. Only the printed names are recorded; no commercial-label equivalents are inferred.",
+      "names": [
+        {
+          "candidate_name": "ENDURANCE",
+          "denomination": "ENDURANCE",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=4",
+          "application_number": "1014/20",
+          "application_date": "2020-10-13",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Plant Sciences, INC. is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant Plant Sciences, INC.. Rows span PDF pages 4,6,7,8. Only the printed names are recorded; no commercial-label equivalents are inferred. Filed 2020-10-13. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "KOKANEE",
+          "denomination": "KOKANEE",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=6",
+          "application_number": "1029/20",
+          "application_date": "2020-12-25",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant The United States Of America as Represented by the Secretary of Agriculture is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant The United States Of America as Represented by the Secretary of Agriculture. Rows span PDF pages 4,6,7,8. Only the printed names are recorded; no commercial-label equivalents are inferred. Filed 2020-12-25. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "PLAPINK 14116",
+          "denomination": "PLAPINK 14116",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=7",
+          "application_number": "1036/20",
+          "application_date": "2020-12-28",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant printed Plantas de Navara, S.A.U (PLANASA) is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant printed Plantas de Navara, S.A.U (PLANASA). Rows span PDF pages 4,6,7,8. Only the printed names are recorded; no commercial-label equivalents are inferred. Filed 2020-12-28. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "PLAPINK 14103",
+          "denomination": "PLAPINK 14103",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=7",
+          "application_number": "1037/20",
+          "application_date": "2020-12-28",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant printed Plantas de Navara, S.A.U (PLANASA) is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant printed Plantas de Navara, S.A.U (PLANASA). Rows span PDF pages 4,6,7,8. Only the printed names are recorded; no commercial-label equivalents are inferred. Filed 2020-12-28. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "YANA",
+          "denomination": "YANA",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=7",
+          "application_number": "1039/21",
+          "application_date": "2021-01-29",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant EU PLANTS LIMITED is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant EU PLANTS LIMITED. Rows span PDF pages 4,6,7,8. Only the printed names are recorded; no commercial-label equivalents are inferred. Filed 2021-01-29. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "EXPR02",
+          "denomination": "EXPR02",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=7",
+          "application_number": "1044/21",
+          "application_date": "2021-03-12",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Expoberries, S.A. de C.V. is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant Expoberries, S.A. de C.V.. Rows span PDF pages 4,6,7,8. Only the printed names are recorded; no commercial-label equivalents are inferred. Filed 2021-03-12. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "REMO TION",
+          "denomination": "REMO TION",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=8",
+          "application_number": "1049/21",
+          "application_date": "2021-04-26",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Frutas Bosques S.L.U., representative Adrianus Jan van Bergeijk is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant Frutas Bosques S.L.U., representative Adrianus Jan van Bergeijk. Rows span PDF pages 4,6,7,8. Only the printed names are recorded; no commercial-label equivalents are inferred. Filed 2021-04-26. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "REMO SENSE",
+          "denomination": "REMO SENSE",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=8",
+          "application_number": "1050/21",
+          "application_date": "2021-04-26",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Frutas Bosques S.L.U., representative Adrianus Jan van Bergeijk is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant Frutas Bosques S.L.U., representative Adrianus Jan van Bergeijk. Rows span PDF pages 4,6,7,8. Only the printed names are recorded; no commercial-label equivalents are inferred. Filed 2021-04-26. This is an application, not a grant."
+        }
+      ],
+      "accounting": {
+        "observed_items": 8,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf",
+        "pdf_sha256": "ceb4605f9856bb43280382464dd189c0c992af8e75d06a839ebf3dc5ec19eb80",
+        "page": 4,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2021-04",
+        "reported_application_status": "Applications filed in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false,
+        "row_pages": [
+          4,
+          6,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "id": "portfolio-national-ma-2021-bulletin35-applications_filed-blueberry",
+      "title": "Morocco — April 2021 bulletin — applications filed · blueberry",
+      "url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=5",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All blueberry rows in the visually checked applications filed table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. Rows span PDF pages 5,6,7; party addresses do not establish production.",
+      "names": [
+        {
+          "candidate_name": "ZF08-070",
+          "denomination": "ZF08-070",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=5",
+          "application_number": "1020/20",
+          "application_date": "2020-11-03",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Fall Creek Farm & Nursery, Inc. is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant Fall Creek Farm & Nursery, Inc.. Rows span PDF pages 5,6,7; party addresses do not establish production. Filed 2020-11-03. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "FF11-118",
+          "denomination": "FF11-118",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=5",
+          "application_number": "1021/20",
+          "application_date": "2020-11-03",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Fall Creek Farm & Nursery, Inc. is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant Fall Creek Farm & Nursery, Inc.. Rows span PDF pages 5,6,7; party addresses do not establish production. Filed 2020-11-03. This is an application, not a grant. FF11-118 is the literal printed spelling; it is not repaired into FC11-118."
+        },
+        {
+          "candidate_name": "FC12-205",
+          "denomination": "FC12-205",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=5",
+          "application_number": "1022/20",
+          "application_date": "2020-11-03",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Fall Creek Farm & Nursery, Inc. is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant Fall Creek Farm & Nursery, Inc.. Rows span PDF pages 5,6,7; party addresses do not establish production. Filed 2020-11-03. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "FC14-062",
+          "denomination": "FC14-062",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=5",
+          "application_number": "1023/20",
+          "application_date": "2020-11-03",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Fall Creek Farm & Nursery, Inc. is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant Fall Creek Farm & Nursery, Inc.. Rows span PDF pages 5,6,7; party addresses do not establish production. Filed 2020-11-03. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "TH-1008",
+          "denomination": "TH-1008",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=5",
+          "application_number": "1025/20",
+          "application_date": "2020-11-30",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant University of Georgia Research Foundation, Inc. is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant University of Georgia Research Foundation, Inc.. Rows span PDF pages 5,6,7; party addresses do not establish production. Filed 2020-11-30. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "STELLAR",
+          "denomination": "STELLAR",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=6",
+          "application_number": "1027/20",
+          "application_date": "2020-12-17",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Berry Blue LLC is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant Berry Blue LLC. Rows span PDF pages 5,6,7; party addresses do not establish production. Filed 2020-12-17. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "PRELUDE",
+          "denomination": "PRELUDE",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=6",
+          "application_number": "1028/20",
+          "application_date": "2020-12-17",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Berry Blue LLC is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant Berry Blue LLC. Rows span PDF pages 5,6,7; party addresses do not establish production. Filed 2020-12-17. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "RIDLEY 1105",
+          "denomination": "RIDLEY 1105",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=7",
+          "application_number": "1041/21",
+          "application_date": "2021-02-19",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Mountain Blue Orchards Pty Ltd is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant Mountain Blue Orchards Pty Ltd. Rows span PDF pages 5,6,7; party addresses do not establish production. Filed 2021-02-19. This is an application, not a grant."
+        },
+        {
+          "candidate_name": "RIDLEY 1212",
+          "denomination": "RIDLEY 1212",
+          "berry_id": "berry-blueberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=7",
+          "application_number": "1042/21",
+          "application_date": "2021-02-19",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Mountain Blue Orchards Pty Ltd is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant Mountain Blue Orchards Pty Ltd. Rows span PDF pages 5,6,7; party addresses do not establish production. Filed 2021-02-19. This is an application, not a grant."
+        }
+      ],
+      "accounting": {
+        "observed_items": 9,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf",
+        "pdf_sha256": "ceb4605f9856bb43280382464dd189c0c992af8e75d06a839ebf3dc5ec19eb80",
+        "page": 5,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2021-04",
+        "reported_application_status": "Applications filed in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-national-ma-2021-bulletin35-applications_filed-blackberry",
+      "title": "Morocco — April 2021 bulletin — applications filed · blackberry",
+      "url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=8",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All blackberry rows in the visually checked applications filed table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. ",
+      "names": [
+        {
+          "candidate_name": "EXPB3181",
+          "denomination": "EXPB3181",
+          "berry_id": "berry-blackberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=8",
+          "application_number": "1045/21",
+          "application_date": "2021-03-12",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Expoberries, S.A. de C.V. is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications filed. Applicant Expoberries, S.A. de C.V..  Filed 2021-03-12. This is an application, not a grant."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf",
+        "pdf_sha256": "ceb4605f9856bb43280382464dd189c0c992af8e75d06a839ebf3dc5ec19eb80",
+        "page": 8,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2021-04",
+        "reported_application_status": "Applications filed in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-national-ma-2021-bulletin35-proposed_for_protection-strawberry",
+      "title": "Morocco — April 2021 bulletin — proposed for protection · strawberry",
+      "url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=9",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All strawberry rows in the visually checked proposed for protection table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. The committee meeting is dated 2021-04-23; its proposed protection is not a grant date.",
+      "names": [
+        {
+          "candidate_name": "SRV36",
+          "denomination": "SRV36",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=9",
+          "application_number": "686/17",
+          "application_date": "2017-01-26",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Edward Vinson Limited is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Proposed for protection. Applicant Edward Vinson Limited. The committee meeting is dated 2021-04-23; its proposed protection is not a grant date. Filed 2017-01-26. Committee recommendation is not an issued certificate."
+        },
+        {
+          "candidate_name": "PLARED 13107",
+          "denomination": "PLARED 13107",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=9",
+          "application_number": "855/18",
+          "application_date": "2018-10-05",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant printed Plantas de Navara S.A.U. (PLANASA) is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Proposed for protection. Applicant printed Plantas de Navara S.A.U. (PLANASA). The committee meeting is dated 2021-04-23; its proposed protection is not a grant date. Filed 2018-10-05. Committee recommendation is not an issued certificate."
+        },
+        {
+          "candidate_name": "ARABELLA",
+          "denomination": "ARABELLA",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=9",
+          "application_number": "882/18",
+          "application_date": "2018-11-26",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Plant Sciences, INC. is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Proposed for protection. Applicant Plant Sciences, INC.. The committee meeting is dated 2021-04-23; its proposed protection is not a grant date. Filed 2018-11-26. Committee recommendation is not an issued certificate."
+        },
+        {
+          "candidate_name": "BG-6 3016",
+          "denomination": "BG-6 3016",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=9",
+          "application_number": "946/19",
+          "application_date": "2019-07-15",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Berry Genetics, Inc. is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Proposed for protection. Applicant Berry Genetics, Inc.. The committee meeting is dated 2021-04-23; its proposed protection is not a grant date. Filed 2019-07-15. Committee recommendation is not an issued certificate."
+        }
+      ],
+      "accounting": {
+        "observed_items": 4,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf",
+        "pdf_sha256": "ceb4605f9856bb43280382464dd189c0c992af8e75d06a839ebf3dc5ec19eb80",
+        "page": 9,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2021-04",
+        "reported_application_status": "Proposed for protection in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-national-ma-2021-bulletin35-proposed_for_protection-raspberry",
+      "title": "Morocco — April 2021 bulletin — proposed for protection · raspberry",
+      "url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=9",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All raspberry rows in the visually checked proposed for protection table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. The committee meeting is dated 2021-04-23; its proposed protection is not a grant date.",
+      "names": [
+        {
+          "candidate_name": "R-1318",
+          "denomination": "R-1318",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=9",
+          "application_number": "731/17",
+          "application_date": "2017-07-11",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Applicant Rusticas Sélection SARL is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Proposed for protection. Applicant Rusticas Sélection SARL. The committee meeting is dated 2021-04-23; its proposed protection is not a grant date. Filed 2017-07-11. Committee recommendation is not an issued certificate."
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf",
+        "pdf_sha256": "ceb4605f9856bb43280382464dd189c0c992af8e75d06a839ebf3dc5ec19eb80",
+        "page": 9,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2021-04",
+        "reported_application_status": "Proposed for protection in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-national-ma-2021-bulletin35-protection_expired-strawberry",
+      "title": "Morocco — April 2021 bulletin — protection expired · strawberry",
+      "url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=13",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All strawberry rows in the visually checked protection expired table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. The table does not supply a certificate number for either berry row; no number is invented.",
+      "names": [
+        {
+          "candidate_name": "VENTANA",
+          "denomination": "VENTANA",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=13",
+          "application_number": "",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Depositor printed UNIVERSITE CALIFORNIA is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Protection expired. Depositor printed UNIVERSITE CALIFORNIA. The table does not supply a certificate number for either berry row; no number is invented. Expiry reported 2021-02-15; no active protection is inferred."
+        },
+        {
+          "candidate_name": "CAMINO REAL",
+          "denomination": "CAMINO REAL",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=13",
+          "application_number": "",
+          "application_date": "",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Depositor printed UNIVERSITE CALIFORNIA is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Protection expired. Depositor printed UNIVERSITE CALIFORNIA. The table does not supply a certificate number for either berry row; no number is invented. Expiry reported 2021-02-15; no active protection is inferred."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf",
+        "pdf_sha256": "ceb4605f9856bb43280382464dd189c0c992af8e75d06a839ebf3dc5ec19eb80",
+        "page": 13,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2021-04",
+        "reported_application_status": "Protection expired in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-national-ma-2021-bulletin35-applications_withdrawn-raspberry",
+      "title": "Morocco — April 2021 bulletin — applications withdrawn · raspberry",
+      "url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=13",
+      "checked_on": "2026-10-28",
+      "source_type": "national_register",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All raspberry rows in the visually checked applications withdrawn table; other crops and aggregate totals are excluded.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. The source announces withdrawal without an individual withdrawal date; punctuation remains literal.",
+      "names": [
+        {
+          "candidate_name": "PS-08.095-01",
+          "denomination": "PS-08.095-01",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=13",
+          "application_number": "723/17",
+          "application_date": "2017-06-01",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Party printed Plant Sciences, INC.) is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications withdrawn. Party printed Plant Sciences, INC.). The source announces withdrawal without an individual withdrawal date; punctuation remains literal. The row reports the original filing date 2017-06-01; the withdrawal date is not given."
+        },
+        {
+          "candidate_name": "PS-08 019-25",
+          "denomination": "PS-08 019-25",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf#page=13",
+          "application_number": "711/17",
+          "application_date": "2017-04-27",
+          "grant_number": "",
+          "grant_date": "",
+          "jurisdiction": "MA",
+          "source_company_context": "Party printed Plant Sciences, INC. is the literal party context in the original table; no stored organization role is assigned.",
+          "portfolio_context": "Applications withdrawn. Party printed Plant Sciences, INC.. The source announces withdrawal without an individual withdrawal date; punctuation remains literal. The row reports the original filing date 2017-04-27; the withdrawal date is not given."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "original_pdf_url": "https://www.onssa.gov.ma/wp-content/uploads/2021/11/bulletin-protection-n35-avril-2021-onssa-dcsp.pdf",
+        "pdf_sha256": "ceb4605f9856bb43280382464dd189c0c992af8e75d06a839ebf3dc5ec19eb80",
+        "page": 13,
+        "visually_reviewed_pages": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          13
+        ],
+        "all_pdf_pages_visually_reviewed": false,
+        "publication_period": "2021-04",
+        "reported_application_status": "Applications withdrawn in this historical bulletin; current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-national-usda-list49-raspberry-name-pairs",
+      "title": "USDA ARS — List 49 raspberry abstract and printed commercial labels",
+      "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=355145",
+      "checked_on": "2026-10-28",
+      "published_date": "2018-06-01",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "source_type": "peer_reviewed_compilation",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "All 10 cultivar entries in the technical abstract, retaining four parenthesized commercial labels. The full paper and its trait details were not read.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. This is bibliographic/abstract context for one paper, not an independent re-trial or registry decision.",
+      "names": [
+        {
+          "candidate_name": "AAC Eden",
+          "denomination": "AAC Eden",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=355145",
+          "portfolio_context": "One cultivar entry in the USDA ARS technical abstract for the 2018 List 49 raspberry section; no rights, traits or parties are transferred from its full paper or another source."
+        },
+        {
+          "candidate_name": "Advabertwee",
+          "denomination": "Advabertwee",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=355145",
+          "portfolio_context": "One cultivar entry in the USDA ARS technical abstract for the 2018 List 49 raspberry section; no rights, traits or parties are transferred from its full paper or another source. The abstract prints Advabertwee (Kwanza); this source association awaits human identity review and creates no canonical alias.",
+          "trade_name": "Kwanza"
+        },
+        {
+          "candidate_name": "Advabereen",
+          "denomination": "Advabereen",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=355145",
+          "portfolio_context": "One cultivar entry in the USDA ARS technical abstract for the 2018 List 49 raspberry section; no rights, traits or parties are transferred from its full paper or another source. The abstract prints Advabereen (Kweli); this source association awaits human identity review and creates no canonical alias.",
+          "trade_name": "Kweli"
+        },
+        {
+          "candidate_name": "Advaberimar",
+          "denomination": "Advaberimar",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=355145",
+          "portfolio_context": "One cultivar entry in the USDA ARS technical abstract for the 2018 List 49 raspberry section; no rights, traits or parties are transferred from its full paper or another source. The abstract prints Advaberimar (Imara); this source association awaits human identity review and creates no canonical alias.",
+          "trade_name": "Imara"
+        },
+        {
+          "candidate_name": "Advabemap",
+          "denomination": "Advabemap",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=355145",
+          "portfolio_context": "One cultivar entry in the USDA ARS technical abstract for the 2018 List 49 raspberry section; no rights, traits or parties are transferred from its full paper or another source. The abstract prints Advabemap (Mapema); this source association awaits human identity review and creates no canonical alias.",
+          "trade_name": "Mapema"
+        },
+        {
+          "candidate_name": "Glen Dee",
+          "denomination": "Glen Dee",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=355145",
+          "portfolio_context": "One cultivar entry in the USDA ARS technical abstract for the 2018 List 49 raspberry section; no rights, traits or parties are transferred from its full paper or another source."
+        },
+        {
+          "candidate_name": "Julcsi",
+          "denomination": "Julcsi",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=355145",
+          "portfolio_context": "One cultivar entry in the USDA ARS technical abstract for the 2018 List 49 raspberry section; no rights, traits or parties are transferred from its full paper or another source."
+        },
+        {
+          "candidate_name": "Santa Catalina",
+          "denomination": "Santa Catalina",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=355145",
+          "portfolio_context": "One cultivar entry in the USDA ARS technical abstract for the 2018 List 49 raspberry section; no rights, traits or parties are transferred from its full paper or another source."
+        },
+        {
+          "candidate_name": "Santa Clara",
+          "denomination": "Santa Clara",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=355145",
+          "portfolio_context": "One cultivar entry in the USDA ARS technical abstract for the 2018 List 49 raspberry section; no rights, traits or parties are transferred from its full paper or another source."
+        },
+        {
+          "candidate_name": "Santa Teresa",
+          "denomination": "Santa Teresa",
+          "berry_id": "berry-raspberry",
+          "source_company_ids": [],
+          "product_url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=355145",
+          "portfolio_context": "One cultivar entry in the USDA ARS technical abstract for the 2018 List 49 raspberry section; no rights, traits or parties are transferred from its full paper or another source."
+        }
+      ],
+      "accounting": {
+        "observed_items": 10,
+        "reported_items": 10,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "response_sha256": "b195802172128f000d59037a5b54251db021b3a15721bf1eb50e9f8fa1fec055",
+        "doi": "10.21273/HORTSCI536register-18",
+        "full_paper_read": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-national-ar-2026-resolution47-plared",
+      "title": "Argentina — Resolution 47/2026 orders registration of two Plared denominations",
+      "url": "https://nuevaweb.boletinoficial.gob.ar/detalleAviso/primera/339745/20260320",
+      "checked_on": "2026-10-28",
+      "published_date": "2026-03-20",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "national_register",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Both strawberry denominations in Articles 1–3 of the official act, read through the web reader. Local direct HTTP capture timed out.",
+      "limitations": "Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location. Resolution number and case IDs are not grant numbers. Article 2 orders title issuance only after Article 3; actual issuance/current status is not established.",
+      "names": [
+        {
+          "candidate_name": "PLARED 15105",
+          "denomination": "PLARED 15105",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "jurisdiction": "AR",
+          "application_number": "",
+          "grant_number": "",
+          "application_date": "",
+          "grant_date": "",
+          "product_url": "https://nuevaweb.boletinoficial.gob.ar/detalleAviso/primera/339745/20260320",
+          "portfolio_context": "The resolution dated 2026-01-30, published 2026-03-20, orders registration. The applicant is named PLANTAS DE NAVARRA S.A.; no canonical role or commercial alias is assigned. No title number or grant date is supplied."
+        },
+        {
+          "candidate_name": "PLARED 15121",
+          "denomination": "PLARED 15121",
+          "berry_id": "berry-strawberry",
+          "source_company_ids": [],
+          "jurisdiction": "AR",
+          "application_number": "",
+          "grant_number": "",
+          "application_date": "",
+          "grant_date": "",
+          "product_url": "https://nuevaweb.boletinoficial.gob.ar/detalleAviso/primera/339745/20260320",
+          "portfolio_context": "The resolution dated 2026-01-30, published 2026-03-20, orders registration. The applicant is named PLANTAS DE NAVARRA S.A.; no canonical role or commercial alias is assigned. No title number or grant date is supplied."
+        }
+      ],
+      "accounting": {
+        "observed_items": 2,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "resolution": "47/2026",
+        "resolution_date": "2026-01-30",
+        "case_identifiers": [
+          "EX-2024-27771218--APN-DRV#INASE",
+          "EX-2024-27782139--APN-DRV#INASE"
+        ],
+        "case_ids_mapped_to_individual_varieties": false,
+        "acquisition": "Official act body read via web reader; direct local HTTP timed out. No raw HTML fingerprint is claimed.",
+        "direct_http_error": "ConnectTimeout",
+        "reported_application_status": "Registration ordered in the published 2026 act; issued titles and current status not verified",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    },
+    {
+      "id": "portfolio-national-ar-2025-plared-original-unavailable",
+      "title": "Argentina — February2025 Plared notice: original capture unavailable",
+      "url": "https://www.boletinoficial.gob.ar/detalleAviso/primera/320789/20250207",
+      "checked_on": "2026-10-28",
+      "company_ids": [],
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "source_type": "national_register",
+      "capture_status": "unreadable",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One original URL attempted; no names enumerated from a direct capture.",
+      "limitations": "Direct request timed out and the web-reader open was unavailable. Search metadata is retained privately as a lead, not substituted for the original notice. Historical source observations only. No current legal status, canonical identity/alias, company role, verified trait, growing region or image permission is approved. A jurisdiction or party address is not a growing location.",
+      "names": [],
+      "accounting": {
+        "observed_items": 0,
+        "exclusions": []
+      },
+      "capture_reference": {
+        "direct_http_error": "ConnectTimeout",
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      }
+    }
+  ]
+}

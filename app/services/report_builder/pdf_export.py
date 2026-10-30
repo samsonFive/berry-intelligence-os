@@ -122,7 +122,15 @@ def render_report_pdf(
     story: list[Any] = [NextPageTemplate("report")]
     story.append(Paragraph("BERRY INTELLIGENCE  /  " + ("MARKET SNAPSHOT" if report.get("report_type") == "market_snapshot" else "RESEARCH BRIEF"), styles["kicker"]))
     story.append(Paragraph(escape(report.get("title") or "Untitled report"), styles["title"]))
-    story.append(Paragraph(f"Exported {_readable_date(date.today())}  |  Latest dated source in scope: {_readable_date(_cutoff_date(packet))}", styles["meta"]))
+    cutoff = _readable_date(_cutoff_date(packet))
+    freshness = "Latest dated source in scope: " + cutoff
+    if cutoff == "Date not recorded" and report.get("report_type") == "market_snapshot":
+        # Dataset updates are useful freshness context, never publication dates.
+        updates = [str(row.get("source_updated_at"))[:10] for row in report_sources(packet)
+                   if _readable_date(row.get("source_updated_at")) != "Date not recorded"]
+        if updates:
+            freshness = "Latest source-data update: " + _readable_date(max(updates))
+    story.append(Paragraph(f"Exported {_readable_date(date.today())}  |  {freshness}", styles["meta"]))
     story.append(Paragraph(f"{escape(confidentiality)}  |  {PROVENANCE_MARKER}", styles["meta"]))
     source_trace = report_sources(packet)
     reference_names = {row["id"]: f"Source {index + 1}" for index, row in enumerate(source_trace) if row.get("id")}
@@ -242,7 +250,7 @@ def render_report_pdf(
     if scope.get("geography_ids"):
         scope_lines.append(f"Countries and regions: {', '.join(names.get(id, id.removeprefix('geography-').replace('-', ' ').title()) for id in scope['geography_ids'])}")
     if scope.get("country_codes"):
-        scope_lines.append(f"Countries without canonical geography records (ISO): {', '.join(scope['country_codes'])}")
+        scope_lines.append(f"Countries: {', '.join(names.get('iso:' + code, code) for code in scope['country_codes'])}")
     if scope.get("company_ids"):
         company_names = {r["id"]: r.get("name") or r["id"] for r in packet.get("companies") or [] if r.get("id")}
         scope_lines.append(f"Companies: {', '.join(company_names.get(cid, cid) for cid in scope['company_ids'])}")

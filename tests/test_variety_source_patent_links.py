@@ -1,5 +1,6 @@
 """Later patent provenance must not replace saved candidate identity or rights."""
 from copy import deepcopy
+from html.parser import HTMLParser
 from pathlib import Path
 
 import pytest
@@ -62,7 +63,28 @@ def test_private_render_shows_original_claim_without_eager_photo_or_review_write
     assert page.status_code == 200
     assert 'Source references' in page.text and 'Original claim ↗' in page.text
     assert number in page.text and filing in page.text and granted in page.text
-    assert 'current rights still need review' in page.text and 'Ignore permission' in page.text
+    assert 'Check current rights separately' in page.text and 'Ignore permission' in page.text
+    # Secondary explanation may collapse, but the source/claim actions stay visible.
+    class ReferenceActions(HTMLParser):
+        def __init__(self):
+            super().__init__(); self.details=[]; self.context_defaults=[]; self.anchor=None; self.claims=[]
+        def handle_starttag(self, tag, attrs):
+            attrs=dict(attrs)
+            if tag=='details':
+                is_context='candidate-source-context' in attrs.get('class','').split()
+                self.details.append(is_context)
+                if is_context:self.context_defaults.append('open' in attrs)
+            if tag=='a':self.anchor={'text':'','in_context':any(self.details)}
+        def handle_data(self, text):
+            if self.anchor is not None:self.anchor['text']+=text
+        def handle_endtag(self, tag):
+            if tag=='a' and self.anchor is not None:
+                if self.anchor['text'].startswith('Original claim'):self.claims.append(self.anchor)
+                self.anchor=None
+            if tag=='details':self.details.pop()
+    actions=ReferenceActions(); actions.feed(page.text)
+    assert actions.context_defaults and not any(actions.context_defaults)
+    assert actions.claims and not any(a['in_context'] for a in actions.claims)
     assert 'data-image-url="https://patentimages.storage.googleapis.com/' in page.text
     assert '<img src="https://patentimages.storage.googleapis.com/' not in page.text
     assert candidates == before and not list(tmp_path.rglob('*.json'))

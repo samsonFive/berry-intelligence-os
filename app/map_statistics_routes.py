@@ -56,6 +56,7 @@ def page(request, *, error='', status_code=200, return_to=None):
         'history': list(reversed(state['history'])), 'return_to': return_to,
         'review_href': '/explorer/statistics?' + urlencode({'return_to': return_to}),
         'research_href': '/explorer/statistics/research?' + urlencode({'return_to': return_to}),
+        'official_countries': refresh.COUNTRIES,
     })
 
 

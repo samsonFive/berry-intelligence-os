@@ -1,6 +1,12 @@
 """Presentation-only teaching aids grounded in existing educational records."""
 from copy import deepcopy
 
+from app.services.learner_curriculum_visuals import (
+    DIAGRAMS as CURRICULUM_DIAGRAMS,
+    DOUBLE_CROPPING_CLARIFICATION,
+    DOUBLE_CROPPING_LEGACY,
+)
+
 PHOTO = {"image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Raspberry.jpg",
          "url": "https://commons.wikimedia.org/wiki/File:Raspberry.jpg",
          "title": "Raspberry fruit", "publisher": "Steffen Flor (Pro2), Wikimedia Commons",
@@ -8,6 +14,19 @@ PHOTO = {"image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Raspb
          "caption": "A raspberry fruit. This photograph does not establish cane age or a pruning method.",
          "attribution": "Steffen Flor (Pro2) · CC BY 2.5 · displayed without alteration",
          "verified_at": "2026-10-02"}
+
+BLUEBERRY_PHOTO = {
+    "image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Blueberries.jpg",
+    "url": "https://commons.wikimedia.org/wiki/File:Blueberries.jpg",
+    "title": "Blueberries with a pale surface coating",
+    "alt": "Blueberries showing darker skin and a pale blue surface coating",
+    "publisher": "Scott Bauer, USDA Agricultural Research Service · Wikimedia Commons",
+    "license": "Public domain · US federal government work",
+    "license_url": "https://commons.wikimedia.org/wiki/File:Blueberries.jpg#Licensing",
+    "caption": "Look for the pale coating on the fruit surface. This photograph does not identify a cultivar, measure wax structure or establish fruit quality.",
+    "attribution": "Scott Bauer · USDA ARS K5182-18 · public domain · displayed without alteration",
+    "verified_at": "2026-10-28",
+}
 
 # Original teaching sequences, not copied publisher graphics or quantitative models.
 # Sources checked October 2, 2026; the original educational record stays unchanged.
@@ -64,6 +83,8 @@ DIAGRAMS = {
     },
 }
 
+DIAGRAMS.update(CURRICULUM_DIAGRAMS)
+
 VIDEOS = {
     "ipm": {"title": "The scientific basis for IPM", "publisher": "UC Statewide IPM Program", "url": "https://www.youtube.com/watch?v=BljIAipO2Eg", "source_page": "https://ipm.ucanr.edu/what-is-ipm/", "caption": "UC IPM links this scientist's explanation. Open at the publisher; playback availability has not been verified."},
     "harvest-robotics": {"title": "Robofruit research demonstration", "publisher": "Robofruit paper authors", "url": "https://www.youtube.com/watch?v=v8gGAvsISXU", "source_page": "https://arxiv.org/abs/2301.03947", "caption": "Video linked by the paper's authors. A research demonstration is not proof of commercial deployment; playback availability has not been verified."},
@@ -74,8 +95,15 @@ def presentation(concept):
     row = deepcopy(concept)
     # Unspecific legacy 'typically CC' is not a verified reuse basis.
     row["teaching_figure"] = deepcopy(PHOTO) if row["slug"] == "primocane-floricane" else None
+    if row["slug"] in {"bloom", "color"}:
+        row["teaching_figure"] = deepcopy(BLUEBERRY_PHOTO)
     row["cane_diagram"] = row["slug"] == "primocane-floricane"
     row["teaching_diagram"] = deepcopy(DIAGRAMS.get(row["slug"]))
+    row["lesson_clarification"] = None
+    if row["slug"] == "double-cropping" and all(
+        row.get(key) == value for key, value in DOUBLE_CROPPING_LEGACY.items()
+    ):
+        row["lesson_clarification"] = deepcopy(DOUBLE_CROPPING_CLARIFICATION)
     if row["cane_diagram"]:
         row["media"] = [dict(item, title="Raspberry fruit — Wikimedia Commons") if item.get("url") == PHOTO["url"] else item for item in row.get("media") or []]
         video = {

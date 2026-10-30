@@ -1,5 +1,13 @@
 # Project Status
 
+October 28 — [Visual explanations across Learn](docs/v2/LEARN-CURRICULUM-VISUAL-REVIEW.md) extend the bounded curriculum from five to 27 lessons with interactive source-linked explanations, five new schematic designs and one additional attributed public-domain photo used in two lessons. Original records and human edits remain; double-cropping wording is clarified only when its two original fields match exactly. All final 130 affected Learn/static checks pass with one existing warning in 19.14 seconds; desktop/412px review verifies selection, actual photo loading, compact controls and header-safe lesson jumps. Exact-head CI remains required and is tracked in the PR review receipt. This does not close wider lesson/media/source depth, approve scientific claims or alter pending release decisions. No merge/deployment.
+
+October 28 — [Visible source-gap summary](docs/v2/PORTFOLIO-GAP-SUMMARY-REVIEW.md). The scoped Perfection review found a badge that hid open checks once names were found. The display now counts existing filtered subject gap flags, so its one named entry and eight incomplete source checks remain consistent. Backend counters/data/review gates are unchanged. All 44 focused checks pass with one existing warning in 53.26 seconds. Native desktop/412px review confirms the corrected gap badge and retained company/berry scope; exact-head CI remains required for this child. Prior433/434 release scopes and source435 review scope remain intact. No merge/deployment or inferred approval.
+
+October 28 — [Original company-release variety depth](docs/v2/COMPANY-RELEASE-VARIETY-DEPTH.md). Six original release/interview scopes add ten name occurrences across blueberry, strawberry and blackberry, including one attributed held photo. Public-seed coverage becomes 522 sections / 1,864 occurrences / 165 matches / 1,699 review needs. The 77-subject plan has 63 named-source entries, eleven partial checks, one unavailable source and two identity holds; all partial portfolios remain incomplete. Final 61 affected checks pass with one existing warning in 76.42 seconds. Native desktop/412px review confirms attribution, session image loading/hiding, source context, company filters and the visible Autumn 2022 interview period. Exact-head CI remains required for this child. Existing canonical records, guide, 31 accepted definitions and human gates are preserved. No merge/deployment or repeated/inferred release approval.
+
+October 28 — [Catalog/platform compatibility](docs/v2/CATALOG-PLATFORM-COMPATIBILITY-REVIEW.md) reconciles source431 on tested platform433 without changing frozen review heads. Shared photo preparation retains all current catalog output, larger-preview and name/permission holds; all 31 accepted definitions/order remain. Final72 affected checks and full-output parity pass. Public64-profile corpus remains516 sections/1,854 occurrences and field gaps11/13/33/10. Current-head CI/native review and any later release-time live-data proof/approval remain required. Existing actual approval questions are not repeated or reinterpreted.
+
 October 28 — [Combined platform release review](docs/v2/PLATFORM-COMBINED-RELEASE-REVIEW.md) integrates frozen #421 with #432 for one current acceptance check. Shared research/account-private Digest, on-demand profile work, responsive navigation and the visual guide remain; News relevance and phone Reader wrapping are included. Both documentation histories and all 31 accepted definitions/order are preserved. Catalog/source enrichment stays separate. Combined tests, native review, exact-head CI and a fresh isolated live-data preservation check remain required; no merge/deployment or inherited approval.
 
 **October 28: News company-name precision.** A shared context check removes the observed BlackBerry software-licensing mismatch from fresh qualification and cached/stored News while retaining explicit fruit and agricultural technology context. Captures, source text, images and human feedback are preserved; no collection or trust action is added. Initial 108 affected tests pass. Native/current-head CI and separate release review remain required. See [News relevance](docs/v2/NEWS-COMPANY-NAME-RELEVANCE.md).
@@ -14,6 +22,157 @@ state are personal. All original 31 accepted definitions and their order remain.
 Individual component checks do not replace combined validation, current-data
 preservation, release approval or release-time backup/rollback checks. Earlier
 status notes below describe their own dated heads and populations.
+## National records and a new name-review task — October 28, 2026
+
+October 28 — [National berry-rights records](docs/v2/NATIONAL-BERRY-RIGHTS-REVIEW.md)
+add 19 unreviewed scopes / 69 entries across four crops. Two historical bulletins,
+a USDA abstract and an Argentine act retain legal stages, literal numbers and
+name bridges; an earlier notice is unavailable. Corpus: 516 sections / 1,854
+occurrences / 165 matches / 1,689 review needs. Kwanza's newly documented coded/
+uncoded bridge holds its existing photo for name review; public-seed photo gaps
+become 11, with rights/traits/company gaps unchanged at 13/33/10. Raw photos,
+saved user choices and all canonical records remain. Three direct captures
+succeeded and two timed out; 15 selected PDF pages were visually checked.
+Initial 40 affected checks pass; final metadata/native/current-head verification
+is required. This source-only child stays outside frozen release #430. Its
+approval question and the separate #421/#426 scopes remain unchanged. All 31
+accepted definitions/order, the guide and human gates remain.
+
+## One combined catalog review — October 28, 2026
+
+Existing draft #430 is being consolidated against canonical e24b566b, bringing
+the tested source stack, held-photo review routing, Plablue originals and
+inventory optimization together. See [the acceptance contract](docs/v2/CATALOG-RELEASE-430-REVIEW.md).
+The original15baed4b slice passed all four checks and5,341tests/native review.
+Final combined-head CI and a new bounded production-copy preservation check
+remain before readiness; earlier #426/#421 proofs are not inherited. Thirty-two
+new import files are additions; existing canonical records/schemas/guide and
+all31 accepted definitions/order remain unchanged. Frozen #421/#426 retain
+their separate exact scopes and pending actual release decisions. No merge,
+deployment, human review decision or source permission is inferred.
+
+## Coverage inventory performance — October 28, 2026
+
+The [photo preparation change](docs/v2/COVERAGE-PHOTO-REQUEST-PERFORMANCE.md)
+addresses a measured repeat-work bottleneck while keeping all identity/reuse
+and saved-photo decisions. Alternating local64-profile calls return identical
+40,819-byte inventories: before6.606/4.8731s, after0.5857/0.6256s. These are
+function timings, not a whole-app speed claim. All69 affected checks pass with
+one existing warning; native64-row/filtered/412px/review-handoff checks pass.
+Exact-head CI remains required. This
+separate child does not alter frozen421/426 or their pending actual release
+decisions. Source/profile gap counts and all31 requirement definitions/order
+remain unchanged; production is not modified.
+
+## Current release and whole-thread audit — October 28, 2026
+
+The [full-thread completion audit](docs/v2/FULL-THREAD-COMPLETION-AUDIT.md) separates
+live delivery, tested pending releases and ongoing content/human decisions.
+Core redesign, shared Workspaces and the approved platform releases are live at
+`e24b566b`. A read-only October29 01:11 UTC check confirms healthy app/login200
+and about2.6GiB available; original release/data remain intact. This is an
+availability check, not signed-in whole-app performance proof.
+
+Platform #421 (`4cedbdc6`,5,284tests) and catalog #426 (`87bb0187`,5,330tests) each
+have all four required checks, native review and their own fresh production-copy
+preservation proof. Actual release approvals already requested remain pending.
+Follow-ups #427 (`fcb8ef74`,5,335tests) and #428 (`d5bb84df`,5,337tests) pass all
+four checks and native review, but do not inherit combined release proof. No
+source follow-up is deployed. The original31 requirement definitions/order
+remain, with later requests accounted separately. CAT-01/CAT-02, independent
+human answers and current rights/profile/content coverage remain open. Older
+checkpoint prose below is dated evidence, superseded where this audit says so.
+
+## Two more profiles gain checked original figures — October 28, 2026
+
+The [Plablue filing review](docs/v2/PLABLUE-ORIGINAL-FIGURES-REVIEW.md) adds distinct
+held originals for Blue Manila / Plablue 1545 and Blue Maldiva / Plablue 1542. Six
+scopes retain 15 occurrences, with parents, comparisons and real table/caption
+label errors separate. Public 64-profile photo gaps fall from 12 to 10; other gaps
+remain 13 rights / 33 traits / 10 companies. The bounded corpus has 497 sections
+and 1,785 name occurrences: 168 catalog matches and 1,617 review needs. No canonical aliases,
+verified traits, schemas, current rights or reuse permission are changed.
+Final 34 affected checks and native desktop/phone review pass; current-head CI
+and separate release review remain. Frozen #427 has 5,335 tests/native; #426 and
+#421 actual release approvals remain pending. Their live 65-profile proofs are not inherited.
+
+## Existing photo leads now show the next review action — October 28, 2026
+
+The [photo review routing](docs/v2/VARIETY-PHOTO-IDENTITY-REVIEW-ROUTING.md) exposes
+Rutgers D'Light's already stored photo as awaiting a name check, rather than
+implying another photo search is needed. Directory, current/previous profiles,
+editor and coverage link to coded/uncoded leads together. Identity, gallery,
+reuse, user edits and publication gates remain unchanged. Final47 affected checks
+pass; native/current-head CI still apply. Public64-profile gaps remain12photos/
+13rights/33traits/10company links, including two examples and an identity-held
+Rutgers photo. No new sources or canonical records are added. Frozen catalog426
+passed5330tests and current-copy preservation; platform421 and catalog426 actual
+release approvals remain separately pending. This follow-up is not deployed.
+
+## Rights sources separated from original filings — October 28, 2026
+
+The Rights/IP panel now keeps related reports and reprints in a collapsed,
+labeled group below exact filing references. Reviewed source and Source date
+describe the retained publication, without implying a focal grant or current
+rights decision. Both current and legacy profiles use the same presentation;
+pending titles, links and counts stay excluded outside private authoring.
+Sixteen focused checks pass, including unchanged hashes for the older Eureka/
+Opi Evidence records. Their two metadata review proposals remain private and
+unapproved. No source counts, canonical records, schemas or human gates change.
+Frozen source #424 has 5,325 tests and native desktop/phone proof; this UI child
+needs its own browser/CI checks before consolidated catalog release preparation.
+Native active/legacy checks pass at desktop and412px. The check also caught
+legacy filing rows squeezed into narrow columns; scoped stacked rows and a
+stylesheet version update restore readable references. Platform-only #421
+still awaits actual release approval; no deployment occurred.
+
+## Three more profile image gaps addressed — October 28, 2026
+
+The [remaining-profile cohort](docs/v2/REMAINING-PROFILE-IMAGE-REVIEW.md) adds held
+original figures for Eureka/Ridley1403 and Opi/Ridley1111, plus Eterna's named
+publisher image. Seven scopes retain13 occurrences, with comparison names and
+the C99-42 correction separate. Public64-profile image-reference gaps fall15→12;
+rights/trait/company gaps stay13/33/10. Corpus491/1770/165/1605; no canonical
+records, aliases, schemas, permission or human review decisions change.
+Final56 affected checks pass; this separate source draft needs native/current-head
+CI and catalog release preparation. Frozen423 passed5,323tests. Live e24 and
+platform421's pending actual approval remain separate; live65profiles are never
+replaced by this research seed. Historical notes below remain dated evidence.
+
+## Larger filing previews preserve user photo choices — October 28, 2026
+
+The [full-image follow-up](docs/v2/FULL-IMAGE-PREVIEW-REVIEW.md) adds larger original
+previews for four previously captured filing figures. Fingerprint guards retain
+newer/operator source edits; stable photo IDs preserve saved replacements,
+captions, hidden choices and history. Permission stays unconfirmed and loading
+requires the existing session choice. No canonical schemas, source/name counts
+or human decisions change. The public64-profile seed's 15 reference gaps remain.
+Frozen source draft #422 is verified with 5,305 tests; this child requires its
+own browser/current-head checks and separate catalog release review. Platform
+#421 approval is still pending an actual human reply. No merge/deploy occurred.
+
+## Original filing figures and remaining catalog work — October 28, 2026
+
+The [filing-figure follow-up](docs/v2/ORIGINAL-FILING-FIGURES-REVIEW.md) checks ten
+original documents, with twenty scopes and 57 name occurrences: ten subjects
+plus 47 separately retained parents, siblings and comparisons. Twelve held
+image observations use ten full-size figures. Seven existing profiles gain
+figures and direct original claim links; the public 64-profile seed's image
+reference gaps fall from 22 to 15, with rights/trait/company gaps still 13/33/10.
+The corpus now has 484 sections / 1,757 occurrences / 161 matches / 1,596 review
+needs. These are scoped observations, not approved cultivars or cleared images.
+Current-head browser/CI checks precede this separate catalog release review.
+
+The last verified live release remains canonical `e24b566b`. Platform-only #421
+is a separate tested candidate: 5,284 tests, native account/phone checks and a
+fresh-copy preservation check passed. Its five original accounts and 65 live
+profiles are preserved; actual human release approval is pending. This source
+follow-up inherits neither that preservation proof nor its release approval.
+Earlier dates/heads below are historical. Gene Editing #417 and News Tags #415
+are live; the earlier blueberry stop was approved before the released rollout.
+All 31 accepted definitions/order and the immutable expansion guide remain.
+CAT-01/CAT-02, the 52-source independent worksheet, 32 unclear cells, broader
+current/historical coverage and all existing human gates remain open.
 
 **October 28: Gene Editing public-source closeout.** All eleven seeds now have
 an original-source audit and explicit claim boundaries: 28 program/platform/
@@ -96,6 +255,109 @@ recorded. Focused regressions and final browser/static/current-head checks remai
 The wider catalog/source/human/coverage work remains open. Historical notes below
 retain their dates; the blueberry checkpoint and later four-crop milestone were
 already approved/released and require no new checkpoint pause.
+## October 23 current release and catalog reconciliation
+
+Production is canonical `97f9ac3d`, the #409 performance, selected-reader recovery
+and publisher-first discovery release. It includes the approved #407 release;
+its current image and backup/rollback are recorded in the VPS release receipt.
+No catalog drafts or local runtime were deployed. A normal operator read-only
+probe returned Emerald in 5.783 seconds initially and 1.882 on repeat, and the
+Z candidate group in 1.663 seconds. These measurements supersede the historical
+nine-second profile baseline below; they do not establish all-device performance.
+
+Drafts #399/#400 are rebased onto this release, preserving the catalog patches
+and the new exact-input presentation memoization. Seventeen original child
+code/data/test files remain byte-identical; the remaining portfolio service
+differs only by #409's memo import/decorator. The governing guide and all 31
+accepted requirement IDs, descriptions and order remain unchanged. Fresh CI on
+these reconciled heads and catalog release review remain required.
+
+The 52-source worksheet still needs independent human answers. CAT-01/CAT-02,
+32 unclear photo cells, complete current/historical portfolios, sourced profile
+fields, rights/photos, statistics coverage and broader performance remain open.
+An independently measured on-demand name-review optimization is a separate
+performance draft; it is not deployed and has no browser-review pass yet.
+The dated release and preservation evidence below remains historical.
+
+## October 22 approved performance release and catalog continuation
+
+Production is canonical `64099c00`, the approved merge of performance #407 at
+exact tested head `80ecb368`. Both required check sets pass with 5,153 tests.
+A fresh 17,593-file backup is verified and the previous image/override retained.
+Normal operator HTTPS checks pass ten routes: Emerald returns in 9.867 seconds
+and News in 1.190 seconds. All 9,816 protected files, account/social database
+rows, provider settings and seven mounts are preserved. Chris.H is enabled;
+his first-login Help is still pending and was not consumed by verification.
+The mobile 52-source worksheet remains available behind the existing login.
+Answers remain browser-local; no independent review answers were supplied.
+
+Catalog #399/#400 is reconciled onto this live release. Original source metadata,
+identity safeguards, 18 child feature code/data/test blobs and the governing
+guide remain intact. The child also labels direct patent PDFs as original
+documents; 29 affected tests pass. Fresh checks on both reconciled draft heads
+and final catalog release review remain. No catalog enrichment was deployed.
+
+The retained local research copy has 64 profiles; current production has 65.
+It must never replace current runtime data or user edits. CAT-01/CAT-02,
+independent source/name decisions, current/historical coverage, profile fields,
+rights, attributed images, statistics and broader TD-122 performance remain
+open. The nine-second profile is an improvement, not the performance end state.
+Older notes below retain dated evidence and superseded release states.
+
+## Current continuation — October 14, 2026
+
+Live canonical is `c354866d`, including released #401 and subsequent #402–403
+source-reader/sustainability work. Chris.H is enabled; his first successful
+login still opens Help. Read-only live News checks returned HTTP 200 with 60
+article image elements and 0.772–0.801 second backend responses. No production
+code/data was replaced or review decision created during this verification.
+
+Catalog drafts #399–400 are reconciled onto the deployed canonical, retaining
+all newer platform changes and their existing source observations. Fresh
+current-head CI is required; no catalog enrichment is deployed. The complete
+52-source worksheet remains blank and the original 32 cases/hashes are retained.
+Source fidelity, identity, catalog, qualification and photo reuse stay separate
+human gates. All 31 accepted requirements and the governing guide are preserved.
+See the [release review](docs/v2/RELEASE-REVIEW.md) and
+[requirements checklist](docs/v2/REDESIGN-REQUIREMENTS-CHECKLIST.md).
+
+The dated records below retain the earlier delivery state as history.
+
+## Current delivery and review status — October 13, 2026
+
+- **Live platform:** [#398](https://github.com/samsonFive/berry-intelligence-os/pull/398)
+  is merged at `a2a6b4ad` and deployed at intel.johnnyaceii.com. The exact tested
+  tree passed all four required checks and 5,023 tests; production rehearsal,
+  exports, preservation and rollback receipts are recorded. A fresh read-only
+  check confirms the released image is still running. The visual explainer is
+  at `/guide`, including site purposes, analyst workflow and reporting choices.
+- **News/access release candidate:** [#401](https://github.com/samsonFive/berry-intelligence-os/pull/401)
+  at `8739a6c3` passes all four checks and 5,030 tests. First-login Help,
+  one-click refreshed News, consent-page rejection, visible publisher navigation
+  and measured News performance fixes are ready. The requested account is staged
+  privately. Merge, deployment and account activation await the requested user
+  release approval. The workspace remains shared.
+- **Catalog draft:** [#400](https://github.com/samsonFive/berry-intelligence-os/pull/400)
+  adds original four-berry filing/photo/name references. Its latest source
+  supplement is `1dd38525`; three required checks pass and full Python validation
+  is running. No catalog enrichment is deployed. Research names and commercial
+  codes do not automatically approve identities, roles, rights or image reuse.
+- **Open requirements:** CAT-01/CAT-02 retain current/historical source coverage,
+  source fidelity, human identity/catalog authoring, current rights, profile
+  fields and independent recall. VAR-01 retains unclear photo spellings and
+  provisional associations. The reviewer copy has 52 source artifacts and the
+  original 32 independent worksheets; these are separate human gates.
+
+A fresh 52-source name-review worksheet is prepared privately for the current
+source set. It preserves the original 32-case worksheet and capture hashes;
+no answers, approvals or qualification markers are supplied. This resolves the
+old packet's source-count mismatch, not the independent human review itself.
+
+The [31-row requirements checklist](docs/v2/REDESIGN-REQUIREMENTS-CHECKLIST.md)
+retains the full approved scope. [Release review](docs/v2/RELEASE-REVIEW.md)
+distinguishes delivered software from incomplete content and pending approval.
+Earlier entries below are dated implementation history, not current blockers or
+new permission requests. Blueberry continuation was approved October 12.
 
 **October 12–13: Landscape PDFs and actual browser exports.** Draft #396 now
 offers server-rendered PDF snapshots with cited takeaways, market/comparison

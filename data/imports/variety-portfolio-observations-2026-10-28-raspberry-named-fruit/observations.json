@@ -1,0 +1,121 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-raspberry-product-photo-malaika",
+      "title": "Advanced Berry Breeding - Malaika labeled fruit photograph",
+      "url": "https://www.abbreeding.nl/variety/malaika/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal product heading and its same-name image title attribute, with visual verification of the fruit photograph. Site navigation, branding icons and performance claims are excluded.",
+      "limitations": "Source labels identify the marketed variety for photo-reference review. This does not approve a legal-denomination alias, patent ownership, breeder relationship, trial performance, growing region or photograph reuse.",
+      "capture_reference": {
+        "method": "issuer_product_heading_image_title_and_downloaded_fruit_visual_review",
+        "response_sha256": "cc80c3cad192bd1c597e071bebb6cd52fd548e4b3a4c518b0f409aa7ccb4d083",
+        "image_sha256": "4b4e2756e45836dc013f7b798e99ba6d698b3b5a897f2328d639b126732d7abd",
+        "image_width": 300,
+        "image_height": 300,
+        "image_source_label_attribute": "title",
+        "original_image_visual_reviewed": true,
+        "identity_alias_approved": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Malaika",
+          "breeder_code": "ABB135",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.abbreeding.nl/variety/malaika/",
+          "portfolio_context": "The issuer labels the fruit image Malaika on its Malaika (ABB135) product page. The code remains a source observation, not an approved patent-name alias.",
+          "photos": [
+            {
+              "image_url": "https://www.abbreeding.nl/wp-content/uploads/2024/01/Malaika-300x300.jpg",
+              "source_url": "https://www.abbreeding.nl/variety/malaika/",
+              "named_variety": "Malaika",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Advanced Berry Breeding; photographer not credited",
+              "caption": "Fruit photograph labeled Malaika by the breeder product page. Color image; no independent trait or size assessment.",
+              "reuse_note": "No reuse license or permission was found in the checked page. Hidden by default; the existing private session-only choice does not grant publication rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-raspberry-product-photo-zawadi",
+      "title": "Advanced Berry Breeding - Zawadi labeled fruit photograph",
+      "url": "https://www.abbreeding.nl/variety/zawadi/",
+      "checked_on": "2026-10-28",
+      "source_type": "breeder_catalog",
+      "company_ids": [
+        "company-advanced-berry-breeding"
+      ],
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One focal product heading and its same-name image title attribute, with visual verification of the fruit photograph. Site navigation, branding icons and performance claims are excluded.",
+      "limitations": "Source labels identify the marketed variety for photo-reference review. This does not approve a legal-denomination alias, patent ownership, breeder relationship, trial performance, growing region or photograph reuse.",
+      "capture_reference": {
+        "method": "issuer_product_heading_image_title_and_downloaded_fruit_visual_review",
+        "response_sha256": "e8639ffcaea6411cc7eaf8cbba2468863c1b039cac06fbe0856dd89a2bf97596",
+        "image_sha256": "7a38cd2f1f79ae04278bfb29c17e940eee4b4d7f6ac5645a6db930552bd86350",
+        "image_width": 300,
+        "image_height": 300,
+        "image_source_label_attribute": "title",
+        "original_image_visual_reviewed": true,
+        "identity_alias_approved": false,
+        "current_legal_status_verified": false,
+        "reuse_permission_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Zawadi",
+          "breeder_code": "ABB136",
+          "berry_id": "berry-raspberry",
+          "product_url": "https://www.abbreeding.nl/variety/zawadi/",
+          "portfolio_context": "The issuer labels the fruit image Zawadi on its Zawadi (ABB136) product page. The code remains a source observation, not an approved patent-name alias.",
+          "photos": [
+            {
+              "image_url": "https://www.abbreeding.nl/wp-content/uploads/2024/01/Zawadi-300x300.jpg",
+              "source_url": "https://www.abbreeding.nl/variety/zawadi/",
+              "named_variety": "Zawadi",
+              "berry_id": "berry-raspberry",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "credit": "Advanced Berry Breeding; photographer not credited",
+              "caption": "Fruit photograph labeled Zawadi by the breeder product page. Color image; no independent trait or size assessment.",
+              "reuse_note": "No reuse license or permission was found in the checked page. Hidden by default; the existing private session-only choice does not grant publication rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    }
+  ]
+}

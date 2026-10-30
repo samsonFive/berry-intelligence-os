@@ -1,5 +1,19 @@
 # Technical Debt Register
 
+October 30 — [Combined catalog, Learn and Map review](CATALOG-LEARN-MAP-RELEASE-REVIEW.md) reconciles tested draft439 with deployed canonical6fe8bdeb, retaining the approved platform and subsequent Tags code. This new combination needs its own current-head checks, native review and fresh isolated live-data preservation; earlier component proofs and approval questions retain their scopes. No canonical merge or deployment. All original 31 accepted definitions/order remain.
+
+October 30 — [Country-scoped market references](MAP-REFERENCE-COUNTRY-COVERAGE.md) address a bounded part of the Map geography gap: research now reuses existing selectable countries/areas, saved ISO references survive scoping and later catalog identities, and France's missing boundary code is corrected through explicit source metadata. The raw boundary geometry, canonical geography and Trade/Weather vocabularies are unchanged. Norway and other unresolved boundary codes, wider country/crop statistics and human source decisions remain open. Native desktop/412px and 136 affected checks pass. Snapshot PDF review also removed internal country terminology and false gaps caused by omitted sections. Its older briefing shell still has fewer primary destinations than the main app; destinations remain in More, and consistent reporting navigation remains a presentation follow-up. This draft is outside deployed platform #433.
+
+October 29 — Explicitly approved platform-only #433 was deployed after fresh backup, bounded rehearsal and live preservation. Its navigation fixes address the tested TD-123 wrapped-header jump; broader host capacity and TD-122 performance coverage remain open. All five accounts, existing runtime records and databases were preserved; the prior image and rollback remain available. Later releases must retain the shared Workspace/personal Digest boundaries and this platform build. Historical candidate notes below describe their dated heads.
+
+October 28 — [Visual explanations across Learn](LEARN-CURRICULUM-VISUAL-REVIEW.md) extend the bounded curriculum from five to 27 lessons with interactive source-linked explanations, five new schematic designs and one additional attributed public-domain photo used in two lessons. Original records and human edits remain; double-cropping wording is clarified only when its two original fields match exactly. All final 130 affected Learn/static checks pass with one existing warning in 19.14 seconds; desktop/412px review verifies selection, actual photo loading, compact controls and header-safe lesson jumps. Exact-head CI remains required and is tracked in the PR review receipt. This does not close wider lesson/media/source depth, approve scientific claims or alter pending release decisions. No merge/deployment.
+
+October 28 — [Visible source-gap summary](PORTFOLIO-GAP-SUMMARY-REVIEW.md). TD-116 presentation follow-up: the partial-only subject count was mislabeled as every incomplete portfolio. A scoped named company showed zero beside eight open source checks. The badge now counts existing filtered has_source_gaps flags; no domain/service/counter or data change. This resolves that display mismatch, not catalog completeness. All 44 focused checks pass with one existing warning in 53.26 seconds. Native desktop/412px review confirms the corrected gap badge and retained company/berry scope; exact-head CI remains required for this child. Prior433/434 release scopes and source435 review scope remain intact. No merge/deployment or inferred approval.
+
+October 28 — [Original company-release variety depth](COMPANY-RELEASE-VARIETY-DEPTH.md). Original company releases and a grower interview reduce two named-source discovery gaps, not portfolio completeness or technical-debt closure. Historical dates, brands, unnamed selections, marketing roles and unconfirmed photo permission remain explicit. An initial route check exposed a missing visible licensing caveat; the candidate context now carries it. Final 61 affected checks pass with one existing warning in 76.42 seconds. Native desktop/412px review confirms attribution, session image loading/hiding, source context, company filters and the visible Autumn 2022 interview period. Exact-head CI remains required for this child. Existing canonical records, guide, 31 accepted definitions and human gates are preserved. No merge/deployment or repeated/inferred release approval.
+
+October 28 — [Catalog/platform compatibility](CATALOG-PLATFORM-COMPATIBILITY-REVIEW.md) reconciles source431 on tested platform433 without changing frozen review heads. Shared photo preparation retains all current catalog output, larger-preview and name/permission holds; all 31 accepted definitions/order remain. Final72 affected checks and full-output parity pass. Public64-profile corpus remains516 sections/1,854 occurrences and field gaps11/13/33/10. Current-head CI/native review and any later release-time live-data proof/approval remain required. Existing actual approval questions are not repeated or reinterpreted.
+
 October 28 — [Combined platform release review](PLATFORM-COMBINED-RELEASE-REVIEW.md) integrates frozen #421 with #432 for one current acceptance check. Shared research/account-private Digest, on-demand profile work, responsive navigation and the visual guide remain; News relevance and phone Reader wrapping are included. Both documentation histories and all 31 accepted definitions/order are preserved. Catalog/source enrichment stays separate. Combined tests, native review, exact-head CI and a fresh isolated live-data preservation check remain required; no merge/deployment or inherited approval.
 
 October 28 — [News company-name relevance](NEWS-COMPANY-NAME-RELEVANCE.md) addresses a live BlackBerry software-licensing false positive through shared fresh/cached/stored News context checks. Fruit and mixed agricultural technology controls remain; original captures and human feedback are retained. Initial 108 affected tests pass; native/exact-head CI remain. This is partial TD-015 progress for current News, not closure of its separate legacy relevance-screen lane or a universal precision claim.
@@ -65,6 +79,111 @@ This guard coordinates its own jobs only. Persistent browser previews still
 require an explicit budget, one-at-a-time operation and cleanup. Broader host
 capacity monitoring and a separate review host remain open; the incident is not
 resolved by weakening data, CI or human review gates.
+October 28 — [National berry-rights records](NATIONAL-BERRY-RIGHTS-REVIEW.md)
+add 19 unreviewed scopes / 69 entries across four crops. Two historical bulletins,
+a USDA abstract and an Argentine act retain legal stages, literal numbers and
+name bridges; an earlier notice is unavailable. Corpus: 516 sections / 1,854
+occurrences / 165 matches / 1,689 review needs. Kwanza's newly documented coded/
+uncoded bridge holds its existing photo for name review; public-seed photo gaps
+become 11, with rights/traits/company gaps unchanged at 13/33/10. Raw photos,
+saved user choices and all canonical records remain. Three direct captures
+succeeded and two timed out; 15 selected PDF pages were visually checked.
+Initial 40 affected checks pass; final metadata/native/current-head verification
+is required. This source-only child stays outside frozen release #430. Its
+approval question and the separate #421/#426 scopes remain unchanged. All 31
+accepted definitions/order, the guide and human gates remain.
+
+October28 — TD-116 [Plablue original figures](PLABLUE-ORIGINAL-FIGURES-REVIEW.md):
+two original claims and full-size monochrome figures supply held references for
+Blue Manila/Blue Maldiva through existing aliases. Printed 1542/1545 table labels,
+Legacy/Biloxi comparator text and 15.07.018/15.09.003 illustration wording stay
+literal and separately scoped; no value or alias is silently corrected. Public
+photo gaps fall from 12 to 10; other fields remain 13/33/10. Final 34 affected
+checks and native review pass; CI/release gates and CAT-01/CAT-02/TD-116 stay open. No
+canonical data, schema, current-rights, human identity or permission decision.
+
+October28 — TD-116 [held-photo routing](VARIETY-PHOTO-IDENTITY-REVIEW-ROUTING.md):
+an already captured Rutgers D'Light image was correctly identity-held but appeared
+as No photo. Directory/profile/editor/coverage now expose the source and name
+review action without linking/loading the held image or approving the NJ09-2-1
+association. The handoff keeps coded/uncoded leads together; wrong crops, saved
+hiding and private/public gates remain. Final47 affected checks pass. Counts and
+schemas are unchanged; CAT-01/CAT-02/TD-116 and actual human decisions remain open.
+
+October 28 — TD-116 related-source presentation: current and legacy Rights/IP
+views now distinguish reviewed source publications from the exact original
+filings above them. Related reports/reprints start collapsed and retain their
+existing source dates and reader links. Pending source details remain private;
+sixteen focused checks pass, including unchanged hashes for both legacy records.
+The two hash-guarded metadata proposals below still require human review.
+No canonical dates, source approval, rights status or catalog counts change.
+Native active/legacy desktop and412px checks pass. Scoped stacked filing/source
+rows correct the legacy phone's compressed horizontal layout, with an updated
+stylesheet version so existing browser caches receive the fix.
+
+October 28 — TD-116 source-provenance follow-through: native inspection found
+an existing Opi-linked Evidence record whose source URL is a2018blogreprint,
+while the new original grant is2013; its publication date must retain the
+meaning of that separate document. An existing Eureka-linked source date is
+its2012filingdate, while the original grant is2015. Hash-guarded private review
+proposals retain both records without rewriting approved metadata. Related
+source records below Rights/IP also need clearer context labeling so source
+publication approval cannot be read as a focal grant/current-rights decision.
+The new direct original claim links and Eureka correction-page note remain
+unreviewed references; identity, source and human metadata gates stay intact.
+
+October 28 — TD-116 [three additional profile images](REMAINING-PROFILE-IMAGE-REVIEW.md):
+Eureka, Opi and Eterna gain exact-subject held references, with original claims
+and the comparison-only correction retained. Public64-profile image gaps15→12;
+rights/traits/company gaps13/33/10 stay open. No schema or crop-specific fix is
+needed. Baridi132/137, RedSayra403, independent recall/human decisions, current/
+historical coverage and the remaining sourced profile fields remain unresolved.
+Source release preparation/current65-profile preservation are separate gates;
+platform421's actual approval is pending. No deployment occurred.
+
+October 28 — TD-116 [full-size figure follow-up](FULL-IMAGE-PREVIEW-REVIEW.md):
+four earlier thumbnail references now have guarded larger previews without
+changing source-photo IDs or orphaning user edits/hides/history. Newer captures
+and edited source records win. Reuse and identity remain unconfirmed; no public
+image leakage or automatic fetch is introduced. This closes the implementation
+part of the four-thumbnail follow-up, subject to native/current-head checks;
+15 public-seed image-reference gaps, color-photo enrichment, source/identity
+review and independent recall remain open. Platform421 is a separate review.
+
+October 28, later TD-116 [filing-figure review](ORIGINAL-FILING-FIGURES-REVIEW.md):
+seven existing profiles gain held full-size technical figures and original claim
+links; the public seed has fifteen remaining image-reference gaps. Forty-seven
+separate context labels preserve later comparisons and source inconsistencies.
+Unknown reuse, current rights, identity/canonical authoring and the independent
+human worksheet remain open. Monochrome/sideways scans are qualified references,
+not substitutes for later sourced color photos. Earlier four ABB image entries
+in #418 retain their original low-resolution thumbnails; a future full-figure
+variant check must preserve those captures and user edits rather than silently
+replace their metadata. No new backend or crop-specific workaround is added.
+
+October 28, later TD-116 [original-photo follow-up](ORIGINAL-VARIETY-PHOTO-FOLLOWUP.md):
+eight further existing profiles gain held image references. Nine photo
+observations use eight image URLs; named comparison positions remain separate,
+flowers are not labeled fruit, and the blueberry Keepsake image stays within
+its crop. The public seed has 22 missing photo references, including two declared
+examples; rights/trait/company gaps remain 13/33/10. No permissions, identities,
+canonical fields or current rights are approved. TD-116 remains open.
+
+October 28 — TD-116 source follow-up: [raspberry original filings](RASPBERRY-ORIGINAL-PATENT-REVIEW.md)
+now link four literal ABB denominations to inspected claims and attributed fruit
+figures. This closes a bounded missing-reference gap, without approving their
+commercial-name associations or Allberry/ABB legal-entity equivalence. Conflicting
+Baridi codes and parent spellings remain explicit; full portfolio coverage,
+canonical authoring, independent recall, current rights and image reuse stay open.
+
+The same follow-up now closes twelve more named-profile photo-reference gaps,
+with a thirteenth university photo still held for code/name review. The public
+seed retains 30 missing-reference profiles (including two declared examples);
+13 rights, 33 cited-trait and 10 company-link gaps remain. These are field
+inventories, not permission or completeness scores. Hash-guarded warning overlays
+preserve source corrections and full-source cautions while reducing unrelated
+candidate warnings; no operator record or human decision is replaced. TD-116
+remains open for source access, identity, complete portfolios and reviewed fields.
 
 October 23, 2026 follow-up: [Performance, reader and publisher coverage](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 records measured reductions in Brief, Live Intelligence, Variety and Monitoring
@@ -72,6 +191,13 @@ response times, generic exact-publisher reader recovery, and publisher-first
 Packer/Watershed discovery. Bounded listing coverage, publisher outages/access
 limits and browser/network latency remain explicit operational limits; no
 exhaustive archive recall or automatic trusted publication is claimed.
+
+October 22 — #407 is approved and live at `64099c00`. Both check sets pass
+5,153 tests; ten signed-in HTTPS routes, all 9,816 protected files and account/
+social rows are verified. Emerald returns in 9.867 seconds after removing the
+unrelated pending-attribution scan. Discovery still dominates the remaining
+profile wait; TD-122 remains open. Earlier draft/CI statements below are dated
+implementation evidence rather than current release status.
 
 October 21 — selected-profile follow-up: [entity attribution measurements](ENTITY-PROFILE-ATTRIBUTION-PERFORMANCE.md)
 identify a 1,721-story full-catalog attribution scan as the main Emerald delay.
@@ -130,6 +256,17 @@ application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
 
+October28 coverage follow-up: [request-local photo preparation](COVERAGE-PHOTO-REQUEST-PERFORMANCE.md)
+removes repeated validation and discrepancy calculations from the64-profile
+inventory. Alternating exact-baseline calls return identical40,819-byte results:
+before6.606/4.8731s, after0.5857/0.6256s. All69 affected checks pass with one
+existing warning; native64-row/filtered/phone/review-handoff checks pass and
+exact-head CI remains. The index exists for one
+call only; edits, ambiguity, existing holds and hidden-photo choices stay live.
+No registry/domain schema or trust behavior changes. This improves one measured
+bottleneck; candidate rendering, representative route/runtime timings and wider
+contention remain open. Frozen release421/426 decisions remain separate.
+
 October 14: the isolated 1,157-row review page returned about 4.1 MB in 8.066 s;
 one alphabet group returned 257 KB in 6.940 s. Profiling recorded 579,425 repeated
 literal normalization calls. The [bounded text-cache fix](CATALOG-NORMALIZATION-PERFORMANCE.md)
@@ -154,6 +291,45 @@ The stopped timer is restored for keyless News through the existing scheduler,
 with a scoped service drop-in and an actual News-cache runner. Berries Australia's
 transient 507 now has a bounded retry; persistent publisher errors remain visible.
 These probes do not establish complete publisher-section coverage or measured recall.
+
+**TD-116 original-paper follow-through — October 13:** The CAS announcement
+omitted names present in its original paper. Hawaii-4 and Benihoppe now reach
+identity review as research material; CAS release coverage remains partial and
+no company role, trait, right, footprint or photo permission is approved.
+See CAS-ORIGINAL-PAPER-SOURCE-REVIEW.md. Original-source follow-through and
+independent human recall remain required; volume does not establish completeness.
+
+**TD-116 whole reference-gap cohort — October 13:** All 17 starting profiles are
+accounted for, including one explicit fictional seed, four unapproved naming
+associations and eight bounded unknowns. Four existing profiles gain original
+CPVO/US/Ukrainian references; the copied preview's reference gap falls from
+17 to 13. Twenty-two other-crop homonyms are excluded. Application, title,
+rights-registration and publication dates keep their distinct meanings.
+All 332 protected files and 64 stored profiles remain unchanged. See
+REFERENCE-GAP-COHORT-REVIEW.md. TD-116/CAT-01/CAT-02 remain open: source codes,
+other jurisdictions, current/historical portfolios, source/identity/catalog
+review, traits, attributed photos, regions and independent human recall remain.
+
+**TD-116 current source refresh — October 13:** The original current Pairwise
+Products page now explicitly names Fontana; its earlier unnamed product page
+stays intact. One candidate and two reuse-unconfirmed image references are
+retained without inventing identity equivalences, rights, roles or footprints.
+The bounded audit has 408 sections /1,608 observations /1,142 derived keys;
+64 canonical varieties and existing human decisions remain unchanged. See
+FONTANA-SOURCE-COVERAGE-REVIEW.md. Current/historical coverage and human
+catalog/recall work remain open; the live platform release is separate.
+
+### TD-121 — Cultivar denominations misclassified as breeding codes
+
+The [original patent follow-up](UF-ORIGINAL-PATENT-REFERENCE-REVIEW.md) reproduces
+an erroneous conflict between the filing name Emerald and the existing selection
+code FL 95-209a. A denomination repeating its name is neither another breeding
+code nor a statement that a code is absent. The correction retains explicit
+codes, real conflicting pairs and saved human decisions. Forty-two targeted tests
+pass, and all seven original documents reach their existing profile projection
+against the complete corpus. Full CI/browser review remain. No canonical identity,
+alias, ownership, current-rights or model-qualification decision changes. The
+source follow-up remains separate from live release #398; CAT-01/CAT-02 stay open.
 
 ### TD-120 — Publisher disclosure lists disappear from captured source text
 
@@ -3039,3 +3215,5 @@ October 23, 2026 — Analyst living workspaces ([delivery notes](ANALYST-LIVING-
 - **TD-LIVING-002, taxonomy identity:** existing canonical IDs/aliases are reused. Missing technology/topic identities remain explicitly unresolved private stubs; there is no automatic canonical-name merge. Feed facets currently expose taxonomy IDs and keywords.
 - **TD-LIVING-003, output/runtime:** Markdown/JSON exports preserve source references; direct living-document PDF/DOCX export is unavailable. Keep the private SQLite database and existing evidence projections on persistent mounts/backups. Account scope follows the existing shared analyst workspace; per-user page ACLs/co-editing are not added.
 - **TD-LIVING-004, external validation:** deterministic/model-fixture synthesis and simulated ingestion arrivals are tested. Live provider synthesis, physical touch hardware and production collection cadence are not verified by this candidate. Prior gene-editing research debt remains open; the preview is not an eleven-company research-completion claim.
+
+October 13 printed-code review: ABB135/ABB 135 and ABB136/ABB 136 source formatting produced false discrepancy holds. The issuer-specific comparison correction preserves literal records, canonical names/aliases and real different-number holds; 79 affected tests pass. The genuine Baridi ABB132/ABB137 conflict, RedSayra/Plared 15121 legal-name review, other-jurisdiction rights, source completeness and photo reuse remain open. Source snapshots and two named Ervin images are review metadata only. See PRINTED-CODE-REGISTER-FOLLOWUP.md. No qualification, canonical profile or production change.

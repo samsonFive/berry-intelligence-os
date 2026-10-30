@@ -95,7 +95,9 @@ def test_one_resolved_country_and_one_berry_required(workspace, monkeypatch):
         response = client.post(routes.BASE, data={'country': country, 'berry': berry, 'token': TOKEN})
         assert response.status_code == 422
     monkeypatch.setattr(main, 'all_entities', lambda: [COUNTRY, {**COUNTRY, 'id': 'duplicate-chile'}])
-    assert routes.countries() == {}
+    choices = routes.countries()
+    assert COUNTRY['id'] not in choices and 'iso:CL' not in choices
+    assert 'iso:PL' in choices  # Other, unambiguous Map scopes remain usable.
     assert not (inbox / research.FILENAME).exists()
 
 

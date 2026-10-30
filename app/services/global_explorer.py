@@ -3,9 +3,7 @@
 No title matching, HQ inference, enrichment, or trust promotion. Geography
 uses canonical containment. Layer contracts name supporting evidence ids.
 """
-import json
 from functools import lru_cache
-from pathlib import Path
 
 from dataclasses import dataclass
 from typing import Protocol
@@ -18,11 +16,8 @@ from app.services.intelligence_feed import present_feed_item
 @lru_cache(maxsize=1)
 def boundary_countries():
     """Boundary metadata is a selector catalog, never an intelligence Entity."""
-    path = Path(__file__).resolve().parents[1] / 'static' / 'countries.geojson'
-    features = json.loads(path.read_text(encoding='utf-8'))['features']
-    return {f['properties']['ISO3166-1-Alpha-2']: f['properties']['name']
-            for f in features if len(f['properties']['ISO3166-1-Alpha-2']) == 2
-            and f['properties']['ISO3166-1-Alpha-2'].isalpha()}
+    from app.services.map_boundaries import load
+    return load()[0]
 
 
 @dataclass(frozen=True)
@@ -131,6 +126,11 @@ def explorer_model(query, records, entities, relationships, berries, facts=None,
             countries.append({'id': 'iso:'+code, 'name': name, 'iso': code,
                               'count': 0, 'recent': [], 'berries': [], 'companies': [],
                               'unavailable': True})
+    from app.services.map_boundaries import load as boundary_metadata
+    for country in countries:
+        reference = boundary_metadata()[1].get(country['iso'])
+        if reference:
+            country['boundary_reference'] = reference
     selected_countries = [entities[eid] for eid in query.geography_ids]
     selected_countries.extend({'id': 'iso:'+code, 'name': boundary_countries()[code]}
                               for code in query.country_codes)
@@ -220,6 +220,7 @@ def snapshot_model(query, records, entities, relationships, berries, included, f
         trace.extend({'id': g['id'], 'title': f"{g['country']} · {g['commodity']} · {g['period']}",
                       'source_name': g['source'], 'date': g['published_date'] if g['published_date'] != 'Not supplied' else '',
                       'published_date': g['published_date'] if g['published_date'] != 'Not supplied' else '',
+                      'source_updated_at': g.get('source_updated_at') or '',
                       'date_label': 'Source updated ' + g['source_updated_at'][:10] if g.get('source_updated_at') else 'Published ' + g['published_date'],
                       'source_url': g['source_url'], 'href': g['source_url']} for g in selected_groups)
     trace.extend({'id': 'location-source-' + row['id'], 'title': row['name'] + ' / ' + row['activity'] + ' / supporting location source',
@@ -230,18 +231,15 @@ def snapshot_model(query, records, entities, relationships, berries, included, f
         if section['section_id'] == 'locations':
             section['citation_ids'] = ['location-source-' + row['id'] for row in locations if row.get('source_url')]
     packet = {'recent_developments': [row for row in entries if row['id'] in cited], 'source_trace':trace,
-              'display_names': {key: row['name'] for key, row in entities.items()},
+              'display_names': {**{'iso:' + code: name for code, name in boundary_countries().items()},
+                                **{key: row['name'] for key, row in entities.items()}},
               'news_scope': news_scope if any(key not in {'statistics', 'locations'} for key in included) else []}
     inventory_included = any(key not in {'statistics', 'locations'} for key in included)
     gaps = ['Evidence counts reflect stored coverage, not market size or source independence.'] if inventory_included else []
     if locations:
         gaps.append('Selected locations retain their saved status and source limitations. User annotations are unreviewed; source links do not confirm growing or operations. Unknown dates remain unknown.')
-    else:
-        gaps.append('Private location annotations are excluded unless individually selected in the composition.')
     if 'statistics' in included:
         gaps += reference['gaps']
-    else:
-        gaps += ['Market statistics are excluded unless selected in the composition.']
     coverage = {'counts':{'evidence_count':len(entries)} if inventory_included else {},'gaps':gaps}
     return model | {'report':report, 'packet':packet, 'coverage':coverage, 'gaps':gaps, 'section_options':SECTIONS, 'included':included,
                     'statistics': {**reference, 'groups': selected_groups}, 'metric_options': reference['groups'], 'selected_metrics': selected_metrics,

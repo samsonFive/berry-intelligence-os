@@ -81,17 +81,20 @@ def test_real_manifest_preserves_registry_and_all_four_berry_denominators():
     from scripts.audit_variety_portfolios import audit
     report = audit(Path(__file__).resolve().parents[1] / "data")
     assert report["summary"]["registry_entries"] == 77
-    assert report["summary"]["names"] == 1572
-    assert report["summary"]["registry_entries_checked"] == 60
+    assert report["summary"]["names"] == 1864
+    assert report["summary"]["registry_entries_checked"] == 63
     assert [report["summary"][key] for key in ("registry_entries_partial_checks",
-        "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [14, 1, 0, 2]
+        "registry_entries_unavailable", "registry_entries_not_started", "registry_entries_identity_hold")] == [11, 1, 0, 2]
     benning = next(s for s in report["subjects"] if s["name"] == "Benning Blueberries")
     assert benning["source_status"] == "partial" and not benning["checked"] and benning["named_occurrences"] == 0
     assert {r["id"]: r["names"] for r in report["by_berry"]} == {
-        "berry-blueberry": 429, "berry-strawberry": 731, "berry-raspberry": 265, "berry-blackberry": 147}
+        "berry-blueberry": 566, "berry-strawberry": 767, "berry-raspberry": 360, "berry-blackberry": 171}
     sunbelle = next(s for s in report["subjects"] if s["name"] == "SunBelle")
-    assert sunbelle["source_status"] == "partial" and not sunbelle["checked"]
-    assert sunbelle["named_occurrences"] == 2
+    assert sunbelle["source_status"] == "names_found" and sunbelle["checked"]
+    assert sunbelle["named_occurrences"] == 9 and sunbelle["has_source_gaps"]
+    perfection = next(s for s in report["subjects"] if s["name"] == "Perfection Fresh")
+    assert perfection["source_status"] == "names_found" and perfection["checked"]
+    assert perfection["named_occurrences"] == 2 and perfection["has_source_gaps"]
     assert "visible_candidates" not in report
     assert all("review_notes" not in str(r) for r in report["subjects"])
     abz = next(s for s in report["subjects"] if s["name"] == "ABZ Seeds")
@@ -317,7 +320,8 @@ def test_primary_candidates_render_only_in_authoring_and_get_never_persists(monk
     assert "Checked recently" in coverage.text
     candidates = client.get("/varieties/candidates?source=portfolio-uf-strawberry")
     assert candidates.status_code == 200 and "FL 19.66-220" in candidates.text and "Florida Pearl" in candidates.text
-    assert "awaiting review; no company role approved" in candidates.text
+    assert "Check the identity and company roles before relying on these sources." in candidates.text
+    assert "Review decisions do not create new catalog varieties or approve company roles." in candidates.text
     assert list(tmp_path.rglob("*.json")) == []
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
     public = client.get("/varieties/coverage")

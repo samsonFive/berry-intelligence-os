@@ -9,7 +9,7 @@
 <details class="reference-source-check" {% if not job %}open{% endif %}><summary>Research a country and berry</summary>
 <form class="market-research-request" method="post" action="/explorer/statistics/research">
 <input type="hidden" name="token" value="{{ token }}"><input type="hidden" name="return_to" value="{{ return_to }}">
-<label>Country<select name="country" required><option value="">Choose a country</option>{% for key, row in countries.items() %}<option value="{{ key }}" {{ 'selected' if key == selected_country }}>{{ row.name }}</option>{% endfor %}</select></label>
+<label>Country or area<select name="country" required><option value="">Choose a country or area</option>{% for key, row in countries.items() %}<option value="{{ key }}" {{ 'selected' if key == selected_country }}>{{ row.name }}</option>{% endfor %}</select></label>
 <label>Berry<select name="berry" required><option value="">Choose a berry</option>{% for key, label in research_berries.items() %}<option value="{{ key }}" {{ 'selected' if key == selected_berry }}>{{ label }}</option>{% endfor %}</select></label>
 <button class="green-button">Research public figures</button>
 <p>Perplexity checks recent annual area, harvested production and reported yield. This is a paid research request using the workspace connection. Only the public country, berry and time scope are sent. Your notes and intelligence records stay here.</p>

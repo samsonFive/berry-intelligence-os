@@ -1,5 +1,86 @@
 # Intelligence Coverage Matrix
 
+October 30 — [Combined catalog, Learn and Map review](CATALOG-LEARN-MAP-RELEASE-REVIEW.md) reconciles tested draft439 with deployed canonical6fe8bdeb, retaining the approved platform and subsequent Tags code. This new combination needs its own current-head checks, native review and fresh isolated live-data preservation; earlier component proofs and approval questions retain their scopes. No canonical merge or deployment. All original 31 accepted definitions/order remain.
+
+October 30 — [Map reference country coverage](MAP-REFERENCE-COUNTRY-COVERAGE.md) retains a source capture for seven Eurostat strawberry countries / 14 original-unit 2025 figures, adding France, Italy and Poland proposals. This is reference material awaiting explicit selection, not newly published intelligence or approved production estimates. The public reference seed remains seven groups / 14 figures across its existing US and European scope. The research picker reuses 236 existing selectable countries/areas; this measures available research scope, not statistical coverage. France's sourced selector correction adds no Entity, company presence or growing footprint. Missing yields, wider country/crop gaps, other missing boundary codes and actual source decisions remain open. All 136 affected checks and desktop/412px/PDF review pass; exact-head CI remains required for the draft.
+
+October 28 — [Visual explanations across Learn](LEARN-CURRICULUM-VISUAL-REVIEW.md) extend the bounded curriculum from five to 27 lessons with interactive source-linked explanations, five new schematic designs and one additional attributed public-domain photo used in two lessons. Original records and human edits remain; double-cropping wording is clarified only when its two original fields match exactly. All final 130 affected Learn/static checks pass with one existing warning in 19.14 seconds; desktop/412px review verifies selection, actual photo loading, compact controls and header-safe lesson jumps. Exact-head CI remains required and is tracked in the PR review receipt. This does not close wider lesson/media/source depth, approve scientific claims or alter pending release decisions. No merge/deployment.
+
+October 28 — [Original company-release variety depth](COMPANY-RELEASE-VARIETY-DEPTH.md). The new source-only child adds six scopes / ten occurrences and one held photo from five original documents. Public-seed totals: 522 sections / 1,864 occurrences / 165 matches / 1,699 review needs. Sun Belle and Perfection gain bounded named-source entries while retaining gaps; 63 of 77 subjects now have names, with eleven partial checks, one unavailable source and two identity holds. Final 61 affected checks pass with one existing warning in 76.42 seconds. Native desktop/412px review confirms attribution, session image loading/hiding, source context, company filters and the visible Autumn 2022 interview period. Exact-head CI remains required for this child. Existing canonical records, guide, 31 accepted definitions and human gates are preserved. No merge/deployment or repeated/inferred release approval.
+
+October 28 — [Catalog/platform compatibility](CATALOG-PLATFORM-COMPATIBILITY-REVIEW.md) reconciles source431 on tested platform433 without changing frozen review heads. Shared photo preparation retains all current catalog output, larger-preview and name/permission holds; all 31 accepted definitions/order remain. Final72 affected checks and full-output parity pass. Public64-profile corpus remains516 sections/1,854 occurrences and field gaps11/13/33/10. Current-head CI/native review and any later release-time live-data proof/approval remain required. Existing actual approval questions are not repeated or reinterpreted.
+
+October 28 — [National berry-rights records](NATIONAL-BERRY-RIGHTS-REVIEW.md)
+add 19 unreviewed scopes / 69 entries across four crops. Two historical bulletins,
+a USDA abstract and an Argentine act retain legal stages, literal numbers and
+name bridges; an earlier notice is unavailable. Corpus: 516 sections / 1,854
+occurrences / 165 matches / 1,689 review needs. Kwanza's newly documented coded/
+uncoded bridge holds its existing photo for name review; public-seed photo gaps
+become 11, with rights/traits/company gaps unchanged at 13/33/10. Raw photos,
+saved user choices and all canonical records remain. Three direct captures
+succeeded and two timed out; 15 selected PDF pages were visually checked.
+Initial 40 affected checks pass; final metadata/native/current-head verification
+is required. This source-only child stays outside frozen release #430. Its
+approval question and the separate #421/#426 scopes remain unchanged. All 31
+accepted definitions/order, the guide and human gates remain.
+
+October28 — [Plablue original filing figures](PLABLUE-ORIGINAL-FIGURES-REVIEW.md):
+six bounded scopes add 15 occurrences, including two subjects and 13 contextual
+parents/comparisons/codes/discrepant labels. Separate full figures/claim anchors
+reduce public 64-profile photo gaps from 12 to 10; rights/traits/company gaps stay
+13/33/10. Bounded corpus: 497 sections / 1,785 occurrences / 168 matches / 1,617
+review needs; 392 readable / 14 unreadable / 137 follow-up. The 77 subjects remain
+61 checked / 13 partial / one unavailable / two identity holds. Counts are not unique varieties or independent
+verification. No source/identity/trait/region/current-rights/reuse decision or
+new backend is approved. Earlier publisher 403 captures and human worksheets
+remain; native checks pass and separate CI/current-production release proof still applies.
+
+October28 — [Photo identity review routing](VARIETY-PHOTO-IDENTITY-REVIEW-ROUTING.md)
+distinguishes an existing image lead from a missing link. Rutgers D'Light's
+attributed image remains identity-held, with both coded/uncoded leads reachable;
+no source, image clearance or identity is added. Public64-profile gaps12/13/33/10
+and bounded corpus491/1770/165/1605 remain unchanged. Two example profiles remain
+excluded from genuine photo research; source/identity/current-rights review and
+broader historical/current coverage stay open. Frozen426/5330tests and its
+production-copy proof do not extend to this separate draft.
+
+October 28 — [Eureka/Opi/Eterna source images](REMAINING-PROFILE-IMAGE-REVIEW.md):
+three held image references reduce public64-profile gaps15→12, with rights/trait/
+company gaps unchanged13/33/10. Seven scopes/13occurrences retain two original
+claims, separate parent/comparison names, a narrowly scoped correction and the
+named Eterna publisher image. Cumulative491sections/1770occurrences/165matches/
+1605reviewneeds;77subjects remain61checked13partial1unavailable2identityholds.
+Baridi's image stays identity-held; RedSayra direct403 is recorded, not bypassed.
+These are bounded observations, not independent corroboration or completeness.
+
+October 28 — [Larger filing images](FULL-IMAGE-PREVIEW-REVIEW.md): four retained
+ABB patent figures gain observed full-size variants, with original photo IDs,
+user edits and permission gates preserved. No new source, cultivar, geographic,
+trait or current-rights coverage is claimed. Corpus484/name-occurrences1757 and
+public64-profile image-reference gaps15 remain unchanged. Raw originals remain
+private; current-head tests/browser review and separate catalog release apply.
+
+October 28, later [original filing figures](ORIGINAL-FILING-FIGURES-REVIEW.md):
+ten original documents yield twenty scoped sections, 57 occurrences and twelve
+held figure observations using ten full-size URLs. Seven existing profiles gain
+references; the public seed has 15 image-reference gaps and unchanged 13/33/10
+rights/trait/company gaps. Original claims, reissue history, comparison panels
+and inconsistent printed codes are retained without approval or role inference.
+Cumulative scope is 484 sections / 1,757 occurrences / 161 matches / 1,596 review
+needs; company checks remain 61 checked / 13 partial / one unavailable / two
+identity holds. Dated counts below retain their earlier populations. This is
+neither a global completeness score nor independent recall qualification.
+
+October 28, 2026, later [original-photo follow-up](ORIGINAL-VARIETY-PHOTO-FOLLOWUP.md):
+eight scoped sections retain twenty occurrences and nine held photo observations
+from eight image URLs. Eight existing profiles gain references; the public
+64-profile seed's missing-photo bucket falls from 30 to 22, with rights/trait/
+company gaps unchanged at 13/33/10. Comparison positions, a flower photo,
+cross-crop Keepsake separation, literal dates and photographer credits remain
+explicit. No image reuse or new identity is approved. Cumulative bounded scope:
+464 sections / 1,700 occurrences / 149 matches / 1,551 review needs. The earlier
+456-section snapshot below remains dated evidence; CAT-01/CAT-02 stay open.
+
 October 28, 2026: [Gene Editing source closeout](GENE-EDITING-LANDSCAPE.md)
 retains eleven seeds with 28 program/platform/affiliation rows, four sourced
 partnership claims and 46 publication candidates. All 30 prior excerpts matched
@@ -11,6 +92,30 @@ or paid calls. Unknown private facts stay unasserted; source audits are separate
 from human publication/Atomic Evidence decisions. See the dated package and
 review packet for provenance and scope. The following October 21 entry is the
 historical deployment baseline, not the current source count.
+
+October 28, 2026: [raspberry original-document follow-up](RASPBERRY-ORIGINAL-PATENT-REVIEW.md)
+adds four original US filing references with inspected claim pages and four
+source-labeled fruit figures, twelve separate parent/comparison occurrences and
+three issuer commercial-name/code observations. All nine sections remain
+unreviewed. Allberry/ABB legal identity, Baridi's conflicting code, current rights
+and image reuse remain unresolved. These metadata additions do not constitute
+new approved cultivars, organizations, roles or regions, or independent recall.
+Two additional breeder-labeled color fruit references fill missing photo-source
+fields for Malaika and Zawadi. Their image pixels remain hidden by default with
+unknown reuse. Neither changes a canonical identity or transfers a patent.
+
+The final [named-photo cohort](../../data/imports/variety-portfolio-observations-2026-10-28-profile-fruit-cohort/README.md)
+adds thirteen inspected originals, twelve associated with existing profiles and
+one held by the existing Rutgers D'Light code/name check. Across this draft,
+nineteen profiles gain reference metadata and the public seed's missing-photo
+count falls from 49 to 30; none gains reuse permission. Two fictional seed
+profiles are retained outside real-variety research. Planasa asset/page HTTP403
+gaps are explicit. Four non-destructive warning overlays retain focal cautions
+and move notes about other entries into secondary context, preserving all
+whole-source warnings, operator edits and newer captures.
+The bounded inventory is 456 sections / 1,680 name occurrences / 140 catalog
+matches / 1,540 occurrences needing review. These are source observations, not
+independent sources, new cultivars or a completeness score; CAT-01/CAT-02 stay open.
 
 October 23, 2026: [Publisher-first coverage and reader recovery](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 adds verified Watershed blog metadata and bounded Packer section discovery,
@@ -42,6 +147,80 @@ Packer server rejection and sitemap modification-date limitations remain explici
 Automatic keyless News runs on the restored 15-minute dispatcher; idle News pages
 observe completed captures without a manual refresh. Berries Australia RSS was
 verified with 10 publisher articles after a transient 507; server retries are bounded.
+
+## Original-paper follow-through — October 13, 2026
+
+The CAS institutional announcement's original paper supplies two previously
+omitted strawberry research-material names, Hawaii-4 and Benihoppe. Source context
+does not establish breeding or commercial roles. The company release portfolio
+remains partial. See [original-paper review](CAS-ORIGINAL-PAPER-SOURCE-REVIEW.md).
+Current bounded scope: 427 sections / 1,641 occurrences / 119 existing matches /
+1,522 review needs. All 64 stored profiles and human gates remain unchanged.
+
+## Printed-code follow-up — October 13, 2026
+
+Six exact public-register checks cover five previously unknown profiles. One
+original Plared 15121 filing is retained; its RedSayra association stays held.
+Five empty code results do not establish absent rights. Conflicting Baridi
+codes remain unresolved; documented ABB spacing no longer creates false holds.
+Two named Ervin photo references remain held for reuse. See
+[source review](PRINTED-CODE-REGISTER-FOLLOWUP.md). Measured observation scope is
+426 sections / 1,639 occurrences / 119 existing matches / 1,520 review needs;
+these are not approved-variety or intelligence-recall counts. 64 profiles,
+source maturity, qualification and human gates remain unchanged.
+
+## Whole missing-reference cohort — October 13, 2026
+
+The [cohort review](REFERENCE-GAP-COHORT-REVIEW.md) accounts for all 17 starting
+profiles: four gain original references, four name associations stay held,
+eight remain unknown in the bounded name searches, and one fictional seed is
+preserved/excluded from research. Twenty-three exact CPVO queries return two
+matching berry records and 22 other-crop homonyms. Three original US filings
+and the Ukrainian raspberry register section retain document identities and
+date meanings; no alias, current legal status or company role is approved.
+Nine sections add 19 observations, including 12 separate parent/comparison names.
+Current totals are 417 sections /1,627 occurrences /114 matches /1,513 review
+needs and 1,151 source-derived keys. The copied preview has 13 profiles without
+patent/PVR references, down from 17; other gaps remain 50 photos/33 traits/ten
+linked organizations. All 64 stored profiles and 332 protected files retain
+their bytes. Source drafts remain separate from the live platform #398.
+
+## Current Pairwise named-product refresh — October 13, 2026
+
+The [Fontana source review](FONTANA-SOURCE-COVERAGE-REVIEW.md) adds one explicitly
+named blackberry and two attributed, reuse-unconfirmed photo references from
+the current original company product page. The earlier unnamed product source
+is preserved. An unnamed seedless development product is not merged with it.
+The bounded audit is 408 sections /1,608 occurrences /110 catalog matches /
+1,498 review needs and 1,142 public-derived candidate keys. Canonical varieties
+remain 64. Current/historical completeness, legal denomination, company roles,
+traits, growing regions and reuse remain separate review work. Source drafts
+#399/#400 are separate from the verified live platform release #398.
+
+## Four-berry original patent sources — October 13, 2026
+
+Six original documents add five existing-profile references plus the unresolved
+NSG 203 filing and 29 separately discoverable parent/comparison names. Claims
+link directly to visually checked pages. No nearby name inherits a focal grant,
+company role, trait or image. See [the source review](FOUR-BERRY-ORIGINAL-PATENT-SOURCES-REVIEW.md).
+The bounded audit is 407 sections /1,607 occurrences /110 matches /1,497 review
+needs and 1,141 public-derived candidate keys. Canonical varieties remain 64;
+profiles without patent/PVR references are 17 in the copied preview. Current
+rights, comprehensive portfolios and actual human identity/catalog decisions
+remain open. This source batch remains separate from the verified live platform.
+
+## Original Florida patent references — October 13, 2026
+
+Seven existing number-only profiles gain unreviewed original-document pointers:
+Emerald, Farthing, Jewel, Meadowlark, Optimus, Patrecia and Sentinel. First-page
+visual checks retain printed names/codes, numbers and historical dates. A false
+name-as-code conflict is corrected without approving aliases or legal status;
+all seven match existing profiles against the full corpus. See
+[the bounded review](UF-ORIGINAL-PATENT-REFERENCE-REVIEW.md). This is reference
+coverage, not new varieties or current-rights verification. Canonical varieties
+remain 64; the 52 pending local source copies and original 32 human worksheets
+retain their separate gates. Broader completeness and media/trait/region work
+remain open.
 
 ## Source disclosure fidelity — October 13 UTC, 2026
 

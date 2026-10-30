@@ -38,10 +38,15 @@ def statistics(query, entities, records, relationships=(), *, inbox_dir=None, au
     for key in query.geography_ids:
         scope.update(resolve_geography_scope(key, relationships=relationships).all_ids)
     groups = []
+    from app.services.market_reference_countries import countries as reference_countries, equivalent_ids
+    choices = reference_countries(entities)
+    reference_scope = set()
+    for key in (*scope, *("iso:" + code for code in query.country_codes)):
+        reference_scope.update(equivalent_ids(key, entities, choices=choices))
     from app.services.map_statistics_refresh import references
     groups_for_scope = references(reference_groups(), inbox_dir, authoring)
     for group in identified_groups(groups_for_scope):
-        if query.geography_ids and group["country_id"] not in scope or query.country_codes and not scope:
+        if (query.geography_ids or query.country_codes) and group["country_id"] not in reference_scope:
             continue
         if query.commodities() and group["berry_id"] not in query.commodities():
             continue
@@ -70,7 +75,8 @@ def statistics(query, entities, records, relationships=(), *, inbox_dir=None, au
     places = [(key, entities[key]["name"]) for key in query.geography_ids]
     places += [("iso:" + code, global_explorer.boundary_countries()[code]) for code in query.country_codes]
     gaps = [f"{name} · {berry.removeprefix('berry-').title()}: no production reference recorded"
-            for geo, name in places for berry in wanted if not any(g["country_id"] == geo and g["berry_id"] == berry for g in groups)]
+            for geo, name in places for berry in wanted if not any(
+                g["country_id"] in equivalent_ids(geo, entities, choices=choices) and g["berry_id"] == berry for g in groups)]
     if not places:
         gaps = [f"{berry.removeprefix('berry-').title()}: no production reference in the initial dataset"
                 for berry in wanted if not any(g["berry_id"] == berry for g in groups)]

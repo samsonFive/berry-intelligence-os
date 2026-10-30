@@ -1,0 +1,610 @@
+{
+  "kind": "unreviewed_portfolio_name_observations",
+  "sources": [
+    {
+      "id": "portfolio-original-photo-followup-drisblueseventeen",
+      "title": "CFIA — DrisBlueSeventeen named photographs and separate comparison/parent labels",
+      "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011322e.shtml",
+      "checked_on": "2026-10-28",
+      "published_date": "",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "registry_reference",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Focal denomination/trade label, two comparison denominations, two literal parents, and selected photograph. Other navigation, numerical trial claims and legal conclusions excluded.",
+      "limitations": "All images have unknown reuse. This observation does not approve an alias, organization role, trait, growing footprint, rights status or image publication. Repeated page/photograph observations are not independent corroboration. Applicant photography is not assumed Crown-owned or reusable. The generic Date modified footer is not used as the date of a grant or a fresh legal verification.",
+      "capture_reference": {
+        "method": "original_page_and_downloaded_image_visual_review",
+        "response_sha256": "ef552ae05124b403c406df9147fed4d1465d8d3f6e700862199696817b087027",
+        "image_sha256": "7d188a4a0d41b34da1f9c81403a355f27500b11755880a0095722d749a208e3e",
+        "image_width": 511,
+        "image_height": 451,
+        "image_label_basis": "Original denomination, exact photograph label and caption; all comparison positions retained.",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false,
+        "source_date_modified_literal": "2023-09-18",
+        "image_kind": "flower",
+        "image_labels": [
+          "DrisBlueSeventeen"
+        ]
+      },
+      "names": [
+        {
+          "candidate_name": "DrisBlueSeventeen",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011322e.shtml",
+          "portfolio_context": "Focal denomination and printed trade label. Registry description and trial conditions are source assertions, not new approved profile fields.",
+          "photos": [
+            {
+              "named_variety": "DrisBlueSeventeen",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/image/9740c.jpg",
+              "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011322e.shtml",
+              "caption": "DrisBlueSeventeen flowers in the CFIA photograph labeled with that denomination.",
+              "credit": "Canadian Food Inspection Agency; applicant Driscoll's, Inc.; individual photographer not credited",
+              "kind": "plant",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Image visually checked against the original page and its label or caption context. Permission has not been established; private session preview does not grant reuse rights."
+            }
+          ],
+          "denomination": "DrisBlueSeventeen",
+          "trade_name": "Carlotta"
+        },
+        {
+          "candidate_name": "DrisBlueFifteen",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011322e.shtml",
+          "portfolio_context": "Named comparison variety, not the focal applicant variety. Keep the image position and company scope separate.",
+          "photos": [],
+          "source_company_ids": [],
+          "breeder_code": "136d5"
+        },
+        {
+          "candidate_name": "DrisBlueFive",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011322e.shtml",
+          "portfolio_context": "Named comparison variety, not the focal applicant variety. Keep the image position and company scope separate.",
+          "photos": [],
+          "source_company_ids": []
+        },
+        {
+          "candidate_name": "136D 2",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011322e.shtml",
+          "portfolio_context": "Literal parent label in the origin paragraph; not a new release or approved ancestry edge.",
+          "photos": [],
+          "source_company_ids": []
+        },
+        {
+          "candidate_name": "8B 4",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011322e.shtml",
+          "portfolio_context": "Literal parent label in the origin paragraph; not a new release or approved ancestry edge.",
+          "photos": [],
+          "source_company_ids": []
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "reported_items": 5,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-photo-followup-drisbluetwentyone",
+      "title": "CFIA — DrisBlueTwentyOne named photographs and separate comparison/parent labels",
+      "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011965e.shtml",
+      "checked_on": "2026-10-28",
+      "published_date": "",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "registry_reference",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Focal denomination/trade label, two comparison denominations, two literal parents, and selected photograph. Other navigation, numerical trial claims and legal conclusions excluded.",
+      "limitations": "All images have unknown reuse. This observation does not approve an alias, organization role, trait, growing footprint, rights status or image publication. Repeated page/photograph observations are not independent corroboration. Applicant photography is not assumed Crown-owned or reusable. The generic Date modified footer is not used as the date of a grant or a fresh legal verification.",
+      "capture_reference": {
+        "method": "original_page_and_downloaded_image_visual_review",
+        "response_sha256": "832d1ad7e0eb5734f1169aa2230c381ee985b1e6b54b7c3b425c13312f8244e0",
+        "image_sha256": "4a4b6da3e5cc6a9f36b06858c40c83074f88720a09ded8f47cb37a96092ecca2",
+        "image_width": 627,
+        "image_height": 392,
+        "image_label_basis": "Original denomination, exact photograph label and caption; all comparison positions retained.",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false,
+        "source_date_modified_literal": "2023-09-18",
+        "image_kind": "uncropped three-variety comparison",
+        "image_labels": [
+          "DrisBlueOne",
+          "DrisBlueTwentyOne",
+          "DrisBlueSeventeen"
+        ]
+      },
+      "names": [
+        {
+          "candidate_name": "DrisBlueTwentyOne",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011965e.shtml",
+          "portfolio_context": "Focal denomination and printed trade label. Registry description and trial conditions are source assertions, not new approved profile fields.",
+          "photos": [
+            {
+              "named_variety": "DrisBlueTwentyOne",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/image/10332c.jpg",
+              "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011965e.shtml",
+              "caption": "DrisBlueTwentyOne (Kimberley), centre column; DrisBlueOne is left and DrisBlueSeventeen is right. Full labeled comparison; no ruler measurements inferred.",
+              "credit": "Canadian Food Inspection Agency; applicant Driscoll's, Inc.; individual photographer not credited",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Image visually checked against the original page and its label or caption context. Permission has not been established; private session preview does not grant reuse rights."
+            }
+          ],
+          "denomination": "DrisBlueTwentyOne",
+          "trade_name": "Kimberley"
+        },
+        {
+          "candidate_name": "DrisBlueOne",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011965e.shtml",
+          "portfolio_context": "Named comparison variety, not the focal applicant variety. Keep the image position and company scope separate.",
+          "photos": [],
+          "source_company_ids": [],
+          "trade_name": "Rockinoee"
+        },
+        {
+          "candidate_name": "DrisBlueSeventeen",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011965e.shtml",
+          "portfolio_context": "Named comparison variety, not the focal applicant variety. Keep the image position and company scope separate.",
+          "photos": [
+            {
+              "named_variety": "DrisBlueSeventeen",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/image/10332c.jpg",
+              "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011965e.shtml",
+              "caption": "DrisBlueSeventeen (Carlotta), right column; DrisBlueOne is left and DrisBlueTwentyOne is centre. Full source comparison, not an isolated specimen.",
+              "credit": "Canadian Food Inspection Agency; applicant Driscoll's, Inc.; individual photographer not credited",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Image visually checked against the original page and its label or caption context. Permission has not been established; private session preview does not grant reuse rights."
+            }
+          ],
+          "source_company_ids": [],
+          "trade_name": "Carlotta"
+        },
+        {
+          "candidate_name": "136D 2",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011965e.shtml",
+          "portfolio_context": "Literal parent label in the origin paragraph; not a new release or approved ancestry edge.",
+          "photos": [],
+          "source_company_ids": []
+        },
+        {
+          "candidate_name": "181C 1",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011965e.shtml",
+          "portfolio_context": "Literal parent label in the origin paragraph; not a new release or approved ancestry edge.",
+          "photos": [],
+          "source_company_ids": []
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "reported_items": 5,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-photo-followup-drisbluetwentythree",
+      "title": "CFIA — DrisBlueTwentyThree named photographs and separate comparison/parent labels",
+      "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011977e.shtml",
+      "checked_on": "2026-10-28",
+      "published_date": "",
+      "company_ids": [
+        "company-driscolls"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "registry_reference",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "Focal denomination/trade label, two comparison denominations, two literal parents, and selected photograph. Other navigation, numerical trial claims and legal conclusions excluded.",
+      "limitations": "All images have unknown reuse. This observation does not approve an alias, organization role, trait, growing footprint, rights status or image publication. Repeated page/photograph observations are not independent corroboration. Applicant photography is not assumed Crown-owned or reusable. The generic Date modified footer is not used as the date of a grant or a fresh legal verification.",
+      "capture_reference": {
+        "method": "original_page_and_downloaded_image_visual_review",
+        "response_sha256": "bc8d8ac4b55cb052b90ddbe87e107c0b2b30181c37576a6e82ca8ccba1c42788",
+        "image_sha256": "13b3b698f69b3e19b0886985057467d7d8189e6a8b873072793f8550dc4791f9",
+        "image_width": 629,
+        "image_height": 542,
+        "image_label_basis": "Original denomination, exact photograph label and caption; all comparison positions retained.",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false,
+        "source_date_modified_literal": "2023-09-18",
+        "image_kind": "uncropped three-variety comparison",
+        "image_labels": [
+          "DrisBlueSeven",
+          "DrisBlueTwentyThree",
+          "DrisBlueTwentyTwo"
+        ]
+      },
+      "names": [
+        {
+          "candidate_name": "DrisBlueTwentyThree",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011977e.shtml",
+          "portfolio_context": "Focal denomination and printed trade label. Registry description and trial conditions are source assertions, not new approved profile fields.",
+          "photos": [
+            {
+              "named_variety": "DrisBlueTwentyThree",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/image/10341c.jpg",
+              "source_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011977e.shtml",
+              "caption": "DrisBlueTwentyThree (Rosita), centre column; DrisBlueSeven is left and DrisBlueTwentyTwo is right. Full labeled comparison; no ruler measurements inferred.",
+              "credit": "Canadian Food Inspection Agency; applicant Driscoll's, Inc.; individual photographer not credited",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Image visually checked against the original page and its label or caption context. Permission has not been established; private session preview does not grant reuse rights."
+            }
+          ],
+          "denomination": "DrisBlueTwentyThree",
+          "trade_name": "Rosita"
+        },
+        {
+          "candidate_name": "DrisBlueSeven",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011977e.shtml",
+          "portfolio_context": "Named comparison variety, not the focal applicant variety. Keep the image position and company scope separate.",
+          "photos": [],
+          "source_company_ids": [],
+          "trade_name": "Stella Blue"
+        },
+        {
+          "candidate_name": "DrisBlueTwentyTwo",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011977e.shtml",
+          "portfolio_context": "Named comparison variety, not the focal applicant variety. Keep the image position and company scope separate.",
+          "photos": [],
+          "source_company_ids": [],
+          "trade_name": "Regina"
+        },
+        {
+          "candidate_name": "196H-3",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011977e.shtml",
+          "portfolio_context": "Literal parent label in the origin paragraph; not a new release or approved ancestry edge.",
+          "photos": [],
+          "source_company_ids": []
+        },
+        {
+          "candidate_name": "75J301",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/bl/app00011977e.shtml",
+          "portfolio_context": "Literal parent label in the origin paragraph; not a new release or approved ancestry edge.",
+          "photos": [],
+          "source_company_ids": []
+        }
+      ],
+      "accounting": {
+        "observed_items": 5,
+        "reported_items": 5,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-photo-followup-mbg-keepsake",
+      "title": "MBG — Keepsake blueberry card photograph",
+      "url": "https://www.blueberries.com/proprietary-berry-varieties-berry-blue-llc/",
+      "checked_on": "2026-10-28",
+      "published_date": "",
+      "company_ids": [
+        "company-michigan-blueberry-growers"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One named blueberry card and photo. Other page varieties remain covered by the retained whole-page portfolio observation.",
+      "limitations": "All images have unknown reuse. This observation does not approve an alias, organization role, trait, growing footprint, rights status or image publication. Repeated page/photograph observations are not independent corroboration. The upload directory date is not a publication or release date. The strawberry named Keepsake is a different crop and receives no photo from this card.",
+      "capture_reference": {
+        "method": "original_page_and_downloaded_image_visual_review",
+        "response_sha256": "ba5f12b83de823b390a89180470d4ccc1d6994607046f003fd84c90171621b7e",
+        "image_sha256": "a86479e8924762e6eec4d78ada6b12f47a282568c97b9d10908474673713dfa9",
+        "image_width": 1316,
+        "image_height": 973,
+        "image_label_basis": "Named blueberry card, adjacent code and image title; the literal Medallio43n typo is not a variety alias.",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false,
+        "image_title": "Keepsake",
+        "image_alt": ""
+      },
+      "names": [
+        {
+          "candidate_name": "Keepsake",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.blueberries.com/proprietary-berry-varieties-berry-blue-llc/",
+          "portfolio_context": "Named blueberry card and its photo; source code is retained without editing canonical aliases.",
+          "photos": [
+            {
+              "named_variety": "Keepsake",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://www.blueberries.com/wp-content/uploads/2022/08/Keepsake.jpg",
+              "source_url": "https://www.blueberries.com/proprietary-berry-varieties-berry-blue-llc/",
+              "caption": "Keepsake blueberries pictured beside the named BB05-251MI-14 card on MBG's Berry Blue page.",
+              "credit": "MBG Marketing / Berry Blue, LLC; individual photographer not identified in the checked card",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Image visually checked against the original page and its label or caption context. Permission has not been established; private session preview does not grant reuse rights."
+            }
+          ],
+          "breeder_code": "BB05-251MI-14"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-photo-followup-mbg-medallion",
+      "title": "MBG — Medallion blueberry card photograph",
+      "url": "https://www.blueberries.com/proprietary-berry-varieties-berry-blue-llc/",
+      "checked_on": "2026-10-28",
+      "published_date": "",
+      "company_ids": [
+        "company-michigan-blueberry-growers"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "breeder_catalog",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One named blueberry card and photo. Other page varieties remain covered by the retained whole-page portfolio observation.",
+      "limitations": "All images have unknown reuse. This observation does not approve an alias, organization role, trait, growing footprint, rights status or image publication. Repeated page/photograph observations are not independent corroboration. The upload directory date is not a publication or release date. The strawberry named Keepsake is a different crop and receives no photo from this card.",
+      "capture_reference": {
+        "method": "original_page_and_downloaded_image_visual_review",
+        "response_sha256": "ba5f12b83de823b390a89180470d4ccc1d6994607046f003fd84c90171621b7e",
+        "image_sha256": "d8b76b31486194193a1b03ec2019027b395002eb36b95d94564a4e4a89d2ef35",
+        "image_width": 1217,
+        "image_height": 913,
+        "image_label_basis": "Named blueberry card, adjacent code and image title; the literal Medallio43n typo is not a variety alias.",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false,
+        "image_title": "Medallio43n",
+        "image_alt": "Ripening blueberries on bush"
+      },
+      "names": [
+        {
+          "candidate_name": "Medallion",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.blueberries.com/proprietary-berry-varieties-berry-blue-llc/",
+          "portfolio_context": "Named blueberry card and its photo; source code is retained without editing canonical aliases.",
+          "photos": [
+            {
+              "named_variety": "Medallion",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://www.blueberries.com/wp-content/uploads/2022/08/Medallio43n.jpg",
+              "source_url": "https://www.blueberries.com/proprietary-berry-varieties-berry-blue-llc/",
+              "caption": "Medallion blueberries pictured beside the named BB05-259MI-15 card on MBG's Berry Blue page.",
+              "credit": "MBG Marketing / Berry Blue, LLC; individual photographer not identified in the checked card",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Image visually checked against the original page and its label or caption context. Permission has not been established; private session preview does not grant reuse rights."
+            }
+          ],
+          "breeder_code": "BB05-259MI-15"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-photo-followup-nova",
+      "title": "Fall Creek — SEKOYA Nova FC15-173 announcement photograph",
+      "url": "https://www.fallcreeknursery.com/blog/fall-creek-to-reveal-new-sekoya-nova-fc15-173-high-chill-blueberry-variety-at-fruit-logistica-2026",
+      "checked_on": "2026-10-28",
+      "published_date": "2026-01-21",
+      "company_ids": [
+        "company-fall-creek-farm-and-nursery"
+      ],
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "source_type": "breeder_announcement",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One named Nova/FC15-173 highlight and its second inline image. Fall Creek Collection names, site navigation, claims and complete portfolio enumeration excluded.",
+      "limitations": "All images have unknown reuse. This observation does not approve an alias, organization role, trait, growing footprint, rights status or image publication. Repeated page/photograph observations are not independent corroboration. No separate alt/caption identifies the image. Original section association is retained explicitly; shelf-life, fruit-size, market and acreage claims are not adopted.",
+      "capture_reference": {
+        "method": "original_page_and_downloaded_image_visual_review",
+        "response_sha256": "ff3593db830a4b1302d75b14afcf6bffb6fae0438f51cbafabf6749ab5c9cfa9",
+        "image_sha256": "e2089ed9bf70f57ec9b277dbc35a1d4177b6bc305826e32e9b6b1a1fbcf6fdc1",
+        "image_width": 666,
+        "image_height": 444,
+        "image_label_basis": "Second inline image inside the explicitly named Nova FC15-173 highlight, not a generic site banner.",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false,
+        "image_alt": "",
+        "image_title": ""
+      },
+      "names": [
+        {
+          "candidate_name": "SEKOYA Nova",
+          "berry_id": "berry-blueberry",
+          "product_url": "https://www.fallcreeknursery.com/blog/fall-creek-to-reveal-new-sekoya-nova-fc15-173-high-chill-blueberry-variety-at-fruit-logistica-2026",
+          "portfolio_context": "Specific Nova highlight and its second inline image; source placement is the attribution basis, not an independent variety identification.",
+          "photos": [
+            {
+              "named_variety": "SEKOYA Nova",
+              "berry_id": "berry-blueberry",
+              "image_url": "https://www.fallcreeknursery.com/assets/uploads/images/Picture2.jpg",
+              "source_url": "https://www.fallcreeknursery.com/blog/fall-creek-to-reveal-new-sekoya-nova-fc15-173-high-chill-blueberry-variety-at-fruit-logistica-2026",
+              "caption": "Blueberries pictured in the SEKOYA Nova 'FC15-173' highlight. This inline image has no separate variety caption; its placement in Fall Creek's announcement is the attribution basis.",
+              "credit": "Fall Creek Farm & Nursery, Inc.; individual photographer not credited",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Image visually checked against the original page and its label or caption context. Permission has not been established; private session preview does not grant reuse rights."
+            }
+          ],
+          "breeder_code": "FC15-173"
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-photo-followup-ouachita-news",
+      "title": "University of Arkansas — Ouachita award story photograph",
+      "url": "https://news.uark.edu/articles/54325/top-performing-arkansas-blackberry-receives-outstanding-fruit-cultivar-award",
+      "checked_on": "2026-10-28",
+      "published_date": "2020-07-29",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "breeder_announcement",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One named photograph and original caption. Article performance, licensing, location and award conclusions remain separate evidence.",
+      "limitations": "All images have unknown reuse. This observation does not approve an alias, organization role, trait, growing footprint, rights status or image publication. Repeated page/photograph observations are not independent corroboration. This is a person holding labeled fruit, not an isolated specimen photo. Photo submission credit is not a permission grant. URL timestamp is not substituted for article publication date.",
+      "capture_reference": {
+        "method": "original_page_and_downloaded_image_visual_review",
+        "response_sha256": "d809fb2c89fcbbcf3a69363d75fd2b18613bff8aa52f016b835dc3475bd9496b",
+        "image_sha256": "0e5a0bfc3e89f9fa43bbb06ea07a9e569f03a0853eb499bdfc7c1fcc2e4c71b9",
+        "image_width": 900,
+        "image_height": 1200,
+        "image_label_basis": "Original article caption names John Clark and Ouachita; full unmodified portrait retained.",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Ouachita",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://news.uark.edu/articles/54325/top-performing-arkansas-blackberry-receives-outstanding-fruit-cultivar-award",
+          "portfolio_context": "Named fruit in the original university photograph caption; not proof of a new release or a current patent status.",
+          "photos": [
+            {
+              "named_variety": "Ouachita",
+              "berry_id": "berry-blackberry",
+              "image_url": "https://campusdata.uark.edu/resources/images/articles/2020-07-28_04-24-50-PMOuachita_JRC.jpg",
+              "source_url": "https://news.uark.edu/articles/54325/top-performing-arkansas-blackberry-receives-outstanding-fruit-cultivar-award",
+              "caption": "John Clark holding Ouachita blackberries, as identified in the university news caption.",
+              "credit": "Submitted by John R. Clark; University of Arkansas",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Image visually checked against the original page and its label or caption context. Permission has not been established; private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    },
+    {
+      "id": "portfolio-original-photo-followup-ponca",
+      "title": "Arkansas Division of Agriculture — Ponca release-story photograph",
+      "url": "https://uaex.uada.edu/media-resources/news/2019/december2019/12-09-2019_Division_releases_Ponca_blackberry-FM.aspx",
+      "checked_on": "2026-10-28",
+      "published_date": "2019-12-20",
+      "company_ids": [
+        "company-university-of-arkansas"
+      ],
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "source_type": "breeder_announcement",
+      "capture_status": "names_enumerated",
+      "review_state": "unreviewed",
+      "enumerated_scope": "One named photograph and adjacent caption. Other cultivars, sensory claims, breeding history and full article-name enumeration excluded.",
+      "limitations": "All images have unknown reuse. This observation does not approve an alias, organization role, trait, growing footprint, rights status or image publication. Repeated page/photograph observations are not independent corroboration. The news URL says 12-09 but the displayed story date is December 20, 2019. Keep the original URL and displayed publication date. Media-photo links are not taken as a general reuse license.",
+      "capture_reference": {
+        "method": "original_page_and_downloaded_image_visual_review",
+        "response_sha256": "b35d3a4d1a92febf52c17e576d79afc1d782a5e6292dbfac4574155e46957a56",
+        "image_sha256": "fd51b10ae856d54a91c46a68a46de84acb95a66e481163fc3cefa24ef65ca75b",
+        "image_width": 640,
+        "image_height": 480,
+        "image_label_basis": "Named Ponca01 image and adjacent caption with explicit Dr. John R. Clark credit.",
+        "original_image_visual_reviewed": true,
+        "reuse_permission_verified": false,
+        "current_legal_status_verified": false
+      },
+      "names": [
+        {
+          "candidate_name": "Ponca",
+          "berry_id": "berry-blackberry",
+          "product_url": "https://uaex.uada.edu/media-resources/news/2019/december2019/12-09-2019_Division_releases_Ponca_blackberry-FM.aspx",
+          "portfolio_context": "Ponca01 photograph and the adjacent named caption. Sensory comparisons and release statements require their own review.",
+          "photos": [
+            {
+              "named_variety": "Ponca",
+              "berry_id": "berry-blackberry",
+              "image_url": "https://live.staticflickr.com/65535/49248979807_4ceedfbb94_z.jpg",
+              "source_url": "https://uaex.uada.edu/media-resources/news/2019/december2019/12-09-2019_Division_releases_Ponca_blackberry-FM.aspx",
+              "caption": "Ponca fruit in a hand, as identified in the Division of Agriculture release story.",
+              "credit": "Photo courtesy of Dr. John R. Clark; University of Arkansas System Division of Agriculture",
+              "kind": "fruit",
+              "checked_on": "2026-10-28",
+              "reuse": "unknown",
+              "license_url": "",
+              "reuse_note": "Image visually checked against the original page and its label or caption context. Permission has not been established; private session preview does not grant reuse rights."
+            }
+          ]
+        }
+      ],
+      "accounting": {
+        "observed_items": 1,
+        "reported_items": 1,
+        "exclusions": []
+      }
+    }
+  ]
+}
