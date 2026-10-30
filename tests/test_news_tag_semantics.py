@@ -17,9 +17,9 @@ def completer(calls, *, select='markets', during=None):
         calls.append(request)
         if during:
             during()
-        return {'articles':[{'id':row['id'],'assignments':[
-            {'tag_id':select,'support':row['text'][-min(80,len(row['text'])):]}] if select else []}
-            for row in request['articles']]}
+        return {'articles':{row['id']:[
+            {'tag_id':select,'support':row['passages'][0]['id']}] if select else []
+            for row in request['articles']}}
     return complete
 
 
@@ -43,8 +43,82 @@ def test_semantic_assignments_cache_and_manual_race(tmp_path):
     assert len(calls)==1
     with tags.database(tmp_path,readonly=True) as db:
         decision=db.execute('SELECT * FROM automatic WHERE article=? AND tag=?',(row['id'],'markets')).fetchone()
-        assert decision['classifier_version'].startswith('semantic-tags-1:perplexity-agent:')
+        assert decision['classifier_version'].startswith(semantic.VERSION+':perplexity-agent:')
         assert decision['rationale'] in semantic.projection(row)['text']
+
+
+@pytest.mark.parametrize('source,support',[
+    ("Inka’s Berries licenses its cultivars.", "Inka's Berries licenses its cultivars"),
+    ('The grower reported “higher prices” this week.', 'The grower reported "higher prices"'),
+    ('Exports\u00a0\u00a0fell by ２０ percent.', 'exports fell by 20 percent'),
+])
+def test_typographic_passages_resolve_to_original_source_characters(source,support):
+    passage=semantic.source_passage(source,support)
+    assert passage and passage in source
+    assert semantic.validate({'articles':[{'id':'one','assignments':[{'tag_id':'markets','support':support}]}]},
+        [{'id':'one','text':source}], [{'id':'markets'}])['one']['markets']==passage
+
+
+@pytest.mark.parametrize('support',[
+    'Exports rose by 20 percent', 'Exports fell by 30 percent',
+    'Exports fell ... 20 percent', 'Exports fell by twenty percent',
+])
+def test_typographic_normalization_never_repairs_changed_claims(support):
+    assert semantic.source_passage('Exports fell by 20 percent.',support) is None
+
+
+def test_passage_ids_preserve_source_typos_and_reject_unknown_references():
+    source='ndia is facing a structural shortage of fresh raspberries.'
+    records=[{'id':'one','text':source}]
+    payload={'articles':[{'id':'one','assignments':[{'tag_id':'markets','support':'p0'}]}]}
+    assert semantic.validate(payload,records,[{'id':'markets'}])['one']['markets']==source
+    payload['articles'][0]['assignments'][0]['support']='p999'
+    with pytest.raises(ValueError,match='Unsupported'):
+        semantic.validate(payload,records,[{'id':'markets'}])
+    spans=semantic.passages('Long stored article. '*1000)
+    assert len(spans)>1 and all(len(s)<=600 and s in 'Long stored article. '*1000 for s in spans.values())
+
+
+def test_schema_limits_ids_and_valid_duplicate_labels_are_idempotent():
+    records=[{'id':'one','text':'Berry export prices fell by twenty percent.'}]
+    catalog=[{'id':'markets'}]
+    schema=semantic.response_schema(catalog,records)
+    articles=schema['properties']['articles']
+    assert articles['required']==['one']
+    fields=articles['properties']['one']['items']['properties']
+    assert fields['tag_id']['enum']==['markets']
+    assert fields['support']['enum']==['p0']
+    assert semantic.validate({'articles':{'one':[]}},records,catalog)=={'one':{}}
+    with pytest.raises(ValueError,match='Missing'):
+        semantic.validate({'articles':{}},records,catalog)
+    item={'tag_id':'markets','support':'p0'}
+    payload={'articles':[{'id':'one','assignments':[item,item]}]}
+    assert semantic.validate(payload,records,catalog)=={'one':{'markets':records[0]['text']}}
+    payload['articles'][0]['assignments'][1]={'tag_id':'markets','support':'fabricated passage'}
+    with pytest.raises(ValueError,match='Unsupported'):
+        semantic.validate(payload,records,catalog)
+
+
+def test_enqueue_cached_content_clears_obsolete_pending_fingerprints(tmp_path):
+    row=source()
+    semantic.enqueue(tmp_path,[row]);semantic.run(tmp_path,complete_json=completer([]))
+    with tags.database(tmp_path) as db:
+        db.execute('INSERT OR REPLACE INTO tag_pending VALUES(?,?)',(row['id'],'obsolete'))
+    semantic.enqueue(tmp_path,[row])
+    assert semantic.run(tmp_path,complete_json=completer([]))['status']=='ready'
+    with tags.database(tmp_path,readonly=True) as db:
+        assert db.execute('SELECT count(*) FROM tag_pending').fetchone()[0]==0
+
+
+def test_name_only_tags_have_a_definition_and_keep_their_meaning_on_rename(tmp_path):
+    tag=tags.create(tmp_path,'Labor')
+    request=json.loads(semantic.prompt([{'id':'one','text':'Seasonal workers negotiate wages.'}],tags.catalog(tmp_path)).split('\n')[-1])
+    definition=next(t['definition'] for t in request['definitions'] if t['id']==tag['id'])
+    assert definition=='Reporting about Labor.'
+    row=semantic.projection(source())
+    before=semantic.fingerprint(row,tags.catalog(tmp_path))
+    tags.update(tmp_path,tag['id'],'Workforce','')
+    assert semantic.fingerprint(row,tags.catalog(tmp_path))==before
 
 
 def test_long_stored_body_is_chunked_and_resumed_without_repeating_calls(tmp_path):
@@ -58,8 +132,18 @@ def test_long_stored_body_is_chunked_and_resumed_without_repeating_calls(tmp_pat
     second=semantic.run(tmp_path,complete_json=completer(calls),batch_size=1)
     assert second['status']=='ready'
     assert len(calls)==2
-    assert all(len(row['text'])<=semantic.MAX_TEXT for call in calls for row in call['articles'])
+    assert all(sum(len(p['text']) for p in row['passages'])<=semantic.MAX_TEXT for call in calls for row in call['articles'])
     assert len({r['id'] for call in calls for r in call['articles']})==2
+
+
+def test_running_progress_includes_cached_sources_from_prior_passes(tmp_path):
+    semantic.enqueue(tmp_path,[source('first')])
+    semantic.run(tmp_path,complete_json=completer([]))
+    semantic.enqueue(tmp_path,[source('second')])
+    progress=[]
+    semantic.run(tmp_path,complete_json=completer([],during=lambda:progress.append(tags.job_state(tmp_path))))
+    assert progress[0]['status']=='running'
+    assert progress[0]['processed']==1 and progress[0]['total']==2
 
 
 @pytest.mark.parametrize('failure',['missing','fabricated','duplicate'])
