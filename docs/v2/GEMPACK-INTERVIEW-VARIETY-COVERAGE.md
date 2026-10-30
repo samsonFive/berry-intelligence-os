@@ -39,10 +39,15 @@ rejections, notes, aliases, images and registration values win on replay.
 
 ## Verification
 
-All 36 affected checks pass with one existing ReportLab deprecation warning
-in 147.34 seconds. The initial run correctly found the old finite inventory
+All 41 final affected checks pass with one existing ReportLab deprecation warning
+in 52.60 seconds. The initial run correctly found the old finite inventory
 contract's 1,864 count; its updated 1,874 count follows the independent audit,
-with no matching-rule changes. Focused checks cover crop/name/date accounting, neighboring-company
+with no matching-rule changes. Full CI then found two older tests that assumed
+all Gem-Pack sources were unnamed. Those tests now retain their twelve-page
+cohort and selected unnamed packaging-page scope; a new integration check
+requires the full company view to show its ten names alongside five remaining
+gaps, without public leakage or state writes. No source or application change
+was needed. Focused checks cover crop/name/date accounting, neighboring-company
 exclusions, retained incomplete checks, saved rejection/custom-field preservation
 and idempotent candidate IDs. Broader existing portfolio and release-interview
 tests run with them. Native desktop and 412px review verifies both dates, the

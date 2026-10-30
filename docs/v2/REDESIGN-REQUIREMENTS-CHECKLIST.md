@@ -1,6 +1,6 @@
 # Redesign and consolidation requirements
 
-October 30 — [Gem-Pack interview coverage](GEMPACK-INTERVIEW-VARIETY-COVERAGE.md) adds three unreviewed source sections /ten name occurrences from two dated original interviews. Public-seed totals are525 /1,874 /165 /1,709;64 of77 supplied subjects now have named-source coverage. Gem-Pack retains five incomplete checks. All36 affected tests and desktop/412px review pass; this source draft still needs its exact-head CI and later release. Canonical3b0b4acc retains approved442; navigation443 is separately tested and unreleased. All31 original accepted definitions/order remain. Earlier pending-release notes below are historical.
+October 30 — [Gem-Pack interview coverage](GEMPACK-INTERVIEW-VARIETY-COVERAGE.md) adds three unreviewed source sections /ten name occurrences from two dated original interviews. Public-seed totals are525 /1,874 /165 /1,709;64 of77 supplied subjects now have named-source coverage. Gem-Pack retains five incomplete checks. All41 final affected tests and desktop/412px review pass; this source draft still needs its exact-head CI and later release. Canonical3b0b4acc retains approved442; navigation443 is separately tested and unreleased. All31 original accepted definitions/order remain. Earlier pending-release notes below are historical.
 
 October30 — Approved combined #440 is merged1aef8862 and live with fresh backup,
 bounded preservation, all required checks and native/live verification. The

@@ -9,7 +9,7 @@ navigation #443 passes all four / 5,479 tests and remains an undeployed draft.
 The independent [Gem-Pack source follow-up](docs/v2/GEMPACK-INTERVIEW-VARIETY-COVERAGE.md)
 adds three unreviewed sections / ten name occurrences from two dated interviews,
 with two new derived candidate keys and no canonical changes. Gem-Pack retains
-its incomplete-portfolio warning. All 36 affected checks and desktop/412px review
+its incomplete-portfolio warning. All 41 final affected checks and desktop/412px review
 pass; exact-head CI and any later release remain separate. Complete current and
 historical portfolios, human identity/rights/photo decisions and wider content
 depth remain open. Earlier dated pending-release notes are historical.

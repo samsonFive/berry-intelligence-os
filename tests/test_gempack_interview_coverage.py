@@ -3,6 +3,9 @@ from copy import deepcopy
 import json
 from pathlib import Path
 
+from fastapi.testclient import TestClient
+
+from app import main
 from app.services.variety_portfolio_coverage import (
     load_portfolio_observations, portfolio_coverage, reconcile_portfolios,
 )
@@ -73,3 +76,26 @@ def test_named_interviews_do_not_clear_existing_gempack_portfolio_gaps():
     assert len(names) == 10 and not names.intersection({'BG', 'Short N Sweet'})
     assert all(s['needs_follow_up'] for s in report['sources'] if s['id'] in {
         'portfolio-gap-gempack-current-crops', 'portfolio-gempack-original-history-pdf'})
+
+
+def test_mixed_company_view_keeps_named_sources_and_gaps_private_without_writes(monkeypatch, tmp_path):
+    monkeypatch.setattr(main, 'INBOX_DIR', tmp_path)
+    monkeypatch.setattr(main, 'AUTHORING_MODE', True)
+    client = TestClient(main.app)
+    query = {'company': 'company-gem-pack-berries'}
+    page = client.get('/varieties/coverage', params=query)
+    assert page.status_code == 200
+    portfolios = page.context['coverage']['portfolios']
+    assert portfolios['summary']['names'] == 10
+    assert portfolios['summary']['follow_up_sections'] == 5
+    assert 'We haven’t captured variety names in these pages' not in page.text
+    assert 'Names found · more sources to check' in page.text
+    assert 'Winter Frost' in page.text and '36 packaging/SKU rows' in page.text
+    assert 'Published <time datetime="2025-04-07">2025-04-07</time>' in page.text
+    assert 'Review these source names' in page.text
+    assert not list(tmp_path.rglob('*.json'))
+    monkeypatch.setattr(main, 'AUTHORING_MODE', False)
+    public = client.get('/varieties/coverage', params=query)
+    assert public.status_code == 200
+    assert PREFIX not in public.text and 'Winter Frost' not in public.text
+    assert not list(tmp_path.rglob('*.json'))

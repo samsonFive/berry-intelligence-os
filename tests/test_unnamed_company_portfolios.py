@@ -60,7 +60,9 @@ def test_brand_program_and_scoped_faq_gaps_cannot_close_named_portfolio_coverage
 
 def test_added_gap_sources_leave_all_candidate_ids_and_company_associations_unchanged():
     all_rows = load_portfolio_observations(DATA)
-    scoped = [s for s in all_rows if set(s['company_ids']) & {'company-surexport','company-gem-pack-berries'}]
+    # This contract covers the twelve unnamed-page checks. Later interviews
+    # can legitimately name varieties without changing those original gaps.
+    scoped = sources()
     assert len(scoped) == len({(tuple(s['company_ids']), s['url']) for s in scoped}) == 12
     assert {s['id'] for s in scoped if s['capture_reference'].get('refresh_of_existing_section')} == REFRESH_IDS
     def candidate_set(rows):
@@ -73,7 +75,9 @@ def test_live_company_gaps_show_originals_privately_without_public_leaks_or_writ
     monkeypatch.setattr(main, 'INBOX_DIR', tmp_path)
     monkeypatch.setattr(main, 'AUTHORING_MODE', True)
     client = TestClient(main.app)
-    page = client.get('/varieties/coverage', params={'company': 'company-gem-pack-berries'})
+    # Inspect the unnamed packaging page, independently of later named sources.
+    query = {'company': 'company-gem-pack-berries', 'q': 'original packaging catalog'}
+    page = client.get('/varieties/coverage', params=query)
     assert page.status_code == 200
     assert 'We haven’t captured variety names in these pages' in page.text
     assert 'Winter Frost' in page.text and '36 packaging/SKU rows' in page.text
@@ -81,7 +85,7 @@ def test_live_company_gaps_show_originals_privately_without_public_leaks_or_writ
     assert 'Review these source names' not in page.text and 'Ignore permission' not in page.text
     assert not list(tmp_path.rglob('*.json'))
     monkeypatch.setattr(main, 'AUTHORING_MODE', False)
-    public = client.get('/varieties/coverage', params={'company': 'company-gem-pack-berries'})
+    public = client.get('/varieties/coverage', params=query)
     assert public.status_code == 200 and 'Winter Frost' not in public.text
     assert not any(prefix in public.text for prefix in PREFIXES)
     assert not list(tmp_path.rglob('*.json'))
