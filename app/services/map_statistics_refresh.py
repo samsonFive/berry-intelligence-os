@@ -7,13 +7,13 @@ import re
 from uuid import uuid4
 
 from app.services.analyst_state_io import atomic_json, serialized_write
-from app.services.market_statistics_reference import METHODOLOGY, group_id
+from app.services.market_statistics_reference import EUROSTAT_COUNTRIES, METHODOLOGY, group_id
 from app.services.pipeline_lock import pipeline_lock
 from scripts.capture_map_statistics import capture
 
 SUBDIR = 'market_statistics_refresh'
 ACTIVE = {'queued', 'running'}
-COUNTRIES = ('Germany', 'Spain', 'Netherlands', 'Portugal')
+COUNTRIES = tuple(row[1] for row in EUROSTAT_COUNTRIES.values())
 
 
 def now():
@@ -29,12 +29,12 @@ def path(inbox_dir):
 
 
 def validate_groups(groups):
-    if not isinstance(groups, list) or len(groups) > 4:
+    if not isinstance(groups, list) or len(groups) > len(EUROSTAT_COUNTRIES):
         raise ValueError()
     seen = set()
+    expected = {row[0]: (code, row[1]) for code, row in EUROSTAT_COUNTRIES.items()}
     for group in groups:
-        if not isinstance(group, dict) or group.get('source') != 'Eurostat' or group.get('country_id') not in {
-            'geography-germany', 'geography-spain', 'geography-netherlands', 'geography-portugal'}:
+        if not isinstance(group, dict) or group.get('source') != 'Eurostat' or group.get('country_id') not in expected:
             raise ValueError()
         if group.get('berry_id') != 'berry-strawberry' or group.get('commodity') != 'Strawberries':
             raise ValueError()
@@ -44,10 +44,10 @@ def validate_groups(groups):
         from urllib.parse import parse_qs, urlsplit
         source = urlsplit(group['source_url'])
         query = parse_qs(source.query)
-        expected = {'geography-germany': 'DE', 'geography-spain': 'ES', 'geography-netherlands': 'NL', 'geography-portugal': 'PT'}
         if source.scheme != 'https' or source.netloc != 'ec.europa.eu' or source.path != '/eurostat/api/dissemination/statistics/1.0/data/apro_cpsh1':
             raise ValueError()
-        if query.get('geo') != [expected[group['country_id']]] or query.get('crops') != ['S0000'] or query.get('time') != [group['period'][:4]]:
+        code, country_name = expected[group['country_id']]
+        if group['country'] != country_name or query.get('geo') != [code] or query.get('crops') != ['S0000'] or query.get('time') != [group['period'][:4]]:
             raise ValueError()
         if date.fromisoformat(group['accessed_date']).isoformat() != group['accessed_date'] or group.get('methodology_url') != METHODOLOGY:
             raise ValueError()

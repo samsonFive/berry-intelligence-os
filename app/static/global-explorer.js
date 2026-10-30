@@ -2,6 +2,7 @@
   'use strict';
   const countries = JSON.parse(document.getElementById('gx-data').textContent);
   const byISO = new Map(countries.map(c => [c.iso, c]));
+  const boundaryReferences = countries.filter(c => c.boundary_reference);
   const byID = new Map(countries.map(c => [c.id, c]));
   const field = document.getElementById('gx-countries');
   const selected = new Set(field.value.split(',').filter(Boolean));
@@ -105,7 +106,8 @@
   }
   fetch('/static/countries.geojson').then(r => { if (!r.ok) throw Error(); return r.json(); }).then(data => {
     data.features.forEach(f => {
-      const iso = f.properties['ISO3166-1-Alpha-2'];
+      const corrected = boundaryReferences.find(c => c.boundary_reference.feature_name === f.properties.name && c.boundary_reference.expected_alpha_2 === f.properties['ISO3166-1-Alpha-2'] && c.boundary_reference.expected_alpha_3 === f.properties['ISO3166-1-Alpha-3']);
+      const iso = corrected ? corrected.iso : f.properties['ISO3166-1-Alpha-2'];
       const c = byISO.get(iso);
       const path = document.createElementNS(NS, 'path');
       const polys = f.geometry.type === 'MultiPolygon' ? f.geometry.coordinates : [f.geometry.coordinates];
