@@ -14,4 +14,6 @@ def owned_article_passages(rows):
         heading = re.sub(r'\s+', ' ', str(text)).strip().casefold().rstrip(':')
         if heading in _RECOMMENDATIONS:
             break
+        # News attribution marks the end of owned prose in flattened captures.
+        text=re.split(r'(?:\n|(?<=[.!?])\s+)Source\s*:',str(text),maxsplit=1,flags=re.I)[0]
         yield locator, text

@@ -4,7 +4,7 @@
 {% if filters.berry %}{% set breadcrumb_items = breadcrumb_items + [{'label':berries[filters.berry]|default('Selected berry'),'href':'/entities/variety?berry=' ~ filters.berry}] %}{% endif %}
 {% if variety_view != 'index' %}{% set breadcrumb_items = breadcrumb_items + [{'label':'Competition' if variety_view == 'compete' else 'Retail observations'}] %}{% endif %}
 {% block title %}Varieties · Berry Intelligence{% endblock %}
-{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=12">{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=16">{% endblock %}
 {% block content %}
 <div class="company-workspace variety-workspace">
 <header class="digest-heading"><div><p class="eyebrow">GENETICS & GROWING</p><h1>Varieties</h1><p>Find varieties, inspect company roles and follow the evidence.</p></div><div class="company-socials">{% with research_entity=none %}{% include '_entity_research_tools.html' %}{% endwith %}<a class="outline-button" href="/entities/variety/compare">Compare varieties</a><a class="outline-button" href="/variety-seeds">Photo imports</a>{% if authoring_mode %}<a class="outline-button" href="/varieties/candidates">Identity review</a>{% endif %}<a href="/varieties/coverage">Coverage</a>{% if authoring_mode %}<a href="/varieties/removed">Removed varieties</a>{% endif %}</div></header>

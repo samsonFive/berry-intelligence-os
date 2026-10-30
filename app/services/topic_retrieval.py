@@ -12,14 +12,15 @@ from datetime import date
 from functools import lru_cache
 from typing import Any, Iterable, Mapping
 
-VERSION = "topic-retrieval-v8"
-_PLURALS = {"blackberries": "blackberry", "blueberries": "blueberry", "strawberries": "strawberry", "raspberries": "raspberry", "varieties": "variety", "cultivar": "variety", "cultivars": "variety", "canes": "cane", "floricanes": "floricane", "primocanes": "primocane", "trials": "trial", "releases": "release", "licensed": "license", "licensing": "license"}
+VERSION = "topic-retrieval-v9"
+_PLURALS = {"blackberries": "blackberry", "blueberries": "blueberry", "strawberries": "strawberry", "raspberries": "raspberry", "varieties": "variety", "cultivar": "variety", "cultivars": "variety", "canes": "cane", "floricanes": "floricane", "primocanes": "primocane", "trials": "trial", "releases": "release", "licensed": "license", "licensing": "license", "licence": "license", "licences": "license", "licencing": "license"}
 _STOP = set("a an the and or of for in on that which what me give write report new latest recent developments development fruit fruits fruiting about is are with to competitive landscape overview intelligence create prepare understand tell show please doing done".split())
-_EVENT = re.compile(r"\b(releas\w*|introduc\w*|licens\w*|trial\w*|launch\w*|patent\w*|commercial\w*|research|study|results)\b", re.I)
+_EVENT = re.compile(r"\b(releas\w*|introduc\w*|licen[sc]\w*|trial\w*|launch\w*|patent\w*|commercial\w*|research|study|results)\b", re.I)
 
 
 def normalize(text: str) -> str:
     text = unicodedata.normalize("NFKC", text).casefold().translate(str.maketrans({"’": "'", "‘": "'", "–": "-", "—": "-", "‑": "-"}))
+    text = re.sub(r"(?<!\w)'|'(?!\w)",'',text)
     from app.services.berry_vocabulary import canonicalize_crop_words, canonicalize_industry_words
     text = canonicalize_industry_words(canonicalize_crop_words(text))
     return " ".join(_PLURALS.get(t, t) for t in re.findall(r"[\w']+", text))
@@ -112,7 +113,7 @@ def _query_identifiers(plan, entities):
     return list(owners.values())
 
 
-def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mapping[str, dict[str, Any]] | None = None, _identifiers=None) -> dict[str, Any] | None:
+def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mapping[str, dict[str, Any]] | None = None, _identifiers=None, _support_context=None) -> dict[str, Any] | None:
     passages = record_passages(record)
     linked = [((entities or {}).get(eid) or {}) for eid in record.get("entity_ids") or []]
     aliases = " ".join(str(v) for entity in linked for v in [entity.get("name"), *(entity.get("aliases") or [])] if v)
@@ -131,6 +132,8 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
         if not stamp or (plan.start and stamp < plan.start) or (plan.end and stamp > plan.end):
             return None
     identifiers=_query_identifiers(plan,entities) if _identifiers is None else _identifiers
+    from app.services.topic_support import support_context, identity_in_passage, cane_in_passage, trial_location_in_passage
+    support=support_context(plan,entities,identifiers) if _support_context is None else _support_context
     for identifier in identifiers:
         literal=bool(identifier['pattern'].search(text))
         owners=identifier['entities']
@@ -173,40 +176,52 @@ def match_record(record: Mapping[str, Any], plan: QueryPlan, *, entities: Mappin
     if concepts and len(matched) / len(concepts) < 0.5:
         return None
     metadata_fields = {"title", "summary", "snippet"}
-    body_matches = [(loc, p) for loc, p in passages if loc not in metadata_fields and (not plan.cane_type or plan.cane_type in normalize(p).split() or evidence_traits) and (not crop_terms or crop_terms.intersection(normalize(p).split()))]
-    matching = body_matches or passages
-    locator, passage = max(matching, key=lambda p: sum(t in normalize(p[1]).split() for t in plan.terms), default=("", ""))
+    body_matches = [(loc, p) for loc, p in passages if loc not in metadata_fields
+                    and (cane_in_passage(p,plan.cane_type) or evidence_traits)
+                    and (not support['identities'] or all(identity_in_passage(p,e) for e in support['identities']))
+                    and (not crop_terms or crop_terms.intersection(normalize(p).split()) or bool(support['identities']))
+                    and trial_location_in_passage(p,support['trial_places'])]
+    matching = body_matches or [(loc,p) for loc,p in passages if loc in metadata_fields]
+    milestone=re.compile(r'\b(introduc\w*|releas\w*|licen[sc]\w*|launch\w*|establish\w*|debut\w*|trial\w*|evaluat\w*|experiment\w*|results)\b',re.I)
+    locator, passage = max(matching, key=lambda p: (bool(milestone.search(p[1])),sum(t in normalize(p[1]).split() for t in plan.terms)), default=("", ""))
+    support_status='body_supported' if body_matches else 'scope_unverified'
+    from app.services.research_source_holds import source_quote_hold
+    quote_hold=source_quote_hold(record)
+    if quote_hold:support_status='source_review_hold'
     # Retain adjacent source context when it states a licensing/release/trial
     # milestone (e.g. a cultivar introduction followed by its licence terms).
     position = next((i for i, p in enumerate(passages) if p == (locator, passage)), -1)
     if position >= 0 and locator not in metadata_fields and position + 1 < len(passages):
         next_locator, next_passage = passages[position + 1]
-        if next_locator not in metadata_fields and next_passage.strip() not in passage and re.search(r"\b(licens\w*|introduc\w*|releas\w*|trial\w*)\b", next_passage, re.I):
+        if next_locator not in metadata_fields and next_passage.strip() not in passage and re.search(r"\b(licen[sc]\w*|introduc\w*|releas\w*|trial\w*)\b", next_passage, re.I):
             passage += "\n\n" + next_passage
             locator += ";" + next_locator
     title = str(record.get("title") or "")
-    event = bool(_EVENT.search(title) or re.search(r"\b(introduc\w*|releas\w*|licens\w*|launch\w*)\b", passage, re.I))
+    event = bool(_EVENT.search(title) or re.search(r"\b(introduc\w*|releas\w*|licen[sc]\w*|launch\w*)\b", passage, re.I))
     if 'license' in plan.terms:
-        event = event and any(loc not in metadata_fields and re.search(r'\blicens\w*\b',p,re.I) for loc,p in passages)
-    if re.search(r"\b(guide|prun\w*|growing|cultivars for)\b", title, re.I) and not re.search(r"\b(releas\w*|licens\w*|trial\w*)\b", title, re.I):
+        event = event and any(loc not in metadata_fields and re.search(r'\blicen[sc]\w*\b',p,re.I) for loc,p in passages)
+    if re.search(r"\b(guide|prun\w*|growing|cultivars for)\b", title, re.I) and not re.search(r"\b(releas\w*|licen[sc]\w*|trial\w*)\b", title, re.I):
         event = False
     score = 10 * len(set(plan.terms) & words) + 5 * event + 20 * bool(_EVENT.search(title)) + (2 if locator not in {"title", "snippet", "summary"} else 0)
     relevance = "direct" if event else "background"
+    if support_status != "body_supported":relevance="adjacent"
     if plan.cane_type == "floricane" and "primocane" in normalize(str(record.get("title") or "")).split():
         # A primocane release may mention floricanes only as a comparison.
         # Keep actual floricane-crop trial evidence eligible.
         floricane_trial = any(re.search(r"floricane[- ](?:crop|fruit|yield)", p, re.I) and re.search(r"trial|study|result|evaluat", p, re.I) for _, p in passages)
         if not floricane_trial:
             relevance = "adjacent"
-    return {"score": score, "passage": passage, "passage_locator": locator, "relevance": relevance, "match_reason": "Verified fruiting-habit evidence" if evidence_traits else "Matched verified cultivar-code alias" if identifiers else "Matched source passage", "classification_evidence_ids": sorted(set(evidence_traits))}
+    return {"score": score, "passage": passage, "passage_locator": locator, "relevance": relevance, "support_status":support_status, "source_review_hold":quote_hold['reason'] if quote_hold else None, "match_reason": "Verified fruiting-habit evidence" if evidence_traits else "Matched verified cultivar-code alias" if identifiers else "Matched source passage", "classification_evidence_ids": sorted(set(evidence_traits))}
 
 
 def retrieve(records: Iterable[dict[str, Any]], plan: QueryPlan, *, entities: Mapping[str, dict[str, Any]] | None = None, limit: int = 40) -> list[dict[str, Any]]:
     from app.services.article_dedup import normalize_canonical_url
     rows = []
     identifiers = _query_identifiers(plan,entities)
+    from app.services.topic_support import support_context
+    context=support_context(plan,entities,identifiers)
     for record in records:
-        match = match_record(record, plan, entities=entities, _identifiers=identifiers)
+        match = match_record(record, plan, entities=entities, _identifiers=identifiers, _support_context=context)
         if match:
             rows.append({**record, **match})
     rows.sort(key=lambda r: ({"direct": 2, "background": 1, "adjacent": 0}[r["relevance"]], str(r.get("published_date") or ""), r["score"]), reverse=True)

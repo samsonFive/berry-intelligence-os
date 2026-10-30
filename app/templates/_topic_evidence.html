@@ -13,9 +13,9 @@
   <article id="src-{{ row.id }}">
     <h3>{% if public_source_url(row.source_url) %}<a href="{{ public_source_url(row.source_url) }}" target="_blank" rel="noopener noreferrer">{{ row.title }}</a>{% else %}{{ row.title }}{% endif %}</h3>
     <p>{{ row.trust_class }} · {{ row.origin }} · {{ row.relevance }} · Published {{ row.published_date or 'date unknown' }}{% if row.capture_status %} · {{ row.capture_status }}{% endif %}</p>
-    {% if row.passage %}<blockquote>{{ row.passage }}</blockquote><p>{{ row.match_reason }} · {{ row.passage_locator }}</p>{% endif %}
+    {% if row.source_review_hold or row.support_status == 'scope_unverified' %}<p>Quotation withheld: {{ row.source_review_hold or 'Requested identity, crop/cane or trial location is not established by the captured passage.' }}</p>{% elif row.passage %}<blockquote>{{ row.passage }}</blockquote><p>{{ row.match_reason }} · {{ row.passage_locator }}</p>{% endif %}
     {% if row.classification_evidence_ids %}<p>Fruiting-habit classification evidence: {{ row.classification_evidence_ids|join(', ') }}</p>{% endif %}
-    {% if report and authoring_mode %}<form method="post" action="/reports/{{ report.id }}/topic-source/{{ row.id }}/save"><button type="submit" class="v2-btn v2-btn-quiet">Save source excerpt to workspace</button></form>{% endif %}
+    {% if report and authoring_mode and not row.source_review_hold and row.support_status != 'scope_unverified' %}<form method="post" action="/reports/{{ report.id }}/topic-source/{{ row.id }}/save"><button type="submit" class="v2-btn v2-btn-quiet">Save source excerpt to workspace</button></form>{% endif %}
   </article>
   {% else %}<p>No relevant evidence passed this search and its restrictions. This does not establish that no developments exist.</p>{% endfor %}
 </section>

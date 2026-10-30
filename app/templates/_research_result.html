@@ -24,6 +24,7 @@
 
     {% if answer.event_groups %}<section class="rd-section" aria-label="Related source coverage"><h2>Related source coverage</h2><p>Grouped articles may describe one milestone. Source independence is not established; each article keeps its review status.</p>
       {% for group in answer.event_groups %}<details><summary>{{ group.members[0].title }} · {{ group.member_ids|length }} articles</summary><p>{{ group.reason }}</p><ul>{% for member in group.members %}<li>{{ member.date or member.published_date or 'Date unknown' }} · {{ source_link(member) }}</li>{% endfor %}</ul></details>{% endfor %}</section>{% endif %}
+    {% if answer.verification_leads %}<section class="rd-section"><h2>Sources requiring verification</h2><p>These leads do not support a source-grounded finding for this question.</p><ul>{% for row in answer.verification_leads %}<li>{{ source_link(row) }} — {{ row.source_review_hold or 'Requested identity, crop/cane or trial location is not established by the captured passage.' }}</li>{% endfor %}</ul></section>{% endif %}
     <section class="rd-section">
       <div class="rd-section-title"><h2>Recent source coverage</h2><span>Past 90 days · LIVE / UNREVIEWED</span></div>
       {% if answer.current_developments %}

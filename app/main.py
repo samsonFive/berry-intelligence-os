@@ -2979,7 +2979,6 @@ def entity_list(
                 from app.services.variety_portfolio_coverage import load_portfolio_observations
                 from app.services.variety_photo_review import photo_identity_reviews
                 photo_sources = load_portfolio_observations(DATA_DIR)
-                photo_context = variety_photos.prepare_source_photo_context(photo_sources)
                 photo_profiles = company_directory.load_profiles(INBOX_DIR)["profiles"]
                 for card in context["variety_rows"]:
                     target = entities_idx.get(card["id"], {})
@@ -8585,6 +8584,9 @@ def save_topic_source(request: Request, report_id: str, source_id: str) -> Redir
     row = next((r for r in [*(research.get("local") or []), *(research.get("web") or [])] if r.get("id") == source_id), None)
     if not row or not row.get("passage"):
         raise HTTPException(404, "An inspected source excerpt is required")
+    from app.services.research_source_holds import source_quote_hold
+    if source_quote_hold(row) or row.get('support_status') in {'scope_unverified','source_review_hold'}:
+        raise HTTPException(422, 'This source quotation requires scope or claim verification')
     source = store.snapshot(row, row["passage"], "excerpt_only")
     try:
         store.capture({"token": f"topic:{report_id}:{source_id}", "kind": "article", "page_id": "wp-inbox", "text": row.get("title") or "Source excerpt", "quote": row["passage"], "locator": {"start": 0, "passage": row.get("passage_locator") or ""}, "entity_ids": []}, source, actor, entity_index())

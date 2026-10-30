@@ -1031,10 +1031,14 @@ _ANSWER_INSTRUCTIONS = (
 
 
 def _public_digest(packet: dict[str, Any], live: dict[str, Any]) -> list[str]:
+    from app.services.research_source_holds import source_quote_hold
     lines = []
     for row in packet.get("evidence") or []:
         lines.append(f"{row['id']} | {row['title']} | {row['source_name']} | {row['date'] or 'date unknown'}")
     for row in live.get("items") or []:
+        if source_quote_hold(row) or row.get('support_status') in {'scope_unverified','source_review_hold'}:
+            continue
+        if row.get('support_status') and row.get('relevance')!='direct':continue
         line = f"{row['id']} | {row['title']} | {row['source_name']} | {row['date'] or 'date unknown'}"
         if row.get("snippet") and not any(row.get(key) for key in ('article','source_version','passage_locator','capture_status')):
             line += f" | {str(row['snippet'])[:220]}"
@@ -1061,10 +1065,13 @@ def compose_research_answer(
 ) -> dict[str, Any]:
     """Create a source-grounded answer. Unsupported generated claims vanish."""
     live = live or {"items": [], "latency_seconds": 0.0, "semantic_expansion_used": False}
+    from app.services.research_source_holds import source_quote_hold
+    live={**live,'items':[{**r,**({'source_review_hold':hold['reason']} if (hold:=source_quote_hold(r)) else {})} for r in live.get('items') or []]}
+    verification_leads=[r for r in live['items'] if r.get('source_review_hold') or r.get('support_status') in {'scope_unverified','source_review_hold'}]
     sources = dict(packet.get("source_index") or {})
     for row in live.get("items") or []:
         sources[row["id"]] = row
-    known_ids = set(sources)
+    known_ids = set(sources)-{r['id'] for r in verification_leads}
 
     findings: list[dict[str, Any]] = []
     rights_ids = {row["id"] for row in packet.get("rights_ip") or [] if row.get("id")}
@@ -1084,6 +1091,8 @@ def compose_research_answer(
     ]
     seen_developments: set[str] = set()
     for row in [*packet_developments, *(live.get("items") or [])]:
+        if row in verification_leads:continue
+        if row.get('support_status') and row.get('relevance')!='direct':continue
         row_id = str(row.get("id") or "")
         if not row_id or row_id in seen_developments:
             continue
@@ -1102,8 +1111,9 @@ def compose_research_answer(
         prompt = _ANSWER_INSTRUCTIONS + "\n\nPublic sources (id | title | publisher | date | snippet):\n- " + "\n- ".join(digest)
         try:
             result = completer(prompt, schema=_ANSWER_SCHEMA, model=model, max_output_tokens=900)
-            generated_findings = _validated_generated(result.parsed.get("findings") or [], known_ids, "OBSERVED DEVELOPMENT")
-            generated_implications = _validated_generated(result.parsed.get("implications") or [], known_ids, "POSSIBLE IMPLICATION")
+            generated_ids=known_ids-{r['id'] for r in live.get('items') or [] if r.get('support_status') and r.get('relevance')!='direct'}
+            generated_findings = _validated_generated(result.parsed.get("findings") or [], generated_ids, "OBSERVED DEVELOPMENT")
+            generated_implications = _validated_generated(result.parsed.get("implications") or [], generated_ids, "POSSIBLE IMPLICATION")
             if generated_findings:
                 findings = generated_findings[:7]
             implications = generated_implications[:5]
@@ -1116,6 +1126,11 @@ def compose_research_answer(
     except ValueError:
         as_of = datetime.now(timezone.utc).date()
     for row in live.get('items') or []:
+        if row in verification_leads:continue
+        if row.get('support_status') and row.get('relevance')=='adjacent':continue
+        if row.get('support_status') and row.get('relevance')=='background':
+            historical.append(row)
+            continue
         if row.get('related_emerging'):
             continue
         try:
@@ -1127,14 +1142,15 @@ def compose_research_answer(
                 undated.append(row)
             else:
                 (current if published >= as_of-timedelta(days=90) else historical).append(row)
-    weak = [row for row in live.get("items") or [] if row.get("related_emerging")]
+    weak = [row for row in live.get("items") or [] if row.get("related_emerging") and row not in verification_leads]
     weak.extend(row for row in packet.get("signals") or [] if row.get("status") != "confirmed")
     return {
         "findings": findings,
         "current_developments": current,
         "historical_developments": historical,
-        "event_groups": [g for g in live.get('event_groups', []) if len(g['member_ids'])>1],
+        "event_groups": [g for g in live.get('event_groups', []) if len(g['member_ids'])>1 and set(g['member_ids'])<=known_ids],
         "undated_developments": undated,
+        "verification_leads": verification_leads,
         "implications": implications,
         "competitive_context": {"companies": packet.get("companies") or [], "relationships": packet.get("relationships") or []},
         "rights_ip": packet.get("rights_ip") or [],
