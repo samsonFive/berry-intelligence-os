@@ -34,7 +34,9 @@ def prepare(packet, *, snapshot=SNAPSHOT):
     coverage = json.loads((snapshot / 'research-coverage-checklist.json').read_text(encoding='utf-8'))
     bid = packet['batch_id']
     batch = next((b for b in coverage['batches'] if b['batch_id'] == bid), None)
-    if batch is None or not re.fullmatch(r'B\d{2}', bid):
+    if bid in {'R01', 'R02'}:
+        batch = {'entity_ids': sorted({eid for b in coverage['batches'] for eid in b['entity_ids']})}
+    if batch is None or not re.fullmatch(r'(?:B\d{2}|R0[12])', bid):
         raise ValueError('Unknown profile batch')
     expected = set(batch['entity_ids'])
     canonical_ids = {r['entity_id'] for r in json.loads(
@@ -75,7 +77,7 @@ def prepare(packet, *, snapshot=SNAPSHOT):
                 raise ValueError('Unknown canonical relationship target; retain a proposed name instead')
             if key == 'sources' and not row['original_url'].startswith(('https://', 'http://')):
                 raise ValueError('Source requires an original HTTP(S) URL')
-            refs = set(re.findall(r'B\d{2}-S\d+', row.get('source_ids', '')))
+            refs = set(re.findall(r'[BR]\d{2}-S\d+', row.get('source_ids', '')))
             if refs - source_ids:
                 raise ValueError('Missing source ledger reference')
             if key == 'observations' and row['capability_id'] not in cap_ids:
