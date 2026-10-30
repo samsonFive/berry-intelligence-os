@@ -9,6 +9,7 @@ from starlette.concurrency import run_in_threadpool
 from app.map_statistics_routes import return_path
 from app.personal_digest_routes import require_edit
 from app.services import market_reference_research as research
+from app.services.market_reference_countries import countries as reference_countries
 from app.services.ai_gateway.perplexity_deep_research import DeepResearchClient, ResearchError
 from app.services.map_statistics_refresh import references
 from app.services.market_statistics_reference import group_id, reference_groups
@@ -19,14 +20,7 @@ BASE = '/explorer/statistics/research'
 
 def countries():
     from app import main
-    rows = [e for e in main.all_entities() if e.get('entity_type') == 'geography'
-            and len(str((e.get('attributes') or {}).get('iso_3166_1_alpha_2') or '')) == 2]
-    counts = {}
-    for row in rows:
-        code = row['attributes']['iso_3166_1_alpha_2']
-        counts[code] = counts.get(code, 0) + 1
-    return {e['id']: e for e in sorted(rows, key=lambda e: e['name'].casefold())
-            if counts[e['attributes']['iso_3166_1_alpha_2']] == 1}
+    return reference_countries({row['id']: row for row in main.all_entities() if row.get('id')})
 
 
 def client_factory():

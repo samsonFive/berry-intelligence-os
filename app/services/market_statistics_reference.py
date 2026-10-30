@@ -11,9 +11,18 @@ from pathlib import Path
 from urllib.parse import urlencode
 
 from app.services.market_reality.eurostat_apro import EUROSTAT_APRO_URL, decode_jsonstat
-from app.services.market_reality.normalization import EUROSTAT_GEO_TO_ENTITY
-
-GEOS = ("DE", "ES", "NL", "PT")
+# Reference-only country IDs already exist in the Map selector. This local
+# statistical scope does not expand the separate Trade/Weather vocabularies.
+EUROSTAT_COUNTRIES = {
+    "DE": ("geography-germany", "Germany"),
+    "ES": ("geography-spain", "Spain"),
+    "NL": ("geography-netherlands", "Netherlands"),
+    "PT": ("geography-portugal", "Portugal"),
+    "FR": ("iso:FR", "France"),
+    "IT": ("iso:IT", "Italy"),
+    "PL": ("iso:PL", "Poland"),
+}
+GEOS = tuple(EUROSTAT_COUNTRIES)
 INDICATORS = {
     "AR_THS_HA": ("Area", "1000 ha"),
     "HPRD_HUMD_EU_THS_T": ("Harvested production", "1000 t"),
@@ -129,7 +138,7 @@ def eurostat_groups(payload, *, captured_at):
             row = selected[code]
             metrics.append({"label": label, "value": row["value"], "unit": unit,
                             "source_code": code, "source_label": labels["strucpro"].get(code, code), "source_flag": row["source_flag"]})
-        groups.append({"country_id": EUROSTAT_GEO_TO_ENTITY[geo], "country": labels["geo"].get(geo, geo),
+        groups.append({"country_id": EUROSTAT_COUNTRIES[geo][0], "country": labels["geo"].get(geo, geo),
                        "berry_id": "berry-strawberry", "commodity": "Strawberries", "period": year + " calendar year",
                        "source": "Eurostat", "source_url": url, "locator": "apro_cpsh1 · S0000 · " + geo + " · " + year,
                        "published_date": "Not supplied", "source_updated_at": payload.get("updated") or "Not supplied",
