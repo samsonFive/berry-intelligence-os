@@ -1,5 +1,27 @@
 # Redesign and consolidation requirements
 
+October 30 — Current live release is **#442**, merged as `3b0b4acc` from
+approved head `ab6256c7` and deployed at 18:47 UTC. All four required checks
+passed (5,477 tests). A fresh backup, isolated rehearsal and post-switch checks
+preserved five accounts including Chris.H, 65 profiles, 9,854 existing JSON
+records, 3,228 data files and four databases. Existing settings, persistent
+mounts and rollback remain. This performance-only release adds no catalog data
+or review decisions; it retains the platform, Tags and combined #440 release.
+The large Coverage response is 77.10% smaller on the tested production copy;
+repeat-load median improved from 3.41 to 2.72 seconds. Broader performance and
+source/profile/media coverage remain open. See the
+[source-detail review](COVERAGE-SOURCE-DETAILS-PERFORMANCE.md).
+
+The separate Map snapshot navigation follow-up supplies its missing explicit
+authoring context. It retains Workspaces, Social Listening, Landscape and the
+one-click News refresh without changing public-mode navigation or snapshot
+scope. Seventeen focused checks and isolated desktop/412px review pass; its
+own exact-head CI and future release approval remain separate. All 31 original
+accepted definitions and their ordering below remain unchanged.
+
+Earlier dated release and pending-approval notes below are historical evidence;
+they do not reopen approvals already completed in #433, #440 or #442.
+
 October30 — Approved combined #440 is merged1aef8862 and live with fresh backup,
 bounded preservation, all required checks and native/live verification. The
 catalog,27 visual Learn lessons and Map additions retain their human review

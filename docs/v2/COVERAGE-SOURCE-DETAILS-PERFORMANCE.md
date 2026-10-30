@@ -1,5 +1,32 @@
 # Lighter source inventories with every source still available
 
+## Released October 30, 2026
+
+Explicitly approved #442 head `ab6256c7` merged as `3b0b4acc` with an identical
+tree and deployed at 18:47 UTC. All four required checks passed, including
+5,477 tests. A fresh release-time backup, bounded isolated preservation check
+and live post-switch check preserved five accounts, 65 profiles, 9,854 existing
+JSON records, 3,228 data files and four databases. Settings and persistent mounts
+remain; the prior image and rollback compose are retained. No data addition or
+human review decision was included. The live browser loaded Hortifrut's full
+21-name disclosure, original-source access and review links.
+
+On the same isolated production-data copy, large-view HTML fell from 1,758,960
+to 402,847 bytes (77.10% smaller). Four repeat observations per image gave warm
+medians of 3.4102 and 2.71775 seconds (20.31% faster). All rendered source bodies
+matched. Raw read-model hashes differ because 72 unpersisted corpus discoveries
+and 775 unpersisted portfolio discoveries generate their `discovered_at` clocks
+when projected, including between unchanged-image runs. The diagnostic verified
+every differing field is exactly that generated timestamp, within its own run;
+all other model fields and persisted records match. No clock behavior was
+changed for this diagnostic. These bounded measurements are not a universal
+route-speed or complete-source-coverage claim. TD-122 remains open.
+
+The implementation and earlier review evidence below retain their original
+dated scope; references to a future release are superseded by this delivery.
+
+## Implementation and original review
+
 The full coverage page sent about 1.76 MB, mostly source details inside closed
 rows. Large inventories now keep all source titles, warnings, counts and dates
 in the dense table and fetch a source's complete detail when its row opens.
