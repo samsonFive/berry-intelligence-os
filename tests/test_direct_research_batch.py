@@ -71,3 +71,22 @@ def test_contract_rejects_lossy_or_misidentified_records(direct_packet, mutation
         packet['observations'][0]['accidentally_dropped_field'] = 'keep me'
     with pytest.raises(ValueError):
         prepare(packet, snapshot=snapshot)
+
+
+def test_followup_requires_whole_inventory_and_local_source_references(direct_packet):
+    snapshot, packet = direct_packet
+    coverage_path = snapshot / 'research-coverage-checklist.json'
+    coverage = json.loads(coverage_path.read_text())
+    coverage['batches'].append({'batch_id': 'B17', 'entity_ids': ['company-three']})
+    coverage_path.write_text(json.dumps(coverage))
+    packet['batch_id'] = 'R01'
+    packet['sources'][0]['source_id'] = 'R01-S001'
+    packet['observations'][0]['source_ids'] = 'R01-S001'
+    with pytest.raises(ValueError, match='Profiles'):
+        prepare(packet, snapshot=snapshot)
+    packet['profiles'].append({'entity_id': 'company-three'})
+    packet['gaps'].append({'entity_id': 'company-three'})
+    assert prepare(packet, snapshot=snapshot)['metadata']['batch_id'] == 'R01'
+    packet['observations'][0]['source_ids'] = 'R02-S001'
+    with pytest.raises(ValueError, match='Missing source'):
+        prepare(packet, snapshot=snapshot)
