@@ -115,6 +115,7 @@
       <div class="bos-empty">
         <h2>{{ feed.empty_copy.title }}</h2>
         <p>{{ feed.empty_copy.body }}</p>
+        {% if feed.filters.q and not static_build %}<p>Search is limited to the displayed archive filters. <a href="/reports/new?q={{ feed.filters.q|urlencode }}">Research this topic with a new date scope and optional public web discovery</a>.</p>{% endif %}
       </div>
       {% endif %}
 

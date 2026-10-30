@@ -17,13 +17,18 @@
         </li>
         {% endfor %}
       </ol>
+      {% elif answer.verification_leads %}
+      <p class="rd-empty">Sources were found, but their captured passages require verification for this question. Inspect the verification leads below.</p>
       {% else %}
       <p class="rd-empty">The saved material does not yet support a substantive answer. The gaps below show what is missing.</p>
       {% endif %}
     </section>
 
+    {% if answer.event_groups %}<section class="rd-section" aria-label="Related source coverage"><h2>Related source coverage</h2><p>Grouped articles may describe one milestone. Source independence is not established; each article keeps its review status.</p>
+      {% for group in answer.event_groups %}<details><summary>{{ group.members[0].title }} · {{ group.member_ids|length }} articles</summary><p>{{ group.reason }}</p><ul>{% for member in group.members %}<li>{{ member.date or member.published_date or 'Date unknown' }} · {{ source_link(member) }}</li>{% endfor %}</ul></details>{% endfor %}</section>{% endif %}
+    {% if answer.verification_leads %}<section class="rd-section"><h2>Sources requiring verification</h2><p>These leads do not support a source-grounded finding for this question.</p><ul>{% for row in answer.verification_leads %}<li>{{ source_link(row) }} — {{ row.source_review_hold or 'Requested identity, crop/cane or trial location is not established by the captured passage.' }}</li>{% endfor %}</ul></section>{% endif %}
     <section class="rd-section">
-      <div class="rd-section-title"><h2>What's happening now</h2><span>LIVE / UNREVIEWED</span></div>
+      <div class="rd-section-title"><h2>Recent source coverage</h2><span>Past 90 days · LIVE / UNREVIEWED</span></div>
       {% if answer.current_developments %}
       <div class="rd-source-cards">
         {% for row in answer.current_developments[:8] %}
@@ -42,6 +47,12 @@
       <p class="rd-empty">No qualifying current development was found in this window. This is a measured gap, not a claim that nothing happened.</p>
       {% endif %}
     </section>
+
+    {% for key, heading in [('historical_developments','Older developments & context'), ('undated_developments','Sources needing publication-date verification')] %}
+    {% if answer[key] %}<section class="rd-section"><div class="rd-section-title"><h2>{{ heading }}</h2><span>LIVE / UNREVIEWED</span></div>
+      <div class="rd-source-cards">{% for row in answer[key][:8] %}<article><div><span>LIVE / UNREVIEWED</span><time>{{ row.date or 'date unknown' }}</time></div><h3>{{ source_link(row) }}</h3><p>{{ row.source_name }}{% if row.snippet %} · {{ row.snippet|truncate(210) }}{% endif %}</p></article>{% endfor %}</div>
+    </section>{% endif %}
+    {% endfor %}
 
     {% set cs = answer.change_scenario %}
     {% if cs and (cs.changes or cs.scenarios or cs.timeline or 'what changed' in (scope.question or '')|lower or 'scenario' in (scope.question or '')|lower or 'shifted' in (scope.question or '')|lower or 'competitive position' in (scope.question or '')|lower) %}
@@ -444,7 +455,7 @@
       <input type="hidden" name="geography_ids" value="{{ scope.geography_ids|join(',') }}">
       <input type="hidden" name="company_ids" value="{{ (packet.comparison_company_ids or scope.company_ids)|join(',') }}">
       <input type="hidden" name="variety_ids" value="{{ scope.variety_ids|join(',') }}">
-      <input type="hidden" name="date_window_days" value="{{ scope.window_days }}">
+      <input type="hidden" name="date_window_days" value="{{ '' if scope.all_time else scope.window_days }}">
       <input type="hidden" name="focus_notes" value="{{ brief_focus_notes or scope.question }}">
       <button type="submit">Create leadership brief</button>
       <span>Review scope and sources before anything is saved.</span>

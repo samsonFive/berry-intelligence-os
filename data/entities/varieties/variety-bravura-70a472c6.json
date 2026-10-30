@@ -1,0 +1,29 @@
+{
+  "id": "variety-bravura-70a472c6",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Bravura",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-d0d56d9ea85d",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:30.847693+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://flevoberry.nl/Varieties/",
+      "source_label": "Flevo Berry — current strawberry product list",
+      "candidate_name": "Bravura"
+    }
+  }
+}

@@ -1,0 +1,3 @@
+{% extends 'glasshouse_base.html' %}{% set variety_sheet = true %}{% set breadcrumb_items=[{'label':'Varieties','href':'/entities/variety'},{'label':'Removed varieties'}] %}
+{% block title %}Removed varieties{% endblock %}{% block content %}<h1>Removed varieties</h1><p>These entries are hidden from the active catalog. Their source links and historical references remain intact, and you can restore them.</p>
+{% for row in rows %}<section class="company-panel"><h2>{{ row.name }}</h2><form method="post" action="/varieties/{{ row.id }}/catalog-status"><button type="submit" name="action" value="restore">Restore variety</button></form></section>{% else %}<p>No varieties have been removed.</p>{% endfor %}{% endblock %}

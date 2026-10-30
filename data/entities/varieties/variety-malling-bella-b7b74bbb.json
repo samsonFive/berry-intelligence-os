@@ -1,0 +1,29 @@
+{
+  "id": "variety-malling-bella-b7b74bbb",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Malling Bella",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-b0ccdc27af8c",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:13.206202+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.niab.com/mallingtm-bellar",
+      "source_label": "NIAB — Malling Bella named product page",
+      "candidate_name": "Malling Bella"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "variety-leticia-71e63124",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Leticia",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-374c2af0556d",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:54.032393+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.masiaciscar.es/freson/",
+      "source_label": "Masiá Ciscar — current strawberry cards",
+      "candidate_name": "Leticia"
+    }
+  }
+}

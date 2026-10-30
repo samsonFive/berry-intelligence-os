@@ -73,3 +73,12 @@ def test_unsafe_html_cannot_execute_in_native_reader():
     assert "alert" not in blob
     assert "<script" not in blob
     assert "wish farms" in blob
+
+
+def test_explicit_recommendation_tail_is_not_part_of_article_capture():
+    html='<article><p>A cherry breeding partnership was announced after extensive field evaluation.</p><h2>Related articles</h2><p>A named blackberry cultivar was released with compact architecture for growers.</p></article>'
+    passages=paragraphs_from_html(html)
+    assert len(passages)==1 and 'cherry' in passages[0]
+    assert paragraphs_from_html('<h2>Related articles</h2><p>A named blackberry cultivar was released with compact architecture for growers.</p>')==[]
+    prose='<article><p>A trial compared blackberry varieties after several seasons in replicated plots.</p><h2>Related research</h2><p>Related articles were reviewed by the researchers when planning this blackberry trial.</p></article>'
+    assert any('reviewed by the researchers' in p for p in paragraphs_from_html(prose))

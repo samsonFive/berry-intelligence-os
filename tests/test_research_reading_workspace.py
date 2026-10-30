@@ -9,7 +9,7 @@ from app import main
 
 
 def _scope():
-    return main.ResearchScope.from_dict({"question": "Compare Planasa and Fall Creek", "company_ids": ["company-planasa"]})
+    return main.ResearchScope.from_dict({"question": "Compare Planasa and Fall Creek", "company_ids": ["company-planasa"], "all_time": True, "window_days": 3650})
 
 
 def _forbidden(*args, **kwargs):

@@ -30,7 +30,7 @@ def test_original_focal_grants_reach_five_existing_profiles_without_catalog_chan
         assert ref['document_url'].endswith('#page=3' if slug in {'crimson-night', 'double-gold'} else '#page=4')
         assert ref['figures_url'].endswith('#page=4' if slug in {'crimson-night', 'double-gold'} else '#page=5')
         assert not {'current_rights', 'trusted', 'owner', 'aliases'} & ref.keys()
-    assert (varieties, sources) == before and len(varieties) == 64
+    assert (varieties, sources) == before
 
 
 def test_nsg203_filing_does_not_approve_marimbella_alias_or_rights():

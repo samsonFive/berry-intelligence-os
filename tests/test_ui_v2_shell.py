@@ -200,7 +200,7 @@ def test_reader_overlay_skips_morning_brief(monkeypatch, tmp_path: Path) -> None
 
 def test_reader_overlay_warm_is_under_500ms() -> None:
     client = TestClient(app)
-    item_id = "ev-sample-variety-launch"
+    item_id = "ev-leadersleague-atlantic-blue-2021"
     warm = client.get(f"/api/intelligence/{item_id}/reader")
     assert warm.status_code == 200
     started = time.perf_counter()

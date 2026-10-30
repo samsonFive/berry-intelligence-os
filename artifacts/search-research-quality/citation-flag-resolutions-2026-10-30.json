@@ -1,0 +1,472 @@
+{
+  "scope": "Offline candidate rerank and report regeneration. A changed passage requires semantic inspection; holds are not source-truth resolution. Original snapshots are unchanged.",
+  "retrieval_version": "topic-retrieval-v9",
+  "original_flag_count": 13,
+  "unmapped_flags": 0,
+  "duplicate_flag_bindings": 0,
+  "holdout_status": "Legacy cases 18 and 21 supplied explicitly requested citation fixes and are now regressions. Fresh blind holdouts are required for later acceptance.",
+  "unchanged_flagged_contexts": 0,
+  "stale_review_bindings": 0,
+  "fidelity_failure_count": 0,
+  "resolutions": [
+    {
+      "query": "New blackberry varieties that fruit on second-year canes",
+      "source_id": "web-1ec1040114220c83",
+      "source_url": "https://multibaies.com/new-blackberry-varieties/",
+      "source_version": "8cefe2456811f8b151bfb6ab8aff811d9dd5d9ea0ad9d959e192bd25b71a9d61",
+      "original_issue": "The excerpt describes erect growth of both cane generations and other performance assertions. Those words do not establish that the named cultivar fruits on second-year canes; the requested fruiting classification needs separate support.",
+      "action": "quotation_withheld",
+      "support_status": "scope_unverified",
+      "new_section": null,
+      "new_locator": null,
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
+    },
+    {
+      "query": "Ervin blackberry",
+      "source_id": "web-b868c2254f258658",
+      "source_url": "https://growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23",
+      "source_version": "f4045d627c3937aa8dc5ce42a35b088a4118e89bc74af4fcf36c1363fc622763",
+      "original_issue": "This is a Marion research recap, not evidence about the named cultivar Ervin. It cannot substantiate an Ervin-specific finding or background claim.",
+      "action": "quotation_withheld",
+      "support_status": "scope_unverified",
+      "new_section": null,
+      "new_locator": null,
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
+    },
+    {
+      "query": "Ervin blackberry",
+      "source_id": "web-dfc080c4571f1fb4",
+      "source_url": "https://www.growingproduce.com/fruits/remembering-a-berry-industry-leader-innovator-and-friend/",
+      "source_version": "5a17f91c6e3e6a3ae413d3ee6cf0ecca16f36519de003aa8fa721e2b1098bb6f",
+      "original_issue": "The quotation concerns Ervin Lineberger the grower and historical marketing activity. It is not evidence of properties or developments of the cultivar named Ervin.",
+      "action": "quotation_withheld",
+      "support_status": "scope_unverified",
+      "new_section": null,
+      "new_locator": null,
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
+    },
+    {
+      "query": "NC 740 blackberry",
+      "source_id": "web-c3e97af2bbc58306",
+      "source_url": "https://cals.ncsu.edu/news/boosting-blackberries-nc-states-gina-fernandez-launches-latest-botanical-offspring/",
+      "source_version": "f845acd6e9de43e44c51556a4f06e66b51a412c70115bcba308ce20636d72dde",
+      "original_issue": "The quotation aggregates the breeder program and state crop value. It does not attribute the reported economic value or generalized performance specifically to NC 740/Ervin.",
+      "action": "passage_replaced",
+      "support_status": "body_supported",
+      "new_section": "topic_findings",
+      "new_locator": "article:9",
+      "new_passage_sha256": "bff34dfc735af326e016962bb01bb44fd25148d26279d0f35a9c322b7c8f97b1",
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "The replacement explicitly names Ervin, NC 740 and the researcher's field-trial experience; it no longer attributes whole-program economic value to this cultivar.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
+    },
+    {
+      "query": "Floricane blackberry licensing outside the United States",
+      "source_id": "web-498c1d46adfd3d8b",
+      "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+      "source_version": "89bdd74c1ae050333fa6dca57c6beccca3f5fddfbb39548bd0851fc280d1d5ca",
+      "original_issue": "The quotation supports cultivar identity and cane type but no outside-US license. Presenting it as a direct finding for this licensing query overstates its scope; it belongs in identity background.",
+      "action": "moved_to_background",
+      "support_status": "body_supported",
+      "new_section": "topic_background",
+      "new_locator": "article:1",
+      "new_passage_sha256": "4e8d7b92045fe1d2c325faac3377c7262a3cf0d86be19ce1430bdc9c4a7727d8",
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that cultivar identity is background for this licensing question and is not promoted to a direct licensing finding.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
+    },
+    {
+      "query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+      "source_id": "web-1eaf039c75eaa242",
+      "source_url": "https://www.freshplaza.com/north-america/article/9879343/exclusive-propagation-and-sales-agreement-signed-for-easyrose-raspberry/",
+      "source_version": "6fba890d127491791bbabb7197c0ef47920bd1b882b29842409a40436140eeba",
+      "original_issue": "The source is about Easy Rose raspberry. This floricane-cycle paragraph cannot support blackberry findings or background merely because the company also has a blackberry business.",
+      "action": "quotation_withheld",
+      "support_status": "scope_unverified",
+      "new_section": null,
+      "new_locator": null,
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
+    },
+    {
+      "query": "Blueberry breeding developments",
+      "source_id": "web-3ac79a1e292bb123",
+      "source_url": "https://www.freshplaza.com/north-america/article/9859716/oregon-blueberry-introduces-four-new-cultivars/",
+      "source_version": "f899cafb81aca654a08524bd227f89a7dd672dbd032b8fad26905d43352ab6a9",
+      "original_issue": "The excerpt is an open-day opinion about the program. It does not itself identify the four introductions or substantiate a concrete breeding milestone; a release-specific passage is needed.",
+      "action": "passage_replaced",
+      "support_status": "body_supported",
+      "new_section": "topic_findings",
+      "new_locator": "article:0",
+      "new_passage_sha256": "bdfdfff48b3a59a36e615ef0f72b1abcd8fffe71415264f4d84a28754ab9083e",
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "The replacement describes four cultivar introductions at the open day, rather than an opinion about programme quality.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
+    },
+    {
+      "query": "Raspberry developments Europe",
+      "source_id": "web-760e04c1800dfd21",
+      "source_url": "https://www.raspberrypi.com/news/raspberry-pi-and-the-eu-cyber-resilience-act/",
+      "source_version": "5d1f8934382c798269868fb91765c1471f4a6085039ff61b2d13f2f2c7457756",
+      "original_issue": "This is Raspberry Pi computer regulation, not raspberry crop intelligence. The crop homonym makes this citation irrelevant to the question.",
+      "action": "candidate_excluded",
+      "support_status": null,
+      "new_section": null,
+      "new_locator": null,
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the Raspberry Pi policy candidate is excluded from the raspberry crop question.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
+    },
+    {
+      "query": "Sweet-Ark Immaculate blackberry release",
+      "source_id": "web-6e802e4102cf81ae",
+      "source_url": "https://italianberry.it/en/news/white-blackberry-sweet-ark-immaculate",
+      "source_version": "0ece50fcfe642f71c87b1e9c2b0e41feb3634e4c1dd032c0cf11684d76ad2a50",
+      "original_issue": "The report faithfully quotes this source, but the source later dates the release to early 2026, conflicting with the university account of a February 2024 release. Its unusual color claims need primary verification; do not synthesize them as established cultivar traits.",
+      "action": "quotation_withheld",
+      "support_status": "source_review_hold",
+      "new_section": null,
+      "new_locator": null,
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
+    },
+    {
+      "query": "Raspberry breeding Scotland",
+      "source_id": "web-31f994d3a75080c2",
+      "source_url": "https://www.thescottishfarmer.co.uk/news/26403876.soft-fruit-breeding-delivers-climate-resilient-berries/",
+      "source_version": "2a3567ed5e31fec99a13887d379d79b0570f377d3e308d4d7e42b6cfd8b2a72b",
+      "original_issue": "The selected quotation concerns honeyberries, not raspberries. A multi-crop article cannot support a raspberry conclusion using this passage.",
+      "action": "passage_replaced",
+      "support_status": "body_supported",
+      "new_section": "topic_findings",
+      "new_locator": "article:20",
+      "new_passage_sha256": "b20d583a46cf277bcf24a9b657501d3cab87b5228f690bbba51d879a81a76b74",
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "The replacement describes the raspberry programme, funding, partners and releases, rather than honeyberry traits.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
+    },
+    {
+      "query": "Blueberry machine harvesting trials",
+      "source_id": "web-12ea20337a39b2f4",
+      "source_url": "https://www.freshplaza.com/north-america/article/2178374/university-developing-firmer-blueberries-to-increase-mechanical-harvesting/",
+      "source_version": "9b51fc57025c50848bbdab79e0fe19683468911e48cefc14ae3a78dd0bc6d29a",
+      "original_issue": "The leading text supports blueberry mechanical-harvest breeding research, but the captured quotation ends with unrelated news/navigation text. Trim or recapture the owned excerpt before using this full quotation.",
+      "action": "passage_replaced",
+      "support_status": "body_supported",
+      "new_section": "topic_background",
+      "new_locator": "article:0",
+      "new_passage_sha256": "ed3364ce645196ab5b04d0e91e4896da7556a6cc82aa63648a691ace4db2da11",
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "The owned research prose is retained and the flattened Source attribution/navigation tail is excluded. Percentages remain historical source assertions, not current universal rates.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
+    },
+    {
+      "query": "Raspberry primocane trials United Kingdom",
+      "source_id": "web-223286c4bcee68aa",
+      "source_url": "https://italianberry.it/en/news/g-viva-g-berries-raspberry",
+      "source_version": "bd946132567f0ef47ce30470db82e2eaa31d7ee596e933b0f74591d3855e3a20",
+      "original_issue": "The excerpt supplies asserted crop yield figures without identifying UK trial locations. It does not satisfy the United Kingdom trial scope on its own.",
+      "action": "quotation_withheld",
+      "support_status": "scope_unverified",
+      "new_section": null,
+      "new_locator": null,
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
+    },
+    {
+      "query": "Raspberry primocane trials United Kingdom",
+      "source_id": "web-07d25dd238cff71a",
+      "source_url": "https://www.hortidaily.com/article/9270225/improved-raspberry-varieties-for-moroccan-and-tunisian-producers/",
+      "source_version": "95f26e2e334577911d15e6a3e832bdf2814846b26f281656a7fa8fbb0f9685d8",
+      "original_issue": "The source concerns cultivar offerings for Morocco and Tunisia. The quoted comparisons do not establish a trial in the United Kingdom; breeding origin is not trial location.",
+      "action": "quotation_withheld",
+      "support_status": "scope_unverified",
+      "new_section": null,
+      "new_locator": null,
+      "new_passage_sha256": null,
+      "handling_review": {
+        "state": "handled_for_reporting",
+        "reason": "Verified that the regenerated report does not quote this source for the unsupported context. The source remains a verification lead; withholding does not resolve the source's factual claim.",
+        "reviewer": "Codex source and regenerated-output inspection",
+        "checked_at": "2026-10-30"
+      }
+    }
+  ],
+  "quotation_audits": [
+    {
+      "query": "Blackberry Floricans",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 7,
+      "quotations_checked": 7,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Floricane blackberry developments",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 6,
+      "quotations_checked": 6,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "New blackberry varieties that fruit on second-year canes",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 7,
+      "quotations_checked": 7,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Ervin blackberry",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 3,
+      "quotations_checked": 3,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "NC 740 blackberry",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 4,
+      "quotations_checked": 4,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Floricane blackberry licensing outside the United States",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 3,
+      "quotations_checked": 3,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 4,
+      "quotations_checked": 4,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Primocane blackberry developments",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 3,
+      "quotations_checked": 3,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Blackberry floricane crop trials involving a primocane-fruiting cultivar",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 1,
+      "quotations_checked": 1,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Strawberry gene editing heat tolerance Hudson River Plantik",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 4,
+      "quotations_checked": 4,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Blueberry breeding developments",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 4,
+      "quotations_checked": 4,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Raspberry developments Europe",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 5,
+      "quotations_checked": 5,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Blackberry fruit new varieties -software -security",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 0,
+      "quotations_checked": 0,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Sweet-Ark Immaculate blackberry release",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 2,
+      "quotations_checked": 2,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Fontana blackberry Pairwise",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 0,
+      "quotations_checked": 0,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Blueberry varieties Fall Creek Peru",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 3,
+      "quotations_checked": 3,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Strawberry Planasa licensing Spain",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 2,
+      "quotations_checked": 2,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Raspberry breeding Scotland",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 4,
+      "quotations_checked": 4,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Blueberry machine harvesting trials",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 1,
+      "quotations_checked": 1,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Nonexistent cultivar ZZZQX-991 blackberry",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 0,
+      "quotations_checked": 0,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Blackberry floricane pruning",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 1,
+      "quotations_checked": 1,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Raspberry primocane trials United Kingdom",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 0,
+      "quotations_checked": 0,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Strawberry robotic harvesting research",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 1,
+      "quotations_checked": 1,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "query": "Blueberry heat tolerance breeding",
+      "version": 1,
+      "audit_scope": "Quotation fidelity, source version, locator, attribution, date scope and web review label; not source truth or complete citation semantics",
+      "quoted_sources_checked": 1,
+      "quotations_checked": 1,
+      "failures": [],
+      "passed": true
+    }
+  ],
+  "original_run_sha256": "684eb798a5f5f523333f89da53c913188edff39523f9fd48b543a62ada2f4b41",
+  "handling_review_summary": {
+    "original_contexts_reviewed": 13,
+    "handled_for_reporting": 13,
+    "source_truth_certified": false,
+    "scope": "These 13 frozen-report contexts only. Original snapshots and historical exports are not rewritten; other regenerated content is not globally truth-certified."
+  }
+}

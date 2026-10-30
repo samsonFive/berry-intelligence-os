@@ -13,6 +13,7 @@ import time
 from collections import Counter, defaultdict
 from contextlib import asynccontextmanager
 from copy import deepcopy
+from dataclasses import replace
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -20,7 +21,7 @@ from urllib.parse import quote, urlencode, urlparse, urlsplit
 
 import feedparser
 import httpx
-from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
+from fastapi import BackgroundTasks, FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -1575,12 +1576,19 @@ def filter_evidence(
         needle = q.strip().lower()
         if needle:
             def matches_text(record: dict[str, Any]) -> bool:
+                from app.services.topic_retrieval import match_record, plan_query, record_passages
+                plan = plan_query(q)
+                if match_record(record, plan, entities=entities):
+                    return True
+                if plan.cane_type or plan.exclusions or plan.phrases or plan.start or plan.end:
+                    return False
                 haystack = " ".join(
                     [
                         record.get("title", ""),
                         record.get("summary", ""),
                         record.get("why_it_matters", ""),
                         " ".join(record.get("tags", [])),
+                        " ".join(p for _, p in record_passages(record)),
                     ]
                 )
                 return text_matches(needle, haystack)
@@ -1660,7 +1668,7 @@ def filter_entities(
     region: str | None = None,
     company: str | None = None,
 ) -> list[dict[str, Any]]:
-    results = records
+    results = [r for r in records if not (r.get('entity_type') == 'variety' and (r.get('attributes') or {}).get('catalog_removed'))]
 
     if q:
         needle = q.strip().lower()
@@ -2817,6 +2825,7 @@ def entity_list(
     has_observation: str | None = None,
     has_product_evidence: str | None = None,
     has_signal: str | None = None,
+    has_recent_intelligence: str | None = None,
     market: str | None = None,
     ip_and_observation: str | None = None,
 ) -> HTMLResponse:
@@ -2837,9 +2846,24 @@ def entity_list(
     entities_idx = entity_index()
     evidence = published_evidence()
     relationships = all_relationships()
+    variety_keyword_hits = None
+    if entity_type == 'variety' and view != 'legacy' and q:
+        from app.services.variety_keyword_search import search_varieties
+        from app.services.variety_profile_sources import all_profile_source_details
+        from app.services.variety_source_reading import stored_source_reading
+        try:
+            variety_keyword_hits = search_varieties(q, varieties=all_of_type,
+                records=[*evidence, *(list_drafts_metadata() if AUTHORING_MODE else [])],
+                notes=all_profile_source_details(DATA_DIR, varieties=[v for v in entities_idx.values() if v.get('entity_type') == 'variety']) if AUTHORING_MODE else {},
+                facts=all_facts(), names_only=request.query_params.get('search_scope') == 'names',
+                record_loader=(lambda record: stored_source_reading(record['id'], load_record=lambda _: record, inbox_dir=INBOX_DIR)) if AUTHORING_MODE else None)
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
     filtered = filter_entities(
-        all_of_type, entities_idx, evidence, relationships, q=q, berry=berry, region=region, company=company
+        all_of_type, entities_idx, evidence, relationships, q=q if variety_keyword_hits is None else None, berry=berry, region=region, company=company
     )
+    if variety_keyword_hits is not None:
+        filtered = [v for v in filtered if v['id'] in variety_keyword_hits]
     companies = sorted(
         ({"id": e["id"], "name": e["name"]} for e in living_catalog() if e.get("entity_type") == "company"),
         key=lambda c: c["name"],
@@ -2848,11 +2872,14 @@ def entity_list(
         "entities": filtered,
         "total_count": len(all_of_type),
         "entity_type": entity_type,
+        "variety_keyword_hits": variety_keyword_hits or {},
+        "search_scope": request.query_params.get("search_scope", "all"),
         "berries": BERRIES,
         "regions": REGIONS,
         "companies": companies,
         "filters": {
             "q": q or "",
+            "search_scope": request.query_params.get("search_scope", "all"),
             "berry": berry or "",
             "region": region or "",
             "company": company or "",
@@ -2860,6 +2887,7 @@ def entity_list(
             "has_observation": has_observation or "",
             "has_product_evidence": has_product_evidence or "",
             "has_signal": has_signal or "",
+            "has_recent_intelligence": has_recent_intelligence or "",
             "market": market or "",
             "ip_and_observation": ip_and_observation or "",
         },
@@ -2907,6 +2935,7 @@ def entity_list(
                     "has_observation": has_observation or "",
                     "has_product_evidence": has_product_evidence or "",
                     "has_signal": has_signal or "",
+                    "has_recent_intelligence": has_recent_intelligence or "",
                 },
             )
             context["variety_cards"] = index_model["cards"]
@@ -2951,11 +2980,12 @@ def entity_list(
                 from app.services.variety_photo_review import photo_identity_reviews
                 photo_sources = load_portfolio_observations(DATA_DIR)
                 photo_profiles = company_directory.load_profiles(INBOX_DIR)["profiles"]
+                photo_index = variety_photos.SourcePhotoIndex(photo_sources, varieties_all)
                 for card in context["variety_rows"]:
                     target = entities_idx.get(card["id"], {})
-                    sourced_photos = variety_photos.source_photos(target, sources=photo_sources, varieties=varieties_all)
+                    sourced_photos = variety_photos.source_photos(target, sources=photo_sources, varieties=varieties_all, _index=photo_index)
                     card["photo_identity_reviews"] = photo_identity_reviews(target, sources=photo_sources,
-                        varieties=varieties_all, sourced=sourced_photos)
+                        varieties=varieties_all, sourced=sourced_photos, _index=photo_index)
                     card["photos"] = variety_photos.gallery(target, authoring=True,
                         sourced=sourced_photos,
                         profile=photo_profiles.get(card["id"]))
@@ -3542,6 +3572,7 @@ def variety_candidates_page(request: Request) -> HTMLResponse:
         candidates = merge_visible_candidates(candidates, selected_report['candidates'], report=selected_report)
         source_text_report = source_catalog_coverage(selected_report).get(request.query_params['source'], [])
     from app.services.variety_navigation import candidate_queue
+    from app.services.variety_catalog_management import promotion_plan
     try:
         queue = candidate_queue(candidates, dict(request.query_params))
     except ValueError as exc:
@@ -3559,6 +3590,7 @@ def variety_candidates_page(request: Request) -> HTMLResponse:
         context={
             **queue,
             "catalog_handoffs": {row["id"]: _variety_catalog_handoff(row, _varieties) for row in queue["candidates"]},
+            "catalog_promotion_plans": {row['id']: promotion_plan(row, varieties=_varieties, candidates=candidates) for row in queue['candidates']},
             "portfolio_error": _report.get("portfolio_error"),
             "source_text_report": source_text_report,
             "article_sources": _report.get("article_sources"),
@@ -4082,6 +4114,19 @@ def entity_detail(request: Request, entity_type: str, entity_id: str) -> HTMLRes
             if entity_type == "variety" and request.query_params.get("view") != "legacy":
                 from app.services.variety_navigation import region_rows
                 synthesis["growing_regions"] = [row for row in region_rows(entities, all_relationships(), published_evidence(), INBOX_DIR, AUTHORING_MODE) if row["entity_id"] == entity_id]
+                if AUTHORING_MODE:
+                    from app.services import variety_photos, company_directory
+                    from app.services.variety_source_reading import profile_source_reading, stored_source_reading
+                    from app.services.variety_profile_sources import profile_source_details
+                    synthesis['variety_profile_sources'] = profile_source_details(DATA_DIR, entity,
+                        varieties=[row for row in entities.values() if row.get('entity_type') == 'variety'])
+                    from app.services.variety_portfolio_coverage import load_portfolio_observations
+                    synthesis['variety_source_reading'] = profile_source_reading(entity,
+                        varieties=[row for row in entities.values() if row.get('entity_type') == 'variety'],
+                        records=[*published_evidence(), *list_drafts_metadata()],
+                        load_record=lambda item_id: stored_source_reading(item_id, load_record=_load_intelligence_record, inbox_dir=INBOX_DIR))
+                    from app.services.variety_keyword_search import source_activity
+                    synthesis['variety_source_activity'] = source_activity(notes=synthesis.get('variety_profile_sources'), reading=synthesis['variety_source_reading'], filings=synthesis.get('variety_original_patents'))
                 template_name = "variety_profile.html"
             response = templates.TemplateResponse(
                 request=request,
@@ -4630,6 +4675,150 @@ def people_profile_page(request: Request, person_id: str) -> HTMLResponse:
             "static_build": False,
         },
     )
+
+
+_COLLECTION_FORM_SECRET = secrets.token_hex(32)
+
+
+def _collection_form_signer():
+    from itsdangerous import URLSafeTimedSerializer
+    from app.runtime_config import session_secret
+    return URLSafeTimedSerializer(session_secret() or _COLLECTION_FORM_SECRET, salt="collection-settings-v1")
+
+
+def _collection_actor(request, csrf_token):
+    if not AUTHORING_MODE:
+        raise HTTPException(status_code=403, detail="Collection edits require authoring mode")
+    from itsdangerous import BadSignature
+    try:
+        actor = _collection_form_signer().loads(csrf_token, max_age=7200)
+        if actor != (session_username(request) or "local"):
+            raise BadSignature("Wrong session")
+        return actor
+    except BadSignature:
+        raise HTTPException(status_code=403, detail="Reload Collection settings before saving") from None
+
+
+@app.post("/settings/collection/query-preview")
+def collection_query_preview(request: Request, csrf_token: str = Form(""), group: str = Form("today_google"),
+    query_input: str = Form(""), input_mode: str = Form("simple"), scope_berry: str = Form("all"),
+    scope_region: str = Form("global"), term_match: str = Form("any"), search_language: str = Form("automatic")):
+    _collection_actor(request, csrf_token)
+    from app.services.collection_settings import compile_custom_query, BUILDER_DESTINATIONS
+    try:
+        if group not in BUILDER_DESTINATIONS:
+            raise ValueError("Choose a supported collection destination.")
+        compiled = compile_custom_query(query_input=query_input, input_mode=input_mode,
+            scope_berry=scope_berry, scope_region=scope_region, term_match=term_match, search_language=search_language)
+        return {"expression": compiled["text"], "help": BUILDER_DESTINATIONS[group]["help"]}
+    except ValueError as exc:
+        return JSONResponse({"error": str(exc)}, status_code=400)
+
+
+def _collection_settings_response(request, *, error=None, status_code=200):
+    from app.services.collection_settings import view_model, BUILDER_DESTINATIONS, BERRY_CHOICES, REGION_CHOICES
+    try:
+        model = view_model(load_sources(), INBOX_DIR, DATA_DIR, _feed_first_world()["official_hosts"])
+    except ValueError as exc:
+        model = {"sources": [], "queries": [], "feeds": [], "pipelines": [], "history": [], "groups": {},
+            "builder_destinations": BUILDER_DESTINATIONS, "berry_choices": BERRY_CHOICES, "region_choices": REGION_CHOICES}
+        error, status_code = str(exc), 503
+    from app.services.keyword_backfill import recent
+    backfills = recent(INBOX_DIR)
+    return templates.TemplateResponse(request=request, name="collection_settings.html", context={
+        **model, "error": error, "saved": request.query_params.get("saved") == "1",
+        "csrf_token": _collection_form_signer().dumps(session_username(request) or "local"),
+        "authoring_mode": AUTHORING_MODE, "static_build": False, "active_href": "/settings",
+        "source_cadences": SOURCE_CADENCES,
+        "backfills": backfills, "backfill_start": (date.today() - timedelta(days=365)).isoformat(),
+        "backfill_end": date.today().isoformat(),
+    }, status_code=status_code)
+
+
+@app.post("/settings/collection/backfill", response_model=None)
+def collection_keyword_backfill(request: Request, background_tasks: BackgroundTasks,
+    csrf_token: str = Form(""), key: str = Form(""), revision: str = Form(""),
+    start: str = Form(""), end: str = Form(""), limit: int = Form(10), provider: str = Form("")):
+    actor = _collection_actor(request, csrf_token)
+    from app.services.keyword_backfill import enqueue, execute
+    from app.services.pipeline_lock import pipeline_lock
+    from app.services.collection_runner import CollectionLockedError
+    try:
+        if provider != "perplexity_search":
+            raise ValueError("Choose Perplexity Search explicitly before starting a web backfill.")
+        with pipeline_lock(INBOX_DIR, 'keyword-backfill-queue'):
+            job = enqueue(INBOX_DIR, key=key, revision=revision, start=start, end=end, limit=limit, actor=actor)
+        background_tasks.add_task(execute, INBOX_DIR, job['id'], DATA_DIR, SCHEMAS_DIR)
+    except CollectionLockedError:
+        return _collection_settings_response(request, error="Collection is busy. Retry backfill when it finishes.", status_code=409)
+    except ValueError as exc:
+        return _collection_settings_response(request, error=str(exc), status_code=400)
+    return RedirectResponse('/settings/collection#terms', status_code=303)
+
+
+@app.get("/settings/collection/backfills/{run_id}")
+def collection_keyword_backfill_status(run_id: str):
+    from app.services.keyword_backfill import read
+    try:
+        return {k: v for k, v in read(INBOX_DIR, run_id).items() if k not in {'candidates', 'monitor'}}
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from None
+
+
+@app.post("/settings/collection/backfills/{run_id}/resume", response_model=None)
+def collection_keyword_backfill_resume(run_id: str, request: Request, background_tasks: BackgroundTasks,
+                                      csrf_token: str = Form("")):
+    actor = _collection_actor(request, csrf_token)
+    from app.services.keyword_backfill import resume, execute
+    from app.services.pipeline_lock import pipeline_lock
+    from app.services.collection_runner import CollectionLockedError
+    try:
+        with pipeline_lock(INBOX_DIR, 'keyword-backfill-resume'):
+            resume(INBOX_DIR, run_id, actor=actor)
+        background_tasks.add_task(execute, INBOX_DIR, run_id, DATA_DIR, SCHEMAS_DIR)
+    except CollectionLockedError:
+        return _collection_settings_response(request, error="Collection is busy. Resume when it finishes.", status_code=409)
+    except ValueError as exc:
+        return _collection_settings_response(request, error=str(exc), status_code=400)
+    return RedirectResponse('/settings/collection#terms', status_code=303)
+
+
+@app.get("/settings/collection", response_class=HTMLResponse)
+def collection_settings_page(request: Request):
+    return _collection_settings_response(request)
+
+
+@app.post("/settings/collection", response_model=None)
+def collection_settings_save(request: Request, csrf_token: str = Form(""),
+    key: str = Form(""), kind: str = Form(...), group: str = Form("pulse"),
+    action: str = Form("save"), revision: str = Form(""), label: str = Form(""),
+    text: str = Form(""), enabled: bool = Form(False), source_type: str = Form("rss"),
+    priority: str = Form(""), cadence: str = Form(""), query_builder: bool = Form(False),
+    query_input: str = Form(""), input_mode: str = Form("simple"), scope_berry: str = Form("all"),
+    scope_region: str = Form("global"), term_match: str = Form("any"), search_language: str = Form("automatic")):
+    actor = _collection_actor(request, csrf_token)
+    from app.services import collection_settings
+    from app.services.pipeline_lock import pipeline_lock
+    from app.services.collection_runner import CollectionLockedError
+    try:
+        with pipeline_lock(INBOX_DIR, "collection-settings"):
+            if kind == "source":
+                collection_settings.load(INBOX_DIR)  # Refuse changes when the private settings store is unreadable.
+                changed_key = collection_settings.change_source(get_repositories(DATA_DIR, SCHEMAS_DIR).sources,
+                    key=key, action=action, revision=revision, label=label, text=text,
+                    enabled=enabled, source_type=source_type, priority=priority, cadence=cadence)
+                collection_settings.record_source_change(INBOX_DIR, changed_key, action, actor, label)
+            else:
+                collection_settings.change(INBOX_DIR, key=key, kind=kind, group=group, action=action,
+                    revision=revision, label=label, text=text, enabled=enabled, actor=actor, official_hosts=_feed_first_world()["official_hosts"],
+                    query_builder=query_builder, query_input=query_input, input_mode=input_mode,
+                    scope_berry=scope_berry, scope_region=scope_region, term_match=term_match, search_language=search_language)
+    except CollectionLockedError:
+        return _collection_settings_response(request,
+            error="Collection is running or another edit is being saved. Try again when it finishes.", status_code=409)
+    except ValueError as exc:
+        return _collection_settings_response(request, error=str(exc), status_code=409 if "changed since" in str(exc) else 400)
+    return RedirectResponse("/settings/collection?saved=1#" + ("sources" if kind == "source" else "feeds" if kind == "feed" else "terms"), status_code=303)
 
 
 @app.get("/settings", response_class=HTMLResponse)
@@ -5302,9 +5491,11 @@ RESEARCH_EXAMPLE_PROMPTS = (
 
 
 def _research_scope_display(scope: ResearchScope, entities: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    from app.services.topic_retrieval import plan_query, _query_identifiers
     from app.services import news_tags
     tag_labels = [tag['name'] for tag in news_tags.catalog(INBOX_DIR) if tag['id'] in scope.tag_ids]
     return {
+        "has_verified_code": bool(_query_identifiers(plan_query(scope.question),entities)),
         "intelligence_type": humanize_label(scope.intelligence_type),
         "berry": BERRIES.get(scope.berry_id or "", ""),
         "companies": [entities[c].get("name") or c for c in scope.company_ids if c in entities],
@@ -5508,7 +5699,12 @@ def _research_packet(scope: ResearchScope) -> tuple[dict[str, Any], dict[str, An
     ) if (scope.comparison or scope.company_ids) else []
     comparison = _present_research_company_compare(comparison_ids)
     packet["comparison_company_ids"] = [row.get("id") for row in (comparison or {}).get("companies") or []]
-    packet["change_scenario"] = build_change_scenario(scope, packet)
+    # The existing comparison engine splits a relative window ending today.
+    # Do not substitute its compatibility day count for an absolute/all-time scope.
+    if scope.all_time or scope.publication_start or scope.publication_end:
+        packet["change_scenario"] = None
+    else:
+        packet["change_scenario"] = build_change_scenario(scope, packet)
     decision_support = build_research_decision_support(scope, packet=packet, company_compare=comparison)
     return packet, comparison, decision_support
 
@@ -5556,14 +5752,17 @@ def research_desk_submit(
         except (TypeError, ValueError, json.JSONDecodeError):
             prior = None
     entities_list = living_catalog()
-    scope = interpret_research_scope(
-        question,
-        berries=BERRIES,
-        entities=entities_list,
-        questions=load_strategic_questions(),
-        relationships=all_relationships(),
-        previous=prior,
-    )
+    try:
+        scope = interpret_research_scope(
+            question,
+            berries=BERRIES,
+            entities=entities_list,
+            questions=load_strategic_questions(),
+            relationships=all_relationships(),
+            previous=prior,
+        )
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
     if isinstance(tag, str) and tag:
         from dataclasses import replace
         scope = replace(scope, tag_ids=tuple(dict.fromkeys(filter(None, tag.split(',')))), tag_mode='any' if tag_mode == 'any' else 'all')
@@ -5607,7 +5806,14 @@ async def research_desk_live(request: Request) -> HTMLResponse:
     raw_scope = payload.get("scope") if isinstance(payload, dict) else None
     if not isinstance(raw_scope, dict):
         raise HTTPException(status_code=422, detail="A structured research scope is required")
-    scope = ResearchScope.from_dict(raw_scope)
+    try:
+        scope = ResearchScope.from_dict(raw_scope)
+        from app.services.topic_retrieval import plan_query
+        submitted_plan = plan_query(scope.question)
+        if submitted_plan.start or submitted_plan.end:
+            scope = replace(scope, publication_start=submitted_plan.start, publication_end=submitted_plan.end, all_time=False)
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
     if scope.tag_ids:
         raise HTTPException(422, 'Tag-scoped research uses stored source assignments. Start a new question to check live sources.')
     if not scope.question.strip():
@@ -5628,18 +5834,52 @@ async def research_desk_live(request: Request) -> HTMLResponse:
         unresolved=scope.unresolved,
         ambiguous=scope.ambiguous,
         interpretation_source=scope.interpretation_source,
+        all_time=scope.all_time,
+        publication_start=scope.publication_start,
+        publication_end=scope.publication_end,
     )
+    if 'application/x-ndjson' in request.headers.get('accept', ''):
+        from fastapi.responses import StreamingResponse
+        from app.services.research_progress import events
+        return StreamingResponse(events(lambda progress: _finish_research_live(request, payload, scope, entities, started, progress)),
+                                 media_type='application/x-ndjson', headers={'Cache-Control':'no-store', 'X-Accel-Buffering':'no'})
+    return await _finish_research_live(request, payload, scope, entities, started)
+
+
+async def _finish_research_live(request, payload, scope, entities, started, progress=None):
     packet, comparison, _initial_decision_support = _research_packet(scope)
     from app.services.industry_pulse.live_stack import week_background_hits
+    from app.services.topic_retrieval import plan_query, _query_identifiers
+    topic_plan = plan_query(scope.question)
+    use_topic_capture = bool(topic_plan.cane_type or _query_identifiers(topic_plan,entities))
 
     live = await asyncio.to_thread(
         run_live_research,
         scope,
-        providers=_pulse_providers(),
+        providers=[] if use_topic_capture else _pulse_providers(),
         entities=entities,
         sources=load_sources(),
         background_hits=week_background_hits(inbox_dir=INBOX_DIR),
+        **({'progress':progress} if progress else {}),
     )
+    if use_topic_capture:
+        from app.services.topic_discovery import discover_topic
+        if scope.publication_start or scope.publication_end:
+            topic_plan = replace(topic_plan,start=scope.publication_start,end=scope.publication_end)
+        elif not scope.all_time and not topic_plan.start:
+            topic_plan = replace(topic_plan, start=(date.today() - timedelta(days=scope.window_days)).isoformat(), end=date.today().isoformat())
+        geo_groups = [[str(name) for eid in ids if eid in entities for name in [entities[eid].get("name"), *(entities[eid].get("aliases") or [])] if name] for ids in (scope.geography_ids, scope.company_ids, scope.variety_ids) if ids]
+        public_labels = [str(entities[e].get("name") or "") for e in (*scope.company_ids, *scope.variety_ids, *scope.geography_ids) if e in entities]
+        discovered = await asyncio.to_thread(discover_topic, topic_plan, inbox_dir=INBOX_DIR, entities=entities, constraints={"public_labels": public_labels, "required_label_groups": geo_groups}, **({"progress":progress} if progress else {}))
+        live = {
+            **live,
+            "query": topic_plan.interpreted_query,
+            "items": [{**r, "url": r["source_url"], "date": r.get("published_date") or "", "snippet": r.get("passage") or r.get("snippet") or "", "related_emerging": False} for r in discovered.get("items") or []],
+            "telemetry": {"perplexity_search": {"queries": discovered.get("queries_this_request", 0) or (1 if discovered.get("cache_hit") else 0), "hits": len(discovered.get("items") or []), "errors": len(discovered.get("failures") or [])}},
+            "failures": [{"provider": "perplexity_search", "error": reason} for reason in discovered.get("failures") or []],
+        }
+    from app.services.research_event_groups import event_groups
+    live['event_groups'] = event_groups(live.get('items') or [], entities)
     queried = [row for row in (live.get("telemetry") or {}).values() if row.get("queries", 0) > 0]
     errors = sum(row.get("errors", 0) for row in queried)
     successes = sum(row.get("queries", 0) - row.get("errors", 0) for row in queried)
@@ -7911,6 +8151,9 @@ def _report_scope_context(scope: ResolvedScope) -> dict[str, Any]:
         "strategic_question_id": scope.strategic_question_id,
         "date_window_days": scope.date_window_days,
         "focus_notes": scope.focus_notes,
+        "research_query": scope.research_query,
+        "source_scope": scope.source_scope,
+        "use_original_query": scope.use_original_query,
     }
 
 
@@ -7993,7 +8236,7 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
         pending_publications=pending_publication_drafts(),
         entities=entities,
         relationships=all_relationships(),
-        published_evidence=published_evidence(),
+        published_evidence=[*published_evidence(), *(pending_publication_drafts() if scope.research_query else [])],
         facts=all_facts(),
         signals=all_signals(),
         assessments=all_assessments(),
@@ -8002,6 +8245,8 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
         variety_candidates=visible_candidates,
         berry_labels=BERRIES,
     )
+    from app.services.report_builder.topic_report import attach_topic_research
+    packet = attach_topic_research(packet, scope, entities=entities, inbox_dir=INBOX_DIR)
     coverage = report_coverage(
         packet,
         berry_label=BERRIES.get(scope.berry_id or "", ""),
@@ -8013,6 +8258,9 @@ def _build_packet_and_coverage(scope: ResolvedScope) -> tuple[dict[str, Any], di
 
 
 def _generate_sections_for(scope: ResolvedScope, packet: dict[str, Any], *, completer: Any) -> list[Any]:
+    if packet.get("topic_research"):
+        from app.services.report_builder.topic_report import topic_sections
+        return topic_sections(packet)
     if scope.report_type == "decision_memo":
         return generate_decision_memo_sections(packet, completer=completer)
     return generate_report_sections(packet, report_type=scope.report_type, completer=completer)
@@ -8166,6 +8414,7 @@ def report_new_page(request: Request) -> HTMLResponse:
         "sekoya": REPORT_EXAMPLE_PROMPTS[2]["text"],
     }
     example_request = aliases.get(example_key, example_request)
+    example_request = str(request.query_params.get("q") or example_request)
     # Morning Intelligence Edition V1's "Create leadership brief" handoff
     # (front_page.py's brief_handoff_query_string()) passes the edition's
     # own top-story entities this way -- prefilling the manual-scope form
@@ -8215,6 +8464,9 @@ def report_new_submit(
     request: Request,
     step: str = Form("interpret"),
     request_text: str = Form(""),
+    research_query: str = Form(""),
+    source_scope: str = Form("combined"),
+    use_original_query: bool = Form(False),
     report_type: str = Form("market_landscape"),
     berry: str = Form(""),
     geography_ids: list[str] = Form([]),
@@ -8232,6 +8484,12 @@ def report_new_submit(
       refreshed coverage/gaps, no AI call.
     - step="generate": confirmed scope -> packet -> section synthesis ->
       persist -> redirect to the new report's workspace."""
+    from app.services.topic_retrieval import plan_query
+    query = request_text.strip() if step == "interpret" else research_query.strip()
+    try:
+        query_plan = plan_query(query, use_original=use_original_query)
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
     entities_list = living_catalog()
     questions = load_strategic_questions()
 
@@ -8239,7 +8497,7 @@ def report_new_submit(
         proposal = interpret_scope_text(
             request_text,
             berries=BERRIES,
-            completer=maybe_untrusted_completer(),
+            completer=None if query_plan.cane_type else maybe_untrusted_completer(),
             entities=entities_list,
         )
         scope = resolve_scope(proposal, entities=entities_list, berries=BERRIES, questions=questions, relationships=all_relationships())
@@ -8254,6 +8512,15 @@ def report_new_submit(
             date_window_days=date_window_days,
             focus_notes=focus_notes,
         )
+
+    # A topic request remains distinct from editorial focus notes. Existing
+    # selected-material/workspace reporting paths never enter this branch.
+    if query:
+        scope = replace(scope, research_query=query, source_scope="combined" if source_scope == "combined" else "archive", use_original_query=use_original_query)
+        if step == "interpret":
+            # A negated region must not become an inclusion filter merely
+            # because the general scope parser recognized its public name.
+            scope = replace(scope, geography_ids=tuple(g for g in scope.geography_ids if not re.search(r"\boutside\s+(?:the\s+)?" + re.escape(str(entity_index().get(g, {}).get("name") or g)), query, re.I)))
 
     if step == "generate":
         packet, _coverage = _build_packet_and_coverage(scope)
@@ -8278,7 +8545,7 @@ def report_new_submit(
             INBOX_DIR,
             title=report_title,
             report_type=scope.report_type,
-            scope=_report_scope_context(scope),
+            scope={**_report_scope_context(scope), "research_snapshot": packet.get("topic_research")},
             sections=sections,
         )
         return RedirectResponse(url=f"/reports/{record['id']}", status_code=303)
@@ -8309,6 +8576,27 @@ def report_new_submit(
     return response
 
 
+@app.post("/reports/{report_id}/topic-source/{source_id}/save")
+def save_topic_source(request: Request, report_id: str, source_id: str) -> RedirectResponse:
+    from app.living_workspace_routes import context
+    _main, store, actor = context(request, True)
+    report = _load_report_or_404(report_id)
+    research = (report.get("scope") or {}).get("research_snapshot") or {}
+    row = next((r for r in [*(research.get("local") or []), *(research.get("web") or [])] if r.get("id") == source_id), None)
+    if not row or not row.get("passage"):
+        raise HTTPException(404, "An inspected source excerpt is required")
+    from app.services.research_source_holds import source_quote_hold
+    if source_quote_hold(row) or row.get('support_status') in {'scope_unverified','source_review_hold'}:
+        raise HTTPException(422, 'This source quotation requires scope or claim verification')
+    source = store.snapshot(row, row["passage"], "excerpt_only")
+    try:
+        store.capture({"token": f"topic:{report_id}:{source_id}", "kind": "article", "page_id": "wp-inbox", "text": row.get("title") or "Source excerpt", "quote": row["passage"], "locator": {"start": 0, "passage": row.get("passage_locator") or ""}, "entity_ids": []}, source, actor, entity_index())
+        store.flush()
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    return RedirectResponse("/workspaces/wp-inbox", status_code=303)
+
+
 def _load_report_or_404(report_id: str) -> dict[str, Any]:
     record = load_report(INBOX_DIR, report_id)
     if record is None:
@@ -8321,6 +8609,10 @@ def _scope_from_record(record: dict[str, Any]) -> ResolvedScope:
     return ResolvedScope(
         report_type=scope.get("report_type") or "market_landscape",
         berry_id=scope.get("berry_id"),
+        research_query=scope.get("research_query") or "",
+        source_scope=scope.get("source_scope") or "archive",
+        research_snapshot=scope.get("research_snapshot"),
+        use_original_query=bool(scope.get("use_original_query")),
         geography_ids=tuple(scope.get("geography_ids") or []),
         company_ids=tuple(scope.get("company_ids") or []),
         variety_ids=tuple(scope.get("variety_ids") or []),
@@ -10858,3 +11150,5 @@ app.include_router(monitor_router)
 
 from app.living_workspace_routes import router as living_workspace_router
 app.include_router(living_workspace_router)
+from app.variety_research_routes import router as variety_research_router
+app.include_router(variety_research_router)

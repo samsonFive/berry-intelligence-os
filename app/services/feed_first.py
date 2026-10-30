@@ -863,7 +863,9 @@ def _matches(item: dict[str, Any], filters: dict[str, str]) -> bool:
             ]
         ).casefold()
         if needle not in hay:
-            return False
+            from app.services.topic_retrieval import match_record, plan_query
+            if not match_record(item.get("record") or {"title": item["headline"], "summary": item["deck"]}, plan_query(filters["q"])):
+                return False
     return True
 
 

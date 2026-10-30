@@ -1,0 +1,29 @@
+{
+  "id": "variety-ucd-victor-f605f64d",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "UCD Victor",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-strawberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-872f318ed2ad",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:56:27.083268+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://strawberry.ucdavis.edu/released-varieties",
+      "source_label": "UC Davis — current strawberry release list",
+      "candidate_name": "UCD Victor"
+    }
+  }
+}

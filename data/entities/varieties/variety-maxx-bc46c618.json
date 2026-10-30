@@ -1,0 +1,29 @@
+{
+  "id": "variety-maxx-bc46c618",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Maxx",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-0475d33e0d2e",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:54:45.919006+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.mountainblue.com.au/our-berries/blueberries",
+      "source_label": "Mountain Blue — nine blueberry cards and Eureka history",
+      "candidate_name": "Maxx"
+    }
+  }
+}

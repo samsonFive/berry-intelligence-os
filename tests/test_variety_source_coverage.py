@@ -128,7 +128,7 @@ def test_live_coverage_respects_profile_edits_and_never_writes_on_get(monkeypatc
     assert 'href="https://blackventurefarm.com/#page-3"' in page.text
     assert 'href="https://example.test/custom-portfolio" target="_blank" rel="noopener noreferrer">Company website' in page.text
     assert "PRIVATE HISTORY MARKER" not in page.text
-    assert "Article text coverage" in page.text and "1269 saved sources" in page.text
+    assert "Article text coverage" in page.text and f"{source_content_coverage(main.published_evidence())['published_sources']} saved sources" in page.text
     assert "excluding pending news" in page.text
     assert 'href="/source-fidelity"' in page.text
     assert path.read_bytes() == before and list(tmp_path.iterdir()) == [path]
@@ -146,7 +146,7 @@ def test_live_coverage_respects_profile_edits_and_never_writes_on_get(monkeypatc
     assert "Article text coverage" not in public.text and "portfolio-ucdavis" not in public.text
 
 
-def test_candidate_provenance_links_keep_portfolio_and_individual_page_separate(monkeypatch, tmp_path):
+def test_candidate_provenance_links_keep_portfolio_and_individual_page_separate(monkeypatch, tmp_path, pre_admission_catalog):
     from html.parser import HTMLParser
     class Links(HTMLParser):
         def __init__(self):

@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "scope": "Negative quotation holds only. A changed page requires source review; it does not automatically clear a hold or approve any claim.",
+  "holds": [
+    {
+      "id": "immaculate-conflicting-release-account",
+      "source_url": "https://italianberry.it/en/news/white-blackberry-sweet-ark-immaculate",
+      "checked_source_version": "0ece50fcfe642f71c87b1e9c2b0e41feb3634e4c1dd032c0cf11684d76ad2a50",
+      "reason": "Release chronology conflicts with the university's 2024 planting/release account; color and maturity assertions require primary verification. Keep this source as a flagged lead, not a report quotation or established trait.",
+      "comparison_source_url": "https://www.uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx",
+      "comparison_locator": "article:2-4",
+      "disposition": "exclude_quotes_pending_source_verification",
+      "reviewed_at": "2026-10-30"
+    }
+  ]
+}

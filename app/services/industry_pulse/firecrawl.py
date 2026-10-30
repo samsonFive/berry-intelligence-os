@@ -60,6 +60,8 @@ class FirecrawlSearchProvider:
             "tbs": firecrawl_tbs(window, today=today),
             "sources": ["web"],
         }
+        if window == 'all':
+            body.pop('tbs', None)
         envelope = request_json(
             self.post,
             FIRECRAWL_SEARCH_URL,

@@ -76,3 +76,38 @@ def test_fetch_never_labels_page_wide_guess_as_publisher_metadata(monkeypatch):
     body = aa.fetch_article(URL)
     assert body.published_date is None and body.as_dict()["published_date_basis"] == "unknown"
     assert body.paragraphs and body.full_text
+
+
+def embrapa_header(value):
+    # Synthetic text in the verified Embrapa news-header DOM structure.
+    return ("<div class='visualizacao visualizacao-noticias'><div class='data-categoria'>"
+            f"<span class='data'>{value}</span><span class='categoria'>Research</span></div>"
+            "<h1 class='titulo'>A crop research announcement</h1><p>Article body</p></div>")
+
+
+@pytest.mark.parametrize('value,expected', [('05/09/25','2025-09-05'), ('27/08/26','2026-08-27'),
+    ('05/09/2025','2025-09-05'), ('31/12/99','1999-12-31'), ('31/02/25',None), ('09/25',None), ('2025',None)])
+def test_verified_portal_dd_mm_year_header(value, expected):
+    # English portal URL still uses the verified Brazilian DD/MM/YY template.
+    result = aa.publisher_publication_date(embrapa_header(value), 'https://www.embrapa.br/en/-/noticia/123/research')
+    assert result == (expected, 'publisher_display_date' if expected else 'unknown')
+
+
+def test_portal_profile_does_not_guess_from_other_sites_paths_or_chrome():
+    markup = embrapa_header('05/09/25')
+    for url in (URL, 'https://www.embrapa.br.evil.invalid/-/noticia/123', 'https://www.embrapa.br/search'):
+        assert aa.publisher_publication_date(markup, url) == (None, 'unknown')
+    url = 'https://www.embrapa.br/pt/-/noticia/123/research'
+    for wrapper in ('aside', 'nav', 'footer'):
+        assert aa.publisher_publication_date(f'<{wrapper}>{markup}</{wrapper}>', url) == (None, 'unknown')
+    assert aa.publisher_publication_date(markup.replace("<h1 class='titulo'>", '<h2>'), url) == (None, 'unknown')
+    assert aa.publisher_publication_date(markup + embrapa_header('06/09/25'), url) == (None, 'unknown')
+    assert aa.publisher_publication_date(markup + '<footer>Copyright 2026</footer>', url) == ('2025-09-05','publisher_display_date')
+
+
+def test_fetch_preserves_portal_original_date_instead_of_rss_or_crawl_date(monkeypatch):
+    url = 'https://www.embrapa.br/en/-/noticia/123/research'
+    html = _REAL_ARTICLE_HTML.replace('<article>', '<article>' + embrapa_header('05/09/25'))
+    monkeypatch.setattr(aa.httpx, 'get', lambda *a, **kw: _FakeResponse(html, url=url))
+    body = aa.fetch_article(url)
+    assert body.published_date == '2025-09-05' and body.published_date_basis == 'publisher_display_date'

@@ -1,0 +1,29 @@
+{
+  "id": "variety-berryworld-inicio-b86ce8f9",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "BerryWorld Inicio",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-ed4c615e0869",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:54:35.268447+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.berryworld.com/en-za/berries/varieties",
+      "source_label": "BerryWorld South Africa — blueberry list",
+      "candidate_name": "BerryWorld Inicio"
+    }
+  }
+}

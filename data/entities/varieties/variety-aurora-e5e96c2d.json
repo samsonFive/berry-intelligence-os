@@ -1,0 +1,29 @@
+{
+  "id": "variety-aurora-e5e96c2d",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Aurora",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-d4e1960e01e4",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:54:34.043861+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.hortifrut.com/innovation/genetic-development/",
+      "source_label": "Hortifrut S.A.",
+      "candidate_name": "Aurora"
+    }
+  }
+}

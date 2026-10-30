@@ -71,6 +71,8 @@ class ApiTubeSearchProvider:
             "published_at.start": start,
             "published_at.end": today.isoformat(),
         }
+        if window == 'all':
+            params.pop('published_at.start', None)
         try:
             response = self.get(
                 APITUBE_SEARCH_URL,

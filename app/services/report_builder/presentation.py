@@ -43,6 +43,8 @@ def section_text(section: dict[str, Any], packet: dict[str, Any]) -> str:
         return "Not drafted yet. Add commentary and check the supporting sources before sharing."
     text = str(section.get("generated_prose") or "")
     if section.get("section_id") in {"scope_method", "comparison_scope"}:
+        if packet.get("topic_research"):
+            return text
         labels = packet.get("display_names") or {}
         berry = packet.get("berry_id")
         return f"Report type: {str(packet.get('report_type') or '').replace('_', ' ').title()}. Berry: {labels.get(berry) or str(berry or 'All berries').removeprefix('berry-').replace('-', ' ').title()}."

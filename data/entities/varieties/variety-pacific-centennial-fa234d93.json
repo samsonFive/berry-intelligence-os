@@ -1,0 +1,29 @@
+{
+  "id": "variety-pacific-centennial-fa234d93",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Pacific Centennial",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-d043b31eb979",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:16.799070+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.hortifrut.com/innovation/genetic-development/",
+      "source_label": "Hortifrut genetic development — raspberries",
+      "candidate_name": "Pacific Centennial"
+    }
+  }
+}

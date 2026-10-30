@@ -1,0 +1,4512 @@
+{
+  "version": 1,
+  "started_at": "2026-10-26T18:45:58.075092+00:00",
+  "old_ref": "94a3b99bfd3936a65136fd54c73f5006fa51ba45",
+  "provider": "perplexity_search",
+  "locale": "en-US",
+  "fixed_depth": 10,
+  "held_out_query_indices": [
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "comparison_limitations": [
+    "Old app comparison measures archive Global Search, not an unavailable historical production request trace.",
+    "Google organic headings exclude ads, AI overviews, shopping and video modules; captured first and second result pages are pooled in displayed order.",
+    "Source-inspected independent relevance and event judgments are required before parity can be asserted."
+  ],
+  "queries": [
+    {
+      "query": "Blackberry Floricans",
+      "split": "development",
+      "plan": {
+        "raw_query": "Blackberry Floricans",
+        "interpreted_query": "Blackberry floricane",
+        "terms": [
+          "blackberry",
+          "floricane"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": true,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-33b0d00ac294cf5f",
+          "title": "Ervin blackberry enters international development outside U.S.",
+          "source_url": "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/",
+          "published_date": "2026-09-03",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-f3daf97f3bf23d5a",
+          "title": "Introducing Ervin: The Latest Introduction - NC State's ...",
+          "source_url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "published_date": "2026-09-01",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-498c1d46adfd3d8b",
+          "title": "Meet 'Ervin' Blackberry",
+          "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+          "published_date": "2026-02-08",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-6b089f1761b93255",
+          "title": "Arkansas Fruit Breeding Program releases new late-season ...",
+          "source_url": "https://www.uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-b0dff2524305c695",
+          "title": "University of Arkansas – Blackberry Breeding Program",
+          "source_url": "https://www.emcocal.com/university-of-arkansas/",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-1e99a407c9bee8e0",
+          "title": "August 2026",
+          "source_url": "https://www.globalplantgenetics.com/gpg_times/august-2026/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-08b1d1563da6551a",
+          "title": "WEED-FREE AREA",
+          "source_url": "https://smallfruits.org/files/2019/06/Vol10-Issue1.pdf",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-4d8e868216c1acfb",
+          "title": "In this Issue",
+          "source_url": "https://gcrec.ifas.ufl.edu/media/gcrecifasufledu/docs/pdf/berry-newsletter/BVT-2020-II-v2.pdf",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-79cf0436b9e7d5f3",
+          "title": "Microsoft Word - 053_Clark",
+          "source_url": "https://horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/ah26_clark_et_al_progress_primo_blackberry_breeding_926387-392_2012.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-0e2994f019081d4e",
+          "title": "Vol15-Issue3",
+          "source_url": "https://smallfruits.org/files/2019/06/Vol12-Issue4.pdf",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-9b08cc830d395d8e",
+          "title": "HS1458/HS1458: Floricane Blackberry Pruning Guide for Florida",
+          "source_url": "https://ask.ifas.ufl.edu/publication/HS1458",
+          "published_date": "2025-12-02",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-49af0ca9286ce680",
+          "title": "Choosing the Right Blackberry Cultivar in Subtropical Florida",
+          "source_url": "https://ask.ifas.ufl.edu/publication/HS1352",
+          "published_date": "2024-10-28",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-5f42000aa680688a",
+          "title": "Say Hello To This New Late-Season Blackberry",
+          "source_url": "https://www.growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry/",
+          "published_date": "2024-02-13",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-f4494e765431cd3a",
+          "title": "A Very BERRY Season! - UF/IFAS Extension Volusia County",
+          "source_url": "https://blogs.ifas.ufl.edu/volusiaco/2023/11/20/a-very-berry-season/",
+          "published_date": "2023-11-20",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-40bd24c41655cda1",
+          "title": "Growing Blackberries in Southern Gardens",
+          "source_url": "https://www.finegardening.com/article/growing-blackberries-in-southern-gardens",
+          "published_date": "2023-04-21",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-060a3ca008663bd9",
+          "title": "Remove Blackberry Floricanes After Harvest",
+          "source_url": "https://www.lsuagcenter.com/profiles/mhferguson/articles/page1562341332039",
+          "published_date": "2019-07-05",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-42e7cfc9063a3a64",
+          "title": "Growing blackberries in your home garden",
+          "source_url": "https://extension.oregonstate.edu/catalog/ec-1303-growing-blackberries-your-home-garden",
+          "published_date": "2014-12-18",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-6c1e3f9bdab4fb0a",
+          "title": "Selecting Blackberry Cultivars for Utah - USU Extension",
+          "source_url": "https://extension.usu.edu/yardandgarden/research/selecting-blackberry-cultivars-for-utah",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-9689a646deed6691",
+          "title": "Performance of Blackberry Varieties in Southern MD",
+          "source_url": "https://agnr.umd.edu/performance-blackberry-varieties-southern-md",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-6a269008f69d1245",
+          "title": "Cultivars | NC State Extension Publications",
+          "source_url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://greatescapefarms.com/blackberry-primocane-blackberry-floricane/"
+        },
+        {
+          "url": "https://www.gardeningknowhow.com/edible/fruits/fegen/distinguishing-primocanes-vs-floricanes.htm"
+        },
+        {
+          "url": "https://dragonflyfarmlanglois.com/blogs/garden-guides/floricane-vs-primocane"
+        },
+        {
+          "url": "https://www.lsuagcenter.com/profiles/mhferguson/articles/page1562341332039"
+        },
+        {
+          "url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/introduction-2002"
+        },
+        {
+          "url": "https://www.theseasonalhomestead.com/the-best-blackberry-varieties/"
+        },
+        {
+          "url": "https://www.berriesunlimited.com/6-thornless-blackberry-package-floricane/"
+        },
+        {
+          "url": "https://www.facebook.com/PawPawRidgeHomestead/posts/blackberry-season-has-just-about-run-its-course-which-means-it-is-time-to-prepar/1075830125395440/"
+        },
+        {
+          "url": "https://www.berriesunlimited.com/6-thornless-blackberry-package-floricane/"
+        },
+        {
+          "url": "https://www.growables.org/information/TropicalFruit/documents2/Blackberry3.pdf"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Blackberry Floricans",
+          "Blackberry floricane",
+          "Blackberry floricane new variety releases trials",
+          "Blackberry floricane licensing international development",
+          "Ervin Blackberry floricane",
+          "Victoria Blackberry floricane"
+        ],
+        "queries_this_request": 6,
+        "candidate_count": 51,
+        "capture_count": 22,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:45:58+00:00",
+        "latency_seconds": 26.261,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 26.487,
+      "warm_seconds": 0.016,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Floricane blackberry developments",
+      "split": "development",
+      "plan": {
+        "raw_query": "Floricane blackberry developments",
+        "interpreted_query": "Floricane blackberry developments",
+        "terms": [
+          "floricane",
+          "blackberry"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-33b0d00ac294cf5f",
+          "title": "Ervin blackberry enters international development outside U.S.",
+          "source_url": "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/",
+          "published_date": "2026-09-03",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-f3daf97f3bf23d5a",
+          "title": "Introducing Ervin: The Latest Introduction - NC State's ...",
+          "source_url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "published_date": "2026-09-01",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-498c1d46adfd3d8b",
+          "title": "Meet 'Ervin' Blackberry",
+          "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+          "published_date": "2026-02-08",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-245b675b58f60637",
+          "title": "Trialing and Developing Blackberries for Florida, Specialty Crop Grower",
+          "source_url": "https://www.growables.org/information/TropicalFruit/BlackberrySpecrop.htm",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-6b089f1761b93255",
+          "title": "Arkansas Fruit Breeding Program releases new late-season ...",
+          "source_url": "https://www.uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-ecfef4d4822baf68",
+          "title": "Arkansas Agricultural Experiment Station Releases New ...",
+          "source_url": "https://aaes.uada.edu/news/pa-horizon/",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-8476b39c4c445331",
+          "title": "[PDF] NCCC212: Small Fruit and Viticulture Research 2020 Report from ...",
+          "source_url": "https://smallfruits.cals.ncsu.edu/wp-content/uploads/2020/10/NCCC212_20-Arkansas-Final-Report-submit.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-b0dff2524305c695",
+          "title": "University of Arkansas – Blackberry Breeding Program",
+          "source_url": "https://www.emcocal.com/university-of-arkansas/",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-86d7c7f8e05ecbfd",
+          "title": "Project",
+          "source_url": "https://www.ars.usda.gov/research/project/?accnNo=434214&fy=2019",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-20ee78fc87f904df",
+          "title": "Breeding southern US blackberries, idea to industry - ishs",
+          "source_url": "https://ishs.org/ishs-article/1133_2/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-1e99a407c9bee8e0",
+          "title": "August 2026",
+          "source_url": "https://www.globalplantgenetics.com/gpg_times/august-2026/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-79cf0436b9e7d5f3",
+          "title": "Microsoft Word - 053_Clark",
+          "source_url": "https://horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/ah26_clark_et_al_progress_primo_blackberry_breeding_926387-392_2012.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-a0d2733aedf619cf",
+          "title": "Title:",
+          "source_url": "https://smallfruits.org/files/2021/12/2021-E-06-Progress-Report.pdf",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-4d8e868216c1acfb",
+          "title": "In this Issue",
+          "source_url": "https://gcrec.ifas.ufl.edu/media/gcrecifasufledu/docs/pdf/berry-newsletter/BVT-2020-II-v2.pdf",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-08b1d1563da6551a",
+          "title": "WEED-FREE AREA",
+          "source_url": "https://smallfruits.org/files/2019/06/Vol10-Issue1.pdf",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-b6414f85ddfe9e2f",
+          "title": "BlacKBerry cultIvatIon In the World",
+          "source_url": "https://scispace.com/pdf/blackberry-cult-ivation-in-the-world-2qi79o6320.pdf",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-93c42834e9e9193a",
+          "title": "Small Fruit News",
+          "source_url": "https://smallfruits.org/files/2019/06/Vol12-Issue3.pdf",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-628359c8ba7bdb03",
+          "title": "PSG expands Rejoice blackberry platform with year-round ...",
+          "source_url": "https://www.freshfruitportal.com/news/2026/08/07/rejoice-psg/",
+          "published_date": "2026-08-07",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-b868c2254f258658",
+          "title": "Blackberries, Raspberries and Hybrids (2026 discussion)",
+          "source_url": "https://growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23",
+          "published_date": "2026-07-10",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-9b08cc830d395d8e",
+          "title": "HS1458/HS1458: Floricane Blackberry Pruning Guide for Florida",
+          "source_url": "https://ask.ifas.ufl.edu/publication/HS1458",
+          "published_date": "2025-12-02",
+          "capture_status": "full",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=424902"
+        },
+        {
+          "url": "http://journals.ashs.org/view/journals/hortsci/53/1/article-p9.xml"
+        },
+        {
+          "url": "https://aaes.uada.edu/research-highlights/plant-breeding/primocane-blackberries-open-new-markets-for-fruit-growers/"
+        },
+        {
+          "url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/introduction-2002"
+        },
+        {
+          "url": "https://smallfruits.org/2020/01/ponca-thornless-floricane-fruiting-blackberry/"
+        },
+        {
+          "url": "https://www.growingproduce.com/fruits/berries/primocane-a-major-innovation-in-berry-production/"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=aL7H8zrUNps"
+        },
+        {
+          "url": "https://dragonflyfarmlanglois.com/blogs/garden-guides/floricane-vs-primocane"
+        },
+        {
+          "url": "https://www.hortidaily.com/article/9885365/greenhouse-propagation-and-primocane-genetics-for-flexible-production-in-blackberries/"
+        },
+        {
+          "url": "https://www.actahort.org/books/1277/1277_47.htm"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Floricane blackberry developments",
+          "Floricane blackberry developments new variety releases trials",
+          "Floricane blackberry developments licensing international development",
+          "Ervin Floricane blackberry developments"
+        ],
+        "queries_this_request": 4,
+        "candidate_count": 32,
+        "capture_count": 21,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:46:24+00:00",
+        "latency_seconds": 15.649,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 15.9,
+      "warm_seconds": 0.022,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "New blackberry varieties that fruit on second-year canes",
+      "split": "development",
+      "plan": {
+        "raw_query": "New blackberry varieties that fruit on second-year canes",
+        "interpreted_query": "New blackberry varieties that floricane",
+        "terms": [
+          "blackberry",
+          "variety",
+          "floricane"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": true,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-33b0d00ac294cf5f",
+          "title": "Ervin blackberry enters international development outside U.S.",
+          "source_url": "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/",
+          "published_date": "2026-09-03",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-f3daf97f3bf23d5a",
+          "title": "Introducing Ervin: The Latest Introduction - NC State's ...",
+          "source_url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "published_date": "2026-09-01",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-498c1d46adfd3d8b",
+          "title": "Meet 'Ervin' Blackberry",
+          "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+          "published_date": "2026-02-08",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-b7f3f5e055cca093",
+          "title": "Big Changes on the Horizon for the Blackberry Market",
+          "source_url": "https://www.growingproduce.com/fruits/berries/big-changes-on-the-horizon-for-the-blackberry-market/",
+          "published_date": "2023-06-05",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-6b089f1761b93255",
+          "title": "Arkansas Fruit Breeding Program releases new late-season ...",
+          "source_url": "https://www.uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-ecfef4d4822baf68",
+          "title": "Arkansas Agricultural Experiment Station Releases New ...",
+          "source_url": "https://aaes.uada.edu/news/pa-horizon/",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-b0dff2524305c695",
+          "title": "University of Arkansas – Blackberry Breeding Program",
+          "source_url": "https://www.emcocal.com/university-of-arkansas/",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-1e99a407c9bee8e0",
+          "title": "August 2026",
+          "source_url": "https://www.globalplantgenetics.com/gpg_times/august-2026/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-263c54664e8ea7bc",
+          "title": "1",
+          "source_url": "https://www.lsuagcenter.com/NR/rdonlyres/5dd47469-da9f-4398-ad57-85fdb3e9327e/27320/pub1553blackberriesfinal.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-4fc50ccbe37ce9a8",
+          "title": "Berries Anyone? | UC Master Gardener Program of Contra Costa ...",
+          "source_url": "https://ucanr.edu/site/uc-master-gardener-program-contra-costa-county/article/berries-anyone",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-f05c24d462ce1c32",
+          "title": "Floricane - Multibaies",
+          "source_url": "https://multibaies.com/raspberry-species/floricane/",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-b868c2254f258658",
+          "title": "Blackberries, Raspberries and Hybrids (2026 discussion)",
+          "source_url": "https://growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23",
+          "published_date": "2026-07-10",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-1ec1040114220c83",
+          "title": "New Blackberry varieties! - Multibaies",
+          "source_url": "https://multibaies.com/new-blackberry-varieties/",
+          "published_date": "2025-05-27",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-4594ffaa690ef0af",
+          "title": "Blackberry Growing Guide",
+          "source_url": "https://www.lsuagcenter.com/articles/page1564515844169",
+          "published_date": "2024-06-18",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-9ee972fe465fdf2e",
+          "title": "Grow Blackberries for a Sweet Treat",
+          "source_url": "https://www.lsuagcenter.com/profiles/mhferguson/articles/page1642699437740",
+          "published_date": "2022-01-20",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-104bcdf93b2da7da",
+          "title": "Blackberries and blueberries, new improved varieties",
+          "source_url": "https://www.freshplaza.com/europe/article/9266907/blackberries-and-blueberries-new-improved-varieties/",
+          "published_date": "2020-11-11",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-43f8b65d1b135ebd",
+          "title": "Late blackberry variety finally available - FreshPlaza",
+          "source_url": "https://www.freshplaza.com/north-america/article/9196489/late-blackberry-variety-finally-available/",
+          "published_date": "2020-03-09",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-42e7cfc9063a3a64",
+          "title": "Growing blackberries in your home garden",
+          "source_url": "https://extension.oregonstate.edu/catalog/ec-1303-growing-blackberries-your-home-garden",
+          "published_date": "2014-12-18",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-0204de9fd16f5667",
+          "title": "New blackberry from Division of Agriculture achieves ...",
+          "source_url": "https://www.uaex.uada.edu/media-resources/news/2019/december2019/12-09-2019_Division_releases_Ponca_blackberry-FM.aspx",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-20ebe2dc91590b34",
+          "title": "Blackberries for the Home Garden | NC State Extension Publications",
+          "source_url": "https://content.ces.ncsu.edu/blackberries-for-the-home-garden",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.theseasonalhomestead.com/the-best-blackberry-varieties/"
+        },
+        {
+          "url": "https://aaes.uada.edu/news/sweet-ark-immaculate/"
+        },
+        {
+          "url": "https://news.uark.edu/articles/69431/arkansas-fruit-breeding-program-releases-new-late-season-blackberry"
+        },
+        {
+          "url": "https://help.provenwinnersdirect.com/s/article/Taste-of-Heaven-Blackberry-Growing-Guide"
+        },
+        {
+          "url": "https://www.aces.edu/blog/topics/crop-production/primocane-fruiting-blackberries/"
+        },
+        {
+          "url": "https://www.starkbros.com/products/berry-plants/blackberry-plants/prime-ark-freedom-primocane-blackberry"
+        },
+        {
+          "url": "https://www.facebook.com/TheBenStarr/posts/several-years-ago-the-university-of-arkansas-developed-a-new-thornless-blackberr/323195005879806/"
+        },
+        {
+          "url": "https://cropcirclefarms.com/berries/blackberry-varieties"
+        },
+        {
+          "url": "https://www.lsuagcenter.com/profiles/mhferguson/articles/page1642699437740"
+        },
+        {
+          "url": "https://growingfruit.org/t/new-primocane-blackberry-variety/41879"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "New blackberry varieties that fruit on second-year canes",
+          "New blackberry varieties that floricane",
+          "New blackberry varieties that floricane new variety releases trials",
+          "New blackberry varieties that floricane licensing international development",
+          "Ervin New blackberry varieties that floricane"
+        ],
+        "queries_this_request": 5,
+        "candidate_count": 33,
+        "capture_count": 26,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:46:41+00:00",
+        "latency_seconds": 18.114,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 18.446,
+      "warm_seconds": 0.025,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Ervin blackberry",
+      "split": "development",
+      "plan": {
+        "raw_query": "Ervin blackberry",
+        "interpreted_query": "Ervin blackberry",
+        "terms": [
+          "ervin",
+          "blackberry"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-33b0d00ac294cf5f",
+          "title": "Ervin blackberry enters international development outside U.S.",
+          "source_url": "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/",
+          "published_date": "2026-09-03",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-c3e97af2bbc58306",
+          "title": "Boosting Blackberries: NC State’s Gina Fernandez Launches Latest Botanical Offspring",
+          "source_url": "https://cals.ncsu.edu/news/boosting-blackberries-nc-states-gina-fernandez-launches-latest-botanical-offspring/",
+          "published_date": "2026-07-22",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe",
+          "title": "Boosting Blackberries: NC State’s Gina Fernandez Launches Latest Botanical Offspring - NC State University",
+          "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNOFlmdVE3QWtZckdMODZTaEpMN3NNMGN0RGc0dnpMYVo5bjNRUmdpdFZqbnN0bVlveTFrbFpwVnN3WGhjNXVuTWJ3LW5RTWVRclpuTTZyV09aZVFPM0c1a3Vwa2xvQzRTUUZaWVpyQTBOWnBrWWNiLS1kX1FIVmx6VHRvdmxvM3lJMWFGbFBkNWxERXoyNTdXNFFfWEY4bFk1Ym5wc1cyVUpkNnBrM3R3?oc=5",
+          "published_date": "2026-07-22",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "web-1e99a407c9bee8e0",
+          "title": "August 2026",
+          "source_url": "https://www.globalplantgenetics.com/gpg_times/august-2026/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-b868c2254f258658",
+          "title": "Blackberries, Raspberries and Hybrids (2026 discussion)",
+          "source_url": "https://growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23",
+          "published_date": "2026-07-10",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-498c1d46adfd3d8b",
+          "title": "Meet 'Ervin' Blackberry",
+          "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+          "published_date": "2026-02-08",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-dfc080c4571f1fb4",
+          "title": "Remembering a Berry Industry Leader, Innovator, and Friend",
+          "source_url": "https://www.growingproduce.com/fruits/remembering-a-berry-industry-leader-innovator-and-friend/",
+          "published_date": "2021-03-23",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173540-c5d7-remembering-a-berry-industry-leader-inno",
+          "title": "Remembering a Berry Industry Leader, Innovator, and Friend - Growing Produce",
+          "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQbHd1UFRCcVJkM0FQU0pwOTFCOU5pMG85RDFwQ1Y0Zk9Uekd6MXFsT1lhZllKUWZ2ODlHTHV6YUpsd2otckx3ZlE1c2h1WFctRHN4enV6SnhKZ2tFV19lR09DTFVoWGpEUWEyNno4UEdGZzNfRTI4Q2tuZHc4cF9zczhwR3kxT0x4Y1d4RXJsdGJLcEJzQkdVOTFUWQ?oc=5",
+          "published_date": "2021-03-23",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "web-12e9c4ffd843a4cf",
+          "title": "Ervin Blackberry - Gurney's Seed",
+          "source_url": "https://www.gurneys.com/products/ervin-blackberry",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-f1594ceac1dfa4ec",
+          "title": "Ervin Stafa | LinkedIn",
+          "source_url": "https://www.linkedin.com/in/ervin-stafa-ba7243a",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "background"
+        },
+        {
+          "id": "web-a2daefd11e738846",
+          "title": "Longtime North Carolina blackberry, muscadine grower ...",
+          "source_url": "https://fruitgrowersnews.com/news/longtime-north-carolina-blackberry-muscadine-grower-miles-linberger-dies/",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "background"
+        },
+        {
+          "id": "web-96540a9e87ca5802",
+          "title": "SFP Episode 4 Transcript",
+          "source_url": "https://uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/docs/SFP-Episode-4-FINAL.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.gurneys.com/products/ervin-blackberry"
+        },
+        {
+          "url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/"
+        },
+        {
+          "url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/"
+        },
+        {
+          "url": "https://www.facebook.com/NCAgriculture/posts/did-you-know-that-a-new-blackberry-variety-named-ervin-was-recently-debuted-by-n/1524876143009954/"
+        },
+        {
+          "url": "https://www.freshplaza.com/latin-america/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/"
+        },
+        {
+          "url": "https://in.pinterest.com/pin/4600497465197335936/"
+        },
+        {
+          "url": "https://www.instagram.com/p/DdlJlQalN44/"
+        },
+        {
+          "url": "https://cals.ncsu.edu/news/tag/ervin-blackberry-variety/"
+        },
+        {
+          "url": "https://www.facebook.com/100087590599643/posts/ervin-the-next-generation-of-blackberry-geneticsdeveloped-from-the-same-breeding/1086300560966287/"
+        },
+        {
+          "url": "https://www.globalplantgenetics.com/gpg_times/august-2026/"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Ervin blackberry",
+          "Ervin Ervin blackberry"
+        ],
+        "queries_this_request": 2,
+        "candidate_count": 14,
+        "capture_count": 9,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:46:59+00:00",
+        "latency_seconds": 7.341,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 7.6,
+      "warm_seconds": 0.018,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "NC 740 blackberry",
+      "split": "development",
+      "plan": {
+        "raw_query": "NC 740 blackberry",
+        "interpreted_query": "NC 740 blackberry",
+        "terms": [
+          "nc",
+          "740",
+          "blackberry"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-33b0d00ac294cf5f",
+          "title": "Ervin blackberry enters international development outside U.S.",
+          "source_url": "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/",
+          "published_date": "2026-09-03",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-c3e97af2bbc58306",
+          "title": "Boosting Blackberries: NC State's Gina Fernandez Launches ...",
+          "source_url": "https://cals.ncsu.edu/news/boosting-blackberries-nc-states-gina-fernandez-launches-latest-botanical-offspring/",
+          "published_date": "2026-07-22",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe",
+          "title": "Boosting Blackberries: NC State’s Gina Fernandez Launches Latest Botanical Offspring - NC State University",
+          "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNOFlmdVE3QWtZckdMODZTaEpMN3NNMGN0RGc0dnpMYVo5bjNRUmdpdFZqbnN0bVlveTFrbFpwVnN3WGhjNXVuTWJ3LW5RTWVRclpuTTZyV09aZVFPM0c1a3Vwa2xvQzRTUUZaWVpyQTBOWnBrWWNiLS1kX1FIVmx6VHRvdmxvM3lJMWFGbFBkNWxERXoyNTdXNFFfWEY4bFk1Ym5wc1cyVUpkNnBrM3R3?oc=5",
+          "published_date": "2026-07-22",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "web-498c1d46adfd3d8b",
+          "title": "Meet 'Ervin' Blackberry",
+          "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+          "published_date": "2026-02-08",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-223443844623a7b9",
+          "title": "Erwin Thornless Blackberry Bush",
+          "source_url": "https://berryking.com/erwin-thornless-blackberry-bush/",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-d56b3c311b4f02d4",
+          "title": "Blackberries, Raspberries and Hybrids",
+          "source_url": "https://growingfruit.org/t/blackberries-raspberries-and-hybrids/54962?page=161",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-441d1f3c43083f60",
+          "title": "Best Thornless blackberry? - #257 by blueberrythrill",
+          "source_url": "https://growingfruit.org/t/best-thornless-blackberry/1582?page=13",
+          "published_date": "2022-11-15",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-12e9c4ffd843a4cf",
+          "title": "Ervin Blackberry - Gurney's Seed",
+          "source_url": "https://www.gurneys.com/products/ervin-blackberry",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-21ebf07da6e9c92b",
+          "title": "740 Blackberry Trl, Sapphire, NC 28774",
+          "source_url": "https://www.zillow.com/homedetails/740-Blackberry-Trl-Sapphire-NC-28774/215278113_zpid/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-c8b853907fe1a6f3",
+          "title": "Local Pick-Up Inventory",
+          "source_url": "https://berryking.com/local-pick-up-inventory/",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "background"
+        },
+        {
+          "id": "web-836c4a63527aca34",
+          "title": "Blackberries - Fresh and Delicious at the Best Prices",
+          "source_url": "https://berryking.com/blackberries/",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "background"
+        },
+        {
+          "id": "web-4ae1d5d8b7419939",
+          "title": "Home property records near Blackberry Trl, Sapphire NC",
+          "source_url": "https://www.realtor.com/propertyrecord-search/28774/Blackberry-Trl",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/"
+        },
+        {
+          "url": "https://www.gurneys.com/products/ervin-blackberry"
+        },
+        {
+          "url": "https://cals.ncsu.edu/news/boosting-blackberries-nc-states-gina-fernandez-launches-latest-botanical-offspring/"
+        },
+        {
+          "url": "https://growingfruit.org/t/best-thornless-blackberry/1582/257"
+        },
+        {
+          "url": "https://www.facebook.com/HendersonCountyExtension/posts/exciting-news-for-berry-lovers-and-growers-nc-state-extension-has-officially-int/1544450541021456/"
+        },
+        {
+          "url": "https://www.instagram.com/p/DVJfQLrj5wE/"
+        },
+        {
+          "url": "https://www.zillow.com/homedetails/740-Blackberry-Trl-Sapphire-NC-28774/215278113_zpid/"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=J9EASkgTYCU"
+        },
+        {
+          "url": "https://journals.ashs.org/downloadpdf/view/journals/horttech/25/4/article-p452.pdf"
+        },
+        {
+          "url": "https://www.blueridgenow.com/story/news/2008/07/07/get-tangled-up-learning-the-botany-basics-of-cane-berries/28066302007/"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "NC 740 blackberry",
+          "Ervin NC 740 blackberry"
+        ],
+        "queries_this_request": 2,
+        "candidate_count": 16,
+        "capture_count": 10,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:47:07+00:00",
+        "latency_seconds": 7.424,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 7.605,
+      "warm_seconds": 0.013,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Floricane blackberry licensing outside the United States",
+      "split": "development",
+      "plan": {
+        "raw_query": "Floricane blackberry licensing outside the United States",
+        "interpreted_query": "Floricane blackberry licensing outside the United States",
+        "terms": [
+          "floricane",
+          "blackberry",
+          "license",
+          "outside",
+          "united",
+          "states"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-33b0d00ac294cf5f",
+          "title": "Ervin blackberry enters international development outside U.S.",
+          "source_url": "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/",
+          "published_date": "2026-09-03",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-f3daf97f3bf23d5a",
+          "title": "Introducing Ervin: The Latest Introduction - NC State's ...",
+          "source_url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "published_date": "2026-09-01",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-498c1d46adfd3d8b",
+          "title": "Meet 'Ervin' Blackberry",
+          "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+          "published_date": "2026-02-08",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-e6354ce522683ca1",
+          "title": "Sweet-Ark Immaculate Release Flyer",
+          "source_url": "https://bpb-us-e1.wpmucdn.com/wordpressua.uark.edu/dist/3/599/files/2024/03/Sweet-Ark-Immaculate-A-2718T-Release-Flyer-6867520d1deea77d.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-d0e9557fe8f9580b",
+          "title": "Blackberry Propagation Limitations When",
+          "source_url": "https://journals.ashs.org/downloadpdf/view/journals/horttech/29/3/article-p276.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-4d8e868216c1acfb",
+          "title": "In this Issue",
+          "source_url": "https://gcrec.ifas.ufl.edu/media/gcrecifasufledu/docs/pdf/berry-newsletter/BVT-2020-II-v2.pdf",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-a9f3e17ac09e32bd",
+          "title": "Thornless Blackberry Cultivars Suited for the Mid-Atlantic (FS-2024 ...",
+          "source_url": "https://extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-20b3dfdd8f88873a",
+          "title": "Kentucky Fruit Facts - Horticulture",
+          "source_url": "https://horticulture.mgcafe.uky.edu/sites/horticulture.ca.uky.edu/files/January-February%202026%20Fruit%20Facts-2_AOD.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-e28827ba923459bc",
+          "title": "Columbia Star blackberry ready from Oregon State University",
+          "source_url": "https://fruitgrowersnews.com/news/columbia-star-blackberry-introduced-oregon-state-university/",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-0204de9fd16f5667",
+          "title": "New blackberry from Division of Agriculture achieves ...",
+          "source_url": "https://www.uaex.uada.edu/media-resources/news/2019/december2019/12-09-2019_Division_releases_Ponca_blackberry-FM.aspx",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-2391de7eff22c32f",
+          "title": "EMCO CAL Rubus Varieties",
+          "source_url": "https://www.emcocal.com/emcocal-rubus-varieties/",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.freshplaza.com/north-america/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/"
+        },
+        {
+          "url": "https://smallfruits.org/2026/01/sweet-ark-immaculate/"
+        },
+        {
+          "url": "http://journals.ashs.org/view/journals/horttech/29/3/article-p276.xml"
+        },
+        {
+          "url": "https://www.facebook.com/100087590599643/posts/ervin-the-next-generation-of-blackberry-geneticsdeveloped-from-the-same-breeding/1086300560966287/"
+        },
+        {
+          "url": "https://www.emcocal.com/university-of-arkansas/"
+        },
+        {
+          "url": "https://www.globalplantgenetics.com/crops/blackberry/"
+        },
+        {
+          "url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/"
+        },
+        {
+          "url": "https://www.facebook.com/ripon.college/posts/thanks-in-no-small-part-to-the-innovative-research-of-gina-fernandez-81-the-blac/1497769449048317/"
+        },
+        {
+          "url": "https://www.facebook.com/arkansas.extension/posts/have-you-heard-about-our-new-caddo-blackberry-variety-caddo-is-a-thornless-black/3505162592842367/"
+        },
+        {
+          "url": "https://www.uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Floricane blackberry licensing outside the United States",
+          "Floricane blackberry licensing outside the United States new variety releases trials",
+          "Floricane blackberry licensing outside the United States licensing international development",
+          "Ervin Floricane blackberry licensing outside the United States"
+        ],
+        "queries_this_request": 4,
+        "candidate_count": 24,
+        "capture_count": 15,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:47:15+00:00",
+        "latency_seconds": 10.817,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 11.024,
+      "warm_seconds": 0.021,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+      "split": "development",
+      "plan": {
+        "raw_query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+        "interpreted_query": "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+        "terms": [
+          "floricane",
+          "blackberry"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": "2026-01-01",
+        "end": "2026-10-26",
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-3da088396ccc0615",
+          "title": "Fall Creek Signs Exclusive Propagation and Sales Agreement for EasyRose ‘ALEL101’ Raspberry",
+          "source_url": "https://perishablenews.com/produce/fall-creek-signs-exclusive-propagation-and-sales-agreement-for-easyrose-alel101-raspberry/",
+          "published_date": "2026-10-08",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-0ef355196dfa85b7",
+          "title": "Fall Creek® signs exclusive propagation and sales ...",
+          "source_url": "https://hortnews.com/fall-creek-signs-exclusive-propagation-and-sales-agreement/",
+          "published_date": "2026-10-06",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-33b0d00ac294cf5f",
+          "title": "Ervin blackberry enters international development outside U.S.",
+          "source_url": "https://www.freshplaza.com/europe/article/9868796/ervin-blackberry-enters-international-development-outside-u-s/",
+          "published_date": "2026-09-03",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-f3daf97f3bf23d5a",
+          "title": "Introducing Ervin: The Latest Introduction - NC State's ...",
+          "source_url": "https://www.globalplantgenetics.com/introducing-ervin-the-latest-introduction-nc-states-breeding-programme/",
+          "published_date": "2026-09-01",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-498c1d46adfd3d8b",
+          "title": "Meet 'Ervin' Blackberry",
+          "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/",
+          "published_date": "2026-02-08",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-1eaf039c75eaa242",
+          "title": "Exclusive propagation and sales agreement signed for ...",
+          "source_url": "https://www.freshplaza.com/north-america/article/9879343/exclusive-propagation-and-sales-agreement-signed-for-easyrose-raspberry/",
+          "published_date": "2026-10-02",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-b868c2254f258658",
+          "title": "Blackberries, Raspberries and Hybrids (2026 discussion)",
+          "source_url": "https://growingfruit.org/t/blackberries-raspberries-and-hybrids-2026-discussion/82411?page=23",
+          "published_date": "2026-07-10",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-2ce4d6c55daa2440",
+          "title": "How to Grow Blackberries: Thornless Types and Pruning",
+          "source_url": "https://www.bloomingexpert.com/garden/blackberry-growing-guide/",
+          "published_date": "2026-04-26",
+          "capture_status": "partial",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.ambitiousharvest.com/learn/blackberry-growth-stages"
+        },
+        {
+          "url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/plant-growth"
+        },
+        {
+          "url": "https://www.facebook.com/TripleCreekFarmPEI/posts/-out-with-the-old-making-room-for-next-years-berries-heres-a-before-and-after-lo/1119469557496371/"
+        },
+        {
+          "url": "https://www.growingproduce.com/fruits/berries/big-changes-on-the-horizon-for-the-blackberry-market/"
+        },
+        {
+          "url": "https://www.berriesunlimited.com/triple-crown-blackberry/"
+        },
+        {
+          "url": "https://www.facebook.com/PawPawRidgeHomestead/posts/blackberry-season-has-just-about-run-its-course-which-means-it-is-time-to-prepar/1075830125395440/"
+        },
+        {
+          "url": "https://www.facebook.com/PawPawRidgeHomestead/posts/time-to-make-room-for-next-years-blackberry-harvestif-youre-growing-floricane-fr/1066033919708394/"
+        },
+        {
+          "url": "https://www.berriesunlimited.com/6-thornless-blackberry-package-floricane/"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Floricane blackberry developments 2026-01-01 through 2026-10-26",
+          "Floricane blackberry developments 2026-01-01 through 2026-10-26 new variety releases trials",
+          "Floricane blackberry developments 2026-01-01 through 2026-10-26 licensing international development",
+          "Ervin Floricane blackberry developments 2026-01-01 through 2026-10-26"
+        ],
+        "queries_this_request": 4,
+        "candidate_count": 23,
+        "capture_count": 19,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:47:26+00:00",
+        "latency_seconds": 12.196,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 12.395,
+      "warm_seconds": 0.026,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Primocane blackberry developments",
+      "split": "development",
+      "plan": {
+        "raw_query": "Primocane blackberry developments",
+        "interpreted_query": "Primocane blackberry developments",
+        "terms": [
+          "primocane",
+          "blackberry"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "primocane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-a16a1db52b9b8df1",
+          "title": "New compact blackberry variety offers higher planting ...",
+          "source_url": "https://www.freshplaza.com/north-america/article/9883273/new-compact-blackberry-variety-offers-higher-planting-density-and-earlier-harvests/",
+          "published_date": "2026-10-15",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-c4907b35e3e4635c",
+          "title": "GPG Brings New Blackberry Genetics To The Market",
+          "source_url": "https://www.globalplantgenetics.com/gpg-brings-new-blackberry-genetics-to-the-market/",
+          "published_date": "2024-06-10",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-49ee189db865caf7",
+          "title": "Arkansas Blackberry Field Day Brings Research Together From Across the Southeast",
+          "source_url": "https://www.farms.com/news/arkansas-blackberry-field-day-brings-research-together-from-across-the-southeast-243401.aspx",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-d284e900803bfeb6",
+          "title": "https://patexia.com/us/patent/PP034914",
+          "source_url": "https://patexia.com/us/patent/PP034914",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-98422fb4d12bcb9b",
+          "title": "'Thunderhead' erect primocane fruiting blackberry",
+          "source_url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=424902",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-896a0bfad9c8a4bf",
+          "title": "PROGRESS AND CHALLENGES IN PRIMOCANE-FRUITING BLACKBERRY BREEDING AND CULTURAL MANAGEMENT",
+          "source_url": "https://ishs.org/ishs-article/926_54/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-cb2b26a573778e3a",
+          "title": "2023 - Project : USDA ARS",
+          "source_url": "https://www.ars.usda.gov/research/project/?accnNo=444118&fy=2023",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-59ba3088c5923447",
+          "title": "Production and Genomics | Horticulture | University of Arkansas",
+          "source_url": "https://horticulture.uark.edu/research-extension/production-genomics.php",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-35ad5d6307ab8da0",
+          "title": "Project : USDA ARS",
+          "source_url": "https://www.ars.usda.gov/research/project/?accnNo=434214&fy=2022",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-20ee78fc87f904df",
+          "title": "Breeding southern US blackberries, idea to industry - ishs",
+          "source_url": "https://ishs.org/ishs-article/1133_2/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-b0dff2524305c695",
+          "title": "University of Arkansas – Blackberry Breeding Program",
+          "source_url": "https://www.emcocal.com/university-of-arkansas/",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-e70dc831da15ebfc",
+          "title": "GPG brings new primocane blackberry to the market",
+          "source_url": "https://www.freshfruitportal.com/news/2024/05/17/gpg-brings-new-primocane-blackberry-to-the-market/",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-b62eb79ce4837407",
+          "title": "Caneberry Breeders in North America",
+          "source_url": "https://www.ars.usda.gov/ARSUserFiles/1718/PDF/2006/CollectedInsightsCaneberry(FinnHortScience2006).pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-0af51c4d83de8bc5",
+          "title": "[PDF] Changing Times for Eastern United States Blackberries",
+          "source_url": "https://journals.ashs.org/downloadpdf/view/journals/horttech/15/3/article-p491.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-ce8fb97ae9bcfd60",
+          "title": "2016 Threlfall SRSFC  Blackberry Final Report",
+          "source_url": "https://smallfruits.org/files/2019/07/2016R-08-final.pdf",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-5377f80f5b5a229b",
+          "title": "Arkansas fruit breeder John R. Clark reflects on 42-year career with ...",
+          "source_url": "https://aaes.uada.edu/news/john-clark-career-retrospective/",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-79cf0436b9e7d5f3",
+          "title": "Microsoft Word - 053_Clark",
+          "source_url": "https://horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/ah26_clark_et_al_progress_primo_blackberry_breeding_926387-392_2012.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-628359c8ba7bdb03",
+          "title": "PSG expands Rejoice blackberry platform with year-round ...",
+          "source_url": "https://www.freshfruitportal.com/news/2026/08/07/rejoice-psg/",
+          "published_date": "2026-08-07",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173540-f021-blackberry-breakthrough-psg-unveils-firs",
+          "title": "Blackberry breakthrough: PSG unveils first year-round primocane variety - Fruitnet",
+          "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOZ21QY3d0VS1vVktKNzEyVkJha0x0UnNmeFJULXJmeEk1VVhMdFNjOWl6RXd6YldOQUN2U2RRenNLN3gtamF3WjJkU05uRVVjTDVfd1VJNW10aGVDV0dyTGpIV3p2eWFMamE2UnhMUFZsYlREVS15NWM4WHFIc1hJTUFLRHZoRi1NLXR4cVY1MEhNSFF4X2JNUVQzZWNNcnJVcFFHYks2V09QamZvNGQ4ODl2d3hyTjlFaC1Xdg?oc=5",
+          "published_date": "2026-07-28",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173540-81ca-blackberries-reveal-single-genetic-switc",
+          "title": "Blackberries reveal single genetic switch for first-year fruiting, speeding new varieties - Phys.org",
+          "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQbHBZWWtYeGtGM0R0Wi00XzhvTlJLTVN0V3JsNDVTbFd6Y29JVnFRcUpNazBNb3lDcloyYXh1SkNKQ2lkdUlYY2Zha2FKZlFsdFByaS1Da3h1c2NaUlMxZGNWTVN6V2p1X2prVmh2bEhQeFpKTHliU2lhLUNZeVR0bFhR?oc=5",
+          "published_date": "2026-05-12",
+          "capture_status": null,
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.uaex.uada.edu/media-resources/news/2026/may/05-11-2026-ark-primocane-blackberry-genetics.aspx"
+        },
+        {
+          "url": "https://www.hortidaily.com/article/9885365/greenhouse-propagation-and-primocane-genetics-for-flexible-production-in-blackberries/"
+        },
+        {
+          "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=424902"
+        },
+        {
+          "url": "https://journals.ashs.org/downloadpdf/view/journals/hortsci/43/6/article-p1637.pdf"
+        },
+        {
+          "url": "https://www.aces.edu/blog/topics/crop-production/primocane-fruiting-blackberries/"
+        },
+        {
+          "url": "https://aaes.uada.edu/research-highlights/plant-breeding/primocane-blackberries-open-new-markets-for-fruit-growers/"
+        },
+        {
+          "url": "https://www.facebook.com/arkansas.extension/videos/primocane-blackberries-a-breakthrough-for-blackberry-production/2037802136526826/?locale=zh_HK"
+        },
+        {
+          "url": "https://pubmed.ncbi.nlm.nih.gov/23856741/"
+        },
+        {
+          "url": "https://www.growables.org/information/documents2/BlackberryHortS4.pdf"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=qH5uRXYR6EY"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Primocane blackberry developments",
+          "Primocane blackberry developments new variety releases trials",
+          "Primocane blackberry developments licensing international development"
+        ],
+        "queries_this_request": 3,
+        "candidate_count": 26,
+        "capture_count": 17,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:47:39+00:00",
+        "latency_seconds": 13.527,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 13.845,
+      "warm_seconds": 0.027,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Blackberry floricane crop trials involving a primocane-fruiting cultivar",
+      "split": "development",
+      "plan": {
+        "raw_query": "Blackberry floricane crop trials involving a primocane-fruiting cultivar",
+        "interpreted_query": "Blackberry floricane crop trials involving a primocane-fruiting cultivar",
+        "terms": [
+          "blackberry",
+          "floricane",
+          "crop",
+          "trial",
+          "involving",
+          "primocane",
+          "variety"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-707540de7e2f2d9c",
+          "title": "Horticultural Crops Research Unit - Publication : USDA ARS",
+          "source_url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=172293",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-245b675b58f60637",
+          "title": "Trialing and Developing Blackberries for Florida, Specialty Crop Grower",
+          "source_url": "https://www.growables.org/information/TropicalFruit/BlackberrySpecrop.htm",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-4b8bba067718b024",
+          "title": "[PDF] Blackberry Advanced Breeding Line Trial",
+          "source_url": "https://www.nacaa.com/posters/uploads/2051.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-a9f3e17ac09e32bd",
+          "title": "Thornless Blackberry Cultivars Suited for the Mid-Atlantic ...",
+          "source_url": "http://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-86d7c7f8e05ecbfd",
+          "title": "Project",
+          "source_url": "https://www.ars.usda.gov/research/project/?accnNo=434214&fy=2019",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-79cf0436b9e7d5f3",
+          "title": "Microsoft Word - 053_Clark",
+          "source_url": "https://horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/ah26_clark_et_al_progress_primo_blackberry_breeding_926387-392_2012.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-ca928f537477d77e",
+          "title": "[PDF] Suggested Format/Content NCCC-212 Blackberry and Raspberry",
+          "source_url": "https://smallfruits.cals.ncsu.edu/wp-content/uploads/2021/11/NCCC-212-NC-State-Report-2021_FINAL.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-1105b4ea54ba705d",
+          "title": "Performance of Primocane-fruiting Experimental ...",
+          "source_url": "https://www.ces.ncsu.edu/wp-content/uploads/2018/04/Fernandez-and-Ballington-2010.pdf?fwd=no",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-4d8e868216c1acfb",
+          "title": "In this Issue",
+          "source_url": "https://gcrec.ifas.ufl.edu/media/gcrecifasufledu/docs/pdf/berry-newsletter/BVT-2020-II-v2.pdf",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-49af0ca9286ce680",
+          "title": "Choosing the Right Blackberry Cultivar in Subtropical Florida",
+          "source_url": "https://ask.ifas.ufl.edu/publication/HS1352",
+          "published_date": "2024-10-28",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-9689a646deed6691",
+          "title": "Performance of Blackberry Varieties in Southern MD",
+          "source_url": "https://agnr.umd.edu/performance-blackberry-varieties-southern-md",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-5ecb20c9da655c92",
+          "title": "'Thunderhead' Erect Primocane Fruiting Blackberry",
+          "source_url": "https://journals.ashs.org/downloadpdf/view/journals/hortsci/60/8/article-p1366.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-ae78d07bbfa3bd38",
+          "title": "[PDF] 2010 Primocane Blackberry - Kentucky State University",
+          "source_url": "https://www.kysu.edu/wp-content/uploads/2017/07/PomperBB2010sa.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-398a4a065e2af5dc",
+          "title": "[PDF] New Arkansas Blackberry Production Characteristics",
+          "source_url": "https://www.kysu.edu/wp-content/uploads/2017/07/PomperBlackberry09.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-a9129a094245d6d3",
+          "title": "hortsci05519 670..673",
+          "source_url": "https://journals.ashs.org/downloadpdf/view/journals/hortsci/46/4/article-p670.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-0e2994f019081d4e",
+          "title": "Vol15-Issue3",
+          "source_url": "https://smallfruits.org/files/2019/06/Vol12-Issue4.pdf",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "background"
+        },
+        {
+          "id": "web-81c420314c3042a1",
+          "title": "Microsoft Word - Vol13-Issue3.doc",
+          "source_url": "https://smallfruits.org/files/2019/06/Vol13-Issue3.pdf",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "background"
+        },
+        {
+          "id": "web-f7f1c5ba0da4146e",
+          "title": "Field Performance and Susceptibility to Fungal Pathogens of Eleven Blackberry Cultivars",
+          "source_url": "https://www.tandfonline.com/doi/full/10.1080/15538362.2020.1749922",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "background"
+        },
+        {
+          "id": "web-b077a3bf31df6aa2",
+          "title": "'Prime-Ark Freedom' Primocane- fruiting Thornless Blackberry",
+          "source_url": "https://www.growables.org/information/documents2/BlackberryHortS3.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-a0d2733aedf619cf",
+          "title": "Title:",
+          "source_url": "https://smallfruits.org/files/2021/12/2021-E-06-Progress-Report.pdf",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://aaes.uada.edu/news/primocane-blackberry-genetics/"
+        },
+        {
+          "url": "https://journals.ashs.org/downloadpdf/view/journals/hortsci/40/3/article-p852.pdf"
+        },
+        {
+          "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=424902"
+        },
+        {
+          "url": "https://www.kysu.edu/wp-content/uploads/2017/07/PomperBB2010sa.pdf"
+        },
+        {
+          "url": "https://www.aces.edu/blog/topics/crop-production/primocane-fruiting-blackberries/"
+        },
+        {
+          "url": "https://journal.americanpomological.org/index.php/jofaps/article/download/2998/3002/6355"
+        },
+        {
+          "url": "https://smallfruits.org/files/2020/01/2019-SRSFC-Evaluating-Primocane-Floricane-Blackberries.pdf"
+        },
+        {
+          "url": "https://www.tandfonline.com/doi/full/10.1080/15538362.2020.1749922"
+        },
+        {
+          "url": "https://www.growables.org/information/documents2/BlackberryHortS4.pdf"
+        },
+        {
+          "url": "https://dr.lib.iastate.edu/entities/publication/66c23cf1-4497-4c47-a15c-ef39142b07f0"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Blackberry floricane crop trials involving a primocane-fruiting cultivar",
+          "Blackberry floricane crop trials involving a primocane-fruiting cultivar new variety releases trials",
+          "Blackberry floricane crop trials involving a primocane-fruiting cultivar licensing international development"
+        ],
+        "queries_this_request": 3,
+        "candidate_count": 23,
+        "capture_count": 7,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:47:53+00:00",
+        "latency_seconds": 10.734,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 11.098,
+      "warm_seconds": 0.024,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Strawberry gene editing heat tolerance Hudson River Plantik",
+      "split": "development",
+      "plan": {
+        "raw_query": "Strawberry gene editing heat tolerance Hudson River Plantik",
+        "interpreted_query": "Strawberry gene editing heat tolerance Hudson River Plantik",
+        "terms": [
+          "strawberry",
+          "gene",
+          "editing",
+          "heat",
+          "tolerance",
+          "hudson",
+          "river",
+          "plantik"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-16a6d11d00b5096f",
+          "title": "Plantik and Hudson River Biotechnology team up to de-risk ...",
+          "source_url": "https://www.hortidaily.com/article/9877481/plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries/",
+          "published_date": "2026-09-30",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-3fbe9ad995c101e3",
+          "title": "Two Biotechs Edit Strawberries' \"Dark Genome\" to Survive Hotter Summers",
+          "source_url": "https://www.global-agriculture.com/ag-tech-research-news/two-biotechs-edit-strawberries-dark-genome-to-survive-hotter-summers/",
+          "published_date": "2026-09-29",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-0062723624a3150a",
+          "title": "Hudson River Biotechnology (HRB)",
+          "source_url": "https://www.agropages.com/CompanyDirectory/NewsList-27638-1.htm",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-7c73631e6e444d34",
+          "title": "AI-Guided Crop Editing: How Tomatoes and Strawberries ...",
+          "source_url": "https://futuristforfood.com/2026/10/20/ai-guided-crop-editing-how-tomatoes-and-strawberries-got-future-proofed/",
+          "published_date": "2026-10-19",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-72e70d0b3e98fb2b",
+          "title": "French-Dutch partnership tackles heat tolerance in ...",
+          "source_url": "https://www.freshfruitportal.com/news/2026/10/12/heat-tolerance-strawberry/",
+          "published_date": "2026-10-12",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-fe97505b2f6db2bc",
+          "title": "Information Services for Seed Professionals - Connecting global seed experts with the latest updates, essential resources, and professional tools...",
+          "source_url": "https://www.seedquest.com/news.php?id_category=2490",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-2994ae5e8eaa82a1",
+          "title": "New technologies",
+          "source_url": "https://www.seedquest.com/news.php?id_category=174&id_region=10",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-741ba6b977b2da1f",
+          "title": "Hudson River and Plantik partner to enhance heat tolerance in strawberries",
+          "source_url": "https://news.agropages.com/News/NewsDetail---59032.htm",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "background"
+        },
+        {
+          "id": "web-78a0d8769453199f",
+          "title": "Food Tech news - FOBI",
+          "source_url": "https://www.fobi.com/food-tech/news",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-9bd1409f3bb5d7c5",
+          "title": "Melatonin-mediated temperature stress tolerance in plants - PMC",
+          "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9397135/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://agfundernews.com/exclusive-plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries"
+        },
+        {
+          "url": "https://www.hudsonriver.bio/news/hudson-river-and-plantik-partner-to-enhance-heat-tolerance-in-strawberries"
+        },
+        {
+          "url": "https://www.fruitnet.com/eurofruit/hudson-river-and-plantik-target-heat-tolerance-in-strawberries/272845.article"
+        },
+        {
+          "url": "https://www.hortidaily.com/article/9877481/plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-tolerant-strawberries/"
+        },
+        {
+          "url": "https://www.freshfruitportal.com/news/2026/10/12/heat-tolerance-strawberry/"
+        },
+        {
+          "url": "https://www.industryevents.com/news/exclusive-plantik-and-hudson-river-biotechnology-team-up-to-de-risk-heat-toleran-20260929"
+        },
+        {
+          "url": "https://wisevoter.com/world/2026/10/12/hudson-river-plantik-heat-tolerant-strawberries"
+        },
+        {
+          "url": "https://www.linkedin.com/posts/angelatayhy_exclusive-plantik-and-hudson-river-biotechnology-activity-7511600786972344320-hEzs"
+        },
+        {
+          "url": "https://www.global-agriculture.com/ag-tech-research-news/two-biotechs-edit-strawberries-dark-genome-to-survive-hotter-summers/"
+        },
+        {
+          "url": "https://insights.tridge.com/speaker-product-news-reports/KJLyFXpzJzgKuB1Gqsm5QUKHGgR43AVdqLA3Jq8qLz7LHdrLknEfQu33"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Strawberry gene editing heat tolerance Hudson River Plantik"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 7,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:48:05+00:00",
+        "latency_seconds": 7.272,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 7.626,
+      "warm_seconds": 0.02,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Blueberry breeding developments",
+      "split": "development",
+      "plan": {
+        "raw_query": "Blueberry breeding developments",
+        "interpreted_query": "Blueberry breeding developments",
+        "terms": [
+          "blueberry",
+          "breeding"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-3ac79a1e292bb123",
+          "title": "Oregon Blueberry introduces four new cultivars",
+          "source_url": "https://www.freshplaza.com/north-america/article/9859716/oregon-blueberry-introduces-four-new-cultivars/",
+          "published_date": "2026-07-22",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-producereport-blugenix-2026",
+          "title": "Costa launches BluGenix with five blueberry varieties suited to Yunnan",
+          "source_url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+          "published_date": "2026-06-08",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "web-acc7dc601fed4a42",
+          "title": "Global blueberry breeding program expands from ...",
+          "source_url": "https://www.freshplaza.com/north-america/article/9842315/global-blueberry-breeding-program-expands-from-australian-base/",
+          "published_date": "2026-05-29",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173538-f09f-global-blueberry-breeding-program-expand",
+          "title": "Global blueberry breeding program expands from Australian base - FreshPlaza",
+          "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPbk11eTdQMjNiQV84UXpsVDMtVFMzSDFPbERGMHZCYzBETnVPaXNla3BmSjBERkVXcWRxb1ZoTm5qdGs2R2VqZDQ0cV84a2RxZE1YNlZucmJmQWQxWkM2eldmUWpFa1U5MFEtTFFPczBHYWJBeW9BR0h4ZThPLUxxNEdIZ0VleE56Y2RpTHUxbWllTU83bTN3ZTJGcWlwaEVMaTN2aUpPMEZmUG5sN0hrNndfS0JnLV9lVWtfMA?oc=5",
+          "published_date": "2026-05-29",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173538-6382-naturipe-farms-hosts-berry-breeding-tour",
+          "title": "Naturipe Farms Hosts Berry Breeding Tour, Spotlights Breeding Innovations at Alma, Georgia, Trial Site; Derrin Wheeler Comments - AndNowUKnow",
+          "source_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPcWRBcEY0Z09MT3pXWWNTVEMwb2o1UXphTnQ5eXozdzJCTW1DaE9UN1czb1BZendOdGpMdEt0cFQwQTl3eVkzZnlrbnlwN2I0Wk95aDVFY3VGNmRkVHJBcFZQcjBjSi0wZHVSc05iVFl2MnNQUmZiM3YxNDFzRm5VS1I3RFhkaHVPcEJQeWlOLVBEeDhkUUliVGd0UDNMWndBanVoQWFnTFRTYTFHS0VuN2E3UVdjRWZnLXkxdFA3bzI2UQ?oc=5",
+          "published_date": "2026-05-12",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173840-9bdc-florida-blueberry-season-top-notch-fruit",
+          "title": "Florida blueberry season: Top-notch fruit, tools and knowledge - Fruit Growers News",
+          "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQcnYtalpwZFlRcUYwLXREMGxrQ2U3OUlkaklDVWdQRTFxa2psNUNzWkxsb1c4aEduWFZCUVhsR0doZ1Zlc3Vna3NXRHdxTncweC11eHp0WGhvSklDdEpXR3ZoTmRxdXJhMEhLWmhyRXVyWVZ5eFgxVlZ5YWdFdGxVTnMxRzFkZEJYVXBzMGEwSmUyN1ZFRzlWWk9HZw?oc=5",
+          "published_date": "2022-04-12",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173840-64b1-uf-ifas-releases-new-sentinel-blueberry-",
+          "title": "UF/IFAS releases new Sentinel blueberry variety - Fruit Growers News",
+          "source_url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQTUJrSUo1ejF5bXpxMHpRZEtSZHRpMVpTVHQ2UkdtRDcyZnpTSkhXTGo4aGJiOW5FMUpnUmZFVWdMSW9TbjF2Tm5sRU1uaWFmcjctVm96WnhicHF6YlVKNkFLWlYxVnJxUndHcHNQcUxOWjRQeUJlb3BmdnZYYzJybWs5WXhsMnJ3ekE?oc=5",
+          "published_date": "2022-03-30",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "web-7dd2860913b150ca",
+          "title": "TopFruit and Planasa accelerate the growth of blueberries in South ...",
+          "source_url": "https://www.freshplaza.com/north-america/article/9335024/topfruit-and-planasa-accelerate-the-growth-of-blueberries-in-south-africa-and-beyond/",
+          "published_date": "2021-06-30",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-3448156820c154d3",
+          "title": "Breeding blueberries for a changing global environment: a review",
+          "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4588112/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-freshuelva-atlantic-blue",
+          "title": "Atlantic Blue S.L. - member profile",
+          "source_url": "https://freshuelva.es/en/atlantic-blue-s-l-2/",
+          "published_date": null,
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-hortifrut-genetic-development",
+          "title": "Hortifrut - Genetic Development",
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/",
+          "published_date": null,
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "web-9c19befe355cf504",
+          "title": "[PDF] UGA blueberry breeding program update",
+          "source_url": "https://extension.uga.edu/content/dam/extension-county-offices/bacon-county/anr/2025-Annual-Blueberry-Breeding-Update.pdf",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-cinven-planasa-ew-group",
+          "title": "Cinven and Label Investments to sell Planasa to EW Group",
+          "source_url": "https://www.cinven.com/news-insights/cinven-and-label-investments-to-sell-planasa-to-ew-group/",
+          "published_date": null,
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-ffsp-optimus",
+          "title": "Florida Foundation Seed Producers variety page - Optimus",
+          "source_url": "https://ffsp.net/varieties/blueberry/optimus/",
+          "published_date": null,
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "web-881c5d2614d189df",
+          "title": "Consumer demand reshapes blueberry breeding - FreshPlaza",
+          "source_url": "https://www.freshplaza.com/north-america/article/9860131/consumer-demand-reshapes-blueberry-breeding/",
+          "published_date": "2026-07-23",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173848-1a12-nordica-a81-opens-a-new-chapter-for-nort",
+          "title": "Nordica A81 opens a new chapter for Northern highbush blueberry varieties - FreshPlaza",
+          "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOaC1TWUd2UE1XWkZ4QXlWcGx2bVdfQVFNU2Jia2dIVTJ4cVBQajZ3eFFJUTVxMlRjMEMxSkFnbXYzQ01oSlp0aEEtWC1TZEItdFpMY0lxOGRhV1BSbXpDUzRycWR1Z2g3NVB1bmZReEdrd3pBNjZURllnTVlVakxfVVRPMk9nWlZGRmp3QUZUaURxMHF5NWsxMXY1MURoRzhsTV9GVmJER2h1NE1USzVGRURXRG9OckZqeGZQdFl0SURyNW83eTZWenZlWQ?oc=5",
+          "published_date": "2026-04-09",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173538-c880-berry-breeding-programs-presented-in-sou",
+          "title": "Berry breeding programs presented in southern Spain - Hortidaily",
+          "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPd0xPU0ZfSDJxMmNLSFc4RHhZTkJpOUJKMDVGcTJNTFljaG5YenVJUGdwMERrbmZZZVpjOXFta0RCTWpBZkdkbVJadHh0VVJ0OWJwNXlZZjg1b0FVOTY3aXNpbDNBVUE0VzRrQWdJV0llTkp2YUptLXFzaDlPVElJcUFTSzgzWDdzRFo0dnRqS29QVnRrb1ZZN2dSWQ?oc=5",
+          "published_date": "2026-03-13",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-produce-report-sekoya-nova-2026",
+          "title": "Fall Creek To Reveal New Sekoya Nova 'FC15-173' High-Chill Blueberry Variety",
+          "source_url": "https://www.producereport.com/article/press-release-fall-creek-reveal-new-sekoya-nova-fc15-173-high-chill-blueberry-variety",
+          "published_date": "2026-02-03",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173600-9cb6-what-to-know-about-the-magic-of-the-bilo",
+          "title": "What To Know About the Magic of the Biloxi Blueberry - Growing Produce",
+          "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPcmx4em9HMm0yRWRlTlFBelZBSDJ5aXNaWmFVUUhFcjF2OTVXTDVtTXVqUTFrTU9tUzNJbVltMDhBYUlWX1JySkNqeGVROXdtc2d1bHVMbzdtZHNUSkg3ZWZMb0hoOWY2alZRT2pxMFNrWjlFckxxWTgwYmdUMk03ZWZSbjVHcFlEM2EzcmZEUjNkTzhoOVVpZ1FOaEZ4Ymlq?oc=5",
+          "published_date": "2026-02-02",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173538-82e7-first-graduates-of-uf-s-plant-breeding-p",
+          "title": "First Graduates of UF’s Plant-Breeding Ph.D. Use Genetics to Help Growers Boost Yields, Improve Shelf Life, and More - centralfloridaagnews.com",
+          "source_url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxNS1ZKcy1MSDNrcXVaYzdtSHdCZ3hmYzhwbHRwZmlyZXhhTDVzYk5DS3FyeTdnTDh0aGx0dnNTZ2F4d3FXMElIZGl4dDM5aDctNHNNUERqVDc1a1c2aWZqWWxvV0NlU0sxS0pEQmhLQ1d1a1RzdXJDaGtiMHFsam1RbkUyalBvcHJRMnBJaGJhbms5cXlHZGUwUWx2Z0tjV1lnajlMdE5IcTk0MTlMMjI5U2NkWTRYVFZteGtCVHVNdnVwdi1oemRSaGJ0T0tGY0s0VUdCcW52WE10Y0JhV1JV?oc=5",
+          "published_date": "2026-01-28",
+          "capture_status": null,
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.thepacker.com/news/how-innovative-fruit-breeding-quietly-revolutionizing-blueberry-industry"
+        },
+        {
+          "url": "https://www.ars.usda.gov/oc/utm/breeding-better-blueberries/"
+        },
+        {
+          "url": "https://blueberrybreeding.uga.edu/research/"
+        },
+        {
+          "url": "https://www.fallcreeknursery.com/variety-innovations/fall-creek-breeding"
+        },
+        {
+          "url": "https://www.hortifrut.com/innovation/genetic-development/"
+        },
+        {
+          "url": "https://www.freshfruitportal.com/news/2026/10/26/naturipe-farms/"
+        },
+        {
+          "url": "https://www.globalplantgenetics.com/global-blueberry-production-the-gpg-perspective/"
+        },
+        {
+          "url": "https://www.facebook.com/internationalblueberryorg/posts/the-new-era-of-blueberry-genetics-innovations-and-market-outlook-for-new-variety/1090451186866200/"
+        },
+        {
+          "url": "http://journals.ashs.org/view/journals/hortsci/53/7/article-p1021.xml"
+        },
+        {
+          "url": "https://horticulture.umn.edu/news/blueberry-ph-research-olson-jensen"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Blueberry breeding developments"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 8,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:48:12+00:00",
+        "latency_seconds": 5.13,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 5.376,
+      "warm_seconds": 0.026,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Raspberry developments Europe",
+      "split": "development",
+      "plan": {
+        "raw_query": "Raspberry developments Europe",
+        "interpreted_query": "Raspberry developments Europe",
+        "terms": [
+          "raspberry",
+          "europe"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "ev-sample-patent-published",
+          "title": "Patent published for a late-ripening, high-yield raspberry genetics program",
+          "source_url": "https://example.invalid/patents/12345678",
+          "published_date": "2026-07-15",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173605-adba-raspberries-beat-all-other-fruits-and-be",
+          "title": "Raspberries beat all other fruits and berries in terms of consumption growth in the USA - EastFruit",
+          "source_url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPU2otTWxaQTNlOEN2anhyRERtWEtyU0FVWEhuN0x0N2twd19GaXR6bWkzcVZ1SWQ3bndmWnRVNUhhRXQ1a0NOc2NqOHViMlJnWVdfekcwbFo4a0ZtcHdMZXZjX05ua0hQYnF5V0J2YVpEbV90SlNJVVJsTGhxUmwtbGZPN0U1blVTRHVfd182ckh4RDNiMFN0aU1xZEZZTEVZRm9YcUlWMjdKQ2VMd202NDdSNWJUUTgtU0ln?oc=5",
+          "published_date": "2023-05-20",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "web-d5fe914db710b7fc",
+          "title": "Tags",
+          "source_url": "https://www.eenewseurope.com/en/tags/Raspberry-Pi/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-34213ad3d2228319",
+          "title": "GLOBAL MARKET OVERVIEW RASPBERRIES",
+          "source_url": "https://www.freshplaza.com/north-america/article/9864848/global-market-overview-raspberries/",
+          "published_date": "2026-08-21",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-760e04c1800dfd21",
+          "title": "Raspberry Pi and the EU Cyber Resilience Act - Raspberry Pi",
+          "source_url": "https://www.raspberrypi.com/news/raspberry-pi-and-the-eu-cyber-resilience-act/",
+          "published_date": "2026-06-24",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173908-f3a3-buyers-turn-to-dutch-and-belgian-strawbe",
+          "title": "\"Buyers turn to Dutch and Belgian strawberries as supply problems hit southern Europe\" - Hortidaily",
+          "source_url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOMmpwaVYwMmx0dDBtQkl4bkxGSXVkSmtIbU84ZlY0Wm5jcWQ2Ym45SXBUQTRVeHFVM19qTnFDOW0ybWxpc1FsMkpvN2dQdlAtdzh2Y0JqeTFNN19fWnpELVFGVjVIQ0NOZms4Wm51eDhRWlhsUFBHbmthRUV1X2tiSVZYczFwUFFZODBqTkhscmlXdGtmR1NrdFdXZFMwNFQ4N3dSRFczN2lfOE1zaE9OWTR4S2syS28ybVk4MG1hRFlSOUliMHJJ?oc=5",
+          "published_date": "2026-03-03",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "web-dfd1279e09effda9",
+          "title": "Raspberries - news coming soon for the Italian and foreign ...",
+          "source_url": "https://www.freshplaza.com/north-america/article/9775283/raspberries-news-coming-soon-for-the-italian-and-foreign-markets/",
+          "published_date": "2025-10-16",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173601-bb34-moroccan-blueberry-and-raspberry-product",
+          "title": "Moroccan blueberry and raspberry production rising, while strawberries decline - EastFruit",
+          "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNUTRNclEtZ0oxTXpfOTZhOVczaTM4Y201RklSSDhwdTRPbGNrdklkbWEtaXlyb1UxTmhwbVNKdk9BaUR0TE5pODJwLVRPam9IWVNxRUIxZlBqdnotOEpTcV9waTgtSDYwTVZ0Z1hmRDhHMHhyUHNWWEpoVWR1MHNmLV8xRlM1XzhUX1I1MU5ZeF9TZWhGMGtYakYxeURrVjNWanRLbU1EbTRsOW8zelE?oc=5",
+          "published_date": "2025-10-07",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806193503-145b-mexican-berry-exports-grow-as-demand-for",
+          "title": "Mexican Berry Exports Grow as Demand for Healthy Foods Increases - Mexico Business News",
+          "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPQS1najhvVTBGVnhuRlhtRmQybVdMVFByQVQwWkI2Rlk2b19WaTljczVBaFpIeGJKajI5NE10STh2N1g5WVNNUDU2S2xvaG9Od0JEOE1FcDNnNjB0UzRZNnF3ZlVoUDIyazFQUlBGYWhEd0o4SDN4Y3hpZkx0Q0pNXzdOSjY0TXV5NVR2czlMVEh4Z1p4Ump4eTR0SXMtYUhpUGU5N3lB?oc=5",
+          "published_date": "2025-03-06",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "web-96f651274c7c4c2e",
+          "title": "Hutton Leads New Consortium to Secure Future of Scottish ...",
+          "source_url": "https://www.seedworld.com/europe/2025/01/16/hutton-leads-new-consortium-to-secure-future-of-scottish-raspberry-breeding-industry/",
+          "published_date": "2025-01-16",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-0a348d660f176344",
+          "title": "Global market overview: raspberries - Hortidaily",
+          "source_url": "https://www.hortidaily.com/article/9640442/global-market-overview-raspberries/",
+          "published_date": "2024-07-01",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-7482e70a163c39c5",
+          "title": "Efforts to undercut raspberry prices detected in Ukraine ...",
+          "source_url": "https://www.freshplaza.com/north-america/article/9630023/efforts-to-undercut-raspberry-prices-detected-in-ukraine-and-poland/",
+          "published_date": "2024-05-28",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173539-6e27-how-did-a-bosnian-raspberry-farm-get-a-s",
+          "title": "How Did A Bosnian Raspberry Farm Get A State Contract To Acquire 100 Ventilators? - Radio Free Europe/Radio Liberty",
+          "source_url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOb2pKaVc0cWs4WUVzNTQ0RXFfRjRROF9HRlNrQ3h0TTVhc2tWdERFVXJMQzZ3bDg1TzZYMkVfbDY1NWV0TjhHYVAwbEJGMXo0ZWtRd3U4TjNsX2pkR1FHcVZ1dzRsRXM0c21IbWM0a1RmTlJTck4zMEp0UHBiazRGVkJIYm1Qa29aYm9GZ3J2d1Z6bFBMRHR3RWJKYkxmUTRMc0pTMVJ1M0kySVpXYlRzYjd4eWI3M0puRlHSAbwBQVVfeXFMTnRfQXNIRkRVaFpMRHJ3aXJxS1FTTEhGTjNfckVYWFZ5aEJXcUJuZEs5aUNiRElvcGJBRTFTVVl3cTNKUXhfZUd5YXhsS0ZWbkhfa2FFU3gtLTJnQm82ZkJXVWpQM2otUTg1OEhpMldqZ042aXU4R216R3pGQURCeHdicEx0MnVpRmhCNjBjV1pCYTdGSVJsYjJXQXdFM1Nxb3FHa2RHbDJGWElQWFJLc004TnFOeGI1bHkzczU?oc=5",
+          "published_date": "2020-05-05",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-competitor-registry-2026-09-15-import",
+          "title": "Internal Competitor Registry spreadsheet snapshot (2026-09-15)",
+          "source_url": "",
+          "published_date": null,
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "web-da68d7a12bcb4823",
+          "title": "[PDF] Sustainable raspberry cultivation: environmentally friendly and ...",
+          "source_url": "https://nubip.edu.ua/sites/default/files/rich_text_files/Andrusyk_Yurii_Raspberry_PROGRESS_on%20site%20(1)%20(1).pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://italianberry.it/en/news/raspberry-genetics-europe-2025-public-private"
+        },
+        {
+          "url": "https://www.cbi.eu/market-information/fresh-fruit-vegetables/raspberries-and-blackberries/market-potential"
+        },
+        {
+          "url": "https://www.freshplaza.com/north-america/article/9836492/how-a-family-business-built-a-european-raspberry-powerhouse-over-three-generations/"
+        },
+        {
+          "url": "https://www.hutton.ac.uk/hutton-leads-new-consortium-to-secure-future-of-scottish-raspberry-breeding-industry/"
+        },
+        {
+          "url": "https://cpvo.europa.eu/en/news-and-events/articles/advanced-berry-breeding-innovations-empower-growers-profitable-future"
+        },
+        {
+          "url": "https://www.facebook.com/tvpworldcom/posts/poland-remains-the-european-unions-largest-raspberry-producer-accounting-for-45-/1660607652734554/"
+        },
+        {
+          "url": "https://www.cultifort.com/en/cultivo-frambuesa-claves-nutricionales/"
+        },
+        {
+          "url": "https://www.undp.org/ukraine/stories/rooting-out-mistakes-expert-advice-saves-raspberry-grower-time-and-money"
+        },
+        {
+          "url": "https://uk.linkedin.com/company/raspberry-ventures"
+        },
+        {
+          "url": "https://www.reportlinker.com/dataset/2f88c98010b466e3e0ef585188a4a91adcacb4b0"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Raspberry developments Europe"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 8,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:48:18+00:00",
+        "latency_seconds": 5.182,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 5.414,
+      "warm_seconds": 0.016,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Blackberry fruit new varieties -software -security",
+      "split": "development",
+      "plan": {
+        "raw_query": "Blackberry fruit new varieties -software -security",
+        "interpreted_query": "Blackberry fruit new varieties -software -security",
+        "terms": [
+          "blackberry",
+          "variety"
+        ],
+        "phrases": [],
+        "exclusions": [
+          "software",
+          "security"
+        ],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "ev-20260806173540-a6ec-new-year-round-premium-blackberry-platfo",
+          "title": "New Year-Round Premium Blackberry Platform Launched by Plant Sciences Genetics - The Packer",
+          "source_url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPYUJZMkNXY3pHODkxQnptdG9JNkpXeGJiVzJDWk1NY3RRRnBTek1GSmtfM0N4aDR5U3lVdEpLVEw4X3R1Z0xCTlk5T3Y1eVpYOWJueWZhWGdjakwxUFViVlFQUWQzelE2UnRTU3NVLTdGUXgwX05FNldwUzROSzQwTThIY3R3S1dlT0JDcUhrX1lVWXJQNVFLNXNLNUdvZFBxc3NSRmZLelhsQQ?oc=5",
+          "published_date": "2026-08-04",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173544-f46d-boosting-blackberries-nc-state-s-gina-fe",
+          "title": "Boosting Blackberries: NC State’s Gina Fernandez Launches Latest Botanical Offspring - NC State University",
+          "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNOFlmdVE3QWtZckdMODZTaEpMN3NNMGN0RGc0dnpMYVo5bjNRUmdpdFZqbnN0bVlveTFrbFpwVnN3WGhjNXVuTWJ3LW5RTWVRclpuTTZyV09aZVFPM0c1a3Vwa2xvQzRTUUZaWVpyQTBOWnBrWWNiLS1kX1FIVmx6VHRvdmxvM3lJMWFGbFBkNWxERXoyNTdXNFFfWEY4bFk1Ym5wc1cyVUpkNnBrM3R3?oc=5",
+          "published_date": "2026-07-22",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173540-d29c-florida-blackberry-sector-nears-promisin",
+          "title": "Florida blackberry sector nears promising commercial viability, 4 varieties showing promise - FreshFruitPortal.com",
+          "source_url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFA5QnhBZUFUZEYtS0hWLXRRQjNZYXBiWTNIUlAxU3RpbWhfTlYyVGpncDlGRWx0SlVSaTc3R0lqU1dBQk9PbkNUMWtXbmhyMWRLTW9LZVgzS3VfdWRCOXEwOElJSGNiaXNlaGRoMEl4MGpHTEFzTGU4?oc=5",
+          "published_date": "2026-05-22",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806175534-7c5e-planasa-inaugurates-an-r-d-center-in-mex",
+          "title": "Planasa inaugurates an R&D center in Mexico to launch new berry varieties in Latin America and the US - FreshPlaza",
+          "source_url": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxOdXhzREh2TDZtWWdsanFERU55OFg2U3ZVTVlsQ21QYkpwMmZLRnN1ZW5GV1lMVUtNcXlEWUlqQUREQURmTmdqY0pOSjdTWXN0REFvNFFhSW9PV2FZT0pMQ0V1OWZJYVpjZk1FS2NOdS1IMGFfaXVXY0FXc0t5Y01wWkMwQzhRdjlrNFp1LS12WHNhT0M4bHlqY0VlTmhJem9tU2RuNjhUaE5vRFM1ZFRQMmRPeGt6algxQ1hrelF5RmhmV1FhMEZicXpRM1BWT1gtRlNnWjlTWV9udU1hTlpCVkV1T3NjaThMUmJiMmR6dHg?oc=5",
+          "published_date": "2023-02-17",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "web-70c7052db911c1de",
+          "title": "Blackberry Licensing - James Hutton Institute",
+          "source_url": "https://www.hutton.ac.uk/scientific-services/improving-crop-production/accessing-varieties/blackberry-licensing/",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-2391de7eff22c32f",
+          "title": "EMCO CAL Rubus Varieties",
+          "source_url": "https://www.emcocal.com/emcocal-rubus-varieties/",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-5b688573e8c0ebe7",
+          "title": "New USDA-ARS Blackberry Cultivars Bring Diversity to the ...",
+          "source_url": "https://www.ars.usda.gov/ARSUserFiles/3602/manuscripts/2008/08%20Blackberry%20cvs%20Acta%20Hort.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173540-f021-blackberry-breakthrough-psg-unveils-firs",
+          "title": "Blackberry breakthrough: PSG unveils first year-round primocane variety - Fruitnet",
+          "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOZ21QY3d0VS1vVktKNzEyVkJha0x0UnNmeFJULXJmeEk1VVhMdFNjOWl6RXd6YldOQUN2U2RRenNLN3gtamF3WjJkU05uRVVjTDVfd1VJNW10aGVDV0dyTGpIV3p2eWFMamE2UnhMUFZsYlREVS15NWM4WHFIc1hJTUFLRHZoRi1NLXR4cVY1MEhNSFF4X2JNUVQzZWNNcnJVcFFHYks2V09QamZvNGQ4ODl2d3hyTjlFaC1Xdg?oc=5",
+          "published_date": "2026-07-28",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173540-749e-arkansas-blackberry-season-is-here-witho",
+          "title": "Arkansas blackberry season is here — without the thorns - The Arkansas Democrat-Gazette",
+          "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQV0c4akJVRGpFQ29BRjRVOFhFVTBraFpYeGd2OTdzbGxLLWRENXBSOG5ITUJ0ejVOQ2gyNEN1dDh4Vi1RVkdwWENxdno4RTdfVFhzalkwdjdaSU0yWWtzZ0FNRjBKb2dtQTNfOGJ0X1JTbGhKcGVHYlRzMVZ3Yjh5S3dmOEhTcEV5YXFzbW5GTEpwcUk4QkUzamRDZw?oc=5",
+          "published_date": "2026-06-19",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173540-81ca-blackberries-reveal-single-genetic-switc",
+          "title": "Blackberries reveal single genetic switch for first-year fruiting, speeding new varieties - Phys.org",
+          "source_url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQbHBZWWtYeGtGM0R0Wi00XzhvTlJLTVN0V3JsNDVTbFd6Y29JVnFRcUpNazBNb3lDcloyYXh1SkNKQ2lkdUlYY2Zha2FKZlFsdFByaS1Da3h1c2NaUlMxZGNWTVN6V2p1X2prVmh2bEhQeFpKTHliU2lhLUNZeVR0bFhR?oc=5",
+          "published_date": "2026-05-12",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173540-b2b6-genetic-location-of-primocane-fruiting-d",
+          "title": "Genetic location of primocane-fruiting discovered in blackberries - EurekAlert!",
+          "source_url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE83OG4tYzI4TnpaOUtwN0xJT2Z5V05YdzAxMHhuaXlfUkRscmVsbjQyVS1FbFg4TTdwRUhleVo1RlRQbkliS2M4WWxBdWhBYjlLNTdQaFZYZ294T0R3?oc=5",
+          "published_date": "2026-05-11",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173546-786c-a-basket-of-new-fruit-varieties-is-comin",
+          "title": "A basket of new fruit varieties is coming your way - The Economist",
+          "source_url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPbXRrVW9KMEVsQzExcTQ4M3BaM0dJdVF4eWt0UHBPWmQ2ZFBjdG9ZMlBGeFY1UFNHWmwzUU8tSjJIT2VOY3NCem9xcXp2anNRRVZBZ3ZUVUZKMG83ZDh1RzhwWHdFSGVrblZBb0wxS3h0MTZnYU9Xb1ROcnBOckNFQ0Jpemgxc0pPNWNNQ3g1YlZkTXJJZ3hRdV9oU00xZmozSE1VNkwzUzBaeldfSklB?oc=5",
+          "published_date": "2026-03-04",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173539-03a8-wish-farms-accelerates-berry-innovation-",
+          "title": "Wish Farms Accelerates Berry Innovation with Breakthrough Raspberry and Blackberry Breeding - Perishable News",
+          "source_url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQXzd6M28waUthNlBKNG02QVZCUmtFMWZlazM3RnMwUEN2ZEZZd0ZDSVZla0JFZlU1X05keEVUMFpyNTZqV1BlLWNCUkxoZ3M0NzQ5TlpZYTVIV1VqcWZfR1FrSEctYXhxOG5zS2o0Wldsc2p6UkF5aHBiajJpaVBmQ2gybV9UR2RUZjlYLWFFVTFaOFVnZGUwZGVPWG1Tb3MzYzdtMlB1UmVORkVYdDZxVWU4Snd4NExHcEZUTjJrRXZaS3JZZVE?oc=5",
+          "published_date": "2025-12-04",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173540-bf0d-growing-berries-on-the-oregon-coast-rasp",
+          "title": "Growing berries on the Oregon Coast: Raspberries and blackberries - OSU Extension Service",
+          "source_url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQZ1hucWhzRGsxXzl4RFMydlJMUXZSUVU0QUpBNDBjTUVPZWtwQTBCbXpkRmFFRWNsVHc1RldkdnczUHh2U21KLUwtRnJ6ZXM1anBRS01tbjBCam1MTjVaTDhBMkZaYWZQVUo1WVN2RUpwRTE3RjY5RHMwTGpCTTROZVNRTFRkMjhoQ3J2RXVCU1VMS1pJWVJoX19xRzhCMEs2RTE2VWRR?oc=5",
+          "published_date": "2025-09-25",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173550-b6b4-mexico-s-2025-berry-production-forecast-",
+          "title": "Mexico's 2025 berry production forecast to rise, with exports reaching 752,000 metric tons - Hortidaily",
+          "source_url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOblhJdFZ4alBmRzZIMUdZLXFXV0hkOW9DTVhhRHV0b1FaWk1pTFJKZU01bjNaY1lSVGtER0w4SlExT3RhU0RRNWFod2VVRndCWGxvOWt4UTZ4MUN1VXNLLVJ4Y0Y1TzJ3UGUyZUpFSWktT0pFa0FQaVQ4a29icURBUGtaOE05VkpfR2R1VDJNcmcwTjlGaDBRSjJMQWF6bUVVM1FqQjl6d201MjZNVjczbFNVOGR0YXdWY191R0pZajB2dUQ0UEp1Z2k0aGdVUQ?oc=5",
+          "published_date": "2025-02-10",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806181239-7b4d-in-peru-and-mexico-blueberry-varieties-w",
+          "title": "\"In Peru and Mexico, blueberry varieties which best withstand climatic stress are Blue Madeira, Blue Manila and Blue Maldiva\" - FreshPlaza",
+          "source_url": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxQb3BsY3pWeGNXUFJJR0g2dk9GbEJRMjlCdS1JWEFRM1FobE4tWTdLT2g1OWpoOWg1N3hPN1VVTXJoSlNUR3FHR0Y1ODM1Sk9XWDRCOHR4RVRvcFRVaGhnTmpsd2VYQ2c2SXhFNjlWSVB5SnVxeEVuNXhVNUU5d1UwNHhGTXNxT2xYdHpZNzctRjNFOURpRHpxQVBNaGhxazRPenBSTklOREMwalNxRXBlUHRGVzZMel9mdzVHcGpyV2YxRy1HS3ZWTDdsVTFfbzZMQmZtOW9xRWstWjRCTS1kUlp6V1BjSEFRa042VVhXMG9sVm1GQTFOT2w3QWxiSzJxZl81a2hnSjNCZEE?oc=5",
+          "published_date": "2024-03-20",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806181239-3ae7-we-offer-premium-blackberries-from-mexic",
+          "title": "“We offer premium blackberries from Mexico 52 weeks per year” - FreshPlaza",
+          "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPbXRZV0ZRQXk4RmE3M3F1Q1hfUVJfSjY2RGd4T3Job1NGYmlvbGpuMHhwX0Z1SVVfSHkwLWZ1VHR2S3NBUzdJSTBwN1lIWU90eGR4ZVNTUTIzVW1mel9pOHU4bWNPTzI1MGUxSFJsRV9iS2lBWngyRlRfZnFRS1M3QzViTHhQYmRoQ3RITnFzanFzdUhVMC1XMzhwUzBUdHhhS2NjeGZxUjdjc3ZHd2dQRDlCN2dpaGVY?oc=5",
+          "published_date": "2024-02-28",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173540-6fc7-big-changes-on-the-horizon-for-the-black",
+          "title": "Big Changes on the Horizon for the Blackberry Market - Growing Produce",
+          "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOSV9sbzh4R1ZvRm1MQnN6WDh4RWMwWDRXYVJlTWdXR0I2Ry1FaEprRVptdk9JRjczNnhvN2wzeXowVU5FeUh2OG5UaWdaTmxBTzE1SXZyNkFucU54QmM2Nl9TSjRKTWoydERvNEFBeE9VTnVDVkdvenJiVmdJdmhnbXJMU0k5aUUta1l2T214THo1RDlKUUxTZngxSjhoblRz?oc=5",
+          "published_date": "2023-06-05",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806181239-6f70-chilean-berry-grower-expands-production-",
+          "title": "Chilean berry grower expands production to Peru, Mexico, US and Morocco - Hortidaily",
+          "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQdHZ5NkNyNjN6REdMeWZOSmt6RXdOamlKWnhRd01XV1NVU2pyWHp3cHNfd21nSnJOUk5YOWZRLVViVXZSTlFpVllBRUFTZGRSOFBjNUpSZ3l5QjhoUFgwYTFNX0xDV2FhVDZCb09tekYzcEc2dE52b3JiNnJrQ3F0eVdSNXNQamNfVGNvaHhIMTkyRjVCdlVHT2lzbWNXMzExeFluRFA4M0plalcwRFNheWdNVQ?oc=5",
+          "published_date": "2023-01-17",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806181239-e1b6-new-raspberry-variety-from-mexico-coming",
+          "title": "New raspberry variety from Mexico coming next month - FreshPlaza",
+          "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOY1B0b0JoZUdXeVFCTEd4WXUtN244amFodl9hTS1vcWV2TU94WTZpcF9ickc0ZnlPM2s5YW11U0taeHlEeUlFcXZBU19vQ3ppN255M0lZazF4TTVlRWs0cFdYODB2N3h6Y0dNMDR5RWM0X0lwVU1QcFIyOUdoMV9QYnJIMk1TOW15MWZKMzNoSHJGcE5QR1Q0aWVzeHFod0RnQmoxcHJtUWJHaTd6Snc?oc=5",
+          "published_date": "2022-09-14",
+          "capture_status": null,
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://cals.ncsu.edu/news/boosting-blackberries-nc-states-gina-fernandez-launches-latest-botanical-offspring/"
+        },
+        {
+          "url": "https://www.facebook.com/NCAgriculture/posts/did-you-know-that-a-new-blackberry-variety-named-ervin-was-recently-debuted-by-n/1524876143009954/"
+        },
+        {
+          "url": "https://www.pairwise.com/insights/pairwise-develops-first-seedless-blackberry-with-transformative-crispr-technology"
+        },
+        {
+          "url": "https://www.globalplantgenetics.com/crops/blackberry/"
+        },
+        {
+          "url": "https://journal.americanpomological.org/index.php/jofaps/article/view/2616?articlesBySameAuthorPage=14"
+        },
+        {
+          "url": "https://extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709"
+        },
+        {
+          "url": "https://www.economist.com/science-and-technology/2026/03/04/a-basket-of-new-fruit-varieties-is-coming-your-way"
+        },
+        {
+          "url": "https://www.starkbros.com/products/berry-plants/blackberry-plants/thornless-blackberry-plant-collection"
+        },
+        {
+          "url": "https://doubleavineyards.com/collections/blackberry-plants-for-sale"
+        },
+        {
+          "url": "https://growingfruit.org/t/new-primocane-blackberry-variety/41879"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Blackberry fruit new varieties -software -security"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 8,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:48:24+00:00",
+        "latency_seconds": 8.408,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 8.649,
+      "warm_seconds": 0.016,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Sweet-Ark Immaculate blackberry release",
+      "split": "development",
+      "plan": {
+        "raw_query": "Sweet-Ark Immaculate blackberry release",
+        "interpreted_query": "Sweet-Ark Immaculate blackberry release",
+        "terms": [
+          "sweet",
+          "ark",
+          "immaculate",
+          "blackberry",
+          "release"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-4070b4cdf2f25d0d",
+          "title": "After a season of ‘hail and fire,’ Arkansas blackberry production looks toward a better summer | Stuttgart Daily Leader",
+          "source_url": "https://www.stuttgartdailyleader.com/after-a-season-of-hail-and-fire-arkansas-blackberry-production-looks-toward-a-better-summer/",
+          "published_date": "2025-06-19",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-e6354ce522683ca1",
+          "title": "Sweet-Ark Immaculate Release Flyer",
+          "source_url": "https://bpb-us-e1.wpmucdn.com/wordpressua.uark.edu/dist/3/599/files/2024/03/Sweet-Ark-Immaculate-A-2718T-Release-Flyer-6867520d1deea77d.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-f4e907e3739807b6",
+          "title": "Muscadine research promises a new category, much like grapes",
+          "source_url": "https://www.freshfruitportal.com/news/2024/03/04/muscadine-research-promises-a-new-category-between-table-grapes-and-berries/",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-a9f3e17ac09e32bd",
+          "title": "Thornless Blackberry Cultivars Suited for the Mid-Atlantic ...",
+          "source_url": "http://www.extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-5042280c88e2f10c",
+          "title": "Sweet-Ark® Immaculate™: A New Late-Season Blackberry for Commercial and Local-Market Production | Southern Region Small Fruit Consortium",
+          "source_url": "https://smallfruits.org/2025/12/sweet-ark-immaculate/",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-21874a9584a2a208",
+          "title": "Arkansas gets ‘early bird’ blackberry season",
+          "source_url": "https://www.uaex.uada.edu/media-resources/news/2024/june2024/06-17-2024-blackberry-field-day.aspx",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-20b3dfdd8f88873a",
+          "title": "Kentucky Fruit Facts - Horticulture",
+          "source_url": "https://horticulture.mgcafe.uky.edu/sites/horticulture.ca.uky.edu/files/January-February%202026%20Fruit%20Facts-2_AOD.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-ef54208dc9e074cc",
+          "title": "Winter 2026 | Southern Region Small Fruit Consortium",
+          "source_url": "https://smallfruits.org/category/small-fruit-news/winter-2026/",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-6e802e4102cf81ae",
+          "title": "Sweet-Ark Immaculate: thornless blackberry for the fresh market ...",
+          "source_url": "https://italianberry.it/en/news/white-blackberry-sweet-ark-immaculate",
+          "published_date": "2026-01-13",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-5f42000aa680688a",
+          "title": "Say Hello To This New Late-Season Blackberry",
+          "source_url": "https://www.growingproduce.com/fruits/berries/say-hello-to-this-new-late-season-blackberry/",
+          "published_date": "2024-02-13",
+          "capture_status": "full",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://aaes.uada.edu/news/sweet-ark-immaculate/"
+        },
+        {
+          "url": "https://smallfruits.org/2026/01/sweet-ark-immaculate/"
+        },
+        {
+          "url": "https://peacefulheritage.com/products/immaculate-blackberry-new"
+        },
+        {
+          "url": "https://www.facebook.com/UADA.WhiteCountyAgriculture/posts/new-from-uada-sweet-ark-immaculate-blackberrybig-news-for-blackberry-growers-and/1551098980357286/"
+        },
+        {
+          "url": "https://territorialseed.com/products/sweet-ark-immaculate"
+        },
+        {
+          "url": "https://www.thepacker.com/news/produce-crops/university-arkansas-releases-late-season-blackberry"
+        },
+        {
+          "url": "https://www.uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx"
+        },
+        {
+          "url": "https://www.instagram.com/p/DLk_q7OyPbC/"
+        },
+        {
+          "url": "https://penseberryfarm.com/products/sweet-ark%C2%AE-immaculate"
+        },
+        {
+          "url": "https://extension.umd.edu/resource/thornless-blackberry-cultivars-suited-mid-atlantic-fs-2024-0709"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Sweet-Ark Immaculate blackberry release"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 5,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:48:33+00:00",
+        "latency_seconds": 5.386,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 5.635,
+      "warm_seconds": 0.022,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Fontana blackberry Pairwise",
+      "split": "development",
+      "plan": {
+        "raw_query": "Fontana blackberry Pairwise",
+        "interpreted_query": "Fontana blackberry Pairwise",
+        "terms": [
+          "fontana",
+          "blackberry",
+          "pairwise"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-de81ad944c2ec968",
+          "title": "Sun World International and Pairwise Launch Strategic ...",
+          "source_url": "https://www.pairwise.com/insights/pairwise-sunworld-pitless-cherry",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-3b6db65cee74af92",
+          "title": "Pairwise Unveils Fontana™, a Breakthrough Blackberry That ...",
+          "source_url": "https://www.pairwise.com/insights/pairwise-unveils-fontana-blackberry",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-da8f6e8a0856d7dc",
+          "title": "Pairwise | Agriculture's leading plant CRISPR powerhouse",
+          "source_url": "https://www.pairwise.com",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-bd15e287d359b93f",
+          "title": "Pairwise Develops First Seedless Blackberry with ...",
+          "source_url": "https://www.pairwise.com/insights/pairwise-develops-first-seedless-blackberry-with-transformative-crispr-technology",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-1aa758f1933f85d3",
+          "title": "The Proof is in the Products | January 2026 - Pairwise",
+          "source_url": "https://www.pairwise.com/insights/the-proof-is-in-the-products-january-2026",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-028a8c34d4dbf1eb",
+          "title": "Feaured in WIRED: Seedless Blackberries and Cherries That Grow ...",
+          "source_url": "https://www.pairwise.com/insights/feaured-in-wired-seedless-blackberries-and-cherries-that-grow-on-bushes-vie-to-be-the-future-of-food",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-16ba0ffca695734a",
+          "title": "Pairwise Named No. 1 on the FoodTech 500 (2025)",
+          "source_url": "https://www.pairwise.com/insights/pairwise-foodtech-500",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-d01664757175882f",
+          "title": "Pairwise Poised to Revolutionize Agriculture with Industry ...",
+          "source_url": "https://www.pairwise.com/insights/pairwise-poised-to-revolutionize-agriculture-with-industry-leading-fulcrum-tm-platform-following-40m-series-c-funding",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-88d6745822073f9a",
+          "title": "Pairwise announces closing of $90M Series B funding round",
+          "source_url": "https://www.pairwise.com/insights/pairwise-announces-closing-of-90m-series-b-funding-round",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-0ed129c4d739e926",
+          "title": "Featured in The Economist: A basket of new fruit varieties is ...",
+          "source_url": "https://www.pairwise.com/insights/featured-in-the-economist-a-basket-of-new-fruit-varieties-is-coming-your-way",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-competitor-registry-2026-09-15-import",
+          "title": "Internal Competitor Registry spreadsheet snapshot (2026-09-15)",
+          "source_url": "",
+          "published_date": null,
+          "capture_status": null,
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.pairwise.com/insights/pairwise-unveils-fontana-blackberry"
+        },
+        {
+          "url": "https://www.fruitnet.com/asiafruit/pairwise-unveils-high-yield-blackberry/273043.article"
+        },
+        {
+          "url": "https://www.pairwise.com/our-products"
+        },
+        {
+          "url": "https://www.growingproduce.com/fruits/berries/what-growers-should-know-about-the-new-fontana-blackberry/"
+        },
+        {
+          "url": "https://www.linkedin.com/posts/pairwise-plants_fontana-blackberry-overview-activity-7516121492879720448-nBp-"
+        },
+        {
+          "url": "https://italianberry.it/en/news/fontana-blackberry-pairwise"
+        },
+        {
+          "url": "https://insights.tridge.com/speaker-product-news-reports/KJLyFXpzJzgKuB1Gqsm5QUKHGgR43AVdqLbwF236hEAV8Ztw4oCVGgjX"
+        },
+        {
+          "url": "https://the-fresh-edit.com/2026/10/16/pairwise-fontana-compact-blackberry/"
+        },
+        {
+          "url": "https://www.linkedin.com/posts/the-fresh-edit_pairwise-unveils-fontana-a-compact-blackberry-activity-7516778778510065664-tJtg"
+        },
+        {
+          "url": "https://www.pairwise.com/collaborations"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Fontana blackberry Pairwise"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 10,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:48:39+00:00",
+        "latency_seconds": 4.455,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 4.806,
+      "warm_seconds": 0.023,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Blueberry varieties Fall Creek Peru",
+      "split": "development",
+      "plan": {
+        "raw_query": "Blueberry varieties Fall Creek Peru",
+        "interpreted_query": "Blueberry varieties Fall Creek Peru",
+        "terms": [
+          "blueberry",
+          "variety",
+          "fall",
+          "creek",
+          "peru"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "ev-freshfruitportal-fall-creek-2026",
+          "title": "Fall Creek high-chill field forum coverage",
+          "source_url": "https://www.freshfruitportal.com/news/2026/07/09/fall-creek-event/",
+          "published_date": "2026-07-09",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-producereport-blugenix-2026",
+          "title": "Costa launches BluGenix with five blueberry varieties suited to Yunnan",
+          "source_url": "https://www.producereport.com/article/costa-launches-blugenix-5-blueberry-varieties-suited-yunnan",
+          "published_date": "2026-06-08",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173901-d4fc-fall-creek-launches-apex-blueberry-varie",
+          "title": "Fall Creek launches Apex blueberry variety - Fruitnet",
+          "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQUmlDMWJyc25Vc09fTFNCOC1vNXhyR0RPZURZaVZqNXVaOG1GOWw4ZW93d3NCTUxlNk5FSFhMM2k2TDZfTmgwWW12YWoxdFpRa3U3X0pQMklpQnB4YkJVTjBqcS1PcS1lQk9IU2NzQkpTUzNHaXZGa0ZEMjdIdk1lVWJVVm5IZnpRYlJSa05hcnBYWWZVMGJR?oc=5",
+          "published_date": "2026-04-07",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-fall-creek-commercial-platforms-2026",
+          "title": "Commercial Platforms",
+          "source_url": "https://fallcreekcatalogs.com/commercial-platforms/",
+          "published_date": "2026-01-29",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-agrovision-10-years-2024",
+          "title": "Agrovision celebrates 10 years of bringing the world a better berry",
+          "source_url": "https://www.prnewswire.com/news-releases/agrovision-celebrates-10-years-of-bringing-the-world-a-better-berry-302052244.html",
+          "published_date": "2024-02-05",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "web-e12dbf7e23d3723c",
+          "title": "Fall Creek® Introduces New Variety For New Challenges",
+          "source_url": "https://blueberriesconsulting.com/en/fall-creek-presenta-nueva-variedad-para-nuevos-desafios/",
+          "published_date": "2023-08-29",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-hortifrut-genetic-development",
+          "title": "Hortifrut - Genetic Development",
+          "source_url": "https://www.hortifrut.com/innovation/genetic-development/",
+          "published_date": null,
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173541-e0b0-fall-creek-expands-beyond-blueberries-wi",
+          "title": "Fall Creek expands beyond blueberries with Italian acquisitions - Fruitnet",
+          "source_url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQUDhJR1pFOGdFczNEN0Iydl9HdW5TQ3BfeHJOTGtKS2IyV3U1OXdNb1FQTmN1bk1sMi1icU5Mc2pFMVI5aW5tTVlsbGZZa1VJa29HWUdZaUYtSkRSSlYzeF9XOWZDMXhhUVoxRUtEV1NRc3BUcUxQc1NfNk4tSDFBekpUVDY2VEYwSExoLW9kNkNkaE5hellBN09vMlBvNC1zTHhLU0kyUXVncVVRejlvQlF3bw?oc=5",
+          "published_date": "2026-06-10",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "web-189c985cc478e3e1",
+          "title": "Peruvian blueberry enters a new era, with premium fruit in the spotlight",
+          "source_url": "https://www.freshplaza.com/oceania/article/9840891/peruvian-blueberry-enters-a-new-era-with-premium-fruit-in-the-spotlight/",
+          "published_date": "2026-05-26",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173843-ac19-fall-creek-spain-reaches-14-million-blue",
+          "title": "Fall Creek Spain reaches 14 million blueberry plants after 10 years - FreshPlaza",
+          "source_url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNZ3Y1QXBoQU1mMlNvTmdxU1ZlRzVvNE1kZmJUd3BTS0U0Ny1FQ3VKcmxWd1dSSWVOSVZWdWp5SnFNTkh0VmtfUTlicDJ4Y0NtbkYzcUZkQXI1ZDZoeWNoYTdYcXhyNXJSUzdRMklBR1dtWkczQVZ6ZlkzUHpnMzlfa0RSZmw2b2FHc2pEb1U2eXBJME5zaXU4SEsxY01vd2VXeVY1RWRwREpqaDlsOFBKeFVPWk0taEpfWWh2ZzVxU1dMejQ?oc=5",
+          "published_date": "2026-05-26",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173901-e735-premium-blueberry-varieties-gain-pricing",
+          "title": "Premium blueberry varieties gain pricing power in Peru as growers weigh replacement strategies - EastFruit",
+          "source_url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPSzdCTzdQOTVTT3g3Ty0tNm5YVFVyQTRJR3JrSXdhVHczNFM1UW5RMGJFbUdOLWVvM3hHdmJEUTFLZVZWUXV5azBoaTNUUGE2a1RhQkxRQ0dtNDgwUVA5LVdBNW5QUHZIMzVxd21Pd0laeEFpZWhiSnBjRHRQdFFPYVdVSmpVUWNSbmRrYUJSd1FtQVlqN1ctbkVvWlJqU2lTOS1ORkRfLTZSSFZpMHBBd2hGVEJqb0pIb1ZxTDllUHhLWDc5RXFqRktGTDVTSUxqSHpreDlGTXR0RFlw?oc=5",
+          "published_date": "2026-03-24",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173538-c880-berry-breeding-programs-presented-in-sou",
+          "title": "Berry breeding programs presented in southern Spain - Hortidaily",
+          "source_url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPd0xPU0ZfSDJxMmNLSFc4RHhZTkJpOUJKMDVGcTJNTFljaG5YenVJUGdwMERrbmZZZVpjOXFta0RCTWpBZkdkbVJadHh0VVJ0OWJwNXlZZjg1b0FVOTY3aXNpbDNBVUE0VzRrQWdJV0llTkp2YUptLXFzaDlPVElJcUFTSzgzWDdzRFo0dnRqS29QVnRrb1ZZN2dSWQ?oc=5",
+          "published_date": "2026-03-13",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-freshplaza-fall-creek-chile-2026",
+          "title": "Fall Creek strengthens blueberry commitment in southern Chile",
+          "source_url": "https://www.freshplaza.com/latin-america/article/9761007/fall-creek-strengthens-blueberry-commitment-in-southern-chile/",
+          "published_date": "2026-03-06",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-produce-report-sekoya-nova-2026",
+          "title": "Fall Creek To Reveal New Sekoya Nova 'FC15-173' High-Chill Blueberry Variety",
+          "source_url": "https://www.producereport.com/article/press-release-fall-creek-reveal-new-sekoya-nova-fc15-173-high-chill-blueberry-variety",
+          "published_date": "2026-02-03",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173547-b9a2-fall-creek-s-peachyblue-blueberry-drives",
+          "title": "Fall Creek’s PeachyBlue Blueberry Drives Category Growth at Sprouts, Showcasing Power of Breeding to Shelf Collaboration - Perishable News",
+          "source_url": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxQVnR4dmUwWEJZWV9KWTYyeWszeDQwcXpJZU5vbUZGeHBoR0Nlbmw4bV9KOFpEb3FNU2N5STNibklJYzNtcHJZZFo5NkYxbXlqRlNIV0xzRGFzZ2RGbE5fU2hVRGlkNEVzel9WNnBXRzJJWVpSVjUydE1JSGFQdE1HV1VRQ0RxMFBiQlpZVjlVd0I4UUV3al80UzVRaEVYdjRldWJQUzFQLXZ0NjhFLWNhc3ZCLThKSnF6cF9yNHBEMjlLX2Z1RC1tamYtWGNkS01JeXBZaUxBeGc1T0xHTF9MM21Qa2NYckNFaFE?oc=5",
+          "published_date": "2026-01-07",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173609-1d78-fall-creek-s-peachyblue-blueberry-drives",
+          "title": "Fall Creek’s PeachyBlue Blueberry Drives Category Growth at Sprouts, Showcasing Power of Breeding to Shelf Collaboration; Jason Glunt, Ben Escoe, and Val Shepler Comment - AndNowUKnow",
+          "source_url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPbEFLZVppTFJTUnBjSEo5bVh3RWRSekJrZ2ZYTDFtZ2pQSEhFTHhaQnR6X3JsS01oaHdSb2ZkbmJQQmJCWWlXWUpYS0RqT2wxYUJ0UFJsWDFnTGRUVU1ILW1oc0o0OEFITkZTWXg2WThHV0hRRjFNeHNkMUc2Skg3cXJLU0lUMFl6Q0VtM2w2akJ6ak01X1Nrc2JJWlZJR2ZtUDdWOFU5TW11aVhvQnBqeENJM0taZXpYZ2pwLXNqVlUyMnZ5SEFBQktDempzNTg?oc=5",
+          "published_date": "2026-01-07",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-portalfruticola-fall-creek-2025",
+          "title": "Fall Creek and the renewal of blueberry varieties",
+          "source_url": "https://www.portalfruticola.com/noticias/2025/12/11/fall-creek-arandanos-renovacion/",
+          "published_date": "2025-12-11",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "web-db25d46081e55589",
+          "title": "Julio Zavala, General Manager of Fall Creek Peru",
+          "source_url": "https://blueberriesconsulting.com/en/julio-zavala-gerente-general-de-fall-creek-peru-estamos-ingresando-como-punta-de-lanza-al-mercado-con-sekoya-pop/",
+          "published_date": "2025-12-02",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "ev-produce-report-sekoya-china-2025",
+          "title": "Sekoya confident about its premium blueberries in Asian, Chinese markets",
+          "source_url": "https://www.producereport.com/article/sekoya-confident-about-its-premium-blueberries-asian-chinese-markets",
+          "published_date": "2025-11-13",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173547-ed30-oregon-blueberry-nursery-replaces-ceo-wi",
+          "title": "Oregon blueberry nursery replaces CEO with outside pick - Capital Press",
+          "source_url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNZjE4RTZncWN0Q1ZsbUxkR0pneW1yOEVhWGYyRHpJSTdTanI4ODQ0aGtod2c2TTRpQU13U0J4SjhMZzZiWEJBQUpYMXozNUxjLVptbXE5eFNEQ2dseUZvQnVoTFdSN0FDNDhxY00zT2pMYmtEZVhaMGdGM2wwcGhnQUpuakl2eTB3S1l1RC0zVWx2c0ZJemNB?oc=5",
+          "published_date": "2025-11-05",
+          "capture_status": null,
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.fallcreeknursery.com/commercial-fruit-growers/peru"
+        },
+        {
+          "url": "https://www.fallcreeknursery.com/commercial-fruit-growers/peru/products-peru"
+        },
+        {
+          "url": "https://fallcreekcatalogs.com/variety-spotlight/"
+        },
+        {
+          "url": "https://www.fallcreeknursery.com/commercial-fruit-growers/peru/blueberry-growing-regions-of-peru"
+        },
+        {
+          "url": "https://www.facebook.com/FallCreekNursery/photos/from-our-team-in-the-field-fall-creeks-ventura-variety-is-at-peak-harvest-in-per/2158623830874489/"
+        },
+        {
+          "url": "https://www.fruitnet.com/eurofruit/fall-creek-launches-apex-blueberry-variety/271112.article"
+        },
+        {
+          "url": "https://blueberriesconsulting.com/en/fall-creek-apuesta-por-genetica-que-conecte-calidad-de-fruta-consumo-y-rentabilidad/"
+        },
+        {
+          "url": "https://www.reddit.com/r/Blueberries/comments/1n4yt26/peruvian_blueberries/"
+        },
+        {
+          "url": "https://www.internationalblueberry.org/2020/02/05/five-new-blueberry-varieties-introduced-by-fall-creek/"
+        },
+        {
+          "url": "https://www.fallcreeknursery.com/commercial-fruit-growers/varieties"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Blueberry varieties Fall Creek Peru"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 9,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:48:44+00:00",
+        "latency_seconds": 6.066,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 6.489,
+      "warm_seconds": 0.018,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Strawberry Planasa licensing Spain",
+      "split": "development",
+      "plan": {
+        "raw_query": "Strawberry Planasa licensing Spain",
+        "interpreted_query": "Strawberry Planasa licensing Spain",
+        "terms": [
+          "strawberry",
+          "planasa",
+          "license",
+          "spain"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-74bc6c4dc1cc3098",
+          "title": "Planasa receives the visit of Mexican and US Adelita ...",
+          "source_url": "https://planasa.com/mexican-and-us-adelita-licensees-planasa/",
+          "published_date": "2019-04-03",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-12116f35af3a82ab",
+          "title": "Strawberry archivos - Planasa",
+          "source_url": "https://planasa.com/strawberry/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-4d9719e9b2438ac8",
+          "title": "Spain: Planasa looking to obtain off-season strawberry variety",
+          "source_url": "https://www.hortidaily.com/article/6019071/spain-planasa-looking-to-obtain-off-season-strawberry-variety/",
+          "published_date": "2015-07-07",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-30f1e9dd02ed30e2",
+          "title": "Nursery-ES - Planasa",
+          "source_url": "https://planasa.com/nursery-es/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-894b6dbd775b2634",
+          "title": "NURSERY",
+          "source_url": "https://planasa.com/us/nursery/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-5075884b5b6fedb7",
+          "title": "ABOUT US",
+          "source_url": "https://planasa.com/about-us/",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://planasa.com/redsayra-most-grown-strawberry-variety-spain/"
+        },
+        {
+          "url": "https://planasa.com/strawberry/"
+        },
+        {
+          "url": "https://planasa.com/production/"
+        },
+        {
+          "url": "https://planasa.com/"
+        },
+        {
+          "url": "https://planasa.com/us/variety/redsayra/"
+        },
+        {
+          "url": "https://planasa.com/innovation/"
+        },
+        {
+          "url": "https://planasa.com/us/variety/redsara/"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Planasa"
+        },
+        {
+          "url": "https://biovegen.org/en/socios/empresas/planasa/"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Strawberry Planasa licensing Spain"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 9,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:48:50+00:00",
+        "latency_seconds": 7.088,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 7.27,
+      "warm_seconds": 0.021,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Raspberry breeding Scotland",
+      "split": "development",
+      "plan": {
+        "raw_query": "Raspberry breeding Scotland",
+        "interpreted_query": "Raspberry breeding Scotland",
+        "terms": [
+          "raspberry",
+          "breeding",
+          "scotland"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-d4b86017e46039dc",
+          "title": "British raspberry breeding programme results in three new ...",
+          "source_url": "https://www.hortidaily.com/article/9221240/british-raspberry-breeding-programme-results-in-three-new-varieties/",
+          "published_date": "2020-05-29",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173539-147e-cornell-berry-breeding-program-releases-",
+          "title": "Cornell berry breeding program releases new strawberry and raspberry - The Ithaca Journal",
+          "source_url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNX0E1dnZFZXhFS29HOC1RY1ZQdXFNRDBIdDY2Y1NHME80STdoTHMyemJCUGUtRkMtcVNzUGg5Sm1sb3U5TEtIU0tKNVIxeF9WLURSb2dJV252N040SXMzSE9QU0l5WGlCWVgyM09zdm5mRU5WOFp2c2dzeU12dzgxbnNDblNmZHVyUmh5Q0Y1dnNSZ09rZ0ZHbExoTE5vNUVOOFlXR1hOUkE4RzN5SmQ0YVpzaGN0bW83T3dkUE5nVTNxY3Z3QnZWZFlwOWF3d1BUbFd6Xw?oc=5",
+          "published_date": "2018-09-11",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173539-a9c7-new-high-yield-strawberry-raspberry-vari",
+          "title": "New high-yield strawberry, raspberry varieties released - Fruit Growers News",
+          "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQTGpYMjFWZUdPTlFISXBpSFEzZGF4OG14SkExOVQ4QUI1STluWVZ0NzN3UzU0Q29LTFBJX2NSSWFnYnowVkVJWlVUUGdQak1yNHdtWkJfNlBGZUhNVGVVMExtMUpjQ2JBcGFGRTc3eFY0ZVdiRWxHbzNBMm1aNVNZVjZVTm5XanlEeTZKM1dvSm55UXM?oc=5",
+          "published_date": "2018-09-06",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-20260806173539-c931-cornell-releases-two-new-raspberry-varie",
+          "title": "Cornell releases two new raspberry varieties - Cornell Chronicle",
+          "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQS0J0VEJfbHNwR0VfTDVQRTdpME9yNzNKRGpJcnNzeUJoTEZZUU02TUZmenZNYW94OGtYenExVlk5U0RlWDczTzd6aVJTOUJ4UFEySWY3UjZnOTNMb3Iya3lQMnNiVEpXMndjZ0NpRGZNa08teXg3RWZQd1lhNHhtWXh2TW0zT3pOSk84YkFR?oc=5",
+          "published_date": "2012-04-30",
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "web-eebb711aff572ebd",
+          "title": "Raspberry Licensing - James Hutton Institute",
+          "source_url": "https://www.hutton.ac.uk/scientific-services/improving-crop-production/accessing-varieties/raspberry-licensing/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-32d82aaf76627a66",
+          "title": "Raspberry breeding at The James Hutton Institute",
+          "source_url": "https://fruitbreeding.hutton.ac.uk/Raspberry/Breeding",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-1cbb3f64860c305b",
+          "title": "The progress of raspberry breeding in Scotland - ishs",
+          "source_url": "https://ishs.org/ishs-article/1388_10/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-80e1a087161e74d4",
+          "title": "Raspberry varieties - Fruit Breeding - James Hutton Institute",
+          "source_url": "https://fruitbreeding.hutton.ac.uk/raspberry/varieties",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-84800460f1c3e9cf",
+          "title": "New developments in the Scottish raspberry breeding ...",
+          "source_url": "https://www.sscr.org.uk/sites/www.sscr.org.uk/files/soft%20fruit/Jennings_raspbreeding.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-cinven-planasa-ew-group",
+          "title": "Cinven and Label Investments to sell Planasa to EW Group",
+          "source_url": "https://www.cinven.com/news-insights/cinven-and-label-investments-to-sell-planasa-to-ew-group/",
+          "published_date": null,
+          "capture_status": null,
+          "relevance": "direct"
+        },
+        {
+          "id": "web-31f994d3a75080c2",
+          "title": "Soft fruit breeding delivers climate resilient berries",
+          "source_url": "https://www.thescottishfarmer.co.uk/news/26403876.soft-fruit-breeding-delivers-climate-resilient-berries/",
+          "published_date": "2026-08-01",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-2277b467993a8329",
+          "title": "\"We're seeing excellent berry size, sweetness and overall ...",
+          "source_url": "https://www.hortidaily.com/article/9852119/we-re-seeing-excellent-berry-size-sweetness-and-overall-quality/",
+          "published_date": "2026-07-01",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173600-9cb6-what-to-know-about-the-magic-of-the-bilo",
+          "title": "What To Know About the Magic of the Biloxi Blueberry - Growing Produce",
+          "source_url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPcmx4em9HMm0yRWRlTlFBelZBSDJ5aXNaWmFVUUhFcjF2OTVXTDVtTXVqUTFrTU9tUzNJbVltMDhBYUlWX1JySkNqeGVROXdtc2d1bHVMbzdtZHNUSkg3ZWZMb0hoOWY2alZRT2pxMFNrWjlFckxxWTgwYmdUMk03ZWZSbjVHcFlEM2EzcmZEUjNkTzhoOVVpZ1FOaEZ4Ymlq?oc=5",
+          "published_date": "2026-02-02",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173542-173c-raspberry-shortage-in-india-drives-devel",
+          "title": "Raspberry shortage in India drives development of local varieties and domestic production - EastFruit",
+          "source_url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNWl9ST2hfaFRLVm1ETG1xTWJBZEQ0c3ZwZFpOQ0VEaDZrUzMxRWx1Zm5iaDRZb0FXSWxVWVQ5S2ZkUFhUOExib1ZHZ2tpNFVXY1lNU0VPakVXci1rYUFzU192ZFZwMHk1dnV2VlBlUlNsWlFOakZyQ0c1YUl4YXVreWlubllfSks2RnFzQngzRjhqMjZjeXpZRjQ5V3JUeU5Vc2x6Ry1WR2lRS2htbUhQd0FNOExlTFFMNXo4bXlLS2lyQQ?oc=5",
+          "published_date": "2026-01-22",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173539-03a8-wish-farms-accelerates-berry-innovation-",
+          "title": "Wish Farms Accelerates Berry Innovation with Breakthrough Raspberry and Blackberry Breeding - Perishable News",
+          "source_url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQXzd6M28waUthNlBKNG02QVZCUmtFMWZlazM3RnMwUEN2ZEZZd0ZDSVZla0JFZlU1X05keEVUMFpyNTZqV1BlLWNCUkxoZ3M0NzQ5TlpZYTVIV1VqcWZfR1FrSEctYXhxOG5zS2o0Wldsc2p6UkF5aHBiajJpaVBmQ2gybV9UR2RUZjlYLWFFVTFaOFVnZGUwZGVPWG1Tb3MzYzdtMlB1UmVORkVYdDZxVWU4Snd4NExHcEZUTjJrRXZaS3JZZVE?oc=5",
+          "published_date": "2025-12-04",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173539-06bb-malaika-raspberries-raise-the-premium-ha",
+          "title": "Malaika Raspberries Raise the Premium Harvest in Portugal - AICEP",
+          "source_url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPVnJKRmNTdW9MYnR6enFKX2x1M3pYSTBQVXVsRFVvN1ZBSE9ObzFZX2NKa0FUQWVBNDlDY2R4MVZuX0M0dEE5c0Z3S3JoMXZ4M2xYcTd3Q29pTWx4N1NQV1ctNmo3RXlWc2lNV3lUal9jdERDUUI0Q0FxY1JHOVU2d0RmM2oyTG5hbFNGME96NXNZVlY3X0U5bU4xUlhFdnVzd3FONXRPYWVxSHNEdHc?oc=5",
+          "published_date": "2025-10-03",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173539-0cf0-the-summer-berry-company-harvests-premiu",
+          "title": "The Summer Berry Company harvests premium Malaika raspberry variety in Portugal - Fruitnet",
+          "source_url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNNWozeWQzNld1SkhhU2RIekRCcnBKNjdMLXlGWUxhVm1zQ0otZTFJdVlkNWRmVWlvZWplVHlRWnM4WnFLNndhc1lHR0hjVF9LWGg0VFpLRVVWMUxGQld5UEtPNWNKN25VNWNJcUZOdk9vZ2tlRTY5eGFzbENyVTY5eEstdzFWTW1xSy1pX1p3QmV6QWFYS2dDSnU3aFRQUUNlV3NqX1haWEF1bENPcnFFZGhTbEt0bXJj?oc=5",
+          "published_date": "2025-09-29",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173539-b7ed-tsbc-secures-rights-to-grow-innovative-r",
+          "title": "TSBC secures rights to grow innovative raspberry varieties in Portugal - Fruitnet",
+          "source_url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxONnJscGg0bERXU2N3dEFmNzE0ZG02dGRIN1pCT0hrWnVQRjZYRXhmUl9LcWVlaTRpckxUb2Q5SWIzUG9hU1Z3Yl92Yjg0OTllRmkwNWxkRW5EcGFaV3BlaDVReUZ2MEVsakZ3SUZ5MjlXS3J1NC03ZUxqVzd5UnZicENScjdQTXNIQ1pwRFZWYURSa3RzdHY3TEZQUG82akp6M21iVW5NOS1Eb3ZOdHpVcVhpbGY4UmIxTXVGOA?oc=5",
+          "published_date": "2025-02-04",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "web-5497d6ef3337757f",
+          "title": "Hutton leads new consortium to secure future of Scottish raspberry ...",
+          "source_url": "https://www.hutton.ac.uk/hutton-leads-new-consortium-to-secure-future-of-scottish-raspberry-breeding-industry/",
+          "published_date": "2024-12-19",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "ev-20260806173908-f5e8-rijk-zwaan-beefs-up-berry-breeding-busin",
+          "title": "Rijk Zwaan beefs up berry breeding business - Fruitnet",
+          "source_url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPTEtTNUVRSlh3N0hSbTN0b1R0enB5TktiWmRUQzB5bkljVFBHcnBIVXhIeGliU3Exd2J2M0pBS2R0RmpLanppS0ZHdkljZVRtWGFxTU8xb3Rnb3ZKWEU4YzlBaFFuS1hiY0lnd3RCaTlYQllTNmVTbWF0THBWYU5LVmNLdEtRYzJxNGdYYzR0Wl9iVVFSSVk3TA?oc=5",
+          "published_date": "2024-06-26",
+          "capture_status": null,
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://fruitbreeding.hutton.ac.uk/Raspberry/Breeding"
+        },
+        {
+          "url": "https://growscotland.co.uk/fruit/raspberries/"
+        },
+        {
+          "url": "https://www.actahort.org/members/showpdf?booknrarnr=1388_10"
+        },
+        {
+          "url": "https://www.seedworld.com/europe/2025/01/16/hutton-leads-new-consortium-to-secure-future-of-scottish-raspberry-breeding-industry/"
+        },
+        {
+          "url": "https://www.hutton.ac.uk/scientific-services/improving-crop-production/breeding/raspberry-breeding/"
+        },
+        {
+          "url": "https://ishs.org/ishs-article/1388_10/"
+        },
+        {
+          "url": "https://www.fruitandvine.co.uk/hutton-leads-new-consortium-to-secure-future-of-scottish-raspberry-breeding-industry/"
+        },
+        {
+          "url": "https://projectbluearchive.blob.core.windows.net/media/Default/Research%20Papers/Horticulture/SF%20035a%20Raspberry%20Breeding%202005.pdf"
+        },
+        {
+          "url": "https://www.sscr.org.uk/sites/www.sscr.org.uk/files/inline-files/Raspberry%20and%20Blackberry_Jennings.pdf"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Raspberry breeding Scotland"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 8,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:48:58+00:00",
+        "latency_seconds": 8.213,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 8.477,
+      "warm_seconds": 0.019,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Blueberry machine harvesting trials",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Blueberry machine harvesting trials",
+        "interpreted_query": "Blueberry machine harvesting trials",
+        "terms": [
+          "blueberry",
+          "machine",
+          "harvesting",
+          "trial"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-ee0948fa5811f1e9",
+          "title": "Mechanized Blueberry Harvesting: Preliminary Results in the Italian Context",
+          "source_url": "https://iris.unito.it/retrieve/handle/2318/1822110/879222/agriculture-11-01197-v2.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-39abd968587fe341",
+          "title": "Effect of Mechanical Harvesting Technology Type and ...",
+          "source_url": "https://www.tandfonline.com/doi/abs/10.1080/15538362.2023.2279552",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "ev-packer-finefield-2024",
+          "title": "Fall Creek Farm and Nursery invests in mechanical harvesting company",
+          "source_url": "https://www.thepacker.com/news/packer-tech/fall-creek-farm-and-nursery-invests-mechanical-harvesting-company",
+          "published_date": "2024-02-05",
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "web-12ea20337a39b2f4",
+          "title": "University developing firmer blueberries to increase mechanical ...",
+          "source_url": "https://www.freshplaza.com/north-america/article/2178374/university-developing-firmer-blueberries-to-increase-mechanical-harvesting/",
+          "published_date": "2017-07-06",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-55b9d783507577be",
+          "title": "Modified Over-the-Row Machine Harvesters to Improve Northern Highbush Blueberry Fresh Fruit Quality",
+          "source_url": "https://cdn.blueberriesconsulting.com/2019/08/agriculture-09-00013.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        },
+        {
+          "id": "ev-uf-breeding-colossus",
+          "title": "UF blueberry breeding programme cultivar page - Colossus",
+          "source_url": "https://www.blueberrybreeding.com/colossus",
+          "published_date": null,
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "ev-uf-breeding-meadowlark",
+          "title": "UF blueberry breeding programme cultivar page - Meadowlark",
+          "source_url": "https://www.blueberrybreeding.com/meadowlark-fl01-173",
+          "published_date": null,
+          "capture_status": null,
+          "relevance": "background"
+        },
+        {
+          "id": "web-717e658f13abb86c",
+          "title": "[PDF] Machine Harvesting for Fresh Market Quality Blueberry",
+          "source_url": "https://wpcdn.web.wsu.edu/wp-extension/uploads/sites/2093/2019/12/Cai_2019Machine.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-8f2c497a607ed161",
+          "title": "[PDF] Blueberry Mechanized Harvesting - Semantic Scholar",
+          "source_url": "https://pdfs.semanticscholar.org/9eb7/5689df1f1613d9c3950f3fdd17f1dd073fa1.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-b2e1517b95c59ddb",
+          "title": "Machine harvesting comparison and optimization of machine ...",
+          "source_url": "https://rex.libraries.wsu.edu/esploro/outputs/graduate/Machine-harvesting-comparison-and-optimization-of/99900588363801842",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-e51309ef0e11fc44",
+          "title": "‘Baby Blues’ Highbush Blueberry",
+          "source_url": "https://bpp.oregonstate.edu/sites/agscid7/files/horticulture/attachments/107_finn_et_al_baby_blues_hs_51761-765_2016.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-2bb0261bf2d7325b",
+          "title": "Microbial Load of Fresh Blueberries Harvested by Different Methods",
+          "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10000651/pdf/foods-12-01047.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.agricultural-robotics.com/news/blueberry-growers-test-new-tools-to-address-labor-challenges-and-improve-margins"
+        },
+        {
+          "url": "https://www.sciencedirect.com/science/article/abs/pii/S0168169926010306"
+        },
+        {
+          "url": "https://engineering.uga.edu/blueberry-research-focuses-on-gentler-methods-of-harvesting-tiny-fruit/"
+        },
+        {
+          "url": "https://jagodaharvester.com/jagoda-300-blueberry-harvester-test-2025/"
+        },
+        {
+          "url": "http://journals.ashs.org/view/journals/horttech/26/3/article-p299.xml"
+        },
+        {
+          "url": "https://www.progressivecrop.com/2021/05/11/transitioning-from-hand-to-machine-harvesting-of-blueberries-for-fresh-market/"
+        },
+        {
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10000651/"
+        },
+        {
+          "url": "https://agsci.oregonstate.edu/harvestercap/about"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Blueberry machine harvesting trials"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 2,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:49:07+00:00",
+        "latency_seconds": 4.779,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 5.049,
+      "warm_seconds": 0.017,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Nonexistent cultivar ZZZQX-991 blackberry",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Nonexistent cultivar ZZZQX-991 blackberry",
+        "interpreted_query": "Nonexistent cultivar ZZZQX-991 blackberry",
+        "terms": [
+          "nonexistent",
+          "variety",
+          "zzzqx",
+          "991",
+          "blackberry"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [],
+      "google": [
+        {
+          "url": "https://www.berriesunlimited.com/galaxy-blackberry/"
+        },
+        {
+          "url": "https://www.touchknowme.com/products/celestial-thornless-blackberry-6-pack-bundle/232219970/"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Nonexistent cultivar ZZZQX-991 blackberry"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 5,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:49:12+00:00",
+        "latency_seconds": 6.317,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 6.476,
+      "warm_seconds": 0.013,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Blackberry floricane pruning",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Blackberry floricane pruning",
+        "interpreted_query": "Blackberry floricane pruning",
+        "terms": [
+          "blackberry",
+          "floricane",
+          "pruning"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "floricane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-6b089f1761b93255",
+          "title": "Arkansas Fruit Breeding Program releases new late-season ...",
+          "source_url": "https://www.uaex.uada.edu/media-resources/news/2024/february/02-07-2024-sweet-ark-immaculate.aspx",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-ecfef4d4822baf68",
+          "title": "Arkansas Agricultural Experiment Station Releases New ...",
+          "source_url": "https://aaes.uada.edu/news/pa-horizon/",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-65253bd52c5277c3",
+          "title": "Blackberries and Raspberry production in Arkansas",
+          "source_url": "https://www.uaex.uada.edu/farm-ranch/crops-commercial-horticulture/horticulture/commercial-fruit-production/blackberries-production.aspx",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-398a4a065e2af5dc",
+          "title": "[PDF] New Arkansas Blackberry Production Characteristics",
+          "source_url": "https://www.kysu.edu/wp-content/uploads/2017/07/PomperBlackberry09.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-ae78d07bbfa3bd38",
+          "title": "[PDF] 2010 Primocane Blackberry - Kentucky State University",
+          "source_url": "https://www.kysu.edu/wp-content/uploads/2017/07/PomperBB2010sa.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-9b08cc830d395d8e",
+          "title": "HS1458/HS1458: Floricane Blackberry Pruning Guide for Florida",
+          "source_url": "https://ask.ifas.ufl.edu/publication/HS1458",
+          "published_date": "2025-12-02",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-d4f1a62f70881910",
+          "title": "Blackberry Pruning: A Practical Guide - NC State Extension ...",
+          "source_url": "https://content.ces.ncsu.edu/blackberry-pruning-a-practical-guide",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-0d66ad8d3cec9b83",
+          "title": "Pruning erect and semi-erect blackberry bushes",
+          "source_url": "https://cfaes.osu.edu/fact-sheet/pruning-erect-and-semi-erect-blackberry-bushes",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-c52cfd45aad92fb0",
+          "title": "Texas A&M AgriLife Extension Service | Agriculture and ...",
+          "source_url": "https://www.dallascounty.org/departments/tx-agrilife/blog/smith/2025/blackberries.php",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-486594ed106ba5b8",
+          "title": "Blackberry Management in Utah",
+          "source_url": "https://extension.usu.edu/yardandgarden/research/blackberry-management-in-utah",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-d7f025c106f953e7",
+          "title": "2021 2021 PMSP for Blackberry in Alabama, Arkansas ...",
+          "source_url": "https://ipmdata.ipmcenters.org/source_report.cfm?sectionid=36&controltypeid=0&sourceid=1444",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-9d38a75e24d77817",
+          "title": "Virginia Home Grown | Blackberry Care | Season 26 | Episode 6 - PBS",
+          "source_url": "https://www.pbs.org/video/blackberry-care-vfasje/",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-6a269008f69d1245",
+          "title": "Cultivars | NC State Extension Publications",
+          "source_url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/cultivars",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-1acb3392e86978df",
+          "title": "Start Growing Thornless Blackberries: How to Prepare and Select ...",
+          "source_url": "https://extension.umd.edu/resource/start-growing-thornless-blackberries-how-prepare-and-select-cultivars-mid-atlantic-fs-2023-0660",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-4c69b3053ab037a8",
+          "title": "Pruning and Training | NC State Extension Publications",
+          "source_url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/pruning-and-training",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-756df63f8bf92b28",
+          "title": "Blackberries",
+          "source_url": "https://www.mofga.org/resources/blackberries/blackberries/",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-3d748a78a1410c2d",
+          "title": "BlackBerry",
+          "source_url": "https://hgic.clemson.edu/factsheet/blackberry/",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "background"
+        },
+        {
+          "id": "web-514d3fe4be0b30fa",
+          "title": "Blackberry Growing Guide",
+          "source_url": "https://www.lsuagcenter.com/~/media/system/5/5/6/4/55646c0ef9404ad2073c46b006e13b51/blackberry%20growing%20guide%20-%20lsupdf.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-3b15191f00565ee0",
+          "title": "There's Still Time to Prune Berries | The Backyard Gardener",
+          "source_url": "https://ucanr.edu/blog/backyard-gardener/article/summer-prune-canes",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "background"
+        },
+        {
+          "id": "web-79cf0436b9e7d5f3",
+          "title": "Microsoft Word - 053_Clark",
+          "source_url": "https://horticulture.oregonstate.edu/sites/agscid7/files/horticulture/attachments/ah26_clark_et_al_progress_primo_blackberry_breeding_926387-392_2012.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://ask.ifas.ufl.edu/publication/HS1458"
+        },
+        {
+          "url": "https://content.ces.ncsu.edu/southeast-regional-caneberry-production-guide/pruning-and-training"
+        },
+        {
+          "url": "https://cfaes.osu.edu/fact-sheet/pruning-erect-and-semi-erect-blackberry-bushes"
+        },
+        {
+          "url": "https://extension.uconn.edu/publication/pruning-brambles/"
+        },
+        {
+          "url": "https://migardener.com/blogs/blog/how-to-prune-blackberries-raspberries"
+        },
+        {
+          "url": "https://www.facebook.com/LSUAgCenter/videos/prune-blackberries-after-they-finish-producing/914921541017336/"
+        },
+        {
+          "url": "https://extension.illinois.edu/news-releases/time-prune-your-raspberry-and-blackberry-plants"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Blackberry floricane pruning",
+          "Blackberry floricane pruning new variety releases trials",
+          "Blackberry floricane pruning licensing international development",
+          "Ervin Blackberry floricane pruning"
+        ],
+        "queries_this_request": 4,
+        "candidate_count": 31,
+        "capture_count": 19,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:49:19+00:00",
+        "latency_seconds": 15.135,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 15.398,
+      "warm_seconds": 0.017,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Raspberry primocane trials United Kingdom",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Raspberry primocane trials United Kingdom",
+        "interpreted_query": "Raspberry primocane trials United Kingdom",
+        "terms": [
+          "raspberry",
+          "primocane",
+          "trial",
+          "united",
+          "kingdom"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": "primocane",
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-7dc7af4df4cc2081",
+          "title": "Raspberry plant named 'Diamond Jubilee' - Google Patents",
+          "source_url": "https://patents.google.com/patent/US20130212755P1/en",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-223286c4bcee68aa",
+          "title": "G-Viva: the new primocane raspberry yielding 28 t/ha",
+          "source_url": "https://italianberry.it/en/news/g-viva-g-berries-raspberry",
+          "published_date": "2026-08-29",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-07d25dd238cff71a",
+          "title": "Improved raspberry varieties for Moroccan and Tunisian Producers",
+          "source_url": "https://www.hortidaily.com/article/9270225/improved-raspberry-varieties-for-moroccan-and-tunisian-producers/",
+          "published_date": "2020-11-23",
+          "capture_status": "full",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://ishs.org/ishs-article/262_12/"
+        },
+        {
+          "url": "https://www.hutton.ac.uk/scientific-services/improving-crop-production/breeding/raspberry-breeding/"
+        },
+        {
+          "url": "https://horticulture.ahdb.org.uk/knowledge-library/raspberry-variety-trials-summer-and-primocane-fruiting-selections-at-james-hutton-institute-in-2015"
+        },
+        {
+          "url": "https://www.hortidaily.com/article/9221240/british-raspberry-breeding-programme-results-in-three-new-varieties/"
+        },
+        {
+          "url": "https://berryplantsltd.co.uk/raspberries/primocane/"
+        },
+        {
+          "url": "https://www.actahort.org/members/showpdf?booknrarnr=262_12"
+        },
+        {
+          "url": "https://www.cabidigitallibrary.org/doi/pdf/10.5555/20240422410"
+        },
+        {
+          "url": "https://projectbluearchive.blob.core.windows.net/media/Default/Research%20Papers/Horticulture/SF%20008a%20Breeding%20Summer%20Raspberries%202000.pdf"
+        },
+        {
+          "url": "https://fruitgateway.hutton.ac.uk/raspberry/cultivation"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Raspberry primocane trials United Kingdom",
+          "Raspberry primocane trials United Kingdom new variety releases trials",
+          "Raspberry primocane trials United Kingdom licensing international development"
+        ],
+        "queries_this_request": 3,
+        "candidate_count": 18,
+        "capture_count": 11,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:49:35+00:00",
+        "latency_seconds": 15.358,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 15.637,
+      "warm_seconds": 0.019,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Strawberry robotic harvesting research",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Strawberry robotic harvesting research",
+        "interpreted_query": "Strawberry robotic harvesting research",
+        "terms": [
+          "strawberry",
+          "robotic",
+          "harvesting",
+          "research"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-0487310dbaa888e2",
+          "title": "Strawberry-harvesting robot project｜Research",
+          "source_url": "https://www.sugano.mech.waseda.ac.jp/en/research/strawberry-en/",
+          "published_date": "",
+          "capture_status": "full",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-b806717ca896e78e",
+          "title": "Research Paper Evaluation of a strawberry-harvesting robot in a field test",
+          "source_url": "https://www.sciencedirect.com/science/article/abs/pii/S1537511009002797",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-ed6b8575b9b36a50",
+          "title": "EFFORTS TOWARDS EFFECTIVE ROBOTIC STRAWBERRY ...",
+          "source_url": "https://rex.libraries.wsu.edu/esploro/outputs/doctoral/EFFORTS-TOWARDS-EFFECTIVE-ROBOTIC-STRAWBERRY-HARVESTING/99901121440301842",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-b8fdb7df3f5314bc",
+          "title": "Modular autonomous strawberry picking robotic system",
+          "source_url": "https://onlinelibrary.wiley.com/doi/full/10.1002/rob.22229",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-1888657678017668",
+          "title": "Modular autonomous strawberry picking robotic system - Parsa - 2024",
+          "source_url": "https://onlinelibrary.wiley.com/doi/10.1002/rob.22229",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-24e595d3ac022d07",
+          "title": "Strawberry Picking Using AI Vision, Silicone Fingers, and a Fan",
+          "source_url": "https://www.asme.org/topics-resources/content/strawberry-picking-using-ai-vision,-silicone-fingers,-and-a-fan",
+          "published_date": "2026-01-20",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-495bf6007c55385a",
+          "title": "Robotic Strawberry Harvesting with Robust Vision and Deep ... - arXiv",
+          "source_url": "https://arxiv.org/html/2605.23863",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-2c12f95ddc7fe992",
+          "title": "Biologically inspired robotic perception-action for soft fruit harvesting in vertical growing environments - Precision Agriculture",
+          "source_url": "https://link.springer.com/article/10.1007/s11119-023-10000-4",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-af1fd708d1892c5d",
+          "title": "Prototype of a New Head Grabber for Robotic Strawberry ...",
+          "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11511573/",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-9a386d30edec6278",
+          "title": "A strawberry harvest‐aiding system with crop‐transport ...",
+          "source_url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/rob.22106",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://research.wsu.edu/news/researchers-design-robot-that-can-pick-hidden-strawberries"
+        },
+        {
+          "url": "https://ui.adsabs.harvard.edu/abs/2012csae....1...71Q/abstract"
+        },
+        {
+          "url": "https://www.mdpi.com/2076-3417/16/15/7522"
+        },
+        {
+          "url": "https://www.sciencedirect.com/science/article/pii/S2772375524000595"
+        },
+        {
+          "url": "https://www.sugano.mech.waseda.ac.jp/en/research/strawberry-en/"
+        },
+        {
+          "url": "https://www.asme.org/topics-resources/content/strawberry-picking-using-ai-vision,-silicone-fingers,-and-a-fan"
+        },
+        {
+          "url": "https://arxiv.org/html/2301.03947v1"
+        },
+        {
+          "url": "https://ieeexplore.ieee.org/document/10315452/"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Strawberry robotic harvesting research"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 5,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:49:51+00:00",
+        "latency_seconds": 5.677,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 5.898,
+      "warm_seconds": 0.02,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    },
+    {
+      "query": "Blueberry heat tolerance breeding",
+      "split": "held_out",
+      "plan": {
+        "raw_query": "Blueberry heat tolerance breeding",
+        "interpreted_query": "Blueberry heat tolerance breeding",
+        "terms": [
+          "blueberry",
+          "heat",
+          "tolerance",
+          "breeding"
+        ],
+        "phrases": [],
+        "exclusions": [],
+        "cane_type": null,
+        "start": null,
+        "end": null,
+        "corrected": false,
+        "version": "topic-retrieval-v5"
+      },
+      "old_app": [],
+      "improved_app": [
+        {
+          "id": "web-54794751edb383cc",
+          "title": "High-quality reference genome and annotation aids understanding of berry development for evergreen blueberry (Vaccinium darrowii)",
+          "source_url": "https://academic.oup.com/hr/article/doi/10.1038/s41438-021-00641-9/6491114?searchresult=1",
+          "published_date": "",
+          "capture_status": "blocked",
+          "relevance": "direct"
+        },
+        {
+          "id": "web-7079c3d9330c487d",
+          "title": "www.internationalblueberry.org · 2025/10/23 · theThe impact of climate stress on global blueberry cultivation",
+          "source_url": "https://www.internationalblueberry.org/2025/10/23/the-impact-of-climate-stress-on-global-blueberry-cultivation/",
+          "published_date": "2025-10-23",
+          "capture_status": "full",
+          "relevance": "background"
+        },
+        {
+          "id": "web-e8a6bbb928bd7fd5",
+          "title": "Publication : USDA ARS",
+          "source_url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=403359",
+          "published_date": "",
+          "capture_status": "partial",
+          "relevance": "background"
+        },
+        {
+          "id": "web-3448156820c154d3",
+          "title": "Breeding blueberries for a changing global environment: a review",
+          "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4588112/",
+          "published_date": "",
+          "capture_status": "excerpt_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-6b7b420b5b4a9130",
+          "title": "The optimal temperature for the growth of blueberry (Vaccinium ...",
+          "source_url": "https://www.researchwithrutgers.com/en/publications/the-optimal-temperature-for-the-growth-of-blueberry-vaccinium-cor/",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "background"
+        },
+        {
+          "id": "web-17412226b847282f",
+          "title": "HORTSCIENCE 54(12):2231–2239. 2019. https://doi.org/10.21273/HORTSCI14427-19",
+          "source_url": "https://journals.ashs.org/downloadpdf/view/journals/hortsci/54/12/article-p2231.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        },
+        {
+          "id": "web-713cd4e6aac63b20",
+          "title": "Microsoft Word - 2-Wenrong_chen_final_4.2.doc",
+          "source_url": "https://www.pakbs.org/pjbot/PDFs/44(3)/02.pdf",
+          "published_date": "",
+          "capture_status": "error",
+          "relevance": "background"
+        },
+        {
+          "id": "web-3d9d4f38cddd3e28",
+          "title": "J. AMER. SOC. HORT. SCI. 144(5):339–351. 2019. https://doi.org/10.21273/JASHS04650-19",
+          "source_url": "https://journals.ashs.org/downloadpdf/view/journals/jashs/144/5/article-p339.pdf",
+          "published_date": "",
+          "capture_status": "metadata_only",
+          "relevance": "background"
+        }
+      ],
+      "google": [
+        {
+          "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=403359"
+        },
+        {
+          "url": "https://journals.ashs.org/downloadpdf/view/journals/hortsci/27/10/article-p1111.pdf"
+        },
+        {
+          "url": "https://journal.americanpomological.org/index.php/jofaps/article/view/3121"
+        },
+        {
+          "url": "https://blueberriesconsulting.com/en/el-impacto-del-estres-climatico-en-el-cultivo-mundial-del-arandano/"
+        },
+        {
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11842701/"
+        },
+        {
+          "url": "https://blueberrybreeding.uga.edu/research/"
+        },
+        {
+          "url": "https://ask.extension.org/kb/faq.php?id=458622"
+        },
+        {
+          "url": "https://pubs.extension.wsu.edu/product/beat-the-heat-protecting-northern-highbush-blueberry-from-extreme-heat/"
+        },
+        {
+          "url": "https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2015.00782/full"
+        }
+      ],
+      "discovery": {
+        "status": "complete",
+        "failures": [],
+        "queries": [
+          "Blueberry heat tolerance breeding"
+        ],
+        "queries_this_request": 1,
+        "candidate_count": 10,
+        "capture_count": 5,
+        "cache_hit": false,
+        "retrieved_at": "2026-10-26T18:49:57+00:00",
+        "latency_seconds": 5.054,
+        "cost": null,
+        "provider": "perplexity_search"
+      },
+      "cold_seconds": 5.249,
+      "warm_seconds": 0.019,
+      "warm_queries": 0,
+      "metrics": {
+        "old_app": null,
+        "improved_app": null,
+        "google": null
+      }
+    }
+  ],
+  "summary": {
+    "queries": 24,
+    "median_seconds": 7.615500000000001,
+    "p95_seconds": 18.446,
+    "cost": null,
+    "citation_support": "requires source inspection",
+    "google_parity": "UNVERIFIED — source-inspected pooled judgments required",
+    "all_warm_queries_zero": true
+  }
+}
