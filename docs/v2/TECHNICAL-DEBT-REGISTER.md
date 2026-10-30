@@ -256,6 +256,15 @@ application; root-only alias files caused the initial deployment rollback.
 
 ### TD-122 — Candidate review rebuilds names and sends oversized pages
 
+October 30 — Separate [collection/company lookup follow-up](COVERAGE-COMPARISON-REQUEST-PERFORMANCE.md)
+removes repeated exact-name preparation and source/company scope scans within a
+request. Alternating public-seed projections and 12 authenticated fixture
+requests preserve their complete models and exact HTML. Windows function
+timings improve, but route timings are noisy and the 1.76 MB hidden-detail page
+remains. Current-head tests/CI are retained in its separate draft receipt; it
+does not modify the approved #440 image or close TD-122. No domain or human
+review behavior changes.
+
 October28 coverage follow-up: [request-local photo preparation](COVERAGE-PHOTO-REQUEST-PERFORMANCE.md)
 removes repeated validation and discrepancy calculations from the64-profile
 inventory. Alternating exact-baseline calls return identical40,819-byte results:
