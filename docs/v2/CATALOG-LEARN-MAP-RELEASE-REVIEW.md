@@ -18,6 +18,9 @@ deployment of an older catalog image or an answer to an older approval question.
   describe mechanisms, not measured crop performance; photographs retain their
   individual attribution and reuse basis. A narrowly matched clarification of
   double-cropping wording preserves the original record and any user edit.
+  Native review also found that the Sources jump left its reference disclosure
+  closed. The jump now opens that section in one click while retaining native
+  fragment navigation; ordinary lesson loads keep secondary sources folded.
 - Map research uses existing country selectors. France's missing boundary
   metadata is corrected without editing geometry. The explicit Eurostat check
   proposes seven strawberry countries; figures reach the shared Map only after

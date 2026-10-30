@@ -24,6 +24,12 @@
     selectTeaching(panel, "0");
   });
   document.addEventListener("click", function (event) {
+    var jump = event.target.closest(".learn-jumps a[href^='#']");
+    if (jump && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey && event.button === 0) {
+      var destination = document.getElementById(jump.getAttribute("href").slice(1));
+      if (destination && destination.tagName === "DETAILS") destination.open = true;
+      return; // The browser retains ordinary fragment navigation and history.
+    }
     var teaching = event.target.closest("[data-teaching-select]");
     if (teaching) {
       selectTeaching(teaching.closest("[data-teaching-explorer]"), teaching.dataset.teachingSelect);
