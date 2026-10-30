@@ -1,5 +1,16 @@
 # Technical Debt Register
 
+October 30 — CAT-01/CAT-02/TD-116 source-depth follow-up:
+[Gem-Pack interviews](GEMPACK-INTERVIEW-VARIETY-COVERAGE.md) add ten literal
+occurrences while preserving every earlier source, canonical record and saved
+decision. Gem-Pack gains named-source coverage but retains five incomplete
+checks; neighboring-company labels and uncaptioned photos remain excluded.
+Two original documents are readable (one ordinary browser page and one public
+PDF copy); direct FreshPlaza and Rejoice PDF HTTP attempts return403 and remain
+recorded as such. Complete historical/current portfolios, exact identities,
+current rights, independent recall and human authoring stay open. No trust
+gate or protected domain schema is changed; this source draft is not deployed.
+
 October 30 — Explicitly approved combined #440, head0f6bd657, was merged1aef8862
 and deployed with a fresh verified backup, bounded offline rehearsal, repeat
 current-head checks (5,468 passed) and live/native verification. Five accounts,

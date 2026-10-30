@@ -1,5 +1,16 @@
 # Intelligence Coverage Matrix
 
+October 30 — [Gem-Pack interview coverage](GEMPACK-INTERVIEW-VARIETY-COVERAGE.md)
+adds three unreviewed source sections and ten name occurrences from two dated
+original interviews. Public-seed totals are 525 sections / 1,874 occurrences /
+165 catalog matches / 1,709 review needs; ten occurrences add only two derived
+candidate keys. Named-source progress is 64 of 77 entries, with ten partial
+checks, one unavailable source and two identity holds. Gem-Pack retains its
+incomplete-portfolio warning. No identities, roles, traits, rights, regions or
+photos are approved. The Rejoice English sheet still returns 403; the readable
+web page does not establish that PDF's contents. This independent source draft
+is not deployed; the approved performance release #442 is live as `3b0b4acc`.
+
 October 30 — Approved #440 is live as merge1aef8862 after fresh backup, bounded
 preservation, all required checks and live/native review. Its522 source sections,
 1,864 name occurrences,27 visual Learn lessons and Map improvements retain their
