@@ -1,5 +1,37 @@
 # What is delivered, and what remains
 
+## Current delivery state — October 30, 2026
+
+The approved platform #433, combined catalog/Learn/Map #440 and performance
+#442 are deployed. Current canonical release is `3b0b4acc`; its tested head
+`ab6256c7` passed all four required checks and 5,477 tests. The release-time
+backup and post-switch preservation check retained all five accounts including
+Chris.H, 65 profiles, 9,854 existing JSON records, 3,228 data files and four
+databases. Original settings and mounts remain; image rollback is retained.
+
+Shared Workspaces, account-private Digest/layouts, News/Reader fixes, responsive
+navigation and the visual Help explainer are live. The 27 visual Learn lessons,
+catalog/photo/patent follow-ups and Map additions shipped in #440. Source
+details now load on opening a large Coverage row; its full source/name/review
+content remains available. The tested live-data copy sent 77.10% less Coverage
+HTML and its repeat-load median improved about 20%; this does not establish
+that every page is fast.
+
+The separate snapshot-navigation draft restores the same authoring context as
+Map Explorer. It is tested locally and in desktop/phone review, but is not part
+of the live release. Remaining work includes broader performance, comprehensive
+current/historical source coverage, profile traits/regions/media, wider market
+statistics and Learn depth. Independent source worksheets, unresolved name/code
+matches, current rights and photo permission/identity decisions retain their
+human gates. Engineering tests do not substitute for those decisions.
+
+All sections below describe their dated audit snapshots. Earlier pending
+release statements are superseded by the actual #433/#440/#442 deliveries
+above; do not request those approvals again. The original 31 accepted
+requirements remain in the [durable checklist](REDESIGN-REQUIREMENTS-CHECKLIST.md).
+
+## Historical audit evidence
+
 October 28 — [Original company-release variety depth](COMPANY-RELEASE-VARIETY-DEPTH.md). Latest evidence: platform433 f1fdd89a is tested/rehearsed and awaits the actual release answer; catalog/platform434 4bade146 passes 5,400 tests and native review. The separate release/interview child brings public-seed source totals to 522 / 1,864 / 165 / 1,699 and named-source progress to 63 of 77. Eleven partial subjects, one unavailable source and two identity holds remain, alongside wider human/content work. Earlier sections below retain dated evidence. Final 61 affected checks pass with one existing warning in 76.42 seconds. Native desktop/412px review confirms attribution, session image loading/hiding, source context, company filters and the visible Autumn 2022 interview period. Exact-head CI remains required for this child. Existing canonical records, guide, 31 accepted definitions and human gates are preserved. No merge/deployment or repeated/inferred release approval.
 
 Reviewed October 28, 2026, against the live release, exact draft heads, saved
