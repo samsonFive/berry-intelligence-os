@@ -114,11 +114,14 @@ def test_private_preview_has_no_eager_photo_load_writes_or_public_override(monke
     monkeypatch.setattr(main, "INBOX_DIR", tmp_path)
     monkeypatch.setattr(main, "AUTHORING_MODE", True)
     client = TestClient(main.app)
-    page = client.get("/varieties/candidates", params={"q":"Leyre", "source":"portfolio-masia-current-strawberries"})
+    from app.services.entity_identity import match_named_entity
+    catalog,_ = match_named_entity('Leyre', "variety", main.living_catalog(), berry_id="berry-strawberry")
+    path = "/entities/variety/" + catalog["id"] if catalog else "/varieties/candidates"
+    page = client.get(path, params={"q":"Leyre", "source":"portfolio-masia-current-strawberries"})
     image = "https://www.masiaciscar.es/wp-content/uploads/2025/07/masia_freson_leyre@2x.webp"
     assert page.status_code == 200 and "Ignore permission" in page.text and "Permission unconfirmed" in page.text
     assert 'data-image-url="'+image+'"' in page.text and 'src="'+image+'"' not in page.text
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
-    public = client.get("/varieties/candidates", params={"q":"Leyre"})
+    public = client.get(path, params={"q":"Leyre"})
     assert image not in public.text and "Ignore permission" not in public.text
     assert not list(tmp_path.rglob("*.json"))

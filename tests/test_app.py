@@ -47,6 +47,7 @@ def test_feed_api_returns_published_records() -> None:
     assert body[0]["record_type"] == "evidence"
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_evidence_detail_page_shows_linked_entities() -> None:
     response = client.get("/evidence/ev-sample-variety-launch")
     assert response.status_code == 200
@@ -92,6 +93,7 @@ def test_evidence_detail_404_for_unknown_id() -> None:
     assert response.status_code == 404
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_company_entity_page_renders() -> None:
     response = client.get("/entities/company/company-example-genetics?view=legacy")
     assert response.status_code == 200
@@ -102,17 +104,20 @@ def test_company_entity_page_renders() -> None:
     assert 'href="/review/ev-sample-variety-launch"' not in response.text
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_variety_entity_page_renders() -> None:
     response = client.get("/entities/variety/variety-example-blue")
     assert response.status_code == 200
     assert "Example Blue" in response.text
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_entity_detail_404_when_type_mismatches() -> None:
     response = client.get("/entities/variety/company-example-genetics")
     assert response.status_code == 404
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_entity_list_page_renders() -> None:
     response = client.get("/entities/company")
     assert response.status_code == 200
@@ -150,12 +155,14 @@ def test_feed_filters_by_priority_level() -> None:
     assert all(item["priority"]["commercial_position"]["level"] == "high" for item in body)
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_feed_search_matches_title_text() -> None:
     response = client.get("/", params={"q": "raspberry"})
     assert response.status_code == 200
     assert "raspberry genetics program" in response.text
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_feed_filters_by_competitor() -> None:
     response = client.get("/api/feed", params={"competitor": "company-example-nursery"})
     assert response.status_code == 200
@@ -164,6 +171,7 @@ def test_feed_filters_by_competitor() -> None:
     assert all("company-example-nursery" in item["entity_ids"] for item in body)
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_feed_filters_by_geography() -> None:
     response = client.get("/api/feed", params={"geography": "geography-europe"})
     assert response.status_code == 200
@@ -180,6 +188,7 @@ def test_feed_filters_by_geography() -> None:
     assert {"ev-sample-variety-launch", "ev-sample-retail-placement"} <= {item["id"] for item in na_body}
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_feed_page_renders_competitor_and_geography_filter_options() -> None:
     response = client.get("/?view=archive")
     assert response.status_code == 200
@@ -190,12 +199,14 @@ def test_feed_page_renders_competitor_and_geography_filter_options() -> None:
     assert "North America" in response.text
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_evidence_detail_shows_geography() -> None:
     response = client.get("/evidence/ev-sample-patent-published")
     assert response.status_code == 200
     assert "Europe" in response.text
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_api_search_returns_evidence_and_entities() -> None:
     response = client.get("/api/search", params={"q": "example blue"})
     assert response.status_code == 200
@@ -203,6 +214,7 @@ def test_api_search_returns_evidence_and_entities() -> None:
     assert any(e["id"] == "variety-example-blue" for e in body["entities"])
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_api_entity_detail() -> None:
     response = client.get("/api/entities/company/company-example-genetics")
     assert response.status_code == 200
@@ -681,6 +693,7 @@ def test_work_queue_renders() -> None:
     assert "0 failures" not in response.text.casefold()
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_reading_queue_includes_all_nonnone_levels() -> None:
     response = client.get("/queues/reading")
     assert response.status_code == 200
@@ -689,6 +702,7 @@ def test_reading_queue_includes_all_nonnone_levels() -> None:
     assert "Patent published" in response.text
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_testing_queue_excludes_none_level() -> None:
     response = client.get("/queues/testing")
     assert response.status_code == 200
@@ -701,6 +715,7 @@ def test_queue_404_for_unknown_dimension() -> None:
     assert response.status_code == 404
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_strategic_question_list_and_detail() -> None:
     list_response = client.get("/strategic-questions")
     assert list_response.status_code == 200
@@ -796,6 +811,7 @@ def test_signal_create_and_detail_page(monkeypatch, tmp_path) -> None:
     assert "Fictional strengthening pattern" in list_page.text
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_signal_create_blocked_in_readonly_mode(monkeypatch, tmp_path) -> None:
     _isolate(monkeypatch, tmp_path)
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
@@ -1175,6 +1191,7 @@ def test_geography_region_ignores_unrelated_preexisting_region_attribute() -> No
     assert main.geography_region(geo) == "Oceania"
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_feed_filters_by_region() -> None:
     response = client.get("/api/feed", params={"region": "Europe"})
     assert response.status_code == 200
@@ -1190,6 +1207,7 @@ def test_feed_filters_by_region() -> None:
     assert {"ev-sample-variety-launch", "ev-sample-retail-placement"} <= americas_ids
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_entity_list_filters_by_region() -> None:
     response = client.get("/entities/variety", params={"region": "Europe"})
     assert response.status_code == 200
@@ -1328,6 +1346,7 @@ def test_region_and_geography_detected_when_only_in_entity_ids(monkeypatch, tmp_
     assert "data-feed-first-today" not in options_page.text
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_sources_write_endpoints_blocked_in_readonly_mode(monkeypatch, tmp_path) -> None:
     _isolate(monkeypatch, tmp_path)
     monkeypatch.setattr(main, "AUTHORING_MODE", False)
@@ -1392,6 +1411,7 @@ def test_entity_activity_falls_back_to_created_at_without_event_date() -> None:
     assert activity[0]["date"] == "2026-08-03"
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_entity_page_shows_recent_activity_with_us_formatted_dates() -> None:
     response = client.get("/entities/company/company-example-genetics?view=legacy")
     assert response.status_code == 200
@@ -1436,12 +1456,14 @@ def test_evidence_detail_renders_multi_sentence_summary_as_bullet_list() -> None
     assert "Atlantic Blue of Huelva" in response.text
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_evidence_detail_renders_single_sentence_summary_as_plain_paragraph() -> None:
     response = client.get("/evidence/ev-sample-variety-launch")
     assert response.status_code == 200
     assert "<p>A fictional breeder announced a low-chill blueberry variety" in response.text
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_text_matches_exact_and_phrase_still_work() -> None:
     assert main.text_matches("hortifrut", "Hortifrut S.A. investor page")
     assert main.text_matches("example blue", "A fictional Example Blue variety")
@@ -1765,6 +1787,7 @@ def test_entity_page_shows_weighted_searchable_aliases() -> None:
         assert "Also known as" not in response.text[ignored_block_start:ignored_block_end]
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_entity_page_omits_aliases_line_when_none() -> None:
     response = client.get("/entities/company/company-example-genetics?view=legacy")
     assert response.status_code == 200
@@ -1777,6 +1800,7 @@ def test_entity_page_tagged_for_search_prioritization() -> None:
     assert 'data-pagefind-filter="type:entity"' in response.text
 
 
+@pytest.mark.usefixtures("legacy_seed_data")
 def test_evidence_page_tagged_with_search_type_and_sort_date() -> None:
     response = client.get("/evidence/ev-sample-variety-launch")
     assert response.status_code == 200

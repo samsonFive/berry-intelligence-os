@@ -16,6 +16,8 @@ cannot be served as today. Do not poll the 151-row seed one company at a time.
 
 from __future__ import annotations
 
+from app.services.collection_settings import configured
+
 import hashlib
 import json
 import re
@@ -45,7 +47,7 @@ from app.services.industry_pulse.providers import DiscoveryProvider, GoogleNewsR
 from app.services.industry_pulse.qualify import QualificationIndex, qualify_hit
 from app.services.industry_pulse.run import names_from_entities
 from app.services.industry_pulse.specialist_feeds import (
-    WEEK_SPECIALIST_FEEDS,
+    configured_feeds,
     SpecialistRssProvider,
     week_specialist_feed_queries,
     requested_sustainability_hit,
@@ -145,6 +147,7 @@ def is_within_days(published: str | None, today: date, days: int) -> bool:
     return 0 <= age <= days
 
 
+@configured("today_google")
 def today_google_queries() -> list[PulseQuery]:
     """Four berry × global Google News rows with when:30d so 7d/30d filters have data."""
     edition = GEO_EDITIONS["global"]
@@ -163,7 +166,8 @@ def today_google_queries() -> list[PulseQuery]:
                 ceid=edition["ceid"],
             ).with_window("30d")
         )
-    return rows
+    from app.services.default_keyword_monitors import queries
+    return [*rows, *queries("today_google")]
 
 
 def today_keyed_queries() -> list[PulseQuery]:
@@ -171,6 +175,7 @@ def today_keyed_queries() -> list[PulseQuery]:
     return today_perplexity_queries()[:2]
 
 
+@configured("today_perplexity")
 def today_perplexity_queries() -> list[PulseQuery]:
     """Bounded same-day catch-net. Not the Pulse 20 and not a doubled matrix."""
     global_edition = GEO_EDITIONS["global"]
@@ -301,7 +306,8 @@ def bounded_official_hosts(hosts: Iterable[str] | None = None) -> list[str]:
     return ordered
 
 
-def today_official_site_queries(hosts: Iterable[str] | None = None) -> list[PulseQuery]:
+@configured("today_official")
+def today_official_site_queries(hosts: Iterable[str] | None = None, *, include_all=False) -> list[PulseQuery]:
     """Bounded Google News site: rows for first-party company hosts."""
     edition = GEO_EDITIONS["global"]
     berry = (
@@ -309,7 +315,8 @@ def today_official_site_queries(hosts: Iterable[str] | None = None) -> list[Puls
         "OR berry OR cultivar OR harvest OR grower)"
     )
     rows: list[PulseQuery] = []
-    for host in bounded_official_hosts(hosts):
+    eligible = sorted({str(host).casefold().removeprefix('www.') for host in (*OFFICIAL_HOSTS, *(hosts or [])) if host}) if include_all else bounded_official_hosts(hosts)
+    for host in eligible:
         rows.append(
             PulseQuery(
                 id=f"today:official:{host}",
@@ -601,6 +608,7 @@ def collect_same_day_hits(
     today: date | None = None,
     official_hosts: set[str] | None = None,
     official_provider: DiscoveryProvider | None = None,
+    inbox_dir: Path | None = None,
 ) -> tuple[list[DiscoveryHit], dict[str, Any]]:
     today = today or utc_today()
     google_provider = google_provider or GoogleNewsRssProvider()
@@ -624,7 +632,10 @@ def collect_same_day_hits(
     sources = sources or []
 
     google_hits, google_errors = _run_lane(google_provider, today_google_queries())
-    official_queries = today_official_site_queries(official_hosts)
+    from app.runtime_config import resolve_inbox_dir
+    from app.services.official_rotation import reserve, record_results
+    rotation_inbox = inbox_dir or resolve_inbox_dir()
+    official_queries = reserve(today_official_site_queries(official_hosts, include_all=True), rotation_inbox, OFFICIAL_SITE_HOST_CAP)
     official_source = official_provider or google_provider
     official_lane = (
         official_source
@@ -632,6 +643,7 @@ def collect_same_day_hits(
         else RelabeledProvider(official_source, LIVE_LANE_OFFICIAL)
     )
     official_hits, official_errors = _run_lane(official_lane, official_queries)
+    record_results(official_queries, official_errors, rotation_inbox)
     specialist_hits, specialist_errors = _run_lane(
         specialist_provider,
         week_specialist_feed_queries(),
@@ -701,7 +713,7 @@ def collect_same_day_hits(
         ],
         "stats": stats,
         "cascade": cascade,
-        "specialist_feed_count": len(WEEK_SPECIALIST_FEEDS),
+        "specialist_feed_count": len(configured_feeds()),
         "perplexity_enabled": perplexity_provider is not None,
         "exa_enabled": exa_provider is not None,
         "apitube_enabled": apitube_provider is not None,
@@ -827,6 +839,7 @@ def live_feed_bundle(
             return payload
 
     hits, meta = collect_same_day_hits(
+        inbox_dir=inbox_dir,
         google_provider=google_provider,
         specialist_provider=specialist_provider or SpecialistRssProvider(coverage_dir=inbox_dir),
         perplexity_provider=perplexity_provider,

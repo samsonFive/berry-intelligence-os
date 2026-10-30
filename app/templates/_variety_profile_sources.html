@@ -1,0 +1,21 @@
+{% if authoring_mode and not static_build and variety_profile_sources %}
+{% set notes = variety_profile_sources %}
+<section class="company-panel" id="variety-researched-details" aria-labelledby="variety-researched-details-title">
+<h2 id="variety-researched-details-title">Breeder & technical source details</h2>
+<p class="company-muted"><strong>Source-reported · Pending review</strong> · Sources checked {{ notes.checked_on|us_date }}. These notes do not change reviewed traits or Facts. Reported performance depends on the source conditions.</p>
+{% if notes.status == 'demo_excluded' %}<p><strong>Demo profile — excluded from cultivar research.</strong></p>
+{% elif notes.status == 'identity_hold' %}<p><strong>Identity clarification needed.</strong> Read the scope below before using these details.</p>
+{% elif notes.status == 'limited' %}<p><strong>Partial source coverage.</strong> Some requested details remain unavailable.</p>{% endif %}
+<p class="company-muted">{{ notes.limitations }}</p>
+{% if notes.details %}
+<div class="variety-source-table-wrap">
+<table class="variety-source-table">
+<colgroup><col style="width:22%"><col style="width:34%"><col style="width:44%"></colgroup>
+<thead><tr><th scope="col">Detail</th><th scope="col">Source reports</th><th scope="col">Conditions & citation</th></tr></thead>
+<tbody>{% for row in notes.details %}{% set source = notes.sources[row.source_id] %}
+<tr data-source-detail="{{ loop.index }}"><th scope="row">{{ row.field }}</th><td data-label="Source reports">{{ row.value }}</td><td data-label="Conditions & citation">{{ row.context }}<br><a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title }} ↗</a><br><small class="company-muted">{{ source.kind }} · {{ source.locator }}</small></td></tr>
+{% endfor %}</tbody></table></div>
+{% endif %}
+<p class="company-muted">Unreported fields remain unknown. Publication and Atomic Evidence review are required before claims become trusted profile information.</p>
+</section>
+{% endif %}

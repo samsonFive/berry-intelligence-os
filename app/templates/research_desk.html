@@ -42,11 +42,12 @@
       {% for label in scope_display.companies %}<span>{{ label }}</span>{% endfor %}
       {% for label in scope_display.geographies %}<span>{{ label }}</span>{% endfor %}
       {% for label in scope_display.topics %}<span>{{ label }}</span>{% endfor %}
-      <span>{{ scope.window_days }} days</span>
+      <span>{% if scope.publication_start or scope.publication_end %}Publication dates {{ scope.publication_start or 'unrestricted' }} to {{ scope.publication_end or 'present' }}{% else %}{{ 'All available dates' if scope.all_time else scope.window_days|string ~ ' days' }}{% endif %}</span>
     </div>
     {% if scope.unresolved or scope.ambiguous %}
     <p class="rd-scope-warning">Needs correction: {{ (scope.unresolved + scope.ambiguous)|join(', ') }}</p>
     {% endif %}
+    {% if scope.all_time or scope.publication_start or scope.publication_end %}<p class="rd-scope-warning">For a before-and-after comparison, refine this question with a relative period, such as “the last 90 days.”</p>{% endif %}
     {% set hits = learn_glossary_hits(scope.question) %}
     {% set compact = false %}
     {% include "_learn_glossary_hits.html" %}
@@ -58,11 +59,11 @@
     </form></details>
   </section>
 
-  {% if authoring_mode and not scope.tag_ids %}<div class="rd-live-action"><button id="rd-run-live" type="button">Check latest sources</button><p id="rd-capture-status" role="status">Search the web. Results start unreviewed.</p></div>{% endif %}
+  {% if authoring_mode and not scope.tag_ids %}<div class="rd-live-action"><p>Public web query: {{ scope.question }}. Sends this question and public crop/entity/geography names to configured search providers{% if 'florican' in scope.question|lower or 'second-year' in scope.question|lower or scope_display.has_verified_code %}, including Perplexity Search{% endif %}.</p><button id="rd-run-live" type="button">Search public web with this query</button><p id="rd-capture-status" role="status">Collected archive is ready below. Web discoveries start unreviewed.</p></div>{% endif %}
   <div id="rd-result" data-live-endpoint="/api/research/live" data-scope="{{ scope_json }}" data-first-content-ms="{{ first_content_ms }}">
     {% include "_research_result.html" %}
   </div>
   {% endif %}
 </section>
 {% endblock %}
-{% block scripts %}{{ super() }}<script src="/static/research_workspace.js?v=1"></script>{% endblock %}
+{% block scripts %}{{ super() }}<script src="/static/research_workspace.js?v=progress-2"></script>{% endblock %}

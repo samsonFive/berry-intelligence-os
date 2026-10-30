@@ -14,6 +14,7 @@
 {% if not handoff_company_names and handoff_origin != 'landscape' %}
 <form class="sh-search-form filters" method="post" action="/reports/new">
   <input type="hidden" name="step" value="interpret">
+  <label>Source scope <select name="source_scope"><option value="combined">Collected + public web via Perplexity Search (sends this question and public scope names)</option><option value="archive">Collected archive only</option></select></label>
   <div class="sh-field sh-field-grow filter-field">
     <label for="request-text">What do you want to understand?</label>
     <textarea id="request-text" name="request_text" rows="4" placeholder="Give me a competitive landscape for blueberry genetics in Europe." required>{{ example_request or '' }}</textarea>
@@ -55,6 +56,7 @@
 </form>
 
 {% else %}
+{% include "_topic_evidence.html" %}
 <section class="v2-card" style="margin-bottom:16px">
   <h2>Confirm your scope</h2>
   {% if request_text %}<p class="v2-meta">From: "{{ request_text }}"</p>{% endif %}
@@ -63,6 +65,9 @@
   <summary>Edit scope</summary>
   <form method="post" action="/reports/new">
     <input type="hidden" name="step" value="preview">
+    <label>Research query <input type="text" name="research_query" value="{{ scope.research_query }}"></label>
+    <label><input type="checkbox" name="use_original_query" value="true" {% if scope.use_original_query %}checked{% endif %}>Use original wording without domain spelling or paraphrase expansion</label>
+    <label>Source scope <select name="source_scope"><option value="combined" {% if scope.source_scope == 'combined' %}selected{% endif %}>Collected + Perplexity Search (sends question and public scope names)</option><option value="archive" {% if scope.source_scope == 'archive' %}selected{% endif %}>Archive only</option></select></label>
     <div class="filters">
       <div class="filter-field">
         <label for="report-type-c">Report type</label>
@@ -112,7 +117,9 @@
     <h2 class="report-question">{{ scope.focus_notes.splitlines()[0] }}</h2>
   {% endif %}
   <p class="card-kicker">INTELLIGENCE COVERAGE</p>
-  {% if scope.report_type == 'decision_memo' %}
+  {% if packet.topic_research %}
+    <p>{{ coverage.counts.collected_sources }} collected sources · {{ coverage.counts.unreviewed_web_discoveries }} unreviewed web discoveries. Discovery does not create trusted Evidence.</p>
+  {% elif scope.report_type == 'decision_memo' %}
     <ul class="stat-list">
       <li>{{ coverage.counts.what_changed_count }} recent changes</li>
       <li>{{ coverage.counts.competitive_move_count }} Competitive Moves</li>
@@ -160,6 +167,9 @@
 
 <form method="post" action="/reports/new">
   <input type="hidden" name="step" value="generate">
+  <input type="hidden" name="research_query" value="{{ scope.research_query }}">
+  <input type="hidden" name="source_scope" value="{{ scope.source_scope }}">
+  <input type="hidden" name="use_original_query" value="{{ 'true' if scope.use_original_query else 'false' }}">
   <input type="hidden" name="report_type" value="{{ scope.report_type }}">
   <input type="hidden" name="berry" value="{{ scope.berry_id or '' }}">
   <input type="hidden" name="geography_ids" value="{{ geography_ids_csv }}">

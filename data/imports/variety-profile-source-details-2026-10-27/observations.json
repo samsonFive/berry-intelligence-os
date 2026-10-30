@@ -1,0 +1,1459 @@
+{
+  "version": 1,
+  "review_status": "unreviewed",
+  "profiles": [
+    {
+      "variety_id": "variety-amalia-rossa",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://www.berryplant.com/rasperry/?lang=en",
+          "title": "Berryplant — Amalia Rossa",
+          "kind": "Nursery technical product page",
+          "locator": "Amalia Rossa section"
+        },
+        "2": {
+          "url": "https://www.berryplant.com/wp-content/uploads/2025/11/Berryplant-catalog-2026-EN.pdf",
+          "title": "Berryplant 2026 catalog",
+          "kind": "Nursery technical catalog",
+          "locator": "Amalia Rossa panel"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruiting & habit",
+          "value": "Primocane; vigorous, highly branched; limited spines",
+          "source_id": "1",
+          "context": "Nursery description; the page does not specify trial years or a storage protocol. Relative timing is not a calendar for every climate."
+        },
+        {
+          "field": "Fruit",
+          "value": "Large to extra-large; conical; light red; dry flesh; favorable taste",
+          "source_id": "1",
+          "context": "Nursery description; the page does not specify trial years or a storage protocol. Relative timing is not a calendar for every climate."
+        },
+        {
+          "field": "Season",
+          "value": "Medium-early; listed 15–20 days after Polka",
+          "source_id": "1",
+          "context": "Nursery description; the page does not specify trial years or a storage protocol. Relative timing is not a calendar for every climate."
+        },
+        {
+          "field": "Market & postharvest",
+          "value": "Fresh market; extended shelf life claimed without a day count",
+          "source_id": "1",
+          "context": "Nursery description; the page does not specify trial years or a storage protocol. Relative timing is not a calendar for every climate."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-arana",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "limited",
+      "limitations": "Only qualitative Arana-specific details were found on the current breeder page. Quantitative fruit size, yield, chill and storage data remain gaps.",
+      "sources": {
+        "1": {
+          "url": "https://costagroup.com.au/produce/",
+          "title": "Costa — Arana",
+          "kind": "Breeder product page",
+          "locator": "Named variety section"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruit size",
+          "value": "Described as a benchmark variety with superior fruit size (no measurement)",
+          "source_id": "1",
+          "context": "Arana named card only; adjacent Eterna firmness/shelf-life statements are excluded. No trial design supplied."
+        },
+        {
+          "field": "Flavor",
+          "value": "Balanced aromatic flavor; favorable eating quality",
+          "source_id": "1",
+          "context": "Arana named card only; adjacent Eterna firmness/shelf-life statements are excluded. No trial design supplied."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-baridi",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "The individual page reports 5–6 g; the overview rounds to 6 g. Product-sheet download requires email, so only freely visible data were used. Claims remain unreviewed.",
+      "sources": {
+        "1": {
+          "url": "https://www.abbreeding.nl/variety/baridi/",
+          "title": "ABB — Baridi",
+          "kind": "Breeder product page",
+          "locator": "Named variety section"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruiting & crop",
+          "value": "Early primocane; single crop / mow-down; early summer and winter",
+          "source_id": "1",
+          "context": "Breeder observations; timing varies with region, climate, cultivation and management. Storage protocol and trial years not specified."
+        },
+        {
+          "field": "Fruit",
+          "value": "Conical, light red, shiny; sweet and aromatic",
+          "source_id": "1",
+          "context": "Breeder observations; timing varies with region, climate, cultivation and management. Storage protocol and trial years not specified."
+        },
+        {
+          "field": "Average fruit mass",
+          "value": "5–6 g",
+          "source_id": "1",
+          "context": "Breeder observations; timing varies with region, climate, cultivation and management. Storage protocol and trial years not specified."
+        },
+        {
+          "field": "Picking speed",
+          "value": "6 kg/hr",
+          "source_id": "1",
+          "context": "Breeder observations; timing varies with region, climate, cultivation and management. Storage protocol and trial years not specified."
+        },
+        {
+          "field": "Reported yield",
+          "value": "2.1 kg/m²",
+          "source_id": "1",
+          "context": "Breeder observations; timing varies with region, climate, cultivation and management. Storage protocol and trial years not specified."
+        },
+        {
+          "field": "Shelf life claim",
+          "value": "12+ days",
+          "source_id": "1",
+          "context": "Breeder observations; timing varies with region, climate, cultivation and management. Storage protocol and trial years not specified."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-bella",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Patent describes EB 8-46; association with this commercial name follows the existing profile and is not a new identity approval. These are applicant-reported observations, not independent performance or current rights verification.",
+      "sources": {
+        "1": {
+          "url": "https://patents.google.com/patent/USPP26173P3/en",
+          "title": "Patent PP26173 — EB 8-46",
+          "kind": "Breeder-authored patent description",
+          "locator": "Summary and detailed botanical description"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruit size",
+          "value": "Very large; about 21 mm diameter",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Firmness & flavor",
+          "value": "Very firm; high sweetness and low acidity",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-bk-6-13",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "identity_hold",
+      "limitations": "The existing profile names Rejoice as its brand. The current primary page is platform-wide; BK 6-13-specific measurements and a primary code-to-product sheet remain missing. No new code, alias or rights are approved.",
+      "sources": {
+        "1": {
+          "url": "https://rejoiceblackberry.com/",
+          "title": "PSG — Rejoice platform",
+          "kind": "Breeder platform marketing",
+          "locator": "Platform introduction"
+        }
+      },
+      "details": [
+        {
+          "field": "Brand context",
+          "value": "Rejoice promotes year-round primocane blackberries and low reversion at platform level; not established here for BK 6-13 individually",
+          "source_id": "1",
+          "context": "Brand/platform scope only. Page describes multiple varieties and does not identify BK 6-13; no platform performance is assigned as a cultivar trait."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-bonita",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Patent describes EB 9-12; association with this commercial name follows the existing profile and is not a new identity approval. These are applicant-reported observations, not independent performance or current rights verification. Existing reference PP25,358 describes an Aglaonema, so it was excluded; the matching blueberry document is PP28,358.",
+      "sources": {
+        "1": {
+          "url": "https://patents.google.com/patent/USPP28358P3/en",
+          "title": "Patent PP28358 — EB 9-12",
+          "kind": "Breeder-authored patent description",
+          "locator": "Summary and detailed botanical description"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruit size",
+          "value": "Large to very large; mean diameter 17.92 mm, height 13.92 mm",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Plant habit",
+          "value": "Upright to semi-upright",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Sweetness",
+          "value": "High to very high (qualitative)",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Disease evidence",
+          "value": "Patent explicitly says resistance/susceptibility testing was not performed",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-crimson-night",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://ctl.cornell.edu/plant-varieties-catalog/fruits/",
+          "title": "Cornell fruit varieties",
+          "kind": "University breeder catalog",
+          "locator": "Raspberries — named cultivar paragraph"
+        },
+        "2": {
+          "url": "https://ctl.cornell.edu/wp-content/uploads/2024/08/Raspberry_Chart_2018_new.pdf",
+          "title": "Cornell raspberry chart",
+          "kind": "University technical sheet",
+          "locator": "PDF page 2, cultivar features"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruiting & season",
+          "value": "Heavy primocane crop; mid to late fall",
+          "source_id": "1",
+          "context": "Cornell cultivar description; chart dates from 2018. Calendar and qualitative performance are contextual, not a yield trial."
+        },
+        {
+          "field": "Fruit",
+          "value": "Dark red to burgundy; good size; flavor described as excellent",
+          "source_id": "1",
+          "context": "Cornell cultivar description; chart dates from 2018. Calendar and qualitative performance are contextual, not a yield trial."
+        },
+        {
+          "field": "Firmness",
+          "value": "Firm, shiny fruit",
+          "source_id": "2",
+          "context": "Cornell cultivar description; chart dates from 2018. Calendar and qualitative performance are contextual, not a yield trial."
+        },
+        {
+          "field": "Use",
+          "value": "Home growing, direct retail and freezing",
+          "source_id": "1",
+          "context": "Cornell cultivar description; chart dates from 2018. Calendar and qualitative performance are contextual, not a yield trial."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-dina",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Patent describes NS 15-13; association with this commercial name follows the existing profile and is not a new identity approval. These are applicant-reported observations, not independent performance or current rights verification.",
+      "sources": {
+        "1": {
+          "url": "https://patents.google.com/patent/USPP33138P3/en",
+          "title": "Patent PP33138 — NS 15-13",
+          "kind": "Breeder-authored patent description",
+          "locator": "Summary and detailed botanical description"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruit size",
+          "value": "Large",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Firmness & acidity",
+          "value": "Medium to firm; low to medium acidity",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-double-gold",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://ctl.cornell.edu/plant-varieties-catalog/fruits/",
+          "title": "Cornell fruit varieties",
+          "kind": "University breeder catalog",
+          "locator": "Raspberries — named cultivar paragraph"
+        },
+        "2": {
+          "url": "https://ctl.cornell.edu/wp-content/uploads/2024/08/Raspberry_Chart_2018_new.pdf",
+          "title": "Cornell raspberry chart",
+          "kind": "University technical sheet",
+          "locator": "PDF page 2, cultivar features"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruiting & season",
+          "value": "Late-fall primocane; summer second crop possible",
+          "source_id": "1",
+          "context": "Cornell cultivar description; 2018 chart calls size excellent, while current catalog calls it moderate. No numeric yield or shelf-life trial supplied."
+        },
+        {
+          "field": "Plant habit",
+          "value": "Very vigorous, tall canes",
+          "source_id": "1",
+          "context": "Cornell cultivar description; 2018 chart calls size excellent, while current catalog calls it moderate. No numeric yield or shelf-life trial supplied."
+        },
+        {
+          "field": "Fruit",
+          "value": "Blushed pink to peach; moderate size; favorable flavor",
+          "source_id": "1",
+          "context": "Cornell cultivar description; 2018 chart calls size excellent, while current catalog calls it moderate. No numeric yield or shelf-life trial supplied."
+        },
+        {
+          "field": "Production & use",
+          "value": "Moderately heavy cropping; home growing and direct retail",
+          "source_id": "1",
+          "context": "Cornell cultivar description; 2018 chart calls size excellent, while current catalog calls it moderate. No numeric yield or shelf-life trial supplied."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-drisbluetwentyone",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://patents.google.com/patent/USPP32267P2/en",
+          "title": "Patent PP32267 — DrisBlueTwentyOne",
+          "kind": "Breeder-authored patent description",
+          "locator": "Summary and detailed botanical description"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruit quality",
+          "value": "Medium to large; firm; sweet flavor",
+          "source_id": "1",
+          "context": "Applicant observations in Santa Cruz, California; botanical description uses eight-year-old plants. Not a guarantee outside these conditions."
+        },
+        {
+          "field": "Chill & adaptation",
+          "value": "Mid-range chilling requirement; described for latitudes 30–40° (no measured chill hours supplied)",
+          "source_id": "1",
+          "context": "Applicant observations in Santa Cruz, California; botanical description uses eight-year-old plants. Not a guarantee outside these conditions."
+        },
+        {
+          "field": "Origin & evaluation",
+          "value": "Cross 136D 2 × 181C 1; testing in Santa Cruz, California, 2008–2019",
+          "source_id": "1",
+          "context": "Applicant observations in Santa Cruz, California; botanical description uses eight-year-old plants. Not a guarantee outside these conditions."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-elaina",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Patent describes NS 13-6; association with this commercial name follows the existing profile and is not a new identity approval. These are applicant-reported observations, not independent performance or current rights verification.",
+      "sources": {
+        "1": {
+          "url": "https://patents.google.com/patent/USPP30934P3/en",
+          "title": "Patent PP30934 — NS 13-6",
+          "kind": "Breeder-authored patent description",
+          "locator": "Summary and detailed botanical description"
+        }
+      },
+      "details": [
+        {
+          "field": "Plant habit",
+          "value": "Strong vigor; semi-upright",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Fruiting wood",
+          "value": "One-year-old shoots only",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Fruit quality",
+          "value": "Medium to large; firm; low to medium acidity; small dry picking scar",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-flavia",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://civ.it/en/strawberries/flaviapbr/",
+          "title": "CIV — Flavia",
+          "kind": "Breeder product page",
+          "locator": "Named variety section"
+        }
+      },
+      "details": [
+        {
+          "field": "Reported production",
+          "value": "850 g (basis not specified)",
+          "source_id": "1",
+          "context": "Breeder page averages; location, seasons, replicate count and storage protocol not stated. Not an independently verified production expectation."
+        },
+        {
+          "field": "Average fruit mass",
+          "value": "24 g",
+          "source_id": "1",
+          "context": "Breeder page averages; location, seasons, replicate count and storage protocol not stated. Not an independently verified production expectation."
+        },
+        {
+          "field": "First-category fruit",
+          "value": "95%",
+          "source_id": "1",
+          "context": "Breeder page averages; location, seasons, replicate count and storage protocol not stated. Not an independently verified production expectation."
+        },
+        {
+          "field": "Soluble solids",
+          "value": "8 °Brix",
+          "source_id": "1",
+          "context": "Breeder page averages; location, seasons, replicate count and storage protocol not stated. Not an independently verified production expectation."
+        },
+        {
+          "field": "Plant habit",
+          "value": "Compact, medium vigor; fruit outside foliage",
+          "source_id": "1",
+          "context": "Breeder page averages; location, seasons, replicate count and storage protocol not stated. Not an independently verified production expectation."
+        },
+        {
+          "field": "Fruit quality",
+          "value": "Regular conical shape; bright red; sweet flavor; favorable shelf life claimed",
+          "source_id": "1",
+          "context": "Breeder page averages; location, seasons, replicate count and storage protocol not stated. Not an independently verified production expectation."
+        },
+        {
+          "field": "Disease assertion",
+          "value": "CIV describes tolerance in tired/non-fumigated soils; pathogen-specific tests are not supplied",
+          "source_id": "1",
+          "context": "Breeder page averages; location, seasons, replicate count and storage protocol not stated. Not an independently verified production expectation."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-julieta",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Patent describes EB 8-42; association with this commercial name follows the existing profile and is not a new identity approval. These are applicant-reported observations, not independent performance or current rights verification.",
+      "sources": {
+        "1": {
+          "url": "https://patents.google.com/patent/USPP25858P3/en",
+          "title": "Patent PP25858 — EB 8-42",
+          "kind": "Breeder-authored patent description",
+          "locator": "Summary and detailed botanical description"
+        }
+      },
+      "details": [
+        {
+          "field": "Season",
+          "value": "Early flowering and fruit maturity",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Plant habit",
+          "value": "Semi-upright",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Fruit quality",
+          "value": "Large to very large; very firm; small dry picking scar",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-keepsake",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://www.blueberries.com/proprietary-berry-varieties-berry-blue-llc/",
+          "title": "MBG — Berry Blue portfolio",
+          "kind": "Breeder portfolio",
+          "locator": "Named cultivar and selection code"
+        },
+        "2": {
+          "url": "https://patents.google.com/patent/USPP24807P3/en",
+          "title": "Patent PP24807 — BB05-251MI-14",
+          "kind": "Breeder-authored patent description",
+          "locator": "Detailed description and general comments"
+        }
+      },
+      "details": [
+        {
+          "field": "Type",
+          "value": "Northern highbush",
+          "source_id": "1",
+          "context": "Name/code linked by MBG portfolio. Patent observations: Grand Junction, Michigan, 2012, mature six-year-old plant; not a universal production forecast."
+        },
+        {
+          "field": "Season",
+          "value": "Mid-late season; between Bluecrop and Elliott",
+          "source_id": "2",
+          "context": "Name/code linked by MBG portfolio. Patent observations: Grand Junction, Michigan, 2012, mature six-year-old plant; not a universal production forecast."
+        },
+        {
+          "field": "Fruit",
+          "value": "Typically 2.5–3 g; medium-light blue; very firm; small dry picking scar",
+          "source_id": "2",
+          "context": "Name/code linked by MBG portfolio. Patent observations: Grand Junction, Michigan, 2012, mature six-year-old plant; not a universal production forecast."
+        },
+        {
+          "field": "Plant habit",
+          "value": "Vigorous, medium-upright; loose clusters and concentrated ripening",
+          "source_id": "2",
+          "context": "Name/code linked by MBG portfolio. Patent observations: Grand Junction, Michigan, 2012, mature six-year-old plant; not a universal production forecast."
+        },
+        {
+          "field": "Chill",
+          "value": "At least 1,000 hours below 7 °C, as described in patent",
+          "source_id": "2",
+          "context": "Name/code linked by MBG portfolio. Patent observations: Grand Junction, Michigan, 2012, mature six-year-old plant; not a universal production forecast."
+        },
+        {
+          "field": "Harvest suitability",
+          "value": "Mechanical-harvest potential described, not a verified field outcome",
+          "source_id": "2",
+          "context": "Name/code linked by MBG portfolio. Patent observations: Grand Junction, Michigan, 2012, mature six-year-old plant; not a universal production forecast."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-kwanza",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://www.abbreeding.nl/variety/kwanza/",
+          "title": "ABB — Kwanza",
+          "kind": "Breeder product page",
+          "locator": "Named variety section"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruiting & system",
+          "value": "Primocane; substrate; autumn/spring double crop",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Fruit",
+          "value": "Conical, light red; sweet flavor",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Average fruit mass",
+          "value": "7 g",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Picking speed",
+          "value": "5–6 kg/hr",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Reported yield",
+          "value": "1.8 kg/m²",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Shelf life claim",
+          "value": "10 days or more",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-magica",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Patent describes EB 9-2; association with this commercial name follows the existing profile and is not a new identity approval. These are applicant-reported observations, not independent performance or current rights verification.",
+      "sources": {
+        "1": {
+          "url": "https://patents.google.com/patent/USPP28149P3/en",
+          "title": "Patent PP28149 — EB 9-2",
+          "kind": "Breeder-authored patent description",
+          "locator": "Summary and detailed botanical description"
+        }
+      },
+      "details": [
+        {
+          "field": "Plant habit",
+          "value": "Strong to very strong vigor; upright to semi-upright",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Fruit measurements",
+          "value": "Mean 4.79 g; diameter about 21.62 mm",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Season",
+          "value": "Very early ripening on current-year shoots at the described location",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Flavor",
+          "value": "High sweetness; low to medium acidity",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-magnifica",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Patent describes EB 12-19; association with this commercial name follows the existing profile and is not a new identity approval. These are applicant-reported observations, not independent performance or current rights verification.",
+      "sources": {
+        "1": {
+          "url": "https://patents.google.com/patent/USPP27142P3/en",
+          "title": "Patent PP27142 — EB 12-19",
+          "kind": "Breeder-authored patent description",
+          "locator": "Summary and detailed botanical description"
+        }
+      },
+      "details": [
+        {
+          "field": "Plant habit",
+          "value": "Semi-upright bush",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Fruit quality",
+          "value": "Large to very large; flavor described as excellent",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Season",
+          "value": "Early flowering; very early harvest relative to described comparison varieties",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-marimbella",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Breeder sheet, 2026 edition; trial location, seasons, sample size and storage protocol are not specified. Calendar is source-specific, not a geographic footprint.",
+      "sources": {
+        "1": {
+          "url": "https://www.novasirigenetics.com/wp-content/uploads/2026/03/ENG_Scheda-tecnica-NSG-203_Marimbella_2026.pdf",
+          "title": "Nova Siri — Marimbella technical sheet",
+          "kind": "Breeder technical sheet",
+          "locator": "PDF page 1, plant and fruit tables"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruiting type",
+          "value": "Short-day",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Plant habit",
+          "value": "Upright; semi-dense foliage; medium vigor; flowers above foliage",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Earliness",
+          "value": "High",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Reported yield",
+          "value": "900 g/plant",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Fruit mass",
+          "value": "27 g",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Fruit appearance",
+          "value": "Conical; bright red even in winter; medium-red pulp",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Pulp consistency",
+          "value": "Good, qualitative",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Ripening period",
+          "value": "First ten days of January to first week of June, as stated on sheet",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Soluble solids",
+          "value": "8–11 °Brix",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Shelf life",
+          "value": "High, qualitative; no duration or storage protocol",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-medallion",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://www.blueberries.com/proprietary-berry-varieties-berry-blue-llc/",
+          "title": "MBG — Berry Blue portfolio",
+          "kind": "Breeder portfolio",
+          "locator": "Named cultivar and selection code"
+        },
+        "2": {
+          "url": "https://patents.google.com/patent/USPP32574P2/en",
+          "title": "Patent PP32574 — BB05-259MI-15",
+          "kind": "Breeder-authored patent description",
+          "locator": "Abstract and background/summary"
+        }
+      },
+      "details": [
+        {
+          "field": "Type",
+          "value": "High-chill northern highbush",
+          "source_id": "1",
+          "context": "MBG supplies name/code link; patent observations are Michigan comparisons and expressly vary with location, season and weather. No general calendar or yield number is inferred."
+        },
+        {
+          "field": "Season",
+          "value": "Late-midseason",
+          "source_id": "2",
+          "context": "MBG supplies name/code link; patent observations are Michigan comparisons and expressly vary with location, season and weather. No general calendar or yield number is inferred."
+        },
+        {
+          "field": "Fruit",
+          "value": "Large, light blue, very firm; very small dry picking scar",
+          "source_id": "2",
+          "context": "MBG supplies name/code link; patent observations are Michigan comparisons and expressly vary with location, season and weather. No general calendar or yield number is inferred."
+        },
+        {
+          "field": "Plant habit",
+          "value": "Vigorous, medium-upright bush; exposed fruit",
+          "source_id": "2",
+          "context": "MBG supplies name/code link; patent observations are Michigan comparisons and expressly vary with location, season and weather. No general calendar or yield number is inferred."
+        },
+        {
+          "field": "Relative ripening",
+          "value": "50% ripe fruit 12 days after Bluecrop and 5 days after Liberty in described observations",
+          "source_id": "2",
+          "context": "MBG supplies name/code link; patent observations are Michigan comparisons and expressly vary with location, season and weather. No general calendar or yield number is inferred."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-melissa",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Breeder sheet, 2026 edition; trial location, seasons, sample size and storage protocol are not specified. Calendar is source-specific, not a geographic footprint. The Melissa web page incorrectly heads its body NSG 203; use this explicitly Melissa-labeled sheet. Do not merge Melissa with Marimbella/NSG 203. Sheet says medium pulp consistency despite firmer wording on the web page.",
+      "sources": {
+        "1": {
+          "url": "https://www.novasirigenetics.com/wp-content/uploads/2026/03/ENG_Scheda-tecnica_Melissa_2026.pdf",
+          "title": "Nova Siri — Melissa technical sheet",
+          "kind": "Breeder technical sheet",
+          "locator": "PDF page 1, plant and fruit tables"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruiting type",
+          "value": "Short-day",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Plant habit",
+          "value": "Upright; dense foliage; medium-high vigor; flowers above foliage",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Earliness",
+          "value": "Medium-high",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Reported yield",
+          "value": "About 900 g/plant",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Fruit mass",
+          "value": "28 g",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Fruit appearance",
+          "value": "Conical-cylindrical; orange-red skin; medium-red pulp",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Pulp consistency",
+          "value": "Medium",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Ripening period",
+          "value": "First ten days of January through June, as stated on sheet",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Soluble solids",
+          "value": "8–11 °Brix",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        },
+        {
+          "field": "Shelf life",
+          "value": "High, qualitative; no duration or storage protocol",
+          "source_id": "1",
+          "context": "2026 English breeder sheet; values visually checked on the named one-page sheet. Local trial conditions are not supplied."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-olivia",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Patent describes NS 16-2; association with this commercial name follows the existing profile and is not a new identity approval. These are applicant-reported observations, not independent performance or current rights verification.",
+      "sources": {
+        "1": {
+          "url": "https://patents.google.com/patent/USPP32897P3/en",
+          "title": "Patent PP32897 — NS 16-2",
+          "kind": "Breeder-authored patent description",
+          "locator": "Summary and detailed botanical description"
+        }
+      },
+      "details": [
+        {
+          "field": "Plant vigor",
+          "value": "Medium",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        },
+        {
+          "field": "Fruit quality",
+          "value": "Very firm; low acidity",
+          "source_id": "1",
+          "context": "Yanchep Springs, Western Australia, as described in the patent. Local observations are not universal performance guarantees."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-rafiki",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://www.abbreeding.nl/variety/rafiki/",
+          "title": "ABB — Rafiki",
+          "kind": "Breeder product page",
+          "locator": "Named variety section"
+        }
+      },
+      "details": [
+        {
+          "field": "Crop & season",
+          "value": "Autumn/spring double crop",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Plant habit",
+          "value": "Nearly thorn-free; breeder reports high-temperature tolerance",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Fruit",
+          "value": "Round-conical, bright red; flavor rated excellent by breeder",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Average fruit mass",
+          "value": "5 g",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Picking speed",
+          "value": "2.5–4 kg/hr",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Reported yield",
+          "value": "2.3 kg/m²",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Shelf life claim",
+          "value": "10 days or more",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-redsayra",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://planasa.com/us/variety/redsayra/",
+          "title": "Planasa — RedSayra / Plared 15121",
+          "kind": "Breeder technical dossier",
+          "locator": "US English page, measurements and footnote"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruiting & season",
+          "value": "Extra-early short-day; winter production",
+          "source_id": "1",
+          "context": "Planasa Cartaya R&D field; 2018/19, 2019/20 and 2020/21 seasons; planted October 8 each year. Controlled-condition averages, expressly non-contractual; outcomes not guaranteed."
+        },
+        {
+          "field": "Reported yield",
+          "value": "950 g/plant",
+          "source_id": "1",
+          "context": "Planasa Cartaya R&D field; 2018/19, 2019/20 and 2020/21 seasons; planted October 8 each year. Controlled-condition averages, expressly non-contractual; outcomes not guaranteed."
+        },
+        {
+          "field": "Average fruit mass",
+          "value": "33.5 g/fruit",
+          "source_id": "1",
+          "context": "Planasa Cartaya R&D field; 2018/19, 2019/20 and 2020/21 seasons; planted October 8 each year. Controlled-condition averages, expressly non-contractual; outcomes not guaranteed."
+        },
+        {
+          "field": "First-category fruit",
+          "value": "92%",
+          "source_id": "1",
+          "context": "Planasa Cartaya R&D field; 2018/19, 2019/20 and 2020/21 seasons; planted October 8 each year. Controlled-condition averages, expressly non-contractual; outcomes not guaranteed."
+        },
+        {
+          "field": "Soluble solids",
+          "value": "7.5 °Brix",
+          "source_id": "1",
+          "context": "Planasa Cartaya R&D field; 2018/19, 2019/20 and 2020/21 seasons; planted October 8 each year. Controlled-condition averages, expressly non-contractual; outcomes not guaranteed."
+        },
+        {
+          "field": "Fruit quality",
+          "value": "Large conical sweet fruit; firm skin; long shelf life claimed without duration",
+          "source_id": "1",
+          "context": "Planasa Cartaya R&D field; 2018/19, 2019/20 and 2020/21 seasons; planted October 8 each year. Controlled-condition averages, expressly non-contractual; outcomes not guaranteed."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-rutgers-dlight",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://research.rutgers.edu/agricultural-products/strawberries/dlight",
+          "title": "Rutgers — D’Light",
+          "kind": "University breeder page",
+          "locator": "Strengths and qualities"
+        },
+        "2": {
+          "url": "https://burlington.njaes.rutgers.edu/2022/12/20/2022-performance-of-rutgers-dlight-strawberry-at-burlington-county-agricultural-center/",
+          "title": "Rutgers D’Light 2022 performance",
+          "kind": "University extension trial",
+          "locator": "Data collection and results"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruit & use",
+          "value": "Sweet flavor; elongated holiday-bulb shape; suitable for dipping",
+          "source_id": "1",
+          "context": "Rutgers breeder description; numerical results are a 2022 Burlington County demonstration planting, three approximately 1-ft × 7-ft half-rows, heat-affected season. Not per-plant yield or a replicated commercial guarantee."
+        },
+        {
+          "field": "Plant habit",
+          "value": "Abundant runners",
+          "source_id": "1",
+          "context": "Rutgers breeder description; numerical results are a 2022 Burlington County demonstration planting, three approximately 1-ft × 7-ft half-rows, heat-affected season. Not per-plant yield or a replicated commercial guarantee."
+        },
+        {
+          "field": "Observed harvest",
+          "value": "May 29–June 18, 2022; peak marketable count June 6",
+          "source_id": "2",
+          "context": "Rutgers breeder description; numerical results are a 2022 Burlington County demonstration planting, three approximately 1-ft × 7-ft half-rows, heat-affected season. Not per-plant yield or a replicated commercial guarantee."
+        },
+        {
+          "field": "Trial production",
+          "value": "934 berries total; 75% marketable by count; marketable weight 21.8 lb across three half-rows",
+          "source_id": "2",
+          "context": "Rutgers breeder description; numerical results are a 2022 Burlington County demonstration planting, three approximately 1-ft × 7-ft half-rows, heat-affected season. Not per-plant yield or a replicated commercial guarantee."
+        },
+        {
+          "field": "Observed fruit size",
+          "value": "Largest nearly 1 oz early; later average 0.4–0.6 oz",
+          "source_id": "2",
+          "context": "Rutgers breeder description; numerical results are a 2022 Burlington County demonstration planting, three approximately 1-ft × 7-ft half-rows, heat-affected season. Not per-plant yield or a replicated commercial guarantee."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-sarafina",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://www.abbreeding.nl/variety/sarafina/",
+          "title": "ABB — Sarafina",
+          "kind": "Breeder product page",
+          "locator": "Named variety section"
+        }
+      },
+      "details": [
+        {
+          "field": "Crop & season",
+          "value": "Autumn/spring double crop",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Plant habit",
+          "value": "Vigorous; strong laterals; low chill for sprouting (no hours specified)",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Disease assertion",
+          "value": "Breeder reports yellow-rust tolerance; no independent trial supplied",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Fruit",
+          "value": "Firm, conical, light orange-red; low-acid flavor",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Average fruit mass",
+          "value": "7 g",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Picking speed",
+          "value": "5–6 kg/hr",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Reported yield",
+          "value": "2 kg/m²",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Shelf life claim",
+          "value": "10 days or more",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-sekoya-crunch",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://www.fallcreeknursery.com/blog/sekoya-looks-to-extend-premium-blueberry-supply-across-chinas-growing-regions",
+          "title": "Fall Creek — SEKOYA regional supply",
+          "kind": "Breeder program release",
+          "locator": "September 1, 2026; FC13-083 paragraph"
+        }
+      },
+      "details": [
+        {
+          "field": "Selection code",
+          "value": "FC13-083, as identified in breeder release",
+          "source_id": "1",
+          "context": "Fall Creek September 2026 release discussing China’s production regions. No Crunch-specific cold-storage duration or independent trial is provided. The adjacent 60-day claim concerns Fiesta, not Crunch."
+        },
+        {
+          "field": "Season & chill",
+          "value": "Early season within mid/high-chill offering",
+          "source_id": "1",
+          "context": "Fall Creek September 2026 release discussing China’s production regions. No Crunch-specific cold-storage duration or independent trial is provided. The adjacent 60-day claim concerns Fiesta, not Crunch."
+        },
+        {
+          "field": "Fruit quality",
+          "value": "Large, firm, sweet and aromatic; crunch retained during extended cold storage claimed",
+          "source_id": "1",
+          "context": "Fall Creek September 2026 release discussing China’s production regions. No Crunch-specific cold-storage duration or independent trial is provided. The adjacent 60-day claim concerns Fiesta, not Crunch."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-shani",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "Source assertions await review. Values are not independently verified; unreported traits, disease responses, rights and growing locations remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://www.abbreeding.nl/variety/shani/",
+          "title": "ABB — Shani",
+          "kind": "Breeder product page",
+          "locator": "Named variety section"
+        }
+      },
+      "details": [
+        {
+          "field": "Fruiting & season",
+          "value": "Primocane; winter single crop; flowering/fruiting under low light",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "System",
+          "value": "Soil or substrate; Mediterranean winter production described",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Fruit",
+          "value": "Conical, medium red; juicy; color can deepen in heat",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Average fruit mass",
+          "value": "6 g",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Picking speed",
+          "value": "5 kg/hr",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Reported yield",
+          "value": "1.8 kg/m²",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        },
+        {
+          "field": "Shelf life claim",
+          "value": "10 days or more",
+          "source_id": "1",
+          "context": "Breeder strategy: Mediterranean southern Europe and Netherlands primocane season in high tunnels/hydroponics; trial years and storage protocol not specified."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-twilight",
+      "berry_ids": [
+        "berry-blueberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "identity_hold",
+      "limitations": "The current identity does not resolve a protected cultivar code. This source adds a historical label-specific claim, not agronomic measurements. A breeder sheet and identity reconciliation remain gaps.",
+      "sources": {
+        "1": {
+          "url": "https://www.berryworld.com/en-gb/berries/varieties",
+          "title": "BerryWorld — Twilight",
+          "kind": "Marketer variety page",
+          "locator": "BerryWorld Twilight award entry"
+        }
+      },
+      "details": [
+        {
+          "field": "Sensory recognition",
+          "value": "Marketer reports a two-star 2018 taste award for the BerryWorld Twilight label",
+          "source_id": "1",
+          "context": "Marketing label and historical award only; cultivar code and exact award-to-cultivar scope are unresolved."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-victoria",
+      "berry_ids": [
+        "berry-blackberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "identity_hold",
+      "limitations": "No cultivar-specific breeder sheet was located. The guide uses Driscoll Victoria without a protected denomination; source-to-profile identity needs review. Fruit size, yield, chill and postharvest remain unknown.",
+      "sources": {
+        "1": {
+          "url": "https://berries.net.au/wp-content/uploads/2024/05/Berry-plant-protection-guide-2023-24-compressed.pdf",
+          "title": "NSW Berry Plant Protection Guide 2023–24",
+          "kind": "Government extension technical guide",
+          "locator": "Printed page 63 / PDF page 65, Biological"
+        }
+      },
+      "details": [
+        {
+          "field": "Pest susceptibility observation",
+          "value": "Guide groups Driscoll Victoria and Chester as more susceptible to redberry mite than Elvira, Loch Ness and Karaka",
+          "source_id": "1",
+          "context": "Australian extension context; comparative susceptibility statement, not a quantified test or a treatment recommendation."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-zara",
+      "berry_ids": [
+        "berry-strawberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "identity_hold",
+      "limitations": "CFIA names Zara as DrisStrawFiftyNine in a comparison. This association remains unreviewed and is not added as a canonical alias. The report’s main plant/fruit description and rights belong to Beatrice, not Zara. A Zara breeder sheet remains missing.",
+      "sources": {
+        "1": {
+          "url": "https://active.inspection.gc.ca/english/plaveg/pbrpov/cropreport/str/app00011966e.shtml",
+          "title": "CFIA — DrisStrawSeventyFour comparison",
+          "kind": "Official variety-comparison report",
+          "locator": "Summary; reference DrisStrawFiftyNine (Zara); tests and trials"
+        }
+      },
+      "details": [
+        {
+          "field": "Comparative season",
+          "value": "Zara reference begins flowering and ripening very late",
+          "source_id": "1",
+          "context": "Chilliwack, British Columbia, 2021 trial; planted April 2020; three replicates of ten plants per variety. These are Zara reference comparisons, not the main Beatrice description."
+        },
+        {
+          "field": "Flowers & runners",
+          "value": "Inflorescence beneath foliage; many stolons in reference comparison",
+          "source_id": "1",
+          "context": "Chilliwack, British Columbia, 2021 trial; planted April 2020; three replicates of ten plants per variety. These are Zara reference comparisons, not the main Beatrice description."
+        },
+        {
+          "field": "Fruit surface",
+          "value": "Strongly uneven surface, as a reference cultivar in this comparison",
+          "source_id": "1",
+          "context": "Chilliwack, British Columbia, 2021 trial; planted April 2020; three replicates of ten plants per variety. These are Zara reference comparisons, not the main Beatrice description."
+        }
+      ]
+    },
+    {
+      "variety_id": "variety-zawadi",
+      "berry_ids": [
+        "berry-raspberry"
+      ],
+      "checked_on": "2026-10-27",
+      "status": "source_reported",
+      "limitations": "The individual product page reports 6–7 g and single/double crop options; the overview gives 6 g and double crop. Preserve this edition difference; storage conditions are unspecified. Claims remain unreviewed.",
+      "sources": {
+        "1": {
+          "url": "https://www.abbreeding.nl/variety/zawadi/",
+          "title": "ABB — Zawadi",
+          "kind": "Breeder product page",
+          "locator": "Named variety section"
+        }
+      },
+      "details": [
+        {
+          "field": "Crop & season",
+          "value": "Single crop with green canes; double crop in mild climates; autumn/winter/spring",
+          "source_id": "1",
+          "context": "Breeder observations; timing varies with region, climate, cultivation and management. Storage protocol and trial years not specified."
+        },
+        {
+          "field": "Fruit",
+          "value": "Conical, shiny light red; sweet and juicy",
+          "source_id": "1",
+          "context": "Breeder observations; timing varies with region, climate, cultivation and management. Storage protocol and trial years not specified."
+        },
+        {
+          "field": "Average fruit mass",
+          "value": "6–7 g",
+          "source_id": "1",
+          "context": "Breeder observations; timing varies with region, climate, cultivation and management. Storage protocol and trial years not specified."
+        },
+        {
+          "field": "Picking speed",
+          "value": "6 kg/hr",
+          "source_id": "1",
+          "context": "Breeder observations; timing varies with region, climate, cultivation and management. Storage protocol and trial years not specified."
+        },
+        {
+          "field": "Reported yield",
+          "value": "2.8 kg/m²",
+          "source_id": "1",
+          "context": "Breeder observations; timing varies with region, climate, cultivation and management. Storage protocol and trial years not specified."
+        },
+        {
+          "field": "Shelf life claim",
+          "value": "10+ days",
+          "source_id": "1",
+          "context": "Breeder observations; timing varies with region, climate, cultivation and management. Storage protocol and trial years not specified."
+        }
+      ]
+    }
+  ]
+}

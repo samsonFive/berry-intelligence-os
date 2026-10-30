@@ -1,0 +1,9 @@
+# Shared breadcrumbs — review candidate
+
+Variety directory and specialist views, profiles, comparison, coverage, identity review, photo imports/editing and growing regions now use the same hierarchy navigation as the company directory, profiles and operating regions. The shared shell renders `_breadcrumbs.html`; its appearance is owned only by `app/static/breadcrumbs.css`. New hierarchy trails should pass an ordered `breadcrumb_items` list containing `label` and parent `href`, rather than introduce another inline breadcrumb or back-link style.
+
+The trail uses an ordered list in a named navigation landmark, decorative home icon/chevrons, clickable parents and one non-link current page with `aria-current="page"`. It wraps for narrow screens and long names, provides visible keyboard focus and respects reduced motion. The profile's berry parent opens the actual scoped directory; directory specialist views retain the active berry scope. Live Home points to `/today`; static Home points to `/`, with other paths handled by the existing static link rewriting. Contextual return links and pagination are separate navigation and retain their existing behavior.
+
+Authenticated Chromium checks exercised 12 variety/company routes plus a company profile, followed the Strawberry and Varieties parent links, checked keyboard focus and inspected desktop/390px mobile screenshots. No breadcrumb overflow or page errors were found. Existing variety/static-safety checks (22) and company-directory, region-navigation and photo checks (78) pass. No domain records or trusted intelligence changed. Deployment remains on hold for user review.
+
+The seven existing static-build regression checks also pass. Navigation is excluded from Pagefind body indexing. The change does not require a new backend navigation model or per-page stylesheet.

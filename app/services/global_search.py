@@ -16,6 +16,7 @@ from app.services.article_dedup import normalize_canonical_url, normalize_title
 from app.services.patent_monitor.entity_link import _fold
 from app.services.ui_context import BERRY_GLOBAL
 from app.services.variety_workspace import identity_fields
+from app.services.topic_retrieval import record_passages
 
 GROUP_ORDER = (
     "companies",
@@ -341,7 +342,7 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
         entity_id = str(entity.get("id") or "")
         entity_type = str(entity.get("entity_type") or "")
         group = ENTITY_GROUP.get(entity_type)
-        if not entity_id or not group or entity_id in retired:
+        if not entity_id or not group or entity_id in retired or (entity_type == 'variety' and (entity.get('attributes') or {}).get('catalog_removed')):
             continue
         entity_id = canonical_entity_id(
             entity_id, entities=entities_by_id, redirects=pools.identity_redirects
@@ -446,6 +447,7 @@ def build_search_documents(pools: SearchPools, *, include_private: bool) -> list
                 title,
                 str(record.get("summary") or ""),
                 str(record.get("why_it_matters") or ""),
+                " ".join(text for _, text in record_passages(record)),
                 " ".join(str(tag) for tag in (record.get("tags") or []) if tag),
                 str(record.get("source_name") or source_names.get(source_id) or ""),
                 source_id,
@@ -806,6 +808,9 @@ def search_documents(
 ) -> dict[str, Any]:
     sort = sort if sort in {"newest", "relevance"} else "newest"
     needle = (query or "").strip()
+    from app.services.topic_retrieval import plan_query
+    query_plan = plan_query(needle)
+    needle = query_plan.interpreted_query
     folded_query = _fold(needle)
     hits: dict[str, dict[str, Any]] = {}
     docs_by_id = {doc.id: doc for doc in docs}
@@ -814,6 +819,11 @@ def search_documents(
         if doc.private and not include_private:
             continue
         rank, matched_as = _match_rank(doc, query=needle.casefold(), folded_query=folded_query)
+        if rank <= 0 and doc.group == "intelligence":
+            from app.services.topic_retrieval import match_record
+            matched = match_record({"title": doc.title, "body_text": doc.haystack}, query_plan)
+            if matched:
+                rank, matched_as = RANK_WEAK_TEXT, "text"
         if rank <= 0:
             continue
         hits[doc.id] = {

@@ -198,7 +198,7 @@ def week_specialist_feed_queries() -> list[PulseQuery]:
     """One PulseQuery per specialist feed. Not part of the Pulse 32."""
     edition = GEO_EDITIONS["global"]
     rows: list[PulseQuery] = []
-    for feed in WEEK_SPECIALIST_FEEDS:
+    for feed in configured_feeds():
         geo = feed.get("geography") or "global"
         geo_edition = GEO_EDITIONS.get(geo) or edition
         rows.append(
@@ -244,7 +244,7 @@ def week_specialist_site_queries() -> list[PulseQuery]:
 
 
 def feed_by_query_id(query_id: str) -> dict[str, str] | None:
-    for feed in WEEK_SPECIALIST_FEEDS:
+    for feed in configured_feeds():
         if query_id == feed["id"] or query_id.startswith(feed["id"] + ":"):
             return feed
     return None
@@ -291,7 +291,7 @@ class SpecialistRssProvider:
     """Generic RSS / news-search-RSS adapter. No publisher-specific scrape."""
 
     name: str = "specialist_rss"
-    feeds: tuple[dict[str, str], ...] = WEEK_SPECIALIST_FEEDS
+    feeds: tuple[dict[str, str], ...] | None = None
     fetch: Any = None
     max_pages: int = 1
     coverage_dir: Any = None
@@ -299,7 +299,7 @@ class SpecialistRssProvider:
     def discover(self, query: PulseQuery) -> list[DiscoveryHit]:
         feed = feed_by_query_id(query.id)
         if feed is None:
-            for row in self.feeds:
+            for row in (self.feeds if self.feeds is not None else configured_feeds()):
                 if row["id"] == query.id or query.text == row["feed_url"]:
                     feed = row
                     break
@@ -358,3 +358,37 @@ class SpecialistRssProvider:
 
 def hosts_from_feeds(feeds: Iterable[dict[str, str]] = WEEK_SPECIALIST_FEEDS) -> set[str]:
     return {str(row.get("host") or urlparse(row.get("feed_url") or "").netloc).removeprefix("www.") for row in feeds}
+
+
+def configured_feeds():
+    from app.services.collection_settings import effective_feeds
+    return effective_feeds((*WEEK_SPECIALIST_FEEDS, *registry_breeder_feeds()))
+
+
+BREEDER_SOURCE_IDS = frozenset({
+    'source-20260824-global-plant-genetics-newsroom', 'source-20260824-james-hutton-news',
+    'source-20260824-nc-state-cals-news', 'source-20260824-uf-ifas-news', 'source-20260819-planasa-newsroom',
+    'source-nc-state-rubus-portal', 'source-inhort-berry-breeding', 'source-embrapa-berry-research',
+})
+
+
+def registry_breeder_feeds(data_dir=None):
+    """Reuse current registry URLs and lifecycle, without a copied feed catalog."""
+    from app.runtime_config import resolve_data_dir
+    from app.repositories.json.sources import JsonSourceRepository
+    from app.services.source_lifecycle import is_collection_eligible
+    rows = []
+    for source in JsonSourceRepository(data_dir or resolve_data_dir()).list():
+        if source['id'] not in BREEDER_SOURCE_IDS or not source.get('enabled', True) or not is_collection_eligible(source):
+            continue
+        discovery = source.get('discovery') or {}
+        if discovery.get('adapter') not in {'article_rss', 'news_search_rss'}:
+            continue
+        urls = discovery.get('feed_urls') or [discovery.get('feed_url')]
+        for index, url in enumerate(urls[:2]):
+            if url:
+                rows.append(dict(id='feed:' + source['id'] + (f':{index}' if index else ''),
+                    source_id=source['id'], label=source.get('name') or source.get('label') or source['id'],
+                    host=urlparse(source.get('url') or url).hostname.removeprefix('www.'), feed_url=url, adapter=discovery['adapter'],
+                    geography='global', coverage='breeder_extension', registry_managed=True))
+    return rows

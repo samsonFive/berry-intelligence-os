@@ -1,0 +1,29 @@
+{
+  "id": "variety-lagorai-plus-34f8b7b0",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Lagorai Plus",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-368fc663fd07",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:12.317448+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.santorsola.com/sperimentazione-e-breeding/",
+      "source_label": "Sant’Orsola — named raspberry breeding list",
+      "candidate_name": "Lagorai Plus"
+    }
+  }
+}

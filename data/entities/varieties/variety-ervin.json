@@ -3,7 +3,7 @@
   "record_type": "entity",
   "entity_type": "variety",
   "name": "Ervin",
-  "aliases": [],
+  "aliases": ["NC 740"],
   "status": "active",
   "description": "Blackberry variety bred by NC State University's Gina Fernandez, described by NC State's own news office as a flavor-packed new release ready for North Carolina growers after four years of testing, with an international debut planned.",
   "roles": [
@@ -20,6 +20,7 @@
     "rel-nc-state-develops-ervin"
   ],
   "attributes": {
+    "alias_sources": [{"alias": "NC 740", "source_url": "https://rubus.ces.ncsu.edu/news/meet-ervin-blackberry/", "checked_at": "2026-10-26", "basis": "Primary breeder publication explicitly states Ervin was trialed as NC 740."}],
     "breeder": "NC State University (Gina Fernandez)",
     "traits": [
       {

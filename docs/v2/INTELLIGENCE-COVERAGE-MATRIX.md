@@ -135,6 +135,15 @@ The bounded inventory is 456 sections / 1,680 name occurrences / 140 catalog
 matches / 1,540 occurrences needing review. These are source observations, not
 independent sources, new cultivars or a completeness score; CAT-01/CAT-02 stay open.
 
+October 26, 2026: [Search and research quality review checkpoint](SEARCH-RESEARCH-QUALITY-V1.md)
+rechecked and live-rediscovered the NC State Ervin introduction and GPG licensing
+announcement, preserving their separate February/September publication dates.
+Added the primary-source-supported NC 740 alias to the existing Ervin entity.
+The 24-query discovery run is a research sample, not comprehensive recall or
+Google parity. New web discoveries remain private/unreviewed; this work creates
+**zero new trusted Evidence records and zero publisher subscriptions**. Source
+versions and excerpts only enter the existing workspace flow on explicit save.
+
 October 23, 2026: [Publisher-first coverage and reader recovery](PERFORMANCE-READER-PUBLISHER-COVERAGE.md)
 adds verified Watershed blog metadata and bounded Packer section discovery,
 supplemented by indexed results. Candidate checks found 16/15 publisher entries
@@ -1049,3 +1058,35 @@ October8 social quality audit: a fixed30-caption stratified diagnostic sample ex
 October 8 social source follow-up: bounded Atomus X search returned five supplied-English posts with reported dates in the requested October7–8 window; shared private normalization/replay succeeded. This is partial source access, not qualified consumer/market coverage, native-source fidelity or health-claim evidence. Rights/deletion refresh remain open; collection disabled. See SOCIAL-APIFY-TRIAL.md for exact scope and charges.
 
 October 12 manual social production: [manual collection](SOCIAL-MANUAL-PRODUCTION.md) adds operator-triggered, bounded funded discovery across berries and corporate/agtech/consumer search scopes. Corporate scope is a search target, not author ownership. Facebook remains two known company pages; Instagram hashtag scope and provider-dependent dates remain explicit. New coverage must be measured from real collection receipts; funding alone does not upgrade access or recall qualification.
+
+
+Collection settings review checkpoint (2026-10-26): `/settings/collection` exposes the runtime Source registry, News/weekly/Radar/Industry discovery expressions, specialist feeds and configured pipeline schedule with add/edit/pause/remove/restore controls. This adds configuration visibility and management, not source coverage or recall qualification. No production source, pipeline enablement, credentials, trusted Evidence, or coverage maturity changed. See `COLLECTION-SETTINGS-V1.md`; existing search-quality acceptance gaps remain open.
+
+Collection authoring scope update (October 27): analysts can add named discovery monitors with explicit crop and regional search scopes. This configures future queries; it is not evidence of improved recall or verified article geography. Floricane/Blackberry was exercised only in the isolated preview. See COLLECTION-SETTINGS-V1.md.
+
+Historical keyword collection (October 27): explicit scoped-monitor backfill can acquire older public articles into the untrusted review inbox. One isolated Floricane/Blackberry run staged six articles including both Ervin primary pages; archive-only reports then reused their saved bodies. These are pending local review artifacts, not changes to canonical published coverage counts. See KEYWORD-MONITOR-BACKFILL-V1.md.
+
+Pre-deployment source/default review (October 27): canonical registry inventory is 265 Sources, 96 with discovery configuration and 92 eligible for the modern collector; 123 enabled records lack discovery configuration, including 33 legacy keyword records. These are configuration/eligibility counts, not successful-collection or evidence-class counts. Eight public-feed spot-checks and the official-host/live-reader wiring audit informed a proposed default expansion; no sources/queries were activated. See DEFAULT-SOURCE-AND-KEYWORD-AUDIT-2026-10-27.md for primary-source candidates, eight English monitor proposals, two language-dependent additions and prerequisite repairs.
+
+
+October 27 default repair candidate: persisted six-host rotation, registry-derived breeder/extension live feeds, 33 explicitly disabled legacy manual keywords, ten scoped defaults and Polish/Portuguese processing are implemented. Three primary programs have verified indexed RSS discovery paths; direct InHort capture remains blocked. A paired snapshot adds 112 title-triaged candidates, mostly historical; neither of two additional recent candidates is a confirmed full-scope readable match. An offline replay of fresh NC State/GPG primary captures stages/reuses both and retrieves them under three Floricane phrasings. These are pending local artifacts, not published coverage counts. See DEFAULT-COLLECTION-REPAIRS-V1.md. Deployment remains held.
+
+
+Native collection follow-up: article-heading/native-adjective region checks and verified Embrapa news-header dates allow the previously rejected Polish Pola/Soten article and undated Portuguese Fênix recommendation to enter local publication review. Three Polish and one Portuguese historical articles were staged; repeated processing reused all four pending drafts. Two articles concern the same Pola/Soten development. Publisher dates and review gates remain intact. This does not establish new current-week coverage or change published Evidence counts; InHort access and other capture/date limitations remain open. See DEFAULT-COLLECTION-REPAIRS-V1.md. Deployment remains held.
+
+
+Variety source-parity checkpoint: restored the existing public corpus and portfolio imports to the isolated search preview and exposed selected captured source passages beside existing variety profiles. Ervin now surfaces three readable pending source mentions; two existing Eureka primary references have private Reader captures (full/partial). These are source-reading improvements, not new approved traits, identities or global coverage. The 64-profile catalog and 33 structured-trait gaps remain; source-to-profile parity is not yet established. See VARIETY-SOURCE-PARITY-AUDIT-2026-10-27.md. Deployment remains held.
+
+Fixed 33-profile follow-up: 138 cited source-reported rows now display on the corresponding authoring profiles, with trial context and original links. 26 real profiles have substantive cultivar-specific source descriptions; Arana remains qualitative, BK 6-13/Twilight/Victoria/Zara retain identity/source holds, and two Example records are demos. All 33 routes and all 138 values/conditions/links were checked in Chromium. Canonical traits, published Evidence and maturity counts are unchanged; these private pending notes do not close the 33 reviewed-field gaps or establish independent website-to-profile parity. See the audit and `data/imports/variety-profile-source-details-2026-10-27/README.md`. Deployment remains held.
+
+User-requested seed cleanup supersedes the snapshot counts above: 62 real varieties and 1,269 published source records remain after moving two fictional varieties, their three related fictional organizations and three sample articles into isolated test fixtures. Canonical trait gaps are now 31 because the two demos are gone; the same 138 unreviewed source-note rows remain on the 31 real profiles. No real variety, real Evidence or trusted field was removed or promoted. The compact sheet presentation does not change coverage maturity. See `VARIETY-SHEET-AND-SEED-CLEANUP-V1.md`. Production deployment remains held.
+
+
+October 27 variety workbench checkpoint (draft, no deployment): 432 explicitly authorized source-backed proper-name identities admitted as unverified; 494 total catalog identities, 463 without canonical trait rows. The bounded admission audit retains 693 held cases. No new approved traits, aliases, company roles, rights or growing footprints. Full-source keyword search exposes matching citations; explicit in-app research routes results into existing publication review. Awards/news/patent-news defaults bring the scoped default monitor set to 13 and enable no unattended job. The fixed 138 pending source-note rows still cover 31 profiles; comprehensive source-to-profile parity remains open. Catalog/profile columns now resize, reorder, hide and restore per analyst. See VARIETY-SHEET-AND-SEED-CLEANUP-V1.md and data/imports/variety-catalog-admission-2026-10-27/manifest.json.
+
+October 28, 2026 search checkpoint: bounded compressed-PDF text/page capture recovered a six-page Oregon State-hosted research source previously represented by metadata only. One UF/IFAS newsletter was unavailable on live capture (404), despite indexed cached text. Research Desk preserves all-time/explicit publication scope, and keyword backfills can resume saved discovery candidates without provider rebuy. These are acquisition/retrieval improvements, not new trusted Evidence or proof of comprehensive recall. The 24-query benchmark still lacks 495 source judgments and ten comparable Google query captures; see SEARCH-RESEARCH-QUALITY-V1.md. Private bodies, accounts and checkpoints remain outside public/static output.
+
+October 29, 2026: source-capture progress and organizational related-coverage grouping are added to the existing private research flow. The captured Ervin licensing primary/trade pair groups without merging the February introduction. A frozen 24-query replay passes 72 exact quotation/provenance checks; source truth and full comparative quality remain unverified. No new trusted Evidence, source subscription, identity, role, rights or trait approval is created. Public benchmark metadata now records 470 missing query/source judgments and ten non-comparable Google queries. See SEARCH-RESEARCH-QUALITY-V1.md.
+
+
+October 30 search-quality evaluation: 121/516 pooled query/source pairs have inspected judgments; 395 remain open. All 72 frozen report quotations have scoped semantic review, with 13 flagged. Related-card prose is excluded from owned article evidence; no source was onboarded and no trait, role, legal status or growing footprint was promoted. Source-truth, general entity precision and trial-geography gaps remain.

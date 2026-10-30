@@ -1,4 +1,6 @@
 {% extends "glasshouse_base.html" %}
+{% set variety_sheet = true %}
+{% set breadcrumb_items = [{'label':'Varieties','href':'/entities/variety'},{'label':'Identity review'}] %}
 {% block head_extra %}<link rel="stylesheet" href="/static/company_workspace.css?v=6"><link rel="stylesheet" href="/static/variety_workspace.css?v=14">{% endblock %}
 {% block title %}Variety identity review — Berry Intelligence OS{% endblock %}
 {% block content %}
@@ -25,7 +27,7 @@
   <label class="candidate-letter-picker">Jump to<select aria-label="Jump to alphabetical group" data-candidate-letter-picker><option value="{{ letter_urls[''] }}" {% if not filters.letter %}selected{% endif %}>All names</option>{% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#' %}{% if letter in letters %}<option value="{{ letter_urls[letter] }}" {% if filters.letter == letter %}selected{% endif %}>{{ letter }}</option>{% endif %}{% endfor %}</select></label>
   <nav class="candidate-quick-actions" aria-label="Candidate page shortcuts"><a href="#candidate-results">List top ↑</a><a href="#candidate-filters">Filters</a></nav>
 </div>
-<p class="company-muted">{{ candidates|length }} of {{ candidate_total }} candidate names. Review decisions do not create new catalog varieties or approve company roles.</p>
+<p class="company-muted">{{ candidates|length }} of {{ candidate_total }} candidate names. Identity markings alone do not create catalog entries. Add canonical variety is an explicit identity action; it does not approve company roles or source claims.</p>
 <details class="variety-context workspace-help" data-workspace-help><summary>How identity decisions work</summary><p>These are proposed names, not confirmed catalog varieties. Check the source and possible match before deciding. A possible alias needs further review. Confirm same links the candidate to the named existing variety. Mark distinct keeps a separate candidate; it does not create a catalog variety. Reject removes a name from the waiting queue without deleting catalog records.</p></details>
 {% if not candidates %}
   <p class="empty-state">No variety candidates match this scope. <a href="/varieties/coverage">Variety coverage</a> shows catalog entries and names needing review. <a href="/entities/variety">Open variety catalog</a></p>
@@ -107,6 +109,8 @@
   {% if row.photos %}</div>{% endif %}
   {% if authoring_mode %}
   {% set handoff = catalog_handoffs.get(row.id, {}) %}
+  {% set admission = catalog_promotion_plans.get(row.id, {}) if catalog_promotion_plans else {} %}
+  {% if admission.ready %}<form method="post" action="/varieties/candidates/{{ row.id }}/promote"><input type="hidden" name="decision_digest" value="{{ admission.digest }}"><p class="company-muted">Add this source-backed identity to the catalog. Traits, rights, aliases and company roles remain unreviewed.</p><button type="submit" class="green-button">Add canonical variety</button></form>{% elif admission.reason %}<p class="company-muted">Catalog admission held: {{ admission.reason }}</p>{% endif %}
   <div class="variety-context">
     {% if handoff.ready %}<p><strong>Ready for source review.</strong> Add the supporting source before creating an unverified catalog entry.</p><a class="v2-btn" href="{{ handoff.href }}">Prepare catalog review →</a>
     {% elif handoff.catalog_entity %}<p>{{ handoff.reason }}</p><a class="v2-btn v2-btn-quiet" href="/entities/variety/{{ handoff.catalog_entity.id }}">Open catalog record →</a>

@@ -81,6 +81,9 @@ class ResearchScope:
     interpretation_source: str = "deterministic"
     tag_ids: tuple[str, ...] = ()
     tag_mode: str = 'all'
+    all_time: bool = False
+    publication_start: str | None = None
+    publication_end: str | None = None
 
     def as_dict(self) -> dict[str, Any]:
         payload = asdict(self)
@@ -90,6 +93,13 @@ class ResearchScope:
 
     @classmethod
     def from_dict(cls, raw: Mapping[str, Any]) -> "ResearchScope":
+        start = str(raw.get('publication_start') or '') or None
+        end = str(raw.get('publication_end') or '') or None
+        for stamp in (start,end):
+            if stamp:
+                date.fromisoformat(stamp)
+        if start and end and start>end:
+            raise ValueError('Start date must precede end date')
         try:
             window_days = int(raw.get("window_days") or DEFAULT_WINDOW_DAYS)
         except (TypeError, ValueError):
@@ -109,6 +119,9 @@ class ResearchScope:
             interpretation_source=str(raw.get("interpretation_source") or "deterministic"),
             tag_ids=tuple(dict.fromkeys(str(v) for v in raw.get('tag_ids') or [])),
             tag_mode='any' if raw.get('tag_mode') == 'any' else 'all',
+            all_time=raw.get('all_time') is True,
+            publication_start=start,
+            publication_end=end,
         )
 
 
@@ -202,6 +215,8 @@ def interpret_research_scope(
     wording is comparative, otherwise it becomes the new company scope.
     """
     clean = _normalize_quotes(" ".join((question or "").split()))
+    from app.services.topic_retrieval import plan_query
+    topic_plan = plan_query(clean)
     proposal = interpret_scope_text(clean, berries=berries, completer=None, entities=entities)
     resolved = resolve_scope(
         proposal,
@@ -255,8 +270,25 @@ def interpret_research_scope(
     else:
         intelligence_type = "domain_intelligence"
 
+    explicit_window = bool(_has_explicit_window(clean) or resolved.date_window_days or topic_plan.start or topic_plan.end)
+    all_time = previous.all_time if previous and not explicit_window else not explicit_window
+    start,end = topic_plan.start,topic_plan.end
+    if previous and not explicit_window:
+        start,end = previous.publication_start,previous.publication_end
+    effective_question = clean
+    if previous and re.match(r'^(?:only\b|what about\b|in\b)', clean, re.I) and not topic_plan.cane_type:
+        # The typed refinement is not a new domain question. Retain the cane
+        # topic, exact names, quoted phrases and exclusions, but never carry an
+        # old date expression into a newly selected relative window.
+        context = previous.question.split(' · ', 1)[0]
+        from app.services.topic_retrieval import _query_identifiers
+        if plan_query(context).cane_type or _query_identifiers(plan_query(context),entity_index):
+            context = re.sub(r'\b\d{4}-\d{2}-\d{2}\b', '', context)
+            context = re.sub(r'\b(?:last|past|previous)\s+\d+\s*days?\b', '', context, flags=re.I)
+            context = re.sub(r'\b(?:from|through|between|until)\b', '', context, flags=re.I)
+            effective_question = ' '.join(context.split()) + ' · ' + clean
     return ResearchScope(
-        question=clean,
+        question=effective_question,
         berry_id=berry_id,
         geography_ids=tuple(geography_ids),
         company_ids=tuple(company_ids[:MAX_COMPARE_COMPANIES]),
@@ -264,7 +296,7 @@ def interpret_research_scope(
         window_days=(
             previous.window_days
             if previous and not _has_explicit_window(clean) and resolved.date_window_days is None
-            else _window_days(clean, resolved.date_window_days)
+            else (3650 if all_time or start or end else _window_days(clean, resolved.date_window_days))
         ),
         topics=mentioned_topics,
         intelligence_type=intelligence_type,
@@ -273,6 +305,9 @@ def interpret_research_scope(
         ambiguous=ambiguous,
         tag_ids=previous.tag_ids if previous else (),
         tag_mode=previous.tag_mode if previous else 'all',
+        all_time=all_time,
+        publication_start=start,
+        publication_end=end,
     )
 
 
@@ -284,14 +319,23 @@ def _record_date(record: Mapping[str, Any]) -> str:
     return ""
 
 
-def _within_window(record: Mapping[str, Any], window_days: int, *, today: date) -> bool:
+def _within_window(record: Mapping[str, Any], window_days: int, *, today: date, all_time: bool = False, publication_start: str | None = None, publication_end: str | None = None) -> bool:
+    if publication_start or publication_end:
+        stamp = str(record.get('published_date') or '')[:10]
+        try:
+            date.fromisoformat(stamp)
+        except ValueError:
+            return False
+        return (not publication_start or stamp>=publication_start) and (not publication_end or stamp<=publication_end)
+    if all_time:
+        return True
     stamp = _record_date(record)
     if not stamp:
-        return True
+        return False
     try:
         return date.fromisoformat(stamp) >= today - timedelta(days=window_days)
     except ValueError:
-        return True
+        return False
 
 
 def _record_berry_ids(record: Mapping[str, Any], entities: Mapping[str, dict[str, Any]] | None = None) -> set[str]:
@@ -409,7 +453,7 @@ def _related_genetics_rows(
         related.append(payload)
 
     for record in published_evidence:
-        if _matches_scope(record, scope, entities) and _within_window(record, scope.window_days, today=today):
+        if _matches_scope(record, scope, entities) and _within_window(record, scope.window_days, today=today, all_time=scope.all_time, publication_start=scope.publication_start, publication_end=scope.publication_end):
             continue
         consider(record, as_evidence=True)
     wide = replace(scope, geography_ids=())
@@ -481,9 +525,13 @@ def assemble_research_packet(
     today = today or date.today()
     selected = [
         row for row in published_evidence
-        if _matches_scope(row, scope, entities) and _within_window(row, scope.window_days, today=today)
+        if _matches_scope(row, scope, entities) and _within_window(row, scope.window_days, today=today, all_time=scope.all_time, publication_start=scope.publication_start, publication_end=scope.publication_end)
     ]
     selected.sort(key=lambda row: (_topic_rank(row, scope.topics), _record_date(row)), reverse=True)
+    from app.services.topic_retrieval import plan_query, retrieve
+    topic_plan = plan_query(scope.question)
+    if topic_plan.cane_type:
+        selected = retrieve(selected, topic_plan, entities=entities, limit=MAX_PACKET_EVIDENCE)
     selected = selected[:MAX_PACKET_EVIDENCE]
     evidence_rows = [_evidence_row(row) for row in selected]
     evidence_ids = {str(row["id"]) for row in evidence_rows if row.get("id")}
@@ -724,7 +772,12 @@ def comparison_candidate_ids(
 
 
 def _query_text(scope: ResearchScope, entities: Mapping[str, dict[str, Any]]) -> str:
-    parts: list[str] = []
+    from app.services.topic_retrieval import plan_query
+    parts: list[str] = [plan_query(scope.question).interpreted_query]
+    if scope.publication_start:
+        parts.append('publication from '+scope.publication_start)
+    if scope.publication_end:
+        parts.append('through '+scope.publication_end)
     companies = [entities[c].get("name") for c in scope.company_ids if c in entities]
     if companies:
         parts.append("(" + " OR ".join(f'\"{name}\"' for name in companies if name) + ")")
@@ -755,7 +808,7 @@ def _provider_call(provider: DiscoveryProvider, query: str, scope: ResearchScope
     try:
         hits = discover(
             query,
-            date_window="30d" if scope.window_days > 7 else "7d",
+            date_window='all' if scope.all_time or scope.publication_start or scope.publication_end else f'{scope.window_days}d',
             geography="global",
             berry=scope.berry_id.removeprefix("berry-") if scope.berry_id else None,
             topic=scope.topics[0] if scope.topics else "research_desk",
@@ -816,6 +869,7 @@ def run_live_research(
     sources: Iterable[dict[str, Any]] = (),
     background_hits: Iterable[DiscoveryHit] = (),
     now: datetime | None = None,
+    progress: Callable | None = None,
 ) -> dict[str, Any]:
     """Run one bounded query per available provider plus one Exa expansion."""
     now = now or datetime.now(timezone.utc)
@@ -825,6 +879,37 @@ def run_live_research(
     telemetry: dict[str, dict[str, int]] = {}
     failures: list[dict[str, str]] = []
     provider_list = list(providers)
+    company_names = [
+        str(value)
+        for row in entities.values() if row.get("entity_type") == "company"
+        for value in [row.get("name"), *(row.get("aliases") or [])] if value
+    ]
+    variety_names = [
+        str(value)
+        for row in entities.values() if row.get("entity_type") == "variety"
+        for value in [row.get("name"), *(row.get("aliases") or [])] if value
+    ]
+    index = QualificationIndex.compile(company_names=company_names, variety_names=variety_names, sources=sources)
+
+    def provisional_sources():
+        from app.services.feed_first_reader import is_public_http_url
+        preview=[];seen=set()
+        for original in raw:
+            hit=replace(original,provider_metadata=dict(original.provider_metadata))
+            hit.title=_normalize_quotes(hit.title);hit.snippet=_normalize_quotes(hit.snippet)
+            qualify_hit(hit,index=index)
+            if not hit.qualifying or not _mentions_any_company(hit,scope,entities) or not _matches_explicit_dimensions(hit,scope,entities):
+                continue
+            if not _within_window({'published_date':hit.published_date},scope.window_days,today=now.date(),all_time=scope.all_time,publication_start=scope.publication_start,publication_end=scope.publication_end):
+                continue
+            url=preferred_url(hit)
+            if url in seen or not is_public_http_url(url):
+                continue
+            seen.add(url)
+            preview.append({'id':_live_id(url),'title':hit.title,'source_url':url,'published_date':hit.published_date,
+                            'capture_status':'Provider metadata only · body not checked','relevance':'Candidate'})
+        return preview[:MAX_LIVE_RESULTS]
+
     if provider_list:
         with ThreadPoolExecutor(max_workers=min(6, len(provider_list))) as pool:
             futures = [pool.submit(_provider_call, provider, query, scope) for provider in provider_list]
@@ -834,6 +919,8 @@ def run_live_research(
                 raw.extend(hits)
                 if error:
                     failures.append({"provider": name, "error": error})
+                if progress:
+                    progress({'stage':'provider', 'provider':name, 'providers_completed':len(telemetry), 'items':provisional_sources()})
 
     direct_urls = {preferred_url(hit) for hit in raw}
     related_urls: set[str] = set()
@@ -864,17 +951,6 @@ def run_live_research(
     if cached_count:
         telemetry["newscatcher_catchall_cache"] = {"queries": 0, "hits": cached_count, "errors": 0}
 
-    company_names = [
-        str(value)
-        for row in entities.values() if row.get("entity_type") == "company"
-        for value in [row.get("name"), *(row.get("aliases") or [])] if value
-    ]
-    variety_names = [
-        str(value)
-        for row in entities.values() if row.get("entity_type") == "variety"
-        for value in [row.get("name"), *(row.get("aliases") or [])] if value
-    ]
-    index = QualificationIndex.compile(company_names=company_names, variety_names=variety_names, sources=sources)
     for hit in raw:
         hit.title = _normalize_quotes(hit.title)
         hit.snippet = _normalize_quotes(hit.snippet)
@@ -888,12 +964,10 @@ def run_live_research(
     for hit in unique_hits(raw):
         if not hit.qualifying:
             continue
-        if hit.published_date:
-            try:
-                if date.fromisoformat(hit.published_date[:10]) < threshold:
-                    continue
-            except ValueError:
-                pass
+        if (scope.publication_start or scope.publication_end) and not _within_window({'published_date':hit.published_date},scope.window_days,today=now.date(),publication_start=scope.publication_start,publication_end=scope.publication_end):
+            continue
+        if not scope.all_time and not (scope.publication_start or scope.publication_end) and not _within_window({'published_date':hit.published_date},scope.window_days,today=now.date()):
+            continue
         url = preferred_url(hit)
         rows.append({
             "id": _live_id(url), "title": hit.title, "url": url,
@@ -911,6 +985,8 @@ def run_live_research(
         "failures": failures,
         "latency_seconds": round(time.monotonic() - started, 3),
         "semantic_expansion_used": exa is not None,
+        "coverage_as_of": now.date().isoformat(),
+        "publication_window": {'start':scope.publication_start,'end':scope.publication_end,'all_time':scope.all_time},
     }
 
 
@@ -960,7 +1036,7 @@ def _public_digest(packet: dict[str, Any], live: dict[str, Any]) -> list[str]:
         lines.append(f"{row['id']} | {row['title']} | {row['source_name']} | {row['date'] or 'date unknown'}")
     for row in live.get("items") or []:
         line = f"{row['id']} | {row['title']} | {row['source_name']} | {row['date'] or 'date unknown'}"
-        if row.get("snippet"):
+        if row.get("snippet") and not any(row.get(key) for key in ('article','source_version','passage_locator','capture_status')):
             line += f" | {str(row['snippet'])[:220]}"
         lines.append(line)
     return lines[:48]
@@ -1034,12 +1110,31 @@ def compose_research_answer(
         except Exception:
             pass
 
-    current = [row for row in live.get("items") or [] if not row.get("related_emerging")]
+    current, historical, undated = [], [], []
+    try:
+        as_of = date.fromisoformat(str(live.get('coverage_as_of') or ''))
+    except ValueError:
+        as_of = datetime.now(timezone.utc).date()
+    for row in live.get('items') or []:
+        if row.get('related_emerging'):
+            continue
+        try:
+            published = date.fromisoformat(str(row.get('date') or '')[:10])
+        except ValueError:
+            undated.append(row)
+        else:
+            if published > as_of:
+                undated.append(row)
+            else:
+                (current if published >= as_of-timedelta(days=90) else historical).append(row)
     weak = [row for row in live.get("items") or [] if row.get("related_emerging")]
     weak.extend(row for row in packet.get("signals") or [] if row.get("status") != "confirmed")
     return {
         "findings": findings,
         "current_developments": current,
+        "historical_developments": historical,
+        "event_groups": [g for g in live.get('event_groups', []) if len(g['member_ids'])>1],
+        "undated_developments": undated,
         "implications": implications,
         "competitive_context": {"companies": packet.get("companies") or [], "relationships": packet.get("relationships") or []},
         "rights_ip": packet.get("rights_ip") or [],

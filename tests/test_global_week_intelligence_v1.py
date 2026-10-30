@@ -97,7 +97,7 @@ def test_week_queries_add_bounded_language_and_retail_only():
     assert any(row.id == "lang:apac:ja" for row in rows)
     assert all(
         row.kind
-        in {"berry_geography", "topic_global", "regional_language", "specialist_site", "apac_focus"}
+        in {"berry_geography", "topic_global", "regional_language", "specialist_site", "apac_focus", "scoped_monitor"}
         for row in rows
     )
 

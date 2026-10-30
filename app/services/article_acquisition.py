@@ -172,6 +172,33 @@ def _publication_date(value: Any) -> str | None:
     return None
 
 
+def _profile_publication_dates(tree, page_url):
+    """Verified Embrapa news header, not a page-wide numeric-date heuristic.
+
+    The portal displays DD/MM/YY even on its English URL. Decode its explicit
+    year using strptime's fixed 1969–2068 YY convention; never use the crawl
+    year, URL numbers, copyright or article-body dates to fill missing parts.
+    """
+    host = (urlparse(page_url).hostname or '').casefold()
+    if not (host == 'embrapa.br' or host.endswith('.embrapa.br')) or '/-/noticia/' not in urlparse(page_url).path:
+        return []
+    values = []
+    for block in tree.xpath("//*[contains(concat(' ',normalize-space(@class),' '),' visualizacao-noticias ')]"):
+        if any(p.tag in {'aside', 'nav', 'footer'} for p in block.iterancestors()):
+            continue
+        if not block.xpath("./h1[contains(concat(' ',normalize-space(@class),' '),' titulo ')]"):
+            continue
+        for node in block.xpath("./div[contains(concat(' ',normalize-space(@class),' '),' data-categoria ')]/span[contains(concat(' ',normalize-space(@class),' '),' data ')]"):
+            value = ' '.join(node.itertext()).strip()
+            if not re.fullmatch(r'\d{2}/\d{2}/(?:\d{4}|\d{2})', value):
+                continue
+            try:
+                values.append(datetime.strptime(value, '%d/%m/%Y' if len(value) == 10 else '%d/%m/%y').date().isoformat())
+            except ValueError:
+                continue
+    return values
+
+
 def publisher_publication_date(html: str, page_url: str) -> tuple[str | None, str]:
     """Bind dates to explicit publication metadata or the article's date block.
 
@@ -237,10 +264,20 @@ def publisher_publication_date(html: str, page_url: str) -> tuple[str | None, st
     if any(_publication_date(value) for value in values):
         return unique(values, "publisher_metadata")
 
-    values = []
+    values = _profile_publication_dates(tree, page_url)
     for node in tree.xpath("//time | //*[@itemprop='datePublished'] | //*[contains(concat(' ',normalize-space(@class),' '),' pane-node-created ')]"):
         ancestors = list(node.iterancestors())
-        if any(parent.tag in {"aside", "nav", "footer"} for parent in ancestors):
+        if any(parent.tag in {"aside", "nav"} for parent in ancestors):
+            continue
+        # An article's own footer can hold its explicit publication date;
+        # page/recommendation footers remain ineligible. FreshPlaza uses this
+        # structure. Require the datePublished marker and article ancestry.
+        if any(parent.tag == "footer" for parent in ancestors) and not (
+            node.get("itemprop") == "datePublished"
+            and any(parent.tag == "article" for parent in ancestors)
+            and next((i for i, p in enumerate(ancestors) if p.tag == "footer"), -1)
+            < next((i for i, p in enumerate(ancestors) if p.tag == "article"), -1)
+        ):
             continue
         classes = set((node.get("class") or "").split())
         scoped = any(parent.tag in {"article", "main"} or parent.get("role") == "main" for parent in ancestors)

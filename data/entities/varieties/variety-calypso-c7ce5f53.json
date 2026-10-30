@@ -1,0 +1,29 @@
+{
+  "id": "variety-calypso-c7ce5f53",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Calypso",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-blueberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-37c45d3337cb",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:54:37.681300+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://www.hortifrut.com/innovation/genetic-development/",
+      "source_label": "Hortifrut genetic development — blueberries",
+      "candidate_name": "Calypso"
+    }
+  }
+}

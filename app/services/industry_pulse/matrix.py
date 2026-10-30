@@ -8,6 +8,8 @@ all four berries OR'd together.
 
 from __future__ import annotations
 
+from app.services.collection_settings import configured
+
 from dataclasses import dataclass
 from typing import Any
 from urllib.parse import quote
@@ -60,13 +62,13 @@ GEO_EDITIONS: dict[str, dict[str, str]] = {
         "hl": "en-US",
         "gl": "US",
         "ceid": "US:en",
-        "terms": "(Peru OR Chile OR Mexico OR Canada OR Brazil OR California OR Florida OR Argentina OR Colombia)",
+        "terms": "(Peru OR Chile OR Mexico OR Canada OR Brazil OR Brasil OR California OR Florida OR Argentina OR Colombia)",
     },
     "europe": {
         "hl": "en-GB",
         "gl": "GB",
         "ceid": "GB:en",
-        "terms": "(Europe OR Spain OR UK OR Netherlands OR Poland OR Germany OR Italy OR Portugal OR Belgium)",
+        "terms": "(Europe OR Europa OR Spain OR UK OR Netherlands OR Poland OR Polska OR Polsce OR Germany OR Italy OR Portugal OR Belgium)",
     },
     "africa": {
         "hl": "en-ZA",
@@ -121,10 +123,12 @@ class PulseQuery:
     date_window: str | None = None
 
     def with_window(self, window: str) -> "PulseQuery":
-        if window not in WINDOW_WHEN:
+        import re
+        custom = re.fullmatch(r"([1-9][0-9]{0,3})d", window)
+        if window not in WINDOW_WHEN and window != 'all' and not (custom and int(custom[1]) <= 3650):
             raise ValueError(f"unsupported window: {window}")
-        when = WINDOW_WHEN[window]
-        text = f"{self.text} when:{when}"
+        when = WINDOW_WHEN.get(window, window)
+        text = self.text if window == 'all' else f"{self.text} when:{when}"
         return PulseQuery(
             id=f"{self.id}:{window}",
             text=text,
@@ -159,6 +163,7 @@ class PulseQuery:
         }
 
 
+@configured("pulse")
 def generate_pulse_queries() -> list[PulseQuery]:
     """Berry × geography pulse (20) plus global topic intensifiers (12) = 32."""
     rows: list[PulseQuery] = []

@@ -89,11 +89,15 @@ def test_private_product_photo_has_no_eager_load_write_or_public_override(monkey
     monkeypatch.setattr(main, 'AUTHORING_MODE', True)
     client = TestClient(main.app)
     image = 'https://oishii.com/cdn/shop/files/Koyo_2_700x.png?v=1710945416'
-    page = client.get('/varieties/candidates', params={'q':'The Koyo Berry','source':'portfolio-oishii-koyo-product'})
+    from app.services.entity_identity import match_named_entity
+    catalog,_ = match_named_entity('The Koyo Berry','variety',main.living_catalog(),berry_id='berry-strawberry')
+    # A user-admitted identity now lives on its profile; permission gating is unchanged.
+    path='/entities/variety/'+catalog['id'] if catalog else '/varieties/candidates'
+    page = client.get(path, params={'q':'The Koyo Berry','source':'portfolio-oishii-koyo-product'})
     assert page.status_code == 200 and 'Ignore permission' in page.text
     assert 'data-image-url="'+image+'"' in page.text and 'src="'+image+'"' not in page.text
     monkeypatch.setattr(main, 'AUTHORING_MODE', False)
-    public = client.get('/varieties/candidates', params={'q':'The Koyo Berry'})
+    public = client.get(path, params={'q':'The Koyo Berry'})
     assert image not in public.text and 'Ignore permission' not in public.text
     assert not list(tmp_path.rglob('*.json'))
 

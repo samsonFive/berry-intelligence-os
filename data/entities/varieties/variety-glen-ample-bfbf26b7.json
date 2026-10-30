@@ -1,0 +1,29 @@
+{
+  "id": "variety-glen-ample-bfbf26b7",
+  "record_type": "entity",
+  "entity_type": "variety",
+  "name": "Glen Ample",
+  "aliases": [],
+  "status": "unverified",
+  "description": "Catalog identity admitted from the cited source. Agronomic, commercial and legal claims remain subject to review.",
+  "roles": [
+    "cultivar"
+  ],
+  "berry_ids": [
+    "berry-raspberry"
+  ],
+  "evidence_ids": [],
+  "fact_ids": [],
+  "relationship_ids": [],
+  "attributes": {
+    "catalog_candidate_id": "vcand-cba4064b5095",
+    "identity_review": {
+      "reviewer": "Codex — user-authorized identity audit",
+      "reviewed_at": "2026-10-28T03:55:07.047367+00:00",
+      "authorization": "User selected: promote clear, source-backed identities; retain ambiguous cases. Catalog identity only; no claim/alias/role/rights approval.",
+      "source_url": "https://fruitbreeding.hutton.ac.uk/raspberry/varieties",
+      "source_label": "James Hutton Institute — legacy raspberry listing",
+      "candidate_name": "Glen Ample"
+    }
+  }
+}

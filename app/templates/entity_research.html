@@ -1,0 +1,17 @@
+{% extends 'glasshouse_base.html' %}
+{% block title %}Variety & company research{% endblock %}
+{% block head_extra %}<link rel="stylesheet" href="/static/entity_research.css?v=1"><style>.glass-header,.skip-link{display:none}#digest-main{padding:16px}body{background:#f5f8f2}</style>{% endblock %}
+{% block content %}<section class="entity-research-page">
+<h1>Research {{ target.name if target else 'varieties & companies' }}</h1>
+<p>Search breeder pages, technical sheets, awards, news and original filings. Only the query below is sent to Perplexity Search when you click Search public web. No date restriction is applied.</p>
+<form method="post" action="/varieties/research"><input type="hidden" name="entity_id" value="{{ target.id if target else '' }}">
+<label for="entity-public-query">Public web query</label><textarea id="entity-public-query" name="query" rows="3" maxlength="1200" required>{{ query }}</textarea>
+<label for="entity-result-scope">Result relevance</label><select id="entity-result-scope" name="scope_results"><option value="1" {% if scoped %}selected{% endif %}>Match the selected identity and berry context</option><option value="0" {% if not scoped %}selected{% endif %}>Show all returned results · unscoped</option></select>
+<div class="entity-research-actions"><button type="submit">Search public web</button><a href="/research?q={{ query|urlencode }}">Ask Berry · saved intelligence & AI</a></div></form>
+<p class="entity-research-note">Web search returns source links and snippets, not verified profile information. Saving a result creates a publication-review draft; it does not approve its claims or legal status. Ask Berry provides the existing saved-intelligence and live-research workflow in this panel.</p>
+{% if error %}<p role="status">{{ error }}</p>{% endif %}
+{% if omitted %}<p class="entity-research-note">{{ omitted }} returned {{ 'result was' if omitted == 1 else 'results were' }} omitted because the visible identity/berry context did not match. Choose unscoped results to inspect them. Search snippets can omit relevant context.</p>{% endif %}
+{% for hit in hits %}<article class="entity-research-hit"><h2>{{ hit.title }}</h2><p class="entity-research-note">{{ hit.publisher }}{% if hit.date %} · Provider-reported date {{ hit.date }}{% else %} · Date not supplied{% endif %} · Unreviewed search result</p><p>{{ hit.snippet }}</p><p><a href="{{ hit.url }}" target="_blank" rel="noopener noreferrer">Original source ↗</a></p>
+<form method="post" action="/intake"><input type="hidden" name="intake_type" value="article_or_url"><input type="hidden" name="title" value="{{ hit.title }}"><input type="hidden" name="source_url" value="{{ hit.url }}"><input type="hidden" name="source_name" value="{{ hit.publisher }}"><input type="hidden" name="summary" value="Unreviewed search snippet, not a captured full article: {{ hit.snippet or hit.title }}"><input type="hidden" name="submitted_by" value="{{ reviewer }}"><input type="hidden" name="suggested_varieties" value="{{ target.name if target and target.entity_type == 'variety' else '' }}"><input type="hidden" name="suggested_competitors" value="{{ target.name if target and target.entity_type != 'variety' else '' }}"><button type="submit">Send to publication review</button></form>
+</article>{% endfor %}
+</section>{% endblock %}

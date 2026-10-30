@@ -64,8 +64,8 @@ def _evidence_date_row(record: dict[str, Any], *, scope_geography_ids: frozenset
         "date": when.date().isoformat() if when else "",
         "date_basis": origin or "",
         "is_fallback_date": False,
-        "trust": "trusted",
-        "href": f"/evidence/{record.get('id')}",
+        "trust": "trusted" if record.get("status") == "published" else "pending_unreviewed",
+        "href": f"/evidence/{record.get('id')}" if record.get("status") == "published" else f"/intelligence/{record.get('id')}",
         "reader_href": f"/intelligence/{record.get('id')}",
     }
     if scope_geography_ids:
@@ -228,6 +228,10 @@ def build_report_packet(
         }
 
     selected_evidence = _select_records(published_evidence, entity_ids=entity_ids, berry_id=scope.berry_id)
+    if scope.research_query:
+        # Topic retrieval scans the accessible archive, including untagged
+        # records whose crop/entity may occur only in source body passages.
+        selected_evidence = [r for r in published_evidence if not scope.berry_id or not (r.get("berry_ids") or r.get("market_ids")) or _in_berry(r, scope.berry_id)]
     selected_ids = {r["id"] for r in selected_evidence}
     company_coverages = []
     for cid in scope.company_ids:
@@ -250,10 +254,33 @@ def build_report_packet(
         r
         for r in selected_evidence
         if _within_window(r, scope.date_window_days)
-        and (not company_coverages or r["id"] in window_ids)
+        and (scope.research_query or not company_coverages or r["id"] in window_ids)
     ]
     scoped_signals = _select_records(signals, entity_ids=entity_ids, berry_id=scope.berry_id)
     scoped_assessments = _select_records(assessments, entity_ids=entity_ids, berry_id=scope.berry_id)
+
+    topic_matches = []
+    retrieval_trace = None
+    if scope.research_query:
+        from app.services.topic_retrieval import normalize, plan_query, record_passages, retrieve
+        from dataclasses import replace
+        plan = plan_query(scope.research_query, use_original=scope.use_original_query)
+        if scope.date_window_days and not plan.start:
+            plan = replace(plan, start=(date.today() - timedelta(days=scope.date_window_days)).isoformat(), end=date.today().isoformat())
+        # Geography and named entities are independent constraints, not an OR.
+        def dimension_matches(record, ids):
+            if not ids or _entity_intersect(record, set(ids)):
+                return True
+            haystack = " " + normalize(" ".join(p for _, p in record_passages(record))) + " "
+            return any(" " + normalize(str(name)) + " " in haystack for eid in ids for name in [entities.get(eid, {}).get("name"), *(entities.get(eid, {}).get("aliases") or [])] if name)
+        eligible = [r for r in scoped_evidence if dimension_matches(r, scope.geography_ids) and dimension_matches(r, scope.company_ids) and dimension_matches(r, scope.variety_ids)]
+        topic_matches = retrieve(eligible, plan, entities=entities)
+        retrieval_trace = {"raw_query": scope.research_query, "plan": plan.as_dict(), "source_scope": scope.source_scope, "input_count": len(published_evidence), "scope_eligible_count": len(eligible), "matched_count": len(topic_matches), "body_available_count": sum(any(loc not in {"title", "summary", "snippet"} for loc, _ in record_passages(r)) for r in eligible), "filters": {"berry_id": scope.berry_id, "company_ids": list(scope.company_ids), "variety_ids": list(scope.variety_ids), "geography_ids": list(scope.geography_ids), "publication_start": plan.start, "publication_end": plan.end}, "index": "read-through supplied accessible records; no persisted index lag"}
+        scoped_evidence = topic_matches
+        # Topic reports cannot cite unrelated crop-wide signals/assessments.
+        topic_ids = {r["id"] for r in topic_matches}
+        scoped_signals = [r for r in scoped_signals if topic_ids.intersection(r.get("evidence_ids") or [])]
+        scoped_assessments = [r for r in scoped_assessments if topic_ids.intersection(r.get("evidence_ids") or [])]
 
     company_ids = _companies_in_scope(scope, entities=entities, relationships=relationships, scoped_evidence=scoped_evidence)
     variety_ids = _varieties_in_scope(scope, entities=entities, relationships=relationships, company_ids=company_ids)
@@ -342,6 +369,8 @@ def build_report_packet(
         "report_type": scope.report_type,
         "berry_id": scope.berry_id,
         "strategic_question": None,
+        "topic_matches": topic_matches,
+        "retrieval_trace": retrieval_trace,
         "companies": companies,
         "varieties": varieties,
         "variety_candidates": candidate_rows,

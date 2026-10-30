@@ -43,6 +43,21 @@ def test_ambiguous_catalog_match_does_not_choose_a_profile():
     assert photos.source_photos(first, sources=source(), varieties=[first])
 
 
+def test_directory_photo_context_reuses_validation_and_preserves_identity_gates(monkeypatch):
+    sources=source();targets=[variety(),{**variety(),'id':'variety-elsewhere','name':'Elsewhere'}]
+    expected={v['id']:photos.source_photos(v,sources=sources,varieties=targets) for v in targets}
+    original=photos.validate_photo;calls=[]
+    def validate(value):calls.append(value);return original(value)
+    monkeypatch.setattr(photos,'validate_photo',validate)
+    context=photos.prepare_source_photo_context(sources)
+    assert {v['id']:photos.source_photos(v,sources=sources,varieties=targets,context=context) for v in targets}==expected
+    assert len(calls)==1
+    # Rebuild after a catalog change; no stale global identity decisions survive.
+    duplicate={**variety(),'id':'variety-duplicate'}
+    fresh=photos.prepare_source_photo_context(sources)
+    assert not photos.source_photos(variety(),sources=sources,varieties=[variety(),duplicate],context=fresh)
+
+
 def test_shared_source_label_with_different_codes_is_held_even_with_one_catalog_match():
     sources = source()
     sources[0]["names"][0].update(breeder_code="ABC123", trade_name="Keepsake")

@@ -19,7 +19,6 @@ from app.services.article_dedup import normalize_canonical_url
 from app.services.industry_pulse.matrix import (
     GEO_EDITIONS,
     PulseQuery,
-    WINDOW_WHEN,
 )
 from app.services.industry_pulse.models import DiscoveryHit
 from app.services.media_discovery import (
@@ -48,9 +47,7 @@ def discover(
     topic: str | None = None,
     provider: DiscoveryProvider,
 ) -> list[DiscoveryHit]:
-    """Provider-neutral entry. `date_window` is 24h / 3d / 7d."""
-    if date_window not in WINDOW_WHEN:
-        raise ValueError(f"unsupported date_window: {date_window}")
+    """Provider-neutral entry: preset, bounded N-day, or explicit all-date scope."""
     edition = GEO_EDITIONS.get(geography) or GEO_EDITIONS["global"]
     pulse = PulseQuery(
         id=f"ad-hoc:{berry or 'any'}:{geography}:{topic or 'any'}:{date_window}",

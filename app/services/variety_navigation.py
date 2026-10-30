@@ -1,5 +1,6 @@
 """Read-only navigation over existing Variety and company tracking records."""
 from urllib.parse import urlencode
+from datetime import date
 import unicodedata
 
 from app.services import company_directory, map_regions, personal_digest
@@ -54,7 +55,10 @@ def region_rows(entities, relationships, records, inbox_dir, authoring):
 
 
 def directory(cards, *, params, state, entities, relationships, regions):
-    filters = {key: str(params.get(key) or "").strip() for key in ("letter", "favorites", "tier", "list", "growing_country")}
+    filters = {key: str(params.get(key) or "").strip() for key in ("letter", "favorites", "tier", "list", "growing_country", "sort")}
+    filters['sort'] = filters['sort'] or 'name'
+    if filters['sort'] not in {'name', 'recent_desc', 'recent_asc'}:
+        raise ValueError('Choose a supported variety sort order')
     filters["letter"] = filters["letter"].upper()
     if filters["letter"] not in {"", *"ABCDEFGHIJKLMNOPQRSTUVWXYZ#"}:
         raise ValueError("Choose an alphabetical group")
@@ -87,9 +91,22 @@ def directory(cards, *, params, state, entities, relationships, regions):
     if filters["letter"]:
         rows = [row for row in rows if company_directory.initial(row["name"]) == filters["letter"]]
     rows.sort(key=lambda row: (row["name"].casefold(), row["id"]))
+    if filters['sort'] != 'name':
+        dated, undated = [], []
+        for row in rows:
+            try:
+                stamp = date.fromisoformat(str((row.get('recent') or {}).get('date') or '')[:10])
+            except ValueError:
+                undated.append(row)
+            else:
+                dated.append((stamp, row))
+        # Stable date sorting keeps equal dates alphabetical, and missing dates last.
+        dated.sort(key=lambda pair: pair[0], reverse=filters['sort'] == 'recent_desc')
+        rows = [row for _, row in dated] + undated
     query = {**dict(params), **filters, "view": "index"}
     query.pop("berry_choice", None)
     return {"variety_rows": rows, "letters": letters, "directory_filters": filters, "tiers": company_directory.TIERS,
+            "recent_sort_url": '/entities/variety?' + urlencode({**query, 'sort': 'recent_asc' if filters['sort'] == 'recent_desc' else 'recent_desc'}) + '#variety-directory-results',
             "lists": groups, "letter_urls": {letter: "/entities/variety?" + urlencode({**query, "letter": letter}) + "#variety-directory-results" for letter in ["", *"ABCDEFGHIJKLMNOPQRSTUVWXYZ#"]}}
 
 

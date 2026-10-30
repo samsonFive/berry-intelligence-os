@@ -26,6 +26,21 @@ def directory(params, regions=(), state=STATE):
     return navigation.directory(cards(), params=params, state=state, entities=ENTITIES, relationships=RELATIONSHIPS, regions=regions)
 
 
+def test_recent_intelligence_sort_uses_dates_keeps_ties_alphabetical_and_missing_dates_last():
+    rows = [dict(id='v-'+name, name=name, recent=recent) for name, recent in [
+        ('Zulu', {'date':'2026-10-28'}), ('Alpha', {'date':'2026-10-28'}),
+        ('Old', {'date':'2023-04-01'}), ('Missing', {}), ('Invalid', {'date':'not-a-date'})]]
+    kwargs = dict(state={}, entities={}, relationships=[], regions=[])
+    newest = navigation.directory(rows, params={'sort':'recent_desc', 'berry':'berry-raspberry', 'has_recent_intelligence':'1'}, **kwargs)
+    assert [r['name'] for r in newest['variety_rows']] == ['Alpha','Zulu','Old','Invalid','Missing']
+    assert 'sort=recent_asc' in newest['recent_sort_url'] and 'has_recent_intelligence=1' in newest['recent_sort_url']
+    assert all('sort=recent_desc' in url for url in newest['letter_urls'].values())
+    oldest = navigation.directory(rows, params={'sort':'recent_asc'}, **kwargs)
+    assert [r['name'] for r in oldest['variety_rows']] == ['Old','Alpha','Zulu','Invalid','Missing']
+    with pytest.raises(ValueError, match='sort order'):
+        navigation.directory(rows, params={'sort':'unsupported'}, **kwargs)
+
+
 @pytest.mark.parametrize("params", [{"favorites": "1"}, {"tier": "tier1"}, {"list": "watch"}, {"favorites": "1", "tier": "tier1", "list": "watch"}])
 def test_marks_use_active_organization_roles(params):
     assert [row["id"] for row in directory(params)["variety_rows"]] == ["variety-a"]

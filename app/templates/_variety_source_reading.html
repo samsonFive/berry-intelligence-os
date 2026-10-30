@@ -1,0 +1,23 @@
+{% if authoring_mode and not static_build and variety_source_reading %}
+<section class="company-panel" id="variety-source-details" aria-labelledby="variety-source-details-title">
+<h2 id="variety-source-details-title">Source details & profile gaps</h2>
+<p class="company-muted">Read what collected sources say here while profile statements await review. Source assertions are not verified traits, rights, company roles or growing locations.</p>
+{% if variety_source_reading.rows %}
+<p>{{ variety_source_reading.readable }} readable source{{ 's' if variety_source_reading.readable != 1 else '' }} · {{ variety_source_reading.missing }} without readable text in this selection.</p>
+{% for source in variety_source_reading.rows %}
+<details class="variety-section" {% if loop.first and source.readable %}open{% endif %}>
+<summary>{{ source.title }} · {{ 'Publication review pending' if source.pending else 'Published source' }}</summary>
+<div class="variety-section-body">
+<p><b>{{ source.host }}</b>{% if source.published_date %} · Published {{ source.published_date|us_date }}{% endif %}{% if source.fetched_at %} · Captured {{ source.fetched_at[:10]|us_date }}{% endif %}</p>
+{% if source.capture_unreviewed %}<p class="company-muted">New captured text is unreviewed; publication status does not approve this capture or its claims.</p>{% endif %}
+{% if not source.linked %}<p class="company-muted">Exact name mention · association has not been reviewed. This does not add a variety link.</p>{% endif %}
+{% if source.readable %}<blockquote>{{ source.excerpt }}{% if source.excerpt|length == 700 %}…{% endif %}</blockquote>
+<details><summary>More captured source text</summary>{% for passage in source.passages %}<p>{{ passage }}</p>{% endfor %}</details>
+{% else %}<p class="company-muted">Article text is missing or unusable. A saved summary does not establish that the company page or technical sheet has been covered.</p>{% endif %}
+<p><a href="{{ source.reader_href }}" data-open-reader data-item-id="{{ source.id }}">Read source in app</a> · <a href="{{ source.source_url }}" target="_blank" rel="noopener noreferrer">Original source ↗</a>{% if source.pending %} · <a href="{{ source.review_href }}">Review publication</a>{% endif %}</p>
+</div></details>{% endfor %}
+{% if variety_source_reading.truncated %}<p class="company-muted">Showing the latest {{ variety_source_reading.shown }} of {{ variety_source_reading.matched_sources }} matching sources.</p>{% endif %}
+{% else %}<p>No matched sources with usable article links are recorded for this profile.</p>{% endif %}
+<p class="company-muted"><a href="/varieties/coverage#profile-field-coverage">Review catalog and profile gaps →</a> · Missing information is a collection gap, not evidence that a variety lacks a trait.</p>
+</section>
+{% endif %}
