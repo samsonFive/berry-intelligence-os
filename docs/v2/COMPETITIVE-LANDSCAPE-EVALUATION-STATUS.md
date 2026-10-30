@@ -1,5 +1,15 @@
 # Competitive landscape evaluation — Stage 1 handoff
 
+## October 30 web-research checkpoint
+
+Johnny subsequently authorized running the prompts through the signed-in Perplexity web UI and explicitly approved uploading the combined public-only instruction pack. This supersedes the original manual-execution handoff for research execution only. No API, upgrade, purchase, scheduled research or trust-gate change was authorized or performed.
+
+B01–B15 returned research. Original PDFs and 152 CSV tables were preserved privately with SHA-256 provenance; CSVs avoid the clipping observed in wide PDF tables. The candidate assembler produced 2,576 records including 575 source-ledger rows, zero malformed rows, and 67 unresolved mapping/reference/metadata items. These counts describe returned candidates, not verified facts or unique independent sources. Original-source validation, application import and ratings remain pending. B04's blank first attempt was retained in the run history and a successful retry was captured. Metadata prose in B10/B13 remains visible for resolution.
+
+Perplexity then displayed **“You've reached the deep research limit this month.”** B16 returned an attachment-access error and no research; the monthly-limit banner followed. B16–B46 and R01/R02 remain pending. Selecting Deep Research on a freshly loaded page also opened the upgrade dialog. No reset timestamp was displayed. Do not mark B16 complete, silently downgrade research, or purchase an upgrade. When execution resumes, confirm the attachment has finished uploading before submitting B16.
+
+Local continuation state is in gitignored `inbox/competitive_landscape/web-research-2026-10-30/`: `run.json`, `capture-manifest.json`, `assembly-summary.json`, original `raw/` exports and `assembled/B##/` readable tables/candidate JSON. The scripts `capture_competitive_web_returns.py` and `assemble_competitive_research_returns.py` preserve and reconstruct explicit UI downloads; they do not call Perplexity or import into application storage. The frozen inventory/prompts were not regenerated. The full feature remains unfinished; the earlier Stage 1 account below records the state before web execution.
+
 The retained [mission](COMPETITIVE-LANDSCAPE-EVALUATION-MISSION.md) defines the full project. The current increment completes inventory/contracts/prompts; it does not complete the application or its real-return acceptance scenarios. Continue Stage 2 on `feature/competitive-landscape-evaluation-v1` when Johnny returns manual research. Do not replace this inventory silently.
 
 Start with the [research handoff](../research/competitive-landscape-2026-10-30-v1/README.md). The actual canonical revision inspected was `1aef8862ee32fc07d91b3e09b66f85e2939cd975`, fetched on October 30, 2026. Existing working changes and older feature checkouts were left intact in a separate checkout.
